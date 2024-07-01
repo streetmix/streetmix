@@ -143,7 +143,7 @@ export async function saveStreetThumbnail (street, event) {
   //     const streetType = (street.segments.length) ? 'DEFAULT_STREET' : 'EMPTY_STREET'
   //     details.streetType = streetType
   //   }
-  //   const url = '/api/v1/streets/' + street.id + '/images'
+  //   const url = '/api/v1/streets/' + street.id + '/image'
   //   const options = {
   //     method: 'POST',
   //     body: JSON.stringify(details),

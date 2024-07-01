@@ -1,0 +1,22 @@
+{
+  "name": "@streetmix/export-image",
+  "version": "0.0.1",
+  "description": "image exporter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/streetmix/streetmix.git",
+    "directory": "packages/export-image"
+  },
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --outDir build",
+    "start": "echo Nothing to run!"
+  },
+  "dependencies": {
+    "@fontsource/overpass": "5.0.18",
+    "@fontsource/rubik": "5.0.20",
+    "@napi-rs/canvas": "0.1.52"
+  }
+}

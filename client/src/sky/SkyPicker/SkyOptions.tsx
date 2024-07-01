@@ -1,13 +1,16 @@
 import React from 'react'
 import { IntlProvider, useIntl } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector } from '../../store/hooks'
-import Tooltip from '../../ui/Tooltip'
-import { ICON_LOCK } from '../../ui/icons'
-import { images } from '../../app/load_resources'
+
+import { useSelector } from '~/src/store/hooks'
+import Tooltip from '~/src/ui/Tooltip'
+import { ICON_LOCK } from '~/src/ui/icons'
+import { images } from '~/src/app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
-import { getAllSkyboxDefs, type SkyboxDefWithStyles } from '..'
+import { getAllSkyboxDefs } from '..'
 import './SkyOptions.scss'
+
+import type { SkyboxDefWithStyles } from '@streetmix/types'
 
 interface SkyOptionsProps {
   enabled: boolean

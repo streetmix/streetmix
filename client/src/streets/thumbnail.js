@@ -210,7 +210,7 @@ function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
  * @param {Number} width - width of area to draw
  * @param {Number} height - height of area to draw
  * @param {Number} dpi - pixel density of canvas
- * @param {Object} sky - skybox settings
+ * @param {SkyboxDefWithStyles} sky - skybox settings
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawClouds (ctx, width, height, dpi, sky) {
@@ -576,7 +576,8 @@ function drawStreetNameplate (ctx, street, width, dpi) {
   let text = street.name || formatMessage('street.default-name', 'Unnamed St')
 
   ctx.textAlign = 'center'
-  ctx.textBaseline = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.letterSpacing = '-.025em'
   ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * dpi
   }px ${STREET_NAME_FONT},sans-serif`
@@ -586,12 +587,14 @@ function drawStreetNameplate (ctx, street, width, dpi) {
 
   let needToBeElided = false
   while (measurement.width > (width - 200) * dpi) {
-    text = text.substr(0, text.length - 1)
+    text = text.substring(0, text.length - 1)
     measurement = ctx.measureText(text)
     needToBeElided = true
   }
   if (needToBeElided) {
+    // Append ellipsis, then re-measure the text
     text += '…'
+    measurement = ctx.measureText(text)
   }
 
   // Street nameplate
@@ -614,7 +617,7 @@ function drawStreetNameplate (ctx, street, width, dpi) {
 
   const x = (width * dpi) / 2
 
-  const baselineCorrection = 27
+  const baselineCorrection = 12
   const y = (75 + baselineCorrection) * dpi
 
   ctx.strokeStyle = 'transparent'

@@ -189,3 +189,40 @@ export interface CapacitySegmentDefinition {
   variants?: CapacitySegments
   inherits?: string // TODO: if present, excludes minimum/average/potential/variants
 }
+
+export interface StreetImageOptions {
+  locale: string
+  transparentSky: boolean
+  segmentLabels: boolean
+  streetName: boolean
+  watermark: boolean
+  scale: number // formerly `dpi`
+}
+
+export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
+export type CSSGradientDeclaration = CSSGradientStop[]
+
+export interface SkyboxDefinition {
+  name: string
+  enabled?: boolean
+  iconImage?: string // Illustration asset ID
+  backgroundColor?: string // CSS color string
+  backgroundImage?: string // Illustration asset ID
+  backgroundGradient?: CSSGradientDeclaration
+  backgroundObjects?: Array<{
+    image: string // Illustration asset ID
+    width: number // in pixels
+    height: number // in pixels
+    top: number // Percentage as decimal
+    left: number // Percentage as decimal
+  }>
+  foregroundGradient?: CSSGradientDeclaration
+  cloudOpacity?: number // Percentage as decimal
+  invertUITextColor?: boolean
+}
+
+export interface SkyboxDefWithStyles extends SkyboxDefinition {
+  id: string
+  style: React.CSSProperties
+  iconStyle: React.CSSProperties
+}

@@ -677,7 +677,7 @@ router.put('/v1/streets/:street_id', jwtCheck, v1.streets.put)
 
 /**
  * @swagger
- * /api/v1/streets/{street_id}/images:
+ * /api/v1/streets/{street_id}/image:
  *   delete:
  *     description: Deletes street thumbnail from cloudinary
  *     tags:
@@ -745,13 +745,13 @@ router.put('/v1/streets/:street_id', jwtCheck, v1.streets.put)
  *
  */
 router.post(
-  '/v1/streets/:street_id/images',
+  '/v1/streets/:street_id/image',
   bodyParser.text({ limit: '3mb' }),
   jwtCheck,
   v1.streetImages.post
 )
-router.delete('/v1/streets/:street_id/images', jwtCheck, v1.streetImages.del)
-router.get('/v1/streets/:street_id/images', jwtCheck, v1.streetImages.get)
+router.delete('/v1/streets/:street_id/image', jwtCheck, v1.streetImages.del)
+router.get('/v1/streets/:street_id/image', jwtCheck, v1.streetImages.get)
 
 /**
  * @swagger

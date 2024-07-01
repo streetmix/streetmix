@@ -80,7 +80,7 @@
     // Only run TypeScript linting on TypeScript files, otherwise it'd
     // report TypeScript errors on regular JavaScript files (bad!)
     {
-      "files": ["**/*.ts", "**/*.tsx"],
+      "files": ["client/**/*.ts", "client/**/*.tsx", "packages/types/**/*.ts"],
       "parser": "@typescript-eslint/parser",
       "plugins": ["@typescript-eslint", "import"],
       "extends": [
@@ -114,6 +114,31 @@
         // Turns off an error that was only reporting for useIntl
         // see https://github.com/formatjs/formatjs/issues/4133
         "@typescript-eslint/unbound-method": "off"
+      }
+    },
+    {
+      "files": ["packages/export-image/**/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint", "import"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript",
+        "standard-with-typescript"
+      ],
+      "settings": {
+        "import/resolver": {
+          "typescript": true,
+          "node": true
+        }
+      },
+      // TODO: set up project-specific eslint "flat config" (eslint v9)
+      "parserOptions": {
+        "tsconfigRootDir": "packages/export-image",
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        // Allow legacy __dirname and __filename variables
+        "@typescript-eslint/naming-convention": "off"
       }
     }
   ],

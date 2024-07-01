@@ -76,18 +76,16 @@ export default async function (req, res, next) {
     res.locals.STREETMIX_TITLE = title
     res.locals.STREETMIX_URL += `${userId}/${namespacedId}/`
 
-    let endpoint = `${appURL.origin}/api/v1/streets/images/`
-
     // If street is a DEFAULT_STREET or EMPTY_STREET, the public id for the street thumbnail is the street type, not the street id.
     const streetData = street.data && street.data.street
+    let streetId
     if (streetData && streetData.editCount === 0) {
-      const streetType = streetData.segments.length
-        ? 'DEFAULT_STREET'
-        : 'EMPTY_STREET'
-      endpoint += streetType
+      streetId = streetData.segments.length ? 'DEFAULT_STREET' : 'EMPTY_STREET'
     } else {
-      endpoint += street.id
+      streetId = street.id
     }
+
+    const endpoint = `${appURL.origin}/api/v1/streets/${streetId}/image/`
 
     request.get(endpoint, handleFindStreetThumbnail)
   }

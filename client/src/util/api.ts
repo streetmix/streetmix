@@ -131,7 +131,7 @@ class APIClient {
 
   deleteStreetImage = async (streetId: string): APIResponse => {
     return await this.client.delete(
-      `${BASE_URL_API_V1}/streets/images/${streetId}`
+      `${BASE_URL_API_V1}/streets/${streetId}/image`
     )
   }
 

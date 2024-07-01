@@ -1,8 +1,10 @@
 import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
 import { images } from '../../app/load_resources'
-import type { SkyboxDefinition } from '..'
 import './SkyObjects.scss'
+
+import type { SkyboxDefinition } from '@streetmix/types'
 
 interface SkyObjectsProps {
   objects: SkyboxDefinition['backgroundObjects']

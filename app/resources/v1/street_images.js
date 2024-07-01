@@ -1,4 +1,7 @@
+import axios from 'axios'
 import cloudinary from 'cloudinary'
+import { runTestCanvas } from '@streetmix/export-image'
+
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
@@ -274,31 +277,60 @@ export async function get (req, res) {
     return
   }
 
+  // 2) Check that street exists.
+  const streetId = req.params.street_id
+  let street
+
+  try {
+    street = await Street.findOne({ where: { id: streetId } })
+  } catch (error) {
+    logger.error(error)
+    res.status(500).json({ status: 500, msg: 'Error finding street.' })
+  }
+
   let resource
 
   try {
-    const publicId = `${process.env.NODE_ENV}/street_thumbnails/${req.params.street_id}`
+    const publicId = `${process.env.NODE_ENV}/street_thumbnails/${streetId}`
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
     if (error?.error?.http_code === 404) {
-      res
-        .status(404)
-        .json({ status: 404, msg: 'Could not find street thumbnail.' })
+      // While canvas backend is in development, let's run and return this
+      // for streets that aren't currently existing on Cloudinary.
+      // Options are passed via query params
+      const image = await runTestCanvas(street.dataValues, req.query)
+
+      res.set('Content-Type', 'image/png')
+      res.status(200).send(image)
+      // res.status(404).json({ status: 404, msg: 'Could not find street image.' })
     } else {
       logger.error(error)
-      res
-        .status(500)
-        .json({ status: 500, msg: 'Error finding street thumbnail.' })
+      res.status(500).json({ status: 500, msg: 'Error finding street image.' })
     }
     return
   }
 
+  // TODO: is this a 404 or a 500 if cloudinary API returns nothing
   if (!resource) {
-    res
-      .status(404)
-      .json({ status: 404, msg: 'Could not find street thumbnail.' })
+    res.status(404).json({
+      status: 404,
+      msg: 'Did not receive any information from upstream provider.'
+    })
     return
   }
 
-  res.status(200).json(resource)
+  // Fetch image from cloudinary and send to client
+  try {
+    res.set('Content-Type', 'image/png')
+    axios({
+      method: 'get',
+      url: resource.url,
+      responseType: 'stream'
+    }).then((response) => {
+      response.data.pipe(res)
+    })
+  } catch (err) {
+    logger.error(err)
+    res.status(500).json({ status: 500, msg: 'Could not fetch street image.' })
+  }
 }
