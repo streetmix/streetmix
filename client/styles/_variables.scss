@@ -91,37 +91,45 @@ $street-name-text: black;
 $street-name-background: white;
 $control-disabled-colour: gray;
 
-// Third-party brand colours (e.g. social, etc) in alphabetical order
-// All colors must be official (please update them as necessary)
-// unless noted (e.g. if we need a special color for contrast, etc)
-// If we don't have an official dark color for hover, it is
-// computed with Sass
+:root {
+  // Third-party brand colors (e.g. social, etc) in alphabetical order
+  // All colors must be official (please update them as necessary)
+  // unless noted (e.g. if we need a special color for contrast, etc)
+  // If there isn't an official dark color for hover, it is computed
 
-// Discord (https://discord.com/branding)
-$social-discord: #5865f2;
-$social-discord-hover: color.scale($social-discord, $lightness: -10%);
+  // Note: color-mix() is a draft specification.
+  // https://drafts.csswg.org/css-color-5
 
-// Facebook (https://about.meta.com/brand/resources/facebookapp/logo)
-$social-facebook: rgb(24 119 242);
-$social-facebook-hover: color.scale($social-facebook, $lightness: -10%);
+  // Discord (https://discord.com/branding)
+  --social-discord: #5865f2;
+  --social-discord-hover: color-mix(in oklch, black 10%, var(--social-discord));
 
-// GitHub (https://github.com/logos)
-$social-github: #171515;
-$social-github-hover: color.scale($social-github, $lightness: -10%);
+  // Facebook (https://about.meta.com/brand/resources/facebookapp/logo)
+  --social-facebook: rgb(24 119 242);
+  --social-facebook-hover: color-mix(
+    in oklch,
+    black 10%,
+    var(--social-facebook)
+  );
 
-// Instagram
-// Difficult to reproduce their gradient, so we use colors from
-// https://brandpalettes.com/instagram-color-codes/
-$social-instagram: #e1306c;
-$social-instagram-hover: #c13584;
+  // GitHub (https://github.com/logos)
+  --social-github: #171515;
+  --social-github-hover: color-mix(in oklch, black 10%, var(--social-github));
 
-// Mastodon (https://joinmastodon.org/branding)
-$social-mastodon: #6364ff;
-$social-mastodon-hover: #563acc;
+  // Instagram
+  // Difficult to reproduce their gradient, so we use colors from
+  // https://brandpalettes.com/instagram-color-codes/
+  --social-instagram: #e1306c;
+  --social-instagram-hover: #c13584;
 
-// Twitter (https://about.twitter.com/en/who-we-are/brand-toolkit)
-$social-twitter: #4a99e9;
-$social-twitter-hover: color.scale($social-twitter, $lightness: -10%);
+  // Mastodon (https://joinmastodon.org/branding)
+  --social-mastodon: #6364ff;
+  --social-mastodon-hover: #563acc;
+
+  // Twitter (https://about.twitter.com/en/who-we-are/brand-toolkit)
+  --social-twitter: #4a99e9;
+  --social-twitter-hover: color-mix(in oklch, black 10%, var(--social-twitter));
+}
 
 // Layered UI box shadows
 $light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);

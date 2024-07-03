@@ -183,22 +183,22 @@ body.safari .menu {
 .menu-item-icon {
   &.fa-facebook,
   &.fa-square-facebook {
-    color: $social-facebook;
+    color: var(--social-facebook);
   }
 
   &.fa-twitter {
-    color: $social-twitter;
+    color: var(--social-twitter);
   }
 
   &.fa-discord {
-    color: $social-discord;
+    color: var(--social-discord);
   }
 
   &.fa-github {
-    color: $social-github;
+    color: var(--social-github);
   }
 
   &.fa-mastodon {
-    color: $social-mastodon;
+    color: var(--social-mastodon);
   }
 }

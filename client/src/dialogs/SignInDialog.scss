@@ -95,11 +95,11 @@
 }
 
 .sign-in-twitter-button .fa-twitter {
-  color: $social-twitter !important;
+  color: var(--social-twitter) !important;
 }
 
 .sign-in-facebook-button .fa-square-facebook {
-  color: $social-facebook !important;
+  color: var(--social-facebook) !important;
 }
 
 .sign-in-disclaimer {
