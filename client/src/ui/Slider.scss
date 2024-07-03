@@ -23,7 +23,7 @@ $slider-range-color: $colour-turquoise-350 !default;
   position: relative;
   flex-grow: 1;
   height: $slider-track-height;
-  border-radius: $border-radius-pill;
+  border-radius: var(--border-radius-pill);
   background-color: $slider-track-color;
 
   &[data-disabled] {
@@ -36,7 +36,7 @@ $slider-range-color: $colour-turquoise-350 !default;
   top: 0;
   left: 0;
   height: $slider-track-height;
-  border-radius: $border-radius-pill;
+  border-radius: var(--border-radius-pill);
   background-color: $slider-range-color;
 
   &[data-disabled] {
@@ -51,7 +51,7 @@ $slider-range-color: $colour-turquoise-350 !default;
   height: $slider-thumb-size;
   margin-top: calc($slider-thumb-size / -2);
   margin-left: calc($slider-thumb-size / -2);
-  border-radius: $border-radius-pill;
+  border-radius: var(--border-radius-pill);
   background-color: $slider-thumb-color;
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(0 0 0 / 14%);

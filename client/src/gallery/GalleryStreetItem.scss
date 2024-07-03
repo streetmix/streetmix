@@ -8,7 +8,7 @@ $selection-highlight-colour: $colour-copper-500;
   position: relative;
   width: $thumbnail-width;
   height: $thumbnail-height;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
 
   /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
   padding: 5px;
@@ -40,7 +40,7 @@ $selection-highlight-colour: $colour-copper-500;
   top: 0;
   width: 100%;
   height: 100%;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
 
   &:hover canvas {
     opacity: 1;
@@ -79,7 +79,7 @@ $selection-highlight-colour: $colour-copper-500;
     bottom: -2px;
     width: $thumbnail-width;
     height: $thumbnail-height;
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
     opacity: 0.5;
     filter: grayscale(0.25);
     transform: scale(1.4); // Crops excess space for most streets

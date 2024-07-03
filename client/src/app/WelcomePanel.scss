@@ -3,7 +3,7 @@
 @import "../../styles/mixins";
 @import "../streets/StreetName";
 
-$welcome-panel-border-radius: $border-radius;
+$welcome-panel-border-radius: var(--border-radius);
 $welcome-panel-box-shadow: $medium-box-shadow;
 
 .welcome-panel-container {

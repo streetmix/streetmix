@@ -4,7 +4,7 @@
   width: 60px;
   height: 60px;
   margin: 0;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   border: 0;
   color: white;
   font-size: 2em;

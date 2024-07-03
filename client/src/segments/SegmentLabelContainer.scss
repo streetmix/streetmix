@@ -18,7 +18,7 @@
   left: 2px;
   right: 2px;
   top: 44px;
-  color: $segment-text;
+  color: var(--segment-text);
   pointer-events: none;
   line-height: 1.4;
 }
@@ -40,13 +40,13 @@
   right: auto;
   overflow: visible;
   z-index: 1;
-  background-color: $bottom-background;
+  background-color: var(--bottom-background);
   padding: 4px;
   margin-top: -4px;
 }
 
 .segment.warning .segment-label {
-  color: $segment-warning-text;
+  color: var(--warning-color);
 }
 
 .segment-width {
@@ -56,7 +56,7 @@
   top: 22px;
   height: 24px;
   line-height: 20px;
-  color: $segment-text;
+  color: var(--segment-text);
   overflow: hidden;
   pointer-events: none;
 }

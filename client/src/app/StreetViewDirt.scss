@@ -8,8 +8,8 @@ $dirt-height-minimum: 5px;
   left: 0;
   right: 0;
   top: $canvas-height - 80px + $dirt-height;
-  border-top: $dirt-height-minimum solid $background-dirt-colour;
-  background: $bottom-background;
+  border-top: $dirt-height-minimum solid var(--background-dirt-color);
+  background: var(--bottom-background);
   z-index: -2;
   pointer-events: none;
 }
@@ -19,7 +19,7 @@ $dirt-height-minimum: 5px;
   content: " ";
   position: absolute;
   top: -($dirt-height + $dirt-height-minimum);
-  background-color: $background-dirt-colour;
+  background-color: var(--background-dirt-color);
   width: 360px;
   height: $dirt-height + $dirt-height-minimum;
 }

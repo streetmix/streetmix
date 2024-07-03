@@ -103,7 +103,7 @@ body.phone #loading {
   transition: opacity 120ms;
   opacity: 1;
   will-change: opacity;
-  background-color: $colour-emerald-200;
+  background-color: var(--color-emerald-200);
 
   &.hidden {
     opacity: 0;
@@ -113,10 +113,10 @@ body.phone #loading {
   .loading-stuck {
     position: absolute;
     bottom: 20px;
-    background-color: $alert-background;
-    border-bottom: $alert-border;
+    background-color: var(--alert-background);
+    border-bottom: var(--alert-border);
     padding: 1em;
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
     opacity: 0;
     transition:
       opacity 120ms,

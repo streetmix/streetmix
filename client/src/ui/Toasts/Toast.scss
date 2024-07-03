@@ -22,8 +22,8 @@
   min-width: 200px;
   padding: 1em 1.25em;
   font-size: 13px;
-  border-top: $alert-border;
-  background-color: $alert-background;
+  border-top: var(--alert-border);
+  background-color: var(--alert-background);
 
   // Restore line-height after being unset by parent element
   line-height: 1.4;
@@ -49,7 +49,7 @@
 .toast-action button {
   display: block;
   border: 1px solid $colour-copper-400;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   padding: 0.25em 0.5em;
   margin: 0;
   width: 100%;

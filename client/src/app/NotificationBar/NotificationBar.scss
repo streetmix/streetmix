@@ -5,8 +5,8 @@
   z-index: $z-08-notification-bar;
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
   text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
-  background-color: $alert-background;
-  border-bottom: $alert-border;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
 }
 
 /* Close button overrides */

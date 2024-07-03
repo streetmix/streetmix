@@ -37,11 +37,11 @@ body.immediate-segment-resize .segment {
 }
 
 .segment.hover {
-  z-index: $z-02-segment-focused !important;
+  z-index: var(--z-02-segment-focused) !important;
 }
 
 .segment.hover .hover-bk {
-  background: $segment-hover-background;
+  background: var(--segment-hover-background);
   position: absolute;
   left: 0;
   right: 0;

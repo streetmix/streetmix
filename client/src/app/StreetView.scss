@@ -63,7 +63,7 @@
   }
 
   &.hover .hover-bk {
-    background: $segment-hover-background;
+    background: var(--segment-hover-background);
   }
 
   canvas {

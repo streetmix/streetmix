@@ -2,24 +2,26 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-$menu-bar-text-color: $segment-text;
+$menu-bar-text-color: var(--segment-text);
 $menu-bar-text-color-hover: color.adjust($ui-colour, $lightness: -30%);
 $menu-bar-text-color-active: color.adjust($ui-colour, $lightness: -40%);
-$menu-bar-border-radius: $border-radius;
+$menu-bar-border-radius: var(--border-radius);
 $menu-bar-box-shadow: $light-box-shadow;
 
 .menu-bar {
-  z-index: $z-02-menu-bar;
+  --menu-bar-background: var(--off-white);
+
+  z-index: var(--z-02-menu-bar);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   position: absolute;
-  left: $menu-side-inset;
-  right: $menu-side-inset;
+  left: var(--menu-side-inset);
+  right: var(--menu-side-inset);
   top: 0;
   border-bottom-left-radius: $menu-bar-border-radius;
   border-bottom-right-radius: $menu-bar-border-radius;
-  background: $menu-bar-background;
+  background: var(--menu-bar-background);
   background-clip: padding-box;
   box-shadow: $menu-bar-box-shadow;
   user-select: none;
@@ -32,7 +34,7 @@ $menu-bar-box-shadow: $light-box-shadow;
     top: -150px;
     width: 100%;
     height: 150px;
-    background-color: $menu-bar-background;
+    background-color: var(--menu-bar-background);
   }
 
   body.read-only & {

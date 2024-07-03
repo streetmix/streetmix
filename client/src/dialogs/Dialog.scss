@@ -1,9 +1,9 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-$dialog-border-radius: $border-radius-large;
-$header-background-colour: $colour-turquoise-200;
-$header-text-colour: $colour-turquoise-700;
+$dialog-border-radius: var(--border-radius-large);
+$header-background-colour: var(--color-turquoise-200);
+$header-text-colour: var(--color-turquoise-700);
 
 .dialog-box-container {
   display: flex;

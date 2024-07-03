@@ -15,7 +15,7 @@ body.segment-resize-dragging * {
   height: 100px;
   border-top: 5px solid $colour-turquoise-200;
   border-bottom: 5px solid $colour-turquoise-200;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   font-size: 1.5rem;
   color: $colour-turquoise-500;
   z-index: $z-06-drag-handle;

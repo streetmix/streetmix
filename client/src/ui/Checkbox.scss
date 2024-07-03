@@ -73,7 +73,7 @@ $label-outline-color: $color-2;
     height: 1em;
     width: 1em;
     background-color: $input-unchecked-background-color;
-    border-radius: $border-radius-small;
+    border-radius: var(--border-radius-small);
     border: 1px solid $input-default-border-color;
     color: inherit;
     transition:

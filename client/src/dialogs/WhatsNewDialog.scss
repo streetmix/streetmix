@@ -1,6 +1,3 @@
-@use "sass:color";
-@import "../../styles/variables";
-
 .whats-new-dialog {
   width: 550px;
   height: 80vh;
@@ -21,13 +18,13 @@
   }
 
   h2 {
-    color: $colour-turquoise-600;
+    color: var(--color-turquoise-600);
     font-weight: 550;
     font-size: 1.75rem;
   }
 
   h2:not(:first-of-type) {
-    border-top: 1px solid $colour-turquoise-300;
+    border-top: 1px solid var(--color-turquoise-300);
     padding-top: 1.25em;
     margin-top: 1.25em;
   }
@@ -37,7 +34,7 @@
     margin-bottom: 1em;
     font-weight: 550;
     font-size: 1.35rem;
-    color: $colour-turquoise-600;
+    color: var(--color-turquoise-600);
   }
 
   ul {
@@ -61,7 +58,7 @@
   }
 
   .img-ui {
-    border: 1px solid $colour-turquoise-400;
+    border: 1px solid var(--color-turquoise-400);
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
@@ -80,26 +77,26 @@
   /* Very similar to the notification bar banner */
   padding: 0.75em 2.5em;
   text-align: center;
-  background-color: $alert-background;
-  border-bottom: $alert-border;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
 }
 
 .whats-new-scroll-shade {
   position: absolute;
   width: 100%;
-  height: 40px;
+  height: max(60px, 10%);
   top: 0;
   left: 0;
   transition: opacity 300ms ease-in-out;
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    color.change($colour-turquoise-500, $alpha: 0.1) 0%,
+    var(--color-turquoise-500) 0%,
     transparent 100%
   );
   opacity: 0;
 }
 
 .whats-new-scroll-shade.visible {
-  opacity: 1;
+  opacity: 0.15;
 }

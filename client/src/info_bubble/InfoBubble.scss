@@ -3,7 +3,7 @@
 @import "../../styles/mixins";
 
 // TODO: Further refactoring / splitting up of these styles
-$info-bubble-border-radius: $border-radius;
+$info-bubble-border-radius: var(--border-radius);
 
 .info-bubble {
   position: absolute;
@@ -209,7 +209,7 @@ $info-bubble-border-radius: $border-radius;
   border-top: 1px solid $ui-colour;
   padding: 0.5em 1.5em 0.5em 1em;
   white-space: normal;
-  color: $warning-colour;
+  color: var(--warning-color);
 
   ul {
     padding: 0;
@@ -224,7 +224,7 @@ $info-bubble-border-radius: $border-radius;
 }
 
 .info-bubble-warning-alert {
-  color: $alert-text-colour;
+  color: var(--alert-text-color);
 
   img {
     width: 1.6em;

@@ -98,7 +98,7 @@
 
 .save-as-image-too-large-error {
   font-weight: 550;
-  color: $warning-colour;
+  color: var(--warning-color);
 }
 
 .save-as-image-download {

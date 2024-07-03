@@ -1,7 +1,7 @@
 @use "sass:color";
 @import "../../styles/variables";
 
-$gallery-border-radius: $border-radius;
+$gallery-border-radius: var(--border-radius);
 $gallery-box-shadow: $medium-box-shadow;
 $selection-highlight-colour: $colour-copper-500;
 
@@ -21,8 +21,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 
 .gallery-panel {
   position: absolute;
-  left: $left-right-inset;
-  right: $left-right-inset;
+  left: var(--left-right-inset);
+  right: var(--left-right-inset);
   top: 0;
   height: $gallery-height;
   display: flex;

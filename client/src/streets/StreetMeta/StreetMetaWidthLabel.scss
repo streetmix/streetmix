@@ -18,7 +18,7 @@
 
 .street-width-over {
   margin-left: 0.25em;
-  color: $warning-colour;
+  color: var(--warning-color);
 
   [dir="rtl"] & {
     margin-right: 0.25em;

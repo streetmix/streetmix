@@ -1,14 +1,15 @@
 @import "../../styles/variables";
 
-$palette-height: 64px;
-
 .palette-container-outer {
+  --palette-height: 64px;
+  --palette-background: var(--off-white);
+
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: $palette-height;
-  padding-left: $left-right-inset;
-  padding-right: $left-right-inset;
+  height: var(--palette-height);
+  padding-left: var(--left-right-inset);
+  padding-right: var(--left-right-inset);
   display: flex;
   justify-content: center;
 }
@@ -16,16 +17,16 @@ $palette-height: 64px;
 .palette-container {
   position: relative;
   width: 100%;
-  min-width: $breakpoint-md;
+  min-width: var(--breakpoint-md);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: $palette-background;
+  background: var(--palette-background);
   z-index: $z-02-palette;
   user-select: none;
   touch-action: none;
-  border-top-left-radius: $border-radius-large;
-  border-top-right-radius: $border-radius-large;
+  border-top-left-radius: var(--border-radius-large);
+  border-top-right-radius: var(--border-radius-large);
 }
 
 @media only screen and (max-width: $breakpoint-md) {

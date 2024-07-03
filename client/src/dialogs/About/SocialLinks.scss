@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .social-links {
   li {
     display: inline-block;
@@ -7,10 +5,10 @@
   }
 
   a {
-    color: $colour-midnight-400;
+    color: var(--color-midnight-400);
 
     &:hover {
-      color: $colour-midnight-500;
+      color: var(--color-midnight-500);
     }
   }
 

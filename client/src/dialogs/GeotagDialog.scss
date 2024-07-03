@@ -1,6 +1,5 @@
 @import "../../styles/variables";
 
-$geotag-dialog-background-color: $off-white;
 $geotag-error-banner-margin: 100px;
 
 .geotag-dialog {
@@ -19,10 +18,10 @@ $geotag-error-banner-margin: 100px;
   /* Very similar to the notification bar banner */
   padding: 0.75em 2.5em;
   text-align: center;
-  background-color: $alert-background;
-  border-bottom: $alert-border;
-  border-bottom-left-radius: $border-radius-medium;
-  border-bottom-right-radius: $border-radius-medium;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
+  border-bottom-left-radius: var(--border-radius-medium);
+  border-bottom-right-radius: var(--border-radius-medium);
 
   /* Place error banner above map */
   position: absolute;
@@ -65,15 +64,15 @@ $geotag-error-banner-margin: 100px;
 .geotag-input {
   width: 100%;
   padding: 3px 24px 3px 6px !important;
-  border: 1px solid $form-element-border;
+  border: 1px solid var(--form-element-border);
   resize: none;
   font-size: inherit;
   line-height: 2;
-  background-color: $form-element-background;
+  background-color: var(--form-element-background);
 }
 
 .geotag-suggestions-container {
-  border: 1px solid $form-element-border;
+  border: 1px solid var(--form-element-border);
   border-top: 0;
   background-color: white;
   font-family: $font-family;
@@ -92,13 +91,13 @@ $geotag-error-banner-margin: 100px;
 }
 
 .geotag-suggestion[aria-selected="true"] {
-  background-color: $form-element-background;
+  background-color: var(--form-element-background);
 }
 
 /* Leaflet overrides */
 
 .leaflet-container {
-  background-color: $geotag-dialog-background-color;
+  background-color: var(--off-white);
   height: 100%;
   font-family: $font-family;
   font-size: inherit;
@@ -117,7 +116,7 @@ $geotag-error-banner-margin: 100px;
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: $border-radius;
+  border-radius: var(--border-radius);
 }
 
 .leaflet-popup-content-wrapper,

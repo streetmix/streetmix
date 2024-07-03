@@ -1,7 +1,7 @@
 @import "../../../styles/variables";
 @import "../../../styles/mixins";
 
-$menu-border-radius: $border-radius;
+$menu-border-radius: var(--border-radius);
 $menu-box-shadow: $medium-box-shadow;
 
 .menu {
@@ -39,7 +39,7 @@ $menu-box-shadow: $medium-box-shadow;
     display: block;
     position: relative;
     padding: 0.8em 2.5em;
-    border-bottom: 1px solid $colour-turquoise-200;
+    border-bottom: 1px solid var(--color-turquoise-200);
     text-decoration: none;
     color: black;
 
@@ -48,7 +48,7 @@ $menu-box-shadow: $medium-box-shadow;
     }
 
     &:hover {
-      background-color: $colour-turquoise-100;
+      background-color: var(--color-turquoise-100);
     }
 
     &:active {
@@ -58,8 +58,8 @@ $menu-box-shadow: $medium-box-shadow;
 
   input {
     appearance: none;
-    background: $form-element-background;
-    border: 1px solid $form-element-border;
+    background: var(--form-element-background);
+    border: 1px solid var(--form-element-border);
     resize: none;
   }
 
@@ -69,7 +69,7 @@ $menu-box-shadow: $medium-box-shadow;
     left: 0.8em;
     width: 16px;
     height: 16px;
-    color: $colour-midnight-600;
+    color: var(--color-midnight-600);
 
     [dir="rtl"] & {
       left: auto;
@@ -84,7 +84,7 @@ $menu-box-shadow: $medium-box-shadow;
     left: 0.8em;
     width: 15px;
     height: 15px;
-    color: $colour-midnight-600;
+    color: var(--color-midnight-600);
 
     [dir="rtl"] & {
       left: auto;
@@ -95,7 +95,7 @@ $menu-box-shadow: $medium-box-shadow;
   .menu-item-external-link {
     vertical-align: text-top;
     margin-left: 0.25em;
-    color: $colour-midnight-400;
+    color: var(--color-midnight-400);
   }
 }
 
@@ -112,8 +112,8 @@ body.safari .menu {
   list-style: none;
   padding: 0;
   margin: 0;
-  border-top: 1px solid $colour-turquoise-200;
-  border-bottom: 1px solid $colour-turquoise-200;
+  border-top: 1px solid var(--color-turquoise-200);
+  border-bottom: 1px solid var(--color-turquoise-200);
 
   // Remove the top border if menu group is the first element in a menu
   &:first-child {
@@ -138,7 +138,7 @@ body.safari .menu {
   cursor: pointer;
 
   &:hover {
-    background-color: $colour-turquoise-100;
+    background-color: var(--color-turquoise-100);
   }
 
   .fa-check {

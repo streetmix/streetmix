@@ -45,7 +45,7 @@
   // Palette item is tall enough to "overhang" above the top edge of the palette bar
   // It also must extend below the viewport to hide the horizontal scroll bar
   // We rely on flexbox vertical alignment for positioning here
-  height: $palette-height + 60px;
+  height: calc(var(--palette-height) + 60px);
   position: absolute;
   left: 0;
   right: 0;

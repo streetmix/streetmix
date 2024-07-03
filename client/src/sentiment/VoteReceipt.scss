@@ -67,7 +67,7 @@
   input {
     flex-grow: 1;
     margin-right: 0.5em;
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
     border: 1px solid $colour-turquoise-400;
     height: 2.25em;
   }

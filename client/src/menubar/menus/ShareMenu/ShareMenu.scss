@@ -50,8 +50,8 @@ $share-menu-width: 350px;
   // Prevent element from setting its own width
   width: $share-menu-width;
   text-align: center;
-  background-color: $alert-background;
-  border-bottom: $alert-border;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
   border-bottom-width: 2px;
   padding: 1em 2.5em;
 

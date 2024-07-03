@@ -33,7 +33,7 @@
 
 .sentiment-survey-dialog {
   background-color: white;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   margin: 0 auto;
   margin-top: 160px; // Clear street meta area
   margin-bottom: 15px;

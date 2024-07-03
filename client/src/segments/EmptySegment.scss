@@ -7,6 +7,7 @@
 
   .segment-label,
   .segment-width {
-    color: $empty-segment-text;
+    color: var(--segment-text);
+    opacity: 0.5;
   }
 }

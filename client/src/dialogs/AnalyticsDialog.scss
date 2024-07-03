@@ -96,7 +96,7 @@
   width: max-content;
   padding: 0.5em 1em;
   margin: 0.5em auto 0;
-  border-radius: $border-radius-pill;
+  border-radius: var(--border-radius-pill);
   background-color: $colour-copper-100;
   color: $colour-copper-700;
 
