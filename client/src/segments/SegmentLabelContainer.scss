@@ -1,13 +1,16 @@
 @import "../../styles/variables";
 
 .segment-label-container {
+  --segment-rule-color: rgb(160 160 160);
+  --segment-grid-height: 10px;
+
   display: flex;
   justify-content: center;
   position: absolute;
   left: 0;
   right: -1px;
-  border-left: 1px solid $segment-width-rule;
-  border-right: 1px solid $segment-width-rule;
+  border-left: 1px solid var(--segment-rule-color);
+  border-right: 1px solid var(--segment-rule-color);
   top: $canvas-baseline;
   height: 90px;
   font-size: 0.9em;
@@ -72,13 +75,13 @@ the width element is inside the street layout which is forced `ltr` */
   left: -1px;
   right: -1px;
   top: 0;
-  height: $segment-grid-height;
+  height: var(--segment-grid-height);
   pointer-events: none;
 
   // Creates grid lines
   background-image: linear-gradient(
     90deg,
-    $segment-width-rule 1px,
+    var(--segment-rule-color) 1px,
     transparent 1px
   );
   background-repeat: repeat-x;

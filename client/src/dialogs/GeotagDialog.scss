@@ -10,7 +10,7 @@ $geotag-error-banner-margin: 100px;
 }
 
 .geotag-dialog .close {
-  z-index: $z-index-10;
+  z-index: var(--z-index-10);
   text-shadow: 0 1px white;
 }
 
@@ -40,7 +40,7 @@ $geotag-error-banner-margin: 100px;
   position: absolute;
   top: 10px;
   width: 100%;
-  z-index: $z-index-10;
+  z-index: var(--z-index-10);
   pointer-events: none;
 }
 
@@ -75,7 +75,7 @@ $geotag-error-banner-margin: 100px;
   border: 1px solid var(--form-element-border);
   border-top: 0;
   background-color: white;
-  font-family: $font-family;
+  font-family: var(--font-family);
   list-style-type: none;
 }
 
@@ -99,7 +99,7 @@ $geotag-error-banner-margin: 100px;
 .leaflet-container {
   background-color: var(--off-white);
   height: 100%;
-  font-family: $font-family;
+  font-family: var(--font-family);
   font-size: inherit;
 }
 
@@ -137,7 +137,7 @@ $geotag-error-banner-margin: 100px;
   bottom: 12px;
   margin-left: -12px;
   transform: rotateZ(45deg);
-  background: $info-bubble-background;
+  background: var(--info-bubble-background);
   box-shadow: none;
 }
 
@@ -162,7 +162,7 @@ $geotag-error-banner-margin: 100px;
 
 .leaflet-touch .leaflet-bar,
 .leaflet-bar {
-  box-shadow: $medium-box-shadow;
+  box-shadow: var(--medium-box-shadow);
   border: 0;
 }
 

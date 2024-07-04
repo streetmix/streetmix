@@ -9,7 +9,7 @@ $street-name-size: 1.5;
 
 @mixin street-name-inside-mixin($size: $street-name-size) {
   height: 50px * $size;
-  border: 3px * $size solid $street-name-text;
+  border: 3px * $size solid var(--street-name-text);
   padding: 10px * $size 20px * $size;
   padding-top: 11px * $size;
   padding-bottom: 5px * $size;
@@ -25,9 +25,12 @@ $street-name-size: 1.5;
 .street-name {
   @include street-name-mixin;
 
+  --street-name-text: black;
+  --street-name-background: white;
+
   display: inline-block;
-  background: $street-name-background;
-  color: $street-name-text;
+  background: var(--street-name-background);
+  color: var(--street-name-text);
   user-select: none;
   white-space: nowrap;
 }

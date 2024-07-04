@@ -2,7 +2,7 @@
 @import "../../../styles/mixins";
 
 $menu-border-radius: var(--border-radius);
-$menu-box-shadow: $medium-box-shadow;
+$menu-box-shadow: var(--medium-box-shadow);
 
 .menu {
   position: absolute;

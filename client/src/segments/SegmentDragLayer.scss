@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .segment-drag-layer {
   position: fixed;
   pointer-events: none;
@@ -15,7 +13,7 @@
   left: 0;
   top: 0;
   opacity: 0.75;
-  z-index: $z-02-segment-focused;
+  z-index: var(--z-02-segment-focused);
   pointer-events: none;
   transition: none !important;
 }

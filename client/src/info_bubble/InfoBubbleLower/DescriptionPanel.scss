@@ -34,8 +34,8 @@
   right: -50px;
   pointer-events: none;
   border-radius: var(--border-radius);
-  box-shadow: $light-box-shadow;
-  background: $info-bubble-background;
+  box-shadow: var(--light-box-shadow);
+  background: var(--info-bubble-background);
 }
 
 .description {

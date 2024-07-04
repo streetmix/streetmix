@@ -2,7 +2,7 @@
 @import "../../styles/variables";
 
 $gallery-border-radius: var(--border-radius);
-$gallery-box-shadow: $medium-box-shadow;
+$gallery-box-shadow: var(--medium-box-shadow);
 $selection-highlight-colour: $colour-copper-500;
 
 body.gallery-visible {
@@ -28,7 +28,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   display: flex;
   flex-direction: column;
   padding: 10px 16px 16px;
-  z-index: $z-09-gallery;
+  z-index: var(--z-09-gallery);
   border-bottom-left-radius: $gallery-border-radius;
   border-bottom-right-radius: $gallery-border-radius;
   background: white;
@@ -48,7 +48,7 @@ body:not(.safari).gallery-visible .street-section-sky {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: $z-03-gallery-message;
+  z-index: var(--z-03-gallery-message);
 
   a {
     color: inherit;

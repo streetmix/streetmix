@@ -79,20 +79,20 @@ body.segment-move-dragging #street-section-editable .segment {
 
 .switching-away-exit {
   position: absolute;
-  z-index: $z-10-switch-away;
+  z-index: var(--z-10-switch-away);
   pointer-events: none;
   transform: none !important;
   perspective: 400px;
 }
 
 .switching-away-exit-done {
-  z-index: $z-10-switch-away !important;
+  z-index: var(--z-10-switch-away) !important;
 }
 
 .switching-away-exit-active canvas {
   transition:
-    transform $segment-switching-time ease-in,
-    opacity $segment-switching-time ease-in !important;
+    transform var(--segment-switching-time) ease-in,
+    opacity var(--segment-switching-time) ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
   opacity: 0;
@@ -116,7 +116,7 @@ body.segment-move-dragging #street-section-editable .segment {
 .switching-in-enter-active canvas {
   opacity: 1;
   transition:
-    transform $segment-switching-time,
-    opacity $segment-switching-time !important;
+    transform var(--segment-switching-time),
+    opacity var(--segment-switching-time) !important;
   transform: none;
 }

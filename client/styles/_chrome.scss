@@ -48,8 +48,8 @@ body.phone #loading {
 #error {
   @include blocking-shield;
 
-  z-index: $z-09-error;
-  background-color: $colour-turquoise-200;
+  z-index: var(--z-09-error);
+  background-color: var(--color-turquoise-200);
 
   // Errors may be displayed on old browsers without flexbox.
   // This forces vertical centering
@@ -87,11 +87,11 @@ body.phone #loading {
     a,
     a:visited,
     a:active {
-      color: $colour-turquoise-700;
+      color: var(--color-turquoise-700);
     }
 
     a:hover {
-      color: $colour-turquoise-600;
+      color: var(--color-turquoise-600);
     }
   }
 }
@@ -99,7 +99,7 @@ body.phone #loading {
 #loading {
   @include blocking-shield;
 
-  z-index: $z-09-loading;
+  z-index: var(--z-09-loading);
   transition: opacity 120ms;
   opacity: 1;
   will-change: opacity;
@@ -156,7 +156,7 @@ body.phone #loading {
 
 .debug-hover-polygon {
   position: absolute;
-  z-index: $z-07-debug-hover-polygon;
+  z-index: var(--z-07-debug-hover-polygon);
   inset: 0;
   pointer-events: none;
 

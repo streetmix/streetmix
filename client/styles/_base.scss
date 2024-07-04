@@ -50,7 +50,7 @@ button {
 
 .main-screen {
   position: relative;
-  z-index: $z-01-main-screen;
+  z-index: var(--z-01-main-screen);
   flex-grow: 1;
 
   body:not(.safari) & {
@@ -105,7 +105,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $header-font-family;
+  font-family: var(--header-font-family);
 }
 
 // Some utility classes.

@@ -1,8 +1,6 @@
-@import "../../styles/variables";
-
 .sponsor-banner {
   position: relative;
-  z-index: $z-08-notification-bar;
+  z-index: var(--z-08-notification-bar);
   padding: 0.5em 1em 0.75em;
   background-color: var(--background-dirt-color);
   border-top: 5px solid

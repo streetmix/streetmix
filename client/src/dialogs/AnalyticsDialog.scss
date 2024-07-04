@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .analytics-dialog {
   width: 820px;
   max-height: 75vh;
@@ -97,11 +95,11 @@
   padding: 0.5em 1em;
   margin: 0.5em auto 0;
   border-radius: var(--border-radius-pill);
-  background-color: $colour-copper-100;
-  color: $colour-copper-700;
+  background-color: var(--color-copper-100);
+  color: var(--color-copper-700);
 
   svg {
     margin-right: 0.75em;
-    color: $colour-copper-500;
+    color: var(--color-copper-500);
   }
 }

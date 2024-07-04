@@ -3,15 +3,17 @@
 @import "../../styles/mixins";
 
 // TODO: Further refactoring / splitting up of these styles
-$info-bubble-border-radius: var(--border-radius);
 
 .info-bubble {
+  --info-bubble-button-size: 30px;
+  --info-bubble-border-radius: var(--border-radius);
+
   position: absolute;
   min-width: 275px;
   opacity: 0;
-  background: $info-bubble-background;
-  border-radius: $info-bubble-border-radius;
-  box-shadow: $light-box-shadow;
+  background: var(--info-bubble-background);
+  border-radius: var(--info-bubble-border-radius);
+  box-shadow: var(--light-box-shadow);
   transition:
     transform 100ms,
     margin-top 150ms,
@@ -19,7 +21,7 @@ $info-bubble-border-radius: var(--border-radius);
     opacity 150ms;
   transform: rotateX(-80deg);
   perspective: 1200px;
-  z-index: $z-06-info-bubble;
+  z-index: var(--z-06-info-bubble);
   pointer-events: none;
   touch-action: none;
 
@@ -35,14 +37,14 @@ $info-bubble-border-radius: var(--border-radius);
     justify-content: space-between;
     position: relative;
     padding: 4px 10px;
-    height: $info-bubble-button-size + 10px;
-    line-height: $info-bubble-button-size + 2px;
+    height: calc(var(--info-bubble-button-size) + 10px);
+    line-height: calc(var(--info-bubble-button-size) + 2px);
     font-size: 1.2em;
     font-weight: 300;
     color: white;
     background: color.adjust($ui-colour, $lightness: -20%);
-    border-top-left-radius: $info-bubble-border-radius;
-    border-top-right-radius: $info-bubble-border-radius;
+    border-top-left-radius: var(--info-bubble-border-radius);
+    border-top-right-radius: var(--info-bubble-border-radius);
   }
 
   .icon {
@@ -65,7 +67,7 @@ $info-bubble-border-radius: var(--border-radius);
   .variants {
     text-align: left;
     margin-right: 20px;
-    min-height: $info-bubble-button-size;
+    min-height: var(--info-bubble-button-size);
     white-space: nowrap;
     user-select: none;
 
@@ -158,8 +160,8 @@ $info-bubble-border-radius: var(--border-radius);
   }
 
   button {
-    width: $info-bubble-button-size;
-    height: $info-bubble-button-size;
+    width: var(--info-bubble-button-size);
+    height: var(--info-bubble-button-size);
   }
 }
 
@@ -169,7 +171,7 @@ $info-bubble-border-radius: var(--border-radius);
 
   [dir="rtl"] & {
     border-top-left-radius: 0;
-    border-top-right-radius: $info-bubble-border-radius;
+    border-top-right-radius: var(--info-bubble-border-radius);
     margin-left: 140px;
     margin-right: 0;
   }

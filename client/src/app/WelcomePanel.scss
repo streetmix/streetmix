@@ -4,14 +4,14 @@
 @import "../streets/StreetName";
 
 $welcome-panel-border-radius: var(--border-radius);
-$welcome-panel-box-shadow: $medium-box-shadow;
+$welcome-panel-box-shadow: var(--medium-box-shadow);
 
 .welcome-panel-container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: $z-05-welcome;
+  z-index: var(--z-05-welcome);
   text-align: center;
   user-select: none;
   pointer-events: none;

@@ -14,7 +14,7 @@ $tooltip-max-width: 150px;
   border-radius: var(--border-radius);
   text-align: center;
   max-width: $tooltip-max-width;
-  box-shadow: $medium-box-shadow;
+  box-shadow: var(--medium-box-shadow);
   opacity: 0.85;
 }
 

@@ -29,8 +29,8 @@
   box-shadow:
     rgba(24 37 73 / 15%) 0 5px 20px 0,
     rgba(24 37 73 / 5%) 0 10px 20px -5px;
-  font-family: $font-family;
-  font-size: $font-size-base;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
   font-weight: normal;
   text-align: center;
   overflow: hidden;

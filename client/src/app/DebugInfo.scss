@@ -1,10 +1,8 @@
-@import "../../styles/variables";
-
 .debug-container {
   position: fixed;
   inset: 0;
   padding: 30px;
-  z-index: $z-09-debug;
+  z-index: var(--z-09-debug);
   background-color: rgb(192 192 192 / 50%);
   backdrop-filter: blur(4px);
 

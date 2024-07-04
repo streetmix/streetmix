@@ -17,7 +17,7 @@ $header-text-colour: var(--color-turquoise-700);
 }
 
 .dialog-box-backdrop {
-  z-index: $z-08-dialog-box-backdrop;
+  z-index: var(--z-08-dialog-box-backdrop);
   position: absolute;
   inset: 0;
   background: fade-out($sky-colour, 0.5);
@@ -36,7 +36,7 @@ $header-text-colour: var(--color-turquoise-700);
   padding: 0;
   background: white;
   line-height: 1.4;
-  z-index: $z-09-dialog-box;
+  z-index: var(--z-09-dialog-box);
   touch-action: none;
 
   /* New styles! Let's try it! */
@@ -90,7 +90,7 @@ $header-text-colour: var(--color-turquoise-700);
   }
 
   button.close {
-    z-index: $z-09-dialog-box;
+    z-index: var(--z-09-dialog-box);
   }
 
   // Button placement

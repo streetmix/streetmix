@@ -7,7 +7,7 @@ $resize-guide-line-inverted: 1px dashed fade-out(white, 0.6);
 
 .resize-guides {
   position: absolute;
-  z-index: $z-07-resize-guide;
+  z-index: var(--z-07-resize-guide);
   top: -75px;
   bottom: 120px;
   left: 50%; /* Will be overridden by component */

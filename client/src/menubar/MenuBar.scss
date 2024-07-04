@@ -6,7 +6,7 @@ $menu-bar-text-color: var(--segment-text);
 $menu-bar-text-color-hover: color.adjust($ui-colour, $lightness: -30%);
 $menu-bar-text-color-active: color.adjust($ui-colour, $lightness: -40%);
 $menu-bar-border-radius: var(--border-radius);
-$menu-bar-box-shadow: $light-box-shadow;
+$menu-bar-box-shadow: var(--light-box-shadow);
 
 .menu-bar {
   --menu-bar-background: var(--off-white);

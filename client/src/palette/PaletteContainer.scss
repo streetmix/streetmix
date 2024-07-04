@@ -22,7 +22,7 @@
   flex-direction: row;
   justify-content: space-between;
   background: var(--palette-background);
-  z-index: $z-02-palette;
+  z-index: var(--z-02-palette);
   user-select: none;
   touch-action: none;
   border-top-left-radius: var(--border-radius-large);

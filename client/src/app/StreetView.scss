@@ -38,7 +38,7 @@
 }
 
 #street-section-canvas {
-  z-index: $z-01-street-section;
+  z-index: var(--z-01-street-section);
   position: absolute;
   display: block;
   left: 0;

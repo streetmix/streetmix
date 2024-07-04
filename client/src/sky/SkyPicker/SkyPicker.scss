@@ -2,12 +2,12 @@
 @import "../../../styles/variables";
 
 $sky-picker-border-radius: var(--border-radius-large);
-$sky-picker-box-shadow: $medium-box-shadow;
-$header-background-colour: $colour-turquoise-200;
-$header-text-colour: $colour-turquoise-700;
+$sky-picker-box-shadow: var(--medium-box-shadow);
+$header-background-colour: var(--color-turquoise-200);
+$header-text-colour: var(--color-turquoise-700);
 
 .sky-picker-container-outer {
-  z-index: $z-07-sky-picker;
+  z-index: var(--z-07-sky-picker);
   position: absolute;
 
   // TODO: use button trigger to set initial position,
@@ -100,7 +100,7 @@ $header-text-colour: $colour-turquoise-700;
     width: auto;
     font-weight: 550;
     background-color: transparent;
-    color: $colour-copper-600;
+    color: var(--color-copper-600);
 
     &:disabled {
       border: 1px solid color.adjust($colour-copper-200, $saturation: -50%);
@@ -108,7 +108,7 @@ $header-text-colour: $colour-turquoise-700;
 
     &:hover {
       background-color: transparent;
-      color: $colour-copper-700;
+      color: var(--color-copper-700);
     }
   }
 }

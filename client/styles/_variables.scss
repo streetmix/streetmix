@@ -9,7 +9,6 @@ $gallery-height: 180px;
 $thumbnail-width: 180px;
 $thumbnail-height: 110px;
 $building-space: 360px;
-$segment-grid-height: 10px;
 // $left-right-inset: 50px;
 // $menu-side-inset: $left-right-inset - 20px;
 // $border-radius: 4px; // Deprecated. Use the following instead.
@@ -80,12 +79,7 @@ $ui-colour: color.adjust($sky-colour, $lightness: 10%);
 // $warning-colour: rgb(220 20 20);
 // $segment-text: rgb(40 35 30);
 // $segment-hover-background: rgb(255 255 255 / 20%);
-$light-text-colour: rgb(240 240 240);
-$info-bubble-background: white;
-$segment-width-rule: rgb(160 160 160);
-$street-name-text: black;
-$street-name-background: white;
-$control-disabled-colour: gray;
+// $info-bubble-background: white;
 
 :root {
   // Dimensions
@@ -148,6 +142,7 @@ $control-disabled-colour: gray;
   --warning-color: rgb(220 20 20);
   --segment-text: rgb(40 35 30);
   --segment-hover-background: rgb(255 255 255 / 20%);
+  --info-bubble-background: white; // TODO: rename
 
   // Third-party brand colors (e.g. social, etc) in alphabetical order
   // All colors must be official (please update them as necessary)
@@ -186,83 +181,26 @@ $control-disabled-colour: gray;
   // Twitter (https://about.twitter.com/en/who-we-are/brand-toolkit)
   --social-twitter: #4a99e9;
   --social-twitter-hover: color-mix(in oklch, black 10%, var(--social-twitter));
-}
 
-// Layered UI box shadows
-$light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);
-$medium-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
-$heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%);
+  // Layered UI box shadows
+  --light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);
+  --medium-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+  --heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%); // UNUSED
+}
 
 // Design
 $street-name-gallery-size: 0.5;
-$info-bubble-button-size: 30px;
-
-// Typography
-$font-family: "Rubik Variable", system-ui, sans-serif;
-$font-size-base: 13px;
-$header-font-family: "Manrope Variable", system-ui, sans-serif;
-
-// Timing
-$segment-switching-time: 250ms;
-$skybox-transition: 500ms ease;
-
-// Z-INDEX SCALE
-$z-index-01: 100;
-$z-index-02: 200;
-$z-index-03: 300;
-$z-index-04: 400;
-$z-index-05: 500;
-$z-index-06: 600;
-$z-index-07: 700;
-$z-index-08: 800;
-$z-index-09: 900;
-$z-index-10: 1000;
-
-// Z-INDEX COMPONENTS
-// Variables are assigned to scale, above.
-// These are kept here so you can quickly ascertain
-// the hierarchy of elements.
-// They are also named with the scale position so that
-// when they are referenced in other CSS files, their
-// z-scale position is also obvious at a glance.
-// Between scale positions, one can fine-tune placement
-// by adding a +number to the defined scale.
-// Please note, the z-index scale does not defeat limitations
-// imposed by stacking contexts.
-$z-01-main-screen: $z-index-01;
-$z-01-street-section: $z-index-01;
-$z-01-foreground: $z-index-01;
-$z-02-segment-focused: $z-index-02;
-$z-02-palette: $z-index-02;
-$z-02-menu-bar: $z-index-02;
-$z-03-street-name: $z-index-03;
-$z-03-gallery-message: $z-index-03;
-$z-05-welcome: $z-index-05;
-$z-06-info-bubble: $z-index-06;
-$z-06-drag-handle: $z-index-06;
-$z-07-street-scroll: $z-index-07;
-$z-07-toasts: $z-index-07;
-$z-07-trashcan: $z-index-07;
-$z-07-resize-guide: $z-index-07;
-$z-07-debug-hover-polygon: $z-index-07;
-$z-07-sky-picker: $z-index-07 + 50;
-$z-07-menu: $z-index-07 + 75;
-$z-08-dialog-box-backdrop: $z-index-08;
-$z-08-gallery-shield: $z-index-08;
-$z-08-notification-bar: $z-index-08;
-$z-09-gallery: $z-index-09;
-$z-09-dialog-box: $z-index-09;
-$z-09-debug: $z-index-09;
-
-// Blocking overlays
-$z-09-loading: $z-index-09;
-$z-09-error: $z-index-09;
-$z-09-blocking-shield: $z-index-09;
-$z-10-flash-border: $z-index-10;
-$z-10-switch-away: $z-index-10;
-$z-10-print: $z-index-10;
 
 :root {
+  // Typography
+  --font-family: "Rubik Variable", system-ui, sans-serif;
+  --font-size-base: 13px;
+  --header-font-family: "Manrope Variable", system-ui, sans-serif;
+
+  // Timing
+  --segment-switching-time: 250ms;
+  --skybox-transition: 500ms ease;
+
   // Z-INDEX SCALE
   --z-index-01: 100;
   --z-index-02: 200;

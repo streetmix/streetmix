@@ -1,4 +1,3 @@
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
 .street-scroll-indicators {
@@ -21,7 +20,7 @@
     letter-spacing: -0.15em;
     cursor: pointer;
     user-select: none;
-    z-index: $z-07-street-scroll;
+    z-index: var(--z-07-street-scroll);
 
     &:hover {
       opacity: 0.45;

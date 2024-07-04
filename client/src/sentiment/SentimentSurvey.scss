@@ -41,7 +41,7 @@
   width: max-content;
   max-width: 600px;
   padding: 1.5em 3em;
-  box-shadow: $medium-box-shadow;
+  box-shadow: var(--medium-box-shadow);
   text-align: center;
   pointer-events: auto;
 

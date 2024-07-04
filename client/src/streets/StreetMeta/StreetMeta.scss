@@ -9,7 +9,7 @@
   color: black;
   user-select: none;
   pointer-events: auto;
-  transition: color $skybox-transition;
+  transition: color var(--skybox-transition);
   font-size: 0.925rem;
 
   > div:not(:first-child) {
