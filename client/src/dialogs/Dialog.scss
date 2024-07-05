@@ -1,11 +1,11 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
-$dialog-border-radius: var(--border-radius-large);
-$header-background-colour: var(--color-turquoise-200);
-$header-text-colour: var(--color-turquoise-700);
-
 .dialog-box-container {
+  --dialog-border-radius: var(--border-radius-large);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-700);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@ $header-text-colour: var(--color-turquoise-700);
   touch-action: none;
 
   /* New styles! Let's try it! */
-  border-radius: $dialog-border-radius;
+  border-radius: var(--dialog-border-radius);
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
 
@@ -60,8 +60,8 @@ $header-text-colour: var(--color-turquoise-700);
   header {
     padding: 1.75rem 1em;
     text-align: center;
-    background-color: $header-background-colour;
-    color: $header-text-colour;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
   }
 
   h1 {
@@ -141,7 +141,7 @@ button.dialog-primary-action {
   font-weight: normal;
   width: 100%;
   text-align: center;
-  color: $colour-turquoise-600;
+  color: var(--color-turquoise-600);
   min-height: 46px;
   cursor: pointer;
 
@@ -149,7 +149,7 @@ button.dialog-primary-action {
   margin-top: 0 !important;
 
   &:hover {
-    background-color: $colour-turquoise-100;
-    color: $colour-turquoise-700;
+    background-color: var(--color-turquoise-100);
+    color: var(--color-turquoise-700);
   }
 }

@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .toast {
   position: relative;
   overflow: hidden;
@@ -48,7 +46,7 @@
 
 .toast-action button {
   display: block;
-  border: 1px solid $colour-copper-400;
+  border: 1px solid var(--color-copper-400);
   border-radius: var(--border-radius-medium);
   padding: 0.25em 0.5em;
   margin: 0;
@@ -56,20 +54,20 @@
   min-height: 32px;
   font-weight: 550;
   background-color: transparent;
-  color: $colour-copper-600;
+  color: var(--color-copper-600);
   cursor: pointer;
 
   &:hover {
     background-color: transparent;
-    color: $colour-copper-700;
+    color: var(--color-copper-700);
   }
 }
 
-$close-icon-colour: $colour-copper-500;
-$close-icon-colour-hover: $colour-copper-600;
-
 /* Close button overrides */
 .toast .close {
+  --close-icon-color: var(--color-copper-500);
+  --close-icon-color-hover: var(--color-copper-600);
+
   width: 24px;
   height: 24px;
   padding: 0;
@@ -78,7 +76,7 @@ $close-icon-colour-hover: $colour-copper-600;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
-  color: $close-icon-colour;
+  color: var(--close-icon-color);
 
   [dir="rtl"] & {
     right: auto;
@@ -87,7 +85,7 @@ $close-icon-colour-hover: $colour-copper-600;
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);
-    color: $close-icon-colour-hover;
+    color: var(--close-icon-color-hover);
   }
 
   &:active {
@@ -102,28 +100,28 @@ $close-icon-colour-hover: $colour-copper-600;
 
 .toast-success {
   .toast-content {
-    background-color: $colour-emerald-200;
-    border-top-color: $colour-emerald-300;
+    background-color: var(--color-emerald-200);
+    border-top-color: var(--color-emerald-300);
   }
 
   h3 {
-    color: $colour-emerald-700;
+    color: var(--color-emerald-700);
   }
 
   .close {
-    color: $colour-emerald-500;
+    color: var(--color-emerald-500);
 
     &:hover {
-      color: $colour-emerald-600;
+      color: var(--color-emerald-600);
     }
   }
 
   .toast-action button {
-    color: $colour-emerald-600;
-    border-color: $colour-emerald-500;
+    color: var(--color-emerald-600);
+    border-color: var(--color-emerald-500);
 
     &:hover {
-      color: $colour-emerald-700;
+      color: var(--color-emerald-700);
     }
   }
 }

@@ -1,13 +1,15 @@
 @use "sass:color";
 @import "../../styles/variables";
 
-$selection-highlight-colour: $colour-copper-500;
-
 .gallery-street-item {
+  --selection-highlight-color: var(--color-copper-500);
+  --thumbnail-width: 180px;
+  --thumbnail-height: 110px;
+
   display: inline-block;
   position: relative;
-  width: $thumbnail-width;
-  height: $thumbnail-height;
+  width: var(--thumbnail-width);
+  height: var(--thumbnail-height);
   border-radius: var(--border-radius-medium);
 
   /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
@@ -51,7 +53,7 @@ $selection-highlight-colour: $colour-copper-500;
 
 .gallery-street-item.gallery-selected > a {
   border: 2px solid white;
-  box-shadow: 0 0 0 2px $selection-highlight-colour;
+  box-shadow: 0 0 0 2px var(--selection-highlight-color);
 
   canvas {
     opacity: 1;
@@ -77,8 +79,8 @@ $selection-highlight-colour: $colour-copper-500;
     position: absolute;
     left: 0;
     bottom: -2px;
-    width: $thumbnail-width;
-    height: $thumbnail-height;
+    width: var(--thumbnail-width);
+    height: var(--thumbnail-height);
     border-radius: var(--border-radius-medium);
     opacity: 0.5;
     filter: grayscale(0.25);
@@ -142,12 +144,12 @@ $selection-highlight-colour: $colour-copper-500;
   }
 
   svg {
-    color: $colour-turquoise-500 !important;
+    color: var(--color-turquoise-500) !important;
     width: 12px;
   }
 
   &:hover svg {
-    color: $colour-turquoise-600 !important;
+    color: var(--color-turquoise-600) !important;
   }
 }
 
@@ -156,7 +158,7 @@ $selection-highlight-colour: $colour-copper-500;
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: $colour-turquoise-600;
+  color: var(--color-turquoise-600);
 
   // Top/bottom padding accounts for street name
   padding: 20px 1.5em 2px;

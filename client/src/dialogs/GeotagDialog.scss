@@ -1,8 +1,6 @@
-@import "../../styles/variables";
-
-$geotag-error-banner-margin: 100px;
-
 .geotag-dialog {
+  --geotag-error-banner-margin: 100px;
+
   width: 90vw;
   height: 80vh;
   max-height: 960px; /* Prevent outside of map being shown when default view on large monitors */
@@ -22,6 +20,7 @@ $geotag-error-banner-margin: 100px;
   border-bottom: var(--alert-border);
   border-bottom-left-radius: var(--border-radius-medium);
   border-bottom-right-radius: var(--border-radius-medium);
+  box-shadow: var(--medium-box-shadow);
 
   /* Place error banner above map */
   position: absolute;
@@ -32,8 +31,8 @@ $geotag-error-banner-margin: 100px;
 
   /* Constrain width of banner to allow for zoom widget and close
      dialog button */
-  width: calc(100% - #{$geotag-error-banner-margin * 2});
-  margin: 0 $geotag-error-banner-margin;
+  width: calc(100% - (var(--geotag-error-banner-margin) * 2));
+  margin: 0 var(--geotag-error-banner-margin);
 }
 
 .geotag-input-container {

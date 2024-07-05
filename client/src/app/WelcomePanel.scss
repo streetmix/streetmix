@@ -3,10 +3,10 @@
 @import "../../styles/mixins";
 @import "../streets/StreetName";
 
-$welcome-panel-border-radius: var(--border-radius);
-$welcome-panel-box-shadow: var(--medium-box-shadow);
-
 .welcome-panel-container {
+  --welcome-panel-border-radius: var(--border-radius);
+  --welcome-panel-box-shadow: var(--medium-box-shadow);
+
   position: absolute;
   top: 0;
   left: 0;
@@ -27,9 +27,9 @@ $welcome-panel-box-shadow: var(--medium-box-shadow);
   font-size: 1.2rem;
   color: rgb(64 64 64);
   pointer-events: auto;
-  border-bottom-left-radius: $welcome-panel-border-radius;
-  border-bottom-right-radius: $welcome-panel-border-radius;
-  box-shadow: $welcome-panel-box-shadow;
+  border-bottom-left-radius: var(--welcome-panel-border-radius);
+  border-bottom-right-radius: var(--welcome-panel-border-radius);
+  box-shadow: var(--welcome-panel-box-shadow);
 }
 
 .welcome-panel-content {

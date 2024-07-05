@@ -1,16 +1,14 @@
-@import "../../../../styles/variables";
-
-$share-menu-width: 350px;
-
 .share-menu {
-  min-width: $share-menu-width;
+  --share-menu-width: 350px;
+
+  min-width: var(--share-menu-width);
 }
 
 .share-via-link-container {
   position: relative;
-  width: $share-menu-width;
+  width: var(--share-menu-width);
   padding: 0.8em 1em 0.8em 2.5em;
-  border-bottom: 1px solid $colour-turquoise-200;
+  border-bottom: 1px solid var(--color-turquoise-200);
 
   [dir="rtl"] & {
     padding: 0.8em 2.5em 0.8em 1em;
@@ -48,7 +46,7 @@ $share-menu-width: 350px;
 
 .share-sign-in-promo {
   // Prevent element from setting its own width
-  width: $share-menu-width;
+  width: var(--share-menu-width);
   text-align: center;
   background-color: var(--alert-background);
   border-bottom: var(--alert-border);

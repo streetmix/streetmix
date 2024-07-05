@@ -92,7 +92,7 @@
       position: absolute;
       top: -2px;
       right: -2px;
-      color: $colour-copper-600;
+      color: var(--color-copper-600);
 
       [dir="rtl"] & {
         left: -2px;
@@ -150,7 +150,7 @@
 
   .variant-selected,
   .variant-selected:hover {
-    background: $colour-copper-300 !important;
+    background: var(--color-copper-300) !important;
     opacity: 1;
 
     .icon {

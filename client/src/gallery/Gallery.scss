@@ -1,13 +1,6 @@
-@use "sass:color";
-@import "../../styles/variables";
-
-$gallery-border-radius: var(--border-radius);
-$gallery-box-shadow: var(--medium-box-shadow);
-$selection-highlight-colour: $colour-copper-500;
-
 body.gallery-visible {
   .main-screen {
-    transform: translateY($gallery-height - 90px);
+    transform: translateY(calc(var(--gallery-height) - 90px));
   }
 
   .street-nameplate-container {
@@ -20,22 +13,25 @@ body:not(.safari).gallery-visible .street-section-sky {
 }
 
 .gallery-panel {
+  --gallery-border-radius: var(--border-radius);
+  --gallery-box-shadow: var(--medium-box-shadow);
+
   position: absolute;
   left: var(--left-right-inset);
   right: var(--left-right-inset);
   top: 0;
-  height: $gallery-height;
+  height: var(--gallery-height);
   display: flex;
   flex-direction: column;
   padding: 10px 16px 16px;
   z-index: var(--z-09-gallery);
-  border-bottom-left-radius: $gallery-border-radius;
-  border-bottom-right-radius: $gallery-border-radius;
+  border-bottom-left-radius: var(--gallery-border-radius);
+  border-bottom-right-radius: var(--gallery-border-radius);
   background: white;
-  box-shadow: $gallery-box-shadow;
+  box-shadow: var(--gallery-box-shadow);
   overflow: hidden;
   pointer-events: none;
-  transform: translateY(-$gallery-height) rotateX(25deg);
+  transform: translateY(calc(-1 * var(--gallery-height))) rotateX(25deg);
   transform-origin: 50% 0;
 }
 

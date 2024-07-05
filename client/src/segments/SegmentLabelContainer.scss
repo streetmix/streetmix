@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .segment-label-container {
   --segment-rule-color: rgb(160 160 160);
   --segment-grid-height: 10px;
@@ -11,7 +9,7 @@
   right: -1px;
   border-left: 1px solid var(--segment-rule-color);
   border-right: 1px solid var(--segment-rule-color);
-  top: $canvas-baseline;
+  top: var(--canvas-baseline);
   height: 90px;
   font-size: 0.9em;
 }
@@ -88,10 +86,10 @@ the width element is inside the street layout which is forced `ltr` */
 
   // Change background-size width to adjust spacing of grid lines
   &.units-imperial {
-    background-size: $tile-size 100%;
+    background-size: var(--tile-size) 100%;
   }
 
   &.units-metric {
-    background-size: calc($tile-size * 100 / 30 / 2) 100%;
+    background-size: calc(var(--tile-size) * 100 / 30 / 2) 100%;
   }
 }

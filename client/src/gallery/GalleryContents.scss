@@ -43,7 +43,7 @@
 .streets-scrollable-container {
   position: relative;
   top: 1px;
-  height: $gallery-height;
+  height: var(--gallery-height);
   min-width: 0; // Allows content to overflow flex element
   flex-grow: 1;
 
@@ -65,7 +65,7 @@
     padding: 0;
     margin: 0;
     white-space: nowrap;
-    height: $gallery-height + 20px; // To cover the scroll bar
+    height: calc(var(--gallery-height) + 20px); // To cover the scroll bar
     overflow-x: scroll;
   }
 }

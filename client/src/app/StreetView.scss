@@ -1,11 +1,11 @@
-@import "../../styles/variables";
-
 // TODO: Further refactor / split up of this stylesheet
 
 #street-section-outer {
+  --building-space: 360px;
+
   position: absolute;
   display: block;
-  inset: -$gallery-height 0 -20px; // Bottom inset hides the scrollbar
+  inset: calc(-1 * var(--gallery-height)) 0 -20px; // Bottom inset hides the scrollbar
   overflow: scroll hidden;
   touch-action: pan-x;
 
@@ -22,7 +22,7 @@
   display: block;
   left: 0;
   bottom: 130px;
-  height: $canvas-height + 45;
+  height: calc(var(--canvas-height) + 45px);
   user-select: none;
 
   body.read-only & {
@@ -32,7 +32,7 @@
 
 #street-section-editable {
   position: absolute;
-  height: $canvas-height + 80;
+  height: calc(var(--canvas-height) + 80px);
   text-align: left;
   touch-action: pan-x;
 }
@@ -43,9 +43,9 @@
   display: block;
   left: 0;
   top: 0;
-  margin-left: $building-space;
-  margin-right: $building-space;
-  height: $canvas-height + 40;
+  margin-left: var(--building-space);
+  margin-right: var(--building-space);
+  height: calc(var(--canvas-height) + 40px);
 }
 
 .street-section-building {
@@ -53,7 +53,7 @@
   position: absolute;
   top: -105px;
   width: 396px;
-  height: $canvas-height + 70px;
+  height: calc(var(--canvas-height) + 70px);
   touch-action: pan-x;
 
   .hover-bk {
