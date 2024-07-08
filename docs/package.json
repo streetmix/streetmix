@@ -33,7 +33,7 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@argos-ci/cli": "^1.0.2",
+    "@argos-ci/cli": "^2.2.0",
     "@argos-ci/playwright": "^3.0.2",
     "@playwright/test": "^1.39.0",
     "cheerio": "^1.0.0-rc.12"
