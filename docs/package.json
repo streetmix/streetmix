@@ -23,7 +23,7 @@
     "@docusaurus/preset-classic": "^3.2.1",
     "@fontsource-variable/manrope": "^5.0.19",
     "@mdx-js/react": "^3.0.0",
-    "@silvenon/remark-smartypants": "^1.0.0",
+    "@silvenon/remark-smartypants": "^2.0.0",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.0.0",
     "file-loader": "^6.2.0",
