@@ -1,4 +1,3 @@
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
 .blocking-shield {
@@ -20,7 +19,7 @@
 
   &.darken,
   &.darken-immediately {
-    background: fade-out($sky-colour, 0.15);
+    background-color: color-mix(in oklch, var(--sky-color), transparent 15%);
     color: black;
   }
 

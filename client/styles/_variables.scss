@@ -129,9 +129,15 @@ $ui-colour: color.adjust($sky-colour, $lightness: 10%);
     white 25%,
     var(--color-turquoise-100)
   );
+  --color-turquoise-350: color-mix(
+    in oklch,
+    var(--color-turquoise-300),
+    var(--color-turquoise-400)
+  );
 
   // Misc colors
   --background-dirt-color: rgb(53 45 39);
+  --sky-color: rgb(169 204 219);
   --form-element-background: var(--color-turquoise-50);
   --form-element-border: var(--color-turquoise-200);
   --button-border: 1px solid var(--color-turquoise-400);

@@ -16,11 +16,11 @@
 
 .settings-dialog-left {
   width: 180px;
-  border-right: 1px solid $colour-turquoise-350;
+  border-right: 1px solid var(--color-turquoise-350);
   overflow: hidden auto;
 
   [dir="rtl"] & {
-    border-left: 1px solid $colour-turquoise-350;
+    border-left: 1px solid var(--color-turquoise-350);
   }
 
   ul {

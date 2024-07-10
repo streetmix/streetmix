@@ -1,12 +1,12 @@
 @use "sass:color";
 @import "../../../styles/variables";
 
-$sky-picker-border-radius: var(--border-radius-large);
-$sky-picker-box-shadow: var(--medium-box-shadow);
-$header-background-colour: var(--color-turquoise-200);
-$header-text-colour: var(--color-turquoise-700);
-
 .sky-picker-container-outer {
+  --sky-picker-border-radius: var(--border-radius-large);
+  --sky-picker-box-shadow: var(--medium-box-shadow);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-700);
+
   z-index: var(--z-07-sky-picker);
   position: absolute;
 
@@ -19,9 +19,9 @@ $header-text-colour: var(--color-turquoise-700);
 
 .sky-picker-container-inner {
   background-color: white;
-  border-radius: $sky-picker-border-radius;
+  border-radius: var(--sky-picker-border-radius);
   overflow: hidden;
-  box-shadow: $sky-picker-box-shadow;
+  box-shadow: var(--sky-picker-box-shadow);
   user-select: none;
 
   [dir="rtl"] & {
@@ -32,8 +32,8 @@ $header-text-colour: var(--color-turquoise-700);
 
 .sky-picker header {
   padding: 0.5em;
-  background-color: $header-background-colour;
-  color: $header-text-colour;
+  background-color: var(--header-background-color);
+  color: var(--header-text-color);
   display: flex;
   align-items: center;
 }
@@ -103,7 +103,7 @@ $header-text-colour: var(--color-turquoise-700);
     color: var(--color-copper-600);
 
     &:disabled {
-      border: 1px solid color.adjust($colour-copper-200, $saturation: -50%);
+      filter: grayscale(0.8);
     }
 
     &:hover {

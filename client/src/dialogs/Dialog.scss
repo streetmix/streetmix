@@ -20,7 +20,7 @@
   z-index: var(--z-08-dialog-box-backdrop);
   position: absolute;
   inset: 0;
-  background: fade-out($sky-colour, 0.5);
+  background: var(--sky-color);
   touch-action: none;
 
   /* Transitions */
@@ -113,7 +113,7 @@
 }
 
 .dialog-transition-enter-done .dialog-box-backdrop {
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .dialog-transition-exit .dialog-box-backdrop {
@@ -135,7 +135,7 @@
 
 button.dialog-primary-action {
   border: 0;
-  border-top: 1px solid $colour-turquoise-350;
+  border-top: 1px solid var(--color-turquoise-350);
   border-radius: 0;
   background-color: white;
   font-weight: normal;

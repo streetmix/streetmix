@@ -1,6 +1,3 @@
-@use "sass:color";
-@import "../../styles/variables";
-
 .palette-item {
   display: inline-block;
   position: relative;
@@ -8,7 +5,7 @@
   height: 80px;
   width: 60px;
   top: 0;
-  background-color: fade-out($sky-colour, 0.3);
+  background-color: color-mix(in oklch, var(--sky-color), transparent 30%);
   margin-right: 1px;
   transform-origin: 50% 75%;
   transition: transform 50ms !important;
@@ -23,7 +20,7 @@
 
 .palette-item:not(.palette-item-disabled):hover,
 .palette-item:not(.palette-item-disabled) > div:focus {
-  background: fade-out($sky-colour, 0.05);
+  background-color: color-mix(in oklch, var(--sky-color), transparent 5%);
   z-index: 1;
 
   .palette-item-image {
@@ -43,7 +40,12 @@
 }
 
 .palette-item-disabled {
-  background: color.adjust(fade-out($sky-colour, 0.3), $saturation: -100%);
+  // This complicated color-mix replaces the previous thing in SCSS:
+  //    color.adjust(fade-out($sky-colour, 0.3), $saturation: -100%);
+  // However it's also being compressed so none is 0, instead of "don't change"
+  // so for now let's just hard-code the resultant color value
+  // background-color: color-mix(in hsl, var(--sky-color), hsl(none 0% none / 70%) 100%);
+  background-color: #c2c2c2b3;
 
   .palette-item-image {
     filter: grayscale(0.8);
@@ -55,7 +57,7 @@
     right: 4px;
     top: 4px;
     z-index: 2;
-    color: $colour-copper-600;
+    color: var(--color-copper-600);
 
     [dir="rtl"] & {
       left: 4px;
