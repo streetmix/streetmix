@@ -194,6 +194,10 @@ $ui-colour: color.adjust($sky-colour, $lightness: 10%);
   --light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);
   --medium-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
   --heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%); // UNUSED
+
+  // Design
+  --street-name-size: 1.5;
+  --street-name-size-small: 0.5;
 }
 
 // Design

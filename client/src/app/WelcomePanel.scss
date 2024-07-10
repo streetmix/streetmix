@@ -104,7 +104,7 @@
 // Component specific tweaks to StreetName
 // Some duped styles from gallery element
 .welcome-panel .street-name {
-  @include street-name-mixin($street-name-gallery-size);
+  --street-name-size: var(--street-name-size-small);
 
   display: inline-block;
   position: relative;
