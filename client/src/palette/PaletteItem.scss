@@ -2,16 +2,17 @@
   display: inline-block;
   position: relative;
   margin: 14px 0;
+  margin-right: 1px;
   height: 80px;
   width: 60px;
   top: 0;
+
   // While the preferred mixing method is in oklch, there is a bug(?) in
   // Safari where doing so also causes the hue to shift unexpectedly.
   // Mixing transparency in srgb will only affect alpha channel as expected
   // in tested browsers (Firefox + Chrome) including Safari.
   // See also hover state below.
   background-color: color-mix(in srgb, var(--sky-color), transparent 30%);
-  margin-right: 1px;
   transform-origin: 50% 75%;
   transition: transform 50ms !important;
 }
@@ -53,6 +54,7 @@
   // Workaround is to store the saturation value as a separate variable and
   // bring it into the hsl() function.
   --palette-item-disabled-saturation: 0%;
+
   background-color: color-mix(
     in hsl,
     var(--sky-color),

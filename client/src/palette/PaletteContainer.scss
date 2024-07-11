@@ -27,7 +27,7 @@
   border-top-right-radius: var(--border-radius-large);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (width >= 768px) {
   .palette-container-outer {
     padding-left: 0;
     padding-right: 0;

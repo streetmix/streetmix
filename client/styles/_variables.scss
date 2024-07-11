@@ -57,18 +57,6 @@ $street-name-gallery-size: 0.5;
   // For now, while transitioning to CSS custom properties, the formerly
   // computed values in SCSS will be hard-coded values. The original SCSS
   // functions are retained below.
-  --color-turquoise-50: #effafd;
-  --color-turquoise-150: #e3f5fa;
-  --color-turquoise-225: #c8ecf6;
-  --color-turquoise-250: #b4e5f2;
-  --color-turquoise-350: #9adef2;
-  --color-turquoise-450: #71b4c4;
-  --color-emerald-150: #d3f1da;
-  --color-emerald-350: #78d293;
-  --color-copper-150: #faddcd;
-  --color-copper-350: #f6a06b;
-  --color-midnight-150: #dde2ed;
-  --color-midnight-350: #8f9eba;
   // $colour-turquoise-50: color.scale($colour-turquoise-100, $lightness: 20%);
   // $colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 20%);
   // $colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
@@ -81,6 +69,18 @@ $street-name-gallery-size: 0.5;
   // $colour-copper-350: color.scale($colour-copper-300, $lightness: -10%);
   // $colour-midnight-150: color.scale($colour-midnight-200, $lightness: 20%);
   // $colour-midnight-350: color.scale($colour-midnight-300, $lightness: -10%);
+  --color-turquoise-50: #effafd;
+  --color-turquoise-150: #e3f5fa;
+  --color-turquoise-225: #c8ecf6;
+  --color-turquoise-250: #b4e5f2;
+  --color-turquoise-350: #9adef2;
+  --color-turquoise-450: #71b4c4;
+  --color-emerald-150: #d3f1da;
+  --color-emerald-350: #78d293;
+  --color-copper-150: #faddcd;
+  --color-copper-350: #f6a06b;
+  --color-midnight-150: #dde2ed;
+  --color-midnight-350: #8f9eba;
 
   // Misc colors
   --background-dirt-color: rgb(53 45 39);
@@ -90,7 +90,7 @@ $street-name-gallery-size: 0.5;
   --button-border: 1px solid var(--color-turquoise-400);
   --alert-background: #fff0c0;
   --alert-border-color: #ffd755;
-  --alert-border: 5px solid --var(--alert-border-color);
+  --alert-border: 5px solid var(--alert-border-color);
   --alert-text-color: rgb(255 131 0);
   --off-white: rgb(247 247 247);
   --bottom-background: rgb(216 211 203);
@@ -104,10 +104,9 @@ $street-name-gallery-size: 0.5;
   // the original sky color. It is preserved here because many elements of UI
   // still use it, and its value is now hardcoded, but it was originally
   // calculated as `color.adjust($sky-colour, $lightness: 10%)`. Do not use
-  // when creating or refactoring UI.
+  // when creating or refactoring UI. Other variations of "UI color" are
+  // hardcoded here also. Remove when no longer needed.
   --deprecated-ui-color: #cde1ea;
-  // Other variations of "UI color" are hardcoded here also. Remove when
-  // no longer needed.
   --deprecated-ui-color-lightness-10: #a9ccdb; // color.adjust($ui-colour, $lightness: -10%);
   --deprecated-ui-color-lightness-20: #85b7cc; // color.adjust($ui-colour, $lightness: -20%);
   --deprecated-ui-color-lightness-30: #61a1bd; // color.adjust($ui-colour, $lightness: -30%);
