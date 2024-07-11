@@ -40,12 +40,18 @@
 }
 
 .palette-item-disabled {
-  // This complicated color-mix replaces the previous thing in SCSS:
+  // This complicated color-mix replaces this previous SCSS statement:
   //    color.adjust(fade-out($sky-colour, 0.3), $saturation: -100%);
-  // However it's also being compressed so none is 0, instead of "don't change"
-  // so for now let's just hard-code the resultant color value
-  // background-color: color-mix(in hsl, var(--sky-color), hsl(none 0% none / 70%) 100%);
-  background-color: #c2c2c2b3;
+  // The CSS postprocesser will squash hsl(none 0% none) to #000000, which
+  // is wrong. `none` is meant as "absence of change", not "value equals zero".
+  // Workaround is to store the saturation value as a separate variable and
+  // bring it into the hsl() function.
+  --palette-item-disabled-saturation: 0%;
+  background-color: color-mix(
+    in hsl,
+    var(--sky-color),
+    hsl(none var(--palette-item-disabled-saturation) none / 70%) 100%
+  );
 
   .palette-item-image {
     filter: grayscale(0.8);
