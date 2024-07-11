@@ -1,12 +1,3 @@
-@import "../../styles/variables";
-
-$spinner-default-size: 30px;
-$spinner-small-size: 13px;
-$spinner-border-default-width: 3px;
-$spinner-border-small-width: 2px;
-$spinner-primary-colour: $colour-turquoise-500;
-$spinner-secondary-colour: $colour-turquoise-200;
-
 // The loading spinner is one <div> element for placement and sizing,
 // and a pseudo-element for the visual animation itself. The base
 // element sets the default size, but not the default placement. It
@@ -14,11 +5,18 @@ $spinner-secondary-colour: $colour-turquoise-200;
 // text-align, or similar) or it can override the CSS rules of
 // the .loading-spinner element itself.
 .loading-spinner {
+  --spinner-default-size: 30px;
+  --spinner-small-size: 13px;
+  --spinner-border-default-width: 3px;
+  --spinner-border-small-width: 2px;
+  --spinner-primary-colour: var(--color-turquoise-500);
+  --spinner-secondary-colour: var(--color-turquoise-200);
+
   position: relative;
 
   // Default size of spinner
-  width: $spinner-default-size;
-  height: $spinner-default-size;
+  width: var(--spinner-default-size);
+  height: var(--spinner-default-size);
 }
 
 // The visual spinner exists in a pseudo-element set up to
@@ -31,19 +29,19 @@ $spinner-secondary-colour: $colour-turquoise-200;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border-width: $spinner-border-default-width;
+  border-width: var(--spinner-border-default-width);
   border-style: solid;
-  border-color: $spinner-secondary-colour;
-  border-top-color: $spinner-primary-colour;
+  border-color: var(--spinner-secondary-colour);
+  border-top-color: var(--spinner-primary-colour);
   animation: spinner 0.75s linear infinite;
 }
 
 .loading-spinner-small {
-  width: $spinner-small-size;
-  height: $spinner-small-size;
+  width: var(--spinner-small-size);
+  height: var(--spinner-small-size);
 
   &::before {
-    border-width: $spinner-border-small-width;
+    border-width: var(--spinner-border-small-width);
   }
 }
 

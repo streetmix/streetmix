@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .sentiment-survey-container {
   position: absolute;
   z-index: 190; // Underlay menubar and street meta area
@@ -48,7 +46,7 @@
   h2 {
     margin-top: 0.5em;
     margin-bottom: 0;
-    color: $colour-turquoise-700;
+    color: var(--color-turquoise-700);
     font-weight: normal;
 
     em {

@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .toast-web-monetization {
   img.wm-icon {
     width: 36px;
@@ -14,12 +12,12 @@
 
   a,
   a:visited {
-    color: $colour-emerald-600;
+    color: var(--color-emerald-600);
   }
 
   a:hover,
   a:active {
-    color: $colour-emerald-500;
+    color: var(--color-emerald-500);
   }
 }
 

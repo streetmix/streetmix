@@ -1,32 +1,30 @@
-@import "../../styles/variables";
-
-// UI color ramp
-$color-1: $colour-midnight-300 !default;
-$color-2: $colour-turquoise-500 !default;
-
-// Special colors
-$disabled-color: $colour-midnight-300 !default;
-
-// Colors for stylized checkbox input
-$input-default-border-color: $color-1;
-$input-unchecked-background-color: transparent;
-$input-checked-border-color: $color-1;
-$input-checked-background-color: white;
-$input-hover-border-color: $color-2;
-$input-active-border-color: $color-2;
-$input-active-background-color: $color-2;
-$input-disabled-border-color: $disabled-color;
-
-// Colors for checkmark icon
-$checkmark-checked-color: $color-2;
-$checkmark-active-color: white;
-$checkmark-disabled-color: $disabled-color;
-
-// Colors for label
-$label-disabled-text-color: $disabled-color;
-$label-outline-color: $color-2;
-
 .checkbox-item {
+  // UI color ramp
+  --color-1: var(--color-midnight-300);
+  --color-2: var(--color-turquoise-500);
+
+  // Special colors
+  --disabled-color: var(--color-midnight-300);
+
+  // Colors for stylized checkbox input
+  --input-default-border-color: var(--color-1);
+  --input-unchecked-background-color: transparent;
+  --input-checked-border-color: var(--color-1);
+  --input-checked-background-color: white;
+  --input-hover-border-color: var(--color-2);
+  --input-active-border-color: var(--color-2);
+  --input-active-background-color: var(--color-2);
+  --input-disabled-border-color: var(--disabled-color);
+
+  // Colors for checkmark icon
+  --checkmark-checked-color: var(--color-2);
+  --checkmark-active-color: white;
+  --checkmark-disabled-color: var(--disabled-color);
+
+  // Colors for label
+  --label-disabled-text-color: var(--disabled-color);
+  --label-outline-color: var(--color-2);
+
   position: relative;
 
   /* Fits DOM element to content, so check mark is aligned to box
@@ -68,13 +66,13 @@ $label-outline-color: $color-2;
     content: "";
     display: block;
     position: absolute;
-    left: -1.2em;
+    left: -1.25em;
     top: 0.25em;
     height: 1em;
     width: 1em;
-    background-color: $input-unchecked-background-color;
+    background-color: var(--input-unchecked-background-color);
     border-radius: var(--border-radius-small);
-    border: 1px solid $input-default-border-color;
+    border: 1px solid var(--input-default-border-color);
     color: inherit;
     transition:
       background-color 60ms,
@@ -83,31 +81,31 @@ $label-outline-color: $color-2;
 
   /* Stylized checkbox, when checked */
   input:checked ~ label::before {
-    background-color: $input-checked-background-color;
-    border-color: $input-checked-border-color;
+    background-color: var(--input-checked-background-color);
+    border-color: var(--input-checked-border-color);
   }
 
   /* Stylized checkbox, when active (during click) */
   input:active:not(:disabled) ~ label::before {
-    background-color: $input-active-border-color;
-    border-color: $input-active-border-color;
+    background-color: var(--input-active-border-color);
+    border-color: var(--input-active-border-color);
   }
 
   /* Stylized checkbox, when focused or hovered */
   input:focus:not(:disabled) ~ label::before,
   input:hover:not(:disabled) ~ label::before {
-    border: 1px solid $input-hover-border-color;
+    border: 1px solid var(--input-hover-border-color);
   }
 
   /* Stylized checkbox, when checked, and focused or hovered */
   input:focus:checked:not(:disabled) + label::before,
   input:hover:checked:not(:disabled) + label::before {
-    border-color: $input-active-border-color;
+    border-color: var(--input-active-border-color);
   }
 
   /* Stylized checkbox, when disabled */
   input:disabled + label::before {
-    border-color: $input-disabled-border-color;
+    border-color: var(--input-disabled-border-color);
   }
 
   /* Checkmark */
@@ -126,28 +124,28 @@ $label-outline-color: $color-2;
 
   /* Checkmark, when checked */
   input:checked ~ svg {
-    color: $checkmark-checked-color;
+    color: var(--checkmark-checked-color);
     opacity: 1;
   }
 
   /* Checkmark, when active (during click) */
   input:active ~ svg {
-    color: $checkmark-active-color;
+    color: var(--checkmark-active-color);
   }
 
   /* Checkmark, when input disabled */
   input:checked:disabled ~ svg {
-    color: $checkmark-disabled-color;
+    color: var(--checkmark-disabled-color);
   }
 
   /* Label, when input is focused */
   input:focus ~ label {
-    outline: 1px dotted $label-outline-color;
+    outline: 1px dotted var(--label-outline-color);
   }
 
   /* Label, when input is disabled */
   input:disabled ~ label {
-    color: $label-disabled-text-color;
+    color: var(--label-disabled-text-color);
     cursor: default;
   }
 }

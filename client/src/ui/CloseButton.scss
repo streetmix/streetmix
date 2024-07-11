@@ -1,32 +1,32 @@
 @import "../../styles/variables";
 
-$close-button-margin: 2px;
-$close-button-size: 34px;
-$close-icon-colour: $colour-turquoise-500;
-$close-icon-colour-hover: $colour-turquoise-600;
-
 button.close {
+  --close-button-margin: 2px;
+  --close-button-size: 34px;
+  --close-icon-color: var(--color-turquoise-500);
+  --close-icon-color-hover: var(--color-turquoise-600);
+
   // Position in dialog boxes
   position: absolute;
-  right: $close-button-margin;
-  top: $close-button-margin;
+  right: var(--close-button-margin);
+  top: var(--close-button-margin);
 
   // Mirror position in rtl
   [dir="rtl"] & {
     right: auto;
-    left: $close-button-margin;
+    left: var(--close-button-margin);
   }
 
   // Touch-friendly size
-  width: $close-button-size;
-  height: $close-button-size;
+  width: var(--close-button-size);
+  height: var(--close-button-size);
 
   // Appearance
   appearance: none;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  color: $close-icon-colour;
+  color: var(--close-icon-color);
   cursor: pointer;
   user-select: none;
   background-color: transparent;
@@ -39,7 +39,7 @@ button.close {
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);
-    color: $close-icon-colour-hover;
+    color: var(--close-icon-color-hover);
   }
 
   &:active {

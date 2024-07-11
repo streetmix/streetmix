@@ -36,7 +36,7 @@ body.phone #loading {
 
 #error,
 #loading {
-  color: $colour-turquoise-700;
+  color: var(--color-turquoise-700);
 
   h1 {
     @include large-message-text;

@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .sentiment-icon {
   width: 60px;
   height: 60px;
@@ -31,6 +29,6 @@
   }
 
   &.sentiment-5 {
-    background-color: $colour-emerald-400;
+    background-color: var(--color-emerald-400);
   }
 }

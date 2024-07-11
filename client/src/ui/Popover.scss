@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .popover-trigger {
   display: inline-flex;
   align-items: center;
@@ -11,12 +9,12 @@
   border-radius: var(--border-radius-medium);
   margin: 0 0.35em;
   padding: 0;
-  color: $colour-midnight-500;
+  color: var(--color-midnight-500);
   background-color: transparent;
   cursor: pointer;
 
   &:hover {
-    background-color: $colour-midnight-100;
+    background-color: var(--color-midnight-100);
   }
 }
 

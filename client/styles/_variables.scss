@@ -16,47 +16,46 @@
 $breakpoint-md: 768px;
 
 // Brand colours
-$colour-emerald-700: rgb(9 63 20);
-$colour-emerald-600: rgb(31 114 52);
-$colour-emerald-500: rgb(26 145 78);
-$colour-emerald-400: rgb(91 193 125);
-$colour-emerald-300: rgb(147 219 169);
-$colour-emerald-200: rgb(200 237 209);
-$colour-emerald-100: rgb(231 247 234);
-$colour-turquoise-700: rgb(21 68 71);
-$colour-turquoise-600: rgb(48 108 114);
-$colour-turquoise-500: rgb(82 162 175);
-$colour-turquoise-400: rgb(137 193 206);
-$colour-turquoise-300: rgb(193 235 247);
-$colour-turquoise-200: rgb(220 243 249);
-$colour-turquoise-100: rgb(235 249 252);
-$colour-copper-700: rgb(86 34 17);
-$colour-copper-600: rgb(137 69 40);
-$colour-copper-500: rgb(181 109 72);
-$colour-copper-400: rgb(216 141 100);
-$colour-copper-300: rgb(248 184 144);
-$colour-copper-200: rgb(249 213 192);
-$colour-copper-100: rgb(249 238 232);
-$colour-midnight-700: rgb(24 37 73);
-$colour-midnight-600: rgb(53 67 119);
-$colour-midnight-500: rgb(83 100 145);
-$colour-midnight-400: rgb(123 139 173);
-$colour-midnight-300: rgb(166 178 200);
-$colour-midnight-200: rgb(212 219 232);
-$colour-midnight-100: rgb(230 235 244);
+// $colour-emerald-700: rgb(9 63 20);
+// $colour-emerald-600: rgb(31 114 52);
+// $colour-emerald-500: rgb(26 145 78);
+// $colour-emerald-400: rgb(91 193 125);
+// $colour-emerald-300: rgb(147 219 169);
+// $colour-emerald-200: rgb(200 237 209);
+// $colour-emerald-100: rgb(231 247 234);
+// $colour-turquoise-700: rgb(21 68 71);
+// $colour-turquoise-600: rgb(48 108 114);
+// $colour-turquoise-500: rgb(82 162 175);
+// $colour-turquoise-400: rgb(137 193 206);
+// $colour-turquoise-300: rgb(193 235 247);
+// $colour-turquoise-200: rgb(220 243 249);
+// $colour-turquoise-100: rgb(235 249 252);
+// $colour-copper-700: rgb(86 34 17);
+// $colour-copper-600: rgb(137 69 40);
+// $colour-copper-500: rgb(181 109 72);
+// $colour-copper-400: rgb(216 141 100);
+// $colour-copper-300: rgb(248 184 144);
+// $colour-copper-200: rgb(249 213 192);
+// $colour-copper-100: rgb(249 238 232);
+// $colour-midnight-700: rgb(24 37 73);
+// $colour-midnight-600: rgb(53 67 119);
+// $colour-midnight-500: rgb(83 100 145);
+// $colour-midnight-400: rgb(123 139 173);
+// $colour-midnight-300: rgb(166 178 200);
+// $colour-midnight-200: rgb(212 219 232);
+// $colour-midnight-100: rgb(230 235 244);
 // $colour-turquoise-50: color.scale($colour-turquoise-100, $lightness: 20%);
-$colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 20%);
-$colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
-$colour-turquoise-250: color.scale($colour-turquoise-200, $lightness: -10%);
-$colour-turquoise-350: color.scale($colour-turquoise-300, $lightness: -10%);
-$colour-turquoise-425: color.scale($colour-turquoise-400, $lightness: -5%);
-$colour-turquoise-450: color.scale($colour-turquoise-400, $lightness: -10%);
-$colour-emerald-150: color.scale($colour-emerald-200, $lightness: 20%);
-$colour-emerald-350: color.scale($colour-emerald-300, $lightness: -10%);
-$colour-copper-150: color.scale($colour-copper-200, $lightness: 20%);
-$colour-copper-350: color.scale($colour-copper-300, $lightness: -10%);
-$colour-midnight-150: color.scale($colour-midnight-200, $lightness: 20%);
-$colour-midnight-350: color.scale($colour-midnight-300, $lightness: -10%);
+// $colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 20%);
+// $colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
+// $colour-turquoise-250: color.scale($colour-turquoise-200, $lightness: -10%);
+// $colour-turquoise-350: color.scale($colour-turquoise-300, $lightness: -10%);
+// $colour-turquoise-450: color.scale($colour-turquoise-400, $lightness: -10%);
+// $colour-emerald-150: color.scale($colour-emerald-200, $lightness: 20%);
+// $colour-emerald-350: color.scale($colour-emerald-300, $lightness: -10%);
+// $colour-copper-150: color.scale($colour-copper-200, $lightness: 20%);
+// $colour-copper-350: color.scale($colour-copper-300, $lightness: -10%);
+// $colour-midnight-150: color.scale($colour-midnight-200, $lightness: 20%);
+// $colour-midnight-350: color.scale($colour-midnight-300, $lightness: -10%);
 
 // Colours
 // commenting out variables replaced by css custom properties so that
@@ -124,16 +123,38 @@ $ui-colour: color.adjust($sky-colour, $lightness: 10%);
   --color-midnight-200: rgb(212 219 232);
   --color-midnight-100: rgb(230 235 244);
 
-  --color-turquoise-50: color-mix(
-    in oklch,
-    white 25%,
-    var(--color-turquoise-100)
-  );
-  --color-turquoise-350: color-mix(
-    in oklch,
-    var(--color-turquoise-300),
-    var(--color-turquoise-400)
-  );
+  // "extrapolated" color stops
+  // We want to eventually calculate color stops through color-mixing, e.g.:
+  // --color-turquoise-50: color-mix(in oklch, white 25%, var(--color-turquoise-100));
+  // --color-turquoise-150: color-mix(in oklch, var(--color-turquoise-100), var(--color-turquoise-200));
+  // --color-turquoise-250: color-mix(in oklch, var(--color-turquoise-200), var(--color-turquoise-300));
+  // For now, while transitioning to CSS custom properties, the formerly
+  // computed values in SCSS will be hard-coded values. The original SCSS
+  // functions are retained below.
+  --color-turquoise-50: #effafd;
+  --color-turquoise-150: #e3f5fa;
+  --color-turquoise-225: #c8ecf6;
+  --color-turquoise-250: #b4e5f2;
+  --color-turquoise-350: #9adef2;
+  --color-turquoise-450: #71b4c4;
+  --color-emerald-150: #d3f1da;
+  --color-emerald-350: #78d293;
+  --color-copper-150: #faddcd;
+  --color-copper-350: #f6a06b;
+  --color-midnight-150: #dde2ed;
+  --color-midnight-350: #8f9eba;
+  // $colour-turquoise-50: color.scale($colour-turquoise-100, $lightness: 20%);
+  // $colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 20%);
+  // $colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
+  // $colour-turquoise-250: color.scale($colour-turquoise-200, $lightness: -10%);
+  // $colour-turquoise-350: color.scale($colour-turquoise-300, $lightness: -10%);
+  // $colour-turquoise-450: color.scale($colour-turquoise-400, $lightness: -10%);
+  // $colour-emerald-150: color.scale($colour-emerald-200, $lightness: 20%);
+  // $colour-emerald-350: color.scale($colour-emerald-300, $lightness: -10%);
+  // $colour-copper-150: color.scale($colour-copper-200, $lightness: 20%);
+  // $colour-copper-350: color.scale($colour-copper-300, $lightness: -10%);
+  // $colour-midnight-150: color.scale($colour-midnight-200, $lightness: 20%);
+  // $colour-midnight-350: color.scale($colour-midnight-300, $lightness: -10%);
 
   // Misc colors
   --background-dirt-color: rgb(53 45 39);
