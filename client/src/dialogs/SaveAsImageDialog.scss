@@ -1,6 +1,3 @@
-@import "../../styles/variables";
-@import "../../styles/mixins";
-
 // Content of Save as Image dialog box
 .save-as-image-dialog {
   width: 720px;
@@ -45,8 +42,8 @@
   margin-top: 20px;
   margin-bottom: 20px;
   max-height: 300px;
-  border-top: 3px dashed $ui-colour;
-  border-bottom: 3px dashed $ui-colour;
+  border-top: 3px dashed var(--color-turquoise-400);
+  border-bottom: 3px dashed var(--color-turquoise-400);
 }
 
 .save-as-image-preview-loading {

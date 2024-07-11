@@ -63,14 +63,14 @@ a,
   @include tap-highlight-color("transparent !important");
 
   cursor: pointer;
-  color: color.adjust($ui-colour, $lightness: -30%);
+  color: var(--deprecated-ui-color-lightness-30);
 
   &:hover {
-    color: color.adjust($ui-colour, $lightness: -50%);
+    color: var(--deprecated-ui-color-lightness-50);
   }
 
   &:active {
-    color: color.adjust($ui-colour, $lightness: -70%);
+    color: var(--deprecated-ui-color-lightness-70);
   }
 }
 
@@ -83,11 +83,8 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: color.adjust(
-      fade-out($ui-colour, 0.7),
-      $saturation: -100%
-    ) !important;
-    border-color: color.adjust($ui-colour, $saturation: -100%) !important;
+    background: var(--deprecated-ui-color-fade-desaturate) !important;
+    border-color: var(--deprecated-ui-color-desaturate) !important;
   }
 }
 

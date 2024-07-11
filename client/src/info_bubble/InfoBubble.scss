@@ -1,7 +1,3 @@
-@use "sass:color";
-@import "../../styles/variables";
-@import "../../styles/mixins";
-
 // TODO: Further refactoring / splitting up of these styles
 
 .info-bubble {
@@ -42,7 +38,7 @@
     font-size: 1.2em;
     font-weight: 300;
     color: white;
-    background: color.adjust($ui-colour, $lightness: -20%);
+    background: var(--deprecated-ui-color-lightness-20);
     border-top-left-radius: var(--info-bubble-border-radius);
     border-top-right-radius: var(--info-bubble-border-radius);
   }
@@ -183,7 +179,7 @@
     right: -40px;
     width: 0;
     height: 0;
-    border-top: 40px solid color.adjust($ui-colour, $lightness: -20%);
+    border-top: 40px solid var(--deprecated-ui-color-lightness-20);
     border-right: 40px solid transparent;
 
     [dir="rtl"] & {
@@ -208,7 +204,7 @@
 
 .info-bubble-warnings {
   margin-top: 1px;
-  border-top: 1px solid $ui-colour;
+  border-top: 1px solid var(--deprecated-ui-color);
   padding: 0.5em 1.5em 0.5em 1em;
   white-space: normal;
   color: var(--warning-color);

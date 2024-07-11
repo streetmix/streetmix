@@ -1,6 +1,3 @@
-@use "sass:color";
-@import "../../styles/variables";
-
 .gallery-street-item {
   --selection-highlight-color: var(--color-copper-500);
   --thumbnail-width: 180px;
@@ -34,7 +31,7 @@
 .gallery-street-item > a {
   display: block;
   text-decoration: none;
-  border: 2px solid color.adjust($ui-colour, $lightness: -10%);
+  border: 2px solid var(--deprecated-ui-color-lightness-10);
   background-color: #f0f0f0;
   cursor: pointer;
   position: relative;

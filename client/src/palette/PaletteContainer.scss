@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .palette-container-outer {
   --palette-height: 64px;
   --palette-background: var(--off-white);
@@ -29,7 +27,7 @@
   border-top-right-radius: var(--border-radius-large);
 }
 
-@media only screen and (max-width: $breakpoint-md) {
+@media only screen and (max-width: 768px) {
   .palette-container-outer {
     padding-left: 0;
     padding-right: 0;

@@ -1,15 +1,11 @@
-@use "sass:color";
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
-$menu-bar-text-color: var(--segment-text);
-$menu-bar-text-color-hover: color.adjust($ui-colour, $lightness: -30%);
-$menu-bar-text-color-active: color.adjust($ui-colour, $lightness: -40%);
-$menu-bar-border-radius: var(--border-radius);
-$menu-bar-box-shadow: var(--light-box-shadow);
-
 .menu-bar {
+  --menu-bar-text-color: var(--segment-text);
+  --menu-bar-text-color-active: var(--deprecated-ui-color-lightness-40);
+  --menu-bar-border-radius: var(--border-radius);
   --menu-bar-background: var(--off-white);
+  --menu-bar-box-shadow: var(--light-box-shadow);
 
   z-index: var(--z-02-menu-bar);
   display: flex;
@@ -19,11 +15,11 @@ $menu-bar-box-shadow: var(--light-box-shadow);
   left: var(--menu-side-inset);
   right: var(--menu-side-inset);
   top: 0;
-  border-bottom-left-radius: $menu-bar-border-radius;
-  border-bottom-right-radius: $menu-bar-border-radius;
+  border-bottom-left-radius: var(--menu-bar-border-radius);
+  border-bottom-right-radius: var(--menu-bar-border-radius);
   background: var(--menu-bar-background);
   background-clip: padding-box;
-  box-shadow: $menu-bar-box-shadow;
+  box-shadow: var(--menu-bar-box-shadow);
   user-select: none;
   touch-action: none;
 
@@ -47,7 +43,7 @@ $menu-bar-box-shadow: var(--light-box-shadow);
     padding: 3px 1em;
     margin: 0;
     line-height: 32px;
-    color: $menu-bar-text-color;
+    color: var(--menu-bar-text-color);
   }
 
   li {
@@ -67,7 +63,7 @@ $menu-bar-box-shadow: var(--light-box-shadow);
     padding: 0 10px;
 
     &:active {
-      color: $menu-bar-text-color-active;
+      color: var(--menu-bar-text-color-active);
     }
 
     // Button "hover" state is actually wider than the button
@@ -111,7 +107,7 @@ $menu-bar-box-shadow: var(--light-box-shadow);
     }
 
     &:active {
-      color: $menu-bar-text-color-active;
+      color: var(--menu-bar-text-color-active);
     }
 
     // Button "hover" state is actually wider than the button

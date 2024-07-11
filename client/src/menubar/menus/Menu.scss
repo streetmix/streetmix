@@ -1,10 +1,7 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
-
-$menu-border-radius: var(--border-radius);
-$menu-box-shadow: var(--medium-box-shadow);
-
 .menu {
+  --menu-border-radius: var(--border-radius);
+  --menu-box-shadow: var(--medium-box-shadow);
+
   position: absolute;
   margin-top: 10px;
   touch-action: none;
@@ -16,8 +13,8 @@ $menu-box-shadow: var(--medium-box-shadow);
     transform 100ms,
     opacity 100ms;
   pointer-events: none;
-  border-radius: $menu-border-radius;
-  box-shadow: $menu-box-shadow;
+  border-radius: var(--menu-border-radius);
+  box-shadow: var(--menu-box-shadow);
   line-height: 1.4;
 
   /* Allows scrolling if the menu length is longer than height of viewport */

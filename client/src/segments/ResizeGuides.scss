@@ -1,11 +1,9 @@
-@import "../../styles/variables";
-
-$resize-guide-text-color: fade-out(black, 0.4);
-$resize-guide-text-inverted-color: fade-out(white, 0.4);
-$resize-guide-line: 1px dashed fade-out(black, 0.6);
-$resize-guide-line-inverted: 1px dashed fade-out(white, 0.6);
-
 .resize-guides {
+  --resize-guide-text-color: rgb(0 0 0 / 60%);
+  --resize-guide-text-inverted-color: rgb(255 255 255 / 60%);
+  --resize-guide-line: 1px dashed rgb(0 0 0 / 40%);
+  --resize-guide-line-inverted: 1px dashed rgb(255 255 255 / 40%);
+
   position: absolute;
   z-index: var(--z-07-resize-guide);
   top: -75px;
@@ -17,13 +15,13 @@ $resize-guide-line-inverted: 1px dashed fade-out(white, 0.6);
 .resize-guide {
   position: absolute;
   height: 100%;
-  border-left: $resize-guide-line;
-  border-right: $resize-guide-line;
+  border-left: var(--resize-guide-line);
+  border-right: var(--resize-guide-line);
 
   // Invert the UI text color when there is a dark background
   body.dark-skybox-invert-ui & {
-    border-left: $resize-guide-line-inverted;
-    border-right: $resize-guide-line-inverted;
+    border-left: var(--resize-guide-line-inverted);
+    border-right: var(--resize-guide-line-inverted);
   }
 }
 
@@ -35,11 +33,11 @@ $resize-guide-line-inverted: 1px dashed fade-out(white, 0.6);
   position: absolute;
   bottom: 400px;
   font-size: 0.8rem;
-  color: $resize-guide-text-color;
+  color: var(--resize-guide-text-color);
 
   // Invert the UI text color when there is a dark background
   body.dark-skybox-invert-ui & {
-    color: $resize-guide-text-inverted-color;
+    color: var(--resize-guide-text-inverted-color);
   }
 }
 

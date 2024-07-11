@@ -1,22 +1,19 @@
-@use "sass:color";
-@import "../../../styles/variables";
-
 .description-prompt,
 .description-close {
-  border-top: 1px solid $ui-colour;
+  border-top: 1px solid var(--deprecated-ui-color);
   white-space: normal;
   text-align: center;
   padding: 1em 2em;
   user-select: none;
-  color: color.adjust($ui-colour, $lightness: -20%);
+  color: var(--deprecated-ui-color-lightness-20);
   cursor: pointer;
   overflow: hidden;
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 
   &:hover {
-    color: color.adjust($ui-colour, $lightness: -40%);
-    background: color.mix($ui-colour, white, 50%);
+    color: var(--deprecated-ui-color-lightness-40);
+    background: var(--deprecated-ui-color-mix-white);
   }
 }
 
