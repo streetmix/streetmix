@@ -1,13 +1,9 @@
-@import "../../styles/variables";
-
-$street-name-top: 10px;
-
 .street-nameplate-container {
   position: absolute;
   left: 150px;
   right: 150px;
-  top: $street-name-top;
-  z-index: $z-03-street-name;
+  top: 10px;
+  z-index: var(--z-03-street-name);
   text-align: center;
   pointer-events: none;
 

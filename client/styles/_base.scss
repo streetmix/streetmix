@@ -1,5 +1,3 @@
-@use "sass:color";
-
 html {
   height: 100%;
   overflow: hidden;
@@ -50,7 +48,7 @@ button {
 
 .main-screen {
   position: relative;
-  z-index: $z-01-main-screen;
+  z-index: var(--z-01-main-screen);
   flex-grow: 1;
 
   body:not(.safari) & {
@@ -63,14 +61,14 @@ a,
   @include tap-highlight-color("transparent !important");
 
   cursor: pointer;
-  color: color.adjust($ui-colour, $lightness: -30%);
+  color: var(--deprecated-ui-color-lightness-30);
 
   &:hover {
-    color: color.adjust($ui-colour, $lightness: -50%);
+    color: var(--deprecated-ui-color-lightness-50);
   }
 
   &:active {
-    color: color.adjust($ui-colour, $lightness: -70%);
+    color: var(--deprecated-ui-color-lightness-70);
   }
 }
 
@@ -83,17 +81,14 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: color.adjust(
-      fade-out($ui-colour, 0.7),
-      $saturation: -100%
-    ) !important;
-    border-color: color.adjust($ui-colour, $saturation: -100%) !important;
+    background: var(--deprecated-ui-color-fade-desaturate) !important;
+    border-color: var(--deprecated-ui-color-desaturate) !important;
   }
 }
 
 hr {
   border: 0;
-  border-top: 1px solid $colour-turquoise-350;
+  border-top: 1px solid var(--color-turquoise-350);
   margin-top: 1em;
   margin-bottom: 1em;
   width: 100%;
@@ -105,7 +100,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $header-font-family;
+  font-family: var(--header-font-family);
 }
 
 // Some utility classes.

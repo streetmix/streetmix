@@ -1,13 +1,10 @@
-@use "sass:color";
-@import "../../../styles/variables";
-
-$sky-picker-border-radius: $border-radius-large;
-$sky-picker-box-shadow: $medium-box-shadow;
-$header-background-colour: $colour-turquoise-200;
-$header-text-colour: $colour-turquoise-700;
-
 .sky-picker-container-outer {
-  z-index: $z-07-sky-picker;
+  --sky-picker-border-radius: var(--border-radius-large);
+  --sky-picker-box-shadow: var(--medium-box-shadow);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-700);
+
+  z-index: var(--z-07-sky-picker);
   position: absolute;
 
   // TODO: use button trigger to set initial position,
@@ -19,9 +16,9 @@ $header-text-colour: $colour-turquoise-700;
 
 .sky-picker-container-inner {
   background-color: white;
-  border-radius: $sky-picker-border-radius;
+  border-radius: var(--sky-picker-border-radius);
   overflow: hidden;
-  box-shadow: $sky-picker-box-shadow;
+  box-shadow: var(--sky-picker-box-shadow);
   user-select: none;
 
   [dir="rtl"] & {
@@ -32,8 +29,8 @@ $header-text-colour: $colour-turquoise-700;
 
 .sky-picker header {
   padding: 0.5em;
-  background-color: $header-background-colour;
-  color: $header-text-colour;
+  background-color: var(--header-background-color);
+  color: var(--header-text-color);
   display: flex;
   align-items: center;
 }
@@ -84,31 +81,31 @@ $header-text-colour: $colour-turquoise-700;
 
 .sky-picker-upgrade {
   padding: 0.75em 1em;
-  background-color: $alert-background-light;
+  background-color: color-mix(in oklch, white 20%, var(--alert-background));
   font-size: 1rem;
   line-height: 1.2;
   text-align: center;
-  color: $colour-copper-700;
+  color: var(--color-copper-700);
 
   /* Very similar to .toast-action style */
   button {
     display: block !important;
-    border: 1px solid $colour-copper-400;
-    border-radius: $border-radius-medium;
+    border: 1px solid var(--color-copper-400);
+    border-radius: var(--border-radius-medium);
     padding: 0.5em 1em;
     margin: 0.75em auto 0.25em;
     width: auto;
     font-weight: 550;
     background-color: transparent;
-    color: $colour-copper-600;
+    color: var(--color-copper-600);
 
     &:disabled {
-      border: 1px solid color.adjust($colour-copper-200, $saturation: -50%);
+      filter: grayscale(0.8);
     }
 
     &:hover {
       background-color: transparent;
-      color: $colour-copper-700;
+      color: var(--color-copper-700);
     }
   }
 }

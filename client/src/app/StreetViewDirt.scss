@@ -1,15 +1,13 @@
-@import "../../styles/variables";
-
-$dirt-height: 40px;
-$dirt-height-minimum: 5px;
-
 .street-section-dirt {
+  --dirt-height: 40px;
+  --dirt-height-minimum: 5px;
+
   position: absolute;
   left: 0;
   right: 0;
-  top: $canvas-height - 80px + $dirt-height;
-  border-top: $dirt-height-minimum solid $background-dirt-colour;
-  background: $bottom-background;
+  top: calc(var(--canvas-height) - 80px + var(--dirt-height));
+  border-top: var(--dirt-height-minimum) solid var(--background-dirt-color);
+  background: var(--bottom-background);
   z-index: -2;
   pointer-events: none;
 }
@@ -18,10 +16,10 @@ $dirt-height-minimum: 5px;
 .street-section-dirt-right {
   content: " ";
   position: absolute;
-  top: -($dirt-height + $dirt-height-minimum);
-  background-color: $background-dirt-colour;
+  top: calc(-1 * (var(--dirt-height) + var(--dirt-height-minimum)));
+  background-color: var(--background-dirt-color);
   width: 360px;
-  height: $dirt-height + $dirt-height-minimum;
+  height: calc(var(--dirt-height) + var(--dirt-height-minimum));
 }
 
 .street-section-dirt-left {

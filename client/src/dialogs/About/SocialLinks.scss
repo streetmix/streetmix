@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .social-links {
   li {
     display: inline-block;
@@ -7,10 +5,10 @@
   }
 
   a {
-    color: $colour-midnight-400;
+    color: var(--color-midnight-400);
 
     &:hover {
-      color: $colour-midnight-500;
+      color: var(--color-midnight-500);
     }
   }
 
@@ -21,41 +19,41 @@
 }
 
 .social-github {
-  color: $social-github;
+  color: var(--social-github);
 
   &:hover {
-    color: $social-github-hover;
+    color: var(--social-github-hover);
   }
 }
 
 .social-discord {
-  color: $social-discord;
+  color: var(--social-discord);
 
   &:hover {
-    color: $social-discord-hover;
+    color: var(--social-discord-hover);
   }
 }
 
 .social-mastodon {
-  color: $social-mastodon;
+  color: var(--social-mastodon);
 
   &:hover {
-    color: $social-mastodon-hover;
+    color: var(--social-mastodon-hover);
   }
 }
 
 .social-twitter {
-  color: $social-twitter;
+  color: var(--social-twitter);
 
   &:hover {
-    color: $social-twitter-hover;
+    color: var(--social-twitter-hover);
   }
 }
 
 .social-instagram {
-  color: $social-instagram;
+  color: var(--social-instagram);
 
   &:hover {
-    color: $social-instagram-hover;
+    color: var(--social-instagram-hover);
   }
 }

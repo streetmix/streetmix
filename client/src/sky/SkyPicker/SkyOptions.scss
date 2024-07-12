@@ -1,9 +1,7 @@
-@import "../../../styles/variables";
-
-$selection-highlight-colour: $colour-copper-500;
-$selection-focus-colour: $colour-turquoise-500;
-
 .sky-options {
+  --selection-highlight-color: var(--color-copper-500);
+  --selection-focus-color: var(--color-turquoise-500);
+
   display: grid;
   height: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -16,24 +14,25 @@ $selection-focus-colour: $colour-turquoise-500;
   position: relative;
   width: 40px;
   height: 40px;
-  border-radius: $border-radius-large;
+  border-radius: var(--border-radius-large);
   cursor: pointer;
   transition: 120ms box-shadow;
 
   // These are functionally buttons, reset appearance
   appearance: none;
   border: 0;
+  padding: 0;
 
   &:focus {
     box-shadow:
-      0 0 0 2px $selection-focus-colour,
+      0 0 0 2px var(--selection-focus-color),
       inset 0 0 0 2px rgb(255 255 255 / 100%);
   }
 }
 
 .sky-option-item.sky-selected {
   box-shadow:
-    0 0 0 2px $selection-highlight-colour,
+    0 0 0 2px var(--selection-highlight-color),
     inset 0 0 0 2px rgb(255 255 255 / 100%);
 }
 
@@ -46,7 +45,7 @@ $selection-focus-colour: $colour-turquoise-500;
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: $border-radius-large;
+    border-radius: var(--border-radius-large);
     background-color: rgba(221 221 221 / 65%);
   }
 
@@ -55,7 +54,7 @@ $selection-focus-colour: $colour-turquoise-500;
     right: 4px;
     top: 4px;
     z-index: 2;
-    color: $colour-copper-600;
+    color: var(--color-copper-600);
 
     [dir="rtl"] & {
       left: 4px;

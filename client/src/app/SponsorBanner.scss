@@ -1,12 +1,10 @@
-@use "sass:color";
-@import "../../styles/variables";
-
 .sponsor-banner {
   position: relative;
-  z-index: $z-08-notification-bar;
+  z-index: var(--z-08-notification-bar);
   padding: 0.5em 1em 0.75em;
-  background-color: $background-dirt-colour;
-  border-top: 5px solid color.scale($background-dirt-colour, $lightness: -10%);
+  background-color: var(--background-dirt-color);
+  border-top: 5px solid
+    color-mix(in oklch, black 10%, var(--background-dirt-color));
   color: white;
 }
 

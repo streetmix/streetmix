@@ -1,5 +1,3 @@
-@use "sass:color";
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
 .btn,
@@ -9,10 +7,10 @@ a.btn {
   display: inline-block;
   outline: none;
   border: 0;
-  border-radius: $border-radius-medium;
+  border-radius: var(--border-radius-medium);
   padding: 0.75em 2em;
-  background-color: $colour-turquoise-225;
-  color: $colour-midnight-700;
+  background-color: var(--color-turquoise-250);
+  color: var(--color-midnight-700);
   font-weight: 550;
   text-align: center;
   text-decoration: none;
@@ -20,22 +18,19 @@ a.btn {
 
   // stylelint-disable-next-line selector-class-pattern
   &:not([disabled]) .svg-inline--fa {
-    color: $colour-midnight-700;
+    color: var(--color-midnight-700);
   }
 
   &:hover {
-    background-color: $colour-turquoise-250;
+    background-color: var(--color-turquoise-300);
   }
 
   &:active {
-    background-color: $colour-turquoise-250;
+    background-color: var(--color-turquoise-300);
   }
 
   &[disabled] {
-    background-color: color.adjust(
-      fade-out($ui-colour, 0.7),
-      $saturation: -100%
-    ) !important;
+    background-color: var(--deprecated-ui-color-fade-desaturate) !important;
     color: #999 !important;
     cursor: auto;
 
@@ -45,50 +40,49 @@ a.btn {
     }
 
     &:hover {
-      background-color: color.adjust(
-        fade-out($ui-colour, 0.7),
-        $saturation: -100%
-      ) !important;
+      background-color: var(--deprecated-ui-color-fade-desaturate) !important;
     }
   }
 
   &.btn-primary {
-    background-color: $colour-emerald-400;
+    background-color: var(--color-emerald-400);
     color: white;
 
     &:hover {
-      background-color: color.mix(
-        $colour-emerald-400,
-        $colour-emerald-500,
-        75%
+      // TODO: replace with new color stop?
+      background-color: color-mix(
+        in oklch,
+        var(--color-emerald-400),
+        var(--color-emerald-500) 25%
       );
     }
   }
 
   &.btn-secondary {
-    background-color: $colour-turquoise-500;
+    background-color: var(--color-turquoise-500);
     color: white;
 
     &:hover {
-      background-color: color.mix(
-        $colour-turquoise-500,
-        $colour-turquoise-600,
-        75%
+      // TODO: replace with new color stop?
+      background-color: color-mix(
+        in oklch,
+        var(--color-emerald-500),
+        var(--color-emerald-600) 25%
       );
     }
   }
 
   &.btn-tertiary {
     background-color: transparent;
-    color: $colour-turquoise-600;
+    color: var(--color-turquoise-600);
 
     &:not(:disabled) {
-      border: 1px solid $colour-turquoise-400;
+      border: 1px solid var(--color-turquoise-400);
     }
 
     &:hover {
-      background-color: $colour-turquoise-100;
-      color: $colour-turquoise-700;
+      background-color: var(--color-turquoise-100);
+      color: var(--color-turquoise-700);
     }
   }
 }

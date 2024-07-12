@@ -6,14 +6,14 @@
 
 /* Set root font-size */
 html {
-  font-size: $font-size-base;
+  font-size: var(--font-size-base);
 }
 
 body,
 input,
 select,
 option {
-  font-family: $font-family;
+  font-family: var(--font-family);
   font-size: 1rem;
 }
 

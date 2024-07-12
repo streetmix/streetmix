@@ -1,10 +1,9 @@
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
 .blocking-shield {
   @include blocking-shield;
 
-  z-index: $z-09-blocking-shield;
+  z-index: var(--z-09-blocking-shield);
   display: none;
   background: transparent;
   color: transparent;
@@ -20,7 +19,11 @@
 
   &.darken,
   &.darken-immediately {
-    background: fade-out($sky-colour, 0.15);
+    // While the preferred mixing method is in oklch, there is a bug(?) in
+    // Safari where doing so also causes the hue to shift unexpectedly.
+    // Mixing transparency in srgb will only affect alpha channel as expected
+    // in tested browsers (Firefox + Chrome) including Safari.
+    background-color: color-mix(in srgb, var(--sky-color), transparent 15%);
     color: black;
   }
 

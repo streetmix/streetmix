@@ -1,12 +1,10 @@
-@import "../../styles/variables";
-
 // TODO: Further split-up and refactoring of styles
 
 .segment {
   display: block;
   position: absolute;
   top: -150px;
-  height: $canvas-height + 85px + 30px;
+  height: calc(var(--canvas-height) + 85px + 30px);
   text-align: center;
   perspective: 500px;
   touch-action: none;
@@ -37,17 +35,17 @@ body.immediate-segment-resize .segment {
 }
 
 .segment.hover {
-  z-index: $z-02-segment-focused !important;
+  z-index: var(--z-02-segment-focused) !important;
 }
 
 .segment.hover .hover-bk {
-  background: $segment-hover-background;
+  background: var(--segment-hover-background);
   position: absolute;
   left: 0;
   right: 0;
   top: 10px;
   z-index: -1;
-  height: $canvas-baseline - 10px;
+  height: calc(var(--canvas-baseline) - 10px);
   pointer-events: none;
 }
 
@@ -74,25 +72,25 @@ body.segment-move-dragging #street-section-editable .segment {
   transition:
     left 100ms,
     transform 300ms;
-  height: $canvas-height + 85px + 30px + 90px;
+  height: calc(var(--canvas-height) + 85px + 30px + 90px);
 }
 
 .switching-away-exit {
   position: absolute;
-  z-index: $z-10-switch-away;
+  z-index: var(--z-10-switch-away);
   pointer-events: none;
   transform: none !important;
   perspective: 400px;
 }
 
 .switching-away-exit-done {
-  z-index: $z-10-switch-away !important;
+  z-index: var(--z-10-switch-away) !important;
 }
 
 .switching-away-exit-active canvas {
   transition:
-    transform $segment-switching-time ease-in,
-    opacity $segment-switching-time ease-in !important;
+    transform var(--segment-switching-time) ease-in,
+    opacity var(--segment-switching-time) ease-in !important;
   transform: rotateX(-60deg);
   transform-origin: 50% 120%;
   opacity: 0;
@@ -116,7 +114,7 @@ body.segment-move-dragging #street-section-editable .segment {
 .switching-in-enter-active canvas {
   opacity: 1;
   transition:
-    transform $segment-switching-time,
-    opacity $segment-switching-time !important;
+    transform var(--segment-switching-time),
+    opacity var(--segment-switching-time) !important;
   transform: none;
 }

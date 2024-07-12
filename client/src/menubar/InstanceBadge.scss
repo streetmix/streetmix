@@ -1,7 +1,5 @@
-@import "../../styles/variables";
-
 .instance-badge {
-  z-index: $z-02-menu-bar;
+  z-index: var(--z-02-menu-bar);
   display: none;
   position: absolute;
   left: 14px;

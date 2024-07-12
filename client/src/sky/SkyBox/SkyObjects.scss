@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .sky-background-objects {
   position: absolute;
   left: 0;
@@ -11,8 +9,8 @@
   opacity: 0;
   transform: translateY(-14px);
   transition:
-    opacity $skybox-transition,
-    transform $skybox-transition;
+    opacity var(--skybox-transition),
+    transform var(--skybox-transition);
 }
 
 .sky-background-object-enter-done {

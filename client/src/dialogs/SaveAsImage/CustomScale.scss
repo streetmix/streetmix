@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .custom-scale {
   margin-bottom: 1em;
   display: flex;
@@ -28,13 +26,13 @@
 }
 
 .custom-scale-info {
-  color: $colour-turquoise-600;
+  color: var(--color-turquoise-600);
 }
 
 .custom-scale-disabled {
-  color: $colour-midnight-300;
+  color: var(--color-midnight-300);
 
   .custom-scale-info {
-    color: $colour-midnight-300;
+    color: var(--color-midnight-300);
   }
 }

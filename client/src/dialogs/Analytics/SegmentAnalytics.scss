@@ -1,19 +1,17 @@
-@import "../../../styles/variables";
-
-$color-1-main: $colour-emerald-350;
-$color-1-alt: $colour-emerald-150;
-$color-1-em: $colour-emerald-400;
-$color-2-main: $colour-turquoise-350;
-$color-2-alt: $colour-turquoise-150;
-$color-2-em: $colour-turquoise-400;
-$color-3-main: $colour-copper-350;
-$color-3-alt: $colour-copper-150;
-$color-3-em: $colour-copper-400;
-$color-4-main: $colour-midnight-350;
-$color-4-alt: $colour-midnight-150;
-$color-4-em: $colour-midnight-400;
-
 .segment-analytics {
+  --analytics-color-1-main: var(--color-emerald-350);
+  --analytics-color-1-alt: var(--color-emerald-150);
+  --analytics-color-1-em: var(--color-emerald-400);
+  --analytics-color-2-main: var(--color-turquoise-350);
+  --analytics-color-2-alt: var(--color-turquoise-150);
+  --analytics-color-2-em: var(--color-turquoise-400);
+  --analytics-color-3-main: var(--color-copper-350);
+  --analytics-color-3-alt: var(--color-copper-150);
+  --analytics-color-3-em: var(--color-copper-400);
+  --analytics-color-4-main: var(--color-midnight-350);
+  --analytics-color-4-alt: var(--color-midnight-150);
+  --analytics-color-4-em: var(--color-midnight-400);
+
   position: relative;
   width: 100%;
   margin-bottom: 0.25em;
@@ -39,19 +37,19 @@ $color-4-em: $colour-midnight-400;
   z-index: 1;
 
   [data-color="1"] & {
-    background-color: $color-1-main;
+    background-color: var(--analytics-color-1-main);
   }
 
   [data-color="2"] & {
-    background-color: $color-2-main;
+    background-color: var(--analytics-color-2-main);
   }
 
   [data-color="3"] & {
-    background-color: $color-3-main;
+    background-color: var(--analytics-color-3-main);
   }
 
   [data-color="4"] & {
-    background-color: $color-4-main;
+    background-color: var(--analytics-color-4-main);
   }
 }
 
@@ -70,19 +68,19 @@ $color-4-em: $colour-midnight-400;
   overflow: hidden;
 
   [data-color="1"] & {
-    border-color: $color-1-em;
+    border-color: var(--analytics-color-1-em);
   }
 
   [data-color="2"] & {
-    border-color: $color-2-em;
+    border-color: var(--analytics-color-2-em);
   }
 
   [data-color="3"] & {
-    border-color: $color-3-em;
+    border-color: var(--analytics-color-3-em);
   }
 
   [data-color="4"] & {
-    border-color: $color-4-em;
+    border-color: var(--analytics-color-4-em);
   }
 
   img {
@@ -99,37 +97,37 @@ $color-4-em: $colour-midnight-400;
 
 .capacity-bar.capacity-bar-average {
   [data-color="1"] & {
-    background-color: $color-1-main;
+    background-color: var(--analytics-color-1-main);
   }
 
   [data-color="2"] & {
-    background-color: $color-2-main;
+    background-color: var(--analytics-color-2-main);
   }
 
   [data-color="3"] & {
-    background-color: $color-3-main;
+    background-color: var(--analytics-color-3-main);
   }
 
   [data-color="4"] & {
-    background-color: $color-4-main;
+    background-color: var(--analytics-color-4-main);
   }
 }
 
 .capacity-bar.capacity-bar-potential {
   [data-color="1"] & {
-    background-color: $color-1-alt;
+    background-color: var(--analytics-color-1-alt);
   }
 
   [data-color="2"] & {
-    background-color: $color-2-alt;
+    background-color: var(--analytics-color-2-alt);
   }
 
   [data-color="3"] & {
-    background-color: $color-3-alt;
+    background-color: var(--analytics-color-3-alt);
   }
 
   [data-color="4"] & {
-    background-color: $color-4-alt;
+    background-color: var(--analytics-color-4-alt);
   }
 }
 

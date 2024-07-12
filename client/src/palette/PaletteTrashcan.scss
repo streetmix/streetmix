@@ -1,19 +1,15 @@
-@use "sass:color";
-@import "../../styles/variables";
-@import "./PaletteContainer";
-
-// Contrast ratio of at least 3:1 compared to background
-$palette-text-color: rgb(108 108 108);
-
 .palette-trashcan {
+  // Contrast ratio of at least 3:1 compared to background
+  --palette-text-color: rgb(108 108 108);
+
   // Stretch out to fit the width of the viewport
   position: absolute;
-  left: -$left-right-inset;
-  right: -$left-right-inset;
+  left: calc(-1 * var(--left-right-inset));
+  right: calc(-1 * var(--left-right-inset));
   bottom: 0;
 
   // Tall enough to cover the top "overhang" of palette items
-  height: $palette-height + 30px;
+  height: calc(var(--palette-height) + 30px);
 
   // Center text in box
   display: flex;
@@ -25,12 +21,12 @@ $palette-text-color: rgb(108 108 108);
   transform: translateY(0);
 
   // Rest of styles
-  z-index: $z-07-trashcan;
-  border-top: 2px dashed $palette-text-color;
-  color: $palette-text-color;
+  z-index: var(--z-07-trashcan);
+  border-top: 2px dashed var(--palette-text-color);
+  color: var(--palette-text-color);
   font-size: 1.75rem;
   font-weight: 400;
-  background: color.adjust($bottom-background, $lightness: 5%);
+  background-color: color-mix(in oklch, white 25%, var(--bottom-background));
   pointer-events: none;
   transition:
     transform 150ms,

@@ -1,12 +1,10 @@
-@import "../../../styles/variables";
-
 .toast-container {
   position: absolute;
   top: 50px;
   right: 30px;
   min-width: 300px;
   max-width: 330px;
-  z-index: $z-07-toasts;
+  z-index: var(--z-07-toasts);
 
   // Align all toasts to right edge
   display: flex;

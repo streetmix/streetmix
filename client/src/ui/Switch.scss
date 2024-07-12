@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .switch-item {
   display: flex;
 }
@@ -12,7 +10,7 @@
   height: 21px;
   border: 0;
   background-color: white;
-  box-shadow: 0 0 0 1px $colour-turquoise-500;
+  box-shadow: 0 0 0 1px var(--color-turquoise-500);
   transition: background-color 120ms;
   border-radius: 9999px;
   cursor: pointer;
@@ -21,7 +19,7 @@
 
   &:focus,
   &:active:not(:disabled) {
-    box-shadow: 0 0 0 2px $colour-turquoise-500;
+    box-shadow: 0 0 0 2px var(--color-turquoise-500);
   }
 
   &:disabled {
@@ -33,12 +31,12 @@
   }
 
   &[data-state="checked"] {
-    background-color: $colour-turquoise-150;
-    box-shadow: 0 0 0 1px $colour-turquoise-500;
+    background-color: var(--color-turquoise-150);
+    box-shadow: 0 0 0 1px var(--color-turquoise-500);
 
     &:focus,
     &:active:not(:disabled) {
-      box-shadow: 0 0 0 2px $colour-turquoise-500;
+      box-shadow: 0 0 0 2px var(--color-turquoise-500);
     }
   }
 
@@ -57,7 +55,7 @@
   display: block;
   width: 15px;
   height: 15px;
-  background-color: $colour-midnight-150;
+  background-color: var(--color-midnight-150);
   border-radius: 9999px;
   transition:
     transform 100ms,
@@ -70,7 +68,7 @@
 
   &[data-state="checked"] {
     transform: translateX(21px);
-    background-color: $colour-turquoise-450;
+    background-color: var(--color-turquoise-450);
   }
 
   &[data-disabled] {

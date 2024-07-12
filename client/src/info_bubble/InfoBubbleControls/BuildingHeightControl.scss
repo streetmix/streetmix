@@ -1,5 +1,3 @@
-@import "../../../styles/variables";
-
 .building-height .up-down-input {
   /* Re-organizes the up/down input so that elements are stacked
   veritcally, and flips the icons so that up above the element */
@@ -11,15 +9,15 @@
     width: 100px;
     margin-top: 5px;
     margin-bottom: 5px;
-    border-left: 1px solid $form-element-border;
-    border-right: 1px solid $form-element-border;
+    border-left: 1px solid var(--form-element-border);
+    border-right: 1px solid var(--form-element-border);
   }
 
   .up-down-input-decrement {
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
   }
 
   .up-down-input-increment {
-    border-radius: $border-radius-medium;
+    border-radius: var(--border-radius-medium);
   }
 }

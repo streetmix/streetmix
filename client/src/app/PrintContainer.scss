@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .print-container {
   display: none;
   align-items: center;
@@ -10,7 +8,7 @@
   width: 100%;
   height: 100%;
   background-color: white;
-  z-index: $z-10-print;
+  z-index: var(--z-10-print);
 
   img {
     max-width: 100%;

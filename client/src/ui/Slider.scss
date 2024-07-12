@@ -1,18 +1,15 @@
-@import "../../styles/variables";
-
-$slider-thumb-color: $colour-turquoise-500 !default;
-$slider-thumb-color-hover: $colour-turquoise-450 !default;
-$slider-thumb-color-focus: $colour-turquoise-500 !default;
-$slider-thumb-size: 19px !default;
-$slider-track-color: $colour-turquoise-150 !default;
-$slider-track-height: 7px !default;
-$slider-range-color: $colour-turquoise-350 !default;
-
 .slider-root {
+  --slider-thumb-color: var(--color-turquoise-500);
+  --slider-thumb-color-hover: var(--color-turquoise-450);
+  --slider-thumb-size: 19px;
+  --slider-track-color: var(--color-turquoise-150);
+  --slider-track-height: 7px;
+  --slider-range-color: var(--color-turquoise-350);
+
   position: relative;
   display: flex;
   width: 100%;
-  height: max($slider-thumb-size, $slider-track-height);
+  height: max(var(--slider-thumb-size), var(--slider-track-height));
   margin: 0.25em 0;
   align-items: center;
   user-select: none;
@@ -22,12 +19,12 @@ $slider-range-color: $colour-turquoise-350 !default;
 .slider-track {
   position: relative;
   flex-grow: 1;
-  height: $slider-track-height;
-  border-radius: $border-radius-pill;
-  background-color: $slider-track-color;
+  height: var(--slider-track-height);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--slider-track-color);
 
   &[data-disabled] {
-    background-color: $colour-midnight-100;
+    background-color: var(--color-midnight-100);
   }
 }
 
@@ -35,39 +32,39 @@ $slider-range-color: $colour-turquoise-350 !default;
   position: absolute;
   top: 0;
   left: 0;
-  height: $slider-track-height;
-  border-radius: $border-radius-pill;
-  background-color: $slider-range-color;
+  height: var(--slider-track-height);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--slider-range-color);
 
   &[data-disabled] {
-    background-color: $colour-midnight-200;
+    background-color: var(--color-midnight-200);
   }
 }
 
 .slider-thumb {
   position: absolute;
   display: block;
-  width: $slider-thumb-size;
-  height: $slider-thumb-size;
-  margin-top: calc($slider-thumb-size / -2);
-  margin-left: calc($slider-thumb-size / -2);
-  border-radius: $border-radius-pill;
-  background-color: $slider-thumb-color;
+  width: var(--slider-thumb-size);
+  height: var(--slider-thumb-size);
+  margin-top: calc(var(--slider-thumb-size) / -2);
+  margin-left: calc(var(--slider-thumb-size) / -2);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--slider-thumb-color);
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(0 0 0 / 14%);
 
   &[data-disabled] {
-    background-color: $colour-midnight-300;
+    background-color: var(--color-midnight-300);
   }
 
   &:hover:not([data-disabled]) {
-    background: $slider-thumb-color-hover;
+    background-color: var(--slider-thumb-color-hover);
   }
 
   &:focus:not([data-disabled]) {
     box-shadow:
       inset 0 0 0 1px white,
       0 0 0 1px white,
-      /* Match background color */ 0 0 0 3px $colour-turquoise-500;
+      /* Match background color */ 0 0 0 3px var(--color-turquoise-500);
   }
 }

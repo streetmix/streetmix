@@ -1,6 +1,3 @@
-@use "sass:color";
-@import "../../../styles/variables";
-
 .street-width {
   display: inline-flex;
   align-items: center;
@@ -18,7 +15,7 @@
 
 .street-width-over {
   margin-left: 0.25em;
-  color: $warning-colour;
+  color: var(--warning-color);
 
   [dir="rtl"] & {
     margin-right: 0.25em;
@@ -29,7 +26,7 @@
 .street-width-under {
   margin-left: 0.25em;
   color: rgb(96 96 96);
-  transition: color $skybox-transition;
+  transition: color var(--skybox-transition);
 
   [dir="rtl"] & {
     margin-right: 0.25em;

@@ -1,18 +1,16 @@
-@import "../../../styles/variables";
-
 .notification-bar {
+  /* Close button overrides */
+  // TODO: Make standard for toast, status, etc
+  --close-icon-color: var(--color-copper-500);
+  --close-icon-color-hover: var(--color-copper-600);
+
   position: relative;
-  z-index: $z-08-notification-bar;
+  z-index: var(--z-08-notification-bar);
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
   text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
-  background-color: $alert-background;
-  border-bottom: $alert-border;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
 }
-
-/* Close button overrides */
-// TODO: Make standard for toast, status, etc
-$close-icon-colour: $colour-copper-500;
-$close-icon-colour-hover: $colour-copper-600;
 
 .notification-bar .close {
   width: 24px;
@@ -33,10 +31,10 @@ $close-icon-colour-hover: $colour-copper-600;
   }
 
   svg {
-    color: $close-icon-colour !important;
+    color: var(--close-icon-color) !important;
   }
 
   &:hover svg {
-    color: $close-icon-colour-hover !important;
+    color: var(--close-icon-color-hover) !important;
   }
 }

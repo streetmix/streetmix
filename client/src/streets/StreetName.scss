@@ -3,13 +3,9 @@
 
 $street-name-size: 1.5;
 
-@mixin street-name-mixin($size: $street-name-size) {
-  padding: 3px * $size;
-}
-
 @mixin street-name-inside-mixin($size: $street-name-size) {
   height: 50px * $size;
-  border: 3px * $size solid $street-name-text;
+  border: 3px * $size solid var(--street-name-text);
   padding: 10px * $size 20px * $size;
   padding-top: 11px * $size;
   padding-bottom: 5px * $size;
@@ -23,11 +19,13 @@ $street-name-size: 1.5;
 }
 
 .street-name {
-  @include street-name-mixin;
+  --street-name-text: black;
+  --street-name-background: white;
 
   display: inline-block;
-  background: $street-name-background;
-  color: $street-name-text;
+  padding: calc(3px * var(--street-name-size));
+  background: var(--street-name-background);
+  color: var(--street-name-text);
   user-select: none;
   white-space: nowrap;
 }
@@ -43,7 +41,7 @@ $street-name-size: 1.5;
 }
 
 .gallery .streets .street-name {
-  @include street-name-mixin($street-name-gallery-size);
+  --street-name-size: var(--street-name-size-small);
 
   max-width: 95%;
   position: relative;

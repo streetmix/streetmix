@@ -1,17 +1,15 @@
-@use "sass:color";
-@import "../../styles/variables";
 @import "../../styles/mixins";
 @import "../streets/StreetName";
 
-$welcome-panel-border-radius: $border-radius;
-$welcome-panel-box-shadow: $medium-box-shadow;
-
 .welcome-panel-container {
+  --welcome-panel-border-radius: var(--border-radius);
+  --welcome-panel-box-shadow: var(--medium-box-shadow);
+
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: $z-05-welcome;
+  z-index: var(--z-05-welcome);
   text-align: center;
   user-select: none;
   pointer-events: none;
@@ -27,9 +25,9 @@ $welcome-panel-box-shadow: $medium-box-shadow;
   font-size: 1.2rem;
   color: rgb(64 64 64);
   pointer-events: auto;
-  border-bottom-left-radius: $welcome-panel-border-radius;
-  border-bottom-right-radius: $welcome-panel-border-radius;
-  box-shadow: $welcome-panel-box-shadow;
+  border-bottom-left-radius: var(--welcome-panel-border-radius);
+  border-bottom-right-radius: var(--welcome-panel-border-radius);
+  box-shadow: var(--welcome-panel-box-shadow);
 }
 
 .welcome-panel-content {
@@ -70,7 +68,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
     &:not(:first-child)::before {
       content: "·";
       margin: 0 5px;
-      color: color.adjust($ui-colour, $lightness: -40%);
+      color: var(--deprecated-ui-color-lightness-40);
       padding-left: 0;
     }
   }
@@ -104,7 +102,7 @@ $welcome-panel-box-shadow: $medium-box-shadow;
 // Component specific tweaks to StreetName
 // Some duped styles from gallery element
 .welcome-panel .street-name {
-  @include street-name-mixin($street-name-gallery-size);
+  --street-name-size: var(--street-name-size-small);
 
   display: inline-block;
   position: relative;

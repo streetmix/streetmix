@@ -1,12 +1,9 @@
-@use "sass:color";
-@import "../../../styles/variables";
-
 .identity-menu {
   white-space: nowrap;
 }
 
 .identity-section {
-  border-bottom: 1px solid $colour-turquoise-200;
+  border-bottom: 1px solid var(--color-turquoise-200);
   padding: 0.8em;
   min-width: 150px;
   max-width: 300px;
@@ -47,7 +44,7 @@
 
 .identity-avatar-display-name {
   font-weight: 550;
-  color: $colour-turquoise-700;
+  color: var(--color-turquoise-700);
 }
 
 .identity-roles {
@@ -65,7 +62,7 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius: $border-radius;
+    border-radius: var(--border-radius-medium);
     padding: 0.3em 0.6em;
     margin-right: 0.35em;
     margin-bottom: 0.35em;
@@ -79,13 +76,13 @@
   }
 
   .role-badge-generic {
-    background-color: $colour-midnight-100;
-    color: $colour-midnight-600;
+    background-color: var(--color-midnight-100);
+    color: var(--color-midnight-600);
   }
 
   .role-badge-subscriber {
-    background-color: $colour-turquoise-200;
-    color: $colour-turquoise-700;
+    background-color: var(--color-turquoise-200);
+    color: var(--color-turquoise-700);
 
     img {
       height: 1em;
@@ -99,7 +96,7 @@
   }
 
   .role-badge-admin {
-    background-color: $alert-border-colour;
-    color: color.scale($alert-border-colour, $lightness: -75%);
+    background-color: var(--alert-border-color);
+    color: var(--color-copper-700);
   }
 }

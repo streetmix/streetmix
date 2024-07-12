@@ -1,11 +1,10 @@
-@import "../../styles/variables";
 @import "../../styles/mixins";
 
-$dialog-border-radius: $border-radius-large;
-$header-background-colour: $colour-turquoise-200;
-$header-text-colour: $colour-turquoise-700;
-
 .dialog-box-container {
+  --dialog-border-radius: var(--border-radius-large);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-700);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,10 +16,10 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 .dialog-box-backdrop {
-  z-index: $z-08-dialog-box-backdrop;
+  z-index: var(--z-08-dialog-box-backdrop);
   position: absolute;
   inset: 0;
-  background: fade-out($sky-colour, 0.5);
+  background: var(--sky-color);
   touch-action: none;
 
   /* Transitions */
@@ -36,11 +35,11 @@ $header-text-colour: $colour-turquoise-700;
   padding: 0;
   background: white;
   line-height: 1.4;
-  z-index: $z-09-dialog-box;
+  z-index: var(--z-09-dialog-box);
   touch-action: none;
 
   /* New styles! Let's try it! */
-  border-radius: $dialog-border-radius;
+  border-radius: var(--dialog-border-radius);
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
 
@@ -60,8 +59,8 @@ $header-text-colour: $colour-turquoise-700;
   header {
     padding: 1.75rem 1em;
     text-align: center;
-    background-color: $header-background-colour;
-    color: $header-text-colour;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
   }
 
   h1 {
@@ -90,7 +89,7 @@ $header-text-colour: $colour-turquoise-700;
   }
 
   button.close {
-    z-index: $z-09-dialog-box;
+    z-index: var(--z-09-dialog-box);
   }
 
   // Button placement
@@ -113,7 +112,7 @@ $header-text-colour: $colour-turquoise-700;
 }
 
 .dialog-transition-enter-done .dialog-box-backdrop {
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .dialog-transition-exit .dialog-box-backdrop {
@@ -135,13 +134,13 @@ $header-text-colour: $colour-turquoise-700;
 
 button.dialog-primary-action {
   border: 0;
-  border-top: 1px solid $colour-turquoise-350;
+  border-top: 1px solid var(--color-turquoise-350);
   border-radius: 0;
   background-color: white;
   font-weight: normal;
   width: 100%;
   text-align: center;
-  color: $colour-turquoise-600;
+  color: var(--color-turquoise-600);
   min-height: 46px;
   cursor: pointer;
 
@@ -149,7 +148,7 @@ button.dialog-primary-action {
   margin-top: 0 !important;
 
   &:hover {
-    background-color: $colour-turquoise-100;
-    color: $colour-turquoise-700;
+    background-color: var(--color-turquoise-100);
+    color: var(--color-turquoise-700);
   }
 }
