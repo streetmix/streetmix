@@ -1,7 +1,7 @@
 import type { Config } from '@docusaurus/types'
 import type { Options, ThemeConfig } from '@docusaurus/preset-classic'
 import { themes } from 'prism-react-renderer/'
-import remarkSmartypants from '@silvenon/remark-smartypants'
+import remarkSmartypants from 'remark-smartypants'
 
 const config: Config = {
   title: 'Streetmix Documentation',
