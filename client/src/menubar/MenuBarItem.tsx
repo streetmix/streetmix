@@ -1,6 +1,8 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { ChevronDownIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
+
+import type { PassthroughProps } from '~/src/types'
 import ExternalLink from '../ui/ExternalLink'
 import Tooltip from '../ui/Tooltip'
 import { isUrlExternal } from '../util/helpers'
@@ -26,10 +28,10 @@ export default function MenuBarItem ({
   url,
   children = <FormattedMessage id={translation} defaultMessage={label} />,
   ...restProps
-}: MenuBarItemProps): React.ReactElement {
+}: MenuBarItemProps | PassthroughProps): React.ReactElement {
   let component
 
-  if (url !== undefined) {
+  if (typeof url === 'string') {
     if (isUrlExternal(url)) {
       component = (
         <li>

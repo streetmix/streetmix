@@ -5,6 +5,11 @@ import type { StreetData } from '@streetmix/types'
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
 
+// Helper type that can be combined with a component's props
+// to allow pass-through of arbitrary props
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PassthroughProps = Record<string, any>
+
 export interface UserSettings {
   colorMode: ColorModes
   lastStreetCreatorId: string
