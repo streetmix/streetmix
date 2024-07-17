@@ -3,9 +3,9 @@ import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 
 import { render } from '~/test/helpers/render'
-import PrintContainer from '../PrintContainer'
+import PrintContainer from './PrintContainer'
 
-vi.mock('../../streets/image', () => ({
+vi.mock('../streets/image', () => ({
   getStreetImage: () => ({
     toDataURL: () => 'foo'
   })

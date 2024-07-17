@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 import { flushSync } from 'react-dom'
-import { useSelector, useDispatch } from 'react-redux'
+
+import { useSelector, useDispatch } from '../store/hooks'
 import { startPrinting, stopPrinting } from '../store/slices/app'
 import { getStreetImage } from '../streets/image'
 import './PrintContainer.scss'
 
-function PrintContainer (props) {
+function PrintContainer (): React.ReactElement {
   const isPrinting = useSelector((state) => state.app.printing)
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
-  const printImage = useRef(null)
+  const printImage = useRef<string | null>(null)
 
   useEffect(() => {
-    const beforeprintHandler = () => {
+    const beforeprintHandler = (): void => {
       // `flushSync` is a rarely used React feature that forces updates to
       // synchronously "flush" to DOM in order to play nicely with the
       // browser. We *need* to do this during the `beforeprint` event
@@ -22,7 +23,9 @@ function PrintContainer (props) {
         dispatch(startPrinting())
       })
     }
-    const afterprintHandler = () => dispatch(stopPrinting())
+    const afterprintHandler = (): void => {
+      dispatch(stopPrinting())
+    }
 
     // Add event listeners to handle a print event
     window.addEventListener('beforeprint', beforeprintHandler)
@@ -46,7 +49,7 @@ function PrintContainer (props) {
 
   return (
     <div className="print-container">
-      {printImage.current && <img src={printImage.current} />}
+      {printImage.current !== null && <img src={printImage.current} />}
     </div>
   )
 }
