@@ -1,3 +1,4 @@
+import type { ColorModes } from '~/src/app/constants'
 import type { SerializedError } from '@reduxjs/toolkit'
 import type { StreetData } from '@streetmix/types'
 
@@ -5,7 +6,7 @@ import type { StreetData } from '@streetmix/types'
 // Shared types should move to @streetmix/types
 
 export interface UserSettings {
-  colorMode: string
+  colorMode: ColorModes
   lastStreetCreatorId: string
   lastStreetId: string
   lastStreetNamespacedId: number
