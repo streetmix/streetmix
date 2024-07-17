@@ -1,7 +1,3 @@
-/**
- * Segments in the Palette component render differently (and have different
- * logic and behavior) to segments rendered on the street.
- */
 import React from 'react'
 import { useIntl } from 'react-intl'
 import {
@@ -31,15 +27,13 @@ interface PaletteItemProps {
 
   // Provided by parent
   segment: SegmentDefinition
-  unlockCondition: 'SIGN_IN' | 'SUBSCRIBE'
-  randSeed: number | string
-  tooltipTarget: TippyProps['singleton']
+  unlockCondition?: 'SIGN_IN' | 'SUBSCRIBE'
+  tooltipTarget?: TippyProps['singleton']
 }
 
 function PaletteItem ({
   segment,
   unlockCondition,
-  randSeed,
   tooltipTarget,
   ...props
 }: PaletteItemProps): React.ReactElement | null {

@@ -3,13 +3,13 @@
  * available street segments. Users can drag and drop segments from the palette
  * onto the street.
  */
-import React, { useRef } from 'react'
+import React from 'react'
 import { IntlProvider } from 'react-intl'
+
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { getAllSegmentInfoArray } from '../segments/info'
-import { generateRandSeed } from '../util/random'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.scss'
 
@@ -18,9 +18,6 @@ function PaletteItems (): React.ReactElement {
   const locale = useSelector((state) => state.locale)
   const [source, target] = useSingleton()
 
-  // `randSeed` is stored as a ref so that its value does not change
-  // on every re-render
-  const randSeed = useRef(generateRandSeed())
   const segments = getAllSegmentInfoArray()
 
   // For each segment, filter out the ones that have been disabled
@@ -37,7 +34,6 @@ function PaletteItems (): React.ReactElement {
         key={segment.id}
         segment={segment}
         unlockCondition={segment.unlockCondition}
-        randSeed={randSeed.current}
         tooltipTarget={target}
       />
     ))

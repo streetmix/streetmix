@@ -7,7 +7,7 @@ import { render } from '~/test/helpers/render'
 import PaletteContainer from './PaletteContainer'
 
 vi.mock('../segments/view', async (importOriginal) => {
-  const actual = importOriginal()
+  const actual: object = await importOriginal()
   return {
     ...actual,
     drawSegmentContents: vi.fn()
@@ -74,7 +74,7 @@ describe('PaletteContainer', () => {
     // send it to react-dnd. This limitation means we touch the implementation
     // in order to test hover on the correct element.
     await userEvent.hover(
-      screen.getAllByRole('listitem')[0].querySelector('div')
+      screen.getAllByRole('listitem')[0].querySelector('div') as Element
     )
 
     await waitFor(() => {
