@@ -16,8 +16,7 @@ vi.mock('../../store/slices/dialogs', () => ({
 
 describe('HelpMenu', () => {
   afterEach(() => {
-    // Resets mock call counter between tests
-    showDialog.mockClear()
+    vi.clearAllMocks()
   })
 
   it('renders', () => {
@@ -53,7 +52,7 @@ describe('HelpMenu', () => {
   it.skip('shows the About dialog when keyboard shortcut is pressed', async () => {
     render(<HelpMenu isActive={true} />)
 
-    await userEvent.type('?')
+    await userEvent.keyboard('?')
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('ABOUT')
