@@ -46,10 +46,10 @@ export interface Street {
   id: string
   namespacedId: number
   name: null
-  clientUpdatedAt: Date
+  clientUpdatedAt: string // ISO date string
   data: StreetData
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string // ISO date string
+  updatedAt: string // ISO date string
   originalStreetId: string
   creatorId: string
 }

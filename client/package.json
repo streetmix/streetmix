@@ -41,6 +41,7 @@
     "auth0-js": "9.26.1",
     "autoprefixer": "10.4.19",
     "copy-to-clipboard": "3.3.3",
+    "date-fns": "3.6.0",
     "downshift": "9.0.4",
     "downshift-pelias": "0.0.4-alpha",
     "file-saver": "2.0.5",
