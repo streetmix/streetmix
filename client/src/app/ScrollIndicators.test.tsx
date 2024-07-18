@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import ScrollIndicators from '../ScrollIndicators'
+import ScrollIndicators from './ScrollIndicators'
 
 const baseProps = {
   left: 1,
@@ -48,7 +48,7 @@ describe('ScrollIndicators', () => {
     const scrollStreet = vi.fn()
     render(<ScrollIndicators {...baseProps} scrollStreet={scrollStreet} />)
 
-    await userEvent.type('{arrowleft}')
+    await userEvent.keyboard('{arrowleft}')
 
     expect(scrollStreet).toBeCalled()
   })
