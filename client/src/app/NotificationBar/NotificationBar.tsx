@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
-import { useSelector } from '../../store/hooks'
-import CloseButton from '../../ui/CloseButton'
-import ExternalLink from '../../ui/ExternalLink'
+
+import { useSelector } from '~/src/store/hooks'
+import CloseButton from '~/src/ui/CloseButton'
+import ExternalLink from '~/src/ui/ExternalLink'
 import './NotificationBar.scss'
 
 const TRANSITION_DURATION = 250

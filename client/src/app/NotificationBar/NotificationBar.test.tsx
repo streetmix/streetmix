@@ -75,8 +75,12 @@ describe('NotificationBar', () => {
     it('renders nothing if the locale is not English', () => {
       const notification = { display: true }
       const { container } = render(
-        <NotificationBar locale="de" notification={notification} />,
-        { initialState }
+        <NotificationBar notification={notification} />,
+        {
+          locale: {
+            locale: 'de'
+          }
+        }
       )
       expect(container).toBeEmptyDOMElement()
     })
