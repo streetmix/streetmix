@@ -7,7 +7,7 @@ const SECONDS_AGO = 1000 * 60
 
 interface DateTimeRelativeProps {
   value: string // Should be ISO date string, e.g. "2018-04-24T23:37:55.21Z"
-  timezone: string
+  timezone?: string
 }
 
 export default function DateTimeRelative ({
