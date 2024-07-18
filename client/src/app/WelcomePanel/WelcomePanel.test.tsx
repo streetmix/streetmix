@@ -8,8 +8,8 @@ import { render } from '~/test/helpers/render'
 import { everythingLoaded } from '~/src/store/slices/app'
 import { isSignedIn } from '~/src/users/authentication'
 import apiClient from '~/src/util/api'
-import WelcomePanel from '../WelcomePanel'
 import { getMode } from '../mode'
+import WelcomePanel from './WelcomePanel'
 
 vi.mock('../../users/authentication')
 vi.mock('../mode')
@@ -86,7 +86,7 @@ describe('WelcomePanel', () => {
       })
 
       await waitFor(async () => {
-        const input = getByLabelText(/Start with a copy/)
+        const input = getByLabelText(/Start with a copy/) as HTMLInputElement
         await userEvent.click(input)
         expect(input.checked).toBe(true)
       })

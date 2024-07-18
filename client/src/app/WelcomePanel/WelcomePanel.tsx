@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { isSignedIn } from '../users/authentication'
-import CloseButton from '../ui/CloseButton'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
   setWelcomePanelVisible,
   setWelcomePanelDismissed
-} from '../store/slices/ui'
-import { registerKeypress, deregisterKeypress } from './keypress'
-import { MODES, getMode } from './mode'
-import WelcomeNewStreet from './WelcomePanel/NewStreet'
-import WelcomeFirstTimeExistingStreet from './WelcomePanel/FirstTimeExistingStreet'
-import WelcomeFirstTimeNewStreet from './WelcomePanel/FirstTimeNewStreet'
+} from '~/src/store/slices/ui'
+import { isSignedIn } from '~/src/users/authentication'
+import CloseButton from '~/src/ui/CloseButton'
+import { registerKeypress, deregisterKeypress } from '../keypress'
+import { MODES, getMode } from '../mode'
+import WelcomeNewStreet from './NewStreet'
+import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet'
+import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet'
 import './WelcomePanel.scss'
 
 const WELCOME_NONE = 0
@@ -42,7 +43,7 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 // compatibility
 const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
-function WelcomePanel (props) {
+function WelcomePanel (): React.ReactElement | null {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
@@ -90,7 +91,7 @@ function WelcomePanel (props) {
 
   // When everything is loaded, determine what type of welcome panel to show
   useEffect(() => {
-    function determineWelcomeType () {
+    function determineWelcomeType (): number {
       let welcomeType = WELCOME_NONE
 
       if (getMode() === MODES.NEW_STREET) {
@@ -108,7 +109,7 @@ function WelcomePanel (props) {
       return welcomeType
     }
 
-    if (everythingLoaded === true) {
+    if (everythingLoaded) {
       setWelcomeType(determineWelcomeType())
     }
   }, [everythingLoaded, isReturningUser])
@@ -116,7 +117,7 @@ function WelcomePanel (props) {
   // Set up and tear down when a welcome panel is shown
   useEffect(() => {
     // Do nothing with this hook if the panel is not visible
-    if (isVisible === false) return
+    if (!isVisible) return
 
     // Hide welcome panel on certain events
     window.addEventListener(
@@ -177,17 +178,19 @@ export default WelcomePanel
  * as a "returning user" so that the message is not geared toward first-time
  * users the next time they visit the site.
  */
-export function setIsReturningUserInLocalStorage () {
-  window.localStorage[LOCAL_STORAGE_RETURNING_USER] = 'true'
+export function setIsReturningUserInLocalStorage (): void {
+  window.localStorage.setItem(LOCAL_STORAGE_RETURNING_USER, 'true')
 }
 
 /**
  * Retrieves LocalStorage state for whether whether user is a returning user
  */
-function getIsReturningUserFromLocalStorage () {
-  const localSetting = window.localStorage[LOCAL_STORAGE_RETURNING_USER]
+function getIsReturningUserFromLocalStorage (): boolean {
+  const localSetting = window.localStorage.getItem(
+    LOCAL_STORAGE_RETURNING_USER
+  )
 
-  if (localSetting) {
+  if (localSetting !== null) {
     return JSON.parse(localSetting)
   }
 

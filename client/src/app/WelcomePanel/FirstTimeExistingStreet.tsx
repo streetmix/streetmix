@@ -7,7 +7,7 @@ import Button from '~/src/ui/Button'
 import StreetName from '~/src/streets/StreetName'
 import Avatar from '~/src/users/Avatar'
 import { goNewStreet } from '../routing'
-import { setIsReturningUserInLocalStorage } from '../WelcomePanel'
+import { setIsReturningUserInLocalStorage } from './WelcomePanel'
 
 function FirstTimeExistingStreet (): React.ReactElement {
   const street = useSelector((state) => state.street)

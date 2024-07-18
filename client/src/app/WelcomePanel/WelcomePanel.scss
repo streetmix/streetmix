@@ -1,5 +1,5 @@
-@import "../../styles/mixins";
-@import "../streets/StreetName";
+@import "../../../styles/mixins";
+@import "../../streets/StreetName";
 
 .welcome-panel-container {
   --welcome-panel-border-radius: var(--border-radius);
