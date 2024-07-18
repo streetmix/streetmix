@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '../../streets/constants'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { getLastStreet } from '~/src/store/actions/street'
+import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '~/src/streets/constants'
 import {
   onNewStreetDefaultClick,
   onNewStreetEmptyClick
-} from '../../streets/creation'
-import { getLastStreet } from '../../store/actions/street'
+} from '~/src/streets/creation'
 
-function NewStreet (props) {
+function NewStreet (): React.ReactElement {
   const newStreetPreference = useSelector(
     (state) => state.settings.newStreetPreference
   )
@@ -32,14 +33,16 @@ function NewStreet (props) {
   const [state, setState] = useState({ selectedNewStreetType })
 
   // Handles changing the "checked" state of the input buttons.
-  function handleChangeNewStreetType (event) {
+  function handleChangeNewStreetType (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
     setState({
       selectedNewStreetType: event.target.id
     })
   }
 
-  function handleGetLastStreet (event) {
-    dispatch(getLastStreet())
+  function handleGetLastStreet (): void {
+    void dispatch(getLastStreet())
   }
 
   return (
@@ -88,7 +91,7 @@ function NewStreet (props) {
         </li>
         {/* Display this button only if there is a previous street to copy
             from that is not the same as the current street */}
-        {priorLastStreetId && priorLastStreetId !== street.id && (
+        {priorLastStreetId !== null && priorLastStreetId !== street.id && (
           <li>
             <input
               type="radio"

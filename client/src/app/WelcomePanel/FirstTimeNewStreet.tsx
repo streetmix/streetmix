@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-function FirstTimeNewStreet (props) {
+function FirstTimeNewStreet (): React.ReactElement {
   return (
     <div className="welcome-panel-content first-time-new-street">
       <h1>

@@ -1,18 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Button from '../../ui/Button'
-import StreetName from '../../streets/StreetName'
-import Avatar from '../../users/Avatar'
+
+import { useSelector } from '~/src/store/hooks'
+import { useGetUserQuery } from '~/src/store/services/api'
+import Button from '~/src/ui/Button'
+import StreetName from '~/src/streets/StreetName'
+import Avatar from '~/src/users/Avatar'
 import { goNewStreet } from '../routing'
 import { setIsReturningUserInLocalStorage } from '../WelcomePanel'
-import { useGetUserQuery } from '../../store/services/api'
 
-function FirstTimeExistingStreet (props) {
+function FirstTimeExistingStreet (): React.ReactElement {
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
-  function handleGoNewStreet (event) {
+  function handleGoNewStreet (): void {
     setIsReturningUserInLocalStorage()
     goNewStreet(true)
   }
@@ -30,7 +31,7 @@ function FirstTimeExistingStreet (props) {
           Avatar components cannot exist inside a <p> */}
       <div className="paragraph">
         {/* Display street creator if creatorId is available. */}
-        {street.creatorId
+        {typeof street.creatorId === 'string'
           ? (
             <FormattedMessage
               id="dialogs.welcome.existing.intro"
@@ -40,7 +41,7 @@ function FirstTimeExistingStreet (props) {
                 creator: (
                   <>
                     <Avatar userId={street.creatorId} />{' '}
-                    {creatorProfile?.displayName || street.creatorId}
+                    {creatorProfile?.displayName ?? street.creatorId}
                   </>
                 )
               }}
