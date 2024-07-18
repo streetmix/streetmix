@@ -11,10 +11,7 @@
  *
  * WARNING: This is not a drop in replacement solution and it might not work
  * for some edge cases.
- *
- * @param {Array} arr - array of items to convert to unique values
- * @returns Array
  */
-export function unique (arr) {
+export function unique (arr: unknown[]): unknown[] {
   return Array.from(new Set(arr))
 }

@@ -1,4 +1,4 @@
-import { normalizeSlug, isUrlExternal } from '../helpers'
+import { normalizeSlug, isUrlExternal } from './helpers'
 
 const SELF_HOSTNAME = 'streetmix.net'
 

@@ -13,12 +13,12 @@
  *
  * For instance: if not all objects in the array have the same properties,
  * this will fail to find the correct object.
- *
- * @param {Array} arr - array of items to find the max value
- * @param {Function} func - selector function
- * @returns *
  */
-export function maxBy (arr, func) {
+
+export function maxBy (
+  arr: Array<Record<string, unknown>>,
+  func: (arg: Record<string, unknown>) => number
+): Record<string, unknown> | undefined {
   const max = Math.max(...arr.map(func))
   return arr.find((item) => func(item) === max)
 }

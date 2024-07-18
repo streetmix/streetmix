@@ -7,10 +7,10 @@
  * the wrong time, it could cause the user to lose focus on something
  * (like an input box) improperly, so be very careful when using it.
  */
-export function loseAnyFocus () {
+export function loseAnyFocus (): void {
   document.body.focus()
 }
 
-export function isFocusOnBody () {
+export function isFocusOnBody (): boolean {
   return document.activeElement === document.body
 }

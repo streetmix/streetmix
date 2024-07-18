@@ -1,4 +1,4 @@
-import { maxBy } from '../maxBy'
+import { maxBy } from './maxBy'
 
 describe('maxBy()', () => {
   it('returns the object with the highest value property', () => {
@@ -11,6 +11,6 @@ describe('maxBy()', () => {
       { a: 9 },
       { a: 1 }
     ]
-    expect(maxBy(objs, (o) => o.a)).toEqual({ a: 9 })
+    expect(maxBy(objs, (o) => o.a as number)).toEqual({ a: 9 })
   })
 })

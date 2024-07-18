@@ -1,8 +1,8 @@
-import { processWidthInput, prettifyWidth } from '../width_units'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
-} from '../../users/constants'
+} from '../users/constants'
+import { processWidthInput, prettifyWidth } from './width_units'
 
 // Use this when it doesn't matter what the unit is.
 const DEFAULT_UNITS = SETTINGS_UNITS_METRIC
