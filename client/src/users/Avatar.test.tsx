@@ -11,7 +11,7 @@ describe('Avatar', () => {
     const { getByAltText } = render(<Avatar userId={userId} />)
 
     await waitFor(() => {
-      const el = getByAltText(userId)
+      const el = getByAltText(userId) as HTMLImageElement
 
       // Expect image element to have a URL string of any length
       expect(el.src.length).toBeGreaterThan(1)
@@ -22,7 +22,7 @@ describe('Avatar', () => {
     const userId = 'foo'
     const { getByAltText } = render(<Avatar userId={userId} />)
 
-    const el = getByAltText(userId)
+    const el = getByAltText(userId) as HTMLImageElement
 
     // This test doesn't need to `waitFor` anything because the default
     // state of `useGetUserQuery` is start in loading mode.
@@ -36,7 +36,7 @@ describe('Avatar', () => {
     const { getByAltText } = render(<Avatar userId={userId} />)
 
     await waitFor(() => {
-      const el = getByAltText(userId)
+      const el = getByAltText(userId) as HTMLImageElement
 
       // Expect image element to have empty `src`
       expect(el.src).toEqual('')
