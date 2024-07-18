@@ -1,5 +1,3 @@
-@import "../../styles/mixins";
-
 .menu-bar {
   --menu-bar-text-color: var(--segment-text);
   --menu-bar-text-color-active: var(--deprecated-ui-color-lightness-40);
@@ -52,8 +50,6 @@
   }
 
   a {
-    @include tap-highlight-color(transparent);
-
     position: relative;
     display: flex;
     align-items: center;
@@ -81,8 +77,6 @@
   }
 
   button.menu-attached {
-    @include tap-highlight-color(transparent);
-
     position: relative;
     display: flex;
     align-items: center;

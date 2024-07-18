@@ -39,6 +39,16 @@ button {
   font-size: inherit;
 }
 
+// Certain interactive elements remove tap-highlight-color in Webkit
+// This is a non-standard CSS property.
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -58,8 +68,6 @@ button {
 
 a,
 .link-like {
-  @include tap-highlight-color("transparent !important");
-
   cursor: pointer;
   color: var(--deprecated-ui-color-lightness-30);
 

@@ -1,5 +1,4 @@
 @import "../../styles/variables";
-@import "../../styles/mixins";
 
 $street-name-size: 1.5;
 
@@ -58,8 +57,6 @@ body.segment-move-dragging .street-nameplate-container .street-name {
 }
 
 .street-nameplate-container .street-name {
-  @include tap-highlight-color(transparent);
-
   position: relative;
   max-width: 100%;
   pointer-events: auto;
