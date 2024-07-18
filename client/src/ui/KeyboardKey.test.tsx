@@ -23,15 +23,17 @@ describe('KeyboardKey', () => {
 
   it('renders a <kbd> element with icon and title', async () => {
     const { container, asFragment } = render(
-      <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>
+      <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>
+        foo
+      </KeyboardKey>
     )
 
-    const elementWithTitle = await screen.getByTitle('foo')
+    const elementWithTitle = screen.getByTitle('foo')
     const iconElement = container.querySelector('svg')
 
     expect(elementWithTitle).toBeDefined()
     expect(elementWithTitle.children).toHaveLength(1)
-    expect(iconElement.children).toBeDefined()
+    expect(iconElement?.children).toBeDefined()
     expect(asFragment()).toMatchSnapshot()
   })
 })

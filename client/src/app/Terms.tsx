@@ -1,14 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+
 import ExternalLink from '../ui/ExternalLink'
 
-Terms.propTypes = {
-  locale: PropTypes.string
+interface TermsProps {
+  locale: string
 }
 
-export default function Terms (props) {
-  const getCCLinkByLocale = (locale) => {
+export default function Terms ({ locale }: TermsProps): React.ReactElement {
+  const getCCLinkByLocale = (
+    locale: string
+  ): { url: string, label: string } => {
     let url, label
     switch (locale) {
       case 'ar':
@@ -90,7 +92,8 @@ export default function Terms (props) {
       case 'zh-Hant':
       case 'zh-TW':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW'
-        label = 'Creative Commons 姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0)'
+        label =
+          'Creative Commons 姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0)'
         break
       case 'en':
       default:
@@ -103,7 +106,7 @@ export default function Terms (props) {
     return { url, label }
   }
 
-  const renderCCLink = (locale) => {
+  const renderCCLink = (locale: string): React.ReactElement => {
     const { url, label } = getCCLinkByLocale(locale)
     return <ExternalLink href={url}>{label}&lrm;</ExternalLink>
   }
@@ -114,7 +117,7 @@ export default function Terms (props) {
       defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license."
       values={{
         // Get locale-specific license links!
-        licenseLink: renderCCLink(props.locale)
+        licenseLink: renderCCLink(locale)
       }}
     />
   )

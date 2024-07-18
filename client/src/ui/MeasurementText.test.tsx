@@ -5,7 +5,9 @@ import MeasurementText from './MeasurementText'
 
 describe('MeasurementText', () => {
   it('renders without crashing', () => {
-    const { container } = render(<MeasurementText />)
+    const { container } = render(
+      <MeasurementText value={1} units={0} locale="en" />
+    )
     expect(container.childNodes).toBeDefined()
   })
 

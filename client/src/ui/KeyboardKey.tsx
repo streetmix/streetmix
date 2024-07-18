@@ -1,10 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import type { IconLookup } from '@fortawesome/fontawesome-svg-core'
 import './KeyboardKey.scss'
 
 interface KeyboardKeyWithIconProps {
-  icon: IconDefinition
+  icon: IconLookup
   children: string
 }
 
