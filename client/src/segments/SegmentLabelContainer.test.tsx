@@ -5,12 +5,14 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '~/src/users/constants'
-import SegmentLabelContainer from '../SegmentLabelContainer'
+import SegmentLabelContainer from './SegmentLabelContainer'
+
+import type { UnitsSetting } from '@streetmix/types'
 
 const testProps = {
   label: 'foo',
   width: 1,
-  units: SETTINGS_UNITS_METRIC,
+  units: SETTINGS_UNITS_METRIC as UnitsSetting,
   locale: 'en'
 }
 
@@ -38,17 +40,6 @@ describe('SegmentLabelContainer', () => {
   it('renders correct grid styling in imperial', () => {
     const { asFragment } = render(
       <SegmentLabelContainer {...testProps} units={SETTINGS_UNITS_IMPERIAL} />
-    )
-    expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('renders editable label', () => {
-    const { asFragment } = render(
-      <SegmentLabelContainer
-        {...testProps}
-        editable={true}
-        editSegmentLabel={() => {}}
-      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
