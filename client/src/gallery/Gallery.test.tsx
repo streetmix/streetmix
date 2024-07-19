@@ -148,7 +148,9 @@ describe('Gallery', () => {
 
       await waitFor(async () => {
         await userEvent.click(getByText('Baz'))
-        expect(switchGalleryStreet).toHaveBeenCalledWith(initialState.street.id)
+        expect(switchGalleryStreet).toHaveBeenCalledWith(
+          initialState.street.id
+        )
       })
     })
 

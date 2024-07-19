@@ -4,7 +4,9 @@ import GalleryShield from './GalleryShield'
 
 describe('GalleryShield', () => {
   it('renders nothing when gallery is not visible', () => {
-    const { container } = render(<GalleryShield visible={false} />)
+    const { container } = render(
+      <GalleryShield visible={false} onClick={() => {}} />
+    )
     expect(container.firstChild).toBe(null)
   })
 
