@@ -45,6 +45,14 @@ exports[`GalleryStreetItem > renders 1`] = `
         </div>
       </div>
     </a>
+    <button
+      class="gallery-street-item-delete"
+      title="Delete street"
+    >
+      <svg
+        class="octicon"
+      />
+    </button>
   </div>
 </DocumentFragment>
 `;

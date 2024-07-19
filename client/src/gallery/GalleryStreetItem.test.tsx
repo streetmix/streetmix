@@ -4,7 +4,7 @@ import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import MOCK_STREET from '~/test/fixtures/street.json'
+import { MOCK_STREET } from '~/test/fixtures'
 import GalleryStreetItem from './GalleryStreetItem'
 
 // Mock dependencies
@@ -15,22 +15,34 @@ vi.mock('../app/page_url', () => ({
   getStreetUrl: vi.fn()
 }))
 
+const baseProps = {
+  street: MOCK_STREET,
+  showStreetOwner: true,
+  selected: false,
+  allowDelete: true,
+  doSelect: () => {},
+  doDelete: () => {}
+}
+
 describe('GalleryStreetItem', () => {
   it('renders', () => {
-    // This uses jsdom + canvas packages under the hood to render canvas element
-    const { asFragment } = render(<GalleryStreetItem street={MOCK_STREET} />)
+    // This uses jsdom + canvas packages under the hood to render
+    const { asFragment } = render(<GalleryStreetItem {...baseProps} />)
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('does not display street owner when we ask it not to', () => {
-    render(<GalleryStreetItem street={MOCK_STREET} showStreetOwner={false} />)
+    render(<GalleryStreetItem {...baseProps} showStreetOwner={false} />)
 
-    expect(screen.queryByText(MOCK_STREET.creatorId)).not.toBeInTheDocument()
+    // This is a hard-coded value, it will not be null in this test
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(screen.queryByText(MOCK_STREET.creatorId!)).not.toBeInTheDocument()
   })
 
   it('displays "Unnamed St" without a street name', () => {
     render(
       <GalleryStreetItem
+        {...baseProps}
         street={{
           ...MOCK_STREET,
           name: null
@@ -44,6 +56,7 @@ describe('GalleryStreetItem', () => {
   it('displays "Anonymous" for anonymous streets', async () => {
     render(
       <GalleryStreetItem
+        {...baseProps}
         street={{
           ...MOCK_STREET,
           creatorId: null
@@ -58,9 +71,11 @@ describe('GalleryStreetItem', () => {
 
   it('handles select', async () => {
     const doSelect = vi.fn()
-    render(<GalleryStreetItem street={MOCK_STREET} doSelect={doSelect} />)
+    render(<GalleryStreetItem {...baseProps} doSelect={doSelect} />)
 
-    await userEvent.click(screen.getByText(MOCK_STREET.name))
+    // This is a hard-coded value, it will not be null in this test
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    await userEvent.click(screen.getByText(MOCK_STREET.name!))
     expect(doSelect).toBeCalled()
   })
 
@@ -68,13 +83,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = vi.fn()
     window.confirm = vi.fn(() => true)
 
-    render(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        doDelete={doDelete}
-        allowDelete={true}
-      />
-    )
+    render(<GalleryStreetItem {...baseProps} doDelete={doDelete} />)
 
     await userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).toBeCalled()
@@ -84,13 +93,7 @@ describe('GalleryStreetItem', () => {
     const doDelete = vi.fn()
     window.confirm = vi.fn(() => false)
 
-    render(
-      <GalleryStreetItem
-        street={MOCK_STREET}
-        doDelete={doDelete}
-        allowDelete={true}
-      />
-    )
+    render(<GalleryStreetItem {...baseProps} doDelete={doDelete} />)
 
     await userEvent.click(screen.getByTitle('Delete street'))
     expect(doDelete).not.toBeCalled()

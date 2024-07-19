@@ -45,13 +45,13 @@ export interface StreetData {
 export interface Street {
   id: string
   namespacedId: number
-  name: null
+  name: string | null
   clientUpdatedAt: string // ISO date string
   data: StreetData
   createdAt: string // ISO date string
   updatedAt: string // ISO date string
   originalStreetId: string
-  creatorId: string
+  creatorId: string | null
 }
 
 export interface StreetLocation {
