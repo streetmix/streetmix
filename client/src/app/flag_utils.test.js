@@ -1,7 +1,7 @@
 // Test cases:
 // 1) User flags override default flags
 // 2) Session flags override user flags
-import { generateFlagOverrides, applyFlagOverrides } from '../flag_utils'
+import { generateFlagOverrides, applyFlagOverrides } from './flag_utils'
 
 const initialFlags = {
   FOO_BAR: { source: 'initial', value: true },

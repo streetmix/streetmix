@@ -1,4 +1,4 @@
-import { getStreetUrl } from '../page_url'
+import { getStreetUrl } from './page_url'
 
 describe('getStreetUrl', () => {
   it('returns a url for a user’s street', () => {
