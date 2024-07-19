@@ -2,8 +2,8 @@ import React from 'react'
 
 import { render } from '~/test/helpers/render'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
-import EmptySegment from '../EmptySegment'
-import { TILE_SIZE } from '../constants'
+import EmptySegment from './EmptySegment'
+import { TILE_SIZE } from './constants'
 
 describe('EmptySegment', () => {
   const initialState = {
@@ -24,7 +24,7 @@ describe('EmptySegment', () => {
       initialState
     })
 
-    const el = container.firstChild
+    const el = container.firstChild as HTMLElement
     expect(el.classList.contains('segment-empty')).toBeTruthy()
     expect(el.style.width).toEqual(`${3.75 * TILE_SIZE}px`)
     expect(el.style.left).toEqual('0px')
@@ -35,14 +35,14 @@ describe('EmptySegment', () => {
       initialState
     })
 
-    const el = container.firstChild
+    const el = container.firstChild as HTMLElement
     expect(el.classList.contains('segment-empty')).toBeTruthy()
     expect(el.style.width).toEqual(`${4.5 * TILE_SIZE}px`)
     expect(el.style.left).toEqual(`${10 * TILE_SIZE}px`)
   })
 
   it('renders text content', () => {
-    const { getByText } = render(<EmptySegment width={4.5} />, {
+    const { getByText } = render(<EmptySegment width={4.5} left={0} />, {
       initialState
     })
 

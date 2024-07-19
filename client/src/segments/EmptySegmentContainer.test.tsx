@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import EmptySegmentContainer from '../EmptySegmentContainer'
-import { TILE_SIZE } from '../constants'
+import EmptySegmentContainer from './EmptySegmentContainer'
+import { TILE_SIZE } from './constants'
 
 describe('EmptySegment', () => {
   it('renders two <EmptySegment /> components of equal width', () => {
@@ -17,8 +17,10 @@ describe('EmptySegment', () => {
 
     expect(getAllByText(/empty space/i).length).toEqual(2)
 
-    const firstComponentWidth = container.firstChild.style.width
-    const lastComponentWidth = container.lastChild.style.width
+    const firstComponentWidth = (container.firstChild as HTMLElement)?.style
+      .width
+    const lastComponentWidth = (container.lastChild as HTMLElement)?.style
+      .width
     expect(firstComponentWidth).toEqual(lastComponentWidth)
   })
 
@@ -33,7 +35,9 @@ describe('EmptySegment', () => {
     })
 
     expect(getAllByText(/empty space/i).length).toEqual(1)
-    expect(container.firstChild.style.width).toEqual(`${50 * TILE_SIZE}px`)
+    expect((container.firstChild as HTMLElement)?.style.width).toEqual(
+      `${50 * TILE_SIZE}px`
+    )
   })
 
   it('renders zero <EmptySegment /> components if street is fully occupied', () => {
