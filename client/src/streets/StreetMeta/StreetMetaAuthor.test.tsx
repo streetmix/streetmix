@@ -1,5 +1,5 @@
 import React from 'react'
-import { vi } from 'vitest'
+import { vi, type Mock } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -11,15 +11,12 @@ import StreetMetaAuthor from './StreetMetaAuthor'
 vi.mock('../../streets/remix')
 
 vi.mock('../../store/actions/gallery', () => ({
-  openGallery: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
+  openGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('StreetMetaAuthor', () => {
   afterEach(() => {
-    // Resets mock call counter between tests
-    openGallery.mockClear()
-    // Resets mock return values
-    getRemixOnFirstEdit.mockClear()
+    vi.clearAllMocks()
   })
 
   it('renders nothing if you own the street', async () => {
@@ -99,7 +96,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders anonymous byline if you are not signed in and viewing an anonymous street', async () => {
-    getRemixOnFirstEdit.mockReturnValue(true)
+    (getRemixOnFirstEdit as Mock).mockReturnValue(true)
 
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
@@ -119,7 +116,7 @@ describe('StreetMetaAuthor', () => {
   })
 
   it('renders nothing if you are a not-signed in user still editing an anonymous street', async () => {
-    getRemixOnFirstEdit.mockReturnValue(false)
+    (getRemixOnFirstEdit as Mock).mockReturnValue(false)
 
     const { container } = render(<StreetMetaAuthor />, {
       initialState: {

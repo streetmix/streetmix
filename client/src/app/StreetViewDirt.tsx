@@ -1,14 +1,15 @@
 import React, { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
+
 import { getStreetSectionTop } from './window_resize'
 import './StreetViewDirt.scss'
 
-function getDirtElementHeight () {
-  const streetSectionTop = getStreetSectionTop()
-  return window.innerHeight - streetSectionTop - 400 + 180
+interface StreetViewDirtProps {
+  buildingWidth: number
 }
 
-const StreetViewDirt = ({ buildingWidth }) => {
+const StreetViewDirt = ({
+  buildingWidth
+}: StreetViewDirtProps): React.ReactElement => {
   const dirtStyle = {
     marginLeft: -buildingWidth + 'px',
     marginRight: -buildingWidth + 'px',
@@ -17,10 +18,13 @@ const StreetViewDirt = ({ buildingWidth }) => {
   const width = `${buildingWidth}px`
 
   // On window resize, figure out what height it should be and apply it
-  const dirtEl = useRef(null)
+  const dirtEl = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
-    function handleResize () {
-      dirtEl.current.style.height = getDirtElementHeight() + 'px'
+    function handleResize (): void {
+      if (dirtEl.current !== null) {
+        dirtEl.current.style.height = getDirtElementHeight() + 'px'
+      }
     }
 
     // Set window listener to do this
@@ -38,8 +42,9 @@ const StreetViewDirt = ({ buildingWidth }) => {
   )
 }
 
-StreetViewDirt.propTypes = {
-  buildingWidth: PropTypes.number
+function getDirtElementHeight (): number {
+  const streetSectionTop = getStreetSectionTop()
+  return window.innerHeight - streetSectionTop - 400 + 180
 }
 
 export default StreetViewDirt

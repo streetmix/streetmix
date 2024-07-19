@@ -14,7 +14,7 @@ vi.mock('../../store/slices/dialogs', () => ({
 describe('StreetMetaGeotag', () => {
   afterEach(() => {
     // Resets mock call counter between tests
-    showDialog.mockClear()
+    vi.clearAllMocks()
   })
 
   it('renders placeholder label and opens dialog if location is editable (it is by default)', async () => {

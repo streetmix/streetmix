@@ -14,7 +14,7 @@ vi.mock('../../store/slices/dialogs', () => ({
 describe('StreetMetaAnalytics', () => {
   afterEach(() => {
     // Resets mock call counter between tests
-    showDialog.mockClear()
+    vi.clearAllMocks()
   })
 
   it('renders analytics and opens a dialog when clicked', async () => {

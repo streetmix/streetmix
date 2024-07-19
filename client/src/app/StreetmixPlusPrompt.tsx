@@ -1,13 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { ICON_LOCK } from '../ui/icons'
 import Button from '../ui/Button'
 import './StreetmixPlusPrompt.scss'
 
-function StreetmixPlusPrompt ({ children }) {
-  function handleClickUpgrade (event) {
+interface StreetmixPlusPromptProps {
+  children: React.ReactNode
+}
+
+function StreetmixPlusPrompt ({
+  children
+}: StreetmixPlusPromptProps): React.ReactElement {
+  function handleClickUpgrade (event: React.MouseEvent): void {
     event.preventDefault()
     // dispatch(showDialog('UPGRADE'))
     window.open(
@@ -33,10 +39,6 @@ function StreetmixPlusPrompt ({ children }) {
       </div>
     </>
   )
-}
-
-StreetmixPlusPrompt.propTypes = {
-  children: PropTypes.node
 }
 
 export default StreetmixPlusPrompt
