@@ -1,25 +1,37 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import Popover from '../../ui/Popover'
-import Slider from '../../ui/Slider'
-import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt'
 
-import { SETTINGS_UNITS_METRIC } from '../../users/constants'
+import { useSelector } from '~/src/store/hooks'
+import Popover from '~/src/ui/Popover'
+import Slider from '~/src/ui/Slider'
+import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import './CustomScale.scss'
 
 const MIN_IMAGE_MULTIPLIER = 1
 const MAX_IMAGE_MULTIPLIER = 5
 
-function CustomScale ({ scale, baseDimensions = {}, onChange = () => {} }) {
+interface CustomScaleProps {
+  scale: number
+  baseDimensions: {
+    width?: number
+    height?: number
+  }
+  onChange: (value: number) => void
+}
+
+function CustomScale ({
+  scale,
+  baseDimensions = {},
+  onChange = () => {}
+}: CustomScaleProps): React.ReactElement {
   const units = useSelector((state) => state.settings.units)
   const allowCustomScale = useSelector(
     (state) => state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
   )
   const { width = 0, height = 0 } = baseDimensions
 
-  function handleChangeScale ([value]) {
+  function handleChangeScale ([value]: [number]): void {
     if (!allowCustomScale) return
 
     // Make sure value is within range
@@ -53,12 +65,13 @@ function CustomScale ({ scale, baseDimensions = {}, onChange = () => {} }) {
         />
         <span className="custom-scale-popover">
           <Popover>
-            {/* eslint-disable-next-line */}
-            {!allowCustomScale ? (
-              <StreetmixPlusPrompt>{description}</StreetmixPlusPrompt>
-            ) : (
-              description
-            )}
+            {!allowCustomScale
+              ? (
+                <StreetmixPlusPrompt>{description}</StreetmixPlusPrompt>
+                )
+              : (
+                  description
+                )}
           </Popover>
         </span>
       </div>
@@ -103,15 +116,6 @@ function CustomScale ({ scale, baseDimensions = {}, onChange = () => {} }) {
       </div>
     </div>
   )
-}
-
-CustomScale.propTypes = {
-  scale: PropTypes.number.isRequired,
-  baseDimensions: PropTypes.shape({
-    width: PropTypes.number,
-    height: PropTypes.number
-  }).isRequired,
-  onChange: PropTypes.func
 }
 
 export default CustomScale
