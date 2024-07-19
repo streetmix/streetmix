@@ -6,8 +6,9 @@
  * @module BlockingError
  */
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
+
+import { useSelector } from '../store/hooks'
 import { useGetUserQuery } from '../store/services/api'
 import Button from '../ui/Button'
 import ExternalLink from '../ui/ExternalLink'
@@ -16,14 +17,16 @@ import { doSignIn } from '../users/authentication'
 import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
 import { ERRORS } from './errors'
 
-function BlockingError (props) {
+import type { StreetState } from '@streetmix/types'
+
+function BlockingError (): React.ReactElement | null {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
-  let title = ''
-  let description = ''
-  let cta = ''
+  let title: React.ReactElement | string = ''
+  let description: React.ReactElement | string = ''
+  let cta: React.ReactElement | string = ''
 
   const homeButton = (
     <Button primary={true} onClick={goHome}>
@@ -33,12 +36,12 @@ function BlockingError (props) {
       />
     </Button>
   )
-  const linkToUser = (street) => {
-    return street && street.creatorId
+  const linkToUser = (street: StreetState): React.ReactElement | null => {
+    return street?.creatorId !== null
       ? (
         <a href={'/' + street.creatorId}>
           <Avatar userId={street.creatorId} />
-          {creatorProfile?.displayName || street.creatorId}
+          {creatorProfile?.displayName ?? street.creatorId}
         </a>
         )
       : null
@@ -537,8 +540,8 @@ function BlockingError (props) {
       break
   }
 
-  return errorType
-    ? (
+  if (errorType !== null) {
+    return (
       <div id="error">
         <div className="error-content">
           {errorType !== ERRORS.NO_STREET && <div className="streetmix-logo" />}
@@ -549,8 +552,10 @@ function BlockingError (props) {
           {cta}
         </div>
       </div>
-      )
-    : null
+    )
+  }
+
+  return null
 }
 
 export default BlockingError

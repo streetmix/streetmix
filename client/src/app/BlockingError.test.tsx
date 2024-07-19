@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import BlockingError from '../BlockingError'
-import { ERRORS } from '../errors'
+import BlockingError from './BlockingError'
+import { ERRORS } from './errors'
 
-function getInitialState (errorType) {
+function getInitialState (errorType: number | null): object {
   return {
     errors: {
       errorType
@@ -17,7 +17,7 @@ function getInitialState (errorType) {
 
 describe('BlockingError', () => {
   it.each(Object.keys(ERRORS))('renders %s', (error) => {
-    const initialState = getInitialState(ERRORS[error])
+    const initialState = getInitialState(ERRORS[error as keyof typeof ERRORS])
     const { asFragment } = render(<BlockingError />, {
       initialState
     })

@@ -1,10 +1,13 @@
 import React, { useLayoutEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 
 // note: see _chrome.scss for styles
 
-function Loading ({ isLoading = true }) {
-  const loadingStuckNotice = useRef()
+interface LoadingProps {
+  isLoading: boolean
+}
+
+function Loading ({ isLoading = true }: LoadingProps): React.ReactElement {
+  const loadingStuckNotice = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     // A "not loading" troubleshooting popup to provide a "way out" of totally
@@ -46,10 +49,6 @@ function Loading ({ isLoading = true }) {
       </div>
     </div>
   )
-}
-
-Loading.propTypes = {
-  isLoading: PropTypes.bool
 }
 
 export default Loading
