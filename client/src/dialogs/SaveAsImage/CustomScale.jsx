@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import Popover from '../../ui/Popover'
 import Slider from '../../ui/Slider'
-import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt.tsx'
+import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt'
 
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 import './CustomScale.scss'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { vi } from 'vitest'
+import { vi, type Mock } from 'vitest'
 import { waitFor, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import MockAdapter from 'axios-mock-adapter'
@@ -15,7 +15,7 @@ vi.mock('../../users/authentication')
 vi.mock('../mode')
 
 describe('WelcomePanel', () => {
-  let apiMock
+  let apiMock: MockAdapter
 
   beforeEach(() => {
     apiMock = new MockAdapter(apiClient.client)
@@ -63,8 +63,8 @@ describe('WelcomePanel', () => {
     }
 
     beforeEach(() => {
-      getMode.mockImplementation(() => 2) // NEW_STREET
-      isSignedIn.mockImplementation(() => true)
+      (getMode as Mock).mockImplementation(() => 2); // NEW_STREET
+      (isSignedIn as Mock).mockImplementation(() => true)
     })
 
     it('copies the last street and highlights Start with a copy button', async () => {

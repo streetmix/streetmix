@@ -2,22 +2,23 @@ import React from 'react'
 import { useTransition, animated } from '@react-spring/web'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import Draggable from 'react-draggable'
-import CloseButton from '../../ui/CloseButton'
-import Icon from '../../ui/Icon'
-import StreetmixPlusPrompt from '../../app/StreetmixPlusPrompt.tsx'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { setSkybox } from '../../store/slices/street'
-import { toggleToolbox } from '../../store/slices/ui'
+
+import CloseButton from '~/src/ui/CloseButton'
+import Icon from '~/src/ui/Icon'
+import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt'
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setSkybox } from '~/src/store/slices/street'
+import { toggleToolbox } from '~/src/store/slices/ui'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyOptions from './SkyOptions'
 import './SkyPicker.scss'
 
 function SkyPicker (): React.ReactElement {
   const selected = useSelector(
-    (state) => state.street.skybox || DEFAULT_SKYBOX
+    (state) => state.street.skybox ?? DEFAULT_SKYBOX
   )
-  const show = useSelector((state) => state.ui.toolboxVisible || false)
-  const isSubscriber = useSelector((state) => state.user.isSubscriber || false)
+  const show = useSelector((state) => state.ui.toolboxVisible ?? false)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
