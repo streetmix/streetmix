@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { memo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import './StreetName.scss'
 
 const MAX_STREET_NAME_WIDTH = 50
 
-/**
- * Some processing needed to display street name
- *
- * @public for main street name ¯\_(ツ)_/¯
- * @params {string} name - Street name to check
- */
-function normalizeStreetName (name) {
-  if (!name) return ''
+function normalizeStreetName (name: string | null): string | null {
+  // If name is null, pass through -- a placeholder display name
+  // will be handled by localization
+  if (name === null) return null
 
   name = name.trim()
 
@@ -23,22 +19,26 @@ function normalizeStreetName (name) {
   return name
 }
 
-StreetName.propTypes = {
-  name: PropTypes.string,
-  childRef: PropTypes.object,
-  onClick: PropTypes.func,
-  editable: PropTypes.bool
+interface StreetNameProps {
+  name: string | null
+  childRef?: React.RefObject<HTMLDivElement>
+  onClick?: () => void
+  editable?: boolean
 }
 
-function StreetName (props) {
-  const { name = '', childRef, onClick = () => {}, editable = false } = props
+function StreetName ({
+  name,
+  childRef,
+  onClick = () => {},
+  editable = false
+}: StreetNameProps): React.ReactElement {
   const [isHovered, setHovered] = useState(false)
 
-  function handleMouseEnter () {
+  function handleMouseEnter (): void {
     setHovered(true)
   }
 
-  function handleMouseLeave () {
+  function handleMouseLeave (): void {
     setHovered(false)
   }
 
@@ -59,7 +59,7 @@ function StreetName (props) {
         </div>
       )}
       <div className="street-name-text">
-        {normalizeStreetName(name) || (
+        {normalizeStreetName(name) ?? (
           <FormattedMessage
             id="street.default-name"
             defaultMessage="Unnamed St"
@@ -70,4 +70,4 @@ function StreetName (props) {
   )
 }
 
-export default React.memo(StreetName)
+export default memo(StreetName)

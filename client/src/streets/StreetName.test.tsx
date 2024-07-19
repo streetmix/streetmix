@@ -24,15 +24,15 @@ describe('StreetName', () => {
   })
 
   it('renders a placeholder if there is no name', () => {
-    render(<StreetName />)
+    render(<StreetName name={null} />)
     expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
   it('responds to an onClick handler', async () => {
     const handleClick = vi.fn()
-    render(<StreetName onClick={handleClick} />)
+    render(<StreetName name="foo" onClick={handleClick} />)
 
-    await userEvent.click(screen.getByText('Unnamed St'))
+    await userEvent.click(screen.getByText('foo'))
     expect(handleClick).toBeCalledTimes(1)
   })
 
@@ -40,9 +40,9 @@ describe('StreetName', () => {
   // However, we do include a test here to ensure that StreetName is never
   // editable by default.
   it('is not editable by default', async () => {
-    render(<StreetName editable={false} />)
+    render(<StreetName name="foo" editable={false} />)
 
-    await userEvent.hover(screen.getByText('Unnamed St'))
+    await userEvent.hover(screen.getByText('foo'))
     expect(screen.queryByText('Click to rename')).not.toBeInTheDocument()
   })
 })
