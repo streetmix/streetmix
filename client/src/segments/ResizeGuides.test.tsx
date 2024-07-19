@@ -1,12 +1,12 @@
 import React from 'react'
-import { vi } from 'vitest'
+import { vi, type Mock } from 'vitest'
 
 import { render } from '~/test/helpers/render'
-import ResizeGuides from '../ResizeGuides'
-import { TILE_SIZE } from '../constants'
-import { getSegmentVariantInfo } from '../info'
+import ResizeGuides from './ResizeGuides'
+import { TILE_SIZE } from './constants'
+import { getSegmentVariantInfo } from './info'
 
-vi.mock('../view', () => ({
+vi.mock('./view', () => ({
   // Function returns a mock element with properties we need to read
   getSegmentEl: () => ({
     offsetLeft: 50,
@@ -14,12 +14,12 @@ vi.mock('../view', () => ({
   })
 }))
 
-vi.mock('../../util/helpers', () => ({
+vi.mock('../util/helpers', () => ({
   // Returns mock position information
   getElRelativePos: () => [50, 0]
 }))
 
-vi.mock('../info', () => ({
+vi.mock('./info', () => ({
   // Function returns mock segment variant info of nothing
   // Specific tests can use `mockImplementation` to make it return other info
   getSegmentVariantInfo: vi.fn(() => ({}))
@@ -58,7 +58,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders only min guide', () => {
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
+    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       minWidth: { metric: 3 }
     }))
 
@@ -72,7 +72,9 @@ describe('ResizeGuides', () => {
     expect(
       container.querySelector('.resize-guide-min-after')
     ).toBeInTheDocument()
-    expect(container.querySelector('.resize-guide-max')).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-max')
+    ).not.toBeInTheDocument()
     expect(
       container.querySelector('.resize-guide-max-before')
     ).not.toBeInTheDocument()
@@ -82,14 +84,16 @@ describe('ResizeGuides', () => {
   })
 
   it('renders only max guide', () => {
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
+    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       maxWidth: { metric: 4 }
     }))
 
     const { container } = render(<ResizeGuides />, {
       initialState
     })
-    expect(container.querySelector('.resize-guide-min')).not.toBeInTheDocument()
+    expect(
+      container.querySelector('.resize-guide-min')
+    ).not.toBeInTheDocument()
     expect(
       container.querySelector('.resize-guide-min-before')
     ).not.toBeInTheDocument()
@@ -106,7 +110,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max and min guides', () => {
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
+    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       minWidth: { metric: 3 },
       maxWidth: { metric: 4 }
     }))
@@ -131,9 +135,8 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is large', () => {
-    const maxWidth = 4
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
-      maxWidth: { metric: maxWidth }
+    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+      maxWidth: { metric: 4 }
     }))
 
     const initialState = {
@@ -154,10 +157,10 @@ describe('ResizeGuides', () => {
     })
 
     // But width should be based on `maxWidth`, not `remainingWidth`
-    const width = maxWidth * TILE_SIZE
-    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
-      `${width}px`
-    )
+    const width = 4 * TILE_SIZE
+    expect(
+      container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
+    ).toEqual(`${width}px`)
 
     // Also test that child elements are rendered
     expect(
@@ -169,9 +172,8 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is small', () => {
-    const maxWidth = 4
-    getSegmentVariantInfo.mockImplementationOnce(() => ({
-      maxWidth: { metric: maxWidth }
+    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+      maxWidth: { metric: 4 }
     }))
 
     // `remainingWidth` should be smaller than `maxWidth`
@@ -196,9 +198,9 @@ describe('ResizeGuides', () => {
 
     // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
-      `${width}px`
-    )
+    expect(
+      container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
+    ).toEqual(`${width}px`)
   })
 
   it('renders max guide with only remaining width', () => {
@@ -222,8 +224,8 @@ describe('ResizeGuides', () => {
 
     // Width should be based on `remainingWidth` + `segmentWidth`
     const width = (remainingWidth + segmentWidth) * TILE_SIZE
-    expect(container.querySelector('.resize-guide-max').style.width).toEqual(
-      `${width}px`
-    )
+    expect(
+      container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
+    ).toEqual(`${width}px`)
   })
 })

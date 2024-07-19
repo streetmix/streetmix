@@ -7,6 +7,7 @@ import {
 } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
@@ -16,6 +17,7 @@ import {
   paletteSegmentSource,
   collectDragSource
 } from '../segments/drag_and_drop'
+
 import type { SegmentDefinition } from '@streetmix/types'
 import type { TippyProps } from '@tippyjs/react'
 import './PaletteItem.scss'

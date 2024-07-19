@@ -82,7 +82,7 @@ function Description ({
   const defaultPrompt = formatMessage('segments.learn-more', 'Learn more')
   const prompt = formatMessage(
     `descriptions.${description.key}.prompt`,
-    defaultPrompt as string,
+    defaultPrompt,
     {
       ns: 'segment-info'
     }
@@ -107,8 +107,8 @@ function Description ({
         visible={descriptionVisible}
         onClickHide={handleClickHide}
         image={description.image}
-        content={content as string}
-        caption={imageCaption as string}
+        content={content}
+        caption={imageCaption}
         offline={offline}
         bubbleY={Number.parseInt(infoBubbleEl.style.top)}
       />

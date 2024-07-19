@@ -130,7 +130,7 @@ const streetSlice = createSlice({
       }
     },
 
-    clearSegments (state, action) {
+    clearSegments (state) {
       state.segments = []
       state.immediateRemoval = true
     },

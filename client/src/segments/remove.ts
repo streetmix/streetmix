@@ -9,11 +9,9 @@ import store from '../store'
 import { segmentsChanged } from './view'
 
 /**
- * Removes a segment, given the element to remove
- *
- * @param {Number} position - segment to remove
+ * Removes a given segment at `position`
  */
-export function removeSegment (position) {
+export function removeSegment (position: number): void {
   infoBubble.hide()
 
   // This makes sure that the drag handles on the segment
@@ -41,7 +39,7 @@ export function removeSegment (position) {
  * Removes all segments. This is a “power user” feature
  * and it is not advertised in the UI.
  */
-export function removeAllSegments () {
+export function removeAllSegments (): void {
   store.dispatch(clearSegments())
   segmentsChanged()
   infoBubble.hide()

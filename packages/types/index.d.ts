@@ -153,6 +153,19 @@ export interface LocaleDefinition {
 
 export type BuildingPosition = 'left' | 'right'
 
+// Subset of / derived from SegmentDefinition
+export interface VariantInfo {
+  name?: string
+  nameKey?: string
+  description?: SegmentDescription
+  defaultWidth?: WidthDefinition
+  minWidth?: WidthDefinition
+  maxWidth?: WidthDefinition
+  unknown?: boolean // Set to true when variant doesn't exist
+  elevation: number
+  graphics: Record<string, unknown> // TODO
+}
+
 export interface VariantInfoDimensions {
   left: number
   right: number

@@ -67,7 +67,7 @@ export function formatMessage (
   key: string, // translation key
   fallback: string = '', // fallback or reference string
   options: { ns?: string } = {}
-): string | string[] {
+): string {
   const locale = store.getState().locale
 
   let message
@@ -80,7 +80,16 @@ export function formatMessage (
   if (message === undefined) return fallback
 
   const msg = new IntlMessageFormat(message ?? fallback, locale.locale)
-  return msg.format(options)
+  const formatted = msg.format(options)
+
+  // We don't have any translations that are arrays anymore, but
+  // IntlMessageFormat.format() return types includes arrays. This forces
+  // the return value to string for typechecking
+  if (Array.isArray(formatted)) {
+    return formatted.join(' ')
+  }
+
+  return formatted
 }
 
 /**
