@@ -7,6 +7,7 @@
  *
  * This is the vanilla JS implementation via
  * https://youmightnotneed.com/lodash/#maxBy
+ * ... with some additions for ensuring type safety
  *
  * WARNING: This is not a drop in replacement solution and it might not work
  * for some edge cases.
@@ -15,10 +16,14 @@
  * this will fail to find the correct object.
  */
 
-export function maxBy (
-  arr: Array<Record<string, unknown>>,
-  func: (arg: Record<string, unknown>) => number
-): Record<string, unknown> | undefined {
-  const max = Math.max(...arr.map(func))
-  return arr.find((item) => func(item) === max)
+export function maxBy<T> (arr: T[], func: (arg: T) => unknown): T {
+  const values = arr.map(func).filter((x) => typeof x === 'number')
+  const max = Math.max(...values)
+  const found = arr.find((item) => func(item) === max)
+
+  if (found === undefined) {
+    throw new Error('Could not find `maxBy` result in list')
+  }
+
+  return found
 }

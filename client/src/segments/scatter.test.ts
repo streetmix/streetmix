@@ -1,19 +1,18 @@
 import { vi } from 'vitest'
-import { getRandomObjects } from '../scatter'
-import PEOPLE from '../people.json'
+
+import { getRandomObjects } from './scatter'
+import PEOPLE from './people.json'
 
 // Provide mock people data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('../people.json', () => ({
-  default: require('../__mocks__/people.json')
+vi.mock('./people.json', () => ({
+  default: require('./__mocks__/people.json')
 }))
 
 // The unit test for `getRandomObjects()` is designed so that the expected
 // return values are very precise decimal numbers, on purpose. We want to see
 // the same values on each test, so that refactoring it does not cause new
-// regressions. One example of a large refactoring project that will happen
-// in the future is when we change from using imperial to metric units
-// primarily. We want the actual appearance of streets to remain as stable
+// regressions. We want the actual appearance of streets to remain as stable
 // as possible.
 //
 // However, using these exact numbers can be brittle, because there are
@@ -37,7 +36,7 @@ describe('scatter objects in segments', () => {
     const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
-      936877893,
+      'randseed',
       0,
       5,
       4,
@@ -46,14 +45,14 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(5.479749926272657)
+    expect(startLeft).toEqual(4.396675322336476)
   })
 
   it('picks people at sparse density', () => {
     const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
-      936877893,
+      'randseed',
       3.5,
       11.8333,
       4,
@@ -62,14 +61,14 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(4.346658384686)
+    expect(startLeft).toEqual(4.020026451873447)
   })
 
   it('picks people at dense density', () => {
     const [people, startLeft] = getRandomObjects(
       PEOPLE,
       28.66667,
-      936877893,
+      'randseed',
       0,
       1.5,
       4,
@@ -78,7 +77,7 @@ describe('scatter objects in segments', () => {
     )
 
     expect(people).toMatchSnapshot()
-    expect(startLeft).toEqual(2.9027498893762225)
+    expect(startLeft).toEqual(3.3839283366260755)
   })
 
   it('picks from a pool of one single string id', () => {
@@ -98,7 +97,7 @@ describe('scatter objects in segments', () => {
     const [objects, startLeft] = getRandomObjects(
       pool,
       20,
-      0,
+      'randseed',
       scatter.minSpacing,
       scatter.maxSpacing,
       5,
@@ -107,6 +106,6 @@ describe('scatter objects in segments', () => {
     )
 
     expect(objects).toMatchSnapshot()
-    expect(startLeft).toEqual(4.430707699360696)
+    expect(startLeft).toEqual(4.174402542959051)
   })
 })
