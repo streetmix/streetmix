@@ -1,6 +1,6 @@
 import type { ColorModes } from '~/src/app/constants'
 import type { SerializedError } from '@reduxjs/toolkit'
-import type { StreetData } from '@streetmix/types'
+import type { StreetState } from '@streetmix/types'
 
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
@@ -58,7 +58,7 @@ export interface UserState {
 
 export interface SentimentVote {
   score: number
-  data: StreetData
+  data: StreetState
   streetId: string
 }
 

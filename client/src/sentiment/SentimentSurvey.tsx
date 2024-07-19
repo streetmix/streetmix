@@ -1,23 +1,30 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from '@react-spring/web'
+
+import { useSelector, useDispatch } from '../store/hooks'
+import { showDialog } from '../store/slices/dialogs'
 import Button from '../ui/Button'
 import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
-import { showDialog } from '../store/slices/dialogs'
 import VoteReceipt from './VoteReceipt'
 import VoteButtons from './VoteButtons'
 import './SentimentSurvey.scss'
+
+interface SentimentSurveyProps {
+  visible: boolean
+  onClose: () => void
+  handleVote: (score: number) => void
+  streetId: string
+}
 
 function SentimentSurvey ({
   visible = false,
   onClose = () => {},
   handleVote,
   streetId
-}) {
-  const [score, setScore] = useState(null)
+}: SentimentSurveyProps): React.ReactElement {
+  const [score, setScore] = useState<number>()
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
 
@@ -29,11 +36,11 @@ function SentimentSurvey ({
   })
 
   const classNames = ['sentiment-survey-container']
-  if (visible === true) {
+  if (visible) {
     classNames.push('sentiment-survey-visible')
   }
 
-  function handleClick (score, event) {
+  function handleClick (score: number): void {
     // Do not handle this vote if the user is not signed in.
     // These vote buttons are normally blocked if the user is not signed in,
     // but we have to verify this in case that DOM element fails or is user-
@@ -44,11 +51,11 @@ function SentimentSurvey ({
     handleVote(score)
   }
 
-  function handleClickAbout (event) {
+  function handleClickAbout (): void {
     dispatch(showDialog('SENTIMENT_SURVEY'))
   }
 
-  function handleClickSignIn (event) {
+  function handleClickSignIn (): void {
     doSignIn()
   }
 
@@ -127,13 +134,6 @@ function SentimentSurvey ({
       )}
     </div>
   )
-}
-
-SentimentSurvey.propTypes = {
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-  handleVote: PropTypes.func.isRequired,
-  streetId: PropTypes.string
 }
 
 export default SentimentSurvey

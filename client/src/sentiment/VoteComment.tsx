@@ -1,35 +1,30 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import Button from '../ui/Button'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { putSentimentSurveyComment } from '../util/api'
 
 const MAX_COMMENT_LENGTH = 280
 
-VoteComment.propTypes = {
-  streetId: PropTypes.string
+interface VoteCommentProps {
+  streetId: string
 }
 
-function VoteComment ({ streetId }) {
+function VoteComment ({ streetId }: VoteCommentProps): React.ReactElement {
   const [comment, setComment] = useState('')
   const [isPending, setPending] = useState(false)
   const [isComplete, setComplete] = useState(false)
   const intl = useIntl()
 
-  function handleSubmitComment (event) {
+  async function handleSubmitComment (): Promise<void> {
     setPending(true)
-    try {
-      // Only run if streetId is actually present.
-      if (streetId) {
-        putSentimentSurveyComment({
-          id: streetId,
-          comment
-        })
-      }
-    } catch (error) {
-      console.error(error)
-    }
+
+    await putSentimentSurveyComment({
+      id: streetId,
+      comment
+    })
+
     // Post comment here
     window.setTimeout(() => {
       // Assume completion; fail silently on errors
@@ -43,7 +38,9 @@ function VoteComment ({ streetId }) {
         type="text"
         value={comment}
         maxLength={MAX_COMMENT_LENGTH}
-        onChange={(e) => setComment(e.target.value)}
+        onChange={(e) => {
+          setComment(e.target.value)
+        }}
         placeholder={intl.formatMessage({
           id: 'sentiment.comment.example',
           defaultMessage: '(for instance, “I liked the trees.”)'
@@ -61,7 +58,12 @@ function VoteComment ({ streetId }) {
             <LoadingSpinner size="small" />
             )
           : (
-            <Button secondary={true} onClick={handleSubmitComment}>
+            <Button
+              secondary={true}
+              onClick={() => {
+                void handleSubmitComment()
+              }}
+            >
               <FormattedMessage
                 id="sentiment.comment.submit"
                 defaultMessage="Submit"

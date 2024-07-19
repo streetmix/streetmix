@@ -1,19 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
+
 import './SentimentIcon.scss'
 
-SentimentIcon.propTypes = {
-  score: PropTypes.oneOf([-1, -0.5, 0, 0.5, 1]),
-  label: PropTypes.shape({
-    localizationKey: PropTypes.string,
-    defaultMessage: PropTypes.string
-  }),
-  imgSrc: PropTypes.string,
-  className: PropTypes.string
+interface SentimentIconProps {
+  label: {
+    localizationKey: string
+    defaultMessage: string
+  }
+  imgSrc: string
+  className: string
 }
 
-function SentimentIcon ({ score, label, imgSrc, className }) {
+function SentimentIcon ({
+  label,
+  imgSrc,
+  className
+}: SentimentIconProps): React.ReactElement {
   const intl = useIntl()
   const text = intl.formatMessage({
     id: label.localizationKey,

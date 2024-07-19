@@ -4,7 +4,17 @@ import IMG_SENTIMENT_3 from '../../images/openmoji/color/1F610.svg'
 import IMG_SENTIMENT_4 from '../../images/openmoji/color/1F60A.svg'
 import IMG_SENTIMENT_5 from '../../images/openmoji/color/1F60D.svg'
 
-const SCORE_DATA = [
+interface ScoreData {
+  score: number
+  label: {
+    localizationKey: string
+    defaultMessage: string
+  }
+  imgSrc: string
+  className: string
+}
+
+const SCORE_DATA: ScoreData[] = [
   {
     score: -1,
     label: {
@@ -52,10 +62,17 @@ const SCORE_DATA = [
   }
 ]
 
-export function getDataForScore (score) {
-  return SCORE_DATA.find((d) => d.score === score)
+export function getDataForScore (score: number): ScoreData {
+  const data = SCORE_DATA.find((d) => d.score === score)
+
+  // .find() can return `undefined`, we should never see it
+  if (data === undefined) {
+    throw new TypeError('Score data is undefined')
+  }
+
+  return data
 }
 
-export function getAllScoreData () {
+export function getAllScoreData (): ScoreData[] {
   return SCORE_DATA
 }

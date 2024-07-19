@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+
+import { useSelector } from '../store/hooks'
 import { postSentimentSurveyVote } from '../util/api'
 import SentimentSurvey from './SentimentSurvey'
 
 const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 
-function SentimentSurveyContainer (props) {
+function SentimentSurveyContainer (): React.ReactElement | null {
   const [isVisible, setVisible] = useState(false)
   const [isDismissed, setDismissed] = useState(false)
-  const [streetId, setStreetId] = useState(null)
+  const [streetId, setStreetId] = useState<string>()
   const street = useSelector((state) => state.street)
   const isEnabled = useSelector(
     (state) =>
       // Enabled when the feature flag is true
-      state.flags.SENTIMENT_SURVEY?.value === true &&
+      state.flags.SENTIMENT_SURVEY?.value &&
       // Enabled if locale is English (or any other supported locale; for
       // now, this is going to be hard-coded when needed)
       ['en', 'es-419'].includes(state.locale.locale) &&
       // Show if user is not the same the current street's creator
       state.user.signInData?.userId !== street.creatorId &&
       // Show if gallery is not open
-      state.gallery.visible === false &&
+      !state.gallery.visible &&
       // Show if the street is geolocated
       street.location !== null &&
       // Show if the street has had more than a number of edits to it
@@ -39,12 +40,12 @@ function SentimentSurveyContainer (props) {
     // previously, the useEffect hook was getting called several times
   }, [isDismissed])
 
-  function handleClose () {
+  function handleClose (): void {
     setDismissed(true)
     setVisible(false)
   }
 
-  async function handleVote (score) {
+  async function handleVote (score: number): Promise<void> {
     // Post the vote information immediately
     // Let's allow this to fail silently (if there is a problem, the user
     // doesn't need to know, but we still log the error internally)
@@ -55,19 +56,21 @@ function SentimentSurveyContainer (props) {
         streetId: street.id
       })
       if (response.status === 200) {
-        setStreetId(response.data.savedBallot.id)
+        setStreetId(response.data.savedBallot.id as string)
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  if (isEnabled) {
+  if (isEnabled && streetId !== undefined) {
     return (
       <SentimentSurvey
         visible={isVisible}
         onClose={handleClose}
-        handleVote={handleVote}
+        handleVote={(score) => {
+          void handleVote(score)
+        }}
         streetId={streetId}
       />
     )

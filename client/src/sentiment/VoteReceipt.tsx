@@ -1,38 +1,42 @@
 import React, { useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
+
 import Button from '../ui/Button'
 import VoteComment from './VoteComment'
 import SentimentIcon from './SentimentIcon'
 import { getDataForScore } from './scores'
 import './VoteReceipt.scss'
 
-VoteReceipt.propTypes = {
-  score: PropTypes.number,
-  handleClose: PropTypes.func.isRequired,
-  streetId: PropTypes.string
+interface VoteReceiptProps {
+  score?: number
+  handleClose: () => void
+  streetId: string
 }
 
-function VoteReceipt ({ score, handleClose, streetId }) {
-  const doneEl = useRef(null)
+function VoteReceipt ({
+  score,
+  handleClose,
+  streetId
+}: VoteReceiptProps): React.ReactElement | null {
+  const doneEl = useRef<HTMLDivElement>(null)
 
   // When a score is received, we animate the background container
   // in first (which "fades out" the original content, then fade in
   // the new content on top of it.)
   useEffect(() => {
-    if (score !== null) {
+    if (score !== undefined) {
       window.setTimeout(() => {
         if (!doneEl.current) return
         doneEl.current.classList.add('visible')
         window.setTimeout(() => {
           if (!doneEl.current) return
-          doneEl.current.querySelector('div').classList.add('visible')
+          doneEl.current.querySelector('div')?.classList.add('visible')
         }, 600)
       }, 1200)
     }
   }, [score])
 
-  if (score === null) return null
+  if (score === undefined) return null
 
   const vote = getDataForScore(score)
 

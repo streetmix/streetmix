@@ -1,16 +1,19 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
+
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import SentimentIcon from './SentimentIcon'
 import { getAllScoreData } from './scores'
 
-VoteButtons.propTypes = {
-  handleVote: PropTypes.func.isRequired,
-  selectedScore: PropTypes.number
+interface VoteButtonsProps {
+  handleVote: (score: number) => void
+  selectedScore?: number
 }
 
-function VoteButtons ({ handleVote, selectedScore }) {
+function VoteButtons ({
+  handleVote,
+  selectedScore
+}: VoteButtonsProps): React.ReactElement {
   const [source, target] = useSingleton()
   const intl = useIntl()
 
@@ -32,7 +35,9 @@ function VoteButtons ({ handleVote, selectedScore }) {
               ]
                 .join(' ')
                 .trim()}
-              onClick={(e) => handleVote(vote.score, event)}
+              onClick={() => {
+                handleVote(vote.score)
+              }}
               disabled={selectedScore !== null}
             >
               <SentimentIcon {...vote} />
