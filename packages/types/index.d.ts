@@ -45,13 +45,13 @@ export interface StreetData {
 export interface Street {
   id: string
   namespacedId: number
-  name: null
-  clientUpdatedAt: Date
+  name: string | null
+  clientUpdatedAt: string // ISO date string
   data: StreetData
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string // ISO date string
+  updatedAt: string // ISO date string
   originalStreetId: string
-  creatorId: string
+  creatorId: string | null
 }
 
 export interface StreetLocation {
@@ -99,6 +99,8 @@ export interface StreetState extends StreetJsonExtra {
   immediateRemoval: boolean
 }
 
+// Subset of @types/leaflet's `LatLngExpression` type, which is not
+// serializable. Don't use that one.
 export interface LatLngObject {
   lat: number
   lng: number
@@ -152,6 +154,19 @@ export interface LocaleDefinition {
 }
 
 export type BuildingPosition = 'left' | 'right'
+
+// Subset of / derived from SegmentDefinition
+export interface VariantInfo {
+  name?: string
+  nameKey?: string
+  description?: SegmentDescription
+  defaultWidth?: WidthDefinition
+  minWidth?: WidthDefinition
+  maxWidth?: WidthDefinition
+  unknown?: boolean // Set to true when variant doesn't exist
+  elevation: number
+  graphics: Record<string, unknown> // TODO
+}
 
 export interface VariantInfoDimensions {
   left: number

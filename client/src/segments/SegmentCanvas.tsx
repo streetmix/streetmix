@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { memo, useState, useRef, useEffect } from 'react'
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
@@ -111,4 +111,4 @@ function SegmentCanvas ({
   )
 }
 
-export default React.memo(SegmentCanvas)
+export default memo(SegmentCanvas)

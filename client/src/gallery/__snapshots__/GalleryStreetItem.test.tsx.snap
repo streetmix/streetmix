@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GalleryStreetItem > renders 1`] = `
+<DocumentFragment>
+  <div
+    class="gallery-street-item"
+  >
+    <a>
+      <div
+        class="gallery-street-item-inner"
+      >
+        <div
+          class="gallery-street-item-canvas"
+        >
+          <canvas
+            height="220"
+            width="360"
+          />
+        </div>
+        <div
+          class="gallery-street-item-label"
+        >
+          <div>
+            foo
+          </div>
+          <div
+            class="gallery-street-item-date"
+          >
+            <time
+              datetime="2018-04-27T20:47:03.477Z"
+              title="2018-04-27T20:47:03.477Z"
+            >
+              April 27, 2018
+            </time>
+          </div>
+        </div>
+      </div>
+      <div
+        class="street-name"
+      >
+        <div
+          class="street-name-text"
+        >
+          Baz
+        </div>
+      </div>
+    </a>
+    <button
+      class="gallery-street-item-delete"
+      title="Delete street"
+    >
+      <svg
+        class="octicon"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

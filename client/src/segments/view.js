@@ -115,7 +115,7 @@ export function drawSegmentImage (
  * right, and center Y-values needed to render sprites so that they are not
  * truncated at the edge of the segment.
  *
- * @param {Object} variantInfo - segment variant info
+ * @param {VariantInfo} variantInfo - segment variant info
  * @param {Number} actualWidth - segment's actual real life width
  * @returns {VariantInfoDimensions}
  */
@@ -691,6 +691,7 @@ export function editSegmentLabel (segment, position) {
  * @param {Number|string} position - either "left" or "right" for building,
  *              or a number for the position of the segment. Should be
  *              the `dataNo` or `position` variables.
+ * @returns {HTMLElement}
  */
 export function getSegmentEl (position) {
   if (!position && position !== 0) return

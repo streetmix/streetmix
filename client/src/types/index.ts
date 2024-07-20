@@ -1,11 +1,17 @@
+import type { ColorModes } from '~/src/app/constants'
 import type { SerializedError } from '@reduxjs/toolkit'
-import type { StreetData } from '@streetmix/types'
+import type { StreetState } from '@streetmix/types'
 
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
 
+// Helper type that can be combined with a component's props
+// to allow pass-through of arbitrary props
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PassthroughProps = Record<string, any>
+
 export interface UserSettings {
-  colorMode: string
+  colorMode: ColorModes
   lastStreetCreatorId: string
   lastStreetId: string
   lastStreetNamespacedId: number
@@ -52,7 +58,7 @@ export interface UserState {
 
 export interface SentimentVote {
   score: number
-  data: StreetData
+  data: StreetState
   streetId: string
 }
 

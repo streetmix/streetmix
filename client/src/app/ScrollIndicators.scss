@@ -1,12 +1,8 @@
-@import "../../styles/mixins";
-
 .street-scroll-indicators {
   position: absolute;
   bottom: 0;
 
   button {
-    @include tap-highlight-color(transparent);
-
     position: fixed;
     height: 80px;
     margin-top: -80px;

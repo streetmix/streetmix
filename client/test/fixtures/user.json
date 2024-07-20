@@ -1,0 +1,20 @@
+{
+  "id": "foo",
+  "displayName": "",
+  "profileImageUrl": "",
+  "flags": {},
+  "roles": ["USER"],
+  "data": {
+    "colorMode": "light",
+    "lastStreetCreatorId": "foo",
+    "lastStreetId": "9babe534-bad2-499d-8ce1-b3de74f15dc0",
+    "lastStreetNamespacedId": 1,
+    "locale": "en",
+    "newStreetPreference": 1,
+    "saveAsImageSegmentNamesAndWidths": true,
+    "saveAsImageStreetName": true,
+    "saveAsImageTransparentSky": true,
+    "saveAsImageWatermark": true,
+    "units": 0
+  }
+}

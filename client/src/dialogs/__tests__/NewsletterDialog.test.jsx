@@ -1,5 +1,5 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
@@ -24,7 +24,10 @@ describe('NewsletterDialog', () => {
 
     await user.click(screen.getByText('Subscribe'))
 
-    expect(screen.queryByText('Please wait...')).toBeDisabled()
+    // Wait for changes to DOM
+    act(() => {
+      expect(screen.queryByText('Please wait...')).toBeDisabled()
+    })
   })
 
   it('displays content on success state', async () => {

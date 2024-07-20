@@ -1,7 +1,3 @@
-/**
- * Segments in the Palette component render differently (and have different
- * logic and behavior) to segments rendered on the street.
- */
 import React from 'react'
 import { useIntl } from 'react-intl'
 import {
@@ -11,6 +7,7 @@ import {
 } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Tooltip from '../ui/Tooltip'
@@ -20,6 +17,7 @@ import {
   paletteSegmentSource,
   collectDragSource
 } from '../segments/drag_and_drop'
+
 import type { SegmentDefinition } from '@streetmix/types'
 import type { TippyProps } from '@tippyjs/react'
 import './PaletteItem.scss'
@@ -31,15 +29,13 @@ interface PaletteItemProps {
 
   // Provided by parent
   segment: SegmentDefinition
-  unlockCondition: 'SIGN_IN' | 'SUBSCRIBE'
-  randSeed: number | string
-  tooltipTarget: TippyProps['singleton']
+  unlockCondition?: 'SIGN_IN' | 'SUBSCRIBE'
+  tooltipTarget?: TippyProps['singleton']
 }
 
 function PaletteItem ({
   segment,
   unlockCondition,
-  randSeed,
   tooltipTarget,
   ...props
 }: PaletteItemProps): React.ReactElement | null {

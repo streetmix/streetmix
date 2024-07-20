@@ -16,8 +16,6 @@
   border-radius: 9999px;
   cursor: pointer;
 
-  --webkit-tap-highlight-color: rgba(0 0 0 / 0%);
-
   &:focus,
   &:active:not(:disabled) {
     box-shadow: 0 0 0 2px var(--color-turquoise-500);

@@ -93,7 +93,7 @@ export function getSegmentInfo (type) {
  *
  * @param {string} type
  * @param {string} variant
- * @returns {SegmentDefinition} variantInfo - returns an object in the shape of { graphics, ...rules }
+ * @returns {VariantInfo} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 export function getSegmentVariantInfo (type, variant) {
   const segmentLookup = getSegmentLookup(type, variant)

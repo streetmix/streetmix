@@ -77,9 +77,7 @@ function calculateStyles (
   } {
   if (!isVisible || segmentId === null || segment === null) return {}
 
-  // TODO: fix type of variantInfo
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const variantInfo: any = getSegmentVariantInfo(
+  const variantInfo = getSegmentVariantInfo(
     segment.type,
     segment.variantString
   )

@@ -34,11 +34,11 @@ const uiSlice = createSlice({
   initialState,
 
   reducers: {
-    setWelcomePanelVisible (state, action) {
+    setWelcomePanelVisible (state) {
       state.welcomePanelVisible = true
     },
 
-    setWelcomePanelDismissed (state, action) {
+    setWelcomePanelDismissed (state) {
       state.welcomePanelDismissed = true
       state.welcomePanelVisible = false
     },
