@@ -94,6 +94,7 @@ function NotificationBar ({
       timeout={TRANSITION_DURATION}
       onExited={handleExited}
       unmountOnExit={true}
+      nodeRef={el}
     >
       <div
         className="notification-bar"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 // Importing 'property-information' is a workaround for Parcel + React-Markdown bug
 // https://github.com/parcel-bundler/parcel/discussions/9113
@@ -80,6 +80,7 @@ function DescriptionPanel ({
   bubbleY,
   offline = false
 }: DescriptionPanelProps): React.ReactElement {
+  const nodeRef = useRef<HTMLDivElement>(null)
   const [highlightTriangle, setHighlightTriangle] = useState(false)
 
   function unhighlightTriangleDelayed (): void {
@@ -115,7 +116,7 @@ function DescriptionPanel ({
   }
 
   return (
-    <Transition in={visible} timeout={TRANSITION_DURATION}>
+    <Transition in={visible} timeout={TRANSITION_DURATION} nodeRef={nodeRef}>
       {(state) => (
         <div
           className="description-canvas"
@@ -124,6 +125,7 @@ function DescriptionPanel ({
             ...TRANSITION_STYLES[state],
             height
           }}
+          ref={nodeRef}
         >
           <div className="description">
             <div className="description-content">

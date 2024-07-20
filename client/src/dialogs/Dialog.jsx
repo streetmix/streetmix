@@ -30,6 +30,7 @@ Dialog.propTypes = {
 function Dialog ({ children }) {
   // Appear state controls transition in/out
   const dialogEl = useRef(null)
+  const nodeRef = useRef(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()
 
@@ -62,8 +63,9 @@ function Dialog ({ children }) {
       timeout={80}
       classNames="dialog-transition"
       onExited={handleExit}
+      nodeRef={nodeRef}
     >
-      <div className="dialog-box-container">
+      <div className="dialog-box-container" ref={nodeRef}>
         <div className="dialog-box-backdrop" />
         <div className="dialog-box" role="dialog" ref={dialogEl}>
           <CloseButton onClick={handleClose} />
