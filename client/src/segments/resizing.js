@@ -129,7 +129,7 @@ export function handleSegmentResizeEnd (event) {
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
 
   infoBubble.considerSegmentEl = draggingResize.segmentEl
-  infoBubble.show(false)
+  infoBubble.show()
 
   infoBubble.considerShowing(
     event,

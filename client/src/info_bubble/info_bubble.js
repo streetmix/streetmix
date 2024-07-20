@@ -113,7 +113,7 @@ export const infoBubble = {
         infoBubble.considerMouseY
       )
     ) {
-      infoBubble.show(false)
+      infoBubble.show()
     }
   },
 
@@ -123,7 +123,7 @@ export const infoBubble = {
   },
 
   // TODO rename
-  show: function (force) {
+  show: function () {
     if (infoBubble.suppressed) {
       window.setTimeout(infoBubble.show, 100)
       return
@@ -142,11 +142,7 @@ export const infoBubble = {
     const segmentEl = infoBubble.considerSegmentEl
     const type = infoBubble.considerType
 
-    if (
-      segmentEl === infoBubble.segmentEl &&
-      type === infoBubble.type &&
-      !force
-    ) {
+    if (segmentEl === infoBubble.segmentEl && type === infoBubble.type) {
       return
     }
     infoBubble.hideSegment(true)
