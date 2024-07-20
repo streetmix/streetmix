@@ -1,12 +1,17 @@
 .street-section-dirt {
   --dirt-height: 40px;
   --dirt-height-minimum: 5px;
+  --ground-height-minimum: 235px;
 
   position: absolute;
   left: 0;
   right: 0;
   top: calc(var(--canvas-height) - 80px + var(--dirt-height));
   border-top: var(--dirt-height-minimum) solid var(--background-dirt-color);
+  height: max(
+    calc(50vh - (var(--street-section-inner-height) / 2)),
+    var(--ground-height-minimum)
+  );
   background: var(--bottom-background);
   z-index: -2;
   pointer-events: none;

@@ -22,7 +22,9 @@
   display: block;
   left: 0;
   bottom: 130px;
-  height: calc(var(--canvas-height) + 45px);
+
+  /* TODO: Recalc other heights based on this value? */
+  height: var(--street-section-inner-height);
   user-select: none;
 
   body.read-only & {
