@@ -3,11 +3,16 @@ import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import GeoSearch from '../GeoSearch'
+import GeoSearch from './GeoSearch'
+
+const baseProps = {
+  handleSearchResults: () => {},
+  focus: { lat: 0, lng: 0 }
+}
 
 describe('GeoSearch', () => {
   it('focuses the input after mounting', () => {
-    render(<GeoSearch />)
+    render(<GeoSearch {...baseProps} />)
     const input = screen.getByPlaceholderText('Search for a location')
     expect(document.activeElement).toEqual(input)
   })
@@ -15,7 +20,7 @@ describe('GeoSearch', () => {
   it('displays a "clear search" button when there is input', async () => {
     const user = userEvent.setup()
 
-    render(<GeoSearch />)
+    render(<GeoSearch {...baseProps} />)
     const input = screen.getByPlaceholderText('Search for a location')
 
     // The close button should not render when the input is empty
@@ -38,11 +43,13 @@ describe('GeoSearch', () => {
     const user = userEvent.setup()
 
     const { getByTitle, queryByTitle, getByPlaceholderText } = render(
-      <GeoSearch />
+      <GeoSearch {...baseProps} />
     )
 
     // Simulates input
-    const input = getByPlaceholderText('Search for a location')
+    const input = getByPlaceholderText(
+      'Search for a location'
+    ) as HTMLInputElement
     await user.type(input, 'foo')
 
     // Simulates click on "clear search"

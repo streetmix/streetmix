@@ -305,7 +305,7 @@ function GeotagDialog () {
               })}
             />
 
-            {renderPopup && (
+            {renderPopup && markerLocation && (
               <LocationPopup
                 position={markerLocation}
                 label={label}
@@ -322,12 +322,14 @@ function GeotagDialog () {
               />
             )}
 
-            <LocationMarker
-              position={markerLocation}
-              geocodeAvailable={geocodeAvailable}
-              onDragStart={handleMarkerDragStart}
-              onDragEnd={handleMarkerDragEnd}
-            />
+            {markerLocation && (
+              <LocationMarker
+                position={markerLocation}
+                geocodeAvailable={geocodeAvailable}
+                onDragStart={handleMarkerDragStart}
+                onDragEnd={handleMarkerDragEnd}
+              />
+            )}
             <MapClick />
             <AttributionControl prefix={MAP_ATTRIBUTION_PREFIX} />
           </MapContainer>

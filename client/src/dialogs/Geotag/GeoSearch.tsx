@@ -1,44 +1,69 @@
 import React, { useRef } from 'react'
-import PropTypes from 'prop-types'
 import { useIntl } from 'react-intl'
-import DownshiftPelias from 'downshift-pelias'
-import Pelias from 'pelias-js'
+import DownshiftPelias from 'downshift-pelias' // TODO: type definitions
+import Pelias from 'pelias-js' // TODO: type definitions
+
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
 
-GeoSearch.propTypes = {
-  handleSearchResults: PropTypes.func,
-  focus: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number
-  })
+import type { LatLngObject } from '@streetmix/types'
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  Point,
+  Position
+} from 'geojson'
+
+interface GeoSearchProps {
+  handleSearchResults: (geo: Position, properties: GeoJsonProperties) => void
+  focus: LatLngObject
 }
 
-function GeoSearch ({ handleSearchResults, focus = { lat: 0, lng: 0 } }) {
-  const intl = useIntl()
-  const inputEl = useRef()
+type DownshiftPeliasGetter = (opts: unknown) => Record<string, unknown>
+interface DownshiftPeliasProps {
+  getInputProps: DownshiftPeliasGetter
+  getMenuProps: DownshiftPeliasGetter
+  getItemProps: DownshiftPeliasGetter
+  clearSelection: () => void
+  inputValue: string
+  isOpen: boolean
+  results: FeatureCollection
+}
 
-  function handleClickClearSearch (clearSelection) {
+function GeoSearch ({
+  handleSearchResults,
+  focus = { lat: 0, lng: 0 }
+}: GeoSearchProps): React.ReactElement {
+  const intl = useIntl()
+  const inputEl = useRef<HTMLInputElement>()
+
+  function handleClickClearSearch (clearSelection: () => void): void {
     clearSelection()
-    inputEl.current.focus()
+    inputEl.current?.focus()
   }
 
-  function handleChange (selection) {
+  function handleChange (selection?: Feature): void {
     if (!selection) return
 
     handleSearchResults(
-      selection.geometry.coordinates.reverse(),
+      (selection.geometry as Point).coordinates.reverse(),
       selection.properties
     )
-    inputEl.current.focus()
+    inputEl.current?.focus()
   }
 
-  function renderSuggestion (item, index, inputValue, getItemProps) {
-    const label = item.properties.label
+  function renderSuggestion (
+    item: Feature,
+    index: number,
+    inputValue: string,
+    getItemProps: DownshiftPeliasGetter
+  ): React.ReactElement {
+    const label = item.properties?.label
 
     // Highlight the input query
     const regex = new RegExp(`(${inputValue})`, 'gi')
     const parts = label.split(regex)
-    const highlighted = parts.map((part, index) => {
+    const highlighted = parts.map((part: string, index: number) => {
       if (part.toLowerCase() === inputValue.toLowerCase()) {
         return <strong key={index}>{part}</strong>
       }
@@ -49,7 +74,7 @@ function GeoSearch ({ handleSearchResults, focus = { lat: 0, lng: 0 } }) {
       <li
         {...getItemProps({
           className: 'geotag-suggestion',
-          key: item.properties.gid,
+          key: item.properties?.gid,
           index,
           item
         })}
@@ -81,7 +106,7 @@ function GeoSearch ({ handleSearchResults, focus = { lat: 0, lng: 0 } }) {
         inputValue,
         isOpen,
         results
-      }) => (
+      }: DownshiftPeliasProps) => (
         <div className="geotag-input-form">
           <input
             {...getInputProps({
@@ -108,7 +133,7 @@ function GeoSearch ({ handleSearchResults, focus = { lat: 0, lng: 0 } }) {
               ×
             </span>
           )}
-          {isOpen && results && results.features.length > 0 && (
+          {isOpen && results?.features.length > 0 && (
             <div className="geotag-suggestions-container">
               <ul {...getMenuProps({ className: 'geotag-suggestions-list' })}>
                 {results.features.map((item, index) =>

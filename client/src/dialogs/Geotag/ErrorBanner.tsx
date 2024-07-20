@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-function ErrorBanner (props) {
+function ErrorBanner (): React.ReactElement {
   return (
     <div className="geotag-error-banner">
       <FormattedMessage

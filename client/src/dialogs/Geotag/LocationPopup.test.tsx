@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import LocationPopup from '../LocationPopup'
+import LocationPopup from './LocationPopup'
 
 // Mock the <Popup /> component of react-leaflet so that it doesn't
 // run its own side-effects; we only want to render as a wrapper
@@ -13,14 +13,17 @@ vi.mock('react-leaflet', () => {
 })
 
 describe('LocationPopup', () => {
-  it('does not render if a location is not provided', () => {
-    const { container } = render(<LocationPopup />)
-    // react-leaflet's <Popup /> should not exist
-    expect(container.firstChild).toBe(null)
-  })
-
   it('renders an address label', () => {
-    render(<LocationPopup position={{ lat: 0, lng: 0 }} label="foo" />)
+    render(
+      <LocationPopup
+        position={{ lat: 0, lng: 0 }}
+        label="foo"
+        isEditable={true}
+        isClearable={false}
+        handleConfirm={vi.fn()}
+        handleClear={vi.fn()}
+      />
+    )
 
     // Expect the text to be visible
     expect(screen.getByText('foo')).not.toBe(null)
@@ -33,8 +36,11 @@ describe('LocationPopup', () => {
     render(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
+        label=""
         isEditable={true}
+        isClearable={false}
         handleConfirm={handleConfirm}
+        handleClear={handleClear}
       />
     )
 
@@ -52,11 +58,14 @@ describe('LocationPopup', () => {
     render(
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
+        label=""
         isEditable={true}
         isClearable={true}
+        handleConfirm={handleConfirm}
         handleClear={handleClear}
       />
     )
+
     // Button should exist and has the correct label
     // When button is clicked, `handleClear` should be called
     await userEvent.click(screen.getByText('Clear location'))

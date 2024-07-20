@@ -1,24 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import { Popup } from 'react-leaflet'
+
 import Button from '../../ui/Button'
 
+import type { LatLngObject } from '@streetmix/types'
+import type { PointExpression } from 'leaflet'
+
 const POPUP_MAX_WIDTH = 300
-const POPUP_OFFSET = [0, -30]
+const POPUP_OFFSET: PointExpression = [0, -30]
 
-const LocationPopup = (props) => {
-  const {
-    label,
-    position,
-    isEditable = false,
-    isClearable = false,
-    handleClear,
-    handleConfirm
-  } = props
+interface LocationPopupProps {
+  position: LatLngObject
+  label: string
+  isEditable: boolean
+  isClearable: boolean
+  handleConfirm: (event: React.MouseEvent) => void
+  handleClear: (event: React.MouseEvent) => void
+}
 
-  if (!position) return null
-
+const LocationPopup = ({
+  position,
+  label,
+  isEditable = false,
+  isClearable = false,
+  handleConfirm,
+  handleClear
+}: LocationPopupProps): React.ReactElement => {
   return (
     <Popup
       position={position}
@@ -52,18 +60,6 @@ const LocationPopup = (props) => {
             ))}
     </Popup>
   )
-}
-
-LocationPopup.propTypes = {
-  position: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number
-  }),
-  label: PropTypes.string,
-  isEditable: PropTypes.bool,
-  isClearable: PropTypes.bool,
-  handleConfirm: PropTypes.func,
-  handleClear: PropTypes.func
 }
 
 export default LocationPopup
