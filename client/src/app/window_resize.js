@@ -1,15 +1,11 @@
 import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 
-let streetSectionTop
-
-export function getStreetSectionTop () {
-  return streetSectionTop
-}
-
 // TODO: less reliance on querying other DOM elements, if possible
 // TODO: document all magic numbers
-export function setStreetSectionTop () {
+export function getStreetSectionTop () {
+  let streetSectionTop
+
   // not _always_ equal to 100vh, but for our purposes, it is
   const viewportHeight = window.innerHeight
 
@@ -29,9 +25,10 @@ export function setStreetSectionTop () {
   if (app.readOnly) {
     streetSectionTop += 80
   }
+
+  return streetSectionTop
 }
 
 export function onResize () {
-  setStreetSectionTop()
   infoBubble.show(true)
 }
