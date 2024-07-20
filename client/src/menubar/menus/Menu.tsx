@@ -88,6 +88,7 @@ function Menu ({
       classNames="menu-visible"
       mountOnEnter={true}
       unmountOnExit={true}
+      nodeRef={ref}
     >
       <div className={classNames.join(' ')} ref={ref}>
         {children}

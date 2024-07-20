@@ -181,7 +181,7 @@ export class InfoBubble extends React.Component {
 
     if (this.props.visible) {
       if (!infoBubble._withinHoverPolygon(mouseX, mouseY)) {
-        infoBubble.show(false)
+        infoBubble.show()
       }
     }
 
