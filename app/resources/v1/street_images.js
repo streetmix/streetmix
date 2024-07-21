@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cloudinary from 'cloudinary'
-import { runTestCanvas } from '@streetmix/export-image'
+// import { runTestCanvas } from '@streetmix/export-image'
 
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
@@ -282,6 +282,7 @@ export async function get (req, res) {
   let street
 
   try {
+    // eslint-disable-next-line
     street = await Street.findOne({ where: { id: streetId } })
   } catch (error) {
     logger.error(error)
@@ -294,19 +295,22 @@ export async function get (req, res) {
     const publicId = `${process.env.NODE_ENV}/street_thumbnails/${streetId}`
     resource = await cloudinary.v2.api.resource(publicId)
   } catch (error) {
-    if (error?.error?.http_code === 404) {
-      // While canvas backend is in development, let's run and return this
-      // for streets that aren't currently existing on Cloudinary.
-      // Options are passed via query params
-      const image = await runTestCanvas(street.dataValues, req.query)
+    logger.error(error)
+    res.status(500).json({ status: 500, msg: 'Error finding street image.' })
 
-      res.set('Content-Type', 'image/png')
-      res.status(200).send(image)
-      // res.status(404).json({ status: 404, msg: 'Could not find street image.' })
-    } else {
-      logger.error(error)
-      res.status(500).json({ status: 500, msg: 'Error finding street image.' })
-    }
+    // if (error?.error?.http_code === 404) {
+    //   // While canvas backend is in development, let's run and return this
+    //   // for streets that aren't currently existing on Cloudinary.
+    //   // Options are passed via query params
+    //   const image = await runTestCanvas(street.dataValues, req.query)
+
+    //   res.set('Content-Type', 'image/png')
+    //   res.status(200).send(image)
+    //   // res.status(404).json({ status: 404, msg: 'Could not find street image.' })
+    // } else {
+    //   logger.error(error)
+    //   res.status(500).json({ status: 500, msg: 'Error finding street image.' })
+    // }
     return
   }
 
