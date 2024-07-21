@@ -74,7 +74,7 @@ const helmetConfig = {
     includeSubDomains: false // we don't have a wildcard ssl cert
   },
   referrerPolicy: {
-    policy: 'no-referrer-when-downgrade'
+    policy: 'strict-origin-when-cross-origin'
   }
 }
 
@@ -94,6 +94,7 @@ const csp = {
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
+    frameAncestors: ["'self'", 'https:'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
     imgSrc: [
       "'self'",
