@@ -7,20 +7,20 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --color-emerald-700: rgb(9, 63, 20);
-  --color-emerald-600: rgb(31, 114, 52);
-  --color-emerald-500: rgb(26, 145, 78);
-  --color-emerald-400: rgb(91, 193, 125);
-  --color-emerald-300: rgb(147, 219, 169);
-  --color-emerald-200: rgb(200, 237, 209);
+  --color-emerald-900: rgb(9, 63, 20);
+  --color-emerald-800: rgb(31, 114, 52);
+  --color-emerald-700: rgb(26, 145, 78);
+  --color-emerald-600: rgb(91, 193, 125);
+  --color-emerald-400: rgb(147, 219, 169);
+  --color-emerald-300: rgb(200, 237, 209);
   --color-emerald-100: rgb(231, 247, 234);
 
-  --ifm-color-primary: var(--color-emerald-400);
-  --ifm-color-primary-dark: var(--color-emerald-500);
-  --ifm-color-primary-darker: var(--color-emerald-600);
-  --ifm-color-primary-darkest: var(--color-emerald-700);
-  --ifm-color-primary-light: var(--color-emerald-300);
-  --ifm-color-primary-lighter: var(--color-emerald-200);
+  --ifm-color-primary: var(--color-emerald-600);
+  --ifm-color-primary-dark: var(--color-emerald-700);
+  --ifm-color-primary-darker: var(--color-emerald-800);
+  --ifm-color-primary-darkest: var(--color-emerald-900);
+  --ifm-color-primary-light: var(--color-emerald-400);
+  --ifm-color-primary-lighter: var(--color-emerald-300);
   --ifm-color-primary-lightest: var(--color-emerald-100);
   --ifm-code-font-size: 95%;
 
@@ -55,11 +55,11 @@ footer {
 }
 
 html[data-theme="light"] .navbar__title {
-  color: var(--color-emerald-500);
+  color: var(--color-emerald-700);
 }
 
 html[data-theme="dark"] .navbar__title {
-  color: var(--color-emerald-300);
+  color: var(--color-emerald-400);
 }
 
 footer.footer--dark {
@@ -115,8 +115,8 @@ footer.footer--dark {
   appearance: none;
   -webkit-appearance: none;
   background-color: transparent;
-  border: 2px solid var(--color-emerald-400);
-  color: var(--color-emerald-400);
+  border: 2px solid var(--color-emerald-600);
+  color: var(--color-emerald-600);
   font-size: 1em;
   text-decoration: none;
   display: block;
@@ -124,7 +124,7 @@ footer.footer--dark {
 }
 
 .stmx-cta-button:hover {
-  background-color: var(--color-emerald-400);
+  background-color: var(--color-emerald-600);
   color: white;
   text-decoration: none;
 }

@@ -46,7 +46,7 @@
 
 .toast-action button {
   display: block;
-  border: 1px solid var(--color-copper-400);
+  border: 1px solid var(--color-copper-600);
   border-radius: var(--border-radius-medium);
   padding: 0.25em 0.5em;
   margin: 0;
@@ -54,19 +54,19 @@
   min-height: 32px;
   font-weight: 550;
   background-color: transparent;
-  color: var(--color-copper-600);
+  color: var(--color-copper-800);
   cursor: pointer;
 
   &:hover {
     background-color: transparent;
-    color: var(--color-copper-700);
+    color: var(--color-copper-900);
   }
 }
 
 /* Close button overrides */
 .toast .close {
-  --close-icon-color: var(--color-copper-500);
-  --close-icon-color-hover: var(--color-copper-600);
+  --close-icon-color: var(--color-copper-700);
+  --close-icon-color-hover: var(--color-copper-800);
 
   width: 24px;
   height: 24px;
@@ -100,28 +100,28 @@
 
 .toast-success {
   .toast-content {
-    background-color: var(--color-emerald-200);
-    border-top-color: var(--color-emerald-300);
+    background-color: var(--color-emerald-300);
+    border-top-color: var(--color-emerald-400);
   }
 
   h3 {
-    color: var(--color-emerald-700);
+    color: var(--color-emerald-900);
   }
 
   .close {
-    color: var(--color-emerald-500);
+    color: var(--color-emerald-700);
 
     &:hover {
-      color: var(--color-emerald-600);
+      color: var(--color-emerald-800);
     }
   }
 
   .toast-action button {
-    color: var(--color-emerald-600);
-    border-color: var(--color-emerald-500);
+    color: var(--color-emerald-800);
+    border-color: var(--color-emerald-700);
 
     &:hover {
-      color: var(--color-emerald-700);
+      color: var(--color-emerald-900);
     }
   }
 }

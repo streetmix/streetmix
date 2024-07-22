@@ -44,7 +44,7 @@
 
 .identity-avatar-display-name {
   font-weight: 550;
-  color: var(--color-turquoise-700);
+  color: var(--color-turquoise-900);
 }
 
 .identity-roles {
@@ -77,12 +77,12 @@
 
   .role-badge-generic {
     background-color: var(--color-midnight-100);
-    color: var(--color-midnight-600);
+    color: var(--color-midnight-800);
   }
 
   .role-badge-subscriber {
     background-color: var(--color-turquoise-200);
-    color: var(--color-turquoise-700);
+    color: var(--color-turquoise-900);
 
     img {
       height: 1em;
@@ -97,6 +97,6 @@
 
   .role-badge-admin {
     background-color: var(--alert-border-color);
-    color: var(--color-copper-700);
+    color: var(--color-copper-900);
   }
 }

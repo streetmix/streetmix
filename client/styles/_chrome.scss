@@ -36,7 +36,7 @@ body.phone #loading {
 
 #error,
 #loading {
-  color: var(--color-turquoise-700);
+  color: var(--color-turquoise-900);
 
   h1 {
     @include large-message-text;
@@ -87,11 +87,11 @@ body.phone #loading {
     a,
     a:visited,
     a:active {
-      color: var(--color-turquoise-700);
+      color: var(--color-turquoise-900);
     }
 
     a:hover {
-      color: var(--color-turquoise-600);
+      color: var(--color-turquoise-800);
     }
   }
 }

@@ -11,14 +11,14 @@
   height: 21px;
   border: 0;
   background-color: white;
-  box-shadow: 0 0 0 1px var(--color-turquoise-500);
+  box-shadow: 0 0 0 1px var(--color-turquoise-700);
   transition: background-color 120ms;
   border-radius: 9999px;
   cursor: pointer;
 
   &:focus,
   &:active:not(:disabled) {
-    box-shadow: 0 0 0 2px var(--color-turquoise-500);
+    box-shadow: 0 0 0 2px var(--color-turquoise-700);
   }
 
   &:disabled {
@@ -54,7 +54,7 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: var(--color-turquoise-500);
+    background-color: var(--color-turquoise-700);
   }
 }
 

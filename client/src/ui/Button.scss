@@ -5,8 +5,8 @@ a.btn {
   border: 0;
   border-radius: var(--border-radius-medium);
   padding: 0.75em 2em;
-  background-color: var(--color-turquoise-250);
-  color: var(--color-midnight-700);
+  background-color: var(--color-turquoise-300);
+  color: var(--color-midnight-900);
   font-weight: 550;
   text-align: center;
   text-decoration: none;
@@ -14,15 +14,15 @@ a.btn {
 
   // stylelint-disable-next-line selector-class-pattern
   &:not([disabled]) .svg-inline--fa {
-    color: var(--color-midnight-700);
+    color: var(--color-midnight-900);
   }
 
   &:hover {
-    background-color: var(--color-turquoise-300);
+    background-color: var(--color-turquoise-400);
   }
 
   &:active {
-    background-color: var(--color-turquoise-300);
+    background-color: var(--color-turquoise-400);
   }
 
   &[disabled] {
@@ -41,16 +41,11 @@ a.btn {
   }
 
   &.btn-primary {
-    background-color: var(--color-emerald-400);
+    background-color: var(--color-emerald-500);
     color: white;
 
     &:hover {
-      // TODO: replace with new color stop?
-      background-color: color-mix(
-        in oklch,
-        var(--color-emerald-400),
-        var(--color-emerald-500) 25%
-      );
+      background-color: var(--color-emerald-600);
     }
   }
 
@@ -59,26 +54,21 @@ a.btn {
     color: white;
 
     &:hover {
-      // TODO: replace with new color stop?
-      background-color: color-mix(
-        in oklch,
-        var(--color-emerald-500),
-        var(--color-emerald-600) 25%
-      );
+      background-color: var(--color-turquoise-600);
     }
   }
 
   &.btn-tertiary {
     background-color: transparent;
-    color: var(--color-turquoise-600);
+    color: var(--color-turquoise-700);
 
     &:not(:disabled) {
-      border: 1px solid var(--color-turquoise-400);
+      border: 1px solid var(--color-turquoise-500);
     }
 
     &:hover {
       background-color: var(--color-turquoise-100);
-      color: var(--color-turquoise-700);
+      color: var(--color-turquoise-800);
     }
   }
 }

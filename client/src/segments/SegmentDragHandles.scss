@@ -15,7 +15,7 @@ body.segment-resize-dragging * {
   border-bottom: 5px solid var(--color-turquoise-200);
   border-radius: var(--border-radius-medium);
   font-size: 1.5rem;
-  color: var(--color-turquoise-500);
+  color: var(--color-turquoise-700);
   z-index: var(--z-06-drag-handle);
   pointer-events: none;
   background: var(--info-bubble-background);
@@ -26,7 +26,7 @@ body.segment-resize-dragging * {
   opacity: 0;
 
   &:hover {
-    color: var(--color-turquoise-600);
+    color: var(--color-turquoise-800);
   }
 }
 
@@ -51,7 +51,7 @@ body.segment-resize-dragging * {
 }
 
 .drag-handle.floating {
-  background-color: var(--color-turquoise-500);
+  background-color: var(--color-turquoise-700);
 }
 
 body.segment-resize-dragging .drag-handle.floating,

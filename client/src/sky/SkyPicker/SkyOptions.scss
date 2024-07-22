@@ -1,6 +1,6 @@
 .sky-options {
-  --selection-highlight-color: var(--color-copper-500);
-  --selection-focus-color: var(--color-turquoise-500);
+  --selection-highlight-color: var(--color-copper-700);
+  --selection-focus-color: var(--color-turquoise-700);
 
   display: grid;
   height: auto;
@@ -54,7 +54,7 @@
     right: 4px;
     top: 4px;
     z-index: 2;
-    color: var(--color-copper-600);
+    color: var(--color-copper-800);
 
     [dir="rtl"] & {
       left: 4px;
