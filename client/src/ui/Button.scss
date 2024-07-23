@@ -26,17 +26,17 @@ a.btn {
   }
 
   &[disabled] {
-    background-color: var(--deprecated-ui-color-fade-desaturate) !important;
-    color: #999 !important;
+    background-color: var(--color-gray-100) !important;
+    color: var(--color-gray-400) !important;
     cursor: auto;
 
     // stylelint-disable-next-line selector-class-pattern
     .svg-inline--fa {
-      color: #999 !important;
+      color: var(--color-gray-400) !important;
     }
 
     &:hover {
-      background-color: var(--deprecated-ui-color-fade-desaturate) !important;
+      background-color: var(--color-gray-100) !important;
     }
   }
 

@@ -89,8 +89,8 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: var(--deprecated-ui-color-fade-desaturate) !important;
-    border-color: var(--deprecated-ui-color-desaturate) !important;
+    background: var(--color-gray-100) !important;
+    border-color: var(--color-gray-200) !important;
   }
 }
 

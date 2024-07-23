@@ -57,6 +57,9 @@ $street-name-gallery-size: 0.5;
   --color-midnight-900: rgb(41 57 94);
 
   /* TODO: Color scales for gray/white, black/dark, yellow and red */
+  --color-gray-100: #eeeeee; /* ported from old color */
+  --color-gray-200: #dcdcdc; /* ported from old color */
+  --color-gray-400: #999999; /* ported from actual usage */
 
   /* Misc colors */
   --background-dirt-color: rgb(53 45 39);
@@ -74,16 +77,6 @@ $street-name-gallery-size: 0.5;
   --segment-text: rgb(40 35 30);
   --segment-hover-background: rgb(255 255 255 / 20%);
   --info-bubble-background: white; // TODO: rename
-
-  /* Deprecated UI color
-   * "UI color" is a deprecated method of extrapolating a color scheme from
-   * the original sky color. It is preserved here because many elements of UI
-   * still use it, and its value is now hardcoded, but it was originally
-   * calculated as `color.adjust($sky-colour, $lightness: 10%)`. Do not use
-   * when creating or refactoring UI. Other variations of "UI color" are
-   * hardcoded here also. Remove when no longer needed. */
-  --deprecated-ui-color-desaturate: #dcdcdc; // color.adjust($ui-colour, $saturation: -100%);
-  --deprecated-ui-color-fade-desaturate: #dcdcdc4d; // color.adjust(fade-out($ui-colour, 0.7), $saturation: -100%);
 
   /* Third-party brand colors (e.g. social, etc) in alphabetical order
    * All colors must be official (please update them as necessary)
