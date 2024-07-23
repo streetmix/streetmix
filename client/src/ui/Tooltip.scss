@@ -1,14 +1,14 @@
 // Styles must be used in conjunction with the default tippy.js css
 .tippy-box {
-  --tooltip-background-colour: #2a2b2a;
-  --tooltip-font-colour: white;
+  --tooltip-background-color: #2a2b2a;
+  --tooltip-font-color: white;
   --tooltip-font-weight: 550;
   --tooltip-max-width: 150px;
 
-  background-color: var(--tooltip-background-colour);
+  background-color: var(--tooltip-background-color);
   padding: 0.5em 1.25em;
   font-weight: var(--tooltip-font-weight);
-  color: var(--tooltip-font-colour);
+  color: var(--tooltip-font-color);
   border-radius: var(--border-radius);
   text-align: center;
   max-width: var(--tooltip-max-width);
@@ -28,5 +28,5 @@
 }
 
 .tippy-arrow {
-  color: var(--tooltip-background-colour);
+  color: var(--tooltip-background-color);
 }
