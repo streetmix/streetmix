@@ -1,6 +1,7 @@
 // TODO: Further refactoring / splitting up of these styles
 
 .info-bubble {
+  --info-bubble-header-background-color: var(--color-turquoise-200);
   --info-bubble-button-size: 30px;
   --info-bubble-border-radius: var(--border-radius);
 
@@ -36,9 +37,9 @@
     height: calc(var(--info-bubble-button-size) + 10px);
     line-height: calc(var(--info-bubble-button-size) + 2px);
     font-size: 1.2em;
-    font-weight: 300;
-    color: white;
-    background: var(--deprecated-ui-color-lightness-20);
+    font-weight: 500;
+    color: var(--color-turquoise-900);
+    background-color: var(--info-bubble-header-background-color);
     border-top-left-radius: var(--info-bubble-border-radius);
     border-top-right-radius: var(--info-bubble-border-radius);
   }
@@ -179,7 +180,7 @@
     right: -40px;
     width: 0;
     height: 0;
-    border-top: 40px solid var(--deprecated-ui-color-lightness-20);
+    border-top: 40px solid var(--info-bubble-header-background-color);
     border-right: 40px solid transparent;
 
     [dir="rtl"] & {
@@ -204,7 +205,7 @@
 
 .info-bubble-warnings {
   margin-top: 1px;
-  border-top: 1px solid var(--deprecated-ui-color);
+  border-top: 1px solid var(--color-turquoise-300);
   padding: 0.5em 1.5em 0.5em 1em;
   white-space: normal;
   color: var(--warning-color);

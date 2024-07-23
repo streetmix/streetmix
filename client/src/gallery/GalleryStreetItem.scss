@@ -31,7 +31,7 @@
 .gallery-street-item > a {
   display: block;
   text-decoration: none;
-  border: 2px solid var(--deprecated-ui-color-lightness-10);
+  border: 2px solid var(--color-turquoise-600);
   background-color: #f0f0f0;
   cursor: pointer;
   position: relative;
@@ -141,12 +141,12 @@
   }
 
   svg {
-    color: var(--color-turquoise-700) !important;
+    color: var(--color-midnight-900);
     width: 12px;
   }
 
   &:hover svg {
-    color: var(--color-turquoise-800) !important;
+    color: var(--color-turquoise-800);
   }
 }
 

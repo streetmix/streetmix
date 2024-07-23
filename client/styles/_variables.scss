@@ -82,11 +82,6 @@ $street-name-gallery-size: 0.5;
    * calculated as `color.adjust($sky-colour, $lightness: 10%)`. Do not use
    * when creating or refactoring UI. Other variations of "UI color" are
    * hardcoded here also. Remove when no longer needed. */
-  --deprecated-ui-color: #cde1ea;
-  --deprecated-ui-color-lightness-10: #a9ccdb; // color.adjust($ui-colour, $lightness: -10%);
-  --deprecated-ui-color-lightness-20: #85b7cc; // color.adjust($ui-colour, $lightness: -20%);
-  --deprecated-ui-color-lightness-40: #4589a6; // color.adjust($ui-colour, $lightness: -40%);
-  --deprecated-ui-color-mix-white: #e6f0f5; // color.mix($ui-colour, white, 50%);
   --deprecated-ui-color-desaturate: #dcdcdc; // color.adjust($ui-colour, $saturation: -100%);
   --deprecated-ui-color-fade-desaturate: #dcdcdc4d; // color.adjust(fade-out($ui-colour, 0.7), $saturation: -100%);
 

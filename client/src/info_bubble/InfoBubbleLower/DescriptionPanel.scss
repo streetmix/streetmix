@@ -1,19 +1,19 @@
 .description-prompt,
 .description-close {
-  border-top: 1px solid var(--deprecated-ui-color);
+  border-top: 1px solid var(--color-turquoise-300);
   white-space: normal;
   text-align: center;
   padding: 1em 2em;
   user-select: none;
-  color: var(--deprecated-ui-color-lightness-20);
+  color: var(--color-turquoise-700);
   cursor: pointer;
   overflow: hidden;
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 
   &:hover {
-    color: var(--deprecated-ui-color-lightness-40);
-    background: var(--deprecated-ui-color-mix-white);
+    color: var(--color-turquoise-800);
+    background-color: var(--color-turquoise-100);
   }
 }
 
@@ -32,7 +32,7 @@
   pointer-events: none;
   border-radius: var(--border-radius);
   box-shadow: var(--light-box-shadow);
-  background: var(--info-bubble-background);
+  background-color: var(--info-bubble-background);
 }
 
 .description {
