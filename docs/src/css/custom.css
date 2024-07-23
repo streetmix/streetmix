@@ -7,13 +7,43 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --color-emerald-900: rgb(9, 63, 20);
-  --color-emerald-800: rgb(31, 114, 52);
-  --color-emerald-700: rgb(26, 145, 78);
-  --color-emerald-600: rgb(91, 193, 125);
-  --color-emerald-400: rgb(147, 219, 169);
-  --color-emerald-300: rgb(200, 237, 209);
-  --color-emerald-100: rgb(231, 247, 234);
+  /* Brand colors */
+  --color-emerald-100: rgb(219 248 220);
+  --color-emerald-200: rgb(203 246 213);
+  --color-emerald-300: rgb(158 244 182);
+  --color-emerald-400: rgb(117 228 153);
+  --color-emerald-500: rgb(91 193 125);
+  --color-emerald-600: rgb(81 173 112);
+  --color-emerald-700: rgb(65 141 90);
+  --color-emerald-800: rgb(47 105 66);
+  --color-emerald-900: rgb(28 68 41);
+  --color-turquoise-100: rgb(222 243 249);
+  --color-turquoise-200: rgb(210 240 248);
+  --color-turquoise-300: rgb(193 235 247);
+  --color-turquoise-400: rgb(116 217 244);
+  --color-turquoise-500: rgb(71 195 225);
+  --color-turquoise-600: rgb(59 166 192);
+  --color-turquoise-700: rgb(46 135 156);
+  --color-turquoise-800: rgb(33 100 117);
+  --color-turquoise-900: rgb(18 65 76);
+  --color-copper-100: rgb(250 235 226);
+  --color-copper-200: rgb(250 229 217);
+  --color-copper-300: rgb(249 212 190);
+  --color-copper-400: rgb(248 184 144);
+  --color-copper-500: rgb(249 148 77);
+  --color-copper-600: rgb(223 119 36);
+  --color-copper-700: rgb(182 96 28);
+  --color-copper-800: rgb(137 70 17);
+  --color-copper-900: rgb(90 44 9);
+  --color-midnight-100: rgb(237 238 242);
+  --color-midnight-200: rgb(231 233 238);
+  --color-midnight-300: rgb(216 220 229);
+  --color-midnight-400: rgb(194 201 216);
+  --color-midnight-500: rgb(167 177 199);
+  --color-midnight-600: rgb(123 139 173);
+  --color-midnight-700: rgb(104 122 162);
+  --color-midnight-800: rgb(67 89 139);
+  --color-midnight-900: rgb(41 57 94);
 
   --ifm-color-primary: var(--color-emerald-600);
   --ifm-color-primary-dark: var(--color-emerald-700);
@@ -446,142 +476,182 @@ html[data-theme="dark"] .stmx-illustration-container {
   color: black;
 }
 
-.stmx-brand-color-emerald-700 {
-  background-color: #093f14;
-  color: #e7f7ea;
-}
-
-.stmx-brand-color-emerald-600 {
-  background-color: #1f7234;
-  color: #e7f7ea;
-}
-
-.stmx-brand-color-emerald-500 {
-  background-color: #1a914e;
-  color: #e7f7ea;
-}
-
-.stmx-brand-color-emerald-400 {
-  background-color: #5bc17d;
-  color: #e7f7ea;
-}
-
-.stmx-brand-color-emerald-300 {
-  background-color: #93dba9;
-  color: #093f14;
+.stmx-brand-color-emerald-100 {
+  background-color: var(--color-emerald-100);
+  color: var(--color-emerald-900);
 }
 
 .stmx-brand-color-emerald-200 {
-  background-color: #c8edd1;
-  color: #093f14;
+  background-color: var(--color-emerald-200);
+  color: var(--color-emerald-900);
 }
 
-.stmx-brand-color-emerald-100 {
-  background-color: #e7f7ea;
-  color: #093f14;
+.stmx-brand-color-emerald-300 {
+  background-color: var(--color-emerald-300);
+  color: var(--color-emerald-900);
 }
 
-.stmx-brand-color-turquoise-700 {
-  background-color: #154447;
-  color: #ebf9fc;
+.stmx-brand-color-emerald-400 {
+  background-color: var(--color-emerald-400);
+  color: var(--color-emerald-900);
 }
 
-.stmx-brand-color-turquoise-600 {
-  background-color: #306c72;
-  color: #ebf9fc;
+.stmx-brand-color-emerald-500 {
+  background-color: var(--color-emerald-500);
+  color: var(--color-emerald-900);
 }
 
-.stmx-brand-color-turquoise-500 {
-  background-color: #52a2af;
-  color: #ebf9fc;
+.stmx-brand-color-emerald-600 {
+  background-color: var(--color-emerald-600);
+  color: var(--color-emerald-100);
 }
 
-.stmx-brand-color-turquoise-400 {
-  background-color: #89c1ce;
-  color: #ebf9fc;
+.stmx-brand-color-emerald-700 {
+  background-color: var(--color-emerald-700);
+  color: var(--color-emerald-100);
 }
 
-.stmx-brand-color-turquoise-300 {
-  background-color: #c1ebf7;
-  color: #154447;
+.stmx-brand-color-emerald-800 {
+  background-color: var(--color-emerald-800);
+  color: var(--color-emerald-100);
 }
 
-.stmx-brand-color-turquoise-200 {
-  background-color: #dcf3f9;
-  color: #154447;
+.stmx-brand-color-emerald-900 {
+  background-color: var(--color-emerald-900);
+  color: var(--color-emerald-100);
 }
 
 .stmx-brand-color-turquoise-100 {
-  background-color: #ebf9fc;
-  color: #154447;
+  background-color: var(--color-turquoise-100);
+  color: var(--color-turquoise-900);
 }
 
-.stmx-brand-color-copper-700 {
-  background-color: #562211;
-  color: #f9eee8;
+.stmx-brand-color-turquoise-200 {
+  background-color: var(--color-turquoise-200);
+  color: var(--color-turquoise-900);
 }
 
-.stmx-brand-color-copper-600 {
-  background-color: #894528;
-  color: #f9eee8;
+.stmx-brand-color-turquoise-300 {
+  background-color: var(--color-turquoise-300);
+  color: var(--color-turquoise-900);
 }
 
-.stmx-brand-color-copper-500 {
-  background-color: #b56d48;
-  color: #f9eee8;
+.stmx-brand-color-turquoise-400 {
+  background-color: var(--color-turquoise-400);
+  color: var(--color-turquoise-900);
 }
 
-.stmx-brand-color-copper-400 {
-  background-color: #d88d64;
-  color: #f9eee8;
+.stmx-brand-color-turquoise-500 {
+  background-color: var(--color-turquoise-500);
+  color: var(--color-turquoise-900);
 }
 
-.stmx-brand-color-copper-300 {
-  background-color: #f8b890;
-  color: #562211;
+.stmx-brand-color-turquoise-600 {
+  background-color: var(--color-turquoise-600);
+  color: var(--color-turquoise-100);
 }
 
-.stmx-brand-color-copper-200 {
-  background-color: #f9d5c0;
-  color: #562211;
+.stmx-brand-color-turquoise-700 {
+  background-color: var(--color-turquoise-700);
+  color: var(--color-turquoise-100);
+}
+
+.stmx-brand-color-turquoise-800 {
+  background-color: var(--color-turquoise-800);
+  color: var(--color-turquoise-100);
+}
+
+.stmx-brand-color-turquoise-900 {
+  background-color: var(--color-turquoise-900);
+  color: var(--color-turquoise-100);
 }
 
 .stmx-brand-color-copper-100 {
-  background-color: #f9eee8;
-  color: #562211;
+  background-color: var(--color-copper-100);
+  color: var(--color-copper-900);
 }
 
-.stmx-brand-color-midnight-700 {
-  background-color: #182549;
-  color: #e6ebf4;
+.stmx-brand-color-copper-200 {
+  background-color: var(--color-copper-200);
+  color: var(--color-copper-900);
 }
 
-.stmx-brand-color-midnight-600 {
-  background-color: #354377;
-  color: #e6ebf4;
+.stmx-brand-color-copper-300 {
+  background-color: var(--color-copper-300);
+  color: var(--color-copper-900);
 }
 
-.stmx-brand-color-midnight-500 {
-  background-color: #536491;
-  color: #e6ebf4;
+.stmx-brand-color-copper-400 {
+  background-color: var(--color-copper-400);
+  color: var(--color-copper-900);
 }
 
-.stmx-brand-color-midnight-400 {
-  background-color: #7b8bad;
-  color: #e6ebf4;
+.stmx-brand-color-copper-500 {
+  background-color: var(--color-copper-500);
+  color: var(--color-copper-900);
 }
 
-.stmx-brand-color-midnight-300 {
-  background-color: #a6b2c9;
-  color: #182549;
+.stmx-brand-color-copper-600 {
+  background-color: var(--color-copper-600);
+  color: var(--color-copper-100);
 }
 
-.stmx-brand-color-midnight-200 {
-  background-color: #d4dbe8;
-  color: #182549;
+.stmx-brand-color-copper-700 {
+  background-color: var(--color-copper-700);
+  color: var(--color-copper-100);
+}
+
+.stmx-brand-color-copper-800 {
+  background-color: var(--color-copper-800);
+  color: var(--color-copper-100);
+}
+
+.stmx-brand-color-copper-900 {
+  background-color: var(--color-copper-900);
+  color: var(--color-copper-100);
 }
 
 .stmx-brand-color-midnight-100 {
-  background-color: #e6ebf4;
-  color: #182549;
+  background-color: var(--color-midnight-100);
+  color: var(--color-midnight-900);
+}
+
+.stmx-brand-color-midnight-200 {
+  background-color: var(--color-midnight-200);
+  color: var(--color-midnight-900);
+}
+
+.stmx-brand-color-midnight-300 {
+  background-color: var(--color-midnight-300);
+  color: var(--color-midnight-900);
+}
+
+.stmx-brand-color-midnight-400 {
+  background-color: var(--color-midnight-400);
+  color: var(--color-midnight-900);
+}
+
+.stmx-brand-color-midnight-500 {
+  background-color: var(--color-midnight-500);
+  color: var(--color-midnight-900);
+}
+
+.stmx-brand-color-midnight-600 {
+  background-color: var(--color-midnight-600);
+  color: var(--color-midnight-100);
+}
+
+.stmx-brand-color-midnight-700 {
+  background-color: var(--color-midnight-700);
+  color: var(--color-midnight-100);
+}
+
+.stmx-brand-color-midnight-800 {
+  background-color: var(--color-midnight-800);
+  color: var(--color-midnight-100);
+}
+
+.stmx-brand-color-midnight-900 {
+  background-color: var(--color-midnight-900);
+  color: var(--color-midnight-100);
 }
