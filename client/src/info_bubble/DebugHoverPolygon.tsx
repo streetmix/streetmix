@@ -39,7 +39,7 @@ function DebugHoverPolygon (): React.ReactElement | null {
   const el = useRef<HTMLCanvasElement>(null)
 
   const enabled = useSelector(
-    (state) => state.flags.INFO_BUBBLE_HOVER_POLYGON.value || false
+    (state) => state.flags.INFO_BUBBLE_HOVER_POLYGON.value ?? false
   )
   const hoverPolygon = useSelector((state) => state.infoBubble.hoverPolygon)
 
