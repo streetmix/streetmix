@@ -60,15 +60,19 @@ a.btn {
 
   &.btn-tertiary {
     background-color: transparent;
-    color: var(--color-turquoise-700);
+    color: var(--interactive-text-color);
 
     &:not(:disabled) {
       border: 1px solid var(--color-turquoise-500);
     }
 
     &:hover {
-      background-color: var(--color-turquoise-100);
-      color: var(--color-turquoise-800);
+      background-color: var(--interactive-element-hover-color);
+      color: var(--interactive-text-hover-color);
+    }
+
+    &:active {
+      color: var(--interactive-text-active-color);
     }
   }
 }

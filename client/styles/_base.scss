@@ -69,14 +69,14 @@ a {
 a,
 .link-like {
   cursor: pointer;
-  color: var(--color-turquoise-700);
+  color: var(--interactive-text-color);
 
   &:hover {
-    color: var(--color-turquoise-800);
+    color: var(--interactive-text-hover-color);
   }
 
   &:active {
-    color: var(--color-turquoise-600);
+    color: var(--interactive-text-active-color);
   }
 }
 

@@ -140,7 +140,7 @@ button.dialog-primary-action {
   font-weight: normal;
   width: 100%;
   text-align: center;
-  color: var(--color-turquoise-700);
+  color: var(--interactive-text-color);
   min-height: 46px;
   cursor: pointer;
 
@@ -149,6 +149,10 @@ button.dialog-primary-action {
 
   &:hover {
     background-color: var(--color-turquoise-100);
-    color: var(--color-turquoise-800);
+    color: var(--interactive-text-hover-color);
+  }
+
+  &:active {
+    color: var(--interactive-text-active-color);
   }
 }

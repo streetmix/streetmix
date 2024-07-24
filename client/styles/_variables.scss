@@ -76,7 +76,13 @@ $street-name-gallery-size: 0.5;
   --warning-color: rgb(220 20 20);
   --segment-text: rgb(40 35 30);
   --segment-hover-background: rgb(255 255 255 / 20%);
-  --info-bubble-background: white; // TODO: rename
+  --info-bubble-background: white; /* TODO: rename */
+
+  /* Link and button text */
+  --interactive-text-color: var(--color-turquoise-700);
+  --interactive-text-hover-color: var(--color-turquoise-800);
+  --interactive-text-active-color: var(--color-turquoise-600);
+  --interactive-element-hover-color: var(--color-turquoise-100);
 
   /* Third-party brand colors (e.g. social, etc) in alphabetical order
    * All colors must be official (please update them as necessary)
