@@ -1,9 +1,4 @@
 .notification-bar {
-  /* Close button overrides */
-  // TODO: Make standard for toast, status, etc
-  --close-icon-color: var(--color-copper-500);
-  --close-icon-color-hover: var(--color-copper-600);
-
   position: relative;
   z-index: var(--z-08-notification-bar);
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
@@ -13,6 +8,10 @@
 }
 
 .notification-bar .close {
+  /* Close button overrides */
+  --close-icon-color: var(--color-copper-800);
+  --close-icon-color-hover: var(--color-copper-700);
+
   width: 24px;
   height: 24px;
   padding: 0;

@@ -2,7 +2,7 @@
   --sky-picker-border-radius: var(--border-radius-large);
   --sky-picker-box-shadow: var(--medium-box-shadow);
   --header-background-color: var(--color-turquoise-200);
-  --header-text-color: var(--color-turquoise-700);
+  --header-text-color: var(--color-turquoise-900);
 
   z-index: var(--z-07-sky-picker);
   position: absolute;
@@ -85,19 +85,19 @@
   font-size: 1rem;
   line-height: 1.2;
   text-align: center;
-  color: var(--color-copper-700);
+  color: var(--color-copper-900);
 
   /* Very similar to .toast-action style */
   button {
     display: block !important;
-    border: 1px solid var(--color-copper-400);
+    border: 1px solid var(--color-copper-600);
     border-radius: var(--border-radius-medium);
     padding: 0.5em 1em;
     margin: 0.75em auto 0.25em;
     width: auto;
     font-weight: 550;
     background-color: transparent;
-    color: var(--color-copper-600);
+    color: var(--color-copper-800);
 
     &:disabled {
       filter: grayscale(0.8);
@@ -105,7 +105,7 @@
 
     &:hover {
       background-color: transparent;
-      color: var(--color-copper-700);
+      color: var(--color-copper-900);
     }
   }
 }

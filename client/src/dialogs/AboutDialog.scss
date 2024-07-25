@@ -42,7 +42,7 @@
 
 .about-dialog-left {
   margin-right: 40px;
-  border-right: 1px solid var(--color-turquoise-350);
+  border-right: 1px solid var(--color-turquoise-500);
   padding-right: 40px;
   position: fixed;
   width: 280px;
@@ -50,7 +50,7 @@
   [dir="rtl"] & {
     margin-left: 40px;
     margin-right: 0;
-    border-left: 1px solid var(--color-turquoise-350);
+    border-left: 1px solid var(--color-turquoise-500);
     border-right: 0;
     padding-left: 40px;
     padding-right: 0;

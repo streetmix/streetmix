@@ -18,13 +18,13 @@
   }
 
   h2 {
-    color: var(--color-turquoise-600);
+    color: var(--color-turquoise-800);
     font-weight: 550;
     font-size: 1.75rem;
   }
 
   h2:not(:first-of-type) {
-    border-top: 1px solid var(--color-turquoise-300);
+    border-top: 1px solid var(--color-turquoise-400);
     padding-top: 1.25em;
     margin-top: 1.25em;
   }
@@ -34,7 +34,7 @@
     margin-bottom: 1em;
     font-weight: 550;
     font-size: 1.35rem;
-    color: var(--color-turquoise-600);
+    color: var(--color-turquoise-800);
   }
 
   ul {
@@ -58,7 +58,7 @@
   }
 
   .img-ui {
-    border: 1px solid var(--color-turquoise-400);
+    border: 1px solid var(--color-turquoise-600);
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
@@ -91,7 +91,7 @@
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    var(--color-turquoise-500) 0%,
+    var(--color-turquoise-700) 0%,
     transparent 100%
   );
   opacity: 0;

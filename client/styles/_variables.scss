@@ -2,7 +2,7 @@
 $street-name-gallery-size: 0.5;
 
 :root {
-  // Dimensions
+  /* Dimensions */
   --tile-size: 12px;
   --canvas-height: 480px;
   --canvas-ground: 35px;
@@ -14,121 +14,98 @@ $street-name-gallery-size: 0.5;
   --border-radius-small: 2px;
   --border-radius-medium: 4px;
   --border-radius-large: 6px;
-  --border-radius-pill: 999em; // because 50% creates ovals, not pills
-  --border-radius: var(--border-radius-medium); // Alias
+  --border-radius-pill: 999em; /* because 50% creates ovals, not pills */
+  --border-radius: var(--border-radius-medium); /* alias */
   --breakpoint-md: 768px;
 
-  // Brand colors
-  --color-emerald-700: rgb(9 63 20);
-  --color-emerald-600: rgb(31 114 52);
-  --color-emerald-500: rgb(26 145 78);
-  --color-emerald-400: rgb(91 193 125);
-  --color-emerald-300: rgb(147 219 169);
-  --color-emerald-200: rgb(200 237 209);
-  --color-emerald-100: rgb(231 247 234);
-  --color-turquoise-700: rgb(21 68 71);
-  --color-turquoise-600: rgb(48 108 114);
-  --color-turquoise-500: rgb(82 162 175);
-  --color-turquoise-400: rgb(137 193 206);
+  /* Brand colors */
+  --color-emerald-100: rgb(219 248 220);
+  --color-emerald-200: rgb(203 246 213);
+  --color-emerald-300: rgb(158 244 182);
+  --color-emerald-400: rgb(117 228 153);
+  --color-emerald-500: rgb(91 193 125);
+  --color-emerald-600: rgb(81 173 112);
+  --color-emerald-700: rgb(65 141 90);
+  --color-emerald-800: rgb(47 105 66);
+  --color-emerald-900: rgb(28 68 41);
+  --color-turquoise-100: rgb(222 243 249);
+  --color-turquoise-200: rgb(210 240 248);
   --color-turquoise-300: rgb(193 235 247);
-  --color-turquoise-200: rgb(220 243 249);
-  --color-turquoise-100: rgb(235 249 252);
-  --color-copper-700: rgb(86 34 17);
-  --color-copper-600: rgb(137 69 40);
-  --color-copper-500: rgb(181 109 72);
-  --color-copper-400: rgb(216 141 100);
-  --color-copper-300: rgb(248 184 144);
-  --color-copper-200: rgb(249 213 192);
-  --color-copper-100: rgb(249 238 232);
-  --color-midnight-700: rgb(24 37 73);
-  --color-midnight-600: rgb(53 67 119);
-  --color-midnight-500: rgb(83 100 145);
-  --color-midnight-400: rgb(123 139 173);
-  --color-midnight-300: rgb(166 178 200);
-  --color-midnight-200: rgb(212 219 232);
-  --color-midnight-100: rgb(230 235 244);
+  --color-turquoise-400: rgb(116 217 244);
+  --color-turquoise-500: rgb(71 195 225);
+  --color-turquoise-600: rgb(59 166 192);
+  --color-turquoise-700: rgb(46 135 156);
+  --color-turquoise-800: rgb(33 100 117);
+  --color-turquoise-900: rgb(18 65 76);
+  --color-copper-100: rgb(250 235 226);
+  --color-copper-200: rgb(250 229 217);
+  --color-copper-300: rgb(249 212 190);
+  --color-copper-400: rgb(248 184 144);
+  --color-copper-500: rgb(249 148 77);
+  --color-copper-600: rgb(223 119 36);
+  --color-copper-700: rgb(182 96 28);
+  --color-copper-800: rgb(137 70 17);
+  --color-copper-900: rgb(90 44 9);
+  --color-midnight-100: rgb(237 238 242);
+  --color-midnight-200: rgb(231 233 238);
+  --color-midnight-300: rgb(216 220 229);
+  --color-midnight-400: rgb(194 201 216);
+  --color-midnight-500: rgb(167 177 199);
+  --color-midnight-600: rgb(123 139 173);
+  --color-midnight-700: rgb(104 122 162);
+  --color-midnight-800: rgb(67 89 139);
+  --color-midnight-900: rgb(41 57 94);
 
-  // "Extrapolated" color stops
-  // We want to eventually calculate color stops through color-mixing, e.g.:
-  // --color-turquoise-50: color-mix(in oklch, white 25%, var(--color-turquoise-100));
-  // --color-turquoise-150: color-mix(in oklch, var(--color-turquoise-100), var(--color-turquoise-200));
-  // --color-turquoise-250: color-mix(in oklch, var(--color-turquoise-200), var(--color-turquoise-300));
-  // For now, while transitioning to CSS custom properties, the formerly
-  // computed values in SCSS will be hard-coded values. The original SCSS
-  // functions are retained below.
-  // $colour-turquoise-50: color.scale($colour-turquoise-100, $lightness: 20%);
-  // $colour-turquoise-150: color.scale($colour-turquoise-200, $lightness: 20%);
-  // $colour-turquoise-225: color.scale($colour-turquoise-200, $lightness: -5%);
-  // $colour-turquoise-250: color.scale($colour-turquoise-200, $lightness: -10%);
-  // $colour-turquoise-350: color.scale($colour-turquoise-300, $lightness: -10%);
-  // $colour-turquoise-450: color.scale($colour-turquoise-400, $lightness: -10%);
-  // $colour-emerald-150: color.scale($colour-emerald-200, $lightness: 20%);
-  // $colour-emerald-350: color.scale($colour-emerald-300, $lightness: -10%);
-  // $colour-copper-150: color.scale($colour-copper-200, $lightness: 20%);
-  // $colour-copper-350: color.scale($colour-copper-300, $lightness: -10%);
-  // $colour-midnight-150: color.scale($colour-midnight-200, $lightness: 20%);
-  // $colour-midnight-350: color.scale($colour-midnight-300, $lightness: -10%);
-  --color-turquoise-50: #effafd;
-  --color-turquoise-150: #e3f5fa;
-  --color-turquoise-225: #c8ecf6;
-  --color-turquoise-250: #b4e5f2;
-  --color-turquoise-350: #9adef2;
-  --color-turquoise-450: #71b4c4;
-  --color-emerald-150: #d3f1da;
-  --color-emerald-350: #78d293;
-  --color-copper-150: #faddcd;
-  --color-copper-350: #f6a06b;
-  --color-midnight-150: #dde2ed;
-  --color-midnight-350: #8f9eba;
+  /* Supporting colors
+   * These are on a 5-point scale instead of 9 */
+  --color-citrine-100: rgb(253 243 209);
+  --color-citrine-200: rgb(250 234 164);
+  --color-citrine-300: rgb(255 215 85);
+  --color-citrine-400: rgb(255 184 67);
+  --color-citrine-500: rgb(255 131 0);
 
-  // Misc colors
+  /* TODO: Color scales for gray/white, black/dark, and red */
+  --color-gray-100: #eee; /* ported from old color */
+  --color-gray-200: #dcdcdc; /* ported from old color */
+  --color-gray-400: #999; /* ported from actual usage */
+
+  /* Misc colors */
   --background-dirt-color: rgb(53 45 39);
-  --sky-color: rgb(169 204 219);
-  --form-element-background: var(--color-turquoise-50);
-  --form-element-border: var(--color-turquoise-200);
-  --button-border: 1px solid var(--color-turquoise-400);
-  --alert-background: #fff0c0;
-  --alert-border-color: #ffd755;
-  --alert-border: 5px solid var(--alert-border-color);
-  --alert-text-color: rgb(255 131 0);
+  --sky-color: rgb(169 204 219); /* deprecated for everything except palette */
   --off-white: rgb(247 247 247);
   --bottom-background: rgb(216 211 203);
   --warning-color: rgb(220 20 20);
   --segment-text: rgb(40 35 30);
   --segment-hover-background: rgb(255 255 255 / 20%);
-  --info-bubble-background: white; // TODO: rename
+  --info-bubble-background: white; /* TODO: rename */
 
-  // Deprecated UI color
-  // "UI color" is a deprecated method of extrapolating a color scheme from
-  // the original sky color. It is preserved here because many elements of UI
-  // still use it, and its value is now hardcoded, but it was originally
-  // calculated as `color.adjust($sky-colour, $lightness: 10%)`. Do not use
-  // when creating or refactoring UI. Other variations of "UI color" are
-  // hardcoded here also. Remove when no longer needed.
-  --deprecated-ui-color: #cde1ea;
-  --deprecated-ui-color-lightness-10: #a9ccdb; // color.adjust($ui-colour, $lightness: -10%);
-  --deprecated-ui-color-lightness-20: #85b7cc; // color.adjust($ui-colour, $lightness: -20%);
-  --deprecated-ui-color-lightness-30: #61a1bd; // color.adjust($ui-colour, $lightness: -30%);
-  --deprecated-ui-color-lightness-40: #4589a6; // color.adjust($ui-colour, $lightness: -40%);
-  --deprecated-ui-color-lightness-50: #366b82; // color.adjust($ui-colour, $lightness: -50%);
-  --deprecated-ui-color-lightness-70: #18303a; // color.adjust($ui-colour, $lightness: -70%);
-  --deprecated-ui-color-mix-white: #e6f0f5; // color.mix($ui-colour, white, 50%);
-  --deprecated-ui-color-desaturate: #dcdcdc; // color.adjust($ui-colour, $saturation: -100%);
-  --deprecated-ui-color-fade-desaturate: #dcdcdc4d; // color.adjust(fade-out($ui-colour, 0.7), $saturation: -100%);
+  /* Link and button text */
+  --interactive-text-color: var(--color-turquoise-700);
+  --interactive-text-hover-color: var(--color-turquoise-800);
+  --interactive-text-active-color: var(--color-turquoise-600);
+  --interactive-element-hover-color: var(--color-turquoise-100);
 
-  // Third-party brand colors (e.g. social, etc) in alphabetical order
-  // All colors must be official (please update them as necessary)
-  // unless noted (e.g. if we need a special color for contrast, etc)
-  // If there isn't an official dark color for hover, it is computed
+  /* Other UI */
+  --form-element-background: var(--color-turquoise-100);
+  --form-element-border: var(--color-turquoise-200);
+  --button-border: 1px solid var(--color-turquoise-600);
+  --alert-background: var(--color-citrine-200);
+  --alert-border: 5px solid var(--color-citrine-300);
+  --alert-text-color: var(--color-citrine-500);
 
-  // Note: color-mix() is a draft specification.
-  // https://drafts.csswg.org/css-color-5
+  /* Third-party brand colors (e.g. social, etc) in alphabetical order
+   * All colors must be official (please update them as necessary)
+   * unless noted (e.g. if we need a special color for contrast, etc)
+   * If there isn't an official dark color for hover, it is computed */
 
-  // Discord (https://discord.com/branding)
+  /* Note: color-mix() is a draft specification.
+   * https://drafts.csswg.org/css-color-5 */
+
+  /* Discord (https://discord.com/branding) */
   --social-discord: #5865f2;
   --social-discord-hover: color-mix(in oklch, black 10%, var(--social-discord));
 
-  // Facebook (https://about.meta.com/brand/resources/facebookapp/logo)
+  /* Facebook (https://about.meta.com/brand/resources/facebookapp/logo) */
   --social-facebook: rgb(24 119 242);
   --social-facebook-hover: color-mix(
     in oklch,
@@ -136,43 +113,43 @@ $street-name-gallery-size: 0.5;
     var(--social-facebook)
   );
 
-  // GitHub (https://github.com/logos)
+  /* GitHub (https://github.com/logos) */
   --social-github: #171515;
   --social-github-hover: color-mix(in oklch, black 10%, var(--social-github));
 
-  // Instagram
-  // Difficult to reproduce their gradient, so we use colors from
-  // https://brandpalettes.com/instagram-color-codes/
+  /* Instagram
+   * Difficult to reproduce their gradient, so we use colors from
+   * https://brandpalettes.com/instagram-color-codes/ */
   --social-instagram: #e1306c;
   --social-instagram-hover: #c13584;
 
-  // Mastodon (https://joinmastodon.org/branding)
+  /* Mastodon (https://joinmastodon.org/branding) */
   --social-mastodon: #6364ff;
   --social-mastodon-hover: #563acc;
 
-  // Twitter (https://about.twitter.com/en/who-we-are/brand-toolkit)
+  /* Twitter (https://about.twitter.com/en/who-we-are/brand-toolkit) */
   --social-twitter: #4a99e9;
   --social-twitter-hover: color-mix(in oklch, black 10%, var(--social-twitter));
 
-  // Layered UI box shadows
+  /* Layered UI box shadows */
   --light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);
   --medium-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
   --heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%); // UNUSED
 
-  // Design
+  /* Design */
   --street-name-size: 1.5;
   --street-name-size-small: 0.5;
 
-  // Typography
+  /* Typography */
   --font-family: "Rubik Variable", system-ui, sans-serif;
   --font-size-base: 13px;
   --header-font-family: "Manrope Variable", system-ui, sans-serif;
 
-  // Timing
+  /* Timing */
   --segment-switching-time: 250ms;
   --skybox-transition: 500ms ease;
 
-  // Z-INDEX SCALE
+  /* Z-index scale */
   --z-index-01: 100;
   --z-index-02: 200;
   --z-index-03: 300;
@@ -184,17 +161,13 @@ $street-name-gallery-size: 0.5;
   --z-index-09: 900;
   --z-index-10: 1000;
 
-  // Z-INDEX COMPONENTS
-  // Variables are assigned to scale, above.
-  // These are kept here so you can quickly ascertain
-  // the hierarchy of elements.
-  // They are also named with the scale position so that
-  // when they are referenced in other CSS files, their
-  // z-scale position is also obvious at a glance.
-  // Between scale positions, one can fine-tune placement
-  // by adding a +number to the defined scale.
-  // Please note, the z-index scale does not defeat limitations
-  // imposed by stacking contexts.
+  /* Z-index components
+   * Variables are assigned to a scale value, defined above. Components are
+   * ordered so it's easy to see the hierarchy, and variable names also
+   * contain the scale value so it's visible in the CSS files where they're
+   * used. If a scale value needs to be fine-tuned, + a number to it.
+   * As a remninder, this z-index scale does not override the constraints
+   * imposed by stacking contexts. */
   --z-01-main-screen: var(--z-index-01);
   --z-01-street-section: var(--z-index-01);
   --z-01-foreground: var(--z-index-01);
@@ -220,7 +193,8 @@ $street-name-gallery-size: 0.5;
   --z-09-dialog-box: var(--z-index-09);
   --z-09-debug: var(--z-index-09);
 
-  // Blocking overlays
+  /* Blocking overlays
+   * These live at the highest level of z-index scale. */
   --z-09-loading: var(--z-index-09);
   --z-09-error: var(--z-index-09);
   --z-09-blocking-shield: var(--z-index-09);

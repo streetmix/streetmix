@@ -3,7 +3,7 @@
 .dialog-box-container {
   --dialog-border-radius: var(--border-radius-large);
   --header-background-color: var(--color-turquoise-200);
-  --header-text-color: var(--color-turquoise-700);
+  --header-text-color: var(--color-turquoise-900);
 
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
   z-index: var(--z-08-dialog-box-backdrop);
   position: absolute;
   inset: 0;
-  background: var(--sky-color);
+  background-color: var(--color-turquoise-200);
   touch-action: none;
 
   /* Transitions */
@@ -134,13 +134,13 @@
 
 button.dialog-primary-action {
   border: 0;
-  border-top: 1px solid var(--color-turquoise-350);
+  border-top: 1px solid var(--color-turquoise-400);
   border-radius: 0;
   background-color: white;
   font-weight: normal;
   width: 100%;
   text-align: center;
-  color: var(--color-turquoise-600);
+  color: var(--interactive-text-color);
   min-height: 46px;
   cursor: pointer;
 
@@ -149,6 +149,10 @@ button.dialog-primary-action {
 
   &:hover {
     background-color: var(--color-turquoise-100);
-    color: var(--color-turquoise-700);
+    color: var(--interactive-text-hover-color);
+  }
+
+  &:active {
+    color: var(--interactive-text-active-color);
   }
 }
