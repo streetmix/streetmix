@@ -71,13 +71,7 @@ $street-name-gallery-size: 0.5;
 
   /* Misc colors */
   --background-dirt-color: rgb(53 45 39);
-  --sky-color: rgb(169 204 219);
-  --form-element-background: var(--color-turquoise-100);
-  --form-element-border: var(--color-turquoise-200);
-  --button-border: 1px solid var(--color-turquoise-600);
-  --alert-background: var(--color-citrine-200);
-  --alert-border: 5px solid var(--color-citrine-300);
-  --alert-text-color: var(--color-citrine-500);
+  --sky-color: rgb(169 204 219); /* deprecated for everything except palette */
   --off-white: rgb(247 247 247);
   --bottom-background: rgb(216 211 203);
   --warning-color: rgb(220 20 20);
@@ -90,6 +84,14 @@ $street-name-gallery-size: 0.5;
   --interactive-text-hover-color: var(--color-turquoise-800);
   --interactive-text-active-color: var(--color-turquoise-600);
   --interactive-element-hover-color: var(--color-turquoise-100);
+
+  /* Other UI */
+  --form-element-background: var(--color-turquoise-100);
+  --form-element-border: var(--color-turquoise-200);
+  --button-border: 1px solid var(--color-turquoise-600);
+  --alert-background: var(--color-citrine-200);
+  --alert-border: 5px solid var(--color-citrine-300);
+  --alert-text-color: var(--color-citrine-500);
 
   /* Third-party brand colors (e.g. social, etc) in alphabetical order
    * All colors must be official (please update them as necessary)
