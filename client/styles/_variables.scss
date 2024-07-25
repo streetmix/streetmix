@@ -56,7 +56,15 @@ $street-name-gallery-size: 0.5;
   --color-midnight-800: rgb(67 89 139);
   --color-midnight-900: rgb(41 57 94);
 
-  /* TODO: Color scales for gray/white, black/dark, yellow and red */
+  /* Supporting colors
+   * These are on a 5-point scale instead of 9 */
+  --color-citrine-100: rgb(253 243 209);
+  --color-citrine-200: rgb(250 234 164);
+  --color-citrine-300: rgb(255 215 85);
+  --color-citrine-400: rgb(255 184 67);
+  --color-citrine-500: rgb(255 131 0);
+
+  /* TODO: Color scales for gray/white, black/dark, and red */
   --color-gray-100: #eee; /* ported from old color */
   --color-gray-200: #dcdcdc; /* ported from old color */
   --color-gray-400: #999; /* ported from actual usage */
@@ -67,10 +75,9 @@ $street-name-gallery-size: 0.5;
   --form-element-background: var(--color-turquoise-100);
   --form-element-border: var(--color-turquoise-200);
   --button-border: 1px solid var(--color-turquoise-600);
-  --alert-background: #fff0c0;
-  --alert-border-color: #ffd755;
-  --alert-border: 5px solid var(--alert-border-color);
-  --alert-text-color: rgb(255 131 0);
+  --alert-background: var(--color-citrine-200);
+  --alert-border: 5px solid var(--color-citrine-300);
+  --alert-text-color: var(--color-citrine-500);
   --off-white: rgb(247 247 247);
   --bottom-background: rgb(216 211 203);
   --warning-color: rgb(220 20 20);

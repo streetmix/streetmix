@@ -45,6 +45,12 @@
   --color-midnight-800: rgb(67 89 139);
   --color-midnight-900: rgb(41 57 94);
 
+  --color-citrine-100: rgb(253 243 209);
+  --color-citrine-200: rgb(250 234 164);
+  --color-citrine-300: rgb(255 215 85);
+  --color-citrine-400: rgb(255 184 67);
+  --color-citrine-500: rgb(255 131 0);
+
   --ifm-color-primary: var(--color-emerald-600);
   --ifm-color-primary-dark: var(--color-emerald-700);
   --ifm-color-primary-darker: var(--color-emerald-800);
@@ -654,4 +660,29 @@ html[data-theme="dark"] .stmx-illustration-container {
 .stmx-brand-color-midnight-900 {
   background-color: var(--color-midnight-900);
   color: var(--color-midnight-100);
+}
+
+.stmx-brand-color-citrine-100 {
+  background-color: var(--color-citrine-100);
+  color: var(--color-copper-900);
+}
+
+.stmx-brand-color-citrine-200 {
+  background-color: var(--color-citrine-200);
+  color: var(--color-copper-900);
+}
+
+.stmx-brand-color-citrine-300 {
+  background-color: var(--color-citrine-300);
+  color: var(--color-copper-900);
+}
+
+.stmx-brand-color-citrine-400 {
+  background-color: var(--color-citrine-400);
+  color: var(--color-copper-900);
+}
+
+.stmx-brand-color-citrine-500 {
+  background-color: var(--color-citrine-500);
+  color: var(--color-copper-900);
 }
