@@ -9,9 +9,9 @@ function ExportStreetmeter (): React.ReactElement {
       Open in Streetmeter
       <span
         style={{
-          backgroundColor: '#ffd755',
-          color: '#554100',
-          borderRadius: '4px',
+          backgroundColor: 'var(--color-citrine-300)',
+          color: 'var(--color-copper-900)',
+          borderRadius: 'var(--border-radius)',
           marginLeft: '.5em',
           padding: '.25em .5em',
           fontSize: '.85em',

@@ -1,0 +1,11 @@
+.share-sign-in-promo {
+  text-align: center;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
+  border-bottom-width: 3px;
+  padding: 1em 2.5em;
+
+  a {
+    text-decoration: underline;
+  }
+}
