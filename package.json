@@ -107,7 +107,7 @@
     "@faker-js/faker": "8.4.1",
     "@typescript-eslint/eslint-plugin": "7.7.0",
     "@typescript-eslint/parser": "7.7.0",
-    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/coverage-v8": "2.0.4",
     "axios-mock-adapter": "1.22.0",
     "concurrently": "8.2.2",
     "cypress": "13.12.0",
@@ -128,6 +128,6 @@
     "prettier": "3.3.2",
     "supertest": "7.0.0",
     "typescript": "5.5.4",
-    "vitest": "1.6.0"
+    "vitest": "2.0.4"
   }
 }
