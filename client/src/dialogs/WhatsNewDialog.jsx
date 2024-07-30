@@ -58,11 +58,11 @@ const WhatsNewDialog = () => {
             <div className="whats-new-language-banner">
               <FormattedMessage
                 id="dialogs.whatsnew.english-only"
-                defaultMessage="This information is provided in English only."
+                defaultMessage="This information is provided in English only.&lrm;"
               />
             </div>
           )}
-          <div className="dialog-content dialog-content-bleed">
+          <div className="dialog-content dialog-content-bleed" dir="ltr">
             <div className="whats-new-content" onScroll={onScroll}>
               {state === 'OK' && (
                 <ReactMarkdown
