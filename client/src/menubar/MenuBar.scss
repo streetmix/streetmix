@@ -151,6 +151,15 @@
 
 .menu-bar-title {
   margin-right: 0.25em;
+  margin-left: 0.45em;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  [dir="rtl"] & {
+    margin-left: 0.25em;
+    margin-right: 0.45em;
+  }
 
   h1 {
     padding: 0;
@@ -163,9 +172,9 @@
   }
 
   .menu-bar-logo {
-    width: 112px;
+    height: 20px;
     position: relative;
-    top: 1px;
+    top: -1px;
   }
 }
 
