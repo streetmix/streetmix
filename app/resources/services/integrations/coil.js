@@ -143,7 +143,8 @@ export async function BTPTokenCheck (req, res, next) {
   const userData = await User.findOne({ where: { auth0_id: req.auth.sub } })
 
   // Move on if no identities
-  if (!userData.identities) {
+  // User data may be null on a fresh install.
+  if (!userData?.identities) {
     return next()
   }
 
