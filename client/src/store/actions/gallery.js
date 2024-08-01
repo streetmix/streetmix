@@ -8,7 +8,7 @@ import { onWindowFocus } from '../../app/focus'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
-  async ({ userId, instant = false }, { dispatch, rejectWithValue }) => {
+  async ({ userId }, { rejectWithValue }) => {
     updatePageUrl(true, userId)
     hideControls()
 
@@ -42,7 +42,7 @@ export const openGallery = createAsyncThunk(
 
 export const closeGallery = createAsyncThunk(
   'gallery/closeGallery',
-  ({ instant = false } = {}, { dispatch, getState }) => {
+  ({ instant = false } = {}, { getState }) => {
     const state = getState()
 
     if (!state.errors.abortEverything) {

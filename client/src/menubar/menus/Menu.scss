@@ -3,7 +3,8 @@
   --menu-box-shadow: var(--medium-box-shadow);
 
   position: absolute;
-  margin-top: 10px;
+  margin-top: 7px;
+  padding: 5px;
   touch-action: none;
   opacity: 0;
   background: white;
@@ -35,21 +36,17 @@
   > a {
     display: block;
     position: relative;
-    padding: 0.8em 2.5em;
-    border-bottom: 1px solid var(--color-turquoise-200);
+    padding: 0.5em 1em 0.5em 2.5em;
     text-decoration: none;
     color: black;
-
-    &:last-child {
-      border-bottom: 0;
-    }
+    border-radius: var(--border-radius);
 
     &:hover {
       background-color: var(--interactive-element-hover-color);
     }
 
     &:active {
-      background-color: var(--color-turquoise-200);
+      color: var(--interactive-text-active-color);
     }
   }
 
@@ -62,7 +59,7 @@
 
   .menu-item-icon {
     position: absolute;
-    top: 0.8em;
+    top: 0.5em;
     left: 0.8em;
     width: 16px;
     height: 16px;
@@ -77,7 +74,7 @@
   /* Radix icons are optimized for 15px */
   .menu-item-icon-radix {
     position: absolute;
-    top: 0.9em;
+    top: 0.6em;
     left: 0.8em;
     width: 15px;
     height: 15px;
@@ -90,8 +87,10 @@
   }
 
   .menu-item-external-link {
-    vertical-align: text-top;
+    vertical-align: middle;
     margin-left: 0.25em;
+    margin-top: -2px;
+    height: 12px;
     color: var(--color-midnight-600);
   }
 }
@@ -131,24 +130,29 @@ body.safari .menu {
 .menu-item {
   display: block;
   position: relative;
-  padding: 0.5em 2.5em;
+  padding: 0.5em 2em;
   cursor: pointer;
+  border-radius: var(--border-radius);
 
   &:hover {
-    background-color: var(--color-turquoise-100);
+    background-color: var(--interactive-element-hover-color);
+  }
+
+  &:active {
+    color: var(--interactive-text-active-color);
   }
 
   .fa-check {
     display: none;
-    left: 1.25em;
-    margin-top: -1px;
+    left: 0.75em;
+    margin-top: 3px;
     width: 12px;
     height: 12px;
-    color: #1c99ce;
+    color: var(--color-turquoise-500);
 
     [dir="rtl"] & {
       left: auto;
-      right: 1.25em;
+      right: 0.75em;
     }
   }
 
@@ -170,9 +174,6 @@ body.safari .menu {
 
 .menu-item-subtext {
   display: block;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  line-height: 8px;
   color: rgb(128 128 128);
   font-size: 0.8em;
 }
@@ -198,4 +199,10 @@ body.safari .menu {
   &.fa-mastodon {
     color: var(--social-mastodon);
   }
+}
+
+.menu-separator {
+  height: 1px;
+  background-color: var(--color-turquoise-300);
+  margin: 5px 0;
 }

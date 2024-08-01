@@ -18,6 +18,7 @@ import {
 import { registerKeypress, deregisterKeypress } from '../../app/keypress'
 import { showDialog } from '../../store/slices/dialogs'
 import Menu, { type MenuProps } from './Menu'
+import MenuSeparator from './MenuSeparator'
 import './HelpMenu.scss'
 
 const shiftKey = (
@@ -57,10 +58,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
         <RocketIcon className="menu-item-icon-radix" />
-        <FormattedMessage
-          id="dialogs.whatsnew.heading"
-          defaultMessage="What’s new in Streetmix? [en]&lrm;"
-        />
+        <FormattedMessage id="menu.item.whatsnew" defaultMessage="What’s new" />
       </a>
       <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
         {/* This is not the best icon; TODO: replace it */}
@@ -70,6 +68,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
           defaultMessage="Guidebook"
         />
       </ExternalLink>
+      <MenuSeparator />
       <div className="help-menu-shortcuts">
         <KeyboardIcon className="menu-item-icon-radix" />
         <FormattedMessage

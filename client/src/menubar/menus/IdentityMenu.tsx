@@ -9,6 +9,7 @@ import { openGallery } from '../../store/actions/gallery'
 import { showDialog } from '../../store/slices/dialogs'
 import streetmixPlusIcon from '../../ui/icons/streetmix-plus.svg'
 import Menu, { type MenuProps } from './Menu'
+import MenuSeparator from './MenuSeparator'
 import './IdentityMenu.scss'
 
 function IdentityMenu (props: MenuProps): React.ReactElement {
@@ -70,6 +71,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
               </ul>
             </div>
           </div>
+          <MenuSeparator />
           <a href={myStreetsLink} onClick={handleClickMyStreets}>
             <StarIcon className="menu-item-icon-radix" />
             <FormattedMessage
@@ -83,7 +85,8 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
         <MixerHorizontalIcon className="menu-item-icon-radix" />
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
       </a>
-      <a className="menu-item" onClick={onSignOutClick}>
+      <MenuSeparator />
+      <a className="menu-item menu-sign-out" onClick={onSignOutClick}>
         <ExitIcon className="menu-item-icon-radix" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
       </a>

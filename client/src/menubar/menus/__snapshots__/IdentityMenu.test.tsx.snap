@@ -43,6 +43,9 @@ exports[`IdentityMenu > renders 1`] = `
         <ul />
       </div>
     </div>
+    <div
+      class="menu-separator"
+    />
     <a
       href="/foo"
     >
@@ -57,8 +60,11 @@ exports[`IdentityMenu > renders 1`] = `
       />
       Settings
     </a>
+    <div
+      class="menu-separator"
+    />
     <a
-      class="menu-item"
+      class="menu-item menu-sign-out"
     >
       <svg
         class="menu-item-icon-radix"
