@@ -40,18 +40,6 @@ exports[`MenuBar > renders 1`] = `
           />
         </button>
       </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-          <svg
-            class="menu-external-link"
-          />
-        </a>
-      </li>
       <button
         class="btn btn-tertiary menu-upgrade"
         type="button"
@@ -158,18 +146,6 @@ exports[`MenuBar > renders logged in user 1`] = `
             class="menu-carat-down"
           />
         </button>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-          <svg
-            class="menu-external-link"
-          />
-        </a>
       </li>
       <button
         class="btn btn-tertiary menu-upgrade"

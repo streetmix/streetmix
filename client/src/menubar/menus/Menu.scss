@@ -48,6 +48,11 @@
     &:active {
       color: var(--interactive-text-active-color);
     }
+
+    [dir="rtl"] & {
+      padding-right: 2.5em;
+      padding-left: 1em;
+    }
   }
 
   input {
@@ -92,6 +97,11 @@
     margin-top: -2px;
     height: 12px;
     color: var(--color-midnight-600);
+
+    [dir="rtl"] & {
+      margin-left: auto;
+      margin-right: 0.25em;
+    }
   }
 }
 
@@ -162,12 +172,12 @@ body.safari .menu {
 
   .loading-spinner {
     position: absolute;
-    left: 16px;
+    left: 9px;
     top: 8px;
 
     [dir="rtl"] & {
       left: auto;
-      right: 16px;
+      right: 9px;
     }
   }
 }

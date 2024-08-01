@@ -40,18 +40,6 @@ exports[`MenusContainer > renders 1`] = `
           />
         </button>
       </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-          <svg
-            class="menu-external-link"
-          />
-        </a>
-      </li>
       <button
         class="btn btn-tertiary menu-upgrade"
         type="button"

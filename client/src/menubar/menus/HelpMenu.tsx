@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import {
   InfoCircledIcon,
   RocketIcon,
-  KeyboardIcon
+  KeyboardIcon,
+  ExternalLinkIcon
 } from '@radix-ui/react-icons'
+import { IoCartOutline } from 'react-icons/io5'
+
+import { useSelector, useDispatch } from '../../store/hooks'
+import { showDialog } from '../../store/slices/dialogs'
 import ExternalLink from '../../ui/ExternalLink'
 import Icon from '../../ui/Icon'
 import KeyboardKey from '../../ui/KeyboardKey'
@@ -16,7 +20,6 @@ import {
   ICON_ARROW_LEFT
 } from '../../ui/icons'
 import { registerKeypress, deregisterKeypress } from '../../app/keypress'
-import { showDialog } from '../../store/slices/dialogs'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
 import './HelpMenu.scss'
@@ -28,6 +31,7 @@ const shiftKey = (
 )
 
 function HelpMenu (props: MenuProps): React.ReactElement {
+  const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -58,16 +62,30 @@ function HelpMenu (props: MenuProps): React.ReactElement {
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
         <RocketIcon className="menu-item-icon-radix" />
-        <FormattedMessage id="menu.item.whatsnew" defaultMessage="What’s new" />
-      </a>
-      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-        {/* This is not the best icon; TODO: replace it */}
-        <Icon icon="book" className="menu-item-icon" />
         <FormattedMessage
-          id="menu.help.guidebook-link"
-          defaultMessage="Guidebook"
+          id="menu.item.whatsnew"
+          defaultMessage="What’s new?&lrm;"
         />
-      </ExternalLink>
+      </a>
+      {!offline && (
+        <>
+          <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
+            {/* This is not the best icon; TODO: replace it */}
+            <Icon icon="book" className="menu-item-icon" />
+            <FormattedMessage
+              id="menu.help.guidebook-link"
+              defaultMessage="Guidebook"
+            />
+            <ExternalLinkIcon className="menu-item-external-link" />
+          </ExternalLink>
+          <MenuSeparator />
+          <ExternalLink href="https://cottonbureau.com/people/streetmix">
+            <IoCartOutline className="menu-item-icon" />
+            <FormattedMessage id="menu.item.shop" defaultMessage="Shop" />
+            <ExternalLinkIcon className="menu-item-external-link" />
+          </ExternalLink>
+        </>
+      )}
       <MenuSeparator />
       <div className="help-menu-shortcuts">
         <KeyboardIcon className="menu-item-icon-radix" />

@@ -15,7 +15,7 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class="menu-item-icon-radix"
       />
-      What’s new
+      What’s new?‎
     </a>
     <a
       href="https://docs.streetmix.net/user-guide/intro"
@@ -26,6 +26,25 @@ exports[`HelpMenu > renders 1`] = `
         class="svg-inline--fa menu-item-icon fa-book"
       />
       Guidebook
+      <svg
+        class="menu-item-external-link"
+      />
+    </a>
+    <div
+      class="menu-separator"
+    />
+    <a
+      href="https://cottonbureau.com/people/streetmix"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon"
+      />
+      Shop
+      <svg
+        class="menu-item-external-link"
+      />
     </a>
     <div
       class="menu-separator"

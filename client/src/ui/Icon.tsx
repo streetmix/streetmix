@@ -6,6 +6,7 @@ import {
   ToolsIcon,
   SunIcon
 } from '@primer/octicons-react'
+
 import {
   ICON_DISCORD,
   ICON_FACEBOOK,
@@ -15,9 +16,7 @@ import {
   ICON_TWITTER,
   ICON_BOOK
 } from './icons'
-import forumsIcon from './icons/forums.svg'
 import googleIcon from './icons/google.svg'
-import slackIcon from './icons/slack.svg'
 
 interface IconProps {
   icon:
@@ -65,10 +64,6 @@ function Icon ({ icon, className = '' }: IconProps): React.ReactElement | null {
       return <FontAwesomeIcon className={className} icon={ICON_TWITTER} />
     case 'book':
       return <FontAwesomeIcon className={className} icon={ICON_BOOK} />
-    case 'slack': // Deprecated
-      return <img className={className} src={slackIcon} alt="" />
-    case 'forums': // Deprecated
-      return <img className={className} src={forumsIcon} alt="" />
     case 'google':
       return <img className={className} src={googleIcon} alt="" />
     case 'trash':
@@ -77,11 +72,9 @@ function Icon ({ icon, className = '' }: IconProps): React.ReactElement | null {
       return <ToolsIcon size={16} className={octiconClassNames(className)} />
     case 'sun':
       return <SunIcon size={16} className={octiconClassNames(className)} />
-    // default:
-    //   // You TypeScript
-    //   // Ancient fallback (should no longer be used)
-    //   return null
   }
+
+  return null
 }
 
 export default Icon

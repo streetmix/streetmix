@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { EnvelopeClosedIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
+
 import Icon from '../../ui/Icon'
 import ExternalLink from '../../ui/ExternalLink'
 import { useDispatch } from '../../store/hooks'

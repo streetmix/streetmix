@@ -3,7 +3,7 @@
     "item": {
       "help": "Help",
       "about": "About Streetmix…",
-      "whatsnew": "What’s new",
+      "whatsnew": "What’s new?",
       "contact": "Contact",
       "community": "Community",
       "sign-in": "Sign in",
@@ -13,6 +13,7 @@
       "settings": "Settings",
       "share": "Share",
       "store": "Store",
+      "shop": "Shop",
       "upgrade": "Upgrade",
       "streetmix-plus": "Get Streetmix+"
     },
