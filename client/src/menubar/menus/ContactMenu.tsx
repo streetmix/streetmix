@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { EnvelopeClosedIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
+import { ExternalLinkIcon } from '@radix-ui/react-icons'
+import { IoMailOutline } from 'react-icons/io5'
 
 import Icon from '../../ui/Icon'
 import ExternalLink from '../../ui/ExternalLink'
@@ -34,7 +35,7 @@ function ContactMenu (props: MenuProps): React.ReactElement {
           dispatch(showDialog('NEWSLETTER'))
         }}
       >
-        <EnvelopeClosedIcon className="menu-item-icon-radix" />
+        <IoMailOutline className="menu-item-icon-io5" />
         <FormattedMessage
           id="menu.contact.newsletter"
           defaultMessage="Subscribe to our newsletter"

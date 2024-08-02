@@ -76,6 +76,20 @@
     }
   }
 
+  .menu-item-icon-io5 {
+    position: absolute;
+    top: 0.55em;
+    left: 0.75em;
+    width: 16px;
+    height: 16px;
+    color: var(--color-midnight-800);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.75em;
+    }
+  }
+
   /* Radix icons are optimized for 15px */
   .menu-item-icon-radix {
     position: absolute;

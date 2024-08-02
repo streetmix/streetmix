@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { KeyboardIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 import {
-  InfoCircledIcon,
-  RocketIcon,
-  KeyboardIcon,
-  ExternalLinkIcon
-} from '@radix-ui/react-icons'
-import { IoCartOutline } from 'react-icons/io5'
+  IoCartOutline,
+  IoInformationCircleOutline,
+  IoRocketOutline,
+  IoTrailSignOutline
+} from 'react-icons/io5'
 
 import { useSelector, useDispatch } from '../../store/hooks'
 import { showDialog } from '../../store/slices/dialogs'
 import ExternalLink from '../../ui/ExternalLink'
-import Icon from '../../ui/Icon'
 import KeyboardKey from '../../ui/KeyboardKey'
 import {
   ICON_MINUS,
@@ -47,21 +46,15 @@ function HelpMenu (props: MenuProps): React.ReactElement {
 
   return (
     <Menu {...props}>
-      {/* <a href="https://about.streetmix.net/" target="_blank" rel="noreferrer">
-        <FormattedMessage
-          id="menu.item.about"
-          defaultMessage="About Streetmix…"
-        />
-      </a> */}
       <a onClick={() => dispatch(showDialog('ABOUT'))}>
-        <InfoCircledIcon className="menu-item-icon-radix" />
+        <IoInformationCircleOutline className="menu-item-icon-io5" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <RocketIcon className="menu-item-icon-radix" />
+        <IoRocketOutline className="menu-item-icon-io5" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
@@ -70,8 +63,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
       {!offline && (
         <>
           <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-            {/* This is not the best icon; TODO: replace it */}
-            <Icon icon="book" className="menu-item-icon" />
+            <IoTrailSignOutline className="menu-item-icon-io5" />
             <FormattedMessage
               id="menu.help.guidebook-link"
               defaultMessage="Guidebook"
@@ -80,7 +72,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
           </ExternalLink>
           <MenuSeparator />
           <ExternalLink href="https://cottonbureau.com/people/streetmix">
-            <IoCartOutline className="menu-item-icon" />
+            <IoCartOutline className="menu-item-icon-io5" />
             <FormattedMessage id="menu.item.store" defaultMessage="Store" />
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>

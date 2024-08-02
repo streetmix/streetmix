@@ -13,8 +13,7 @@ import {
   ICON_GITHUB,
   ICON_INSTAGRAM,
   ICON_MASTODON,
-  ICON_TWITTER,
-  ICON_BOOK
+  ICON_TWITTER
 } from './icons'
 import googleIcon from './icons/google.svg'
 
@@ -27,7 +26,6 @@ interface IconProps {
   | 'instagram'
   | 'mastodon'
   | 'twitter'
-  | 'book'
   | 'slack'
   | 'forums'
   | 'google'
@@ -62,8 +60,6 @@ function Icon ({ icon, className = '' }: IconProps): React.ReactElement | null {
       return <FontAwesomeIcon className={className} icon={ICON_MASTODON} />
     case 'twitter':
       return <FontAwesomeIcon className={className} icon={ICON_TWITTER} />
-    case 'book':
-      return <FontAwesomeIcon className={className} icon={ICON_BOOK} />
     case 'google':
       return <img className={className} src={googleIcon} alt="" />
     case 'trash':
