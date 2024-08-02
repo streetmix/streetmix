@@ -41,7 +41,7 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
       />
-      Shop
+      Store
       <svg
         class="menu-item-external-link"
       />

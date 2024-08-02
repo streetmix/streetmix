@@ -81,7 +81,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
           <MenuSeparator />
           <ExternalLink href="https://cottonbureau.com/people/streetmix">
             <IoCartOutline className="menu-item-icon" />
-            <FormattedMessage id="menu.item.shop" defaultMessage="Shop" />
+            <FormattedMessage id="menu.item.store" defaultMessage="Store" />
             <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
         </>
