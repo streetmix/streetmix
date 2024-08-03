@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useSelector } from '~/src/store/hooks'
 import { editSegmentLabel } from '~/src/segments/view'
-import { ICON_PENCIL, ICON_LOCK } from '~/src/ui/icons'
+import Icon from '~/src/ui/Icon'
+import { ICON_LOCK } from '~/src/ui/icons'
 import Tooltip from '~/src/ui/Tooltip'
 import './EditableLabel.scss'
 
@@ -44,9 +45,7 @@ function EditableLabel ({
         onClick={handleClick}
       >
         {label}
-        <span className="info-bubble-label-editable-icon">
-          <FontAwesomeIcon icon={ICON_PENCIL} />
-        </span>
+        <Icon name="edit" className="info-bubble-label-editable-icon" />
       </div>
     )
   }

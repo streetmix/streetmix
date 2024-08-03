@@ -20,12 +20,16 @@
     transform: translateZ(0); // Prevent jitter when transitioning
     transition: opacity 120ms ease-in;
     margin-left: 0.25em;
-    margin-top: -0.2em;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0.25em;
+    }
   }
 
   &:hover {
     cursor: text;
-    background-color: rgb(255 255 255 / 12.5%);
+    background-color: var(--off-white);
     transition: background-color 120ms ease-in;
 
     .info-bubble-label-editable-icon {

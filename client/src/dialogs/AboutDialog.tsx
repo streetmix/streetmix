@@ -216,8 +216,8 @@ function AboutDialog (): React.ReactElement {
                           values={{
                             author: (
                               <>
-                                <ExternalLink href="https://icons8.com/">
-                                  Icons8
+                                <ExternalLink href="https://feathericons.com/">
+                                  Feather
                                 </ExternalLink>
                                 ,{' '}
                                 <ExternalLink href="https://www.radix-ui.com/icons">

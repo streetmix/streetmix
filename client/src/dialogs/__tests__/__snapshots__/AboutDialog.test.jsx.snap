@@ -532,11 +532,11 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <li>
                       Icons by 
                       <a
-                        href="https://icons8.com/"
+                        href="https://feathericons.com/"
                         rel="noopener noreferrer"
                         target="_blank"
                       >
-                        Icons8
+                        Feather
                       </a>
                       , 
                       <a

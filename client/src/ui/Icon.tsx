@@ -13,6 +13,13 @@ import {
   FaTwitter
 } from 'react-icons/fa6'
 import {
+  FiEdit3,
+  FiRotateCcw,
+  FiRotateCw,
+  FiSun,
+  FiTrash2
+} from 'react-icons/fi'
+import {
   IoCartOutline,
   IoClose,
   IoHelpCircleOutline,
@@ -22,12 +29,6 @@ import {
   IoRocketOutline,
   IoTrailSignOutline
 } from 'react-icons/io5'
-import {
-  LiaUndoAltSolid,
-  LiaRedoAltSolid,
-  LiaSun,
-  LiaTrashAlt
-} from 'react-icons/lia'
 import {
   RxClipboardCopy,
   RxCube,
@@ -51,6 +52,7 @@ export type IconNames =
   | 'copy'
   | 'cube'
   | 'download'
+  | 'edit'
   | 'external-link'
   | 'help'
   | 'info'
@@ -153,6 +155,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon-source="radix"
         />
       )
+    case 'edit':
+      return (
+        <FiEdit3
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
+        />
+      )
     case 'external-link':
       return (
         <RxExternalLink
@@ -253,10 +263,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'redo':
       return (
-        <LiaRedoAltSolid
+        <FiRotateCw
           className={className}
           data-icon={name}
-          data-icon-source="icons8"
+          data-icon-source="feather"
         />
       )
     case 'rocket':
@@ -293,10 +303,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'sun':
       return (
-        <LiaSun
+        <FiSun
           className={className}
           data-icon={name}
-          data-icon-source="icons8"
+          data-icon-source="feather"
         />
       )
     case 'trail-sign':
@@ -309,10 +319,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'trash':
       return (
-        <LiaTrashAlt
+        <FiTrash2
           className={className}
           data-icon={name}
-          data-icon-source="icons8"
+          data-icon-source="feather"
         />
       )
     case 'twitter':
@@ -325,10 +335,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'undo':
       return (
-        <LiaUndoAltSolid
+        <FiRotateCcw
           className={className}
           data-icon={name}
-          data-icon-source="icons8"
+          data-icon-source="feather"
         />
       )
   }
