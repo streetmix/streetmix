@@ -1,16 +1,16 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { changeLocale } from '../../store/slices/locale'
-import { clearMenus } from '../../store/slices/menus'
-import { DEFAULT_LOCALE } from '../../locales/constants'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { changeLocale } from '~/src/store/slices/locale'
+import { clearMenus } from '~/src/store/slices/menus'
+import { DEFAULT_LOCALE } from '~/src/locales/constants'
 import {
   getAvailableLocales,
   getActualLocaleFromRequested
-} from '../../locales/locale'
-import LoadingSpinner from '../../ui/LoadingSpinner'
-import { ICON_CHECK } from '../../ui/icons'
+} from '~/src/locales/locale'
+import Icon from '~/src/ui/Icon'
+import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Menu, { type MenuProps } from './Menu'
 
 function LocaleMenu (props: MenuProps): React.ReactElement {
@@ -58,7 +58,7 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
         >
           {locale.value === requestedLocale && <LoadingSpinner size="small" />}
           {locale.value === actuallySelectedLocale && (
-            <FontAwesomeIcon className="menu-item-icon" icon={ICON_CHECK} />
+            <Icon name="check" className="menu-item-icon" />
           )}
           {/* &#x200E; prevents trailing parentheses from going in the wrong
               place in rtl languages */}

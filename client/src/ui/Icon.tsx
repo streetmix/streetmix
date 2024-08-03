@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  FaCheck,
   FaDiscord,
   FaSquareFacebook,
   FaGithub,
@@ -40,6 +41,7 @@ import googleIcon from './icons/google.svg'
 interface IconProps {
   name:
   | 'cart'
+  | 'check'
   | 'close'
   | 'copy'
   | 'cube'
@@ -64,10 +66,10 @@ interface IconProps {
   | 'discord'
   | 'facebook'
   | 'github'
+  | 'google'
   | 'instagram'
   | 'mastodon'
   | 'twitter'
-  | 'google'
   className?: string
 }
 
@@ -80,6 +82,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon={name}
           data-icon-source="io5"
         />
+      )
+    case 'check':
+      return (
+        <FaCheck className={className} data-icon={name} data-icon-source="fa" />
       )
     case 'close':
       return (

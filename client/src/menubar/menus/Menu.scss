@@ -195,32 +195,30 @@ body.safari .menu {
     color: var(--interactive-text-active-color);
   }
 
-  .fa-check {
+  [data-icon="check"] {
     display: none;
-    left: 0.75em;
-    margin-top: 3px;
-    width: 12px;
-    height: 12px;
+    left: 0.5em;
+    margin-top: 1px;
     color: var(--color-turquoise-500);
 
     [dir="rtl"] & {
       left: auto;
-      right: 0.75em;
+      right: 0.5em;
     }
   }
 
-  &.menu-item-selected .fa-check {
+  &.menu-item-selected [data-icon="check"] {
     display: inline-block;
   }
 
   .loading-spinner {
     position: absolute;
-    left: 9px;
+    left: 8px;
     top: 8px;
 
     [dir="rtl"] & {
       left: auto;
-      right: 9px;
+      right: 8px;
     }
   }
 }

@@ -50,7 +50,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Segment names and widths
               </label>
               <svg
-                class="svg-inline--fa fa-check"
+                class=""
+                data-icon="check"
+                data-icon-source="test"
               />
             </div>
             <div
@@ -67,7 +69,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Street name
               </label>
               <svg
-                class="svg-inline--fa fa-check"
+                class=""
+                data-icon="check"
+                data-icon-source="test"
               />
             </div>
             <div
@@ -84,7 +88,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Transparent sky
               </label>
               <svg
-                class="svg-inline--fa fa-check"
+                class=""
+                data-icon="check"
+                data-icon-source="test"
               />
             </div>
             <div
@@ -109,7 +115,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                   />
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  class=""
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </div>

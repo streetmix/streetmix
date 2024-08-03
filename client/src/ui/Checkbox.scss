@@ -111,15 +111,15 @@
   /* Checkmark */
   input ~ svg {
     position: absolute;
-    left: 0.1em;
     top: 0.25em;
+    left: 0.05em;
     opacity: 0;
     color: transparent;
     pointer-events: none;
 
     /* Use scale to affect the size because FontAwesome applies its own
        width and height CSS values that interfere with overrides */
-    transform: scale(0.75);
+    transform: scale(0.8);
   }
 
   /* Checkmark, when checked */

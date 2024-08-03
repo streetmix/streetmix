@@ -3,8 +3,8 @@
  * feel instead of relying on browser's default styles.
  */
 import React, { useState, useRef, type ChangeEvent } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ICON_CHECK } from './icons'
+
+import Icon from './Icon'
 import './Checkbox.scss'
 
 // This stores an incrementing number for unique IDs.
@@ -92,7 +92,7 @@ function Checkbox (props: CheckboxProps): React.ReactElement {
       />
       <label htmlFor={elementId.current}>{children}</label>
       {/* The visual state of this checkbox is affected by the value of the input, via CSS. */}
-      <FontAwesomeIcon icon={ICON_CHECK} />
+      <Icon name="check" />
     </div>
   )
 }

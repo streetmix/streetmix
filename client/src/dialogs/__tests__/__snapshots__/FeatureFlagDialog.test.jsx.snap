@@ -55,7 +55,9 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  class=""
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -78,7 +80,9 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  class=""
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -102,7 +106,9 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  class=""
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -126,7 +132,9 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  class=""
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
