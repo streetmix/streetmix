@@ -11,11 +11,15 @@ exports[`ContactMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-discord"
+        class=""
+        data-icon="discord"
+        data-icon-source="fa"
       />
       Join Discord chat
       <svg
-        class="menu-item-external-link"
+        class=""
+        data-icon="external-link"
+        data-icon-source="radix"
       />
     </a>
     <a
@@ -24,16 +28,22 @@ exports[`ContactMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-github"
+        class=""
+        data-icon="github"
+        data-icon-source="fa"
       />
       View source code on GitHub
       <svg
-        class="menu-item-external-link"
+        class=""
+        data-icon="external-link"
+        data-icon-source="radix"
       />
     </a>
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class=""
+        data-icon="mail"
+        data-icon-source="io5"
       />
       Subscribe to our newsletter
     </a>

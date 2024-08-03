@@ -54,7 +54,7 @@ function SkyPicker (): React.ReactElement {
             <animated.div className="sky-picker-container-inner" style={style}>
               <header>
                 <h3>
-                  <Icon icon="sun" />
+                  <Icon name="sun" />
                   <FormattedMessage
                     id="tools.skybox.heading"
                     defaultMessage="Environment"

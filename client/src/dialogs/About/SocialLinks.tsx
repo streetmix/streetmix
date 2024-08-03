@@ -13,7 +13,7 @@ function SocialLinks (): React.ReactElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Icon icon="github" className="social-github" />
+          <Icon name="github" className="social-github" />
         </a>
       </li>
       <li>
@@ -23,7 +23,7 @@ function SocialLinks (): React.ReactElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Icon icon="discord" className="social-discord" />
+          <Icon name="discord" className="social-discord" />
         </a>
       </li>
       <li>
@@ -37,7 +37,7 @@ function SocialLinks (): React.ReactElement {
           target="_blank"
           rel="me noopener noreferrer"
         >
-          <Icon icon="mastodon" className="social-mastodon" />
+          <Icon name="mastodon" className="social-mastodon" />
         </a>
       </li>
       <li>
@@ -47,7 +47,7 @@ function SocialLinks (): React.ReactElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Icon icon="twitter" className="social-twitter" />
+          <Icon name="twitter" className="social-twitter" />
         </a>
       </li>
       <li>
@@ -57,7 +57,7 @@ function SocialLinks (): React.ReactElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Icon icon="instagram" className="social-instagram" />
+          <Icon name="instagram" className="social-instagram" />
         </a>
       </li>
     </ul>

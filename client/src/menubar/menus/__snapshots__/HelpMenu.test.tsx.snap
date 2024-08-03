@@ -7,13 +7,17 @@ exports[`HelpMenu > renders 1`] = `
   >
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class=""
+        data-icon="info"
+        data-icon-source="io5"
       />
       About Streetmix…
     </a>
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class=""
+        data-icon="rocket"
+        data-icon-source="io5"
       />
       What’s new?‎
     </a>
@@ -23,11 +27,15 @@ exports[`HelpMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-book"
+        class=""
+        data-icon="trail-sign"
+        data-icon-source="io5"
       />
       Guidebook
       <svg
-        class="menu-item-external-link"
+        class=""
+        data-icon="external-link"
+        data-icon-source="radix"
       />
     </a>
     <div
@@ -39,11 +47,15 @@ exports[`HelpMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class="menu-item-icon"
+        class=""
+        data-icon="cart"
+        data-icon-source="io5"
       />
       Store
       <svg
-        class="menu-item-external-link"
+        class=""
+        data-icon="external-link"
+        data-icon-source="radix"
       />
     </a>
     <div
@@ -53,7 +65,9 @@ exports[`HelpMenu > renders 1`] = `
       class="help-menu-shortcuts"
     >
       <svg
-        class="menu-item-icon-radix"
+        class=""
+        data-icon="keyboard"
+        data-icon-source="radix"
       />
       Keyboard shortcuts:
       <table>

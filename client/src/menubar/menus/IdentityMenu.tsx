@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { StarIcon, MixerHorizontalIcon, ExitIcon } from '@radix-ui/react-icons'
+
+import { onSignOutClick } from '~/src/users/authentication'
+import Avatar from '~/src/users/Avatar'
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { openGallery } from '~/src/store/actions/gallery'
+import { showDialog } from '~/src/store/slices/dialogs'
+import streetmixPlusIcon from '~/src/ui/icons/streetmix-plus.svg'
+import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../../app/data/user_roles.json'
-import { onSignOutClick } from '../../users/authentication'
-import Avatar from '../../users/Avatar'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { openGallery } from '../../store/actions/gallery'
-import { showDialog } from '../../store/slices/dialogs'
-import streetmixPlusIcon from '../../ui/icons/streetmix-plus.svg'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
 import './IdentityMenu.scss'
@@ -73,7 +74,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
           </div>
           <MenuSeparator />
           <a href={myStreetsLink} onClick={handleClickMyStreets}>
-            <StarIcon className="menu-item-icon-radix" />
+            <Icon name="star" />
             <FormattedMessage
               id="menu.item.my-streets"
               defaultMessage="My streets"
@@ -82,12 +83,12 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
         </>
       )}
       <a onClick={() => dispatch(showDialog('SETTINGS'))}>
-        <MixerHorizontalIcon className="menu-item-icon-radix" />
+        <Icon name="settings" />
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
       </a>
       <MenuSeparator />
       <a className="menu-item menu-sign-out" onClick={onSignOutClick}>
-        <ExitIcon className="menu-item-icon-radix" />
+        <Icon name="sign-out" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
       </a>
     </Menu>

@@ -56,7 +56,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="GitHub"
                   >
                     <svg
-                      class="svg-inline--fa social-github fa-github"
+                      class="social-github"
+                      data-icon="github"
+                      data-icon-source="fa"
                     />
                   </a>
                 </li>
@@ -68,7 +70,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Discord"
                   >
                     <svg
-                      class="svg-inline--fa social-discord fa-discord"
+                      class="social-discord"
+                      data-icon="discord"
+                      data-icon-source="fa"
                     />
                   </a>
                 </li>
@@ -80,7 +84,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Mastodon"
                   >
                     <svg
-                      class="svg-inline--fa social-mastodon fa-mastodon"
+                      class="social-mastodon"
+                      data-icon="mastodon"
+                      data-icon-source="fa"
                     />
                   </a>
                 </li>
@@ -92,7 +98,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Twitter"
                   >
                     <svg
-                      class="svg-inline--fa social-twitter fa-twitter"
+                      class="social-twitter"
+                      data-icon="twitter"
+                      data-icon-source="fa"
                     />
                   </a>
                 </li>
@@ -104,7 +112,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Instagram"
                   >
                     <svg
-                      class="svg-inline--fa social-instagram fa-instagram"
+                      class="social-instagram"
+                      data-icon="instagram"
+                      data-icon-source="fa"
                     />
                   </a>
                 </li>

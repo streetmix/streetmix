@@ -77,7 +77,9 @@ exports[`SignInDialog > renders 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-twitter"
+              class=""
+              data-icon="twitter"
+              data-icon-source="fa"
             />
             Continue with Twitter
           </button>
@@ -97,7 +99,9 @@ exports[`SignInDialog > renders 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-square-facebook"
+              class=""
+              data-icon="facebook"
+              data-icon-source="fa"
             />
             Continue with Facebook
           </button>

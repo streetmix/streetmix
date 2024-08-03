@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { DownloadIcon } from '@radix-ui/react-icons'
 
 import { useDispatch } from '~/src/store/hooks'
 import { showDialog } from '~/src/store/slices/dialogs'
+import Icon from '~/src/ui/Icon'
 
 function SaveImage (): React.ReactElement {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ function SaveImage (): React.ReactElement {
 
   return (
     <a id="save-as-image" onClick={handleClickSaveAsImage}>
-      <DownloadIcon className="menu-item-icon-radix" />
+      <Icon name="download" />
       <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
       <span className="menu-item-subtext">
         <FormattedMessage

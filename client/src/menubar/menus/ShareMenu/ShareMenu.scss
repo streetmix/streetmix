@@ -12,7 +12,7 @@
     padding: 0.8em 2.5em 0.8em 1em;
   }
 
-  .menu-item-icon-radix {
+  [data-icon="link"] {
     top: 0.9em;
   }
 }
@@ -28,10 +28,16 @@
 
   button {
     padding: 4px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  button svg {
-    width: 13px;
+  /* Override icon styles */
+  [data-icon="copy"] {
+    position: relative;
+    left: auto;
+    top: auto;
   }
 }
 

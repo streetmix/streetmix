@@ -62,7 +62,8 @@
     resize: none;
   }
 
-  .menu-item-icon {
+  .menu-item-icon,
+  [data-icon-source="fa"] {
     position: absolute;
     top: 0.5em;
     left: 0.8em;
@@ -76,7 +77,8 @@
     }
   }
 
-  .menu-item-icon-io5 {
+  .menu-item-icon-io5,
+  [data-icon-source="io5"] {
     position: absolute;
     top: 0.55em;
     left: 0.75em;
@@ -91,7 +93,8 @@
   }
 
   /* Radix icons are optimized for 15px */
-  .menu-item-icon-radix {
+  .menu-item-icon-radix,
+  [data-icon-source="radix"] {
     position: absolute;
     top: 0.6em;
     left: 0.8em;
@@ -105,17 +108,43 @@
     }
   }
 
-  .menu-item-external-link {
+  .menu-item-external-link,
+  [data-icon="external-link"] {
     vertical-align: middle;
     margin-left: 0.25em;
     margin-top: -2px;
     height: 12px;
     color: var(--color-midnight-600);
 
+    // Reset icon-source styling
+    position: relative;
+    left: auto;
+    top: auto;
+
     [dir="rtl"] & {
       margin-left: auto;
       margin-right: 0.25em;
     }
+  }
+
+  [data-icon="discord"] {
+    color: var(--social-discord);
+  }
+
+  [data-icon="facebook"] {
+    color: var(--social-facebook);
+  }
+
+  [data-icon="github"] {
+    color: var(--social-github);
+  }
+
+  [data-icon="mastodon"] {
+    color: var(--social-mastodon);
+  }
+
+  [data-icon="twitter"] {
+    color: var(--social-twitter);
   }
 }
 
@@ -200,29 +229,6 @@ body.safari .menu {
   display: block;
   color: rgb(128 128 128);
   font-size: 0.8em;
-}
-
-.menu-item-icon {
-  &.fa-facebook,
-  &.fa-square-facebook {
-    color: var(--social-facebook);
-  }
-
-  &.fa-twitter {
-    color: var(--social-twitter);
-  }
-
-  &.fa-discord {
-    color: var(--social-discord);
-  }
-
-  &.fa-github {
-    color: var(--social-github);
-  }
-
-  &.fa-mastodon {
-    color: var(--social-mastodon);
-  }
 }
 
 .menu-separator {

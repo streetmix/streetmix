@@ -36,7 +36,7 @@ function RemoveButton ({ segment }: RemoveButtonProps): React.ReactElement {
       })}
       onClick={handleClick}
     >
-      <Icon icon="trash" className="remove-icon" />
+      <Icon name="trash" className="remove-icon" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </Button>
   )

@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { KeyboardIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
-import {
-  IoCartOutline,
-  IoInformationCircleOutline,
-  IoRocketOutline,
-  IoTrailSignOutline
-} from 'react-icons/io5'
 
-import { useSelector, useDispatch } from '../../store/hooks'
-import { showDialog } from '../../store/slices/dialogs'
-import ExternalLink from '../../ui/ExternalLink'
-import KeyboardKey from '../../ui/KeyboardKey'
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { showDialog } from '~/src/store/slices/dialogs'
+import ExternalLink from '~/src/ui/ExternalLink'
+import Icon from '~/src/ui/Icon'
+import KeyboardKey from '~/src/ui/KeyboardKey'
 import {
   ICON_MINUS,
   ICON_PLUS,
   ICON_ARROW_RIGHT,
   ICON_ARROW_LEFT
-} from '../../ui/icons'
-import { registerKeypress, deregisterKeypress } from '../../app/keypress'
+} from '~/src/ui/icons'
+import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
 import './HelpMenu.scss'
@@ -47,14 +41,14 @@ function HelpMenu (props: MenuProps): React.ReactElement {
   return (
     <Menu {...props}>
       <a onClick={() => dispatch(showDialog('ABOUT'))}>
-        <IoInformationCircleOutline className="menu-item-icon-io5" />
+        <Icon name="info" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <IoRocketOutline className="menu-item-icon-io5" />
+        <Icon name="rocket" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
@@ -62,25 +56,29 @@ function HelpMenu (props: MenuProps): React.ReactElement {
       </a>
       {!offline && (
         <>
-          <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-            <IoTrailSignOutline className="menu-item-icon-io5" />
+          <ExternalLink
+            href="https://docs.streetmix.net/user-guide/intro"
+            icon={true}
+          >
+            <Icon name="trail-sign" />
             <FormattedMessage
               id="menu.help.guidebook-link"
               defaultMessage="Guidebook"
             />
-            <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
           <MenuSeparator />
-          <ExternalLink href="https://cottonbureau.com/people/streetmix">
-            <IoCartOutline className="menu-item-icon-io5" />
+          <ExternalLink
+            href="https://cottonbureau.com/people/streetmix"
+            icon={true}
+          >
+            <Icon name="cart" />
             <FormattedMessage id="menu.item.store" defaultMessage="Store" />
-            <ExternalLinkIcon className="menu-item-external-link" />
           </ExternalLink>
         </>
       )}
       <MenuSeparator />
       <div className="help-menu-shortcuts">
-        <KeyboardIcon className="menu-item-icon-radix" />
+        <Icon name="keyboard" />
         <FormattedMessage
           id="menu.help.keyboard-label"
           defaultMessage="Keyboard shortcuts:"

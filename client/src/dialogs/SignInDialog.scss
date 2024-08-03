@@ -84,17 +84,17 @@
   svg,
   img {
     position: absolute;
-    width: 27px;
-    height: 27px;
-    left: 15px;
+    width: 24px;
+    height: 24px;
+    left: 16px;
   }
 }
 
-.sign-in-twitter-button .fa-twitter {
+.sign-in-twitter-button [data-icon="twitter"] {
   color: var(--social-twitter) !important;
 }
 
-.sign-in-facebook-button .fa-square-facebook {
+.sign-in-facebook-button [data-icon="facebook"] {
   color: var(--social-facebook) !important;
 }
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { IoPrintOutline } from 'react-icons/io5'
 
 import { useDispatch } from '~/src/store/hooks'
 import { startPrinting } from '~/src/store/slices/app'
+import Icon from '~/src/ui/Icon'
 
 function PrintImage (): React.ReactElement {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ function PrintImage (): React.ReactElement {
 
   return (
     <a onClick={handleClickPrint}>
-      <IoPrintOutline className="menu-item-icon" />
+      <Icon name="print" />
       <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
     </a>
   )
