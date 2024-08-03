@@ -17,7 +17,9 @@ exports[`SignInDialog > renders 1`] = `
         title="Dismiss"
       >
         <svg
-          class="octicon"
+          class=""
+          data-icon="close"
+          data-icon-source="test"
         />
       </button>
       <div
@@ -79,7 +81,7 @@ exports[`SignInDialog > renders 1`] = `
             <svg
               class=""
               data-icon="twitter"
-              data-icon-source="fa"
+              data-icon-source="test"
             />
             Continue with Twitter
           </button>
@@ -87,10 +89,10 @@ exports[`SignInDialog > renders 1`] = `
             class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-google-button"
             type="button"
           >
-            <img
-              alt=""
+            <svg
               class=""
-              src="test-file-stub"
+              data-icon="google"
+              data-icon-source="test"
             />
             Continue with Google
           </button>
@@ -101,7 +103,7 @@ exports[`SignInDialog > renders 1`] = `
             <svg
               class=""
               data-icon="facebook"
-              data-icon-source="fa"
+              data-icon-source="test"
             />
             Continue with Facebook
           </button>

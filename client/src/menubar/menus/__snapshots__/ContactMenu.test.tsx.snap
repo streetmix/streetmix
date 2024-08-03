@@ -13,13 +13,13 @@ exports[`ContactMenu > renders 1`] = `
       <svg
         class=""
         data-icon="discord"
-        data-icon-source="fa"
+        data-icon-source="test"
       />
       Join Discord chat
       <svg
         class=""
         data-icon="external-link"
-        data-icon-source="radix"
+        data-icon-source="test"
       />
     </a>
     <a
@@ -30,20 +30,20 @@ exports[`ContactMenu > renders 1`] = `
       <svg
         class=""
         data-icon="github"
-        data-icon-source="fa"
+        data-icon-source="test"
       />
       View source code on GitHub
       <svg
         class=""
         data-icon="external-link"
-        data-icon-source="radix"
+        data-icon-source="test"
       />
     </a>
     <a>
       <svg
         class=""
         data-icon="mail"
-        data-icon-source="io5"
+        data-icon-source="test"
       />
       Subscribe to our newsletter
     </a>

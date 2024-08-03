@@ -1,11 +1,11 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector, useDispatch } from '../store/hooks'
 import { handleUndo, handleRedo } from '../store/actions/history'
 import Button from '../ui/Button'
+import Icon from '../ui/Icon'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
-import { ICON_UNDO, ICON_REDO } from '../ui/icons'
 import { isOwnedByCurrentUser } from '../streets/owner'
 
 function UndoRedo (): React.ReactElement {
@@ -43,7 +43,7 @@ function UndoRedo (): React.ReactElement {
           disabled={!isUndoAvailable()}
           title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
         >
-          <FontAwesomeIcon icon={ICON_UNDO} />
+          <Icon name="undo" />
         </Button>
       </Tooltip>
       <Tooltip
@@ -58,7 +58,7 @@ function UndoRedo (): React.ReactElement {
           disabled={!isRedoAvailable()}
           title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
         >
-          <FontAwesomeIcon icon={ICON_REDO} />
+          <Icon name="redo" />
         </Button>
       </Tooltip>
     </>

@@ -20,20 +20,17 @@ button.close {
   height: var(--close-button-size);
 
   // Appearance
+  display: flex;
+  justify-content: center;
+  align-items: center;
   appearance: none;
   padding: 0;
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--border-radius-pill);
   color: var(--close-icon-color);
   cursor: pointer;
   user-select: none;
   background-color: transparent;
-
-  // Override Octicon sizing
-  // A transform works better than overriding the width/height properties.
-  > .octicon {
-    transform: scale(0.8);
-  }
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);

@@ -31,7 +31,9 @@ exports[`NotificationBar > renders snapshot 1`] = `
       title="Dismiss"
     >
       <svg
-        class="octicon"
+        class=""
+        data-icon="close"
+        data-icon-source="test"
       />
     </button>
   </div>

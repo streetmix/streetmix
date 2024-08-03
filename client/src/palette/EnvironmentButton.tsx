@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
+
+import { toggleToolbox } from '../store/slices/ui'
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
 import Tooltip from '../ui/Tooltip'
-import { toggleToolbox } from '../store/slices/ui'
 
 function EnvironmentButton (): React.ReactElement {
   const dispatch = useDispatch()

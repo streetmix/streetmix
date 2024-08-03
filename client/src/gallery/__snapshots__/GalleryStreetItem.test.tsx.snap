@@ -50,7 +50,9 @@ exports[`GalleryStreetItem > renders 1`] = `
       title="Delete street"
     >
       <svg
-        class="octicon"
+        class=""
+        data-icon="trash"
+        data-icon-source="test"
       />
     </button>
   </div>

@@ -9,7 +9,7 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class=""
         data-icon="info"
-        data-icon-source="io5"
+        data-icon-source="test"
       />
       About Streetmix…
     </a>
@@ -17,7 +17,7 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class=""
         data-icon="rocket"
-        data-icon-source="io5"
+        data-icon-source="test"
       />
       What’s new?‎
     </a>
@@ -29,13 +29,13 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class=""
         data-icon="trail-sign"
-        data-icon-source="io5"
+        data-icon-source="test"
       />
       Guidebook
       <svg
         class=""
         data-icon="external-link"
-        data-icon-source="radix"
+        data-icon-source="test"
       />
     </a>
     <div
@@ -49,13 +49,13 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class=""
         data-icon="cart"
-        data-icon-source="io5"
+        data-icon-source="test"
       />
       Store
       <svg
         class=""
         data-icon="external-link"
-        data-icon-source="radix"
+        data-icon-source="test"
       />
     </a>
     <div
@@ -67,7 +67,7 @@ exports[`HelpMenu > renders 1`] = `
       <svg
         class=""
         data-icon="keyboard"
-        data-icon-source="radix"
+        data-icon-source="test"
       />
       Keyboard shortcuts:
       <table>

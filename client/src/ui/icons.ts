@@ -11,8 +11,6 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
-import { faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons/faArrowRotateLeft'
-import { faArrowRotateRight } from '@fortawesome/free-solid-svg-icons/faArrowRotateRight'
 import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil'
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 
@@ -34,8 +32,6 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 //
 // Furthermore, this is easier to mock for any tests where <FontAwesomeIcon>
 // is a child of the component under test.
-export const ICON_UNDO = faArrowRotateLeft
-export const ICON_REDO = faArrowRotateRight
 export const ICON_MINUS = faMinus
 export const ICON_PLUS = faPlus
 export const ICON_CHECK = faCheck

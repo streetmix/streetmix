@@ -1,15 +1,15 @@
 import React from 'react'
-import { TrashIcon, ToolsIcon, SunIcon } from '@primer/octicons-react'
 import {
   FaDiscord,
-  FaFacebookSquare,
+  FaSquareFacebook,
   FaGithub,
   FaInstagram,
   FaMastodon,
   FaTwitter
-} from 'react-icons/fa'
+} from 'react-icons/fa6'
 import {
   IoCartOutline,
+  IoClose,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
   IoMailOutline,
@@ -17,6 +17,12 @@ import {
   IoRocketOutline,
   IoTrailSignOutline
 } from 'react-icons/io5'
+import {
+  LiaUndoAltSolid,
+  LiaRedoAltSolid,
+  LiaSun,
+  LiaTrashAlt
+} from 'react-icons/lia'
 import {
   RxClipboardCopy,
   RxCube,
@@ -34,6 +40,7 @@ import googleIcon from './icons/google.svg'
 interface IconProps {
   name:
   | 'cart'
+  | 'close'
   | 'copy'
   | 'cube'
   | 'download'
@@ -44,14 +51,15 @@ interface IconProps {
   | 'link'
   | 'mail'
   | 'print'
+  | 'redo'
   | 'rocket'
   | 'trail-sign'
   | 'trash'
-  | 'tools'
   | 'settings'
   | 'sign-out'
   | 'star'
   | 'sun'
+  | 'undo'
   // Social
   | 'discord'
   | 'facebook'
@@ -63,18 +71,19 @@ interface IconProps {
   className?: string
 }
 
-const OCTICON_DEFAULT_CLASSNAME = 'octicon'
-
-// Preserve, don't replace default Octicon classname
-function octiconClassNames (className: string): string {
-  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
-}
-
 function Icon ({ name, className = '' }: IconProps): React.ReactElement {
   switch (name) {
     case 'cart':
       return (
         <IoCartOutline
+          className={className}
+          data-icon={name}
+          data-icon-source="io5"
+        />
+      )
+    case 'close':
+      return (
+        <IoClose
           className={className}
           data-icon={name}
           data-icon-source="io5"
@@ -122,7 +131,7 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'facebook':
       return (
-        <FaFacebookSquare
+        <FaSquareFacebook
           className={className}
           data-icon={name}
           data-icon-source="fa"
@@ -202,6 +211,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon-source="io5"
         />
       )
+    case 'redo':
+      return (
+        <LiaRedoAltSolid
+          className={className}
+          data-icon={name}
+          data-icon-source="icons8"
+        />
+      )
     case 'rocket':
       return (
         <IoRocketOutline
@@ -235,7 +252,13 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
         />
       )
     case 'sun':
-      return <SunIcon size={16} className={octiconClassNames(className)} />
+      return (
+        <LiaSun
+          className={className}
+          data-icon={name}
+          data-icon-source="icons8"
+        />
+      )
     case 'trail-sign':
       return (
         <IoTrailSignOutline
@@ -245,15 +268,27 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
         />
       )
     case 'trash':
-      return <TrashIcon size={16} className={octiconClassNames(className)} />
-    case 'tools':
-      return <ToolsIcon size={16} className={octiconClassNames(className)} />
+      return (
+        <LiaTrashAlt
+          className={className}
+          data-icon={name}
+          data-icon-source="icons8"
+        />
+      )
     case 'twitter':
       return (
         <FaTwitter
           className={className}
           data-icon={name}
           data-icon-source="fa"
+        />
+      )
+    case 'undo':
+      return (
+        <LiaUndoAltSolid
+          className={className}
+          data-icon={name}
+          data-icon-source="icons8"
         />
       )
   }

@@ -17,7 +17,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
         title="Dismiss"
       >
         <svg
-          class="octicon"
+          class=""
+          data-icon="close"
+          data-icon-source="test"
         />
       </button>
       <div
@@ -58,7 +60,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-github"
                       data-icon="github"
-                      data-icon-source="fa"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -72,7 +74,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-discord"
                       data-icon="discord"
-                      data-icon-source="fa"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -86,7 +88,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-mastodon"
                       data-icon="mastodon"
-                      data-icon-source="fa"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -100,7 +102,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-twitter"
                       data-icon="twitter"
-                      data-icon-source="fa"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -114,7 +116,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-instagram"
                       data-icon="instagram"
-                      data-icon-source="fa"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -528,6 +530,50 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       )
                     </li>
                     <li>
+                      Icons by 
+                      <a
+                        href="https://icons8.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Icons8
+                      </a>
+                      , 
+                      <a
+                        href="https://www.radix-ui.com/icons"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Radix UI
+                      </a>
+                      , 
+                      <a
+                        href="https://ionic.io/ionicons"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Ionicons
+                      </a>
+                      , & 
+                      <a
+                        href="https://fontawesome.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Font Awesome
+                      </a>
+                      . (
+                      <a
+                        href="https://fontawesome.com/license/free"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
                       Emoji by 
                       <a
                         href="https://openmoji.org/"
@@ -539,26 +585,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       . (
                       <a
                         href="https://creativecommons.org/licenses/by-sa/4.0/#"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
-                      >
-                        License
-                      </a>
-                      )
-                    </li>
-                    <li>
-                      Icons by 
-                      <a
-                        href="https://fontawesome.com/"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        Font Awesome
-                      </a>
-                      . (
-                      <a
-                        href="https://fontawesome.com/license/free"
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"

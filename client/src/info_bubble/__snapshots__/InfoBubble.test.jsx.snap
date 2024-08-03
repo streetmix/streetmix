@@ -25,7 +25,9 @@ exports[`InfoBubble > is visible 1`] = `
         type="button"
       >
         <svg
-          class="octicon remove-icon"
+          class="remove-icon"
+          data-icon="trash"
+          data-icon-source="test"
         />
         Remove
       </button>
@@ -184,7 +186,9 @@ exports[`InfoBubble > renders 1`] = `
         type="button"
       >
         <svg
-          class="octicon remove-icon"
+          class="remove-icon"
+          data-icon="trash"
+          data-icon-source="test"
         />
         Remove
       </button>
@@ -751,7 +755,9 @@ exports[`InfoBubble > shows description 1`] = `
         type="button"
       >
         <svg
-          class="octicon remove-icon"
+          class="remove-icon"
+          data-icon="trash"
+          data-icon-source="test"
         />
         Remove
       </button>

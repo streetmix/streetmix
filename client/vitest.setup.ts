@@ -43,8 +43,8 @@ global.confirm = vi.fn(() => true)
 global.HTMLElement.prototype.scrollIntoView = vi.fn()
 
 // Declare all mock modules globally
+vi.mock('./src/ui/Icon')
 vi.mock('@fortawesome/react-fontawesome')
-vi.mock('@primer/octicons-react')
 vi.mock('@radix-ui/react-icons')
 vi.mock('react-icons/fa')
 vi.mock('react-icons/io5')
