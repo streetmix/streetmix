@@ -74,7 +74,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
           </div>
           <MenuSeparator />
           <a href={myStreetsLink} onClick={handleClickMyStreets}>
-            <Icon name="star" />
+            <Icon name="star" className="menu-item-icon" />
             <FormattedMessage
               id="menu.item.my-streets"
               defaultMessage="My streets"
@@ -83,12 +83,12 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
         </>
       )}
       <a onClick={() => dispatch(showDialog('SETTINGS'))}>
-        <Icon name="settings" />
+        <Icon name="settings" className="menu-item-icon" />
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
       </a>
       <MenuSeparator />
       <a className="menu-item menu-sign-out" onClick={onSignOutClick}>
-        <Icon name="sign-out" />
+        <Icon name="sign-out" className="menu-item-icon" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
       </a>
     </Menu>

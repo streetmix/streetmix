@@ -10,7 +10,7 @@ function Export3DStreet (): React.ReactElement {
       href={`https://3dstreet.app/#${window.location.href}`}
       icon={true}
     >
-      <Icon name="cube" />
+      <Icon name="cube" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.3dstreet"
         defaultMessage="Open in 3DStreet"

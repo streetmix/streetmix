@@ -19,7 +19,7 @@ const CopyShareLink = forwardRef(
 
     return (
       <div className="share-via-link-container">
-        <Icon name="link" />
+        <Icon name="link" className="menu-item-icon" />
         <FormattedMessage
           id="menu.share.link"
           defaultMessage="Copy and paste this link to share:"

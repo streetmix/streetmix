@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Button from '~/src/ui/Button'
-import { ICON_MINUS, ICON_PLUS } from '~/src/ui/icons'
+import Icon from '~/src/ui/Icon'
 import './UpDownInput.scss'
 
 const EDIT_INPUT_DELAY = 200
@@ -301,7 +300,7 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
           disabled || (value !== null && minValue ? value <= minValue : false)
         }
       >
-        <FontAwesomeIcon icon={ICON_MINUS} />
+        <Icon name="minus" />
       </Button>
       <input
         type="text"
@@ -327,7 +326,7 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
           disabled || (value !== null && maxValue ? value >= maxValue : false)
         }
       >
-        <FontAwesomeIcon icon={ICON_PLUS} />
+        <Icon name="plus" />
       </Button>
     </div>
   )

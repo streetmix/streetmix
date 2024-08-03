@@ -18,7 +18,7 @@ function PostOnTwitter ({
 
   return (
     <ExternalLink href={twitterLink} icon={true}>
-      <Icon name="twitter" />
+      <Icon name="twitter" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.twitter"
         defaultMessage="Share using Twitter"

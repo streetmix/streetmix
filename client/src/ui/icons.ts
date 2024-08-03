@@ -4,12 +4,8 @@
 // "deep import" style to workaround a "Maximum call stack exceeded" issue
 // that only happens with the `free-solid-svg-icons` package.
 // for instance: https://github.com/FortAwesome/react-native-fontawesome/issues/123
-import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
-import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil'
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 
@@ -31,10 +27,6 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 //
 // Furthermore, this is easier to mock for any tests where <FontAwesomeIcon>
 // is a child of the component under test.
-export const ICON_MINUS = faMinus
-export const ICON_PLUS = faPlus
-export const ICON_ARROW_RIGHT = faArrowRight
-export const ICON_ARROW_LEFT = faArrowLeft
 export const ICON_CHEVRON_RIGHT = faChevronRight
 export const ICON_CHEVRON_LEFT = faChevronLeft
 export const ICON_PENCIL = faPencil

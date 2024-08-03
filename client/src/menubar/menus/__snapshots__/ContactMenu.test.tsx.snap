@@ -11,7 +11,7 @@ exports[`ContactMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="discord"
         data-icon-source="test"
       />
@@ -28,7 +28,7 @@ exports[`ContactMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="github"
         data-icon-source="test"
       />
@@ -41,7 +41,7 @@ exports[`ContactMenu > renders 1`] = `
     </a>
     <a>
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="mail"
         data-icon-source="test"
       />

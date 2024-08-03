@@ -23,7 +23,7 @@ function PrintImage (): React.ReactElement {
 
   return (
     <a onClick={handleClickPrint}>
-      <Icon name="print" />
+      <Icon name="print" className="menu-item-icon" />
       <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
     </a>
   )

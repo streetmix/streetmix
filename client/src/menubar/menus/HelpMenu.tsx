@@ -6,12 +6,6 @@ import { showDialog } from '~/src/store/slices/dialogs'
 import ExternalLink from '~/src/ui/ExternalLink'
 import Icon from '~/src/ui/Icon'
 import KeyboardKey from '~/src/ui/KeyboardKey'
-import {
-  ICON_MINUS,
-  ICON_PLUS,
-  ICON_ARROW_RIGHT,
-  ICON_ARROW_LEFT
-} from '~/src/ui/icons'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
@@ -41,14 +35,14 @@ function HelpMenu (props: MenuProps): React.ReactElement {
   return (
     <Menu {...props}>
       <a onClick={() => dispatch(showDialog('ABOUT'))}>
-        <Icon name="info" />
+        <Icon name="info" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <Icon name="rocket" />
+        <Icon name="rocket" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
@@ -60,7 +54,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
             href="https://docs.streetmix.net/user-guide/intro"
             icon={true}
           >
-            <Icon name="trail-sign" />
+            <Icon name="trail-sign" className="menu-item-icon" />
             <FormattedMessage
               id="menu.help.guidebook-link"
               defaultMessage="Guidebook"
@@ -71,14 +65,14 @@ function HelpMenu (props: MenuProps): React.ReactElement {
             href="https://cottonbureau.com/people/streetmix"
             icon={true}
           >
-            <Icon name="cart" />
+            <Icon name="cart" className="menu-item-icon" />
             <FormattedMessage id="menu.item.store" defaultMessage="Store" />
           </ExternalLink>
         </>
       )}
       <MenuSeparator />
       <div className="help-menu-shortcuts">
-        <Icon name="keyboard" />
+        <Icon name="keyboard" className="menu-item-icon" />
         <FormattedMessage
           id="menu.help.keyboard-label"
           defaultMessage="Keyboard shortcuts:"
@@ -116,14 +110,10 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   the child is a React component.
                 */}
                 <FormattedMessage id="key.minus" defaultMessage="Minus">
-                  {(label) => (
-                    <KeyboardKey icon={ICON_MINUS}>{label}</KeyboardKey>
-                  )}
+                  {(label) => <KeyboardKey icon="minus">{label}</KeyboardKey>}
                 </FormattedMessage>
                 <FormattedMessage id="key.plus" defaultMessage="Plus">
-                  {(label) => (
-                    <KeyboardKey icon={ICON_PLUS}>{label}</KeyboardKey>
-                  )}
+                  {(label) => <KeyboardKey icon="plus">{label}</KeyboardKey>}
                 </FormattedMessage>
               </td>
               <td>
@@ -146,7 +136,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   defaultMessage="Left arrow"
                 >
                   {(label) => (
-                    <KeyboardKey icon={ICON_ARROW_LEFT}>{label}</KeyboardKey>
+                    <KeyboardKey icon="arrow-left">{label}</KeyboardKey>
                   )}
                 </FormattedMessage>
                 <FormattedMessage
@@ -154,7 +144,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   defaultMessage="Right arrow"
                 >
                   {(label) => (
-                    <KeyboardKey icon={ICON_ARROW_RIGHT}>{label}</KeyboardKey>
+                    <KeyboardKey icon="arrow-right">{label}</KeyboardKey>
                   )}
                 </FormattedMessage>
               </td>

@@ -1,11 +1,15 @@
 import React from 'react'
 import {
+  FaArrowLeft,
+  FaArrowRight,
   FaCheck,
   FaDiscord,
   FaSquareFacebook,
   FaGithub,
   FaInstagram,
   FaMastodon,
+  FaMinus,
+  FaPlus,
   FaTwitter
 } from 'react-icons/fa6'
 import {
@@ -38,8 +42,9 @@ import {
 
 import googleIcon from './icons/google.svg'
 
-interface IconProps {
-  name:
+export type IconNames =
+  | 'arrow-left'
+  | 'arrow-right'
   | 'cart'
   | 'check'
   | 'close'
@@ -52,6 +57,8 @@ interface IconProps {
   | 'keyboard'
   | 'link'
   | 'mail'
+  | 'minus'
+  | 'plus'
   | 'print'
   | 'redo'
   | 'rocket'
@@ -70,11 +77,30 @@ interface IconProps {
   | 'instagram'
   | 'mastodon'
   | 'twitter'
+
+interface IconProps {
+  name: IconNames
   className?: string
 }
 
 function Icon ({ name, className = '' }: IconProps): React.ReactElement {
   switch (name) {
+    case 'arrow-left':
+      return (
+        <FaArrowLeft
+          className={className}
+          data-icon={name}
+          data-icon-source="fa"
+        />
+      )
+    case 'arrow-right':
+      return (
+        <FaArrowRight
+          className={className}
+          data-icon={name}
+          data-icon-source="fa"
+        />
+      )
     case 'cart':
       return (
         <IoCartOutline
@@ -208,6 +234,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon={name}
           data-icon-source="fa"
         />
+      )
+    case 'minus':
+      return (
+        <FaMinus className={className} data-icon={name} data-icon-source="fa" />
+      )
+    case 'plus':
+      return (
+        <FaPlus className={className} data-icon={name} data-icon-source="fa" />
       )
     case 'print':
       return (

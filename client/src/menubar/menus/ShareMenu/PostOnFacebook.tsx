@@ -29,7 +29,7 @@ function PostOnFacebook ({
 
   return (
     <ExternalLink href={facebookLink} icon={true}>
-      <Icon name="facebook" />
+      <Icon name="facebook" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.facebook"
         defaultMessage="Share using Facebook"

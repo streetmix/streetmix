@@ -62,53 +62,6 @@
     resize: none;
   }
 
-  .menu-item-icon,
-  [data-icon-source="fa"] {
-    position: absolute;
-    top: 0.5em;
-    left: 0.8em;
-    width: 16px;
-    height: 16px;
-    color: var(--color-midnight-800);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.8em;
-    }
-  }
-
-  .menu-item-icon-io5,
-  [data-icon-source="io5"] {
-    position: absolute;
-    top: 0.55em;
-    left: 0.75em;
-    width: 16px;
-    height: 16px;
-    color: var(--color-midnight-800);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.75em;
-    }
-  }
-
-  /* Radix icons are optimized for 15px */
-  .menu-item-icon-radix,
-  [data-icon-source="radix"] {
-    position: absolute;
-    top: 0.6em;
-    left: 0.8em;
-    width: 15px;
-    height: 15px;
-    color: var(--color-midnight-800);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.8em;
-    }
-  }
-
-  .menu-item-external-link,
   [data-icon="external-link"] {
     vertical-align: middle;
     margin-left: 0.25em;
@@ -125,26 +78,6 @@
       margin-left: auto;
       margin-right: 0.25em;
     }
-  }
-
-  [data-icon="discord"] {
-    color: var(--social-discord);
-  }
-
-  [data-icon="facebook"] {
-    color: var(--social-facebook);
-  }
-
-  [data-icon="github"] {
-    color: var(--social-github);
-  }
-
-  [data-icon="mastodon"] {
-    color: var(--social-mastodon);
-  }
-
-  [data-icon="twitter"] {
-    color: var(--social-twitter);
   }
 }
 
@@ -195,18 +128,6 @@ body.safari .menu {
     color: var(--interactive-text-active-color);
   }
 
-  [data-icon="check"] {
-    display: none;
-    left: 0.5em;
-    margin-top: 1px;
-    color: var(--color-turquoise-500);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.5em;
-    }
-  }
-
   &.menu-item-selected [data-icon="check"] {
     display: inline-block;
   }
@@ -220,6 +141,83 @@ body.safari .menu {
       left: auto;
       right: 8px;
     }
+  }
+}
+
+.menu-item-icon {
+  &[data-icon-source="fa"] {
+    position: absolute;
+    top: 0.5em;
+    left: 0.8em;
+    width: 16px;
+    height: 16px;
+    color: var(--color-midnight-800);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.8em;
+    }
+  }
+
+  &[data-icon-source="io5"] {
+    position: absolute;
+    top: 0.55em;
+    left: 0.75em;
+    width: 16px;
+    height: 16px;
+    color: var(--color-midnight-800);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.75em;
+    }
+  }
+
+  /* Radix icons are optimized for 15px */
+  &[data-icon-source="radix"] {
+    position: absolute;
+    top: 0.6em;
+    left: 0.8em;
+    width: 15px;
+    height: 15px;
+    color: var(--color-midnight-800);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.8em;
+    }
+  }
+
+  &[data-icon="check"] {
+    display: none;
+    left: 0.5em;
+    margin-top: 1px;
+    color: var(--color-turquoise-500);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.5em;
+    }
+  }
+
+  &[data-icon="discord"] {
+    color: var(--social-discord);
+  }
+
+  &[data-icon="facebook"] {
+    color: var(--social-facebook);
+  }
+
+  &[data-icon="github"] {
+    color: var(--social-github);
+  }
+
+  &[data-icon="mastodon"] {
+    color: var(--social-mastodon);
+  }
+
+  &[data-icon="twitter"] {
+    color: var(--social-twitter);
   }
 }
 

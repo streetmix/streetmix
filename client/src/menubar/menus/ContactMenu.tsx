@@ -13,14 +13,14 @@ function ContactMenu (props: MenuProps): React.ReactElement {
   return (
     <Menu {...props}>
       <ExternalLink href="https://strt.mx/discord" icon={true}>
-        <Icon name="discord" />
+        <Icon name="discord" className="menu-item-icon" />
         <FormattedMessage
           id="menu.contact.discord"
           defaultMessage="Join Discord chat"
         />
       </ExternalLink>
       <ExternalLink href="https://github.com/streetmix/streetmix/" icon={true}>
-        <Icon name="github" />
+        <Icon name="github" className="menu-item-icon" />
         <FormattedMessage
           id="menu.contact.github"
           defaultMessage="View source code on GitHub"
@@ -31,7 +31,7 @@ function ContactMenu (props: MenuProps): React.ReactElement {
           dispatch(showDialog('NEWSLETTER'))
         }}
       >
-        <Icon name="mail" />
+        <Icon name="mail" className="menu-item-icon" />
         <FormattedMessage
           id="menu.contact.newsletter"
           defaultMessage="Subscribe to our newsletter"

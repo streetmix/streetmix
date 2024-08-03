@@ -50,7 +50,7 @@ exports[`IdentityMenu > renders 1`] = `
       href="/foo"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="star"
         data-icon-source="test"
       />
@@ -58,7 +58,7 @@ exports[`IdentityMenu > renders 1`] = `
     </a>
     <a>
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="settings"
         data-icon-source="test"
       />
@@ -71,7 +71,7 @@ exports[`IdentityMenu > renders 1`] = `
       class="menu-item menu-sign-out"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="sign-out"
         data-icon-source="test"
       />

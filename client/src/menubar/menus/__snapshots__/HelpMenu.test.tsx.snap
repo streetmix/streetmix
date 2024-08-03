@@ -7,7 +7,7 @@ exports[`HelpMenu > renders 1`] = `
   >
     <a>
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="info"
         data-icon-source="test"
       />
@@ -15,7 +15,7 @@ exports[`HelpMenu > renders 1`] = `
     </a>
     <a>
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="rocket"
         data-icon-source="test"
       />
@@ -27,7 +27,7 @@ exports[`HelpMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="trail-sign"
         data-icon-source="test"
       />
@@ -47,7 +47,7 @@ exports[`HelpMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="cart"
         data-icon-source="test"
       />
@@ -65,7 +65,7 @@ exports[`HelpMenu > renders 1`] = `
       class="help-menu-shortcuts"
     >
       <svg
-        class=""
+        class="menu-item-icon"
         data-icon="keyboard"
         data-icon-source="test"
       />
@@ -101,7 +101,9 @@ exports[`HelpMenu > renders 1`] = `
                 title="Minus"
               >
                 <svg
-                  class="svg-inline--fa fa-minus"
+                  class=""
+                  data-icon="minus"
+                  data-icon-source="test"
                 />
               </kbd>
               <kbd
@@ -109,7 +111,9 @@ exports[`HelpMenu > renders 1`] = `
                 title="Plus"
               >
                 <svg
-                  class="svg-inline--fa fa-plus"
+                  class=""
+                  data-icon="plus"
+                  data-icon-source="test"
                 />
               </kbd>
             </td>
@@ -134,7 +138,9 @@ exports[`HelpMenu > renders 1`] = `
                 title="Left arrow"
               >
                 <svg
-                  class="svg-inline--fa fa-arrow-left"
+                  class=""
+                  data-icon="arrow-left"
+                  data-icon-source="test"
                 />
               </kbd>
               <kbd
@@ -142,7 +148,9 @@ exports[`HelpMenu > renders 1`] = `
                 title="Right arrow"
               >
                 <svg
-                  class="svg-inline--fa fa-arrow-right"
+                  class=""
+                  data-icon="arrow-right"
+                  data-icon-source="test"
                 />
               </kbd>
             </td>

@@ -15,7 +15,9 @@ exports[`WidthControl > renders 1`] = `
         type="button"
       >
         <svg
-          class="svg-inline--fa fa-minus"
+          class=""
+          data-icon="minus"
+          data-icon-source="test"
         />
       </button>
       <input
@@ -31,7 +33,9 @@ exports[`WidthControl > renders 1`] = `
         type="button"
       >
         <svg
-          class="svg-inline--fa fa-plus"
+          class=""
+          data-icon="plus"
+          data-icon-source="test"
         />
       </button>
     </div>

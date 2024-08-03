@@ -132,6 +132,9 @@
       white-space: nowrap;
       position: relative;
       padding: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
 
       .icon {
         opacity: 0.666;
