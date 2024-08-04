@@ -18,6 +18,7 @@ import {
   FiChevronDown,
   FiChevronLeft,
   FiChevronRight,
+  FiClipboard,
   FiClock,
   FiEdit3,
   FiExternalLink,
@@ -41,7 +42,6 @@ import {
   IoTrailSignOutline
 } from 'react-icons/io5'
 import {
-  RxClipboardCopy,
   RxCube,
   RxDownload,
   RxExit,
@@ -74,7 +74,7 @@ const ICONS = {
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
   close: [FiX, 'feather'],
-  copy: [RxClipboardCopy, 'radix'],
+  copy: [FiClipboard, 'feather'],
   cube: [RxCube, 'radix'],
   download: [RxDownload, 'radix'],
   edit: [FiEdit3, 'feather'],
