@@ -3,8 +3,7 @@
 }
 
 .identity-section {
-  border-bottom: 1px solid var(--color-turquoise-200);
-  padding: 0.8em;
+  padding: 0.5em 0.25em;
   min-width: 150px;
   max-width: 300px;
 }
@@ -98,5 +97,17 @@
   .role-badge-admin {
     background-color: var(--color-citrine-300);
     color: var(--color-copper-900);
+  }
+}
+
+.menu-sign-out {
+  color: var(--warning-color) !important;
+
+  &:hover {
+    background-color: var(--color-gray-100) !important;
+  }
+
+  svg {
+    color: var(--warning-color) !important;
   }
 }

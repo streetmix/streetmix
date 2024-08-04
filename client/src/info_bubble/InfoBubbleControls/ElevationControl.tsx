@@ -1,13 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import VARIANT_ICONS from '~/src/segments/variant_icons.json'
 import { segmentsChanged } from '~/src/segments/view'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import Button from '~/src/ui/Button'
-import { ICON_LOCK } from '~/src/ui/icons'
+import Icon from '~/src/ui/Icon'
 
 interface ElevationControlProps {
   position: number
@@ -108,7 +107,7 @@ function ElevationControl ({
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
           <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
-        {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
+        {isLocked && <Icon name="lock" />}
       </Button>
     )
   }

@@ -2,8 +2,8 @@
   z-index: var(--z-02-menu-bar);
   display: none;
   position: absolute;
-  left: 14px;
-  bottom: -12px;
+  left: 9px;
+  bottom: -14px;
   padding: 0.25em 1em;
   text-transform: uppercase;
   font-size: 0.75rem;
@@ -14,6 +14,7 @@
   color: white;
   background-color: gray;
   pointer-events: none;
+  border-radius: var(--border-radius);
 
   &.instance-label-development {
     display: inline-block;
@@ -34,7 +35,7 @@
 
 [dir="rtl"] {
   .instance-badge {
-    right: 16px;
+    right: 9px;
     left: auto;
   }
 }

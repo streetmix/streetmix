@@ -2,11 +2,11 @@
  * Adds scroll buttons to UI elements.
  */
 import React, { forwardRef, useEffect, useRef, useLayoutEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { animate } from '../util/helpers'
-import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from './icons'
 import Button from './Button'
+import Icon from './Icon'
 import './Scrollable.scss'
 
 interface ScrollableProps {
@@ -152,7 +152,7 @@ const WrappedScrollable = forwardRef(function Scrollable (
         onClick={handleClickLeft}
         ref={leftButtonEl}
       >
-        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+        <Icon name="chevron-left" />
       </Button>
       <div
         className={className}
@@ -171,7 +171,7 @@ const WrappedScrollable = forwardRef(function Scrollable (
         onClick={handleClickRight}
         ref={rightButtonEl}
       >
-        <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
+        <Icon name="chevron-right" />
       </Button>
     </div>
   )

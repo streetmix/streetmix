@@ -7,15 +7,19 @@ exports[`HelpMenu > renders 1`] = `
   >
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="info"
+        data-icon-source="test"
       />
       About Streetmix…
     </a>
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="rocket"
+        data-icon-source="test"
       />
-      What’s new in Streetmix? [en]‎
+      What’s new?‎
     </a>
     <a
       href="https://docs.streetmix.net/user-guide/intro"
@@ -23,15 +27,45 @@ exports[`HelpMenu > renders 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-book"
+        class="menu-item-icon"
+        data-icon="trail-sign"
+        data-icon-source="test"
       />
       Guidebook
+      <svg
+        data-icon="external-link"
+        data-icon-source="test"
+      />
     </a>
+    <div
+      class="menu-separator"
+    />
+    <a
+      href="https://cottonbureau.com/people/streetmix"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon"
+        data-icon="cart"
+        data-icon-source="test"
+      />
+      Store
+      <svg
+        data-icon="external-link"
+        data-icon-source="test"
+      />
+    </a>
+    <div
+      class="menu-separator"
+    />
     <div
       class="help-menu-shortcuts"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="keyboard"
+        data-icon-source="test"
       />
       Keyboard shortcuts:
       <table>
@@ -65,7 +99,8 @@ exports[`HelpMenu > renders 1`] = `
                 title="Minus"
               >
                 <svg
-                  class="svg-inline--fa fa-minus"
+                  data-icon="minus"
+                  data-icon-source="test"
                 />
               </kbd>
               <kbd
@@ -73,7 +108,8 @@ exports[`HelpMenu > renders 1`] = `
                 title="Plus"
               >
                 <svg
-                  class="svg-inline--fa fa-plus"
+                  data-icon="plus"
+                  data-icon-source="test"
                 />
               </kbd>
             </td>
@@ -98,7 +134,8 @@ exports[`HelpMenu > renders 1`] = `
                 title="Left arrow"
               >
                 <svg
-                  class="svg-inline--fa fa-arrow-left"
+                  data-icon="arrow-left"
+                  data-icon-source="test"
                 />
               </kbd>
               <kbd
@@ -106,7 +143,8 @@ exports[`HelpMenu > renders 1`] = `
                 title="Right arrow"
               >
                 <svg
-                  class="svg-inline--fa fa-arrow-right"
+                  data-icon="arrow-right"
+                  data-icon-source="test"
                 />
               </kbd>
             </td>

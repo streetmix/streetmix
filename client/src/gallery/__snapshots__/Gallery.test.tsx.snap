@@ -32,7 +32,8 @@ exports[`Gallery > renders global gallery view 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-left"
+              data-icon="chevron-left"
+              data-icon-source="test"
             />
           </button>
           <div
@@ -93,7 +94,8 @@ exports[`Gallery > renders global gallery view 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-right"
+              data-icon="chevron-right"
+              data-icon-source="test"
             />
           </button>
         </div>
@@ -179,7 +181,8 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-left"
+              data-icon="chevron-left"
+              data-icon-source="test"
             />
           </button>
           <div
@@ -237,7 +240,8 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-right"
+              data-icon="chevron-right"
+              data-icon-source="test"
             />
           </button>
         </div>
@@ -316,7 +320,8 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-left"
+              data-icon="chevron-left"
+              data-icon-source="test"
             />
           </button>
           <div
@@ -369,7 +374,8 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
                 title="Delete street"
               >
                 <svg
-                  class="octicon"
+                  data-icon="trash"
+                  data-icon-source="test"
                 />
               </button>
             </div>
@@ -382,7 +388,8 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
             type="button"
           >
             <svg
-              class="svg-inline--fa fa-chevron-right"
+              data-icon="chevron-right"
+              data-icon-source="test"
             />
           </button>
         </div>

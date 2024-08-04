@@ -16,7 +16,8 @@ exports[`Checkbox > renders default snapshot 1`] = `
       foo
     </label>
     <svg
-      class="svg-inline--fa fa-check"
+      data-icon="check"
+      data-icon-source="test"
     />
   </div>
 </DocumentFragment>
@@ -41,7 +42,8 @@ exports[`Checkbox > renders snapshot with all props 1`] = `
       foo
     </label>
     <svg
-      class="svg-inline--fa fa-check"
+      data-icon="check"
+      data-icon-source="test"
     />
   </div>
 </DocumentFragment>

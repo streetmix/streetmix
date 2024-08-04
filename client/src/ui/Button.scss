@@ -12,11 +12,6 @@ a.btn {
   text-decoration: none;
   cursor: pointer;
 
-  // stylelint-disable-next-line selector-class-pattern
-  &:not([disabled]) .svg-inline--fa {
-    color: var(--color-midnight-900);
-  }
-
   &:hover {
     background-color: var(--color-turquoise-400);
   }
@@ -26,17 +21,12 @@ a.btn {
   }
 
   &[disabled] {
-    background-color: var(--color-gray-100) !important;
-    color: var(--color-gray-400) !important;
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-400);
     cursor: auto;
 
-    // stylelint-disable-next-line selector-class-pattern
-    .svg-inline--fa {
-      color: var(--color-gray-400) !important;
-    }
-
     &:hover {
-      background-color: var(--color-gray-100) !important;
+      background-color: var(--color-gray-100);
     }
   }
 

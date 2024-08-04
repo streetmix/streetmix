@@ -1,87 +1,150 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  DuplicateIcon,
-  TrashIcon,
-  ToolsIcon,
-  SunIcon
-} from '@primer/octicons-react'
+  FaArrowLeft,
+  FaArrowRight,
+  FaCheck,
+  FaDiscord,
+  FaGithub,
+  FaInstagram,
+  FaLock,
+  FaMastodon,
+  FaMinus,
+  FaPlus,
+  FaSquareFacebook,
+  FaTwitter
+} from 'react-icons/fa6'
 import {
-  ICON_DISCORD,
-  ICON_FACEBOOK,
-  ICON_GITHUB,
-  ICON_INSTAGRAM,
-  ICON_MASTODON,
-  ICON_TWITTER,
-  ICON_BOOK
-} from './icons'
-import forumsIcon from './icons/forums.svg'
+  FiBarChart2,
+  FiChevronDown,
+  FiChevronLeft,
+  FiChevronRight,
+  FiClipboard,
+  FiClock,
+  FiEdit3,
+  FiExternalLink,
+  FiFlag,
+  FiMapPin,
+  FiRotateCcw,
+  FiRotateCw,
+  FiSun,
+  FiTrash2,
+  FiUser,
+  FiX
+} from 'react-icons/fi'
+import {
+  IoCartOutline,
+  IoHelpCircleOutline,
+  IoInformationCircleOutline,
+  IoLanguage,
+  IoMailOutline,
+  IoPrintOutline,
+  IoRocketOutline,
+  IoTrailSignOutline
+} from 'react-icons/io5'
+import {
+  RxCube,
+  RxDownload,
+  RxExit,
+  RxKeyboard,
+  RxLink2,
+  RxMixerHorizontal,
+  RxRulerHorizontal,
+  RxStar
+} from 'react-icons/rx'
+
 import googleIcon from './icons/google.svg'
-import slackIcon from './icons/slack.svg'
+
+export type IconNames = BaseIconNames | ExtraIconNames
+type BaseIconNames = keyof typeof ICONS
+type ExtraIconNames = 'google'
 
 interface IconProps {
-  icon:
-  | 'copy'
-  | 'discord'
-  | 'facebook'
-  | 'github'
-  | 'instagram'
-  | 'mastodon'
-  | 'twitter'
-  | 'book'
-  | 'slack'
-  | 'forums'
-  | 'google'
-  | 'trash'
-  | 'tools'
-  | 'sun'
-  className?: string
+  name: IconNames
+
+  // All other props
+  [attr: string]: string
 }
 
-const OCTICON_DEFAULT_CLASSNAME = 'octicon'
+const ICONS = {
+  'arrow-left': [FaArrowLeft, 'fa'],
+  'arrow-right': [FaArrowRight, 'fa'],
+  cart: [IoCartOutline, 'io5'],
+  check: [FaCheck, 'fa'],
+  'chevron-down': [FiChevronDown, 'feather'],
+  'chevron-left': [FiChevronLeft, 'feather'],
+  'chevron-right': [FiChevronRight, 'feather'],
+  close: [FiX, 'feather'],
+  copy: [FiClipboard, 'feather'],
+  cube: [RxCube, 'radix'],
+  download: [RxDownload, 'radix'],
+  edit: [FiEdit3, 'feather'],
+  'external-link': [FiExternalLink, 'feather'],
+  flag: [FiFlag, 'feather'],
+  graph: [FiBarChart2, 'feather'],
+  help: [IoHelpCircleOutline, 'io5'],
+  info: [IoInformationCircleOutline, 'io5'],
+  keyboard: [RxKeyboard, 'radix'],
+  language: [IoLanguage, 'io5'],
+  link: [RxLink2, 'radix'],
+  location: [FiMapPin, 'feather'],
+  lock: [FaLock, 'fa'],
+  mail: [IoMailOutline, 'io5'],
+  minus: [FaMinus, 'fa'],
+  plus: [FaPlus, 'fa'],
+  print: [IoPrintOutline, 'io5'],
+  redo: [FiRotateCw, 'feather'],
+  rocket: [IoRocketOutline, 'io5'],
+  ruler: [RxRulerHorizontal, 'radix'],
+  settings: [RxMixerHorizontal, 'radix'],
+  'sign-out': [RxExit, 'radix'],
+  star: [RxStar, 'radix'],
+  sun: [FiSun, 'feather'],
+  time: [FiClock, 'feather'],
+  'trail-sign': [IoTrailSignOutline, 'io5'],
+  trash: [FiTrash2, 'feather'],
+  undo: [FiRotateCcw, 'feather'],
+  user: [FiUser, 'feather'],
 
-// Preserve, don't replace default Octicon classname
-function octiconClassNames (className: string): string {
-  return [OCTICON_DEFAULT_CLASSNAME, className].join(' ').trim()
+  // Social icons
+  // Google is not defined here, see special case
+  discord: [FaDiscord, 'fa'],
+  facebook: [FaSquareFacebook, 'fa'],
+  github: [FaGithub, 'fa'],
+  instagram: [FaInstagram, 'fa'],
+  mastodon: [FaMastodon, 'fa'],
+  twitter: [FaTwitter, 'fa']
 }
 
-function Icon ({ icon, className = '' }: IconProps): React.ReactElement | null {
-  switch (icon) {
-    case 'copy':
-      return (
-        <DuplicateIcon size={16} className={octiconClassNames(className)} />
-      )
-    case 'discord':
-      return <FontAwesomeIcon className={className} icon={ICON_DISCORD} />
-    case 'facebook':
-      return <FontAwesomeIcon className={className} icon={ICON_FACEBOOK} />
-    case 'github':
-      return <FontAwesomeIcon className={className} icon={ICON_GITHUB} />
-    case 'instagram':
-      return <FontAwesomeIcon className={className} icon={ICON_INSTAGRAM} />
-    case 'mastodon':
-      return <FontAwesomeIcon className={className} icon={ICON_MASTODON} />
-    case 'twitter':
-      return <FontAwesomeIcon className={className} icon={ICON_TWITTER} />
-    case 'book':
-      return <FontAwesomeIcon className={className} icon={ICON_BOOK} />
-    case 'slack': // Deprecated
-      return <img className={className} src={slackIcon} alt="" />
-    case 'forums': // Deprecated
-      return <img className={className} src={forumsIcon} alt="" />
-    case 'google':
-      return <img className={className} src={googleIcon} alt="" />
-    case 'trash':
-      return <TrashIcon size={16} className={octiconClassNames(className)} />
-    case 'tools':
-      return <ToolsIcon size={16} className={octiconClassNames(className)} />
-    case 'sun':
-      return <SunIcon size={16} className={octiconClassNames(className)} />
-    // default:
-    //   // You TypeScript
-    //   // Ancient fallback (should no longer be used)
-    //   return null
+function makeComponent (
+  name: BaseIconNames,
+  attrs?: Record<string, string>
+): React.ReactElement {
+  const [Component, source] = ICONS[name]
+
+  return (
+    <Component
+      // Usually you want to target an icon by its name in CSS
+      data-icon={name}
+      // Sometimes you can target an entire family of icons. For instance
+      // Radix UI is optimized at 15×15, most others use 16×16, so we also
+      // record the icon source on the element
+      data-icon-source={source}
+      // Pass through all other props. e.g. class name is the most obvious
+      // use case, but also aria attributes when wrapped with <AccessibleIcon />
+      {...attrs}
+    />
+  )
+}
+
+function Icon ({ name, ...attrs }: IconProps): React.ReactElement {
+  // The Google icon is a special case because it's the only multicolor one.
+  // The colors are baked into the source image.
+  // TODO: this can return an SVG also, if we want.
+  if (name === 'google') {
+    return <img src={googleIcon} alt="" {...attrs} />
   }
+
+  return makeComponent(name, attrs)
 }
 
 export default Icon

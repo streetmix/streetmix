@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     position: relative;
     padding: 4px 10px;
     height: calc(var(--info-bubble-button-size) + 10px);
@@ -53,12 +54,6 @@
     height: 100%;
     padding: 2px 3px;
     fill: #231f20;
-  }
-
-  // stylelint-disable-next-line selector-class-pattern
-  .svg-inline--fa {
-    vertical-align: -0.1em;
-    height: 11px;
   }
 
   .variants {
@@ -85,7 +80,7 @@
       opacity: 0.4;
     }
 
-    .fa-lock {
+    [data-icon="lock"] {
       position: absolute;
       top: -2px;
       right: -2px;
@@ -131,6 +126,9 @@
       white-space: nowrap;
       position: relative;
       padding: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
 
       .icon {
         opacity: 0.666;

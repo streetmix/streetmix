@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
 
 import { useSelector } from '~/src/store/hooks'
 import Icon from '~/src/ui/Icon'
@@ -29,13 +28,12 @@ function PostOnFacebook ({
     encodeURIComponent(shareText)
 
   return (
-    <ExternalLink href={facebookLink}>
-      <Icon icon="facebook" className="menu-item-icon" />
+    <ExternalLink href={facebookLink} icon={true}>
+      <Icon name="facebook" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.facebook"
         defaultMessage="Share using Facebook"
       />
-      <ExternalLinkIcon className="menu-item-external-link" />
     </ExternalLink>
   )
 }

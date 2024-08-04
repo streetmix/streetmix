@@ -1,10 +1,11 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { IoBrushOutline } from 'react-icons/io5'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { openGallery } from '../../store/actions/gallery'
-import { useGetUserQuery } from '../../store/services/api'
-import Avatar from '../../users/Avatar'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { openGallery } from '~/src/store/actions/gallery'
+import { useGetUserQuery } from '~/src/store/services/api'
+import Icon from '~/src/ui/Icon'
+import Avatar from '~/src/users/Avatar'
 import { isOwnedByCurrentUser } from '../owner'
 import StreetMetaItem from './StreetMetaItem'
 
@@ -37,7 +38,7 @@ function StreetMetaAuthor (): React.ReactElement | null {
   if (!user) return null
 
   return (
-    <StreetMetaItem icon={<IoBrushOutline />}>
+    <StreetMetaItem icon={<Icon name="user" />}>
       <FormattedMessage
         id="users.byline"
         defaultMessage="by {user}"

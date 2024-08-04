@@ -17,7 +17,8 @@ exports[`FeatureFlagDialog > renders 1`] = `
         title="Dismiss"
       >
         <svg
-          class="octicon"
+          data-icon="close"
+          data-icon-source="test"
         />
       </button>
       <div
@@ -53,7 +54,8 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -76,7 +78,8 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -100,7 +103,8 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>
@@ -124,7 +128,8 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class="svg-inline--fa fa-check"
+                  data-icon="check"
+                  data-icon-source="test"
                 />
               </div>
             </li>

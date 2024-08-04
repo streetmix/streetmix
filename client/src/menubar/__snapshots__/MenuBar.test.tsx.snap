@@ -27,6 +27,8 @@ exports[`MenuBar > renders 1`] = `
           Help
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -37,20 +39,10 @@ exports[`MenuBar > renders 1`] = `
           Contact
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-          <svg
-            class="menu-external-link"
-          />
-        </a>
       </li>
       <button
         class="btn btn-tertiary menu-upgrade"
@@ -75,6 +67,8 @@ exports[`MenuBar > renders 1`] = `
           New street
           <svg
             class="menu-external-link"
+            data-icon="external-link"
+            data-icon-source="test"
           />
         </a>
       </li>
@@ -85,6 +79,8 @@ exports[`MenuBar > renders 1`] = `
           Share
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -94,6 +90,8 @@ exports[`MenuBar > renders 1`] = `
         >
           <svg
             aria-hidden="true"
+            data-icon="language"
+            data-icon-source="test"
             focusable="false"
           />
           <span
@@ -103,6 +101,8 @@ exports[`MenuBar > renders 1`] = `
           </span>
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -146,6 +146,8 @@ exports[`MenuBar > renders logged in user 1`] = `
           Help
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -156,20 +158,10 @@ exports[`MenuBar > renders logged in user 1`] = `
           Contact
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
-      </li>
-      <li>
-        <a
-          href="https://cottonbureau.com/people/streetmix"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Store
-          <svg
-            class="menu-external-link"
-          />
-        </a>
       </li>
       <button
         class="btn btn-tertiary menu-upgrade"
@@ -194,6 +186,8 @@ exports[`MenuBar > renders logged in user 1`] = `
           New street
           <svg
             class="menu-external-link"
+            data-icon="external-link"
+            data-icon-source="test"
           />
         </a>
       </li>
@@ -204,6 +198,8 @@ exports[`MenuBar > renders logged in user 1`] = `
           Share
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -213,6 +209,8 @@ exports[`MenuBar > renders logged in user 1`] = `
         >
           <svg
             aria-hidden="true"
+            data-icon="language"
+            data-icon-source="test"
             focusable="false"
           />
           <span
@@ -222,6 +220,8 @@ exports[`MenuBar > renders logged in user 1`] = `
           </span>
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -270,6 +270,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           Help
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -285,6 +287,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           New street
           <svg
             class="menu-external-link"
+            data-icon="external-link"
+            data-icon-source="test"
           />
         </a>
       </li>
@@ -295,6 +299,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           Share
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>
@@ -304,6 +310,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
         >
           <svg
             aria-hidden="true"
+            data-icon="language"
+            data-icon-source="test"
             focusable="false"
           />
           <span
@@ -313,6 +321,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           </span>
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </button>
       </li>

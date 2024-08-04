@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
-import { IoLanguage } from 'react-icons/io5'
+
 import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
+import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
 import logo from '../../images/logo_horizontal.svg'
 import InstanceBadge from './InstanceBadge'
@@ -10,6 +11,7 @@ import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
 import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
+
 import type { UserProfile } from '../types'
 import './MenuBar.scss'
 
@@ -133,11 +135,6 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
               translation="menu.item.contact"
               onClick={handleClickMenuButton('contact')}
             />
-            <MenuBarItem
-              label="Store"
-              translation="menu.item.store"
-              url="https://cottonbureau.com/people/streetmix"
-            />
             {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
           </>
         )}
@@ -160,7 +157,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>
-              <IoLanguage />
+              <Icon name="language" />
             </AccessibleIcon>
           </MenuBarItem>
         )}

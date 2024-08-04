@@ -7,7 +7,8 @@ exports[`CloseButton > renders snapshot 1`] = `
     title="Dismiss"
   >
     <svg
-      class="octicon"
+      data-icon="close"
+      data-icon-source="test"
     />
   </button>
 </DocumentFragment>
@@ -22,7 +23,8 @@ exports[`CloseButton > renders with custom title, class name, and other attribut
     title="foofoo"
   >
     <svg
-      class="octicon"
+      data-icon="close"
+      data-icon-source="test"
     />
   </button>
 </DocumentFragment>

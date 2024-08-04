@@ -17,7 +17,8 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
         title="Dismiss"
       >
         <svg
-          class="octicon"
+          data-icon="close"
+          data-icon-source="test"
         />
       </button>
       <div
@@ -177,7 +178,8 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                 Show capacity counts in segment labels
               </label>
               <svg
-                class="svg-inline--fa fa-check"
+                data-icon="check"
+                data-icon-source="test"
               />
             </div>
             <br />

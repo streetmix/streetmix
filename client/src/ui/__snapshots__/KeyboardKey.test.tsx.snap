@@ -19,7 +19,8 @@ exports[`KeyboardKey > renders a <kbd> element with icon and title 1`] = `
     title="foo"
   >
     <svg
-      class="svg-inline--fa fa-minus"
+      data-icon="[object Object]"
+      data-icon-source="test"
     />
   </kbd>
 </DocumentFragment>

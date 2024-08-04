@@ -281,7 +281,7 @@ export default class SignInDialog extends React.Component {
                 className="sign-in-button sign-in-social-button sign-in-twitter-button"
                 onClick={this.handleTwitterSignIn}
               >
-                <Icon icon="twitter" />
+                <Icon name="twitter" />
                 <FormattedMessage
                   id="dialogs.sign-in.button.twitter"
                   defaultMessage="Continue with Twitter"
@@ -293,7 +293,7 @@ export default class SignInDialog extends React.Component {
                 className="sign-in-button sign-in-social-button sign-in-google-button"
                 onClick={this.handleGoogleSignIn}
               >
-                <Icon icon="google" />
+                <Icon name="google" />
                 <FormattedMessage
                   id="dialogs.sign-in.button.google"
                   defaultMessage="Continue with Google"
@@ -305,7 +305,7 @@ export default class SignInDialog extends React.Component {
                 className="sign-in-button sign-in-social-button sign-in-facebook-button"
                 onClick={this.handleFacebookSignIn}
               >
-                <Icon icon="facebook" />
+                <Icon name="facebook" />
                 <FormattedMessage
                   id="dialogs.sign-in.button.facebook"
                   defaultMessage="Continue with Facebook"

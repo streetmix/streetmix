@@ -17,7 +17,8 @@ exports[`AboutDialog > renders snapshot 1`] = `
         title="Dismiss"
       >
         <svg
-          class="octicon"
+          data-icon="close"
+          data-icon-source="test"
         />
       </button>
       <div
@@ -56,7 +57,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="GitHub"
                   >
                     <svg
-                      class="svg-inline--fa social-github fa-github"
+                      class="social-github"
+                      data-icon="github"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -68,7 +71,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Discord"
                   >
                     <svg
-                      class="svg-inline--fa social-discord fa-discord"
+                      class="social-discord"
+                      data-icon="discord"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -80,7 +85,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Mastodon"
                   >
                     <svg
-                      class="svg-inline--fa social-mastodon fa-mastodon"
+                      class="social-mastodon"
+                      data-icon="mastodon"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -92,7 +99,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Twitter"
                   >
                     <svg
-                      class="svg-inline--fa social-twitter fa-twitter"
+                      class="social-twitter"
+                      data-icon="twitter"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -104,7 +113,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     title="Instagram"
                   >
                     <svg
-                      class="svg-inline--fa social-instagram fa-instagram"
+                      class="social-instagram"
+                      data-icon="instagram"
+                      data-icon-source="test"
                     />
                   </a>
                 </li>
@@ -518,6 +529,50 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       )
                     </li>
                     <li>
+                      Icons by 
+                      <a
+                        href="https://feathericons.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Feather
+                      </a>
+                      , 
+                      <a
+                        href="https://www.radix-ui.com/icons"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Radix UI
+                      </a>
+                      , 
+                      <a
+                        href="https://ionic.io/ionicons"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Ionicons
+                      </a>
+                      , & 
+                      <a
+                        href="https://fontawesome.com/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        Font Awesome
+                      </a>
+                      . (
+                      <a
+                        href="https://fontawesome.com/license/free"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                      >
+                        License
+                      </a>
+                      )
+                    </li>
+                    <li>
                       Emoji by 
                       <a
                         href="https://openmoji.org/"
@@ -529,26 +584,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       . (
                       <a
                         href="https://creativecommons.org/licenses/by-sa/4.0/#"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
-                      >
-                        License
-                      </a>
-                      )
-                    </li>
-                    <li>
-                      Icons by 
-                      <a
-                        href="https://fontawesome.com/"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        Font Awesome
-                      </a>
-                      . (
-                      <a
-                        href="https://fontawesome.com/license/free"
                         rel="noopener noreferrer"
                         target="_blank"
                         title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"

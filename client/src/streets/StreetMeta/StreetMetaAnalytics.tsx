@@ -1,10 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { IoPodiumOutline } from 'react-icons/io5'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { showDialog } from '../../store/slices/dialogs'
-import { getStreetCapacity } from '../../segments/capacity'
-import { formatNumber } from '../../util/number_format'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { showDialog } from '~/src/store/slices/dialogs'
+import { getStreetCapacity } from '~/src/segments/capacity'
+import Icon from '~/src/ui/Icon'
+import { formatNumber } from '~/src/util/number_format'
 import StreetMetaItem from './StreetMetaItem'
 
 function StreetMetaAnalytics (): React.ReactElement | null {
@@ -26,7 +27,7 @@ function StreetMetaAnalytics (): React.ReactElement | null {
         isEditable={true}
         tooltip={tooltip}
         onClick={() => dispatch(showDialog('ANALYTICS'))}
-        icon={<IoPodiumOutline />}
+        icon={<Icon name="graph" />}
       >
         <span className="underline">
           <FormattedMessage

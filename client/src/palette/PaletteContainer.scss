@@ -52,6 +52,20 @@
     height: 40px;
     width: 40px;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  [data-icon="sun"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  [data-icon="undo"],
+  [data-icon="redo"] {
+    width: 18px;
+    height: 18px;
   }
 
   // Spacing between buttons

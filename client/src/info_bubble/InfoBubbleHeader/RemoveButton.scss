@@ -1,20 +1,19 @@
 .info-bubble-remove {
   width: auto !important; /* Override button width of other buttons in infobubble */
-  padding: 0;
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  margin-top: 1px;
+  padding: 0 0.75em;
   margin-left: 1em;
   font-size: 11px;
+  display: flex;
+  align-items: center;
 
   .remove-icon {
-    width: 14px;
-    height: 14px;
-    margin-right: 0.5em;
+    width: 16px;
+    height: 16px;
+    margin-right: 0.35em;
 
     [dir="rtl"] & {
       margin-right: 0;
-      margin-left: 0.5em;
+      margin-left: 0.35em;
     }
   }
 }

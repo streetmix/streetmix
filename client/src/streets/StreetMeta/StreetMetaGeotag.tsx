@@ -1,9 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { IoLocationOutline } from 'react-icons/io5'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { showDialog } from '../../store/slices/dialogs'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { showDialog } from '~/src/store/slices/dialogs'
+import Icon from '~/src/ui/Icon'
 import StreetMetaItem from './StreetMetaItem'
+
 import type { StreetLocation } from '@streetmix/types'
 
 function StreetMetaGeotag (): React.ReactElement | null {
@@ -65,7 +67,7 @@ function StreetMetaGeotag (): React.ReactElement | null {
       isEditable={editable}
       tooltip={tooltip}
       onClick={handleClickGeotag}
-      icon={<IoLocationOutline />}
+      icon={<Icon name="location" />}
     >
       <span className="underline">{geotagText}</span>
     </StreetMetaItem>

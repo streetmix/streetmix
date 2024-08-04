@@ -211,6 +211,48 @@ function AboutDialog (): React.ReactElement {
                       </li>
                       <li>
                         <FormattedMessage
+                          id="dialogs.about.icons-by"
+                          defaultMessage="Icons by {author}."
+                          values={{
+                            author: (
+                              <>
+                                <ExternalLink href="https://feathericons.com/">
+                                  Feather
+                                </ExternalLink>
+                                ,{' '}
+                                <ExternalLink href="https://www.radix-ui.com/icons">
+                                  Radix UI
+                                </ExternalLink>
+                                ,{' '}
+                                <ExternalLink href="https://ionic.io/ionicons">
+                                  Ionicons
+                                </ExternalLink>
+                                , &{' '}
+                                <ExternalLink href="https://fontawesome.com/">
+                                  Font Awesome
+                                </ExternalLink>
+                              </>
+                            )
+                          }}
+                        />{' '}
+                        <FormattedMessage
+                          id="dialogs.about.license-label"
+                          defaultMessage="(<a>License</a>)"
+                          values={{
+                            // eslint-disable-next-line react/display-name
+                            a: (chunks) => (
+                              <ExternalLink
+                                href="https://fontawesome.com/license/free"
+                                title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
+                              >
+                                {chunks}
+                              </ExternalLink>
+                            )
+                          }}
+                        />
+                      </li>
+                      <li>
+                        <FormattedMessage
                           id="dialogs.about.emoji-by"
                           defaultMessage="Emoji by {author}."
                           values={{
@@ -229,34 +271,6 @@ function AboutDialog (): React.ReactElement {
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://creativecommons.org/licenses/by-sa/4.0/#"
-                                title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
-                              >
-                                {chunks}
-                              </ExternalLink>
-                            )
-                          }}
-                        />
-                      </li>
-                      <li>
-                        <FormattedMessage
-                          id="dialogs.about.icons-by"
-                          defaultMessage="Icons by {author}."
-                          values={{
-                            author: (
-                              <ExternalLink href="https://fontawesome.com/">
-                                Font Awesome
-                              </ExternalLink>
-                            )
-                          }}
-                        />{' '}
-                        <FormattedMessage
-                          id="dialogs.about.license-label"
-                          defaultMessage="(<a>License</a>)"
-                          values={{
-                            // eslint-disable-next-line react/display-name
-                            a: (chunks) => (
-                              <ExternalLink
-                                href="https://fontawesome.com/license/free"
                                 title="Creative Commons Share Alike License 4.0 (CC BY-SA 4.0)"
                               >
                                 {chunks}

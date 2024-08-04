@@ -6,14 +6,14 @@
  */
 import React, { useState, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector, useDispatch } from '../store/hooks'
 import { setShowAnalytics } from '../store/actions/street'
 import Terms from '../app/Terms'
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
 import ExternalLink from '../ui/ExternalLink'
-import { ICON_QUESTION_CIRCLE } from '../ui/icons'
+import Icon from '../ui/Icon'
 import { isOwnedByCurrentUser } from '../streets/owner'
 import { formatNumber } from '../util/number_format'
 import {
@@ -169,7 +169,7 @@ function AnalyticsDialog (): React.ReactElement {
               </Checkbox>
               {!isOwnedByCurrentUser() && (
                 <p className="analytics-settings-notice">
-                  <FontAwesomeIcon icon={ICON_QUESTION_CIRCLE} />
+                  <Icon name="help" />
                   <FormattedMessage
                     id="dialogs.analytics.settings-notice"
                     defaultMessage="Street owners can change these settings."

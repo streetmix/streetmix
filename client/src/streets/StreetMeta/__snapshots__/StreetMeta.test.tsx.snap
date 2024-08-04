@@ -12,7 +12,10 @@ exports[`StreetMeta > renders without crashing 1`] = `
         <div
           class="street-meta-icon"
         >
-          <svg />
+          <svg
+            data-icon="ruler"
+            data-icon-source="test"
+          />
         </div>
         <div
           class="street-meta-content"
@@ -24,6 +27,8 @@ exports[`StreetMeta > renders without crashing 1`] = `
           </span>
           <svg
             class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
           />
         </div>
       </button>
@@ -35,7 +40,10 @@ exports[`StreetMeta > renders without crashing 1`] = `
         <div
           class="street-meta-icon"
         >
-          <svg />
+          <svg
+            data-icon="location"
+            data-icon-source="test"
+          />
         </div>
         <div
           class="street-meta-content"

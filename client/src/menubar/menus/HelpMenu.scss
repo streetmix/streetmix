@@ -1,6 +1,6 @@
 .help-menu-shortcuts {
   padding: 0.8em 1em 1em 2.5em;
-  max-width: 400px;
+  max-width: 360px;
   position: relative;
 
   [dir="rtl"] & {
@@ -30,5 +30,9 @@
         padding-right: 0;
       }
     }
+  }
+
+  [data-icon="keyboard"] {
+    top: 0.9em;
   }
 }

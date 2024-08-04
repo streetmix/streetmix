@@ -39,14 +39,16 @@ exports[`Segment > renders correctly 1`] = `
       class="drag-handle drag-handle-left"
     >
       <svg
-        class="svg-inline--fa fa-chevron-left"
+        data-icon="chevron-left"
+        data-icon-source="test"
       />
     </span>
     <span
       class="drag-handle drag-handle-right"
     >
       <svg
-        class="svg-inline--fa fa-chevron-right"
+        data-icon="chevron-right"
+        data-icon-source="test"
       />
     </span>
     <div

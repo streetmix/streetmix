@@ -1,11 +1,13 @@
 import React from 'react'
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
 
 import ExternalLink from '~/src/ui/ExternalLink'
 
 function ExportStreetmeter (): React.ReactElement {
   return (
-    <ExternalLink href={`https://streetmeter.net/#${window.location.href}`}>
+    <ExternalLink
+      href={`https://streetmeter.net/#${window.location.href}`}
+      icon={true}
+    >
       Open in Streetmeter
       <span
         style={{
@@ -20,7 +22,6 @@ function ExportStreetmeter (): React.ReactElement {
       >
         BETA
       </span>
-      <ExternalLinkIcon className="menu-item-external-link" />
     </ExternalLink>
   )
 }

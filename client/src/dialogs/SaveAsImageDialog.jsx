@@ -8,10 +8,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ICON_LOCK } from '../ui/icons'
+
 import Button from '../ui/Button'
 import Checkbox from '../ui/Checkbox'
+import Icon from '../ui/Icon'
 import Tooltip from '../ui/Tooltip'
 import Terms from '../app/Terms'
 import { getStreetImage } from '../streets/image'
@@ -266,7 +266,7 @@ function SaveAsImageDialog (props) {
                         defaultMessage="Watermark"
                       />
                       &nbsp;
-                      <FontAwesomeIcon icon={ICON_LOCK} />
+                      <Icon name="lock" />
                     </Checkbox>
                   </div>
                 </Tooltip>

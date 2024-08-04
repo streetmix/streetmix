@@ -1,9 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { ChevronDownIcon, RulerHorizontalIcon } from '@radix-ui/react-icons'
-import { useSelector } from '../../store/hooks'
-import { prettifyWidth } from '../../util/width_units'
+
+import { useSelector } from '~/src/store/hooks'
+import Icon from '~/src/ui/Icon'
+import { prettifyWidth } from '~/src/util/width_units'
 import StreetMetaItem from './StreetMetaItem'
+
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidthLabel.scss'
 
@@ -69,7 +71,7 @@ function StreetMetaWidthLabel ({
     <StreetMetaItem
       className={className}
       isEditable={editable}
-      icon={<RulerHorizontalIcon />}
+      icon={<Icon name="ruler" />}
       tooltip={tooltip}
       onClick={onClick}
     >
@@ -81,7 +83,7 @@ function StreetMetaWidthLabel ({
         />
       </span>
       {renderStreetWidthRemaining(street, locale)}
-      {editable && <ChevronDownIcon className="menu-carat-down" />}
+      {editable && <Icon name="chevron-down" className="menu-carat-down" />}
     </StreetMetaItem>
   )
 }

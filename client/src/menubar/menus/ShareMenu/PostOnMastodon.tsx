@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
 
 import Icon from '~/src/ui/Icon'
 import type { SocialShareProps } from './helpers'
@@ -55,12 +54,12 @@ function PostOnMastodon ({
         handleShareToMastodon(shareText, shareUrl)
       }}
     >
-      <Icon icon="mastodon" className="menu-item-icon" />
+      <Icon name="mastodon" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.mastodon"
         defaultMessage="Share using Mastodon"
       />
-      <ExternalLinkIcon className="menu-item-external-link" />
+      <Icon name="external-link" />
     </a>
   )
 }

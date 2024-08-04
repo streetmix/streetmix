@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import { useIntl } from 'react-intl'
-import { XIcon } from '@primer/octicons-react'
+
+import Icon from './Icon'
 import './CloseButton.scss'
 
 interface CloseButtonProps {
@@ -27,7 +28,7 @@ function CloseButton ({
       title={title ?? defaultTitle}
       {...restProps}
     >
-      <XIcon size={16} />
+      <Icon name="close" />
     </button>
   )
 }

@@ -6,12 +6,11 @@ import {
   type ConnectDragSource
 } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
+import Icon from '../ui/Icon'
 import Tooltip from '../ui/Tooltip'
-import { ICON_LOCK } from '../ui/icons'
 import {
   Types,
   paletteSegmentSource,
@@ -120,7 +119,7 @@ function PaletteItem ({
           />
         </div>
       </Tooltip>
-      {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
+      {isLocked && <Icon name="lock" />}
     </li>
   )
 

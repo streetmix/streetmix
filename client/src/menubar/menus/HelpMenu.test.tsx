@@ -37,9 +37,7 @@ describe('HelpMenu', () => {
   it('shows the What’s New dialog when its link is clicked', async () => {
     render(<HelpMenu isActive={true} />)
 
-    await userEvent.click(
-      screen.getByText('What’s new in Streetmix?', { exact: false })
-    )
+    await userEvent.click(screen.getByText('What’s new', { exact: false }))
 
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('WHATS_NEW')

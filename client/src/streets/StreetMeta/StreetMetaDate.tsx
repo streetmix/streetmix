@@ -1,7 +1,8 @@
 import React from 'react'
-import { IoTimeOutline } from 'react-icons/io5'
-import { useSelector } from '../../store/hooks'
-import DateTimeRelative from '../../app/DateTimeRelative'
+
+import { useSelector } from '~/src/store/hooks'
+import DateTimeRelative from '~/src/app/DateTimeRelative'
+import Icon from '~/src/ui/Icon'
 import { isOwnedByCurrentUser } from '../owner'
 import StreetMetaItem from './StreetMetaItem'
 
@@ -24,7 +25,7 @@ function StreetMetaDate (): React.ReactElement | null {
   }
 
   return (
-    <StreetMetaItem icon={<IoTimeOutline />}>
+    <StreetMetaItem icon={<Icon name="time" />}>
       {/* Wrap in <span> so phrases like "Today at 8:43 PM" preserve the space
           between text and <time> elements */}
       <span>

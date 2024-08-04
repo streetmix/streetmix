@@ -122,11 +122,13 @@ body.phone #loading {
       opacity 120ms,
       transform 150ms ease-out;
     transform: translateY(10px);
+    box-shadow: var(--medium-box-shadow);
   }
 }
 
 #loading .streetmix-logo {
-  top: -100px;
+  margin-top: -25px;
+  margin-bottom: 50px;
 }
 
 #loading .streetmix-logo,
@@ -142,14 +144,10 @@ body.phone #loading {
   margin: 0 auto;
 }
 
-#loading .loading-spinner {
-  top: -30px; // Height of spinner element; positions it closer to center
-
-  &::before {
-    border-left-color: rgb(255 255 255 / 75%);
-    border-right-color: rgb(255 255 255 / 75%);
-    border-bottom-color: rgb(255 255 255 / 75%);
-  }
+#loading .loading-spinner::before {
+  border-left-color: rgb(255 255 255 / 75%);
+  border-right-color: rgb(255 255 255 / 75%);
+  border-bottom-color: rgb(255 255 255 / 75%);
 }
 
 // --------------------------------------------------------

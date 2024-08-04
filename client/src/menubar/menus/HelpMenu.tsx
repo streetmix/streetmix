@@ -1,23 +1,14 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import {
-  InfoCircledIcon,
-  RocketIcon,
-  KeyboardIcon
-} from '@radix-ui/react-icons'
-import ExternalLink from '../../ui/ExternalLink'
-import Icon from '../../ui/Icon'
-import KeyboardKey from '../../ui/KeyboardKey'
-import {
-  ICON_MINUS,
-  ICON_PLUS,
-  ICON_ARROW_RIGHT,
-  ICON_ARROW_LEFT
-} from '../../ui/icons'
-import { registerKeypress, deregisterKeypress } from '../../app/keypress'
-import { showDialog } from '../../store/slices/dialogs'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { showDialog } from '~/src/store/slices/dialogs'
+import ExternalLink from '~/src/ui/ExternalLink'
+import Icon from '~/src/ui/Icon'
+import KeyboardKey from '~/src/ui/KeyboardKey'
+import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
+import MenuSeparator from './MenuSeparator'
 import './HelpMenu.scss'
 
 const shiftKey = (
@@ -27,6 +18,7 @@ const shiftKey = (
 )
 
 function HelpMenu (props: MenuProps): React.ReactElement {
+  const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -42,36 +34,45 @@ function HelpMenu (props: MenuProps): React.ReactElement {
 
   return (
     <Menu {...props}>
-      {/* <a href="https://about.streetmix.net/" target="_blank" rel="noreferrer">
-        <FormattedMessage
-          id="menu.item.about"
-          defaultMessage="About Streetmix…"
-        />
-      </a> */}
       <a onClick={() => dispatch(showDialog('ABOUT'))}>
-        <InfoCircledIcon className="menu-item-icon-radix" />
+        <Icon name="info" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
       </a>
       <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <RocketIcon className="menu-item-icon-radix" />
+        <Icon name="rocket" className="menu-item-icon" />
         <FormattedMessage
-          id="dialogs.whatsnew.heading"
-          defaultMessage="What’s new in Streetmix? [en]&lrm;"
+          id="menu.item.whatsnew"
+          defaultMessage="What’s new?&lrm;"
         />
       </a>
-      <ExternalLink href="https://docs.streetmix.net/user-guide/intro">
-        {/* This is not the best icon; TODO: replace it */}
-        <Icon icon="book" className="menu-item-icon" />
-        <FormattedMessage
-          id="menu.help.guidebook-link"
-          defaultMessage="Guidebook"
-        />
-      </ExternalLink>
+      {!offline && (
+        <>
+          <ExternalLink
+            href="https://docs.streetmix.net/user-guide/intro"
+            icon={true}
+          >
+            <Icon name="trail-sign" className="menu-item-icon" />
+            <FormattedMessage
+              id="menu.help.guidebook-link"
+              defaultMessage="Guidebook"
+            />
+          </ExternalLink>
+          <MenuSeparator />
+          <ExternalLink
+            href="https://cottonbureau.com/people/streetmix"
+            icon={true}
+          >
+            <Icon name="cart" className="menu-item-icon" />
+            <FormattedMessage id="menu.item.store" defaultMessage="Store" />
+          </ExternalLink>
+        </>
+      )}
+      <MenuSeparator />
       <div className="help-menu-shortcuts">
-        <KeyboardIcon className="menu-item-icon-radix" />
+        <Icon name="keyboard" className="menu-item-icon" />
         <FormattedMessage
           id="menu.help.keyboard-label"
           defaultMessage="Keyboard shortcuts:"
@@ -109,14 +110,10 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   the child is a React component.
                 */}
                 <FormattedMessage id="key.minus" defaultMessage="Minus">
-                  {(label) => (
-                    <KeyboardKey icon={ICON_MINUS}>{label}</KeyboardKey>
-                  )}
+                  {(label) => <KeyboardKey icon="minus">{label}</KeyboardKey>}
                 </FormattedMessage>
                 <FormattedMessage id="key.plus" defaultMessage="Plus">
-                  {(label) => (
-                    <KeyboardKey icon={ICON_PLUS}>{label}</KeyboardKey>
-                  )}
+                  {(label) => <KeyboardKey icon="plus">{label}</KeyboardKey>}
                 </FormattedMessage>
               </td>
               <td>
@@ -139,7 +136,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   defaultMessage="Left arrow"
                 >
                   {(label) => (
-                    <KeyboardKey icon={ICON_ARROW_LEFT}>{label}</KeyboardKey>
+                    <KeyboardKey icon="arrow-left">{label}</KeyboardKey>
                   )}
                 </FormattedMessage>
                 <FormattedMessage
@@ -147,7 +144,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
                   defaultMessage="Right arrow"
                 >
                   {(label) => (
-                    <KeyboardKey icon={ICON_ARROW_RIGHT}>{label}</KeyboardKey>
+                    <KeyboardKey icon="arrow-right">{label}</KeyboardKey>
                   )}
                 </FormattedMessage>
               </td>

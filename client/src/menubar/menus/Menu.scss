@@ -3,7 +3,8 @@
   --menu-box-shadow: var(--medium-box-shadow);
 
   position: absolute;
-  margin-top: 10px;
+  margin-top: 7px;
+  padding: 5px;
   touch-action: none;
   opacity: 0;
   background: white;
@@ -35,21 +36,22 @@
   > a {
     display: block;
     position: relative;
-    padding: 0.8em 2.5em;
-    border-bottom: 1px solid var(--color-turquoise-200);
+    padding: 0.5em 1em 0.5em 2.5em;
     text-decoration: none;
     color: black;
-
-    &:last-child {
-      border-bottom: 0;
-    }
+    border-radius: var(--border-radius);
 
     &:hover {
       background-color: var(--interactive-element-hover-color);
     }
 
     &:active {
-      background-color: var(--color-turquoise-200);
+      color: var(--interactive-text-active-color);
+    }
+
+    [dir="rtl"] & {
+      padding-right: 2.5em;
+      padding-left: 1em;
     }
   }
 
@@ -60,39 +62,22 @@
     resize: none;
   }
 
-  .menu-item-icon {
-    position: absolute;
-    top: 0.8em;
-    left: 0.8em;
-    width: 16px;
-    height: 16px;
-    color: var(--color-midnight-800);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.8em;
-    }
-  }
-
-  /* Radix icons are optimized for 15px */
-  .menu-item-icon-radix {
-    position: absolute;
-    top: 0.9em;
-    left: 0.8em;
-    width: 15px;
-    height: 15px;
-    color: var(--color-midnight-800);
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.8em;
-    }
-  }
-
-  .menu-item-external-link {
-    vertical-align: text-top;
+  [data-icon="external-link"] {
+    vertical-align: middle;
     margin-left: 0.25em;
+    margin-top: -2px;
+    height: 12px;
     color: var(--color-midnight-600);
+
+    // Reset icon-source styling
+    position: relative;
+    left: auto;
+    top: auto;
+
+    [dir="rtl"] & {
+      margin-left: auto;
+      margin-right: 0.25em;
+    }
   }
 }
 
@@ -131,71 +116,110 @@ body.safari .menu {
 .menu-item {
   display: block;
   position: relative;
-  padding: 0.5em 2.5em;
+  padding: 0.5em 2em;
   cursor: pointer;
+  border-radius: var(--border-radius);
 
   &:hover {
-    background-color: var(--color-turquoise-100);
+    background-color: var(--interactive-element-hover-color);
   }
 
-  .fa-check {
-    display: none;
-    left: 1.25em;
-    margin-top: -1px;
-    width: 12px;
-    height: 12px;
-    color: #1c99ce;
-
-    [dir="rtl"] & {
-      left: auto;
-      right: 1.25em;
-    }
+  &:active {
+    color: var(--interactive-text-active-color);
   }
 
-  &.menu-item-selected .fa-check {
+  &.menu-item-selected [data-icon="check"] {
     display: inline-block;
   }
 
   .loading-spinner {
     position: absolute;
-    left: 16px;
+    left: 8px;
     top: 8px;
 
     [dir="rtl"] & {
       left: auto;
-      right: 16px;
+      right: 8px;
     }
+  }
+}
+
+.menu-item-icon {
+  position: absolute;
+  top: 0.5em;
+  left: 0.8em;
+  width: 16px;
+  height: 16px;
+  color: var(--color-midnight-800);
+
+  [dir="rtl"] & {
+    left: auto;
+    right: 0.8em;
+  }
+
+  &[data-icon-source="io5"] {
+    top: 0.55em;
+    left: 0.75em;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.75em;
+    }
+  }
+
+  /* Radix icons are optimized for 15px */
+  &[data-icon-source="radix"] {
+    top: 0.6em;
+    width: 15px;
+    height: 15px;
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.8em;
+    }
+  }
+
+  &[data-icon="check"] {
+    display: none;
+    left: 0.5em;
+    margin-top: 1px;
+    color: var(--color-turquoise-500);
+
+    [dir="rtl"] & {
+      left: auto;
+      right: 0.5em;
+    }
+  }
+
+  &[data-icon="discord"] {
+    color: var(--social-discord);
+  }
+
+  &[data-icon="facebook"] {
+    color: var(--social-facebook);
+  }
+
+  &[data-icon="github"] {
+    color: var(--social-github);
+  }
+
+  &[data-icon="mastodon"] {
+    color: var(--social-mastodon);
+  }
+
+  &[data-icon="twitter"] {
+    color: var(--social-twitter);
   }
 }
 
 .menu-item-subtext {
   display: block;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  line-height: 8px;
   color: rgb(128 128 128);
   font-size: 0.8em;
 }
 
-.menu-item-icon {
-  &.fa-facebook,
-  &.fa-square-facebook {
-    color: var(--social-facebook);
-  }
-
-  &.fa-twitter {
-    color: var(--social-twitter);
-  }
-
-  &.fa-discord {
-    color: var(--social-discord);
-  }
-
-  &.fa-github {
-    color: var(--social-github);
-  }
-
-  &.fa-mastodon {
-    color: var(--social-mastodon);
-  }
+.menu-separator {
+  height: 1px;
+  background-color: var(--color-turquoise-300);
+  margin: 5px 0;
 }

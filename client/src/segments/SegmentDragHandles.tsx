@@ -1,7 +1,7 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { useSelector } from '../store/hooks'
-import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from '../ui/icons'
+import Icon from '../ui/Icon'
 import './SegmentDragHandles.scss'
 
 interface SegmentDragHandlesProps {
@@ -35,13 +35,13 @@ function SegmentDragHandles ({
         className="drag-handle drag-handle-left"
         style={{ display, left: adjustX }}
       >
-        <FontAwesomeIcon icon={ICON_CHEVRON_LEFT} />
+        <Icon name="chevron-left" />
       </span>
       <span
         className="drag-handle drag-handle-right"
         style={{ display, right: adjustX }}
       >
-        <FontAwesomeIcon icon={ICON_CHEVRON_RIGHT} />
+        <Icon name="chevron-right" />
       </span>
     </>
   )

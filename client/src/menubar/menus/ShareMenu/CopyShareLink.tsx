@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link2Icon } from '@radix-ui/react-icons'
 import copy from 'copy-to-clipboard'
 
 import Button from '~/src/ui/Button'
@@ -20,7 +19,7 @@ const CopyShareLink = forwardRef(
 
     return (
       <div className="share-via-link-container">
-        <Link2Icon className="menu-item-icon-radix" />
+        <Icon name="link" className="menu-item-icon" />
         <FormattedMessage
           id="menu.share.link"
           defaultMessage="Copy and paste this link to share:"
@@ -44,7 +43,7 @@ const CopyShareLink = forwardRef(
               copy(shareUrl)
             }}
           >
-            <Icon icon="copy" />
+            <Icon name="copy" />
           </Button>
         </div>
       </div>

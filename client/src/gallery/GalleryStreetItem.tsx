@@ -163,7 +163,7 @@ function GalleryStreetItem (
             defaultMessage: 'Delete street'
           })}
         >
-          <Icon icon="trash" />
+          <Icon name="trash" />
         </button>
       )}
     </div>

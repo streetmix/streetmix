@@ -43,25 +43,37 @@ exports[`IdentityMenu > renders 1`] = `
         <ul />
       </div>
     </div>
+    <div
+      class="menu-separator"
+    />
     <a
       href="/foo"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="star"
+        data-icon-source="test"
       />
       My streets
     </a>
     <a>
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="settings"
+        data-icon-source="test"
       />
       Settings
     </a>
+    <div
+      class="menu-separator"
+    />
     <a
-      class="menu-item"
+      class="menu-item menu-sign-out"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="sign-out"
+        data-icon-source="test"
       />
       Sign out
     </a>

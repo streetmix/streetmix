@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
 import Menu, { type MenuProps } from '../Menu'
+import MenuSeparator from '../MenuSeparator'
 import CopyShareLink from './CopyShareLink'
 import Export3DStreet from './Export3DStreet'
 import ExportStreetmeter from './ExportStreetmeter'
@@ -41,11 +42,14 @@ function ShareMenu (props: MenuProps): React.ReactElement {
         <>
           {!user.signedIn && <SignInPromo />}
           <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
+          <MenuSeparator />
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
           <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
           <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
+          <MenuSeparator />
           <Export3DStreet />
           {flag && <ExportStreetmeter />}
+          <MenuSeparator />
         </>
       )}
       <PrintImage />

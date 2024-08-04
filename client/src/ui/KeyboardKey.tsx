@@ -1,10 +1,10 @@
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import type { IconLookup } from '@fortawesome/fontawesome-svg-core'
+
+import Icon, { type IconNames } from './Icon'
 import './KeyboardKey.scss'
 
 interface KeyboardKeyWithIconProps {
-  icon: IconLookup
+  icon: IconNames
   children: string
 }
 
@@ -24,7 +24,7 @@ function KeyboardKey ({ icon, children }: KeyboardKeyProps): React.ReactElement 
     // and not a React component
     return (
       <kbd className="key key-icon" title={children}>
-        <FontAwesomeIcon icon={icon} />
+        <Icon name={icon} />
       </kbd>
     )
   }

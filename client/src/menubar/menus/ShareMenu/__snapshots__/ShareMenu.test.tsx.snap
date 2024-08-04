@@ -8,6 +8,8 @@ exports[`ShareMenu > does not render external share links in offline mode 1`] = 
     <a>
       <svg
         class="menu-item-icon"
+        data-icon="print"
+        data-icon-source="test"
       />
       Print…
     </a>
@@ -15,7 +17,9 @@ exports[`ShareMenu > does not render external share links in offline mode 1`] = 
       id="save-as-image"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="download"
+        data-icon-source="test"
       />
       Save as image…
       <span
@@ -45,7 +49,9 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       class="share-via-link-container"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="link"
+        data-icon-source="test"
       />
       Copy and paste this link to share:
       <div
@@ -64,18 +70,25 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
           type="button"
         >
           <svg
-            class="octicon"
+            data-icon="copy"
+            data-icon-source="test"
           />
         </button>
       </div>
     </div>
+    <div
+      class="menu-separator"
+    />
     <a>
       <svg
-        class="svg-inline--fa menu-item-icon fa-mastodon"
+        class="menu-item-icon"
+        data-icon="mastodon"
+        data-icon-source="test"
       />
       Share using Mastodon
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
     <a
@@ -84,11 +97,14 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-twitter"
+        class="menu-item-icon"
+        data-icon="twitter"
+        data-icon-source="test"
       />
       Share using Twitter
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
     <a
@@ -97,29 +113,43 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-square-facebook"
+        class="menu-item-icon"
+        data-icon="facebook"
+        data-icon-source="test"
       />
       Share using Facebook
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
+    <div
+      class="menu-separator"
+    />
     <a
       href="https://3dstreet.app/#http://localhost:3000/"
       rel="noopener noreferrer"
       target="_blank"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="cube"
+        data-icon-source="test"
       />
       Open in 3DStreet
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
+    <div
+      class="menu-separator"
+    />
     <a>
       <svg
         class="menu-item-icon"
+        data-icon="print"
+        data-icon-source="test"
       />
       Print…
     </a>
@@ -127,7 +157,9 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       id="save-as-image"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="download"
+        data-icon-source="test"
       />
       Save as image…
       <span
@@ -149,7 +181,9 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       class="share-via-link-container"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="link"
+        data-icon-source="test"
       />
       Copy and paste this link to share:
       <div
@@ -168,18 +202,25 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
           type="button"
         >
           <svg
-            class="octicon"
+            data-icon="copy"
+            data-icon-source="test"
           />
         </button>
       </div>
     </div>
+    <div
+      class="menu-separator"
+    />
     <a>
       <svg
-        class="svg-inline--fa menu-item-icon fa-mastodon"
+        class="menu-item-icon"
+        data-icon="mastodon"
+        data-icon-source="test"
       />
       Share using Mastodon
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
     <a
@@ -188,11 +229,14 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-twitter"
+        class="menu-item-icon"
+        data-icon="twitter"
+        data-icon-source="test"
       />
       Share using Twitter
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
     <a
@@ -201,29 +245,43 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       target="_blank"
     >
       <svg
-        class="svg-inline--fa menu-item-icon fa-square-facebook"
+        class="menu-item-icon"
+        data-icon="facebook"
+        data-icon-source="test"
       />
       Share using Facebook
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
+    <div
+      class="menu-separator"
+    />
     <a
       href="https://3dstreet.app/#http://localhost:3000/"
       rel="noopener noreferrer"
       target="_blank"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="cube"
+        data-icon-source="test"
       />
       Open in 3DStreet
       <svg
-        class="menu-item-external-link"
+        data-icon="external-link"
+        data-icon-source="test"
       />
     </a>
+    <div
+      class="menu-separator"
+    />
     <a>
       <svg
         class="menu-item-icon"
+        data-icon="print"
+        data-icon-source="test"
       />
       Print…
     </a>
@@ -231,7 +289,9 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       id="save-as-image"
     >
       <svg
-        class="menu-item-icon-radix"
+        class="menu-item-icon"
+        data-icon="download"
+        data-icon-source="test"
       />
       Save as image…
       <span
