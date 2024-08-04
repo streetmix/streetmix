@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
-import { IoLanguage } from 'react-icons/io5'
 
 import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
+import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
 import logo from '../../images/logo_horizontal.svg'
 import InstanceBadge from './InstanceBadge'
@@ -157,7 +157,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>
-              <IoLanguage />
+              <Icon name="language" />
             </AccessibleIcon>
           </MenuBarItem>
         )}

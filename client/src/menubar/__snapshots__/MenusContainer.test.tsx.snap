@@ -82,6 +82,9 @@ exports[`MenusContainer > renders 1`] = `
         >
           <svg
             aria-hidden="true"
+            class=""
+            data-icon="language"
+            data-icon-source="test"
             focusable="false"
           />
           <span
