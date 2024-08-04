@@ -45,5 +45,4 @@ global.HTMLElement.prototype.scrollIntoView = vi.fn()
 // Declare all mock modules globally
 vi.mock('./src/ui/Icon')
 vi.mock('@fortawesome/react-fontawesome')
-vi.mock('@radix-ui/react-icons')
 vi.mock('react-transition-group')

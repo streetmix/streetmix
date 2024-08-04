@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import {
-  LightningBoltIcon,
-  GlobeIcon,
-  MixerHorizontalIcon,
-  PersonIcon
-} from '@radix-ui/react-icons'
 
 import type { UserProfile } from '~/src/types'
 import { useSelector } from '~/src/store/hooks'
 import { ENV } from '~/src/app/config'
+import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../app/data/user_roles.json'
 import Dialog from './Dialog'
 import FeatureFlagSettings from './Settings/FeatureFlagSettings'
@@ -93,7 +88,7 @@ function SettingsDialog ({
                       activeCategory === 'profile' ? 'settings-menu-active' : ''
                     }
                   >
-                    <PersonIcon className="settings-menu-icon" />
+                    <Icon name="user" className="settings-menu-icon" />
                     <FormattedMessage
                       id="settings.profile.label"
                       defaultMessage="Profile"
@@ -108,7 +103,7 @@ function SettingsDialog ({
                       activeCategory === 'general' ? 'settings-menu-active' : ''
                     }
                   >
-                    <MixerHorizontalIcon className="settings-menu-icon" />
+                    <Icon name="settings" className="settings-menu-icon" />
                     <FormattedMessage
                       id="settings.general.label"
                       defaultMessage="General"
@@ -120,7 +115,7 @@ function SettingsDialog ({
                       activeCategory === 'units' ? 'settings-menu-active' : ''
                     }
                   >
-                    <RulerSquareIcon className="settings-menu-icon" />
+                    <Icon name="ruler" className="settings-menu-icon" />
                     <FormattedMessage
                       id="settings.units.label"
                       defaultMessage="Units"
@@ -136,7 +131,7 @@ function SettingsDialog ({
                         : ''
                     }
                   >
-                    <GlobeIcon className="settings-menu-icon" />
+                    <Icon name="language" className="settings-menu-icon" />
                     <FormattedMessage
                       id="settings.language.label"
                       defaultMessage="Language"
@@ -153,7 +148,7 @@ function SettingsDialog ({
                           : ''
                       }
                     >
-                      <LightningBoltIcon className="settings-menu-icon" />
+                      <Icon name="flag" className="settings-menu-icon" />
                       {/* Not translated, on purpose */}
                       Feature flags
                     </li>
