@@ -1,10 +1,9 @@
 import React from 'react'
 import { IntlProvider, useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useSelector } from '~/src/store/hooks'
+import Icon from '~/src/ui/Icon'
 import Tooltip from '~/src/ui/Tooltip'
-import { ICON_LOCK } from '~/src/ui/icons'
 import { images } from '~/src/app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
 import { getAllSkyboxDefs } from '..'
@@ -71,7 +70,7 @@ function SkyOptions ({
                 {!enabled && selected !== id && (
                   <>
                     <div className="sky-disabled-overlay" />
-                    <FontAwesomeIcon icon={ICON_LOCK} />
+                    <Icon name="lock" />
                   </>
                 )}
                 {env.iconImage !== undefined && (

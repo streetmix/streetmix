@@ -1,9 +1,13 @@
-// Content of Save as Image dialog box
 .save-as-image-dialog {
   width: 720px;
 
   .checkbox-item {
     margin-left: 20px;
+
+    /* Lock icon, if present */
+    svg {
+      vertical-align: text-top;
+    }
   }
 
   .checkbox-item:first-of-type {
@@ -23,7 +27,7 @@
     text-align: center;
   }
 
-  // Don't wrap the Creative Commons label
+  /* Don't wrap the Creative Commons label */
   footer a {
     white-space: nowrap;
   }

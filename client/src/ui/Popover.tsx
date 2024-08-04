@@ -1,8 +1,10 @@
 import React, { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
-import { InfoCircledIcon } from '@radix-ui/react-icons'
+
 import AccessibleIcon from './AccessibleIcon'
+import Icon from './Icon'
+
 import type { PopoverContentProps } from '@radix-ui/react-popover'
 import './Popover.scss'
 
@@ -39,7 +41,7 @@ function Popover ({ label, children }: PopoverProps): React.ReactElement {
       <PopoverPrimitive.Trigger asChild={true}>
         <button className="popover-trigger">
           <AccessibleIcon label={a11yLabel}>
-            <InfoCircledIcon />
+            <Icon name="info" />
           </AccessibleIcon>
         </button>
       </PopoverPrimitive.Trigger>

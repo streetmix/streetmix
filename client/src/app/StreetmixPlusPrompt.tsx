@@ -1,9 +1,8 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { ICON_LOCK } from '../ui/icons'
 import Button from '../ui/Button'
+import Icon from '../ui/Icon'
 import './StreetmixPlusPrompt.scss'
 
 interface StreetmixPlusPromptProps {
@@ -25,7 +24,7 @@ function StreetmixPlusPrompt ({
   return (
     <>
       <div className="streetmix-plus-locked-banner">
-        <FontAwesomeIcon icon={ICON_LOCK} />
+        <Icon name="lock" />
         <FormattedMessage id="plus.locked.label" defaultMessage="Locked" />
       </div>
       {children}

@@ -7,6 +7,7 @@ import {
   FaSquareFacebook,
   FaGithub,
   FaInstagram,
+  FaLock,
   FaMastodon,
   FaMinus,
   FaPlus,
@@ -58,6 +59,7 @@ export type IconNames =
   | 'info'
   | 'keyboard'
   | 'link'
+  | 'lock'
   | 'mail'
   | 'minus'
   | 'plus'
@@ -228,6 +230,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon={name}
           data-icon-source="radix"
         />
+      )
+    case 'lock':
+      return (
+        <FaLock className={className} data-icon={name} data-icon-source="fa" />
       )
     case 'mail':
       return (

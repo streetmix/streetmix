@@ -145,27 +145,21 @@ body.safari .menu {
 }
 
 .menu-item-icon {
-  &[data-icon-source="fa"] {
-    position: absolute;
-    top: 0.5em;
-    left: 0.8em;
-    width: 16px;
-    height: 16px;
-    color: var(--color-midnight-800);
+  position: absolute;
+  top: 0.5em;
+  left: 0.8em;
+  width: 16px;
+  height: 16px;
+  color: var(--color-midnight-800);
 
-    [dir="rtl"] & {
-      left: auto;
-      right: 0.8em;
-    }
+  [dir="rtl"] & {
+    left: auto;
+    right: 0.8em;
   }
 
   &[data-icon-source="io5"] {
-    position: absolute;
     top: 0.55em;
     left: 0.75em;
-    width: 16px;
-    height: 16px;
-    color: var(--color-midnight-800);
 
     [dir="rtl"] & {
       left: auto;
@@ -175,12 +169,9 @@ body.safari .menu {
 
   /* Radix icons are optimized for 15px */
   &[data-icon-source="radix"] {
-    position: absolute;
     top: 0.6em;
-    left: 0.8em;
     width: 15px;
     height: 15px;
-    color: var(--color-midnight-800);
 
     [dir="rtl"] & {
       left: auto;
