@@ -107,27 +107,40 @@ const ICONS = {
 
 function makeComponent (
   name: BaseIconNames,
-  className: string
+  className: string,
+  attrs?: Record<string, string>
 ): React.ReactElement {
   const [Component, source] = ICONS[name]
 
   return (
     <Component
       className={className}
+      // Usually you want to target an icon by its name in CSS
       data-icon={name}
+      // Sometimes you can target an entire family of icons. For instance
+      // Radix UI is optimized at 15×15, most others use 16×16, so we also
+      // record the icon source on the element
       data-icon-source={source}
+      // Pass through all other props. e.g. when an icon is wrapped with
+      // <AccessibleIcon />
+      {...attrs}
     />
   )
 }
 
-function Icon ({ name, className = '' }: IconProps): React.ReactElement {
+function Icon ({
+  name,
+  className = '',
+  ...attrs
+}: IconProps): React.ReactElement {
   // The Google icon is a special case because it's the only multicolor one.
   // The colors are baked into the source image.
+  // TODO: this can return an SVG also, if we want.
   if (name === 'google') {
-    return <img className={className} src={googleIcon} alt="" />
+    return <img className={className} src={googleIcon} alt="" {...attrs} />
   }
 
-  return makeComponent(name, className)
+  return makeComponent(name, className, attrs)
 }
 
 export default Icon

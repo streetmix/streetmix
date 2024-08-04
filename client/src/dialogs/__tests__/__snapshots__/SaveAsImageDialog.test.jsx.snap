@@ -111,7 +111,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 >
                   Watermark 
                   <svg
-                    class="svg-inline--fa fa-lock"
+                    class=""
+                    data-icon="lock"
+                    data-icon-source="test"
                   />
                 </label>
                 <svg
@@ -151,6 +153,9 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
+                    class=""
+                    data-icon="info"
+                    data-icon-source="test"
                     focusable="false"
                   />
                   <span
