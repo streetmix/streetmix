@@ -57,6 +57,9 @@ type ExtraIconNames = 'google'
 
 interface IconProps {
   name: IconNames
+
+  // All other props
+  [attr: string]: string
 }
 
 const ICONS = {

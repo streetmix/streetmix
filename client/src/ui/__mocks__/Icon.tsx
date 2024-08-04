@@ -2,6 +2,9 @@ import React from 'react'
 
 interface IconProps {
   name: string
+
+  // All other props
+  [attr: string]: string
 }
 
 function Icon ({ name, ...attrs }: IconProps): React.ReactElement {
