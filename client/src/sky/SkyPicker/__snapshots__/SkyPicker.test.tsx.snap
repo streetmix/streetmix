@@ -13,7 +13,6 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
       <header>
         <h3>
           <svg
-            class=""
             data-icon="sun"
             data-icon-source="test"
           />
@@ -24,7 +23,6 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
           title="Dismiss"
         >
           <svg
-            class=""
             data-icon="close"
             data-icon-source="test"
           />

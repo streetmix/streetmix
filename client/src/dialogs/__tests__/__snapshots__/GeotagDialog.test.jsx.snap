@@ -17,7 +17,6 @@ exports[`GeotagDialog > renders 1`] = `
         title="Dismiss"
       >
         <svg
-          class=""
           data-icon="close"
           data-icon-source="test"
         />

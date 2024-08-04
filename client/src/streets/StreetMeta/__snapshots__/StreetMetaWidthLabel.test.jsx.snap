@@ -10,7 +10,6 @@ exports[`StreetMetaWidthLabel > renders when editable 1`] = `
         class="street-meta-icon"
       >
         <svg
-          class=""
           data-icon="ruler"
           data-icon-source="test"
         />
@@ -43,7 +42,6 @@ exports[`StreetMetaWidthLabel > renders when not editable 1`] = `
       class="street-meta-icon"
     >
       <svg
-        class=""
         data-icon="ruler"
         data-icon-source="test"
       />
@@ -71,7 +69,6 @@ exports[`StreetMetaWidthLabel > renders with over available width 1`] = `
         class="street-meta-icon"
       >
         <svg
-          class=""
           data-icon="ruler"
           data-icon-source="test"
         />
@@ -110,7 +107,6 @@ exports[`StreetMetaWidthLabel > renders with remaining width 1`] = `
         class="street-meta-icon"
       >
         <svg
-          class=""
           data-icon="ruler"
           data-icon-source="test"
         />

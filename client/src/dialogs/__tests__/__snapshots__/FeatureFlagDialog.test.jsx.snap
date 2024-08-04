@@ -17,7 +17,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
         title="Dismiss"
       >
         <svg
-          class=""
           data-icon="close"
           data-icon-source="test"
         />
@@ -55,7 +54,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class=""
                   data-icon="check"
                   data-icon-source="test"
                 />
@@ -80,7 +78,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class=""
                   data-icon="check"
                   data-icon-source="test"
                 />
@@ -106,7 +103,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class=""
                   data-icon="check"
                   data-icon-source="test"
                 />
@@ -132,7 +128,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </span>
                 </label>
                 <svg
-                  class=""
                   data-icon="check"
                   data-icon-source="test"
                 />

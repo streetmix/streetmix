@@ -10,7 +10,6 @@ exports[`StreetMetaWidthContainer > renders 1`] = `
         class="street-meta-icon"
       >
         <svg
-          class=""
           data-icon="ruler"
           data-icon-source="test"
         />

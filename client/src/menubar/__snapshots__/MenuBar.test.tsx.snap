@@ -82,7 +82,6 @@ exports[`MenuBar > renders 1`] = `
         >
           <svg
             aria-hidden="true"
-            class=""
             data-icon="language"
             data-icon-source="test"
             focusable="false"
@@ -192,7 +191,6 @@ exports[`MenuBar > renders logged in user 1`] = `
         >
           <svg
             aria-hidden="true"
-            class=""
             data-icon="language"
             data-icon-source="test"
             focusable="false"
@@ -286,7 +284,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
         >
           <svg
             aria-hidden="true"
-            class=""
             data-icon="language"
             data-icon-source="test"
             focusable="false"

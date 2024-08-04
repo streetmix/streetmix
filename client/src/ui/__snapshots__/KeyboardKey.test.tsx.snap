@@ -19,7 +19,6 @@ exports[`KeyboardKey > renders a <kbd> element with icon and title 1`] = `
     title="foo"
   >
     <svg
-      class=""
       data-icon="[object Object]"
       data-icon-source="test"
     />

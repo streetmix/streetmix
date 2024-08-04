@@ -17,7 +17,6 @@ exports[`ContactMenu > renders 1`] = `
       />
       Join Discord chat
       <svg
-        class=""
         data-icon="external-link"
         data-icon-source="test"
       />
@@ -34,7 +33,6 @@ exports[`ContactMenu > renders 1`] = `
       />
       View source code on GitHub
       <svg
-        class=""
         data-icon="external-link"
         data-icon-source="test"
       />

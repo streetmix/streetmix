@@ -17,7 +17,6 @@ exports[`SignInDialog > renders 1`] = `
         title="Dismiss"
       >
         <svg
-          class=""
           data-icon="close"
           data-icon-source="test"
         />
@@ -79,7 +78,6 @@ exports[`SignInDialog > renders 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="twitter"
               data-icon-source="test"
             />
@@ -90,7 +88,6 @@ exports[`SignInDialog > renders 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="google"
               data-icon-source="test"
             />
@@ -101,7 +98,6 @@ exports[`SignInDialog > renders 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="facebook"
               data-icon-source="test"
             />

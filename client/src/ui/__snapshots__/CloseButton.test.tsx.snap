@@ -7,7 +7,6 @@ exports[`CloseButton > renders snapshot 1`] = `
     title="Dismiss"
   >
     <svg
-      class=""
       data-icon="close"
       data-icon-source="test"
     />
@@ -24,7 +23,6 @@ exports[`CloseButton > renders with custom title, class name, and other attribut
     title="foofoo"
   >
     <svg
-      class=""
       data-icon="close"
       data-icon-source="test"
     />

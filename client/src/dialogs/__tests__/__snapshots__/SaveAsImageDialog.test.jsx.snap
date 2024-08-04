@@ -17,7 +17,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
         title="Dismiss"
       >
         <svg
-          class=""
           data-icon="close"
           data-icon-source="test"
         />
@@ -50,7 +49,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Segment names and widths
               </label>
               <svg
-                class=""
                 data-icon="check"
                 data-icon-source="test"
               />
@@ -69,7 +67,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Street name
               </label>
               <svg
-                class=""
                 data-icon="check"
                 data-icon-source="test"
               />
@@ -88,7 +85,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 Transparent sky
               </label>
               <svg
-                class=""
                 data-icon="check"
                 data-icon-source="test"
               />
@@ -111,13 +107,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 >
                   Watermark 
                   <svg
-                    class=""
                     data-icon="lock"
                     data-icon-source="test"
                   />
                 </label>
                 <svg
-                  class=""
                   data-icon="check"
                   data-icon-source="test"
                 />
@@ -153,7 +147,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 >
                   <svg
                     aria-hidden="true"
-                    class=""
                     data-icon="info"
                     data-icon-source="test"
                     focusable="false"

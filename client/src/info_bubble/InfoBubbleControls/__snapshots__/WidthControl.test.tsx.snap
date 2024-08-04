@@ -15,7 +15,6 @@ exports[`WidthControl > renders 1`] = `
         type="button"
       >
         <svg
-          class=""
           data-icon="minus"
           data-icon-source="test"
         />
@@ -33,7 +32,6 @@ exports[`WidthControl > renders 1`] = `
         type="button"
       >
         <svg
-          class=""
           data-icon="plus"
           data-icon-source="test"
         />

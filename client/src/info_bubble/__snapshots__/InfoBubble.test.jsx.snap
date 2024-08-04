@@ -132,7 +132,6 @@ exports[`InfoBubble > is visible 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="minus"
               data-icon-source="test"
             />
@@ -150,7 +149,6 @@ exports[`InfoBubble > is visible 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="plus"
               data-icon-source="test"
             />
@@ -297,7 +295,6 @@ exports[`InfoBubble > renders 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="minus"
               data-icon-source="test"
             />
@@ -315,7 +312,6 @@ exports[`InfoBubble > renders 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="plus"
               data-icon-source="test"
             />
@@ -503,7 +499,6 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="minus"
               data-icon-source="test"
             />
@@ -523,7 +518,6 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="plus"
               data-icon-source="test"
             />
@@ -711,7 +705,6 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="minus"
               data-icon-source="test"
             />
@@ -731,7 +724,6 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="plus"
               data-icon-source="test"
             />
@@ -878,7 +870,6 @@ exports[`InfoBubble > shows description 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="minus"
               data-icon-source="test"
             />
@@ -896,7 +887,6 @@ exports[`InfoBubble > shows description 1`] = `
             type="button"
           >
             <svg
-              class=""
               data-icon="plus"
               data-icon-source="test"
             />
