@@ -9,7 +9,11 @@ exports[`StreetMetaWidthLabel > renders when editable 1`] = `
       <div
         class="street-meta-icon"
       >
-        <svg />
+        <svg
+          class=""
+          data-icon="ruler"
+          data-icon-source="test"
+        />
       </div>
       <div
         class="street-meta-content"
@@ -21,6 +25,8 @@ exports[`StreetMetaWidthLabel > renders when editable 1`] = `
         </span>
         <svg
           class="menu-carat-down"
+          data-icon="chevron-down"
+          data-icon-source="test"
         />
       </div>
     </button>
@@ -36,7 +42,11 @@ exports[`StreetMetaWidthLabel > renders when not editable 1`] = `
     <div
       class="street-meta-icon"
     >
-      <svg />
+      <svg
+        class=""
+        data-icon="ruler"
+        data-icon-source="test"
+      />
     </div>
     <div
       class="street-meta-content"
@@ -60,7 +70,11 @@ exports[`StreetMetaWidthLabel > renders with over available width 1`] = `
       <div
         class="street-meta-icon"
       >
-        <svg />
+        <svg
+          class=""
+          data-icon="ruler"
+          data-icon-source="test"
+        />
       </div>
       <div
         class="street-meta-content"
@@ -77,6 +91,8 @@ exports[`StreetMetaWidthLabel > renders with over available width 1`] = `
         </span>
         <svg
           class="menu-carat-down"
+          data-icon="chevron-down"
+          data-icon-source="test"
         />
       </div>
     </button>
@@ -93,7 +109,11 @@ exports[`StreetMetaWidthLabel > renders with remaining width 1`] = `
       <div
         class="street-meta-icon"
       >
-        <svg />
+        <svg
+          class=""
+          data-icon="ruler"
+          data-icon-source="test"
+        />
       </div>
       <div
         class="street-meta-content"
@@ -110,6 +130,8 @@ exports[`StreetMetaWidthLabel > renders with remaining width 1`] = `
         </span>
         <svg
           class="menu-carat-down"
+          data-icon="chevron-down"
+          data-icon-source="test"
         />
       </div>
     </button>

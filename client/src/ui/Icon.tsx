@@ -14,15 +14,21 @@ import {
   FaTwitter
 } from 'react-icons/fa6'
 import {
+  FiBarChart2,
+  FiChevronDown,
+  FiClock,
   FiEdit3,
+  FiExternalLink,
+  FiMapPin,
   FiRotateCcw,
   FiRotateCw,
   FiSun,
-  FiTrash2
+  FiTrash2,
+  FiUser,
+  FiX
 } from 'react-icons/fi'
 import {
   IoCartOutline,
-  IoClose,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
   IoMailOutline,
@@ -35,10 +41,10 @@ import {
   RxCube,
   RxDownload,
   RxExit,
-  RxExternalLink,
   RxKeyboard,
   RxLink2,
   RxMixerHorizontal,
+  RxRulerHorizontal,
   RxStar
 } from 'react-icons/rx'
 
@@ -49,16 +55,19 @@ export type IconNames =
   | 'arrow-right'
   | 'cart'
   | 'check'
+  | 'chevron-down'
   | 'close'
   | 'copy'
   | 'cube'
   | 'download'
   | 'edit'
   | 'external-link'
+  | 'graph'
   | 'help'
   | 'info'
   | 'keyboard'
   | 'link'
+  | 'location'
   | 'lock'
   | 'mail'
   | 'minus'
@@ -66,6 +75,8 @@ export type IconNames =
   | 'print'
   | 'redo'
   | 'rocket'
+  | 'ruler'
+  | 'time'
   | 'trail-sign'
   | 'trash'
   | 'settings'
@@ -73,6 +84,7 @@ export type IconNames =
   | 'star'
   | 'sun'
   | 'undo'
+  | 'user'
   // Social
   | 'discord'
   | 'facebook'
@@ -117,12 +129,20 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       return (
         <FaCheck className={className} data-icon={name} data-icon-source="fa" />
       )
-    case 'close':
+    case 'chevron-down':
       return (
-        <IoClose
+        <FiChevronDown
           className={className}
           data-icon={name}
-          data-icon-source="io5"
+          data-icon-source="feather"
+        />
+      )
+    case 'close':
+      return (
+        <FiX
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
         />
       )
     case 'copy':
@@ -167,10 +187,10 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'external-link':
       return (
-        <RxExternalLink
+        <FiExternalLink
           className={className}
           data-icon={name}
-          data-icon-source="radix"
+          data-icon-source="feather"
         />
       )
     case 'facebook':
@@ -191,6 +211,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
       )
     case 'google':
       return <img className={className} src={googleIcon} alt="" />
+    case 'graph':
+      return (
+        <FiBarChart2
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
+        />
+      )
     case 'help':
       return (
         <IoHelpCircleOutline
@@ -229,6 +257,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           className={className}
           data-icon={name}
           data-icon-source="radix"
+        />
+      )
+    case 'location':
+      return (
+        <FiMapPin
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
         />
       )
     case 'lock':
@@ -283,6 +319,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon-source="io5"
         />
       )
+    case 'ruler':
+      return (
+        <RxRulerHorizontal
+          className={className}
+          data-icon={name}
+          data-icon-source="radix"
+        />
+      )
     case 'settings':
       return (
         <RxMixerHorizontal
@@ -315,6 +359,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
           data-icon-source="feather"
         />
       )
+    case 'time':
+      return (
+        <FiClock
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
+        />
+      )
     case 'trail-sign':
       return (
         <IoTrailSignOutline
@@ -342,6 +394,14 @@ function Icon ({ name, className = '' }: IconProps): React.ReactElement {
     case 'undo':
       return (
         <FiRotateCcw
+          className={className}
+          data-icon={name}
+          data-icon-source="feather"
+        />
+      )
+    case 'user':
+      return (
+        <FiUser
           className={className}
           data-icon={name}
           data-icon-source="feather"
