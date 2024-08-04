@@ -50,364 +50,84 @@ import {
 
 import googleIcon from './icons/google.svg'
 
-export type IconNames =
-  | 'arrow-left'
-  | 'arrow-right'
-  | 'cart'
-  | 'check'
-  | 'chevron-down'
-  | 'close'
-  | 'copy'
-  | 'cube'
-  | 'download'
-  | 'edit'
-  | 'external-link'
-  | 'graph'
-  | 'help'
-  | 'info'
-  | 'keyboard'
-  | 'link'
-  | 'location'
-  | 'lock'
-  | 'mail'
-  | 'minus'
-  | 'plus'
-  | 'print'
-  | 'redo'
-  | 'rocket'
-  | 'ruler'
-  | 'time'
-  | 'trail-sign'
-  | 'trash'
-  | 'settings'
-  | 'sign-out'
-  | 'star'
-  | 'sun'
-  | 'undo'
-  | 'user'
-  // Social
-  | 'discord'
-  | 'facebook'
-  | 'github'
-  | 'google'
-  | 'instagram'
-  | 'mastodon'
-  | 'twitter'
+export type IconNames = BaseIconNames | ExtraIconNames
+type BaseIconNames = keyof typeof ICONS
+type ExtraIconNames = 'google'
 
 interface IconProps {
   name: IconNames
   className?: string
 }
 
+const ICONS = {
+  'arrow-left': [FaArrowLeft, 'fa'],
+  'arrow-right': [FaArrowRight, 'fa'],
+  cart: [IoCartOutline, 'io5'],
+  check: [FaCheck, 'fa'],
+  'chevron-down': [FiChevronDown, 'feather'],
+  close: [FiX, 'feather'],
+  copy: [RxClipboardCopy, 'radix'],
+  cube: [RxCube, 'radix'],
+  download: [RxDownload, 'radix'],
+  edit: [FiEdit3, 'feather'],
+  'external-link': [FiExternalLink, 'feather'],
+  graph: [FiBarChart2, 'feather'],
+  help: [IoHelpCircleOutline, 'io5'],
+  info: [IoInformationCircleOutline, 'io5'],
+  keyboard: [RxKeyboard, 'radix'],
+  link: [RxLink2, 'radix'],
+  location: [FiMapPin, 'feather'],
+  lock: [FaLock, 'fa'],
+  mail: [IoMailOutline, 'io5'],
+  minus: [FaMinus, 'fa'],
+  plus: [FaPlus, 'fa'],
+  print: [IoPrintOutline, 'io5'],
+  redo: [FiRotateCw, 'feather'],
+  rocket: [IoRocketOutline, 'io5'],
+  ruler: [RxRulerHorizontal, 'radix'],
+  settings: [RxMixerHorizontal, 'radix'],
+  'sign-out': [RxExit, 'radix'],
+  star: [RxStar, 'radix'],
+  sun: [FiSun, 'feather'],
+  time: [FiClock, 'feather'],
+  'trail-sign': [IoTrailSignOutline, 'io5'],
+  trash: [FiTrash2, 'feather'],
+  undo: [FiRotateCcw, 'feather'],
+  user: [FiUser, 'feather'],
+
+  // Social icons
+  // Google is not defined here, see special case
+  discord: [FaDiscord, 'fa'],
+  facebook: [FaSquareFacebook, 'fa'],
+  github: [FaGithub, 'fa'],
+  instagram: [FaInstagram, 'fa'],
+  mastodon: [FaMastodon, 'fa'],
+  twitter: [FaTwitter, 'fa']
+}
+
+function makeComponent (
+  name: BaseIconNames,
+  className: string
+): React.ReactElement {
+  const [Component, source] = ICONS[name]
+
+  return (
+    <Component
+      className={className}
+      data-icon={name}
+      data-icon-source={source}
+    />
+  )
+}
+
 function Icon ({ name, className = '' }: IconProps): React.ReactElement {
-  switch (name) {
-    case 'arrow-left':
-      return (
-        <FaArrowLeft
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'arrow-right':
-      return (
-        <FaArrowRight
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'cart':
-      return (
-        <IoCartOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'check':
-      return (
-        <FaCheck className={className} data-icon={name} data-icon-source="fa" />
-      )
-    case 'chevron-down':
-      return (
-        <FiChevronDown
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'close':
-      return (
-        <FiX
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'copy':
-      return (
-        <RxClipboardCopy
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'cube':
-      return (
-        <RxCube
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'discord':
-      return (
-        <FaDiscord
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'download':
-      return (
-        <RxDownload
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'edit':
-      return (
-        <FiEdit3
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'external-link':
-      return (
-        <FiExternalLink
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'facebook':
-      return (
-        <FaSquareFacebook
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'github':
-      return (
-        <FaGithub
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'google':
-      return <img className={className} src={googleIcon} alt="" />
-    case 'graph':
-      return (
-        <FiBarChart2
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'help':
-      return (
-        <IoHelpCircleOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'info':
-      return (
-        <IoInformationCircleOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'instagram':
-      return (
-        <FaInstagram
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'keyboard':
-      return (
-        <RxKeyboard
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'link':
-      return (
-        <RxLink2
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'location':
-      return (
-        <FiMapPin
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'lock':
-      return (
-        <FaLock className={className} data-icon={name} data-icon-source="fa" />
-      )
-    case 'mail':
-      return (
-        <IoMailOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'mastodon':
-      return (
-        <FaMastodon
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'minus':
-      return (
-        <FaMinus className={className} data-icon={name} data-icon-source="fa" />
-      )
-    case 'plus':
-      return (
-        <FaPlus className={className} data-icon={name} data-icon-source="fa" />
-      )
-    case 'print':
-      return (
-        <IoPrintOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'redo':
-      return (
-        <FiRotateCw
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'rocket':
-      return (
-        <IoRocketOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'ruler':
-      return (
-        <RxRulerHorizontal
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'settings':
-      return (
-        <RxMixerHorizontal
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'sign-out':
-      return (
-        <RxExit
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'star':
-      return (
-        <RxStar
-          className={className}
-          data-icon={name}
-          data-icon-source="radix"
-        />
-      )
-    case 'sun':
-      return (
-        <FiSun
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'time':
-      return (
-        <FiClock
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'trail-sign':
-      return (
-        <IoTrailSignOutline
-          className={className}
-          data-icon={name}
-          data-icon-source="io5"
-        />
-      )
-    case 'trash':
-      return (
-        <FiTrash2
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'twitter':
-      return (
-        <FaTwitter
-          className={className}
-          data-icon={name}
-          data-icon-source="fa"
-        />
-      )
-    case 'undo':
-      return (
-        <FiRotateCcw
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
-    case 'user':
-      return (
-        <FiUser
-          className={className}
-          data-icon={name}
-          data-icon-source="feather"
-        />
-      )
+  // The Google icon is a special case because it's the only multicolor one.
+  // The colors are baked into the source image.
+  if (name === 'google') {
+    return <img className={className} src={googleIcon} alt="" />
   }
+
+  return makeComponent(name, className)
 }
 
 export default Icon
