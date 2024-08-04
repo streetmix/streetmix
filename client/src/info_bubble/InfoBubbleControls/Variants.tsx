@@ -1,6 +1,5 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
@@ -16,7 +15,7 @@ import {
   BUILDING_RIGHT_POSITION
 } from '~/src/segments/constants'
 import Button from '~/src/ui/Button'
-import { ICON_LOCK } from '~/src/ui/icons'
+import Icon from '~/src/ui/Icon'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
@@ -210,7 +209,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
           {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
           <use xlinkHref={`#icon-${icon.id}`} />
         </svg>
-        {isLocked && <FontAwesomeIcon icon={ICON_LOCK} />}
+        {isLocked && <Icon name="lock" />}
       </Button>
     )
   }

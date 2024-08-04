@@ -64,7 +64,8 @@ exports[`PaletteContainer > renders 1`] = `
                 />
               </div>
               <svg
-                class="svg-inline--fa fa-lock"
+                data-icon="lock"
+                data-icon-source="test"
               />
             </li>
           </ul>

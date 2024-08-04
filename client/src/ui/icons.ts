@@ -6,7 +6,6 @@
 // for instance: https://github.com/FortAwesome/react-native-fontawesome/issues/123
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
-import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 
 // FontAwesome documentation recommends adding icons to a "library" object
 // which the <FontAwesomeIcon> component looks up icons from via a string id.
@@ -28,4 +27,3 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock'
 // is a child of the component under test.
 export const ICON_CHEVRON_RIGHT = faChevronRight
 export const ICON_CHEVRON_LEFT = faChevronLeft
-export const ICON_LOCK = faLock

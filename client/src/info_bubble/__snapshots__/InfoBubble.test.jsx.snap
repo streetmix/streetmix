@@ -10,13 +10,11 @@ exports[`InfoBubble > is visible 1`] = `
         class="info-bubble-label info-bubble-label-editable"
       >
         Streetcar
-        <span
+        <svg
           class="info-bubble-label-editable-icon"
-        >
-          <svg
-            class="svg-inline--fa fa-lock"
-          />
-        </span>
+          data-icon="lock"
+          data-icon-source="test"
+        />
       </div>
       <button
         class="btn info-bubble-remove"
@@ -173,13 +171,11 @@ exports[`InfoBubble > renders 1`] = `
         class="info-bubble-label info-bubble-label-editable"
       >
         Streetcar
-        <span
+        <svg
           class="info-bubble-label-editable-icon"
-        >
-          <svg
-            class="svg-inline--fa fa-lock"
-          />
-        </span>
+          data-icon="lock"
+          data-icon-source="test"
+        />
       </div>
       <button
         class="btn info-bubble-remove"
@@ -481,7 +477,8 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
             />
           </svg>
           <svg
-            class="svg-inline--fa fa-lock"
+            data-icon="lock"
+            data-icon-source="test"
           />
         </button>
       </div>
@@ -687,7 +684,8 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
             />
           </svg>
           <svg
-            class="svg-inline--fa fa-lock"
+            data-icon="lock"
+            data-icon-source="test"
           />
         </button>
       </div>
@@ -748,13 +746,11 @@ exports[`InfoBubble > shows description 1`] = `
         class="info-bubble-label info-bubble-label-editable"
       >
         Streetcar
-        <span
+        <svg
           class="info-bubble-label-editable-icon"
-        >
-          <svg
-            class="svg-inline--fa fa-lock"
-          />
-        </span>
+          data-icon="lock"
+          data-icon-source="test"
+        />
       </div>
       <button
         class="btn info-bubble-remove"
