@@ -33,7 +33,8 @@ exports[`PaletteContainer > renders 1`] = `
           type="button"
         >
           <svg
-            class="svg-inline--fa fa-chevron-left"
+            data-icon="chevron-left"
+            data-icon-source="test"
           />
         </button>
         <div
@@ -78,7 +79,8 @@ exports[`PaletteContainer > renders 1`] = `
           type="button"
         >
           <svg
-            class="svg-inline--fa fa-chevron-right"
+            data-icon="chevron-right"
+            data-icon-source="test"
           />
         </button>
       </div>

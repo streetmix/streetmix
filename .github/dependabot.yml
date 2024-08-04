@@ -25,9 +25,6 @@ updates:
     babel:
       patterns:
         - "@babel/*"
-    font-awesome:
-      patterns:
-        - "@fortawesome/*"
     radix-ui:
       patterns:
         - "@radix-ui/*"

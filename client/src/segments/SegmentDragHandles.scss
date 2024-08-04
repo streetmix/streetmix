@@ -14,7 +14,7 @@ body.segment-resize-dragging * {
   border-top: 5px solid var(--color-turquoise-200);
   border-bottom: 5px solid var(--color-turquoise-200);
   border-radius: var(--border-radius-medium);
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: var(--color-turquoise-700);
   z-index: var(--z-06-drag-handle);
   pointer-events: none;
@@ -32,16 +32,12 @@ body.segment-resize-dragging * {
 
 .drag-handle-left {
   left: -5px;
-  text-align: left;
-  text-indent: -5px;
   transform-origin: 100% 50%;
   transform: rotateY(90deg);
 }
 
 .drag-handle-right {
   right: -5px;
-  text-align: right;
-  text-indent: -3px;
   transform-origin: 0 50%;
   transform: rotateY(-90deg);
 }
