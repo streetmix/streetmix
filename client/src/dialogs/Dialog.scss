@@ -29,16 +29,15 @@
 
 .dialog-box {
   position: relative;
-
-  // balance the dialog by making it slightly north of center
-  margin-top: -3%;
+  margin-top: -3%; /* balance by making it slightly north of center */
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
   padding: 0;
   background: white;
   line-height: 1.4;
   z-index: var(--z-09-dialog-box);
   touch-action: none;
-
-  /* New styles! Let's try it! */
   border-radius: var(--dialog-border-radius);
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);

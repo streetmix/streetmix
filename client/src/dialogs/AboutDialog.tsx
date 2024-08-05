@@ -32,7 +32,7 @@ function AboutDialog (): React.ReactElement {
               />
             </h1>
           </header>
-          <div className="dialog-content">
+          <div className="dialog-content dialog-content-bleed">
             <div className="about-dialog-content">
               <div className="about-dialog-left">
                 <p>

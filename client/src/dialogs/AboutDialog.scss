@@ -1,5 +1,5 @@
 .about-dialog {
-  width: 820px;
+  max-width: 820px;
   min-height: 660px;
   max-height: 75vh;
 
@@ -26,7 +26,7 @@
 
   .dialog-content {
     overflow: hidden;
-    overflow-y: scroll;
+    display: flex;
   }
 }
 
@@ -37,23 +37,18 @@
 
 .about-dialog-content {
   display: flex;
-  margin-bottom: 2em;
+  flex-grow: 1;
 }
 
 .about-dialog-left {
-  margin-right: 40px;
   border-right: 1px solid var(--color-turquoise-500);
-  padding-right: 40px;
-  position: fixed;
-  width: 280px;
+  padding: 0 3.5em 0 2em;
+  width: min(30%, 280px);
 
   [dir="rtl"] & {
-    margin-left: 40px;
-    margin-right: 0;
+    padding: 0 2em 0 3.5em;
     border-left: 1px solid var(--color-turquoise-500);
     border-right: 0;
-    padding-left: 40px;
-    padding-right: 0;
   }
 
   p:first-child {
@@ -67,13 +62,8 @@
 
 .about-dialog-right {
   flex: 1;
-  margin-bottom: 15px;
-  margin-left: 320px;
-
-  [dir="rtl"] & {
-    margin-right: 320px;
-    margin-left: 0;
-  }
+  overflow: hidden scroll;
+  padding: 0 2em 3em;
 
   > :first-child {
     margin-top: 0;
@@ -81,6 +71,22 @@
 
   > h2 {
     margin-top: 1.5em;
+  }
+}
+
+@media only screen and (width <= 768px) {
+  .about-dialog-content {
+    display: block;
+    overflow-y: scroll;
+  }
+
+  .about-dialog-left {
+    width: 100%;
+    border: 0;
+  }
+
+  .credits-team {
+    max-width: 500px;
   }
 }
 

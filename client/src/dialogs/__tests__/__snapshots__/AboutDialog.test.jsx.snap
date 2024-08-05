@@ -35,7 +35,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
           </h1>
         </header>
         <div
-          class="dialog-content"
+          class="dialog-content dialog-content-bleed"
         >
           <div
             class="about-dialog-content"

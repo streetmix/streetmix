@@ -35,7 +35,7 @@
 
 .team-member-mugshot {
   max-width: 100%;
-  border-radius: 6px;
+  border-radius: var(--border-radius-pill);
 
   /* Placeholder image in case a mugshot image is not provided */
   background-image: url("../../../images/avatar.svg");
