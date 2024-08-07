@@ -335,11 +335,12 @@
     "label": "{width} width",
     "under": "({width} room)",
     "over": "({width} over)",
-    "occupied": "Occupied width:",
-    "building": "Building-to-building width:",
+    "occupied": "Occupied width",
+    "building": "Building-to-building width",
     "different": "Different width…",
-    "metric": "Switch to metric units",
-    "imperial": "Switch to imperial units (feet)"
+    "units": "Units",
+    "metric": "Metric",
+    "imperial": "U.S. customary / imperial"
   },
   "capacity": {
     "ppl-per-hour": "{capacity} people/hr"

@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`StreetMetaWidth > does not render interactive elements when not editable 1`] = `
+<DocumentFragment>
+  <div
+    class="street-meta-item street-meta-item-plain street-width"
+  >
+    <div
+      class="street-meta-icon"
+    >
+      <svg
+        data-icon="ruler"
+        data-icon-source="test"
+      />
+    </div>
+    <div
+      class="street-meta-content"
+    >
+      <span
+        class="underline"
+      >
+        0 m width
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StreetMetaWidth > renders 1`] = `
+<DocumentFragment>
+  <div
+    class="street-meta-item street-width street-width-editable"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="menu"
+      aria-label="Change width of the street"
+      data-state="closed"
+      id="radix-:r0:"
+      type="button"
+    >
+      <div
+        class="street-meta-icon"
+      >
+        <svg
+          data-icon="ruler"
+          data-icon-source="test"
+        />
+      </div>
+      <div
+        class="street-meta-content"
+      >
+        <span
+          class="underline"
+        >
+          0 m width
+        </span>
+        <svg
+          class="menu-carat-down"
+          data-icon="chevron-down"
+          data-icon-source="test"
+        />
+      </div>
+    </button>
+  </div>
+</DocumentFragment>
+`;

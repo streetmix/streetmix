@@ -59,3 +59,72 @@ exports[`StreetMeta > renders without crashing 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`StreetMeta > renders without crashing 2`] = `
+<DocumentFragment>
+  <div
+    class="street-meta"
+  >
+    <div
+      class="street-meta-item street-width street-width-editable"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        aria-label="Change width of the street"
+        data-state="closed"
+        id="radix-:r0:"
+        type="button"
+      >
+        <div
+          class="street-meta-icon"
+        >
+          <svg
+            data-icon="ruler"
+            data-icon-source="test"
+          />
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            0 m width
+          </span>
+          <svg
+            class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="test"
+          />
+        </div>
+      </button>
+    </div>
+    <div
+      class="street-meta-item"
+    >
+      <button
+        aria-label="Change location"
+      >
+        <div
+          class="street-meta-icon"
+        >
+          <svg
+            data-icon="location"
+            data-icon-source="test"
+          />
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            Add location
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
