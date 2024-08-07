@@ -8,7 +8,14 @@ exports[`StreetMeta > renders without crashing 1`] = `
     <div
       class="street-meta-item street-width street-width-editable"
     >
-      <button>
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        aria-label="Change width of the street"
+        data-state="closed"
+        id="radix-:r0:"
+        type="button"
+      >
         <div
           class="street-meta-icon"
         >
@@ -36,7 +43,9 @@ exports[`StreetMeta > renders without crashing 1`] = `
     <div
       class="street-meta-item"
     >
-      <button>
+      <button
+        aria-label="Change location"
+      >
         <div
           class="street-meta-icon"
         >

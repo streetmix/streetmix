@@ -21,6 +21,7 @@
     "@json2csv/plainjs": "7.0.6",
     "@radix-ui/react-accessible-icon": "1.1.0",
     "@radix-ui/react-direction": "1.1.0",
+    "@radix-ui/react-dropdown-menu": "2.1.1",
     "@radix-ui/react-menubar": "1.1.1",
     "@radix-ui/react-popover": "1.1.1",
     "@radix-ui/react-radio-group": "1.2.0",

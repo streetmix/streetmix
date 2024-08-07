@@ -3,7 +3,6 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import type { SliderProps } from '@radix-ui/react-slider'
 import './Slider.scss'
 
-// eslint-disable-next-line react/display-name
 const Slider = forwardRef(
   (
     { value, defaultValue, className, ...props }: SliderProps,
@@ -35,5 +34,7 @@ const Slider = forwardRef(
     )
   }
 )
+
+Slider.displayName = 'Slider'
 
 export default Slider
