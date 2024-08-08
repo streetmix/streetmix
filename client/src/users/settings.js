@@ -21,9 +21,10 @@ export function loadSettings () {
   // Skip this if localStorage is corrupted
   let localSettings = {}
   try {
-    localSettings = JSON.parse(
+    const parsed = JSON.parse(
       window.localStorage.getItem(LOCAL_STORAGE_SETTINGS_ID)
     )
+    localSettings = parsed ?? {}
   } catch (err) {
     console.error(err)
   }
