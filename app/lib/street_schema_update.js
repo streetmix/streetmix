@@ -5,7 +5,7 @@
 import { nanoid } from 'nanoid'
 import logger from './logger.js'
 
-const LATEST_SCHEMA_VERSION = 30
+const LATEST_SCHEMA_VERSION = 31
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -36,6 +36,7 @@ const LATEST_SCHEMA_VERSION = 30
 // 28: add editCount property if it doesn't exist
 // 29: rename 'environment' to 'skybox'
 // 30: all measurements use metric values
+// 31: fix for streets with old units setting
 
 // https://www.jacklmoore.com/notes/rounding-in-javascript/
 function round (value, decimals) {
@@ -470,6 +471,17 @@ function incrementSchemaVersion (street) {
           const segment = street.segments[i]
           segment.width = round(segment.width * conversion, 3)
         }
+      }
+      break
+    case 30:
+      // 31: fix for streets with old units setting
+      // We converted the setting for metric units from `2` to `0` in the
+      // previous step. There was a bug where users that had a stale setting
+      // (where metric units is `2`) can create new streets with the old
+      // value. This bug should be fixed (I hope), but we still need to
+      // update the streets created with the old value.
+      if (street.units === 2) {
+        street.units = 0
       }
       break
     default:

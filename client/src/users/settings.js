@@ -32,6 +32,9 @@ export function loadSettings () {
   if (localSettings.units === 2) {
     localSettings.units = 0
   }
+  if (serverSettings.units === 2) {
+    serverSettings.units = 0
+  }
 
   // Merge settings to a new object. Server settings take priority and will
   // overwrite local settings.
