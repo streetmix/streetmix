@@ -52,7 +52,7 @@ describe('settings reducer', () => {
   })
 
   it('should handle setUserUnits()', () => {
-    expect(settings(initialState, setUserUnits(2))).toEqual({
+    expect(settings(initialState, setUserUnits(1))).toEqual({
       colorMode: 'light',
       lastStreetId: null,
       lastStreetNamespacedId: null,
@@ -62,7 +62,7 @@ describe('settings reducer', () => {
       saveAsImageSegmentNamesAndWidths: false,
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
-      units: 2,
+      units: 1,
       locale: null
     })
   })
