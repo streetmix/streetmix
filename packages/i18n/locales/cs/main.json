@@ -335,11 +335,12 @@
     "label": "šířka {width}",
     "under": "({width} místa)",
     "over": "({width} přes)",
-    "occupied": "Obsazená šířka:",
-    "building": "Šířka mezi budovami:",
+    "occupied": "Obsazená šířka",
+    "building": "Šířka mezi budovami",
     "different": "Různá šířka...",
-    "metric": "Přepnout na metrické jednotky",
-    "imperial": "Přepnutí na imperiální jednotky (stopy)"
+    "units": "Jednotky",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} člověk/hod"

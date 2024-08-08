@@ -73,6 +73,10 @@ body.dark-skybox-invert-ui {
   color: black;
   border-radius: var(--border-radius);
   cursor: pointer;
+
+  [dir="rtl"] & {
+    padding: 0.5em 1.5em 0.5em 1em;
+  }
 }
 
 .dropdown-menu-item[data-disabled],
@@ -97,6 +101,10 @@ body.dark-skybox-invert-ui {
   padding: 0.5em 1em 0.5em 1.5em;
   font-weight: 500;
   color: var(--color-turquoise-700);
+
+  [dir="rtl"] & {
+    padding: 0.5em 1.5em 0.5em 1em;
+  }
 }
 
 .dropdown-menu-item-indicator {
@@ -107,6 +115,11 @@ body.dark-skybox-invert-ui {
   align-items: center;
   justify-content: center;
   color: var(--color-turquoise-500);
+
+  [dir="rtl"] & {
+    right: 0.65em;
+    left: auto;
+  }
 }
 
 .dropdown-menu-arrow {

@@ -338,8 +338,9 @@
     "occupied": "የተያዘ ስፋት",
     "building": "ህንጻ - ለ - ህንጻ ስፋት",
     "different": "የተለያዩ ስፋቶች ...",
-    "metric": "ወደ ሜትሪክ አሃዶች ይቀይሩ",
-    "imperial": "ወደ ኢምፔሪያል አሃዶች (ጫማ) ይቀይሩ"
+    "units": "ክፍሎች።",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity}ሰዎች / ሰ "

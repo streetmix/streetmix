@@ -335,11 +335,12 @@
     "label": "{width} lebar",
     "under": "({width} ruang)",
     "over": "({width} lebih)",
-    "occupied": "Lebar yang ditempati:",
-    "building": "Lebar bangunan-ke-bangunan:",
+    "occupied": "Lebar yang ditempati",
+    "building": "Lebar bangunan-ke-bangunan",
     "different": "Lebar yang berbeda...",
-    "metric": "Beralih ke satuan metrik",
-    "imperial": "Beralih ke satuan imperial (kaki)"
+    "units": "Satuan",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} orang/jam"

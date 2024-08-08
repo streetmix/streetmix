@@ -335,11 +335,12 @@
     "label": "{width} szerokości",
     "under": "({width} wolnej przestrzeni)",
     "over": "({width} ponad)",
-    "occupied": "Zagospodarowana szerokość:",
-    "building": "Odległość między budynkami:",
+    "occupied": "Zagospodarowana szerokość",
+    "building": "Odległość między budynkami",
     "different": "Inna szerokość…",
-    "metric": "W metrach",
-    "imperial": "W stopach"
+    "units": "Jednostki",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

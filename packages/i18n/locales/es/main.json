@@ -335,11 +335,12 @@
     "label": "",
     "under": "",
     "over": "",
-    "occupied": "Ancho ocupado:",
+    "occupied": "Ancho ocupado",
     "building": "Ancho entre edificaciones",
     "different": "Ancho diferente…",
-    "metric": "Cambiar al sistema metrico",
-    "imperial": "Cambiar al sistema ingles (pies)"
+    "units": "Unidades",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

@@ -335,11 +335,12 @@
     "label": "{width} breedte",
     "under": "({width} plaats)",
     "over": "({width} over)",
-    "occupied": "Ingevulde breedte:",
-    "building": "Breedte van gebouw tot gebouw:",
+    "occupied": "Ingevulde breedte",
+    "building": "Breedte van gebouw tot gebouw",
     "different": "Verschillende breedte…",
-    "metric": "Schakel over op metrische eenheden",
-    "imperial": "Schakel over op imperiale eenheden (voet)"
+    "units": "Eenheden",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} mensen/uur"

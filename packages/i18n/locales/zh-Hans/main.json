@@ -335,11 +335,12 @@
     "label": "{width}宽",
     "under": "（{width}宽的空隙）",
     "over": "（多出{width}的宽度）",
-    "occupied": "已占宽度：",
-    "building": "建筑与建筑之间宽度：",
+    "occupied": "已占宽度",
+    "building": "建筑与建筑之间宽度",
     "different": "重设宽度......",
-    "metric": "转换为公制单位",
-    "imperial": "转换为英制单位（英尺）"
+    "units": "单位",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

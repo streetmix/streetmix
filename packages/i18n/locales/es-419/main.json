@@ -335,11 +335,12 @@
     "label": "Ancho de {width} ",
     "under": "({width} de espacio disponible)",
     "over": "({width} de exceso)",
-    "occupied": "Ancho ocupado:",
-    "building": "Ancho de edificio a edificio:",
+    "occupied": "Ancho ocupado",
+    "building": "Ancho de edificio a edificio",
     "different": "Ancho diferente...",
-    "metric": "Cambiar a unidades métricas",
-    "imperial": "Cambiar a unidades imperiales (pies)"
+    "units": "Unidades",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} personas/hora"
