@@ -55,12 +55,16 @@ body.dark-skybox-invert-ui {
   border-radius: var(--menu-border-radius);
   box-shadow: var(--menu-box-shadow);
   line-height: 1.4;
-  animation-duration: 100ms;
+  animation-duration: 150ms;
   will-change: transform, opacity;
 }
 
 .dropdown-menu-content[data-side="bottom"] {
   animation-name: swing-down;
+}
+
+body.safari .dropdown-menu-content[data-side="bottom"] {
+  animation-name: shift-down;
 }
 
 .dropdown-menu-item,
@@ -130,13 +134,23 @@ body.dark-skybox-invert-ui {
   from {
     opacity: 0;
     transform: rotateX(-90deg);
-    transition:
-      transform 100ms,
-      opacity 100ms;
   }
 
   to {
     opacity: 1;
     transform: rotateX(0);
+  }
+}
+
+/* Use this instead of swing-down on Safari / iOS */
+@keyframes shift-down {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
