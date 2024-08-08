@@ -335,11 +335,12 @@
     "label": "{width} leveä",
     "under": "({width} käytettävissä)",
     "over": "({width} ylitetty)",
-    "occupied": "Nykyinen leveys:",
-    "building": "Rakennusten välinen leveys:",
+    "occupied": "Nykyinen leveys",
+    "building": "Rakennusten välinen leveys",
     "different": "Muu leveys…",
-    "metric": "Vaihda metreihin",
-    "imperial": "Vaihda jalkoihin"
+    "units": "Mittayksikkö",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} kulkijaa/t"

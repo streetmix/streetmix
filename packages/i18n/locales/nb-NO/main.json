@@ -335,11 +335,12 @@
     "label": "{width} bredde",
     "under": "({width} ledig plass)",
     "over": "({width} for mye)",
-    "occupied": "Samlet bredde:",
-    "building": "Avstand fra fasade til fasade: ",
+    "occupied": "Samlet bredde",
+    "building": "Avstand fra fasade til fasade",
     "different": "Annen bredde…",
-    "metric": "Bytt til SI-enheter",
-    "imperial": "Bytt til engelske enheter (fot)"
+    "units": "Enheter",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} personer/time"

@@ -335,11 +335,12 @@
     "label": "{width}寬",
     "under": "（{width}寬的空隙）",
     "over": "（多出{width}的寬度）",
-    "occupied": "已佔寬度：",
-    "building": "樓與樓之間的寬度：",
+    "occupied": "已佔寬度",
+    "building": "樓與樓之間的寬度",
     "different": "重設寬度⋯",
-    "metric": "轉換成公制單位",
-    "imperial": "轉換成英制單位（英尺）"
+    "units": "單位",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

@@ -335,11 +335,12 @@
     "label": "{width} 폭",
     "under": "({width} 여유)",
     "over": "({width} 초과)",
-    "occupied": "점유 폭:",
-    "building": "건물 간 폭:",
+    "occupied": "점유 폭",
+    "building": "건물 간 폭",
     "different": "다른 폭...",
-    "metric": "미터법 단위로 변경",
-    "imperial": "영국식 단위(피트)로 변경"
+    "units": "단위",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} 명/시간"

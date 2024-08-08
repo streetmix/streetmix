@@ -335,11 +335,12 @@
     "label": "{width} 幅",
     "under": "(残 {width})",
     "over": "({width}オーバー)",
-    "occupied": "利用中:",
-    "building": "建物から建物までの幅:",
+    "occupied": "利用中",
+    "building": "建物から建物までの幅",
     "different": "その他の値…",
-    "metric": "メートル表示",
-    "imperial": "フィート表示"
+    "units": "単位",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

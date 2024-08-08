@@ -335,11 +335,12 @@
     "label": "{width} de largeur",
     "under": "({width} libre)",
     "over": "({width} supérieur à l'espace disponible)",
-    "occupied": "Largeur occupée :",
-    "building": "Largueur disponible :",
+    "occupied": "Largeur occupée",
+    "building": "Largueur disponible",
     "different": "Largeur personnalisée…",
-    "metric": "Passer aux unités métriques",
-    "imperial": "Passer aux unités impériales (pieds)"
+    "units": "Unités",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} personnes/heure"

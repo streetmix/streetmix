@@ -335,11 +335,12 @@
     "label": "{width}amplada",
     "under": "({width}habitacle o espai)",
     "over": "( {width}per sobre)",
-    "occupied": "Amplada ocupada:",
-    "building": "Amplada entre façanes:",
+    "occupied": "Amplada ocupada",
+    "building": "Amplada entre façanes",
     "different": "Amplada diferent...",
-    "metric": "Canvia a unitats mètriques",
-    "imperial": "Canvia a unitats imperials (peus)"
+    "units": "Unitats",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity}persones / hora"

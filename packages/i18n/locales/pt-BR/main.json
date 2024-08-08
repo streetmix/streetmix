@@ -335,11 +335,12 @@
     "label": "{width} largura",
     "under": "({width} de sala)",
     "over": "({width} demais)",
-    "occupied": "Largura ocupada:",
-    "building": "Largura de prédio a prédio:",
+    "occupied": "Largura ocupada",
+    "building": "Largura de prédio a prédio",
     "different": "Largura diferente…",
-    "metric": "Mudar para unidades métricas",
-    "imperial": "Mudar para unidades imperiais (pés)"
+    "units": "Unidades",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": ""

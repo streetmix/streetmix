@@ -335,11 +335,12 @@
     "label": "{width} genişlik",
     "under": "({width} daha yer var)",
     "over": "({width} fazla)",
-    "occupied": "Kullanılan genişlik:",
-    "building": "Binadan binaya genişlik:",
+    "occupied": "Kullanılan genişlik",
+    "building": "Binadan binaya genişlik",
     "different": "Farklı genişlik...",
-    "metric": "Metrik sisteme dön",
-    "imperial": "İmperyal sisteme (feet) dön"
+    "units": "Birimler",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} kişi/saat"

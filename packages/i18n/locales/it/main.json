@@ -335,11 +335,12 @@
     "label": "{width} di larghezza",
     "under": "({width} di spazio)",
     "over": "({width} sopra)",
-    "occupied": "Larghezza occupata:",
-    "building": "Larghezza da edificio ad edificio:",
+    "occupied": "Larghezza occupata",
+    "building": "Larghezza da edificio ad edificio",
     "different": "Larghezza differente....",
-    "metric": "Cambia al sistema metrico",
-    "imperial": "Cambia al sistema imperiale (piedi)"
+    "units": "Unità di misura",
+    "metric": "",
+    "imperial": ""
   },
   "capacity": {
     "ppl-per-hour": "{capacity} persone/ora"
