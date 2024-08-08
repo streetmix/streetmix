@@ -42,7 +42,7 @@ export function setLastStreet () {
 }
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 30
+const LATEST_SCHEMA_VERSION = 31
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
