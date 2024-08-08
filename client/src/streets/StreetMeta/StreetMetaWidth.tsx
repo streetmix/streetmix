@@ -190,7 +190,10 @@ function StreetMetaWidthNew (): React.ReactElement | null {
             />
           </DropdownMenu.Label>
           <DropdownMenu.Item className="dropdown-menu-item" disabled={true}>
-            {prettifyWidth(occupiedWidth, units, locale)}
+            {/* If width is U.S. customary and fractional, force `ltr` for proper display */}
+            <span dir={units === 1 ? 'ltr' : undefined}>
+              {prettifyWidth(occupiedWidth, units, locale)}
+            </span>
           </DropdownMenu.Item>
 
           <DropdownMenu.Separator className="menu-separator" />
@@ -219,7 +222,9 @@ function StreetMetaWidthNew (): React.ReactElement | null {
                 <DropdownMenu.ItemIndicator className="dropdown-menu-item-indicator">
                   <Icon name="check" />
                 </DropdownMenu.ItemIndicator>
-                {prettifyWidth(street.width, units, locale)}
+                <span dir={units === 1 ? 'ltr' : undefined}>
+                  {prettifyWidth(street.width, units, locale)}
+                </span>
               </DropdownMenu.RadioItem>
             )}
           </DropdownMenu.RadioGroup>
@@ -230,7 +235,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
           >
             <FormattedMessage
               id="width.different"
-              defaultMessage="Different width…"
+              defaultMessage="Different width…&lrm;"
             />
           </DropdownMenu.Item>
 
