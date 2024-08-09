@@ -29,17 +29,14 @@ export function loadSettings () {
     console.error(err)
   }
 
-  // If `units` setting uses the legacy value of `2`, change it to `0`
-  if (localSettings.units === 2) {
-    localSettings.units = 0
-  }
-  if (serverSettings.units === 2) {
-    serverSettings.units = 0
-  }
-
   // Merge settings to a new object. Server settings take priority and will
   // overwrite local settings.
   const settings = Object.assign({}, localSettings, serverSettings)
+
+  // If `units` setting uses the legacy value of `2`, change it to `0`
+  if (settings.units === 2) {
+    settings.units = 0
+  }
 
   // Except for last street settings -- if we've just signed in, local settings
   // take priority.
