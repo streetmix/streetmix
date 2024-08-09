@@ -85,7 +85,7 @@ function AnalyticsDialog (): React.ReactElement {
   // display at max width, even though it would be significantly shorter if
   // you switched to the TUMI/GIZ data first and then back to Vancouver. This
   // is a tradeoff I'm willing to live with, unless user feedback really
-  // requires us to chnage this.)
+  // requires us to change this.)
   max.current = Math.max(
     max.current,
     ...rolledUp.map((item) => item.capacity?.potential ?? 0)
@@ -100,8 +100,6 @@ function AnalyticsDialog (): React.ReactElement {
       })
     saveCsv(rolledUp, name)
   }
-
-  console.log('rolledup', rolledUp)
 
   return (
     <Dialog>

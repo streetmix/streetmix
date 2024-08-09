@@ -205,6 +205,10 @@ export interface CapacitySegmentDefinition {
   inherits?: string // TODO: if present, excludes minimum/average/potential/variants
 }
 
+export type CapacityForDisplay = Required<
+Pick<CapacitySegmentDefinition, 'average' | 'potential'>
+>
+
 export interface StreetImageOptions {
   locale: string
   transparentSky: boolean

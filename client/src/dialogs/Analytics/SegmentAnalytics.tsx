@@ -7,16 +7,15 @@ import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
 import './SegmentAnalytics.scss'
 
+import type { CapacityForDisplay } from '@streetmix/types'
+
 const BAR_COLORS = 4
 
 interface SegmentAnalyticsProps {
   index: number
   type: string
   max: number
-  capacity: {
-    average: number
-    potential: number
-  }
+  capacity: CapacityForDisplay
 }
 
 function SegmentAnalytics ({
