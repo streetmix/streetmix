@@ -1,29 +1,23 @@
-/**
- * Save as Image (dialog box)
- *
- * Handles interaction on the "Save as image" dialog box.
- *
- */
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 
-import Button from '../ui/Button'
-import Checkbox from '../ui/Checkbox'
-import Icon from '../ui/Icon'
-import Tooltip from '../ui/Tooltip'
-import Terms from '../app/Terms'
-import { getStreetImage } from '../streets/image'
-import { updateSettings } from '../store/slices/settings'
-import { normalizeSlug } from '../util/helpers'
-import CustomScale from './SaveAsImage/CustomScale'
-import Dialog from './Dialog'
+import Button from '~/src/ui/Button'
+import Checkbox from '~/src/ui/Checkbox'
+import Icon from '~/src/ui/Icon'
+import Tooltip from '~/src/ui/Tooltip'
+import Terms from '~/src/app/Terms'
+import { getStreetImage } from '~/src/streets/image'
+import { updateSettings } from '~/src/store/slices/settings'
+import { normalizeSlug } from '~/src/util/helpers'
+import Dialog from '../Dialog'
+import CustomScale from './CustomScale'
 import './SaveAsImageDialog.scss'
 
 const DEFAULT_IMAGE_DPI = 2
 
-function SaveAsImageDialog (props) {
+function SaveAsImageDialog () {
   const imageCanvas = useRef()
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
