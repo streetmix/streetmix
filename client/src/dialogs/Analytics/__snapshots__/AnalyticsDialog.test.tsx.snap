@@ -156,7 +156,9 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                 Capacity data source:‎
               </strong>
                
-              <select>
+              <select
+                class="capacity-source-select"
+              >
                 <option
                   value="giz"
                 >

@@ -1,5 +1,5 @@
 .analytics-dialog {
-  width: 820px;
+  max-width: 820px;
   max-height: 75vh;
   min-height: 500px;
 
@@ -86,8 +86,11 @@
   text-align: center;
 }
 
-.analytics-dialog footer a {
-  white-space: nowrap;
+@media only screen and (width > 768px) {
+  // This is a long link, only refuse to wrap on big screens.
+  .analytics-dialog footer a {
+    white-space: nowrap;
+  }
 }
 
 .analytics-settings-notice {
