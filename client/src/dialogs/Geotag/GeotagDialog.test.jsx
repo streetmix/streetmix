@@ -6,7 +6,7 @@ import { screen } from '@testing-library/react'
 import { render } from '~/test/helpers/render'
 import * as constants from '~/src/app/config'
 import { isOwnedByCurrentUser } from '~/src/streets/owner'
-import GeotagDialog from '../GeotagDialog'
+import GeotagDialog from './GeotagDialog'
 
 // Mock dependencies that could break tests
 vi.mock('../../streets/owner', () => ({

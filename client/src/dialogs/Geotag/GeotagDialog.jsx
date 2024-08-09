@@ -10,19 +10,20 @@ import {
   AttributionControl,
   useMapEvents
 } from 'react-leaflet'
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../app/config'
-import { isOwnedByCurrentUser } from '../streets/owner'
-import { setMapState } from '../store/slices/map'
+
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '~/src/app/config'
+import { isOwnedByCurrentUser } from '~/src/streets/owner'
+import { setMapState } from '~/src/store/slices/map'
 import {
   addLocation,
   clearLocation,
   saveStreetName
-} from '../store/slices/street'
-import Dialog from './Dialog'
-import ErrorBanner from './Geotag/ErrorBanner'
-import GeoSearch from './Geotag/GeoSearch'
-import LocationPopup from './Geotag/LocationPopup'
-import LocationMarker from './Geotag/LocationMarker'
+} from '~/src/store/slices/street'
+import Dialog from '../Dialog'
+import ErrorBanner from './ErrorBanner'
+import GeoSearch from './GeoSearch'
+import LocationPopup from './LocationPopup'
+import LocationMarker from './LocationMarker'
 import './GeotagDialog.scss'
 
 const ukrainianFlag =
