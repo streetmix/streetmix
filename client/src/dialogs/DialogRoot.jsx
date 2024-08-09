@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import ErrorBoundary from '../util/ErrorBoundary'
 
 // Import all dialogs here
-import AboutDialog from './AboutDialog'
+import AboutDialog from './About'
 import AnalyticsDialog from './AnalyticsDialog'
 import FeatureFlagDialog from './FeatureFlagDialog'
 import GeotagDialog from './GeotagDialog'

@@ -2,10 +2,10 @@ import React from 'react'
 import { vi } from 'vitest'
 
 import { render } from '~/test/helpers/render'
-import AboutDialog from '../AboutDialog'
+import AboutDialog from './AboutDialog'
 
-vi.mock('../About/credits.json', () => ({
-  default: require('../About/__mocks__/credits.json')
+vi.mock('./credits.json', () => ({
+  default: require('./__mocks__/credits.json')
 }))
 
 describe('AboutDialog', () => {
