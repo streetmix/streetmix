@@ -1,31 +1,25 @@
-/**
- * Street Analytics (dialog box)
- *
- * Renders the "Analytics" dialog box.
- *
- */
 import React, { useState, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { setShowAnalytics } from '../store/actions/street'
-import Terms from '../app/Terms'
-import Button from '../ui/Button'
-import Checkbox from '../ui/Checkbox'
-import ExternalLink from '../ui/ExternalLink'
-import Icon from '../ui/Icon'
-import { isOwnedByCurrentUser } from '../streets/owner'
-import { formatNumber } from '../util/number_format'
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setShowAnalytics } from '~/src/store/actions/street'
+import Terms from '~/src/app/Terms'
+import Button from '~/src/ui/Button'
+import Checkbox from '~/src/ui/Checkbox'
+import ExternalLink from '~/src/ui/ExternalLink'
+import Icon from '~/src/ui/Icon'
+import { isOwnedByCurrentUser } from '~/src/streets/owner'
+import { formatNumber } from '~/src/util/number_format'
 import {
   getCapacityData,
   getStreetCapacity,
   getRolledUpSegmentCapacities,
   saveCsv
-} from '../segments/capacity'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import CapacitySources from './Analytics/CapacitySources'
-import SegmentAnalytics from './Analytics/SegmentAnalytics'
-import Dialog from './Dialog'
+} from '~/src/segments/capacity'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
+import Dialog from '../Dialog'
+import CapacitySources from './CapacitySources'
+import SegmentAnalytics from './SegmentAnalytics'
 import './AnalyticsDialog.scss'
 
 function AnalyticsDialog (): React.ReactElement {
@@ -106,6 +100,8 @@ function AnalyticsDialog (): React.ReactElement {
       })
     saveCsv(rolledUp, name)
   }
+
+  console.log('rolledup', rolledUp)
 
   return (
     <Dialog>

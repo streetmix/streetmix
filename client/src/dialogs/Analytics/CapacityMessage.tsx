@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import { formatNumber } from '../../util/number_format'
 
 interface CapacityMessageProps {

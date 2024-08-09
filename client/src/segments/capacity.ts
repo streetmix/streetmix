@@ -12,7 +12,6 @@ import type {
   CapacityData,
   CapacitySegmentDefinition,
   CapacitySegments,
-  CapacitySourceData,
   CapacitySourceDefinition,
   Segment,
   StreetState
@@ -109,7 +108,7 @@ function processInheritedValues (
   return processed
 }
 
-export function getAllCapacityDataSources (): CapacitySourceData {
+export function getAllCapacityDataSources (): CapacityData {
   return CAPACITIES
 }
 

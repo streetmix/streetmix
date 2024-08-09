@@ -1,7 +1,8 @@
 import React from 'react'
-import { useSelector } from '../../store/hooks'
-import { getLocaleSegmentName } from '../../segments/view'
-import { images } from '../../app/load_resources'
+
+import { useSelector } from '~/src/store/hooks'
+import { getLocaleSegmentName } from '~/src/segments/view'
+import { images } from '~/src/app/load_resources'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
 import './SegmentAnalytics.scss'
