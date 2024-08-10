@@ -3,7 +3,7 @@ import { screen, act } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import NewsletterDialog from '../NewsletterDialog'
+import NewsletterDialog from './NewsletterDialog'
 
 describe('NewsletterDialog', () => {
   it('renders snapshot', () => {

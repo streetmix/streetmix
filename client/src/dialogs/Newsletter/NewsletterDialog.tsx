@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useForm } from 'react-hook-form'
-import Button from '../ui/Button'
-import Dialog from './Dialog'
+
+import Button from '~/src/ui/Button'
+import Dialog from '../Dialog'
 import './NewsletterDialog.scss'
 
 /**
@@ -16,23 +17,25 @@ import './NewsletterDialog.scss'
  * @param {Object} data - provided by react-hook-form's `handleSubmit()`
  * @returns {string} - data expected by the newsletter POST endpoint
  */
-function jsObjectToFormBody (data) {
+function jsObjectToFormBody (data: object): string {
   const formBody = []
   for (const property in data) {
     const encodedKey = encodeURIComponent(property)
-    const encodedValue = encodeURIComponent(data[property])
+    const encodedValue = encodeURIComponent(
+      data[property as keyof typeof data]
+    )
     formBody.push(encodedKey + '=' + encodedValue)
   }
   return formBody.join('&')
 }
 
-const NewsletterDialog = (props) => {
+function NewsletterDialog (): React.ReactElement {
   const { register, handleSubmit } = useForm({
     progressive: true
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: object): Promise<void> => {
     setSubmitState('PENDING')
     const formBody = jsObjectToFormBody(data)
 
@@ -83,7 +86,7 @@ const NewsletterDialog = (props) => {
                   defaultMessage="We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!"
                 />
               </p>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={() => handleSubmit(onSubmit)}>
                 <label htmlFor="bd-email">
                   <FormattedMessage
                     id="dialogs.newsletter.email-label"
@@ -92,23 +95,12 @@ const NewsletterDialog = (props) => {
                 </label>
                 <input
                   type="email"
-                  name="email"
                   id="bd-email"
                   placeholder="test@example.com"
                   {...register('email', { required: true })}
                 />
-                <input
-                  type="hidden"
-                  name="tag"
-                  value="via app"
-                  {...register('tag')}
-                />
-                <input
-                  type="hidden"
-                  name="embed"
-                  value="1"
-                  {...register('embed')}
-                />
+                <input type="hidden" value="via app" {...register('tag')} />
+                <input type="hidden" value="1" {...register('embed')} />
                 {submitState === 'DEFAULT' && (
                   <div className="subscribe-buttons">
                     <Button primary={true} type="submit">
