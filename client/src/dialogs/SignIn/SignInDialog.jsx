@@ -1,15 +1,16 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import {
   goEmailSignIn,
   goTwitterSignIn,
   goFacebookSignIn,
   goGoogleSignIn
-} from '../app/routing'
-import Button from '../ui/Button'
-import Icon from '../ui/Icon'
-import LoadingSpinner from '../ui/LoadingSpinner'
-import Dialog from './Dialog'
+} from '~/src/app/routing'
+import Button from '~/src/ui/Button'
+import Icon from '~/src/ui/Icon'
+import LoadingSpinner from '~/src/ui/LoadingSpinner'
+import Dialog from '../Dialog'
 import './SignInDialog.scss'
 
 export default class SignInDialog extends React.Component {
