@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import ExternalLink from '../ui/ExternalLink'
 import Dialog from './Dialog'
 import './ErrorDialog.scss'
@@ -10,7 +11,7 @@ import './ErrorDialog.scss'
  *
  * If _this_ component throws an error, the universe blows up.
  */
-function ErrorDialog (props) {
+function ErrorDialog (): React.ReactElement {
   return (
     <Dialog>
       {(closeDialog) => (
