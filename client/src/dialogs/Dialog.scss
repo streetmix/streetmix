@@ -50,6 +50,7 @@
   > div {
     display: flex;
     flex-direction: column;
+    max-height: 90vh;
   }
 
   header {
@@ -119,6 +120,7 @@
 .dialog-content {
   flex-grow: 1;
   position: relative;
+  overflow-y: scroll;
 
   &:not(.dialog-content-bleed) {
     padding: 1rem 2rem;

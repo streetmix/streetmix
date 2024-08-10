@@ -5,7 +5,7 @@ import ErrorBoundary from '../util/ErrorBoundary'
 // Import all dialogs here
 import AboutDialog from './About'
 import AnalyticsDialog from './Analytics'
-import FeatureFlagDialog from './FeatureFlagDialog'
+import FeatureFlagDialog from './FeatureFlag'
 import GeotagDialog from './Geotag'
 import SaveAsImageDialog from './SaveAsImage'
 import SettingsDialog from './Settings'

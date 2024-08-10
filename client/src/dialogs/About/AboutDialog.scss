@@ -1,7 +1,6 @@
 .about-dialog {
   max-width: 820px;
   min-height: 660px;
-  max-height: 75vh;
 
   // Used by team list and external links
   ul {
@@ -30,6 +29,12 @@
   }
 }
 
+@media only screen and (width > 768px) {
+  .about-dialog {
+    max-height: 75vh !important;
+  }
+}
+
 .about-dialog-logo {
   height: 36px;
   margin: 2.5rem 2rem 2rem;
@@ -53,6 +58,7 @@
 
   p:first-child {
     margin-top: 0;
+    text-wrap: balance;
   }
 
   p {
@@ -68,8 +74,7 @@
   > :first-child {
     margin-top: 0;
   }
-
-  > h2 {
+  x > h2 {
     margin-top: 1.5em;
   }
 }

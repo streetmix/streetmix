@@ -1,21 +1,16 @@
-/**
- * Feature flags (dialog box)
- *
- * Secret menu.
- *
- */
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import Checkbox from '../ui/Checkbox'
-import { setFeatureFlag } from '../store/slices/flags'
-import Dialog from './Dialog'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setFeatureFlag } from '~/src/store/slices/flags'
+import Checkbox from '~/src/ui/Checkbox'
+import Dialog from '../Dialog'
 import './FeatureFlagDialog.scss'
 
-function FeatureFlagDialog (props) {
+function FeatureFlagDialog (): React.ReactElement {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
 
-  function renderFlagList () {
+  function renderFlagList (): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
       const slugifyKey = key.toLowerCase().replace(/_/g, '-')
       const htmlLabel = `feature-flag__input--${slugifyKey}`

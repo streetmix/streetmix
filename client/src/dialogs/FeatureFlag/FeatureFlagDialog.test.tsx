@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import FeatureFlagDialog from '../FeatureFlagDialog'
+import FeatureFlagDialog from './FeatureFlagDialog'
 
 const initialState = {
   flags: {
