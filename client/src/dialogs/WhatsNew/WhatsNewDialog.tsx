@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 // Importing 'property-information' is a workaround for Parcel + React-Markdown bug
 // https://github.com/parcel-bundler/parcel/discussions/9113
 import 'property-information'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
-import LoadingSpinner from '../ui/LoadingSpinner'
-import { getChangelog } from '../util/api'
-import Dialog from './Dialog'
+
+import { useSelector } from '~/src/store/hooks'
+import LoadingSpinner from '~/src/ui/LoadingSpinner'
+import { getChangelog } from '~/src/util/api'
+import Dialog from '../Dialog'
 import './WhatsNewDialog.scss'
 
-const WhatsNewDialog = () => {
+const WhatsNewDialog = (): React.ReactElement => {
   const locale = useSelector((state) => state.locale.locale)
   const [state, setSubmitState] = useState('LOADING')
   const [content, setContent] = useState(null)
   const [scrollShade, setScrollShade] = useState(false)
 
   useEffect(() => {
-    getContent()
+    void getContent()
   }, [])
 
-  const onScroll = (event) => {
-    if (event.target.scrollTop > 30) {
+  const onScroll = (event: React.UIEvent<HTMLElement>): void => {
+    if ((event.target as HTMLElement).scrollTop > 30) {
       setScrollShade(true)
     } else {
       setScrollShade(false)
     }
   }
 
-  async function getContent () {
+  async function getContent (): Promise<void> {
     try {
       const response = await getChangelog()
       setContent(response.data)
@@ -54,7 +55,7 @@ const WhatsNewDialog = () => {
               />
             </h1>
           </header>
-          {locale.startsWith('en') === false && (
+          {!locale.startsWith('en') && (
             <div className="whats-new-language-banner">
               <FormattedMessage
                 id="dialogs.whatsnew.english-only"
