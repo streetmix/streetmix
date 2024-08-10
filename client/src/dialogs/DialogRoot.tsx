@@ -1,5 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+
+import { useSelector } from '../store/hooks'
 import ErrorBoundary from '../util/ErrorBoundary'
 
 // Import all dialogs here
@@ -30,14 +31,14 @@ const DIALOG_COMPONENTS = {
   SENTIMENT_SURVEY: SentimentSurveyDialog
 }
 
-function DialogRoot (props) {
+function DialogRoot (): React.ReactElement | null {
   const name = useSelector((state) => state.dialogs.name)
 
   // Bail if no dialog name is provided
-  if (!name) return null
+  if (name === null) return null
 
   // Get the dialog we want, then render it
-  const Dialog = DIALOG_COMPONENTS[name]
+  const Dialog = DIALOG_COMPONENTS[name as keyof typeof DIALOG_COMPONENTS]
 
   // Wrap Dialog with an ErrorBoundary wrapper to catch errors
   return (

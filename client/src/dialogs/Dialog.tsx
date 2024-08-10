@@ -14,20 +14,21 @@
  * Only one modal window is shown at a time. Nested modals aren't supported.
  */
 import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+
 import CloseButton from '../ui/CloseButton'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
 import { clearDialogs } from '../store/slices/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import './Dialog.scss'
 
-Dialog.propTypes = {
-  children: PropTypes.func.isRequired
+type CloseFunction = () => void
+interface DialogProps {
+  children: (arg: CloseFunction) => React.ReactElement
 }
 
-function Dialog ({ children }) {
+function Dialog ({ children }: DialogProps): React.ReactElement {
   // Appear state controls transition in/out
   const dialogEl = useRef(null)
   const nodeRef = useRef(null)
@@ -47,12 +48,12 @@ function Dialog ({ children }) {
   }, [])
 
   // On "close", we animate the dialog out
-  function handleClose () {
+  function handleClose (): void {
     setAppear(false)
   }
 
   // When the animation is complete, then we clear dialog state
-  function handleExit () {
+  function handleExit (): void {
     dispatch(clearDialogs())
   }
 
