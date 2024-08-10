@@ -5,13 +5,13 @@ import type { UserProfile } from '~/src/types'
 import { useSelector } from '~/src/store/hooks'
 import { ENV } from '~/src/app/config'
 import Icon from '~/src/ui/Icon'
-import USER_ROLES from '../../../app/data/user_roles.json'
-import Dialog from './Dialog'
-import FeatureFlagSettings from './Settings/FeatureFlagSettings'
-import GeneralSettings from './Settings/GeneralSettings'
-import LanguageSettings from './Settings/LanguageSettings'
-import ProfileSettings from './Settings/ProfileSettings'
-import UnitSettings from './Settings/UnitSettings'
+import USER_ROLES from '../../../../app/data/user_roles.json'
+import Dialog from '../Dialog'
+import FeatureFlagSettings from './FeatureFlagSettings'
+import GeneralSettings from './GeneralSettings'
+import LanguageSettings from './LanguageSettings'
+import ProfileSettings from './ProfileSettings'
+import UnitSettings from './UnitSettings'
 import './SettingsDialog.scss'
 
 interface SettingsDialogProps {
@@ -69,9 +69,7 @@ function SettingsDialog ({
           <header>
             <h1>
               <FormattedMessage
-                // TODO: Rename translation key
-                // id="settings.heading"
-                id="menu.item.settings"
+                id="settings.heading"
                 defaultMessage="Settings"
               />
             </h1>
@@ -109,18 +107,6 @@ function SettingsDialog ({
                       defaultMessage="General"
                     />
                   </li>
-                  {/* <li
-                    onClick={() => handleSelectCategory('units')}
-                    className={
-                      activeCategory === 'units' ? 'settings-menu-active' : ''
-                    }
-                  >
-                    <Icon name="ruler" className="settings-menu-icon" />
-                    <FormattedMessage
-                      id="settings.units.label"
-                      defaultMessage="Units"
-                    />
-                  </li> */}
                   <li
                     onClick={() => {
                       handleSelectCategory('language')
