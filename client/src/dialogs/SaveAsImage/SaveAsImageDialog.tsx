@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { updateSettings } from '~/src/store/slices/settings'
 import Button from '~/src/ui/Button'
 import Checkbox from '~/src/ui/Checkbox'
 import Icon from '~/src/ui/Icon'
 import Tooltip from '~/src/ui/Tooltip'
 import Terms from '~/src/app/Terms'
 import { getStreetImage } from '~/src/streets/image'
-import { updateSettings } from '~/src/store/slices/settings'
 import { normalizeSlug } from '~/src/util/helpers'
 import Dialog from '../Dialog'
 import CustomScale from './CustomScale'
@@ -17,13 +17,13 @@ import './SaveAsImageDialog.scss'
 
 const DEFAULT_IMAGE_DPI = 2
 
-function SaveAsImageDialog () {
-  const imageCanvas = useRef()
+function SaveAsImageDialog (): React.ReactElement {
+  const imageCanvas = useRef<HTMLCanvasElement | null>(null)
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [errorMessage2, setErrorMessage2] = useState(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [errorMessage2, setErrorMessage2] = useState<boolean>(false)
   const [downloadDataUrl, setDownloadDataUrl] = useState('')
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
@@ -62,9 +62,9 @@ function SaveAsImageDialog () {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transparentSky, segmentNames, streetName, watermark])
 
-  function makeFilename () {
+  function makeFilename (): string {
     let filename = normalizeSlug(name)
-    if (!filename) {
+    if (filename === undefined) {
       filename = 'street'
     }
     filename += '.png'
@@ -73,7 +73,9 @@ function SaveAsImageDialog () {
   }
 
   // When options change, this changes props.
-  const handleChangeOptionTransparentSky = (event) => {
+  const handleChangeOptionTransparentSky = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     dispatch(
       updateSettings({
         saveAsImageTransparentSky: event.target.checked
@@ -81,7 +83,9 @@ function SaveAsImageDialog () {
     )
   }
 
-  const handleChangeOptionSegmentNames = (event) => {
+  const handleChangeOptionSegmentNames = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     dispatch(
       updateSettings({
         saveAsImageSegmentNamesAndWidths: event.target.checked
@@ -89,24 +93,28 @@ function SaveAsImageDialog () {
     )
   }
 
-  const handleChangeOptionStreetName = (event) => {
+  const handleChangeOptionStreetName = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
   }
 
-  const handleChangeOptionWatermark = (event) => {
+  const handleChangeOptionWatermark = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
   }
 
-  const handleChangeScale = (value) => {
+  const handleChangeScale = (value: number): void => {
     setErrorMessage2(false) // Clears "too big" error if present
     setScale(value)
   }
 
-  const handlePreviewLoaded = () => {
+  const handlePreviewLoaded = (): void => {
     setIsLoading(false)
   }
 
-  const handlePreviewError = () => {
+  const handlePreviewError = (): void => {
     setIsLoading(false)
     setErrorMessage(
       intl.formatMessage({
@@ -121,7 +129,7 @@ function SaveAsImageDialog () {
    * Designed to get around a limitation in IE where a dataURL is not downloadable
    * directly (https://msdn.microsoft.com/en-us/library/cc848897(v=vs.85).aspx)
    */
-  const handleClickDownloadImage = (event) => {
+  const handleClickDownloadImage = (event: React.MouseEvent): void => {
     event.preventDefault()
     setIsSaving(true)
 
@@ -130,22 +138,26 @@ function SaveAsImageDialog () {
       // Images that are too large can throw an error, so catch it
       // and show an error
       updatePreviewImage(scale)
+
+      imageCanvas.current?.toBlob((blob) => {
+        // Also throw an error if blob is null, which is a possible input
+        // value of toBlob() according to typescript
+        if (blob === null) throw new Error()
+
+        // Save that file
+        const filename = makeFilename()
+        saveAs(blob, filename)
+        window.setTimeout(() => {
+          setIsSaving(false)
+        }, 0)
+      })
     } catch (err) {
       setIsSaving(false)
       setErrorMessage2(true)
-      return
     }
-
-    imageCanvas.current.toBlob((blob) => {
-      const filename = makeFilename()
-      saveAs(blob, filename)
-      window.setTimeout(() => {
-        setIsSaving(false)
-      }, 0)
-    })
   }
 
-  const updatePreviewImage = (scale = 1) => {
+  const updatePreviewImage = (scale = 1): void => {
     // The preview is rendered at the default scale at first.
     imageCanvas.current = getStreetImage(
       street,
@@ -157,7 +169,7 @@ function SaveAsImageDialog () {
     )
   }
 
-  const updatePreview = () => {
+  const updatePreview = (): void => {
     updatePreviewImage(1)
     // Only set base dimensions when preview is generated at scale = 1.
     // The custom slider will update target dimensions by multiplying base * scale
@@ -170,7 +182,8 @@ function SaveAsImageDialog () {
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
     try {
-      const dataUrl = imageCanvas.current.toDataURL('image/png')
+      const dataUrl = imageCanvas.current?.toDataURL('image/png')
+      if (dataUrl === undefined) throw new Error()
       setDownloadDataUrl(dataUrl)
       setErrorMessage(null)
     } catch (e) {
@@ -267,11 +280,11 @@ function SaveAsImageDialog () {
               )}
             </div>
             <div className="save-as-image-preview">
-              {!errorMessage && (
+              {errorMessage === null && (
                 <div className="save-as-image-preview-image">
                   <div
                     className="save-as-image-preview-loading"
-                    style={{ display: !isLoading && 'none' }}
+                    style={{ display: isLoading ? 'flex' : 'none' }}
                   >
                     <FormattedMessage
                       id="dialogs.save.loading"
@@ -289,7 +302,7 @@ function SaveAsImageDialog () {
                   />
                 </div>
               )}
-              {errorMessage && (
+              {errorMessage !== null && (
                 <div className="save-as-image-preview-error">
                   {errorMessage}
                 </div>
@@ -310,7 +323,7 @@ function SaveAsImageDialog () {
                 </span>
               )}
               {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
-              {!errorMessage && !isSaving ? (
+              {errorMessage === null && !isSaving ? (
                 <Button primary={true} onClick={handleClickDownloadImage}>
                   <FormattedMessage
                     id="dialogs.save.save-button"

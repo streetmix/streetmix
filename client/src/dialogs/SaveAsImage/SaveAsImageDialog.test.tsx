@@ -2,7 +2,7 @@ import React from 'react'
 import { vi } from 'vitest'
 
 import { render } from '~/test/helpers/render'
-import SaveAsImageDialog from '../SaveAsImage/SaveAsImageDialog'
+import SaveAsImageDialog from './SaveAsImageDialog'
 
 // Mock dependencies that could break tests
 vi.mock('../../streets/image', () => {
