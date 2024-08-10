@@ -131,7 +131,7 @@ function GeotagDialog () {
   const userLocation = useSelector((state) => state.user.geolocation.data)
   const offline = useSelector((state) => state.system.offline)
 
-  // this kinda initial state object is a result of refactoring
+  // this kinda goofy initial state object is a result of refactoring
   // some legacy code. definetly worth refactoring further in the future
   // if it causes other problems or confusion
   const initialState = getInitialState({

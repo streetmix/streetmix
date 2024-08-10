@@ -1,24 +1,28 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
-import { connect } from 'react-redux'
 import axios from 'axios'
-import userRoles from '../../../app/data/user_roles.json'
-import Dialog from './Dialog'
+
+import { useSelector } from '~/src/store/hooks'
+import userRoles from '../../../../app/data/user_roles.json'
+import Dialog from '../Dialog'
 import './UpgradeDialog.scss'
 
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 
-const UpgradeDialog = ({ userId, roles }) => {
+function UpgradeDialog (): React.ReactElement {
+  const userId = useSelector((state) => state.user.signInData?.userId)
+  const roles: string[] = useSelector(
+    (state) => state.user.signInData?.details?.roles ?? []
+  )
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
+  const [error, setError] = useState<unknown | null>(null)
+  const [data, setData] = useState<unknown | null>(null)
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
   // eslint-disable-next-line
-  async function onToken(token) {
+  async function onToken(token: string): Promise<void> {
     const requestBody = { userId, token }
 
     setLoading(true)
@@ -47,7 +51,7 @@ const UpgradeDialog = ({ userId, roles }) => {
         <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
       </p>
     )
-  } else if (error) {
+  } else if (error !== null) {
     activePanel = (
       <p>
         <FormattedMessage
@@ -57,7 +61,7 @@ const UpgradeDialog = ({ userId, roles }) => {
         {error}
       </p>
     )
-  } else if (data) {
+  } else if (data !== null) {
     activePanel = (
       <p>
         <FormattedMessage
@@ -92,19 +96,4 @@ const UpgradeDialog = ({ userId, roles }) => {
   )
 }
 
-function mapStateToProps (state) {
-  const { userId } = state.user.signInData || {}
-  const roles = state.user.signInData?.details?.roles || []
-
-  return {
-    userId,
-    roles
-  }
-}
-
-UpgradeDialog.propTypes = {
-  userId: PropTypes.string.isRequired,
-  roles: PropTypes.arrayOf(PropTypes.string).isRequired
-}
-
-export default connect(mapStateToProps)(UpgradeDialog)
+export default UpgradeDialog

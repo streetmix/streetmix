@@ -12,7 +12,7 @@ import SettingsDialog from './Settings'
 import SignInDialog from './SignIn'
 import WhatsNewDialog from './WhatsNew'
 import NewsletterDialog from './Newsletter'
-import UpgradeDialog from './UpgradeDialog'
+import UpgradeDialog from './Upgrade'
 import SentimentSurveyDialog from './SentimentSurvey'
 import ErrorDialog from './ErrorDialog'
 
