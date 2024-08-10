@@ -1,41 +1,55 @@
 .save-as-image-dialog {
-  width: 720px;
-
-  .checkbox-item {
-    margin-left: 20px;
-
-    /* Lock icon, if present */
-    svg {
-      vertical-align: text-top;
-    }
-  }
-
-  .checkbox-item:first-of-type {
-    margin-left: 0;
-  }
-
-  [dir="rtl"] & .checkbox-item {
-    margin-left: 0;
-    margin-right: 20px;
-  }
-
-  [dir="rtl"] & .checkbox-item:first-of-type {
-    margin-right: 0;
-  }
+  max-width: 720px;
 
   footer {
     text-align: center;
   }
+}
 
-  /* Don't wrap the Creative Commons label */
-  footer a {
+/* Don't wrap the Creative Commons label. But this is a long link, so only
+  wrap on big screens. */
+@media only screen and (width >= 640px) {
+  .save-as-image-dialog footer a {
     white-space: nowrap;
   }
 }
 
 .save-as-image-options {
-  text-align: center;
+  text-align: left;
   margin-bottom: 1em;
+
+  .checkbox-item {
+    display: block;
+  }
+
+  /* Lock icon, if present */
+  svg {
+    vertical-align: text-top;
+  }
+}
+
+@media only screen and (width >= 640px) {
+  .save-as-image-options {
+    text-align: center;
+
+    .checkbox-item {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .checkbox-item:first-of-type {
+      margin-left: 0;
+    }
+
+    [dir="rtl"] & .checkbox-item {
+      margin-left: 0;
+      margin-right: 20px;
+    }
+
+    [dir="rtl"] & .checkbox-item:first-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .save-as-image-preview {

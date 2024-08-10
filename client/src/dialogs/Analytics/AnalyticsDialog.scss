@@ -86,8 +86,9 @@
   text-align: center;
 }
 
-@media only screen and (width > 768px) {
-  // This is a long link, only refuse to wrap on big screens.
+/* Don't wrap the Creative Commons label. But this is a long link, so only
+  wrap on big screens. */
+@media only screen and (width >= 640px) {
   .analytics-dialog footer a {
     white-space: nowrap;
   }
