@@ -1,10 +1,11 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import ExternalLink from '../ui/ExternalLink'
-import Dialog from './Dialog'
+
+import ExternalLink from '~/src/ui/ExternalLink'
+import Dialog from '../Dialog'
 import './SentimentSurveyDialog.scss'
 
-function SentimentSurveyDialog (props) {
+function SentimentSurveyDialog (): React.ReactElement {
   return (
     <Dialog>
       {(closeDialog) => (

@@ -13,7 +13,7 @@ import SignInDialog from './SignIn'
 import WhatsNewDialog from './WhatsNew'
 import NewsletterDialog from './Newsletter'
 import UpgradeDialog from './UpgradeDialog'
-import SentimentSurveyDialog from './SentimentSurveyDialog'
+import SentimentSurveyDialog from './SentimentSurvey'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
