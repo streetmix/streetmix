@@ -1,5 +1,5 @@
 .whats-new-dialog {
-  width: 550px;
+  width: min(90vw, 550px);
   height: 80vh;
   max-height: 800px;
   font-family: system-ui, sans-serif;
