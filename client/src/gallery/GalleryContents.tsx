@@ -12,7 +12,7 @@ import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
 import type { UserProfile } from '../types'
-import './GalleryContents.scss'
+import './GalleryContents.css'
 
 interface GalleryContentsProps {
   user?: UserProfile

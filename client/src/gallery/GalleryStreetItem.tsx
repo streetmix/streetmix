@@ -10,7 +10,7 @@ import { drawStreetThumbnail } from '../streets/thumbnail'
 import Icon from '../ui/Icon'
 
 import type { Street } from '@streetmix/types'
-import './GalleryStreetItem.scss'
+import './GalleryStreetItem.css'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110

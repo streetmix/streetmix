@@ -81,7 +81,7 @@
     border-radius: var(--border-radius-medium);
     opacity: 0.5;
     filter: grayscale(0.25);
-    transform: scale(1.4); // Crops excess space for most streets
+    transform: scale(1.4); /* Crops excess space for most streets */
     transform-origin: center bottom;
     transition:
       opacity 45ms,
@@ -106,7 +106,7 @@
 }
 
 .gallery-street-item-date {
-  margin: 0 16px; // Leave room for delete button
+  margin: 0 16px; /* Leave room for delete button */
   font-weight: 300;
 }
 
@@ -158,7 +158,7 @@
   height: 100%;
   color: var(--color-turquoise-800);
 
-  // Top/bottom padding accounts for street name
+  /* Top/bottom padding accounts for street name */
   padding: 20px 1.5em 2px;
 }
 

@@ -36,12 +36,12 @@
   flex-direction: row;
 }
 
-// Applied by the wrapping element created by Scrollable.jsx component
+/* Applied by the wrapping element created by <Scrollable /> */
 .streets-scrollable-container {
   position: relative;
   top: 1px;
   height: var(--gallery-height);
-  min-width: 0; // Allows content to overflow flex element
+  min-width: 0; /* Allows content to overflow flex element */
   flex-grow: 1;
 
   button.scrollable {
@@ -62,7 +62,7 @@
     padding: 0;
     margin: 0;
     white-space: nowrap;
-    height: calc(var(--gallery-height) + 20px); // To cover the scroll bar
+    height: calc(var(--gallery-height) + 20px); /* To cover the scroll bar */
     overflow-x: scroll;
   }
 }

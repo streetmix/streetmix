@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import { useSelector, useDispatch } from '../store/hooks'
 import { openGallery } from '../store/actions/gallery'
 import Button from '../ui/Button'
