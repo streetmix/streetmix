@@ -1,5 +1,4 @@
 @import "../../../styles/mixins";
-@import "../../streets/StreetName";
 
 .welcome-panel-container {
   --welcome-panel-border-radius: var(--border-radius);
@@ -109,9 +108,4 @@
   top: 5px;
   max-width: 100%;
   margin: 0 0.25em;
-
-  > div,
-  > span {
-    @include street-name-inside-mixin($street-name-gallery-size);
-  }
 }

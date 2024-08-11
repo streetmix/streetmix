@@ -1,22 +1,3 @@
-@import "../../styles/variables";
-
-$street-name-size: 1.5;
-
-@mixin street-name-inside-mixin($size: $street-name-size) {
-  height: 50px * $size;
-  border: 3px * $size solid var(--street-name-text);
-  padding: 10px * $size 20px * $size;
-  padding-top: 11px * $size;
-  padding-bottom: 5px * $size;
-  font-size: 32px * $size;
-  line-height: 28px * $size;
-  letter-spacing: -0.025em;
-
-  [dir="rtl"] {
-    font-size: 30px * $size;
-  }
-}
-
 .street-name {
   --street-name-text: black;
   --street-name-background: white;
@@ -30,13 +11,24 @@ $street-name-size: 1.5;
 }
 
 .street-name-text {
-  @include street-name-inside-mixin;
-
   font-family: "Overpass Variable", sans-serif;
   font-weight: 700;
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  /* Set size of text, border, etc */
+  height: calc(50px * var(--street-name-size));
+  border: calc(3px * var(--street-name-size)) solid var(--street-name-text);
+  padding: calc(11px * var(--street-name-size))
+    calc(20px * var(--street-name-size)) calc(5px * var(--street-name-size));
+  font-size: calc(32px * var(--street-name-size));
+  line-height: calc(28px * var(--street-name-size));
+  letter-spacing: -0.025em;
+
+  [dir="rtl"] {
+    font-size: calc(30px * var(--street-name-size));
+  }
 }
 
 .gallery .streets .street-name {
@@ -45,11 +37,6 @@ $street-name-size: 1.5;
   max-width: 95%;
   position: relative;
   top: -8px;
-
-  > div,
-  > span {
-    @include street-name-inside-mixin($street-name-gallery-size);
-  }
 }
 
 body.segment-move-dragging .street-nameplate-container .street-name {
