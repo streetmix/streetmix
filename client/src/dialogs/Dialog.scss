@@ -50,10 +50,11 @@
   > div {
     display: flex;
     flex-direction: column;
+    max-height: 90vh;
   }
 
   header {
-    padding: 1.75rem 1em;
+    padding: 2.5rem 1em;
     text-align: center;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
@@ -63,6 +64,7 @@
     @include large-message-text;
 
     margin: 0;
+    line-height: 1;
   }
 
   footer {
@@ -118,6 +120,7 @@
 .dialog-content {
   flex-grow: 1;
   position: relative;
+  overflow-y: scroll;
 
   &:not(.dialog-content-bleed) {
     padding: 1rem 2rem;

@@ -1,10 +1,13 @@
 import React from 'react'
-import { useSelector } from '../../store/hooks'
-import { getLocaleSegmentName } from '../../segments/view'
-import { images } from '../../app/load_resources'
+
+import { useSelector } from '~/src/store/hooks'
+import { getLocaleSegmentName } from '~/src/segments/view'
+import { images } from '~/src/app/load_resources'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
 import './SegmentAnalytics.scss'
+
+import type { CapacityForDisplay } from '@streetmix/types'
 
 const BAR_COLORS = 4
 
@@ -12,10 +15,7 @@ interface SegmentAnalyticsProps {
   index: number
   type: string
   max: number
-  capacity: {
-    average: number
-    potential: number
-  }
+  capacity: CapacityForDisplay
 }
 
 function SegmentAnalytics ({

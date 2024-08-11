@@ -1,0 +1,5 @@
+.capacity-source-select {
+  width: 100%;
+  max-width: fit-content;
+  text-overflow: ellipsis;
+}

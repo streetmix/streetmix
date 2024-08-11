@@ -10,9 +10,9 @@ import SOURCE_DATA from './capacity_data.json'
 
 import type {
   CapacityData,
+  CapacityForDisplay,
   CapacitySegmentDefinition,
   CapacitySegments,
-  CapacitySourceData,
   CapacitySourceDefinition,
   Segment,
   StreetState
@@ -23,13 +23,8 @@ const CAPACITIES = processCapacityData()
 
 interface SegmentCapacities {
   type: string
-  capacity?: CapacityForDisplay
+  capacity: CapacityForDisplay
 }
-
-type CapacityForDisplay = Pick<
-CapacitySegmentDefinition,
-'average' | 'potential'
->
 
 /**
  * When this module is initialized, process SOURCE_DATA:
@@ -109,7 +104,7 @@ function processInheritedValues (
   return processed
 }
 
-export function getAllCapacityDataSources (): CapacitySourceData {
+export function getAllCapacityDataSources (): CapacityData {
   return CAPACITIES
 }
 
@@ -121,7 +116,7 @@ export function getCapacityData (
 
 /**
  * Given a segment, and an optional data source, return capacity information
- * if available. If no capacity information is defined, returns `null`.
+ * if available. If no capacity information is defined, returns `undefined`.
  * If a capacity is defined, there are some cases where the capacity for
  * a specific segment will be dropped to zero. This can happen if the
  * segment is located outside of the street, or if the segment is too
@@ -134,7 +129,7 @@ export function getSegmentCapacity (
 ): CapacityForDisplay | undefined {
   let capacity = getCapacityData(source).segments[segment.type]
 
-  // Returns null value if capacity is not defined
+  // Returns undefined value if capacity is not defined
   if (capacity === undefined) {
     return
   }
@@ -163,9 +158,9 @@ export function getSegmentCapacity (
 
   return {
     // Temporary: map minimum values to average
-    average: capacity.average ?? capacity.minimum ?? undefined,
+    average: capacity.average ?? capacity.minimum ?? 0,
     // Temporary: map undefined potential values from average
-    potential: capacity.potential ?? capacity.average ?? undefined
+    potential: capacity.potential ?? capacity.average ?? 0
   }
 }
 
@@ -210,19 +205,28 @@ export function getRolledUpSegmentCapacities (
   const { segments, capacitySource } = street
   const capacities = segments
     // Iterate through each segment to determine its capacity
-    .map(
-      (segment: Segment): SegmentCapacities => ({
+    .map((segment: Segment): SegmentCapacities | null => {
+      const capacity = getSegmentCapacity(segment, capacitySource)
+
+      if (capacity === undefined) {
+        return null
+      }
+
+      return {
         type: segment.type,
-        capacity: getSegmentCapacity(segment, capacitySource)
-      })
-    )
+        capacity
+      }
+    })
     // Drop all segments without capacity information
-    .filter((segment: SegmentCapacities) => segment.capacity !== undefined)
+    .filter((segment: SegmentCapacities | null) => segment !== null)
     // Combine capacity values of segments of the same type
-    .reduce((accumulator: CapacitySegments, { type, capacity }) => {
-      accumulator[type] = mergeCapacity(accumulator[type], capacity)
-      return accumulator
-    }, {})
+    .reduce(
+      (accumulator: Record<string, CapacityForDisplay>, { type, capacity }) => {
+        accumulator[type] = mergeCapacity(accumulator[type], capacity)
+        return accumulator
+      },
+      {}
+    )
 
   // Convert object back to array and sort, first by increasing
   // average, then by increasing potential
@@ -235,9 +239,9 @@ export function getRolledUpSegmentCapacities (
 }
 
 function mergeCapacity (
-  a: CapacitySegmentDefinition = {},
-  b: CapacitySegmentDefinition = {}
-): CapacitySegmentDefinition {
+  a: Partial<CapacityForDisplay> = {},
+  b: Partial<CapacityForDisplay> = {}
+): CapacityForDisplay {
   return {
     average: (a.average ?? 0) + (b.average ?? 0),
     potential: (a.potential ?? 0) + (b.potential ?? 0)

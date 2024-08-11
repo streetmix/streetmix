@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useSelector, useDispatch } from '../../store/hooks'
-import { DEFAULT_CAPACITY_SOURCE } from '../../streets/constants'
-import { isOwnedByCurrentUser } from '../../streets/owner'
-import { getAllCapacityDataSources } from '../../segments/capacity'
-import { setCapacitySource } from '../../store/actions/street'
+
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { setCapacitySource } from '~/src/store/actions/street'
+import { DEFAULT_CAPACITY_SOURCE } from '~/src/streets/constants'
+import { isOwnedByCurrentUser } from '~/src/streets/owner'
+import { getAllCapacityDataSources } from '~/src/segments/capacity'
+import './CapacitySources.css'
 
 function CapacitySources (): React.ReactElement {
   const source = useSelector(
@@ -34,6 +36,7 @@ function CapacitySources (): React.ReactElement {
         :&lrm;
       </strong>{' '}
       <select
+        className="capacity-source-select"
         disabled={!isOwnedByCurrentUser()}
         value={selectedSource}
         onChange={handleChangeSource}

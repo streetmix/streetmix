@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Popup } from 'react-leaflet'
 
-import Button from '../../ui/Button'
+import Button from '~/src/ui/Button'
 
 import type { LatLngObject } from '@streetmix/types'
 import type { PointExpression } from 'leaflet'

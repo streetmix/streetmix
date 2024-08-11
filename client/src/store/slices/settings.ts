@@ -38,7 +38,7 @@ const settingsSlice = createSlice({
   initialState,
 
   reducers: {
-    updateSettings (state, action: PayloadAction<SettingsState>) {
+    updateSettings (state, action: PayloadAction<Partial<SettingsState>>) {
       return {
         ...state,
         ...action.payload

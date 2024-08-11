@@ -5,14 +5,6 @@ import TeamMember from './TeamMember'
 import CREDITS from './credits.json'
 import './Credits.scss'
 
-// NOTE: on testing this component
-//
-// The `<Credits />` component is rendered inside of a snapshot of `<AboutDialog />`
-// and does not need to be unit-tested on its own. When `<AboutDialog />` renders a
-// snapshot, it uses a mock version of `credits.json`. This allows the component to
-// test rendering logic without needing to change the snapshot when the credits
-// themselves change.
-
 interface TeamMemberData {
   name: string
   title: string

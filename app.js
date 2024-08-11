@@ -118,6 +118,7 @@ const csp = {
       process.env.AUTH0_DOMAIN,
       'checkout.stripe.com',
       'plausible.io',
+      'buttondown.com',
       'buttondown.email'
     ],
     reportUri: '/services/csp-report/'
