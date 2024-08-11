@@ -20,7 +20,7 @@ import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
 import Dialog from '../Dialog'
 import CapacitySources from './CapacitySources'
 import SegmentAnalytics from './SegmentAnalytics'
-import './AnalyticsDialog.scss'
+import './AnalyticsDialog.css'
 
 function AnalyticsDialog (): React.ReactElement {
   const street = useSelector((state) => state.street)

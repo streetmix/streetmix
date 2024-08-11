@@ -21,7 +21,7 @@ import CloseButton from '../ui/CloseButton'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
 import { clearDialogs } from '../store/slices/dialogs'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import './Dialog.scss'
+import './Dialog.css'
 
 type CloseFunction = () => void
 interface DialogProps {

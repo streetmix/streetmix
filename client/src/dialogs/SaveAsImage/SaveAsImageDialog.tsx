@@ -13,7 +13,7 @@ import { getStreetImage } from '~/src/streets/image'
 import { normalizeSlug } from '~/src/util/helpers'
 import Dialog from '../Dialog'
 import CustomScale from './CustomScale'
-import './SaveAsImageDialog.scss'
+import './SaveAsImageDialog.css'
 
 const DEFAULT_IMAGE_DPI = 2
 

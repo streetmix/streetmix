@@ -5,7 +5,7 @@ import { getLocaleSegmentName } from '~/src/segments/view'
 import { images } from '~/src/app/load_resources'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
-import './SegmentAnalytics.scss'
+import './SegmentAnalytics.css'
 
 import type { CapacityForDisplay } from '@streetmix/types'
 

@@ -81,7 +81,7 @@
     z-index: var(--z-09-dialog-box);
   }
 
-  // Button placement
+  /* Button placement */
   button.btn,
   a.btn {
     margin: 0 auto;

@@ -11,7 +11,7 @@ import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Dialog from '../Dialog'
-import './SignInDialog.scss'
+import './SignInDialog.css'
 
 function SignInDialog (): React.ReactElement {
   const [email, setEmail] = useState('')

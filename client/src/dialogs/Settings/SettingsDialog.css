@@ -46,10 +46,10 @@
   h2 {
     color: var(--color-turquoise-800);
     font-weight: normal;
-  }
 
-  h2:first-child {
-    margin-top: 0;
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   section {

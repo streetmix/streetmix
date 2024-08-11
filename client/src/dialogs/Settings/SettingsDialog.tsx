@@ -12,7 +12,7 @@ import GeneralSettings from './GeneralSettings'
 import LanguageSettings from './LanguageSettings'
 import ProfileSettings from './ProfileSettings'
 import UnitSettings from './UnitSettings'
-import './SettingsDialog.scss'
+import './SettingsDialog.css'
 
 interface SettingsDialogProps {
   category: string

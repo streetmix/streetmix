@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 
 import Button from '~/src/ui/Button'
 import Dialog from '../Dialog'
-import './NewsletterDialog.scss'
+import './NewsletterDialog.css'
 
 /**
  * Converts a JavaScript object of key-value pairs (which is the format of

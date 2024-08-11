@@ -134,8 +134,8 @@
 .capacity-text {
   display: inline-block;
   vertical-align: top;
-}
 
-.capacity-text .capacity-label {
-  font-weight: 550;
+  .capacity-label {
+    font-weight: 550;
+  }
 }

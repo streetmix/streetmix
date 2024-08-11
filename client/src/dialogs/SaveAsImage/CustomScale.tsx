@@ -6,7 +6,7 @@ import Popover from '~/src/ui/Popover'
 import Slider from '~/src/ui/Slider'
 import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
-import './CustomScale.scss'
+import './CustomScale.css'
 
 const MIN_IMAGE_MULTIPLIER = 1
 const MAX_IMAGE_MULTIPLIER = 5

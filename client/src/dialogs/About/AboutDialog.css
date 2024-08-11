@@ -80,7 +80,7 @@
   }
 }
 
-@media only screen and (width <= 768px) {
+@media only screen and (width < 640px) {
   .about-dialog-content {
     display: block;
     overflow-y: scroll;

@@ -1,6 +1,6 @@
 .analytics-dialog {
   max-width: 820px;
-  max-height: 75vh;
+  max-height: 75vh !important;
   min-height: 500px;
 
   .dialog-content {
