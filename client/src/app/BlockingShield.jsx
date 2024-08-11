@@ -139,14 +139,14 @@ export default class BlockingShield extends React.Component {
 
     return (
       <div className={classNames.join(' ')} ref={this.el}>
-        <div className="message">
+        <h1>
           {this.state.mode === 'load' && (
             <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
           )}
           {this.state.mode === 'remix' && (
             <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />
           )}
-        </div>
+        </h1>
         {this.state.errorType === 'try-again' && (
           <div className="error-content">
             <p>

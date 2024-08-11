@@ -94,7 +94,7 @@ function SignInDialog (): React.ReactElement {
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1 className="sign-in-loading-message">
+              <h1>
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"
@@ -120,7 +120,7 @@ function SignInDialog (): React.ReactElement {
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1 className="sign-in-loading-message">
+              <h1>
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"

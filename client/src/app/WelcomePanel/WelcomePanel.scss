@@ -1,5 +1,3 @@
-@import "../../../styles/mixins";
-
 .welcome-panel-container {
   --welcome-panel-border-radius: var(--border-radius);
   --welcome-panel-box-shadow: var(--medium-box-shadow);
@@ -31,10 +29,8 @@
 
 .welcome-panel-content {
   h1 {
-    @include large-message-text;
-
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   button {

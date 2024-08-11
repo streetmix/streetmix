@@ -1,5 +1,3 @@
-@import "../../styles/mixins";
-
 .dialog-box-container {
   --dialog-border-radius: var(--border-radius-large);
   --header-background-color: var(--color-turquoise-200);
@@ -58,13 +56,6 @@
     text-align: center;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
-  }
-
-  h1 {
-    @include large-message-text;
-
-    margin: 0;
-    line-height: 1;
   }
 
   footer {

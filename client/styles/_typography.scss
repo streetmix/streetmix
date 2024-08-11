@@ -26,3 +26,11 @@ strong {
 html[lang="ko"] {
   word-break: keep-all;
 }
+
+/* Baseline size and appearance for h1 */
+h1 {
+  margin: 0;
+  line-height: 1;
+  font-size: 250%;
+  font-weight: 300;
+}
