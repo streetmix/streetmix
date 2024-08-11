@@ -25,10 +25,6 @@ function Loading ({ isLoading = true }: LoadingProps): React.ReactElement {
     }
   })
 
-  // The `hidden` attribute is more semantically correct for removing
-  // elements that are no longer relevant from the view. This was defined
-  // in HTML5 and will not be available in older browsers, but newer browsers
-  // will benefit from using it.
   return (
     <div id="loading" className={isLoading ? '' : 'hidden'} hidden={!isLoading}>
       <div className="streetmix-logo" />

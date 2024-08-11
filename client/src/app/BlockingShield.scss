@@ -1,6 +1,5 @@
 .blocking-shield {
   z-index: var(--z-09-blocking-shield);
-  display: none;
   background: transparent;
   color: transparent;
   cursor: wait;
@@ -14,8 +13,8 @@
     cursor: pointer;
   }
 
-  &.visible {
-    display: flex;
+  &.hidden {
+    display: none;
   }
 
   &.darken,

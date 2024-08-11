@@ -1,3 +1,24 @@
+/**
+ *  Generic top-level app styles
+ *  ------------------------------------------------------- */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+}
+
+.main-screen {
+  position: relative;
+  z-index: var(--z-01-main-screen);
+  flex-grow: 1;
+
+  body:not(.safari) & {
+    perspective: 2000px;
+  }
+}
+
 .streetmix-logo {
   position: relative;
   width: 100%;
@@ -37,23 +58,6 @@ body.phone #loading {
 #error,
 #loading {
   color: var(--color-turquoise-900);
-}
-
-/* Position and layout for error, loading, and blocking shield */
-#error,
-#loading,
-.blocking-shield {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  padding: 50px;
-  font-size: 1.2rem;
 }
 
 #error {
@@ -155,6 +159,23 @@ body.phone #loading {
   border-left-color: rgb(255 255 255 / 75%);
   border-right-color: rgb(255 255 255 / 75%);
   border-bottom-color: rgb(255 255 255 / 75%);
+}
+
+/* Position and layout for error, loading, and blocking shield */
+#error,
+#loading,
+.blocking-shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  font-size: 1.2rem;
 }
 
 /* -------------------------------------------------------- */

@@ -1,3 +1,7 @@
+/**
+ *  Global base styles and resets
+ *  ------------------------------------------------------- */
+
 html {
   height: 100%;
   overflow: hidden;
@@ -47,23 +51,6 @@ button,
 select,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  inset: 0;
-}
-
-.main-screen {
-  position: relative;
-  z-index: var(--z-01-main-screen);
-  flex-grow: 1;
-
-  body:not(.safari) & {
-    perspective: 2000px;
-  }
 }
 
 a,

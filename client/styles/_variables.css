@@ -1,3 +1,7 @@
+/**
+ *  Global variables (via CSS custom properties)
+ *  ------------------------------------------------------- */
+
 :root {
   /* Dimensions */
   --tile-size: 12px;
@@ -131,7 +135,7 @@
   /* Layered UI box shadows */
   --light-box-shadow: 0 0 14px 0 rgb(0 0 0 / 7.5%);
   --medium-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
-  --heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%); // UNUSED
+  --heavy-box-shadow: 0 0 10px 0 rgb(0 0 0 / 20%); /* UNUSED */
 
   /* Design */
   --street-name-size: 1.5;
