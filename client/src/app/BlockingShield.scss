@@ -1,13 +1,14 @@
-@import "../../styles/mixins";
-
 .blocking-shield {
-  @include blocking-shield;
-
   z-index: var(--z-09-blocking-shield);
   display: none;
   background: transparent;
   color: transparent;
   cursor: wait;
+
+  h1 {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
 
   button {
     cursor: pointer;
@@ -39,10 +40,5 @@
 
   &.darken-immediately {
     transition: none;
-  }
-
-  h1 {
-    margin-top: 2em;
-    margin-bottom: 2em;
   }
 }
