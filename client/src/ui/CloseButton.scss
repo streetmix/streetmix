@@ -9,12 +9,6 @@ button.close {
   right: var(--close-button-margin);
   top: var(--close-button-margin);
 
-  // Mirror position in rtl
-  [dir="rtl"] & {
-    right: auto;
-    left: var(--close-button-margin);
-  }
-
   // Touch-friendly size
   width: var(--close-button-size);
   height: var(--close-button-size);
@@ -31,6 +25,12 @@ button.close {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
+
+  // Mirror position in rtl
+  [dir="rtl"] & {
+    right: auto;
+    left: var(--close-button-margin);
+  }
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);
