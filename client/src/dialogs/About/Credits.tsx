@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import TeamMember from './TeamMember'
 import CREDITS from './credits.json'
-import './Credits.scss'
+import './Credits.css'
 
 interface TeamMemberData {
   name: string

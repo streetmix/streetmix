@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Icon from '~/src/ui/Icon'
-import './SocialLinks.scss'
+import './SocialLinks.css'
 
 function SocialLinks (): React.ReactElement {
   return (
