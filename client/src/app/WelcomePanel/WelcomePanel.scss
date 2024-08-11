@@ -98,14 +98,13 @@
   }
 }
 
-// Component specific tweaks to StreetName
-// Some duped styles from gallery element
+/* Component specific tweaks to <StreetName /> */
 .welcome-panel .street-name {
   --street-name-size: var(--street-name-size-small);
 
   display: inline-block;
-  position: relative;
-  top: 5px;
-  max-width: 100%;
+  vertical-align: middle;
   margin: 0 0.25em;
+  margin-top: -0.1em;
+  max-width: 100%;
 }

@@ -161,3 +161,12 @@
   // Top/bottom padding accounts for street name
   padding: 20px 1.5em 2px;
 }
+
+/* Component specific tweaks to <StreetName /> */
+.gallery-street-item .street-name {
+  --street-name-size: var(--street-name-size-small);
+
+  max-width: 95%;
+  position: relative;
+  top: -8px;
+}

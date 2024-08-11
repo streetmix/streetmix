@@ -31,14 +31,6 @@
   }
 }
 
-.gallery .streets .street-name {
-  --street-name-size: var(--street-name-size-small);
-
-  max-width: 95%;
-  position: relative;
-  top: -8px;
-}
-
 body.segment-move-dragging .street-nameplate-container .street-name {
   pointer-events: none;
 }
