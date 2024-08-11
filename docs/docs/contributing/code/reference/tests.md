@@ -78,17 +78,15 @@ We also use [Prettier](https://github.com/prettier/prettier) to automatically fo
 
 JavaScript is notoriously not type safe: you may pass any type of object or JavaScript primitive to any function or method, which may not be able to handle them. Or you may write a function that returns values of different types, and the calling script wasn't expecting that return value. Various attempts to introduce type safety on top of JavaScript have entered the ecosystem, and here's how we use these tools.
 
+### TypeScript
+
+[TypeScript](https://www.typescriptlang.org/) is an extension of the JavaScript language that allows types to be checked statically (that is, reason about whether the right types are being passed around, without having to run the code itself). It's been [growing steadily in popularity](https://2018.stateofjs.com/javascript-flavors/typescript/) over the past few years. We are currently in the middle of migrating our codebase to TypeScript, while removing PropTypes.
+
 ### PropTypes (React)
 
 [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html) is a runtime typechecking library used for React development. Because it is a runtime checker, PropTypes will only throw errors in the console when running in the browser or in test suites. (The PropTypes library is not compiled into production code.)
 
-We currently enforce using PropTypes for React components in development. This means that React components must declare all of its props and what types of values that prop should be. The benefit of this approach is that React components self-document what props it accepts. Sometimes, a prop can be overloaded with multiple types, but this is generally discouraged if you can avoid it.
-
-### TypeScript
-
-[TypeScript](https://www.typescriptlang.org/) is an extension of the JavaScript language that allows types to be checked statically (that is, reason about whether the right types are being passed around, without having to run the code itself). It's been [growing steadily in popularity](https://2018.stateofjs.com/javascript-flavors/typescript/) over the past few years.
-
-We have experimented with TypeScript, but we've not fully adopted it into Streetmix. Because we already compile code with Babel, adopting TypeScript piecemeal is doable. However, we have not yet run into a situation where we absolutely _need_ TypeScript. That being said, if and when a good case can be made for adopting it, we will likely jump on board. If a migration to TypeScript occurs in React components, it will supercede using PropTypes.
+For React components not written in TypeScript, we use PropTypes in development. This means that React components must declare all of its props and what types of values that prop should be. The benefit of this approach is that React components self-document what props it accepts. Sometimes, a prop can be overloaded with multiple types, but this is generally discouraged if you can avoid it.
 
 ## Device and browser testing
 
