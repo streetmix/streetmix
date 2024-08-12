@@ -39,6 +39,6 @@
 .street-scroll-indicator-right {
   right: 0;
 
-  // Visual alignment on the right side of the screen
+  /* Visual alignment on the right side of the screen */
   padding-right: 0.4em !important;
 }

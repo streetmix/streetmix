@@ -12,7 +12,7 @@ import { MODES, getMode } from '../mode'
 import WelcomeNewStreet from './NewStreet'
 import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet'
 import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet'
-import './WelcomePanel.scss'
+import './WelcomePanel.css'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1

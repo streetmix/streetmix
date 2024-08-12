@@ -24,7 +24,7 @@ import SkyBox from '../sky/SkyBox'
 import ScrollIndicators from './ScrollIndicators'
 import StreetViewDirt from './StreetViewDirt'
 import StreetEditable from './StreetEditable'
-import './StreetView.scss'
+import './StreetView.css'
 
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2

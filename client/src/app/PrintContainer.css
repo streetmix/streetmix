@@ -21,7 +21,7 @@
     display: flex !important;
   }
 
-  // Hide all other stuff
+  /* Hide all other stuff */
   body > *:not(#react-app),
   #react-app > *:not(.print-container) {
     display: none;

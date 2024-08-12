@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
-import './StreetmixPlusPrompt.scss'
+import './StreetmixPlusPrompt.css'
 
 interface StreetmixPlusPromptProps {
   children: React.ReactNode

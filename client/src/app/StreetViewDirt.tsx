@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './StreetViewDirt.scss'
+import './StreetViewDirt.css'
 
 interface StreetViewDirtProps {
   buildingWidth: number

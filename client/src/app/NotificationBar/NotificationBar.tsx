@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from '~/src/store/hooks'
 import CloseButton from '~/src/ui/CloseButton'
 import ExternalLink from '~/src/ui/ExternalLink'
-import './NotificationBar.scss'
+import './NotificationBar.css'
 
 const TRANSITION_DURATION = 250
 const TRANSITION_BASE_STYLE = {

@@ -19,10 +19,10 @@
 
   &.darken,
   &.darken-immediately {
-    // While the preferred mixing method is in oklch, there is a bug(?) in
-    // Safari where doing so also causes the hue to shift unexpectedly.
-    // Mixing transparency in srgb will only affect alpha channel as expected
-    // in tested browsers (Firefox + Chrome) including Safari.
+    /* While the preferred mixing method is in oklch, there is a bug(?) in
+       Safari where doing so also causes the hue to shift unexpectedly.
+       Mixing transparency in srgb will only affect alpha channel as expected
+       in tested browsers (Firefox + Chrome) including Safari. */
     background-color: color-mix(
       in srgb,
       var(--color-turquoise-200),
