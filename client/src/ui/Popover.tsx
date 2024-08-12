@@ -6,7 +6,7 @@ import AccessibleIcon from './AccessibleIcon'
 import Icon from './Icon'
 
 import type { PopoverContentProps } from '@radix-ui/react-popover'
-import './Popover.scss'
+import './Popover.css'
 
 interface PopoverProps {
   label?: string

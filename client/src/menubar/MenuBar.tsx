@@ -13,7 +13,7 @@ import UpgradeButton from './UpgradeButton'
 import AvatarMenu from './AvatarMenu'
 
 import type { UserProfile } from '../types'
-import './MenuBar.scss'
+import './MenuBar.css'
 
 interface MenuBarProps {
   onMenuDropdownClick: (menu: string, node: HTMLElement) => void

@@ -1,10 +1,11 @@
 import React from 'react'
+
 import { useSelector } from '../../store/hooks'
 import { getSkyboxDef, makeCSSGradientDeclaration } from '..'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyBackground from './SkyBackground'
 import SkyObjects from './SkyObjects'
-import './SkyBox.scss'
+import './SkyBox.css'
 
 const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5

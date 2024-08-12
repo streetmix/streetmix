@@ -7,7 +7,7 @@ import Tooltip from '~/src/ui/Tooltip'
 import { images } from '~/src/app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
 import { getAllSkyboxDefs } from '..'
-import './SkyOptions.scss'
+import './SkyOptions.css'
 
 import type { SkyboxDefWithStyles } from '@streetmix/types'
 

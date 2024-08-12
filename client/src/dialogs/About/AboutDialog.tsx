@@ -10,7 +10,7 @@ import mozlogo from '~/images/sponsors/mozilla.svg'
 import Dialog from '../Dialog'
 import Credits from './Credits'
 import SocialLinks from './SocialLinks'
-import './AboutDialog.scss'
+import './AboutDialog.css'
 
 function AboutDialog (): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)

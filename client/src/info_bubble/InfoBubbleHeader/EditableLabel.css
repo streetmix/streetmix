@@ -1,0 +1,39 @@
+.info-bubble-label {
+  /* If label exceeds maximum allowed width, cut it off */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  margin-left: -0.25em;
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  background-color: rgb(255 255 255 / 0%);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.info-bubble-label-editable {
+  .info-bubble-label-editable-icon {
+    opacity: 0;
+    transform: translateZ(0); /* Prevent jitter when transitioning */
+    transition: opacity 120ms ease-in;
+    margin-left: 0.25em;
+
+    [dir="rtl"] & {
+      margin-left: 0;
+      margin-right: 0.25em;
+    }
+  }
+
+  &:hover {
+    cursor: text;
+    background-color: var(--off-white);
+    transition: background-color 120ms ease-in;
+
+    .info-bubble-label-editable-icon {
+      opacity: 0.85;
+    }
+  }
+}

@@ -5,7 +5,7 @@ import PaletteItems from './PaletteItems'
 import PaletteTrashcan from './PaletteTrashcan'
 import EnvironmentButton from './EnvironmentButton'
 import UndoRedo from './UndoRedo'
-import './PaletteContainer.scss'
+import './PaletteContainer.css'
 
 function PaletteContainer (): React.ReactElement | null {
   const readOnly = useSelector((state) => state.app.readOnly)

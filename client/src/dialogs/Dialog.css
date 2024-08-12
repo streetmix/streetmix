@@ -1,0 +1,148 @@
+.dialog-box-container {
+  --dialog-border-radius: var(--border-radius-large);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-900);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.dialog-box-backdrop {
+  z-index: var(--z-08-dialog-box-backdrop);
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-turquoise-200);
+  touch-action: none;
+
+  /* Transitions */
+  transition: opacity 60ms ease-in-out;
+  opacity: 0;
+}
+
+.dialog-box {
+  position: relative;
+  margin: -3% 1em 1em; /* balance vertically, by lifting it slightly */
+  padding: 0;
+  background: white;
+  line-height: 1.4;
+  z-index: var(--z-09-dialog-box);
+  touch-action: none;
+  border-radius: var(--dialog-border-radius);
+  overflow: hidden;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
+
+  /* Transitions */
+  transition:
+    opacity 80ms ease-in-out,
+    transform 80ms ease-in-out;
+  opacity: 0;
+  transform: scale(0.9);
+
+  /* Containing child element */
+  > div {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+  }
+
+  header {
+    padding: 2.5rem 1em;
+    text-align: center;
+    background-color: var(--header-background-color);
+    color: var(--header-text-color);
+  }
+
+  footer {
+    padding: 1rem 2rem;
+    margin-top: 0;
+    color: rgb(160 160 160);
+    font-size: 0.85em;
+
+    > p:first-child {
+      margin-top: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:hover {
+      color: rgb(120 120 120);
+    }
+  }
+
+  button.close {
+    z-index: var(--z-09-dialog-box);
+  }
+
+  /* Button placement */
+  button.btn,
+  a.btn {
+    margin: 0 auto;
+    margin-top: 1em;
+  }
+}
+
+/* Transitions */
+.dialog-transition-enter-done .dialog-box {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dialog-transition-exit .dialog-box {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.dialog-transition-enter-done .dialog-box-backdrop {
+  opacity: 0.5;
+}
+
+.dialog-transition-exit .dialog-box-backdrop {
+  opacity: 0;
+}
+
+.dialog-content {
+  flex-grow: 1;
+  position: relative;
+  overflow-y: scroll;
+
+  &:not(.dialog-content-bleed) {
+    padding: 1rem 2rem;
+  }
+
+  > p:first-child {
+    margin-top: 0;
+  }
+}
+
+button.dialog-primary-action {
+  border: 0;
+  border-top: 1px solid var(--color-turquoise-400);
+  border-radius: 0;
+  background-color: white;
+  font-weight: normal;
+  width: 100%;
+  text-align: center;
+  color: var(--interactive-text-color);
+  min-height: 46px;
+  cursor: pointer;
+
+  /* override .dialog-box button */
+  margin-top: 0 !important;
+
+  &:hover {
+    background-color: var(--color-turquoise-100);
+    color: var(--interactive-text-hover-color);
+  }
+
+  &:active {
+    color: var(--interactive-text-active-color);
+  }
+}

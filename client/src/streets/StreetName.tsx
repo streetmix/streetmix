@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import './StreetName.scss'
+import './StreetName.css'
 
 const MAX_STREET_NAME_WIDTH = 50
 

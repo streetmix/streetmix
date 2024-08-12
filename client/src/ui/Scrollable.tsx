@@ -7,7 +7,7 @@ import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { animate } from '../util/helpers'
 import Button from './Button'
 import Icon from './Icon'
-import './Scrollable.scss'
+import './Scrollable.css'
 
 interface ScrollableProps {
   className?: string

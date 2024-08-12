@@ -1,6 +1,7 @@
 import React from 'react'
+
 import { useGetUserQuery } from '../store/services/api'
-import './Avatar.scss'
+import './Avatar.css'
 
 interface AvatarProps {
   userId: string

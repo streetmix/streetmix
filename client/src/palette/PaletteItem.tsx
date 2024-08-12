@@ -19,7 +19,7 @@ import {
 
 import type { SegmentDefinition } from '@streetmix/types'
 import type { TippyProps } from '@tippyjs/react'
-import './PaletteItem.scss'
+import './PaletteItem.css'
 
 interface PaletteItemProps {
   // Provided by react-dnd HOC

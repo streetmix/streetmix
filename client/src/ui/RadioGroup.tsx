@@ -4,7 +4,8 @@ import type {
   RadioGroupProps,
   RadioGroupItemProps
 } from '@radix-ui/react-radio-group'
-import './RadioGroup.scss'
+
+import './RadioGroup.css'
 
 // This stores an incrementing number for unique IDs.
 let idCounter = 1

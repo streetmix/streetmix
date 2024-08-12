@@ -1,0 +1,39 @@
+.palette-trashcan {
+  /* Contrast ratio of at least 3:1 compared to background */
+  --palette-text-color: rgb(108 108 108);
+
+  /* Stretch out to fit the width of the viewport */
+  position: absolute;
+  left: calc(-1 * var(--left-right-inset));
+  right: calc(-1 * var(--left-right-inset));
+  bottom: 0;
+
+  /* Tall enough to cover the top "overhang" of palette items */
+  height: calc(var(--palette-height) + 30px);
+
+  /* Center text in box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* When visible */
+  opacity: 1;
+  transform: translateY(0);
+
+  /* Rest of styles */
+  z-index: var(--z-07-trashcan);
+  border-top: 2px dashed var(--palette-text-color);
+  color: var(--palette-text-color);
+  font-size: 1.75rem;
+  font-weight: 400;
+  background-color: color-mix(in oklch, white 25%, var(--bottom-background));
+  pointer-events: none;
+  transition:
+    transform 150ms,
+    opacity 150ms;
+}
+
+.palette-trashcan[hidden] {
+  opacity: 0;
+  transform: translateY(150px);
+}

@@ -2,7 +2,7 @@ import React, { memo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
 import { registerKeypress, deregisterKeypress } from './keypress'
-import './ScrollIndicators.scss'
+import './ScrollIndicators.css'
 
 interface ScrollIndicatorsProps {
   left: number

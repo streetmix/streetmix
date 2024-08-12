@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import ExternalLink from '~/src/ui/ExternalLink'
 import Dialog from '../Dialog'
-import './SentimentSurveyDialog.scss'
+import './SentimentSurveyDialog.css'
 
 function SentimentSurveyDialog (): React.ReactElement {
   return (

@@ -9,7 +9,7 @@ import KeyboardKey from '~/src/ui/KeyboardKey'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
-import './HelpMenu.scss'
+import './HelpMenu.css'
 
 const shiftKey = (
   <KeyboardKey>

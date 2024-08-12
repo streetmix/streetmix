@@ -1,0 +1,44 @@
+.street-scroll-indicators {
+  position: absolute;
+  bottom: 0;
+
+  button {
+    position: fixed;
+    height: 80px;
+    margin-top: -80px;
+    padding: 0 0.2em;
+    border: 0;
+    background-color: transparent;
+    opacity: 0.25;
+    font-size: 80px;
+    font-weight: normal;
+    line-height: 1;
+    letter-spacing: -0.15em;
+    cursor: pointer;
+    user-select: none;
+    z-index: var(--z-07-street-scroll);
+
+    &:hover {
+      opacity: 0.45;
+    }
+
+    &:active {
+      opacity: 0.65;
+    }
+
+    [dir="rtl"] & {
+      direction: ltr;
+    }
+  }
+}
+
+.street-scroll-indicator-left {
+  left: 0;
+}
+
+.street-scroll-indicator-right {
+  right: 0;
+
+  /* Visual alignment on the right side of the screen */
+  padding-right: 0.4em !important;
+}

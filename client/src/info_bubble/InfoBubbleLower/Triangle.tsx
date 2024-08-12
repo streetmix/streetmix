@@ -1,5 +1,6 @@
 import React from 'react'
-import './Triangle.scss'
+
+import './Triangle.css'
 
 interface Props {
   highlight: boolean

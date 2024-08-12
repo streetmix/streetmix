@@ -1,0 +1,41 @@
+.toast-container {
+  position: absolute;
+  top: 50px;
+  right: 30px;
+  min-width: 300px;
+  max-width: 330px;
+  z-index: var(--z-07-toasts);
+
+  /* Align all toasts to right edge */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  /* Allows inline-block children to set margin-bottom exactly */
+  line-height: 0;
+
+  /* Disallow intercepting clicks in spaces between toasts */
+  pointer-events: none;
+
+  /* A hint to the browser that child toasts should be optimized for transformation */
+  > div {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+
+  [dir="rtl"] & {
+    right: auto;
+    left: 30px;
+  }
+}
+
+.toast-lifebar {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: auto;
+  height: 5px;
+  background-color: rgb(192 192 192 / 70%);
+  border-radius: 4px;
+  border-top-left-radius: 0;
+}

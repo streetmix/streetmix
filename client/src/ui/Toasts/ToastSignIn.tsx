@@ -1,5 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
+
 import { doSignIn } from '../../users/authentication'
 import Toast, { type ToastProps } from './Toast'
 

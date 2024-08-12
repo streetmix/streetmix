@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 
 import Tooltip from '../../ui/Tooltip'
-import './StreetMetaItem.scss'
+import './StreetMetaItem.css'
 
 import type { TippyProps } from '@tippyjs/react'
 

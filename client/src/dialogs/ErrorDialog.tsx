@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import ExternalLink from '../ui/ExternalLink'
 import Dialog from './Dialog'
-import './ErrorDialog.scss'
+import './ErrorDialog.css'
 
 /**
  * The error dialog is displayed in place of another dialog if something

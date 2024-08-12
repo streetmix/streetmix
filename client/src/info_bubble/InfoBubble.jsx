@@ -24,7 +24,7 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from './constants'
-import './InfoBubble.scss'
+import './InfoBubble.css'
 
 const INFO_BUBBLE_MARGIN_BUBBLE = 20
 const INFO_BUBBLE_MARGIN_MOUSE = 10

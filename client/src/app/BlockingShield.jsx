@@ -9,10 +9,11 @@
  */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import Button from '../ui/Button'
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
 import { goReload } from './routing'
-import './BlockingShield.scss'
+import './BlockingShield.css'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
@@ -127,8 +128,8 @@ export default class BlockingShield extends React.Component {
   render () {
     const classNames = ['blocking-shield']
 
-    if (this.state.visible) {
-      classNames.push('visible')
+    if (!this.state.visible) {
+      classNames.push('hidden')
     }
     if (this.state.immediate) {
       classNames.push('darken-immediately')
@@ -138,15 +139,19 @@ export default class BlockingShield extends React.Component {
     }
 
     return (
-      <div className={classNames.join(' ')} ref={this.el}>
-        <div className="message">
+      <div
+        className={classNames.join(' ')}
+        ref={this.el}
+        hidden={!this.state.visible}
+      >
+        <h1>
           {this.state.mode === 'load' && (
             <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
           )}
           {this.state.mode === 'remix' && (
             <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />
           )}
-        </div>
+        </h1>
         {this.state.errorType === 'try-again' && (
           <div className="error-content">
             <p>
@@ -155,7 +160,7 @@ export default class BlockingShield extends React.Component {
                 defaultMessage="Streetmix is having trouble connecting to the Internet."
               />
             </p>
-            <Button onClick={this.handleClickTryAgain}>
+            <Button primary={true} onClick={this.handleClickTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
             </Button>
             {this.state.showCancel && (

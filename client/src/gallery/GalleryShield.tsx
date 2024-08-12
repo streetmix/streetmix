@@ -1,5 +1,6 @@
 import React from 'react'
-import './GalleryShield.scss'
+
+import './GalleryShield.css'
 
 interface GalleryShieldProps {
   visible: boolean

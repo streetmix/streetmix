@@ -43,7 +43,7 @@ import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_INCREMENT
 } from './resizing'
-import './Segment.scss'
+import './Segment.css'
 
 export class Segment extends React.Component {
   static propTypes = {

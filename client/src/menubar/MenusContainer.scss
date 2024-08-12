@@ -1,9 +1,0 @@
-.menus-container {
-  position: absolute;
-  inset: 0 var(--menu-side-inset);
-  pointer-events: none;
-  z-index: var(--z-07-menu);
-
-  // Required in Firefox to get perspective to work on menus
-  transform-style: preserve-3d;
-}

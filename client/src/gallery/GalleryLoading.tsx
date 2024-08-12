@@ -1,4 +1,5 @@
 import React from 'react'
+
 import LoadingSpinner from '../ui/LoadingSpinner'
 
 function GalleryLoading (): React.ReactElement {

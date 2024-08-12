@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ExternalLink from '~/src/ui/ExternalLink'
-import './TeamMember.scss'
+import './TeamMember.css'
 
 interface TeamMemberProps {
   name: string

@@ -10,7 +10,7 @@ import { useSelector } from '~/src/store/hooks'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import { getChangelog } from '~/src/util/api'
 import Dialog from '../Dialog'
-import './WhatsNewDialog.scss'
+import './WhatsNewDialog.css'
 
 const WhatsNewDialog = (): React.ReactElement => {
   const locale = useSelector((state) => state.locale.locale)

@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useSelector } from '~/src/store/hooks'
 import userRoles from '../../../../app/data/user_roles.json'
 import Dialog from '../Dialog'
-import './UpgradeDialog.scss'
+import './UpgradeDialog.css'
 
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'

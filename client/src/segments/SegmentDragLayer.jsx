@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { DragLayer } from 'react-dnd'
 import SegmentCanvas from './SegmentCanvas'
 import { Types } from './drag_and_drop'
-import './SegmentDragLayer.scss'
+import './SegmentDragLayer.css'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150
 const MAX_DRAG_DEGREE = 20

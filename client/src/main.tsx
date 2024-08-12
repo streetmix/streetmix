@@ -15,7 +15,7 @@ import '@fontsource-variable/rubik/wght-italic.css'
 
 // Stylesheets
 import 'leaflet/dist/leaflet.css'
-import '../styles/styles.scss' // Don't use a ~/ path, that breaks CSS imports
+import '~/styles/styles.css'
 
 // Redux
 import store from '~/src/store'
@@ -48,8 +48,9 @@ if (
 // }
 
 // Mount React components
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const container = document.getElementById('react-app')!
+const container = document.getElementById('react-app')
+if (!container) throw new Error('no element to mount to')
+
 const root = createRoot(container)
 root.render(
   <Provider store={store}>

@@ -4,7 +4,7 @@ import { flushSync } from 'react-dom'
 import { useSelector, useDispatch } from '../store/hooks'
 import { startPrinting, stopPrinting } from '../store/slices/app'
 import { getStreetImage } from '../streets/image'
-import './PrintContainer.scss'
+import './PrintContainer.css'
 
 function PrintContainer (): React.ReactElement {
   const isPrinting = useSelector((state) => state.app.printing)

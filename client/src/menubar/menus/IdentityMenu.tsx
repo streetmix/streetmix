@@ -11,7 +11,7 @@ import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu'
 import MenuSeparator from './MenuSeparator'
-import './IdentityMenu.scss'
+import './IdentityMenu.css'
 
 function IdentityMenu (props: MenuProps): React.ReactElement {
   const user = useSelector((state) => state.user.signInData?.details)

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { setFeatureFlag } from '~/src/store/slices/flags'
 import Checkbox from '~/src/ui/Checkbox'
 import Dialog from '../Dialog'
-import './FeatureFlagDialog.scss'
+import './FeatureFlagDialog.css'
 
 function FeatureFlagDialog (): React.ReactElement {
   const flags = useSelector((state) => state.flags)

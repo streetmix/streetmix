@@ -1,0 +1,30 @@
+.key {
+  position: relative;
+  display: inline-block;
+  padding: 0.2em 0.75em;
+  margin: 0 0.25em;
+  border: #ccc 1px solid;
+  border-radius: 4px;
+  font-size: 0.8em;
+  line-height: 1.8;
+
+  /* Mac OS X default monospace font has different sized left/right
+     arrows, so use Menlo instead */
+  font-family: Menlo, monospace;
+  background: #f4f4f4;
+  color: rgb(64 64 64);
+  text-shadow: #fff 0 1px 0;
+  box-shadow:
+    0 2px 0 rgb(0 0 0 / 20%),
+    0 1px 0 0 #fff inset;
+  white-space: nowrap;
+}
+
+.key-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}

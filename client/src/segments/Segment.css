@@ -1,0 +1,119 @@
+/* TODO: Further split-up and refactoring of styles */
+
+.segment {
+  display: block;
+  position: absolute;
+  top: -150px;
+  height: calc(var(--canvas-height) + 85px + 30px);
+  text-align: center;
+  perspective: 500px;
+  touch-action: none;
+}
+
+.segment-canvas-container {
+  width: 100%;
+  height: 100%;
+}
+
+body.segment-move-dragging .segment-empty {
+  display: none;
+}
+
+body:not(.segment-resize-dragging) .segment {
+  transition:
+    width 150ms,
+    left 150ms,
+    transform 150ms;
+}
+
+body.immediate-segment-resize .segment {
+  transition: none !important;
+}
+
+.segment.create {
+  transition: none !important;
+}
+
+.segment.hover {
+  z-index: var(--z-02-segment-focused) !important;
+}
+
+.segment.hover .hover-bk {
+  background: var(--segment-hover-background);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  z-index: -1;
+  height: calc(var(--canvas-baseline) - 10px);
+  pointer-events: none;
+}
+
+body:not(.read-only) .segment {
+  cursor: grab;
+}
+
+.segment.dragged-out {
+  opacity: 0;
+}
+
+body.segment-move-dragging,
+body.segment-move-dragging * {
+  cursor: grabbing !important;
+}
+
+body.not-within-canvas,
+body.not-within-canvas * {
+  cursor: no-drop !important;
+}
+
+body.segment-move-dragging #street-section-editable .segment {
+  transition:
+    left 100ms,
+    transform 300ms;
+  height: calc(var(--canvas-height) + 85px + 30px + 90px);
+}
+
+.switching-away-exit {
+  position: absolute;
+  z-index: var(--z-10-switch-away);
+  pointer-events: none;
+  transform: none !important;
+  perspective: 400px;
+}
+
+.switching-away-exit-done {
+  z-index: var(--z-10-switch-away) !important;
+}
+
+.switching-away-exit-active canvas {
+  transition:
+    transform var(--segment-switching-time) ease-in,
+    opacity var(--segment-switching-time) ease-in !important;
+  transform: rotateX(-60deg);
+  transform-origin: 50% 120%;
+  opacity: 0;
+}
+
+.switching-in-enter {
+  z-index: -1 !important;
+  perspective: 400px;
+
+  canvas {
+    transform: rotateX(90deg);
+    transform-origin: 50% 100%;
+    opacity: 0;
+  }
+}
+
+.switching-in-enter-done {
+  z-index: -1 !important;
+}
+
+.switching-in-enter-active canvas {
+  opacity: 1;
+  transition:
+    transform var(--segment-switching-time),
+    opacity var(--segment-switching-time) !important;
+  transform: none;
+}

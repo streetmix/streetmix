@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useSelector } from '../store/hooks'
-import './PaletteTrashcan.scss'
+import './PaletteTrashcan.css'
 
 function PaletteTrashcan (): React.ReactElement {
   // Display the trashcan when user is dragging an _existing_ segment on the street.

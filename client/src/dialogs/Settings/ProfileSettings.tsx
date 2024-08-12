@@ -7,7 +7,7 @@ import Button from '~/src/ui/Button'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Popover from '~/src/ui/Popover'
 import { patchUser } from '~/src/util/api'
-import './ProfileSettings.scss'
+import './ProfileSettings.css'
 
 const DISPLAY_NAME_MAX_CHARS = 30
 const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10

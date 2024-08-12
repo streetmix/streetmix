@@ -1,9 +1,10 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import { useSelector } from '../store/hooks'
 import ExternalLink from '../ui/ExternalLink'
 import { SPONSOR_BANNER } from './config'
-import './SponsorBanner.scss'
+import './SponsorBanner.css'
 
 interface SponsorBannerProps {
   lede?: string

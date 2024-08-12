@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+
 import { useSelector } from '../store/hooks'
 import { loseAnyFocus } from '../util/focus'
 import { useOnClickOutside } from '../ui/useOnClickOutside'
-import './DebugInfo.scss'
+import './DebugInfo.css'
 
 function DebugInfo (): React.ReactElement | null {
   const panelEl = useRef<HTMLDivElement>(null)

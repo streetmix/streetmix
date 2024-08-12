@@ -1,0 +1,54 @@
+button.close {
+  --close-button-margin: 2px;
+  --close-button-size: 34px;
+  --close-icon-color: var(--color-turquoise-800);
+  --close-icon-color-hover: var(--color-turquoise-700);
+
+  /* Position in dialog boxes */
+  position: absolute;
+  right: var(--close-button-margin);
+  top: var(--close-button-margin);
+
+  /* Touch-friendly size */
+  width: var(--close-button-size);
+  height: var(--close-button-size);
+
+  /* Appearance */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--border-radius-pill);
+  color: var(--close-icon-color);
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+
+  /* Mirror position in rtl */
+  [dir="rtl"] & {
+    right: auto;
+    left: var(--close-button-margin);
+  }
+
+  &:hover {
+    background-color: rgb(255 255 255 / 50%);
+    color: var(--close-icon-color-hover);
+  }
+
+  &:active {
+    background-color: rgb(255 255 255 / 75%);
+  }
+
+  /* !important overrides higher-level specificity on font awesome
+     icons that normally exist on buttons. Apply color to the parent
+     element (.close) and the icon will take on this color. */
+  svg {
+    color: inherit !important;
+  }
+
+  &:hover svg {
+    color: inherit !important;
+  }
+}

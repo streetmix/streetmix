@@ -1,0 +1,112 @@
+.analytics-dialog {
+  max-width: 820px;
+  max-height: 75vh !important;
+  min-height: 500px;
+
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}
+
+.analytics-dialog-content {
+  display: inline;
+  flex-grow: 1;
+}
+
+.analytics-dialog-left {
+  flex-basis: 240px;
+  margin-right: 40px;
+  padding-right: 40px;
+  position: fixed;
+  width: 520px;
+
+  [dir="rtl"] & {
+    margin-left: 40px;
+    margin-right: 0;
+    border-right: 0;
+    padding-left: 40px;
+    padding-right: 0;
+  }
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 1.5em;
+  }
+}
+
+.analytics-dialog-right {
+  flex: 1;
+  margin-bottom: 15px;
+  margin-left: 520px;
+
+  [dir="rtl"] & {
+    margin-right: 320px;
+    margin-left: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > h2 {
+    margin-top: 1.5em;
+  }
+}
+
+.analytics-dialog-sponsors {
+  margin-top: -1em !important;
+
+  img {
+    height: 40px;
+  }
+}
+
+.analytics-dialog-sponsors li {
+  display: inline-block;
+  margin-right: 1.5em;
+  margin-top: 1em;
+
+  [dir="rtl"] & {
+    margin-left: 1.5em;
+    margin-right: 0;
+  }
+}
+
+.dialog-actions {
+  text-align: center;
+}
+
+.analytics-dialog footer {
+  text-align: center;
+}
+
+/* Don't wrap the Creative Commons label. But this is a long link, so only
+  wrap on big screens. */
+@media only screen and (width >= 640px) {
+  .analytics-dialog footer a {
+    white-space: nowrap;
+  }
+}
+
+.analytics-settings-notice {
+  width: max-content;
+  padding: 0.5em 1em;
+  margin: 0.5em auto 0;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-citrine-100);
+  color: var(--color-copper-900);
+
+  svg {
+    vertical-align: text-bottom;
+    margin-right: 0.5em;
+    width: 16px;
+    height: 16px;
+    color: var(--color-copper-700);
+  }
+}

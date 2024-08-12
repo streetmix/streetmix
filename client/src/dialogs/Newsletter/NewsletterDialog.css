@@ -1,0 +1,52 @@
+.newsletter-dialog {
+  max-width: 520px;
+
+  label {
+    display: block;
+    font-weight: 550;
+    font-size: 1.2em;
+    margin-bottom: 0.25em;
+  }
+
+  form {
+    margin-top: 1.5em;
+  }
+
+  input[type="email"] {
+    display: block;
+
+    /* Reusing styles from .sign-in-input */
+    border-radius: 3px;
+    padding: 0.75em;
+    width: 100%;
+    border: var(--button-border);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 7%);
+    transition:
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s;
+
+    &:focus {
+      outline: 0;
+      box-shadow:
+        inset 0 1px 1px rgb(0 0 0 / 7%),
+        0 0 10px color-mix(in srgb, var(--color-turquoise-600), transparent 25%);
+    }
+
+    &.subscribe-input-error {
+      border: 1px solid red !important;
+    }
+  }
+
+  .subscribe-error {
+    color: red;
+    font-weight: 550;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
+
+  .subscribe-buttons {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+}

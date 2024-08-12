@@ -1,0 +1,172 @@
+.gallery-street-item {
+  --selection-highlight-color: var(--color-copper-700);
+  --thumbnail-width: 180px;
+  --thumbnail-height: 110px;
+
+  display: inline-block;
+  position: relative;
+  width: var(--thumbnail-width);
+  height: var(--thumbnail-height);
+  border-radius: var(--border-radius-medium);
+
+  /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
+  padding: 5px;
+  box-sizing: content-box;
+  text-align: center;
+
+  /* reset child box sizing */
+  > * {
+    box-sizing: border-box;
+  }
+
+  &:first-child {
+    padding-left: 2px;
+  }
+
+  &:last-child {
+    padding-right: 2px;
+  }
+}
+
+.gallery-street-item > a {
+  display: block;
+  text-decoration: none;
+  border: 2px solid var(--color-turquoise-600);
+  background-color: #f0f0f0;
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-medium);
+
+  &:hover canvas {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.45);
+  }
+}
+
+.gallery-street-item.gallery-selected > a {
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--selection-highlight-color);
+
+  canvas {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.45);
+  }
+}
+
+.gallery-street-item-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.gallery-street-item-canvas {
+  position: relative;
+  flex-grow: 1;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: var(--thumbnail-width);
+    height: var(--thumbnail-height);
+    border-radius: var(--border-radius-medium);
+    opacity: 0.5;
+    filter: grayscale(0.25);
+    transform: scale(1.4); /* Crops excess space for most streets */
+    transform-origin: center bottom;
+    transition:
+      opacity 45ms,
+      filter 45ms,
+      transform 45ms ease-in-out;
+  }
+}
+
+.gallery-street-item-label {
+  position: relative;
+  background-color: #f0f0f0;
+  padding: 5px 5px 3px;
+  text-align: center;
+  font-size: 0.8em;
+  color: black;
+
+  > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.gallery-street-item-date {
+  margin: 0 16px; /* Leave room for delete button */
+  font-weight: 300;
+}
+
+.gallery-street-item-delete {
+  position: absolute;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  bottom: 7px;
+  right: 7px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+  line-height: 25px;
+  user-select: none;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.65em;
+
+  [dir="rtl"] & {
+    left: 7px;
+    right: auto;
+  }
+
+  &:hover {
+    background-color: rgb(255 255 255 / 50%);
+  }
+
+  &:active {
+    background-color: rgb(255 255 255 / 75%);
+  }
+
+  svg {
+    color: var(--color-midnight-900);
+    width: 12px;
+    height: 12px;
+  }
+
+  &:hover svg {
+    color: var(--color-turquoise-800);
+  }
+}
+
+.gallery-street-item-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-turquoise-800);
+
+  /* Top/bottom padding accounts for street name */
+  padding: 20px 1.5em 2px;
+}
+
+/* Component specific tweaks to <StreetName /> */
+.gallery-street-item .street-name {
+  --street-name-size: var(--street-name-size-small);
+
+  max-width: 95%;
+  position: relative;
+  top: -8px;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import './SentimentIcon.scss'
+import './SentimentIcon.css'
 
 interface SentimentIconProps {
   label: {

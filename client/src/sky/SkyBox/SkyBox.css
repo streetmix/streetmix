@@ -1,0 +1,88 @@
+.street-section-sky {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -70px; /* Space for scrolling down when gallery open */
+  height: calc(100% - 100px);
+  pointer-events: none;
+  opacity: 1;
+
+  /* In read-only mode, there's no UI, so sky needs some more room */
+  body.read-only & {
+    height: calc(100% - 20px);
+  }
+}
+
+.rear-clouds,
+.front-clouds {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  transition: opacity var(--skybox-transition);
+}
+
+.rear-clouds {
+  height: 250px;
+  bottom: 205px;
+  background-image: url("./sky-rear.svg");
+  background-size: 250px 250px;
+}
+
+.front-clouds {
+  height: 280px;
+  bottom: 55px;
+  background-image: url("./sky-front.svg");
+  background-size: 250px 280px;
+}
+
+/* A setting activates this class and turns on environmental animations
+   This is so it can be disabled based on preference or performance reasons */
+.sky-animations {
+  .rear-clouds {
+    animation-name: rear-clouds-move;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .front-clouds {
+    animation-name: front-clouds-move;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes rear-clouds-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250px 0;
+  }
+}
+
+@keyframes front-clouds-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250px 0;
+  }
+}
+
+.sky-foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity var(--skybox-transition);
+  z-index: var(--z-01-foreground);
+  pointer-events: none;
+  opacity: 0;
+}

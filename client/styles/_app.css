@@ -1,0 +1,194 @@
+/**
+ *  Generic top-level app styles
+ *  ------------------------------------------------------- */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+}
+
+.main-screen {
+  position: relative;
+  z-index: var(--z-01-main-screen);
+  flex-grow: 1;
+
+  body:not(.safari) & {
+    perspective: 2000px;
+  }
+}
+
+.streetmix-logo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/logo_main.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.streetmix-logo-horizontal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/logo_horizontal.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.streetmix-wordmark {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/wordmark_green.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+body.phone #error,
+body.phone #loading {
+  font-size: 2rem;
+}
+
+#svg {
+  display: none;
+}
+
+#error,
+#loading {
+  color: var(--color-turquoise-900);
+}
+
+#error {
+  z-index: var(--z-09-error);
+  background-color: var(--color-turquoise-200);
+
+  /* Errors may be displayed on old browsers without flexbox.
+     This forces vertical centering */
+  display: table;
+}
+
+.error-content {
+  position: relative;
+  text-align: center;
+  line-height: 1.6;
+
+  /* Errors may be displayed on old browsers without flexbox.
+     This forces vertical centering */
+  display: table-cell;
+  vertical-align: middle;
+
+  a {
+    color: black;
+    white-space: nowrap;
+  }
+
+  button + button {
+    margin-left: 1em;
+  }
+
+  .error-text {
+    margin-top: 4em;
+    margin-bottom: 4em;
+  }
+
+  .error-help-link {
+    margin-top: 2em;
+    font-size: 0.85em;
+
+    a,
+    a:visited,
+    a:active {
+      color: var(--color-turquoise-900);
+    }
+
+    a:hover {
+      color: var(--color-turquoise-800);
+    }
+  }
+}
+
+#loading {
+  z-index: var(--z-09-loading);
+  transition: opacity 120ms;
+  opacity: 1;
+  will-change: opacity;
+  background-color: var(--color-emerald-200);
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loading-stuck {
+    position: absolute;
+    bottom: 20px;
+    background-color: var(--alert-background);
+    border-bottom: var(--alert-border);
+    padding: 1em;
+    border-radius: var(--border-radius-medium);
+    opacity: 0;
+    transition:
+      opacity 120ms,
+      transform 150ms ease-out;
+    transform: translateY(10px);
+    box-shadow: var(--medium-box-shadow);
+  }
+}
+
+#loading .streetmix-logo {
+  margin-top: -25px;
+  margin-bottom: 50px;
+}
+
+#loading .streetmix-logo,
+.error-content .streetmix-logo {
+  width: 80%;
+  height: 100px;
+  max-height: 100px;
+  background-position: center center;
+}
+
+.error-content .streetmix-logo {
+  height: 60px;
+  margin: 0 auto;
+}
+
+#loading .loading-spinner::before {
+  border-left-color: rgb(255 255 255 / 75%);
+  border-right-color: rgb(255 255 255 / 75%);
+  border-bottom-color: rgb(255 255 255 / 75%);
+}
+
+/* Position and layout for error, loading, and blocking shield */
+#error,
+#loading,
+.blocking-shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  font-size: 1.2rem;
+}
+
+/* -------------------------------------------------------- */
+
+.debug-hover-polygon {
+  position: absolute;
+  z-index: var(--z-07-debug-hover-polygon);
+  inset: 0;
+  pointer-events: none;
+
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

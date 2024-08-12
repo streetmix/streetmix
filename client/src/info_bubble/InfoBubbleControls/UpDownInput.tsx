@@ -3,7 +3,7 @@ import debounce from 'just-debounce-it'
 
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
-import './UpDownInput.scss'
+import './UpDownInput.css'
 
 const EDIT_INPUT_DELAY = 200
 

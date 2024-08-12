@@ -13,7 +13,7 @@ import {
   BUILDING_LEFT_POSITION
 } from '~/src/segments/constants'
 import UpDownInput from './UpDownInput'
-import './BuildingHeightControl.scss'
+import './BuildingHeightControl.css'
 
 import type { BuildingPosition } from '@streetmix/types'
 

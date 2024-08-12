@@ -1,10 +1,11 @@
 import React, { useEffect, useCallback } from 'react'
+
 import { useSelector, useDispatch } from '../store/hooks'
 import { closeGallery } from '../store/actions/gallery'
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import GalleryPanel from './GalleryPanel'
 import GalleryShield from './GalleryShield'
-import './Gallery.scss'
+import './Gallery.css'
 
 function Gallery (): React.ReactElement {
   const { visible, instant } = useSelector((state) => state.gallery)
