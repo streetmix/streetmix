@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-@import "_variables.css";
-@import "_base.css";
-@import "_typography.css";
-@import "_app.css";
+@import url("_variables.css");
+@import url("_base.css");
+@import url("_typography.css");
+@import url("_app.css");

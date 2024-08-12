@@ -27,7 +27,7 @@
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js --watch packages",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
-    "lint:css": "stylelint \"./client/**/*.scss\"",
+    "lint:css": "stylelint \"./client/**/*.css\"",
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.cjs .",
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",
@@ -56,7 +56,7 @@
       "prettier --write",
       "eslint --fix"
     ],
-    "*.{json,scss,css,md}": [
+    "*.{json,css,md}": [
       "prettier --write"
     ]
   },

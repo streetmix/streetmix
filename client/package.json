@@ -66,7 +66,6 @@
     "react-spring": "9.7.4",
     "react-transition-group": "4.4.5",
     "rehype-external-links": "3.0.0",
-    "sass": "1.77.8",
     "seedrandom": "3.0.5",
     "shifty": "3.0.3",
     "slugify": "1.6.6"
@@ -78,7 +77,6 @@
     "@babel/preset-env": "7.25.3",
     "@babel/preset-react": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
-    "@parcel/transformer-sass": "2.12.0",
     "@testing-library/dom": "10.3.2",
     "@testing-library/jest-dom": "6.4.6",
     "@testing-library/react": "16.0.0",
@@ -98,7 +96,6 @@
     "redux-mock-store": "1.5.4",
     "stylelint": "16.8.1",
     "stylelint-config-standard": "36.0.1",
-    "stylelint-config-standard-scss": "13.1.0",
     "stylelint-prettier": "5.0.2",
     "vitest-canvas-mock": "0.3.3"
   }

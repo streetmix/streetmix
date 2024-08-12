@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react'
 
-// note: see _chrome.scss for styles
+// note: see _chrome.css for styles
 
 interface LoadingProps {
   isLoading: boolean
