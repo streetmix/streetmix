@@ -34,7 +34,7 @@
   }
 }
 
-// Invert the UI text color when there is a dark background
+/* Invert the UI text color when there is a dark background */
 body.dark-skybox-invert-ui {
   .street-width-under {
     color: #a0a0a0;
@@ -55,7 +55,7 @@ body.dark-skybox-invert-ui {
   border-radius: var(--menu-border-radius);
   box-shadow: var(--menu-box-shadow);
   line-height: 1.4;
-  animation-duration: 150ms;
+  animation-duration: 120ms;
   will-change: transform, opacity;
 }
 
@@ -86,7 +86,7 @@ body.safari .dropdown-menu-content[data-side="bottom"] {
 .dropdown-menu-item[data-disabled],
 .dropdown-menu-checkbox-item[data-disabled],
 .dropdown-menu-radio-item[data-disabled] {
-  color: #999; // TODO: gray color
+  color: #999; /* TODO: gray color */
   pointer-events: none;
 }
 

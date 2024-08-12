@@ -25,7 +25,7 @@ import { normalizeStreetWidth } from '../width'
 import StreetMetaItem from './StreetMetaItem'
 
 import type { StreetJsonExtra } from '@streetmix/types'
-import './StreetMetaWidth.scss'
+import './StreetMetaWidth.css'
 
 const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
   convertImperialMeasurementToMetric
