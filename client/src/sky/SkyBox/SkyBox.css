@@ -2,12 +2,12 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: -70px; // Space for scrolling down when gallery open
+  top: -70px; /* Space for scrolling down when gallery open */
   height: calc(100% - 100px);
   pointer-events: none;
   opacity: 1;
 
-  // In read-only mode, there's no UI, so sky needs some more room
+  /* In read-only mode, there's no UI, so sky needs some more room */
   body.read-only & {
     height: calc(100% - 20px);
   }
@@ -37,8 +37,8 @@
   background-size: 250px 280px;
 }
 
-// A setting activates this class and turns on environmental animations
-// This is so it can be disabled based on preference or performance reasons
+/* A setting activates this class and turns on environmental animations
+   This is so it can be disabled based on preference or performance reasons */
 .sky-animations {
   .rear-clouds {
     animation-name: rear-clouds-move;

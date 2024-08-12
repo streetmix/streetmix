@@ -18,7 +18,7 @@
   cursor: pointer;
   transition: 120ms box-shadow;
 
-  // These are functionally buttons, reset appearance
+  /* These are functionally buttons, reset appearance */
   appearance: none;
   border: 0;
   padding: 0;

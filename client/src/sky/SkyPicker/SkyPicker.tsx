@@ -11,7 +11,7 @@ import { setSkybox } from '~/src/store/slices/street'
 import { toggleToolbox } from '~/src/store/slices/ui'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyOptions from './SkyOptions'
-import './SkyPicker.scss'
+import './SkyPicker.css'
 
 function SkyPicker (): React.ReactElement {
   const nodeRef = useRef<HTMLDivElement>(null)

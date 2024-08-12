@@ -7,8 +7,8 @@
   z-index: var(--z-07-sky-picker);
   position: absolute;
 
-  // TODO: use button trigger to set initial position,
-  // and remember position on a per-session basis
+  /* TODO: use button trigger to set initial position,
+     and remember position on a per-session basis */
   bottom: 90px;
   left: 50px;
   max-width: 216px; /* prevent upgrade text from expanding width */

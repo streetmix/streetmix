@@ -2,7 +2,7 @@ import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources'
-import './SkyObjects.scss'
+import './SkyObjects.css'
 
 import type { SkyboxDefinition } from '@streetmix/types'
 
