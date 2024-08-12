@@ -1,9 +1,10 @@
 import React, { memo, useState, useRef, useEffect } from 'react'
+
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
-import './SegmentCanvas.scss'
+import './SegmentCanvas.css'
 
 const GROUND_BASELINE = 400
 const CANVAS_HEIGHT = 480

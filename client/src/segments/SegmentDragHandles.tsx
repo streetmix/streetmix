@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useSelector } from '../store/hooks'
 import Icon from '../ui/Icon'
-import './SegmentDragHandles.scss'
+import './SegmentDragHandles.css'
 
 interface SegmentDragHandlesProps {
   width: number

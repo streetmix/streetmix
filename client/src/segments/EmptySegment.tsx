@@ -1,9 +1,10 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import { useSelector } from '../store/hooks'
 import { TILE_SIZE } from './constants'
 import SegmentLabelContainer from './SegmentLabelContainer'
-import './EmptySegment.scss'
+import './EmptySegment.css'
 
 interface EmptySegmentProps {
   width: number

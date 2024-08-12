@@ -1,4 +1,4 @@
-// TODO: Further split-up and refactoring of styles
+/* TODO: Further split-up and refactoring of styles */
 
 .segment {
   display: block;
@@ -59,7 +59,6 @@ body:not(.read-only) .segment {
 
 body.segment-move-dragging,
 body.segment-move-dragging * {
-  cursor: move !important; // IE
   cursor: grabbing !important;
 }
 

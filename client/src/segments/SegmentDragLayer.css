@@ -1,7 +1,7 @@
 .segment-drag-layer {
   position: fixed;
   pointer-events: none;
-  z-index: 400; // TODO: Put on z-index hierarchy
+  z-index: 400; /* TODO: Put on z-index hierarchy */
   left: 0;
   top: 0;
   width: 100%;

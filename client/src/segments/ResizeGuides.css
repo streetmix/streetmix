@@ -18,7 +18,7 @@
   border-left: var(--resize-guide-line);
   border-right: var(--resize-guide-line);
 
-  // Invert the UI text color when there is a dark background
+  /* Invert the UI text color when there is a dark background */
   body.dark-skybox-invert-ui & {
     border-left: var(--resize-guide-line-inverted);
     border-right: var(--resize-guide-line-inverted);
@@ -35,7 +35,7 @@
   font-size: 0.8rem;
   color: var(--resize-guide-text-color);
 
-  // Invert the UI text color when there is a dark background
+  /* Invert the UI text color when there is a dark background */
   body.dark-skybox-invert-ui & {
     color: var(--resize-guide-text-inverted-color);
   }
