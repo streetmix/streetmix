@@ -4,16 +4,16 @@ button.close {
   --close-icon-color: var(--color-turquoise-800);
   --close-icon-color-hover: var(--color-turquoise-700);
 
-  // Position in dialog boxes
+  /* Position in dialog boxes */
   position: absolute;
   right: var(--close-button-margin);
   top: var(--close-button-margin);
 
-  // Touch-friendly size
+  /* Touch-friendly size */
   width: var(--close-button-size);
   height: var(--close-button-size);
 
-  // Appearance
+  /* Appearance */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@ button.close {
   user-select: none;
   background-color: transparent;
 
-  // Mirror position in rtl
+  /* Mirror position in rtl */
   [dir="rtl"] & {
     right: auto;
     left: var(--close-button-margin);
@@ -41,9 +41,9 @@ button.close {
     background-color: rgb(255 255 255 / 75%);
   }
 
-  // !important overrides higher-level specificity on font awesome
-  // icons that normally exist on buttons. Apply color to the parent
-  // element (.close) and the icon will take on this color.
+  /* !important overrides higher-level specificity on font awesome
+     icons that normally exist on buttons. Apply color to the parent
+     element (.close) and the icon will take on this color. */
   svg {
     color: inherit !important;
   }

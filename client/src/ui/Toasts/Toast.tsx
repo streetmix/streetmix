@@ -1,7 +1,9 @@
 import React from 'react'
-import { type ToastItem } from '../../types'
+
 import CloseButton from '../CloseButton'
-import './Toast.scss'
+import './Toast.css'
+
+import { type ToastItem } from '../../types'
 
 export interface ToastProps {
   item: ToastItem

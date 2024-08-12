@@ -11,7 +11,8 @@
  * UI buttons.
  */
 import React, { forwardRef } from 'react'
-import './Button.scss'
+
+import './Button.css'
 
 interface ButtonProps
   extends Partial<

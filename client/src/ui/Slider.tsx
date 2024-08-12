@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import type { SliderProps } from '@radix-ui/react-slider'
-import './Slider.scss'
+
+import './Slider.css'
 
 const Slider = forwardRef(
   (

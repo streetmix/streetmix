@@ -6,18 +6,18 @@
   max-width: 330px;
   z-index: var(--z-07-toasts);
 
-  // Align all toasts to right edge
+  /* Align all toasts to right edge */
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 
-  // Allows inline-block children to set margin-bottom exactly
+  /* Allows inline-block children to set margin-bottom exactly */
   line-height: 0;
 
-  // Disallow intercepting clicks in spaces between toasts
+  /* Disallow intercepting clicks in spaces between toasts */
   pointer-events: none;
 
-  // A hint to the browser that child toasts should be optimized for transformation
+  /* A hint to the browser that child toasts should be optimized for transformation */
   > div {
     will-change: transform;
     transform: translate3d(0, 0, 0);

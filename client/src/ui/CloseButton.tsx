@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { useIntl } from 'react-intl'
 
 import Icon from './Icon'
-import './CloseButton.scss'
+import './CloseButton.css'
 
 interface CloseButtonProps {
   title?: string

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
+
 import { useDispatch } from '../../store/hooks'
 import { handleUndo } from '../../store/actions/history'
 import Toast, { type ToastProps } from './Toast'

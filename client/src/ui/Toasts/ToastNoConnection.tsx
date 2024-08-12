@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast for no-connection message.

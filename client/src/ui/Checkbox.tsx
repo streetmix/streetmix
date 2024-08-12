@@ -5,7 +5,7 @@
 import React, { useState, useRef, type ChangeEvent } from 'react'
 
 import Icon from './Icon'
-import './Checkbox.scss'
+import './Checkbox.css'
 
 // This stores an incrementing number for unique IDs.
 let idCounter = 1

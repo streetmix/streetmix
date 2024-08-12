@@ -4,18 +4,18 @@
   border-radius: 4px;
   box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
 
-  // Note: width and height must be set in JavaScript to
-  // match exact width and height of .toast-content child
+  /* Note: width and height must be set in JavaScript to
+     match exact width and height of .toast-content child */
   width: auto;
   height: auto;
 
-  // Allow pointer interaction
+  /* Allow pointer interaction */
   pointer-events: auto;
 }
 
 .toast-content {
   position: relative;
-  display: inline-block; // Variable width toast
+  display: inline-block; /* Variable width toast */
   max-width: 330px;
   min-width: 200px;
   padding: 1em 1.25em;
@@ -23,15 +23,15 @@
   border-top: var(--alert-border);
   background-color: var(--alert-background);
 
-  // Restore line-height after being unset by parent element
+  /* Restore line-height after being unset by parent element */
   line-height: 1.4;
 }
 
 .toast-body {
-  padding-right: 20px; // Space for close button
+  padding-right: 20px; /* Space for close button */
 
   [dir="rtl"] & {
-    padding-left: 20px; // Space for close button
+    padding-left: 20px; /* Space for close button */
     padding-right: 0;
   }
 }

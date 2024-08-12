@@ -1,4 +1,4 @@
-// Styles must be used in conjunction with the default tippy.js css
+/* Styles must be used in conjunction with the default tippy.js css */
 .tippy-box {
   --tooltip-background-color: #2a2b2a;
   --tooltip-font-color: white;

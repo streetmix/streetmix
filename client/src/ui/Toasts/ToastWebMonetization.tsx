@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+
 import { useSelector } from '../../store/hooks'
 import { doSignIn } from '../../users/authentication'
 import wmIcon from '../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
-import './ToastWebMonetization.scss'
+import './ToastWebMonetization.css'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
 function ToastWebMonetization (props: ToastProps): React.ReactElement {

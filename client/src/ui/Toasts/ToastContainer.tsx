@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useTransition, animated } from '@react-spring/web'
+
 import { useSelector, useDispatch } from '../../store/hooks'
 import { destroyToast } from '../../store/slices/toasts'
 import Toast from './Toast'
@@ -8,7 +9,7 @@ import ToastSignIn from './ToastSignIn'
 import ToastNoConnection from './ToastNoConnection'
 import ToastWebMonetization from './ToastWebMonetization'
 import ToastWebMonetizationSuccess from './ToastWebMonetizationSuccess'
-import './ToastContainer.scss'
+import './ToastContainer.css'
 
 const TOAST_SPRING_CONFIG = {
   tension: 488,

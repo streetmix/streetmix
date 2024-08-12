@@ -12,7 +12,7 @@
   background-color: white;
   box-shadow: 0 0 0 1px var(--color-turquoise-700);
   transition: background-color 120ms;
-  border-radius: 9999px;
+  border-radius: var(--border-radius-pill);
   cursor: pointer;
 
   &:focus,

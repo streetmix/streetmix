@@ -10,7 +10,7 @@ button.scrollable {
   align-items: center;
   justify-content: center;
 
-  // Buttons need to make sure they're above the scrolled items
+  /* Buttons need to make sure they're above the scrolled items */
   z-index: 1;
 
   &[disabled] {

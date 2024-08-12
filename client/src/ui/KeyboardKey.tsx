@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Icon, { type IconNames } from './Icon'
-import './KeyboardKey.scss'
+import './KeyboardKey.css'
 
 interface KeyboardKeyWithIconProps {
   icon: IconNames
