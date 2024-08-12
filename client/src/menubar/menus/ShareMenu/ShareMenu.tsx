@@ -14,7 +14,7 @@ import PrintImage from './PrintImage'
 import SaveImage from './SaveImage'
 import SignInPromo from './SignInPromo'
 import { getSharingUrl, getSharingMessage } from './helpers'
-import './ShareMenu.scss'
+import './ShareMenu.css'
 
 function ShareMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)

@@ -1,8 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import Button from '../ui/Button'
 import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
-import './UpgradeButton.scss'
+import './UpgradeButton.css'
 
 interface UpgradeButtonProps {
   onClick: () => void

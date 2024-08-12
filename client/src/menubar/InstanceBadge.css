@@ -10,7 +10,7 @@
   font-weight: 550;
   line-height: 1.5;
   letter-spacing: 0.5em;
-  padding-right: 0.5em; // Right padding minus letter-spacing
+  padding-right: 0.5em; /* Right padding minus letter-spacing */
   color: white;
   background-color: gray;
   pointer-events: none;

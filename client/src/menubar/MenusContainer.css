@@ -4,6 +4,6 @@
   pointer-events: none;
   z-index: var(--z-07-menu);
 
-  // Required in Firefox to get perspective to work on menus
+  /* Required in Firefox to get perspective to work on menus */
   transform-style: preserve-3d;
 }

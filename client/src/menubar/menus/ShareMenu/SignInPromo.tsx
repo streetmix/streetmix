@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { doSignIn } from '~/src/users/authentication'
-import './SignInPromo.scss'
+import './SignInPromo.css'
 
 function SignInPromo (): React.ReactElement {
   function handleClickSignIn (event: React.MouseEvent): void {

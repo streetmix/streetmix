@@ -21,7 +21,7 @@
   user-select: none;
   touch-action: none;
 
-  // Extra space above the menu bar which pans down when the gallery is open
+  /* Extra space above the menu bar which pans down when the gallery is open */
   &::before {
     content: "";
     position: absolute;
@@ -62,7 +62,7 @@
       color: var(--menu-bar-text-color-active);
     }
 
-    // Button "hover" state is actually wider than the button
+    /* Button "hover" state is actually wider than the button */
     &:hover::after {
       content: "";
       background-color: rgba(0 0 0 / 5%);
@@ -90,7 +90,7 @@
     height: 32px;
     padding: 0 10px;
 
-    // Dropdown carat style
+    /* Dropdown carat style */
     svg {
       margin-left: 0.25em;
 
@@ -104,7 +104,7 @@
       color: var(--menu-bar-text-color-active);
     }
 
-    // Button "hover" state is actually wider than the button
+    /* Button "hover" state is actually wider than the button */
     &:hover::after {
       content: "";
       background-color: rgba(0 0 0 / 5%);
@@ -123,7 +123,7 @@
   padding-right: 0.25em !important;
   padding-left: 0.25em !important;
 
-  // First button gets special hover treatment
+  /* First button gets special hover treatment */
   li:nth-child(2) button.menu-attached:hover::after {
     width: calc(100% + 4px);
     left: 0;
@@ -139,7 +139,7 @@
   padding-right: 0.25em !important;
   padding-left: 0.25em !important;
 
-  // Last button gets special hover treatment
+  /* Last button gets special hover treatment */
   li:last-child button.menu-attached:hover::after {
     width: calc(100% + 4px);
 

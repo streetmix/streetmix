@@ -6,8 +6,9 @@ import React, {
   memo
 } from 'react'
 import { CSSTransition } from 'react-transition-group'
+
 import { useSelector } from '../../store/hooks'
-import './Menu.scss'
+import './Menu.css'
 
 export interface MenuProps {
   className?: string

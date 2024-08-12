@@ -1,7 +1,8 @@
 import React from 'react'
+
 import { useSelector } from '../store/hooks'
 import { ENV, STREETMIX_INSTANCE } from '../app/config'
-import './InstanceBadge.scss'
+import './InstanceBadge.css'
 
 function InstanceBadge ({
   label

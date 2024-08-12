@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { showMenu, clearMenus } from '../store/slices/menus'
 import { useSelector, useDispatch } from '../store/hooks'
@@ -10,7 +11,7 @@ import {
   ShareMenu
 } from './menus'
 import MenuBar from './MenuBar'
-import './MenusContainer.scss'
+import './MenusContainer.css'
 
 function MenusContainer (): React.ReactElement {
   const activeMenu = useSelector((state): string | null => state.menus)
