@@ -38,9 +38,7 @@ If you are looking for someone to set up a whitelabeled instance of Streetmix, w
 
 ## Does Streetmix support Internet Explorer? {#internet-explorer}
 
-Our unique interface means Streetmix is designed with the most recent web technology in mind. We no longer support any Internet Explorer browser, so if you are on a Windows device please use the [Microsoft Edge browser](https://www.microsoft.com/en-us/windows/microsoft-edge) instead.
-
-We also support the common "evergreen" browsers [Chrome, Firefox, and Safari](https://browsehappy.com/).
+Our unique interface means Streetmix is designed with the most recent web technology in mind. We chose not to support Internet Explorer early on, and this browser has reached the end of its official support from Microsoft in June 2022. If you are on a Windows device please use the [Microsoft Edge browser](https://www.microsoft.com/en-us/windows/microsoft-edge) instead, or one of the common "evergreen" browsers [Chrome, Firefox, and Safari](https://browsehappy.com/).
 
 ## How do you add setback lines or curb-to-curb widths?
 

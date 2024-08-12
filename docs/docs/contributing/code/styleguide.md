@@ -20,23 +20,19 @@ We don't have anything to lint HTML, so here are some basic guidelines:
 
 ## CSS
 
-We use the SCSS flavor of [Sass](https://sass-lang.com/), which makes it easier to work with standard CSS syntax. Code style is enforced with [Stylelint](https://stylelint.io/), using a combination of [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) and [Prettier](https://prettier.io/) rules.
+As modern CSS support has improved, we now use "vanilla" CSS, with modern baseline features such as custom properties (also known as _CSS variables_) and nested declarations. We no longer use a pre-processor (like Sass) but we do use a _postprocesser_ (that is, [PostCSS](https://postcss.org/)) to help with cross-browser compatibility.
 
-SCSS files should live adjacent to the components that they apply to, and will be imported by each component. SCSS files are not global, so variables and mixins need to be imported from other SCSS files. However, the compiled CSS will be global, instead of being scoped to the component. _Don't be afraid of the cascade!_
+Code style is enforced with [Stylelint](https://stylelint.io/), using a combination of [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard) and [Prettier](https://prettier.io/) rules.
+
+CSS files should live adjacent to the components that they apply to, and will be imported by each component. These are not true CSS Modules, and the compiled CSS will be global, instead of being scoped to the component. _Don't be afraid of the cascade!_
 
 :::info In the future...
 
-We may investigate adopting scoped CSS. However, we would strongly prefer solutions that don't require writing "CSS-in-JS," which makes it hard to convert from a standard CSS syntax to JavaScript, and vice-versa.
+We may investigate adopting CSS Modules. However, we would strongly prefer solutions that don't require writing "CSS-in-JS," which makes it hard to convert from a standard CSS syntax to JavaScript, and vice-versa.
 
 :::
 
 Avoid styling elements using `id` attribute selectors. Instead, use class names (alongside pseudo-selectors and attribute selectors, if necessary). Namespace all classnames. If there's a component called `palette`, a good class name could be `palette-container`. Avoid writing generic class names like `large`. Styles are not scoped, so generic class names without namespaces will inevitably cause collisions.
-
-:::info In the future...
-
-We may make a stronger move toward [Tailwind CSS](https://tailwindcss.com/)-style composition of utility classes instead of relying on Sass mixins, extends, or copy-pasting duplicate CSS code across class names. Generic class names will then be used for utility classes.
-
-:::
 
 We do not use a strict BEM framework/naming convention for class names. Some good resources which have generally informed our approach to CSS organization (but have not dictated it) include [Scalable and Modular Architecture for CSS (SMACSS)](http://smacss.com/) and parts of the [Reasonable System for CSS Stylesheet Structure (rscss)](https://rscss.io/).
 
