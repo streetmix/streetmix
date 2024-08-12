@@ -9,7 +9,7 @@ import CloseButton from '../ui/CloseButton'
 import { doSignIn } from '../users/authentication'
 import VoteReceipt from './VoteReceipt'
 import VoteButtons from './VoteButtons'
-import './SentimentSurvey.scss'
+import './SentimentSurvey.css'
 
 interface SentimentSurveyProps {
   visible: boolean

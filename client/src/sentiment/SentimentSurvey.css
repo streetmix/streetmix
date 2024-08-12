@@ -1,13 +1,14 @@
 .sentiment-survey-container {
   position: absolute;
-  z-index: 190; // Underlay menubar and street meta area
+  z-index: 190; /* Underlay menubar and street meta area */
   width: 100%;
   top: 0;
-  bottom: 100px; // Overlap entirety of screen to prevent interaction until dismissed
+  bottom: 100px; /* Overlap entirety of screen to prevent interaction until dismissed */
   pointer-events: none;
 
+  /* Force the stock close button UI to appear above
+     absolutely-positioned content */
   button.close {
-    // Force the stock close button UI to appear above absolutely-positioned content
     z-index: 1;
   }
 }
@@ -33,7 +34,7 @@
   background-color: white;
   border-radius: var(--border-radius-medium);
   margin: 0 auto;
-  margin-top: 160px; // Clear street meta area
+  margin-top: 160px; /* Clear street meta area */
   margin-bottom: 15px;
   position: relative;
   width: max-content;

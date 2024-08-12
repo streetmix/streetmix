@@ -5,7 +5,7 @@ import Button from '../ui/Button'
 import VoteComment from './VoteComment'
 import SentimentIcon from './SentimentIcon'
 import { getDataForScore } from './scores'
-import './VoteReceipt.scss'
+import './VoteReceipt.css'
 
 interface VoteReceiptProps {
   score?: number
