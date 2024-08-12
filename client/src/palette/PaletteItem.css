@@ -38,11 +38,11 @@
 .palette-item-image {
   transform-origin: 50% 75px;
   transition: transform 0.08s cubic-bezier(0, 2.5, 1, 1);
-}
 
-@media (prefers-reduced-motion) {
-  .palette-item-image {
-    transition: none;
+  @media (prefers-reduced-motion) {
+    & {
+      transition: none;
+    }
   }
 }
 

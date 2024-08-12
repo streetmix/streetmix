@@ -2,11 +2,11 @@
   margin-bottom: 1em;
   display: flex;
   flex-direction: column;
-}
 
-@media only screen and (width >= 640px) {
-  .custom-scale {
-    flex-direction: row;
+  @media only screen and (width >= 640px) {
+    & {
+      flex-direction: row;
+    }
   }
 }
 

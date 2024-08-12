@@ -2,6 +2,12 @@
   max-width: 820px;
   min-height: 660px;
 
+  @media only screen and (width > 768px) {
+    & {
+      max-height: 75vh !important;
+    }
+  }
+
   /* Used by team list and external links */
   ul {
     list-style: none;
@@ -26,12 +32,6 @@
   .dialog-content {
     overflow: hidden;
     display: flex;
-  }
-}
-
-@media only screen and (width > 768px) {
-  .about-dialog {
-    max-height: 75vh !important;
   }
 }
 
