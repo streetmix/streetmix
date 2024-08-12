@@ -1,4 +1,4 @@
-// TODO: Further refactoring / splitting up of these styles
+/* TODO: Further refactoring / splitting up of these styles */
 
 .info-bubble {
   --info-bubble-header-background-color: var(--color-turquoise-200);
@@ -149,7 +149,7 @@
     opacity: 1;
 
     .icon {
-      // Overrides disabled button opacity
+      /* Overrides disabled button opacity */
       opacity: 1 !important;
     }
   }

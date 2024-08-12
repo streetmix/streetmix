@@ -11,7 +11,7 @@ import Transition, {
 
 import { app } from '~/src/preinit/app_settings'
 import Triangle from './Triangle'
-import './DescriptionPanel.scss'
+import './DescriptionPanel.css'
 
 const TRANSITION_DURATION = 250
 const DEFAULT_STYLE = {
@@ -42,9 +42,9 @@ export function getStreetSectionTop (): number {
   const viewportHeight = window.innerHeight
 
   // TODO this will always be the same, since in CSS this is a fixed number.
-  const streetSectionHeight = document.querySelector(
-    '#street-section-inner'
-  )?.offsetHeight
+  const streetSectionHeight =
+    document.querySelector<HTMLDivElement>('#street-section-inner')
+      ?.offsetHeight ?? 0
 
   // TODO const
   if (viewportHeight - streetSectionHeight > 450) {

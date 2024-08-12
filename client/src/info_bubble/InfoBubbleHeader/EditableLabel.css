@@ -17,7 +17,7 @@
 .info-bubble-label-editable {
   .info-bubble-label-editable-icon {
     opacity: 0;
-    transform: translateZ(0); // Prevent jitter when transitioning
+    transform: translateZ(0); /* Prevent jitter when transitioning */
     transition: opacity 120ms ease-in;
     margin-left: 0.25em;
 
