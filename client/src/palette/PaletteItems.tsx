@@ -11,7 +11,7 @@ import Scrollable from '../ui/Scrollable'
 import Tooltip, { useSingleton } from '../ui/Tooltip'
 import { getAllSegmentInfoArray } from '../segments/info'
 import PaletteItem from './PaletteItem'
-import './PaletteItems.scss'
+import './PaletteItems.css'
 
 function PaletteItems (): React.ReactElement {
   const flags = useSelector((state) => state.flags)
