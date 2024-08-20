@@ -45,12 +45,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "postcss": {
-    "modules": false,
-    "plugins": {
-      "postcss-round-subpixels": {}
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,cjs}": [
       "prettier --write",
