@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
-
 import {
   goEmailSignIn,
   goTwitterSignIn,
