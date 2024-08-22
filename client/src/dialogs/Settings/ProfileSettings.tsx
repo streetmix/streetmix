@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useId } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
@@ -13,7 +13,6 @@ const DISPLAY_NAME_MAX_CHARS = 30
 const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10
 
 function ProfileSettings (): React.ReactElement | null {
-  const displayNameInputRef = useRef<HTMLInputElement>(null)
   const user = useSelector((state) => state.user.signInData?.details)
   const [displayNameValue, setDisplayNameValue] = useState(
     user?.displayName ?? user?.id ?? ''
@@ -21,6 +20,9 @@ function ProfileSettings (): React.ReactElement | null {
   const [isEditing, setEditing] = useState(false)
   const [isPending, setPending] = useState(false)
   const [isError, setError] = useState(false)
+  const displayNameInputRef = useRef<HTMLInputElement>(null)
+  const displayNameInputId = useId()
+
   const intl = useIntl()
   const dispatch = useDispatch()
 
@@ -160,7 +162,7 @@ function ProfileSettings (): React.ReactElement | null {
 
       <div className="profile-settings-item">
         <h3>
-          <label htmlFor="display-name-input">
+          <label htmlFor={displayNameInputId}>
             <FormattedMessage
               id="settings.profile.display-name"
               defaultMessage="Display name"
@@ -180,7 +182,7 @@ function ProfileSettings (): React.ReactElement | null {
               <p>
                 <input
                   ref={displayNameInputRef}
-                  id="display-name-input"
+                  id={displayNameInputId}
                   type="text"
                   value={displayNameValue}
                   onChange={handleChangeDisplayName}

@@ -151,7 +151,6 @@ function AnalyticsDialog (): React.ReactElement {
             <div className="dialog-actions">
               <CapacitySources />
               <Checkbox
-                id="show-analytics"
                 checked={isVisible}
                 onChange={toggleVisible}
                 disabled={!isOwnedByCurrentUser()}

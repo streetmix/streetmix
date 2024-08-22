@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import {
@@ -18,9 +18,10 @@ function SignInDialog (): React.ReactElement {
   const [emailSent, setEmailSent] = useState(false)
   const [sendingEmail, setSendingEmail] = useState(false)
   const [error, setError] = useState(false)
-  const [signingIn, setSigningIng] = useState(false)
+  const [signingIn, setSigningIn] = useState(false)
 
   const emailInputEl = useRef<HTMLInputElement>(null)
+  const emailInputId = useId()
 
   useEffect(() => {
     emailInputEl.current?.focus()
@@ -33,33 +34,21 @@ function SignInDialog (): React.ReactElement {
     setEmail(value)
   }
 
-  function handleFacebookSignIn (event: React.MouseEvent): void {
-    event.preventDefault()
-    setSigningIng(true)
-    goFacebookSignIn()
-  }
-
-  function handleGoogleSignIn (event: React.MouseEvent): void {
-    event.preventDefault()
-    setSigningIng(true)
-    goGoogleSignIn()
-  }
-
-  function handleTwitterSignIn (event: React.MouseEvent): void {
-    event.preventDefault()
-    setSigningIng(true)
-    goTwitterSignIn()
+  function handleSignIn (signInMethod: () => void): void {
+    setSigningIn(true)
+    signInMethod()
   }
 
   function handleGoEmailSignIn (error: string | null): void {
     if (error !== null) {
       console.error(error)
+      setSendingEmail(false)
+      setError(true)
       return
     }
 
     setSendingEmail(false)
     setEmailSent(true)
-    // Reset error state
     setError(false)
   }
 
@@ -70,9 +59,6 @@ function SignInDialog (): React.ReactElement {
 
   function handleSubmit (event: React.FormEvent): void {
     event.preventDefault()
-
-    // Note: we don't validate the input here;
-    // we let HTML5 <input type="email" required /> do validation
     goEmailSignIn(email, handleGoEmailSignIn)
     setSendingEmail(true)
   }
@@ -184,10 +170,7 @@ function SignInDialog (): React.ReactElement {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label
-                htmlFor="sign-in-email-input"
-                className="sign-in-email-label"
-              >
+              <label htmlFor={emailInputId} className="sign-in-email-label">
                 <FormattedMessage
                   id="dialogs.sign-in.email-label"
                   defaultMessage="Email"
@@ -196,12 +179,10 @@ function SignInDialog (): React.ReactElement {
 
               <input
                 type="email"
-                id="sign-in-email-input"
+                id={emailInputId}
                 ref={emailInputEl}
                 value={email}
-                className={
-                  'sign-in-input ' + (error ? 'sign-in-input-error' : '')
-                }
+                className={`sign-in-input ${error ? 'sign-in-input-error' : ''}`}
                 name="email"
                 onChange={handleChange}
                 placeholder="test@test.com"
@@ -241,10 +222,13 @@ function SignInDialog (): React.ReactElement {
               </span>
             </div>
 
+            {/* Social Sign-In Buttons */}
             <Button
               tertiary={true}
               className="sign-in-button sign-in-social-button sign-in-twitter-button"
-              onClick={handleTwitterSignIn}
+              onClick={() => {
+                handleSignIn(goTwitterSignIn)
+              }}
             >
               <Icon name="twitter" />
               <FormattedMessage
@@ -256,7 +240,9 @@ function SignInDialog (): React.ReactElement {
             <Button
               tertiary={true}
               className="sign-in-button sign-in-social-button sign-in-google-button"
-              onClick={handleGoogleSignIn}
+              onClick={() => {
+                handleSignIn(goGoogleSignIn)
+              }}
             >
               <Icon name="google" />
               <FormattedMessage
@@ -268,7 +254,9 @@ function SignInDialog (): React.ReactElement {
             <Button
               tertiary={true}
               className="sign-in-button sign-in-social-button sign-in-facebook-button"
-              onClick={handleFacebookSignIn}
+              onClick={() => {
+                handleSignIn(goFacebookSignIn)
+              }}
             >
               <Icon name="facebook" />
               <FormattedMessage
