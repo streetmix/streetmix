@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useForm } from 'react-hook-form'
 
@@ -34,6 +34,7 @@ function NewsletterDialog (): React.ReactElement {
     progressive: true
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
+  const emailInputId = useId()
 
   const onSubmit = async (data: object): Promise<void> => {
     setSubmitState('PENDING')
@@ -87,7 +88,7 @@ function NewsletterDialog (): React.ReactElement {
                 />
               </p>
               <form onSubmit={() => handleSubmit(onSubmit)}>
-                <label htmlFor="bd-email">
+                <label htmlFor={emailInputId}>
                   <FormattedMessage
                     id="dialogs.newsletter.email-label"
                     defaultMessage="Enter your email"
@@ -95,7 +96,7 @@ function NewsletterDialog (): React.ReactElement {
                 </label>
                 <input
                   type="email"
-                  id="bd-email"
+                  id={emailInputId}
                   placeholder="test@example.com"
                   {...register('email', { required: true })}
                 />

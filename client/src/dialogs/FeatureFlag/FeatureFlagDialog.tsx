@@ -12,9 +12,6 @@ function FeatureFlagDialog (): React.ReactElement {
 
   function renderFlagList (): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
-      const slugifyKey = key.toLowerCase().replace(/_/g, '-')
-      const htmlLabel = `feature-flag__input--${slugifyKey}`
-
       // If the setting has changed, display it differently
       const isNotDefault = flag.defaultValue !== flag.value
       const labelClassName = isNotDefault ? 'feature-flag-label-modified' : ''
@@ -22,7 +19,6 @@ function FeatureFlagDialog (): React.ReactElement {
       return (
         <li key={key}>
           <Checkbox
-            id={htmlLabel}
             onChange={(event) => {
               dispatch(
                 setFeatureFlag({

@@ -73,11 +73,7 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
 
   return (
     <Menu {...props}>
-      <ul
-        className="menu-item-group"
-        role="listbox"
-        aria-labelledby="settings-menu-language-select"
-      >
+      <ul className="menu-item-group" role="listbox">
         {renderLocaleOptions()}
       </ul>
     </Menu>

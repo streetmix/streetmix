@@ -1,25 +1,14 @@
-import React, { useRef } from 'react'
+import React, { useId } from 'react'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
 import type { SwitchProps } from '@radix-ui/react-switch'
 
 import './Switch.css'
 
-// This stores an incrementing number for unique IDs.
-let idCounter = 1
-
 function Switch (props: SwitchProps): React.ReactElement {
-  const { id, className, children, ...restProps } = props
+  const { className, children, ...restProps } = props
 
-  // An `id` associates a `label` with the Radix UI Switch component.
-  // You can provide one manually in props, otherwise, this component
-  // will generate a unique id value for each instance. Generated ids
-  // are not meant to be accessed by other code or CSS selectors.
-  const elementId = useRef<string | undefined>(id)
-  if (elementId.current === undefined) {
-    // This exists in an if statement to check if the ref value is present
-    // to prevent the counter from incrementing on every render
-    elementId.current = `switch-id-${idCounter++}`
-  }
+  // Generate an `id` to associate a `label` with an `input` element.
+  const elementId = useId()
 
   const classNames = ['switch-root']
   if (className !== undefined) {
@@ -29,13 +18,13 @@ function Switch (props: SwitchProps): React.ReactElement {
   return (
     <div className="switch-item">
       <SwitchPrimitive.Root
-        id={elementId.current}
+        id={elementId}
         className={classNames.join(' ')}
         {...restProps}
       >
         <SwitchPrimitive.Thumb className="switch-thumb" />
       </SwitchPrimitive.Root>
-      <label htmlFor={elementId.current}>{children}</label>
+      <label htmlFor={elementId}>{children}</label>
     </div>
   )
 }

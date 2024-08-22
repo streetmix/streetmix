@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import {
@@ -21,6 +21,7 @@ function SignInDialog (): React.ReactElement {
   const [signingIn, setSigningIng] = useState(false)
 
   const emailInputEl = useRef<HTMLInputElement>(null)
+  const emailInputId = useId()
 
   useEffect(() => {
     emailInputEl.current?.focus()
@@ -184,10 +185,7 @@ function SignInDialog (): React.ReactElement {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label
-                htmlFor="sign-in-email-input"
-                className="sign-in-email-label"
-              >
+              <label htmlFor={emailInputId} className="sign-in-email-label">
                 <FormattedMessage
                   id="dialogs.sign-in.email-label"
                   defaultMessage="Email"
@@ -196,7 +194,7 @@ function SignInDialog (): React.ReactElement {
 
               <input
                 type="email"
-                id="sign-in-email-input"
+                id={emailInputId}
                 ref={emailInputEl}
                 value={email}
                 className={

@@ -17,7 +17,6 @@ describe('Checkbox', () => {
         checked={true}
         disabled={true}
         value="bar"
-        id="baz"
         onChange={vi.fn()}
         className="custom-classname"
         style={{ color: 'blue' }}

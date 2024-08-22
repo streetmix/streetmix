@@ -39,12 +39,12 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-1"
+                id=":r0:"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-1"
+                for=":r0:"
               >
                 Segment names and widths
               </label>
@@ -57,12 +57,12 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-2"
+                id=":r1:"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-2"
+                for=":r1:"
               >
                 Street name
               </label>
@@ -75,12 +75,12 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="checkbox-id-3"
+                id=":r2:"
                 type="checkbox"
                 value=""
               />
               <label
-                for="checkbox-id-3"
+                for=":r2:"
               >
                 Transparent sky
               </label>
@@ -98,12 +98,12 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 <input
                   checked=""
                   disabled=""
-                  id="checkbox-id-4"
+                  id=":r3:"
                   type="checkbox"
                   value=""
                 />
                 <label
-                  for="checkbox-id-4"
+                  for=":r3:"
                 >
                   Watermark 
                   <svg
@@ -138,7 +138,7 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 class="custom-scale-popover"
               >
                 <button
-                  aria-controls="radix-:r0:"
+                  aria-controls="radix-:r4:"
                   aria-expanded="false"
                   aria-haspopup="dialog"
                   class="popover-trigger"
