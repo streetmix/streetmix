@@ -170,12 +170,12 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
               class="checkbox-item"
             >
               <input
-                id="show-analytics"
+                id=":r0:"
                 type="checkbox"
                 value=""
               />
               <label
-                for="show-analytics"
+                for=":r0:"
               >
                 Show capacity counts in segment labels
               </label>
