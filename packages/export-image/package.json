@@ -15,8 +15,8 @@
     "start": "echo Nothing to run!"
   },
   "dependencies": {
-    "@fontsource/overpass": "5.0.18",
-    "@fontsource/rubik": "5.0.20",
+    "@fontsource/overpass": "5.0.19",
+    "@fontsource/rubik": "5.0.21",
     "@napi-rs/canvas": "0.1.53"
   }
 }
