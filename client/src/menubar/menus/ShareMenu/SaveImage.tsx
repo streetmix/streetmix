@@ -14,7 +14,7 @@ function SaveImage (): React.ReactElement {
   }
 
   return (
-    <a id="save-as-image" onClick={handleClickSaveAsImage}>
+    <a onClick={handleClickSaveAsImage}>
       <Icon name="download" className="menu-item-icon" />
       <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
       <span className="menu-item-subtext">

@@ -2,13 +2,10 @@
  * Custom stylized checkbox component, so we control the look and
  * feel instead of relying on browser's default styles.
  */
-import React, { useState, useRef, type ChangeEvent } from 'react'
+import React, { useState, useId, type ChangeEvent } from 'react'
 
 import Icon from './Icon'
 import './Checkbox.css'
-
-// This stores an incrementing number for unique IDs.
-let idCounter = 1
 
 interface CheckboxProps {
   // Child nodes are wrapped in <label> when rendered.
@@ -30,11 +27,6 @@ interface CheckboxProps {
 
   // Class name applied to containing element
   className?: string
-
-  // An `id` is associates a `label` with an `input` element. If you don't
-  // provide one, the component automatically generates a unique ID. IDs
-  // are "for internal use only".
-  id?: string
 }
 
 function Checkbox (props: CheckboxProps): React.ReactElement {
@@ -44,29 +36,19 @@ function Checkbox (props: CheckboxProps): React.ReactElement {
     disabled = false,
     value,
     onChange = () => undefined,
-    id,
     className = '',
 
     // Remainder of props will be applied to the containing <div> element
     // for instance, `style`, data attributes, etc.
     ...restProps
   } = props
-
   // This is a controlled component. The `useState` hook maintains
   // this component's internal state, and sets the initial state
   // based on the `checked` prop (which is `false` by default).
   const [isChecked, setChecked] = useState(checked)
 
-  // An `id` is required to associate a `label` with an `input` element.
-  // You can provide one manually in props, otherwise, this component
-  // will generate a unique id value for each instance. Generated ids
-  // are not meant to be accessed by other code or CSS selectors.
-  const elementId = useRef(id)
-  if (elementId.current === undefined) {
-    // This exists in an if statement to check if the ref value is present
-    // to prevent the counter from incrementing on every render
-    elementId.current = `checkbox-id-${idCounter++}`
-  }
+  // Generate an `id` to associate a `label` with an `input` element.
+  const elementId = useId()
 
   const classNames = ['checkbox-item']
   if (className) {
@@ -84,13 +66,13 @@ function Checkbox (props: CheckboxProps): React.ReactElement {
     <div className={classNames.join(' ')} {...restProps}>
       <input
         type="checkbox"
-        id={elementId.current}
+        id={elementId}
         checked={isChecked}
         value={value}
         disabled={disabled}
         onChange={handleChange}
       />
-      <label htmlFor={elementId.current}>{children}</label>
+      <label htmlFor={elementId}>{children}</label>
       {/* The visual state of this checkbox is affected by the value of the input, via CSS. */}
       <Icon name="check" />
     </div>

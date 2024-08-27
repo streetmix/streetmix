@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useId } from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import type {
   RadioGroupProps,
@@ -6,9 +6,6 @@ import type {
 } from '@radix-ui/react-radio-group'
 
 import './RadioGroup.css'
-
-// This stores an incrementing number for unique IDs.
-let idCounter = 1
 
 // Note:
 // For all other accepted props, see the Radix UI documentation at
@@ -24,19 +21,7 @@ export interface RadioItemProps extends RadioGroupItemProps {
 }
 
 function RadioGroup (props: RadioProps): React.ReactElement {
-  const { id, className = '', values, ...restProps } = props
-
-  // An `id` associates a `label` with the Radix UI RadioGroup component.
-  // You can provide one manually in props, otherwise, this component
-  // will generate a unique id value for each instance. Generated ids
-  // are not meant to be accessed by other code or CSS selectors.
-  const elementId = useRef(id)
-  const idValue = elementId.current ?? `radio-group-id-${idCounter++}`
-  if (elementId.current === undefined) {
-    // This exists in an if statement to check if the ref value is present
-    // to prevent the counter from incrementing on every render
-    elementId.current = `radio-group-id-${idCounter++}`
-  }
+  const { className = '', values, ...restProps } = props
 
   const classNames = ['radio-group-root']
   if (className) {
@@ -46,36 +31,33 @@ function RadioGroup (props: RadioProps): React.ReactElement {
   return (
     <RadioGroupPrimitive.Root className={classNames.join(' ')} {...restProps}>
       {values.map((props, i) => (
-        <RadioGroupItem
-          key={`${idValue}_${i}`}
-          id={`${idValue}_${i}`}
-          {...props}
-        />
+        <RadioGroupItem key={i} {...props} />
       ))}
     </RadioGroupPrimitive.Root>
   )
 }
 
 function RadioGroupItem ({
-  id,
   value,
   label,
   sublabel = '',
   disabled = false,
   required = false
 }: RadioItemProps): React.ReactElement {
+  const elementId = useId()
+
   return (
     <div className="radio-group-item">
       <RadioGroupPrimitive.Item
         className="radio-group-radio"
-        id={id}
+        id={elementId}
         value={value}
         disabled={disabled}
         required={required}
       >
         <RadioGroupPrimitive.Indicator className="radio-group-indicator" />
       </RadioGroupPrimitive.Item>
-      <label htmlFor={id}>
+      <label htmlFor={elementId}>
         <span className="radio-group-label">{label}</span>
         {sublabel && <span className="radio-group-sublabel">{sublabel}</span>}
       </label>
