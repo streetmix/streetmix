@@ -25,7 +25,6 @@ let leftHandTraffic = false
 export function getLeftHandTraffic () {
   return leftHandTraffic
 }
-
 const COUNTRIES_LEFT_HAND_TRAFFIC = [
   'AI',
   'AG',
