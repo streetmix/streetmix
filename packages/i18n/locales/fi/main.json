@@ -3,7 +3,7 @@
     "item": {
       "help": "Ohje",
       "about": "Tietoja Streetmixistä…",
-      "whatsnew": "",
+      "whatsnew": "Uudet ominaisuudet",
       "contact": "Ota yhteyttä",
       "community": "Yhteisö",
       "sign-in": "Kirjaudu sisään",
@@ -339,8 +339,8 @@
     "building": "Rakennusten välinen leveys",
     "different": "Muu leveys…",
     "units": "Mittayksikkö",
-    "metric": "",
-    "imperial": ""
+    "metric": "Metrinen",
+    "imperial": "Yhdysvaltalainen/brittiläinen"
   },
   "capacity": {
     "ppl-per-hour": "{capacity} kulkijaa/t"

@@ -3,7 +3,7 @@
     "item": {
       "help": "Nápověda",
       "about": "O Streetmixu...",
-      "whatsnew": "",
+      "whatsnew": "Co je nového?",
       "contact": "Kontakt",
       "community": "Komunita",
       "sign-in": "Přihlásit se",
@@ -339,8 +339,8 @@
     "building": "Šířka mezi budovami",
     "different": "Různá šířka...",
     "units": "Jednotky",
-    "metric": "",
-    "imperial": ""
+    "metric": "Metrický",
+    "imperial": "Americký imperiální"
   },
   "capacity": {
     "ppl-per-hour": "{capacity} člověk/hod"
