@@ -12,6 +12,7 @@ import {
 } from './menus'
 import MenuBar from './MenuBar'
 import './MenusContainer.css'
+import MenubarDemo from './NewMenuTest'
 
 function MenusContainer (): React.ReactElement {
   const activeMenu = useSelector((state): string | null => state.menus)
@@ -123,6 +124,7 @@ function MenusContainer (): React.ReactElement {
           alignOpposite={true}
         />
       </div>
+      <MenubarDemo />
     </>
   )
 }

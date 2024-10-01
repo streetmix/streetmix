@@ -13,6 +13,7 @@
   left: var(--menu-side-inset);
   right: var(--menu-side-inset);
   top: 0;
+  padding: 3px;
   border-bottom-left-radius: var(--menu-bar-border-radius);
   border-bottom-right-radius: var(--menu-bar-border-radius);
   background: var(--menu-bar-background);
@@ -26,6 +27,7 @@
     content: "";
     position: absolute;
     top: -150px;
+    left: 0;
     width: 100%;
     height: 150px;
     background-color: var(--menu-bar-background);
@@ -38,7 +40,7 @@
   ul {
     display: flex;
     list-style: none;
-    padding: 3px 1em;
+    padding: 0;
     margin: 0;
     line-height: 32px;
     color: var(--menu-bar-text-color);
@@ -49,33 +51,7 @@
     white-space: nowrap;
   }
 
-  a {
-    position: relative;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    height: 32px;
-    padding: 0 10px;
-
-    &:active {
-      color: var(--menu-bar-text-color-active);
-    }
-
-    /* Button "hover" state is actually wider than the button */
-    &:hover::after {
-      content: "";
-      background-color: rgba(0 0 0 / 5%);
-      position: absolute;
-      top: 0;
-      left: -4px;
-      width: calc(100% + 8px);
-      height: 100%;
-      border-radius: 6px;
-      pointer-events: none;
-    }
-  }
-
+  /* rename to .menu-trigger ?  -- because not all buttons on the menu bar trigger menus. */
   button.menu-attached {
     position: relative;
     display: flex;
@@ -117,14 +93,90 @@
       pointer-events: none;
     }
   }
+
+  .menubar-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    appearance: none;
+    border: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    background-color: transparent;
+    color: inherit;
+    user-select: none;
+    cursor: pointer;
+    outline: none; /* workaround for temporary flicker when sometimes opening a menu */
+    height: 32px;
+    padding: 0 10px;
+
+    /* Buggy in Radix-UI implementation */
+    &:active {
+      color: var(--menu-bar-text-color-active);
+    }
+
+    /* Button "hover" state is actually wider than the button */
+    /* No longer hover effect in Radix-UI because it conflicts with highlight state */
+    &[data-highlighted]::after,
+    &[data-state="open"]::after {
+      content: "";
+      background-color: rgba(0 0 0 / 5%);
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 100%;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    /* Dropdown carat style */
+    svg {
+      margin-left: 0.25em;
+
+      [dir="rtl"] & {
+        margin-right: 0.25em;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.menu-bar:not([data-newtest]) {
+  a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    height: 32px;
+    padding: 0 10px;
+
+    &:active {
+      color: var(--menu-bar-text-color-active);
+    }
+
+    /* Button "hover" state is actually wider than the button */
+    &:hover::after {
+      content: "";
+      background-color: rgba(0 0 0 / 5%);
+      position: absolute;
+      top: 0;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 100%;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+  }
 }
 
 .menu-bar-left {
-  padding-right: 0.25em !important;
-  padding-left: 0.25em !important;
+  display: flex;
 
   /* First button gets special hover treatment */
-  li:nth-child(2) button.menu-attached:hover::after {
+  li:nth-child(2) button.menu-attached:hover::after,
+  .menubar-trigger:first-of-type::after {
     width: calc(100% + 4px);
     left: 0;
 
@@ -136,8 +188,7 @@
 }
 
 .menu-bar-right {
-  padding-right: 0.25em !important;
-  padding-left: 0.25em !important;
+  display: flex;
 
   /* Last button gets special hover treatment */
   li:last-child button.menu-attached:hover::after {

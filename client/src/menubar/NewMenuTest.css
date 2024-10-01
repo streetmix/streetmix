@@ -1,0 +1,178 @@
+/* @import '@radix-ui/colors/black-alpha.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css'; */
+
+[data-newtest] {
+  &.menu-bar {
+    top: 200px;
+  }
+}
+
+.MenubarContent,
+.MenubarSubContent {
+  min-width: 220px;
+  background-color: white;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.menubar-content,
+.menubar-subcontent {
+  --menu-border-radius: var(--border-radius);
+  --menu-box-shadow: var(--medium-box-shadow);
+
+  padding: 5px;
+  touch-action: none;
+  background-color: white;
+  transform-origin: 50% 0;
+  /* transform: rotateX(-90deg); */
+  /* opacity: 0; */
+  transition:
+    transform 100ms,
+    opacity 100ms;
+  /* pointer-events: none; */
+  border-radius: var(--menu-border-radius);
+  box-shadow: var(--menu-box-shadow);
+  line-height: 1.4;
+
+  /* Allows scrolling if the menu length is longer than height of viewport */
+  max-height: calc(100% - 100px);
+  overflow: hidden auto;
+
+  &.menu-visible-enter-done {
+    transform: rotateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.menu-visible-exit {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+
+  > a {
+    text-decoration: none;
+  }
+
+  .menubar-item,
+  .menubar-subtrigger {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.5em 1em 0.5em 2.5em;
+    color: black;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    &:active {
+      color: var(--interactive-text-active-color);
+    }
+
+    [dir="rtl"] & {
+      padding-right: 2.5em;
+      padding-left: 1em;
+    }
+  }
+
+  input {
+    appearance: none;
+    background: var(--form-element-background);
+    border: 1px solid var(--form-element-border);
+    resize: none;
+  }
+
+  [data-icon="external-link"] {
+    margin-left: 0.25em;
+    height: 12px;
+    color: var(--color-midnight-600);
+
+    [dir="rtl"] & {
+      margin-left: auto;
+      margin-right: 0.25em;
+    }
+  }
+}
+
+body.safari .menu {
+  transform: translateY(20px) translateZ(100px);
+
+  &.menu-visible-enter-done {
+    /* Y-position of 0 puts it too close to menubar, so give it a bit of space */
+    transform: translateY(3px) rotateX(0) translateZ(100px);
+  }
+}
+
+.MenubarItem,
+.MenubarSubTrigger,
+.MenubarCheckboxItem,
+.MenubarRadioItem {
+  all: unset;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--color-turquoise-400);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  height: 25px;
+  padding: 0 10px;
+  position: relative;
+  user-select: none;
+}
+
+.MenubarItem.inset,
+.MenubarSubTrigger.inset,
+.MenubarCheckboxItem.inset,
+.MenubarRadioItem.inset {
+  padding-left: 20px;
+}
+
+.MenubarItem[data-state="open"],
+.MenubarSubTrigger[data-state="open"],
+.menubar-item[data-state="open"],
+.menubar-subtrigger[data-state="open"] {
+  background-color: var(--interactive-element-hover-color);
+  color: var(--interactive-text-hover-color);
+}
+
+.MenubarItem[data-highlighted],
+.MenubarSubTrigger[data-highlighted],
+.MenubarCheckboxItem[data-highlighted],
+.MenubarRadioItem[data-highlighted],
+.menubar-item[data-highlighted],
+.menubar-subtrigger[data-highlighted],
+.menubar-checkbox-item[data-highlighted],
+.menubar-radio-item[data-highlighted] {
+  background-color: var(--interactive-element-hover-color);
+  color: var(--interactive-text-hover-color);
+}
+
+.MenubarItem[data-disabled],
+.MenubarSubTrigger[data-disabled],
+.MenubarCheckboxItem[data-disabled],
+.MenubarRadioItem[data-disabled] {
+  color: var(--color-emerald-800);
+  pointer-events: none;
+}
+
+.MenubarItemIndicator {
+  position: absolute;
+  left: 0;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.RightSlot,
+.menubar-item-rightslot {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 1em;
+}
