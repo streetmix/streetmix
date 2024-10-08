@@ -27,7 +27,7 @@ jobs:
     - name: Download translations
       run: npm run translations:download
     - name: Create pull request
-      uses: peter-evans/create-pull-request@v6
+      uses: peter-evans/create-pull-request@v7
       with:
         commit-message: "chore(translations): automated update"
         branch: "create-pull-request/update-translations"
