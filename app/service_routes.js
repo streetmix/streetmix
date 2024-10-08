@@ -169,7 +169,7 @@ router.post(
 )
 
 // Catch all for all broken api paths, direct to 404 response.
-router.all('*', (req, res) => {
+router.all(/.*/, (req, res) => {
   res
     .status(404)
     .json({ status: 404, error: 'Not found. Did you mispell something?' })
