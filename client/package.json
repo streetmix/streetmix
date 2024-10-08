@@ -32,7 +32,7 @@
     "@sentry/cli": "2.33.1",
     "@tippyjs/react": "4.2.6",
     "auth0": "4.10.0",
-    "auth0-js": "9.26.1",
+    "auth0-js": "9.27.0",
     "autoprefixer": "10.4.20",
     "copy-to-clipboard": "3.3.3",
     "date-fns": "3.6.0",
