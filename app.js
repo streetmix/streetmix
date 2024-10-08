@@ -236,10 +236,12 @@ app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
 
 // Catch-all for broken asset paths.
-app.all('/images/*', (req, res) => {
+// Matches '/images/*'
+app.all(/\/images\/.*/, (req, res) => {
   res.status(404).render('404')
 })
-app.all('/assets/*', (req, res) => {
+// Matches '/assets/*'
+app.all(/\/assets\/.*/, (req, res) => {
   res.status(404).render('404')
 })
 
