@@ -509,17 +509,7 @@ function drawSegmentNamesAndWidths (
     const x = (offsetLeft + availableWidth / 2) * dpi
 
     // Width label
-    let text = prettifyWidth(segment.width, street.units)
-    let textWidth = ctx.measureText(text).width / dpi
-
-    while (
-      textWidth > availableWidth - 10 * multiplier &&
-      text.indexOf(' ') !== -1
-    ) {
-      text = text.substr(0, text.lastIndexOf(' '))
-      textWidth = ctx.measureText(text).width / dpi
-    }
-
+    const text = prettifyWidth(segment.width, street.units)
     ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
 
     // Segment name label

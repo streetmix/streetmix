@@ -31,13 +31,13 @@ const WIDTH_INPUT_CONVERSION = [
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
-  '.125': '⅛',
-  '.25': '¼',
-  '.375': '⅜',
-  '.5': '½',
-  '.625': '⅝',
-  '.75': '¾',
-  '.875': '⅞'
+  0.125: '⅛',
+  0.25: '¼',
+  0.375: '⅜',
+  0.5: '½',
+  0.625: '⅝',
+  0.75: '¾',
+  0.875: '⅞'
 }
 
 // https://www.jacklmoore.com/notes/rounding-in-javascript/
@@ -258,21 +258,21 @@ export function getImperialMeasurementWithVulgarFractions (
   locale: string
 ): string {
   // Determine if there is a vulgar fraction to display
-  const remainder = value - Math.floor(value)
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder.toString().substr(1)]
+  const floor = Math.floor(value)
+  const remainder = value - floor
+  const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder]
 
-  if (fraction) {
-    // Non-zero trailing number
-    if (Math.floor(value)) {
-      return (
-        stringifyMeasurementValue(
-          Math.floor(value),
-          SETTINGS_UNITS_IMPERIAL,
-          locale
-        ) + fraction
-      )
-    } else {
+  // If a fraction exists:
+  if (fraction !== undefined) {
+    // For values less than 1, return just the fractional part.
+    if (value < 1) {
       return fraction
+    } else {
+      // Otherwise, return both the integer and fraction
+      return (
+        stringifyMeasurementValue(floor, SETTINGS_UNITS_IMPERIAL, locale) +
+        fraction
+      )
     }
   }
 
