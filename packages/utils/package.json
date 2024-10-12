@@ -1,0 +1,18 @@
+{
+  "name": "@streetmix/utils",
+  "version": "0.0.1",
+  "description": "utilities shared between client/server",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/streetmix/streetmix.git",
+    "directory": "packages/utils"
+  },
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --outDir build",
+    "start": "echo Nothing to run!"
+  },
+  "dependencies": {}
+}

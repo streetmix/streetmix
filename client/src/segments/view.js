@@ -1,10 +1,11 @@
+import { percentToNumber } from '@streetmix/utils'
+
 import { images } from '../app/load_resources'
 import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
 import { updateSegments, changeSegmentProperties } from '../store/slices/street'
-import { percentToNumber } from '../util/number'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawScatteredSprites } from './scatter'
 import {

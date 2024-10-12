@@ -1,12 +1,9 @@
+import { round } from '@streetmix/utils'
+
 import appURL from './url.js'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const IMPERIAL_PRECISION = 3
-
-// https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value, decimals) {
-  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
-}
 
 const camelToSnakeCase = (str) =>
   str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)

@@ -1,3 +1,5 @@
+import { round } from '@streetmix/utils'
+
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
@@ -38,14 +40,6 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   0.625: '⅝',
   0.75: '¾',
   0.875: '⅞'
-}
-
-// https://www.jacklmoore.com/notes/rounding-in-javascript/
-export function round (value: number, decimals: number): number {
-  // Can't use exponentiation operators either, it'll still produce rounding
-  // errors, so we stick with concatenating exponents as a string then
-  // casting to Number to satisfy the type-checker.
-  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
 
 export function roundToPrecision (value: number): number {

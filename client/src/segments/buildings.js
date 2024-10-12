@@ -1,6 +1,8 @@
 import seedrandom from 'seedrandom'
+import { round } from '@streetmix/utils'
+
 import { generateRandSeed } from '../util/random'
-import { prettifyWidth, round } from '../util/width_units'
+import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
 import store from '../store'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
