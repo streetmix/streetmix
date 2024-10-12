@@ -40,7 +40,7 @@ const LATEST_SCHEMA_VERSION = 31
 
 // https://www.jacklmoore.com/notes/rounding-in-javascript/
 function round (value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
 
 export function updateToLatestSchemaVersion (street) {
