@@ -1,3 +1,5 @@
+import { round } from '@streetmix/utils'
+
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 
 import type * as Canvas from '@napi-rs/canvas'
@@ -161,11 +163,6 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<number, string> = {
   0.625: '⅝',
   0.75: '¾',
   0.875: '⅞'
-}
-
-// https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value: number, decimals: number): number {
-  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
 }
 
 function prettifyWidth (width: number, units: UnitsSetting): string {

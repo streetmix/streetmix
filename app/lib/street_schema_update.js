@@ -3,6 +3,8 @@
  *
  */
 import { nanoid } from 'nanoid'
+import { round } from '@streetmix/utils'
+
 import logger from './logger.js'
 
 const LATEST_SCHEMA_VERSION = 31
@@ -37,11 +39,6 @@ const LATEST_SCHEMA_VERSION = 31
 // 29: rename 'environment' to 'skybox'
 // 30: all measurements use metric values
 // 31: fix for streets with old units setting
-
-// https://www.jacklmoore.com/notes/rounding-in-javascript/
-function round (value, decimals) {
-  return Number(Math.round(Number(value + 'e' + decimals)) + 'e-' + decimals)
-}
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street

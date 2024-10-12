@@ -1,3 +1,5 @@
+import { round } from '@streetmix/utils'
+
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
@@ -7,7 +9,7 @@ import {
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { getWidthInMetric, round, roundToPrecision } from '../util/width_units'
+import { getWidthInMetric, roundToPrecision } from '../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,

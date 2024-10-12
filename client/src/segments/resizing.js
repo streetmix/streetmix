@@ -1,3 +1,5 @@
+import { round } from '@streetmix/utils'
+
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
@@ -5,7 +7,6 @@ import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
 import { changeSegmentWidth } from '../store/slices/street'
 import { setDraggingType } from '../store/slices/ui'
-import { round } from '../util/width_units'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
