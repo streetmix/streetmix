@@ -5,7 +5,7 @@ import type { Street } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
 
-const SEGMENT_NAME_FONT = 'Rubik'
+const SEGMENT_NAME_FONT = 'Geist Sans'
 const SEGMENT_NAME_FONT_SIZE = 12
 const SEGMENT_NAME_FONT_WEIGHT = '400'
 
