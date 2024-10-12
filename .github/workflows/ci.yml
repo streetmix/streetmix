@@ -69,6 +69,11 @@ jobs:
     - run: npm ci
     - name: Seed test database
       run: npm run db:migrate
+    - name: Build files (e.g. TypeScript)
+      run: npm run build
+      env:
+        # We need this because sourcemaps are getting uploaded after build
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     - name: Run tests
       run: npm run vitest:ci
     - name: Report code coverage
