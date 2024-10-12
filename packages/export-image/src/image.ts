@@ -34,6 +34,24 @@ Canvas.GlobalFonts.registerFromPath(
   ),
   'Rubik'
 )
+
+// Rubik (and many others) don't actually have the 1/8 vulgar fractions and
+// foot-grave marker, so we use this one for now and see how we like it.
+Canvas.GlobalFonts.registerFromPath(
+  path.join(
+    __dirname,
+    '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2'
+  ),
+  'Geist Sans'
+)
+Canvas.GlobalFonts.registerFromPath(
+  path.join(
+    __dirname,
+    '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-600-normal.woff2'
+  ),
+  'Geist Sans'
+)
+
 Canvas.GlobalFonts.registerFromPath(
   path.join(
     __dirname,
