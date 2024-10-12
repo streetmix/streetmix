@@ -13,9 +13,10 @@
   },
   "type": "module",
   "workspaces": [
+    "packages/utils",
+    "packages/*",
     "client",
-    "docs",
-    "packages/*"
+    "docs"
   ],
   "scripts": {
     "cypress:open": "cypress open",
