@@ -5,6 +5,9 @@ export default defineConfig({
     name: '@streetmix/utils',
     globals: true,
     environment: 'node',
+    // TypeScript still checks/builds *.test.ts files, but we don't
+    // need to actually run tests on the compiled files.
+    exclude: ['build'],
     // Vitest v2 changes the default pool from `threads` to `forks`,
     // which feels like it will fix situations where test suite hangs
     // and runs forever in background.
