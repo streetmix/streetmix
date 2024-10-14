@@ -3,6 +3,14 @@ import { userClient } from '../lib/auth0.js'
 import logger from '../lib/logger.js'
 import appURL from '../lib/url.js'
 
+// Centralized error handling function
+const handleError = (error, res, message, redirectPath) => {
+  logger.error(message + ': ' + error.message, {
+    errorDetails: error.response ? error.response.data : error.stack
+  })
+  res.redirect(redirectPath)
+}
+
 const AccessTokenHandler = function (req, res) {
   return async (response) => {
     const body = response.data
@@ -16,6 +24,8 @@ const AccessTokenHandler = function (req, res) {
       const refreshToken = body.refresh_token
       const idToken = body.id_token
       const accessToken = body.access_token
+
+      // Fetch user info using the access token
       const { data: user } = await userClient.getUserInfo(accessToken)
       const apiRequestBody = getUserInfo(user)
       const endpoint = `${appURL.origin}/api/v1/users`
@@ -25,38 +35,40 @@ const AccessTokenHandler = function (req, res) {
         }
       }
 
-      axios
-        .post(endpoint, apiRequestBody, apiRequestOptions)
-        .then((response) => {
-          const user = response.data
-          const userAuthData = apiRequestBody.auth0_twitter
-            ? apiRequestBody.auth0_twitter.screenName
-            : apiRequestBody.auth0.nickname
-          const cookieOptions = {
-            maxAge: 9000000000,
-            sameSite: 'strict'
-          }
+      // Use async/await for better readability and error handling
+      const apiResponse = await axios.post(
+        endpoint,
+        apiRequestBody,
+        apiRequestOptions
+      )
+      const createdUser = apiResponse.data
 
-          res.cookie('user_id', user.id || userAuthData, cookieOptions)
-          res.cookie('refresh_token', refreshToken, cookieOptions)
-          res.cookie('login_token', idToken, cookieOptions)
-          res.redirect('/services/auth/just-signed-in')
-        })
-        .catch((error) => {
-          logger.error('[auth0] Error from auth0 API when signing in: ' + error)
-          res.redirect('/error/authentication-api-problem')
-        })
+      const userAuthData = apiRequestBody.auth0_twitter
+        ? apiRequestBody.auth0_twitter.screenName
+        : apiRequestBody.auth0.nickname
+
+      const cookieOptions = {
+        maxAge: 9000000000,
+        sameSite: 'strict'
+      }
+
+      // Set cookies and redirect user
+      res.cookie('user_id', createdUser.id || userAuthData, cookieOptions)
+      res.cookie('refresh_token', refreshToken, cookieOptions)
+      res.cookie('login_token', idToken, cookieOptions)
+      res.redirect('/services/auth/just-signed-in')
     } catch (error) {
-      logger.error('[auth0] Error obtaining user info from Auth0: ' + error)
-      res.redirect('/error/no-access-token')
+      handleError(
+        error,
+        res,
+        '[auth0] Error obtaining user info or creating user record',
+        '/error/authentication-api-problem'
+      )
     }
   }
 }
 
 const getUserInfo = function (user) {
-  // Get the platform the user is authenticating from
-  // e.g user.sub = facebook|das3fa
-  // get 'facebook' out from the user.sub
   const platform = user.sub.split('|')[0]
 
   if (platform === 'twitter') {
@@ -87,12 +99,17 @@ const getUserTwitterAuth0Info = function (user) {
   }
 }
 
-export function get (req, res) {
+// Main handler for sign-in process
+export async function get (req, res) {
   logger.info('[auth0] Logging in user with data:', req.query)
 
   if (req.query.error) {
-    logger.error('[auth0] Auth0 encountered an error: ' + req.query.error)
-    res.redirect('/error/access-denied')
+    handleError(
+      new Error(req.query.error),
+      res,
+      '[auth0] Auth0 encountered an error',
+      '/error/access-denied'
+    )
     return
   }
 
@@ -104,16 +121,21 @@ export function get (req, res) {
     code: req.query.code,
     redirect_uri: `${appURL.origin}/services/auth/sign-in-callback`
   }
+
   const options = {
-    headers: { 'content-type': 'application/json' },
-    json: true
+    headers: { 'content-type': 'application/json' }
   }
 
-  axios
-    .post(tokenUrl, body, options)
-    .then(AccessTokenHandler(req, res))
-    .catch((err) => {
-      logger.error('[auth0] Error obtaining access token from Auth0: ' + err)
-      res.redirect('/error/no-access-token')
-    })
+  try {
+    // Use await to handle the token request
+    const tokenResponse = await axios.post(tokenUrl, body, options)
+    AccessTokenHandler(req, res)(tokenResponse)
+  } catch (error) {
+    handleError(
+      error,
+      res,
+      '[auth0] Error obtaining access token from Auth0',
+      '/error/no-access-token'
+    )
+  }
 }
