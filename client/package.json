@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@fontsource-variable/manrope": "5.1.0",
-    "@fontsource-variable/overpass": "5.1.0",
+    "@fontsource-variable/overpass": "5.1.1",
     "@fontsource-variable/rubik": "5.1.0",
     "@json2csv/plainjs": "7.0.6",
     "@radix-ui/react-accessible-icon": "1.1.0",
