@@ -6,7 +6,7 @@ sidebar_position: 4
 
 :::caution Draft
 
-This is a draft specification of Streetmix's forthcoming segment definition schema. For documentation related to the legacy specification, see [this file](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/README.md).
+This is a draft specification of Streetmix's forthcoming segment definition schema. For documentation related to the legacy specification, see [this file](https://github.com/streetmix/streetmix/blob/main/client/src/segments/README.md).
 
 The schema and structure described here is subject to change.
 
@@ -90,13 +90,13 @@ Markings are a transitional category which emerged because it was necessary to f
 
 ### Components definitions
 
-Segment components are defined in [`components.json`](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/components.json).
+Segment components are defined in [`components.json`](https://github.com/streetmix/streetmix/blob/main/client/src/segments/components.json).
 
 ## Segment definitions
 
 :::note Background
 
-Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/segment-lookup.json).
+Currently every object type (what we call "segments" internally) is [defined here](https://github.com/streetmix/streetmix/blob/main/client/src/segments/segment-lookup.json).
 
 Its basic structure is very minimal. For every segment we have some properties attached to it (e.g. its display name, minimum / maximum recommended width, if any, and so on), and we also specify which image sprites represent the segment graphically. Each segment may also have variants, which come with its own properties.
 
@@ -106,7 +106,7 @@ Finally, there is the problem variants. Each segment variant combines with other
 
 :::
 
-Segments are now defined as an assemblage of components, with additional properties, in [`segment-lookup.son`](https://github.com/streetmix/streetmix/blob/main/assets/scripts/segments/segment-lookup.json).
+Segments are now defined as an assemblage of components, with additional properties, in [`segment-lookup.son`](https://github.com/streetmix/streetmix/blob/main/client/src/segments/segment-lookup.json).
 
 ### Additional segment properties
 
