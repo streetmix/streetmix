@@ -20,7 +20,6 @@ function ShareMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
   const user = useSelector((state) => state.user)
   const street = useSelector((state) => state.street)
-  const flag = useSelector((state) => state.flags.STREETMETER_EXPORT.value)
   const copyShareLinkRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -48,7 +47,7 @@ function ShareMenu (props: MenuProps): React.ReactElement {
           <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
           <MenuSeparator />
           <Export3DStreet />
-          {flag && <ExportStreetmeter />}
+          <ExportStreetmeter />
           <MenuSeparator />
         </>
       )}
