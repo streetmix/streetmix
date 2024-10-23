@@ -82,7 +82,7 @@
     "@types/auth0-js": "9.21.6",
     "@types/file-saver": "2.0.7",
     "@types/json2csv": "5.0.7",
-    "@types/leaflet": "1.9.12",
+    "@types/leaflet": "1.9.14",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@types/react-transition-group": "4.4.10",
