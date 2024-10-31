@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.STRING
+        type: DataTypes.UUID
       },
       namespacedId: {
         type: DataTypes.INTEGER,
