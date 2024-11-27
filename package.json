@@ -70,7 +70,7 @@
     "chalk": "5.3.0",
     "cloudinary": "2.5.1",
     "compression": "1.7.4",
-    "cookie-parser": "1.4.6",
+    "cookie-parser": "1.4.7",
     "cookie-session": "2.1.0",
     "cors": "2.8.5",
     "dotenv": "16.4.5",
