@@ -31,7 +31,7 @@
     "@sentry/browser": "8.33.1",
     "@sentry/cli": "2.33.1",
     "@tippyjs/react": "4.2.6",
-    "auth0": "4.10.0",
+    "auth0": "4.14.0",
     "auth0-js": "9.28.0",
     "autoprefixer": "10.4.20",
     "copy-to-clipboard": "3.3.3",
