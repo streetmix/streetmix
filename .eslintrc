@@ -140,6 +140,27 @@
         // Allow legacy __dirname and __filename variables
         "@typescript-eslint/naming-convention": "off"
       }
+    },
+    {
+      "files": ["packages/i18n/src/*.ts"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint", "import"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript",
+        "standard-with-typescript"
+      ],
+      "settings": {
+        "import/resolver": {
+          "typescript": true,
+          "node": true
+        }
+      },
+      // TODO: set up project-specific eslint "flat config" (eslint v9)
+      "parserOptions": {
+        "tsconfigRootDir": "packages/i18n",
+        "project": "./tsconfig.json"
+      }
     }
   ],
   "root": true

@@ -1,22 +1,23 @@
-import { round } from '@streetmix/utils'
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import ELEMENT_LOOKUP from '../../../client/src/segments/segment-lookup.json' with { type: 'json' }
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
+import { prettifyWidth } from './dimensions.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { Street, UnitsSetting } from '@streetmix/types'
+import type { Street } from '@streetmix/types'
 
-const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
-
-const SEGMENT_NAME_FONT = 'Geist Sans'
-const SEGMENT_NAME_FONT_SIZE = 12
-const SEGMENT_NAME_FONT_WEIGHT = '400'
+const ELEMENT_LABEL_BACKGROUND = 'rgb(216, 211, 203)'
+const ELEMENT_LABEL_FONT = 'Geist Sans'
+const ELEMENT_LABEL_FONT_SIZE = 12
+const ELEMENT_LABEL_FONT_WEIGHT = '400'
 
 /**
- * Draws segment label background.
+ * Draws section element label background.
  *
  * @modifies {CanvasRenderingContext2D} ctx
  */
-export function drawSegmentLabelBackground (
+export function drawElementLabelBackground (
   ctx: Canvas.SKRSContext2D,
   width: number,
   height: number,
@@ -25,7 +26,7 @@ export function drawSegmentLabelBackground (
 ): void {
   ctx.save()
 
-  ctx.fillStyle = LABEL_BACKGROUND
+  ctx.fillStyle = ELEMENT_LABEL_BACKGROUND
   ctx.fillRect(
     0,
     (groundLevel + GROUND_BASELINE_HEIGHT) * scale,
@@ -37,11 +38,11 @@ export function drawSegmentLabelBackground (
 }
 
 /**
- * Draws segment labels.
+ * Draws section element labels.
  *
  * @modifies {CanvasRenderingContext2D} ctx
  */
-export function drawSegmentLabels (
+export function drawElementLabels (
   ctx: Canvas.SKRSContext2D,
   streetData: Street,
   groundLevel: number,
@@ -54,16 +55,16 @@ export function drawSegmentLabels (
 
   ctx.lineWidth = 0.25 * scale
 
-  ctx.font = `normal ${SEGMENT_NAME_FONT_WEIGHT} ${
-    SEGMENT_NAME_FONT_SIZE * scale
-  }px ${SEGMENT_NAME_FONT}`
+  ctx.font = `normal ${ELEMENT_LABEL_FONT_WEIGHT} ${
+    ELEMENT_LABEL_FONT_SIZE * scale
+  }px ${ELEMENT_LABEL_FONT}`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.strokeStyle = 'black'
   ctx.fillStyle = 'black'
 
-  street.segments.forEach((segment, i) => {
-    const availableWidth = segment.width * TILE_SIZE
+  street.segments.forEach((element, i) => {
+    const availableWidth = element.width * TILE_SIZE
 
     let left = offsetLeft
 
@@ -84,11 +85,12 @@ export function drawSegmentLabels (
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    const text = prettifyWidth(segment.width, street.units)
+    const text = prettifyWidth(element.width, street.units)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
     // Segment name label
-    const name = segment.label ?? 'placeholder' // ?? getLocaleSegmentName(segment.type, segment.variantString)
+    const name =
+      element.label ?? getElementName(element.type, element.variantString)
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -145,81 +147,64 @@ function drawLine (
 //     ctx.fillText(text, ((x1 + x2) / 2) * dpi, y1 * dpi - 10)
 //   }
 // }
-
-/**
- * Simplified prettifyWidth() functions.
- * Does not handle locale.
- */
-const SETTINGS_UNITS_IMPERIAL = 1
-const IMPERIAL_CONVERSION_RATE = 0.3048
-const IMPERIAL_PRECISION = 3
-const METRIC_PRECISION = 3
-
-const IMPERIAL_VULGAR_FRACTIONS: Record<number, string> = {
-  0.125: '⅛',
-  0.25: '¼',
-  0.375: '⅜',
-  0.5: '½',
-  0.625: '⅝',
-  0.75: '¾',
-  0.875: '⅞'
+const ELEMENT_UNKNOWN = {
+  unknown: true,
+  name: 'Unknown',
+  owner: 'NONE',
+  zIndex: 1,
+  variants: [],
+  details: {}
 }
 
-function prettifyWidth (width: number, units: UnitsSetting): string {
-  let widthText = ''
+export const ELEMENT_UNKNOWN_VARIANT = {
+  unknown: true,
+  name: 'Unknown',
+  graphics: {
+    center: 'missing'
+  }
+}
 
-  if (units === SETTINGS_UNITS_IMPERIAL) {
-    // Convert metric value to imperial measurement
-    // This handles precision and rounding to nearest eighth
-    const imperialWidth = convertMetricMeasurementToImperial(width)
+function getElementName (type: string, variant: string): string {
+  const elementInfo = getElementInfo(type)
+  const variantInfo = getElementVariantInfo(type, variant)
+  const defaultName = variantInfo.name ?? elementInfo.name
+  return defaultName
+}
 
-    // Convert numerical value to string with vulgar fractions, if any
-    widthText = stringifyImperialValueWithFractions(imperialWidth)
+function getElementInfo (type: string): unknown {
+  return ELEMENT_LOOKUP[type] ?? ELEMENT_UNKNOWN
+}
 
-    // Append prime mark
-    // This character may not exist in all fonts.
-    widthText += '′'
-  } else {
-    // For metric values, only round to required precision
-    // Then append the unit (with non-breaking space)
-    widthText = round(width, METRIC_PRECISION) + ' m'
+function getElementVariant (type: string, variant: string): unknown {
+  return ELEMENT_LOOKUP[type]?.details?.[variant]
+}
+
+function applyElementInfoOverridesAndRules (details, elementRules): unknown {
+  const { rules, ...overrides } = details
+  return Object.assign({}, elementRules, rules, overrides)
+}
+
+function getElementVariantInfo (type: string, variant: string): unknown {
+  const elementVariant = getElementVariant(type, variant)
+  const { rules } = getElementInfo(type)
+
+  if (elementVariant?.components === undefined) {
+    return ELEMENT_UNKNOWN_VARIANT
   }
 
-  return widthText
-}
+  const { components, ...details } = elementVariant
+  const variantInfo = applyElementInfoOverridesAndRules(details, rules)
 
-/**
- * Given a measurement, assumed to be in imperial units,
- * return a value rounded to the nearest (up or down) eighth.
- */
-function convertMetricMeasurementToImperial (value: number): number {
-  const converted = round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+  // TODO: Bring the following back when we need element info.
+  // variantInfo.graphics = getElementSprites(components)
 
-  // Return a value rounded to the nearest eighth
-  return Math.round(converted * 8) / 8
-}
+  // // Assuming a element has one "lane" component, a element's elevation can be found using the id
+  // // of the first item in the "lane" component group.
+  // const lane = getElementComponentInfo(
+  //   COMPONENT_GROUPS.LANES,
+  //   components.lanes[0].id
+  // )
+  // variantInfo.elevation = lane.elevation
 
-/**
- * Given a measurement value (assuming imperial units), return
- * a string formatted to use vulgar fractions, e.g. .5 => ½
- */
-export function stringifyImperialValueWithFractions (value: number): string {
-  // Determine if there is a vulgar fraction to display
-  const floor = Math.floor(value)
-  const decimal = value - floor
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[decimal]
-
-  // If a fraction exists:
-  if (fraction !== undefined) {
-    // For values less than 1, return just the fractional part.
-    if (value < 1) {
-      return fraction
-    } else {
-      // Otherwise, return both the integer and fraction
-      return floor.toString() + fraction
-    }
-  }
-
-  // Otherwise, just return the stringified value without fractions
-  return value.toString()
+  return variantInfo
 }

@@ -17,7 +17,7 @@
  * but not level 2 for example.
  *
  */
-import type { LocaleLevel } from '@streetmix/types'
+import type { LocaleLevel } from '@streetmix/i18n'
 
 // Locale levels stored as constants
 export const LOCALES_LEVEL_1: LocaleLevel = 1

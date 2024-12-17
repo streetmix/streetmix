@@ -11,7 +11,7 @@ import {
   LOCALES_LEVEL_4
 } from './constants'
 
-import type { LocaleDefinition, LocaleLevel } from '@streetmix/types'
+import type { LocaleDefinition, LocaleLevel } from '@streetmix/i18n'
 
 /**
  * Initialize i18n / localization
@@ -117,7 +117,7 @@ export function getAvailableLocales (): LocaleDefinition[] {
   const level = getLocaleLevel()
 
   return (
-    (LOCALES as LocaleDefinition[])
+    LOCALES
       // Remove languages that aren't enabled
       .filter((item) => item.level >= level)
       // Sort the list of languages alphabetically
