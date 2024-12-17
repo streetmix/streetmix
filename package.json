@@ -14,6 +14,7 @@
   "type": "module",
   "workspaces": [
     "packages/utils",
+    "packages/i18n",
     "packages/*",
     "client",
     "docs"
@@ -32,7 +33,7 @@
     "lint:js": "eslint --ext .jsx,.js,.tsx,.ts,.cjs .",
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",
-    "translations:download": "node -r dotenv/config packages/i18n/download_translations.js",
+    "translations:download": "tsx --env-file=.env packages/i18n/src/download_translations.ts",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",
@@ -122,6 +123,7 @@
     "lint-staged": "15.2.10",
     "prettier": "3.3.3",
     "supertest": "7.0.0",
+    "tsx": "4.19.2",
     "typescript": "5.6.3",
     "vitest": "1.6.0"
   }

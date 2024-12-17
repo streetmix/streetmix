@@ -1,10 +1,11 @@
 {
   "name": "@streetmix/i18n",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "localization interfaces",
   "type": "module",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
+    "build": "tsc --project tsconfig.json --outDir build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

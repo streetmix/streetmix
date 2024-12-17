@@ -1,20 +1,26 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
-import { getFromTransifex } from '../../app/lib/transifex.js'
 
-const languages = JSON.parse(
-  await fs.readFile(new URL('./locales.json', import.meta.url))
-)
+import { getFromTransifex } from '../../../app/lib/transifex.js'
+import languages from './locales.js'
 
 const resources = ['main', 'segment-info']
 
-if (!process.env.TRANSIFEX_API_TOKEN) {
+// Check for Transifex API token in environment. It will be undefined if it is
+// not in the environment, and an empty string if it is present but not set
+const envToken = process.env.TRANSIFEX_API_TOKEN
+if (envToken === undefined || envToken === '') {
   console.error('Error: please provide a Transifex API token.')
   process.exit()
 }
 
-const downloadSuccess = async function (locale, resource, label, data) {
-  const localePath = `./locales/${locale}`
+const downloadSuccess = async function (
+  locale: string,
+  resource: string,
+  label: string,
+  data: unknown
+): Promise<void> {
+  const localePath = `../locales/${locale}`
   const translationFile = new URL(
     `${localePath}/${resource}.json`,
     import.meta.url
@@ -26,11 +32,11 @@ const downloadSuccess = async function (locale, resource, label, data) {
   // Create the folder path, if it doesn't already exist
   try {
     const projectFolder = new URL(localePath, import.meta.url)
-    const createDir = await fs.mkdir(projectFolder, { recursive: true })
+    const createdDir = await fs.mkdir(projectFolder, { recursive: true })
 
-    // createDir is undefined if the folder already exists.
-    if (createDir) {
-      console.info('Created folder:', chalk.magentaBright(createDir))
+    // `createdDir` is undefined if the folder already exists.
+    if (createdDir !== undefined) {
+      console.info('Created folder:', chalk.magentaBright(createdDir))
     }
   } catch (err) {
     console.error(err.message)
@@ -60,7 +66,12 @@ const downloadSuccess = async function (locale, resource, label, data) {
   )
 }
 
-const downloadError = function (locale, resource, label, error) {
+const downloadError = function (
+  locale: string,
+  resource: string,
+  label: string,
+  error: unknown
+): void {
   console.error(
     chalk.redBright('Error:'),
     chalk.yellowBright(`${label} (${locale})}`),
@@ -71,18 +82,16 @@ const downloadError = function (locale, resource, label, error) {
   )
 }
 
-for (const l in languages) {
-  const locale = languages[l].value
-  const label = languages[l].label
+languages.forEach((langauge) => {
+  const locale = langauge.value
+  const label = langauge.label
 
-  // Skip English
-  if (languages[l].value === 'en') {
-    continue
+  // Skip US English (default language)
+  if (langauge.value === 'en') {
+    return
   }
 
-  for (const r in resources) {
-    const resource = resources[r]
-
+  resources.forEach((resource) => {
     console.log(
       'Queued:',
       chalk.yellowBright(`${label} (${locale})`),
@@ -91,11 +100,11 @@ for (const l in languages) {
     )
 
     getFromTransifex(locale, resource, process.env.TRANSIFEX_API_TOKEN)
-      .then((data) => {
-        downloadSuccess(locale, resource, label, data)
+      .then(async (data) => {
+        await downloadSuccess(locale, resource, label, data)
       })
       .catch((error) => {
         downloadError(locale, resource, label, error)
       })
-  }
-}
+  })
+})
