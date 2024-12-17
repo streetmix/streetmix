@@ -1,6 +1,7 @@
 import * as fs from 'node:fs/promises'
+import { getFromTransifex } from '@streetmix/i18n'
+
 import logger from '../../lib/logger.js'
-import { getFromTransifex } from '../../lib/transifex.js'
 
 async function getLocalTranslation (res, locale, resource) {
   const translationFile =

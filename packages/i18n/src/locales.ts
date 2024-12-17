@@ -1,4 +1,12 @@
-import { type LocaleDefinition } from '@streetmix/types'
+export type LocaleLevel = 1 | 2 | 3 | 4
+
+export interface LocaleDefinition {
+  label: string
+  name: string
+  value: string
+  key: string
+  level: LocaleLevel
+}
 
 const LOCALES: LocaleDefinition[] = [
   {

@@ -1,8 +1,8 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
 
-import { getFromTransifex } from '../../../app/lib/transifex.js'
-import languages from './locales.js'
+import LOCALES, { type LocaleDefinition } from './locales.js'
+import { getFromTransifex } from './transifex.js'
 
 const resources = ['main', 'segment-info']
 
@@ -39,6 +39,7 @@ const downloadSuccess = async function (
       console.info('Created folder:', chalk.magentaBright(createdDir))
     }
   } catch (err) {
+    // @ts-expect-error no type for `err`
     console.error(err.message)
   }
 
@@ -82,12 +83,12 @@ const downloadError = function (
   )
 }
 
-languages.forEach((langauge) => {
-  const locale = langauge.value
-  const label = langauge.label
+LOCALES.forEach((language: LocaleDefinition) => {
+  const locale = language.value
+  const label = language.label
 
   // Skip US English (default language)
-  if (langauge.value === 'en') {
+  if (language.value === 'en') {
     return
   }
 

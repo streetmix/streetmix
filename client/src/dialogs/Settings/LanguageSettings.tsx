@@ -10,7 +10,7 @@ import {
   getActualLocaleFromRequested
 } from '~/src/locales/locale'
 
-import type { LocaleDefinition } from '@streetmix/types'
+import type { LocaleDefinition } from '@streetmix/i18n'
 
 function LanguageSettings (): React.ReactElement {
   const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)

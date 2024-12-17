@@ -1,16 +1,20 @@
 import axios from 'axios'
 import { transifexApi } from '@transifex/api'
-import logger from './logger.js'
 
 const ORGANIZATION_SLUG = 'streetmix'
 const PROJECT_SLUG = 'streetmix'
 const ERROR_MESSAGE =
   'Please provide a Transifex API token to use translation feature.'
 
-export async function getFromTransifex (locale, resourceSlug, token) {
-  if (!token) {
-    logger.error(ERROR_MESSAGE)
-    return Promise.reject(new Error(ERROR_MESSAGE))
+export async function getFromTransifex (
+  locale: string,
+  resourceSlug: string,
+  token?: string
+): Promise<unknown> {
+  if (token === undefined || token === '') {
+    // Formerly used logger, but that's not available here
+    console.error(ERROR_MESSAGE)
+    return await Promise.reject(new Error(ERROR_MESSAGE))
   }
 
   // Initialize the Transifex client library
@@ -28,9 +32,11 @@ export async function getFromTransifex (locale, resourceSlug, token) {
   })
 
   // Get projects for the organization
-  const projects = await organization.fetch('projects')
+  // Second argument `false` is optional, but needed to satisfy typechecker
+  const projects = await organization.fetch('projects', false)
 
   // We only have one project, so get that one
+  // @ts-expect-error -- .get() exists, not sure how to fix.
   const project = await projects.get({ slug: PROJECT_SLUG })
 
   // Get resources - instead of using the list from the API, we pass resource
@@ -44,11 +50,12 @@ export async function getFromTransifex (locale, resourceSlug, token) {
 
   // Set up download. This is a two stage process: the resource download is
   // first requested from Transifex, then downloaded when ready
-  const url = await transifexApi.ResourceTranslationsAsyncDownload.download({
-    mode: 'onlytranslated',
-    resource,
-    language
-  })
+  const url: string =
+    await transifexApi.ResourceTranslationsAsyncDownload.download({
+      mode: 'onlytranslated',
+      resource,
+      language
+    })
   const response = await axios.get(url)
 
   // Return data as JavaScript object

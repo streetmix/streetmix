@@ -142,7 +142,7 @@
       }
     },
     {
-      "files": ["packages/i18n/**/*.ts"],
+      "files": ["packages/i18n/src/*.ts"],
       "parser": "@typescript-eslint/parser",
       "plugins": ["@typescript-eslint", "import"],
       "extends": [
@@ -160,12 +160,6 @@
       "parserOptions": {
         "tsconfigRootDir": "packages/i18n",
         "project": "./tsconfig.json"
-      },
-      "rules": {
-        // Disables `no-unused-vars` and enables the one one in Typescript, this
-        // prevents false positives where an imported type is "never used"
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error"
       }
     }
   ],

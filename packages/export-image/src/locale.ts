@@ -1,4 +1,4 @@
-import LOCALES from '@streetmix/i18n'
+import LOCALES, { type LocaleDefinition } from '@streetmix/i18n'
 
 // Load locale file. This is intentionally simple; we're not resolving locale
 // namespaces intelligently or verifying if users have access to locales
@@ -9,7 +9,7 @@ async function getTranslations (
   namespace: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
-  const localeData = LOCALES.find((l) => l.value === locale)
+  const localeData = LOCALES.find((l: LocaleDefinition) => l.value === locale)
 
   if (localeData === undefined) {
     locale = 'en'
