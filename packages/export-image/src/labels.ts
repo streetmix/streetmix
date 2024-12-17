@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import SEGMENT_LOOKUP from '../../../client/src/segments/segment-lookup.json' with { type: 'json' }
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
 
@@ -87,7 +90,8 @@ export function drawSegmentLabels (
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
     // Segment name label
-    const name = segment.label ?? 'placeholder2' // ?? getLocaleSegmentName(segment.type, segment.variantString)
+    const name =
+      segment.label ?? getSegmentName(segment.type, segment.variantString)
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -144,3 +148,64 @@ function drawLine (
 //     ctx.fillText(text, ((x1 + x2) / 2) * dpi, y1 * dpi - 10)
 //   }
 // }
+const SEGMENT_UNKNOWN = {
+  unknown: true,
+  name: 'Unknown',
+  owner: 'NONE',
+  zIndex: 1,
+  variants: [],
+  details: {}
+}
+
+export const SEGMENT_UNKNOWN_VARIANT = {
+  unknown: true,
+  name: 'Unknown',
+  graphics: {
+    center: 'missing'
+  }
+}
+
+function getSegmentName (type: string, variant: string): string {
+  const segmentInfo = getSegmentInfo(type)
+  const variantInfo = getSegmentVariantInfo(type, variant)
+  const defaultName = variantInfo.name ?? segmentInfo.name
+  return defaultName
+}
+
+function getSegmentInfo (type: string): unknown {
+  return SEGMENT_LOOKUP[type] ?? SEGMENT_UNKNOWN
+}
+
+function getSegmentLookup (type: string, variant: string): unknown {
+  return SEGMENT_LOOKUP[type]?.details?.[variant]
+}
+
+function applySegmentInfoOverridesAndRules (details, segmentRules): unknown {
+  const { rules, ...segmentInfoOverrides } = details
+  return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
+}
+
+function getSegmentVariantInfo (type: string, variant: string): unknown {
+  const segmentLookup = getSegmentLookup(type, variant)
+  const { rules } = getSegmentInfo(type)
+
+  if (segmentLookup?.components === undefined) {
+    return SEGMENT_UNKNOWN_VARIANT
+  }
+
+  const { components, ...details } = segmentLookup
+  const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
+
+  // TODO: Bring the following back when we need segment info.
+  // variantInfo.graphics = getSegmentSprites(components)
+
+  // // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
+  // // of the first item in the "lane" component group.
+  // const lane = getSegmentComponentInfo(
+  //   COMPONENT_GROUPS.LANES,
+  //   components.lanes[0].id
+  // )
+  // variantInfo.elevation = lane.elevation
+
+  return variantInfo
+}

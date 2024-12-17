@@ -11,7 +11,10 @@ async function getTranslations (
   namespace: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
-  const localeData = LOCALES.find((l: LocaleDefinition) => l.value === locale)
+  // TODO: specify type of LOCALES in package i18n and then we can remove `as`
+  const localeData = (LOCALES as LocaleDefinition[]).find(
+    (l: LocaleDefinition) => l.value === locale
+  )
   if (localeData === undefined) {
     locale = 'en'
   }
