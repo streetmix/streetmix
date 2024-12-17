@@ -1,24 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import SEGMENT_LOOKUP from '../../../client/src/segments/segment-lookup.json' with { type: 'json' }
+import ELEMENT_LOOKUP from '../../../client/src/segments/segment-lookup.json' with { type: 'json' }
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
 
 import type * as Canvas from '@napi-rs/canvas'
 import type { Street } from '@streetmix/types'
 
-const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
-
-const SEGMENT_NAME_FONT = 'Geist Sans'
-const SEGMENT_NAME_FONT_SIZE = 12
-const SEGMENT_NAME_FONT_WEIGHT = '400'
+const ELEMENT_LABEL_BACKGROUND = 'rgb(216, 211, 203)'
+const ELEMENT_LABEL_FONT = 'Geist Sans'
+const ELEMENT_LABEL_FONT_SIZE = 12
+const ELEMENT_LABEL_FONT_WEIGHT = '400'
 
 /**
- * Draws segment label background.
+ * Draws section element label background.
  *
  * @modifies {CanvasRenderingContext2D} ctx
  */
-export function drawSegmentLabelBackground (
+export function drawElementLabelBackground (
   ctx: Canvas.SKRSContext2D,
   width: number,
   height: number,
@@ -27,7 +26,7 @@ export function drawSegmentLabelBackground (
 ): void {
   ctx.save()
 
-  ctx.fillStyle = LABEL_BACKGROUND
+  ctx.fillStyle = ELEMENT_LABEL_BACKGROUND
   ctx.fillRect(
     0,
     (groundLevel + GROUND_BASELINE_HEIGHT) * scale,
@@ -39,11 +38,11 @@ export function drawSegmentLabelBackground (
 }
 
 /**
- * Draws segment labels.
+ * Draws section element labels.
  *
  * @modifies {CanvasRenderingContext2D} ctx
  */
-export function drawSegmentLabels (
+export function drawElementLabels (
   ctx: Canvas.SKRSContext2D,
   streetData: Street,
   groundLevel: number,
@@ -56,16 +55,16 @@ export function drawSegmentLabels (
 
   ctx.lineWidth = 0.25 * scale
 
-  ctx.font = `normal ${SEGMENT_NAME_FONT_WEIGHT} ${
-    SEGMENT_NAME_FONT_SIZE * scale
-  }px ${SEGMENT_NAME_FONT}`
+  ctx.font = `normal ${ELEMENT_LABEL_FONT_WEIGHT} ${
+    ELEMENT_LABEL_FONT_SIZE * scale
+  }px ${ELEMENT_LABEL_FONT}`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.strokeStyle = 'black'
   ctx.fillStyle = 'black'
 
-  street.segments.forEach((segment, i) => {
-    const availableWidth = segment.width * TILE_SIZE
+  street.segments.forEach((element, i) => {
+    const availableWidth = element.width * TILE_SIZE
 
     let left = offsetLeft
 
@@ -86,12 +85,12 @@ export function drawSegmentLabels (
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    const text = prettifyWidth(segment.width, street.units)
+    const text = prettifyWidth(element.width, street.units)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
     // Segment name label
     const name =
-      segment.label ?? getSegmentName(segment.type, segment.variantString)
+      element.label ?? getElementName(element.type, element.variantString)
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -148,7 +147,7 @@ function drawLine (
 //     ctx.fillText(text, ((x1 + x2) / 2) * dpi, y1 * dpi - 10)
 //   }
 // }
-const SEGMENT_UNKNOWN = {
+const ELEMENT_UNKNOWN = {
   unknown: true,
   name: 'Unknown',
   owner: 'NONE',
@@ -157,7 +156,7 @@ const SEGMENT_UNKNOWN = {
   details: {}
 }
 
-export const SEGMENT_UNKNOWN_VARIANT = {
+export const ELEMENT_UNKNOWN_VARIANT = {
   unknown: true,
   name: 'Unknown',
   graphics: {
@@ -165,43 +164,43 @@ export const SEGMENT_UNKNOWN_VARIANT = {
   }
 }
 
-function getSegmentName (type: string, variant: string): string {
-  const segmentInfo = getSegmentInfo(type)
-  const variantInfo = getSegmentVariantInfo(type, variant)
-  const defaultName = variantInfo.name ?? segmentInfo.name
+function getElementName (type: string, variant: string): string {
+  const elementInfo = getElementInfo(type)
+  const variantInfo = getElementVariantInfo(type, variant)
+  const defaultName = variantInfo.name ?? elementInfo.name
   return defaultName
 }
 
-function getSegmentInfo (type: string): unknown {
-  return SEGMENT_LOOKUP[type] ?? SEGMENT_UNKNOWN
+function getElementInfo (type: string): unknown {
+  return ELEMENT_LOOKUP[type] ?? ELEMENT_UNKNOWN
 }
 
-function getSegmentLookup (type: string, variant: string): unknown {
-  return SEGMENT_LOOKUP[type]?.details?.[variant]
+function getElementVariant (type: string, variant: string): unknown {
+  return ELEMENT_LOOKUP[type]?.details?.[variant]
 }
 
-function applySegmentInfoOverridesAndRules (details, segmentRules): unknown {
-  const { rules, ...segmentInfoOverrides } = details
-  return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
+function applyElementInfoOverridesAndRules (details, elementRules): unknown {
+  const { rules, ...overrides } = details
+  return Object.assign({}, elementRules, rules, overrides)
 }
 
-function getSegmentVariantInfo (type: string, variant: string): unknown {
-  const segmentLookup = getSegmentLookup(type, variant)
-  const { rules } = getSegmentInfo(type)
+function getElementVariantInfo (type: string, variant: string): unknown {
+  const elementVariant = getElementVariant(type, variant)
+  const { rules } = getElementInfo(type)
 
-  if (segmentLookup?.components === undefined) {
-    return SEGMENT_UNKNOWN_VARIANT
+  if (elementVariant?.components === undefined) {
+    return ELEMENT_UNKNOWN_VARIANT
   }
 
-  const { components, ...details } = segmentLookup
-  const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
+  const { components, ...details } = elementVariant
+  const variantInfo = applyElementInfoOverridesAndRules(details, rules)
 
-  // TODO: Bring the following back when we need segment info.
-  // variantInfo.graphics = getSegmentSprites(components)
+  // TODO: Bring the following back when we need element info.
+  // variantInfo.graphics = getElementSprites(components)
 
-  // // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
+  // // Assuming a element has one "lane" component, a element's elevation can be found using the id
   // // of the first item in the "lane" component group.
-  // const lane = getSegmentComponentInfo(
+  // const lane = getElementComponentInfo(
   //   COMPONENT_GROUPS.LANES,
   //   components.lanes[0].id
   // )

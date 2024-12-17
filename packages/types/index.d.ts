@@ -212,7 +212,7 @@ Pick<CapacitySegmentDefinition, 'average' | 'potential'>
 export interface StreetImageOptions {
   locale: string
   transparentSky: boolean
-  segmentLabels: boolean
+  elementLabels: boolean // formerly 'segmentLabels'
   streetName: boolean
   watermark: boolean
   scale: number // formerly `dpi`
