@@ -5,6 +5,7 @@ import Street from './street.js'
 import User from './user.js'
 import UserConnections from './userconnections.js'
 import Vote from './vote.js'
+import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 const configEnv = config[process.env.NODE_ENV]
 const db = {}
@@ -47,6 +48,21 @@ Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
   }
+})
+
+// Update all data models to the latest schema version
+Object.keys(db).forEach((modelName) => {
+  db[modelName].findAll().then((instances) => {
+    instances.forEach((instance) => {
+      const [isUpdated, updatedInstance] = updateToLatestSchemaVersion(
+        instance.dataValues,
+        modelName.toLowerCase()
+      )
+      if (isUpdated) {
+        instance.update(updatedInstance)
+      }
+    })
+  })
 })
 
 db.sequelize = sequelize

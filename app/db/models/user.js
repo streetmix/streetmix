@@ -18,7 +18,11 @@ export default (sequelize, DataTypes) => {
       },
       auth0Id: {
         type: DataTypes.STRING,
-        field: 'auth0_id'
+        field: 'auth0_id',
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
       },
       displayName: {
         type: DataTypes.STRING,
@@ -27,8 +31,19 @@ export default (sequelize, DataTypes) => {
           len: [0, 30]
         }
       },
-      email: { type: DataTypes.STRING, unique: true },
-      identities: DataTypes.JSON,
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+          isEmail: true
+        }
+      },
+      identities: {
+        type: DataTypes.JSON,
+        validate: {
+          isJSON: true
+        }
+      },
       roles: {
         type: DataTypes.ARRAY(DataTypes.TEXT),
         defaultValue: ['USER'],
@@ -53,10 +68,24 @@ export default (sequelize, DataTypes) => {
         // just slightly longer. Bumping to 2048 characters should prevent
         // SQL insert errors that block people from signing in.
         type: DataTypes.STRING(2048),
-        field: 'profile_image_url'
+        field: 'profile_image_url',
+        validate: {
+          isUrl: true,
+          len: [0, 2048]
+        }
       },
-      flags: DataTypes.JSON,
-      data: DataTypes.JSON,
+      flags: {
+        type: DataTypes.JSON,
+        validate: {
+          isJSON: true
+        }
+      },
+      data: {
+        type: DataTypes.JSON,
+        validate: {
+          isJSON: true
+        }
+      },
       lastStreetId: {
         type: DataTypes.INTEGER,
         field: 'last_street_id'
