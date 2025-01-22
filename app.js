@@ -235,6 +235,12 @@ app.use('/services', serviceRoutes)
 app.use('/assets', express.static(path.join(__dirname, '/build')))
 app.use(express.static(path.join(__dirname, '/public')))
 
+// Serve static error pages for /error/ routes
+app.get('/error/:errorType', (req, res) => {
+  const errorType = req.params.errorType
+  res.sendFile(path.join(__dirname, `/public/error/${errorType}.html`))
+})
+
 // Catch-all for broken asset paths.
 // Matches '/images/*'
 app.all(/\/images\/.*/, (req, res) => {
