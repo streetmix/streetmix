@@ -30,10 +30,7 @@ jobs:
       # Use current LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        # Tests on Node 22 are momentarily pinned to 22.6.x to avoid segfault
-        # error on Parcel + 22.7.0+.
-        # https://github.com/parcel-bundler/parcel/issues/9926
-        node-version: [20.x, 22.6.x]
+        node-version: [20.x, 22.x]
     env:
       NODE_ENV: test
       HUSKY: "0"
