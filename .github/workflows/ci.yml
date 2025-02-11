@@ -15,10 +15,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     # Use the current LTS version of Node.js
-    - name: Use Node.js 20
+    - name: Use Node.js 22
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
     - run: npm ci
     - run: npm run lint
 
