@@ -67,15 +67,32 @@ export interface SentimentComment {
   comment: string
 }
 
-export interface ToastItem {
+type ToastComponent =
+  | 'TOAST_UNDO'
+  | 'TOAST_SIGN_IN'
+  | 'TOAST_WEB_MONETIZATION'
+  | 'TOAST_WEB_MONETIZATION_SUCCESS'
+  | 'TOAST_NO_CONNECTION'
+
+interface BaseToastItem {
   mode?: 'success' | 'warning'
-  component?: string
   title?: string
-  message: string
   action?: string
   duration?: number
   timestamp: number
 }
+
+// Toasts that specify component should not provide its own message
+export interface ToastItemWithComponent extends BaseToastItem {
+  component: ToastComponent
+}
+
+// Toasts that use a message should not specify a component name
+export interface ToastItemWithMessage extends BaseToastItem {
+  message: string
+}
+
+export type ToastItem = ToastItemWithComponent | ToastItemWithMessage
 
 export interface FeatureFlagDefinition {
   label: string

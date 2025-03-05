@@ -620,8 +620,8 @@ export function drawSegmentContents (
 export function getLocaleSegmentName (type, variantString) {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
-  const defaultName = variantInfo.name || segmentInfo.name
-  const nameKey = variantInfo.nameKey || segmentInfo.nameKey
+  const defaultName = variantInfo.name ?? segmentInfo.name
+  const nameKey = variantInfo.nameKey ?? segmentInfo.nameKey
   const key = `segments.${nameKey}`
 
   return formatMessage(key, defaultName, { ns: 'segment-info' })

@@ -96,18 +96,18 @@ const csp = {
     childSrc: ['platform.twitter.com'],
     frameAncestors: ["'self'", 'https:'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
-    imgSrc: [
+    imgSrc: ["'self'", 'data:', '*.basemaps.cartocdn.com', '*.stripe.com'],
+    objectSrc: [
       "'self'",
-      'data:',
       // Profile images
+      'abs.twimg.com',
       'pbs.twimg.com',
       'syndication.twitter.com',
+      'platform-lookaside.fbsbx.com',
       's.gravatar.com',
-      'lh3.googleusercontent.com',
-      '*.wp.com/cdn.auth0.com', // Auth0 default profile images
-      '*.basemaps.cartocdn.com',
+      '*.googleusercontent.com',
       'res.cloudinary.com',
-      '*.stripe.com'
+      '*.wp.com/cdn.auth0.com' // Auth0 default profile images
     ],
     fontSrc: ["'self'"],
     connectSrc: [

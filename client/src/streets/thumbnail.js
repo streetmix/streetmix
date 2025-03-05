@@ -514,7 +514,7 @@ function drawSegmentNamesAndWidths (
 
     // Segment name label
     const name =
-      segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+      segment.label ?? getLocaleSegmentName(segment.type, segment.variantString)
     const nameWidth = ctx.measureText(name).width / dpi
 
     if (nameWidth <= availableWidth - 10 * multiplier) {

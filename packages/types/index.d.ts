@@ -143,16 +143,6 @@ export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
 
-export type LocaleLevel = 1 | 2 | 3 | 4
-
-export interface LocaleDefinition {
-  label: string
-  name: string
-  value: string
-  key: string
-  level: LocaleLevel
-}
-
 export type BuildingPosition = 'left' | 'right'
 
 // Subset of / derived from SegmentDefinition
@@ -212,7 +202,7 @@ Pick<CapacitySegmentDefinition, 'average' | 'potential'>
 export interface StreetImageOptions {
   locale: string
   transparentSky: boolean
-  segmentLabels: boolean
+  elementLabels: boolean // formerly 'segmentLabels'
   streetName: boolean
   watermark: boolean
   scale: number // formerly `dpi`

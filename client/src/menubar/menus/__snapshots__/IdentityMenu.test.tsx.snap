@@ -17,9 +17,15 @@ exports[`IdentityMenu > renders 1`] = `
           <span
             class="avatar"
           >
-            <img
-              alt="foo"
-            />
+            <object
+              aria-label="foo"
+              type="image/png"
+            >
+              <img
+                alt="foo"
+                src="test-file-stub"
+              />
+            </object>
           </span>
         </div>
         <div

@@ -719,9 +719,15 @@ exports[`BlockingError > renders STREET_404_BUT_LINK_TO_USER 1`] = `
             <span
               class="avatar"
             >
-              <img
-                alt="foo"
-              />
+              <object
+                aria-label="foo"
+                type="image/png"
+              >
+                <img
+                  alt="foo"
+                  src="test-file-stub"
+                />
+              </object>
             </span>
             foo
           </a>
@@ -763,9 +769,15 @@ exports[`BlockingError > renders STREET_410_BUT_LINK_TO_USER 1`] = `
             <span
               class="avatar"
             >
-              <img
-                alt="foo"
-              />
+              <object
+                aria-label="foo"
+                type="image/png"
+              >
+                <img
+                  alt="foo"
+                  src="test-file-stub"
+                />
+              </object>
             </span>
             foo
           </a>
