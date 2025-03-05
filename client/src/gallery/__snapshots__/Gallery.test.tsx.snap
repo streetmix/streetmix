@@ -255,6 +255,131 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
 </DocumentFragment>
 `;
 
+exports[`Gallery > renders main gallery view for another user’s streets 2`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="false"
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        class="gallery-header"
+      >
+        <span
+          class="avatar"
+        >
+          <object
+            aria-label="foo"
+            data="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIABAAEAMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP62f+Chv/BQDUf2LdO+Evgn4U/ALxB+1P8AtR/tC+ILrRvgh8C7Lx/4V+BngvVtO8P+Kvhx4R8X+LPih+0f8TLdvhT8HPD9t4p+Lnwr+F3gG28ST3vir4v/AB9+MHwb+C/w88Naxrnjq41Pw6AH/BPL/goBqP7aWnfFrwT8VvgF4g/ZY/aj/Z68QWujfG/4F3vj/wAK/HPwXpOneIPFXxH8I+EPFnwv/aP+Gduvwp+Mfh+58U/CP4qfC7x9beG57LxV8IPj78H/AIyfBf4h+GtH1zwLb6n4iAPjDxp4Nm8Bf8FWv2svjV/wUe1DSpf2N/E37Kvweg/YE+NvxA+IOjeDf2Zv2XdK+GXjn4XeOv2o/hh45v8AWPEvgbQvhp+1h8QP2lfCPwF/ae+DXxP1DQ/Enj3U/BfwNsdX+GXxu8OXPwB1XwJ4M8fOsVk9PCwy7Oc0o5XT4grSyDBN5xUyPHY7HZhhcS4YDJsfhsXgcxp5xUw1HFV8G8pxNLNKP1episHOnUw/tae+HjXU3XoUXVeEUcTUvh44mjThCrTiqmJpVKdSjKg6s6VOaxEJUZyqRpTUlUUZHgvwbN49/wCCrX7Jvxq/4Jw6hpUX7G/hn9lX4wwft9/G34f/ABB0bxl+zN+1FpXxN8c/FHx1+y58MPA1/o/iXxzoXxL/AGsPh/8AtK+Lvj1+098Zfifp+h+G/HumeC/jlfav8Tfjd4jufj9pXgTxmZLisnqYWeXZNmlHNKfD9aOQY1rOKmeY7A47L8LhnPAZzj8Ti8dmNTOKeGrYWvjHm2Jq5pW+sU8VjJ1KmI9rUMRGu5qvXouk8WpYmnbDxw1GpCdWpF1MNSp06dGNBVYVacFh4RowlTlSgoqm4x//2Q=="
+            type="image/png"
+          >
+            <img
+              alt="foo"
+              src="test-file-stub"
+            />
+          </object>
+        </span>
+        <div
+          class="gallery-label"
+        >
+          It's me, foo!
+        </div>
+        <div
+          class="gallery-street-count"
+        >
+          1 street
+        </div>
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          class="streets-scrollable-container"
+        >
+          <button
+            class="btn scrollable scroll-left"
+            hidden="true"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+            type="button"
+          >
+            <svg
+              data-icon="chevron-left"
+              data-icon-source="test"
+            />
+          </button>
+          <div
+            class="streets"
+          >
+            <div
+              class="gallery-street-item gallery-selected"
+            >
+              <a
+                href="/foo/435/baz"
+              >
+                <div
+                  class="gallery-street-item-inner"
+                >
+                  <div
+                    class="gallery-street-item-canvas"
+                  >
+                    <canvas
+                      height="220"
+                      width="360"
+                    />
+                  </div>
+                  <div
+                    class="gallery-street-item-label"
+                  >
+                    <div
+                      class="gallery-street-item-date"
+                    >
+                      <time
+                        datetime="2018-04-27T20:47:03.477Z"
+                        title="2018-04-27T20:47:03.477Z"
+                      >
+                        April 27, 2018
+                      </time>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="street-name"
+                >
+                  <div
+                    class="street-name-text"
+                  >
+                    Baz
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <button
+            class="btn scrollable scroll-right"
+            hidden="true"
+            style="right: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+            type="button"
+          >
+            <svg
+              data-icon="chevron-right"
+              data-icon-source="test"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+      data-testid="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
+
 exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
 <DocumentFragment>
   <div
@@ -274,6 +399,160 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
             alt="foo"
             src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIABAAEAMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP62f+Chv/BQDUf2LdO+Evgn4U/ALxB+1P8AtR/tC+ILrRvgh8C7Lx/4V+BngvVtO8P+Kvhx4R8X+LPih+0f8TLdvhT8HPD9t4p+Lnwr+F3gG28ST3vir4v/AB9+MHwb+C/w88Naxrnjq41Pw6AH/BPL/goBqP7aWnfFrwT8VvgF4g/ZY/aj/Z68QWujfG/4F3vj/wAK/HPwXpOneIPFXxH8I+EPFnwv/aP+Gduvwp+Mfh+58U/CP4qfC7x9beG57LxV8IPj78H/AIyfBf4h+GtH1zwLb6n4iAPjDxp4Nm8Bf8FWv2svjV/wUe1DSpf2N/E37Kvweg/YE+NvxA+IOjeDf2Zv2XdK+GXjn4XeOv2o/hh45v8AWPEvgbQvhp+1h8QP2lfCPwF/ae+DXxP1DQ/Enj3U/BfwNsdX+GXxu8OXPwB1XwJ4M8fOsVk9PCwy7Oc0o5XT4grSyDBN5xUyPHY7HZhhcS4YDJsfhsXgcxp5xUw1HFV8G8pxNLNKP1episHOnUw/tae+HjXU3XoUXVeEUcTUvh44mjThCrTiqmJpVKdSjKg6s6VOaxEJUZyqRpTUlUUZHgvwbN49/wCCrX7Jvxq/4Jw6hpUX7G/hn9lX4wwft9/G34f/ABB0bxl+zN+1FpXxN8c/FHx1+y58MPA1/o/iXxzoXxL/AGsPh/8AtK+Lvj1+098Zfifp+h+G/HumeC/jlfav8Tfjd4jufj9pXgTxmZLisnqYWeXZNmlHNKfD9aOQY1rOKmeY7A47L8LhnPAZzj8Ti8dmNTOKeGrYWvjHm2Jq5pW+sU8VjJ1KmI9rUMRGu5qvXouk8WpYmnbDxw1GpCdWpF1MNSp06dGNBVYVacFh4RowlTlSgoqm4x//2Q=="
           />
+        </span>
+        <div
+          class="gallery-label"
+        >
+          It's me, foo!
+        </div>
+        <div
+          class="gallery-street-count"
+        >
+          1 street
+        </div>
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          class="gallery-user-buttons"
+        >
+          <a
+            class="btn gallery-new-street"
+            href="/new"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Create new street
+          </a>
+          <a
+            class="btn gallery-copy-last-street"
+            href="/copy-last"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Make a copy
+          </a>
+        </div>
+        <div
+          class="streets-scrollable-container"
+        >
+          <button
+            class="btn scrollable scroll-left"
+            hidden="true"
+            style="left: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+            type="button"
+          >
+            <svg
+              data-icon="chevron-left"
+              data-icon-source="test"
+            />
+          </button>
+          <div
+            class="streets"
+          >
+            <div
+              class="gallery-street-item gallery-selected"
+            >
+              <a
+                href="/foo/435/baz"
+              >
+                <div
+                  class="gallery-street-item-inner"
+                >
+                  <div
+                    class="gallery-street-item-canvas"
+                  >
+                    <canvas
+                      height="220"
+                      width="360"
+                    />
+                  </div>
+                  <div
+                    class="gallery-street-item-label"
+                  >
+                    <div
+                      class="gallery-street-item-date"
+                    >
+                      <time
+                        datetime="2018-04-27T20:47:03.477Z"
+                        title="2018-04-27T20:47:03.477Z"
+                      >
+                        April 27, 2018
+                      </time>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="street-name"
+                >
+                  <div
+                    class="street-name-text"
+                  >
+                    Baz
+                  </div>
+                </div>
+              </a>
+              <button
+                class="gallery-street-item-delete"
+                title="Delete street"
+              >
+                <svg
+                  data-icon="trash"
+                  data-icon-source="test"
+                />
+              </button>
+            </div>
+          </div>
+          <button
+            class="btn scrollable scroll-right"
+            hidden="true"
+            style="right: -15px; opacity: 0; pointer-events: none;"
+            tabindex="-1"
+            type="button"
+          >
+            <svg
+              data-icon="chevron-right"
+              data-icon-source="test"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="gallery-shield"
+      data-testid="gallery-shield"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Gallery > renders main gallery view for user’s own streets 2`] = `
+<DocumentFragment>
+  <div
+    aria-hidden="false"
+    class="gallery"
+  >
+    <div
+      class="gallery-panel"
+    >
+      <div
+        class="gallery-header"
+      >
+        <span
+          class="avatar"
+        >
+          <object
+            aria-label="foo"
+            data="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIABAAEAMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP62f+Chv/BQDUf2LdO+Evgn4U/ALxB+1P8AtR/tC+ILrRvgh8C7Lx/4V+BngvVtO8P+Kvhx4R8X+LPih+0f8TLdvhT8HPD9t4p+Lnwr+F3gG28ST3vir4v/AB9+MHwb+C/w88Naxrnjq41Pw6AH/BPL/goBqP7aWnfFrwT8VvgF4g/ZY/aj/Z68QWujfG/4F3vj/wAK/HPwXpOneIPFXxH8I+EPFnwv/aP+Gduvwp+Mfh+58U/CP4qfC7x9beG57LxV8IPj78H/AIyfBf4h+GtH1zwLb6n4iAPjDxp4Nm8Bf8FWv2svjV/wUe1DSpf2N/E37Kvweg/YE+NvxA+IOjeDf2Zv2XdK+GXjn4XeOv2o/hh45v8AWPEvgbQvhp+1h8QP2lfCPwF/ae+DXxP1DQ/Enj3U/BfwNsdX+GXxu8OXPwB1XwJ4M8fOsVk9PCwy7Oc0o5XT4grSyDBN5xUyPHY7HZhhcS4YDJsfhsXgcxp5xUw1HFV8G8pxNLNKP1episHOnUw/tae+HjXU3XoUXVeEUcTUvh44mjThCrTiqmJpVKdSjKg6s6VOaxEJUZyqRpTUlUUZHgvwbN49/wCCrX7Jvxq/4Jw6hpUX7G/hn9lX4wwft9/G34f/ABB0bxl+zN+1FpXxN8c/FHx1+y58MPA1/o/iXxzoXxL/AGsPh/8AtK+Lvj1+098Zfifp+h+G/HumeC/jlfav8Tfjd4jufj9pXgTxmZLisnqYWeXZNmlHNKfD9aOQY1rOKmeY7A47L8LhnPAZzj8Ti8dmNTOKeGrYWvjHm2Jq5pW+sU8VjJ1KmI9rUMRGu5qvXouk8WpYmnbDxw1GpCdWpF1MNSp06dGNBVYVacFh4RowlTlSgoqm4x//2Q=="
+            type="image/png"
+          >
+            <img
+              alt="foo"
+              src="test-file-stub"
+            />
+          </object>
         </span>
         <div
           class="gallery-label"
