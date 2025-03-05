@@ -13,6 +13,11 @@ declare module '*.png' {
 declare global {
   interface Document {
     monetization?: Monetization
+    // Deprecated coil polyfill interface
+    coilMonetizationPolyfill?: {
+      init: ({ btpToken: string }) => void
+      refreshBtpToken: (btpToken: string) => void
+    }
   }
 }
 
