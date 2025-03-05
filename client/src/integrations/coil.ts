@@ -1,16 +1,17 @@
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
+
 import store from '../store'
 import { addToast } from '../store/slices/toasts'
 import { setCoilPluginSubscriber } from '../store/slices/user'
 
-export function initCoil () {
+export function initCoil (): void {
   // Run this if browser has the monetization plugin installed. Logged-in
   // users will automatically get subscription benefits regardless of any
   // connected monetization providers
-  if (document.monetization) {
+  if (document.monetization !== undefined) {
     document.monetization.addEventListener('monetizationstart', (event) => {
-      console.log('monetization start!', event.detail)
+      console.log('monetization start!') //, event.detail)
       store.dispatch(setCoilPluginSubscriber(true))
 
       const signedIn = store.getState().user.signedIn
@@ -35,11 +36,11 @@ export function initCoil () {
       }
     })
     document.monetization.addEventListener('monetizationstop', (event) => {
-      console.log('monetization stop!', event.detail)
+      console.log('monetization stop!') //, event.detail)
       store.dispatch(setCoilPluginSubscriber(false))
     })
     document.monetization.addEventListener('monetizationpending', (event) => {
-      console.log('monetization pending!', event.detail)
+      console.log('monetization pending!') //, event.detail)
     })
     // document.monetization.addEventListener('monetizationprogress', (event) => {
     //   console.log('monetization progress!', event.detail)
@@ -47,18 +48,26 @@ export function initCoil () {
     // Otherwise, create a placeholder monetization object. The Coil OAuth Web
     // Monetization (OWM) script relies on this.
   } else {
+    // @ts-expect-error we are creating an element without required properties yet
     document.monetization = document.createElement('div')
+    // @ts-expect-error this property is no longer undefined
     document.monetization.state = 'stopped'
   }
 
   const btpToken = Cookies.get('btpToken')
-  if (btpToken) {
+  if (typeof btpToken === 'string') {
     try {
       const jwt = jwtDecode(btpToken)
       console.log(jwt)
-      console.log('issued at ' + new Date(jwt.iat * 1000))
-      console.log('expires at ' + new Date(jwt.exp * 1000))
-      document.coilMonetizationPolyfill.init({ btpToken })
+      if (jwt.iat !== undefined) {
+        console.log(`issued at ${new Date(jwt.iat * 1000).toString()}`)
+      }
+      if (jwt.exp !== undefined) {
+        console.log(`expires at ${new Date(jwt.exp * 1000).toString()}`)
+      }
+      if (document.coilMonetizationPolyfill !== undefined) {
+        document.coilMonetizationPolyfill.init({ btpToken })
+      }
 
       // The btpToken lasts about 30 minutes, so every 30 minutes, refresh the token
       // Note: a btpToken is a JSON Web Token (JWT) and contains the `iat` (issued
@@ -66,7 +75,9 @@ export function initCoil () {
       // timer by subtracting `iat` from `exp` and setting timeouts instead of a
       // fixed interval. This might be considered for later optimization.
       window.setInterval(function () {
-        document.coilMonetizationPolyfill.refreshBtpToken(btpToken)
+        if (document.coilMonetizationPolyfill !== undefined) {
+          document.coilMonetizationPolyfill.refreshBtpToken(btpToken)
+        }
       }, 1800000)
     } catch (err) {
       console.error('caught error doing token stuff', err)
