@@ -34,6 +34,14 @@
   }
 }
 
+.social-bluesky {
+  color: var(--social-bluesky);
+
+  &:hover {
+    color: var(--social-bluesky-hover);
+  }
+}
+
 .social-mastodon {
   color: var(--social-mastodon);
 
@@ -42,6 +50,7 @@
   }
 }
 
+/* Deprecated */
 .social-twitter {
   color: var(--social-twitter);
 
@@ -50,6 +59,7 @@
   }
 }
 
+/* Not used - deprecated */
 .social-instagram {
   color: var(--social-instagram);
 

@@ -124,6 +124,11 @@
   --social-instagram: #e1306c;
   --social-instagram-hover: #c13584;
 
+  /* Bluesky
+     No brand guidelines found, color is picked from logo file */
+  --social-bluesky: #009bff;
+  --social-bluesky-hover: color-mix(in oklch, black 10%, var(--social-bluesky));
+
   /* Mastodon (https://joinmastodon.org/branding) */
   --social-mastodon: #6364ff;
   --social-mastodon-hover: #563acc;

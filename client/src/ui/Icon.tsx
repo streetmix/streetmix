@@ -2,6 +2,7 @@ import React from 'react'
 import {
   FaArrowLeft,
   FaArrowRight,
+  FaBluesky,
   FaCheck,
   FaDiscord,
   FaGithub,
@@ -107,6 +108,7 @@ const ICONS = {
 
   // Social icons
   // Google is not defined here, see special case
+  bluesky: [FaBluesky, 'fa'],
   discord: [FaDiscord, 'fa'],
   facebook: [FaSquareFacebook, 'fa'],
   github: [FaGithub, 'fa'],

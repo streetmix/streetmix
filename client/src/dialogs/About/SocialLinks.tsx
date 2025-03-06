@@ -27,6 +27,16 @@ function SocialLinks (): React.ReactElement {
         </a>
       </li>
       <li>
+        <a
+          href="https://bsky.app/profile/streetmix.app"
+          title="Bluesky"
+          target="_blank"
+          rel="me noopener noreferrer"
+        >
+          <Icon name="bluesky" className="social-bluesky" />
+        </a>
+      </li>
+      <li>
         {/*
           rel="me" is used to verify link ownership.
           see https://urbanists.social/settings/profile
@@ -38,26 +48,6 @@ function SocialLinks (): React.ReactElement {
           rel="me noopener noreferrer"
         >
           <Icon name="mastodon" className="social-mastodon" />
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/streetmix"
-          title="Twitter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon name="twitter" className="social-twitter" />
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.instagram.com/streetmixapp/"
-          title="Instagram"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon name="instagram" className="social-instagram" />
         </a>
       </li>
     </ul>
