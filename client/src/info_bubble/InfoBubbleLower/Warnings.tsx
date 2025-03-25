@@ -1,14 +1,14 @@
 import React from 'react'
-
 import { FormattedMessage } from 'react-intl'
+
+import alertIcon from 'url:~/images/warning_alert.svg'
+import errorIcon from 'url:~/images/warning_error.svg'
 import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE,
   SEGMENT_WARNING_DANGEROUS_EXISTING
 } from '~/src/segments/constants'
-import alertIcon from '~/images/warning_alert.svg'
-import errorIcon from '~/images/warning_error.svg'
 
 import type { Segment } from '@streetmix/types'
 

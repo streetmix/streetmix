@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
 import { onSignOutClick } from '~/src/users/authentication'
 import Avatar from '~/src/users/Avatar'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { openGallery } from '~/src/store/actions/gallery'
 import { showDialog } from '~/src/store/slices/dialogs'
-import streetmixPlusIcon from '~/src/ui/icons/streetmix-plus.svg'
 import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu'

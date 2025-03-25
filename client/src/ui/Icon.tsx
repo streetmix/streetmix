@@ -53,7 +53,7 @@ import {
   RxStar
 } from 'react-icons/rx'
 
-import googleIcon from './icons/google.svg'
+import googleIcon from 'url:./icons/google.svg'
 
 export type IconNames = BaseIconNames | ExtraIconNames
 type BaseIconNames = keyof typeof ICONS
