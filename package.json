@@ -93,7 +93,7 @@
     "svg-sprite": "2.0.4",
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.1",
-    "uuid": "9.0.1",
+    "uuid": "11.1.0",
     "winston": "3.17.0"
   },
   "devDependencies": {
