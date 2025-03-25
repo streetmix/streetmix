@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 const users = [...Array(10)].map((user) => ({
-  id: faker.internet.userName(),
+  id: faker.internet.username(),
   email: faker.internet.email(),
   created_at: new Date(),
   updated_at: new Date()
