@@ -79,6 +79,20 @@ exports[`AboutDialog > renders snapshot 1`] = `
                 </li>
                 <li>
                   <a
+                    href="https://bsky.app/profile/streetmix.app"
+                    rel="me noopener noreferrer"
+                    target="_blank"
+                    title="Bluesky"
+                  >
+                    <svg
+                      class="social-bluesky"
+                      data-icon="bluesky"
+                      data-icon-source="test"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="https://urbanists.social/@streetmix"
                     rel="me noopener noreferrer"
                     target="_blank"
@@ -87,34 +101,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     <svg
                       class="social-mastodon"
                       data-icon="mastodon"
-                      data-icon-source="test"
-                    />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://twitter.com/streetmix"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    title="Twitter"
-                  >
-                    <svg
-                      class="social-twitter"
-                      data-icon="twitter"
-                      data-icon-source="test"
-                    />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/streetmixapp/"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    title="Instagram"
-                  >
-                    <svg
-                      class="social-instagram"
-                      data-icon="instagram"
                       data-icon-source="test"
                     />
                   </a>
