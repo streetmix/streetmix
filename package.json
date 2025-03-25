@@ -78,7 +78,7 @@
     "express-jwt": "8.5.1",
     "glob": "11.0.1",
     "hbs": "4.2.0",
-    "helmet": "7.2.0",
+    "helmet": "8.1.0",
     "jwks-rsa": "3.2.0",
     "nanoid": "5.1.5",
     "newrelic": "12.16.1",
