@@ -15,9 +15,9 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org streetmix --project streetmix ../build && sentry-cli sourcemaps upload --org streetmix --project streetmix ../build"
   },
   "dependencies": {
-    "@fontsource-variable/manrope": "5.1.0",
-    "@fontsource-variable/overpass": "5.1.1",
-    "@fontsource-variable/rubik": "5.1.0",
+    "@fontsource-variable/manrope": "5.2.5",
+    "@fontsource-variable/overpass": "5.2.5",
+    "@fontsource-variable/rubik": "5.2.5",
     "@json2csv/plainjs": "7.0.6",
     "@radix-ui/react-accessible-icon": "1.1.2",
     "@radix-ui/react-direction": "1.1.0",

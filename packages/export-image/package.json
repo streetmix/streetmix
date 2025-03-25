@@ -15,9 +15,9 @@
     "start": "echo Nothing to run!"
   },
   "dependencies": {
-    "@fontsource/geist-sans": "5.1.0",
-    "@fontsource/overpass": "5.1.1",
-    "@fontsource/rubik": "5.1.0",
+    "@fontsource/geist-sans": "5.2.5",
+    "@fontsource/overpass": "5.2.5",
+    "@fontsource/rubik": "5.2.5",
     "@napi-rs/canvas": "0.1.58"
   }
 }

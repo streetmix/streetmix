@@ -21,7 +21,7 @@
   "dependencies": {
     "@docusaurus/core": "^3.2.1",
     "@docusaurus/preset-classic": "^3.2.1",
-    "@fontsource-variable/manrope": "^5.0.19",
+    "@fontsource-variable/manrope": "^5.2.5",
     "@mdx-js/react": "^3.0.0",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.0.0",
