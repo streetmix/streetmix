@@ -36,17 +36,6 @@ if (
   })
 }
 
-// Accept HMR in Parcel
-// NOTE: HMR is broken; changes will throw "Uncaught (in promise) TypeError:
-// global is undefined" in hmrApplyUpdates
-// also -- since porting this file to TS, `module` will be undefined and
-// will crash the app.
-// There is not a known workaround; HMR may be disabled until porting
-// bundler to Vite.
-// if (module?.hot) {
-//   module.hot.accept()
-// }
-
 // Mount React components
 const container = document.getElementById('react-app')
 if (!container) throw new Error('no element to mount to')
