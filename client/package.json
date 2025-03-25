@@ -28,7 +28,7 @@
     "@radix-ui/react-slider": "1.2.3",
     "@radix-ui/react-switch": "1.1.3",
     "@reduxjs/toolkit": "2.6.1",
-    "@sentry/browser": "8.55.0",
+    "@sentry/browser": "9.9.0",
     "@sentry/cli": "2.42.4",
     "@tippyjs/react": "4.2.6",
     "auth0": "4.20.0",
