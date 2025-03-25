@@ -85,6 +85,7 @@
       "plugins": ["@typescript-eslint", "import"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
+        // "plugin:@typescript-eslint/stylistic",
         "plugin:import/typescript",
         "standard-with-typescript"
       ],
