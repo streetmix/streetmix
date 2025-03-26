@@ -6,11 +6,11 @@ import SegmentCanvas from './SegmentCanvas'
 import { Types } from './drag_and_drop'
 import './SegmentDragLayer.css'
 
-const DRAG_OFFSET_Y_PALETTE = -340 - 150
+const DRAG_OFFSET_Y_PALETTE = -340 - 150 // TODO: Document magic numbers
 const MAX_DRAG_DEGREE = 20
 
-function SegmentDragLayer () {
-  const floatingEl = useRef(null)
+function SegmentDragLayer (): React.ReactElement {
+  const floatingEl = useRef<HTMLDivElement>(null)
   const collectedProps = useDragLayer((monitor) => ({
     item: monitor.getItem(),
     type: monitor.getItemType(),
@@ -20,8 +20,10 @@ function SegmentDragLayer () {
   const { item, type, currentOffset, isDragging } = collectedProps
   const prevProps = usePrevious(collectedProps)
 
-  function getDegree (currentOffset) {
-    const prevOffset = prevProps.currentOffset
+  function getDegree (
+    currentOffset: typeof collectedProps.currentOffset
+  ): number {
+    const prevOffset = prevProps?.currentOffset ?? null
 
     let deg
     if (currentOffset === null || prevOffset === null) {
@@ -39,8 +41,8 @@ function SegmentDragLayer () {
     return deg
   }
 
-  function applySegmentStyle (deg = 0) {
-    if (currentOffset === null || floatingEl === null) return
+  function applySegmentStyle (deg = 0): void {
+    if (currentOffset === null || floatingEl.current === null) return
 
     let { x, y } = currentOffset
     if (type === Types.PALETTE_SEGMENT) {
@@ -48,9 +50,7 @@ function SegmentDragLayer () {
       y += DRAG_OFFSET_Y_PALETTE
     }
 
-    const transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
-    floatingEl.current.style.transform = transform
-    floatingEl.current.style['-webkit-transform'] = transform
+    floatingEl.current.style.transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
   }
 
   useEffect(() => {
