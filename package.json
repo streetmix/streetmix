@@ -27,6 +27,7 @@
     "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.js --watch app.js index.js --watch packages",
+    "clean": "rm -rf ./.parcel-cache && rm -rf ./build",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./client/**/*.css\"",
