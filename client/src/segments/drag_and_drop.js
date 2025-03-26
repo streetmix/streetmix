@@ -474,64 +474,69 @@ export const segmentSource = {
   }
 }
 
-export const paletteSegmentSource = {
-  canDrag (props) {
-    return !store.getState().app.readOnly
-  },
-
-  beginDrag (props, monitor, component) {
-    handleSegmentDragStart()
-
-    // Initialize an empty draggingState object in Redux for palette segments
-    // in order to add event listener in StreetEditable once dragging begins.
-    // Also set the dragging type to MOVE. We use one action creator here and
-    // one dispatch to reduce batch renders.
-    store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
-
-    const { units } = store.getState().street
-    const type = props.segment.id
-
-    // The preview drag should match artwork in the thumbnail. The variant
-    // string is specified by `defaultVariant`. If the property isn't present,
-    // use the first defined variant in segment details.
-    const variantString =
-      props.segment.defaultVariant || Object.keys(props.segment.details).shift()
-
-    // This allows dropped segment to be created with the correct elevation value
-    let elevation = 0
-    if (props.segment.defaultElevation !== undefined) {
-      elevation = props.segment.defaultElevation
-    } else {
-      const variantInfo = getSegmentVariantInfo(type, variantString)
-      elevation = variantInfo.elevation
-    }
-
-    return {
-      id: generateRandSeed(),
-      type,
-      variantString,
-      actualWidth: getWidthInMetric(props.segment.defaultWidth, units),
-      elevation
-    }
-  },
-
-  endDrag (props, monitor, component) {
-    store.dispatch(clearDraggingState())
-
-    const withinCanvas = oldDraggingState?.withinCanvas
-    if (!monitor.didDrop() && withinCanvas) {
-      handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
-    }
-
-    handleSegmentDragEnd()
-  }
-}
-
 export function collectDragSource (connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
+  }
+}
+
+// Created for the hook version, refactor this
+export function createPaletteItemDragSpec (segment) {
+  return {
+    type: Types.PALETTE_SEGMENT,
+    item: () => {
+      handleSegmentDragStart()
+
+      // Initialize an empty draggingState object in Redux for palette segments
+      // in order to add event listener in StreetEditable once dragging begins.
+      // Also set the dragging type to MOVE. We use one action creator here and
+      // one dispatch to reduce batch renders.
+      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
+
+      const { units } = store.getState().street
+      const type = segment.id
+
+      // The preview drag should match artwork in the thumbnail. The variant
+      // string is specified by `defaultVariant`. If the property isn't present,
+      // use the first defined variant in segment details.
+      const variantString =
+        segment.defaultVariant || Object.keys(segment.details).shift()
+
+      // This allows dropped segment to be created with the correct elevation value
+      let elevation = 0
+      if (segment.defaultElevation !== undefined) {
+        elevation = segment.defaultElevation
+      } else {
+        const variantInfo = getSegmentVariantInfo(type, variantString)
+        elevation = variantInfo.elevation
+      }
+
+      return {
+        id: generateRandSeed(),
+        type,
+        variantString,
+        actualWidth: getWidthInMetric(segment.defaultWidth, units),
+        elevation
+      }
+    },
+    previewOptions: {
+      captureDraggingState: true
+    },
+    end: (item, monitor) => {
+      store.dispatch(clearDraggingState())
+
+      const withinCanvas = oldDraggingState?.withinCanvas
+      if (!monitor.didDrop() && withinCanvas) {
+        handleSegmentCanvasDrop(item, monitor.getItemType())
+      }
+
+      handleSegmentDragEnd()
+    },
+    canDrag: (monitor) => {
+      return !store.getState().app.readOnly
+    }
   }
 }
 
