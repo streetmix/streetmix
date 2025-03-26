@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
+import logo from 'url:../../images/logo_horizontal.svg'
 import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
-import logo from '../../images/logo_horizontal.svg'
 import InstanceBadge from './InstanceBadge'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'

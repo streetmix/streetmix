@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import wmIcon from '../../../images/wm-icon-animated.svg'
+import wmIcon from 'url:../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
 

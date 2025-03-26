@@ -1,6 +1,6 @@
 import React from 'react'
 
-import avatar from '~/images/avatar.svg'
+import avatar from 'url:~/images/avatar.svg'
 import { useGetUserQuery } from '../store/services/api'
 import './Avatar.css'
 

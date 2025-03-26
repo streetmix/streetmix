@@ -20,9 +20,9 @@ const config: Config = {
   themeConfig: {
     image: 'thumbnail.png',
     navbar: {
-      title: 'Streetmix Docs',
+      title: 'Streetmix Guidebook',
       logo: {
-        alt: 'Streetmix Documentation Logo',
+        alt: 'Streetmix Guidebook Logo',
         src: 'img/bookshelf-small.svg'
       },
       items: [
@@ -65,7 +65,7 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
               label: 'Contributor docs',
@@ -85,8 +85,12 @@ const config: Config = {
               href: 'https://strt.mx/discord'
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/streetmix'
+              label: 'Bluesky',
+              href: 'https://bsky.app/profile/streetmix.app'
+            },
+            {
+              label: 'Mastodon',
+              href: 'https://urbanists.social/@streetmix'
             }
           ]
         },
