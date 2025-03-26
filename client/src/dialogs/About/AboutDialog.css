@@ -1,6 +1,5 @@
 .about-dialog {
   max-width: 820px;
-  min-height: 660px;
 
   @media only screen and (width > 768px) {
     & {

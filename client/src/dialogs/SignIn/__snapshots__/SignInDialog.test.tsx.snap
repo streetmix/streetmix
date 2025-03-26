@@ -9,122 +9,126 @@ exports[`SignInDialog > renders 1`] = `
       class="dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
-      role="dialog"
+      class="dialog-box-display-area"
     >
-      <button
-        class="close"
-        title="Dismiss"
-      >
-        <svg
-          data-icon="close"
-          data-icon-source="test"
-        />
-      </button>
       <div
-        class="sign-in-dialog"
+        class="dialog-box"
+        role="dialog"
       >
-        <header>
-          <h1>
-            Sign in / Sign up
-          </h1>
-        </header>
-        <div
-          class="dialog-content"
+        <button
+          class="close"
+          title="Dismiss"
         >
-          <p>
-            Save your first design or sign in to access your past designs.
-          </p>
-          <form>
-            <label
-              class="sign-in-email-label"
-              for=":r0:"
-            >
-              Email
-            </label>
-            <input
-              class="sign-in-input "
-              id=":r0:"
-              name="email"
-              placeholder="test@test.com"
-              required=""
-              type="email"
-              value=""
-            />
-            <p
-              class="sign-in-email-password-note"
-            >
-              <small>
-                We’ll send you a link to sign in. No password is required.
-              </small>
-            </p>
-            <button
-              class="btn btn-primary sign-in-button sign-in-email-button"
-              type="submit"
-            >
-              Continue with email
-            </button>
-          </form>
+          <svg
+            data-icon="close"
+            data-icon-source="test"
+          />
+        </button>
+        <div
+          class="sign-in-dialog"
+        >
+          <header>
+            <h1>
+              Sign in / Sign up
+            </h1>
+          </header>
           <div
-            class="sign-in-social-heading"
+            class="dialog-content"
           >
-            <hr />
-            <span>
-              or
-            </span>
+            <p>
+              Save your first design or sign in to access your past designs.
+            </p>
+            <form>
+              <label
+                class="sign-in-email-label"
+                for=":r0:"
+              >
+                Email
+              </label>
+              <input
+                class="sign-in-input "
+                id=":r0:"
+                name="email"
+                placeholder="test@test.com"
+                required=""
+                type="email"
+                value=""
+              />
+              <p
+                class="sign-in-email-password-note"
+              >
+                <small>
+                  We’ll send you a link to sign in. No password is required.
+                </small>
+              </p>
+              <button
+                class="btn btn-primary sign-in-button sign-in-email-button"
+                type="submit"
+              >
+                Continue with email
+              </button>
+            </form>
+            <div
+              class="sign-in-social-heading"
+            >
+              <hr />
+              <span>
+                or
+              </span>
+            </div>
+            <button
+              class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-twitter-button"
+              type="button"
+            >
+              <svg
+                data-icon="twitter"
+                data-icon-source="test"
+              />
+              Continue with Twitter
+            </button>
+            <button
+              class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-google-button"
+              type="button"
+            >
+              <svg
+                data-icon="google"
+                data-icon-source="test"
+              />
+              Continue with Google
+            </button>
+            <button
+              class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-facebook-button"
+              type="button"
+            >
+              <svg
+                data-icon="facebook"
+                data-icon-source="test"
+              />
+              Continue with Facebook
+            </button>
           </div>
-          <button
-            class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-twitter-button"
-            type="button"
-          >
-            <svg
-              data-icon="twitter"
-              data-icon-source="test"
-            />
-            Continue with Twitter
-          </button>
-          <button
-            class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-google-button"
-            type="button"
-          >
-            <svg
-              data-icon="google"
-              data-icon-source="test"
-            />
-            Continue with Google
-          </button>
-          <button
-            class="btn btn-tertiary sign-in-button sign-in-social-button sign-in-facebook-button"
-            type="button"
-          >
-            <svg
-              data-icon="facebook"
-              data-icon-source="test"
-            />
-            Continue with Facebook
-          </button>
+          <footer>
+            <p
+              class="sign-in-disclaimer"
+            >
+              By clicking one of these buttons, I agree to the 
+              <a
+                href="/terms-of-service"
+                target="_blank"
+              >
+                terms of service
+              </a>
+               and 
+              <a
+                href="/privacy-policy"
+                target="_blank"
+              >
+                privacy policy
+              </a>
+              .
+            </p>
+          </footer>
         </div>
-        <footer>
-          <p
-            class="sign-in-disclaimer"
-          >
-            By clicking one of these buttons, I agree to the 
-            <a
-              href="/terms-of-service"
-              target="_blank"
-            >
-              terms of service
-            </a>
-             and 
-            <a
-              href="/privacy-policy"
-              target="_blank"
-            >
-              privacy policy
-            </a>
-            .
-          </p>
-        </footer>
       </div>
     </div>
   </div>

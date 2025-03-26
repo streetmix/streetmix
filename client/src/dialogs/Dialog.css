@@ -3,14 +3,8 @@
   --header-background-color: var(--color-turquoise-200);
   --header-text-color: var(--color-turquoise-900);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
 }
 
 .dialog-box-backdrop {
@@ -25,9 +19,19 @@
   opacity: 0;
 }
 
+/* Dialog boxes are balanced vertically, by lifting it slightly */
+.dialog-box-display-area {
+  position: absolute;
+  inset: 0 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+}
+
 .dialog-box {
   position: relative;
-  margin: -3% 1em 1em; /* balance vertically, by lifting it slightly */
+  margin: 1em;
   padding: 0;
   background: white;
   line-height: 1.4;
@@ -36,6 +40,7 @@
   border-radius: var(--dialog-border-radius);
   overflow: hidden;
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 7.5%);
+  max-height: 100%;
 
   /* Transitions */
   transition:

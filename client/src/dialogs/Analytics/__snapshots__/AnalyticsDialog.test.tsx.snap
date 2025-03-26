@@ -9,206 +9,210 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
       class="dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
-      role="dialog"
+      class="dialog-box-display-area"
     >
-      <button
-        class="close"
-        title="Dismiss"
-      >
-        <svg
-          data-icon="close"
-          data-icon-source="test"
-        />
-      </button>
       <div
-        class="analytics-dialog"
+        class="dialog-box"
+        role="dialog"
       >
-        <header>
-          <h1>
-            Analytics
-          </h1>
-        </header>
-        <div
-          class="dialog-content"
-        >
-          <div
-            class="analytics-dialog-content"
-          >
-            <p>
-              Your street has an estimated average traffic of 
-              <b>
-                500
-              </b>
-               people per hour, and potential for up to 
-              <b>
-                800
-              </b>
-               people per hour. Capacity values are based on 3 m-wide lanes.
-            </p>
-            <div
-              class="segment-analytics"
-              data-color="1"
-            >
-              <div
-                class="capacity-icon"
-              >
-                <div
-                  class="capacity-icon-image"
-                />
-              </div>
-              <div
-                class="capacity-bars"
-                style="width: 21.666666666666668%;"
-              >
-                <div
-                  class="capacity-bar capacity-bar-potential"
-                  style="width: 100%;"
-                >
-                   
-                </div>
-                <div
-                  class="capacity-bar capacity-bar-average"
-                  style="width: 50%;"
-                >
-                   
-                </div>
-              </div>
-              <div
-                class="capacity-text"
-              >
-                <div
-                  class="capacity-label"
-                >
-                  Unknown
-                </div>
-                <div
-                  class="capacity-summary"
-                >
-                  100 — 200 people/hour
-                </div>
-              </div>
-            </div>
-            <div
-              class="segment-analytics"
-              data-color="2"
-            >
-              <div
-                class="capacity-icon"
-              >
-                <div
-                  class="capacity-icon-image"
-                />
-              </div>
-              <div
-                class="capacity-bars"
-                style="width: 65%;"
-              >
-                <div
-                  class="capacity-bar capacity-bar-potential"
-                  style="width: 100%;"
-                >
-                   
-                </div>
-                <div
-                  class="capacity-bar capacity-bar-average"
-                  style="width: 66.66666666666666%;"
-                >
-                   
-                </div>
-              </div>
-              <div
-                class="capacity-text"
-              >
-                <div
-                  class="capacity-label"
-                >
-                  Unknown
-                </div>
-                <div
-                  class="capacity-summary"
-                >
-                  400 — 600 people/hour
-                </div>
-              </div>
-            </div>
-            <p>
-              <strong>
-                Source:
-              </strong>
-               
-              <a
-                href="https://www.example.com/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Source title
-              </a>
-              , Source author
-            </p>
-          </div>
-          <hr />
-          <div
-            class="dialog-actions"
-          >
-            <p>
-              <strong>
-                Capacity data source:‎
-              </strong>
-               
-              <select
-                class="capacity-source-select"
-              >
-                <option
-                  value="giz"
-                >
-                  Source author
-                </option>
-              </select>
-            </p>
-            <div
-              class="checkbox-item"
-            >
-              <input
-                id=":r0:"
-                type="checkbox"
-                value=""
-              />
-              <label
-                for=":r0:"
-              >
-                Show capacity counts in segment labels
-              </label>
-              <svg
-                data-icon="check"
-                data-icon-source="test"
-              />
-            </div>
-            <br />
-            <button
-              class="btn btn-primary"
-              type="button"
-            >
-              Export as CSV
-            </button>
-            <footer>
-              This Streetmix-created image may be reused anywhere, for any purpose, under the 
-              <a
-                href="https://creativecommons.org/licenses/by-sa/4.0/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)‎
-              </a>
-               license.
-            </footer>
-          </div>
-        </div>
         <button
-          class="dialog-primary-action"
+          class="close"
+          title="Dismiss"
         >
-          Close
+          <svg
+            data-icon="close"
+            data-icon-source="test"
+          />
         </button>
+        <div
+          class="analytics-dialog"
+        >
+          <header>
+            <h1>
+              Analytics
+            </h1>
+          </header>
+          <div
+            class="dialog-content"
+          >
+            <div
+              class="analytics-dialog-content"
+            >
+              <p>
+                Your street has an estimated average traffic of 
+                <b>
+                  500
+                </b>
+                 people per hour, and potential for up to 
+                <b>
+                  800
+                </b>
+                 people per hour. Capacity values are based on 3 m-wide lanes.
+              </p>
+              <div
+                class="segment-analytics"
+                data-color="1"
+              >
+                <div
+                  class="capacity-icon"
+                >
+                  <div
+                    class="capacity-icon-image"
+                  />
+                </div>
+                <div
+                  class="capacity-bars"
+                  style="width: 21.666666666666668%;"
+                >
+                  <div
+                    class="capacity-bar capacity-bar-potential"
+                    style="width: 100%;"
+                  >
+                     
+                  </div>
+                  <div
+                    class="capacity-bar capacity-bar-average"
+                    style="width: 50%;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="capacity-text"
+                >
+                  <div
+                    class="capacity-label"
+                  >
+                    Unknown
+                  </div>
+                  <div
+                    class="capacity-summary"
+                  >
+                    100 — 200 people/hour
+                  </div>
+                </div>
+              </div>
+              <div
+                class="segment-analytics"
+                data-color="2"
+              >
+                <div
+                  class="capacity-icon"
+                >
+                  <div
+                    class="capacity-icon-image"
+                  />
+                </div>
+                <div
+                  class="capacity-bars"
+                  style="width: 65%;"
+                >
+                  <div
+                    class="capacity-bar capacity-bar-potential"
+                    style="width: 100%;"
+                  >
+                     
+                  </div>
+                  <div
+                    class="capacity-bar capacity-bar-average"
+                    style="width: 66.66666666666666%;"
+                  >
+                     
+                  </div>
+                </div>
+                <div
+                  class="capacity-text"
+                >
+                  <div
+                    class="capacity-label"
+                  >
+                    Unknown
+                  </div>
+                  <div
+                    class="capacity-summary"
+                  >
+                    400 — 600 people/hour
+                  </div>
+                </div>
+              </div>
+              <p>
+                <strong>
+                  Source:
+                </strong>
+                 
+                <a
+                  href="https://www.example.com/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Source title
+                </a>
+                , Source author
+              </p>
+            </div>
+            <hr />
+            <div
+              class="dialog-actions"
+            >
+              <p>
+                <strong>
+                  Capacity data source:‎
+                </strong>
+                 
+                <select
+                  class="capacity-source-select"
+                >
+                  <option
+                    value="giz"
+                  >
+                    Source author
+                  </option>
+                </select>
+              </p>
+              <div
+                class="checkbox-item"
+              >
+                <input
+                  id=":r0:"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  for=":r0:"
+                >
+                  Show capacity counts in segment labels
+                </label>
+                <svg
+                  data-icon="check"
+                  data-icon-source="test"
+                />
+              </div>
+              <br />
+              <button
+                class="btn btn-primary"
+                type="button"
+              >
+                Export as CSV
+              </button>
+              <footer>
+                This Streetmix-created image may be reused anywhere, for any purpose, under the 
+                <a
+                  href="https://creativecommons.org/licenses/by-sa/4.0/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)‎
+                </a>
+                 license.
+              </footer>
+            </div>
+          </div>
+          <button
+            class="dialog-primary-action"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
