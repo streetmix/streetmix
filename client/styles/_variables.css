@@ -182,6 +182,7 @@
   --z-02-menu-bar: var(--z-index-02);
   --z-03-street-name: var(--z-index-03);
   --z-03-gallery-message: var(--z-index-03);
+  --z-04-drag-layer: var(--z-index-04);
   --z-05-welcome: var(--z-index-05);
   --z-06-info-bubble: var(--z-index-06);
   --z-06-drag-handle: var(--z-index-06);
