@@ -9,230 +9,234 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
       class="dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
-      role="dialog"
+      class="dialog-box-display-area"
     >
-      <button
-        class="close"
-        title="Dismiss"
-      >
-        <svg
-          data-icon="close"
-          data-icon-source="test"
-        />
-      </button>
       <div
-        class="save-as-image-dialog"
+        class="dialog-box"
+        role="dialog"
       >
-        <header>
-          <h1>
-            Save as image
-          </h1>
-        </header>
-        <div
-          class="dialog-content"
+        <button
+          class="close"
+          title="Dismiss"
         >
+          <svg
+            data-icon="close"
+            data-icon-source="test"
+          />
+        </button>
+        <div
+          class="save-as-image-dialog"
+        >
+          <header>
+            <h1>
+              Save as image
+            </h1>
+          </header>
           <div
-            class="save-as-image-options"
+            class="dialog-content"
           >
             <div
-              class="checkbox-item"
-            >
-              <input
-                id=":r0:"
-                type="checkbox"
-                value=""
-              />
-              <label
-                for=":r0:"
-              >
-                Segment names and widths
-              </label>
-              <svg
-                data-icon="check"
-                data-icon-source="test"
-              />
-            </div>
-            <div
-              class="checkbox-item"
-            >
-              <input
-                id=":r1:"
-                type="checkbox"
-                value=""
-              />
-              <label
-                for=":r1:"
-              >
-                Street name
-              </label>
-              <svg
-                data-icon="check"
-                data-icon-source="test"
-              />
-            </div>
-            <div
-              class="checkbox-item"
-            >
-              <input
-                id=":r2:"
-                type="checkbox"
-                value=""
-              />
-              <label
-                for=":r2:"
-              >
-                Transparent sky
-              </label>
-              <svg
-                data-icon="check"
-                data-icon-source="test"
-              />
-            </div>
-            <div
-              class="checkbox-item"
+              class="save-as-image-options"
             >
               <div
                 class="checkbox-item"
               >
                 <input
-                  checked=""
-                  disabled=""
-                  id=":r3:"
+                  id=":r0:"
                   type="checkbox"
                   value=""
                 />
                 <label
-                  for=":r3:"
+                  for=":r0:"
                 >
-                  Watermark 
-                  <svg
-                    data-icon="lock"
-                    data-icon-source="test"
-                  />
+                  Segment names and widths
                 </label>
                 <svg
                   data-icon="check"
                   data-icon-source="test"
                 />
               </div>
-            </div>
-          </div>
-          <div
-            class="save-as-image-preview"
-          >
-            <div
-              class="save-as-image-preview-error"
-            >
-              Saving to image is not available on this browser.
-            </div>
-          </div>
-          <div
-            class="custom-scale"
-          >
-            <div
-              class="custom-scale-label"
-            >
-              Custom scale
-              <span
-                class="custom-scale-popover"
-              >
-                <button
-                  aria-controls="radix-:r4:"
-                  aria-expanded="false"
-                  aria-haspopup="dialog"
-                  class="popover-trigger"
-                  data-state="closed"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    data-icon="info"
-                    data-icon-source="test"
-                    focusable="false"
-                  />
-                  <span
-                    style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
-                  >
-                    Description
-                  </span>
-                </button>
-              </span>
-            </div>
-            <div
-              class="custom-scale-control custom-scale-disabled"
-            >
-              <span
-                aria-disabled="true"
-                class="slider-root"
-                data-disabled=""
-                data-orientation="horizontal"
-                dir="ltr"
-                id="custom-scale"
-                style="--radix-slider-thumb-transform: translateX(-50%);"
-              >
-                <span
-                  class="slider-track"
-                  data-disabled=""
-                  data-orientation="horizontal"
-                >
-                  <span
-                    class="slider-range"
-                    data-disabled=""
-                    data-orientation="horizontal"
-                    style="left: 0%; right: 100%;"
-                  />
-                </span>
-                <span
-                  style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
-                >
-                  <span
-                    aria-orientation="horizontal"
-                    aria-valuemax="5"
-                    aria-valuemin="1"
-                    aria-valuenow="1"
-                    class="slider-thumb"
-                    data-disabled=""
-                    data-orientation="horizontal"
-                    data-radix-collection-item=""
-                    role="slider"
-                    style=""
-                  />
-                </span>
-              </span>
               <div
-                class="custom-scale-info custom-scale-info-disabled"
+                class="checkbox-item"
               >
-                <strong>
-                  100%
-                </strong>
-                 — Digital size: 0 px ⨯ 0 px — Print size: 0.00″ ⨯ 0.00″ (300 dpi)
+                <input
+                  id=":r1:"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  for=":r1:"
+                >
+                  Street name
+                </label>
+                <svg
+                  data-icon="check"
+                  data-icon-source="test"
+                />
+              </div>
+              <div
+                class="checkbox-item"
+              >
+                <input
+                  id=":r2:"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  for=":r2:"
+                >
+                  Transparent sky
+                </label>
+                <svg
+                  data-icon="check"
+                  data-icon-source="test"
+                />
+              </div>
+              <div
+                class="checkbox-item"
+              >
+                <div
+                  class="checkbox-item"
+                >
+                  <input
+                    checked=""
+                    disabled=""
+                    id=":r3:"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    for=":r3:"
+                  >
+                    Watermark 
+                    <svg
+                      data-icon="lock"
+                      data-icon-source="test"
+                    />
+                  </label>
+                  <svg
+                    data-icon="check"
+                    data-icon-source="test"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="save-as-image-download"
-          >
-            <button
-              class="btn btn-primary"
-              disabled=""
-              type="button"
+            <div
+              class="save-as-image-preview"
             >
-              Save to your computer…
-            </button>
+              <div
+                class="save-as-image-preview-error"
+              >
+                Saving to image is not available on this browser.
+              </div>
+            </div>
+            <div
+              class="custom-scale"
+            >
+              <div
+                class="custom-scale-label"
+              >
+                Custom scale
+                <span
+                  class="custom-scale-popover"
+                >
+                  <button
+                    aria-controls="radix-:r4:"
+                    aria-expanded="false"
+                    aria-haspopup="dialog"
+                    class="popover-trigger"
+                    data-state="closed"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="info"
+                      data-icon-source="test"
+                      focusable="false"
+                    />
+                    <span
+                      style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; word-wrap: normal;"
+                    >
+                      Description
+                    </span>
+                  </button>
+                </span>
+              </div>
+              <div
+                class="custom-scale-control custom-scale-disabled"
+              >
+                <span
+                  aria-disabled="true"
+                  class="slider-root"
+                  data-disabled=""
+                  data-orientation="horizontal"
+                  dir="ltr"
+                  id="custom-scale"
+                  style="--radix-slider-thumb-transform: translateX(-50%);"
+                >
+                  <span
+                    class="slider-track"
+                    data-disabled=""
+                    data-orientation="horizontal"
+                  >
+                    <span
+                      class="slider-range"
+                      data-disabled=""
+                      data-orientation="horizontal"
+                      style="left: 0%; right: 100%;"
+                    />
+                  </span>
+                  <span
+                    style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(0% + 0px);"
+                  >
+                    <span
+                      aria-orientation="horizontal"
+                      aria-valuemax="5"
+                      aria-valuemin="1"
+                      aria-valuenow="1"
+                      class="slider-thumb"
+                      data-disabled=""
+                      data-orientation="horizontal"
+                      data-radix-collection-item=""
+                      role="slider"
+                      style=""
+                    />
+                  </span>
+                </span>
+                <div
+                  class="custom-scale-info custom-scale-info-disabled"
+                >
+                  <strong>
+                    100%
+                  </strong>
+                   — Digital size: 0 px ⨯ 0 px — Print size: 0.00″ ⨯ 0.00″ (300 dpi)
+                </div>
+              </div>
+            </div>
+            <div
+              class="save-as-image-download"
+            >
+              <button
+                class="btn btn-primary"
+                disabled=""
+                type="button"
+              >
+                Save to your computer…
+              </button>
+            </div>
           </div>
+          <footer>
+            This Streetmix-created image may be reused anywhere, for any purpose, under the 
+            <a
+              href="https://creativecommons.org/licenses/by-sa/4.0/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)‎
+            </a>
+             license.
+          </footer>
         </div>
-        <footer>
-          This Streetmix-created image may be reused anywhere, for any purpose, under the 
-          <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)‎
-          </a>
-           license.
-        </footer>
       </div>
     </div>
   </div>
