@@ -103,15 +103,13 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }
 
-  function updateSegmentData (ref, dataNo: number, segmentPos: number): void {
+  function updateSegmentData (ref, dataNo: number): void {
     ref.dataNo = dataNo
-    ref.savedLeft = Math.round(segmentPos)
   }
 
-  function handleSwitchSegmentAway (el): void {
-    el.classList.add('create')
-    el.style.left = el.savedLeft + 'px'
-
+  function handleSwitchSegmentAway (el: HTMLElement, i: number): void {
+    const segmentPos = calculateSegmentPos(i)
+    el.style.left = `${segmentPos}px`
     updatePerspective(el)
   }
 
@@ -167,7 +165,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
           timeout={250}
           classNames="switching-away"
           exit={!immediateRemoval}
-          onExit={handleSwitchSegmentAway}
+          onExit={(el) => { handleSwitchSegmentAway(el, i) }}
           unmountOnExit={true}
         >
           <Segment

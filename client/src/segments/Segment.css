@@ -30,10 +30,6 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.create {
-  transition: none !important;
-}
-
 .segment.hover {
   z-index: var(--z-02-segment-focused) !important;
 }
@@ -79,6 +75,7 @@ body.segment-move-dragging #street-section-editable .segment {
   z-index: var(--z-10-switch-away);
   pointer-events: none;
   transform: none !important;
+  transition: none !important;
   perspective: 400px;
 }
 

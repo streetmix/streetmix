@@ -87,11 +87,7 @@ export class Segment extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.updateSegmentData(
-      this.streetSegment,
-      this.props.dataNo,
-      this.props.segmentPos
-    )
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo)
 
     this.props.connectDragPreview(getEmptyImage(), {
       captureDraggingState: true
@@ -137,11 +133,7 @@ export class Segment extends React.Component {
       this.handleSwitchSegments(prevProps.segment.variantString)
     }
 
-    this.props.updateSegmentData(
-      this.streetSegment,
-      this.props.dataNo,
-      this.props.segmentPos
-    )
+    this.props.updateSegmentData(this.streetSegment, this.props.dataNo)
   }
 
   componentWillUnmount = () => {
