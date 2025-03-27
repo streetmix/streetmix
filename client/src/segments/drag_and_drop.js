@@ -739,39 +739,40 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
       : null
 }
 
-export const canvasTarget = {
-  hover (props, monitor, component) {
-    if (!monitor.canDrop()) return
+export function createStreetDropTargetSpec (component) {
+  return {
+    accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    drop (item, monitor) {
+      const draggedItemType = monitor.getItemType()
 
-    if (monitor.isOver({ shallow: true })) {
-      const position = isOverLeftOrRightCanvas(
-        component.streetSectionEditable.current,
-        monitor.getClientOffset().x
-      )
+      handleSegmentCanvasDrop(item, draggedItemType)
 
-      if (!position) return
+      return { withinCanvas: true }
+    },
+    hover (item, monitor) {
+      if (!monitor.canDrop()) return
 
-      const { segments } = store.getState().street
-      const segmentBeforeEl = position === 'left' ? 0 : undefined
-      const segmentAfterEl =
-        position === 'left' ? undefined : segments.length - 1
+      if (monitor.isOver({ shallow: true })) {
+        const position = isOverLeftOrRightCanvas(
+          document.getElementById('street-section-canvas'),
+          monitor.getClientOffset().x
+        )
 
-      updateIfDraggingStateChanged(
-        segmentBeforeEl,
-        segmentAfterEl,
-        monitor.getItem(),
-        monitor.getItemType()
-      )
+        if (!position) return
+
+        const { segments } = store.getState().street
+        const segmentBeforeEl = position === 'left' ? 0 : undefined
+        const segmentAfterEl =
+          position === 'left' ? undefined : segments.length - 1
+
+        updateIfDraggingStateChanged(
+          segmentBeforeEl,
+          segmentAfterEl,
+          monitor.getItem(),
+          monitor.getItemType()
+        )
+      }
     }
-  },
-
-  drop (props, monitor, component) {
-    const draggedItem = monitor.getItem()
-    const draggedItemType = monitor.getItemType()
-
-    handleSegmentCanvasDrop(draggedItem, draggedItemType)
-
-    return { withinCanvas: true }
   }
 }
 

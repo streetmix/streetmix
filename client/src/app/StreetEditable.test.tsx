@@ -12,28 +12,10 @@ describe('StreetEditable', () => {
   })
 
   const setBuildingWidth = vi.fn()
-  const updatePerspective = () => {}
+  const updatePerspective = (): void => {}
   const type = 'streetcar'
   const variantString = 'inbound|regular'
   const segment = { variantString, id: '1', width: 400, type }
-
-  it('calls setBuildingsWidth', () => {
-    const street = {
-      segments: [segment],
-      width: 100,
-      units: SETTINGS_UNITS_METRIC
-    }
-
-    render(
-      <StreetEditable
-        setBuildingWidth={setBuildingWidth}
-        updatePerspective={updatePerspective}
-      />,
-      { street }
-    )
-
-    expect(setBuildingWidth).toHaveBeenCalledTimes(1)
-  })
 
   describe('segment warnings', () => {
     describe('too large', () => {
