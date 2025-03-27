@@ -691,7 +691,7 @@ export function editSegmentLabel (segment, position) {
  *
  * @param {Number|string} position - either "left" or "right" for building,
  *              or a number for the position of the segment. Should be
- *              the `dataNo` or `position` variables.
+ *              the `segmentIndex` or `position` variables.
  * @returns {HTMLElement}
  */
 export function getSegmentEl (position) {

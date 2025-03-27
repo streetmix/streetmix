@@ -61,9 +61,9 @@ export const segmentsChanged = () => {
   }
 }
 
-export const removeSegmentAction = (dataNo) => {
+export const removeSegmentAction = (segmentIndex) => {
   return async (dispatch, getState) => {
-    await dispatch(removeSegment(dataNo, false))
+    await dispatch(removeSegment(segmentIndex, false))
     await dispatch(segmentsChanged())
   }
 }
@@ -90,7 +90,7 @@ export const setCapacitySource = (source) => {
 }
 
 export const incrementSegmentWidth = (
-  dataNo,
+  segmentIndex,
   add,
   precise,
   origWidth,
@@ -131,7 +131,7 @@ export const incrementSegmentWidth = (
     }
 
     cancelSegmentResizeTransitions()
-    await dispatch(changeSegmentWidth(dataNo, width))
+    await dispatch(changeSegmentWidth(segmentIndex, width))
     await dispatch(segmentsChanged())
   }
 }

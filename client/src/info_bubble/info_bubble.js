@@ -163,14 +163,17 @@ export const infoBubble = {
       }
     }
 
-    let dataNo = segmentEl.dataNo
-    if (typeof dataNo === 'undefined') {
-      dataNo =
+    let sliceIndex // starts either string or undefined
+    if (segmentEl.dataset.sliceIndex === undefined) {
+      sliceIndex =
         type === INFO_BUBBLE_TYPE_LEFT_BUILDING
           ? BUILDING_LEFT_POSITION
           : BUILDING_RIGHT_POSITION
+    } else {
+      // convert string to number
+      sliceIndex = Number(segmentEl.dataset.sliceIndex)
     }
-    store.dispatch(setActiveSegment(dataNo))
+    store.dispatch(setActiveSegment(sliceIndex))
 
     store.dispatch(showInfoBubble())
   }

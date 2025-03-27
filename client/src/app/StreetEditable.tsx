@@ -103,22 +103,19 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }
 
-  function updateSegmentData (ref, dataNo: number): void {
-    ref.dataNo = dataNo
-  }
+  function handleSwitchSliceAway (el: HTMLElement, sliceIndex: number): void {
+    const left = calculateSlicePosition(sliceIndex)
+    el.style.left = `${left}px`
 
-  function handleSwitchSegmentAway (el: HTMLElement, i: number): void {
-    const segmentPos = calculateSegmentPos(i)
-    el.style.left = `${segmentPos}px`
     updatePerspective(el)
   }
 
-  function calculateSegmentPos (dataNo: number): number {
+  function calculateSlicePosition (sliceIndex: number): number {
     const { segments, remainingWidth } = street
 
     let currPos = 0
 
-    for (let i = 0; i < dataNo; i++) {
+    for (let i = 0; i < sliceIndex; i++) {
       const width =
         draggingState && draggingState.draggedSegment === i
           ? 0
@@ -137,7 +134,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     if (draggingState && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const spaceBetweenSegments = makeSpaceBetweenSegments(
-        dataNo,
+        sliceIndex,
         draggingState
       )
       return mainLeft + currPos + spaceBetweenSegments
@@ -157,7 +154,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     const streetId = street.id
 
     return segments.map((segment, i) => {
-      const segmentPos = calculateSegmentPos(i)
+      const segmentLeft = calculateSlicePosition(i)
 
       const segmentEl = (
         <CSSTransition
@@ -165,16 +162,17 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
           timeout={250}
           classNames="switching-away"
           exit={!immediateRemoval}
-          onExit={(el) => { handleSwitchSegmentAway(el, i) }}
+          onExit={(el) => {
+            handleSwitchSliceAway(el, i)
+          }}
           unmountOnExit={true}
         >
           <Segment
-            dataNo={i}
+            sliceIndex={i}
             segment={{ ...segment }}
             actualWidth={segment.width}
             units={units}
-            segmentPos={segmentPos}
-            updateSegmentData={updateSegmentData}
+            segmentLeft={segmentLeft}
             updatePerspective={updatePerspective}
           />
         </CSSTransition>

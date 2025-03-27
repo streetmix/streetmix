@@ -126,8 +126,9 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
+  const sliceIndex = Number(el.parentNode.dataset.sliceIndex)
   draggingResize.originalWidth =
-    store.getState().street.segments[el.parentNode.dataNo].width
+    store.getState().street.segments[sliceIndex].width
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
@@ -175,7 +176,7 @@ function handleSegmentResizeMove (event) {
   }
 
   draggingResize.width = resizeSegment(
-    draggingResize.segmentEl.dataNo,
+    Number(draggingResize.segmentEl.dataset.sliceIndex),
     resizeType,
     draggingResize.width
   )
@@ -444,10 +445,11 @@ export const segmentSource = {
     handleSegmentDragStart()
 
     store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
+    console.log(props)
 
     return {
       id: props.segment.id,
-      dataNo: props.dataNo,
+      sliceIndex: props.sliceIndex,
       variantString: props.segment.variantString,
       type: props.segment.type,
       label: props.segment.label,
@@ -466,7 +468,7 @@ export const segmentSource = {
         handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
       } else if (monitor.getItemType() === Types.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
-        store.dispatch(removeSegment(props.dataNo))
+        store.dispatch(removeSegment(props.sliceIndex))
       }
     }
 
@@ -543,19 +545,19 @@ export function createPaletteItemDragSpec (segment) {
 /**
  * Calculates the additional space needed before/after a segment during dragging
  *
- * @param {Number} dataNo - position of the current segment whose segment position
+ * @param {Number} elementIndex - position of the current segment whose segment position
  *    is being calculated
  * @param {Object} draggingState - includes the positions of the segment the dragged
  *    segment is after (segmentAfterEl) and the segment the dragged segment is before
  *    (segmentBeforeEl), and undefined if it does not have one
  *
  */
-export function makeSpaceBetweenSegments (dataNo, draggingState) {
+export function makeSpaceBetweenSegments (elementIndex, draggingState) {
   const { segmentBeforeEl, segmentAfterEl } = draggingState
 
   let spaceBetweenSegments = 0
 
-  if (dataNo >= segmentBeforeEl) {
+  if (elementIndex >= segmentBeforeEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentAfterEl === undefined) {
@@ -563,7 +565,7 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
     }
   }
 
-  if (dataNo > segmentAfterEl) {
+  if (elementIndex > segmentAfterEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentBeforeEl === undefined) {
@@ -592,7 +594,7 @@ function updateIfDraggingStateChanged (
     changed =
       segmentBeforeEl !== oldDraggingState.segmentBeforeEl ||
       segmentAfterEl !== oldDraggingState.segmentAfterEl ||
-      draggedItem.dataNo !== oldDraggingState.draggedSegment
+      draggedItem.sliceIndex !== oldDraggingState.draggedSegment
   } else {
     changed = true
   }
@@ -601,14 +603,14 @@ function updateIfDraggingStateChanged (
     oldDraggingState = {
       segmentBeforeEl,
       segmentAfterEl,
-      draggedSegment: draggedItem.dataNo
+      draggedSegment: draggedItem.sliceIndex
     }
 
     store.dispatch(
       updateDraggingState({
         segmentBeforeEl,
         segmentAfterEl,
-        draggedSegment: draggedItem.dataNo
+        draggedSegment: draggedItem.sliceIndex
       })
     )
     doDropHeuristics(draggedItem, draggedItemType)
@@ -626,8 +628,8 @@ export const segmentTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    const dragIndex = monitor.getItem().dataNo
-    const hoverIndex = props.dataNo
+    const dragIndex = monitor.getItem().sliceIndex
+    const hoverIndex = props.sliceIndex
 
     const hoveredSegment = component.streetSegment
     const { left } = hoveredSegment.getBoundingClientRect()

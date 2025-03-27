@@ -31,7 +31,7 @@ export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
 
-export function resizeSegment (dataNo, resizeType, width, units) {
+export function resizeSegment (segmentIndex, resizeType, width, units) {
   // @TODO: don't read state for units; this is a temp kludge because the drag resizing
   // handler doesn't currently have access to the units. So if it's not provided, grab it
   // from state
@@ -41,14 +41,14 @@ export function resizeSegment (dataNo, resizeType, width, units) {
   )
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
-  store.dispatch(changeSegmentWidth(dataNo, width))
+  store.dispatch(changeSegmentWidth(segmentIndex, width))
   segmentsChanged()
   return width
 }
 
 export function handleSegmentResizeCancel () {
   resizeSegment(
-    draggingResize.segmentEl.dataNo,
+    Number(draggingResize.segmentEl.dataset.sliceIndex),
     RESIZE_TYPE_INITIAL,
     draggingResize.originalWidth
   )
