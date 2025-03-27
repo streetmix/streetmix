@@ -10,14 +10,15 @@ const IMPERIAL_CONVERSION_RATE = 0.3048
 const IMPERIAL_PRECISION = 3
 const METRIC_PRECISION = 3
 
-const IMPERIAL_VULGAR_FRACTIONS: Record<number, string> = {
-  0.125: '⅛',
-  0.25: '¼',
-  0.375: '⅜',
-  0.5: '½',
-  0.625: '⅝',
-  0.75: '¾',
-  0.875: '⅞'
+const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
+  // Do not change these strings to numbers
+  '.125': '⅛',
+  '.25': '¼',
+  '.375': '⅜',
+  '.5': '½',
+  '.625': '⅝',
+  '.75': '¾',
+  '.875': '⅞'
 }
 
 export function prettifyWidth (width: number, units: UnitsSetting): string {
@@ -62,7 +63,8 @@ function stringifyImperialValueWithFractions (value: number): string {
   // Determine if there is a vulgar fraction to display
   const floor = Math.floor(value)
   const decimal = value - floor
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[decimal]
+  const key = decimal.toString().replace(/^0/, '')
+  const fraction = IMPERIAL_VULGAR_FRACTIONS[key]
 
   // If a fraction exists:
   if (fraction !== undefined) {
