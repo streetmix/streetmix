@@ -126,8 +126,9 @@ function handleSegmentResizeStart (event) {
   draggingResize.elY = pos[1]
 
   draggingResize.originalX = draggingResize.elX
+  const sliceIndex = Number(el.parentNode.dataset.sliceIndex)
   draggingResize.originalWidth =
-    store.getState().street.segments[el.parentNode.dataNo].width
+    store.getState().street.segments[sliceIndex].width
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
@@ -175,7 +176,7 @@ function handleSegmentResizeMove (event) {
   }
 
   draggingResize.width = resizeSegment(
-    draggingResize.segmentEl.dataNo,
+    Number(draggingResize.segmentEl.dataset.sliceIndex),
     resizeType,
     draggingResize.width
   )
@@ -444,10 +445,11 @@ export const segmentSource = {
     handleSegmentDragStart()
 
     store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
+    console.log(props)
 
     return {
       id: props.segment.id,
-      dataNo: props.dataNo,
+      sliceIndex: props.sliceIndex,
       variantString: props.segment.variantString,
       type: props.segment.type,
       label: props.segment.label,
@@ -466,61 +468,8 @@ export const segmentSource = {
         handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
       } else if (monitor.getItemType() === Types.SEGMENT) {
         // if existing segment is dropped outside canvas, delete it
-        store.dispatch(removeSegment(props.dataNo))
+        store.dispatch(removeSegment(props.sliceIndex))
       }
-    }
-
-    handleSegmentDragEnd()
-  }
-}
-
-export const paletteSegmentSource = {
-  canDrag (props) {
-    return !store.getState().app.readOnly
-  },
-
-  beginDrag (props, monitor, component) {
-    handleSegmentDragStart()
-
-    // Initialize an empty draggingState object in Redux for palette segments
-    // in order to add event listener in StreetEditable once dragging begins.
-    // Also set the dragging type to MOVE. We use one action creator here and
-    // one dispatch to reduce batch renders.
-    store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
-
-    const { units } = store.getState().street
-    const type = props.segment.id
-
-    // The preview drag should match artwork in the thumbnail. The variant
-    // string is specified by `defaultVariant`. If the property isn't present,
-    // use the first defined variant in segment details.
-    const variantString =
-      props.segment.defaultVariant || Object.keys(props.segment.details).shift()
-
-    // This allows dropped segment to be created with the correct elevation value
-    let elevation = 0
-    if (props.segment.defaultElevation !== undefined) {
-      elevation = props.segment.defaultElevation
-    } else {
-      const variantInfo = getSegmentVariantInfo(type, variantString)
-      elevation = variantInfo.elevation
-    }
-
-    return {
-      id: generateRandSeed(),
-      type,
-      variantString,
-      actualWidth: getWidthInMetric(props.segment.defaultWidth, units),
-      elevation
-    }
-  },
-
-  endDrag (props, monitor, component) {
-    store.dispatch(clearDraggingState())
-
-    const withinCanvas = oldDraggingState?.withinCanvas
-    if (!monitor.didDrop() && withinCanvas) {
-      handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
     }
 
     handleSegmentDragEnd()
@@ -535,22 +484,80 @@ export function collectDragSource (connect, monitor) {
   }
 }
 
+// Created for the hook version, refactor this
+export function createPaletteItemDragSpec (segment) {
+  return {
+    type: Types.PALETTE_SEGMENT,
+    item: () => {
+      handleSegmentDragStart()
+
+      // Initialize an empty draggingState object in Redux for palette segments
+      // in order to add event listener in StreetEditable once dragging begins.
+      // Also set the dragging type to MOVE. We use one action creator here and
+      // one dispatch to reduce batch renders.
+      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
+
+      const { units } = store.getState().street
+      const type = segment.id
+
+      // The preview drag should match artwork in the thumbnail. The variant
+      // string is specified by `defaultVariant`. If the property isn't present,
+      // use the first defined variant in segment details.
+      const variantString =
+        segment.defaultVariant || Object.keys(segment.details).shift()
+
+      // This allows dropped segment to be created with the correct elevation value
+      let elevation = 0
+      if (segment.defaultElevation !== undefined) {
+        elevation = segment.defaultElevation
+      } else {
+        const variantInfo = getSegmentVariantInfo(type, variantString)
+        elevation = variantInfo.elevation
+      }
+
+      return {
+        id: generateRandSeed(),
+        type,
+        variantString,
+        actualWidth: getWidthInMetric(segment.defaultWidth, units),
+        elevation
+      }
+    },
+    previewOptions: {
+      captureDraggingState: true
+    },
+    end: (item, monitor) => {
+      store.dispatch(clearDraggingState())
+
+      const withinCanvas = oldDraggingState?.withinCanvas
+      if (!monitor.didDrop() && withinCanvas) {
+        handleSegmentCanvasDrop(item, monitor.getItemType())
+      }
+
+      handleSegmentDragEnd()
+    },
+    canDrag: (monitor) => {
+      return !store.getState().app.readOnly
+    }
+  }
+}
+
 /**
  * Calculates the additional space needed before/after a segment during dragging
  *
- * @param {Number} dataNo - position of the current segment whose segment position
+ * @param {Number} elementIndex - position of the current segment whose segment position
  *    is being calculated
  * @param {Object} draggingState - includes the positions of the segment the dragged
  *    segment is after (segmentAfterEl) and the segment the dragged segment is before
  *    (segmentBeforeEl), and undefined if it does not have one
  *
  */
-export function makeSpaceBetweenSegments (dataNo, draggingState) {
+export function makeSpaceBetweenSegments (elementIndex, draggingState) {
   const { segmentBeforeEl, segmentAfterEl } = draggingState
 
   let spaceBetweenSegments = 0
 
-  if (dataNo >= segmentBeforeEl) {
+  if (elementIndex >= segmentBeforeEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentAfterEl === undefined) {
@@ -558,7 +565,7 @@ export function makeSpaceBetweenSegments (dataNo, draggingState) {
     }
   }
 
-  if (dataNo > segmentAfterEl) {
+  if (elementIndex > segmentAfterEl) {
     spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentBeforeEl === undefined) {
@@ -587,7 +594,7 @@ function updateIfDraggingStateChanged (
     changed =
       segmentBeforeEl !== oldDraggingState.segmentBeforeEl ||
       segmentAfterEl !== oldDraggingState.segmentAfterEl ||
-      draggedItem.dataNo !== oldDraggingState.draggedSegment
+      draggedItem.sliceIndex !== oldDraggingState.draggedSegment
   } else {
     changed = true
   }
@@ -596,14 +603,14 @@ function updateIfDraggingStateChanged (
     oldDraggingState = {
       segmentBeforeEl,
       segmentAfterEl,
-      draggedSegment: draggedItem.dataNo
+      draggedSegment: draggedItem.sliceIndex
     }
 
     store.dispatch(
       updateDraggingState({
         segmentBeforeEl,
         segmentAfterEl,
-        draggedSegment: draggedItem.dataNo
+        draggedSegment: draggedItem.sliceIndex
       })
     )
     doDropHeuristics(draggedItem, draggedItemType)
@@ -621,8 +628,8 @@ export const segmentTarget = {
   hover (props, monitor, component) {
     if (!monitor.canDrop()) return
 
-    const dragIndex = monitor.getItem().dataNo
-    const hoverIndex = props.dataNo
+    const dragIndex = monitor.getItem().sliceIndex
+    const hoverIndex = props.sliceIndex
 
     const hoveredSegment = component.streetSegment
     const { left } = hoveredSegment.getBoundingClientRect()
@@ -734,39 +741,40 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
       : null
 }
 
-export const canvasTarget = {
-  hover (props, monitor, component) {
-    if (!monitor.canDrop()) return
+export function createStreetDropTargetSpec (component) {
+  return {
+    accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    drop (item, monitor) {
+      const draggedItemType = monitor.getItemType()
 
-    if (monitor.isOver({ shallow: true })) {
-      const position = isOverLeftOrRightCanvas(
-        component.streetSectionEditable,
-        monitor.getClientOffset().x
-      )
+      handleSegmentCanvasDrop(item, draggedItemType)
 
-      if (!position) return
+      return { withinCanvas: true }
+    },
+    hover (item, monitor) {
+      if (!monitor.canDrop()) return
 
-      const { segments } = store.getState().street
-      const segmentBeforeEl = position === 'left' ? 0 : undefined
-      const segmentAfterEl =
-        position === 'left' ? undefined : segments.length - 1
+      if (monitor.isOver({ shallow: true })) {
+        const position = isOverLeftOrRightCanvas(
+          document.getElementById('street-section-canvas'),
+          monitor.getClientOffset().x
+        )
 
-      updateIfDraggingStateChanged(
-        segmentBeforeEl,
-        segmentAfterEl,
-        monitor.getItem(),
-        monitor.getItemType()
-      )
+        if (!position) return
+
+        const { segments } = store.getState().street
+        const segmentBeforeEl = position === 'left' ? 0 : undefined
+        const segmentAfterEl =
+          position === 'left' ? undefined : segments.length - 1
+
+        updateIfDraggingStateChanged(
+          segmentBeforeEl,
+          segmentAfterEl,
+          monitor.getItem(),
+          monitor.getItemType()
+        )
+      }
     }
-  },
-
-  drop (props, monitor, component) {
-    const draggedItem = monitor.getItem()
-    const draggedItemType = monitor.getItemType()
-
-    handleSegmentCanvasDrop(draggedItem, draggedItemType)
-
-    return { withinCanvas: true }
   }
 }
 

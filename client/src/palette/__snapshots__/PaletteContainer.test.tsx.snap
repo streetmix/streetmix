@@ -52,6 +52,11 @@ exports[`PaletteContainer > renders 1`] = `
                   draggable="false"
                 />
               </div>
+              <img
+                alt=""
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                style="display: none;"
+              />
             </li>
             <li
               class="palette-item palette-item-disabled"
@@ -67,6 +72,11 @@ exports[`PaletteContainer > renders 1`] = `
               <svg
                 data-icon="lock"
                 data-icon-source="test"
+              />
+              <img
+                alt=""
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                style="display: none;"
               />
             </li>
           </ul>

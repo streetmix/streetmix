@@ -46,8 +46,7 @@ describe('Segment', () => {
         segment={segment}
         actualWidth={currentWidth}
         units={SETTINGS_UNITS_METRIC}
-        dataNo={activeElement}
-        updateSegmentData={vi.fn()}
+        sliceIndex={activeElement}
         connectDragPreview={vi.fn()}
       />,
       {
@@ -68,8 +67,7 @@ describe('Segment', () => {
       <Segment
         segment={segment}
         actualWidth={currentWidth}
-        dataNo={activeElement}
-        updateSegmentData={vi.fn()}
+        sliceIndex={activeElement}
         connectDragPreview={vi.fn()}
       />,
       {
@@ -92,8 +90,7 @@ describe('Segment', () => {
       <Segment
         segment={segment}
         actualWidth={currentWidth}
-        dataNo={activeElement}
-        updateSegmentData={vi.fn()}
+        sliceIndex={activeElement}
         connectDragPreview={vi.fn()}
       />,
       {
@@ -117,8 +114,7 @@ describe('Segment', () => {
         <Segment
           segment={segment}
           actualWidth={currentWidth}
-          dataNo={activeElement}
-          updateSegmentData={vi.fn()}
+          sliceIndex={activeElement}
           connectDragPreview={vi.fn()}
         />,
         {
@@ -143,8 +139,7 @@ describe('Segment', () => {
         <Segment
           segment={segment}
           actualWidth={currentWidth}
-          dataNo={activeElement}
-          updateSegmentData={vi.fn()}
+          sliceIndex={activeElement}
           connectDragPreview={vi.fn()}
         />,
         {
@@ -169,8 +164,7 @@ describe('Segment', () => {
         <Segment
           segment={segment}
           actualWidth={currentWidth}
-          dataNo={activeElement}
-          updateSegmentData={vi.fn()}
+          sliceIndex={activeElement}
           connectDragPreview={vi.fn()}
         />,
         {
@@ -197,8 +191,7 @@ describe('Segment', () => {
         <Segment
           segment={segment}
           actualWidth={currentWidth}
-          dataNo={activeElement}
-          updateSegmentData={vi.fn()}
+          sliceIndex={activeElement}
           connectDragPreview={vi.fn()}
         />,
         {
