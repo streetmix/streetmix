@@ -33,13 +33,14 @@ const WIDTH_INPUT_CONVERSION = [
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
-  0.125: '⅛',
-  0.25: '¼',
-  0.375: '⅜',
-  0.5: '½',
-  0.625: '⅝',
-  0.75: '¾',
-  0.875: '⅞'
+  // Do not change these strings to numbers
+  '.125': '⅛',
+  '.25': '¼',
+  '.375': '⅜',
+  '.5': '½',
+  '.625': '⅝',
+  '.75': '¾',
+  '.875': '⅞'
 }
 
 export function roundToPrecision (value: number): number {
@@ -253,8 +254,9 @@ export function getImperialMeasurementWithVulgarFractions (
 ): string {
   // Determine if there is a vulgar fraction to display
   const floor = Math.floor(value)
-  const remainder = value - floor
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder]
+  const decimal = value - floor
+  const key = decimal.toString().replace(/^0/, '')
+  const fraction = IMPERIAL_VULGAR_FRACTIONS[key]
 
   // If a fraction exists:
   if (fraction !== undefined) {

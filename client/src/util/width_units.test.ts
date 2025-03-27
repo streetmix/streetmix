@@ -281,9 +281,25 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(0.076)
   })
 
+  it('parses feet and inches using a vulgar fraction (3¼′")', () => {
+    // When a vulgar fraction is present it is very likely included with the
+    // prime mark
+    const value = '3¼′'
+
+    // Even in metric mode, the prime symbol should cause the value to be
+    // interpreted as imperial units
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(0.991)
+
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(0.991)
+  })
+
   it('parses a value using the prime mark (3′)', () => {
     const value = '3′'
 
+    // Even in metric mode, the prime symbol should cause the value to be
+    // interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.914)
 
