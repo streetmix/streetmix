@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
@@ -38,14 +38,10 @@ export class StreetEditable extends React.Component {
   // Internal "state", but does not affect renders, so it is not React state
   withinCanvas = null
 
-  // Placeholder for a ref.
-  // TODO: Upgrade to createRef(), but this is currently broken when placed on
-  // an element inside of react-dnd's `connectDragSource`.
-  // Info: https://github.com/react-dnd/react-dnd/issues/998
-  streetSectionEditable = null
+  streetSectionEditable = createRef()
 
   componentDidMount () {
-    this.props.setBuildingWidth(this.streetSectionEditable)
+    this.props.setBuildingWidth(this.streetSectionEditable.current)
   }
 
   componentDidUpdate (prevProps) {
@@ -56,7 +52,7 @@ export class StreetEditable extends React.Component {
       (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
         !this.props.draggingType)
     ) {
-      this.props.setBuildingWidth(this.streetSectionEditable)
+      this.props.setBuildingWidth(this.streetSectionEditable.current)
     }
 
     if (
@@ -81,7 +77,7 @@ export class StreetEditable extends React.Component {
   updateWithinCanvas = (event) => {
     const withinCanvas = isSegmentWithinCanvas(
       event,
-      this.streetSectionEditable
+      this.streetSectionEditable.current
     )
 
     if (withinCanvas) {
@@ -195,9 +191,7 @@ export class StreetEditable extends React.Component {
         id="street-section-editable"
         key={this.props.street.id}
         style={style}
-        ref={(ref) => {
-          this.streetSectionEditable = ref
-        }}
+        ref={this.streetSectionEditable}
       >
         <TransitionGroup
           key={this.props.street.id}

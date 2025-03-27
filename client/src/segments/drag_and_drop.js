@@ -745,7 +745,7 @@ export const canvasTarget = {
 
     if (monitor.isOver({ shallow: true })) {
       const position = isOverLeftOrRightCanvas(
-        component.streetSectionEditable,
+        component.streetSectionEditable.current,
         monitor.getClientOffset().x
       )
 
