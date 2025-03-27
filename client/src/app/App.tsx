@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
-import { DndProvider } from 'react-dnd'
 import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
-import MultiBackend from 'react-dnd-multi-backend'
-import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'
+import { DndProvider } from 'react-dnd-multi-backend'
+import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 
 import MenusContainer from '../menubar/MenusContainer'
 import StreetNameplateContainer from '../streets/StreetNameplateContainer'
@@ -67,11 +66,7 @@ function App (): React.ReactElement {
             messages={locale.messages}
           >
             {/* The prop context={window} prevents crash errors with hot-module reloading */}
-            <DndProvider
-              backend={MultiBackend}
-              options={HTML5toTouch}
-              context={window}
-            >
+            <DndProvider options={HTML5toTouch} context={window}>
               {/* DndProvider allows multiple children; IntlProvider does not */}
               <NotificationBar />
               <BlockingShield />
