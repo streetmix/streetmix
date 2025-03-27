@@ -54,6 +54,11 @@ updates:
       patterns:
         - "@fontsource/*"
         - "@fontsource-variable/*"
+    react-dnd:
+      patterns:
+        - "react-dnd"
+        - "react-dnd-*"
+        - "rdndmb-html5-to-touch"
 
 - package-ecosystem: github-actions
   directory: "/"
