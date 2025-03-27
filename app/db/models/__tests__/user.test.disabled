@@ -4,7 +4,7 @@ const { User } = require('../index.js')
 
 // Skipping this suite because pg expects to run in a server environment,
 // and our jest setup assumes a jsdom environment.
-describe.skip('creates a user', () => {
+describe('creates a user', () => {
   let user
 
   // Before any tests run, clear the DB and run migrations with Sequelize sync()
@@ -69,6 +69,55 @@ describe.skip('creates a user', () => {
     // see https://jestjs.io/docs/en/tutorial-async#rejects
     await expect(user.validate()).rejects.toThrow(
       'Validation error: Role does not match list of valid roles'
+    )
+  })
+
+  it('validates auth0Id as a non-empty string', async () => {
+    user.auth0Id = ''
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation notEmpty on auth0Id failed'
+    )
+  })
+
+  it('validates displayName as a string with a maximum length of 30 characters', async () => {
+    user.displayName = 'a'.repeat(31)
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation len on displayName failed'
+    )
+  })
+
+  it('validates email as a valid email address', async () => {
+    user.email = 'invalid-email'
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation isEmail on email failed'
+    )
+  })
+
+  it('validates profileImageUrl as a valid URL with a maximum length of 2048 characters', async () => {
+    user.profileImageUrl = 'invalid-url'
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation isUrl on profileImageUrl failed'
+    )
+  })
+
+  it('validates identities as a JSON object', async () => {
+    user.identities = 'invalid-json'
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation isJSON on identities failed'
+    )
+  })
+
+  it('validates flags as a JSON object', async () => {
+    user.flags = 'invalid-json'
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation isJSON on flags failed'
+    )
+  })
+
+  it('validates data as a JSON object', async () => {
+    user.data = 'invalid-json'
+    await expect(user.validate()).rejects.toThrow(
+      'Validation error: Validation isJSON on data failed'
     )
   })
 
