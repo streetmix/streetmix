@@ -5,11 +5,48 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## March 27, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a bug where manually entering a new street width in U.S. customary units with a fraction caused the street to be ten times wider than expected.
+- Fixed a visual bug where a dragging an item from the palette caused a preview to flash briefly on the left-hand side of the screen.
+
+## March 25, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a layout issue that caused tall dialogs to be cut off on very short screens.
+
+### 🎨 Improvements
+
+- Added Bluesky social links.
+- Removed Twitter and Instagram social links.
+
+## August 12, 2024
+
+### 🎮 UI improvements
+
+- Improved dialog box behavior on mobile devices.
+
+## August 8, 2024
+
+### 🎮 UI improvements
+
+- Visual upgrade for the street width dropdown menu.
+
+## August 4, 2024
+
+### 🎮 UI improvements
+
+- Visual upgrades for menus and icons.
+
 ## May 9, 2024
 
 ### 🐛 Bug fixes
 
 - Fixed a database issue that can prevent logins from a Google e-mail address, in rare cases.
+- Fixed a bug that could prevent two-way bike lanes from being available.
 
 ## April 26, 2024
 
