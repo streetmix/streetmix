@@ -209,7 +209,7 @@ class Building extends React.Component {
     return userUpdated
   }
 
-  renderBuilding = (building) => {
+  renderBuilding = (building, nodeRef) => {
     const isOldBuilding = building === 'old'
 
     const style = {
@@ -226,23 +226,32 @@ class Building extends React.Component {
       classNames.push('hover')
     }
 
+    // Outer wrapping div is a workaround for CSSTransition's dependence on
+    // findDOMNode, which needs a nodeRef to be manually attached to a DOM
+    // node. This is wrapping the existing <section> to preserve existing
+    // node switching functionality
     return (
-      <section
-        className={classNames.join(' ')}
-        ref={(ref) => {
-          this.changeRefs(ref, isOldBuilding)
-        }}
-        onMouseEnter={this.handleBuildingMouseEnter}
-        onMouseLeave={this.handleBuildingMouseLeave}
-        style={style}
-      >
-        <div className="hover-bk" />
-      </section>
+      <div className={classNames.join(' ')} style={style} ref={nodeRef}>
+        <section
+          style={{ width: '100%', height: '100%', perspective: '400px' }}
+          ref={(ref) => {
+            this.changeRefs(ref, isOldBuilding)
+          }}
+          onMouseEnter={this.handleBuildingMouseEnter}
+          onMouseLeave={this.handleBuildingMouseLeave}
+        >
+          <div className="hover-bk" />
+        </section>
+      </div>
     )
   }
 
   render () {
     const { newBuildingEnter, oldBuildingEnter } = this.state
+    // These refs are a workaround for CSSTransition's dependence on
+    // findDOMNode, which is deprecated.
+    const newRef = React.createRef()
+    const oldRef = React.createRef()
 
     return (
       <>
@@ -253,8 +262,9 @@ class Building extends React.Component {
           classNames="switching-in"
           onEntered={this.handleSwitchBuildings}
           unmountOnExit={true}
+          nodeRef={newRef}
         >
-          {this.renderBuilding('new')}
+          {this.renderBuilding('new', newRef)}
         </CSSTransition>
         <CSSTransition
           key="old-building"
@@ -262,8 +272,9 @@ class Building extends React.Component {
           timeout={250}
           classNames="switching-away"
           unmountOnExit={true}
+          nodeRef={oldRef}
         >
-          {this.renderBuilding('old')}
+          {this.renderBuilding('old', oldRef)}
         </CSSTransition>
       </>
     )
