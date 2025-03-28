@@ -5,12 +5,18 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## March 28, 2025
+
+### 🐛 Bug fixes
+
+- Fixed an animation issue where the moon would not appear when it was supposed to.
+
 ## March 27, 2025
 
 ### 🐛 Bug fixes
 
 - Fixed a bug where manually entering a new street width in U.S. customary units with a fraction caused the street to be ten times wider than expected.
-- Fixed a visual bug where a dragging an item from the palette caused a preview to flash briefly on the left-hand side of the screen.
+- Fixed an animation issue where a dragging an item from the palette caused a preview to flash briefly on the left-hand side of the screen.
 
 ## March 25, 2025
 

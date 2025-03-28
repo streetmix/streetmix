@@ -29,6 +29,7 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
             <CSSTransition
               key={object.image}
               nodeRef={ref}
+              appear={true}
               timeout={{
                 enter: 0,
                 exit: 500
