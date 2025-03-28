@@ -182,7 +182,7 @@ export class Segment extends React.Component {
     infoBubble.dontConsiderShowing()
   }
 
-  renderSegmentCanvas = (variantType) => {
+  renderSegmentCanvas = (variantType, nodeRef) => {
     const isOldVariant = variantType === 'old'
     const { segment, connectDragSource, connectDropTarget } = this.props
 
@@ -192,7 +192,7 @@ export class Segment extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div className="segment-canvas-container">
+        <div className="segment-canvas-container" ref={nodeRef}>
           <SegmentCanvas
             actualWidth={this.props.actualWidth}
             type={segment.type}
@@ -336,6 +336,11 @@ export class Segment extends React.Component {
       }
     }
 
+    // These refs are a workaround for CSSTransition's dependence on
+    // findDOMNode, which is deprecated.
+    const newRef = React.createRef()
+    const oldRef = React.createRef()
+
     return (
       <div
         style={segmentStyle}
@@ -364,8 +369,9 @@ export class Segment extends React.Component {
           timeout={250}
           onExited={this.handleSwitchSegments}
           unmountOnExit={true}
+          nodeRef={oldRef}
         >
-          {this.renderSegmentCanvas('old')}
+          {this.renderSegmentCanvas('old', oldRef)}
         </CSSTransition>
         <CSSTransition
           key="new-variant"
@@ -373,8 +379,9 @@ export class Segment extends React.Component {
           classNames="switching-in"
           timeout={250}
           unmountOnExit={true}
+          nodeRef={newRef}
         >
-          {this.renderSegmentCanvas('new')}
+          {this.renderSegmentCanvas('new', newRef)}
         </CSSTransition>
         <div className="hover-bk" />
       </div>

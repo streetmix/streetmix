@@ -445,7 +445,6 @@ export const segmentSource = {
     handleSegmentDragStart()
 
     store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
-    console.log(props)
 
     return {
       id: props.segment.id,
