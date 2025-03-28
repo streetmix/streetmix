@@ -9,69 +9,71 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
     <div
       style="width: 100%; height: 100%;"
     >
-      <div
-        class="segment hover show-drag-handles warning"
-        data-slice-index="0"
-        data-testid="segment"
-        style="width: 4724.4094488188975px; z-index: 15; transform: translateX(0px);"
-      >
+      <div>
         <div
-          class="segment-label-container"
+          class="segment hover show-drag-handles warning"
+          data-slice-index="0"
+          data-testid="segment"
+          style="width: 4724.4094488188975px; z-index: 15; transform: translateX(0px);"
         >
           <div
-            class="segment-grid units-metric"
-          />
-          <div
-            class="segment-width"
+            class="segment-label-container"
           >
-            <span>
-              120 m
-            </span>
+            <div
+              class="segment-grid units-metric"
+            />
+            <div
+              class="segment-width"
+            >
+              <span>
+                120 m
+              </span>
+            </div>
+            <div
+              class="segment-label"
+            >
+              <p
+                class="segment-name"
+              >
+                Streetcar
+              </p>
+              <p
+                class="segment-capacity"
+              >
+                18,000 people/hr
+              </p>
+            </div>
+          </div>
+          <span
+            class="drag-handle drag-handle-left"
+          >
+            <svg
+              data-icon="chevron-left"
+              data-icon-source="test"
+            />
+          </span>
+          <span
+            class="drag-handle drag-handle-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              data-icon-source="test"
+            />
+          </span>
+          <div
+            class="segment-canvas-container"
+          >
+            <canvas
+              class="segment-image"
+              height="445"
+              style="width: 4724px; height: 445px; left: 0px;"
+              width="4724"
+            />
           </div>
           <div
-            class="segment-label"
-          >
-            <p
-              class="segment-name"
-            >
-              Streetcar
-            </p>
-            <p
-              class="segment-capacity"
-            >
-              18,000 people/hr
-            </p>
-          </div>
-        </div>
-        <span
-          class="drag-handle drag-handle-left"
-        >
-          <svg
-            data-icon="chevron-left"
-            data-icon-source="test"
-          />
-        </span>
-        <span
-          class="drag-handle drag-handle-right"
-        >
-          <svg
-            data-icon="chevron-right"
-            data-icon-source="test"
-          />
-        </span>
-        <div
-          class="segment-canvas-container"
-        >
-          <canvas
-            class="segment-image"
-            height="445"
-            style="width: 4724px; height: 445px; left: 0px;"
-            width="4724"
+            class="hover-bk"
           />
         </div>
-        <div
-          class="hover-bk"
-        />
       </div>
     </div>
   </div>

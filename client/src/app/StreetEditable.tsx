@@ -34,6 +34,11 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   const withinCanvas = useRef<boolean>(false)
   const streetSectionEditable = useRef<HTMLDivElement>(null)
 
+  // According to "rule of hooks", useRef() must not be called in a loop
+  // This is a top-level container to manage a list of refs as a workaround
+  // for CSSTransition's reliance on deprecated findDOMNode
+  const childRefs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({})
+
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
     resizeType,
@@ -103,11 +108,16 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }
 
-  function handleSwitchSliceAway (el: HTMLElement, sliceIndex: number): void {
-    const left = calculateSlicePosition(sliceIndex)
-    el.style.left = `${left}px`
+  function handleSwitchSliceAway (el: HTMLDivElement, sliceIndex: number): void {
+    // Targeting first child node instead of el because of wrapper div workaround
+    // for CSSTransition
+    const childNode = el.firstChild as HTMLDivElement
+    if (childNode === null) return
 
-    updatePerspective(el)
+    const left = calculateSlicePosition(sliceIndex)
+    childNode.style.left = `${left}px`
+
+    updatePerspective(childNode)
   }
 
   function calculateSlicePosition (sliceIndex: number): number {
@@ -155,26 +165,37 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     return segments.map((segment, i) => {
       const segmentLeft = calculateSlicePosition(i)
+      const key = `${streetId}.${segment.id}`
+      // Refs are created with createRef and then stored in parent `refs`
+      const ref = React.createRef<HTMLDivElement>()
+      childRefs.current[key] = ref
 
       const segmentEl = (
         <CSSTransition
-          key={`${streetId}.${segment.id}`}
+          key={key}
           timeout={250}
           classNames="switching-away"
           exit={!immediateRemoval}
-          onExit={(el) => {
-            handleSwitchSliceAway(el, i)
+          onExit={() => {
+            if (ref.current === null) return
+            handleSwitchSliceAway(ref.current, i)
           }}
           unmountOnExit={true}
+          nodeRef={ref}
         >
-          <Segment
-            sliceIndex={i}
-            segment={{ ...segment }}
-            actualWidth={segment.width}
-            units={units}
-            segmentLeft={segmentLeft}
-            updatePerspective={updatePerspective}
-          />
+          {/* This wrapper element is a workaround for CSSTransition depending on
+              findDOMNode, which is deprecated. We just need a DOM element to
+              attach a ref to. This introduces a lot of bugs, unfortunately. */}
+          <div ref={ref}>
+            <Segment
+              sliceIndex={i}
+              segment={{ ...segment }}
+              actualWidth={segment.width}
+              units={units}
+              segmentLeft={segmentLeft}
+              updatePerspective={updatePerspective}
+            />
+          </div>
         </CSSTransition>
       )
 
