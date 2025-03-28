@@ -218,16 +218,18 @@ export interface SkyboxDefinition {
   backgroundColor?: string // CSS color string
   backgroundImage?: string // Illustration asset ID
   backgroundGradient?: CSSGradientDeclaration
-  backgroundObjects?: Array<{
-    image: string // Illustration asset ID
-    width: number // in pixels
-    height: number // in pixels
-    top: number // Percentage as decimal
-    left: number // Percentage as decimal
-  }>
+  backgroundObjects?: SkyboxObject[]
   foregroundGradient?: CSSGradientDeclaration
   cloudOpacity?: number // Percentage as decimal
   invertUITextColor?: boolean
+}
+
+export interface SkyboxObject {
+  image: string // Illustration asset ID
+  width: number // in pixels
+  height: number // in pixels
+  top: number // Percentage as decimal
+  left: number // Percentage as decimal
 }
 
 export interface SkyboxDefWithStyles extends SkyboxDefinition {
