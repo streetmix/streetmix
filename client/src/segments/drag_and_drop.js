@@ -740,7 +740,7 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
       : null
 }
 
-export function createStreetDropTargetSpec (component) {
+export function createStreetDropTargetSpec () {
   return {
     accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
     drop (item, monitor) {
