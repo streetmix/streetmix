@@ -28,12 +28,14 @@ import {
 } from './constants'
 import {
   _getBugfix,
-  _resetBugfix
+  _resetBugfix,
+  createSliceDropTargetSpec
 } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
 import './Segment.css'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
+import { useDrop } from 'react-dnd'
 
 interface SegmentProps {
   sliceIndex: number
@@ -73,6 +75,10 @@ function Segment (props: SegmentProps): React.ReactNode {
   const oldRef = useRef<HTMLDivElement>(null)
   const newRef = useRef<HTMLDivElement>(null)
 
+  // Set up drop target
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [collectedProps, drop] = useDrop(() => createSliceDropTargetSpec(props, streetSegment))
+
   // componentDidUpdate (prevProps, prevState) {
   //   // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
   //   // During a segment removal or a dragging action, the infoBubble temporarily does not appear
@@ -96,15 +102,12 @@ function Segment (props: SegmentProps): React.ReactNode {
   //   }
 
   useEffect(() => {
-    console.log('switchsegments effect')
     if (
       prevProps !== undefined &&
       prevProps.segment.variantString !== segment.variantString
     ) {
-      console.log('switchsegments effect about to call handle')
       handleSwitchSegments(prevProps.segment.variantString)
     }
-    console.log('switchsegments effect done')
   }, [segment.variantString])
 
   // Also animate the switching if elevation changes.
@@ -128,10 +131,10 @@ function Segment (props: SegmentProps): React.ReactNode {
     }
   }, [])
 
+  // When called by CSSTransition `onExited`, `oldVariant` is not passed to the
+  // function (is undefined). `switchSegments` should be `true` when this happens.
   function handleSwitchSegments (oldVariant?: string): void {
-    console.log('handlesitchsegments called', switchSegments, segment.variantString, oldVariant)
     setSwitchSegments(!switchSegments)
-    console.log(switchSegments ? segment.variantString : oldVariant)
     if (switchSegments) {
       setOldVariant(segment.variantString)
     } else {
@@ -244,10 +247,6 @@ function Segment (props: SegmentProps): React.ReactNode {
     return stuff
   }
 
-  function connectDropTarget (stuff) {
-    return stuff
-  }
-
   function renderSegmentCanvas (variantType: string, nodeRef: React.RefObject<HTMLDivElement>): React.ReactNode {
     const isOldVariant = variantType === 'old'
     // const { segment, connectDragSource, connectDropTarget } = this.props
@@ -257,8 +256,8 @@ function Segment (props: SegmentProps): React.ReactNode {
     const randSeed = segment.id
 
     return connectDragSource(
-      connectDropTarget(
-        <div className="segment-canvas-container" ref={nodeRef}>
+      <div className="segment-canvas-container" ref={drop}>
+        <div ref={nodeRef}>
           <SegmentCanvas
             actualWidth={segment.width}
             type={segment.type}
@@ -269,7 +268,7 @@ function Segment (props: SegmentProps): React.ReactNode {
             elevation={segment.elevation}
           />
         </div>
-      )
+      </div>
     )
   }
 
@@ -359,10 +358,5 @@ function Segment (props: SegmentProps): React.ReactNode {
 
 //
 // DragSource(Types.SEGMENT, segmentSource, collectDragSource),
-// DropTarget(
-//   [Types.SEGMENT, Types.PALETTE_SEGMENT],
-//   segmentTarget,
-//   collectDropTarget
-// )
 
 export default Segment

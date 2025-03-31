@@ -483,7 +483,6 @@ export function collectDragSource (connect, monitor) {
   }
 }
 
-// Created for the hook version, refactor this
 export function createPaletteItemDragSpec (segment) {
   return {
     type: Types.PALETTE_SEGMENT,
@@ -618,58 +617,56 @@ function updateIfDraggingStateChanged (
   return changed
 }
 
-export const segmentTarget = {
-  canDrop (props, monitor) {
-    const type = monitor.getItemType()
-    return type === Types.SEGMENT || type === Types.PALETTE_SEGMENT
-  },
+export function createSliceDropTargetSpec (props, ref) {
+  return {
+    accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    hover (item, monitor) {
+      if (!monitor.canDrop()) return
 
-  hover (props, monitor, component) {
-    if (!monitor.canDrop()) return
+      const dragIndex = item.sliceIndex
+      const hoverIndex = props.sliceIndex
 
-    const dragIndex = monitor.getItem().sliceIndex
-    const hoverIndex = props.sliceIndex
+      // `ref` is the slice being hovered over
+      const { left } = ref.current.getBoundingClientRect()
+      const hoverMiddleX = Math.round(left + (props.actualWidth * TILE_SIZE) / 2)
+      const { x } = monitor.getClientOffset()
 
-    const hoveredSegment = component.streetSegment
-    const { left } = hoveredSegment.getBoundingClientRect()
-    const hoverMiddleX = Math.round(left + (props.actualWidth * TILE_SIZE) / 2)
-    const { x } = monitor.getClientOffset()
+      // Ignore hovering over the dragged segment after dragging state is already set.
+      // This prevents react-dnd's hover method from being confused on what to update
+      // draggingState as when the dragged segment is behind another segment.
+      if (dragIndex === hoverIndex && oldDraggingState) return
 
-    // Ignore hovering over the dragged segment after dragging state is already set.
-    // This prevents react-dnd's hover method from being confused on what to update
-    // draggingState as when the dragged segment is behind another segment.
-    if (dragIndex === hoverIndex && oldDraggingState) return
+      if (dragIndex === hoverIndex) {
+        updateIfDraggingStateChanged(
+          dragIndex,
+          undefined,
+          item,
+          monitor.getItemType()
+        )
+      } else {
+        const { segments } = store.getState().street
 
-    if (dragIndex === hoverIndex) {
-      updateIfDraggingStateChanged(
-        dragIndex,
-        undefined,
-        monitor.getItem(),
-        monitor.getItemType()
-      )
-    } else {
-      const { segments } = store.getState().street
+        const segmentBeforeEl =
+          x > hoverMiddleX && hoverIndex !== segments.length - 1
+            ? hoverIndex + 1
+            : hoverIndex === segments.length - 1
+              ? undefined
+              : hoverIndex
 
-      const segmentBeforeEl =
-        x > hoverMiddleX && hoverIndex !== segments.length - 1
-          ? hoverIndex + 1
-          : hoverIndex === segments.length - 1
-            ? undefined
-            : hoverIndex
+        const segmentAfterEl =
+          x > hoverMiddleX && hoverIndex !== 0
+            ? hoverIndex
+            : hoverIndex === 0
+              ? undefined
+              : hoverIndex - 1
 
-      const segmentAfterEl =
-        x > hoverMiddleX && hoverIndex !== 0
-          ? hoverIndex
-          : hoverIndex === 0
-            ? undefined
-            : hoverIndex - 1
-
-      updateIfDraggingStateChanged(
-        segmentBeforeEl,
-        segmentAfterEl,
-        monitor.getItem(),
-        monitor.getItemType()
-      )
+        updateIfDraggingStateChanged(
+          segmentBeforeEl,
+          segmentAfterEl,
+          item,
+          monitor.getItemType()
+        )
+      }
     }
   }
 }
@@ -740,7 +737,7 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
       : null
 }
 
-export function createStreetDropTargetSpec () {
+export function createStreetDropTargetSpec (street, ref) {
   return {
     accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
     drop (item, monitor) {
@@ -755,13 +752,13 @@ export function createStreetDropTargetSpec () {
 
       if (monitor.isOver({ shallow: true })) {
         const position = isOverLeftOrRightCanvas(
-          document.getElementById('street-section-canvas'),
+          ref.current,
           monitor.getClientOffset().x
         )
 
         if (!position) return
 
-        const { segments } = store.getState().street
+        const { segments } = street
         const segmentBeforeEl = position === 'left' ? 0 : undefined
         const segmentAfterEl =
           position === 'left' ? undefined : segments.length - 1
@@ -769,16 +766,10 @@ export function createStreetDropTargetSpec () {
         updateIfDraggingStateChanged(
           segmentBeforeEl,
           segmentAfterEl,
-          monitor.getItem(),
+          item,
           monitor.getItemType()
         )
       }
     }
-  }
-}
-
-export function collectDropTarget (connect, monitor) {
-  return {
-    connectDropTarget: connect.dropTarget()
   }
 }
