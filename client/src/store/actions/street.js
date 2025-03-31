@@ -90,14 +90,15 @@ export const setCapacitySource = (source) => {
 }
 
 export const incrementSegmentWidth = (
-  segmentIndex,
+  sliceIndex,
   add,
   precise,
-  origWidth,
   resizeType = RESIZE_TYPE_INCREMENT
 ) => {
   return async (dispatch, getState) => {
     const units = getState().street.units
+    const origWidth = getState().street.segments[sliceIndex].width
+
     let resolution
 
     if (precise) {
@@ -131,7 +132,7 @@ export const incrementSegmentWidth = (
     }
 
     cancelSegmentResizeTransitions()
-    await dispatch(changeSegmentWidth(segmentIndex, width))
+    await dispatch(changeSegmentWidth(sliceIndex, width))
     await dispatch(segmentsChanged())
   }
 }

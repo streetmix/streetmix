@@ -13,6 +13,7 @@ export interface Segment {
   warnings: Array<boolean | null>
   label?: string
 }
+export type SliceItem = Segment // Alias for future use
 
 export interface StreetJson {
   id: string

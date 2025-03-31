@@ -20,7 +20,7 @@ import {
 interface StreetEditableProps {
   resizeType?: number
   setBuildingWidth: (node: React.ReactElement) => void
-  updatePerspective: (node: React.ReactElement) => void
+  updatePerspective: (el: HTMLDivElement) => void
   draggingType?: number
 }
 
@@ -190,10 +190,8 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
             <Segment
               sliceIndex={i}
               segment={{ ...segment }}
-              actualWidth={segment.width}
               units={units}
               segmentLeft={segmentLeft}
-              updatePerspective={updatePerspective}
             />
           </div>
         </CSSTransition>

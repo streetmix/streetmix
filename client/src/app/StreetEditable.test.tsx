@@ -15,7 +15,7 @@ describe('StreetEditable', () => {
   const updatePerspective = (): void => {}
   const type = 'streetcar'
   const variantString = 'inbound|regular'
-  const segment = { variantString, id: '1', width: 400, type }
+  const segment = { variantString, id: '1', width: 400, type, warnings: [] }
 
   describe('segment warnings', () => {
     describe('too large', () => {
@@ -23,7 +23,8 @@ describe('StreetEditable', () => {
         const street = {
           segments: [segment],
           width: 120,
-          units: SETTINGS_UNITS_METRIC
+          units: SETTINGS_UNITS_METRIC,
+          showAnalytics: true
         }
 
         const { getByTestId, store, container, asFragment } = render(
@@ -31,7 +32,12 @@ describe('StreetEditable', () => {
             setBuildingWidth={setBuildingWidth}
             updatePerspective={updatePerspective}
           />,
-          { initialState: { street } }
+          {
+            initialState: {
+              flags: { ANALYTICS: { value: true }, DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } },
+              street
+            }
+          }
         )
 
         await userEvent.hover(getByTestId('segment'))

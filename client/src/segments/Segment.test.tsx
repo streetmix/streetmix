@@ -6,37 +6,30 @@ import { render, screen } from '~/test/helpers/render'
 import { infoBubble } from '~/src/info_bubble/info_bubble'
 import { setLastStreet } from '~/src/streets/data_model'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
-import Segment from '../Segment'
+import Segment from './Segment'
+import type { SliceItem } from '@streetmix/types'
 
-// Replace all increment resolution with a simple value of 1
-const __TEST_RESIZE_INCREMENT = 1
-
-vi.mock('../resizing', async (importOriginal) => {
-  const actual = await importOriginal()
-  return {
-    ...actual,
-    // Note: __TEST_RESIZE_INCREMENT cannot be used here because vitest will
-    // hoist this function to before it is declared, so just hard-code 1
-    resolutionForResizeType: vi.fn(() => 1)
-  }
-})
-vi.mock('../../info_bubble/info_bubble')
+vi.mock('../info_bubble/info_bubble')
 
 describe('Segment', () => {
-  let variantString, type, currentWidth, increment, activeElement, segment
+  const increment = 0.05
+  let variantString, type, activeElement: number, segment: SliceItem
 
   beforeEach(() => {
     variantString = 'inbound|regular'
     type = 'streetcar'
-    currentWidth = 5
-    increment = __TEST_RESIZE_INCREMENT
     activeElement = 0
     segment = {
       type,
       variantString,
+      variant: {
+        direction: 'inbound',
+        'public-transit-asphalt': 'regular'
+      },
       id: '1',
-      width: currentWidth,
-      randSeed: 1
+      width: 5,
+      elevation: 0,
+      warnings: []
     }
   })
 
@@ -44,15 +37,15 @@ describe('Segment', () => {
     const { asFragment } = render(
       <Segment
         segment={segment}
-        actualWidth={currentWidth}
-        units={SETTINGS_UNITS_METRIC}
         sliceIndex={activeElement}
-        connectDragPreview={vi.fn()}
+        segmentLeft={0}
+        units={SETTINGS_UNITS_METRIC}
       />,
       {
         initialState: {
+          flags: { ANALYTICS: { value: true }, DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } },
           ui: { activeSegment: activeElement },
-          street: { segments: [segment] }
+          street: { showAnalytics: true, segments: [segment] }
         }
       }
     )
@@ -66,9 +59,9 @@ describe('Segment', () => {
     render(
       <Segment
         segment={segment}
-        actualWidth={currentWidth}
         sliceIndex={activeElement}
-        connectDragPreview={vi.fn()}
+        segmentLeft={0}
+        units={SETTINGS_UNITS_METRIC}
       />,
       {
         initialState: {
@@ -89,9 +82,9 @@ describe('Segment', () => {
     render(
       <Segment
         segment={segment}
-        actualWidth={currentWidth}
         sliceIndex={activeElement}
-        connectDragPreview={vi.fn()}
+        segmentLeft={0}
+        units={SETTINGS_UNITS_METRIC}
       />,
       {
         initialState: {
@@ -113,9 +106,9 @@ describe('Segment', () => {
       const { store } = render(
         <Segment
           segment={segment}
-          actualWidth={currentWidth}
           sliceIndex={activeElement}
-          connectDragPreview={vi.fn()}
+          segmentLeft={0}
+          units={SETTINGS_UNITS_METRIC}
         />,
         {
           initialState: {
@@ -129,7 +122,7 @@ describe('Segment', () => {
       await user.keyboard('-')
 
       expect(store.getState().street.segments[activeElement].width).toEqual(
-        currentWidth - increment
+        segment.width - increment
       )
     })
 
@@ -138,9 +131,9 @@ describe('Segment', () => {
       const { store } = render(
         <Segment
           segment={segment}
-          actualWidth={currentWidth}
           sliceIndex={activeElement}
-          connectDragPreview={vi.fn()}
+          segmentLeft={0}
+          units={SETTINGS_UNITS_METRIC}
         />,
         {
           initialState: {
@@ -154,7 +147,7 @@ describe('Segment', () => {
       await user.keyboard('+')
 
       expect(store.getState().street.segments[activeElement].width).toEqual(
-        currentWidth + increment
+        segment.width + increment
       )
     })
 
@@ -163,9 +156,9 @@ describe('Segment', () => {
       const { store } = render(
         <Segment
           segment={segment}
-          actualWidth={currentWidth}
           sliceIndex={activeElement}
-          connectDragPreview={vi.fn()}
+          segmentLeft={0}
+          units={SETTINGS_UNITS_METRIC}
         />,
         {
           initialState: {
@@ -190,9 +183,9 @@ describe('Segment', () => {
       const { store } = render(
         <Segment
           segment={segment}
-          actualWidth={currentWidth}
           sliceIndex={activeElement}
-          connectDragPreview={vi.fn()}
+          segmentLeft={0}
+          units={SETTINGS_UNITS_METRIC}
         />,
         {
           initialState: {
