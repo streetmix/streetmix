@@ -64,7 +64,7 @@ function Segment (props: SliceProps): React.ReactNode {
   const dispatch = useDispatch()
 
   // What is this?
-  // const initialRender = useRef(true)
+  const initialRender = useRef(true)
   const streetSegment = useRef<HTMLDivElement>(null)
 
   // These refs are a workaround for CSSTransition's dependence on
@@ -88,27 +88,29 @@ function Segment (props: SliceProps): React.ReactNode {
     isDragging
   })
 
-  // componentDidUpdate (prevProps, prevState) {
-  //   // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
-  //   // During a segment removal or a dragging action, the infoBubble temporarily does not appear
-  //   // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
-  //   // the active segment should be shown. The following IF statement checks to see if a removal
-  //   // or drag action occurred previously to this segment and displays the infoBubble for the
-  //   // segment if it is equal to the activeSegment and no infoBubble was shown already.
-  //   const wasDragging =
-  //     (prevProps.isDragging && !this.props.isDragging) ||
-  //     (initialRender &&
-  //       (activeSegment || activeSegment === 0))
+  useEffect(() => {
+    // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
+    // During a segment removal or a dragging action, the infoBubble temporarily does not appear
+    // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
+    // the active segment should be shown. The following IF statement checks to see if a removal
+    // or drag action occurred previously to this segment and displays the infoBubble for the
+    // segment if it is equal to the activeSegment and no infoBubble was shown already.
+    if (prevProps === undefined) return
 
-  //   this.initialRender = false
+    const wasDragging =
+      (prevProps.isDragging && !isDragging) ||
+      (initialRender.current && activeSegment !== null)
 
-  //   if (wasDragging && activeSegment === sliceIndex) {
-  //     infoBubble.considerShowing(
-  //       false,
-  //       streetSegment.current,
-  //       INFO_BUBBLE_TYPE_SEGMENT
-  //     )
-  //   }
+    initialRender.current = false
+
+    if (wasDragging && activeSegment === sliceIndex) {
+      infoBubble.considerShowing(
+        false,
+        streetSegment.current,
+        INFO_BUBBLE_TYPE_SEGMENT
+      )
+    }
+  }, [isDragging, activeSegment, sliceIndex])
 
   useEffect(() => {
     if (
