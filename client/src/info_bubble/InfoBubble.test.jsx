@@ -41,7 +41,8 @@ const initialState = {
         type: 'streetcar',
         variantString: 'inbound|regular',
         id: '1',
-        width: 3
+        width: 3,
+        warnings: []
       }
     ],
     leftBuildingVariant: 'grass',
