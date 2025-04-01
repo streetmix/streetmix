@@ -29,45 +29,42 @@ import {
 import {
   _getBugfix,
   _resetBugfix,
+  createSliceDragSpec,
   createSliceDropTargetSpec
 } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
 import './Segment.css'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import { useDrop } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd'
 
-interface SegmentProps {
+interface SliceProps {
   sliceIndex: number
   segment: SliceItem
   units: UnitsSetting
   segmentLeft: number
 }
 
-function Segment (props: SegmentProps): React.ReactNode {
+function Segment (props: SliceProps): React.ReactNode {
   const { sliceIndex, segment, units, segmentLeft } = props
   const [switchSegments, setSwitchSegments] = useState(false)
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)
 
-  const enableAnalytics = useSelector((state) => state.flags.ANALYTICS.value && state.street.showAnalytics)
+  const enableAnalytics = useSelector(
+    (state) => state.flags.ANALYTICS.value && state.street.showAnalytics
+  )
   const locale = useSelector((state) => state.locale.locale)
-  const descriptionVisible = useSelector((state) => state.infoBubble.descriptionVisible)
-  const activeSegment = useSelector((state) => typeof state.ui.activeSegment === 'number'
-    ? state.ui.activeSegment
-    : null)
+  const descriptionVisible = useSelector(
+    (state) => state.infoBubble.descriptionVisible
+  )
+  const activeSegment = useSelector((state) =>
+    typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
+  )
   const capacitySource = useSelector((state) => state.street.capacitySource)
   const dispatch = useDispatch()
 
-  const isDragging = false // temp
-
-  // Keep previous state for comparisons (ported from legacy behavior)
-  const prevProps = usePrevious({
-    segment,
-    isDragging
-  })
-
   // What is this?
-  const initialRender = useRef(true)
+  // const initialRender = useRef(true)
   const streetSegment = useRef<HTMLDivElement>(null)
 
   // These refs are a workaround for CSSTransition's dependence on
@@ -75,9 +72,21 @@ function Segment (props: SegmentProps): React.ReactNode {
   const oldRef = useRef<HTMLDivElement>(null)
   const newRef = useRef<HTMLDivElement>(null)
 
-  // Set up drop target
+  // Set up drag and drop targets
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [collectedProps, drop] = useDrop(() => createSliceDropTargetSpec(props, streetSegment))
+  const [collectedProps, drop] = useDrop(() =>
+    createSliceDropTargetSpec(props, streetSegment)
+  )
+  const [collected, drag, dragPreview] = useDrag(() =>
+    createSliceDragSpec(props)
+  )
+  const { isDragging }: { isDragging: boolean } = collected
+
+  // Keep previous state for comparisons (ported from legacy behavior)
+  const prevProps = usePrevious({
+    segment,
+    isDragging
+  })
 
   // componentDidUpdate (prevProps, prevState) {
   //   // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
@@ -138,18 +147,21 @@ function Segment (props: SegmentProps): React.ReactNode {
     if (switchSegments) {
       setOldVariant(segment.variantString)
     } else {
-      if (oldVariant === undefined) throw new Error('oldVariant should be defined')
+      if (oldVariant === undefined) {
+        throw new Error('oldVariant should be defined')
+      }
       setOldVariant(oldVariant)
     }
   }
 
   function handleSegmentMouseEnter (event: React.MouseEvent): void {
-    // Immediately after a segment move action, react-dnd can incorrectly trigger this handler
-    // on the segment that exists in the previous segment's spot. The bug is tracked here
-    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
-    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER` to `true`
-    // immediately after the move action, which prevents us from firing this event handler one
-    // time. This is suppressed once, then reset.
+    // Immediately after a segment move action, react-dnd can incorrectly
+    // trigger this handler on the segment that exists in the previous
+    // segment's spot. The bug is tracked here (https://github.com/streetmix/streetmix/pull/1262)
+    // and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER`
+    // to `true` immediately after the move action, which prevents us from
+    // firing this event handler one time. This is suppressed once, then reset.
     if (_getBugfix()) {
       _resetBugfix()
       return
@@ -171,21 +183,25 @@ function Segment (props: SegmentProps): React.ReactNode {
   }
 
   function decrementWidth (position: number, finetune: boolean): void {
-    void dispatch(incrementSegmentWidth(
-      position, // slice index
-      false, // subtract
-      finetune, // true if shift key is pressed
-      RESIZE_TYPE_INCREMENT
-    ))
+    void dispatch(
+      incrementSegmentWidth(
+        position, // slice index
+        false, // subtract
+        finetune, // true if shift key is pressed
+        RESIZE_TYPE_INCREMENT
+      )
+    )
   }
 
   function incrementWidth (position: number, finetune: boolean): void {
-    void dispatch(incrementSegmentWidth(
-      position, // slice index
-      true, // add
-      finetune, // true if shift key is pressed
-      RESIZE_TYPE_INCREMENT
-    ))
+    void dispatch(
+      incrementSegmentWidth(
+        position, // slice index
+        true, // add
+        finetune, // true if shift key is pressed
+        RESIZE_TYPE_INCREMENT
+      )
+    )
   }
 
   // `event` type is not a React event because listener is attached through DOM
@@ -217,23 +233,27 @@ function Segment (props: SegmentProps): React.ReactNode {
         if (event.shiftKey) {
           void dispatch(clearSegmentsAction())
           infoBubble.hide()
-          dispatch(addToast({
-            message: formatMessage(
-              'toast.all-segments-deleted',
-              'All segments have been removed.'
-            ),
-            component: 'TOAST_UNDO'
-          }))
+          dispatch(
+            addToast({
+              message: formatMessage(
+                'toast.all-segments-deleted',
+                'All segments have been removed.'
+              ),
+              component: 'TOAST_UNDO'
+            })
+          )
         } else {
           infoBubble.hide()
           infoBubble.hideSegment()
-          dispatch(addToast({
-            message: formatMessage(
-              'toast.segment-deleted',
-              'The segment has been removed.'
-            ),
-            component: 'TOAST_UNDO'
-          }))
+          dispatch(
+            addToast({
+              message: formatMessage(
+                'toast.segment-deleted',
+                'The segment has been removed.'
+              ),
+              component: 'TOAST_UNDO'
+            })
+          )
           void dispatch(removeSegmentAction(sliceIndex))
         }
         break
@@ -242,12 +262,10 @@ function Segment (props: SegmentProps): React.ReactNode {
     }
   }, [])
 
-  // Temporary no-ops
-  function connectDragSource (stuff) {
-    return stuff
-  }
-
-  function renderSegmentCanvas (variantType: string, nodeRef: React.RefObject<HTMLDivElement>): React.ReactNode {
+  function renderSegmentCanvas (
+    variantType: string,
+    nodeRef: React.RefObject<HTMLDivElement>
+  ): React.ReactNode {
     const isOldVariant = variantType === 'old'
     // const { segment, connectDragSource, connectDropTarget } = this.props
 
@@ -255,18 +273,18 @@ function Segment (props: SegmentProps): React.ReactNode {
     // and can be used as a consistent and reliable seed for a PRNG
     const randSeed = segment.id
 
-    return connectDragSource(
-      <div className="segment-canvas-container" ref={drop}>
-        <div ref={nodeRef}>
-          <SegmentCanvas
-            actualWidth={segment.width}
-            type={segment.type}
-            variantString={
-              isOldVariant ? oldVariant : segment.variantString
-            }
-            randSeed={randSeed}
-            elevation={segment.elevation}
-          />
+    return (
+      <div className="segment-canvas-container" ref={drag}>
+        <div ref={drop} style={{ width: '100%', height: '100%' }}>
+          <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
+            <SegmentCanvas
+              actualWidth={segment.width}
+              type={segment.type}
+              variantString={isOldVariant ? oldVariant : segment.variantString}
+              randSeed={randSeed}
+              elevation={segment.elevation}
+            />
+          </div>
         </div>
       </div>
     )
@@ -274,8 +292,8 @@ function Segment (props: SegmentProps): React.ReactNode {
 
   const segmentInfo = getSegmentInfo(segment.type)
 
-  // Get localized names from store, fall back to segment default names if translated
-  // text is not found. TODO: port to react-intl/formatMessage later.
+  // Get localized names from store, fall back to segment default names if
+  // translated text is not found. TODO: port to react-intl/formatMessage later.
   const displayName =
     segment.label ?? getLocaleSegmentName(segment.type, segment.variantString)
 
@@ -284,8 +302,9 @@ function Segment (props: SegmentProps): React.ReactNode {
 
   const segmentStyle = {
     width: elementWidth + 'px',
-    // In a street, certain segments have stacking priority over others (expressed as z-index).
-    // Setting a z-index here will clobber a separate z-index (applied via CSS) when hovered by mouse pointer
+    // In a street, certain segments have stacking priority over others
+    // (expressed as z-index). Setting a z-index here will clobber a separate
+    // z-index (applied via CSS) when hovered by mouse pointer
     zIndex: isDragging ? 0 : segmentInfo.zIndex,
     transform: `translateX(${segmentLeft}px)`
   }
@@ -351,12 +370,9 @@ function Segment (props: SegmentProps): React.ReactNode {
         {renderSegmentCanvas('new', newRef)}
       </CSSTransition>
       <div className="hover-bk" />
-      {/* <EmptyDragPreview dragPreview={dragPreview} /> */}
+      <EmptyDragPreview dragPreview={dragPreview} />
     </div>
   )
 }
-
-//
-// DragSource(Types.SEGMENT, segmentSource, collectDragSource),
 
 export default Segment

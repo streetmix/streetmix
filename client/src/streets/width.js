@@ -114,7 +114,7 @@ export function recalculateWidth (street) {
       segment.type,
       segment.variantString
     )
-    const warnings = []
+    const warnings = [false]
 
     // Apply a warning if any portion of the segment exceeds the boundaries of
     // the street.

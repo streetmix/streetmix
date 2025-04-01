@@ -247,7 +247,7 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   const street = store.getState().street
   const { variantString, type, actualWidth } = draggedItem
 
-  if (draggedItemType === Types.PALETTE_SEGMENT) {
+  if (draggedItemType === Types.PALETTE) {
     if (street.remainingWidth > 0 && actualWidth > street.remainingWidth) {
       const segmentMinWidth =
         getWidthInMetric(
@@ -427,119 +427,6 @@ function handleSegmentDragEnd () {
   document.body.classList.remove('not-within-canvas')
 }
 
-export const Types = {
-  SEGMENT: 'SEGMENT',
-  PALETTE_SEGMENT: 'PALETTE_SEGMENT'
-}
-
-export const segmentSource = {
-  canDrag (props) {
-    return !store.getState().app.readOnly
-  },
-
-  isDragging (props, monitor) {
-    return monitor.getItem().id === props.segment.id
-  },
-
-  beginDrag (props, monitor, component) {
-    handleSegmentDragStart()
-
-    store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
-
-    return {
-      id: props.segment.id,
-      sliceIndex: props.sliceIndex,
-      variantString: props.segment.variantString,
-      type: props.segment.type,
-      label: props.segment.label,
-      actualWidth: props.segment.width,
-      elevation: props.segment.elevation
-    }
-  },
-
-  endDrag (props, monitor, component) {
-    store.dispatch(clearDraggingState())
-
-    if (!monitor.didDrop()) {
-      // if no object returned by a drop handler, check if it is still within the canvas
-      const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
-      if (withinCanvas) {
-        handleSegmentCanvasDrop(monitor.getItem(), monitor.getItemType())
-      } else if (monitor.getItemType() === Types.SEGMENT) {
-        // if existing segment is dropped outside canvas, delete it
-        store.dispatch(removeSegment(props.sliceIndex))
-      }
-    }
-
-    handleSegmentDragEnd()
-  }
-}
-
-export function collectDragSource (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging()
-  }
-}
-
-export function createPaletteItemDragSpec (segment) {
-  return {
-    type: Types.PALETTE_SEGMENT,
-    item: () => {
-      handleSegmentDragStart()
-
-      // Initialize an empty draggingState object in Redux for palette segments
-      // in order to add event listener in StreetEditable once dragging begins.
-      // Also set the dragging type to MOVE. We use one action creator here and
-      // one dispatch to reduce batch renders.
-      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
-
-      const { units } = store.getState().street
-      const type = segment.id
-
-      // The preview drag should match artwork in the thumbnail. The variant
-      // string is specified by `defaultVariant`. If the property isn't present,
-      // use the first defined variant in segment details.
-      const variantString =
-        segment.defaultVariant || Object.keys(segment.details).shift()
-
-      // This allows dropped segment to be created with the correct elevation value
-      let elevation = 0
-      if (segment.defaultElevation !== undefined) {
-        elevation = segment.defaultElevation
-      } else {
-        const variantInfo = getSegmentVariantInfo(type, variantString)
-        elevation = variantInfo.elevation
-      }
-
-      return {
-        id: generateRandSeed(),
-        type,
-        variantString,
-        actualWidth: getWidthInMetric(segment.defaultWidth, units),
-        elevation
-      }
-    },
-    previewOptions: {
-      captureDraggingState: true
-    },
-    end: (item, monitor) => {
-      store.dispatch(clearDraggingState())
-
-      const withinCanvas = oldDraggingState?.withinCanvas
-      if (!monitor.didDrop() && withinCanvas) {
-        handleSegmentCanvasDrop(item, monitor.getItemType())
-      }
-
-      handleSegmentDragEnd()
-    },
-    canDrag: (monitor) => {
-      return !store.getState().app.readOnly
-    }
-  }
-}
-
 /**
  * Calculates the additional space needed before/after a segment during dragging
  *
@@ -617,9 +504,186 @@ function updateIfDraggingStateChanged (
   return changed
 }
 
+function handleSegmentCanvasDrop (draggedItem, type) {
+  // `oldDraggingState` can be `null` or undefined, if so, bail
+  if (!oldDraggingState) return
+
+  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
+
+  // If dropped in same position as dragged segment was before, return
+  if (segmentBeforeEl === draggedSegment && segmentAfterEl === undefined) {
+    store.dispatch(setActiveSegment(draggedSegment))
+    return
+  }
+
+  const newSegment = {
+    id: draggedItem.id ?? nanoid(),
+    type: draggedItem.type,
+    variantString: draggedItem.variantString,
+    width: draggedItem.actualWidth,
+    elevation: draggedItem.elevation,
+    label: draggedItem.label
+  }
+
+  newSegment.variant =
+    draggedItem.variant ||
+    getVariantArray(newSegment.type, newSegment.variantString)
+
+  let newIndex =
+    segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
+
+  if (type === Types.SLICE) {
+    newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
+    store.dispatch(moveSegment(draggedSegment, newIndex))
+
+    // Immediately after a segment move action, react-dnd can incorrectly trigger
+    // the onMouseEnter handler on another <Segment /> component that is in the
+    // previous component's location. This sets a variable which <Segment /> uses
+    // to suppress a single instance of the onMouseEnter handler. The bug is tracked here
+    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
+    __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER = true
+  } else {
+    store.dispatch(addSegment(newIndex, newSegment))
+  }
+
+  store.dispatch(setActiveSegment(newIndex))
+}
+
+/**
+ * Determines if segment was dropped/hovered on left or right side of street
+ *
+ * @param {Node} segment - reference to StreetEditable
+ * @param {Number} droppedPosition - x position of dropped segment in reference
+ *    to StreetEditable
+ * @returns {string} - left, right, or null if dropped/hovered over a segment
+ */
+function isOverLeftOrRightCanvas (segment, droppedPosition) {
+  const { remainingWidth } = store.getState().street
+  const { left, right } = segment.getBoundingClientRect()
+
+  const emptySegmentWidth = (remainingWidth * TILE_SIZE) / 2
+
+  return droppedPosition < left + emptySegmentWidth
+    ? 'left'
+    : droppedPosition > right - emptySegmentWidth
+      ? 'right'
+      : null
+}
+
+/* react-dnd specs */
+export const Types = {
+  SLICE: 'SLICE',
+  PALETTE: 'PALETTE'
+}
+
+export function createSliceDragSpec (props) {
+  return {
+    type: Types.SLICE,
+    item: () => {
+      handleSegmentDragStart()
+
+      store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
+
+      return {
+        id: props.segment.id,
+        sliceIndex: props.sliceIndex,
+        variantString: props.segment.variantString,
+        type: props.segment.type,
+        label: props.segment.label,
+        actualWidth: props.segment.width,
+        elevation: props.segment.elevation
+      }
+    },
+    end (item, monitor) {
+      store.dispatch(clearDraggingState())
+
+      if (!monitor.didDrop()) {
+        // if no object returned by a drop handler, check if it is still within the canvas
+        const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+        if (withinCanvas) {
+          handleSegmentCanvasDrop(item, monitor.getItemType())
+        } else if (monitor.getItemType() === Types.SLICE) {
+          // if existing segment is dropped outside canvas, delete it
+          store.dispatch(removeSegment(props.sliceIndex))
+        }
+      }
+
+      handleSegmentDragEnd()
+    },
+    canDrag (monitor) {
+      return !store.getState().app.readOnly
+    },
+    isDragging (monitor) {
+      return monitor.getItem().id === props.segment.id
+    },
+    collect (monitor, props) {
+      return {
+        isDragging: monitor.isDragging()
+      }
+    }
+  }
+}
+
+export function createPaletteItemDragSpec (segment) {
+  return {
+    type: Types.PALETTE,
+    item: () => {
+      handleSegmentDragStart()
+
+      // Initialize an empty draggingState object in Redux for palette segments
+      // in order to add event listener in StreetEditable once dragging begins.
+      // Also set the dragging type to MOVE. We use one action creator here and
+      // one dispatch to reduce batch renders.
+      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
+
+      const { units } = store.getState().street
+      const type = segment.id
+
+      // The preview drag should match artwork in the thumbnail. The variant
+      // string is specified by `defaultVariant`. If the property isn't present,
+      // use the first defined variant in segment details.
+      const variantString =
+        segment.defaultVariant || Object.keys(segment.details).shift()
+
+      // This allows dropped segment to be created with the correct elevation value
+      let elevation = 0
+      if (segment.defaultElevation !== undefined) {
+        elevation = segment.defaultElevation
+      } else {
+        const variantInfo = getSegmentVariantInfo(type, variantString)
+        elevation = variantInfo.elevation
+      }
+
+      return {
+        id: generateRandSeed(),
+        type,
+        variantString,
+        actualWidth: getWidthInMetric(segment.defaultWidth, units),
+        elevation
+      }
+    },
+    previewOptions: {
+      captureDraggingState: true
+    },
+    end: (item, monitor) => {
+      store.dispatch(clearDraggingState())
+
+      const withinCanvas = oldDraggingState?.withinCanvas
+      if (!monitor.didDrop() && withinCanvas) {
+        handleSegmentCanvasDrop(item, monitor.getItemType())
+      }
+
+      handleSegmentDragEnd()
+    },
+    canDrag: (monitor) => {
+      return !store.getState().app.readOnly
+    }
+  }
+}
+
 export function createSliceDropTargetSpec (props, ref) {
   return {
-    accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    accept: [Types.SLICE, Types.PALETTE],
     hover (item, monitor) {
       if (!monitor.canDrop()) return
 
@@ -628,7 +692,9 @@ export function createSliceDropTargetSpec (props, ref) {
 
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
-      const hoverMiddleX = Math.round(left + (props.actualWidth * TILE_SIZE) / 2)
+      const hoverMiddleX = Math.round(
+        left + (props.actualWidth * TILE_SIZE) / 2
+      )
       const { x } = monitor.getClientOffset()
 
       // Ignore hovering over the dragged segment after dragging state is already set.
@@ -671,75 +737,9 @@ export function createSliceDropTargetSpec (props, ref) {
   }
 }
 
-function handleSegmentCanvasDrop (draggedItem, type) {
-  // `oldDraggingState` can be `null` or undefined, if so, bail
-  if (!oldDraggingState) return
-
-  const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
-
-  // If dropped in same position as dragged segment was before, return
-  if (segmentBeforeEl === draggedSegment && segmentAfterEl === undefined) {
-    store.dispatch(setActiveSegment(draggedSegment))
-    return
-  }
-
-  const newSegment = {
-    id: draggedItem.id ?? nanoid(),
-    type: draggedItem.type,
-    variantString: draggedItem.variantString,
-    width: draggedItem.actualWidth,
-    elevation: draggedItem.elevation,
-    label: draggedItem.label
-  }
-
-  newSegment.variant =
-    draggedItem.variant ||
-    getVariantArray(newSegment.type, newSegment.variantString)
-
-  let newIndex =
-    segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
-
-  if (type === Types.SEGMENT) {
-    newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
-    store.dispatch(moveSegment(draggedSegment, newIndex))
-
-    // Immediately after a segment move action, react-dnd can incorrectly trigger
-    // the onMouseEnter handler on another <Segment /> component that is in the
-    // previous component's location. This sets a variable which <Segment /> uses
-    // to suppress a single instance of the onMouseEnter handler. The bug is tracked here
-    // (https://github.com/streetmix/streetmix/pull/1262) and here (https://github.com/react-dnd/react-dnd/issues/1102).
-    __BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER = true
-  } else {
-    store.dispatch(addSegment(newIndex, newSegment))
-  }
-
-  store.dispatch(setActiveSegment(newIndex))
-}
-
-/**
- * Determines if segment was dropped/hovered on left or right side of street
- *
- * @param {Node} segment - reference to StreetEditable
- * @param {Number} droppedPosition - x position of dropped segment in reference
- *    to StreetEditable
- * @returns {string} - left, right, or null if dropped/hovered over a segment
- */
-function isOverLeftOrRightCanvas (segment, droppedPosition) {
-  const { remainingWidth } = store.getState().street
-  const { left, right } = segment.getBoundingClientRect()
-
-  const emptySegmentWidth = (remainingWidth * TILE_SIZE) / 2
-
-  return droppedPosition < left + emptySegmentWidth
-    ? 'left'
-    : droppedPosition > right - emptySegmentWidth
-      ? 'right'
-      : null
-}
-
 export function createStreetDropTargetSpec (street, ref) {
   return {
-    accept: [Types.SEGMENT, Types.PALETTE_SEGMENT],
+    accept: [Types.SLICE, Types.PALETTE],
     drop (item, monitor) {
       const draggedItemType = monitor.getItemType()
 

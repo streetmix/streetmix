@@ -34,7 +34,10 @@ describe('StreetEditable', () => {
           />,
           {
             initialState: {
-              flags: { ANALYTICS: { value: true }, DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } },
+              flags: {
+                ANALYTICS: { value: true },
+                DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
+              },
               street
             }
           }
@@ -45,7 +48,7 @@ describe('StreetEditable', () => {
 
         expect(store.getState().street.segments[0].width).toEqual(120)
         expect(store.getState().street.segments[0].warnings).toEqual([
-          undefined,
+          false,
           false,
           false,
           true,
