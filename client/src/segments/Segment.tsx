@@ -66,6 +66,7 @@ function Segment (props: SliceProps): React.ReactNode {
   // What is this?
   const initialRender = useRef(true)
   const streetSegment = useRef<HTMLDivElement>(null)
+  const dndRef = useRef<HTMLDivElement>(null)
 
   // These refs are a workaround for CSSTransition's dependence on
   // findDOMNode, which is deprecated.
@@ -81,6 +82,7 @@ function Segment (props: SliceProps): React.ReactNode {
     createSliceDragSpec(props)
   )
   const { isDragging }: { isDragging: boolean } = collected
+  drag(drop(dndRef))
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
@@ -269,25 +271,20 @@ function Segment (props: SliceProps): React.ReactNode {
     nodeRef: React.RefObject<HTMLDivElement>
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
-    // const { segment, connectDragSource, connectDropTarget } = this.props
 
     // The segment ID is a string that uniquely identifies the segment
     // and can be used as a consistent and reliable seed for a PRNG
     const randSeed = segment.id
 
     return (
-      <div className="segment-canvas-container" ref={drag}>
-        <div ref={drop} style={{ width: '100%', height: '100%' }}>
-          <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
-            <SegmentCanvas
-              actualWidth={segment.width}
-              type={segment.type}
-              variantString={isOldVariant ? oldVariant : segment.variantString}
-              randSeed={randSeed}
-              elevation={segment.elevation}
-            />
-          </div>
-        </div>
+      <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
+        <SegmentCanvas
+          actualWidth={segment.width}
+          type={segment.type}
+          variantString={isOldVariant ? oldVariant : segment.variantString}
+          randSeed={randSeed}
+          elevation={segment.elevation}
+        />
       </div>
     )
   }
@@ -350,27 +347,29 @@ function Segment (props: SliceProps): React.ReactNode {
         showCapacity={enableAnalytics}
       />
       <SegmentDragHandles width={elementWidth} />
-      <CSSTransition
-        key="old-variant"
-        in={!switchSegments}
-        classNames="switching-away"
-        timeout={250}
-        onExited={handleSwitchSegments}
-        unmountOnExit={true}
-        nodeRef={oldRef}
-      >
-        {renderSegmentCanvas('old', oldRef)}
-      </CSSTransition>
-      <CSSTransition
-        key="new-variant"
-        in={switchSegments}
-        classNames="switching-in"
-        timeout={250}
-        unmountOnExit={true}
-        nodeRef={newRef}
-      >
-        {renderSegmentCanvas('new', newRef)}
-      </CSSTransition>
+      <div ref={dndRef} className="segment-canvas-container">
+        <CSSTransition
+          key="old-variant"
+          in={!switchSegments}
+          classNames="switching-away"
+          timeout={250}
+          onExited={handleSwitchSegments}
+          unmountOnExit={true}
+          nodeRef={oldRef}
+        >
+          {renderSegmentCanvas('old', oldRef)}
+        </CSSTransition>
+        <CSSTransition
+          key="new-variant"
+          in={switchSegments}
+          classNames="switching-in"
+          timeout={250}
+          unmountOnExit={true}
+          nodeRef={newRef}
+        >
+          {renderSegmentCanvas('new', newRef)}
+        </CSSTransition>
+      </div>
       <div className="hover-bk" />
       <EmptyDragPreview dragPreview={dragPreview} />
     </div>
