@@ -74,13 +74,12 @@ function Segment (props: SliceProps): React.ReactNode {
   const newRef = useRef<HTMLDivElement>(null)
 
   // Set up drag and drop targets
+  // Specs are created on each render with changed props
+  const dropSpec = createSliceDropTargetSpec(props, streetSegment)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [collectedProps, drop] = useDrop(() =>
-    createSliceDropTargetSpec(props, streetSegment)
-  )
-  const [collected, drag, dragPreview] = useDrag(() =>
-    createSliceDragSpec(props)
-  )
+  const [collectedProps, drop] = useDrop(dropSpec)
+  const dragSpec = createSliceDragSpec(props)
+  const [collected, drag, dragPreview] = useDrag(dragSpec)
   const { isDragging }: { isDragging: boolean } = collected
   drag(drop(dndRef))
 
