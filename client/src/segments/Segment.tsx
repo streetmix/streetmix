@@ -301,10 +301,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
   const segmentStyle = {
     width: elementWidth + 'px',
-    // In a street, certain segments have stacking priority over others
-    // (expressed as z-index). Setting a z-index here will clobber a separate
-    // z-index (applied via CSS) when hovered by mouse pointer
-    zIndex: isDragging ? 0 : segmentInfo.zIndex,
+    zIndex: segmentInfo.zIndex,
     transform: `translateX(${segmentLeft}px)`
   }
 
