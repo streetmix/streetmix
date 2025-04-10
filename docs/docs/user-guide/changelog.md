@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 19, 2025
+
+### ✨ New features
+
+- It's a new old feature, actually! A few years ago we released two-way cycletracks for Streetmix+ members, thanks to our friends at ITDP Africa. Today we're making these available for all accounts after sign-in, regardless of subscription, as a thank-you to all our users!
+
 ## March 28, 2025
 
 ### 🐛 Bug fixes

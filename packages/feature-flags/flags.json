@@ -89,14 +89,6 @@
     "label": "Variant — mixed-traffic drive lane (with bike) (unlocked)",
     "defaultValue": false
   },
-  "VARIANT_TWOWAY_BIKES": {
-    "label": "Variant — two-way bike lanes (enabled)",
-    "defaultValue": true
-  },
-  "VARIANT_TWOWAY_BIKES_UNLOCKED": {
-    "label": "Variant — two-way bike lanes (unlocked)",
-    "defaultValue": false
-  },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
     "label": "Segment — [debug] canvas rectangles",
     "defaultValue": false
@@ -115,6 +107,10 @@
   },
   "STREETMETER_EXPORT": {
     "label": "Streetmeter export",
+    "defaultValue": false
+  },
+  "COASTMIX_MODE": {
+    "label": "Coastmix features",
     "defaultValue": false
   },
   "SILLY_CLOWNS": {
