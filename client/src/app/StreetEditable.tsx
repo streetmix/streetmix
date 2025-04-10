@@ -78,10 +78,12 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   })
 
   // Set up drop target
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [collectedProps, drop] = useDrop(() =>
-    createStreetDropTargetSpec(street, streetSectionEditable)
+  const dropTargetSpec = createStreetDropTargetSpec(
+    street,
+    streetSectionEditable
   )
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [collectedProps, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {
     if (!prevProps?.draggingState && draggingState) {
