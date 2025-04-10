@@ -14,7 +14,8 @@
     "flags": {
       "LOCALES_LEVEL_1": true,
       "COLOR_MODE_TOGGLE": true,
-      "STREETMETER_EXPORT": true
+      "STREETMETER_EXPORT": true,
+      "COASTMIX_MODE": true
     }
   },
   "BETA_TESTER": {
@@ -26,10 +27,11 @@
       "ELEVATION_CONTROLS_UNLOCKED": true,
       "SEGMENT_CROSSWALK": true,
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
-      "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true,
-      "COLOR_MODE_TOGGLE": true
+      "COLOR_MODE_TOGGLE": true,
+      "STREETMETER_EXPORT": true,
+      "COASTMIX_MODE": true
     }
   },
   "ITDP": {
@@ -39,7 +41,6 @@
     "flags": {
       "ELEVATION_CONTROLS_UNLOCKED": true,
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
-      "VARIANT_TWOWAY_BIKES_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
     }
