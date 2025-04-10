@@ -6,12 +6,11 @@ exports[`Checkbox > renders default snapshot 1`] = `
     class="checkbox-item"
   >
     <input
-      id=":r0:"
+      id="«r0»"
       type="checkbox"
-      value=""
     />
     <label
-      for=":r0:"
+      for="«r0»"
     >
       foo
     </label>
@@ -32,12 +31,12 @@ exports[`Checkbox > renders snapshot with all props 1`] = `
     <input
       checked=""
       disabled=""
-      id=":r1:"
+      id="«r1»"
       type="checkbox"
       value="bar"
     />
     <label
-      for=":r1:"
+      for="«r1»"
     >
       foo
     </label>

@@ -30,7 +30,7 @@ interface DialogProps {
 
 function Dialog ({ children }: DialogProps): React.ReactElement {
   // Appear state controls transition in/out
-  const dialogEl = useRef(null)
+  const dialogEl = useRef<HTMLDivElement>(null)
   const nodeRef = useRef(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()

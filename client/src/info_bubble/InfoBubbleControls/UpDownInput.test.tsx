@@ -1,6 +1,6 @@
 import React from 'react'
 import { vi } from 'vitest'
-import { render, screen, act, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import UpDownInput from './UpDownInput'
@@ -82,10 +82,8 @@ describe('UpDownInput', () => {
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     expect(inputEl.value).toBe('5 bar')
 
-    // User clicks on the input, so the input formatter is called
-    await act(async () => {
-      await user.click(inputEl)
-    })
+    // User hovers over the input, so the input formatter is called
+    await user.hover(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User clicks outside the input, setting active element elsewhere.

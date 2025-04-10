@@ -24,7 +24,7 @@ function SaveAsImageDialog (): React.ReactElement {
   const [isSaving, setIsSaving] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [errorMessage2, setErrorMessage2] = useState<boolean>(false)
-  const [downloadDataUrl, setDownloadDataUrl] = useState('')
+  const [downloadDataUrl, setDownloadDataUrl] = useState<string | null>(null)
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
   const transparentSky = useSelector(
@@ -291,15 +291,21 @@ function SaveAsImageDialog (): React.ReactElement {
                       defaultMessage="Loading…"
                     />
                   </div>
-                  <img
-                    src={downloadDataUrl}
-                    onLoad={handlePreviewLoaded}
-                    onError={handlePreviewError}
-                    alt={intl.formatMessage({
-                      id: 'dialogs.save.preview-image-alt',
-                      defaultMessage: 'Preview'
-                    })}
-                  />
+                  {/* Initial value of `downloadDataUrl` is null, rather than an
+                      empty string. We get a warning that this could cause a
+                      browser to re-download the page if `src` is set to an
+                      empty string. */}
+                  {downloadDataUrl !== null && (
+                    <img
+                      src={downloadDataUrl}
+                      onLoad={handlePreviewLoaded}
+                      onError={handlePreviewError}
+                      alt={intl.formatMessage({
+                        id: 'dialogs.save.preview-image-alt',
+                        defaultMessage: 'Preview'
+                      })}
+                    />
+                  )}
                 </div>
               )}
               {errorMessage !== null && (
