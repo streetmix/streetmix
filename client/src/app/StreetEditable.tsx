@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { useSelector } from '~/src/store/hooks'
 import { usePrevious } from '~/src/util/usePrevious'
+import type { DraggingState } from '~/src/types'
 import Segment from '../segments/Segment'
 import {
   TILE_SIZE,
@@ -12,10 +13,39 @@ import {
 } from '../segments/constants'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import {
-  makeSpaceBetweenSegments,
   isSegmentWithinCanvas,
   createStreetDropTargetSpec
 } from '../segments/drag_and_drop'
+
+/**
+ * Calculates the gap shown before or after slices while dragging another slice
+ */
+export function makeSpaceBetweenSlices (
+  sliceIndex: number,
+  draggingState: DraggingState
+): number {
+  const { segmentBeforeEl, segmentAfterEl } = draggingState
+
+  let gap = 0
+
+  if (segmentBeforeEl !== undefined && sliceIndex >= segmentBeforeEl) {
+    gap += DRAGGING_MOVE_HOLE_WIDTH
+
+    if (segmentAfterEl === undefined) {
+      gap += DRAGGING_MOVE_HOLE_WIDTH
+    }
+  }
+
+  if (segmentAfterEl !== undefined && sliceIndex > segmentAfterEl) {
+    gap += DRAGGING_MOVE_HOLE_WIDTH
+
+    if (segmentBeforeEl === undefined) {
+      gap += DRAGGING_MOVE_HOLE_WIDTH
+    }
+  }
+
+  return gap
+}
 
 interface StreetEditableProps {
   resizeType?: number
@@ -49,25 +79,23 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
   // Set up drop target
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [collectedProps, drop] = useDrop(() => createStreetDropTargetSpec(street, streetSectionEditable))
+  const [collectedProps, drop] = useDrop(() =>
+    createStreetDropTargetSpec(street, streetSectionEditable)
+  )
 
   useEffect(() => {
-    const dragEvents = ['dragover', 'touchmove']
     if (!prevProps?.draggingState && draggingState) {
-      dragEvents.forEach((type) => {
-        window.addEventListener(type, updateWithinCanvas)
-      })
+      window.addEventListener('dragover', updateWithinCanvas)
+      window.addEventListener('touchmove', updateWithinCanvas)
     } else if (prevProps?.draggingState && !draggingState) {
-      dragEvents.forEach((type) => {
-        window.removeEventListener(type, updateWithinCanvas)
-      })
+      window.removeEventListener('dragover', updateWithinCanvas)
+      window.removeEventListener('touchmove', updateWithinCanvas)
     }
 
     // Cleanup
     return () => {
-      dragEvents.forEach((type) => {
-        window.removeEventListener(type, updateWithinCanvas)
-      })
+      window.removeEventListener('dragover', updateWithinCanvas)
+      window.removeEventListener('touchmove', updateWithinCanvas)
     }
   }, [draggingState])
 
@@ -91,7 +119,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }, [street.id, street.width])
 
-  function updateWithinCanvas (event): void {
+  function updateWithinCanvas (event: MouseEvent | TouchEvent): void {
     const newValue = isSegmentWithinCanvas(
       event,
       streetSectionEditable.current
@@ -143,11 +171,8 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     if (draggingState && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
-      const spaceBetweenSegments = makeSpaceBetweenSegments(
-        sliceIndex,
-        draggingState
-      )
-      return mainLeft + currPos + spaceBetweenSegments
+      const gap = makeSpaceBetweenSlices(sliceIndex, draggingState)
+      return mainLeft + currPos + gap
     } else {
       return mainLeft + currPos
     }

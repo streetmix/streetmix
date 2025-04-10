@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+
+import type { DraggingState } from '~/src/types'
 import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_RESIZE
 } from '../../segments/constants'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface UiState {
@@ -10,11 +13,7 @@ interface UiState {
   welcomePanelDismissed: boolean
   toolboxVisible: boolean
   activeSegment: number | null
-  draggingState: {
-    segmentBeforeEl: number
-    segmentAfterEl: number
-    draggedSegment: number
-  } | null
+  draggingState: DraggingState | null
   draggingType: number
   resizeGuidesVisible: boolean
 }

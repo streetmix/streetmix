@@ -427,40 +427,6 @@ function handleSegmentDragEnd () {
   document.body.classList.remove('not-within-canvas')
 }
 
-/**
- * Calculates the additional space needed before/after a segment during dragging
- *
- * @param {Number} elementIndex - position of the current segment whose segment position
- *    is being calculated
- * @param {Object} draggingState - includes the positions of the segment the dragged
- *    segment is after (segmentAfterEl) and the segment the dragged segment is before
- *    (segmentBeforeEl), and undefined if it does not have one
- *
- */
-export function makeSpaceBetweenSegments (elementIndex, draggingState) {
-  const { segmentBeforeEl, segmentAfterEl } = draggingState
-
-  let spaceBetweenSegments = 0
-
-  if (elementIndex >= segmentBeforeEl) {
-    spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
-
-    if (segmentAfterEl === undefined) {
-      spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
-    }
-  }
-
-  if (elementIndex > segmentAfterEl) {
-    spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
-
-    if (segmentBeforeEl === undefined) {
-      spaceBetweenSegments += DRAGGING_MOVE_HOLE_WIDTH
-    }
-  }
-
-  return spaceBetweenSegments
-}
-
 let oldDraggingState
 
 // Checks to see if Redux dragging state needs to be updated, and if so, dispatches action.
