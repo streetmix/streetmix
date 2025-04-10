@@ -95,8 +95,8 @@
     "postcss": "8.5.3",
     "postcss-nesting": "13.0.1",
     "react-dnd-test-backend": "16.0.1",
-    "stylelint": "16.16.0",
-    "stylelint-config-standard": "37.0.0",
+    "stylelint": "16.18.0",
+    "stylelint-config-standard": "38.0.0",
     "stylelint-prettier": "5.0.3",
     "vitest-canvas-mock": "0.3.3"
   }

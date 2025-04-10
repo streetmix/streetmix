@@ -21,12 +21,12 @@
 .popover-content {
   max-width: 200px;
   padding: 0.8em 1.2em;
-  color: rgba(65 65 65);
+  color: rgb(65 65 65);
   background-color: white;
   border-radius: var(--border-radius-large);
   box-shadow:
-    rgba(24 37 73 / 15%) 0 5px 20px 0,
-    rgba(24 37 73 / 5%) 0 10px 20px -5px;
+    rgb(24 37 73 / 15%) 0 5px 20px 0,
+    rgb(24 37 73 / 5%) 0 10px 20px -5px;
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   font-weight: normal;

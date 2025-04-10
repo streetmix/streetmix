@@ -46,7 +46,7 @@
     width: 100%;
     height: 100%;
     border-radius: var(--border-radius-large);
-    background-color: rgba(221 221 221 / 65%);
+    background-color: rgb(221 221 221 / 65%);
   }
 
   [data-icon="lock"] {

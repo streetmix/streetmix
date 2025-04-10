@@ -2,7 +2,7 @@
   display: inline-block;
   position: relative;
   background-size: 100%;
-  background-color: rgba(127 127 127 / 10%);
+  background-color: rgb(127 127 127 / 10%);
   width: 20px;
   height: 20px;
   border-radius: 50%;
