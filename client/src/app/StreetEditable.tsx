@@ -20,7 +20,7 @@ import {
 /**
  * Calculates the gap shown before or after slices while dragging another slice
  */
-export function makeSpaceBetweenSlices (
+function makeSpaceBetweenSlices (
   sliceIndex: number,
   draggingState: DraggingState
 ): number {
