@@ -68,7 +68,7 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     allowAutoUpdate = false
   } = props
 
-  const oldValue = useRef<string | null>()
+  const oldValue = useRef<string | null>(null)
   const inputEl = useRef<HTMLInputElement>(null)
 
   const [isEditing, setIsEditing] = useState(false)
