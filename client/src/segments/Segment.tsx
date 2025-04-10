@@ -27,8 +27,6 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from './constants'
 import {
-  _getBugfix,
-  _resetBugfix,
   createSliceDragSpec,
   createSliceDropTargetSpec
 } from './drag_and_drop'
@@ -158,18 +156,6 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   function handleSegmentMouseEnter (event: React.MouseEvent): void {
-    // Immediately after a segment move action, react-dnd can incorrectly
-    // trigger this handler on the segment that exists in the previous
-    // segment's spot. The bug is tracked here (https://github.com/streetmix/streetmix/pull/1262)
-    // and here (https://github.com/react-dnd/react-dnd/issues/1102).
-    // We work around this by setting `__BUGFIX_SUPPRESS_WRONG_MOUSEENTER_HANDLER`
-    // to `true` immediately after the move action, which prevents us from
-    // firing this event handler one time. This is suppressed once, then reset.
-    if (_getBugfix()) {
-      _resetBugfix()
-      return
-    }
-
     dispatch(setActiveSegment(sliceIndex))
 
     document.addEventListener('keydown', handleKeyDown)
