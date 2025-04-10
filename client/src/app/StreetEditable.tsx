@@ -49,7 +49,7 @@ export function makeSpaceBetweenSlices (
 
 interface StreetEditableProps {
   resizeType?: number
-  setBuildingWidth: (node: React.ReactElement) => void
+  setBuildingWidth: (node: HTMLDivElement | null) => void
   updatePerspective: (el: HTMLDivElement) => void
   draggingType?: number
 }
