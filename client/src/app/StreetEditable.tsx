@@ -199,7 +199,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
         <CSSTransition
           key={key}
           timeout={250}
-          classNames="switching-away"
+          classNames="slice-remove"
           exit={!immediateRemoval}
           onExit={() => {
             if (ref.current === null) return
