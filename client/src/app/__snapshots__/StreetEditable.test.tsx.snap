@@ -63,15 +63,24 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
           <div
             class="segment-canvas-container"
           >
-            <canvas
-              class="segment-image"
-              height="445"
-              style="width: 4724px; height: 445px; left: 0px;"
-              width="4724"
-            />
+            <div
+              style="width: 100%; height: 100%;"
+            >
+              <canvas
+                class="segment-image"
+                height="445"
+                style="width: 4724px; height: 445px; left: 0px;"
+                width="4724"
+              />
+            </div>
           </div>
           <div
             class="hover-bk"
+          />
+          <img
+            alt=""
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            style="display: none;"
           />
         </div>
       </div>

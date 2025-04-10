@@ -10,6 +10,9 @@ export const MAX_SEGMENT_WIDTH = 120 // meters
 
 export const DRAGGING_MOVE_HOLE_WIDTH = 40 // pixels
 
+// Warnings are an array of booleans.
+// Historically, the warning at 0 index is unused.
+export const SEGMENT_WARNING_UNUSED = 0
 export const SEGMENT_WARNING_OUTSIDE = 1
 export const SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
 export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3

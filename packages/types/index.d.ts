@@ -10,9 +10,10 @@ export interface Segment {
   width: number
   elevation: number
   variant: Record<string, string>
-  warnings: Array<boolean | null>
+  warnings: boolean[]
   label?: string
 }
+export type SliceItem = Segment // Alias for future use
 
 export interface StreetJson {
   id: string

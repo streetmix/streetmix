@@ -147,8 +147,8 @@ export function getSegmentCapacity (
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
   if (
-    segment.warnings?.[SEGMENT_WARNING_OUTSIDE] === true ||
-    segment.warnings?.[SEGMENT_WARNING_WIDTH_TOO_SMALL] === true
+    segment.warnings[SEGMENT_WARNING_OUTSIDE] ||
+    segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]
   ) {
     return {
       average: 0,

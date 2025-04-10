@@ -17,23 +17,27 @@ const initialState = {
   street: {
     segments: [
       {
-        type: 'baz'
+        type: 'baz',
+        warnings: []
       },
       // Include two segments (both should be added)
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       // Include a segment without capacity (adds zero)
       {
-        type: 'bar'
+        type: 'bar',
+        warnings: []
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [null, true, false, false]
+        warnings: [false, true, false, false]
       }
     ]
   }

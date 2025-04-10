@@ -252,6 +252,7 @@ class StreetView extends React.Component {
   }
 
   setBuildingWidth = (el) => {
+    if (el === null) return
     const pos = getElAbsolutePos(el)
 
     let width = pos[0]

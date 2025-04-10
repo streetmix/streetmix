@@ -70,8 +70,10 @@ body.segment-move-dragging #street-section-editable .segment {
   height: calc(var(--canvas-height) + 85px + 30px + 90px);
 }
 
-/* NOTE: targeting immediate child div because CSSTransition wrapper workaround */
-.switching-away-exit > div {
+/* NOTE: targeting immediate child div because CSSTransition wrapper workaround
+   -- only on removal transition, not switching transition */
+.slice-remove-exit > div,
+.switching-away-exit {
   position: absolute;
   z-index: var(--z-10-switch-away);
   pointer-events: none;
@@ -80,10 +82,12 @@ body.segment-move-dragging #street-section-editable .segment {
   perspective: 400px;
 }
 
-.switching-away-exit-done > div {
+.slice-remove-exit-done > div,
+.switching-away-exit-done {
   z-index: var(--z-10-switch-away) !important;
 }
 
+.slice-remove-exit-active canvas,
 .switching-away-exit-active canvas {
   transition:
     transform var(--segment-switching-time) ease-in,

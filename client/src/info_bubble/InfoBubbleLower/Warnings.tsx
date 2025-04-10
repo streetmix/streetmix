@@ -20,9 +20,9 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
   const { segment } = props
   const messages = []
 
-  if (segment?.warnings === undefined) return null
+  if (segment === undefined) return null
 
-  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] === true) {
+  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING]) {
     messages.push({
       type: 'alert',
       message: (
@@ -33,7 +33,7 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_OUTSIDE] === true) {
+  if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
     messages.push({
       type: 'error',
       message: (
@@ -44,7 +44,7 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] === true) {
+  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
     messages.push({
       type: 'error',
       message: (
@@ -55,7 +55,7 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] === true) {
+  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
     messages.push({
       type: 'error',
       message: (

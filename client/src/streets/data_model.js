@@ -171,7 +171,7 @@ function fillDefaultSegments (units) {
     }
 
     segment.elevation = variantInfo.elevation
-    segment.warnings = []
+    segment.warnings = [false]
 
     segments.push(segment)
   }

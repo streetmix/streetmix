@@ -50,6 +50,7 @@ export class InfoBubble extends React.Component {
       PropTypes.number,
       PropTypes.oneOf([BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION])
     ]),
+    segments: PropTypes.array,
 
     // Provided by Redux connect mapDispatchToProps
     setInfoBubbleMouseInside: PropTypes.func,
@@ -442,6 +443,18 @@ export class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
 
+    // After Segment refactoring with hook-based react-dnd, the Infobubble
+    // component can sometimes be called with a segment position referring to
+    // a segment that no longer exists. This does a quick check to make sure
+    // the segment exists before rendering. (Ideally we should refactor UI
+    // so this extra step is no longer necessary)
+    if (typeof this.props.position === 'number') {
+      const segmentCheck = this.props.segments[this.props.position]
+      if (segmentCheck === undefined) {
+        return
+      }
+    }
+
     // Set class names
     const classNames = ['info-bubble']
 
@@ -500,7 +513,8 @@ function mapStateToProps (state) {
     visible: state.infoBubble.visible,
     descriptionVisible: state.infoBubble.descriptionVisible,
     mouseInside: state.infoBubble.mouseInside,
-    position: state.ui.activeSegment
+    position: state.ui.activeSegment,
+    segments: state.street.segments
   }
 }
 

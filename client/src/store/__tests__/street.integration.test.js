@@ -57,7 +57,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, true, 10))
+        await store.dispatch(incrementSegmentWidth(1, false, true))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(9.95)
@@ -69,7 +69,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, true, 3.048))
+        await store.dispatch(incrementSegmentWidth(1, false, true))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(2.972)
@@ -81,7 +81,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, false, 6.05))
+        await store.dispatch(incrementSegmentWidth(1, false, false))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(6)
@@ -97,7 +97,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, false, true, 12))
+        await store.dispatch(incrementSegmentWidth(1, false, true))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(11.95)
@@ -111,7 +111,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(0, false, false, 2.123))
+        await store.dispatch(incrementSegmentWidth(0, false, false))
 
         const { street } = store.getState()
         expect(street.segments[0].width).toEqual(2.1)
@@ -125,7 +125,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, true, true, 5))
+        await store.dispatch(incrementSegmentWidth(1, true, true))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(5.05)
@@ -137,7 +137,7 @@ describe('street integration test', () => {
         }
         const store = createStore(initialState)
 
-        await store.dispatch(incrementSegmentWidth(1, true, false, 3.658))
+        await store.dispatch(incrementSegmentWidth(1, true, false))
 
         const { street } = store.getState()
         expect(street.segments[1].width).toEqual(3.81)
@@ -151,7 +151,7 @@ describe('street integration test', () => {
       }
       const store = createStore(initialState)
 
-      await store.dispatch(incrementSegmentWidth(1, true, false, 200))
+      await store.dispatch(incrementSegmentWidth(1, true, false))
 
       expect(saveStreetToServerIfNecessary).toHaveBeenCalledTimes(1)
     })
@@ -162,7 +162,7 @@ describe('street integration test', () => {
       }
       const store = createStore(initialState)
 
-      await store.dispatch(incrementSegmentWidth(0, true, false, 2.147))
+      await store.dispatch(incrementSegmentWidth(0, true, false))
 
       const { street } = store.getState()
       expect(street.segments[0].width).toEqual(2.15)

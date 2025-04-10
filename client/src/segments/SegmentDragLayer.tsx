@@ -45,7 +45,7 @@ function SegmentDragLayer (): React.ReactElement {
     if (currentOffset === null || floatingEl.current === null) return
 
     let { x, y } = currentOffset
-    if (type === Types.PALETTE_SEGMENT) {
+    if (type === Types.PALETTE) {
       x -= item.actualWidth * 4 // TODO: document magic number, probably TILE_SIZE * PALETTE_MULTIPLIER
       y += DRAG_OFFSET_Y_PALETTE
     }

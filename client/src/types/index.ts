@@ -101,3 +101,9 @@ export interface FeatureFlagDefinition {
 }
 
 export type FeatureFlags = Record<string, FeatureFlagDefinition>
+
+export interface DraggingState {
+  segmentBeforeEl?: number
+  segmentAfterEl?: number
+  draggedSegment: number
+}

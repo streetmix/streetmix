@@ -18,7 +18,6 @@ interface SegmentCanvasProps {
   randSeed: string
   groundBaseline?: number
   elevation?: number
-  updatePerspective: (el: HTMLCanvasElement) => void
 }
 
 function SegmentCanvas ({
@@ -27,8 +26,7 @@ function SegmentCanvas ({
   variantString,
   randSeed,
   groundBaseline = GROUND_BASELINE,
-  elevation,
-  updatePerspective = () => {}
+  elevation
 }: SegmentCanvasProps): React.ReactElement {
   const [firstRender, setFirstRender] = useState(true)
   const canvasEl = useRef<HTMLCanvasElement>(null)
@@ -39,7 +37,6 @@ function SegmentCanvas ({
 
   useEffect(() => {
     if (!canvasEl.current) return
-    updatePerspective(canvasEl.current)
     drawSegment(canvasEl.current)
 
     // Normally drawSegment() on its own works just fine, except in
