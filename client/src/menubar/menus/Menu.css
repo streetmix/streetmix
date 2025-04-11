@@ -44,7 +44,6 @@
 
     /* Specifically for button */
     width: 100%;
-    text-align: left;
 
     &:hover {
       background-color: var(--interactive-element-hover-color);
@@ -57,7 +56,6 @@
     [dir="rtl"] & {
       padding-right: 2.5em;
       padding-left: 1em;
-      text-align: right;
     }
   }
 
