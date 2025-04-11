@@ -8,13 +8,14 @@ import AboutDialog from './About'
 import AnalyticsDialog from './Analytics'
 import FeatureFlagDialog from './FeatureFlag'
 import GeotagDialog from './Geotag'
+import NewsletterDialog from './Newsletter'
+import NewStreetDialog from './NewStreet'
 import SaveAsImageDialog from './SaveAsImage'
+import SentimentSurveyDialog from './SentimentSurvey'
 import SettingsDialog from './Settings'
 import SignInDialog from './SignIn'
-import WhatsNewDialog from './WhatsNew'
-import NewsletterDialog from './Newsletter'
 import UpgradeDialog from './Upgrade'
-import SentimentSurveyDialog from './SentimentSurvey'
+import WhatsNewDialog from './WhatsNew'
 import ErrorDialog from './ErrorDialog'
 
 const DIALOG_COMPONENTS = {
@@ -22,13 +23,14 @@ const DIALOG_COMPONENTS = {
   ANALYTICS: AnalyticsDialog,
   FEATURE_FLAGS: FeatureFlagDialog,
   GEOTAG: GeotagDialog,
+  NEWSLETTER: NewsletterDialog,
+  NEW_STREET: NewStreetDialog,
   SAVE_AS_IMAGE: SaveAsImageDialog,
+  SENTIMENT_SURVEY: SentimentSurveyDialog,
   SETTINGS: SettingsDialog,
   SIGN_IN: SignInDialog,
-  WHATS_NEW: WhatsNewDialog,
-  NEWSLETTER: NewsletterDialog,
   UPGRADE: UpgradeDialog,
-  SENTIMENT_SURVEY: SentimentSurveyDialog
+  WHATS_NEW: WhatsNewDialog
 }
 
 function DialogRoot (): React.ReactElement | null {

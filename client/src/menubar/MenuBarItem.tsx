@@ -12,12 +12,15 @@ interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
   // Other optional props
   tooltip?: string
+  menuType?: 'dialog'
+  onClick?: (event: React.MouseEvent) => void
 }
 
 export default function MenuBarItem ({
   translation = '',
   label = '',
   tooltip,
+  menuType,
   children = <FormattedMessage id={translation} defaultMessage={label} />,
   ...restProps
 }: MenuBarItemProps): React.ReactElement {
@@ -25,7 +28,13 @@ export default function MenuBarItem ({
     <li>
       <button className="menu-trigger" role="menuitem" {...restProps}>
         {children}
-        <Icon name="chevron-down" className="menu-carat-down" />
+        {menuType === 'dialog'
+          ? (
+              ' ...'
+            )
+          : (
+            <Icon name="chevron-down" className="menu-carat-down" />
+            )}
       </button>
     </li>
   )

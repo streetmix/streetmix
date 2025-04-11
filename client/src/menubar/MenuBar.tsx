@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
-import { useSelector } from '../store/hooks'
+import { showDialog } from '~/src/store/slices/dialogs'
+import { useDispatch, useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
@@ -31,6 +32,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
       state.flags.LOCALES_LEVEL_2.value ||
       state.flags.LOCALES_LEVEL_3.value
   )
+  const dispatch = useDispatch()
   const menuBarRightEl = useRef<HTMLUListElement>(null)
   const menuBarLeftEl = useRef<HTMLUListElement>(null)
   const intl = useIntl()
@@ -69,6 +71,10 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         onMenuDropdownClick(menu, el)
       }
     }
+  }
+
+  function handleClickNewStreet (): void {
+    dispatch(showDialog('NEW_STREET'))
   }
 
   function handleWindowResize (): void {
@@ -133,10 +139,11 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
       </ul>
       <ul className="menu-bar-right" ref={menuBarRightEl}>
         <MenuBarItem
+          menuType="dialog"
           label="New street"
           translation="menu.item.new-street"
           id="menubar-new"
-          onClick={handleClick('new')}
+          onClick={handleClickNewStreet}
         />
         <MenuBarItem
           label="Share"
