@@ -91,7 +91,7 @@ function Menu ({
       unmountOnExit={true}
       nodeRef={ref}
     >
-      <div className={classNames.join(' ')} ref={ref}>
+      <div role="menu" className={classNames.join(' ')} ref={ref}>
         {children}
       </div>
     </CSSTransition>

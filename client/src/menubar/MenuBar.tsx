@@ -109,7 +109,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
   }
 
   return (
-    <nav className="menu-bar">
+    <nav className="menu-bar" role="menubar">
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img src={logo} alt="Streemix" className="menu-bar-logo" />

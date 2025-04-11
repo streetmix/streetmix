@@ -35,7 +35,7 @@ export default function MenuBarItem ({
     if (isUrlExternal(url)) {
       component = (
         <li>
-          <ExternalLink href={url} {...restProps}>
+          <ExternalLink href={url} role="menuitem" {...restProps}>
             {children}
             <Icon name="external-link" className="menu-external-link" />
           </ExternalLink>
@@ -44,7 +44,7 @@ export default function MenuBarItem ({
     } else {
       component = (
         <li>
-          <a href={url} {...restProps}>
+          <a href={url} role="menuitem" {...restProps}>
             {children}
             <Icon name="external-link" className="menu-external-link" />
           </a>
@@ -54,7 +54,7 @@ export default function MenuBarItem ({
   } else {
     component = (
       <li>
-        <button className="menu-attached" {...restProps}>
+        <button className="menu-attached" role="menuitem" {...restProps}>
           {children}
           <Icon name="chevron-down" className="menu-carat-down" />
         </button>

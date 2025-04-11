@@ -27,7 +27,11 @@ function AvatarMenu ({
     : ''
 
   return (
-    <button className="menu-attached menu-avatar" onClick={onClick}>
+    <button
+      className="menu-attached menu-avatar"
+      role="menuitem"
+      onClick={onClick}
+    >
       <Avatar userId={user.id} />
       {isSubscriber && (
         <img
