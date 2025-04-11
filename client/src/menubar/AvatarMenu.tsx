@@ -31,6 +31,7 @@ function AvatarMenu ({
       className="menu-attached menu-avatar"
       role="menuitem"
       onClick={onClick}
+      id="menubar-identity"
     >
       <Avatar userId={user.id} />
       {isSubscriber && (

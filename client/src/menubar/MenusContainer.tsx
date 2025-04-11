@@ -104,23 +104,28 @@ function MenusContainer (): React.ReactElement {
         <HelpMenu
           isActive={activeMenu === 'help'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-help"
         />
         <ContactMenu
           isActive={activeMenu === 'contact'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-contact"
         />
         <LocaleMenu
           isActive={activeMenu === 'locale'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-locale"
         />
         <ShareMenu
           isActive={activeMenu === 'share'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-share"
         />
         <IdentityMenu
           isActive={activeMenu === 'identity'}
           menuItemNode={activeMenuItemNode}
           alignOpposite={true}
+          aria-labelledby="menubar-identity"
         />
       </div>
     </>

@@ -3,6 +3,7 @@
 exports[`MenusContainer > renders 1`] = `
 <DocumentFragment>
   <nav
+    aria-orientation="horizontal"
     class="menu-bar"
     role="menubar"
   >
@@ -24,6 +25,7 @@ exports[`MenusContainer > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-help"
           role="menuitem"
         >
           Help
@@ -37,6 +39,7 @@ exports[`MenusContainer > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-contact"
           role="menuitem"
         >
           Contact
@@ -79,6 +82,7 @@ exports[`MenusContainer > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-share"
           role="menuitem"
         >
           Share
@@ -92,6 +96,7 @@ exports[`MenusContainer > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-locale"
           role="menuitem"
         >
           <svg
