@@ -94,29 +94,6 @@ body.safari .menu {
   }
 }
 
-.menu-item-group {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-top: 1px solid var(--color-turquoise-200);
-  border-bottom: 1px solid var(--color-turquoise-200);
-
-  /* Remove the top border if menu group is the first element in a menu */
-  &:first-child {
-    border-top: 0;
-  }
-
-  /* Remove the bottom border if menu group is the last element in a menu */
-  &:last-child {
-    border-bottom: 0;
-  }
-
-  /* Remove the doubling up of borders between consecutive menu groups */
-  + .menu-item-group {
-    border-top: 0;
-  }
-}
-
 .menu-item {
   display: block;
   position: relative;
