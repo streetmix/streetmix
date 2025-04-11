@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { useDispatch } from '~/src/store/hooks'
 import { showDialog } from '~/src/store/slices/dialogs'
 import Icon from '~/src/ui/Icon'
+import MenuItem from '../MenuItem'
 
 function SaveImage (): React.ReactElement {
   const dispatch = useDispatch()
@@ -14,7 +15,7 @@ function SaveImage (): React.ReactElement {
   }
 
   return (
-    <a onClick={handleClickSaveAsImage}>
+    <MenuItem onClick={handleClickSaveAsImage}>
       <Icon name="download" className="menu-item-icon" />
       <FormattedMessage id="menu.share.save" defaultMessage="Save as image…" />
       <span className="menu-item-subtext">
@@ -23,7 +24,7 @@ function SaveImage (): React.ReactElement {
           defaultMessage="For including in a report, blog, etc."
         />
       </span>
-    </a>
+    </MenuItem>
   )
 }
 

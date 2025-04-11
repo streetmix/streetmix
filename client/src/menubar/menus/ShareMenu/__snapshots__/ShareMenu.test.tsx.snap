@@ -6,15 +6,21 @@ exports[`ShareMenu > does not render external share links in offline mode 1`] = 
     class="menu share-menu"
     role="menu"
   >
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="print"
         data-icon-source="test"
       />
       Print…
-    </a>
-    <a>
+    </button>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="download"
@@ -26,7 +32,7 @@ exports[`ShareMenu > does not render external share links in offline mode 1`] = 
       >
         For including in a report, blog, etc.
       </span>
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;
@@ -154,15 +160,21 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       class="menu-separator"
       role="separator"
     />
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="print"
         data-icon-source="test"
       />
       Print…
-    </a>
-    <a>
+    </button>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="download"
@@ -174,7 +186,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
       >
         For including in a report, blog, etc.
       </span>
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;
@@ -294,15 +306,21 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       class="menu-separator"
       role="separator"
     />
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="print"
         data-icon-source="test"
       />
       Print…
-    </a>
-    <a>
+    </button>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="download"
@@ -314,7 +332,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
       >
         For including in a report, blog, etc.
       </span>
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;

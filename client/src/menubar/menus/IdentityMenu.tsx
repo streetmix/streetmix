@@ -10,6 +10,7 @@ import { showDialog } from '~/src/store/slices/dialogs'
 import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 import MenuSeparator from './MenuSeparator'
 import './IdentityMenu.css'
 
@@ -82,15 +83,15 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
           </a>
         </>
       )}
-      <a onClick={() => dispatch(showDialog('SETTINGS'))}>
+      <MenuItem onClick={() => dispatch(showDialog('SETTINGS'))}>
         <Icon name="settings" className="menu-item-icon" />
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
-      </a>
+      </MenuItem>
       <MenuSeparator />
-      <a className="menu-item menu-sign-out" onClick={onSignOutClick}>
+      <MenuItem className="menu-item menu-sign-out" onClick={onSignOutClick}>
         <Icon name="sign-out" className="menu-item-icon" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
-      </a>
+      </MenuItem>
     </Menu>
   )
 }

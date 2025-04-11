@@ -38,14 +38,17 @@ exports[`ContactMenu > renders 1`] = `
         data-icon-source="test"
       />
     </a>
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="mail"
         data-icon-source="test"
       />
       Subscribe to our newsletter
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;

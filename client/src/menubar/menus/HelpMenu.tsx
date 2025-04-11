@@ -7,6 +7,7 @@ import ExternalLink from '~/src/ui/ExternalLink'
 import Icon from '~/src/ui/Icon'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 import MenuSeparator from './MenuSeparator'
 import KeyboardShortcuts from './KeyboardShortcuts'
 
@@ -27,20 +28,20 @@ function HelpMenu (props: MenuProps): React.ReactElement {
 
   return (
     <Menu {...props}>
-      <a onClick={() => dispatch(showDialog('ABOUT'))}>
+      <MenuItem onClick={() => dispatch(showDialog('ABOUT'))}>
         <Icon name="info" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.about"
           defaultMessage="About Streetmix…"
         />
-      </a>
-      <a onClick={() => dispatch(showDialog('WHATS_NEW'))}>
+      </MenuItem>
+      <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
         <Icon name="rocket" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
         />
-      </a>
+      </MenuItem>
       {!offline && (
         <>
           <ExternalLink

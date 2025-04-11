@@ -6,6 +6,7 @@ import { showDialog } from '~/src/store/slices/dialogs'
 import ExternalLink from '~/src/ui/ExternalLink'
 import Icon from '~/src/ui/Icon'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 
 function ContactMenu (props: MenuProps): React.ReactElement {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ function ContactMenu (props: MenuProps): React.ReactElement {
           defaultMessage="View source code on GitHub"
         />
       </ExternalLink>
-      <a
+      <MenuItem
         onClick={(e) => {
           dispatch(showDialog('NEWSLETTER'))
         }}
@@ -36,7 +37,7 @@ function ContactMenu (props: MenuProps): React.ReactElement {
           id="menu.contact.newsletter"
           defaultMessage="Subscribe to our newsletter"
         />
-      </a>
+      </MenuItem>
     </Menu>
   )
 }

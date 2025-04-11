@@ -6,22 +6,28 @@ exports[`HelpMenu > renders 1`] = `
     class="menu"
     role="menu"
   >
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="info"
         data-icon-source="test"
       />
       About Streetmix…
-    </a>
-    <a>
+    </button>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="rocket"
         data-icon-source="test"
       />
       What’s new?‎
-    </a>
+    </button>
     <a
       href="https://docs.streetmix.net/user-guide/intro"
       rel="noopener noreferrer"
