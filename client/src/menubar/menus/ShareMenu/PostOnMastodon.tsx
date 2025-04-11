@@ -2,6 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Icon from '~/src/ui/Icon'
+import MenuItem from '../MenuItem'
 import type { SocialShareProps } from './helpers'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
@@ -49,7 +50,7 @@ function PostOnMastodon ({
   shareUrl
 }: SocialShareProps): React.ReactElement {
   return (
-    <a
+    <MenuItem
       onClick={() => {
         handleShareToMastodon(shareText, shareUrl)
       }}
@@ -60,7 +61,7 @@ function PostOnMastodon ({
         defaultMessage="Share using Mastodon"
       />
       <Icon name="external-link" />
-    </a>
+    </MenuItem>
   )
 }
 

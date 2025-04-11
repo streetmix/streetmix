@@ -33,13 +33,18 @@
     opacity: 0;
   }
 
-  > a {
+  > a,
+  > button.menu-item {
     display: block;
     position: relative;
     padding: 0.5em 1em 0.5em 2.5em;
     text-decoration: none;
     color: black;
     border-radius: var(--border-radius);
+
+    /* Specifically for button */
+    width: 100%;
+    text-align: left;
 
     &:hover {
       background-color: var(--interactive-element-hover-color);
@@ -52,6 +57,7 @@
     [dir="rtl"] & {
       padding-right: 2.5em;
       padding-left: 1em;
+      text-align: right;
     }
   }
 
