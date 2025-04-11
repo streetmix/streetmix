@@ -4,6 +4,7 @@ exports[`HelpMenu > renders 1`] = `
 <DocumentFragment>
   <div
     class="menu"
+    role="menu"
   >
     <a>
       <svg
@@ -38,7 +39,9 @@ exports[`HelpMenu > renders 1`] = `
       />
     </a>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <a
       href="https://cottonbureau.com/people/streetmix"
@@ -57,7 +60,9 @@ exports[`HelpMenu > renders 1`] = `
       />
     </a>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <div
       class="keyboard-shortcuts"

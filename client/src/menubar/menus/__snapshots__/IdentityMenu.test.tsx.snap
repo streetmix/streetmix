@@ -4,6 +4,7 @@ exports[`IdentityMenu > renders 1`] = `
 <DocumentFragment>
   <div
     class="menu identity-menu"
+    role="menu"
   >
     <div
       class="identity-section"
@@ -50,7 +51,9 @@ exports[`IdentityMenu > renders 1`] = `
       </div>
     </div>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <a
       href="/foo"
@@ -71,7 +74,9 @@ exports[`IdentityMenu > renders 1`] = `
       Settings
     </a>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <a
       class="menu-item menu-sign-out"

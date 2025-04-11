@@ -33,7 +33,7 @@ describe('AvatarMenu', () => {
     render(
       <AvatarMenu user={MOCK_USER} isSubscriber={false} onClick={onClick} />
     )
-    await userEvent.click(screen.getByRole('button'))
+    await userEvent.click(screen.getByRole('menuitem'))
     expect(onClick).toHaveBeenCalled()
   })
 })

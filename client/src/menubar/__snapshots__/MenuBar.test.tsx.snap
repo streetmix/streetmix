@@ -4,6 +4,7 @@ exports[`MenuBar > renders 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -23,6 +24,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Help
           <svg
@@ -35,6 +37,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Contact
           <svg
@@ -62,6 +65,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -75,6 +79,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Share
           <svg
@@ -87,6 +92,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"
@@ -123,6 +129,7 @@ exports[`MenuBar > renders logged in user 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -142,6 +149,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Help
           <svg
@@ -154,6 +162,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Contact
           <svg
@@ -181,6 +190,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -194,6 +204,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Share
           <svg
@@ -206,6 +217,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"
@@ -228,6 +240,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached menu-avatar"
+          role="menuitem"
         >
           <span
             class="avatar"
@@ -253,6 +266,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
 <DocumentFragment>
   <nav
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -272,6 +286,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Help
           <svg
@@ -288,6 +303,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -301,6 +317,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           Share
           <svg
@@ -313,6 +330,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"
