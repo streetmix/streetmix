@@ -60,7 +60,7 @@ exports[`HelpMenu > renders 1`] = `
       class="menu-separator"
     />
     <div
-      class="help-menu-shortcuts"
+      class="keyboard-shortcuts"
     >
       <svg
         class="menu-item-icon"
