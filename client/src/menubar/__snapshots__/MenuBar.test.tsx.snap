@@ -3,7 +3,9 @@
 exports[`MenuBar > renders 1`] = `
 <DocumentFragment>
   <nav
+    aria-orientation="horizontal"
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -23,6 +25,8 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-help"
+          role="menuitem"
         >
           Help
           <svg
@@ -35,6 +39,8 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-contact"
+          role="menuitem"
         >
           Contact
           <svg
@@ -62,6 +68,7 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -75,6 +82,8 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-share"
+          role="menuitem"
         >
           Share
           <svg
@@ -87,6 +96,8 @@ exports[`MenuBar > renders 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-locale"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"
@@ -122,7 +133,9 @@ exports[`MenuBar > renders 1`] = `
 exports[`MenuBar > renders logged in user 1`] = `
 <DocumentFragment>
   <nav
+    aria-orientation="horizontal"
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -142,6 +155,8 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-help"
+          role="menuitem"
         >
           Help
           <svg
@@ -154,6 +169,8 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-contact"
+          role="menuitem"
         >
           Contact
           <svg
@@ -181,6 +198,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -194,6 +212,8 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-share"
+          role="menuitem"
         >
           Share
           <svg
@@ -206,6 +226,8 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-locale"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"
@@ -228,6 +250,8 @@ exports[`MenuBar > renders logged in user 1`] = `
       <li>
         <button
           class="menu-attached menu-avatar"
+          id="menubar-identity"
+          role="menuitem"
         >
           <span
             class="avatar"
@@ -252,7 +276,9 @@ exports[`MenuBar > renders logged in user 1`] = `
 exports[`MenuBar > renders minimal menu in offline mode 1`] = `
 <DocumentFragment>
   <nav
+    aria-orientation="horizontal"
     class="menu-bar"
+    role="menubar"
   >
     <ul
       class="menu-bar-left"
@@ -272,6 +298,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-help"
+          role="menuitem"
         >
           Help
           <svg
@@ -288,6 +316,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <a
           href="/new"
+          role="menuitem"
           target="_blank"
         >
           New street
@@ -301,6 +330,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-share"
+          role="menuitem"
         >
           Share
           <svg
@@ -313,6 +344,8 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       <li>
         <button
           class="menu-attached"
+          id="menubar-locale"
+          role="menuitem"
         >
           <svg
             aria-hidden="true"

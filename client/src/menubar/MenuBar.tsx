@@ -73,14 +73,6 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
     }
   }
 
-  function handleClickUpgrade (): void {
-    // dispatch(showDialog('UPGRADE'))
-    window.open(
-      'https://docs.streetmix.net/user-guide/streetmix-plus',
-      '_blank'
-    )
-  }
-
   function handleWindowResize (): void {
     // Throw this event so that the StreetName can figure out if it needs
     // to push itself lower than the menubar
@@ -117,7 +109,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
   }
 
   return (
-    <nav className="menu-bar">
+    <nav className="menu-bar" role="menubar" aria-orientation="horizontal">
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img src={logo} alt="Streemix" className="menu-bar-logo" />
@@ -126,6 +118,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         <MenuBarItem
           label="Help"
           translation="menu.item.help"
+          id="menubar-help"
           onClick={handleClickMenuButton('help')}
         />
         {!offline && (
@@ -133,9 +126,10 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
             <MenuBarItem
               label="Contact"
               translation="menu.item.contact"
+              id="menubar-contact"
               onClick={handleClickMenuButton('contact')}
             />
-            {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
+            {!isSubscriber && <UpgradeButton />}
           </>
         )}
       </ul>
@@ -149,10 +143,12 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         <MenuBarItem
           label="Share"
           translation="menu.item.share"
+          id="menubar-share"
           onClick={handleClickMenuButton('share')}
         />
         {enableLocaleSettings && (
           <MenuBarItem
+            id="menubar-locale"
             onClick={handleClickMenuButton('locale')}
             tooltip={languageLabel}
           >

@@ -32,7 +32,8 @@ function Menu ({
   alignOpposite,
   onShow = () => undefined,
   onHide = () => undefined,
-  children
+  children,
+  ...props
 }: MenuProps): React.ReactElement {
   const ref = useRef<HTMLDivElement>(null)
   const contentDirection = useSelector((state) => state.app.contentDirection)
@@ -91,7 +92,7 @@ function Menu ({
       unmountOnExit={true}
       nodeRef={ref}
     >
-      <div className={classNames.join(' ')} ref={ref}>
+      <div role="menu" className={classNames.join(' ')} ref={ref} {...props}>
         {children}
       </div>
     </CSSTransition>

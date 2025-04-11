@@ -41,6 +41,7 @@ button {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
+  text-align: inherit;
 }
 
 /* Certain interactive elements remove tap-highlight-color in Webkit

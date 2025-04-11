@@ -4,6 +4,8 @@ exports[`AvatarMenu > renders user avatar 1`] = `
 <DocumentFragment>
   <button
     class="menu-attached menu-avatar"
+    id="menubar-identity"
+    role="menuitem"
   >
     <span
       class="avatar"

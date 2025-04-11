@@ -4,6 +4,7 @@ exports[`IdentityMenu > renders 1`] = `
 <DocumentFragment>
   <div
     class="menu identity-menu"
+    role="menu"
   >
     <div
       class="identity-section"
@@ -50,7 +51,9 @@ exports[`IdentityMenu > renders 1`] = `
       </div>
     </div>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <a
       href="/foo"
@@ -62,19 +65,25 @@ exports[`IdentityMenu > renders 1`] = `
       />
       My streets
     </a>
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="settings"
         data-icon-source="test"
       />
       Settings
-    </a>
+    </button>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
-    <a
-      class="menu-item menu-sign-out"
+    <button
+      class="menu-item menu-item menu-sign-out"
+      role="menuitem"
     >
       <svg
         class="menu-item-icon"
@@ -82,7 +91,7 @@ exports[`IdentityMenu > renders 1`] = `
         data-icon-source="test"
       />
       Sign out
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;

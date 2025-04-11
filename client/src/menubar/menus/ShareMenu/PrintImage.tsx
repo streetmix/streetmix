@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { useDispatch } from '~/src/store/hooks'
 import { startPrinting } from '~/src/store/slices/app'
 import Icon from '~/src/ui/Icon'
+import MenuItem from '../MenuItem'
 
 function PrintImage (): React.ReactElement {
   const dispatch = useDispatch()
@@ -22,10 +23,10 @@ function PrintImage (): React.ReactElement {
   }
 
   return (
-    <a onClick={handleClickPrint}>
+    <MenuItem onClick={handleClickPrint}>
       <Icon name="print" className="menu-item-icon" />
       <FormattedMessage id="menu.share.print" defaultMessage="Print…" />
-    </a>
+    </MenuItem>
   )
 }
 

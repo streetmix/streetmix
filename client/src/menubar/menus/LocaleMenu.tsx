@@ -12,6 +12,7 @@ import {
 import Icon from '~/src/ui/Icon'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 
 function LocaleMenu (props: MenuProps): React.ReactElement {
   const locale = useSelector((state) => state.locale.locale || DEFAULT_LOCALE)
@@ -38,23 +39,20 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
   function renderLocaleOptions (): React.ReactElement[] {
     // Render each option
     return filteredLocales.map((locale) => {
-      const classNames = ['menu-item']
+      const selectedClassName =
+        locale.value === actuallySelectedLocale
+          ? 'menu-item-selected'
+          : undefined
 
-      if (locale.value === actuallySelectedLocale) {
-        classNames.push('menu-item-selected')
-      }
-
-      // TODO: ARIA roles and attributes have been added to help with
-      // testing, but these are not actually to accessible spec
       return (
-        <li
-          className={classNames.join(' ')}
+        <MenuItem
           key={locale.value}
+          className={selectedClassName}
           onClick={() => {
             void selectLocale(locale.value)
           }}
-          role="option"
-          aria-selected={locale.value === actuallySelectedLocale}
+          role="menuitemradio"
+          aria-checked={locale.value === actuallySelectedLocale}
         >
           {locale.value === requestedLocale && <LoadingSpinner size="small" />}
           {locale.value === actuallySelectedLocale && (
@@ -66,18 +64,12 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
           <span className="menu-item-subtext">
             <FormattedMessage id={locale.key} defaultMessage={locale.name} />
           </span>
-        </li>
+        </MenuItem>
       )
     })
   }
 
-  return (
-    <Menu {...props}>
-      <ul className="menu-item-group" role="listbox">
-        {renderLocaleOptions()}
-      </ul>
-    </Menu>
-  )
+  return <Menu {...props}>{renderLocaleOptions()}</Menu>
 }
 
 export default LocaleMenu

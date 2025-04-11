@@ -34,14 +34,14 @@ describe('LocaleMenu', () => {
     // Clicking this first should not trigger any selection handler
     const selected = screen.getByText('English')
     await userEvent.click(selected)
-    expect(selected.parentElement?.getAttribute('aria-selected')).toBe('true')
+    expect(selected.parentElement?.getAttribute('aria-checked')).toBe('true')
 
     // Change the locale
     const selected2 = screen.getByText('Finnish')
     await userEvent.click(selected2)
 
-    expect(selected.parentElement?.getAttribute('aria-selected')).toBe('false')
-    expect(selected2.parentElement?.getAttribute('aria-selected')).toBe('true')
+    expect(selected.parentElement?.getAttribute('aria-checked')).toBe('false')
+    expect(selected2.parentElement?.getAttribute('aria-checked')).toBe('true')
 
     expect(clearMenus).toBeCalledTimes(1)
   })
