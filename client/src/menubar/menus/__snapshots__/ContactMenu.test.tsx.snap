@@ -7,8 +7,10 @@ exports[`ContactMenu > renders 1`] = `
     role="menu"
   >
     <a
+      class="menu-item"
       href="https://strt.mx/discord"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -23,8 +25,10 @@ exports[`ContactMenu > renders 1`] = `
       />
     </a>
     <a
+      class="menu-item"
       href="https://github.com/streetmix/streetmix/"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg

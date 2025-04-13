@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { showDialog } from '~/src/store/slices/dialogs'
-import ExternalLink from '~/src/ui/ExternalLink'
 import Icon from '~/src/ui/Icon'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
@@ -44,24 +43,18 @@ function HelpMenu (props: MenuProps): React.ReactElement {
       </MenuItem>
       {!offline && (
         <>
-          <ExternalLink
-            href="https://docs.streetmix.net/user-guide/intro"
-            icon={true}
-          >
+          <MenuItem href="https://docs.streetmix.net/user-guide/intro">
             <Icon name="trail-sign" className="menu-item-icon" />
             <FormattedMessage
               id="menu.help.guidebook-link"
               defaultMessage="Guidebook"
             />
-          </ExternalLink>
+          </MenuItem>
           <MenuSeparator />
-          <ExternalLink
-            href="https://cottonbureau.com/people/streetmix"
-            icon={true}
-          >
+          <MenuItem href="https://cottonbureau.com/people/streetmix">
             <Icon name="cart" className="menu-item-icon" />
             <FormattedMessage id="menu.item.store" defaultMessage="Store" />
-          </ExternalLink>
+          </MenuItem>
         </>
       )}
       <MenuSeparator />

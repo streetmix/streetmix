@@ -1,18 +1,37 @@
-import React, { type ButtonHTMLAttributes } from 'react'
+import React from 'react'
 
-interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+import ExternalLink from '~/src/ui/ExternalLink'
+
+// TODO: fix broken types, `href` means render `a`, otherwise render `button`
+type MenuItemProps<T extends 'button' | 'a'> = {
+  href?: string
   children: React.ReactNode
-}
+} & React.JSX.IntrinsicElements[T]
 
-function MenuItem ({
-  children,
+function MenuItem<T extends 'button' | 'a'> ({
+  href,
   className,
+  children,
   ...props
-}: MenuItemProps): React.ReactElement {
+}: MenuItemProps<T>): React.ReactElement {
   // Merge classnames
   const classNames = ['menu-item']
   if (typeof className === 'string') {
     classNames.push(className)
+  }
+
+  if (href !== undefined) {
+    return (
+      <ExternalLink
+        href={href}
+        icon={true}
+        className={classNames.join(' ')}
+        role="menuitem"
+        {...props}
+      >
+        {children}
+      </ExternalLink>
+    )
   }
 
   return (

@@ -1,13 +1,10 @@
 import React from 'react'
 
-import ExternalLink from '~/src/ui/ExternalLink'
+import MenuItem from '../MenuItem'
 
 function ExportStreetmeter (): React.ReactElement {
   return (
-    <ExternalLink
-      href={`https://streetmeter.net/#${window.location.href}`}
-      icon={true}
-    >
+    <MenuItem href={`https://streetmeter.net/#${window.location.href}`}>
       Open in Streetmeter
       <span
         style={{
@@ -22,7 +19,7 @@ function ExportStreetmeter (): React.ReactElement {
       >
         BETA
       </span>
-    </ExternalLink>
+    </MenuItem>
   )
 }
 

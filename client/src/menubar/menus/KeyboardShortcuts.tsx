@@ -44,7 +44,7 @@ function KeyboardShortcuts (): React.ReactElement {
             </td>
           </tr>
           <tr>
-            <td dir="ltr">
+            <td>
               {/*
                 <FormattedMessage> is used with a render prop because we need
                 to pass a string child to <KeyboardKey /> when the `icon`
@@ -72,20 +72,26 @@ function KeyboardShortcuts (): React.ReactElement {
             </td>
           </tr>
           <tr>
-            <td dir="ltr">
-              <FormattedMessage id="key.left-arrow" defaultMessage="Left arrow">
-                {(label) => (
-                  <KeyboardKey icon="arrow-left">{label}</KeyboardKey>
-                )}
-              </FormattedMessage>
-              <FormattedMessage
-                id="key.right-arrow"
-                defaultMessage="Right arrow"
-              >
-                {(label) => (
-                  <KeyboardKey icon="arrow-right">{label}</KeyboardKey>
-                )}
-              </FormattedMessage>
+            <td>
+              {/* Keep arrows in the same order in all language directions */}
+              <span dir="ltr">
+                <FormattedMessage
+                  id="key.left-arrow"
+                  defaultMessage="Left arrow"
+                >
+                  {(label) => (
+                    <KeyboardKey icon="arrow-left">{label}</KeyboardKey>
+                  )}
+                </FormattedMessage>
+                <FormattedMessage
+                  id="key.right-arrow"
+                  defaultMessage="Right arrow"
+                >
+                  {(label) => (
+                    <KeyboardKey icon="arrow-right">{label}</KeyboardKey>
+                  )}
+                </FormattedMessage>
+              </span>
             </td>
             <td>
               <FormattedMessage
