@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
 import Icon from '~/src/ui/Icon'
-import ExternalLink from '~/src/ui/ExternalLink'
 import { FACEBOOK_APP_ID } from '~/src/app/config'
 import { getPageTitle } from '~/src/app/page_title'
+import MenuItem from '../MenuItem'
 import type { SocialShareProps } from './helpers'
 
 function PostOnFacebook ({
@@ -28,13 +28,13 @@ function PostOnFacebook ({
     encodeURIComponent(shareText)
 
   return (
-    <ExternalLink href={facebookLink} icon={true}>
+    <MenuItem href={facebookLink}>
       <Icon name="facebook" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.facebook"
         defaultMessage="Share using Facebook"
       />
-    </ExternalLink>
+    </MenuItem>
   )
 }
 

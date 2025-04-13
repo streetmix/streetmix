@@ -19,12 +19,7 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  margin-right: 0.5em;
-
-  [dir="rtl"] & {
-    margin-left: 0.5em;
-    margin-right: 0;
-  }
+  margin-inline-end: 0.5em;
 
   .avatar {
     width: 36px;
@@ -63,15 +58,10 @@
     align-items: center;
     border-radius: var(--border-radius-medium);
     padding: 0.3em 0.6em;
-    margin-right: 0.35em;
-    margin-bottom: 0.35em;
+    margin-inline-end: 0.35em;
+    margin-block-end: 0.35em;
     font-size: 0.9em;
     font-weight: 550;
-
-    [dir="rtl"] & {
-      margin-left: 0.35em;
-      margin-right: 0;
-    }
   }
 
   .role-badge-generic {
@@ -85,12 +75,7 @@
 
     img {
       height: 1em;
-      margin-right: 0.35em;
-
-      [dir="rtl"] & {
-        margin-left: 0.35em;
-        margin-right: auto;
-      }
+      margin-inline-end: 0.35em;
     }
   }
 

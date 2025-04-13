@@ -55,8 +55,9 @@ exports[`IdentityMenu > renders 1`] = `
       class="menu-separator"
       role="separator"
     />
-    <a
-      href="/foo"
+    <button
+      class="menu-item"
+      role="menuitem"
     >
       <svg
         class="menu-item-icon"
@@ -64,7 +65,7 @@ exports[`IdentityMenu > renders 1`] = `
         data-icon-source="test"
       />
       My streets
-    </a>
+    </button>
     <button
       class="menu-item"
       role="menuitem"

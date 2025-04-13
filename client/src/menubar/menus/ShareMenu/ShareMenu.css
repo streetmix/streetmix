@@ -43,11 +43,6 @@
 
 .share-via-link {
   line-height: 18px;
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   outline: none;
-
-  [dir="rtl"] & {
-    margin-right: auto;
-    margin-left: 0.5em;
-  }
 }

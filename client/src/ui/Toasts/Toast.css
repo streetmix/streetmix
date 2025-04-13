@@ -53,6 +53,7 @@
   width: 100%;
   min-height: 32px;
   font-weight: 550;
+  text-align: center;
   background-color: transparent;
   color: var(--color-copper-800);
   cursor: pointer;

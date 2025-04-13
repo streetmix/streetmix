@@ -29,8 +29,10 @@ exports[`HelpMenu > renders 1`] = `
       What’s new?‎
     </button>
     <a
+      class="menu-item"
       href="https://docs.streetmix.net/user-guide/intro"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -50,8 +52,10 @@ exports[`HelpMenu > renders 1`] = `
       role="separator"
     />
     <a
+      class="menu-item"
       href="https://cottonbureau.com/people/streetmix"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -102,9 +106,7 @@ exports[`HelpMenu > renders 1`] = `
             </td>
           </tr>
           <tr>
-            <td
-              dir="ltr"
-            >
+            <td>
               <kbd
                 class="key key-icon"
                 title="Minus"
@@ -137,27 +139,29 @@ exports[`HelpMenu > renders 1`] = `
             </td>
           </tr>
           <tr>
-            <td
-              dir="ltr"
-            >
-              <kbd
-                class="key key-icon"
-                title="Left arrow"
+            <td>
+              <span
+                dir="ltr"
               >
-                <svg
-                  data-icon="arrow-left"
-                  data-icon-source="test"
-                />
-              </kbd>
-              <kbd
-                class="key key-icon"
-                title="Right arrow"
-              >
-                <svg
-                  data-icon="arrow-right"
-                  data-icon-source="test"
-                />
-              </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Left arrow"
+                >
+                  <svg
+                    data-icon="arrow-left"
+                    data-icon-source="test"
+                  />
+                </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Right arrow"
+                >
+                  <svg
+                    data-icon="arrow-right"
+                    data-icon-source="test"
+                  />
+                </kbd>
+              </span>
             </td>
             <td>
               Move around the street

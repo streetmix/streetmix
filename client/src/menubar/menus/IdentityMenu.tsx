@@ -23,7 +23,8 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
     (event: React.MouseEvent) => {
-      event.preventDefault()
+      const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
+      window.history.pushState({}, '', myStreetsLink)
       void dispatch(openGallery({ userId: user.id }))
     },
     [user?.id, dispatch]
@@ -31,7 +32,6 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
 
   const isAdmin: boolean =
     user?.roles?.includes(USER_ROLES.ADMIN.value) ?? false
-  const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
 
   return (
     <Menu {...props} className="identity-menu">
@@ -74,13 +74,13 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
             </div>
           </div>
           <MenuSeparator />
-          <a href={myStreetsLink} onClick={handleClickMyStreets}>
+          <MenuItem onClick={handleClickMyStreets}>
             <Icon name="star" className="menu-item-icon" />
             <FormattedMessage
               id="menu.item.my-streets"
               defaultMessage="My streets"
             />
-          </a>
+          </MenuItem>
         </>
       )}
       <MenuItem onClick={() => dispatch(showDialog('SETTINGS'))}>
