@@ -372,6 +372,8 @@ export function scheduleSavingStreetToServer () {
   }
 }
 
+// Look into replacing with getLastStreet() from store/actions
+// -- it was formerly used by "here's your new street" in <WelcomePanel />
 export function fetchLastStreet () {
   const streetId = store.getState().app.priorLastStreetId
 
