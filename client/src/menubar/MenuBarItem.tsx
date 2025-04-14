@@ -31,6 +31,7 @@ export default function MenuBarItem ({
 }: MenuBarItemProps | PassthroughProps): React.ReactElement {
   let component
 
+  /* Deprecated: top menu items that are links */
   if (typeof url === 'string') {
     if (isUrlExternal(url)) {
       component = (

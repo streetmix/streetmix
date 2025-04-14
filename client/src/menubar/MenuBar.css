@@ -147,6 +147,7 @@
   }
 }
 
+/* Deprecated: top menu items that are links */
 .menu-external-link {
   margin-inline: 0.25em -0.2em;
   transform: scale(0.8);
