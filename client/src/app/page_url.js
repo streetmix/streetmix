@@ -5,13 +5,15 @@ import { setGalleryUserId } from '../store/slices/gallery'
 import { saveCreatorId, saveStreetId } from '../store/slices/street'
 import {
   URL_NEW_STREET,
-  URL_NEW_STREET_COPY_LAST,
   JUST_SIGNED_IN_PATH,
   URL_ERROR,
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
-  RESERVED_URLS
+  RESERVED_URLS,
+  NEW_STREET_COPY_LAST,
+  NEW_STREET_DEFAULT,
+  NEW_STREET_EMPTY
 } from './constants'
 import { setMode, MODES } from './mode'
 
@@ -30,7 +32,8 @@ export function processUrl () {
   // be possible for the URL to contain a trailing slash, but we don't want
   // that, so remove it, if present. This will cause the root pathname to be
   // an empty string.
-  const pathname = window.location.pathname.replace(/\/+$/, '')
+  const url = new URL(window.location)
+  const pathname = url.pathname.replace(/\/+$/, '')
 
   // parts being split, although we really don't need to
   // filter out empty string parts
@@ -42,11 +45,28 @@ export function processUrl () {
 
     // New street
   } else if (pathname === URL_NEW_STREET) {
-    setMode(MODES.NEW_STREET)
+    const params = new URLSearchParams(url.search)
+    const type = params.get('type')
+    switch (type) {
+      case NEW_STREET_COPY_LAST:
+        setMode(MODES.NEW_STREET_COPY_LAST)
+        break
+      case NEW_STREET_EMPTY:
+        setMode(MODES.NEW_STREET_EMPTY)
+        break
+      case NEW_STREET_DEFAULT:
+      default:
+        setMode(MODES.NEW_STREET)
+        break
+    }
 
-    // New street (but start with copying last street)
-  } else if (pathname === URL_NEW_STREET_COPY_LAST) {
-    setMode(MODES.NEW_STREET_COPY_LAST)
+    // clear this param after processing.
+    params.delete('type')
+    let newUrl = `${url.origin}${url.pathname}`
+    if (params.size > 0) {
+      newUrl += `?${params.toString()}`
+    }
+    window.history.replaceState(null, '', newUrl)
 
     // Coming back from a successful sign in
   } else if (pathname === JUST_SIGNED_IN_PATH) {

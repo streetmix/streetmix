@@ -1,9 +1,12 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { updateSettings } from '~/src/store/slices/settings'
-import { NEW_STREET_DEFAULT, NEW_STREET_EMPTY } from '~/src/streets/constants'
+import { useSelector } from '~/src/store/hooks'
+import {
+  URL_NEW_STREET_COPY_LAST,
+  URL_NEW_STREET_DEFAULT,
+  URL_NEW_STREET_EMPTY
+} from '~/src/app/constants'
 import Icon from '~/src/ui/Icon'
 import Menu, { type MenuProps } from './Menu'
 import MenuItem from './MenuItem'
@@ -11,32 +14,21 @@ import MenuSeparator from './MenuSeparator'
 import BetaTag from './BetaTag'
 
 function NewStreetMenu (props: MenuProps): React.ReactElement {
-  const dispatch = useDispatch()
   const coastmixEnabled = useSelector(
     (state) => state.flags.COASTMIX_MODE.value
   )
 
   function handleNewExampleStreet (): void {
-    dispatch(
-      updateSettings({
-        newStreetPreference: NEW_STREET_DEFAULT
-      })
-    )
-
-    // window.open('/new', '_blank')
+    window.open(URL_NEW_STREET_DEFAULT, '_blank')
   }
 
   function handleNewEmptyStreet (): void {
-    dispatch(
-      updateSettings({
-        newStreetPreference: NEW_STREET_EMPTY
-      })
-    )
-
-    // window.open('/new', '_blank')
+    window.open(URL_NEW_STREET_EMPTY, '_blank')
   }
 
-  function handleCopyCurrentStreet (): void {}
+  function handleCopyStreet (): void {
+    window.open(URL_NEW_STREET_COPY_LAST, '_blank')
+  }
 
   return (
     <Menu {...props}>
@@ -55,7 +47,7 @@ function NewStreetMenu (props: MenuProps): React.ReactElement {
         />
         <Icon name="external-link" />
       </MenuItem>
-      <MenuItem onClick={handleCopyCurrentStreet}>
+      <MenuItem onClick={handleCopyStreet}>
         <Icon name="copy" className="menu-item-icon" />
         <FormattedMessage
           id="menu.new-street.copy"
