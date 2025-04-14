@@ -28,7 +28,7 @@ export const URL_EXAMPLE_STREET = '/streetmix/7'
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
 export const RESERVED_URLS = [
   '/services',
-  '/new',
+  URL_NEW_STREET,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
   URL_HELP,
