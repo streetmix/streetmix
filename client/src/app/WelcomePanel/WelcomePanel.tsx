@@ -154,7 +154,9 @@ function WelcomePanel (): React.ReactElement | null {
       welcomeContent = <WelcomeFirstTimeExistingStreet />
       break
     case WELCOME_NEW_STREET:
-      welcomeContent = <WelcomeNewStreet />
+      welcomeContent = (
+        <WelcomeNewStreet handleDismiss={handleWelcomeDismissed} />
+      )
       break
     case WELCOME_NONE:
     default:

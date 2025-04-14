@@ -66,18 +66,18 @@ exports[`MenuBar > renders 1`] = `
       class="menu-bar-right"
     >
       <li>
-        <a
-          href="/new"
+        <button
+          class="menu-attached"
+          id="menubar-new"
           role="menuitem"
-          target="_blank"
         >
           New street
           <svg
-            class="menu-external-link"
-            data-icon="external-link"
+            class="menu-carat-down"
+            data-icon="chevron-down"
             data-icon-source="test"
           />
-        </a>
+        </button>
       </li>
       <li>
         <button
@@ -196,18 +196,18 @@ exports[`MenuBar > renders logged in user 1`] = `
       class="menu-bar-right"
     >
       <li>
-        <a
-          href="/new"
+        <button
+          class="menu-attached"
+          id="menubar-new"
           role="menuitem"
-          target="_blank"
         >
           New street
           <svg
-            class="menu-external-link"
-            data-icon="external-link"
+            class="menu-carat-down"
+            data-icon="chevron-down"
             data-icon-source="test"
           />
-        </a>
+        </button>
       </li>
       <li>
         <button
@@ -314,18 +314,18 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       class="menu-bar-right"
     >
       <li>
-        <a
-          href="/new"
+        <button
+          class="menu-attached"
+          id="menubar-new"
           role="menuitem"
-          target="_blank"
         >
           New street
           <svg
-            class="menu-external-link"
-            data-icon="external-link"
+            class="menu-carat-down"
+            data-icon="chevron-down"
             data-icon-source="test"
           />
-        </a>
+        </button>
       </li>
       <li>
         <button

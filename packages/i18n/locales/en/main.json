@@ -209,7 +209,8 @@
       "heading": "Here’s your new street.",
       "default": "Start with an example street",
       "empty": "Start with an empty street",
-      "last": "Start with a copy of last street"
+      "last": "Start with a copy of last street",
+      "dismiss": "Let’s go!"
     },
     "about": {
       "heading": "About Streetmix.",
