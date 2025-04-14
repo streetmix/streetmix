@@ -69,9 +69,19 @@ function NewStreetMenu (props: MenuProps): React.ReactElement {
           <MenuSeparator />
           <div className="dropdown-menu-label">
             Coastal resiliency templates
+            <BetaTag />
           </div>
           <MenuItem>
-            Harborwalk <BetaTag />
+            Harborwalk
+            <Icon name="external-link" />
+          </MenuItem>
+          <MenuItem>
+            Coastal road
+            <Icon name="external-link" />
+          </MenuItem>
+          <MenuItem>
+            Beach
+            <Icon name="external-link" />
           </MenuItem>
         </>
       )}
