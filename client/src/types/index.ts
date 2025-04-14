@@ -16,7 +16,7 @@ export interface UserSettings {
   lastStreetId: string
   lastStreetNamespacedId: number
   locale: string
-  newStreetPreference: number
+  newStreetPreference: number // Deprecated
   saveAsImageSegmentNamesAndWidths: boolean
   saveAsImageStreetName: boolean
   saveAsImageTransparentSky: boolean
