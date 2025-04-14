@@ -94,7 +94,11 @@ function WelcomePanel (): React.ReactElement | null {
     function determineWelcomeType (): number {
       let welcomeType = WELCOME_NONE
 
-      if (getMode() === MODES.NEW_STREET) {
+      if (
+        getMode() === MODES.NEW_STREET ||
+        getMode() === MODES.NEW_STREET_EMPTY ||
+        getMode() === MODES.NEW_STREET_COPY_LAST
+      ) {
         if (isSignedIn() || isReturningUser) {
           welcomeType = WELCOME_NEW_STREET
         } else {

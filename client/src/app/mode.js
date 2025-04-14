@@ -22,7 +22,7 @@ export const MODES = {
   ABOUT: 18,
   AUTH_EXPIRED: 19,
   SURVEY_FINISHED: 20,
-  NEW_EMPTY_STREET: 21
+  NEW_STREET_EMPTY: 21
 }
 
 let mode
@@ -71,7 +71,7 @@ export function processMode () {
       showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
       break
     case MODES.NEW_STREET:
-    case MODES.NEW_EMPTY_STREET:
+    case MODES.NEW_STREET_EMPTY:
     case MODES.NEW_STREET_COPY_LAST:
       setServerContacted(false)
       break
