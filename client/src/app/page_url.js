@@ -45,6 +45,10 @@ export function processUrl () {
 
     // New street
   } else if (pathname === URL_NEW_STREET) {
+    // TODO: consolidate the NEW_STREET_* modes
+    // The only time _COPY_LAST comes into play is when loading
+    // the previous street, and the only time _EMPTY comes into
+    // play is when calling createNewStreetOnServer()
     const params = new URLSearchParams(url.search)
     const type = params.get('type')
     switch (type) {
