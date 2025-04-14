@@ -55,7 +55,7 @@ export default function MenuBarItem ({
   } else {
     component = (
       <li>
-        <button className="menu-attached" role="menuitem" {...restProps}>
+        <button className="menu-trigger" role="menuitem" {...restProps}>
           {children}
           <Icon name="chevron-down" className="menu-carat-down" />
         </button>

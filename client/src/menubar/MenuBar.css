@@ -75,7 +75,7 @@
     }
   }
 
-  button.menu-attached {
+  button.menu-trigger {
     position: relative;
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@
 
 .menu-bar-left {
   /* First button gets special hover treatment */
-  li:nth-child(2) button.menu-attached:hover::after {
+  li:nth-child(2) button.menu-trigger:hover::after {
     width: calc(100% + 4px);
     inset-inline-start: 0;
   }
@@ -123,7 +123,7 @@
 
 .menu-bar-right {
   /* Last button gets special hover treatment */
-  li:last-child button.menu-attached:hover::after {
+  li:last-child button.menu-trigger:hover::after {
     width: calc(100% + 4px);
     inset-inline-end: 0;
   }

@@ -24,7 +24,7 @@ exports[`MenuBar > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-help"
           role="menuitem"
         >
@@ -38,7 +38,7 @@ exports[`MenuBar > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-contact"
           role="menuitem"
         >
@@ -67,7 +67,7 @@ exports[`MenuBar > renders 1`] = `
     >
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-new"
           role="menuitem"
         >
@@ -81,7 +81,7 @@ exports[`MenuBar > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-share"
           role="menuitem"
         >
@@ -95,7 +95,7 @@ exports[`MenuBar > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-locale"
           role="menuitem"
         >
@@ -154,7 +154,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-help"
           role="menuitem"
         >
@@ -168,7 +168,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-contact"
           role="menuitem"
         >
@@ -197,7 +197,7 @@ exports[`MenuBar > renders logged in user 1`] = `
     >
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-new"
           role="menuitem"
         >
@@ -211,7 +211,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-share"
           role="menuitem"
         >
@@ -225,7 +225,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-locale"
           role="menuitem"
         >
@@ -249,7 +249,7 @@ exports[`MenuBar > renders logged in user 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached menu-avatar"
+          class="menu-trigger menu-avatar"
           id="menubar-identity"
           role="menuitem"
         >
@@ -297,7 +297,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-help"
           role="menuitem"
         >
@@ -315,7 +315,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
     >
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-new"
           role="menuitem"
         >
@@ -329,7 +329,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-share"
           role="menuitem"
         >
@@ -343,7 +343,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-locale"
           role="menuitem"
         >

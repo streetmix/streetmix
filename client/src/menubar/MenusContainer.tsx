@@ -80,7 +80,7 @@ function MenusContainer (): React.ReactElement {
    */
   function onBodyMouseDown (event: Event): void {
     if (
-      (event.target as HTMLElement).closest('.menu, .menu-attached') === null
+      (event.target as HTMLElement).closest('.menu, .menu-trigger') === null
     ) {
       hideAllMenus()
     }
