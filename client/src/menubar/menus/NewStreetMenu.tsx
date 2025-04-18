@@ -55,7 +55,7 @@ function NewStreetMenu (props: MenuProps): React.ReactElement {
         />
         <Icon name="external-link" />
       </MenuItem>
-      <MenuSeparator />
+      {/* <MenuSeparator />
       <MenuItem>
         <Icon name="template" className="menu-item-icon" />
         <FormattedMessage
@@ -63,7 +63,7 @@ function NewStreetMenu (props: MenuProps): React.ReactElement {
           defaultMessage="New from template…"
         />
         <BetaTag />
-      </MenuItem>
+      </MenuItem> */}
       {coastmixEnabled && (
         <>
           <MenuSeparator />
