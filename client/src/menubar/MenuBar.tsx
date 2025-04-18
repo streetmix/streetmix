@@ -62,9 +62,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
    * Pass in the name of this menu, and it returns (curries) a function
    * that handles the event.
    */
-  function handleClickMenuButton (
-    menu: string
-  ): (event: React.MouseEvent) => void {
+  function handleClick (menu: string): (event: React.MouseEvent) => void {
     return (event: React.MouseEvent) => {
       const el = (event.target as HTMLElement).closest('button')
       if (el !== null) {
@@ -97,7 +95,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
           <AvatarMenu
             user={user}
             isSubscriber={isSubscriber}
-            onClick={handleClickMenuButton('identity')}
+            onClick={handleClick('identity')}
           />
         </li>
         )
@@ -119,7 +117,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
           label="Help"
           translation="menu.item.help"
           id="menubar-help"
-          onClick={handleClickMenuButton('help')}
+          onClick={handleClick('help')}
         />
         {!offline && (
           <>
@@ -127,7 +125,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
               label="Contact"
               translation="menu.item.contact"
               id="menubar-contact"
-              onClick={handleClickMenuButton('contact')}
+              onClick={handleClick('contact')}
             />
             {!isSubscriber && <UpgradeButton />}
           </>
@@ -137,19 +135,19 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         <MenuBarItem
           label="New street"
           translation="menu.item.new-street"
-          url="/new"
-          target="_blank"
+          id="menubar-new"
+          onClick={handleClick('new')}
         />
         <MenuBarItem
           label="Share"
           translation="menu.item.share"
           id="menubar-share"
-          onClick={handleClickMenuButton('share')}
+          onClick={handleClick('share')}
         />
         {enableLocaleSettings && (
           <MenuBarItem
             id="menubar-locale"
-            onClick={handleClickMenuButton('locale')}
+            onClick={handleClick('locale')}
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>

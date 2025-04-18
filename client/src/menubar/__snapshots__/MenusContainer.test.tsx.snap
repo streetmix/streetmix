@@ -24,7 +24,7 @@ exports[`MenusContainer > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-help"
           role="menuitem"
         >
@@ -38,7 +38,7 @@ exports[`MenusContainer > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-contact"
           role="menuitem"
         >
@@ -66,22 +66,22 @@ exports[`MenusContainer > renders 1`] = `
       class="menu-bar-right"
     >
       <li>
-        <a
-          href="/new"
+        <button
+          class="menu-trigger"
+          id="menubar-new"
           role="menuitem"
-          target="_blank"
         >
           New street
           <svg
-            class="menu-external-link"
-            data-icon="external-link"
+            class="menu-carat-down"
+            data-icon="chevron-down"
             data-icon-source="test"
           />
-        </a>
+        </button>
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-share"
           role="menuitem"
         >
@@ -95,7 +95,7 @@ exports[`MenusContainer > renders 1`] = `
       </li>
       <li>
         <button
-          class="menu-attached"
+          class="menu-trigger"
           id="menubar-locale"
           role="menuitem"
         >

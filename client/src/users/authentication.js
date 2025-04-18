@@ -378,7 +378,14 @@ function _signInLoaded () {
       if (app.readOnly) {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
       } else {
-        createNewStreetOnServer()
+        createNewStreetOnServer(false)
+      }
+      break
+    case MODES.NEW_STREET_EMPTY:
+      if (app.readOnly) {
+        showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
+      } else {
+        createNewStreetOnServer(true)
       }
       break
   }

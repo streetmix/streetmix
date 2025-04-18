@@ -153,6 +153,8 @@ const createStreetFromResponse = (response) => {
 
   return street
 }
+
+// Currently not being used but could replace fetchLastStreet in xhr.js
 export const getLastStreet = () => {
   return async (dispatch, getState) => {
     const lastStreetId = getState().app.priorLastStreetId

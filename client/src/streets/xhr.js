@@ -33,7 +33,6 @@ import {
 import { addToast } from '../store/slices/toasts'
 import { resetUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
-import { NEW_STREET_EMPTY } from './constants'
 import {
   prepareEmptyStreet,
   prepareDefaultStreet,
@@ -69,10 +68,8 @@ export function setSaveStreetIncomplete (value) {
 
 let latestRequestId
 
-export async function createNewStreetOnServer () {
-  const settings = store.getState().settings
-
-  if (settings.newStreetPreference === NEW_STREET_EMPTY) {
+export async function createNewStreetOnServer (isEmpty = false) {
+  if (isEmpty) {
     prepareEmptyStreet()
   } else {
     prepareDefaultStreet()
@@ -375,6 +372,8 @@ export function scheduleSavingStreetToServer () {
   }
 }
 
+// Look into replacing with getLastStreet() from store/actions
+// -- it was formerly used by "here's your new street" in <WelcomePanel />
 export function fetchLastStreet () {
   const streetId = store.getState().app.priorLastStreetId
 

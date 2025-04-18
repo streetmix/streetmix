@@ -76,7 +76,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
           type="button"
         >
           <svg
-            data-icon="copy"
+            data-icon="clipboard"
             data-icon-source="test"
           />
         </button>
@@ -228,7 +228,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
           type="button"
         >
           <svg
-            data-icon="copy"
+            data-icon="clipboard"
             data-icon-source="test"
           />
         </button>

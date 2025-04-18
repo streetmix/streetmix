@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { COLOR_MODE_LIGHT } from '../../app/constants'
-import { NEW_STREET_DEFAULT } from '../../streets/constants'
 import { changeLocale } from './locale'
 import type { ColorModes } from '../../app/constants'
 import type { PayloadAction } from '@reduxjs/toolkit'
@@ -9,7 +8,7 @@ interface SettingsState {
   lastStreetId: string | null
   lastStreetNamespacedId: number | null
   lastStreetCreatorId: string | null
-  newStreetPreference: number
+  newStreetPreference: number // Deprecated
   saveAsImageTransparentSky: boolean
   saveAsImageSegmentNamesAndWidths: boolean
   saveAsImageStreetName: boolean
@@ -23,7 +22,7 @@ const initialState: SettingsState = {
   lastStreetId: null,
   lastStreetNamespacedId: null,
   lastStreetCreatorId: null,
-  newStreetPreference: NEW_STREET_DEFAULT,
+  newStreetPreference: 1,
   saveAsImageTransparentSky: false,
   saveAsImageSegmentNamesAndWidths: false,
   saveAsImageStreetName: false,

@@ -43,7 +43,7 @@ const CopyShareLink = forwardRef(
               copy(shareUrl)
             }}
           >
-            <Icon name="copy" />
+            <Icon name="clipboard" />
           </Button>
         </div>
       </div>

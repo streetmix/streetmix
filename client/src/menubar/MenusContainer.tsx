@@ -8,6 +8,7 @@ import {
   HelpMenu,
   IdentityMenu,
   LocaleMenu,
+  NewStreetMenu,
   ShareMenu
 } from './menus'
 import MenuBar from './MenuBar'
@@ -79,7 +80,7 @@ function MenusContainer (): React.ReactElement {
    */
   function onBodyMouseDown (event: Event): void {
     if (
-      (event.target as HTMLElement).closest('.menu, .menu-attached') === null
+      (event.target as HTMLElement).closest('.menu, .menu-trigger') === null
     ) {
       hideAllMenus()
     }
@@ -111,15 +112,20 @@ function MenusContainer (): React.ReactElement {
           menuItemNode={activeMenuItemNode}
           aria-labelledby="menubar-contact"
         />
-        <LocaleMenu
-          isActive={activeMenu === 'locale'}
+        <NewStreetMenu
+          isActive={activeMenu === 'new'}
           menuItemNode={activeMenuItemNode}
-          aria-labelledby="menubar-locale"
+          aria-labelledby="menubar-new"
         />
         <ShareMenu
           isActive={activeMenu === 'share'}
           menuItemNode={activeMenuItemNode}
           aria-labelledby="menubar-share"
+        />
+        <LocaleMenu
+          isActive={activeMenu === 'locale'}
+          menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-locale"
         />
         <IdentityMenu
           isActive={activeMenu === 'identity'}

@@ -314,7 +314,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
           </a>
           <a
             class="btn gallery-copy-last-street"
-            href="/copy-last"
+            href="/new?type=copy"
             rel="noopener noreferrer"
             target="_blank"
           >

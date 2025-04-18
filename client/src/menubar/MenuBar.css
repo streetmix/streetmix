@@ -75,7 +75,7 @@
     }
   }
 
-  button.menu-attached {
+  button.menu-trigger {
     position: relative;
     display: flex;
     align-items: center;
@@ -88,11 +88,6 @@
     cursor: pointer;
     height: 32px;
     padding: 0 10px;
-
-    /* Dropdown carat style */
-    svg {
-      margin-inline-start: 0.25em;
-    }
 
     &:active {
       color: var(--menu-bar-text-color-active);
@@ -113,24 +108,16 @@
   }
 }
 
-.menu-bar-left {
-  /* First button gets special hover treatment */
-  li:nth-child(2) button.menu-attached:hover::after {
-    width: calc(100% + 4px);
-    inset-inline-start: 0;
-  }
-}
-
 .menu-bar-right {
   /* Last button gets special hover treatment */
-  li:last-child button.menu-attached:hover::after {
+  li:last-child button.menu-trigger:hover::after {
     width: calc(100% + 4px);
     inset-inline-end: 0;
   }
 }
 
 .menu-bar-title {
-  margin-inline: 0.45em 0.25em;
+  margin-inline: 0.5em;
   display: flex !important;
   justify-content: center;
   align-items: center;
@@ -145,11 +132,6 @@
     position: relative;
     top: -1px;
   }
-}
-
-.menu-external-link {
-  margin-inline: 0.25em -0.2em;
-  transform: scale(0.8);
 }
 
 .menu-carat-down {

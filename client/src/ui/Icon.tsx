@@ -42,6 +42,8 @@ import {
   IoRocketOutline,
   IoTrailSignOutline
 } from 'react-icons/io5'
+import { MdOutlineAddRoad, MdOutlineContentCopy } from 'react-icons/md'
+import { RiFunctionAddLine } from 'react-icons/ri'
 import {
   RxCube,
   RxDownload,
@@ -74,8 +76,9 @@ const ICONS = {
   'chevron-down': [FiChevronDown, 'feather'],
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
+  clipboard: [FiClipboard, 'feather'],
   close: [FiX, 'feather'],
-  copy: [FiClipboard, 'feather'],
+  copy: [MdOutlineContentCopy, 'md'],
   cube: [RxCube, 'radix'],
   download: [RxDownload, 'radix'],
   edit: [FiEdit3, 'feather'],
@@ -91,6 +94,7 @@ const ICONS = {
   lock: [FaLock, 'fa'],
   mail: [IoMailOutline, 'io5'],
   minus: [FaMinus, 'fa'],
+  'new-street': [MdOutlineAddRoad, 'md'],
   plus: [FaPlus, 'fa'],
   print: [IoPrintOutline, 'io5'],
   redo: [FiRotateCw, 'feather'],
@@ -100,6 +104,7 @@ const ICONS = {
   'sign-out': [RxExit, 'radix'],
   star: [RxStar, 'radix'],
   sun: [FiSun, 'feather'],
+  template: [RiFunctionAddLine, 'ri'],
   time: [FiClock, 'feather'],
   'trail-sign': [IoTrailSignOutline, 'io5'],
   trash: [FiTrash2, 'feather'],
