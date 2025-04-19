@@ -4,6 +4,12 @@ import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
 import searchResponse from '../fixtures/geocode/search.json'
 
 export const handlers = [
+  http.get('api/v1/users/', () => {
+    // If this endpoint without a userId param is called during test,
+    // return unauthorized error
+    return HttpResponse.json(null, { status: 401 })
+  }),
+
   http.get('api/v1/users/:userId', ({ params }) => {
     const { userId } = params
 
