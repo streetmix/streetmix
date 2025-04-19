@@ -143,10 +143,25 @@ function processTemplateSlices (slices, units) {
   for (const i in slices) {
     const slice = clone(slices[i])
 
+    // We mirror the street slices when in left-hand traffic mode,
+    // (rather than just change directionality of the lanes)
     if (leftHandTraffic) {
-      // For variant keys that include "orientation"
-      // exchange left for right
-      // and right for left
+      for (const [key, value] of Object.entries(slice.variant)) {
+        // If any variant key includes the word 'orientation', it's used to
+        // align/orient something to the left or right side of the street.
+        // When the street is mirrored, 'left' and 'right' must be swapped.
+        if (key.includes('orientation')) {
+          // Temporarily replace 'left' with a placeholder value to prevent
+          // double-swapping
+          const swapped = value
+            .replace(/left/g, '__temp__')
+            .replace(/right/g, 'left')
+            .replace(/__temp__/g, 'right')
+
+          // Replace value on variant object
+          slice.variant[key] = swapped
+        }
+      }
     }
     slice.variantString = getVariantString(slice.variant)
 
