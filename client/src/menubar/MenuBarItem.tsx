@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { type ButtonHTMLAttributes } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Icon from '../ui/Icon'
 import Tooltip from '../ui/Tooltip'
 
-interface MenuBarItemProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Accepts children to render
   children?: React.ReactNode
   // Otherwise use <FormattedMessage /> to render a label

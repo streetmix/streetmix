@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, createRef, cloneElement } from 'react'
 import { useDrop } from 'react-dnd'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
@@ -181,7 +181,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }
 
   function onExitAnimations (child: React.ReactElement): React.ReactElement {
-    return React.cloneElement(child, {
+    return cloneElement(child, {
       exit: !street.immediateRemoval
     })
   }
@@ -194,7 +194,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
       const segmentLeft = calculateSlicePosition(i)
       const key = `${streetId}.${segment.id}`
       // Refs are created with createRef and then stored in parent `refs`
-      const ref = React.createRef<HTMLDivElement>()
+      const ref = createRef<HTMLDivElement>()
       childRefs.current[key] = ref
 
       const segmentEl = (
