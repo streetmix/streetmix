@@ -1,4 +1,13 @@
-# Default street
+###############################################################################
+##
+##  Default street
+##
+##  The "default street" was designed to be a pretty "good" street as well
+##  as a showcase of Streetmix features. It has changed over time, and can
+##  continue to do so.
+##
+###############################################################################
+
 width: 24
 edges:
   left:
