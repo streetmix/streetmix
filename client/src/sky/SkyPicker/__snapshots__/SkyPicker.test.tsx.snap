@@ -42,10 +42,12 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
           <button
             aria-label="Foo"
             class="sky-option-item"
+            style="background: linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308);"
           />
           <button
             aria-label="Bar"
             class="sky-option-item"
+            style="background: linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001);"
           />
         </div>
       </div>

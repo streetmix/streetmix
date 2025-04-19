@@ -38,7 +38,7 @@ describe('SkyBox', () => {
   it('renders background animations', () => {
     const { container } = render(<SkyBox scrollPos={0} />, {
       initialState: {
-        street: { skybox: 'bar' },
+        street: { skybox: 'foo' },
         flags: {
           SKY_ANIMATED_CLOUDS: { value: true }
         }

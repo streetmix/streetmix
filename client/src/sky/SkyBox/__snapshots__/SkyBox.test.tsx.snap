@@ -10,7 +10,7 @@ exports[`SkyBox > renders 1`] = `
     >
       <div
         class="sky-background-color"
-        style="opacity: 0;"
+        style="opacity: 0; background: linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308);"
       />
     </div>
     <div
@@ -39,11 +39,11 @@ exports[`SkyBox > renders with objects 1`] = `
     >
       <div
         class="sky-background-color"
-        style="opacity: 0;"
+        style="opacity: 0; background: linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001);"
       />
     </div>
     <div
-      style="width: 100px; height: 100px; position: absolute; left: calc(50% - (100px / 2); top: calc(50% - (100px / 2);"
+      style="width: 100px; height: 100px; position: absolute; left: calc(50% - 50px); top: calc(50% - 50px);"
     >
       <img
         src="bar.svg"

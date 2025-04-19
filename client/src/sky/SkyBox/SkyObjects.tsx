@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { type CSSProperties, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources'
@@ -23,6 +23,14 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
         const ref = React.createRef<HTMLDivElement>()
         refs.current[key] = ref
 
+        const style: CSSProperties = {
+          width: object.width,
+          height: object.height,
+          position: 'absolute',
+          left: `calc(${object.left * 100}% - ${object.width / 2}px)`,
+          top: `calc(${object.top * 100}% - ${object.height / 2}px)`
+        }
+
         // Render only if asset is found
         if (img !== undefined) {
           return (
@@ -36,16 +44,7 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
               }}
               classNames="sky-background-object"
             >
-              <div
-                ref={ref}
-                style={{
-                  width: object.width,
-                  height: object.height,
-                  position: 'absolute',
-                  left: `calc(${object.left * 100}% - (${object.width}px / 2)`,
-                  top: `calc(${object.top * 100}% - (${object.height}px / 2)`
-                }}
-              >
+              <div ref={ref} style={style}>
                 <img src={img.src} style={{ width: '100%', height: '100%' }} />
               </div>
             </CSSTransition>
