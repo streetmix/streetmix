@@ -13,7 +13,8 @@ import type {
   VariantInfo,
   UnknownSegmentDefinition,
   UnknownVariantInfo,
-  SliceVariantDetails
+  SliceVariantDetails,
+  SpriteDefinition
 } from '@streetmix/types'
 
 // Re-assign to a variable and assign type
@@ -127,10 +128,6 @@ function getSegmentLookup (
  * Maps the old segment data model to the new segment data model and returns
  * the graphic sprites necessary to render the segment as well as any rules
  * to follow, e.g. `minWidth` based on the `type` and `variant`.
- *
- * @param {string} type
- * @param {string} variant
- * @returns {VariantInfo} variantInfo - returns an object in the shape of { graphics, ...rules }
  */
 export function getSegmentVariantInfo (
   type: string,
@@ -163,26 +160,25 @@ export function getSegmentVariantInfo (
  *
  * Alternatively, provide an object containing an `id` property and any number
  * of properties to override the original definition.
- *
- * If the sprite is NOT defined in SPRITE_DEFS (which we increasingly no longer
- * need to do because of changes in our segment / component definition structure),
- * return a minimal placeholder object.
- *
- * @param {string|Object} id
- * @return {Object}
  */
-// TODO: types on this. remove disabled eslint rules when complete
-export function getSpriteDef (sprite): unknown {
+export function getSpriteDef (
+  sprite: string | SpriteDefinition
+): SpriteDefinition {
   let def
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (typeof sprite === 'object' && sprite.id) {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    def = { ...(SPRITE_DEFS[sprite.id] || { id: sprite.id }), ...sprite }
+
+  if (typeof sprite === 'object') {
+    def = {
+      ...SPRITE_DEFS[sprite.id as keyof typeof SPRITE_DEFS],
+      ...sprite
+    }
   } else {
     // Clone the original to prevent downstream consumers from accidentally
-    // modifying the reference
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    def = { ...(SPRITE_DEFS[sprite] || { id: sprite }) }
+    // modifying the reference. If there is no original sprite def, return a
+    // minimal placeholder object with just its ID.
+    def = {
+      ...(SPRITE_DEFS[sprite as keyof typeof SPRITE_DEFS] ?? { id: sprite })
+    }
   }
+
   return def
 }

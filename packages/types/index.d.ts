@@ -274,3 +274,9 @@ export interface SkyboxDefWithStyles extends SkyboxDefinition {
   style: React.CSSProperties
   iconStyle: React.CSSProperties
 }
+
+export interface SpriteDefinition {
+  id: string
+  offsetX?: number
+  originY?: number
+}
