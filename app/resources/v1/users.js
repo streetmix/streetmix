@@ -231,7 +231,7 @@ export async function get (req, res) {
   const userId = req.params.user_id
 
   const handleError = function (error) {
-    switch (error) {
+    switch (error.message) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
         return
@@ -244,7 +244,7 @@ export async function get (req, res) {
           .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
-        res.status(500).end()
+        res.status(500).json({ status: 500, msg: 'Unknown error.' })
     }
   }
 
