@@ -1,10 +1,14 @@
-import SPRITE_DEFS from '../sprite-defs.json'
+import SPRITE_DEFS from './sprite-defs.json'
 import {
   getSpriteDef,
   getAllSegmentInfo,
   getSegmentInfo,
   getSegmentVariantInfo
-} from '../info'
+} from './info'
+
+vi.mock('./sprite-defs.json', () => ({
+  default: require('./__mocks__/sprite-defs.json')
+}))
 
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {
@@ -12,29 +16,29 @@ describe('segment info', () => {
     const sprite = getSpriteDef(id)
 
     expect(sprite).toEqual({
-      id: 'foo'
+      id: 'foo',
+      originY: 120
     })
   })
 
   it('overwrites sprite definition properties with an object', () => {
-    const id = 'bikes--bike-rack-perpendicular-left'
     const ref = {
-      id,
-      offsetY: 5.25
+      id: 'bar',
+      offsetX: 12
     }
 
     const sprite = getSpriteDef(ref)
 
-    expect(sprite).toEqual(Object.assign({}, SPRITE_DEFS[id], ref))
+    expect(sprite).toEqual(ref)
   })
 
   it('returns a cloned definition that does not allow modification of the original data', () => {
-    const id = 'missing'
+    const id = 'qux'
     const sprite = getSpriteDef(id)
 
-    sprite.foo = 'bar'
+    sprite.originY = 1
 
-    expect(SPRITE_DEFS[id].foo).toEqual(undefined)
+    expect(SPRITE_DEFS[id].originY).toEqual(undefined)
   })
 
   describe('getAllSegmentInfo()', () => {
