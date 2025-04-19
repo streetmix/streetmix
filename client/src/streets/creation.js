@@ -2,15 +2,15 @@ import { segmentsChanged } from '~/src/segments/view'
 
 import {
   setLastStreet,
-  prepareDefaultStreet,
-  prepareEmptyStreet,
+  prepareStreet,
   setIgnoreStreetChanges
 } from './data_model'
 import { saveStreetToServer } from './xhr'
 
+// These are deprecated, but we may be able to use them elsewhere
 export function makeDefaultStreet () {
   setIgnoreStreetChanges(true)
-  prepareDefaultStreet()
+  prepareStreet('default')
 
   segmentsChanged()
 
@@ -20,14 +20,9 @@ export function makeDefaultStreet () {
   saveStreetToServer(false)
 }
 
-// These are deprecated, but we may be able to use them elsewhere
-export function onNewStreetDefaultClick () {
-  makeDefaultStreet()
-}
-
 export function onNewStreetEmptyClick () {
   setIgnoreStreetChanges(true)
-  prepareEmptyStreet()
+  prepareStreet('empty')
 
   segmentsChanged()
 

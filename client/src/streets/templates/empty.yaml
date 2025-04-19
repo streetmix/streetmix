@@ -1,0 +1,7 @@
+# Empty street
+width: 24
+leftBuildingHeight: 1
+leftBuildingVariant: grass
+rightBuildingHeight: 1
+rightBuildingVariant: grass
+slices: []

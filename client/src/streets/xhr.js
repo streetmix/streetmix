@@ -34,8 +34,7 @@ import { addToast } from '../store/slices/toasts'
 import { resetUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
 import {
-  prepareEmptyStreet,
-  prepareDefaultStreet,
+  prepareStreet,
   trimStreetData,
   updateEverything,
   addAltVariantObject,
@@ -69,11 +68,7 @@ export function setSaveStreetIncomplete (value) {
 let latestRequestId
 
 export async function createNewStreetOnServer (isEmpty = false) {
-  if (isEmpty) {
-    prepareEmptyStreet()
-  } else {
-    prepareDefaultStreet()
-  }
+  prepareStreet(isEmpty ? 'empty' : 'default')
 
   const transmission = packServerStreetDataRaw()
 
