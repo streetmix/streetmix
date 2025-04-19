@@ -6,7 +6,7 @@ import {
   getSegmentSprites,
   COMPONENT_GROUPS
 } from './segment-dict'
-import SPRITE_DEFS from './sprite-defs.json'
+import SPRITE_DEFS from './sprite_defs.yaml'
 import type {
   SegmentLookup,
   SegmentDefinition,

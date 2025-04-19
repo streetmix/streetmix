@@ -1,4 +1,4 @@
-import SPRITE_DEFS from './sprite-defs.json'
+import SPRITE_DEFS from './sprite_defs.yaml'
 import {
   getSpriteDef,
   getAllSegmentInfo,
@@ -6,8 +6,9 @@ import {
   getSegmentVariantInfo
 } from './info'
 
-vi.mock('./sprite-defs.json', () => ({
-  default: require('./__mocks__/sprite-defs.json')
+vi.mock('./sprite_defs.yaml', () => ({
+  // TODO: mock with YAML format
+  default: require('./__mocks__/sprite_defs.json')
 }))
 
 describe('segment info', () => {
