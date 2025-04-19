@@ -10,12 +10,12 @@ import {
 } from '~/src/store/slices/infoBubble'
 import DescriptionPanel from './DescriptionPanel'
 
-import type { SegmentDescription } from '@streetmix/types'
+import type { SliceDescription } from '@streetmix/types'
 
 function getDescriptionData (
   type: string,
   variantString: string
-): SegmentDescription | undefined {
+): SliceDescription | undefined {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
 
