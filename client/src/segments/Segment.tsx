@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { useDrag, useDrop } from 'react-dnd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
@@ -32,9 +33,8 @@ import {
 } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
-import './Segment.css'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import { useDrag, useDrop } from 'react-dnd'
+import './Segment.css'
 
 interface SliceProps {
   sliceIndex: number

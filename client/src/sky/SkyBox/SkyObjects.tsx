@@ -1,4 +1,4 @@
-import React, { type CSSProperties, useRef } from 'react'
+import React, { createRef, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources'
@@ -20,10 +20,10 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
         const key = object.image
         const img = images.get(key)
         // Refs are created with createRef and then stored in parent `refs`
-        const ref = React.createRef<HTMLDivElement>()
+        const ref = createRef<HTMLDivElement>()
         refs.current[key] = ref
 
-        const style: CSSProperties = {
+        const style: React.CSSProperties = {
           width: object.width,
           height: object.height,
           position: 'absolute',

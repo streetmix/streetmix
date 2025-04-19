@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import clone from 'just-clone'
-import { DEFAULT_SEGMENTS } from '../segments/default'
+
 import {
   normalizeSegmentWidth,
   resolutionForResizeType,
@@ -21,16 +21,9 @@ import store from '../store'
 import { getSegmentVariantInfo } from '../segments/info'
 import { DEFAULT_SKYBOX } from '../sky/constants'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
-import { normalizeStreetWidth } from './width'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
-
-const DEFAULT_BUILDING_HEIGHT_LEFT = 4
-const DEFAULT_BUILDING_HEIGHT_RIGHT = 3
-const DEFAULT_BUILDING_VARIANT_LEFT = 'narrow'
-const DEFAULT_BUILDING_VARIANT_RIGHT = 'wide'
-const DEFAULT_BUILDING_HEIGHT_EMPTY = 1
-const DEFAULT_BUILDING_VARIANT_EMPTY = 'grass'
-const DEFAULT_STREET_WIDTH = 24 // meters
+import defaultStreetTemplate from './templates/default.yaml'
+import emptyStreetTemplate from './templates/empty.yaml'
 
 // TODO: put together with other measurement conversion code?
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
@@ -143,108 +136,118 @@ export function trimStreetData (street) {
   return newData
 }
 
-function fillDefaultSegments (units) {
-  const segments = []
+function processTemplateSlices (slices, units) {
+  const processed = []
   const leftHandTraffic = getLeftHandTraffic()
 
-  for (const i in DEFAULT_SEGMENTS[leftHandTraffic]) {
-    const segment = clone(DEFAULT_SEGMENTS[leftHandTraffic][i])
+  for (const i in slices) {
+    const slice = clone(slices[i])
 
-    segment.variantString = getVariantString(segment.variant)
+    // We mirror the street slices when in left-hand traffic mode,
+    // (rather than just change directionality of the lanes)
+    if (leftHandTraffic) {
+      for (const [key, value] of Object.entries(slice.variant)) {
+        // If any variant key includes the word 'orientation', it's used to
+        // align/orient something to the left or right side of the street.
+        // When the street is mirrored, 'left' and 'right' must be swapped.
+        if (key.includes('orientation')) {
+          // Temporarily replace 'left' with a placeholder value to prevent
+          // double-swapping
+          const swapped = value
+            .replace(/left/g, '__temp__')
+            .replace(/right/g, 'left')
+            .replace(/__temp__/g, 'right')
 
-    const variantInfo = getSegmentVariantInfo(
-      segment.type,
-      segment.variantString
-    )
+          // Replace value on variant object
+          slice.variant[key] = swapped
+        }
+      }
+    }
+    slice.variantString = getVariantString(slice.variant)
 
-    segment.id = nanoid()
+    const variantInfo = getSegmentVariantInfo(slice.type, slice.variantString)
 
-    // Convert segment width for imperial using rough conversion rate
+    slice.id = nanoid()
+
+    // Convert slice width for imperial using rough conversion rate
     // e.g. 2.7m => 9ft, and then converted to precise metric units
     // so that it can be converted back to 9ft
     if (units === SETTINGS_UNITS_IMPERIAL) {
-      const width = segment.width * ROUGH_CONVERSION_RATE
-      segment.width = normalizeSegmentWidth(
+      const width = slice.width * ROUGH_CONVERSION_RATE
+      slice.width = normalizeSegmentWidth(
         width,
         resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
       )
     }
 
-    segment.elevation = variantInfo.elevation
-    segment.warnings = [false]
+    slice.elevation = variantInfo.elevation
+    slice.warnings = [false]
 
-    segments.push(segment)
+    processed.push(slice)
   }
 
-  return segments
+  if (leftHandTraffic) {
+    processed.reverse()
+  }
+
+  return processed
 }
 
-export function prepareDefaultStreet () {
+export function prepareStreet (type) {
   const units = store.getState().settings.units
-  const currentDate = new Date().toISOString()
-  const defaultStreet = {
-    units,
-    location: null,
-    name: null,
-    showAnalytics: true,
-    userUpdated: false,
-    editCount: 0,
-    width: DEFAULT_STREET_WIDTH,
-    skybox: DEFAULT_SKYBOX,
-    leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_LEFT,
-    leftBuildingVariant: DEFAULT_BUILDING_VARIANT_LEFT,
-    rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_RIGHT,
-    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_RIGHT,
-    schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: fillDefaultSegments(units),
-    updatedAt: currentDate,
-    clientUpdatedAt: currentDate,
-    creatorId: (isSignedIn() && getSignInData().userId) || null
-  }
 
-  if (units === SETTINGS_UNITS_IMPERIAL) {
-    defaultStreet.width = DEFAULT_STREET_WIDTH * ROUGH_CONVERSION_RATE
+  let streetTemplate
+  switch (type) {
+    case 'empty':
+      streetTemplate = emptyStreetTemplate
+      break
+    case 'default':
+    default:
+      streetTemplate = defaultStreetTemplate
+      break
   }
+  const street = createStreetData(streetTemplate, units)
 
-  store.dispatch(updateStreetData(defaultStreet))
+  store.dispatch(updateStreetData(street))
 
   if (isSignedIn()) {
     updateLastStreetInfo()
   }
 }
 
-export function prepareEmptyStreet () {
-  const units = store.getState().settings.units
+function createStreetData (data, units) {
   const currentDate = new Date().toISOString()
-  const emptyStreet = {
+  const slices = processTemplateSlices(data.slices, units)
+  const creatorId = (isSignedIn() && getSignInData().userId) ?? null
+  const street = {
     units,
     location: null,
     name: null,
     showAnalytics: true,
     userUpdated: false,
     editCount: 0,
-    width: normalizeStreetWidth(DEFAULT_STREET_WIDTH, units),
     skybox: DEFAULT_SKYBOX,
-    leftBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
-    leftBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
-    rightBuildingHeight: DEFAULT_BUILDING_HEIGHT_EMPTY,
-    rightBuildingVariant: DEFAULT_BUILDING_VARIANT_EMPTY,
     schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: [],
+    segments: slices,
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
-    creatorId: (isSignedIn() && getSignInData().userId) || null
+    creatorId,
+    leftBuildingHeight: data.edges.left.height,
+    leftBuildingVariant: data.edges.left.variant,
+    rightBuildingHeight: data.edges.right.height,
+    rightBuildingVariant: data.edges.right.variant,
+    ...data
   }
+
+  // Cleanup
+  delete street.edges
+  delete street.slices
 
   if (units === SETTINGS_UNITS_IMPERIAL) {
-    emptyStreet.width = DEFAULT_STREET_WIDTH * ROUGH_CONVERSION_RATE
+    street.width *= ROUGH_CONVERSION_RATE
   }
 
-  store.dispatch(updateStreetData(emptyStreet))
-
-  if (isSignedIn()) {
-    updateLastStreetInfo()
-  }
+  return street
 }
 
 /**

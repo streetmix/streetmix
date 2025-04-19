@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 interface ErrorBoundaryProps {
   children: React.ReactNode
@@ -13,10 +13,7 @@ interface ErrorBoundaryState {
  * This is a stock error boundary component.
  * https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
  */
-class ErrorBoundary extends React.Component<
-ErrorBoundaryProps,
-ErrorBoundaryState
-> {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor (props: ErrorBoundaryProps) {
     super(props)
 
