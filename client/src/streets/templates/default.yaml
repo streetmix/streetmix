@@ -1,9 +1,12 @@
 # Default street
 width: 24
-leftBuildingHeight: 4
-leftBuildingVariant: narrow
-rightBuildingHeight: 3
-rightBuildingVariant: wide
+edges:
+  left:
+    variant: narrow
+    height: 4
+  right:
+    variant: wide
+    height: 3
 slices:
   - type: sidewalk
     variant:

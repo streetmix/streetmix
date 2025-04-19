@@ -1,7 +1,10 @@
 # Empty street
 width: 24
-leftBuildingHeight: 1
-leftBuildingVariant: grass
-rightBuildingHeight: 1
-rightBuildingVariant: grass
+edges:
+  left:
+    variant: grass
+    height: 1
+  right:
+    variant: grass
+    height: 1
 slices: []

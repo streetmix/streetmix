@@ -202,6 +202,8 @@ export function prepareStreet (type) {
 
 function createStreetData (data, units) {
   const currentDate = new Date().toISOString()
+  const slices = processTemplateSlices(data.slices, units)
+  const creatorId = (isSignedIn() && getSignInData().userId) ?? null
   const street = {
     units,
     location: null,
@@ -211,14 +213,19 @@ function createStreetData (data, units) {
     editCount: 0,
     skybox: DEFAULT_SKYBOX,
     schemaVersion: LATEST_SCHEMA_VERSION,
-    segments: processTemplateSlices(data.slices, units),
+    segments: slices,
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
-    creatorId: (isSignedIn() && getSignInData().userId) || null,
+    creatorId,
+    leftBuildingHeight: data.edges.left.height,
+    leftBuildingVariant: data.edges.left.variant,
+    rightBuildingHeight: data.edges.right.height,
+    rightBuildingVariant: data.edges.right.variant,
     ...data
   }
 
   // Cleanup
+  delete street.edges
   delete street.slices
 
   if (units === SETTINGS_UNITS_IMPERIAL) {
