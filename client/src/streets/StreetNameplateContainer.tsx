@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 
+import { useSelector, useDispatch } from '../store/hooks'
 import { saveStreetName } from '../store/slices/street'
 import StreetName from './StreetName'
 import StreetMeta from './StreetMeta'
 import './StreetNameplateContainer.css'
 
-function StreetNameplateContainer (props) {
+interface MenuCoords {
+  leftMenuBarRightPos?: number
+  rightMenuBarLeftPos?: number
+}
+
+interface StreetNameCoords {
+  left: number
+  width: number
+}
+
+function StreetNameplateContainer (): React.ReactElement {
   const isVisible = useSelector((state) => !state.ui.welcomePanelVisible)
   const isEditable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_NAME.value
@@ -15,26 +25,16 @@ function StreetNameplateContainer (props) {
   const streetName = useSelector((state) => state.street.name)
   const dispatch = useDispatch()
   const intl = useIntl()
-  const streetNameEl = useRef(null)
-  const lastSentCoords = useRef(null)
-  const [menuCoords, setMenuCoords] = useState({})
-  const [streetNameCoords, setStreetNameCoords] = useState({
+  const streetNameEl = useRef<HTMLDivElement>(null)
+  const lastSentCoords = useRef<StreetNameCoords>(null)
+  const [menuCoords, setMenuCoords] = useState<MenuCoords>({})
+  const [streetNameCoords, setStreetNameCoords] = useState<StreetNameCoords>({
     left: 0,
     width: 0
   })
 
-  useEffect(() => {
-    window.addEventListener('resize', updateCoords)
-    window.addEventListener('stmx:menu_bar_resized', updatePositions)
-    window.dispatchEvent(new CustomEvent('stmx:streetnameplate_mounted'))
-    return () => {
-      window.removeEventListener('resize', updateCoords)
-      window.removeEventListener('stmx:menu_bar_resized', updatePositions)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const updateCoords = useCallback(() => {
+    if (streetNameEl.current === null) return
     const rect = streetNameEl.current.getBoundingClientRect()
     const coords = {
       left: rect.left,
@@ -51,33 +51,47 @@ function StreetNameplateContainer (props) {
     }
   }, [])
 
+  const updatePositions = useCallback((event: CustomEvent): void => {
+    if (event.detail !== undefined) {
+      setMenuCoords(event.detail as MenuCoords)
+    }
+  }, [])
+
+  // Add listeners on mount
+  useEffect(() => {
+    window.addEventListener('resize', updateCoords)
+    window.addEventListener('stmx:menu_bar_resized', updatePositions)
+    window.dispatchEvent(new CustomEvent('stmx:streetnameplate_mounted'))
+    return () => {
+      window.removeEventListener('resize', updateCoords)
+      window.removeEventListener('stmx:menu_bar_resized', updatePositions)
+    }
+  }, [updateCoords, updatePositions])
+
   // Only update coords when something affects the size of the nameplate,
   // prevents excessive cascading renders
   useEffect(() => {
     updateCoords()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [streetName])
+  }, [streetName, updateCoords])
 
-  function handleResizeStreetName (coords) {
+  function handleResizeStreetName (coords: StreetNameCoords): void {
     setStreetNameCoords({
       left: coords.left,
       width: coords.width
     })
   }
 
-  function updatePositions (event) {
-    if (event.detail) {
-      setMenuCoords(event.detail)
-    }
-  }
-
-  function determineClassNames () {
+  function determineClassNames (): string {
     const classNames = ['street-nameplate-container']
+    const { leftMenuBarRightPos, rightMenuBarLeftPos } = menuCoords
 
+    // If we have menu position values, and the street nameplate might overlap
+    // either side, apply a class name that pushes it down visually.
     if (
-      streetNameCoords.left < menuCoords.leftMenuBarRightPos ||
-      streetNameCoords.left + streetNameCoords.width >
-        menuCoords.rightMenuBarLeftPos
+      leftMenuBarRightPos !== undefined &&
+      rightMenuBarLeftPos !== undefined &&
+      (streetNameCoords.left < leftMenuBarRightPos ||
+        streetNameCoords.left + streetNameCoords.width > rightMenuBarLeftPos)
     ) {
       classNames.push('move-down-for-menu')
     }
@@ -90,10 +104,10 @@ function StreetNameplateContainer (props) {
       classNames.push('hidden')
     }
 
-    return classNames
+    return classNames.join(' ')
   }
 
-  function handleClickStreetName () {
+  function handleClickStreetName (): void {
     if (!isEditable) return
 
     const newName = window.prompt(
@@ -101,23 +115,27 @@ function StreetNameplateContainer (props) {
         id: 'prompt.new-street',
         defaultMessage: 'New street name:'
       }),
-      streetName ||
-        intl.formatMessage({
+      typeof streetName === 'string'
+        ? streetName
+        : intl.formatMessage({
           id: 'street.default-name',
           defaultMessage: 'Unnamed St'
         })
     )
 
-    if (newName) {
-      dispatch(saveStreetName(newName, true))
+    // If window.prompt returns `null`, the interaction is canceled.
+    if (newName === null) {
+      return
     }
+
+    dispatch(saveStreetName(newName, true))
   }
 
   return (
-    <div className={determineClassNames().join(' ')}>
+    <div className={determineClassNames()}>
       <StreetName
         editable={isEditable}
-        childRef={streetNameEl}
+        ref={streetNameEl}
         name={streetName}
         onClick={handleClickStreetName}
       />

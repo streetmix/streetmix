@@ -217,6 +217,11 @@ const streetSlice = createSlice({
             // Normalize street name input
             // TODO: Consider whether to limit street name length here
             state.name = streetName.trim()
+
+            // If a streetname is an empty string, unset it
+            if (streetName === '') {
+              state.name = null
+            }
           } else {
             // If a streetname is null, unset it
             state.name = null
