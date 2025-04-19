@@ -11,8 +11,7 @@ function GalleryPanel (): React.ReactElement {
   // Mode is set in state after streets have loaded
   // We use RTK Query to load user data in this component
   // There might be a better way of combining these requests!
-  const mode = useSelector((state) => state.gallery.mode)
-  const userId = useSelector((state) => state.gallery.userId)
+  const { mode, userId } = useSelector((state) => state.gallery)
   const { data, isError, isLoading } = useGetUserQuery(userId)
 
   let childElements

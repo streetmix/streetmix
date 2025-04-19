@@ -125,14 +125,6 @@ describe('Gallery', () => {
   })
 
   it('closes on shield click', async () => {
-    const initialState = {
-      gallery: {
-        userId: null,
-        visible: true,
-        mode: 'gallery'
-      }
-    }
-
     render(<Gallery />, { initialState })
 
     await userEvent.click(screen.getByTestId('gallery-shield'))
