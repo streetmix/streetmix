@@ -1,12 +1,9 @@
 // This should be able to be done in TypeScript in a recent version of ESLint 9
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-
 import { defineConfig, globalIgnores } from 'eslint/config'
-// import js from '@eslint/js'
-
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
-
+// import js from '@eslint/js'
 import react from 'eslint-plugin-react'
 import cypress from 'eslint-plugin-cypress'
 import reactHooks from 'eslint-plugin-react-hooks'
