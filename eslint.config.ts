@@ -1,4 +1,3 @@
-// This should be able to be done in TypeScript in a recent version of ESLint 9
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, globalIgnores } from 'eslint/config'
