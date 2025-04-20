@@ -47,13 +47,11 @@ export default defineConfig([
         'plugin:import/warnings'
       )
     ),
-
     plugins: {
       react: fixupPluginRules(react),
       cypress,
       'react-hooks': fixupPluginRules(reactHooks)
     },
-
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -61,16 +59,13 @@ export default defineConfig([
         ...globals.node,
         ...globals.mocha
       },
-
       parser: babelParser,
       ecmaVersion: 6,
       sourceType: 'module',
-
       parserOptions: {
         ecmaFeatures: {
           jsx: true
         },
-
         babelOptions: {
           plugins: [
             [
@@ -83,16 +78,13 @@ export default defineConfig([
         }
       }
     },
-
     settings: {
       react: {
         version: 'detect'
       }
     },
-
     rules: {
       'import/no-unresolved': 0,
-
       'import/order': [
         'warn',
         {
@@ -106,7 +98,6 @@ export default defineConfig([
             'object',
             'type'
           ],
-
           pathGroups: [
             {
               pattern: '~/**',
@@ -115,11 +106,9 @@ export default defineConfig([
           ]
         }
       ],
-
       'jsx-quotes': ['error', 'prefer-double'],
       'react/jsx-boolean-value': ['error', 'always'],
       'react/jsx-no-bind': 0,
-
       'no-restricted-globals': [
         'error',
         {
@@ -139,14 +128,12 @@ export default defineConfig([
           message: 'Use Number.parseFloat() instead of the global parseFloat().'
         }
       ],
-
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn'
     }
   },
   {
     files: ['client/**/*.ts', 'client/**/*.tsx', 'packages/types/**/*.ts'],
-
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
@@ -154,12 +141,10 @@ export default defineConfig([
         'standard-with-typescript'
       )
     ),
-
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       import: fixupPluginRules(_import)
     },
-
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
@@ -170,30 +155,25 @@ export default defineConfig([
         project: './tsconfig.json'
       }
     },
-
     settings: {
       'import/resolver': {
         typescript: true,
         node: true
       }
     },
-
     rules: {
       '@typescript-eslint/no-unsafe-argument': 'warn',
-
       '@typescript-eslint/strict-boolean-expressions': [
         2,
         {
           allowString: true
         }
       ],
-
       '@typescript-eslint/unbound-method': 'off'
     }
   },
   {
     files: ['packages/export-image/**/*.ts'],
-
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
@@ -201,37 +181,31 @@ export default defineConfig([
         'standard-with-typescript'
       )
     ),
-
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       import: fixupPluginRules(_import)
     },
-
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
       sourceType: 'script',
-
       parserOptions: {
         tsconfigRootDir: 'packages/export-image',
         project: './tsconfig.json'
       }
     },
-
     settings: {
       'import/resolver': {
         typescript: true,
         node: true
       }
     },
-
     rules: {
       '@typescript-eslint/naming-convention': 'off'
     }
   },
   {
     files: ['packages/i18n/src/*.ts'],
-
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
@@ -239,23 +213,19 @@ export default defineConfig([
         'standard-with-typescript'
       )
     ),
-
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       import: fixupPluginRules(_import)
     },
-
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 5,
       sourceType: 'script',
-
       parserOptions: {
         tsconfigRootDir: 'packages/i18n',
         project: './tsconfig.json'
       }
     },
-
     settings: {
       'import/resolver': {
         typescript: true,
