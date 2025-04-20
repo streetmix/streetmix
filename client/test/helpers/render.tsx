@@ -75,9 +75,7 @@ export const render = (ui: ReactElement, options: CustomRenderOptions = {}) => {
 // https://testing-library.com/docs/react-testing-library/setup/)
 // so you can import the render and all other methods from just one
 // helper module (this one!)
-// eslint-disable-next-line import/export
 // export * from '@testing-library/react'
 
 // Override render method so that test syntax can remain simple
-// eslint-disable-next-line import/export
 // export { renderWithProviders as render }

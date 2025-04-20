@@ -129,7 +129,6 @@ function NewsletterDialog (): React.ReactElement {
                         id="dialogs.newsletter.ok-message"
                         defaultMessage="<strong>Thank you! You’re almost subscribed.</strong> We’ve sent you an email to confirm your address. Click it and you’re in!"
                         values={{
-                          // eslint-disable-next-line react/display-name
                           strong: (chunks) => <strong>{chunks}</strong>
                         }}
                       />

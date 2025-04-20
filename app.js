@@ -178,7 +178,6 @@ app.use((req, res, next) => {
 })
 
 // Set CSP directives
-// eslint-disable-next-line import/no-named-as-default-member
 app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
