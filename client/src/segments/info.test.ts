@@ -6,10 +6,10 @@ import {
   getSegmentVariantInfo
 } from './info'
 
-vi.mock('./sprite_defs.yaml', () => ({
-  // TODO: mock with YAML format
-  default: require('./__mocks__/sprite_defs.json')
-}))
+vi.mock(
+  './sprite_defs.yaml',
+  async () => await import('./__mocks__/sprite_defs.yaml')
+)
 
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {
