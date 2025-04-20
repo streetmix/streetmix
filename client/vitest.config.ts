@@ -16,11 +16,16 @@ export default defineConfig({
         find: /^(.*)\.(jpg|jpeg|png|gif|svg)$/,
         replacement: path.resolve(__dirname, './__mocks__/fileMock.js')
       },
-      { find: '~', replacement: '/' }
+      {
+        find: '~',
+        replacement: path.resolve(__dirname, './')
+      }
     ],
     include: [
       './src/app/**/*.test.?(c|m)[jt]s?(x)',
       // './src/dialogs/**/*.test.?(c|m)[jt]s?(x)',
+      './src/sky/**/*.test.?(c|m)[jt]s?(x)',
+      './src/store/**/*.test.?(c|m)[jt]s?(x)',
       './src/streets/**/*.test.?(c|m)[jt]s?(x)',
       './src/ui/**/*.test.?(c|m)[jt]s?(x)',
       './src/users/**/*.test.?(c|m)[jt]s?(x)',

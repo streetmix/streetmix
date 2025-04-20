@@ -43,5 +43,5 @@ global.confirm = vi.fn(() => true)
 global.HTMLElement.prototype.scrollIntoView = vi.fn()
 
 // Declare all mock modules globally
-vi.mock('./src/ui/Icon')
+vi.mock('./src/ui/Icon.tsx')
 vi.mock('react-transition-group')
