@@ -8,9 +8,9 @@ import { getRemixOnFirstEdit } from '../remix'
 import StreetMetaAuthor from './StreetMetaAuthor'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`
-vi.mock('../../streets/remix')
+vi.mock('../remix')
 
-vi.mock('../../store/actions/gallery', () => ({
+vi.mock('~/src/store/actions/gallery', () => ({
   openGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
