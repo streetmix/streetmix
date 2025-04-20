@@ -126,7 +126,7 @@ export default defineConfig([
       compat.extends(
         'plugin:@typescript-eslint/recommended',
         'plugin:import/typescript',
-        'standard-with-typescript'
+        'love'
       )
     ),
     plugins: {
@@ -149,7 +149,7 @@ export default defineConfig([
       }
     },
     rules: {
-      // This was added as an error in eslint-config-standard-with-typescript
+      // This was added as an error in eslint-config-love
       // v42.0.0 and is much too strict while parts of the app are still in JS
       // Warnings indicate opportunities for typescript porting
       '@typescript-eslint/no-unsafe-argument': 'warn',
@@ -171,7 +171,7 @@ export default defineConfig([
       compat.extends(
         'plugin:@typescript-eslint/recommended',
         'plugin:import/typescript',
-        'standard-with-typescript'
+        'love'
       )
     ),
     plugins: {
@@ -205,7 +205,7 @@ export default defineConfig([
       compat.extends(
         'plugin:@typescript-eslint/recommended',
         'plugin:import/typescript',
-        'standard-with-typescript'
+        'love'
       )
     ),
     plugins: {
