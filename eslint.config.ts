@@ -62,8 +62,6 @@ export default defineConfig([
         ...globals.vitest
       },
       parser: babelParser,
-      ecmaVersion: 6,
-      sourceType: 'module',
       parserOptions: {
         ecmaFeatures: {
           jsx: true
@@ -141,8 +139,6 @@ export default defineConfig([
     },
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'script',
       parserOptions: {
         tsconfigRootDir: 'client',
         project: './tsconfig.json'
@@ -186,8 +182,6 @@ export default defineConfig([
     },
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'script',
       parserOptions: {
         tsconfigRootDir: 'packages/export-image',
         project: './tsconfig.json'
@@ -220,8 +214,6 @@ export default defineConfig([
     },
     languageOptions: {
       parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'script',
       parserOptions: {
         tsconfigRootDir: 'packages/i18n',
         project: './tsconfig.json'
