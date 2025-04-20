@@ -215,7 +215,8 @@ export function prepareStreet (type) {
   }
 }
 
-function createStreetData (data, units) {
+// Exported for test only
+export function createStreetData (data, units) {
   const currentDate = new Date().toISOString()
   const slices = processTemplateSlices(data.slices, units)
   const creatorId = (isSignedIn() && getSignInData().userId) ?? null
