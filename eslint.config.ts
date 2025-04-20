@@ -68,11 +68,6 @@ export default defineConfig([
         }
       }
     },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    },
     rules: {
       'import/no-unresolved': 0,
       'import/order': [
