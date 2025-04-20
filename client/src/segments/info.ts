@@ -168,7 +168,7 @@ export function getSpriteDef (
 
   if (typeof sprite === 'object') {
     def = {
-      ...SPRITE_DEFS[sprite.id as keyof typeof SPRITE_DEFS],
+      ...SPRITE_DEFS[sprite.id],
       ...sprite
     }
   } else {
@@ -176,7 +176,7 @@ export function getSpriteDef (
     // modifying the reference. If there is no original sprite def, return a
     // minimal placeholder object with just its ID.
     def = {
-      ...(SPRITE_DEFS[sprite as keyof typeof SPRITE_DEFS] ?? { id: sprite })
+      ...(SPRITE_DEFS[sprite] ?? { id: sprite })
     }
   }
 
