@@ -1,10 +1,18 @@
-import React from 'react'
-import { render as originalRender } from '@testing-library/react'
+import React, { type ReactElement } from 'react'
+import {
+  render as originalRender,
+  type RenderOptions
+} from '@testing-library/react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
 import { TestBackend } from 'react-dnd-test-backend'
 import { createStore } from './store'
+
+// Turn off some very strict typescript lint rules for this file
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+/* eslint @typescript-eslint/explicit-function-return-type: 0 */
+/* eslint @typescript-eslint/no-unsafe-argument: 0 */
 
 // Define a wrapper component that includes all of our global context
 // providers from Redux, react-intl, react-dnd. The nesting order of these
@@ -14,8 +22,12 @@ import { createStore } from './store'
 // need to be aware of which contexts are required by the component or
 // by child components as well.
 // In practice, this has only a small impact on testing time, as well.
-/* eslint-disable react/prop-types */
-const AllTheProviders = ({ store = {}, children }) => {
+interface AllTheProvidersProps {
+  store: any
+  children: React.ReactNode
+}
+
+const AllTheProviders = ({ store = {}, children }: AllTheProvidersProps) => {
   return (
     <Provider store={store}>
       <IntlProvider locale="en">
@@ -31,13 +43,20 @@ const AllTheProviders = ({ store = {}, children }) => {
 //
 // We adopt a pattern to pass props to the wrapper, as described here:
 // https://github.com/testing-library/react-testing-library/issues/780
-export const render = (ui, options = {}) => {
+interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  initialState?: any
+  store?: any
+}
+
+export const render = (ui: ReactElement, options: CustomRenderOptions = {}) => {
   const {
     initialState,
     store = createStore(initialState),
     ...restOpts
   } = options
-  const wrapper = (props) => <AllTheProviders {...props} store={store} />
+
+  const wrapper = (props: any) => <AllTheProviders {...props} store={store} />
+
   return {
     ...originalRender(ui, { wrapper, ...restOpts }),
     store
