@@ -61,16 +61,6 @@ export default defineConfig([
       parserOptions: {
         ecmaFeatures: {
           jsx: true
-        },
-        babelOptions: {
-          plugins: [
-            [
-              '@babel/plugin-syntax-import-attributes',
-              {
-                deprecatedAssertSyntax: true
-              }
-            ]
-          ]
         }
       }
     },
@@ -129,6 +119,8 @@ export default defineConfig([
     }
   },
   {
+    // Only run TypeScript linting on TypeScript files, otherwise it'd
+    // report TypeScript errors on regular JavaScript files (bad!)
     files: ['client/**/*.ts', 'client/**/*.tsx', 'packages/types/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
@@ -145,7 +137,6 @@ export default defineConfig([
       parser: tsParser,
       ecmaVersion: 5,
       sourceType: 'script',
-
       parserOptions: {
         tsconfigRootDir: 'client',
         project: './tsconfig.json'
@@ -158,6 +149,9 @@ export default defineConfig([
       }
     },
     rules: {
+      // This was added as an error in eslint-config-standard-with-typescript
+      // v42.0.0 and is much too strict while parts of the app are still in JS
+      // Warnings indicate opportunities for typescript porting
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/strict-boolean-expressions': [
         2,
@@ -165,10 +159,13 @@ export default defineConfig([
           allowString: true
         }
       ],
+      // Turns off an error that was only reporting for useIntl
+      // see https://github.com/formatjs/formatjs/issues/4133
       '@typescript-eslint/unbound-method': 'off'
     }
   },
   {
+    // TODO: set up project-specific eslint config?
     files: ['packages/export-image/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
@@ -197,10 +194,12 @@ export default defineConfig([
       }
     },
     rules: {
+      // Allow legacy __dirname and __filename variables
       '@typescript-eslint/naming-convention': 'off'
     }
   },
   {
+    // TODO: set up project-specific eslint config?
     files: ['packages/i18n/src/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
