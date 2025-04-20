@@ -1,8 +1,9 @@
 import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
+import { screen } from '@testing-library/dom'
 
-import { render, screen } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render'
 import { infoBubble } from '~/src/info_bubble/info_bubble'
 import { setLastStreet } from '~/src/streets/data_model'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
@@ -43,7 +44,10 @@ describe('Segment', () => {
       />,
       {
         initialState: {
-          flags: { ANALYTICS: { value: true }, DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false } },
+          flags: {
+            ANALYTICS: { value: true },
+            DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
+          },
           ui: { activeSegment: activeElement },
           street: { showAnalytics: true, segments: [segment] }
         }

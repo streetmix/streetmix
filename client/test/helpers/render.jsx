@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render as originalRender } from '@testing-library/react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
@@ -31,7 +31,7 @@ const AllTheProviders = ({ store = {}, children }) => {
 //
 // We adopt a pattern to pass props to the wrapper, as described here:
 // https://github.com/testing-library/react-testing-library/issues/780
-const renderWithProviders = (ui, options = {}) => {
+export const render = (ui, options = {}) => {
   const {
     initialState,
     store = createStore(initialState),
@@ -39,10 +39,17 @@ const renderWithProviders = (ui, options = {}) => {
   } = options
   const wrapper = (props) => <AllTheProviders {...props} store={store} />
   return {
-    ...render(ui, { wrapper, ...restOpts }),
+    ...originalRender(ui, { wrapper, ...restOpts }),
     store
   }
 }
+
+// NOTE: The exports below are broken in Vitest v3+
+// For some reason, export * will overwrite the custom render function
+// written above. Since only one test suite actually made use of the
+// re-exported functionality, I updated that rather than rename the
+// custom render function in order to apply this across all the other
+// test suites.
 
 // Re-export everything
 // This is a pattern suggested by React Testing Library (see
@@ -50,8 +57,8 @@ const renderWithProviders = (ui, options = {}) => {
 // so you can import the render and all other methods from just one
 // helper module (this one!)
 // eslint-disable-next-line import/export
-export * from '@testing-library/react'
+// export * from '@testing-library/react'
 
 // Override render method so that test syntax can remain simple
 // eslint-disable-next-line import/export
-export { renderWithProviders as render }
+// export { renderWithProviders as render }
