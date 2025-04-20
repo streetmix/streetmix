@@ -15,17 +15,15 @@ function GalleryShield ({
   visible = false,
   onClick
 }: GalleryShieldProps): React.ReactElement | null {
-  if (visible) {
-    return (
+  return visible
+    ? (
       <div
         className="gallery-shield"
         data-testid="gallery-shield"
         onClick={onClick}
       />
-    )
-  }
-
-  return null
+      )
+    : null
 }
 
 export default GalleryShield

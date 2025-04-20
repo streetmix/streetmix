@@ -1,11 +1,15 @@
-import SPRITE_DEFS from '../sprite-defs.json'
+import SPRITE_DEFS from './sprite_defs.yaml'
 import {
   getSpriteDef,
   getAllSegmentInfo,
-  getAllSegmentInfoArray,
   getSegmentInfo,
   getSegmentVariantInfo
-} from '../info'
+} from './info'
+
+vi.mock('./sprite_defs.yaml', () => ({
+  // TODO: mock with YAML format
+  default: require('./__mocks__/sprite_defs.json')
+}))
 
 describe('segment info', () => {
   it('gets a sprite definition with a string id', () => {
@@ -13,41 +17,34 @@ describe('segment info', () => {
     const sprite = getSpriteDef(id)
 
     expect(sprite).toEqual({
-      id: 'foo'
+      id: 'foo',
+      originY: 120
     })
   })
 
   it('overwrites sprite definition properties with an object', () => {
-    const id = 'bikes--bike-rack-perpendicular-left'
     const ref = {
-      id,
-      offsetY: 5.25
+      id: 'bar',
+      offsetX: 12
     }
 
     const sprite = getSpriteDef(ref)
 
-    expect(sprite).toEqual(Object.assign({}, SPRITE_DEFS[id], ref))
+    expect(sprite).toEqual(ref)
   })
 
   it('returns a cloned definition that does not allow modification of the original data', () => {
-    const id = 'missing'
+    const id = 'qux'
     const sprite = getSpriteDef(id)
 
-    sprite.foo = 'bar'
+    sprite.originY = 1
 
-    expect(SPRITE_DEFS[id].foo).toEqual(undefined)
+    expect(SPRITE_DEFS[id].originY).toEqual(undefined)
   })
 
   describe('getAllSegmentInfo()', () => {
-    it('returns all segment data', () => {
-      const segments = getAllSegmentInfo()
-      expect(segments.sidewalk.name).toEqual('Sidewalk')
-    })
-  })
-
-  describe('getAllSegmentInfoArray()', () => {
     it('returns all segment data in an array', () => {
-      const segments = getAllSegmentInfoArray()
+      const segments = getAllSegmentInfo()
       expect(segments.length).toBeGreaterThan(0)
       expect(segments[0].name).toEqual('Sidewalk')
       expect(segments[0].id).toEqual('sidewalk')

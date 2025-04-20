@@ -15,13 +15,11 @@ import './PaletteItem.css'
 
 interface PaletteItemProps {
   segment: SegmentDefinition
-  unlockCondition?: 'SIGN_IN' | 'SUBSCRIBE'
   tooltipTarget?: TippyProps['singleton']
 }
 
 function PaletteItem ({
   segment,
-  unlockCondition,
   tooltipTarget
 }: PaletteItemProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
@@ -43,6 +41,7 @@ function PaletteItem ({
     })
   }
 
+  const { unlockCondition } = segment
   const classNames = ['palette-item']
   let isLocked = false
   let sublabel

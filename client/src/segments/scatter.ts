@@ -31,6 +31,9 @@ interface ScatterableEntity {
   // Don't provide this value; it's added by `getRandomObjects()`
   left?: number
 
+  // (optional)
+  originY?: number
+
   // Allow extending this with arbitrary properties
   [x: string]: unknown
 }

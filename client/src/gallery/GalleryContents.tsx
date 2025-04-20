@@ -19,7 +19,7 @@ interface GalleryContentsProps {
 }
 
 function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
-  const streets = useSelector((state) => state.gallery.streets ?? [])
+  const streets = useSelector((state) => state.gallery.streets)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
     (state) =>

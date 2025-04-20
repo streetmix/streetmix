@@ -72,10 +72,28 @@ describe('StreetNameplateContainer', () => {
     mockPrompt.mockRestore()
   })
 
-  it('doesn’t change the name if prompt returns empty string', async () => {
-    // Mock window.prompt() and have it return a new name
+  it('unnames the street if prompt returns empty string', async () => {
+    // Mock window.prompt() and have it return empty string
     const mockPrompt = vi.spyOn(window, 'prompt')
     mockPrompt.mockImplementation(() => '')
+
+    // Mount, mimic click interaction and expect street name to have changed
+    render(<StreetNameplateContainer />, {
+      initialState
+    })
+
+    await userEvent.click(screen.getByText('foo'))
+
+    expect(screen.getByText('Unnamed St')).toBeInTheDocument()
+
+    // Restore mock
+    mockPrompt.mockRestore()
+  })
+
+  it('doesn’t change the name if prompt is cancelled', async () => {
+    // Mock window.prompt() and have it return null
+    const mockPrompt = vi.spyOn(window, 'prompt')
+    mockPrompt.mockImplementation(() => null)
 
     // Mount, mimic click interaction and expect street name to have changed
     render(<StreetNameplateContainer />, {

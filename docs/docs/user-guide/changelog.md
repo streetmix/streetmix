@@ -11,6 +11,10 @@ sidebar_position: 5
 
 - It's a new old feature, actually! A few years ago we released two-way cycletracks for Streetmix+ members, thanks to our friends at ITDP Africa. Today we're making these available for all accounts after sign-in, regardless of subscription, as a thank-you to all our users!
 
+### 🐛 Bug fixes
+
+- Fixed a bug that prevented streets from becoming unnamed again.
+
 ## March 28, 2025
 
 ### 🐛 Bug fixes

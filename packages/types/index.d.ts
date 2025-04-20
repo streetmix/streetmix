@@ -107,30 +107,38 @@ export interface LatLngObject {
   lng: number
 }
 
-// TODO: May be incomplete. Update with segment-lookup.json values
-export interface SegmentDefinition {
-  id: string
+export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
+
+export interface SegmentLookup {
   name: string
   nameKey: string
-  owner: string
-  zIndex: number
+  owner?: string
+  zIndex?: number
   defaultWidth: WidthDefinition
-  defaultVariant: string
+  defaultVariant?: string
   defaultElevation?: number
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
-  unlockCondition?: string
-  description?: SegmentDescription
+  unlockCondition?: UnlockCondition
+  description?: SliceDescription
   rules?: {
     minWidth?: WidthDefinition
     maxWidth?: WidthDefinition
   }
   variants: string[]
-  details: object
+  details: Record<string, SliceVariantDetails>
 }
 
-export interface SegmentDescription {
+export interface SegmentDefinition extends SegmentLookup {
+  id: string
+}
+
+export interface UnknownSegmentDefinition extends Partial<SegmentDefinition> {
+  unknown: true
+}
+
+export interface SliceDescription {
   key: string
   image: string
 }
@@ -138,6 +146,31 @@ export interface SegmentDescription {
 export interface WidthDefinition {
   metric: number // in meters
   imperial: number // in feet
+}
+
+// TODO: double check if same or different or can be combined with VariantInfo
+export interface SliceVariantDetails {
+  name?: string
+  nameKey?: string
+  rules?: {
+    minWidth?: WidthDefinition
+    maxWidth?: WidthDefinition
+    dangerous?: boolean
+  }
+  defaultWidth?: WidthDefinition
+  description?: SliceDescription
+  components: {
+    lanes?: SliceVariantComponentDefinition[]
+    markings?: SliceVariantComponentDefinition[]
+    components?: SliceVariantComponentDefinition[]
+    effects?: SliceVariantComponentDefinition[]
+  }
+}
+
+export interface SliceVariantComponentDefinition {
+  id: string
+  variants?: Record<string, string | string[]>
+  offsetX?: number
 }
 
 export type UnitsSetting =
@@ -150,13 +183,16 @@ export type BuildingPosition = 'left' | 'right'
 export interface VariantInfo {
   name?: string
   nameKey?: string
-  description?: SegmentDescription
+  description?: SliceDescription
   defaultWidth?: WidthDefinition
   minWidth?: WidthDefinition
   maxWidth?: WidthDefinition
-  unknown?: boolean // Set to true when variant doesn't exist
   elevation: number
   graphics: Record<string, unknown> // TODO
+}
+
+export interface UnknownVariantInfo extends Partial<VariantInfo> {
+  unknown: true
 }
 
 export interface VariantInfoDimensions {
@@ -237,4 +273,10 @@ export interface SkyboxDefWithStyles extends SkyboxDefinition {
   id: string
   style: React.CSSProperties
   iconStyle: React.CSSProperties
+}
+
+export interface SpriteDefinition {
+  id: string
+  offsetX?: number
+  originY?: number
 }
