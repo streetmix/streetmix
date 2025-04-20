@@ -1,7 +1,12 @@
 import { URLSearchParams } from 'node:url'
 import { http, HttpResponse, delay } from 'msw'
+
 import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
 import searchResponse from '../fixtures/geocode/search.json'
+
+interface UserParams {
+  userId: string // Narrows path parameter, only expect string type
+}
 
 export const handlers = [
   http.get('api/v1/users/', () => {
@@ -10,7 +15,7 @@ export const handlers = [
     return HttpResponse.json(null, { status: 401 })
   }),
 
-  http.get('api/v1/users/:userId', ({ params }) => {
+  http.get<UserParams>('api/v1/users/:userId', ({ params }) => {
     const { userId } = params
 
     // If provided with this user id, create a mock server error
