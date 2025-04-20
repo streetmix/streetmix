@@ -21,7 +21,10 @@ export default defineConfig({
     include: [
       './src/app/**/*.test.?(c|m)[jt]s?(x)',
       // './src/dialogs/**/*.test.?(c|m)[jt]s?(x)',
-      './src/ui/**/*.test.?(c|m)[jt]s?(x)'
+      './src/streets/**/*.test.?(c|m)[jt]s?(x)',
+      './src/ui/**/*.test.?(c|m)[jt]s?(x)',
+      './src/users/**/*.test.?(c|m)[jt]s?(x)',
+      './src/util/**/*.test.?(c|m)[jt]s?(x)'
     ]
     // Vitest v2 changes the default pool from `threads` to `forks`,
     // which feels like it will fix situations where test suite hangs

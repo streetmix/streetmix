@@ -6,7 +6,7 @@ import { render } from '~/test/helpers/render'
 import { showDialog } from '~/src/store/slices/dialogs'
 import StreetMetaAnalytics from './StreetMetaAnalytics'
 
-vi.mock('../../store/slices/dialogs', () => ({
+vi.mock('~/src/store/slices/dialogs', () => ({
   default: {},
   showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))

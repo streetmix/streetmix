@@ -8,7 +8,7 @@ import { render } from '~/test/helpers/render'
 import { updateUnits } from '~/src/users/localization'
 import StreetMetaWidth from './StreetMetaWidth'
 
-vi.mock('../../users/localization', () => ({
+vi.mock('~/src/users/localization', () => ({
   updateUnits: vi.fn()
 }))
 

@@ -68,3 +68,117 @@ exports[`StreetMeta > renders without crashing 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`StreetMeta > renders without crashing 2`] = `
+<DocumentFragment>
+  <div
+    class="street-meta"
+  >
+    <div
+      class="street-meta-item street-width street-width-editable"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        aria-label="Change width of the street"
+        data-state="closed"
+        id="radix-«r0»"
+        type="button"
+      >
+        <div
+          class="street-meta-icon"
+        >
+          <svg
+            data-icon="ruler"
+            data-icon-source="radix"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 15 15"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M0.5 4C0.223858 4 0 4.22386 0 4.5V10.5C0 10.7761 0.223858 11 0.5 11H14.5C14.7761 11 15 10.7761 15 10.5V4.5C15 4.22386 14.7761 4 14.5 4H0.5ZM1 10V5H2.075V7.5C2.075 7.73472 2.26528 7.925 2.5 7.925C2.73472 7.925 2.925 7.73472 2.925 7.5V5H4.075V6.5C4.075 6.73472 4.26528 6.925 4.5 6.925C4.73472 6.925 4.925 6.73472 4.925 6.5V5H6.075V6.5C6.075 6.73472 6.26528 6.925 6.5 6.925C6.73472 6.925 6.925 6.73472 6.925 6.5V5H8.075V7.5C8.075 7.73472 8.26528 7.925 8.5 7.925C8.73472 7.925 8.925 7.73472 8.925 7.5V5H10.075V6.5C10.075 6.73472 10.2653 6.925 10.5 6.925C10.7347 6.925 10.925 6.73472 10.925 6.5V5H12.075V6.5C12.075 6.73472 12.2653 6.925 12.5 6.925C12.7347 6.925 12.925 6.73472 12.925 6.5V5H14V10H1Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            0 m width
+          </span>
+          <svg
+            class="menu-carat-down"
+            data-icon="chevron-down"
+            data-icon-source="feather"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+    <div
+      class="street-meta-item"
+    >
+      <button
+        aria-label="Change location"
+      >
+        <div
+          class="street-meta-icon"
+        >
+          <svg
+            data-icon="location"
+            data-icon-source="feather"
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+            />
+            <circle
+              cx="12"
+              cy="10"
+              r="3"
+            />
+          </svg>
+        </div>
+        <div
+          class="street-meta-content"
+        >
+          <span
+            class="underline"
+          >
+            Add location
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
