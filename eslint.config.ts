@@ -4,7 +4,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 // import js from '@eslint/js'
 import react from 'eslint-plugin-react'
-import cypress from 'eslint-plugin-cypress'
+import cypress from 'eslint-plugin-cypress/flat'
 import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
@@ -32,6 +32,13 @@ export default defineConfig([
     '**/docs'
   ]),
   {
+    files: ['cypress/**/*.cy.js'],
+    plugins: {
+      cypress
+    },
+    extends: [cypress.configs.recommended]
+  },
+  {
     extends: fixupConfigRules(
       compat.extends(
         'eslint:recommended',
@@ -45,15 +52,14 @@ export default defineConfig([
     ),
     plugins: {
       react: fixupPluginRules(react),
-      cypress,
       'react-hooks': fixupPluginRules(reactHooks)
     },
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...cypress.environments.globals.globals,
         ...globals.node,
-        ...globals.mocha
+        ...globals.mocha,
+        ...globals.vitest
       },
       parser: babelParser,
       ecmaVersion: 6,
