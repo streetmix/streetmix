@@ -2,28 +2,23 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
-// import js from '@eslint/js'
-import react from 'eslint-plugin-react'
-import cypress from 'eslint-plugin-cypress/flat'
-import reactHooks from 'eslint-plugin-react-hooks'
+import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import _import from 'eslint-plugin-import'
 import tsParser from '@typescript-eslint/parser'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
+import react from 'eslint-plugin-react'
+import cypress from 'eslint-plugin-cypress/flat'
+import reactHooks from 'eslint-plugin-react-hooks'
+import _import from 'eslint-plugin-import'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
+  baseDirectory: __dirname
 })
 
-// TODO
-// js.configs.recommended,
 export default defineConfig([
   globalIgnores([
     'client/src/vendor/',
@@ -31,6 +26,7 @@ export default defineConfig([
     '**/build',
     '**/docs'
   ]),
+  js.configs.recommended,
   {
     files: ['cypress/**/*.cy.js'],
     plugins: {
@@ -41,7 +37,6 @@ export default defineConfig([
   {
     extends: fixupConfigRules(
       compat.extends(
-        'eslint:recommended',
         'plugin:react/recommended',
         'standard',
         'standard-jsx',
@@ -161,7 +156,6 @@ export default defineConfig([
     }
   },
   {
-    // TODO: set up project-specific eslint config?
     files: ['packages/export-image/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
@@ -193,7 +187,6 @@ export default defineConfig([
     }
   },
   {
-    // TODO: set up project-specific eslint config?
     files: ['packages/i18n/src/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
