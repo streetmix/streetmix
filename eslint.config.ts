@@ -9,8 +9,8 @@ import babelParser from '@babel/eslint-parser'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import react from 'eslint-plugin-react'
-import cypress from 'eslint-plugin-cypress/flat'
 import reactHooks from 'eslint-plugin-react-hooks'
+import cypress from 'eslint-plugin-cypress/flat'
 import _import from 'eslint-plugin-import'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -45,9 +45,7 @@ export default defineConfig([
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node,
-        ...globals.mocha,
-        ...globals.vitest
+        ...globals.node
       },
       parser: babelParser,
       parserOptions: {
@@ -203,6 +201,15 @@ export default defineConfig([
       'import/resolver': {
         typescript: true,
         node: true
+      }
+    }
+  },
+  {
+    files: ['**/*.test.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.mocha,
+        ...globals.vitest
       }
     }
   },
