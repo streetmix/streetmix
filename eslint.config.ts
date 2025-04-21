@@ -28,9 +28,10 @@ export default defineConfig([
   ]),
   js.configs.recommended,
   {
+    ...react.configs.flat.recommended,
+    ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     extends: fixupConfigRules(
       compat.extends(
-        'plugin:react/recommended',
         'standard',
         'standard-jsx',
         'standard-react',
@@ -39,7 +40,6 @@ export default defineConfig([
       )
     ),
     plugins: {
-      react: fixupPluginRules(react),
       'react-hooks': fixupPluginRules(reactHooks)
     },
     languageOptions: {

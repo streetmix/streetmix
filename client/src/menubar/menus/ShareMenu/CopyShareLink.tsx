@@ -9,7 +9,6 @@ interface CopyShareLinkProps {
   shareUrl: string
 }
 
-// eslint-disable-next-line react/display-name
 const CopyShareLink = forwardRef(
   (
     { shareUrl }: CopyShareLinkProps,
@@ -50,4 +49,5 @@ const CopyShareLink = forwardRef(
     )
   }
 )
+
 export default CopyShareLink
