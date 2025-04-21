@@ -28,13 +28,6 @@ export default defineConfig([
   ]),
   js.configs.recommended,
   {
-    files: ['cypress/**/*.cy.js'],
-    plugins: {
-      cypress
-    },
-    extends: [cypress.configs.recommended]
-  },
-  {
     extends: fixupConfigRules(
       compat.extends(
         'plugin:react/recommended',
@@ -212,5 +205,12 @@ export default defineConfig([
         node: true
       }
     }
+  },
+  {
+    files: ['cypress/**/*.cy.js'],
+    plugins: {
+      cypress
+    },
+    extends: [cypress.configs.recommended]
   }
 ])
