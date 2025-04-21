@@ -30,6 +30,7 @@ export default defineConfig([
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
+    files: ['**/*.{js,jsx,ts,tsx,cjs}'],
     extends: fixupConfigRules(
       compat.extends(
         'standard',
@@ -95,7 +96,8 @@ export default defineConfig([
         },
         {
           name: 'parseFloat',
-          message: 'Use Number.parseFloat() instead of the global parseFloat().'
+          message:
+            'Use Number.parseFloat() instead of the global parseFloat().'
         }
       ],
       'react-hooks/rules-of-hooks': 'error',
@@ -105,7 +107,7 @@ export default defineConfig([
   {
     // Only run TypeScript linting on TypeScript files, otherwise it'd
     // report TypeScript errors on regular JavaScript files (bad!)
-    files: ['client/**/*.ts', 'client/**/*.tsx', 'packages/types/**/*.ts'],
+    files: ['client/**/*.{ts,tsx}', 'packages/types/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
