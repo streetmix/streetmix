@@ -14,7 +14,6 @@
     "flags": {
       "LOCALES_LEVEL_1": true,
       "COLOR_MODE_TOGGLE": true,
-      "STREETMETER_EXPORT": true,
       "COASTMIX_MODE": true
     }
   },
@@ -30,7 +29,6 @@
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true,
       "COLOR_MODE_TOGGLE": true,
-      "STREETMETER_EXPORT": true,
       "COASTMIX_MODE": true
     }
   },
@@ -43,14 +41,6 @@
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
       "VARIANT_MIXED_DRIVE_LANES_1": true,
       "VARIANT_MIXED_DRIVE_LANES_2": true
-    }
-  },
-  "SPACESCAPE": {
-    "key": "spacescape",
-    "text": "Spacescape user",
-    "value": "spacescape",
-    "flags": {
-      "STREETMETER_EXPORT": true
     }
   },
   "TRANSLATOR": {
