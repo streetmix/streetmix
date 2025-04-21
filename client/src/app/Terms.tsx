@@ -92,8 +92,7 @@ export default function Terms ({ locale }: TermsProps): React.ReactElement {
       case 'zh-Hant':
       case 'zh-TW':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW'
-        label =
-          'Creative Commons 姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0)'
+        label = 'Creative Commons 姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0)'
         break
       case 'en':
       default:

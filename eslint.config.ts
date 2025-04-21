@@ -96,8 +96,7 @@ export default defineConfig([
         },
         {
           name: 'parseFloat',
-          message:
-            'Use Number.parseFloat() instead of the global parseFloat().'
+          message: 'Use Number.parseFloat() instead of the global parseFloat().'
         }
       ],
       'react-hooks/rules-of-hooks': 'error',

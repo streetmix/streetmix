@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import { formatMessage } from '~/src/locales/locale'
-import {
-  showDescription,
-  hideDescription
-} from '~/src/store/slices/infoBubble'
+import { showDescription, hideDescription } from '~/src/store/slices/infoBubble'
 import DescriptionPanel from './DescriptionPanel'
 
 import type { SliceDescription } from '@streetmix/types'

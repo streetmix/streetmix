@@ -63,9 +63,7 @@ function getCloudPosition (
   isFront: boolean,
   scrollPos: number
 ): React.CSSProperties {
-  const speed = isFront
-    ? FRONT_CLOUD_PARALLAX_SPEED
-    : REAR_CLOUD_PARALLAX_SPEED
+  const speed = isFront ? FRONT_CLOUD_PARALLAX_SPEED : REAR_CLOUD_PARALLAX_SPEED
   const pos = scrollPos * speed
 
   return {

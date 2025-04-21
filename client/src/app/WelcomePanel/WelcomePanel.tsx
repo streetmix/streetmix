@@ -192,9 +192,7 @@ export function setIsReturningUserInLocalStorage (): void {
  * Retrieves LocalStorage state for whether whether user is a returning user
  */
 function getIsReturningUserFromLocalStorage (): boolean {
-  const localSetting = window.localStorage.getItem(
-    LOCAL_STORAGE_RETURNING_USER
-  )
+  const localSetting = window.localStorage.getItem(LOCAL_STORAGE_RETURNING_USER)
 
   if (localSetting !== null) {
     return JSON.parse(localSetting)

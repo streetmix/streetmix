@@ -8,9 +8,7 @@ import MenuBarItem from './MenuBarItem'
 
 describe('MenuBarItem', () => {
   it('renders', () => {
-    const { asFragment } = render(
-      <MenuBarItem label="foo" translation="foo" />
-    )
+    const { asFragment } = render(<MenuBarItem label="foo" translation="foo" />)
 
     expect(asFragment()).toMatchSnapshot()
   })
