@@ -58,7 +58,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders only min guide', () => {
-    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+    ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       minWidth: { metric: 3 }
     }))
 
@@ -72,9 +72,7 @@ describe('ResizeGuides', () => {
     expect(
       container.querySelector('.resize-guide-min-after')
     ).toBeInTheDocument()
-    expect(
-      container.querySelector('.resize-guide-max')
-    ).not.toBeInTheDocument()
+    expect(container.querySelector('.resize-guide-max')).not.toBeInTheDocument()
     expect(
       container.querySelector('.resize-guide-max-before')
     ).not.toBeInTheDocument()
@@ -84,16 +82,14 @@ describe('ResizeGuides', () => {
   })
 
   it('renders only max guide', () => {
-    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+    ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       maxWidth: { metric: 4 }
     }))
 
     const { container } = render(<ResizeGuides />, {
       initialState
     })
-    expect(
-      container.querySelector('.resize-guide-min')
-    ).not.toBeInTheDocument()
+    expect(container.querySelector('.resize-guide-min')).not.toBeInTheDocument()
     expect(
       container.querySelector('.resize-guide-min-before')
     ).not.toBeInTheDocument()
@@ -110,7 +106,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max and min guides', () => {
-    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+    ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       minWidth: { metric: 3 },
       maxWidth: { metric: 4 }
     }))
@@ -135,7 +131,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is large', () => {
-    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+    ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       maxWidth: { metric: 4 }
     }))
 
@@ -172,7 +168,7 @@ describe('ResizeGuides', () => {
   })
 
   it('renders max guide when remaining width is small', () => {
-    (getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
+    ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       maxWidth: { metric: 4 }
     }))
 
