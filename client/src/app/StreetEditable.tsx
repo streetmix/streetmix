@@ -207,7 +207,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
             if (ref.current === null) return
             handleSwitchSliceAway(ref.current, i)
           }}
-          unmountOnExit={true}
+          unmountOnExit
           nodeRef={ref}
         >
           {/* This wrapper element is a workaround for CSSTransition depending on

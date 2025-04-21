@@ -170,7 +170,7 @@ function AnalyticsDialog (): React.ReactElement {
                 </p>
               )}
               <br />
-              <Button primary={true} onClick={exportCSV}>
+              <Button primary onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
                   defaultMessage="Export as CSV"

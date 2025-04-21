@@ -22,9 +22,7 @@ describe('AvatarMenu', () => {
       // Add subscriber role
       roles: ['USER', 'SUBSCRIBER_1']
     }
-    render(
-      <AvatarMenu user={subscriber} isSubscriber={true} onClick={() => {}} />
-    )
+    render(<AvatarMenu user={subscriber} isSubscriber onClick={() => {}} />)
     expect(screen.queryByTitle('Streetmix+ member')).toBeInTheDocument()
   })
 

@@ -20,7 +20,7 @@ describe('ShareMenu', () => {
   })
 
   it('renders (user not signed in, anonymous user’s street, no street name)', () => {
-    const { asFragment } = render(<ShareMenu isActive={true} />, {
+    const { asFragment } = render(<ShareMenu isActive />, {
       initialState: { user: { signedIn: false } }
     })
 
@@ -39,7 +39,7 @@ describe('ShareMenu', () => {
   })
 
   it('renders (user signed in, own street, with name)', () => {
-    const { asFragment } = render(<ShareMenu isActive={true} />, {
+    const { asFragment } = render(<ShareMenu isActive />, {
       initialState: {
         user: {
           signedIn: true,
@@ -75,7 +75,7 @@ describe('ShareMenu', () => {
   // Test other share messages; no snapshots rendered
   describe('other share messages', () => {
     it('user signed in, own street, no street name', () => {
-      render(<ShareMenu isActive={true} />, {
+      render(<ShareMenu isActive />, {
         initialState: {
           user: {
             signedIn: true,
@@ -102,7 +102,7 @@ describe('ShareMenu', () => {
     })
 
     it('another user’s street, with street name', () => {
-      render(<ShareMenu isActive={true} />, {
+      render(<ShareMenu isActive />, {
         initialState: {
           user: {
             signedIn: true,
@@ -134,7 +134,7 @@ describe('ShareMenu', () => {
     })
 
     it('another user’s street, no street name', () => {
-      render(<ShareMenu isActive={true} />, {
+      render(<ShareMenu isActive />, {
         initialState: {
           user: {
             signedIn: true,
@@ -165,7 +165,7 @@ describe('ShareMenu', () => {
     })
 
     it('anonymous user’s street, with street name', () => {
-      render(<ShareMenu isActive={true} />, {
+      render(<ShareMenu isActive />, {
         initialState: {
           user: {
             signedIn: true,
@@ -197,7 +197,7 @@ describe('ShareMenu', () => {
   })
 
   it('handles clicking sign in link', async () => {
-    render(<ShareMenu isActive={true} />, {
+    render(<ShareMenu isActive />, {
       initialState: { user: { signedIn: false } }
     })
     await userEvent.click(screen.getByText('Sign in'))
@@ -206,36 +206,36 @@ describe('ShareMenu', () => {
   })
 
   it('handles clicking Twitter', async () => {
-    render(<ShareMenu isActive={true} />)
+    render(<ShareMenu isActive />)
     await userEvent.click(screen.getByText('Twitter', { exact: false }))
   })
 
   it('handles clicking Facebook', async () => {
-    render(<ShareMenu isActive={true} />)
+    render(<ShareMenu isActive />)
     await userEvent.click(screen.getByText('Facebook', { exact: false }))
   })
 
   it('handles clicking save as image', async () => {
-    render(<ShareMenu isActive={true} />)
+    render(<ShareMenu isActive />)
     await userEvent.click(screen.getByText('Save as image', { exact: false }))
     expect(showDialog).toBeCalledTimes(1)
     expect(showDialog).toBeCalledWith('SAVE_AS_IMAGE')
   })
 
   it('handles clicking print', async () => {
-    const { store } = render(<ShareMenu isActive={true} />)
+    const { store } = render(<ShareMenu isActive />)
     await userEvent.click(screen.getByText('Print', { exact: false }))
     expect(store.getState().app.printing).toBe(true)
   })
 
   it('handles clicking copy to clipboard', async () => {
-    render(<ShareMenu isActive={true} />)
+    render(<ShareMenu isActive />)
     await userEvent.click(screen.getByTitle('Copy to clipboard'))
     expect(copy).toBeCalledTimes(1)
   })
 
   it('does not render external share links in offline mode', () => {
-    const { asFragment } = render(<ShareMenu isActive={true} />, {
+    const { asFragment } = render(<ShareMenu isActive />, {
       initialState: { system: { offline: true } }
     })
 

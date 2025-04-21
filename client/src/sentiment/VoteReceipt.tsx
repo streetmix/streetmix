@@ -89,13 +89,13 @@ function VoteReceipt ({
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">
-          <Button primary={true} href="/survey">
+          <Button primary href="/survey">
             <FormattedMessage
               id="sentiment.done.vote-another"
               defaultMessage="Vote on another!"
             />
           </Button>
-          <Button tertiary={true} onClick={handleClose}>
+          <Button tertiary onClick={handleClose}>
             <FormattedMessage
               id="sentiment.done.really-done"
               defaultMessage="All done!"

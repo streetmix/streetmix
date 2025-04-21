@@ -59,7 +59,7 @@ function VoteComment ({ streetId }: VoteCommentProps): React.ReactElement {
             )
           : (
             <Button
-              secondary={true}
+              secondary
               onClick={() => {
                 void handleSubmitComment()
               }}

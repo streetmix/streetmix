@@ -330,7 +330,7 @@ function SaveAsImageDialog (): React.ReactElement {
               )}
               {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
               {errorMessage === null && !isSaving ? (
-                <Button primary={true} onClick={handleClickDownloadImage}>
+                <Button primary onClick={handleClickDownloadImage}>
                   <FormattedMessage
                     id="dialogs.save.save-button"
                     defaultMessage="Save to your computer…"
@@ -338,7 +338,7 @@ function SaveAsImageDialog (): React.ReactElement {
                 </Button>
               ) : (
                 // TODO: When saving, show busy cursor and "Please wait"
-                <Button primary={true} disabled={true}>
+                <Button primary disabled>
                   <FormattedMessage
                     id="dialogs.save.save-button"
                     defaultMessage="Save to your computer…"

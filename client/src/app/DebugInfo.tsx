@@ -99,7 +99,7 @@ function DebugInfo (): React.ReactElement | null {
       <div className="debug-container">
         <div className="debug-panel" ref={panelEl}>
           <h2>Debug</h2>
-          <textarea readOnly={true} wrap="off" ref={textareaEl} />
+          <textarea readOnly wrap="off" ref={textareaEl} />
         </div>
       </div>
     )

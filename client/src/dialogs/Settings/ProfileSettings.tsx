@@ -153,7 +153,7 @@ function ProfileSettings (): React.ReactElement | null {
         <div className="profile-settings-editable">
           <p>{user.id}</p>
           <div className="profile-settings-button">
-            <Button disabled={true}>
+            <Button disabled>
               <FormattedMessage id="btn.edit" defaultMessage="Edit" />
             </Button>
           </div>
@@ -195,7 +195,7 @@ function ProfileSettings (): React.ReactElement | null {
                   onClick={() => {
                     void handleSaveDisplayName()
                   }}
-                  primary={true}
+                  primary
                   disabled={isPending}
                 >
                   <FormattedMessage id="btn.save" defaultMessage="Save" />
@@ -207,7 +207,7 @@ function ProfileSettings (): React.ReactElement | null {
                 </Button>
                 <Button
                   onClick={handleResetDisplayName}
-                  tertiary={true}
+                  tertiary
                   disabled={isPending}
                 >
                   <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />

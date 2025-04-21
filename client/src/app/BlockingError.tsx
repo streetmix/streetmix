@@ -29,7 +29,7 @@ function BlockingError (): React.ReactElement | null {
   let cta: React.ReactElement | string = ''
 
   const homeButton = (
-    <Button primary={true} onClick={goHome}>
+    <Button primary onClick={goHome}>
       <FormattedMessage
         id="error.button.return"
         defaultMessage="Return to Streetmix"
@@ -47,7 +47,7 @@ function BlockingError (): React.ReactElement | null {
       : null
   }
   const reloadButton = (
-    <Button primary={true} onClick={goReload}>
+    <Button primary onClick={goReload}>
       <FormattedMessage
         id="error.button.reload"
         defaultMessage="Reload the page"
@@ -55,7 +55,7 @@ function BlockingError (): React.ReactElement | null {
     </Button>
   )
   const tryAgainButton = (
-    <Button primary={true} onClick={goNewStreet}>
+    <Button primary onClick={goNewStreet}>
       <FormattedMessage
         id="error.button.try-again"
         defaultMessage="Try again"
@@ -63,7 +63,7 @@ function BlockingError (): React.ReactElement | null {
     </Button>
   )
   const signInButton = (
-    <Button primary={true} onClick={doSignIn}>
+    <Button primary onClick={doSignIn}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </Button>
   )
@@ -505,7 +505,7 @@ function BlockingError (): React.ReactElement | null {
         </p>
       )
       cta = (
-        <Button primary={true} onClick={goExampleStreet}>
+        <Button primary onClick={goExampleStreet}>
           <FormattedMessage
             id="error.button.view-example"
             defaultMessage="View an example street"

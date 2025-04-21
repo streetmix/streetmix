@@ -92,7 +92,6 @@ export default defineConfig([
         }
       ],
       'jsx-quotes': ['error', 'prefer-double'],
-      'react/jsx-boolean-value': ['error', 'always'],
       'react/jsx-no-bind': 0,
       'no-restricted-globals': [
         'error',

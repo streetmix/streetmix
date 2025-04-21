@@ -17,8 +17,8 @@ describe('CloseButton', () => {
         onClick={vi.fn()}
         title="foofoo"
         className="my-class"
-        disabled={true}
-        hidden={true}
+        disabled
+        hidden
       />
     )
     expect(asFragment()).toMatchSnapshot()

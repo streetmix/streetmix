@@ -24,7 +24,7 @@ function StreetMetaAnalytics (): React.ReactElement | null {
   if (averageCapacity > 0) {
     return (
       <StreetMetaItem
-        isEditable={true}
+        isEditable
         tooltip={tooltip}
         onClick={() => dispatch(showDialog('ANALYTICS'))}
         icon={<Icon name="graph" />}

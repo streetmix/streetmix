@@ -37,7 +37,7 @@ describe('UpDownInput', () => {
   it('behaves', async () => {
     const user = userEvent.setup()
 
-    render(<UpDownInput {...defaultProps} allowAutoUpdate={true} />)
+    render(<UpDownInput {...defaultProps} allowAutoUpdate />)
 
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     const upButton = screen.getByTitle('up')
@@ -155,7 +155,7 @@ describe('UpDownInput', () => {
   })
 
   it('renders inputs as disabled', () => {
-    render(<UpDownInput {...defaultProps} disabled={true} />)
+    render(<UpDownInput {...defaultProps} disabled />)
 
     const inputEl = screen.getByRole('textbox')
     const upButton = screen.getByTitle('up')

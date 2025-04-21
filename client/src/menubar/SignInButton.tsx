@@ -12,7 +12,7 @@ function SignInButton ({
   onClick = () => undefined
 }: SignInButtonProps): React.ReactElement {
   return (
-    <Button primary={true} className="menu-sign-in" onClick={onClick}>
+    <Button primary className="menu-sign-in" onClick={onClick}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </Button>
   )

@@ -105,7 +105,7 @@ function SentimentSurvey ({
                 <VoteButtons handleVote={handleClick} selectedScore={score} />
                 {!isUserSignedIn && (
                   <div className="sentiment-survey-sign-in-prompt">
-                    <Button primary={true} onClick={handleClickSignIn}>
+                    <Button primary onClick={handleClickSignIn}>
                       <FormattedMessage
                         id="menu.item.sign-in"
                         defaultMessage="Sign in"

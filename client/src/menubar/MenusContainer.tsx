@@ -130,7 +130,7 @@ function MenusContainer (): React.ReactElement {
         <IdentityMenu
           isActive={activeMenu === 'identity'}
           menuItemNode={activeMenuItemNode}
-          alignOpposite={true}
+          alignOpposite
           aria-labelledby="menubar-identity"
         />
       </div>

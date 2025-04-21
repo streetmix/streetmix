@@ -138,7 +138,7 @@ function DescriptionPanel ({
               <div className="description-text">
                 <ReactMarkdown
                   allowedElements={allowedElements}
-                  unwrapDisallowed={true}
+                  unwrapDisallowed
                   rehypePlugins={[
                     [
                       rehypeExternalLinks,

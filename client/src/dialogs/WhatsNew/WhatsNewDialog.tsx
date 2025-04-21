@@ -78,7 +78,7 @@ const WhatsNewDialog = (): React.ReactElement => {
                     'a',
                     'img'
                   ]}
-                  unwrapDisallowed={true}
+                  unwrapDisallowed
                   urlTransform={(url) => {
                     return url.replace('/img/', '/images/')
                   }}

@@ -31,7 +31,7 @@ const CopyShareLink = forwardRef(
             value={shareUrl}
             spellCheck="false"
             ref={ref}
-            readOnly={true}
+            readOnly
           />
           <Button
             title={intl.formatMessage({
