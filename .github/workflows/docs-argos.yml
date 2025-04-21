@@ -9,7 +9,7 @@ on:
 defaults:
   run:
     working-directory: ./docs
-    
+
 jobs:
   take-screenshots:
     runs-on: ubuntu-latest

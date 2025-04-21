@@ -19,8 +19,7 @@ describe('EmptySegment', () => {
 
     const firstComponentWidth = (container.firstChild as HTMLElement)?.style
       .width
-    const lastComponentWidth = (container.lastChild as HTMLElement)?.style
-      .width
+    const lastComponentWidth = (container.lastChild as HTMLElement)?.style.width
     expect(firstComponentWidth).toEqual(lastComponentWidth)
   })
 

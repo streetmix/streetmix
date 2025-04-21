@@ -11,9 +11,7 @@ interface SegmentDragHandlesProps {
 function SegmentDragHandles ({
   width
 }: SegmentDragHandlesProps): React.ReactElement {
-  const infoBubbleHovered = useSelector(
-    (state) => state.infoBubble.mouseInside
-  )
+  const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const descriptionVisible = useSelector(
     (state) => state.infoBubble.descriptionVisible
   )

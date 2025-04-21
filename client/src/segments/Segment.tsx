@@ -27,10 +27,7 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE
 } from './constants'
-import {
-  createSliceDragSpec,
-  createSliceDropTargetSpec
-} from './drag_and_drop'
+import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'

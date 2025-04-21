@@ -261,7 +261,7 @@ class Building extends React.Component {
           timeout={250}
           classNames="switching-in"
           onEntered={this.handleSwitchBuildings}
-          unmountOnExit={true}
+          unmountOnExit
           nodeRef={newRef}
         >
           {this.renderBuilding('new', newRef)}
@@ -271,7 +271,7 @@ class Building extends React.Component {
           in={oldBuildingEnter}
           timeout={250}
           classNames="switching-away"
-          unmountOnExit={true}
+          unmountOnExit
           nodeRef={oldRef}
         >
           {this.renderBuilding('old', oldRef)}

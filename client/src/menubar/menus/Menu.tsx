@@ -158,12 +158,7 @@ function updateMenuPosition (
   contentDirection: 'ltr' | 'rtl' = 'ltr',
   alignOpposite = false // whether element is right-aligned
 ): void {
-  const pos = getMenuPosition(
-    el,
-    menuItemNode,
-    contentDirection,
-    alignOpposite
-  )
+  const pos = getMenuPosition(el, menuItemNode, contentDirection, alignOpposite)
 
   // Set element position and make it visible
   if (el && pos !== undefined) {

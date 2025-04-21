@@ -78,10 +78,7 @@ function calculateStyles (
   } {
   if (!isVisible || segmentId === null || segment === null) return {}
 
-  const variantInfo = getSegmentVariantInfo(
-    segment.type,
-    segment.variantString
-  )
+  const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
   // If the variant has a minimum width defined, we show minimum-width guides
   const minWidth = getWidthInMetric(variantInfo.minWidth, units)

@@ -34,8 +34,7 @@ function StreetMetaGeotag (): React.ReactElement | null {
       />
     )
 
-    let text =
-      hierarchy.locality ?? hierarchy.region ?? hierarchy.neighbourhood
+    let text = hierarchy.locality ?? hierarchy.region ?? hierarchy.neighbourhood
 
     if (text !== undefined && hierarchy.country !== undefined) {
       text = text + ', ' + hierarchy.country

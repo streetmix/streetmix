@@ -15,9 +15,7 @@ import './SkyPicker.css'
 
 function SkyPicker (): React.ReactElement {
   const nodeRef = useRef<HTMLDivElement>(null)
-  const selected = useSelector(
-    (state) => state.street.skybox ?? DEFAULT_SKYBOX
-  )
+  const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
   const show = useSelector((state) => state.ui.toolboxVisible ?? false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
   const locale = useSelector((state) => state.locale)

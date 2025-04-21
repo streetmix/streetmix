@@ -23,11 +23,7 @@ function MenusContainer (): React.ReactElement {
 
   useEffect(() => {
     // Hide menus if page loses visibility.
-    document.addEventListener(
-      'visibilitychange',
-      handleVisibilityChange,
-      false
-    )
+    document.addEventListener('visibilitychange', handleVisibilityChange, false)
 
     // Hide menus if a click occurs outside of a menu or menu button
     document.addEventListener('pointerdown', onBodyMouseDown)

@@ -160,7 +160,7 @@ export default class BlockingShield extends React.Component {
                 defaultMessage="Streetmix is having trouble connecting to the Internet."
               />
             </p>
-            <Button primary={true} onClick={this.handleClickTryAgain}>
+            <Button primary onClick={this.handleClickTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
             </Button>
             {this.state.showCancel && (

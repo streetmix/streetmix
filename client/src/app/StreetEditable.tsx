@@ -122,10 +122,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }, [street.id, street.width])
 
   function updateWithinCanvas (event: MouseEvent | TouchEvent): void {
-    const newValue = isSegmentWithinCanvas(
-      event,
-      streetSectionEditable.current
-    )
+    const newValue = isSegmentWithinCanvas(event, streetSectionEditable.current)
 
     if (newValue) {
       document.body.classList.remove('not-within-canvas')
