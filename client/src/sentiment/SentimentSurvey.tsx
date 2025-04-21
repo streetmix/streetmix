@@ -73,7 +73,6 @@ function SentimentSurvey ({
                   id="sentiment.prompt.intro"
                   defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
                   values={{
-                    // eslint-disable-next-line react/display-name
                     strong: (chunks) => <strong>{chunks}</strong>
                   }}
                 />
@@ -83,7 +82,6 @@ function SentimentSurvey ({
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
-                    // eslint-disable-next-line react/display-name
                     em: (chunks) => <em>{chunks}</em>
                   }}
                 />
@@ -107,7 +105,7 @@ function SentimentSurvey ({
                 <VoteButtons handleVote={handleClick} selectedScore={score} />
                 {!isUserSignedIn && (
                   <div className="sentiment-survey-sign-in-prompt">
-                    <Button primary={true} onClick={handleClickSignIn}>
+                    <Button primary onClick={handleClickSignIn}>
                       <FormattedMessage
                         id="menu.item.sign-in"
                         defaultMessage="Sign in"

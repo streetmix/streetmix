@@ -15,11 +15,7 @@ function UpgradeButton (): React.ReactElement {
   }
 
   return (
-    <Button
-      tertiary={true}
-      className="menu-upgrade"
-      onClick={handleClickUpgrade}
-    >
+    <Button tertiary className="menu-upgrade" onClick={handleClickUpgrade}>
       <img
         className="menu-avatar-subscriber"
         src={streetmixPlusIcon}

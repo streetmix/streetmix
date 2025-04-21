@@ -16,7 +16,7 @@ function NewStreet ({ handleDismiss }: NewStreetProps): React.ReactElement {
           defaultMessage="Here’s your new street."
         />
       </h1>
-      <Button primary={true} onClick={handleDismiss}>
+      <Button primary onClick={handleDismiss}>
         <FormattedMessage
           id="dialogs.new-street.dismiss"
           defaultMessage="Let’s go!&lrm;"

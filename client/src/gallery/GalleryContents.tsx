@@ -116,14 +116,14 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
                 </Button>
                 )
               : (
-                <Button className="gallery-copy-last-street" disabled={true}>
+                <Button className="gallery-copy-last-street" disabled>
                   <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
                 </Button>
                 )}
           </div>
         )}
 
-        <Scrollable className="streets" allowKeyboardScroll={true}>
+        <Scrollable className="streets" allowKeyboardScroll>
           {streets.map((item) => (
             <GalleryStreetItem
               key={item.id}

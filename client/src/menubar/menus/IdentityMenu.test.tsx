@@ -28,14 +28,14 @@ describe('IdentityMenu', () => {
   }
 
   it('renders', () => {
-    const { asFragment } = render(<IdentityMenu isActive={true} />, {
+    const { asFragment } = render(<IdentityMenu isActive />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows "My streets" when its link is clicked', async () => {
-    render(<IdentityMenu isActive={true} />, { initialState })
+    render(<IdentityMenu isActive />, { initialState })
 
     await userEvent.click(screen.getByText('My streets'))
 
@@ -44,7 +44,7 @@ describe('IdentityMenu', () => {
   })
 
   it('signs the user out when its link is clicked', async () => {
-    render(<IdentityMenu isActive={true} />, { initialState })
+    render(<IdentityMenu isActive />, { initialState })
 
     await userEvent.click(screen.getByText('Sign out'))
 

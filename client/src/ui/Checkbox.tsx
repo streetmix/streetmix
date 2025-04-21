@@ -7,7 +7,7 @@ import React, { useState, useId, type ChangeEvent } from 'react'
 import Icon from './Icon'
 import './Checkbox.css'
 
-interface CheckboxProps {
+interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   // Child nodes are wrapped in <label> when rendered.
   children: React.ReactNode
 

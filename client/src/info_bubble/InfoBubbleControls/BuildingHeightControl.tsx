@@ -84,7 +84,7 @@ function BuildingHeightControl ({
           id: 'tooltip.remove-floor',
           defaultMessage: 'Remove floor'
         })}
-        allowAutoUpdate={true}
+        allowAutoUpdate
       />
     </div>
   )

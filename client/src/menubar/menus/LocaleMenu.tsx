@@ -24,8 +24,6 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
   async function selectLocale (newLocale: string): Promise<void> {
     if (locale === newLocale) return
 
-    // Don't know how to fix, but this is valid.
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await dispatch(changeLocale(newLocale))
 
     // Hide the menu after a locale is selected.

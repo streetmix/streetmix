@@ -93,7 +93,7 @@ function NotificationBar ({
       in={show}
       timeout={TRANSITION_DURATION}
       onExited={handleExited}
-      unmountOnExit={true}
+      unmountOnExit
       nodeRef={el}
     >
       <div

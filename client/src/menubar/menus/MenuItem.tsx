@@ -24,7 +24,7 @@ function MenuItem<T extends 'button' | 'a'> ({
     return (
       <ExternalLink
         href={href}
-        icon={true}
+        icon
         className={classNames.join(' ')}
         role="menuitem"
         {...props}

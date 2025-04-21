@@ -1,7 +1,6 @@
 const { defineConfig } = require('cypress')
 const dotenv = require('dotenv')
 
-// eslint-disable-next-line import/no-named-as-default-member
 dotenv.config()
 
 module.exports = defineConfig({

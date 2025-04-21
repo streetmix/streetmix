@@ -27,7 +27,7 @@ describe('LocaleMenu', () => {
   it.todo('renders proper locale lists for given feature flags')
 
   it('handles locale selection', async () => {
-    render(<LocaleMenu isActive={true} />, {
+    render(<LocaleMenu isActive />, {
       initialState
     })
 

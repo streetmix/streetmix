@@ -20,13 +20,13 @@ describe('HelpMenu', () => {
   })
 
   it('renders', () => {
-    const { asFragment } = render(<HelpMenu isActive={true} />)
+    const { asFragment } = render(<HelpMenu isActive />)
 
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('shows the About dialog when its link is clicked', async () => {
-    render(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive />)
 
     await userEvent.click(screen.getByText('About Streetmix…'))
 
@@ -35,7 +35,7 @@ describe('HelpMenu', () => {
   })
 
   it('shows the What’s New dialog when its link is clicked', async () => {
-    render(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive />)
 
     await userEvent.click(screen.getByText('What’s new', { exact: false }))
 
@@ -48,7 +48,7 @@ describe('HelpMenu', () => {
   // of scope for a unit test and should be captured in the
   // end-to-end acceptance testing instead.
   it.skip('shows the About dialog when keyboard shortcut is pressed', async () => {
-    render(<HelpMenu isActive={true} />)
+    render(<HelpMenu isActive />)
 
     await userEvent.keyboard('?')
 

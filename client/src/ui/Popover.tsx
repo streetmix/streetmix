@@ -38,7 +38,7 @@ function Popover ({ label, children }: PopoverProps): React.ReactElement {
 
   return (
     <PopoverPrimitive.Root>
-      <PopoverPrimitive.Trigger asChild={true}>
+      <PopoverPrimitive.Trigger asChild>
         <button className="popover-trigger">
           <AccessibleIcon label={a11yLabel}>
             <Icon name="info" />

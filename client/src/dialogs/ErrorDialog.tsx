@@ -30,7 +30,6 @@ function ErrorDialog (): React.ReactElement {
                 id="dialogs.error.text"
                 defaultMessage="Something unexpected happened 😢. We’ve logged the error, but if you can remember what happened on the way here, <a>please tell us about it</a>. This could also be a temporary problem, so please try one more time."
                 values={{
-                  // eslint-disable-next-line react/display-name
                   a: (chunks) => (
                     <ExternalLink href="https://github.com/streetmix/streetmix/issues/new">
                       {chunks}

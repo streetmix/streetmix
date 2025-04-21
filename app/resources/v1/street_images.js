@@ -282,7 +282,6 @@ export async function get (req, res) {
   let street
 
   try {
-    // eslint-disable-next-line
     street = await Street.findOne({ where: { id: streetId } })
   } catch (error) {
     logger.error(error)

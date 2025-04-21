@@ -84,12 +84,12 @@ function Menu ({
 
   return (
     <CSSTransition
-      appear={true}
+      appear
       in={isActive}
       timeout={100}
       classNames="menu-visible"
-      mountOnEnter={true}
-      unmountOnExit={true}
+      mountOnEnter
+      unmountOnExit
       nodeRef={ref}
     >
       <div role="menu" className={classNames.join(' ')} ref={ref} {...props}>

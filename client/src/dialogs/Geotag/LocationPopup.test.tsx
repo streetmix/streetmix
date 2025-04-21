@@ -18,7 +18,7 @@ describe('LocationPopup', () => {
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
         label="foo"
-        isEditable={true}
+        isEditable
         isClearable={false}
         handleConfirm={vi.fn()}
         handleClear={vi.fn()}
@@ -37,7 +37,7 @@ describe('LocationPopup', () => {
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
         label=""
-        isEditable={true}
+        isEditable
         isClearable={false}
         handleConfirm={handleConfirm}
         handleClear={handleClear}
@@ -59,8 +59,8 @@ describe('LocationPopup', () => {
       <LocationPopup
         position={{ lat: 0, lng: 0 }}
         label=""
-        isEditable={true}
-        isClearable={true}
+        isEditable
+        isClearable
         handleConfirm={handleConfirm}
         handleClear={handleClear}
       />

@@ -14,8 +14,8 @@ describe('Checkbox', () => {
   it('renders snapshot with all props', () => {
     const { asFragment } = render(
       <Checkbox
-        checked={true}
-        disabled={true}
+        checked
+        disabled
         value="bar"
         onChange={vi.fn()}
         className="custom-classname"

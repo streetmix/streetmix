@@ -52,7 +52,7 @@ const initialState = {
 
 describe('GeotagDialog', () => {
   it('renders', () => {
-    const { asFragment } = render(<GeotagDialog renderPopup={true} />, {
+    const { asFragment } = render(<GeotagDialog renderPopup />, {
       initialState
     })
     expect(asFragment()).toMatchSnapshot()

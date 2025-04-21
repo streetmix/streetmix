@@ -45,7 +45,6 @@ function App (): React.ReactElement {
     }
 
     void init()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Set color mode on top level DOM element

@@ -104,7 +104,7 @@ function NewsletterDialog (): React.ReactElement {
                 <input type="hidden" value="1" {...register('embed')} />
                 {submitState === 'DEFAULT' && (
                   <div className="subscribe-buttons">
-                    <Button primary={true} type="submit">
+                    <Button primary type="submit">
                       <FormattedMessage
                         id="dialogs.newsletter.subscribe"
                         defaultMessage="Subscribe"
@@ -114,7 +114,7 @@ function NewsletterDialog (): React.ReactElement {
                 )}
                 {submitState === 'PENDING' && (
                   <div className="subscribe-buttons">
-                    <Button disabled={true}>
+                    <Button disabled>
                       <FormattedMessage
                         id="dialogs.newsletter.subscribe-pending"
                         defaultMessage="Please wait..."
@@ -129,7 +129,6 @@ function NewsletterDialog (): React.ReactElement {
                         id="dialogs.newsletter.ok-message"
                         defaultMessage="<strong>Thank you! You’re almost subscribed.</strong> We’ve sent you an email to confirm your address. Click it and you’re in!"
                         values={{
-                          // eslint-disable-next-line react/display-name
                           strong: (chunks) => <strong>{chunks}</strong>
                         }}
                       />
@@ -154,7 +153,7 @@ function NewsletterDialog (): React.ReactElement {
                     </p>
                     <div className="subscribe-buttons">
                       {/* Display button for retry, rather than cancel or close */}
-                      <Button primary={true} type="submit">
+                      <Button primary type="submit">
                         <FormattedMessage
                           id="dialogs.newsletter.subscribe"
                           defaultMessage="Subscribe"

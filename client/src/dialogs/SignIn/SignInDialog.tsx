@@ -203,7 +203,7 @@ function SignInDialog (): React.ReactElement {
                 name="email"
                 onChange={handleChange}
                 placeholder="test@test.com"
-                required={true}
+                required
               />
 
               {error && <ErrorMessage />}
@@ -219,7 +219,7 @@ function SignInDialog (): React.ReactElement {
 
               <Button
                 type="submit"
-                primary={true}
+                primary
                 className="sign-in-button sign-in-email-button"
               >
                 <FormattedMessage
@@ -240,7 +240,7 @@ function SignInDialog (): React.ReactElement {
             </div>
 
             <Button
-              tertiary={true}
+              tertiary
               className="sign-in-button sign-in-social-button sign-in-twitter-button"
               onClick={handleTwitterSignIn}
             >
@@ -252,7 +252,7 @@ function SignInDialog (): React.ReactElement {
             </Button>
 
             <Button
-              tertiary={true}
+              tertiary
               className="sign-in-button sign-in-social-button sign-in-google-button"
               onClick={handleGoogleSignIn}
             >
@@ -264,7 +264,7 @@ function SignInDialog (): React.ReactElement {
             </Button>
 
             <Button
-              tertiary={true}
+              tertiary
               className="sign-in-button sign-in-social-button sign-in-facebook-button"
               onClick={handleFacebookSignIn}
             >

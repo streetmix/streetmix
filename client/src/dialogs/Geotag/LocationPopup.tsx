@@ -40,7 +40,7 @@ const LocationPopup = ({
         (isClearable
           ? (
             <div>
-              <Button tertiary={true} onClick={handleClear}>
+              <Button tertiary onClick={handleClear}>
                 <FormattedMessage
                   id="dialogs.geotag.clear-location"
                   defaultMessage="Clear location"
@@ -50,7 +50,7 @@ const LocationPopup = ({
             )
           : (
             <div>
-              <Button primary={true} onClick={handleConfirm}>
+              <Button primary onClick={handleConfirm}>
                 <FormattedMessage
                   id="dialogs.geotag.confirm-location"
                   defaultMessage="Confirm location"

@@ -1,1 +1,1 @@
-ESLINT_USE_FLAT_CONFIG=false npx --no-install lint-staged
+npx --no-install lint-staged

@@ -336,7 +336,7 @@ function Segment (props: SliceProps): React.ReactNode {
           classNames="switching-away"
           timeout={250}
           onExited={handleSwitchSegments}
-          unmountOnExit={true}
+          unmountOnExit
           nodeRef={oldRef}
         >
           {renderSegmentCanvas('old', oldRef)}
@@ -346,7 +346,7 @@ function Segment (props: SliceProps): React.ReactNode {
           in={switchSegments}
           classNames="switching-in"
           timeout={250}
-          unmountOnExit={true}
+          unmountOnExit
           nodeRef={newRef}
         >
           {renderSegmentCanvas('new', newRef)}

@@ -4,7 +4,7 @@ import Triangle from './Triangle'
 
 describe('Triangle', () => {
   it('renders an highlighted triangle', () => {
-    const { asFragment } = render(<Triangle highlight={true} />)
+    const { asFragment } = render(<Triangle highlight />)
     expect(asFragment()).toMatchSnapshot()
   })
 

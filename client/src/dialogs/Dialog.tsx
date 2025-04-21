@@ -59,7 +59,7 @@ function Dialog ({ children }: DialogProps): React.ReactElement {
 
   return (
     <CSSTransition
-      appear={true}
+      appear
       in={appear}
       timeout={80}
       classNames="dialog-transition"
