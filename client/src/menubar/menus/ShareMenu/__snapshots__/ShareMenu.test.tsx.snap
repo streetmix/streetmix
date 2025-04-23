@@ -161,6 +161,29 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
         data-icon-source="test"
       />
     </a>
+    <a
+      class="menu-item"
+      href="https://streetmeter.net/#http://localhost:3000/"
+      rel="noopener noreferrer"
+      role="menuitem"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon"
+        data-icon="graph"
+        data-icon-source="test"
+      />
+      Open in Streetmeter 
+      <span
+        class="beta-tag"
+      >
+        BETA
+      </span>
+      <svg
+        data-icon="external-link"
+        data-icon-source="test"
+      />
+    </a>
     <div
       aria-orientation="horizontal"
       class="menu-separator"
@@ -308,6 +331,29 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
         data-icon-source="test"
       />
       Open in 3DStreet
+      <svg
+        data-icon="external-link"
+        data-icon-source="test"
+      />
+    </a>
+    <a
+      class="menu-item"
+      href="https://streetmeter.net/#http://localhost:3000/"
+      rel="noopener noreferrer"
+      role="menuitem"
+      target="_blank"
+    >
+      <svg
+        class="menu-item-icon"
+        data-icon="graph"
+        data-icon-source="test"
+      />
+      Open in Streetmeter 
+      <span
+        class="beta-tag"
+      >
+        BETA
+      </span>
       <svg
         data-icon="external-link"
         data-icon-source="test"
