@@ -116,10 +116,10 @@
 .dialog-content {
   flex-grow: 1;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &:not(.dialog-content-bleed) {
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 2rem;
   }
 
   > p:first-child {
