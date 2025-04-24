@@ -69,11 +69,6 @@ exports[`Segment > renders correctly 1`] = `
     <div
       class="hover-bk"
     />
-    <img
-      alt=""
-      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-      style="display: none;"
-    />
   </div>
 </DocumentFragment>
 `;

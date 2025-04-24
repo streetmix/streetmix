@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## April 24, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a mysterious globe icon showing up when dragging a section element in Chrome on Mac OSX.
+
 ## April 23, 2025
 
 ### ✨ New features
@@ -23,7 +29,11 @@ sidebar_position: 5
 
 ### 🐞 New bugs 😳
 
-- Some interaction functionality is being reworked, which has resulted in some known issues that have not yet been resolved. Keyboard shortcuts for resizing and deleting section elements may not correctly target the one under the mouse pointer.
+Some interaction functionality is being reworked, which has resulted in some known issues that have not yet been resolved:
+
+- Keyboard shortcuts for resizing and deleting section elements may not correctly target the one under the mouse pointer.
+- When dragging a section element, some existing elements will sometimes get "stuck" together instead of making space for a dropped item.
+- In some cases, there may be some difficulty dropping a section element on the right side of a street section.
 
 ## March 28, 2025
 

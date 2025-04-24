@@ -611,9 +611,6 @@ export function createPaletteItemDragSpec (segment) {
         elevation
       }
     },
-    previewOptions: {
-      captureDraggingState: true
-    },
     end: (item, monitor) => {
       store.dispatch(clearDraggingState())
 
