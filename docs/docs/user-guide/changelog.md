@@ -10,6 +10,7 @@ sidebar_position: 5
 ### 🐛 Bug fixes
 
 - Fixed a mysterious globe icon showing up when dragging a section element in Chrome on Mac OSX.
+- Fixed drag interaction not working at all in Safari (!!)
 
 ## April 23, 2025
 
