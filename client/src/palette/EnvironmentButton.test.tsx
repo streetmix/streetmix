@@ -14,14 +14,12 @@ vi.mock('../store/slices/ui', () => ({
   toggleToolbox: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
-// Note: "default" render snapshot is covered by a test on the parent
-// component. This test only covers interactions on this component.
+// NOTE: Parent component includes this component's snapshot test.
 describe('EnvironmentButton', () => {
   it('handles click action', async () => {
     render(<EnvironmentButton />)
 
-    // Click the tools button
-    await userEvent.click(screen.getByTitle('Environment editor'))
+    await userEvent.click(screen.getByRole('button'))
 
     expect(toggleToolbox).toBeCalled()
   })

@@ -22,8 +22,7 @@ function EnvironmentButton (): React.ReactElement {
 
   return (
     <Tooltip label={label}>
-      {/* Keep title on button to be queryable by test */}
-      <Button onClick={handleClickTools} title={label}>
+      <Button onClick={handleClickTools}>
         <Icon name="sun" />
       </Button>
     </Tooltip>

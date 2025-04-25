@@ -13,7 +13,6 @@ exports[`PaletteContainer > renders 1`] = `
       >
         <button
           class="btn"
-          title="Environment editor"
           type="button"
         >
           <svg
