@@ -3,7 +3,7 @@ import { IntlProvider, useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
 import Icon from '~/src/ui/Icon'
-import Tooltip from '~/src/ui/Tooltip'
+import Tooltip from '~/src/ui/TooltipLegacy'
 import { images } from '~/src/app/load_resources'
 import { DEFAULT_SKYBOX } from '../constants'
 import { getAllSkyboxDefs } from '..'

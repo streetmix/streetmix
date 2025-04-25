@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import Tooltip, { useSingleton } from '../ui/Tooltip'
+import Tooltip, { useSingleton } from '../ui/TooltipLegacy'
 import SentimentIcon from './SentimentIcon'
 import { getAllScoreData } from './scores'
 

@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl'
 
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
-import Tooltip, { useSingleton } from '../ui/Tooltip'
+import Tooltip, { useSingleton } from '../ui/TooltipLegacy'
 import { getAllSegmentInfo } from '../segments/info'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.css'

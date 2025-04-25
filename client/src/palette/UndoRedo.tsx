@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from '../store/hooks'
 import { handleUndo, handleRedo } from '../store/actions/history'
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
-import Tooltip, { useSingleton } from '../ui/Tooltip'
+import Tooltip, { useSingleton } from '../ui/TooltipLegacy'
 import { isOwnedByCurrentUser } from '../streets/owner'
 
 function UndoRedo (): React.ReactElement {

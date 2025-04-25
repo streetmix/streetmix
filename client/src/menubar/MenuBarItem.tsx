@@ -2,7 +2,7 @@ import React, { type ButtonHTMLAttributes } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Icon from '../ui/Icon'
-import Tooltip from '../ui/Tooltip'
+import Tooltip from '../ui/TooltipLegacy'
 
 interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Accepts children to render

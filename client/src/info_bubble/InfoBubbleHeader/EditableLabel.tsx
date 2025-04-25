@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { useSelector } from '~/src/store/hooks'
 import { editSegmentLabel } from '~/src/segments/view'
 import Icon from '~/src/ui/Icon'
-import Tooltip from '~/src/ui/Tooltip'
+import Tooltip from '~/src/ui/TooltipLegacy'
 import './EditableLabel.css'
 
 import type { BuildingPosition, Segment } from '@streetmix/types'

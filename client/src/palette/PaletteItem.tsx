@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd'
 import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Icon from '../ui/Icon'
-import Tooltip from '../ui/Tooltip'
+import Tooltip from '../ui/TooltipLegacy'
 import EmptyDragPreview from '../ui/dnd/EmptyDragPreview'
 import { createPaletteItemDragSpec } from '../segments/drag_and_drop'
 

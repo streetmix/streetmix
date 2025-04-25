@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 
-import Tooltip from '../../ui/Tooltip'
+import Tooltip from '../../ui/TooltipLegacy'
 import './StreetMetaItem.css'
 
 import type { TippyProps } from '@tippyjs/react'
