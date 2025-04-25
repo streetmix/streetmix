@@ -11,7 +11,7 @@
 
 .main-screen {
   position: relative;
-  z-index: var(--z-01-main-screen);
+  z-index: var(--z-00-main-screen);
   flex-grow: 1;
 
   body:not(.safari) & {
