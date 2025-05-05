@@ -4,7 +4,7 @@
   --tooltip-sublabel-font-color: rgb(201 201 201);
   --tooltip-font-weight: 500;
 
-  width: fit-content;
+  width: max-content;
   max-width: calc(100vw - 10px);
   padding: 0.65em 1.25em;
   border-radius: var(--border-radius);

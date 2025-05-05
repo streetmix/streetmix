@@ -200,6 +200,7 @@
   --z-09-gallery: var(--z-index-09);
   --z-09-dialog-box: var(--z-index-09);
   --z-09-debug: var(--z-index-09);
+  --z-09-floating-ui: var(--z-index-09);
 
   /* Blocking overlays
    * These live at the highest level of z-index scale. */

@@ -7,7 +7,7 @@ import { updateSettings } from '~/src/store/slices/settings'
 import Button from '~/src/ui/Button'
 import Checkbox from '~/src/ui/Checkbox'
 import Icon from '~/src/ui/Icon'
-import Tooltip from '~/src/ui/TooltipLegacy'
+import { Tooltip } from '~/src/ui/Tooltip'
 import Terms from '~/src/app/Terms'
 import { getStreetImage } from '~/src/streets/image'
 import { normalizeSlug } from '~/src/util/helpers'
@@ -261,21 +261,18 @@ function SaveAsImageDialog (): React.ReactElement {
                     defaultMessage: 'Upgrade to Streetmix+ to use!‎'
                   })}
                 >
-                  {/* div shim for Tooltip child element */}
-                  <div className="checkbox-item">
-                    <Checkbox
-                      onChange={handleChangeOptionWatermark}
-                      checked={watermark}
-                      disabled={!isSubscriber}
-                    >
-                      <FormattedMessage
-                        id="dialogs.save.option-watermark"
-                        defaultMessage="Watermark"
-                      />
-                      &nbsp;
-                      <Icon name="lock" />
-                    </Checkbox>
-                  </div>
+                  <Checkbox
+                    onChange={handleChangeOptionWatermark}
+                    checked={watermark}
+                    disabled={!isSubscriber}
+                  >
+                    <FormattedMessage
+                      id="dialogs.save.option-watermark"
+                      defaultMessage="Watermark"
+                    />
+                    &nbsp;
+                    <Icon name="lock" />
+                  </Checkbox>
                 </Tooltip>
               )}
             </div>
