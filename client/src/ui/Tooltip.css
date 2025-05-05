@@ -1,0 +1,34 @@
+.tooltip {
+  --tooltip-background-color: rgb(42 43 42 / 85%);
+  --tooltip-font-color: white;
+  --tooltip-sublabel-font-color: rgb(201 201 201);
+  --tooltip-font-weight: 500;
+
+  width: fit-content;
+  max-width: calc(100vw - 10px);
+  padding: 0.65em 1.25em;
+  border-radius: var(--border-radius);
+  box-shadow: var(--medium-box-shadow);
+  background-color: var(--tooltip-background-color);
+  font-size: 13px;
+  text-align: center;
+  color: var(--tooltip-font-color);
+  pointer-events: none;
+
+  p {
+    margin: 0;
+  }
+}
+
+.tooltip-label {
+  font-weight: var(--tooltip-font-weight);
+}
+
+.tooltip-sublabel {
+  font-size: 0.85em;
+  color: var(--tooltip-sublabel-font-color);
+}
+
+.tooltip-arrow {
+  fill: var(--tooltip-background-color);
+}
