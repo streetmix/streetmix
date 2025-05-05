@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import Tooltip, { useSingleton } from '../ui/TooltipLegacy'
+import { Tooltip, TooltipGroup } from '../ui/Tooltip'
 import SentimentIcon from './SentimentIcon'
 import { getAllScoreData } from './scores'
 
@@ -14,12 +14,10 @@ function VoteButtons ({
   handleVote,
   selectedScore
 }: VoteButtonsProps): React.ReactElement {
-  const [source, target] = useSingleton()
   const intl = useIntl()
 
   return (
-    <>
-      <Tooltip placement="bottom" source={source} />
+    <TooltipGroup>
       {getAllScoreData().map((vote) => {
         const label = intl.formatMessage({
           id: vote.label.localizationKey,
@@ -27,7 +25,7 @@ function VoteButtons ({
         })
 
         return (
-          <Tooltip key={vote.score} label={label} target={target}>
+          <Tooltip key={vote.score} label={label} placement="bottom">
             <button
               className={[
                 'sentiment-button',
@@ -45,7 +43,7 @@ function VoteButtons ({
           </Tooltip>
         )
       })}
-    </>
+    </TooltipGroup>
   )
 }
 
