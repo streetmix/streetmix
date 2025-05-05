@@ -19,6 +19,7 @@ import {
   FloatingArrow
 } from '@floating-ui/react'
 import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
+import type { Optional } from '@streetmix/types'
 import './Tooltip.css'
 
 // Default settings
@@ -152,9 +153,6 @@ export function Tooltip ({
     </>
   )
 }
-
-// Utility type. TODO: move to general type utils.
-type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
 // TooltipGroupProps takes all of FloatingDelayGroupProps except that
 // `delay` is now optional because we provide our own default value

@@ -3,6 +3,10 @@ import type {
   SETTINGS_UNITS_METRIC
 } from '@streetmix/client/src/users/constants'
 
+// Utility type for making a single property (K) optional
+// when a type (T) has defined K as required.
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
+
 export interface Segment {
   id: string
   type: string
