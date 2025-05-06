@@ -31,7 +31,7 @@
     "@reduxjs/toolkit": "2.7.0",
     "@sentry/browser": "9.15.0",
     "@sentry/cli": "2.44.0",
-    "auth0": "4.22.0",
+    "auth0": "4.23.0",
     "auth0-js": "9.28.0",
     "autoprefixer": "10.4.21",
     "copy-to-clipboard": "3.3.3",
@@ -72,7 +72,7 @@
   "devDependencies": {
     "@babel/core": "7.27.1",
     "@babel/eslint-parser": "7.27.1",
-    "@babel/preset-env": "7.27.1",
+    "@babel/preset-env": "7.27.2",
     "@babel/preset-react": "7.27.1",
     "@babel/preset-typescript": "7.27.1",
     "@modyfi/vite-plugin-yaml": "1.1.1",
