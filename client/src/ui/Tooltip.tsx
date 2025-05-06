@@ -1,111 +1,182 @@
-/**
- * This component is a wrapper around tippyjs/react to provide
- * functionality common to Streetmix's implementation of it
- */
-import React from 'react'
-import Tippy, { useSingleton } from '@tippyjs/react'
-
-import type { TippyProps } from '@tippyjs/react'
-import 'tippy.js/dist/tippy.css'
-import 'tippy.js/animations/shift-toward.css'
+import React, { useState } from 'react'
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+  arrow,
+  useDelayGroup,
+  useHover,
+  useFocus,
+  useDismiss,
+  useRole,
+  useInteractions,
+  useTransitionStyles,
+  useMergeRefs,
+  FloatingDelayGroup,
+  FloatingPortal,
+  FloatingArrow
+} from '@floating-ui/react'
+import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
+import type { Optional } from '@streetmix/types'
 import './Tooltip.css'
 
-const TOOLTIP_DEFAULT_PLACEMENT: TippyProps['placement'] = 'top'
-const TOOLTIP_OFFSET: TippyProps['offset'] = [0, 10]
-const TOOLTIP_DURATION: TippyProps['duration'] = 100
-const TOOLTIP_ANIMATION: TippyProps['animation'] = 'shift-toward'
-const TOOLTIP_DELAY: TippyProps['delay'] = [150, 0]
+// Default settings
+const TOOLTIP_PLACEMENT = 'top'
+const TOOLTIP_DELAY = {
+  open: 150,
+  close: 0
+}
+const TOOLTIP_DELAY_TIMEOUT = 200
+const TOOLTIP_TRANSITION_DURATION = 150
+const TOOLTIP_TRANSITION_DISTANCE = 8
 
-interface TooltipProps extends TippyProps {
-  source?: TippyProps['singleton']
-  target?: TippyProps['singleton']
-  label?: string
-  sublabel?: string
+interface TooltipOptions {
+  placement?: Placement
 }
 
-function Tooltip ({
-  source,
-  target,
+interface TooltipProps extends TooltipOptions {
+  label?: string
+  sublabel?: string
+  children: React.ReactElement
+}
+
+export function Tooltip ({
   label,
   sublabel,
-  placement = TOOLTIP_DEFAULT_PLACEMENT,
-  children,
-  ...props
-}: TooltipProps): React.ReactElement {
-  const renderContent = (label = '', sublabel = ''): React.ReactElement => (
-    <>
-      {label}
-      {sublabel && <p>{sublabel}</p>}
-    </>
+  placement = TOOLTIP_PLACEMENT,
+  children
+}: TooltipProps): React.ReactNode {
+  const [isOpen, setIsOpen] = useState(false)
+  const arrowRef = React.useRef(null)
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement,
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(10),
+      flip({
+        crossAxis: placement.includes('-'),
+        fallbackAxisSideDirection: 'start',
+        padding: 5
+      }),
+      shift({ padding: 5 }),
+      arrow({
+        element: arrowRef
+      })
+    ]
+  })
+  const { delay, currentId, isInstantPhase } = useDelayGroup(context)
+  const hover = useHover(context, { delay })
+  const focus = useFocus(context)
+  const dismiss = useDismiss(context)
+  const role = useRole(context, { role: 'tooltip' })
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    hover,
+    focus,
+    dismiss,
+    role
+  ])
+
+  // Define animation
+  const { isMounted, styles } = useTransitionStyles(context, {
+    duration: isInstantPhase
+      ? {
+          open: 0,
+          close:
+            currentId === context.floatingId ? TOOLTIP_TRANSITION_DURATION : 0
+        }
+      : TOOLTIP_TRANSITION_DURATION,
+    initial: ({ side }) => ({
+      opacity: 0,
+      transform: {
+        top: `translateY(-${TOOLTIP_TRANSITION_DISTANCE}px)`,
+        bottom: `translateY(${TOOLTIP_TRANSITION_DISTANCE}px)`,
+        left: `translateX(-${TOOLTIP_TRANSITION_DISTANCE}px)`,
+        right: `translateX(${TOOLTIP_TRANSITION_DISTANCE}px)`
+      }[side]
+    })
+  })
+
+  // We clone the child element so we can apply floating-ui's props
+  // to it on top of its existing props.
+  // Limitations to keep in mind:
+  // - Child element must be a single element or component and cannot
+  //   be a fragment
+  // - If child element is a React component, the component definition
+  //   must also spread its props to whichever element needs to take
+  //   floating-ui's props
+  // In general <Tooltip> wraps a <Button> which does that (a normal HTML
+  // <button> also works just fine as is) but if this becomes too complex,
+  // a future workaround is to use floating-ui's `asChild` pattern so that
+  // some instances can be wrapped with its own element.
+  const tooltipTriggerElement = React.cloneElement(
+    children,
+    getReferenceProps({
+      // Refs are merged between useFloating and an existing child ref, if any.
+      ref: useMergeRefs([
+        refs.setReference,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (children as any).ref
+      ]),
+      ...children.props
+    })
   )
 
-  // Our implementation of TippyJS is predominantly used in cases where there
-  // may be multiple reference elements. A "singleton" tooltip is used because
-  // we need it to animate in when it appears for the first time, and animate
-  // out when it leaves, but not when hovering or focusing across reference
-  // elements. For more on singleton tooltips, refer to Tippy documentation:
-  //
-  // https://atomiks.github.io/tippyjs/#singleton
-  //
-  // For React components, the Tippy singleton is defined with the
-  // useSingleton() hook.
-  // https://github.com/atomiks/tippyjs-react#-usesingleton
-  //
-  // The <Tippy /> component is overloaded so that when used in a singleton
-  // it functions as both the "source" (a generic tooltip instance) and
-  // the "target" (a wrapper around a reference element to give it a tooltip).
-  // While this may be confusing, we do not abstract over this behavior here.
-  //
-  // If the `source` prop is provided (this is defined by using a
-  // useSingleton() hook in the parent component) we return a <Tippy />
-  // instance that defines a generic tooltip with our desired behavior.
-  // We define our standard behavior but these can be overwritten with
-  // any of Tippy's props.
-  // https://github.com/atomiks/tippyjs-react#-props
-  if (typeof source !== 'undefined') {
-    return (
-      <Tippy
-        placement={placement}
-        offset={TOOLTIP_OFFSET}
-        duration={TOOLTIP_DURATION}
-        animation={TOOLTIP_ANIMATION}
-        delay={TOOLTIP_DELAY}
-        singleton={source}
-        {...props}
-      />
-    )
+  // Pass thru if <Tooltip> is rendered without a label
+  if (label === undefined) {
+    return children
   }
 
-  // If a `target` prop is provided (this is also defined by the useSingleton()
-  // hook) we return a <Tippy /> higher-order component (HOC) that wraps the
-  // reference element where a tooltip should be displayed. When <Tippy />
-  // is used in this way, it doesn't take the same tooltip behavior props.
-  if (typeof target !== 'undefined') {
-    return (
-      <Tippy content={renderContent(label, sublabel)} singleton={target}>
-        {children}
-      </Tippy>
-    )
-  }
-
-  // If neither `source` nor `target` are provided, then we assume that the
-  // tooltip is a one-off (that is, not a singleton that should be reused
-  // across multiple reference elements). We set this up with our standard
-  // default behavior but these can be overridden with any of Tippy's props.
   return (
-    <Tippy
-      content={renderContent(label, sublabel)}
-      placement={placement}
-      offset={TOOLTIP_OFFSET}
-      duration={TOOLTIP_DURATION}
-      animation={TOOLTIP_ANIMATION}
+    <>
+      {tooltipTriggerElement}
+      {isMounted && (
+        <FloatingPortal>
+          {/* Outer div is our main tooltip wrapper */}
+          <div
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+          >
+            {/* Inner div is for styling and additional transforms */}
+            <div className="tooltip" style={styles}>
+              <p className="tooltip-label">{label}</p>
+              {sublabel !== undefined && (
+                <p className="tooltip-sublabel">{sublabel}</p>
+              )}
+              <FloatingArrow
+                className="tooltip-arrow"
+                ref={arrowRef}
+                context={context}
+              />
+            </div>
+          </div>
+        </FloatingPortal>
+      )}
+    </>
+  )
+}
+
+// TooltipGroupProps takes all of FloatingDelayGroupProps except that
+// `delay` is now optional because we provide our own default value
+type TooltipGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
+
+// Re-exports <FloatingDelayGroup> with our own default values. It can be
+// overridden by props.
+export function TooltipGroup ({
+  children,
+  ...props
+}: TooltipGroupProps): React.ReactNode {
+  return (
+    <FloatingDelayGroup
       delay={TOOLTIP_DELAY}
+      timeoutMs={TOOLTIP_DELAY_TIMEOUT}
       {...props}
     >
       {children}
-    </Tippy>
+    </FloatingDelayGroup>
   )
 }
-
-export default Tooltip
-export { useSingleton }

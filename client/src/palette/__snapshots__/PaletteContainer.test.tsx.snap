@@ -43,26 +43,22 @@ exports[`PaletteContainer > renders 1`] = `
             <li
               class="palette-item"
             >
-              <div
-                tabindex="0"
-              >
+              <button>
                 <img
                   class="palette-item-image"
                   draggable="false"
                 />
-              </div>
+              </button>
             </li>
             <li
               class="palette-item palette-item-disabled"
             >
-              <div
-                tabindex="0"
-              >
+              <button>
                 <img
                   class="palette-item-image"
                   draggable="false"
                 />
-              </div>
+              </button>
               <svg
                 data-icon="lock"
                 data-icon-source="test"

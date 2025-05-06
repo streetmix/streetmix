@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl'
 
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
-import Tooltip, { useSingleton } from '../ui/Tooltip'
+import { TooltipGroup } from '../ui/Tooltip'
 import { getAllSegmentInfo } from '../segments/info'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.css'
@@ -16,7 +16,6 @@ import './PaletteItems.css'
 function PaletteItems (): React.ReactElement {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
-  const [source, target] = useSingleton()
 
   const segments = getAllSegmentInfo()
 
@@ -29,19 +28,16 @@ function PaletteItems (): React.ReactElement {
         (segment.enableWithFlag !== undefined &&
           flags[segment.enableWithFlag]?.value)
     )
-    .map((segment) => (
-      <PaletteItem key={segment.id} segment={segment} tooltipTarget={target} />
-    ))
+    .map((segment) => <PaletteItem key={segment.id} segment={segment} />)
 
   return (
-    <>
-      <Tooltip source={source} />
+    <TooltipGroup>
       <Scrollable className="palette-items">
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
           <ul>{displayedSegments}</ul>
         </IntlProvider>
       </Scrollable>
-    </>
+    </TooltipGroup>
   )
 }
 

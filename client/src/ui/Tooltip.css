@@ -1,32 +1,34 @@
-/* Styles must be used in conjunction with the default tippy.js css */
-.tippy-box {
-  --tooltip-background-color: #2a2b2a;
+.tooltip {
+  --tooltip-background-color: rgb(42 43 42 / 85%);
   --tooltip-font-color: white;
-  --tooltip-font-weight: 550;
-  --tooltip-max-width: 150px;
+  --tooltip-sublabel-font-color: rgb(201 201 201);
+  --tooltip-font-weight: 500;
 
-  background-color: var(--tooltip-background-color);
-  padding: 0.5em 1.25em;
-  font-weight: var(--tooltip-font-weight);
-  color: var(--tooltip-font-color);
+  width: max-content;
+  max-width: calc(100vw - 10px);
+  padding: 0.65em 1.25em;
   border-radius: var(--border-radius);
-  text-align: center;
-  max-width: var(--tooltip-max-width);
   box-shadow: var(--medium-box-shadow);
-  opacity: 0.85;
-}
-
-.tippy-content {
-  padding: 0;
+  background-color: var(--tooltip-background-color);
+  font-size: 13px;
+  text-align: center;
+  color: var(--tooltip-font-color);
+  pointer-events: none;
 
   p {
     margin: 0;
-    font-weight: normal;
-    font-size: 0.85em;
-    opacity: 0.75;
   }
 }
 
-.tippy-arrow {
-  color: var(--tooltip-background-color);
+.tooltip-label {
+  font-weight: var(--tooltip-font-weight);
+}
+
+.tooltip-sublabel {
+  font-size: 0.85em;
+  color: var(--tooltip-sublabel-font-color);
+}
+
+.tooltip-arrow {
+  fill: var(--tooltip-background-color);
 }

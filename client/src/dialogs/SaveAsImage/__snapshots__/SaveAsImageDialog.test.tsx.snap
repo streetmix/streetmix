@@ -92,29 +92,25 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
               <div
                 class="checkbox-item"
               >
-                <div
-                  class="checkbox-item"
+                <input
+                  checked=""
+                  disabled=""
+                  id="«r5»"
+                  type="checkbox"
+                />
+                <label
+                  for="«r5»"
                 >
-                  <input
-                    checked=""
-                    disabled=""
-                    id="«r3»"
-                    type="checkbox"
-                  />
-                  <label
-                    for="«r3»"
-                  >
-                    Watermark 
-                    <svg
-                      data-icon="lock"
-                      data-icon-source="test"
-                    />
-                  </label>
+                  Watermark 
                   <svg
-                    data-icon="check"
+                    data-icon="lock"
                     data-icon-source="test"
                   />
-                </div>
+                </label>
+                <svg
+                  data-icon="check"
+                  data-icon-source="test"
+                />
               </div>
             </div>
             <div
@@ -137,7 +133,7 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                   class="custom-scale-popover"
                 >
                   <button
-                    aria-controls="radix-«r4»"
+                    aria-controls="radix-«r6»"
                     aria-expanded="false"
                     aria-haspopup="dialog"
                     class="popover-trigger"

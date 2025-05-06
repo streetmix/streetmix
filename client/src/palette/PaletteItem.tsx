@@ -5,23 +5,18 @@ import { useDrag } from 'react-dnd'
 import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Icon from '../ui/Icon'
-import Tooltip from '../ui/Tooltip'
+import { Tooltip } from '../ui/Tooltip'
 import EmptyDragPreview from '../ui/dnd/EmptyDragPreview'
 import { createPaletteItemDragSpec } from '../segments/drag_and_drop'
 
 import type { SegmentDefinition } from '@streetmix/types'
-import type { TippyProps } from '@tippyjs/react'
 import './PaletteItem.css'
 
 interface PaletteItemProps {
   segment: SegmentDefinition
-  tooltipTarget?: TippyProps['singleton']
 }
 
-function PaletteItem ({
-  segment,
-  tooltipTarget
-}: PaletteItemProps): React.ReactElement | null {
+function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
@@ -90,22 +85,14 @@ function PaletteItem ({
 
   return (
     <li className={classNames.join(' ')} ref={isLocked ? null : drag}>
-      <Tooltip
-        target={tooltipTarget}
-        label={getLabel(segment)}
-        sublabel={sublabel}
-      >
-        {/* Wrapper element necessary for <Tooltip />
-            (alternate solution is to forward ref)
-            This wrapper element is also the target for hover / focus
-            in order the activate the tooltip. */}
-        <div tabIndex={0}>
+      <Tooltip label={getLabel(segment)} sublabel={sublabel}>
+        <button>
           <img
             className="palette-item-image"
             src={thumbnail}
             draggable={false}
           />
-        </div>
+        </button>
       </Tooltip>
       {isLocked && <Icon name="lock" />}
       <EmptyDragPreview dragPreview={dragPreview} />
