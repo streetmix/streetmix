@@ -31,7 +31,6 @@
     "@reduxjs/toolkit": "2.7.0",
     "@sentry/browser": "9.13.0",
     "@sentry/cli": "2.43.0",
-    "@tippyjs/react": "4.2.6",
     "auth0": "4.22.0",
     "auth0-js": "9.28.0",
     "autoprefixer": "10.4.21",

@@ -86,17 +86,13 @@ function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null 
   return (
     <li className={classNames.join(' ')} ref={isLocked ? null : drag}>
       <Tooltip label={getLabel(segment)} sublabel={sublabel}>
-        {/* Wrapper element necessary for <Tooltip />
-            (alternate solution is to forward ref)
-            This wrapper element is also the target for hover / focus
-            in order the activate the tooltip. */}
-        <div tabIndex={0}>
+        <button>
           <img
             className="palette-item-image"
             src={thumbnail}
             draggable={false}
           />
-        </div>
+        </button>
       </Tooltip>
       {isLocked && <Icon name="lock" />}
       <EmptyDragPreview dragPreview={dragPreview} />

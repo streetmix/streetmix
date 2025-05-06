@@ -69,12 +69,9 @@ describe('PaletteContainer', () => {
       }
     })
 
-    // Note: the tippyJS instance is actually on a child div of the listitem
-    // element, because we are unable to wrap the <li> with <Tooltip> and then
-    // send it to react-dnd. This limitation means we touch the implementation
-    // in order to test hover on the correct element.
+    // The tooltip is on the child (<button>) element of the list item
     await userEvent.hover(
-      screen.getAllByRole('listitem')[0].querySelector('div') as Element
+      screen.getAllByRole('listitem')[0].querySelector('button') as Element
     )
 
     await waitFor(() => {
