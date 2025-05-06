@@ -5,17 +5,17 @@ import type { SkyboxDefWithStyles, Street } from '@streetmix/types'
 export async function drawSky (
   ctx: Canvas.SKRSContext2D,
   street: Street,
-  width: number,
-  height: number,
-  horizonLine: number,
-  groundLevel: number,
+  width: number, // image width (scaled)
+  height: number, // image height (scaled) - might not need for here
+  horizonLine: number, // scaled - in many cases we only need to render to here because the rest is covered by ground
+  groundLevel: number, // scaled
   scale: number
 ): Promise<void> {
   const sky = getSkyboxDef(street.data.street.skybox)
 
   // Solid color fill
   if (sky.backgroundColor !== undefined) {
-    drawBackgroundColor(ctx, width, horizonLine, scale, sky.backgroundColor)
+    drawBackgroundColor(ctx, width, horizonLine, sky.backgroundColor)
   }
 
   // TODO: All the other backgrounds!
@@ -48,7 +48,6 @@ export async function drawSky (
   // }
 
   // Clouds
-  // TODO: fix cloud at scale !== 1
   await drawClouds(ctx, width, groundLevel, scale, sky)
 }
 
@@ -76,11 +75,10 @@ function drawBackgroundColor (
   ctx: Canvas.SKRSContext2D,
   width: number,
   height: number,
-  scale: number,
   color: string
 ): void {
   ctx.fillStyle = color
-  ctx.fillRect(0, 0, width * scale, height * scale)
+  ctx.fillRect(0, 0, width, height)
 }
 
 /**
@@ -91,7 +89,7 @@ function drawBackgroundColor (
 async function drawClouds (
   ctx: Canvas.SKRSContext2D,
   width: number,
-  height: number,
+  height: number, // This is actually not the image height but groundLevel height
   scale: number,
   sky: SkyboxDefWithStyles
 ): Promise<void> {
@@ -110,18 +108,17 @@ async function drawClouds (
   const skyRearImg = await Canvas.loadImage(skyRearImgPath)
 
   // Set the width and height here to scale properly
-  skyFrontImg.width = skyFrontImg.width * scale
-  skyFrontImg.height = skyFrontImg.height * scale
-  skyRearImg.width = skyRearImg.width * scale
-  skyRearImg.height = skyRearImg.height * scale
+  // Source images are 2x scale intrinsically, so we also scale down by 2
+  skyFrontImg.width = (skyFrontImg.naturalWidth * scale) / 2
+  skyFrontImg.height = (skyFrontImg.naturalHeight * scale) / 2
+  skyRearImg.width = (skyRearImg.naturalWidth * scale) / 2
+  skyRearImg.height = (skyRearImg.naturalHeight * scale) / 2
 
-  // Source images are 2x what they need to be for the math to work
-  // so until we resize the intrinsic size of the images, we have to
-  // do this and then size it back up later
-  const skyFrontWidth = skyFrontImg.width / 2
-  const skyFrontHeight = skyFrontImg.height / 2
-  const skyRearWidth = skyRearImg.width / 2
-  const skyRearHeight = skyRearImg.height / 2
+  // Variables for convenience
+  const skyFrontWidth = skyFrontImg.width
+  const skyFrontHeight = skyFrontImg.height
+  const skyRearWidth = skyRearImg.width
+  const skyRearHeight = skyRearImg.height
 
   // TODO document magic numbers
   // y1 = top edge of sky-front image
@@ -132,30 +129,31 @@ async function drawClouds (
       skyFrontImg,
       0,
       0,
-      skyFrontWidth * 2,
-      skyFrontHeight * 2, // todo: change intrinsic size
-      i * skyFrontWidth * scale,
-      y1 * scale,
-      skyFrontWidth * scale,
-      skyFrontHeight * scale
+      skyFrontWidth,
+      skyFrontHeight,
+      i * skyFrontWidth,
+      y1,
+      skyFrontWidth,
+      skyFrontHeight
     )
   }
 
   // TODO document magic numbers
   // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-  const y2 = height - skyFrontHeight - 120
+  // 120 must also be adjusted by scale value
+  const y2 = height - skyFrontHeight - 120 * scale
 
   for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
     ctx.drawImage(
       skyRearImg,
       0,
       0,
-      skyRearWidth * 2,
-      skyRearHeight * 2, // todo: change intrinsic size
-      i * skyRearWidth * scale,
-      y2 * scale,
-      skyRearWidth * scale,
-      skyRearHeight * scale
+      skyRearWidth,
+      skyRearHeight,
+      i * skyRearWidth,
+      y2,
+      skyRearWidth,
+      skyRearHeight
     )
   }
 

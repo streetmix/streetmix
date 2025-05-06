@@ -106,6 +106,9 @@ export async function makeStreetImage (
     occupiedWidth += element.width
   }
 
+  // TODO: adjust scale for these numbers early?
+  // See drawSky for an example where scaled values are passed in to draw function
+
   // Align things to bottom edge of image
   let offsetTop = baseHeight - 180
   if (options.elementLabels) {
@@ -124,10 +127,10 @@ export async function makeStreetImage (
       await drawSky(
         ctx,
         street,
-        baseWidth,
-        baseHeight,
-        horizonLine,
-        groundLevel,
+        width,
+        height,
+        horizonLine * options.scale,
+        groundLevel * options.scale,
         options.scale
       )
     }
@@ -175,8 +178,8 @@ export async function makeStreetImage (
     const image = await Canvas.loadImage(file)
 
     // Set the width and height here to scale properly
-    image.width = image.width * options.scale
-    image.height = image.height * options.scale
+    image.width = image.naturalWidth * options.scale
+    image.height = image.naturalHeight * options.scale
 
     // Draw the image; don't use the dw and dh arguments for scaling, it will
     // be pixelated. That's why we set the width/height properties earlier.
