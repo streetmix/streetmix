@@ -4,6 +4,7 @@ import type { Street } from '@streetmix/types'
 const STREET_NAME_FONT = 'Overpass'
 const STREET_NAME_FONT_SIZE = 70
 const STREET_NAME_FONT_WEIGHT = '700'
+const STREET_NAME_LETTER_SPACING = -0.125
 
 /**
  * Draws street nameplate
@@ -22,8 +23,9 @@ export function drawNameplate (
   // TODO: locales
   let text = street.name ?? 'Unnamed St' // formatMessage('street.default-name', 'Unnamed St')
 
-  // TODO: letter spacing needs to adjust based on scale
-  ctx.letterSpacing = '-0.225em' // Different from front-end, very slightly smaller spacing
+  // Try to match letter-spacing adjustment on the front end
+  // For whatever reason the numbers are not exactly the same
+  ctx.letterSpacing = `${STREET_NAME_LETTER_SPACING * scale}em`
   ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * scale
   }px ${STREET_NAME_FONT}`
