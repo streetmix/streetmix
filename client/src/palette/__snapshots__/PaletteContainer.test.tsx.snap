@@ -84,8 +84,8 @@ exports[`PaletteContainer > renders 1`] = `
       >
         <button
           class="btn"
+          data-testid="undo"
           disabled=""
-          title="Undo"
           type="button"
         >
           <svg
@@ -95,8 +95,8 @@ exports[`PaletteContainer > renders 1`] = `
         </button>
         <button
           class="btn"
+          data-testid="redo"
           disabled=""
-          title="Redo"
           type="button"
         >
           <svg

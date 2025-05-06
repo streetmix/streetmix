@@ -32,13 +32,12 @@ function UndoRedo (): React.ReactElement {
       <Tooltip
         label={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
       >
-        {/* Keep title on button to be queryable by test */}
         <Button
           onClick={() => {
             void dispatch(handleUndo())
           }}
           disabled={!isUndoAvailable()}
-          title={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
+          data-testid="undo"
         >
           <Icon name="undo" />
         </Button>
@@ -46,13 +45,12 @@ function UndoRedo (): React.ReactElement {
       <Tooltip
         label={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
       >
-        {/* Keep title on button to be queryable by test */}
         <Button
           onClick={() => {
             void dispatch(handleRedo())
           }}
           disabled={!isRedoAvailable()}
-          title={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
+          data-testid="redo"
         >
           <Icon name="redo" />
         </Button>
