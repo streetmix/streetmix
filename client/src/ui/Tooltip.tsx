@@ -37,7 +37,7 @@ interface TooltipOptions {
 }
 
 interface TooltipProps extends TooltipOptions {
-  label: string
+  label?: string
   sublabel?: string
   children: React.ReactElement
 }
@@ -120,9 +120,15 @@ export function Tooltip ({
         refs.setReference,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (children as any).ref
-      ])
+      ]),
+      ...children.props
     })
   )
+
+  // Pass thru if <Tooltip> is rendered without a label
+  if (label === undefined) {
+    return children
+  }
 
   return (
     <>
