@@ -27,10 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     container: node:lts-buster
     strategy:
-      # Use current LTS and later versions of Node.js if present
+      # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
     env:
       NODE_ENV: test
       HUSKY: "0"
