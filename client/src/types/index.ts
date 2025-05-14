@@ -95,7 +95,13 @@ export interface FeatureFlagDefinition {
   enabled?: boolean
 }
 
+export interface FeatureFlagSetting extends FeatureFlagDefinition {
+  value: boolean
+  source: string
+}
+
 export type FeatureFlags = Record<string, FeatureFlagDefinition>
+export type FeatureFlagSettings = Record<string, FeatureFlagSetting>
 
 export interface DraggingState {
   segmentBeforeEl?: number

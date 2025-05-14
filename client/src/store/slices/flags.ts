@@ -8,7 +8,7 @@ interface FeatureFlagSetting extends FeatureFlagDefinition {
   source: 'initial' | 'session'
 }
 
-type FeatureFlagState = Record<string, FeatureFlagSetting>
+export type FeatureFlagState = Record<string, FeatureFlagSetting>
 
 function generateInitialFlags (flags: FeatureFlags): FeatureFlagState {
   return Object.entries(flags).reduce((obj: FeatureFlagState, item) => {
