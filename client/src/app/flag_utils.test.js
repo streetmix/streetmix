@@ -26,7 +26,7 @@ const userOverrides = {
 const sessionOverrides = {
   source: 'session',
   flags: [
-    { flag: 'BAZ_QUX', value: true },
+    { flag: 'BAZ_QUX', value: false },
     { flag: 'FOO_BAR', value: true }
   ]
 }
@@ -46,16 +46,30 @@ describe('generateFlagOverrides', () => {
 })
 
 describe('applyFlagOverrides', () => {
-  it('updates feature flag values according to flag overrides and priority levels', () => {
+  it('overrides feature flags with role and user values', () => {
     const result = applyFlagOverrides(
       initialFlags,
+      roleOverrides,
+      userOverrides
+    )
+    expect(result).toEqual({
+      FOO_BAR: { source: 'user', value: false },
+      BAZ_QUX: { source: 'role:USER', value: true },
+      FOO_BAZ: { source: 'initial', value: true },
+      BAZ_BAR: { source: 'user', value: true }
+    })
+  })
+
+  it('overrides feature flags with session values', () => {
+    const result = applyFlagOverrides(
+      initialFlags,
+      roleOverrides,
       userOverrides,
-      sessionOverrides,
-      roleOverrides
+      sessionOverrides
     )
     expect(result).toEqual({
       FOO_BAR: { source: 'session', value: true },
-      BAZ_QUX: { source: 'session', value: true },
+      BAZ_QUX: { source: 'session', value: false },
       FOO_BAZ: { source: 'initial', value: true },
       BAZ_BAR: { source: 'user', value: true }
     })
