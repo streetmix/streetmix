@@ -233,15 +233,18 @@ export function createStreetData (data, units) {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId,
-    leftBuildingHeight: data.edges.left.height,
-    leftBuildingVariant: data.edges.left.variant,
-    rightBuildingHeight: data.edges.right.height,
-    rightBuildingVariant: data.edges.right.variant,
+    leftBuildingHeight: data.boundary.left.floors,
+    leftBuildingVariant: data.boundary.left.variant,
+    rightBuildingHeight: data.boundary.right.floors,
+    rightBuildingVariant: data.boundary.right.variant,
     ...data
   }
 
+  // Create boundary ids
+  street.boundary.left.id = nanoid()
+  street.boundary.right.id = nanoid()
+
   // Cleanup
-  delete street.edges
   delete street.slices
 
   if (units === SETTINGS_UNITS_IMPERIAL) {

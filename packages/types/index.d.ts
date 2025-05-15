@@ -19,6 +19,13 @@ export interface Segment {
 }
 export type SliceItem = Segment // Alias for future use
 
+export interface StreetBoundary {
+  id: string
+  variant: string
+  floors: number
+  elevation: number
+}
+
 export interface StreetJson {
   id: string
   namespacedId: number
@@ -26,10 +33,14 @@ export interface StreetJson {
   units: UnitsSetting
   width: number
   segments: Segment[]
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
+  leftBuildingHeight: number // Deprecated
+  rightBuildingHeight: number // Deprecated
+  leftBuildingVariant: string // Deprecated
+  rightBuildingVariant: string // Deprecated
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
   skybox: string
   location: StreetLocation | null
   showAnalytics: boolean
@@ -86,10 +97,14 @@ export interface StreetState extends StreetJsonExtra {
   width: number
   name: string | null
   segments: Segment[]
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
+  leftBuildingHeight: number // Deprecated
+  rightBuildingHeight: number // Deprecated
+  leftBuildingVariant: string // Deprecated
+  rightBuildingVariant: string // Deprecated
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
   skybox: string
   location: StreetLocation | null
   showAnalytics: boolean

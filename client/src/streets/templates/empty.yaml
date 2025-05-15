@@ -8,11 +8,13 @@
 ###############################################################################
 
 width: 24
-edges:
+boundary:
   left:
     variant: grass
-    height: 1
+    floors: 1
+    elevation: 1
   right:
     variant: grass
-    height: 1
+    floors: 1
+    elevation: 1
 slices: []
