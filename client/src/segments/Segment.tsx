@@ -32,6 +32,7 @@ import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
 import './Segment.css'
+import TestSlope from './TestSlope'
 
 interface SliceProps {
   sliceIndex: number
@@ -56,6 +57,7 @@ function Segment (props: SliceProps): React.ReactNode {
     typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   )
   const capacitySource = useSelector((state) => state.street.capacitySource)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
   // What is this?
@@ -118,13 +120,15 @@ function Segment (props: SliceProps): React.ReactNode {
   // Maybe we don't always do this forever, but it makes it match
   // existing elevation variant behavior
   useEffect(() => {
+    // DISABLED FOR COASTMIX.
+    if (coastmixMode) return
     if (
       prevProps !== null &&
       prevProps.segment.elevation !== segment.elevation
     ) {
       handleSwitchSegments(prevProps.segment.variantString)
     }
-  }, [segment.elevation])
+  }, [segment.elevation, coastmixMode])
 
   // Cleanup effect
   useEffect(() => {
@@ -264,6 +268,7 @@ function Segment (props: SliceProps): React.ReactNode {
           randSeed={randSeed}
           elevation={segment.elevation}
         />
+        {coastmixMode && <TestSlope slice={segment} />}
       </div>
     )
   }

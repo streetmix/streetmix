@@ -53,6 +53,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -243,7 +244,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
           }
         })
 
-        if (elevationToggle) {
+        if (elevationToggle || coastmixMode) {
           // Street vendors always have enabled elevation controls
           // regardless of subscriber state
           const forceEnable =
