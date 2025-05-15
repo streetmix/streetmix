@@ -7,12 +7,13 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
+import ElevationControlNew from './ElevationControlNew'
+
+import type { Segment } from '@streetmix/types'
 
 interface ElevationControlProps {
   position: number
-  segment: {
-    elevation: number
-  }
+  segment: Segment
   forceEnable: boolean
 }
 
@@ -22,6 +23,7 @@ function ElevationControl ({
   forceEnable = false
 }: ElevationControlProps): React.ReactElement {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -110,6 +112,10 @@ function ElevationControl ({
         {isLocked && <Icon name="lock" />}
       </Button>
     )
+  }
+
+  if (coastmixMode) {
+    return <ElevationControlNew key={position} position={position} segment={segment} />
   }
 
   return (
