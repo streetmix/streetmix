@@ -35,7 +35,7 @@ export function setLastStreet () {
 }
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 31
+const LATEST_SCHEMA_VERSION = 32
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
@@ -111,10 +111,7 @@ export function trimStreetData (street) {
     location: street.location,
     userUpdated: street.userUpdated,
     skybox: street.skybox,
-    leftBuildingHeight: street.leftBuildingHeight,
-    rightBuildingHeight: street.rightBuildingHeight,
-    leftBuildingVariant: street.leftBuildingVariant,
-    rightBuildingVariant: street.rightBuildingVariant,
+    boundary: street.boundary,
     segments: street.segments.map((origSegment) => {
       const segment = {
         id: origSegment.id,
@@ -233,10 +230,6 @@ export function createStreetData (data, units) {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId,
-    leftBuildingHeight: data.boundary.left.floors,
-    leftBuildingVariant: data.boundary.left.variant,
-    rightBuildingHeight: data.boundary.right.floors,
-    rightBuildingVariant: data.boundary.right.variant,
     ...data
   }
 

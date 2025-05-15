@@ -63,7 +63,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const key = street.leftBuildingVariant
+        const key = street.boundary.left.variant
 
         id = `buildings.${key}.name`
         defaultMessage = BUILDINGS[key as keyof typeof BUILDINGS].label
@@ -71,7 +71,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         break
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const key = street.rightBuildingVariant
+        const key = street.boundary.right.variant
 
         id = `buildings.${key}.name`
         defaultMessage = BUILDINGS[key as keyof typeof BUILDINGS].label

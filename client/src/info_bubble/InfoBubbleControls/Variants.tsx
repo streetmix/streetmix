@@ -36,9 +36,9 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   // Get the appropriate variant information
   const variant = useSelector((state) => {
     if (position === BUILDING_LEFT_POSITION) {
-      return state.street.leftBuildingVariant
+      return state.street.boundary.left.variant
     } else if (position === BUILDING_RIGHT_POSITION) {
-      return state.street.rightBuildingVariant
+      return state.street.boundary.right.variant
     } else if (typeof position === 'number') {
       return state.street.segments[position].variantString
     }

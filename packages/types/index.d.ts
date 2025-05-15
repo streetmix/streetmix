@@ -33,10 +33,10 @@ export interface StreetJson {
   units: UnitsSetting
   width: number
   segments: Segment[]
-  leftBuildingHeight: number // Deprecated
-  rightBuildingHeight: number // Deprecated
-  leftBuildingVariant: string // Deprecated
-  rightBuildingVariant: string // Deprecated
+  leftBuildingHeight?: number // Deprecated
+  rightBuildingHeight?: number // Deprecated
+  leftBuildingVariant?: string // Deprecated
+  rightBuildingVariant?: string // Deprecated
   boundary: {
     left: StreetBoundary
     right: StreetBoundary
@@ -97,10 +97,6 @@ export interface StreetState extends StreetJsonExtra {
   width: number
   name: string | null
   segments: Segment[]
-  leftBuildingHeight: number // Deprecated
-  rightBuildingHeight: number // Deprecated
-  leftBuildingVariant: string // Deprecated
-  rightBuildingVariant: string // Deprecated
   boundary: {
     left: StreetBoundary
     right: StreetBoundary

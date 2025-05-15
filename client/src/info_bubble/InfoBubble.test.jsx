@@ -45,8 +45,14 @@ const initialState = {
         warnings: []
       }
     ],
-    leftBuildingVariant: 'grass',
-    rightBuildingVariant: 'grass'
+    boundary: {
+      left: {
+        variant: 'grass'
+      },
+      right: {
+        variant: 'grass'
+      }
+    }
   },
   system: {},
   locale: {

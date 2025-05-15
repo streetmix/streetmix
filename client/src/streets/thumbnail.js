@@ -334,15 +334,20 @@ function drawBuildings (
 
   // Left building
   const x1 = width / 2 - (street.width * TILE_SIZE * multiplier) / 2
-  const leftBuilding = BUILDINGS[street.leftBuildingVariant]
+  // Keep deprecated properties here because gallery streets are transmitted
+  // without updating schemas
+  const leftVariant =
+    street.boundary?.left.variant ?? street.leftBuildingVariant
+  const leftFloors = street.boundary?.left.floors ?? street.leftBuildingHeight
+  const leftBuilding = BUILDINGS[leftVariant]
   const leftOverhang =
     typeof leftBuilding.overhangWidth === 'number'
       ? leftBuilding.overhangWidth
       : 0
   drawBuilding(
     ctx,
-    street.leftBuildingVariant,
-    street.leftBuildingHeight,
+    leftVariant,
+    leftFloors,
     'left',
     buildingWidth,
     groundLevel,
@@ -353,15 +358,21 @@ function drawBuildings (
 
   // Right building
   const x2 = width / 2 + (street.width * TILE_SIZE * multiplier) / 2
-  const rightBuilding = BUILDINGS[street.rightBuildingVariant]
+  // Keep deprecated properties here because gallery streets are transmitted
+  // without updating schemas
+  const rightVariant =
+    street.boundary?.right.variant ?? street.rightBuildingVariant
+  const rightFloors =
+    street.boundary?.right.floors ?? street.rightBuildingHeight
+  const rightBuilding = BUILDINGS[rightVariant]
   const rightOverhang =
     typeof rightBuilding.overhangWidth === 'number'
       ? rightBuilding.overhangWidth
       : 0
   drawBuilding(
     ctx,
-    street.rightBuildingVariant,
-    street.rightBuildingHeight,
+    rightVariant,
+    rightFloors,
     'right',
     buildingWidth,
     groundLevel,

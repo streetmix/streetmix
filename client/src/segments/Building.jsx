@@ -38,14 +38,6 @@ class Building extends React.Component {
     super(props)
 
     this.state = {
-      variant:
-        props.position === BUILDING_LEFT_POSITION
-          ? 'leftBuildingVariant'
-          : 'rightBuildingVariant',
-      height:
-        props.position === BUILDING_LEFT_POSITION
-          ? 'leftBuildingHeight'
-          : 'rightBuildingHeight',
       oldBuildingEnter: true,
       newBuildingEnter: false,
       switchBuildings: false,
@@ -77,37 +69,39 @@ class Building extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     const { street, position, buildingWidth } = this.props
-    const { variant, height } = this.state
 
     const lastOverflow = prevProps.street.remainingWidth < 0
     const streetOverflow = street.remainingWidth < 0
 
     if (
-      prevProps.street[height] !== street[height] ||
+      prevProps.street.boundary[position].floors !==
+        street.boundary[position].floors ||
       lastOverflow !== streetOverflow ||
-      (street[variant] && prevProps.buildingWidth !== buildingWidth)
+      (street.boundary[position].variant &&
+        prevProps.buildingWidth !== buildingWidth)
     ) {
       createBuilding(
         this.streetSectionBuilding,
-        street[variant],
+        street.boundary[position].variant,
         position,
-        street[height],
+        street.boundary[position].floors,
         streetOverflow
       )
     }
 
     if (
-      prevProps.street[variant] &&
-      prevProps.street[variant] !== street[variant]
+      prevProps.street.boundary[position].variant &&
+      prevProps.street.boundary[position].variant !==
+        street.boundary[position].variant
     ) {
       if (this.shouldBuildingAnimate(prevProps.street, street)) {
         this.handleSwitchBuildings()
       } else {
         createBuilding(
           this.streetSectionBuilding,
-          street[variant],
+          street.boundary[position].variant,
           position,
-          street[height],
+          street.boundary[position].floors,
           streetOverflow
         )
       }
@@ -118,9 +112,9 @@ class Building extends React.Component {
       this.props.updatePerspective(this.streetSectionBuilding)
       createBuilding(
         this.streetSectionBuilding,
-        street[variant],
+        street.boundary[position].variant,
         position,
-        street[height],
+        street.boundary[position].floors,
         streetOverflow
       )
     }
@@ -194,19 +188,11 @@ class Building extends React.Component {
   // Animate if the only changes in street object are:
   // editCount, rightBuildingVariant (or leftBuildingVariant), updatedAt, and clientUpdatedAt
   shouldBuildingAnimate = (oldStreet, newStreet) => {
-    let userUpdated = true
-    for (const key in newStreet) {
-      if (oldStreet[key] !== newStreet[key]) {
-        userUpdated = [
-          'editCount',
-          this.state.variant,
-          'updatedAt',
-          'clientUpdatedAt'
-        ].includes(key)
-        if (!userUpdated) return false
-      }
-    }
-    return userUpdated
+    let shouldAnimate = false
+    if (oldStreet.id !== newStreet.id) return false
+    if (oldStreet.boundary.left.variant !== newStreet.boundary.left.variant) { shouldAnimate = true }
+    if (oldStreet.boundary.right.variant !== newStreet.boundary.right.variant) { shouldAnimate = true }
+    return shouldAnimate
   }
 
   renderBuilding = (building, nodeRef) => {

@@ -7,7 +7,7 @@ import { round } from '@streetmix/utils'
 
 import logger from './logger.js'
 
-const LATEST_SCHEMA_VERSION = 31
+const LATEST_SCHEMA_VERSION = 32
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -39,6 +39,7 @@ const LATEST_SCHEMA_VERSION = 31
 // 29: rename 'environment' to 'skybox'
 // 30: all measurements use metric values
 // 31: fix for streets with old units setting
+// 32: add 'boundary' property to replace left/right building properties
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street
@@ -480,6 +481,36 @@ function incrementSchemaVersion (street) {
       if (street.units === 2) {
         street.units = 0
       }
+      break
+    case 31:
+      // 32: add 'boundary' property to replace left/right building properties
+      // Previously, `[side]BuildingVariant` and `[side]BuildingHeight` were
+      // all we needed to set properties on the sides of the sections.
+      // Individual properties scale poorly when we need to add more properties
+      // (e.g. elevation, etc.) This introduces a new `boundary` object with
+      // `left` and `right` StreetBoundary objects. The previous properties
+      // are now deprecated. They will be removed from the data model but
+      // will still be returned in the API for compatibility.
+      street.boundary = {
+        left: {
+          id: nanoid(),
+          variant: street.leftBuildingVariant,
+          floors: street.leftBuildingHeight,
+          elevation: 1
+        },
+        right: {
+          id: nanoid(),
+          variant: street.rightBuildingVariant,
+          floors: street.rightBuildingHeight,
+          elevation: 1
+        }
+      }
+
+      // Delete deprecated properties
+      delete street.leftBuildingVariant
+      delete street.leftBuildingHeight
+      delete street.rightBuildingVariant
+      delete street.rightBuildingHeight
       break
     default:
       // no-op

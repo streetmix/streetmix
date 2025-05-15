@@ -16,6 +16,18 @@ export function asStreetJson (street) {
     json.creator = { id: street.creatorId }
   }
 
+  // Add back deprecated building properties for compatibility
+  if (street.data.street.boundary) {
+    json.data.street.leftBuildingVariant =
+      street.data.street.boundary.left.variant
+    json.data.street.leftBuildingHeight =
+      street.data.street.boundary.left.floors
+    json.data.street.rightBuildingVariant =
+      street.data.street.boundary.right.variant
+    json.data.street.rightBuildingHeight =
+      street.data.street.boundary.right.floors
+  }
+
   return json
 }
 

@@ -27,14 +27,14 @@ export function getStreetImage (
   const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
 
   const leftHeight = getBuildingImageHeight(
-    street.leftBuildingVariant,
+    street.boundary.left.variant,
     'left',
-    street.leftBuildingHeight
+    street.boundary.left.floors
   )
   const rightHeight = getBuildingImageHeight(
-    street.rightBuildingVariant,
+    street.boundary.right.variant,
     'right',
-    street.rightBuildingHeight
+    street.boundary.right.floors
   )
 
   let height = Math.max(leftHeight, rightHeight)

@@ -29,13 +29,13 @@ function BuildingHeightControl ({
   // Get the appropriate building data based on which side of street it's on
   const variant = useSelector((state) =>
     position === BUILDING_LEFT_POSITION
-      ? state.street.leftBuildingVariant
-      : state.street.rightBuildingVariant
+      ? state.street.boundary.left.variant
+      : state.street.boundary.right.variant
   )
   const value = useSelector((state) =>
     position === BUILDING_LEFT_POSITION
-      ? state.street.leftBuildingHeight
-      : state.street.rightBuildingHeight
+      ? state.street.boundary.left.floors
+      : state.street.boundary.right.floors
   )
 
   const dispatch = useDispatch()

@@ -17,10 +17,20 @@ const initialState: StreetState = {
   width: 0,
   name: null,
   segments: [],
-  leftBuildingHeight: 0,
-  rightBuildingHeight: 0,
-  leftBuildingVariant: '',
-  rightBuildingVariant: '',
+  boundary: {
+    left: {
+      id: '',
+      variant: '',
+      floors: 0,
+      elevation: 0
+    },
+    right: {
+      id: '',
+      variant: '',
+      floors: 0,
+      elevation: 0
+    }
+  },
   skybox: DEFAULT_SKYBOX,
   location: null,
   showAnalytics: false,
@@ -318,14 +328,14 @@ const streetSlice = createSlice({
 
       switch (position) {
         case 'left':
-          state.leftBuildingHeight = Math.min(
-            state.leftBuildingHeight + 1,
+          state.boundary.left.floors = Math.min(
+            state.boundary.left.floors + 1,
             MAX_BUILDING_HEIGHT
           )
           break
         case 'right':
-          state.rightBuildingHeight = Math.min(
-            state.rightBuildingHeight + 1,
+          state.boundary.right.floors = Math.min(
+            state.boundary.right.floors + 1,
             MAX_BUILDING_HEIGHT
           )
           break
@@ -337,10 +347,16 @@ const streetSlice = createSlice({
 
       switch (position) {
         case 'left':
-          state.leftBuildingHeight = Math.max(state.leftBuildingHeight - 1, 1)
+          state.boundary.left.floors = Math.max(
+            state.boundary.left.floors - 1,
+            1
+          )
           break
         case 'right':
-          state.rightBuildingHeight = Math.max(state.rightBuildingHeight - 1, 1)
+          state.boundary.right.floors = Math.max(
+            state.boundary.right.floors - 1,
+            1
+          )
           break
       }
     },
@@ -357,13 +373,13 @@ const streetSlice = createSlice({
 
         switch (position) {
           case 'left':
-            state.leftBuildingHeight = Math.min(
+            state.boundary.left.floors = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
             break
           case 'right':
-            state.rightBuildingHeight = Math.min(
+            state.boundary.right.floors = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
@@ -388,10 +404,10 @@ const streetSlice = createSlice({
 
         switch (position) {
           case 'left':
-            state.leftBuildingVariant = variant
+            state.boundary.left.variant = variant
             break
           case 'right':
-            state.rightBuildingVariant = variant
+            state.boundary.right.variant = variant
             break
         }
       },
