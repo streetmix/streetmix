@@ -157,6 +157,7 @@
   justify-content: center;
   height: 100%;
   color: var(--color-turquoise-800);
+  white-space: normal;
 
   /* Top/bottom padding accounts for street name */
   padding: 20px 1.5em 2px;

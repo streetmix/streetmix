@@ -9,10 +9,7 @@ export function initStreetDataChangedListener () {
   // We create a string representation of the values we need to compare
   const select = (state) =>
     JSON.stringify({
-      leftBuildingHeight: state.street.leftBuildingHeight,
-      leftBuildingVariant: state.street.leftBuildingVariant,
-      rightBuildingHeight: state.street.rightBuildingHeight,
-      rightBuildingVariant: state.street.rightBuildingVariant,
+      boundary: state.street.boundary,
       name: state.street.name,
       location: state.street.location,
       skybox: state.street.skybox

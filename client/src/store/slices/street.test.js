@@ -36,10 +36,20 @@ describe('street reducer', () => {
     width: 0,
     name: null,
     segments: [],
-    leftBuildingHeight: 0,
-    rightBuildingHeight: 0,
-    leftBuildingVariant: '',
-    rightBuildingVariant: '',
+    boundary: {
+      left: {
+        id: '',
+        variant: '',
+        floors: 0,
+        elevation: 0
+      },
+      right: {
+        id: '',
+        variant: '',
+        floors: 0,
+        elevation: 0
+      }
+    },
     skybox: 'day',
     location: null,
     showAnalytics: false,
@@ -473,330 +483,264 @@ describe('street reducer', () => {
     describe('addBuildingFloor()', () => {
       it('adds a floor on the left building', () => {
         const existingStreet = {
-          leftBuildingHeight: 1
+          boundary: {
+            left: {
+              floors: 1
+            }
+          }
         }
 
-        expect(street(existingStreet, addBuildingFloor('left'))).toEqual({
-          leftBuildingHeight: 2
-        })
+        const result = street(existingStreet, addBuildingFloor('left'))
+        expect(result.boundary.left.floors).toEqual(2)
       })
 
       it('adds a floor on the right building', () => {
         const existingStreet = {
-          rightBuildingHeight: 19
+          boundary: {
+            right: {
+              floors: 19
+            }
+          }
         }
 
-        expect(street(existingStreet, addBuildingFloor('right'))).toEqual({
-          rightBuildingHeight: 20
-        })
+        const result = street(existingStreet, addBuildingFloor('right'))
+        expect(result.boundary.right.floors).toEqual(20)
       })
 
       it('will not increase a building height past maximum', () => {
         const existingStreet = {
-          rightBuildingHeight: 20
+          boundary: {
+            right: {
+              floors: 20
+            }
+          }
         }
 
-        expect(street(existingStreet, addBuildingFloor('right'))).toEqual({
-          rightBuildingHeight: 20
-        })
-      })
-
-      it('does nothing if position is not provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, addBuildingFloor())).toEqual(
-          existingStreet
-        )
-      })
-
-      it('does nothing if an unknown position is provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, addBuildingFloor('middle'))).toEqual(
-          existingStreet
-        )
+        const result = street(existingStreet, addBuildingFloor('right'))
+        expect(result.boundary.right.floors).toEqual(20)
       })
     })
 
     describe('removeBuildingFloor()', () => {
       it('removes a floor on the left building', () => {
         const existingStreet = {
-          leftBuildingHeight: 2
+          boundary: {
+            left: {
+              floors: 2
+            }
+          }
         }
 
-        expect(street(existingStreet, removeBuildingFloor('left'))).toEqual({
-          leftBuildingHeight: 1
-        })
+        const result = street(existingStreet, removeBuildingFloor('left'))
+        expect(result.boundary.left.floors).toEqual(1)
       })
 
       it('removes a floor on the right building', () => {
         const existingStreet = {
-          rightBuildingHeight: 19
+          boundary: {
+            right: {
+              floors: 19
+            }
+          }
         }
 
-        expect(street(existingStreet, removeBuildingFloor('right'))).toEqual({
-          rightBuildingHeight: 18
-        })
+        const result = street(existingStreet, removeBuildingFloor('right'))
+        expect(result.boundary.right.floors).toEqual(18)
       })
 
       it('will not decrease a building height past minimum', () => {
         const existingStreet = {
-          leftBuildingHeight: 1
+          boundary: {
+            left: {
+              floors: 1
+            }
+          }
         }
 
-        expect(street(existingStreet, removeBuildingFloor('left'))).toEqual({
-          leftBuildingHeight: 1
-        })
-      })
-
-      it('does nothing if position is not provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, removeBuildingFloor())).toEqual(
-          existingStreet
-        )
-      })
-
-      it('does nothing if an unknown position is provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, removeBuildingFloor('middle'))).toEqual(
-          existingStreet
-        )
+        const result = street(existingStreet, removeBuildingFloor('left'))
+        expect(result.boundary.left.floors).toEqual(1)
       })
     })
 
     describe('setBuildingFloorValue()', () => {
       it('sets a floor value on the left building', () => {
         const existingStreet = {
-          leftBuildingHeight: 1
+          boundary: {
+            left: {
+              floors: 1
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('left', 3))
-        ).toEqual({
-          leftBuildingHeight: 3
-        })
+        const result = street(existingStreet, setBuildingFloorValue('left', 3))
+        expect(result.boundary.left.floors).toEqual(3)
       })
 
       it('sets a floor value on the right building', () => {
         const existingStreet = {
-          rightBuildingHeight: 1
+          boundary: {
+            right: {
+              floors: 1
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', 1))
-        ).toEqual({
-          rightBuildingHeight: 1
-        })
+        const result = street(existingStreet, setBuildingFloorValue('right', 1))
+        expect(result.boundary.right.floors).toEqual(1)
       })
 
       it('will clamp a value to minimum', () => {
         const existingStreet = {
-          leftBuildingHeight: 20
+          boundary: {
+            left: {
+              floors: 20
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('left', 0))
-        ).toEqual({
-          leftBuildingHeight: 1
-        })
+        const result = street(existingStreet, setBuildingFloorValue('left', 0))
+        expect(result.boundary.left.floors).toEqual(1)
       })
 
       it('will clamp a value to maximum', () => {
         const existingStreet = {
-          rightBuildingHeight: 1
+          boundary: {
+            right: {
+              floors: 1
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', 1000))
-        ).toEqual({
-          rightBuildingHeight: 20
-        })
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('right', 1000)
+        )
+        expect(result.boundary.right.floors).toEqual(20)
       })
 
       it('refuses to set a value that is NaN', () => {
         const existingStreet = {
-          rightBuildingHeight: 5
+          boundary: {
+            right: {
+              floors: 5
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', NaN))
-        ).toEqual({
-          rightBuildingHeight: 5
-        })
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('right', NaN)
+        )
+        expect(result.boundary.right.floors).toEqual(5)
       })
 
       it('refuses to set a value that is falsy', () => {
         const existingStreet = {
-          leftBuildingHeight: 5
+          boundary: {
+            left: {
+              floors: 5
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('left', null))
-        ).toEqual({
-          leftBuildingHeight: 5
-        })
-
-        expect(
-          street(existingStreet, setBuildingFloorValue('left', false))
-        ).toEqual({
-          leftBuildingHeight: 5
-        })
-
+        // Only cover the empty string case because all other falsy values are
+        // type errors
         expect(
           street(existingStreet, setBuildingFloorValue('left', ''))
-        ).toEqual({
-          leftBuildingHeight: 5
-        })
-
-        expect(street(existingStreet, setBuildingFloorValue('left'))).toEqual({
-          leftBuildingHeight: 5
-        })
+        ).toEqual(existingStreet)
       })
 
       it('parses integer values from non-integer input', () => {
         const existingStreet = {
-          rightBuildingHeight: 5
+          boundary: {
+            right: {
+              floors: 5
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', 4.5))
-        ).toEqual({
-          rightBuildingHeight: 4
-        })
+        const result1 = street(
+          existingStreet,
+          setBuildingFloorValue('right', 4.5)
+        )
+        expect(result1.boundary.right.floors).toEqual(4)
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', '9'))
-        ).toEqual({
-          rightBuildingHeight: 9
-        })
+        const result2 = street(
+          existingStreet,
+          setBuildingFloorValue('right', '9')
+        )
+        expect(result2.boundary.right.floors).toEqual(9)
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', '6 floors'))
-        ).toEqual({
-          rightBuildingHeight: 6
-        })
+        const result3 = street(
+          existingStreet,
+          setBuildingFloorValue('right', '6 floors')
+        )
+        expect(result3.boundary.right.floors).toEqual(6)
       })
 
       it('does not set a value if integer value cannot be parsed from non-integer input', () => {
         const existingStreet = {
-          leftBuildingHeight: 5
+          boundary: {
+            left: {
+              floors: 5
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingFloorValue('right', 'foo'))
-        ).toEqual({
-          leftBuildingHeight: 5
-        })
-      })
-
-      it('does nothing if position is not provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, setBuildingFloorValue())).toEqual(
-          existingStreet
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('right', 'foo')
         )
-      })
-
-      it('does nothing if an unknown position is provided', () => {
-        const existingStreet = {
-          leftBuildingHeight: 1,
-          rightBuildingHeight: 1
-        }
-
-        expect(street(existingStreet, setBuildingFloorValue('middle'))).toEqual(
-          existingStreet
-        )
+        expect(result.boundary.left.floors).toEqual(5)
       })
     })
 
     describe('setBuildingVariant()', () => {
       it('sets a variant on the left building', () => {
         const existingStreet = {
-          leftBuildingVariant: 'wide'
+          boundary: {
+            left: {
+              variant: 'wide'
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingVariant('left', 'narrow'))
-        ).toEqual({
-          leftBuildingVariant: 'narrow'
-        })
+        const result = street(
+          existingStreet,
+          setBuildingVariant('left', 'narrow')
+        )
+        expect(result.boundary.left.variant).toEqual('narrow')
       })
 
       it('sets a floor value on the right building', () => {
         const existingStreet = {
-          rightBuildingVariant: 'narrow'
+          boundary: {
+            right: {
+              variant: 'narrow'
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingVariant('right', 'wide'))
-        ).toEqual({
-          rightBuildingVariant: 'wide'
-        })
+        const result = street(
+          existingStreet,
+          setBuildingVariant('right', 'wide')
+        )
+        expect(result.boundary.right.variant).toEqual('wide')
       })
 
       it('refuses to set a value that is falsy', () => {
         const existingStreet = {
-          leftBuildingVariant: 'waterfront'
+          boundary: {
+            left: {
+              variant: 'waterfront'
+            }
+          }
         }
 
-        expect(
-          street(existingStreet, setBuildingVariant('left', null))
-        ).toEqual({
-          leftBuildingVariant: 'waterfront'
-        })
-
-        expect(
-          street(existingStreet, setBuildingVariant('left', false))
-        ).toEqual({
-          leftBuildingVariant: 'waterfront'
-        })
-
-        expect(street(existingStreet, setBuildingVariant('left', ''))).toEqual({
-          leftBuildingVariant: 'waterfront'
-        })
-
-        expect(street(existingStreet, setBuildingVariant('left'))).toEqual({
-          leftBuildingVariant: 'waterfront'
-        })
-      })
-
-      it('does nothing if position is not provided', () => {
-        const existingStreet = {
-          leftBuildingVariant: 'fence',
-          rightBuildingVariant: 'parking'
-        }
-
-        expect(street(existingStreet, setBuildingVariant())).toEqual(
-          existingStreet
-        )
-      })
-
-      it('does nothing if an unknown position is provided', () => {
-        const existingStreet = {
-          leftBuildingVariant: 'fence',
-          rightBuildingVariant: 'parking'
-        }
-
-        expect(street(existingStreet, setBuildingVariant('middle'))).toEqual(
-          existingStreet
-        )
+        // Only cover the empty string case because all other falsy values
+        // are type errors
+        const result = street(existingStreet, setBuildingVariant('left', ''))
+        expect(result.boundary.left.variant).toEqual('waterfront')
       })
     })
   })

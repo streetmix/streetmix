@@ -29,11 +29,11 @@ export function streetsToCSV (json) {
     'creatorId',
     'width',
     'widthImperial',
-    'leftBuildingVariant',
-    'leftBuildingHeight',
+    'leftBoundaryVariant',
+    'leftBoundaryFloors',
     SEGMENT_REPLACE_HEADER, // WILL BE REPLACED
-    'rightBuildingVariant',
-    'rightBuildingHeight',
+    'rightBoundaryVariant',
+    'rightBoundaryFloors',
     'editCount',
     'createdAt',
     'url'
@@ -66,10 +66,14 @@ export function streetsToCSV (json) {
         case 'creatorId':
         case 'createdAt':
           return street[header] ?? ''
-        case 'leftBuildingVariant':
-        case 'leftBuildingHeight':
-        case 'rightBuildingVariant':
-        case 'rightBuildingHeight':
+        case 'leftBoundaryVariant':
+          return street.data.boundary.left.variant
+        case 'leftBoundaryFloors':
+          return street.data.boundary.left.floors
+        case 'rightBoundaryVariant':
+          return street.data.boundary.right.variant
+        case 'rightBoundaryFloors':
+          return street.data.boundary.left.floors
         case 'editCount':
           return street.data.street[header] ?? ''
         case 'width':

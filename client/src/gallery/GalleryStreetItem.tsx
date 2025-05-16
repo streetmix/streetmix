@@ -63,6 +63,7 @@ function GalleryStreetItem (
         watermark: false
       })
     } catch (error) {
+      console.error(error)
       setError(true)
     }
   }, [thumbnailEl, street, dpi])

@@ -265,6 +265,12 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.location = transmission.data.street.location ?? null
   street.editCount = transmission.data.street.editCount ?? 0
 
+  // Delete deprecated properties, if present
+  delete street.leftBuildingVariant
+  delete street.leftBuildingHeight
+  delete street.rightBuildingVariant
+  delete street.rightBuildingHeight
+
   return street
 }
 

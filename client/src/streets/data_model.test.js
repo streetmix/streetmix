@@ -12,10 +12,16 @@ function partialStreetDataForSnapshot (data) {
   return {
     units: data.units,
     width: data.width,
-    leftBuildingHeight: data.leftBuildingHeight,
-    leftBuildingVariant: data.leftBuildingVariant,
-    rightBuildingHeight: data.rightBuildingHeight,
-    rightBuildingVariant: data.rightBuildingVariant,
+    boundary: {
+      left: {
+        ...data.boundary.left,
+        id: 'left' // Use non-random ID
+      },
+      right: {
+        ...data.boundary.right,
+        id: 'right' // Use non-random ID
+      }
+    },
     segments: data.segments.map((slice, i) => ({
       id: `segment_${i}`, // Placeholder ID number
       type: slice.type,
@@ -33,10 +39,20 @@ describe('createStreetData()', () => {
     const snapshot = partialStreetDataForSnapshot(data)
     expect(snapshot).toMatchInlineSnapshot(`
       {
-        "leftBuildingHeight": 4,
-        "leftBuildingVariant": "narrow",
-        "rightBuildingHeight": 3,
-        "rightBuildingVariant": "wide",
+        "boundary": {
+          "left": {
+            "elevation": 1,
+            "floors": 4,
+            "id": "left",
+            "variant": "narrow",
+          },
+          "right": {
+            "elevation": 1,
+            "floors": 3,
+            "id": "right",
+            "variant": "wide",
+          },
+        },
         "segments": [
           {
             "elevation": 1,
@@ -138,10 +154,20 @@ describe('createStreetData()', () => {
     // adjusted so they create cleaner conversion to feet and inches.
     expect(snapshot).toMatchInlineSnapshot(`
       {
-        "leftBuildingHeight": 4,
-        "leftBuildingVariant": "narrow",
-        "rightBuildingHeight": 3,
-        "rightBuildingVariant": "wide",
+        "boundary": {
+          "left": {
+            "elevation": 1,
+            "floors": 4,
+            "id": "left",
+            "variant": "narrow",
+          },
+          "right": {
+            "elevation": 1,
+            "floors": 3,
+            "id": "right",
+            "variant": "wide",
+          },
+        },
         "segments": [
           {
             "elevation": 1,
@@ -246,10 +272,20 @@ describe('createStreetData()', () => {
     // and vice versa
     expect(snapshot).toMatchInlineSnapshot(`
       {
-        "leftBuildingHeight": 4,
-        "leftBuildingVariant": "narrow",
-        "rightBuildingHeight": 3,
-        "rightBuildingVariant": "wide",
+        "boundary": {
+          "left": {
+            "elevation": 1,
+            "floors": 4,
+            "id": "left",
+            "variant": "narrow",
+          },
+          "right": {
+            "elevation": 1,
+            "floors": 3,
+            "id": "right",
+            "variant": "wide",
+          },
+        },
         "segments": [
           {
             "elevation": 1,

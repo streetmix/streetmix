@@ -9,13 +9,15 @@
 ###############################################################################
 
 width: 24
-edges:
+boundary:
   left:
     variant: narrow
-    height: 4
+    floors: 4
+    elevation: 1
   right:
     variant: wide
-    height: 3
+    floors: 3
+    elevation: 1
 slices:
   - type: sidewalk
     variant:

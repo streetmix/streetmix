@@ -19,10 +19,18 @@
       },
       "userUpdated": false,
       "skybox": "day",
-      "leftBuildingHeight": 3,
-      "rightBuildingHeight": 2,
-      "leftBuildingVariant": "narrow",
-      "rightBuildingVariant": "wide",
+      "boundary": {
+        "left": {
+          "variant": "narrow",
+          "floors": 3,
+          "elevation": 1
+        },
+        "right": {
+          "variant": "wide",
+          "floors": 2,
+          "elevation": 1
+        }
+      },
       "segments": ["Object", "Object"],
       "editCount": 33
     }
