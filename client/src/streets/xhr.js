@@ -1,5 +1,4 @@
 import clone from 'just-clone'
-import { nanoid } from 'nanoid'
 import { showError, ERRORS } from '../app/errors'
 import {
   checkIfEverythingIsLoaded,
@@ -265,24 +264,6 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.name = transmission.name ?? null
   street.location = transmission.data.street.location ?? null
   street.editCount = transmission.data.street.editCount ?? 0
-
-  // Add boundary object if not present
-  if (street.boundary === undefined) {
-    street.boundary = {
-      left: {
-        id: nanoid(),
-        variant: street.leftBuildingVariant,
-        floors: street.leftBuildingHeight,
-        elevation: 1
-      },
-      right: {
-        id: nanoid(),
-        variant: street.rightBuildingVariant,
-        floors: street.rightBuildingHeight,
-        elevation: 1
-      }
-    }
-  }
 
   // Delete deprecated properties, if present
   delete street.leftBuildingVariant

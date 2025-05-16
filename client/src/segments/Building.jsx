@@ -185,13 +185,17 @@ class Building extends React.Component {
     })
   }
 
-  // Animate if the only changes in street object are:
-  // editCount, rightBuildingVariant (or leftBuildingVariant), updatedAt, and clientUpdatedAt
+  // Animate if the only changes in street object are boundary variants.
+  // Absolutely don't animate if we're switchng streets.
   shouldBuildingAnimate = (oldStreet, newStreet) => {
     let shouldAnimate = false
     if (oldStreet.id !== newStreet.id) return false
-    if (oldStreet.boundary.left.variant !== newStreet.boundary.left.variant) { shouldAnimate = true }
-    if (oldStreet.boundary.right.variant !== newStreet.boundary.right.variant) { shouldAnimate = true }
+    if (oldStreet.boundary.left.variant !== newStreet.boundary.left.variant) {
+      shouldAnimate = true
+    }
+    if (oldStreet.boundary.right.variant !== newStreet.boundary.right.variant) {
+      shouldAnimate = true
+    }
     return shouldAnimate
   }
 
