@@ -7,7 +7,7 @@ import type { BoundaryPosition } from '@streetmix/types'
 interface BoundaryProps {
   position: BoundaryPosition
   buildingWidth: number
-  updatePerspective: (el: HTMLElement) => void
+  updatePerspective: (el: HTMLDivElement) => void
 }
 
 function Boundary (props: BoundaryProps): React.ReactElement {

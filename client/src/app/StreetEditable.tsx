@@ -48,7 +48,7 @@ function makeSpaceBetweenSlices (
 }
 
 interface StreetEditableProps {
-  resizeType?: number
+  resizeType: number | null
   setBuildingWidth: (node: HTMLDivElement | null) => void
   updatePerspective: (el: HTMLDivElement) => void
   draggingType?: number
