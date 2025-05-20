@@ -345,8 +345,8 @@ function mapStateToProps (state) {
       typeof state.ui.activeSegment === 'string'
         ? state.ui.activeSegment
         : null,
-    leftBuildingEditable: state.flags.EDIT_BUILDINGS_LEFT.value,
-    rightBuildingEditable: state.flags.EDIT_BUILDINGS_RIGHT.value,
+    leftBuildingEditable: state.flags.EDIT_BOUNDARY_LEFT.value,
+    rightBuildingEditable: state.flags.EDIT_BOUNDARY_RIGHT.value,
     dpi: state.system.devicePixelRatio
   }
 }
