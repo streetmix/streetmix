@@ -7,8 +7,7 @@ import {
   removeBuildingFloor,
   setBuildingFloorValue
 } from '~/src/store/slices/street'
-import { getBoundaryItem } from '~/src/boundary'
-import { prettifyHeight } from '~/src/segments/buildings'
+import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION

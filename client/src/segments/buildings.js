@@ -1,17 +1,13 @@
 import seedrandom from 'seedrandom'
-import { round } from '@streetmix/utils'
 
 import {
-  calculateRealHeightNumber,
   getBoundaryImageHeight,
   getBoundaryItem,
   getSpriteId
 } from '~/src/boundary'
 import { generateRandSeed } from '../util/random'
-import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
 import store from '../store'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
@@ -22,47 +18,6 @@ import { drawSegmentImage } from './view'
 const MAX_CANVAS_HEIGHT = 2048
 
 export const GROUND_BASELINE_HEIGHT = 44
-
-/**
- * Given a building, return a string showing number of floors and actual
- * height measurement e.g. when height value is `4` return a string that
- * looks like this:
- *    "4 floors (45m)"
- *
- * @todo Localize return value
- * @param {string} variant - what type of building is it
- * @param {string} position - what side is it on (left or right)
- * @param {Number} floors - number of floors
- * @param {Number} units - units, either SETTINGS_UNITS_METRIC or SETTINGS_UNITS_IMPERIAL
- * @param {Function} formatMessage - pass in intl.formatMessage()
- */
-export function prettifyHeight (
-  variant,
-  position,
-  floors,
-  units,
-  formatMessage
-) {
-  let text = formatMessage(
-    {
-      id: 'building.floors-count',
-      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
-    },
-    {
-      count: floors
-    }
-  )
-
-  let realHeight = calculateRealHeightNumber(variant, position, floors)
-  if (units === SETTINGS_UNITS_METRIC) {
-    realHeight = round(realHeight, 1)
-  }
-  const prettifiedHeight = prettifyWidth(realHeight, units)
-
-  text += ` (${prettifiedHeight})`
-
-  return text
-}
 
 /**
  * Draws the building on a canvas

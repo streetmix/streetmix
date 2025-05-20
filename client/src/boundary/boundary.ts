@@ -1,7 +1,18 @@
+import { round } from '@streetmix/utils'
+
 import BOUNDARY_DEFS from '../boundary/boundary_defs.yaml'
+import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
+import store from '../store'
+import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from '../segments/constants'
-import type { BoundaryDefinition, BoundaryPosition } from '@streetmix/types'
+
+import type { IntlShape } from 'react-intl'
+import type {
+  BoundaryDefinition,
+  BoundaryPosition,
+  UnitsSetting
+} from '@streetmix/types'
 
 export function getBoundaryItem (variant: string): BoundaryDefinition {
   const item = BOUNDARY_DEFS[variant]
@@ -55,7 +66,7 @@ export function getBoundaryImageHeight (
 /**
  * Converts the number of floors to an actual height in meters
  */
-export function calculateRealHeightNumber (
+function calculateRealHeightNumber (
   variant: string,
   position: BoundaryPosition,
   floors: number
@@ -65,4 +76,39 @@ export function calculateRealHeightNumber (
     (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
     TILE_SIZE
   )
+}
+
+/**
+ * Given a building, return a string showing number of floors and actual
+ * height measurement e.g. when height value is `4` return a string that
+ * looks like this:
+ *    "4 floors (45m)"
+ */
+export function prettifyHeight (
+  variant: string,
+  position: BoundaryPosition,
+  floors: number,
+  units: UnitsSetting,
+  formatMessage: IntlShape['formatMessage']
+): string {
+  let text = formatMessage(
+    {
+      id: 'building.floors-count',
+      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+    },
+    {
+      count: floors
+    }
+  )
+
+  let realHeight = calculateRealHeightNumber(variant, position, floors)
+  if (units === SETTINGS_UNITS_METRIC) {
+    realHeight = round(realHeight, 1)
+  }
+  const locale = store.getState().locale.locale
+  const prettifiedHeight = prettifyWidth(realHeight, units, locale)
+
+  text += ` (${prettifiedHeight})`
+
+  return text
 }

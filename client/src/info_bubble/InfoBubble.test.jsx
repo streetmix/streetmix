@@ -10,11 +10,6 @@ import {
 import InfoBubble from './InfoBubble'
 
 vi.mock('../segments/view')
-vi.mock('../segments/buildings', () => {
-  return {
-    prettifyHeight: vi.fn(() => 10)
-  }
-})
 
 const initialState = {
   infoBubble: {

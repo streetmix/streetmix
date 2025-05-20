@@ -1,12 +1,12 @@
-import { prettifyHeight } from '../buildings'
 import {
   SETTINGS_UNITS_METRIC,
   SETTINGS_UNITS_IMPERIAL
-} from '../../users/constants'
+} from '../users/constants'
+import { prettifyHeight } from './boundary'
 
 describe('prettifyHeight()', () => {
   it('formats a building with floors with height (metric)', () => {
-    const formatMessage = () => '2 floors'
+    const formatMessage = (): string => '2 floors'
     const text = prettifyHeight(
       'wide',
       'left',
@@ -18,7 +18,7 @@ describe('prettifyHeight()', () => {
   })
 
   it('formats a building with floors with height (metric)', () => {
-    const formatMessage = () => '3 floors'
+    const formatMessage = (): string => '3 floors'
     const text = prettifyHeight(
       'narrow',
       'right',
