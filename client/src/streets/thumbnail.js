@@ -2,11 +2,8 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
-import {
-  BUILDINGS,
-  GROUND_BASELINE_HEIGHT,
-  drawBuilding
-} from '../segments/buildings'
+import { getBoundaryItem } from '../boundary'
+import { GROUND_BASELINE_HEIGHT, drawBuilding } from '../segments/buildings'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { TILE_SIZE } from '../segments/constants'
 import {
@@ -339,7 +336,7 @@ function drawBuildings (
   const leftVariant =
     street.boundary?.left.variant ?? street.leftBuildingVariant
   const leftFloors = street.boundary?.left.floors ?? street.leftBuildingHeight
-  const leftBuilding = BUILDINGS[leftVariant]
+  const leftBuilding = getBoundaryItem(leftVariant)
   const leftOverhang =
     typeof leftBuilding.overhangWidth === 'number'
       ? leftBuilding.overhangWidth
@@ -364,7 +361,7 @@ function drawBuildings (
     street.boundary?.right.variant ?? street.rightBuildingVariant
   const rightFloors =
     street.boundary?.right.floors ?? street.rightBuildingHeight
-  const rightBuilding = BUILDINGS[rightVariant]
+  const rightBuilding = getBoundaryItem(rightVariant)
   const rightOverhang =
     typeof rightBuilding.overhangWidth === 'number'
       ? rightBuilding.overhangWidth

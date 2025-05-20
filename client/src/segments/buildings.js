@@ -1,11 +1,11 @@
 import seedrandom from 'seedrandom'
 import { round } from '@streetmix/utils'
 
+import { getBoundaryItem } from '~/src/boundary'
 import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
 import store from '../store'
-import BUILDINGS from '../boundary/boundary_defs.yaml'
 import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import {
   TILE_SIZE,
@@ -18,9 +18,6 @@ const MAX_CANVAS_HEIGHT = 2048
 
 export const GROUND_BASELINE_HEIGHT = 44
 
-// Re-export for modules that need this
-export { BUILDINGS }
-
 /**
  * Create sprite id given variant and position
  *
@@ -29,7 +26,7 @@ export { BUILDINGS }
  * @returns {string}
  */
 function getSpriteId (variant, position) {
-  const building = BUILDINGS[variant]
+  const building = getBoundaryItem(variant)
   return building.spriteId + (building.sameOnBothSides ? '' : '-' + position)
 }
 
@@ -44,7 +41,7 @@ function getSpriteId (variant, position) {
  * @param {Number} floors
  */
 export function getBuildingImageHeight (variant, position, floors = 1) {
-  const building = BUILDINGS[variant]
+  const building = getBoundaryItem(variant)
   let height
 
   if (building.hasFloors) {
@@ -145,7 +142,7 @@ export function drawBuilding (
   dpi,
   shadeIn = false
 ) {
-  const building = BUILDINGS[variant]
+  const building = getBoundaryItem(variant)
 
   const spriteId = getSpriteId(variant, position)
   const svg = images.get(spriteId)
@@ -332,7 +329,7 @@ export function createBuilding (el, variant, position, floors, shadeIn) {
   const elementWidth = el.offsetWidth
 
   // Determine building dimensions
-  const building = BUILDINGS[variant]
+  const building = getBoundaryItem(variant)
   const overhangWidth =
     typeof building.overhangWidth === 'number' ? building.overhangWidth : 0
   const buildingHeight = getBuildingImageHeight(variant, position, floors)

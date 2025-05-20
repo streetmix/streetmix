@@ -2,14 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+
 import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { addBuildingFloor, removeBuildingFloor } from '../store/slices/street'
+import { getBoundaryItem } from '../boundary'
 import { BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION } from './constants'
-import { createBuilding, BUILDINGS } from './buildings'
+import { createBuilding } from './buildings'
 
 class Building extends React.Component {
   static propTypes = {
@@ -156,7 +158,7 @@ class Building extends React.Component {
     const positive = event.key === '+' || event.code === 'Equal'
 
     const variant = this.props.street[this.state.variant]
-    const hasFloors = BUILDINGS[variant].hasFloors
+    const hasFloors = getBoundaryItem(variant).hasFloors
 
     if (negative && hasFloors) {
       this.props.removeBuildingFloor(this.props.position)

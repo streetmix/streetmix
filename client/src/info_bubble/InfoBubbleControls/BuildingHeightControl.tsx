@@ -7,7 +7,8 @@ import {
   removeBuildingFloor,
   setBuildingFloorValue
 } from '~/src/store/slices/street'
-import { BUILDINGS, prettifyHeight } from '~/src/segments/buildings'
+import { getBoundaryItem } from '~/src/boundary'
+import { prettifyHeight } from '~/src/segments/buildings'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION
@@ -59,7 +60,7 @@ function BuildingHeightControl ({
     return prettifyHeight(variant, position, value, units, intl.formatMessage)
   }
 
-  const hasFloors = BUILDINGS[variant as keyof typeof BUILDINGS].hasFloors
+  const hasFloors = getBoundaryItem(variant).hasFloors
 
   return (
     <div className="non-variant building-height">

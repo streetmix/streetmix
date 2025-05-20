@@ -2,7 +2,7 @@ import React from 'react'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
-import { BUILDINGS } from '~/src/segments/buildings'
+import { getBoundaryItem } from '~/src/boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
 import {
@@ -66,7 +66,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         const key = street.boundary.left.variant
 
         id = `buildings.${key}.name`
-        defaultMessage = BUILDINGS[key as keyof typeof BUILDINGS].label
+        defaultMessage = getBoundaryItem(key).label
 
         break
       }
@@ -74,7 +74,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         const key = street.boundary.right.variant
 
         id = `buildings.${key}.name`
-        defaultMessage = BUILDINGS[key as keyof typeof BUILDINGS].label
+        defaultMessage = getBoundaryItem(key).label
 
         break
       }

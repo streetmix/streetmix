@@ -295,3 +295,15 @@ export interface SpriteDefinition {
   offsetX?: number
   originY?: number
 }
+
+export interface BoundaryDefinition {
+  id: string
+  label: string
+  spriteId: string
+  hasFloors: boolean
+  variantsCount?: number
+  floorHeight?: number
+  roofHeight?: number
+  mainFloorHeight?: number
+  overhangWidth?: number
+}
