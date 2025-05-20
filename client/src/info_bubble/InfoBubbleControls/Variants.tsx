@@ -23,11 +23,11 @@ import {
 } from '../constants'
 import ElevationControl from './ElevationControl'
 
-import type { BuildingPosition } from '@streetmix/types'
+import type { BoundaryPosition } from '@streetmix/types'
 
 interface VariantsProps {
   type: number
-  position: number | BuildingPosition
+  position: number | BoundaryPosition
 }
 
 function Variants (props: VariantsProps): React.ReactElement | null {

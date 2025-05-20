@@ -16,10 +16,10 @@ import {
 import UpDownInput from './UpDownInput'
 import './BuildingHeightControl.css'
 
-import type { BuildingPosition } from '@streetmix/types'
+import type { BoundaryPosition } from '@streetmix/types'
 
 interface BuildingHeightControlProps {
-  position: BuildingPosition
+  position: BoundaryPosition
 }
 
 function BuildingHeightControl ({

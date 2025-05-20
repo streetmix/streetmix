@@ -13,11 +13,11 @@ import {
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
 
-import type { BuildingPosition, Segment } from '@streetmix/types'
+import type { BoundaryPosition, Segment } from '@streetmix/types'
 
 interface InfoBubbleHeaderProps {
   type: number
-  position: number | BuildingPosition
+  position: number | BoundaryPosition
 }
 
 function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {

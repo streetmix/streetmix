@@ -192,7 +192,7 @@ export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
 
-export type BuildingPosition = 'left' | 'right'
+export type BoundaryPosition = 'left' | 'right'
 
 // Subset of / derived from SegmentDefinition
 export interface VariantInfo {

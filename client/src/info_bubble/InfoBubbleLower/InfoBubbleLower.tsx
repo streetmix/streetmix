@@ -5,10 +5,10 @@ import Triangle from './Triangle'
 import Description from './Description'
 import Warnings from './Warnings'
 
-import type { BuildingPosition, Segment } from '@streetmix/types'
+import type { BoundaryPosition, Segment } from '@streetmix/types'
 
 interface InfoBubbleLowerProps {
-  position: number | BuildingPosition
+  position: number | BoundaryPosition
   updateBubbleDimensions: () => void
   infoBubbleEl: HTMLDivElement
   updateHoverPolygon: () => void
