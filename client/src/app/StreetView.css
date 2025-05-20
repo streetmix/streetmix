@@ -10,7 +10,8 @@
   touch-action: pan-x;
 
   /* Prevent overscroll from doing forward/back navigation on some browsers */
-  overscroll-behavior-x: contain;
+  /* Also disable the bounce effect exposing empty space beyond section boundary */
+  overscroll-behavior: none;
 
   [dir="rtl"] & {
     direction: ltr;
