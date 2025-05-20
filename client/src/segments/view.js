@@ -29,12 +29,12 @@ const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
  * @param {CanvasRenderingContext2D} ctx
  * @param {Number} sx - x position of sprite to read from (default = 0)
  * @param {Number} sy - y position of sprite to read from (default = 0)
- * @param {Number} sw - sub-rectangle width to draw
- * @param {Number} sh - sub-rectangle height to draw
+ * @param {Number|undefined} sw - sub-rectangle width to draw
+ * @param {Number|undefined} sh - sub-rectangle height to draw
  * @param {Number} dx - x position on canvas
  * @param {Number} dy - y position on canvas
- * @param {Number} dw - destination width to draw
- * @param {Number} dh - destination height to draw
+ * @param {Number|undefined} dw - destination width to draw
+ * @param {Number|undefined} dh - destination height to draw
  * @param {Number} multiplier - scale to draw at (default = 1)
  * @param {Number} dpi
  */

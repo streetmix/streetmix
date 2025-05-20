@@ -2,8 +2,11 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
-import { getBoundaryItem } from '../boundary'
-import { GROUND_BASELINE_HEIGHT, drawBuilding } from '../segments/buildings'
+import {
+  getBoundaryItem,
+  drawBoundary,
+  GROUND_BASELINE_HEIGHT
+} from '../boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { TILE_SIZE } from '../segments/constants'
 import {
@@ -318,7 +321,7 @@ function drawGround (
  * @param {Number} buildingOffsetLeft
  * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBuildings (
+function drawBoundaries (
   ctx,
   street,
   width,
@@ -341,7 +344,7 @@ function drawBuildings (
     typeof leftBuilding.overhangWidth === 'number'
       ? leftBuilding.overhangWidth
       : 0
-  drawBuilding(
+  drawBoundary(
     ctx,
     leftVariant,
     leftFloors,
@@ -366,7 +369,7 @@ function drawBuildings (
     typeof rightBuilding.overhangWidth === 'number'
       ? rightBuilding.overhangWidth
       : 0
-  drawBuilding(
+  drawBoundary(
     ctx,
     rightVariant,
     rightFloors,
@@ -767,7 +770,7 @@ export function drawStreetThumbnail (
   drawGround(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
 
   // Buildings
-  drawBuildings(
+  drawBoundaries(
     ctx,
     street,
     width,

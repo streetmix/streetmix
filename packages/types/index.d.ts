@@ -302,6 +302,8 @@ interface BoundaryDefinitionBase {
   spriteId: string
   hasFloors: false
   sameOnBothSides?: boolean
+  repeatHalf?: boolean
+  alignAtBaseline?: boolean
   variantsCount?: number
   overhangWidth?: number
 }
