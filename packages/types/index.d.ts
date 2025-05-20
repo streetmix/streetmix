@@ -296,15 +296,25 @@ export interface SpriteDefinition {
 
 export type BoundaryPosition = 'left' | 'right'
 
-export interface BoundaryDefinition {
+interface BoundaryDefinitionBase {
   id: string
   label: string
   spriteId: string
-  hasFloors: boolean
+  hasFloors: false
   sameOnBothSides?: boolean
   variantsCount?: number
-  floorHeight?: number
-  roofHeight?: number
-  mainFloorHeight?: number
   overhangWidth?: number
 }
+
+// If boundary definition has floors, the following properties are
+// required to also be present
+interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
+  hasFloors: true
+  floorHeight: number
+  roofHeight: number
+  mainFloorHeight: number
+}
+
+export type BoundaryDefinition =
+  | BoundaryDefinitionBase
+  | BoundaryDefinitionWithFloors

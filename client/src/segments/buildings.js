@@ -1,7 +1,11 @@
 import seedrandom from 'seedrandom'
 import { round } from '@streetmix/utils'
 
-import { getBoundaryItem, getSpriteId } from '~/src/boundary'
+import {
+  getBoundaryImageHeight,
+  getBoundaryItem,
+  getSpriteId
+} from '~/src/boundary'
 import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
@@ -19,35 +23,6 @@ const MAX_CANVAS_HEIGHT = 2048
 export const GROUND_BASELINE_HEIGHT = 44
 
 /**
- * Calculate building image height. For buildings that do not have multiple
- * floors, this is just the image's intrinsic height value. For buildings with
- * multiple floors, this must be calculated from the number of floors and
- * sprite pixel specifications.
- *
- * @param {string} variant
- * @param {string} position - either "left" or "right"
- * @param {Number} floors
- */
-export function getBuildingImageHeight (variant, position, floors = 1) {
-  const building = getBoundaryItem(variant)
-  let height
-
-  if (building.hasFloors) {
-    height =
-      (building.roofHeight +
-        building.floorHeight * (floors - 1) +
-        building.mainFloorHeight) *
-      TILE_SIZE
-  } else {
-    const id = getSpriteId(variant, position)
-    const svg = images.get(id)
-    height = svg.height / TILESET_POINT_PER_PIXEL
-  }
-
-  return height
-}
-
-/**
  * Converts the number of floors to an actual height in meters
  *
  * @param {string} variant
@@ -58,7 +33,7 @@ export function getBuildingImageHeight (variant, position, floors = 1) {
 export function calculateRealHeightNumber (variant, position, floors) {
   const CURB_HEIGHT = 0.15 // meters
   return (
-    (getBuildingImageHeight(variant, position, floors) - CURB_HEIGHT) /
+    (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
     TILE_SIZE
   )
 }
@@ -135,7 +110,7 @@ export function drawBuilding (
   const spriteId = getSpriteId(variant, position)
   const svg = images.get(spriteId)
 
-  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  const buildingHeight = getBoundaryImageHeight(variant, position, floors)
   let offsetTop = totalHeight - buildingHeight * multiplier
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
@@ -320,7 +295,7 @@ export function createBuilding (el, variant, position, floors, shadeIn) {
   const building = getBoundaryItem(variant)
   const overhangWidth =
     typeof building.overhangWidth === 'number' ? building.overhangWidth : 0
-  const buildingHeight = getBuildingImageHeight(variant, position, floors)
+  const buildingHeight = getBoundaryImageHeight(variant, position, floors)
 
   // Determine canvas dimensions from building dimensions
   const width = elementWidth + overhangWidth

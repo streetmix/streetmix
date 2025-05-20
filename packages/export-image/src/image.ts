@@ -213,6 +213,7 @@ function calculateImageHeight (
   const { streetName, elementLabels } = options
 
   // TODO: we can't do a real calc yet because we don't have access to assets
+  // Replace with getBoundaryImageHeight
   // const leftHeight = getBuildingImageHeight(
   //   streetData.leftBuildingVariant,
   //   'left',

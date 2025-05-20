@@ -58,7 +58,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
           const key = variantInfo.nameKey ?? segmentInfo.nameKey
 
           id = `segments.${key}`
-          defaultMessage = variantInfo.name ?? segmentInfo.name
+          defaultMessage = variantInfo.name ?? segmentInfo.name ?? ''
         }
         break
       }
