@@ -8,7 +8,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Building from '../segments/Building'
+
+import { Boundary } from '~/src/boundary'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { infoBubble } from '../info_bubble/info_bubble'
@@ -301,12 +302,12 @@ class StreetView extends React.Component {
         >
           <section id="street-section-inner">
             <section id="street-section-canvas" ref={this.sectionCanvasEl}>
-              <Building
+              <Boundary
                 position="left"
                 buildingWidth={this.state.buildingWidth}
                 updatePerspective={this.updatePerspective}
               />
-              <Building
+              <Boundary
                 position="right"
                 buildingWidth={this.state.buildingWidth}
                 updatePerspective={this.updatePerspective}
