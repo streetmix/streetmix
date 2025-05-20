@@ -51,3 +51,18 @@ export function getBoundaryImageHeight (
 
   return height
 }
+
+/**
+ * Converts the number of floors to an actual height in meters
+ */
+export function calculateRealHeightNumber (
+  variant: string,
+  position: BoundaryPosition,
+  floors: number
+): number {
+  const CURB_HEIGHT = 0.15 // meters
+  return (
+    (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
+    TILE_SIZE
+  )
+}

@@ -2,6 +2,7 @@ import seedrandom from 'seedrandom'
 import { round } from '@streetmix/utils'
 
 import {
+  calculateRealHeightNumber,
   getBoundaryImageHeight,
   getBoundaryItem,
   getSpriteId
@@ -21,22 +22,6 @@ import { drawSegmentImage } from './view'
 const MAX_CANVAS_HEIGHT = 2048
 
 export const GROUND_BASELINE_HEIGHT = 44
-
-/**
- * Converts the number of floors to an actual height in meters
- *
- * @param {string} variant
- * @param {string} position - "left" or "right"
- * @param {Number} floors
- * @returns {Number} height, in meters
- */
-export function calculateRealHeightNumber (variant, position, floors) {
-  const CURB_HEIGHT = 0.15 // meters
-  return (
-    (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
-    TILE_SIZE
-  )
-}
 
 /**
  * Given a building, return a string showing number of floors and actual
