@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## May 20, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a bug preventing building heights from being adjusted with keyboard controls.
+
 ## April 24, 2025
 
 ### 🐛 Bug fixes

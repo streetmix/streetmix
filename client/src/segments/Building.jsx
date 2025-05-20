@@ -222,7 +222,7 @@ class Building extends React.Component {
     // the same physical key (Equal) is pressed
     const positive = event.key === '+' || event.code === 'Equal'
 
-    const variant = this.props.street[this.state.variant]
+    const variant = this.props.street.boundary[this.props.position].variant
     const hasFloors = getBoundaryItem(variant).hasFloors
 
     if (negative && hasFloors) {
