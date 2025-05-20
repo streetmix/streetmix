@@ -9,9 +9,70 @@ import {
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { addBuildingFloor, removeBuildingFloor } from '../store/slices/street'
-import { getBoundaryItem } from '../boundary'
+import {
+  getBoundaryImageHeight,
+  getBoundaryItem,
+  drawBoundary,
+  GROUND_BASELINE_HEIGHT
+} from '../boundary'
 import { BUILDING_LEFT_POSITION, BUILDING_RIGHT_POSITION } from './constants'
-import { createBuilding } from './buildings'
+
+const MAX_CANVAS_HEIGHT = 2048
+
+/**
+ * Creates building canvas element to draw on
+ *
+ * @param {HTMLElement} el - wrapping element for canvas
+ * @param {string} variant
+ * @param {string} position
+ * @param {Number} floors
+ * @param {Boolean} shadeIn - colors the building with a red overlay
+ * @param {Number} dpi
+ */
+function createBuilding (el, variant, position, floors, shadeIn, dpi) {
+  const elementWidth = el.offsetWidth
+
+  // Determine building dimensions
+  const building = getBoundaryItem(variant)
+  const overhangWidth =
+    typeof building.overhangWidth === 'number' ? building.overhangWidth : 0
+  const buildingHeight = getBoundaryImageHeight(variant, position, floors)
+
+  // Determine canvas dimensions from building dimensions
+  const width = elementWidth + overhangWidth
+  const height = Math.min(MAX_CANVAS_HEIGHT, buildingHeight)
+
+  // Create canvas
+  const canvasEl = document.createElement('canvas')
+  const oldCanvasEl = el.querySelector('canvas')
+
+  canvasEl.width = width * dpi
+  canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
+  canvasEl.style.width = width + 'px'
+  canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
+
+  // Replace previous canvas if present, otherwise append a new one
+  if (oldCanvasEl) {
+    el.replaceChild(canvasEl, oldCanvasEl)
+  } else {
+    el.appendChild(canvasEl)
+  }
+
+  const ctx = canvasEl.getContext('2d')
+
+  drawBoundary(
+    ctx,
+    variant,
+    floors,
+    position,
+    width,
+    height,
+    0,
+    1.0,
+    dpi,
+    shadeIn
+  )
+}
 
 class Building extends React.Component {
   static propTypes = {
@@ -25,6 +86,7 @@ class Building extends React.Component {
     activeSegment: PropTypes.string,
     leftBuildingEditable: PropTypes.bool,
     rightBuildingEditable: PropTypes.bool,
+    dpi: PropTypes.number,
 
     // Provided by Redux action dispatchers
     addBuildingFloor: PropTypes.func,
@@ -70,7 +132,7 @@ class Building extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const { street, position, buildingWidth } = this.props
+    const { street, position, buildingWidth, dpi } = this.props
 
     const lastOverflow = prevProps.street.remainingWidth < 0
     const streetOverflow = street.remainingWidth < 0
@@ -87,7 +149,8 @@ class Building extends React.Component {
         street.boundary[position].variant,
         position,
         street.boundary[position].floors,
-        streetOverflow
+        streetOverflow,
+        dpi
       )
     }
 
@@ -104,7 +167,8 @@ class Building extends React.Component {
           street.boundary[position].variant,
           position,
           street.boundary[position].floors,
-          streetOverflow
+          streetOverflow,
+          dpi
         )
       }
     }
@@ -117,7 +181,8 @@ class Building extends React.Component {
         street.boundary[position].variant,
         position,
         street.boundary[position].floors,
-        streetOverflow
+        streetOverflow,
+        dpi
       )
     }
   }
@@ -281,7 +346,8 @@ function mapStateToProps (state) {
         ? state.ui.activeSegment
         : null,
     leftBuildingEditable: state.flags.EDIT_BUILDINGS_LEFT.value,
-    rightBuildingEditable: state.flags.EDIT_BUILDINGS_RIGHT.value
+    rightBuildingEditable: state.flags.EDIT_BUILDINGS_RIGHT.value,
+    dpi: state.system.devicePixelRatio
   }
 }
 
