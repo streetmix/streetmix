@@ -1,7 +1,7 @@
 import seedrandom from 'seedrandom'
 import { round } from '@streetmix/utils'
 
-import { getBoundaryItem } from '~/src/boundary'
+import { getBoundaryItem, getSpriteId } from '~/src/boundary'
 import { generateRandSeed } from '../util/random'
 import { prettifyWidth } from '../util/width_units'
 import { images } from '../app/load_resources'
@@ -17,18 +17,6 @@ import { drawSegmentImage } from './view'
 const MAX_CANVAS_HEIGHT = 2048
 
 export const GROUND_BASELINE_HEIGHT = 44
-
-/**
- * Create sprite id given variant and position
- *
- * @param {string} variant
- * @param {string} position - either "left" or "right"
- * @returns {string}
- */
-function getSpriteId (variant, position) {
-  const building = getBoundaryItem(variant)
-  return building.spriteId + (building.sameOnBothSides ? '' : '-' + position)
-}
 
 /**
  * Calculate building image height. For buildings that do not have multiple

@@ -192,8 +192,6 @@ export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
 
-export type BoundaryPosition = 'left' | 'right'
-
 // Subset of / derived from SegmentDefinition
 export interface VariantInfo {
   name?: string
@@ -296,11 +294,14 @@ export interface SpriteDefinition {
   originY?: number
 }
 
+export type BoundaryPosition = 'left' | 'right'
+
 export interface BoundaryDefinition {
   id: string
   label: string
   spriteId: string
   hasFloors: boolean
+  sameOnBothSides?: boolean
   variantsCount?: number
   floorHeight?: number
   roofHeight?: number
