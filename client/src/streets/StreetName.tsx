@@ -21,7 +21,7 @@ function normalizeStreetName (name: string | null): string | null {
 
 interface StreetNameProps {
   name: string | null
-  ref: React.RefObject<HTMLDivElement | null>
+  ref?: React.RefObject<HTMLDivElement | null>
   onClick?: () => void
   editable?: boolean
 }
