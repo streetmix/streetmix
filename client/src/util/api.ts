@@ -102,13 +102,12 @@ class APIClient {
     creatorId: string,
     namespacedId: string
   ): APIResponse => {
-    const params = new URLSearchParams({
-      namespacedId: encodeURIComponent(namespacedId)
-    })
+    const params = new URLSearchParams({ namespacedId })
     // creatorId can be undefined (e.g. anonymous streets)
     if (creatorId) {
-      params.append('creatorId', encodeURIComponent(creatorId))
+      params.append('creatorId', creatorId)
     }
+    // URLSearchParams.toString() automatically encodes URI strings for us.
     return await this.client.get(
       `${BASE_URL_API_V1}/streets/?${params.toString()}`
     )

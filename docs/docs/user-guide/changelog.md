@@ -5,11 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
-## May 20, 2025
+## May 21, 2025
 
 ### 🐛 Bug fixes
 
 - Fixed a bug preventing building heights from being adjusted with keyboard controls.
+- Fixed a bug that blocked sharing street URLs if the username contained a `+` character.
 
 ## April 24, 2025
 
