@@ -7,12 +7,13 @@ import {
 } from '../../segments/constants'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { BoundaryPosition } from '@streetmix/types'
 
 interface UiState {
   welcomePanelVisible: boolean
   welcomePanelDismissed: boolean
   toolboxVisible: boolean
-  activeSegment: number | null
+  activeSegment: number | BoundaryPosition | null
   draggingState: DraggingState | null
   draggingType: number
   resizeGuidesVisible: boolean

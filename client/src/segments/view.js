@@ -699,9 +699,9 @@ export function getSegmentEl (position) {
 
   let segmentEl
   if (position === BUILDING_LEFT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-building')[0]
+    segmentEl = document.querySelectorAll('.street-section-boundary')[0]
   } else if (position === BUILDING_RIGHT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-building')[1]
+    segmentEl = document.querySelectorAll('.street-section-boundary')[1]
   } else {
     const segments = document
       .getElementById('street-section-editable')

@@ -30,7 +30,7 @@ function StreetView (): React.ReactElement {
   })
   const [scrollPos, setScrollPos] = useState(0)
   const [resizeType, setResizeType] = useState<number | null>(null)
-  const [buildingWidth, setBuildingWidth] = useState(0)
+  const [boundaryWidth, setBuildingWidth] = useState(0)
 
   const sectionEl = useRef<HTMLDivElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -40,7 +40,7 @@ function StreetView (): React.ReactElement {
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevState = usePrevious({
-    buildingWidth,
+    boundaryWidth,
     resizeType,
     street
   })
@@ -65,10 +65,10 @@ function StreetView (): React.ReactElement {
     // 2) Street width changed causing remainingWidth to change, but not
     //    building width
     if (
-      prevState?.buildingWidth !== buildingWidth ||
+      prevState?.boundaryWidth !== boundaryWidth ||
       (prevState?.resizeType === STREETVIEW_RESIZED && resizeType !== null)
     ) {
-      const deltaX = buildingWidth - (prevState?.buildingWidth ?? 0)
+      const deltaX = boundaryWidth - (prevState?.boundaryWidth ?? 0)
 
       // If segment was resized (either dragged or incremented), update
       // scrollLeft to make up for margin change.
@@ -85,7 +85,7 @@ function StreetView (): React.ReactElement {
         resizeStreetExtent(SEGMENT_RESIZED, true)
       }
     }
-  }, [buildingWidth, resizeType])
+  }, [boundaryWidth, resizeType])
 
   useEffect(() => {
     // Updating margins when segment is resized by dragging is handled in resizing.js
@@ -125,7 +125,7 @@ function StreetView (): React.ReactElement {
       scrollLeft += deltaX
     } else {
       const streetWidth = street.width * TILE_SIZE
-      const currBuildingSpace = buildingWidth ?? BUILDING_SPACE
+      const currBuildingSpace = boundaryWidth ?? BUILDING_SPACE
       scrollLeft = (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
     }
 
@@ -273,8 +273,8 @@ function StreetView (): React.ReactElement {
    * this function after a render. Do not set state or call other side effects
    * from this function.
    */
-  function updatePerspective (el?: HTMLDivElement): void {
-    if (!el) return
+  function updatePerspective (el: HTMLElement | null): void {
+    if (el === null) return
 
     const pos = getElAbsolutePos(el)
     const scrollPos = getStreetScrollPosition()
@@ -294,12 +294,12 @@ function StreetView (): React.ReactElement {
           <section id="street-section-canvas" ref={sectionCanvasEl}>
             <Boundary
               position="left"
-              buildingWidth={buildingWidth}
+              boundaryWidth={boundaryWidth}
               updatePerspective={updatePerspective}
             />
             <Boundary
               position="right"
-              buildingWidth={buildingWidth}
+              boundaryWidth={boundaryWidth}
               updatePerspective={updatePerspective}
             />
             <StreetEditable
@@ -310,7 +310,7 @@ function StreetView (): React.ReactElement {
             />
             <ResizeGuides />
             <EmptySegmentContainer />
-            <StreetViewDirt buildingWidth={buildingWidth} />
+            <StreetViewDirt boundaryWidth={boundaryWidth} />
           </section>
           <ScrollIndicators
             left={scrollIndicators.left}

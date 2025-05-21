@@ -3,17 +3,17 @@ import React from 'react'
 import './StreetViewDirt.css'
 
 interface StreetViewDirtProps {
-  buildingWidth: number
+  boundaryWidth: number
 }
 
 const StreetViewDirt = ({
-  buildingWidth
+  boundaryWidth
 }: StreetViewDirtProps): React.ReactElement => {
   const dirtStyle = {
-    marginLeft: `-${buildingWidth}px`,
-    marginRight: `-${buildingWidth}px`
+    marginLeft: `-${boundaryWidth}px`,
+    marginRight: `-${boundaryWidth}px`
   }
-  const width = `${buildingWidth}px`
+  const width = `${boundaryWidth}px`
 
   return (
     <section className="street-section-dirt" style={dirtStyle}>

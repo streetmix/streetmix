@@ -9,8 +9,8 @@
   overflow: scroll hidden;
   touch-action: pan-x;
 
-  /* Prevent overscroll from doing forward/back navigation on some browsers */
-  /* Also disable the bounce effect exposing empty space beyond section boundary */
+  /* Prevent overscroll from doing forward/back navigation on some browsers
+     Also disable the bounce effect exposing empty space beyond section boundary */
   overscroll-behavior: none;
 
   [dir="rtl"] & {
@@ -51,7 +51,7 @@
   height: calc(var(--canvas-height) + 40px);
 }
 
-.street-section-building {
+.street-section-boundary {
   display: block;
   position: absolute;
   top: -105px;
@@ -75,11 +75,10 @@
   }
 }
 
-/* Slightly shift left building 1px to correct "overbite" over ground */
-.street-segment-building-left canvas {
-  left: -1px;
+.street-segment-boundary-left canvas {
+  left: 0;
 }
 
-.street-segment-building-right canvas {
+.street-segment-boundary-right canvas {
   right: 0;
 }
