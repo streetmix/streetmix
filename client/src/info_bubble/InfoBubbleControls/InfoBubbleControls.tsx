@@ -11,11 +11,11 @@ import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 
-import type { BuildingPosition } from '@streetmix/types'
+import type { BoundaryPosition } from '@streetmix/types'
 
 interface InfoBubbleControlsProps {
   type: number // Info bubble type
-  position: number | BuildingPosition
+  position: number | BoundaryPosition
 }
 
 function InfoBubbleControls (

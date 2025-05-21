@@ -10,21 +10,6 @@ import {
 import InfoBubble from './InfoBubble'
 
 vi.mock('../segments/view')
-vi.mock('../segments/buildings', () => {
-  return {
-    prettifyHeight: vi.fn(() => 10),
-    // TODO: use mock building data
-    BUILDINGS: {
-      grass: {
-        id: 'grass',
-        label: 'Grass',
-        spriteId: 'buildings--grass',
-        hasFloors: false,
-        sameOnBothSides: true
-      }
-    }
-  }
-})
 
 const initialState = {
   infoBubble: {

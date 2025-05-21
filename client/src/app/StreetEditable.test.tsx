@@ -31,6 +31,7 @@ describe('StreetEditable', () => {
           <StreetEditable
             setBuildingWidth={setBuildingWidth}
             updatePerspective={updatePerspective}
+            resizeType={null}
           />,
           {
             initialState: {

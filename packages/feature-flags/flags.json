@@ -19,12 +19,12 @@
     "label": "UI — Edit street name",
     "defaultValue": true
   },
-  "EDIT_BUILDINGS_LEFT": {
-    "label": "UI — Edit left-side buildings",
+  "EDIT_BOUNDARY_LEFT": {
+    "label": "UI — Edit left-side boundary",
     "defaultValue": true
   },
-  "EDIT_BUILDINGS_RIGHT": {
-    "label": "UI — Edit right-side buildings",
+  "EDIT_BOUNDARY_RIGHT": {
+    "label": "UI — Edit right-side boundary",
     "defaultValue": true
   },
   "SENTIMENT_SURVEY": {

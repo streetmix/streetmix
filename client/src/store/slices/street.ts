@@ -6,7 +6,7 @@ import { MAX_BUILDING_HEIGHT } from '../../segments/constants'
 import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
 import { SETTINGS_UNITS_METRIC } from '../../users/constants'
 
-import type { BuildingPosition, Segment, StreetState } from '@streetmix/types'
+import type { BoundaryPosition, Segment, StreetState } from '@streetmix/types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StreetState = {
@@ -323,7 +323,7 @@ const streetSlice = createSlice({
     },
 
     // TODO: Buildings could be a child slice?
-    addBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
+    addBuildingFloor (state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
 
       switch (position) {
@@ -342,7 +342,7 @@ const streetSlice = createSlice({
       }
     },
 
-    removeBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
+    removeBuildingFloor (state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
 
       switch (position) {
@@ -364,7 +364,7 @@ const streetSlice = createSlice({
     setBuildingFloorValue: {
       reducer (
         state,
-        action: PayloadAction<{ position: BuildingPosition, value: string }>
+        action: PayloadAction<{ position: BoundaryPosition, value: string }>
       ) {
         const value = Number.parseInt(action.payload.value, 10)
         if (Number.isNaN(value)) return
@@ -386,7 +386,7 @@ const streetSlice = createSlice({
             break
         }
       },
-      prepare (position: BuildingPosition, value: string) {
+      prepare (position: BoundaryPosition, value: string) {
         return {
           payload: { position, value }
         }
@@ -396,7 +396,7 @@ const streetSlice = createSlice({
     setBuildingVariant: {
       reducer (
         state,
-        action: PayloadAction<{ position: BuildingPosition, variant: string }>
+        action: PayloadAction<{ position: BoundaryPosition, variant: string }>
       ) {
         const { position, variant } = action.payload
 
@@ -411,7 +411,7 @@ const streetSlice = createSlice({
             break
         }
       },
-      prepare (position: BuildingPosition, variant: string) {
+      prepare (position: BoundaryPosition, variant: string) {
         return {
           payload: { position, variant }
         }

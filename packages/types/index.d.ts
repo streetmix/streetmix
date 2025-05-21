@@ -192,8 +192,6 @@ export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
 
-export type BuildingPosition = 'left' | 'right'
-
 // Subset of / derived from SegmentDefinition
 export interface VariantInfo {
   name?: string
@@ -295,3 +293,30 @@ export interface SpriteDefinition {
   offsetX?: number
   originY?: number
 }
+
+export type BoundaryPosition = 'left' | 'right'
+
+interface BoundaryDefinitionBase {
+  id: string
+  label: string
+  spriteId: string
+  hasFloors: false
+  sameOnBothSides?: boolean
+  repeatHalf?: boolean
+  alignAtBaseline?: boolean
+  variantsCount?: number
+  overhangWidth?: number
+}
+
+// If boundary definition has floors, the following properties are
+// required to also be present
+interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
+  hasFloors: true
+  floorHeight: number
+  roofHeight: number
+  mainFloorHeight: number
+}
+
+export type BoundaryDefinition =
+  | BoundaryDefinitionBase
+  | BoundaryDefinitionWithFloors

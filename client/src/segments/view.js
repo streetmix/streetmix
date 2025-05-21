@@ -29,12 +29,12 @@ const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
  * @param {CanvasRenderingContext2D} ctx
  * @param {Number} sx - x position of sprite to read from (default = 0)
  * @param {Number} sy - y position of sprite to read from (default = 0)
- * @param {Number} sw - sub-rectangle width to draw
- * @param {Number} sh - sub-rectangle height to draw
+ * @param {Number|undefined} sw - sub-rectangle width to draw
+ * @param {Number|undefined} sh - sub-rectangle height to draw
  * @param {Number} dx - x position on canvas
  * @param {Number} dy - y position on canvas
- * @param {Number} dw - destination width to draw
- * @param {Number} dh - destination height to draw
+ * @param {Number|undefined} dw - destination width to draw
+ * @param {Number|undefined} dh - destination height to draw
  * @param {Number} multiplier - scale to draw at (default = 1)
  * @param {Number} dpi
  */
@@ -667,7 +667,7 @@ function normalizeSegmentLabel (label) {
  * Uses browser prompt to change the segment label
  *
  * @param {Segment} segment - object describing the segment to edit
- * @param {Number | BuildingPosition} position - index of segment to edit
+ * @param {Number | BoundaryPosition} position - index of segment to edit
  */
 export function editSegmentLabel (segment, position) {
   const prevLabel =
@@ -699,9 +699,9 @@ export function getSegmentEl (position) {
 
   let segmentEl
   if (position === BUILDING_LEFT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-building')[0]
+    segmentEl = document.querySelectorAll('.street-section-boundary')[0]
   } else if (position === BUILDING_RIGHT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-building')[1]
+    segmentEl = document.querySelectorAll('.street-section-boundary')[1]
   } else {
     const segments = document
       .getElementById('street-section-editable')

@@ -250,7 +250,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
   function renderSegmentCanvas (
     variantType: string,
-    nodeRef: React.RefObject<HTMLDivElement>
+    nodeRef: React.RefObject<HTMLDivElement | null>
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
 

@@ -53,7 +53,6 @@ When importing relative files, files in the local directory ("closest" to the cu
 Here's a rough order of imports:
 
 - import `react`
-- import `prop-types`
 - import other React packages (usually related packages are grouped)
 - import other dependencies (usually related packages are grouped)
 - import constants

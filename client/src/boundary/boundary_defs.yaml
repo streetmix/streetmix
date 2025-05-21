@@ -1,0 +1,91 @@
+# Define boundaries here. Properties:
+#
+# -- IDENTITY --
+# id         id used in street data
+# label      label to display (English fallback)
+# spriteId   sprite id prefix, should append `-left` or `-right` to this unless
+#            `sameOnBothSides` is true
+#
+# -- CHARACTERISTICS --
+# hasFloors        (boolean) true if building can have multiple floors
+# sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
+# repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
+#                            todo: better property name
+# alignAtBaseline  (boolean) true if bottom of sprite should be anchored at baseline rather than ground plane
+#
+# -- SPECIFICATIONS --
+# variantsCount    (number) actually, not sure
+#                            guess: it varies the upper floor designs
+# mainFloorHeight  (number) in feet, how tall is the ground floor
+#                            todo: use pixel heights for these?
+# floorHeight      (number) in feet, how tall are intermediate floors (which can repeat)
+# roofHeight       (number) in feet, how tall is the roof structure
+# overhangWidth    (number) in CSS pixels, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
+grass:
+  id: grass
+  label: Grass
+  spriteId: buildings--grass
+  hasFloors: false
+  sameOnBothSides: true
+fence:
+  id: fence
+  label: Empty lot
+  spriteId: buildings--fenced-lot
+  hasFloors: false
+parking-lot:
+  id: parking-lot
+  label: Parking lot
+  spriteId: buildings--parking-lot
+  hasFloors: false
+  repeatHalf: true
+waterfront:
+  id: waterfront
+  label: Waterfront
+  spriteId: buildings--waterfront
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true
+residential:
+  id: residential
+  label: Home
+  spriteId: buildings--residential
+  hasFloors: true
+  variantsCount: 0
+  floorHeight: 3.048 # meters (match illustration)
+  roofHeight: 1.832 # meters (match illustration)
+  mainFloorHeight: 7.468 # meters (match illustration)
+narrow:
+  id: narrow
+  label: Building
+  spriteId: buildings--apartments-narrow
+  hasFloors: true
+  variantsCount: 1
+  floorHeight: 3.048 # meters (match illustration)
+  roofHeight: 0.61 # meters (match illustration)
+  mainFloorHeight: 4.267 # meters (match illustration)
+  overhangWidth: 17
+wide:
+  id: wide
+  label: Building
+  spriteId: buildings--apartments-wide
+  hasFloors: true
+  variantsCount: 1
+  floorHeight: 3.048 # meters (match illustration)
+  roofHeight: 0.61 # meters (match illustration)
+  mainFloorHeight: 4.267 # meters (match illustration)
+  overhangWidth: 22 # pixels
+arcade:
+  id: arcade
+  label: Arcade building
+  spriteId: buildings--arcade
+  hasFloors: true
+  variantsCount: 1
+  floorHeight: 3.048 # meters (match illustration)
+  roofHeight: 1.832 # meters (match illustration)
+  mainFloorHeight: 4.267 # meters (match illustration)
+  overhangWidth: 15 # pixels
+compound-wall:
+  id: compound-wall
+  label: Compound wall
+  spriteId: buildings--compound-wall
+  hasFloors: false
