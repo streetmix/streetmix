@@ -110,8 +110,8 @@ function Boundary ({
   const [newElementEnter, setNewElementEnter] = useState(false)
   const [switchElements, setSwitchElements] = useState(false)
 
-  const currentEl = useRef<HTMLElement>(null)
-  const previousEl = useRef<HTMLElement>(null)
+  const newEl = useRef<HTMLElement>(null)
+  const oldEl = useRef<HTMLElement>(null)
 
   // These refs are a workaround for CSSTransition's dependence on
   // findDOMNode, which is deprecated.
@@ -158,14 +158,14 @@ function Boundary ({
 
   // For certain changes, redraw canvas
   useEffect(() => {
-    if (currentEl.current === null) return
+    if (newEl.current === null) return
 
     // Animate only if variant changes within the same street ID.
     if (prevState?.streetId === street.id && prevState?.variant !== variant) {
       handleSwitchElements()
     } else {
       createBoundaryCanvas(
-        currentEl.current,
+        newEl.current,
         variant,
         position,
         floors,
@@ -178,12 +178,12 @@ function Boundary ({
 
   // Effect runs when boundary elements switch in/out
   useEffect(() => {
-    if (currentEl.current === null) return
+    if (newEl.current === null) return
 
-    updatePerspective(previousEl.current)
-    updatePerspective(currentEl.current)
+    updatePerspective(oldEl.current)
+    updatePerspective(newEl.current)
     createBoundaryCanvas(
-      currentEl.current,
+      newEl.current,
       variant,
       position,
       floors,
@@ -203,7 +203,7 @@ function Boundary ({
   }, [handleKeyDown])
 
   function handleElementMouseEnter (event: React.MouseEvent): void {
-    const el = currentEl.current
+    const el = newEl.current
 
     if (el === null) return
     if (!isEditable) return
@@ -222,7 +222,7 @@ function Boundary ({
   }
 
   function handleElementMouseLeave (): void {
-    const el = currentEl.current
+    const el = newEl.current
 
     if (el === null) return
     if (!isEditable) return
@@ -241,9 +241,9 @@ function Boundary ({
     if (!switchElements && !isPreviousElement) return
 
     if (switchElements && isPreviousElement) {
-      previousEl.current = ref
+      oldEl.current = ref
     } else {
-      currentEl.current = ref
+      newEl.current = ref
     }
   }
 
