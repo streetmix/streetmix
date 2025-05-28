@@ -7,6 +7,10 @@ import type {
 // when a type (T) has defined K as required.
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
+export type UnitsSetting =
+  | typeof SETTINGS_UNITS_METRIC
+  | typeof SETTINGS_UNITS_IMPERIAL
+
 export interface Segment {
   id: string
   type: string
@@ -24,6 +28,26 @@ export interface StreetBoundary {
   variant: string
   floors: number
   elevation: number
+}
+
+// Subset of @types/leaflet's `LatLngExpression` type, which is not
+// serializable. Don't use that one.
+export interface LatLngObject {
+  lat: number
+  lng: number
+}
+
+export interface StreetLocation {
+  lntlng: LatLngObject
+  wofId: string
+  label: string
+  hierarchy: {
+    country?: string
+    locality?: string
+    neighbourhood?: string
+    region?: string
+    street?: string
+  }
 }
 
 export interface StreetJson {
@@ -70,19 +94,6 @@ export interface Street {
   creatorId: string | null
 }
 
-export interface StreetLocation {
-  lntlng: LatLngObject
-  wofId: string
-  label: string
-  hierarchy: {
-    country?: string
-    locality?: string
-    neighbourhood?: string
-    region?: string
-    street?: string
-  }
-}
-
 // TODO: many of these values were "optional" but it might be worthwhile to
 // convert most of them to values that cannot be "undefined" to make it easier
 // to work with as more TypeScript is adopted.
@@ -115,14 +126,42 @@ export interface StreetState extends StreetJsonExtra {
   immediateRemoval: boolean
 }
 
-// Subset of @types/leaflet's `LatLngExpression` type, which is not
-// serializable. Don't use that one.
-export interface LatLngObject {
-  lat: number
-  lng: number
+export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
+
+export interface SliceDescription {
+  key: string
+  image: string
 }
 
-export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
+export interface WidthDefinition {
+  metric: number // in meters
+  imperial: number // in feet
+}
+
+export interface SliceVariantComponentDefinition {
+  id: string
+  variants?: Record<string, string | string[]>
+  offsetX?: number
+}
+
+// TODO: double check if same or different or can be combined with VariantInfo
+export interface SliceVariantDetails {
+  name?: string
+  nameKey?: string
+  rules?: {
+    minWidth?: WidthDefinition
+    maxWidth?: WidthDefinition
+    dangerous?: boolean
+  }
+  defaultWidth?: WidthDefinition
+  description?: SliceDescription
+  components: {
+    lanes?: SliceVariantComponentDefinition[]
+    markings?: SliceVariantComponentDefinition[]
+    components?: SliceVariantComponentDefinition[]
+    effects?: SliceVariantComponentDefinition[]
+  }
+}
 
 export interface SegmentLookup {
   name: string
@@ -153,45 +192,6 @@ export interface UnknownSegmentDefinition extends Partial<SegmentDefinition> {
   unknown: true
 }
 
-export interface SliceDescription {
-  key: string
-  image: string
-}
-
-export interface WidthDefinition {
-  metric: number // in meters
-  imperial: number // in feet
-}
-
-// TODO: double check if same or different or can be combined with VariantInfo
-export interface SliceVariantDetails {
-  name?: string
-  nameKey?: string
-  rules?: {
-    minWidth?: WidthDefinition
-    maxWidth?: WidthDefinition
-    dangerous?: boolean
-  }
-  defaultWidth?: WidthDefinition
-  description?: SliceDescription
-  components: {
-    lanes?: SliceVariantComponentDefinition[]
-    markings?: SliceVariantComponentDefinition[]
-    components?: SliceVariantComponentDefinition[]
-    effects?: SliceVariantComponentDefinition[]
-  }
-}
-
-export interface SliceVariantComponentDefinition {
-  id: string
-  variants?: Record<string, string | string[]>
-  offsetX?: number
-}
-
-export type UnitsSetting =
-  | typeof SETTINGS_UNITS_METRIC
-  | typeof SETTINGS_UNITS_IMPERIAL
-
 // Subset of / derived from SegmentDefinition
 export interface VariantInfo {
   name?: string
@@ -214,11 +214,9 @@ export interface VariantInfoDimensions {
   center: number
 }
 
-export type CapacitySourceData = Record<
-string,
-CapacitySourceDefinition | CapacityBaseDefinition
->
-export type CapacityData = Record<string, CapacitySourceDefinition>
+// Don't error on a circular reference
+// eslint-disable-next-line no-use-before-define
+export type CapacitySegments = Record<string, CapacitySegmentDefinition>
 
 export interface CapacityBaseDefinition {
   id: string
@@ -235,7 +233,11 @@ export interface CapacitySourceDefinition {
   segments: CapacitySegments
 }
 
-export type CapacitySegments = Record<string, CapacitySegmentDefinition>
+export type CapacitySourceData = Record<
+  string,
+  CapacitySourceDefinition | CapacityBaseDefinition
+>
+export type CapacityData = Record<string, CapacitySourceDefinition>
 
 export interface CapacitySegmentDefinition {
   minimum?: number
@@ -246,7 +248,7 @@ export interface CapacitySegmentDefinition {
 }
 
 export type CapacityForDisplay = Required<
-Pick<CapacitySegmentDefinition, 'average' | 'potential'>
+  Pick<CapacitySegmentDefinition, 'average' | 'potential'>
 >
 
 export interface StreetImageOptions {
@@ -261,6 +263,14 @@ export interface StreetImageOptions {
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]
 
+export interface SkyboxObject {
+  image: string // Illustration asset ID
+  width: number // in pixels
+  height: number // in pixels
+  top: number // Percentage as decimal
+  left: number // Percentage as decimal
+}
+
 export interface SkyboxDefinition {
   name: string
   enabled?: boolean
@@ -272,14 +282,6 @@ export interface SkyboxDefinition {
   foregroundGradient?: CSSGradientDeclaration
   cloudOpacity?: number // Percentage as decimal
   invertUITextColor?: boolean
-}
-
-export interface SkyboxObject {
-  image: string // Illustration asset ID
-  width: number // in pixels
-  height: number // in pixels
-  top: number // Percentage as decimal
-  left: number // Percentage as decimal
 }
 
 export interface SkyboxDefWithStyles extends SkyboxDefinition {
