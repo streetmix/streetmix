@@ -5,9 +5,7 @@ import PEOPLE from './people.json'
 
 // Provide mock people data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('./people.json', () => ({
-  default: require('./__mocks__/people.json')
-}))
+vi.mock('./people.json', async () => await import('./__mocks__/people.json'))
 
 // The unit test for `getRandomObjects()` is designed so that the expected
 // return values are very precise decimal numbers, on purpose. We want to see

@@ -6,9 +6,10 @@ import AnalyticsDialog from './AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('../../segments/capacity_data.json', () => ({
-  default: require('../../segments/__mocks__/capacity_data.json')
-}))
+vi.mock(
+  '../../segments/capacity_data.json',
+  async () => await import('../../segments/__mocks__/capacity_data.json')
+)
 
 const initialState = {
   locale: {

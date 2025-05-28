@@ -34,8 +34,6 @@ describe('GalleryStreetItem', () => {
   it('does not display street owner when we ask it not to', () => {
     render(<GalleryStreetItem {...baseProps} showStreetOwner={false} />)
 
-    // This is a hard-coded value, it will not be null in this test
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(screen.queryByText(MOCK_STREET.creatorId!)).not.toBeInTheDocument()
   })
 
@@ -73,8 +71,6 @@ describe('GalleryStreetItem', () => {
     const doSelect = vi.fn()
     render(<GalleryStreetItem {...baseProps} doSelect={doSelect} />)
 
-    // This is a hard-coded value, it will not be null in this test
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     await userEvent.click(screen.getByText(MOCK_STREET.name!))
     expect(doSelect).toBeCalled()
   })
