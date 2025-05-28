@@ -133,16 +133,6 @@ export default defineConfig([
       }
     },
     rules: {
-      // This was added as an error in eslint-config-love
-      // v42.0.0 and is much too strict while parts of the app are still in JS
-      // Warnings indicate opportunities for typescript porting
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@typescript-eslint/strict-boolean-expressions': [
-        2,
-        {
-          allowString: true
-        }
-      ],
       // Turns off an error added in typescript-eslint v8 (?) that is much too
       // strict re: unused variables that exist, like destructured
       // arrays, try/catch errors, event handlers etc
