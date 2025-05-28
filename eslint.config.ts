@@ -143,9 +143,6 @@ export default defineConfig([
           allowString: true
         }
       ],
-      // Turns off an error that was only reporting for useIntl
-      // see https://github.com/formatjs/formatjs/issues/4133
-      '@typescript-eslint/unbound-method': 'off',
       // Turns off an error added in typescript-eslint v8 (?) that is much too
       // strict re: unused variables that exist, like destructured
       // arrays, try/catch errors, event handlers etc
