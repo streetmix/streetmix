@@ -1,15 +1,8 @@
 import { IntlMessageFormat } from 'intl-messageformat'
-import LOCALES from '@streetmix/i18n'
+import { LOCALES, DEFAULT_LOCALE, LOCALE_LEVELS } from '@streetmix/i18n'
 
 import store, { observeStore, type RootState } from '../store'
 import { changeLocale } from '../store/slices/locale'
-import {
-  DEFAULT_LOCALE,
-  LOCALES_LEVEL_1,
-  LOCALES_LEVEL_2,
-  LOCALES_LEVEL_3,
-  LOCALES_LEVEL_4
-} from './constants'
 
 import type { LocaleDefinition, LocaleLevel } from '@streetmix/i18n'
 
@@ -100,10 +93,10 @@ function getLocaleLevel (): LocaleLevel {
   const flags = store.getState().flags
 
   // The lowest level marked "true" takes priority.
-  let level = LOCALES_LEVEL_4
-  if (flags.LOCALES_LEVEL_3.value) level = LOCALES_LEVEL_3
-  if (flags.LOCALES_LEVEL_2.value) level = LOCALES_LEVEL_2
-  if (flags.LOCALES_LEVEL_1.value) level = LOCALES_LEVEL_1
+  let level: LocaleLevel = LOCALE_LEVELS.LEVEL_4
+  if (flags.LOCALES_LEVEL_3.value) level = LOCALE_LEVELS.LEVEL_3
+  if (flags.LOCALES_LEVEL_2.value) level = LOCALE_LEVELS.LEVEL_2
+  if (flags.LOCALES_LEVEL_1.value) level = LOCALE_LEVELS.LEVEL_1
 
   return level
 }

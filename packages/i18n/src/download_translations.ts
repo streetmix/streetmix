@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
 
-import LOCALES, { type LocaleDefinition } from './locales.js'
+import { LOCALES, LOCALE_LEVELS, type LocaleDefinition } from './locales.js'
 import { getFromTransifex } from './transifex.js'
 
 const resources = ['main', 'segment-info']
@@ -27,7 +27,8 @@ const downloadSuccess = async function (
   )
 
   // Add trailing newline at end of file
-  const translationText = JSON.stringify(data, null, 2) + '\n'
+  const translationText =
+    JSON.stringify(data, null, LOCALE_LEVELS.LEVEL_2) + '\n'
 
   // Create the folder path, if it doesn't already exist
   try {

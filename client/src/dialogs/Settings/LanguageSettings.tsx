@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeLocale } from '~/src/store/slices/locale'
 import RadioGroup, { type RadioItemProps } from '~/src/ui/RadioGroup'
-import { DEFAULT_LOCALE } from '~/src/locales/constants'
 import {
   getAvailableLocales,
   getActualLocaleFromRequested
