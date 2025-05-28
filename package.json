@@ -112,7 +112,7 @@
     "concurrently": "9.1.2",
     "cypress": "14.4.0",
     "eslint": "9.27.0",
-    "eslint-config-love": "85.0.0",
+    "eslint-config-love": "96.0.0",
     "eslint-config-standard": "17.1.0",
     "eslint-config-standard-jsx": "11.0.0",
     "eslint-config-standard-react": "13.0.0",

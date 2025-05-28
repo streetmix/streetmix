@@ -36,8 +36,8 @@ export const LOCALE_LEVELS = {
 export const DEFAULT_LOCALE = 'en'
 
 // Valid locale levels are enforced via types
-export const DEFAULT_LOCALE_LEVEL = LOCALE_LEVELS.LEVEL_4
-export const ENABLED_LOCALE_LEVEL = LOCALE_LEVELS.LEVEL_3
+export const DEFAULT_LOCALE_LEVEL = LOCALE_LEVELS.LEVEL_4 // eslint-disable-line @typescript-eslint/prefer-destructuring
+export const ENABLED_LOCALE_LEVEL = LOCALE_LEVELS.LEVEL_3 // eslint-disable-line @typescript-eslint/prefer-destructuring
 
 // Define types
 export type LocaleLevel = (typeof LOCALE_LEVELS)[keyof typeof LOCALE_LEVELS]
