@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Registrar con Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Hacer una copia",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Aquí esta tu nueva calle",
       "default": "Comienza con una calle de ejemplo",
       "empty": "Comienza con una calle vacia",
-      "last": "Empezar con una copia de tu ultima calle"
+      "last": "Empezar con una copia de tu ultima calle",
+      "dismiss": ""
     },
     "about": {
       "heading": "Sobre Streetmix",

@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "用推特登錄"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "複製",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "這是你新的街道。",
       "default": "用示例街道開始",
       "empty": "用空白街道開始",
-      "last": "用前一條街道的副本開始"
+      "last": "用前一條街道的副本開始",
+      "dismiss": ""
     },
     "about": {
       "heading": "關於Streetmix。",

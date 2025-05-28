@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Twitter ile oturum aç"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Kopya oluştur",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "İşte yeni sokağın.",
       "default": "Örnek bir sokakla başla",
       "empty": "Boş bir sokakla başla",
-      "last": "Bir önceki sokağın kopyasıyla başla"
+      "last": "Bir önceki sokağın kopyasıyla başla",
+      "dismiss": ""
     },
     "about": {
       "heading": "Streetmix hakkında",

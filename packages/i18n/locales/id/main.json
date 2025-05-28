@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Masuk dengan Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Buat salinan",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Ini jalan barumu.",
       "default": "Mulailah dengan contoh jalan",
       "empty": "Mulailah dengan jalan kosong",
-      "last": "Mulailah dengan salinan jalan terakhir"
+      "last": "Mulailah dengan salinan jalan terakhir",
+      "dismiss": ""
     },
     "about": {
       "heading": "Tentang Streetmix.",

@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Zaloguj się przez Twittera"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Utwórz kopię",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Oto Twoja nowa ulica.",
       "default": "Zacznij od przykładowej ulicy",
       "empty": "Zacznij od pustej ulicy",
-      "last": "Edytuj kopię ostatniego projektu ulicy"
+      "last": "Edytuj kopię ostatniego projektu ulicy",
+      "dismiss": ""
     },
     "about": {
       "heading": "O aplikacji Streetmix.",
