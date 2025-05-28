@@ -11,7 +11,7 @@ import tsParser from '@typescript-eslint/parser'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
-import _import from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import'
 import love from 'eslint-config-love'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -117,7 +117,7 @@ export default defineConfig([
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,
@@ -150,7 +150,7 @@ export default defineConfig([
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,
@@ -183,7 +183,7 @@ export default defineConfig([
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,

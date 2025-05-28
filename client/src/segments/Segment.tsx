@@ -90,10 +90,8 @@ function Segment (props: SliceProps): React.ReactNode {
     // the active segment should be shown. The following IF statement checks to see if a removal
     // or drag action occurred previously to this segment and displays the infoBubble for the
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    if (prevProps === undefined) return
-
     const wasDragging =
-      (prevProps.isDragging && !isDragging) ||
+      (prevProps?.isDragging && !isDragging) ||
       (initialRender.current && activeSegment !== null)
 
     initialRender.current = false
@@ -109,7 +107,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
   useEffect(() => {
     if (
-      prevProps !== undefined &&
+      prevProps !== null &&
       prevProps.segment.variantString !== segment.variantString
     ) {
       handleSwitchSegments(prevProps.segment.variantString)
@@ -121,7 +119,7 @@ function Segment (props: SliceProps): React.ReactNode {
   // existing elevation variant behavior
   useEffect(() => {
     if (
-      prevProps !== undefined &&
+      prevProps !== null &&
       prevProps.segment.elevation !== segment.elevation
     ) {
       handleSwitchSegments(prevProps.segment.variantString)
