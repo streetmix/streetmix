@@ -92,7 +92,9 @@ function ToastContainer (): React.ReactElement {
     <div className="toast-container">
       {transitions(({ life, ...style }, item) => {
         function setRef<T> (ref: T | null): void {
-          ref !== null && refMap.set(item, ref)
+          if (ref !== null) {
+            refMap.set(item, ref)
+          }
         }
 
         function handleClose (event?: React.MouseEvent | Event): void {
