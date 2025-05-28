@@ -44,7 +44,7 @@ export async function initLocale (): Promise<void> {
 
   // Change app locale
   const locale = getActualLocaleFromRequested(requestedLocale)
-  void store.dispatch(changeLocale(locale))
+  store.dispatch(changeLocale(locale))
 }
 
 /**

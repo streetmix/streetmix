@@ -169,7 +169,7 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   function decrementWidth (position: number, finetune: boolean): void {
-    void dispatch(
+    dispatch(
       incrementSegmentWidth(
         position, // slice index
         false, // subtract
@@ -180,7 +180,7 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   function incrementWidth (position: number, finetune: boolean): void {
-    void dispatch(
+    dispatch(
       incrementSegmentWidth(
         position, // slice index
         true, // add
@@ -217,7 +217,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey) {
-          void dispatch(clearSegmentsAction())
+          dispatch(clearSegmentsAction())
           infoBubble.hide()
           dispatch(
             addToast({
@@ -240,7 +240,7 @@ function Segment (props: SliceProps): React.ReactNode {
               component: 'TOAST_UNDO'
             })
           )
-          void dispatch(removeSegmentAction(sliceIndex))
+          dispatch(removeSegmentAction(sliceIndex))
         }
         break
       default:

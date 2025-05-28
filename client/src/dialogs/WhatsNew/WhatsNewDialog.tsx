@@ -16,7 +16,7 @@ const WhatsNewDialog = (): React.ReactElement => {
   const [scrollShade, setScrollShade] = useState(false)
 
   useEffect(() => {
-    void getContent()
+    getContent()
   }, [])
 
   const onScroll = (event: React.UIEvent<HTMLElement>): void => {

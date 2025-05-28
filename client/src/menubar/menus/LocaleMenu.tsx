@@ -47,7 +47,7 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
           key={locale.value}
           className={selectedClassName}
           onClick={() => {
-            void selectLocale(locale.value)
+            selectLocale(locale.value)
           }}
           role="menuitemradio"
           aria-checked={locale.value === actuallySelectedLocale}

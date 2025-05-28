@@ -21,7 +21,7 @@ function LanguageSettings (): React.ReactElement {
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
 
   function handleValueChange (newLocale: string): void {
-    void dispatch(changeLocale(newLocale))
+    dispatch(changeLocale(newLocale))
   }
 
   function makeLocaleValues (

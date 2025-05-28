@@ -25,7 +25,7 @@ function ToastUndo (props: ToastProps): React.ReactElement {
   // We can't do this right now because undos don't have an ID to key off of.
 
   function handleAction (event: React.MouseEvent): void {
-    void dispatch(handleUndo())
+    dispatch(handleUndo())
     handleClose(event)
   }
 

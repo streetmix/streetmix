@@ -28,13 +28,13 @@ function WidthControl ({ position }: WidthControlProps): React.ReactElement {
   const handleIncrement = (event: React.MouseEvent): void => {
     const precise = event.shiftKey
 
-    void dispatch(incrementSegmentWidth(position, true, precise))
+    dispatch(incrementSegmentWidth(position, true, precise))
   }
 
   const handleDecrement = (event: React.MouseEvent): void => {
     const precise = event.shiftKey
 
-    void dispatch(incrementSegmentWidth(position, false, precise))
+    dispatch(incrementSegmentWidth(position, false, precise))
   }
 
   /**

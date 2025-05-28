@@ -20,7 +20,7 @@ function CapacitySources (): React.ReactElement {
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
     setSelectedSource(event.target.value)
-    void dispatch(setCapacitySource(event.target.value))
+    dispatch(setCapacitySource(event.target.value))
   }
 
   // Retrieve all data sources, and make it an array
