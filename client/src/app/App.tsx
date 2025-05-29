@@ -44,13 +44,11 @@ function App (): React.ReactElement {
       setLoading(false)
     }
 
-    void init()
+    init()
   }, [])
 
   // Set color mode on top level DOM element
   useEffect(() => {
-    // Element is guaranteed to exist
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.querySelector('html')!.dataset.colorMode = colorMode
   }, [colorMode])
 

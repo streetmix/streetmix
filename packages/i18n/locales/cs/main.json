@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Přihlášení pomocí Twitteru"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Vytvořit kopii",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Zde je vaše nová ulice.",
       "default": "Začněte ukázkovou ulicí",
       "empty": "Začněte s prázdnou ulicí",
-      "last": "Začněte s kopií poslední ulice"
+      "last": "Začněte s kopií poslední ulice",
+      "dismiss": ""
     },
     "about": {
       "heading": "O Streetmixu.",

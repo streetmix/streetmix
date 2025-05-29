@@ -10,7 +10,7 @@ function GalleryError (): React.ReactElement {
   const dispatch = useDispatch()
 
   const handleRetry = useCallback(() => {
-    void dispatch(openGallery({ userId }))
+    dispatch(openGallery({ userId }))
   }, [userId, dispatch])
 
   return (

@@ -25,7 +25,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
     (event: React.MouseEvent) => {
       const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
       window.history.pushState({}, '', myStreetsLink)
-      void dispatch(openGallery({ userId: user.id }))
+      dispatch(openGallery({ userId: user.id }))
     },
     [user?.id, dispatch]
   )

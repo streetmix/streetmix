@@ -1,4 +1,4 @@
-import LOCALES, { type LocaleDefinition } from '@streetmix/i18n'
+import { LOCALES, type LocaleDefinition } from '@streetmix/i18n'
 
 // Load locale file. This is intentionally simple; we're not resolving locale
 // namespaces intelligently or verifying if users have access to locales

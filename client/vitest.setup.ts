@@ -6,7 +6,8 @@ import 'vitest-canvas-mock'
 
 import { server } from './test/server/index.js'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// Allow require() so we can configure dotenv with test env vars
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dotenv').config({
   path: path.resolve(process.cwd(), '.env.test')
 })

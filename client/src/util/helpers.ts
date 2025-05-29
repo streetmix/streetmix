@@ -100,7 +100,7 @@ export function animate (
     {}
   )
 
-  void tween({
+  tween({
     from: initialProps,
     to: props,
     duration,

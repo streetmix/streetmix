@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Twitterでログイン"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "コピー作成",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "新しいストリートを作成しました。",
       "default": "サンプルのストリートを修正",
       "empty": "何も配置しない",
-      "last": "最後に表示したストリートをコピー"
+      "last": "最後に表示したストリートをコピー",
+      "dismiss": ""
     },
     "about": {
       "heading": "Streetmixについて",

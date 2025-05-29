@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Entreu amb Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Feu una còpia",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Aquí està el teu nou carrer",
       "default": "Comença amb un carrer d'exemple",
       "empty": "Comença amb un carrer buit",
-      "last": "Comença amb una còpia del darrer carrer"
+      "last": "Comença amb una còpia del darrer carrer",
+      "dismiss": ""
     },
     "about": {
       "heading": "Sobre Streetmix",

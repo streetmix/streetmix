@@ -57,17 +57,6 @@ import {
 
 import googleIcon from 'url:./icons/google.svg'
 
-export type IconNames = BaseIconNames | ExtraIconNames
-type BaseIconNames = keyof typeof ICONS
-type ExtraIconNames = 'google'
-
-interface IconProps {
-  name: IconNames
-
-  // All other props
-  [attr: string]: string
-}
-
 const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
@@ -120,6 +109,17 @@ const ICONS = {
   instagram: [FaInstagram, 'fa'],
   mastodon: [FaMastodon, 'fa'],
   twitter: [FaTwitter, 'fa']
+}
+
+type BaseIconNames = keyof typeof ICONS
+type ExtraIconNames = 'google'
+export type IconNames = BaseIconNames | ExtraIconNames
+
+interface IconProps {
+  name: IconNames
+
+  // All other props
+  [attr: string]: string
 }
 
 function makeComponent (

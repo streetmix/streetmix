@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": ""
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "",
       "default": "",
       "empty": "",
-      "last": ""
+      "last": "",
+      "dismiss": ""
     },
     "about": {
       "heading": "",

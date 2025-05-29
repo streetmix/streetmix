@@ -1,15 +1,15 @@
 import * as fs from 'node:fs/promises'
 import chalk from 'chalk'
 
-import LOCALES, { type LocaleDefinition } from './locales.js'
+import { LOCALES, LOCALE_LEVELS, type LocaleDefinition } from './locales.js'
 import { getFromTransifex } from './transifex.js'
 
 const resources = ['main', 'segment-info']
 
 // Check for Transifex API token in environment. It will be undefined if it is
 // not in the environment, and an empty string if it is present but not set
-const envToken = process.env.TRANSIFEX_API_TOKEN
-if (envToken === undefined || envToken === '') {
+const { TRANSIFEX_API_TOKEN } = process.env // eslint-disable-line @typescript-eslint/prefer-destructuring
+if (TRANSIFEX_API_TOKEN === undefined || TRANSIFEX_API_TOKEN === '') {
   console.error('Error: please provide a Transifex API token.')
   process.exit()
 }
@@ -27,7 +27,8 @@ const downloadSuccess = async function (
   )
 
   // Add trailing newline at end of file
-  const translationText = JSON.stringify(data, null, 2) + '\n'
+  const translationText =
+    JSON.stringify(data, null, LOCALE_LEVELS.LEVEL_2) + '\n'
 
   // Create the folder path, if it doesn't already exist
   try {
@@ -84,28 +85,27 @@ const downloadError = function (
 }
 
 LOCALES.forEach((language: LocaleDefinition) => {
-  const locale = language.value
-  const label = language.label
+  const { value, label } = language
 
   // Skip US English (default language)
-  if (language.value === 'en') {
+  if (value === 'en') {
     return
   }
 
   resources.forEach((resource) => {
     console.log(
       'Queued:',
-      chalk.yellowBright(`${label} (${locale})`),
+      chalk.yellowBright(`${label} (${value})`),
       '·',
       chalk.magentaBright(resource)
     )
 
-    getFromTransifex(locale, resource, process.env.TRANSIFEX_API_TOKEN)
+    getFromTransifex(value, resource, process.env.TRANSIFEX_API_TOKEN)
       .then(async (data) => {
-        await downloadSuccess(locale, resource, label, data)
+        await downloadSuccess(value, resource, label, data)
       })
       .catch((error) => {
-        downloadError(locale, resource, label, error)
+        downloadError(value, resource, label, error)
       })
   })
 })

@@ -71,7 +71,6 @@ function Segment (props: SliceProps): React.ReactNode {
   // Set up drag and drop targets
   // Specs are created on each render with changed props
   const dropSpec = createSliceDropTargetSpec(props, streetSegment)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [collectedProps, drop] = useDrop(dropSpec)
   const dragSpec = createSliceDragSpec(props)
   const [collected, drag, dragPreview] = useDrag(dragSpec)
@@ -91,10 +90,8 @@ function Segment (props: SliceProps): React.ReactNode {
     // the active segment should be shown. The following IF statement checks to see if a removal
     // or drag action occurred previously to this segment and displays the infoBubble for the
     // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    if (prevProps === undefined) return
-
     const wasDragging =
-      (prevProps.isDragging && !isDragging) ||
+      (prevProps?.isDragging && !isDragging) ||
       (initialRender.current && activeSegment !== null)
 
     initialRender.current = false
@@ -110,7 +107,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
   useEffect(() => {
     if (
-      prevProps !== undefined &&
+      prevProps !== null &&
       prevProps.segment.variantString !== segment.variantString
     ) {
       handleSwitchSegments(prevProps.segment.variantString)
@@ -122,7 +119,7 @@ function Segment (props: SliceProps): React.ReactNode {
   // existing elevation variant behavior
   useEffect(() => {
     if (
-      prevProps !== undefined &&
+      prevProps !== null &&
       prevProps.segment.elevation !== segment.elevation
     ) {
       handleSwitchSegments(prevProps.segment.variantString)
@@ -169,7 +166,7 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   function decrementWidth (position: number, finetune: boolean): void {
-    void dispatch(
+    dispatch(
       incrementSegmentWidth(
         position, // slice index
         false, // subtract
@@ -180,7 +177,7 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   function incrementWidth (position: number, finetune: boolean): void {
-    void dispatch(
+    dispatch(
       incrementSegmentWidth(
         position, // slice index
         true, // add
@@ -217,7 +214,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey) {
-          void dispatch(clearSegmentsAction())
+          dispatch(clearSegmentsAction())
           infoBubble.hide()
           dispatch(
             addToast({
@@ -240,7 +237,7 @@ function Segment (props: SliceProps): React.ReactNode {
               component: 'TOAST_UNDO'
             })
           )
-          void dispatch(removeSegmentAction(sliceIndex))
+          dispatch(removeSegmentAction(sliceIndex))
         }
         break
       default:

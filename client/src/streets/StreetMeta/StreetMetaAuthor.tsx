@@ -18,7 +18,7 @@ function StreetMetaAuthor (): React.ReactElement | null {
 
   function handleClickAuthor (event: React.MouseEvent): void {
     event.preventDefault()
-    void dispatch(openGallery({ userId: creatorId }))
+    dispatch(openGallery({ userId: creatorId }))
   }
 
   let user

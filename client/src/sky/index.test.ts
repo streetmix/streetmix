@@ -7,9 +7,10 @@ import {
   getAllSkyboxDefs
 } from '.'
 
-vi.mock('./skybox-defs.json', () => ({
-  default: require('./__mocks__/skybox-defs.json')
-}))
+vi.mock(
+  './skybox-defs.json',
+  async () => await import('./__mocks__/skybox-defs.json')
+)
 vi.mock('./constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
 describe('skybox helpers', () => {
@@ -17,7 +18,7 @@ describe('skybox helpers', () => {
     it('makes a CSS string', () => {
       const result = makeCSSGradientDeclaration(
         MOCK_SKY_DEFS.foo.backgroundGradient as Array<
-        string | [string, number?]
+          string | [string, number?]
         >
       )
       expect(result).toEqual(
@@ -28,7 +29,7 @@ describe('skybox helpers', () => {
     it('makes a CSS string with stops', () => {
       const result = makeCSSGradientDeclaration(
         MOCK_SKY_DEFS.bar.backgroundGradient as Array<
-        string | [string, number?]
+          string | [string, number?]
         >
       )
       expect(result).toEqual(
@@ -41,7 +42,7 @@ describe('skybox helpers', () => {
     it('fills in all empty stops', () => {
       const result = makeCanvasGradientStopArray(
         MOCK_SKY_DEFS.foo.backgroundGradient as Array<
-        string | [string, number?]
+          string | [string, number?]
         >
       )
       expect(result).toEqual([
@@ -59,7 +60,7 @@ describe('skybox helpers', () => {
     it('fills in empty stops between known stops', () => {
       const result = makeCanvasGradientStopArray(
         MOCK_SKY_DEFS.bar.backgroundGradient as Array<
-        string | [string, number?]
+          string | [string, number?]
         >
       )
       expect(result).toEqual([

@@ -13,9 +13,10 @@ vi.mock('../segments/view', async (importOriginal) => {
     drawSegmentContents: vi.fn()
   }
 })
-vi.mock('../segments/segment-lookup.json', () => ({
-  default: require('../segments/__mocks__/segment-lookup.json')
-}))
+vi.mock(
+  '../segments/segment-lookup.json',
+  async () => await import('../segments/__mocks__/segment-lookup.json')
+)
 
 describe('PaletteContainer', () => {
   it('renders', () => {

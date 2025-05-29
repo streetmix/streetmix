@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Logga in med Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Gör en kopia",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Här är din nya gata.",
       "default": "Börja med en exempelgata",
       "empty": "Börja med en tom gata",
-      "last": "Börja med en kopia av din senaste gata"
+      "last": "Börja med en kopia av din senaste gata",
+      "dismiss": ""
     },
     "about": {
       "heading": "Om Streetmix.",

@@ -11,13 +11,13 @@ import './RadioGroup.css'
 // For all other accepted props, see the Radix UI documentation at
 // https://www.radix-ui.com/docs/primitives/components/radio-group
 // Use Radix root API to get/set values and handle changes, for example.
-interface RadioProps extends RadioGroupProps {
-  values: RadioItemProps[]
-}
-
 export interface RadioItemProps extends RadioGroupItemProps {
   label: string
   sublabel?: string
+}
+
+interface RadioProps extends RadioGroupProps {
+  values: RadioItemProps[]
 }
 
 function RadioGroup (props: RadioProps): React.ReactElement {

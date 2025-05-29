@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Kirjaudu Twitter-tunnuksella"
+    },
+    "new-street": {
+      "default": "Uusi esimerkkikatu",
+      "empty": "Uusi tyhjä katu",
+      "copy": "Kopioi katupohja",
+      "template": "Uusi mallikatu..."
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Tämä on uusi katusi.",
       "default": "Aloita valmiilla esimerkkikadulla",
       "empty": "Aloita tyhjästä",
-      "last": "Aloita viimeisimmän kadun pohjalta"
+      "last": "Aloita viimeisimmän kadun pohjalta",
+      "dismiss": "Aloitetaan!"
     },
     "about": {
       "heading": "Tietoja Streetmixistä.",

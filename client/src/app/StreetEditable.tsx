@@ -82,7 +82,6 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     street,
     streetSectionEditable
   )
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [collectedProps, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {

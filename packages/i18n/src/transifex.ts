@@ -6,6 +6,11 @@ const PROJECT_SLUG = 'streetmix'
 const ERROR_MESSAGE =
   'Please provide a Transifex API token to use translation feature.'
 
+// Disable some eslint rules introduced in eslint-config-love v76, 77, and 80
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 export async function getFromTransifex (
   locale: string,
   resourceSlug: string,

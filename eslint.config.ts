@@ -11,7 +11,8 @@ import tsParser from '@typescript-eslint/parser'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
-import _import from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import'
+import love from 'eslint-config-love'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -104,19 +105,19 @@ export default defineConfig([
     }
   },
   {
+    ...love,
     // Only run TypeScript linting on TypeScript files, otherwise it'd
     // report TypeScript errors on regular JavaScript files (bad!)
     files: ['client/**/*.{ts,tsx}', 'packages/types/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript',
-        'love'
+        'plugin:import/typescript'
       )
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,
@@ -132,33 +133,24 @@ export default defineConfig([
       }
     },
     rules: {
-      // This was added as an error in eslint-config-love
-      // v42.0.0 and is much too strict while parts of the app are still in JS
-      // Warnings indicate opportunities for typescript porting
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@typescript-eslint/strict-boolean-expressions': [
-        2,
-        {
-          allowString: true
-        }
-      ],
-      // Turns off an error that was only reporting for useIntl
-      // see https://github.com/formatjs/formatjs/issues/4133
-      '@typescript-eslint/unbound-method': 'off'
+      // Turns off an error added in typescript-eslint v8 (?) that is much too
+      // strict re: unused variables that exist, like destructured
+      // arrays, try/catch errors, event handlers etc
+      '@typescript-eslint/no-unused-vars': 'off'
     }
   },
   {
+    ...love,
     files: ['packages/export-image/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript',
-        'love'
+        'plugin:import/typescript'
       )
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,
@@ -174,22 +166,24 @@ export default defineConfig([
       }
     },
     rules: {
-      // Allow legacy __dirname and __filename variables
-      '@typescript-eslint/naming-convention': 'off'
+      // Turns off an error added in typescript-eslint v8 (?) that is much too
+      // strict re: unused variables that exist, like destructured
+      // arrays, try/catch errors, event handlers etc
+      '@typescript-eslint/no-unused-vars': 'off'
     }
   },
   {
+    ...love,
     files: ['packages/i18n/src/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript',
-        'love'
+        'plugin:import/typescript'
       )
     ),
     plugins: {
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(_import)
+      import: fixupPluginRules(importPlugin)
     },
     languageOptions: {
       parser: tsParser,

@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Log in met Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Maak een kopie",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Hier is je nieuwe straat.",
       "default": "Begin met een voorbeeldstraat.",
       "empty": "Begin met een lege straat.",
-      "last": "Begin met een kopie van je laatste straat."
+      "last": "Begin met een kopie van je laatste straat.",
+      "dismiss": ""
     },
     "about": {
       "heading": "Over Streetmix.",

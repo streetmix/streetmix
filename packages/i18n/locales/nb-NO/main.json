@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Logg inn med Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Lag en kopi",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Her er den nye gaten din",
       "default": "Begynn med en eksempelgate",
       "empty": "Begynn med en tom gate",
-      "last": "Begynn med en kopi av den forrige gaten"
+      "last": "Begynn med en kopi av den forrige gaten",
+      "dismiss": ""
     },
     "about": {
       "heading": "Om Streetmix.",

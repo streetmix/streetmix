@@ -18,9 +18,10 @@ import type { SegmentDefinition } from '@streetmix/types'
 vi.mock('../../segments/info')
 
 // Provide mock variant icons so that we can test icons with `enabledWithFlag`
-vi.mock('../../segments/variant_icons.json', () => ({
-  default: require('../../segments/__mocks__/variant_icons.json')
-}))
+vi.mock(
+  '../../segments/variant_icons.json',
+  async () => await import('../../segments/__mocks__/variant_icons.json')
+)
 
 describe('Variants', () => {
   const initialState = {
