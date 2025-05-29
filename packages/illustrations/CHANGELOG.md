@@ -1,3 +1,8 @@
+# v2.3.0 (in progress)
+
+- Add sand ground texture
+- Add beach lounger
+
 # v2.2.0
 
 - Moved `environs` icons into the `sky` namespace.

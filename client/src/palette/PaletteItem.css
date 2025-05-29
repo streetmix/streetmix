@@ -15,23 +15,28 @@
   background-color: color-mix(in srgb, var(--sky-color), transparent 30%);
   transform-origin: 50% 75%;
   transition: transform 50ms !important;
-}
 
-/* Wrapper element for Tooltip */
-.palette-item > div {
-  height: 100%; /* Must provide this for proper tooltip positioning */
-  width: 100%;
-  text-align: center;
-}
+  /* Override button padding from some ancestor style */
+  > button {
+    padding: 0;
+  }
 
-.palette-item:not(.palette-item-disabled):hover,
-.palette-item:not(.palette-item-disabled) > div:focus {
-  /* See note above re: mixing in srgb over oklch here. */
-  background-color: color-mix(in srgb, var(--sky-color), transparent 5%);
-  z-index: 1;
+  /* Wrapper element for Tooltip */
+  > div {
+    height: 100%; /* Must provide this for proper tooltip positioning */
+    width: 100%;
+    text-align: center;
+  }
 
-  .palette-item-image {
-    transform: scale(1.15);
+  &:not(.palette-item-disabled):hover,
+  &:not(.palette-item-disabled) > div:focus {
+    /* See note above re: mixing in srgb over oklch here. */
+    background-color: color-mix(in srgb, var(--sky-color), transparent 5%);
+    z-index: 1;
+
+    .palette-item-image {
+      transform: scale(1.15);
+    }
   }
 }
 
