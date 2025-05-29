@@ -586,5 +586,15 @@
       "id": "vendor-platform",
       "title": "Vendor at platform"
     }
+  },
+  "beach-type": {
+    "beach": {
+      "id": "beach",
+      "title": "Beach"
+    },
+    "lounger": {
+      "id": "lounger",
+      "title": "Beach lounger"
+    }
   }
 }

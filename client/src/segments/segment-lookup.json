@@ -6461,5 +6461,51 @@
         }
       }
     }
+  },
+  "beach": {
+    "name": "Beach",
+    "nameKey": "beach",
+    "owner": "NATURE",
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "defaultVariant": "beach",
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["beach-type"],
+    "details": {
+      "beach": {
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ]
+        }
+      },
+      "lounger": {
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "beach-lounger",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
