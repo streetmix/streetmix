@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/browser'
 import USER_ROLES from '../../../app/data/user_roles.json'
 import { app } from '../preinit/app_settings'
 import { showError, ERRORS } from '../app/errors'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
+import { MODES, processMode, getMode, setMode, getModeData } from '../app/mode'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
 import { formatMessage } from '../locales/locale'
 import { setPromoteStreet } from '../streets/remix'
@@ -373,7 +373,6 @@ function _signInLoaded () {
     case MODES.GLOBAL_GALLERY:
       fetchStreetFromServer()
       break
-    case MODES.NEW_STREET:
     case MODES.NEW_STREET_COPY_LAST:
       if (app.readOnly) {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
@@ -381,11 +380,12 @@ function _signInLoaded () {
         createNewStreetOnServer(false)
       }
       break
-    case MODES.NEW_STREET_EMPTY:
+    case MODES.NEW_STREET:
       if (app.readOnly) {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
       } else {
-        createNewStreetOnServer(true)
+        const modeData = getModeData()
+        createNewStreetOnServer(true, modeData.type)
       }
       break
   }

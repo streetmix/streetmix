@@ -8,7 +8,7 @@ import Scrollable from '../ui/Scrollable'
 import Avatar from '../users/Avatar'
 import { sendDeleteStreetToServer } from '../streets/xhr'
 import { showError, ERRORS } from '../app/errors'
-import { URL_NEW_STREET, URL_NEW_STREET_COPY_LAST } from '../app/constants'
+import { URL_NEW_STREET, STREET_TEMPLATES } from '../app/constants'
 import GalleryStreetItem from './GalleryStreetItem'
 import { switchGalleryStreet } from './index'
 import type { UserProfile } from '../types'
@@ -107,7 +107,7 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
             {selectedStreet !== null
               ? (
                 <Button
-                  href={URL_NEW_STREET_COPY_LAST}
+                  href={`${URL_NEW_STREET}?type=${STREET_TEMPLATES.COPY}`}
                   className="gallery-copy-last-street"
                   rel="noopener noreferrer"
                   target="_blank"

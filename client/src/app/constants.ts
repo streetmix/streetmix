@@ -1,15 +1,17 @@
 export const JUST_SIGNED_IN_PATH = '/services/auth/just-signed-in'
 
-// New street params
-export const NEW_STREET_DEFAULT = 'default'
-export const NEW_STREET_EMPTY = 'empty'
-export const NEW_STREET_COPY_LAST = 'copy'
+// New street template params
+export const STREET_TEMPLATES = {
+  DEFAULT: 'default',
+  EMPTY: 'empty',
+  COPY: 'copy',
+  HARBORWALK: 'harborwalk',
+  COASTAL_ROAD: 'coastal_road',
+  BEACH: 'beach'
+}
 
 // Path segments
 export const URL_NEW_STREET = '/new'
-export const URL_NEW_STREET_DEFAULT = `${URL_NEW_STREET}?type=${NEW_STREET_DEFAULT}`
-export const URL_NEW_STREET_EMPTY = `${URL_NEW_STREET}?type=${NEW_STREET_EMPTY}`
-export const URL_NEW_STREET_COPY_LAST = `${URL_NEW_STREET}?type=${NEW_STREET_COPY_LAST}`
 export const URL_GLOBAL_GALLERY = '/gallery'
 export const URL_ERROR = '/error'
 export const URL_HELP = '/help'

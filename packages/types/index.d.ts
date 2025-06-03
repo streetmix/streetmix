@@ -23,6 +23,14 @@ export interface Segment {
 }
 export type SliceItem = Segment // Alias for future use
 
+export interface SliceItemTemplate {
+  type: string
+  variant: Record<string, string>
+  width: number
+  elevation?: number
+  label?: string
+}
+
 export interface StreetBoundary {
   id: string
   variant: string
@@ -48,6 +56,15 @@ export interface StreetLocation {
     region?: string
     street?: string
   }
+}
+
+export interface StreetTemplate {
+  width: number
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
+  slices: SliceItemTemplate[]
 }
 
 export interface StreetJson {

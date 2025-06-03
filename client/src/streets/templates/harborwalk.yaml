@@ -1,0 +1,25 @@
+###############################################################################
+##
+##  Harborwalk
+##
+##  The "default street" was designed to be a pretty "good" street as well
+##  as a showcase of Streetmix features. It has changed over time, and can
+##  continue to do so.
+##
+###############################################################################
+
+width: 24
+boundary:
+  left:
+    variant: narrow
+    floors: 4
+    elevation: 1
+  right:
+    variant: waterfront
+    floors: 0
+    elevation: 1
+slices:
+  - type: sidewalk-tree
+    variant:
+      tree-type: big
+    width: 0.6

@@ -1,8 +1,10 @@
 import { vi } from 'vitest'
 
 import { getLeftHandTraffic } from '../users/localization'
-import { createStreetData } from './data_model'
+import { createStreetData } from './templates'
 import TEMPLATE from './__mocks__/street_template.yaml'
+
+import type { SliceItem } from '@streetmix/types'
 
 vi.mock('../users/localization', () => ({
   getLeftHandTraffic: vi.fn(() => false)
@@ -22,7 +24,7 @@ function partialStreetDataForSnapshot (data) {
         id: 'right' // Use non-random ID
       }
     },
-    segments: data.segments.map((slice, i) => ({
+    segments: data.segments.map((slice: SliceItem, i: number) => ({
       id: `segment_${i}`, // Placeholder ID number
       type: slice.type,
       width: slice.width,
