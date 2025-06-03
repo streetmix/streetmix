@@ -214,8 +214,6 @@ export interface VariantInfoDimensions {
   center: number
 }
 
-// Don't error on a circular reference
-// eslint-disable-next-line no-use-before-define
 export type CapacitySegments = Record<string, CapacitySegmentDefinition>
 
 export interface CapacityBaseDefinition {
