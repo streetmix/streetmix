@@ -29,7 +29,7 @@ export function doSignIn () {
 }
 
 export function getSignInData () {
-  return store.getState().user.signInData || {}
+  return store.getState().user.signInData ?? {}
 }
 
 export function isSignedIn () {
