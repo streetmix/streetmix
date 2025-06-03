@@ -2,24 +2,76 @@
 ##
 ##  Harborwalk
 ##
-##  The "default street" was designed to be a pretty "good" street as well
-##  as a showcase of Streetmix features. It has changed over time, and can
-##  continue to do so.
+##  Coastal condition where a public pedestrian zone is on or adjacent to a
+##  a seawall abutting a body of water.
 ##
 ###############################################################################
 
 width: 24
+showAnalytics: false
 boundary:
   left:
-    variant: narrow
-    floors: 4
+    variant: fence
+    floors: 0
     elevation: 1
   right:
     variant: waterfront
     floors: 0
     elevation: 1
 slices:
-  - type: sidewalk-tree
+  - type: divider
     variant:
-      tree-type: big
-    width: 0.6
+      divider-type: big-tree
+    width: 1
+    elevation: 1
+    label: Park
+  - type: divider
+    variant:
+      divider-type: flowers
+    width: 5
+    elevation: 1
+    label: Park
+  - type: divider
+    variant:
+      divider-type: big-tree
+    width: 1
+    elevation: 1
+    label: Park
+  - type: bike-lane
+    variant:
+      bike-direction: twoway-right
+      bike-asphalt: regular
+      elevation: sidewalk
+    width: 3
+    elevation: 1
+    label: Cycletrack
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: left
+      lamp-type: traditional
+    width: 0.5
+    elevation: 1
+  - type: divider
+    variant:
+      divider-type: big-tree
+    width: 2.5
+    elevation: 1
+    label: Park
+  - type: divider
+    variant:
+      divider-type: planting-strip
+    width: 7
+    elevation: 1
+    label: Future berm
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width: 3.5
+    elevation: 1
+    label: Harborwalk
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: both
+      lamp-type: traditional
+    width: 0.5
+    elevation: 1
