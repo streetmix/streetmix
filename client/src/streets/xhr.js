@@ -68,10 +68,7 @@ export function setSaveStreetIncomplete (value) {
 
 let latestRequestId
 
-export async function createNewStreetOnServer (
-  isTemplate = true,
-  type = STREET_TEMPLATES.DEFAULT
-) {
+export async function createNewStreetOnServer (type = STREET_TEMPLATES.DEFAULT) {
   prepareStreet(type)
 
   const transmission = packServerStreetDataRaw()

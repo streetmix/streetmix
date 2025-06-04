@@ -377,7 +377,7 @@ function _signInLoaded () {
       if (app.readOnly) {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
       } else {
-        createNewStreetOnServer(false)
+        createNewStreetOnServer()
       }
       break
     case MODES.NEW_STREET:
@@ -385,7 +385,7 @@ function _signInLoaded () {
         showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
       } else {
         const modeData = getModeData()
-        createNewStreetOnServer(true, modeData.type)
+        createNewStreetOnServer(modeData.type)
       }
       break
   }
