@@ -7,7 +7,7 @@
 ##
 ###############################################################################
 
-width: 24
+width: 24 # 80' in US customary units
 showAnalytics: false
 boundary:
   left:
@@ -22,19 +22,25 @@ slices:
   - type: divider
     variant:
       divider-type: big-tree
-    width: 1
+    width:
+      metric: 1
+      imperial: 3
     elevation: 1
     label: Park
   - type: divider
     variant:
       divider-type: flowers
-    width: 5
+    width:
+      metric: 4
+      imperial: 14
     elevation: 1
     label: Park
   - type: divider
     variant:
       divider-type: big-tree
-    width: 1
+    width:
+      metric: 1
+      imperial: 3
     elevation: 1
     label: Park
   - type: bike-lane
@@ -42,36 +48,48 @@ slices:
       bike-direction: twoway-right
       bike-asphalt: regular
       elevation: sidewalk
-    width: 3
+    width:
+      metric: 3
+      imperial: 10
     elevation: 1
     label: Cycletrack
   - type: sidewalk-lamp
     variant:
       lamp-orientation: left
       lamp-type: traditional
-    width: 0.5
+    width:
+      metric: 0.5
+      imperial: 2
     elevation: 1
   - type: divider
     variant:
       divider-type: big-tree
-    width: 2.5
+    width:
+      metric: 2.5
+      imperial: 8
     elevation: 1
     label: Park
   - type: divider
     variant:
       divider-type: planting-strip
-    width: 7
+    width:
+      metric: 8
+      imperial: 26
     elevation: 1
     label: Future berm
   - type: sidewalk
     variant:
       sidewalk-density: normal
-    width: 3.5
+    width:
+      metric: 3.5
+      imperial: 12
     elevation: 1
     label: Harborwalk
   - type: sidewalk-lamp
     variant:
       lamp-orientation: both
       lamp-type: traditional
-    width: 0.5
+    width:
+      metric: 0.5
+      imperial: 2
     elevation: 1

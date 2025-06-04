@@ -223,12 +223,9 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * imperial value to metric and return it.
  */
 export function getWidthInMetric (
-  width: WidthDefinition | undefined,
+  width: WidthDefinition,
   units: UnitsSetting
-): number | undefined {
-  // If no value is provided, return undefined
-  if (width === undefined) return
-
+): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return convertImperialMeasurementToMetric(width.imperial)
   } else {

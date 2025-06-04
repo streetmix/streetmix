@@ -15,6 +15,7 @@ import { updateStreetData } from '../store/slices/street'
 import store from '../store'
 import { getSegmentVariantInfo } from '../segments/info'
 import { DEFAULT_SKYBOX } from '../sky/constants'
+import { getWidthInMetric } from '../util/width_units'
 import { updateLastStreetInfo } from './xhr'
 
 import defaultStreetTemplate from './templates/default.yaml'
@@ -40,11 +41,18 @@ function processTemplateSlices (
   slices: SliceItemTemplate[],
   units: UnitsSetting
 ) {
-  const processed = []
+  const processed: SliceItem[] = []
   const leftHandTraffic = getLeftHandTraffic()
 
   for (const i in slices) {
-    const slice = clone(slices[i]) as SliceItem
+    // Original template slice, do not modify.
+    const sliceTemplate = slices[i]
+    // Processed slice item to be sent to new street.
+    const slice = {
+      ...clone(sliceTemplate),
+      id: nanoid(),
+      warnings: [false]
+    } as SliceItem
 
     // We mirror the street slices when in left-hand traffic mode,
     // (rather than just change directionality of the lanes)
@@ -66,25 +74,37 @@ function processTemplateSlices (
         }
       }
     }
+
+    // Set the variant string for legacy purposes
     slice.variantString = getVariantString(slice.variant)
 
     const variantInfo = getSegmentVariantInfo(slice.type, slice.variantString)
 
-    slice.id = nanoid()
-
-    // Convert slice width for imperial using rough conversion rate
-    // e.g. 2.7m => 9ft, and then converted to precise metric units
-    // so that it can be converted back to 9ft
-    if (units === SETTINGS_UNITS_IMPERIAL) {
-      const width = slice.width * ROUGH_CONVERSION_RATE
-      slice.width = normalizeSegmentWidth(
-        width,
-        resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
-      )
+    // If width is defined as a WidthDefinition:
+    //  - for metric units, use the metric value as-is
+    //  - for US customary units, convert the value to metric
+    // If width is defined as a number:
+    //  - for metric units, use the value as-is
+    //  - for US customary units, convert he value using the _rough_ conversion
+    //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
+    //    for storage (it will then be converted back to 9ft for display)
+    if (typeof sliceTemplate.width === 'number') {
+      if (units === SETTINGS_UNITS_IMPERIAL) {
+        const width = sliceTemplate.width * ROUGH_CONVERSION_RATE
+        slice.width = normalizeSegmentWidth(
+          width,
+          resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
+        )
+      }
+    } else {
+      if (sliceTemplate.width === undefined) {
+        throw new Error('template slice does not have a width defined')
+      } else {
+        slice.width = getWidthInMetric(sliceTemplate.width, units)
+      }
     }
 
     slice.elevation = variantInfo.elevation ?? 0
-    slice.warnings = [false]
 
     processed.push(slice)
   }

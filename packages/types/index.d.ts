@@ -23,10 +23,15 @@ export interface Segment {
 }
 export type SliceItem = Segment // Alias for future use
 
+export interface WidthDefinition {
+  metric: number // in meters
+  imperial: number // in feet
+}
+
 export interface SliceItemTemplate {
   type: string
   variant: Record<string, string>
-  width: number
+  width: WidthDefinition | number
   elevation?: number
   label?: string
 }
@@ -148,11 +153,6 @@ export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 export interface SliceDescription {
   key: string
   image: string
-}
-
-export interface WidthDefinition {
-  metric: number // in meters
-  imperial: number // in feet
 }
 
 export interface SliceVariantComponentDefinition {
