@@ -15,6 +15,9 @@ function openTemplate (template: string): void {
 }
 
 function NewStreetMenu (props: MenuProps): React.ReactElement {
+  const templatesEnabled = useSelector(
+    (state) => state.flags.NEW_STREET_TEMPLATES.value
+  )
   const coastmixEnabled = useSelector(
     (state) => state.flags.COASTMIX_MODE.value
   )
@@ -65,6 +68,23 @@ function NewStreetMenu (props: MenuProps): React.ReactElement {
         />
         <BetaTag />
       </MenuItem> */}
+      {templatesEnabled && (
+        <>
+          <MenuSeparator />
+          <div className="dropdown-menu-label">
+            Street templates
+            <BetaTag />
+          </div>
+          <MenuItem
+            onClick={() => {
+              openTemplate(STREET_TEMPLATES.STROAD)
+            }}
+          >
+            Stroad
+            <Icon name="external-link" />
+          </MenuItem>
+        </>
+      )}
       {coastmixEnabled && (
         <>
           <MenuSeparator />
