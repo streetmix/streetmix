@@ -8,12 +8,12 @@
 ###############################################################################
 
 width:
-  metric: 30
-  imperial: 100
+  metric: 19.5
+  imperial: 64
 showAnalytics: false
 boundary:
   left:
-    variant: arcade
+    variant: wide
     floors: 4
     elevation: 1
   right:
@@ -25,12 +25,12 @@ slices:
     variant:
       sidewalk-density: normal
     width:
-      metric: 1.8
+      metric: 1.9
       imperial: 6
     elevation: 1
   - type: sidewalk-tree
     variant:
-      tree-type: palm-tree
+      tree-type: big
     width: 0.6
   - type: sidewalk-lamp
     variant:
@@ -46,43 +46,43 @@ slices:
     variant:
       direction: inbound
       car-type: car
-    width: 2.7
+    width:
+      metric: 2.7
+      imperial: 9
   - type: drive-lane
     variant:
       direction: outbound
       car-type: car
-    width: 2.7
+    width:
+      metric: 2.7
+      imperial: 9
   - type: parking-lane
     variant:
       parking-lane-direction: outbound
       parking-lane-orientation: right
     width:
-      metric: 2.2
+      metric: 2.3
       imperial: 8
   - type: bike-lane
     variant:
       bike-direction: outbound
       bike-asphalt: green
       elevation: road
-    width: 1.8
+    width:
+      metric: 2
+      imperial: 6
   - type: sidewalk-lamp
     variant:
       lamp-orientation: left
       lamp-type: modern
     width: 0.6
+  - type: sidewalk-tree
+    variant:
+      tree-type: big
+    width: 0.6
   - type: sidewalk
     variant:
       sidewalk-density: dense
-    width: 1.8
-  - type: sidewalk-tree
-    variant:
-      tree-type: palm-tree
-    width: 0.6
-  - type: divider
-    variant:
-      divider-type: planting-strip
     width:
-      metric: 11
-      imperial: 36
-    elevation: 1
-    label: Future vegetated berm
+      metric: 1.9
+      imperial: 6
