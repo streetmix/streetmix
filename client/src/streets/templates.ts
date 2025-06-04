@@ -21,6 +21,7 @@ import { updateLastStreetInfo } from './xhr'
 import defaultStreetTemplate from './templates/default.yaml'
 import emptyStreetTemplate from './templates/empty.yaml'
 import beachTemplate from './templates/beach.yaml'
+import coastalRoadTemplate from './templates/coastal_road.yaml'
 import harborwalkTemplate from './templates/harborwalk.yaml'
 import stroadTemplate from './templates/stroad.yaml'
 
@@ -181,7 +182,7 @@ export function prepareStreet (type: string) {
       streetTemplate = harborwalkTemplate as StreetTemplate
       break
     case STREET_TEMPLATES.COASTAL_ROAD:
-      streetTemplate = stroadTemplate as StreetTemplate
+      streetTemplate = coastalRoadTemplate as StreetTemplate
       break
     case STREET_TEMPLATES.BEACH:
       streetTemplate = beachTemplate as StreetTemplate
