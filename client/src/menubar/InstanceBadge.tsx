@@ -29,7 +29,7 @@ function InstanceBadge ({
 function getDetails (
   offline: boolean,
   label?: string
-): { label?: string, className?: string } {
+): { label?: string; className?: string } {
   // If a label is not provided, determine one
   if (label === undefined) {
     if (offline) {
@@ -53,6 +53,11 @@ function getDetails (
           return {
             label: 'Sandbox',
             className: 'instance-label-sandbox'
+          }
+        case 'coastmix':
+          return {
+            label: 'Coastmix',
+            className: 'instance-label-demo'
           }
         default:
           return {}
