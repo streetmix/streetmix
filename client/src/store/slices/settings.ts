@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { COLOR_MODE_LIGHT } from '../../app/constants'
+
+import type { ColorModes } from '~/src/app/constants'
+import { COLOR_MODE_LIGHT } from '~/src/app/constants'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import { changeLocale } from './locale'
-import type { ColorModes } from '../../app/constants'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { UnitsSetting } from '@streetmix/types'
 
 interface SettingsState {
   lastStreetId: string | null
@@ -15,7 +19,7 @@ interface SettingsState {
   saveAsImageWatermark: boolean
   colorMode: ColorModes
   locale: string | null
-  units: number | null
+  units: UnitsSetting
 }
 
 const initialState: SettingsState = {
@@ -29,7 +33,7 @@ const initialState: SettingsState = {
   saveAsImageWatermark: true,
   colorMode: COLOR_MODE_LIGHT,
   locale: null,
-  units: null
+  units: SETTINGS_UNITS_METRIC
 }
 
 const settingsSlice = createSlice({

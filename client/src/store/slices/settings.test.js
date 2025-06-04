@@ -13,7 +13,7 @@ describe('settings reducer', () => {
     saveAsImageStreetName: false,
     saveAsImageWatermark: true,
     locale: null,
-    units: null
+    units: 0
   }
 
   it('should handle initial state', () => {
@@ -40,7 +40,7 @@ describe('settings reducer', () => {
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
       locale: null,
-      units: null
+      units: 0
     })
 
     // Handle empty objects, and null or undefined values
@@ -85,7 +85,7 @@ describe('settings reducer', () => {
       saveAsImageSegmentNamesAndWidths: false,
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
-      units: null,
+      units: 0,
       locale: 'fi'
     })
   })

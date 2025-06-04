@@ -23,6 +23,19 @@ export interface Segment {
 }
 export type SliceItem = Segment // Alias for future use
 
+export interface WidthDefinition {
+  metric: number // in meters
+  imperial: number // in feet
+}
+
+export interface SliceItemTemplate {
+  type: string
+  variant: Record<string, string>
+  width: WidthDefinition | number
+  elevation?: number
+  label?: string
+}
+
 export interface StreetBoundary {
   id: string
   variant: string
@@ -48,6 +61,15 @@ export interface StreetLocation {
     region?: string
     street?: string
   }
+}
+
+export interface StreetTemplate {
+  width: number
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
+  slices: SliceItemTemplate[]
 }
 
 export interface StreetJson {
@@ -131,11 +153,6 @@ export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 export interface SliceDescription {
   key: string
   image: string
-}
-
-export interface WidthDefinition {
-  metric: number // in meters
-  imperial: number // in feet
 }
 
 export interface SliceVariantComponentDefinition {

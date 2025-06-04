@@ -1,0 +1,88 @@
+###############################################################################
+##
+##  Coastal road
+##
+##  Coastal condition where an existing vehicular road is separated from a
+##  body of water by a vegetated area.
+##
+###############################################################################
+
+width:
+  metric: 30
+  imperial: 100
+showAnalytics: false
+boundary:
+  left:
+    variant: arcade
+    floors: 4
+    elevation: 1
+  right:
+    variant: waterfront
+    floors: 0
+    elevation: 1
+slices:
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width:
+      metric: 1.8
+      imperial: 6
+    elevation: 1
+  - type: sidewalk-tree
+    variant:
+      tree-type: palm-tree
+    width: 0.6
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: right
+      lamp-type: modern
+    width: 0.6
+  - type: brt-lane
+    variant:
+      direction: inbound
+      brt-asphalt: regular
+    width: 3.6
+  - type: drive-lane
+    variant:
+      direction: inbound
+      car-type: car
+    width: 2.7
+  - type: drive-lane
+    variant:
+      direction: outbound
+      car-type: car
+    width: 2.7
+  - type: parking-lane
+    variant:
+      parking-lane-direction: outbound
+      parking-lane-orientation: right
+    width:
+      metric: 2.2
+      imperial: 8
+  - type: bike-lane
+    variant:
+      bike-direction: outbound
+      bike-asphalt: green
+      elevation: road
+    width: 1.8
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: left
+      lamp-type: modern
+    width: 0.6
+  - type: sidewalk
+    variant:
+      sidewalk-density: dense
+    width: 1.8
+  - type: sidewalk-tree
+    variant:
+      tree-type: palm-tree
+    width: 0.6
+  - type: divider
+    variant:
+      divider-type: planting-strip
+    width:
+      metric: 11
+      imperial: 36
+    elevation: 1
+    label: Future vegetated berm

@@ -239,11 +239,14 @@ function doDropHeuristics (draggedItem, draggedItemType) {
 
   if (draggedItemType === Types.PALETTE) {
     if (street.remainingWidth > 0 && actualWidth > street.remainingWidth) {
-      const segmentMinWidth =
-        getWidthInMetric(
-          getSegmentVariantInfo(type, variantString).minWidth,
-          street.units
-        ) ?? 0
+      const variantMinWidth = getSegmentVariantInfo(
+        type,
+        variantString
+      ).minWidth
+      let segmentMinWidth = 0
+      if (variantMinWidth !== undefined) {
+        segmentMinWidth = getWidthInMetric(variantMinWidth, street.units)
+      }
 
       if (
         street.remainingWidth >= MIN_SEGMENT_WIDTH &&

@@ -13,6 +13,7 @@
     "value": "ADMIN",
     "flags": {
       "LOCALES_LEVEL_1": true,
+      "NEW_STREET_TEMPLATES": true,
       "COLOR_MODE_TOGGLE": true,
       "COASTMIX_MODE": true
     }
@@ -23,6 +24,7 @@
     "value": "BETA_TESTER",
     "flags": {
       "LOCALES_LEVEL_1": true,
+      "NEW_STREET_TEMPLATES": true,
       "ELEVATION_CONTROLS_UNLOCKED": true,
       "SEGMENT_CROSSWALK": true,
       "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": true,
