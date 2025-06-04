@@ -16,7 +16,7 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from './constants'
-import PEOPLE from './people.json'
+import PEOPLE from './people.yaml'
 
 // Adjust spacing between people to be slightly closer
 const PERSON_SPACING_ADJUSTMENT = -0.1 // in meters

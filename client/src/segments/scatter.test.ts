@@ -1,11 +1,11 @@
 import { vi } from 'vitest'
 
 import { getRandomObjects } from './scatter'
-import PEOPLE from './people.json'
+import PEOPLE from './people.yaml'
 
 // Provide mock people data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('./people.json', async () => await import('./__mocks__/people.json'))
+vi.mock('./people.yaml', async () => await import('./__mocks__/people.yaml'))
 
 // The unit test for `getRandomObjects()` is designed so that the expected
 // return values are very precise decimal numbers, on purpose. We want to see
@@ -16,7 +16,7 @@ vi.mock('./people.json', async () => await import('./__mocks__/people.json'))
 // However, using these exact numbers can be brittle, because there are
 // certain unavoidable cases where the resulting values will be different.
 // This usually happens when the random number generator gets called with
-// different input, for example, when the number of people in the `people.json`
+// different input, for example, when the number of people in the `people.yaml`
 // pool have changed. We have mocked this data, so changing the mock data
 // is an expected cause for breaking the test and needing this to update.
 //
