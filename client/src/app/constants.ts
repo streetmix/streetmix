@@ -7,7 +7,8 @@ export const STREET_TEMPLATES = {
   COPY: 'copy',
   HARBORWALK: 'harborwalk',
   COASTAL_ROAD: 'coastal_road',
-  BEACH: 'beach'
+  BEACH: 'beach',
+  STROAD: 'stroad'
 }
 
 // Path segments

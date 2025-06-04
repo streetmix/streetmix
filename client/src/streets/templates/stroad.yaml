@@ -1,0 +1,100 @@
+###############################################################################
+##
+##  U.S. Stroad
+##
+##  Local arterial boulevards built to federal highway standards and just as
+##  dangerous and uninspiring for good city planning.
+##
+###############################################################################
+
+width:
+  metric: 30
+  imperial: 100
+boundary:
+  left:
+    variant: parking-lot
+    floors: 0
+    elevation: 1
+  right:
+    variant: parking-lot
+    floors: 0
+    elevation: 1
+slices:
+  - type: sidewalk
+    variant:
+      sidewalk-density: empty
+    width:
+      metric: 1.2
+      imperial: 4
+    elevation: 1
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: right
+      lamp-type: modern
+    width:
+      metric: 0.3
+      imperial: 1
+    elevation: 1
+  - type: parking-lane
+    variant:
+      parking-lane-direction: inbound
+      parking-lane-orientation: left
+    width:
+      metric: 3.5
+      imperial: 12
+  - type: drive-lane
+    variant:
+      direction: inbound
+      car-type: car
+    width:
+      metric: 4
+      imperial: 13
+  - type: drive-lane
+    variant:
+      direction: inbound
+      car-type: car
+    width:
+      metric: 4
+      imperial: 13
+  - type: turn-lane
+    variant:
+      direction: outbound
+      turn-lane-orientation: shared
+    width:
+      metric: 4
+      imperial: 14
+  - type: drive-lane
+    variant:
+      direction: outbound
+      car-type: car
+    width:
+      metric: 4
+      imperial: 13
+  - type: drive-lane
+    variant:
+      direction: outbound
+      car-type: car
+    width:
+      metric: 4
+      imperial: 13
+  - type: parking-lane
+    variant:
+      parking-lane-direction: outbound
+      parking-lane-orientation: right
+    width:
+      metric: 3.5
+      imperial: 12
+  - type: utilities
+    variant:
+      orientation: left
+    width:
+      metric: 0.3
+      imperial: 1
+    elevation: 1
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width:
+      metric: 1.2
+      imperial: 4
+    elevation: 1

@@ -22,6 +22,7 @@ import defaultStreetTemplate from './templates/default.yaml'
 import emptyStreetTemplate from './templates/empty.yaml'
 import beachTemplate from './templates/beach.yaml'
 import harborwalkTemplate from './templates/harborwalk.yaml'
+import stroadTemplate from './templates/stroad.yaml'
 
 import type {
   SliceItem,
@@ -88,6 +89,9 @@ function processTemplateSlices (
     //  - for US customary units, convert he value using the _rough_ conversion
     //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
     //    for storage (it will then be converted back to 9ft for display)
+    if (sliceTemplate.width === undefined) {
+      throw new Error('template slice does not have a width defined')
+    }
     if (typeof sliceTemplate.width === 'number') {
       if (units === SETTINGS_UNITS_IMPERIAL) {
         const width = sliceTemplate.width * ROUGH_CONVERSION_RATE
@@ -97,11 +101,7 @@ function processTemplateSlices (
         )
       }
     } else {
-      if (sliceTemplate.width === undefined) {
-        throw new Error('template slice does not have a width defined')
-      } else {
-        slice.width = getWidthInMetric(sliceTemplate.width, units)
-      }
+      slice.width = getWidthInMetric(sliceTemplate.width, units)
     }
 
     slice.elevation = variantInfo.elevation ?? 0
@@ -144,8 +144,23 @@ export function createStreetData (data: StreetTemplate, units: UnitsSetting) {
   // Cleanup
   delete street.slices
 
-  if (units === SETTINGS_UNITS_IMPERIAL) {
-    street.width *= ROUGH_CONVERSION_RATE
+  // If width is defined as a WidthDefinition:
+  //  - for metric units, use the metric value as-is
+  //  - for US customary units, convert the value to metric
+  // If width is defined as a number:
+  //  - for metric units, use the value as-is
+  //  - for US customary units, convert he value using the _rough_ conversion
+  //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
+  //    for storage (it will then be converted back to 9ft for display)
+  if (street.width === undefined) {
+    throw new Error('street template does not have a width defined')
+  }
+  if (typeof street.width === 'number') {
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      street.width *= ROUGH_CONVERSION_RATE
+    }
+  } else {
+    street.width = getWidthInMetric(street.width, units)
   }
 
   return street
@@ -159,10 +174,15 @@ export function prepareStreet (type: string) {
     case STREET_TEMPLATES.EMPTY:
       streetTemplate = emptyStreetTemplate as StreetTemplate
       break
+    case STREET_TEMPLATES.STROAD:
+      streetTemplate = stroadTemplate as StreetTemplate
+      break
     case STREET_TEMPLATES.HARBORWALK:
       streetTemplate = harborwalkTemplate as StreetTemplate
       break
     case STREET_TEMPLATES.COASTAL_ROAD:
+      streetTemplate = stroadTemplate as StreetTemplate
+      break
     case STREET_TEMPLATES.BEACH:
       streetTemplate = beachTemplate as StreetTemplate
       break
