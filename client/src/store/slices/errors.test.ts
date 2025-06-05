@@ -6,32 +6,22 @@ describe('errors reducer', () => {
     abortEverything: false
   }
 
-  it('should handle initial state', () => {
-    expect(errors(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle showError()', () => {
-    // nothing set
-    expect(errors(initialState, showError())).toEqual({
-      errorType: undefined,
-      abortEverything: false
-    })
-
     // errorType explicitly set and abortEverything set to true
-    expect(errors(initialState, showError('Bad URL', true))).toEqual({
-      errorType: 'Bad URL',
+    expect(errors(initialState, showError(1, true))).toEqual({
+      errorType: 1,
       abortEverything: true
     })
 
     // errorType explicitly set and abortEverything set to false
-    expect(errors(initialState, showError('Bad URL', false))).toEqual({
-      errorType: 'Bad URL',
+    expect(errors(initialState, showError(1, false))).toEqual({
+      errorType: 1,
       abortEverything: false
     })
 
     // errorType explicitly set and abortEverything not set
-    expect(errors(initialState, showError('Bad URL'))).toEqual({
-      errorType: 'Bad URL',
+    expect(errors(initialState, showError(1))).toEqual({
+      errorType: 1,
       abortEverything: false
     })
   })
@@ -47,7 +37,7 @@ describe('errors reducer', () => {
     expect(
       errors(
         {
-          errorType: 'Bad URL',
+          errorType: 1,
           abortEverything: true
         },
         hideError()

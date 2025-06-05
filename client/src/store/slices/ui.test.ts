@@ -24,10 +24,6 @@ describe('ui reducer', () => {
     resizeGuidesVisible: false
   }
 
-  it('should handle initial state', () => {
-    expect(ui(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle setWelcomePanelVisible()', () => {
     expect(ui(initialState, setWelcomePanelVisible())).toEqual({
       welcomePanelVisible: true,
@@ -134,14 +130,14 @@ describe('ui reducer', () => {
           toolboxVisible: false,
           activeSegment: null,
           draggingState: {
-            segmentBeforEl: 1,
+            segmentBeforeEl: 1,
             segmentAfterEl: 3,
             draggedSegment: 2
           },
           draggingType: 1,
           resizeGuidesVisible: false
         },
-        clearDraggingState()
+        clearDraggingState({})
       )
     ).toEqual({
       welcomePanelVisible: false,

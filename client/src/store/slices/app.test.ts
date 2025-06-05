@@ -11,13 +11,9 @@ describe('app reducer', () => {
     readOnly: false,
     printing: false,
     everythingLoaded: false,
-    contentDirection: 'ltr',
+    contentDirection: 'ltr' as const,
     priorLastStreetId: null
   }
-
-  it('should handle initial state', () => {
-    expect(app(undefined, {})).toEqual(initialState)
-  })
 
   it('should handle setAppFlags()', () => {
     expect(

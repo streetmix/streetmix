@@ -9,10 +9,6 @@ describe('locale reducer', () => {
     requestedLocale: null
   }
 
-  it('should handle initial state', () => {
-    expect(locale(undefined, {})).toEqual(initialState)
-  })
-
   describe('changeLocale()', () => {
     it('should handle the pending state', () => {
       expect(

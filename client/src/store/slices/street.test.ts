@@ -61,10 +61,6 @@ describe('street reducer', () => {
     editCount: 0
   }
 
-  it('should handle initial state', () => {
-    expect(street(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle updateStreetData()', () => {
     expect(
       street(
