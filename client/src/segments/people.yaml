@@ -1,6 +1,6 @@
 - id: people-01
-  width: 0.5
   name: Nora
+  width: 0.5
 - id: people-02
   width: 0.5
 - id: people-03
@@ -28,8 +28,8 @@
 - id: people-14
   width: 0.75
 - id: people-15
-  width: 0.5
   name: Lou
+  width: 0.5
 - id: people-16
   width: 0.75
 - id: people-17
@@ -47,8 +47,8 @@
 - id: people-22
   width: 0.25
 - id: people-23
-  width: 0.75
   name: Katie
+  width: 0.75
 - id: people-24
   width: 1
 - id: people-25
@@ -66,23 +66,18 @@
 - id: people-31
   width: 0.5
 - id: johnny-01
-  width: 0.75
   name: Johnny
-  disallowFirst: true
-  weight: 10
-- id: johnny-02
+  alts:
+    - johnny-02
   width: 0.75
-  name: Johnny
   disallowFirst: true
   weight: 5
 - id: junebug-01
-  width: 0.75
   name: Junebug
-  disallowFirst: true
-  weight: 10
-- id: junebug-02
+  alts:
+    - junebug-02
+    - junebug-03
   width: 0.75
-  name: Junebug
   disallowFirst: true
   weight: 5
 - id: bernie
@@ -91,17 +86,31 @@
   weight: 1
 - id: people-32
   width: 0.5
+  alts:
+    - people-32-back
 - id: people-33
   width: 0.5
+  alts:
+    - people-33-back
 - id: people-34
   width: 0.5
+  alts:
+    - people-34-back
 - id: people-35
   width: 0.5
+  alts:
+    - people-35-back
 - id: people-36
   width: 0.5
+  alts:
+    - people-36-back
 - id: people-37
   width: 0.5
+  alts:
+    - people-37-back
 - id: people-38
   width: 0.5
+  alts:
+    - people-38-back
 - id: people-39
   width: 1.25
