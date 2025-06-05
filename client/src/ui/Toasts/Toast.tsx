@@ -23,11 +23,11 @@ function Toast (props: ToastProps): React.ReactElement {
     className,
     children
   } = props
-  const { mode, title, action } = item
+  const { method, title, action } = item
 
   const classNames = ['toast']
-  if (mode !== undefined) {
-    classNames.push('toast-' + mode)
+  if (method !== undefined) {
+    classNames.push('toast-' + method)
   }
   if (className !== undefined) {
     classNames.push(className)

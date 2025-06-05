@@ -78,7 +78,6 @@ function ToastContainer (): React.ReactElement {
         height: 0
       }
     ],
-    // @ts-expect-error don't need to type unused arguments
     onRest: (result, ctrl, item: ToastItem) => {
       dispatch(destroyToast(item.timestamp))
     },

@@ -71,7 +71,7 @@ const undoSlice = createSlice({
       state.position = newPosition > stackSize ? stackSize : newPosition
     },
 
-    resetUndoStack (state, action) {
+    resetUndoStack (state) {
       state.stack = []
       state.position = 0
     },
