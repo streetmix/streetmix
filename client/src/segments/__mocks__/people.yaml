@@ -3,6 +3,9 @@
   width: 2
 - name: Bob
   id: character-02
+  alts:
+    - character-02b
+    - character-02c
   width: 2
 - name: The fast-follower
   id: character-03
