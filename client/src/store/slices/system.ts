@@ -31,7 +31,7 @@ const systemSlice = createSlice({
   initialState,
 
   reducers: {
-    setSystemFlags (state, action: PayloadAction<SystemState>) {
+    setSystemFlags (state, action: PayloadAction<Partial<SystemState>>) {
       return {
         ...state,
         ...action.payload

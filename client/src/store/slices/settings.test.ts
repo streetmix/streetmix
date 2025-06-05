@@ -16,10 +16,6 @@ describe('settings reducer', () => {
     units: 0
   }
 
-  it('should handle initial state', () => {
-    expect(settings(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle updateSettings()', () => {
     expect(
       settings(

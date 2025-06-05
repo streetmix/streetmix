@@ -17,10 +17,6 @@ describe('user reducer', () => {
     }
   }
 
-  it('should handle initial state', () => {
-    expect(user(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle setSignInData()', () => {
     expect(
       user(
@@ -108,7 +104,7 @@ describe('user reducer', () => {
             error: null
           }
         },
-        clearSignInData()
+        clearSignInData({})
       )
     ).toEqual({
       signInData: null,

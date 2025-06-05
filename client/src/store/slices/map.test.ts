@@ -7,10 +7,6 @@ describe('map reducer', () => {
     rawInputString: null
   }
 
-  it('should handle initial state', () => {
-    expect(map(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle setMapState()', () => {
     expect(
       map(

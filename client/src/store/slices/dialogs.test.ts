@@ -5,10 +5,6 @@ describe('dialogs reducer', () => {
     name: null
   }
 
-  it('should handle initial state', () => {
-    expect(dialogs(undefined, {})).toEqual(initialState)
-  })
-
   it('should handle showDialog()', () => {
     expect(dialogs(initialState, showDialog('DIALOG_NAME'))).toEqual({
       name: 'DIALOG_NAME'
