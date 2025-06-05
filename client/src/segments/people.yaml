@@ -50,7 +50,7 @@
   name: Katie
   width: 0.75
 - id: people-24
-  width: 1
+  width: 1.25
 - id: people-25
   width: 0.5
 - id: people-26
@@ -88,14 +88,20 @@
   width: 0.5
   alts:
     - people-32-back
+  tags:
+    - beach
 - id: people-33
   width: 0.5
   alts:
     - people-33-back
+  tags:
+    - beach
 - id: people-34
   width: 0.5
   alts:
     - people-34-back
+  tags:
+    - beach
 - id: people-35
   width: 0.5
   alts:
@@ -104,13 +110,21 @@
   width: 0.5
   alts:
     - people-36-back
+  tags:
+    - beach
 - id: people-37
   width: 0.5
   alts:
     - people-37-back
+  tags:
+    - beach
 - id: people-38
   width: 0.5
   alts:
     - people-38-back
+  tags:
+    - beach
 - id: people-39
   width: 1.25
+  tags:
+    - beach
