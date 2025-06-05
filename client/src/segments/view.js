@@ -574,12 +574,18 @@ export function drawSegmentContents (
         (graphics.scatter.originY ??
           graphics.scatter.originY + PERSON_SPRITE_OFFSET_Y) ||
         PERSON_SPRITE_OFFSET_Y
+
+      // Convert sprite ids to the actual format they're in
       const people = PEOPLE.map((person) => {
-        return {
+        const obj = {
           ...person,
           id: `people--${person.id}`,
           originY
         }
+        if (person.alts && person.alts.length > 0) {
+          obj.alts = person.alts?.map((s) => `people--${s}`)
+        }
+        return obj
       })
 
       drawScatteredSprites(

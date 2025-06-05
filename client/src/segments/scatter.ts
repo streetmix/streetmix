@@ -17,6 +17,13 @@ interface ScatterableEntity {
   id: string
   width: number
 
+  // (optional) alternative sprites that can be picked in place of the primary
+  // sprite. This can be variations (e.g. a person turned around, different
+  // outfits, different plants, etc). This is an array of ids that correspond
+  // to other "filenames". All alts have an equal chance of being picked as
+  // the primary, and all other properties (e.g. `width`) apply to alts.
+  alts?: string[]
+
   // (optional) affects the rarity of this entity. Higher values mean it has a
   // higher chance of being selected, relative to other entities in the same
   // pool. Lower numbers are rarer. If not provided, an entity's default weight
@@ -223,8 +230,21 @@ export function drawScatteredSprites (
     padding
   )
 
+  // Initialize another random generator function with `randSeed` here
+  // TODO: combine with the one used inside getRandomObjects()?
+  const randomGenerator = seedrandom(randSeed)
+
   for (const object of objects) {
-    const id = object.id
+    let id = object.id
+
+    // if object has alts, draw one. right not all alts + primary id has an
+    // equal chance of being chosen
+    if (object.alts && object.alts.length > 0) {
+      const pool = [id, ...object.alts]
+      const pick = Math.floor(randomGenerator() * pool.length)
+      id = pool[pick]
+    }
+
     const sprite = getSpriteDef(id)
     const svg = images.get(id)
 
