@@ -41,6 +41,9 @@ interface ScatterableEntity {
   // (optional)
   originY?: number
 
+  // (optional) tags allow filtering of entity pools for special conditions
+  tags?: string[]
+
   // Allow extending this with arbitrary properties
   [x: string]: unknown
 }
