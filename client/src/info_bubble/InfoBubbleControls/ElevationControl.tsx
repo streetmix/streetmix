@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import VARIANT_ICONS from '~/src/segments/variant_icons.json'
+import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { segmentsChanged } from '~/src/segments/view'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'

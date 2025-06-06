@@ -8,8 +8,8 @@ import {
 } from '~/src/store/slices/street'
 import { segmentsChanged } from '~/src/segments/view'
 import { getSegmentInfo } from '~/src/segments/info'
-import VARIANT_ICONS from '~/src/segments/variant_icons.json'
-import { getVariantArray } from '~/src/segments/variant_utils'
+import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
+import { getVariantInfo } from '~/src/segments/variant_utils'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
@@ -84,7 +84,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     switch (type) {
       case INFO_BUBBLE_TYPE_SEGMENT: {
         if (segment) {
-          const obj = getVariantArray(segment.type, variant)
+          const obj = getVariantInfo(segment.type, variant)
           bool = selection === obj[set as keyof typeof obj]
         }
         break
