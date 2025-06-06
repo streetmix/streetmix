@@ -71,8 +71,8 @@ jobs:
       - name: Build files (e.g. TypeScript)
         run: npm run build
         env:
-          # We need this because sourcemaps are getting uploaded after build
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # Do not upload build sourcemaps to Sentry
+          SENTRY_ALLOW_FAILURE: true
       - name: Run tests
         run: npm run vitest:ci
       - name: Report code coverage
@@ -104,5 +104,5 @@ jobs:
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # We need this because sourcemaps are getting uploaded after build
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # Do not upload build sourcemaps to Sentry
+          SENTRY_ALLOW_FAILURE: true
