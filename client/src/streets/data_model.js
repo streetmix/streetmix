@@ -1,4 +1,4 @@
-import { getVariantArray } from '../segments/variant_utils'
+import { getVariantInfo } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
 import {
   setUpdateTime,
@@ -22,7 +22,7 @@ export function addAltVariantObject (street) {
   street.segments = street.segments.map((segment) => {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
-    segment.variant = getVariantArray(segment.type, segment.variantString)
+    segment.variant = getVariantInfo(segment.type, segment.variantString)
 
     return segment
   })

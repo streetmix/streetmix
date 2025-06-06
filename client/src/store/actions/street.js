@@ -6,7 +6,7 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
-import { getVariantArray } from '../../segments/variant_utils'
+import { getVariantInfo } from '../../segments/variant_utils'
 import { ERRORS } from '../../app/errors'
 import { showError } from '../slices/errors'
 import { recalculateWidth } from '../../streets/width'
@@ -147,7 +147,7 @@ const createStreetFromResponse = (response) => {
   street.editCount = response.data.street.editCount || 0
   street.segments = street.segments.map((segment) => {
     segment.warnings = [false]
-    segment.variant = getVariantArray(segment.type, segment.variantString)
+    segment.variant = getVariantInfo(segment.type, segment.variantString)
     return segment
   })
 

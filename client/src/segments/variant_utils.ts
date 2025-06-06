@@ -17,19 +17,22 @@ const VARIANT_SEPARATOR = '|'
  *    An object matching variant names to variant types, e.g.:
  *    { 'direction': 'inbound', 'public-transit-asphalt': 'regular' }
  */
-export function getVariantArray (segmentType, variantString) {
-  const variantArray = {}
+export function getVariantInfo (
+  segmentType: string,
+  variantString: string
+): Record<string, string> {
+  const variantInfo: Record<string, string> = {}
   const variantSplit = variantString.split(VARIANT_SEPARATOR)
   const segment = getSegmentInfo(segmentType)
 
   if (segment && segment.variants) {
     for (const i in segment.variants) {
       const variantName = segment.variants[i]
-      variantArray[variantName] = variantSplit[i]
+      variantInfo[variantName] = variantSplit[i]
     }
   }
 
-  return variantArray
+  return variantInfo
 }
 
 /**
@@ -45,6 +48,6 @@ export function getVariantArray (segmentType, variantString) {
  *    String representation of the variant, e.g.:
  *    'inbound|regular'
  */
-export function getVariantString (variant) {
+export function getVariantString (variant: Record<string, string>): string {
   return Object.values(variant).join(VARIANT_SEPARATOR)
 }

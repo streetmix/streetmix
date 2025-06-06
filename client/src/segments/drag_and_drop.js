@@ -26,7 +26,7 @@ import {
   hideControls,
   cancelSegmentResizeTransitions
 } from './resizing'
-import { getVariantArray, getVariantString } from './variant_utils'
+import { getVariantInfo, getVariantString } from './variant_utils'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -280,10 +280,10 @@ function doDropHeuristics (draggedItem, draggedItemType) {
     rightOwner === SegmentTypes.BIKE ||
     rightOwner === SegmentTypes.TRANSIT
 
-  const leftVariant = left && getVariantArray(left.type, left.variantString)
-  const rightVariant = right && getVariantArray(right.type, right.variantString)
+  const leftVariant = left && getVariantInfo(left.type, left.variantString)
+  const rightVariant = right && getVariantInfo(right.type, right.variantString)
 
-  const variant = getVariantArray(type, variantString)
+  const variant = getVariantInfo(type, variantString)
   const segmentInfo = getSegmentInfo(type)
 
   // Direction
@@ -486,7 +486,7 @@ function handleSegmentCanvasDrop (draggedItem, type) {
 
   newSegment.variant =
     draggedItem.variant ||
-    getVariantArray(newSegment.type, newSegment.variantString)
+    getVariantInfo(newSegment.type, newSegment.variantString)
 
   let newIndex =
     segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
