@@ -37,6 +37,10 @@ function createBoundaryCanvas (
 ): void {
   const elementWidth = el.offsetWidth
 
+  // Bail if there is no variant
+  // Currently this is an escape hatch for an error on mobile devices
+  if (!variant) return
+
   // Determine physical dimensions
   const item = getBoundaryItem(variant)
   const overhangWidth =
