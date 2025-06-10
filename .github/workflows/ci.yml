@@ -30,11 +30,7 @@ jobs:
       # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        # For now, disabling 24.x from matrix due to test issues.
-        # https://github.com/streetmix/streetmix/actions/runs/14998382595/job/42138378871#step:8:1338
-        # https://github.com/reduxjs/redux-toolkit/issues/4966
-        # node-version: [22.x, 24.x]
-        node-version: [22.x]
+        node-version: [22.x, 24.x]
     env:
       NODE_ENV: test
       HUSKY: "0"

@@ -4,7 +4,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
 <DocumentFragment>
   <div
     id="street-section-editable"
-    style="width: 4724.4094488188975px;"
+    style="width: 4724.409449px;"
   >
     <div
       style="width: 100%; height: 100%;"
@@ -14,7 +14,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
           class="segment hover show-drag-handles warning"
           data-slice-index="0"
           data-testid="segment"
-          style="width: 4724.4094488188975px; z-index: 15; transform: translateX(0px);"
+          style="width: 4724.409449px; z-index: 15; transform: translateX(0px);"
         >
           <div
             class="segment-label-container"
