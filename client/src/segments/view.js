@@ -570,28 +570,16 @@ export function drawSegmentContents (
   // Only used for random people generation right now
   if (graphics.scatter) {
     if (graphics.scatter.pool === 'people') {
-      const originY =
+      const offsetTop =
         (graphics.scatter.originY ??
           graphics.scatter.originY + PERSON_SPRITE_OFFSET_Y) ||
         PERSON_SPRITE_OFFSET_Y
 
-      // Convert sprite ids to the actual format they're in
       const people = PEOPLE
         // Temporarily: filter out all people that uses the `beach` tag
         // TODO: figure out how to specify tags for inclusion/exclusion
         .filter((person) => {
           return !person.tags?.includes('beach')
-        })
-        .map((person) => {
-          const obj = {
-            ...person,
-            id: `people--${person.id}`,
-            originY
-          }
-          if (person.alts && person.alts.length > 0) {
-            obj.alts = person.alts?.map((s) => `people--${s}`)
-          }
-          return obj
         })
 
       drawScatteredSprites(
@@ -599,6 +587,7 @@ export function drawSegmentContents (
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
+        offsetTop,
         groundLevel,
         randSeed,
         graphics.scatter.minSpacing,
@@ -616,6 +605,7 @@ export function drawSegmentContents (
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
+        null,
         groundLevel,
         randSeed,
         graphics.scatter.minSpacing,

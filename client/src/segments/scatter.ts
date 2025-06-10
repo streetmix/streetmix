@@ -196,6 +196,7 @@ export function drawScatteredSprites (
   ctx: CanvasRenderingContext2D,
   width: number,
   offsetLeft: number,
+  offsetTop: number = 0,
   groundLevel: number,
   randSeed: string,
   minSpacing: number = DEFAULT_SCATTER_SPACING_MIN,
@@ -254,7 +255,7 @@ export function drawScatteredSprites (
     const distanceFromGround =
       multiplier *
       TILE_SIZE *
-      ((svg.height - (sprite.originY ?? object.originY ?? 0)) /
+      ((svg.height - offsetTop - (sprite.originY ?? object.originY ?? 0)) /
         TILE_SIZE_ACTUAL)
 
     drawSegmentImage(

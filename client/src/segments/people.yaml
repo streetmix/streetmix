@@ -1,130 +1,130 @@
-- id: people-01
+- id: people--people-01
   name: Nora
   width: 0.5
-- id: people-02
+- id: people--people-02
   width: 0.5
-- id: people-03
+- id: people--people-03
   width: 0.5
-- id: people-04
+- id: people--people-04
   width: 0.5
-- id: people-05
+- id: people--people-05
   width: 0.5
-- id: people-06
+- id: people--people-06
   width: 0.5
-- id: people-07
+- id: people--people-07
   width: 0.5
-- id: people-08
+- id: people--people-08
   width: 0.5
-- id: people-09
+- id: people--people-09
   width: 0.5
-- id: people-10
+- id: people--people-10
   width: 0.5
-- id: people-11
+- id: people--people-11
   width: 0.5
-- id: people-12
+- id: people--people-12
   width: 0.5
-- id: people-13
+- id: people--people-13
   width: 0.5
-- id: people-14
+- id: people--people-14
   width: 0.75
-- id: people-15
+- id: people--people-15
   name: Lou
   width: 0.5
-- id: people-16
+- id: people--people-16
   width: 0.75
-- id: people-17
+- id: people--people-17
   width: 0.75
-- id: people-18
+- id: people--people-18
   width: 0.75
-- id: people-19
-  width: 0.75
-  disallowFirst: true
-- id: people-20
+- id: people--people-19
   width: 0.75
   disallowFirst: true
-- id: people-21
+- id: people--people-20
+  width: 0.75
+  disallowFirst: true
+- id: people--people-21
   width: 0.25
-- id: people-22
+- id: people--people-22
   width: 0.25
-- id: people-23
+- id: people--people-23
   name: Katie
   width: 0.75
-- id: people-24
+- id: people--people-24
   width: 1.25
-- id: people-25
+- id: people--people-25
   width: 0.5
-- id: people-26
+- id: people--people-26
   width: 0.75
-- id: people-27
+- id: people--people-27
   width: 0.5
-- id: people-28
+- id: people--people-28
   width: 1
-- id: people-29
+- id: people--people-29
   width: 1.25
-- id: people-30
+- id: people--people-30
   width: 0.75
-- id: people-31
+- id: people--people-31
   width: 0.5
-- id: johnny-01
+- id: people--johnny-01
   name: Johnny
   alts:
-    - johnny-02
+    - people--johnny-02
   width: 0.75
   disallowFirst: true
   weight: 5
-- id: junebug-01
+- id: people--junebug-01
   name: Junebug
   alts:
-    - junebug-02
-    - junebug-03
+    - people--junebug-02
+    - people--junebug-03
   width: 0.75
   disallowFirst: true
   weight: 5
-- id: bernie
+- id: people--bernie
   width: 0.75
   name: Bernie
   weight: 1
-- id: people-32
+- id: people--people-32
   width: 0.5
   alts:
-    - people-32-back
+    - people--people-32-back
   tags:
     - beach
-- id: people-33
+- id: people--people-33
   width: 0.5
   alts:
-    - people-33-back
+    - people--people-33-back
   tags:
     - beach
-- id: people-34
+- id: people--people-34
   width: 0.5
   alts:
-    - people-34-back
+    - people--people-34-back
   tags:
     - beach
-- id: people-35
+- id: people--people-35
   width: 0.5
   alts:
-    - people-35-back
-- id: people-36
+    - people--people-35-back
+- id: people--people-36
   width: 0.5
   alts:
-    - people-36-back
+    - people--people-36-back
   tags:
     - beach
-- id: people-37
+- id: people--people-37
   width: 0.5
   alts:
-    - people-37-back
+    - people--people-37-back
   tags:
     - beach
-- id: people-38
+- id: people--people-38
   width: 0.5
   alts:
-    - people-38-back
+    - people--people-38-back
   tags:
     - beach
-- id: people-39
+- id: people--people-39
   width: 1.25
   tags:
     - beach
