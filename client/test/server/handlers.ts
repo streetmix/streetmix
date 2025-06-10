@@ -9,13 +9,13 @@ interface UserParams {
 }
 
 export const handlers = [
-  http.get('api/v1/users/', () => {
+  http.get('/api/v1/users/', () => {
     // If this endpoint without a userId param is called during test,
     // return unauthorized error
     return HttpResponse.json(null, { status: 401 })
   }),
 
-  http.get<UserParams>('api/v1/users/:userId', ({ params }) => {
+  http.get<UserParams>('/api/v1/users/:userId', ({ params }) => {
     const { userId } = params
 
     // If provided with this user id, create a mock server error
@@ -40,7 +40,7 @@ export const handlers = [
     )
   }),
 
-  http.get('api/v1/translate/:lang/:resource', () => {
+  http.get('/api/v1/translate/:lang/:resource', () => {
     return HttpResponse.json({}, { status: 200 })
   }),
 

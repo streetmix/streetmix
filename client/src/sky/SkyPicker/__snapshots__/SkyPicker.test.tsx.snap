@@ -37,7 +37,7 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
           <button
             aria-label="Day"
             class="sky-option-item sky-selected"
-            style="background: rgb(169, 204, 219);"
+            style="background: #a9ccdb;"
           />
           <button
             aria-label="Foo"

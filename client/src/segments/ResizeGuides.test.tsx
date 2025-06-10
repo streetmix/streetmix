@@ -153,7 +153,7 @@ describe('ResizeGuides', () => {
     })
 
     // But width should be based on `maxWidth`, not `remainingWidth`
-    const width = 4 * TILE_SIZE
+    const width = (4 * TILE_SIZE).toFixed(6)
     expect(
       container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
     ).toEqual(`${width}px`)
@@ -193,7 +193,7 @@ describe('ResizeGuides', () => {
     })
 
     // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
-    const width = (remainingWidth + segmentWidth) * TILE_SIZE
+    const width = ((remainingWidth + segmentWidth) * TILE_SIZE).toFixed(6)
     expect(
       container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
     ).toEqual(`${width}px`)
@@ -219,7 +219,7 @@ describe('ResizeGuides', () => {
     })
 
     // Width should be based on `remainingWidth` + `segmentWidth`
-    const width = (remainingWidth + segmentWidth) * TILE_SIZE
+    const width = ((remainingWidth + segmentWidth) * TILE_SIZE).toFixed(6)
     expect(
       container.querySelector<HTMLElement>('.resize-guide-max')?.style.width
     ).toEqual(`${width}px`)

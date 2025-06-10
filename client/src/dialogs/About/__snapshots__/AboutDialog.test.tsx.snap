@@ -191,7 +191,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <div
                       class="team-member-mugshot"
-                      style="background-image: url(/images/team/dwight.jpg);"
+                      style="background-image: url("/images/team/dwight.jpg");"
                     />
                     <span
                       class="team-member-name"
@@ -209,7 +209,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <div
                       class="team-member-mugshot"
-                      style="background-image: url(/images/team/michael.jpg);"
+                      style="background-image: url("/images/team/michael.jpg");"
                     />
                     <span
                       class="team-member-name"
@@ -240,7 +240,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <div
                       class="team-member-mugshot"
-                      style="background-image: url(/images/team/jim.jpg);"
+                      style="background-image: url("/images/team/jim.jpg");"
                     />
                     <span
                       class="team-member-name"
@@ -264,7 +264,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   >
                     <div
                       class="team-member-mugshot"
-                      style="background-image: url(/images/team/pam.jpg);"
+                      style="background-image: url("/images/team/pam.jpg");"
                     />
                     <span
                       class="team-member-name"

@@ -38,6 +38,7 @@ exports[`PaletteContainer > renders 1`] = `
         </button>
         <div
           class="palette-items"
+          style="overscroll-behavior-x: contain;"
         >
           <ul>
             <li

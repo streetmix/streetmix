@@ -38,6 +38,7 @@ exports[`Gallery > renders global gallery view 1`] = `
           </button>
           <div
             class="streets"
+            style="overscroll-behavior-x: contain;"
           >
             <div
               class="gallery-street-item gallery-selected"
@@ -193,6 +194,7 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
           </button>
           <div
             class="streets"
+            style="overscroll-behavior-x: contain;"
           >
             <div
               class="gallery-street-item gallery-selected"
@@ -338,6 +340,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
           </button>
           <div
             class="streets"
+            style="overscroll-behavior-x: contain;"
           >
             <div
               class="gallery-street-item gallery-selected"
