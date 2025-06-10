@@ -79,5 +79,11 @@ export const handlers = [
 
   http.get('https://api.geocode.earth/v1/search', () => {
     return HttpResponse.json(searchResponse, { status: 200 })
+  }),
+
+  // Fallback handler for all other external requests, which we don't need
+  // for testing but test renderers may call them anyway
+  http.get('https://*', () => {
+    return new HttpResponse('', { status: 200 })
   })
 ]
