@@ -306,6 +306,8 @@ export function drawSegmentContents (
     groundBaseline -
     multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
 
+  const coastmixMode = store.getState().flags.COASTMIX_MODE.value
+
   if (graphics.repeat) {
     // Convert single string or object values to single-item array
     let sprites = Array.isArray(graphics.repeat)
@@ -577,9 +579,15 @@ export function drawSegmentContents (
 
       const people = PEOPLE
         // Temporarily: filter out all people that uses the `beach` tag
+        // outside of Coastmix mode
         // TODO: figure out how to specify tags for inclusion/exclusion
+        // possibly append the beach list when needed.
         .filter((person) => {
-          return !person.tags?.includes('beach')
+          if (coastmixMode) {
+            return true
+          } else {
+            return !person.tags?.includes('beach')
+          }
         })
 
       drawScatteredSprites(

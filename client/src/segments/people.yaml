@@ -90,41 +90,49 @@
     - people--people-32-back
   tags:
     - beach
+  weight: 500
 - id: people--people-33
   width: 0.5
   alts:
     - people--people-33-back
   tags:
     - beach
+  weight: 500
 - id: people--people-34
   width: 0.5
   alts:
     - people--people-34-back
   tags:
     - beach
+  weight: 500
 - id: people--people-35
   width: 0.5
   alts:
     - people--people-35-back
+  weight: 500
 - id: people--people-36
   width: 0.5
   alts:
     - people--people-36-back
   tags:
     - beach
+  weight: 500
 - id: people--people-37
   width: 0.5
   alts:
     - people--people-37-back
   tags:
     - beach
+  weight: 500
 - id: people--people-38
   width: 0.5
   alts:
     - people--people-38-back
   tags:
     - beach
+  weight: 500
 - id: people--people-39
   width: 1.25
   tags:
     - beach
+  weight: 500
