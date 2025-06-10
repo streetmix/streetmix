@@ -19,9 +19,9 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.8.0",
-    "@docusaurus/preset-classic": "^3.8.0",
-    "@fontsource-variable/manrope": "^5.2.5",
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/preset-classic": "^3.8.1",
+    "@fontsource-variable/manrope": "^5.2.6",
     "@mdx-js/react": "^3.1.0",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
@@ -35,8 +35,8 @@
   "devDependencies": {
     "@argos-ci/cli": "^2.5.7",
     "@argos-ci/playwright": "^5.0.4",
-    "@playwright/test": "^1.52.0",
-    "cheerio": "^1.0.0"
+    "@playwright/test": "^1.53.0",
+    "cheerio": "^1.1.0"
   },
   "browserslist": {
     "production": [
