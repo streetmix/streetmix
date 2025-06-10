@@ -40,6 +40,10 @@ exports[`scatter objects in segments > picks people at dense density 1`] = `
     "width": 3,
   },
   {
+    "alts": [
+      "character-02b",
+      "character-02c",
+    ],
     "id": "character-02",
     "left": 9.655001618279844,
     "name": "Bob",
@@ -52,6 +56,10 @@ exports[`scatter objects in segments > picks people at dense density 1`] = `
     "width": 3,
   },
   {
+    "alts": [
+      "character-02b",
+      "character-02c",
+    ],
     "id": "character-02",
     "left": 14.916528561094843,
     "name": "Bob",
@@ -100,6 +108,10 @@ exports[`scatter objects in segments > picks people at normal density 1`] = `
     "width": 3,
   },
   {
+    "alts": [
+      "character-02b",
+      "character-02c",
+    ],
     "id": "character-02",
     "left": 17.016672060932816,
     "name": "Bob",

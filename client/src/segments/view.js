@@ -16,7 +16,7 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
 } from './constants'
-import PEOPLE from './people.json'
+import PEOPLE from './people.yaml'
 
 // Adjust spacing between people to be slightly closer
 const PERSON_SPACING_ADJUSTMENT = -0.1 // in meters
@@ -306,6 +306,8 @@ export function drawSegmentContents (
     groundBaseline -
     multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
 
+  const coastmixMode = store.getState().flags.COASTMIX_MODE.value
+
   if (graphics.repeat) {
     // Convert single string or object values to single-item array
     let sprites = Array.isArray(graphics.repeat)
@@ -570,23 +572,30 @@ export function drawSegmentContents (
   // Only used for random people generation right now
   if (graphics.scatter) {
     if (graphics.scatter.pool === 'people') {
-      const originY =
+      const offsetTop =
         (graphics.scatter.originY ??
           graphics.scatter.originY + PERSON_SPRITE_OFFSET_Y) ||
         PERSON_SPRITE_OFFSET_Y
-      const people = PEOPLE.map((person) => {
-        return {
-          ...person,
-          id: `people--${person.id}`,
-          originY
-        }
-      })
+
+      const people = PEOPLE
+        // Temporarily: filter out all people that uses the `beach` tag
+        // outside of Coastmix mode
+        // TODO: figure out how to specify tags for inclusion/exclusion
+        // possibly append the beach list when needed.
+        .filter((person) => {
+          if (coastmixMode) {
+            return true
+          } else {
+            return !person.tags?.includes('beach')
+          }
+        })
 
       drawScatteredSprites(
         people,
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
+        offsetTop,
         groundLevel,
         randSeed,
         graphics.scatter.minSpacing,
@@ -604,6 +613,7 @@ export function drawSegmentContents (
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
+        null,
         groundLevel,
         randSeed,
         graphics.scatter.minSpacing,
