@@ -6480,7 +6480,7 @@
             {
               "id": "beach",
               "variants": {
-                "color": "regular"
+                "type": "default"
               }
             }
           ]
@@ -6492,7 +6492,7 @@
             {
               "id": "beach",
               "variants": {
-                "color": "regular"
+                "type": "default"
               }
             }
           ],
@@ -6501,7 +6501,9 @@
               "id": "beach-lounger",
               "variants": {
                 "type": "default"
-              }
+              },
+              "offsetX": "25%",
+              "offsetY": 10
             }
           ]
         }
