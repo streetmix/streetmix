@@ -142,8 +142,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
       // If svg is missing, let it not affect this calculation
       if (svg) {
-        newLeft = center - svg.width / 2 + (sprite.offsetX || 0)
-        newRight = center + svg.width / 2 + (sprite.offsetX || 0)
+        // TODO: This doesn't take into account % offsets
+        newLeft = center - svg.width / 2 - (sprite.offsetX ?? 0)
+        newRight = center + svg.width / 2 + (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
@@ -165,8 +166,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const svg = images.get(sprite.id)
 
       if (svg) {
-        newLeft = sprite.offsetX || 0
-        newRight = svg.width + (sprite.offsetX || 0)
+        newLeft = sprite.offsetX ?? 0
+        newRight = svg.width + (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
@@ -188,8 +189,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const svg = images.get(sprite.id)
 
       if (svg) {
-        newLeft = displayWidth - (sprite.offsetX || 0) - svg.width
-        newRight = displayWidth - (sprite.offsetX || 0)
+        newLeft = displayWidth - (sprite.offsetX ?? 0) - svg.width
+        newRight = displayWidth - (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
