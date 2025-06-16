@@ -93,10 +93,10 @@
     "beach": {
       "elevation": 0,
       "variants": {
-        "color": {
-          "regular": {
+        "type": {
+          "default": {
             "graphics": {
-              "repeat": "ground--sand"
+              "repeat": ["ground--sand", "beach--surface"]
             }
           }
         }
@@ -917,12 +917,7 @@
         "type": {
           "default": {
             "graphics": {
-              "center": [
-                {
-                  "id": "beach--lounger",
-                  "offsetX": "25%"
-                }
-              ]
+              "center": "beach--lounger"
             }
           }
         }

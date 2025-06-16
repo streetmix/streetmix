@@ -142,8 +142,9 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
       // If svg is missing, let it not affect this calculation
       if (svg) {
-        newLeft = center - svg.width / 2 + (sprite.offsetX || 0)
-        newRight = center + svg.width / 2 + (sprite.offsetX || 0)
+        // TODO: This doesn't take into account % offsets
+        newLeft = center - svg.width / 2 - (sprite.offsetX ?? 0)
+        newRight = center + svg.width / 2 + (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
@@ -165,8 +166,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const svg = images.get(sprite.id)
 
       if (svg) {
-        newLeft = sprite.offsetX || 0
-        newRight = svg.width + (sprite.offsetX || 0)
+        newLeft = sprite.offsetX ?? 0
+        newRight = svg.width + (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
@@ -188,8 +189,8 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
       const svg = images.get(sprite.id)
 
       if (svg) {
-        newLeft = displayWidth - (sprite.offsetX || 0) - svg.width
-        newRight = displayWidth - (sprite.offsetX || 0)
+        newLeft = displayWidth - (sprite.offsetX ?? 0) - svg.width
+        newRight = displayWidth - (sprite.offsetX ?? 0)
 
         if (newLeft < left) {
           left = newLeft
@@ -373,7 +374,8 @@ export function drawSegmentContents (
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
-        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+        ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
+          TILE_SIZE_ACTUAL)
 
       // Right now only ground items repeat in the Y direction
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
@@ -439,7 +441,7 @@ export function drawSegmentContents (
         // This is the normal render logic.
         x =
           0 +
-          (-left + (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+          (-left + (sprite.offsetX ?? 0) / TILE_SIZE_ACTUAL) *
             TILE_SIZE *
             multiplier
       }
@@ -447,7 +449,8 @@ export function drawSegmentContents (
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
-        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+        ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
+          TILE_SIZE_ACTUAL)
 
       drawSegmentImage(
         sprite.id,
@@ -494,7 +497,7 @@ export function drawSegmentContents (
           (-left +
             actualWidth -
             svg.width / TILE_SIZE_ACTUAL -
-            (sprite.offsetX / TILE_SIZE_ACTUAL || 0)) *
+            (sprite.offsetX ?? 0) / TILE_SIZE_ACTUAL) *
           TILE_SIZE *
           multiplier
       }
@@ -502,7 +505,8 @@ export function drawSegmentContents (
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
-        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+        ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
+          TILE_SIZE_ACTUAL)
 
       drawSegmentImage(
         sprite.id,
@@ -537,19 +541,20 @@ export function drawSegmentContents (
         sprite.offsetX &&
         typeof sprite.offsetX === 'string' &&
         sprite.offsetX.endsWith('%')
-      const offsetX = offsetByPercentage ? 0 : sprite.offsetX
+      const offsetX = offsetByPercentage ? 0 : (sprite.offsetX ?? 0)
       const x =
         (center -
           svg.width / TILE_SIZE_ACTUAL / 2 -
           left -
           (offsetByPercentage ? percentToNumber(sprite.offsetX) * center : 0) -
-          (offsetX / TILE_SIZE_ACTUAL || 0)) *
+          offsetX / TILE_SIZE_ACTUAL) *
         TILE_SIZE *
         multiplier
       const distanceFromGround =
         multiplier *
         TILE_SIZE *
-        ((svg.height - (sprite.originY || 0)) / TILE_SIZE_ACTUAL)
+        ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
+          TILE_SIZE_ACTUAL)
 
       drawSegmentImage(
         sprite.id,
