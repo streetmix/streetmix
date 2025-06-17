@@ -41,8 +41,8 @@ exports[`InfoBubble > is visible 1`] = `
         >
           <button
             class="btn variant-selected"
+            data-testid="Inbound"
             disabled=""
-            title="Inbound"
             type="button"
           >
             <svg
@@ -57,7 +57,7 @@ exports[`InfoBubble > is visible 1`] = `
           </button>
           <button
             class="btn"
-            title="Outbound"
+            data-testid="Outbound"
             type="button"
           >
             <svg
@@ -73,8 +73,8 @@ exports[`InfoBubble > is visible 1`] = `
           <hr />
           <button
             class="btn variant-selected"
+            data-testid="Asphalt"
             disabled=""
-            title="Asphalt"
             type="button"
           >
             <svg
@@ -90,7 +90,7 @@ exports[`InfoBubble > is visible 1`] = `
           </button>
           <button
             class="btn"
-            title="Red lane"
+            data-testid="Red lane"
             type="button"
           >
             <svg
@@ -106,7 +106,7 @@ exports[`InfoBubble > is visible 1`] = `
           </button>
           <button
             class="btn"
-            title="Grass"
+            data-testid="Grass"
             type="button"
           >
             <svg
@@ -261,8 +261,8 @@ exports[`InfoBubble > renders 1`] = `
         >
           <button
             class="btn variant-selected"
+            data-testid="Inbound"
             disabled=""
-            title="Inbound"
             type="button"
           >
             <svg
@@ -277,7 +277,7 @@ exports[`InfoBubble > renders 1`] = `
           </button>
           <button
             class="btn"
-            title="Outbound"
+            data-testid="Outbound"
             type="button"
           >
             <svg
@@ -293,8 +293,8 @@ exports[`InfoBubble > renders 1`] = `
           <hr />
           <button
             class="btn variant-selected"
+            data-testid="Asphalt"
             disabled=""
-            title="Asphalt"
             type="button"
           >
             <svg
@@ -310,7 +310,7 @@ exports[`InfoBubble > renders 1`] = `
           </button>
           <button
             class="btn"
-            title="Red lane"
+            data-testid="Red lane"
             type="button"
           >
             <svg
@@ -326,7 +326,7 @@ exports[`InfoBubble > renders 1`] = `
           </button>
           <button
             class="btn"
-            title="Grass"
+            data-testid="Grass"
             type="button"
           >
             <svg
@@ -463,7 +463,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
         >
           <button
             class="btn"
-            title="Waterfront"
+            data-testid="Waterfront"
             type="button"
           >
             <svg
@@ -478,8 +478,8 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn variant-selected"
+            data-testid="Grass"
             disabled=""
-            title="Grass"
             type="button"
           >
             <svg
@@ -494,7 +494,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Empty lot"
+            data-testid="Empty lot"
             type="button"
           >
             <svg
@@ -509,7 +509,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Parking lot"
+            data-testid="Parking lot"
             type="button"
           >
             <svg
@@ -524,7 +524,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Home"
+            data-testid="Home"
             type="button"
           >
             <svg
@@ -539,7 +539,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Narrow building"
+            data-testid="Narrow building"
             type="button"
           >
             <svg
@@ -554,7 +554,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Wide building"
+            data-testid="Wide building"
             type="button"
           >
             <svg
@@ -569,7 +569,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Arcade building"
+            data-testid="Arcade building"
             type="button"
           >
             <svg
@@ -584,8 +584,8 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           </button>
           <button
             class="btn"
+            data-testid="Compound wall"
             disabled=""
-            title="Compound wall — Sign in to use!‎"
             type="button"
           >
             <svg
@@ -674,7 +674,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
         >
           <button
             class="btn"
-            title="Waterfront"
+            data-testid="Waterfront"
             type="button"
           >
             <svg
@@ -689,8 +689,8 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn variant-selected"
+            data-testid="Grass"
             disabled=""
-            title="Grass"
             type="button"
           >
             <svg
@@ -705,7 +705,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Empty lot"
+            data-testid="Empty lot"
             type="button"
           >
             <svg
@@ -720,7 +720,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Parking lot"
+            data-testid="Parking lot"
             type="button"
           >
             <svg
@@ -735,7 +735,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Home"
+            data-testid="Home"
             type="button"
           >
             <svg
@@ -750,7 +750,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Narrow building"
+            data-testid="Narrow building"
             type="button"
           >
             <svg
@@ -765,7 +765,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Wide building"
+            data-testid="Wide building"
             type="button"
           >
             <svg
@@ -780,7 +780,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
-            title="Arcade building"
+            data-testid="Arcade building"
             type="button"
           >
             <svg
@@ -795,8 +795,8 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           </button>
           <button
             class="btn"
+            data-testid="Compound wall"
             disabled=""
-            title="Compound wall — Sign in to use!‎"
             type="button"
           >
             <svg
@@ -903,8 +903,8 @@ exports[`InfoBubble > shows description 1`] = `
         >
           <button
             class="btn variant-selected"
+            data-testid="Inbound"
             disabled=""
-            title="Inbound"
             type="button"
           >
             <svg
@@ -919,7 +919,7 @@ exports[`InfoBubble > shows description 1`] = `
           </button>
           <button
             class="btn"
-            title="Outbound"
+            data-testid="Outbound"
             type="button"
           >
             <svg
@@ -935,8 +935,8 @@ exports[`InfoBubble > shows description 1`] = `
           <hr />
           <button
             class="btn variant-selected"
+            data-testid="Asphalt"
             disabled=""
-            title="Asphalt"
             type="button"
           >
             <svg
@@ -952,7 +952,7 @@ exports[`InfoBubble > shows description 1`] = `
           </button>
           <button
             class="btn"
-            title="Red lane"
+            data-testid="Red lane"
             type="button"
           >
             <svg
@@ -968,7 +968,7 @@ exports[`InfoBubble > shows description 1`] = `
           </button>
           <button
             class="btn"
-            title="Grass"
+            data-testid="Grass"
             type="button"
           >
             <svg

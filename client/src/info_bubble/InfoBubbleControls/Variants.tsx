@@ -186,9 +186,14 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     const isSelected = isVariantCurrentlySelected(set, selection)
 
     return (
-      <Tooltip label={label} sublabel={sublabel} placement="bottom">
+      <Tooltip
+        label={label}
+        sublabel={sublabel}
+        placement="bottom"
+        key={set + '.' + selection}
+      >
         <Button
-          key={set + '.' + selection}
+          data-testid={label}
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
           onClick={getButtonOnClickHandler(set, selection)}
