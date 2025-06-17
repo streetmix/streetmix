@@ -9,21 +9,20 @@ import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import ElevationControlNew from './ElevationControlNew'
 
-import type { Segment } from '@streetmix/types'
-
 interface ElevationControlProps {
   position: number
-  segment: Segment
-  forceEnable: boolean
 }
 
 function ElevationControl ({
-  position,
-  segment,
-  forceEnable = false
+  position
 }: ElevationControlProps): React.ReactElement {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const forceEnable = useSelector(
+    (state) => state.flags.ELEVATION_CONTROLS_UNLOCKED.value
+  )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
+  const segment = useSelector((state) => state.street.segments[position])
+
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -114,15 +113,29 @@ function ElevationControl ({
     )
   }
 
+  let controls
   if (coastmixMode) {
-    return <ElevationControlNew key={position} position={position} segment={segment} />
+    controls = (
+      <ElevationControlNew
+        key={position}
+        position={position}
+        segment={segment}
+      />
+    )
+  } else {
+    controls = (
+      <>
+        {renderButton('elevation', 'sidewalk')}
+        {renderButton('elevation', 'road')}
+      </>
+    )
   }
 
   return (
-    <>
-      {renderButton('elevation', 'sidewalk')}
-      {renderButton('elevation', 'road')}
-    </>
+    <div className="variants">
+      <h3 className="elevation-header">Elevation</h3>
+      {controls}
+    </div>
   )
 }
 

@@ -46,8 +46,7 @@ function ElevationControlNew ({
   }
 
   return (
-    <>
-      <h3 className="elev-title">Elevation</h3>
+    <div className="variants">
       <UpDownInput
         value={value}
         minValue={1}
@@ -58,11 +57,13 @@ function ElevationControlNew ({
       />
       <Checkbox
         checked={isSlope}
-        onChange={() => { toggleSlope(!isSlope) }}
+        onChange={() => {
+          toggleSlope(!isSlope)
+        }}
       >
         Slope
       </Checkbox>
-    </>
+    </div>
   )
 }
 

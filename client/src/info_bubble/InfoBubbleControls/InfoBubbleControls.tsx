@@ -11,6 +11,7 @@ import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 
+import ElevationControl from './ElevationControl'
 import type { BoundaryPosition } from '@streetmix/types'
 
 interface InfoBubbleControlsProps {
@@ -41,10 +42,18 @@ function InfoBubbleControls (
 
   return (
     <div className="info-bubble-controls">
-      <IntlProvider locale={locale} messages={segmentInfo}>
-        <Variants type={type} position={position} />
-      </IntlProvider>
-      {widthOrHeightControl}
+      <div className="info-bubble-control-row">
+        <IntlProvider locale={locale} messages={segmentInfo}>
+          <Variants type={type} position={position} />
+        </IntlProvider>
+        {widthOrHeightControl}
+      </div>
+      {/* Only enabled for segments right now */}
+      {typeof position === 'number' && (
+        <div className="info-bubble-control-row">
+          <ElevationControl position={position} />
+        </div>
+      )}
     </div>
   )
 }

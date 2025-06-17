@@ -116,20 +116,6 @@ function Segment (props: SliceProps): React.ReactNode {
     }
   }, [segment.variantString])
 
-  // Also animate the switching if elevation changes.
-  // Maybe we don't always do this forever, but it makes it match
-  // existing elevation variant behavior
-  useEffect(() => {
-    // DISABLED FOR COASTMIX.
-    if (coastmixMode) return
-    if (
-      prevProps !== null &&
-      prevProps.segment.elevation !== segment.elevation
-    ) {
-      handleSwitchSegments(prevProps.segment.variantString)
-    }
-  }, [segment.elevation, coastmixMode])
-
   // Cleanup effect
   useEffect(() => {
     // Event handler is only added on mouseover, but definitely remove if

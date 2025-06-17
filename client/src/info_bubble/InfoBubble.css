@@ -58,10 +58,10 @@
 
   .variants {
     text-align: left;
-    margin-right: 20px;
     min-height: var(--info-bubble-button-size);
     white-space: nowrap;
     user-select: none;
+    flex-grow: 1;
 
     button {
       margin-bottom: 2px;
@@ -190,10 +190,11 @@
   }
 }
 
-.info-bubble-controls {
+.info-bubble-control-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  gap: 20px;
+  margin: 10px;
 
   .non-variant {
     text-align: center;

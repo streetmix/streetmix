@@ -21,7 +21,6 @@ import {
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../constants'
-import ElevationControl from './ElevationControl'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -53,19 +52,14 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
   const intl = useIntl()
 
   let variantSets: string[] = []
-  let elevationToggle = false
   switch (type) {
     case INFO_BUBBLE_TYPE_SEGMENT: {
-      const { variants, enableElevation } = getSegmentInfo(segment.type)
+      const { variants } = getSegmentInfo(segment.type)
       variantSets = variants
-      if (enableElevation !== undefined) {
-        elevationToggle = true
-      }
       break
     }
     case INFO_BUBBLE_TYPE_LEFT_BUILDING:
@@ -243,25 +237,6 @@ function Variants (props: VariantsProps): React.ReactElement | null {
             variantEls.push(el)
           }
         })
-
-        if (elevationToggle || coastmixMode) {
-          // Street vendors always have enabled elevation controls
-          // regardless of subscriber state
-          const forceEnable =
-            segment?.type === 'street-vendor' ||
-            flags.ELEVATION_CONTROLS_UNLOCKED.value
-
-          // React wants a unique key here
-          variantEls.push(<hr key="elevation_divider" />)
-          variantEls.push(
-            <ElevationControl
-              position={position}
-              segment={segment}
-              key="elevation_control"
-              forceEnable={forceEnable}
-            />
-          )
-        }
 
         break
       }
