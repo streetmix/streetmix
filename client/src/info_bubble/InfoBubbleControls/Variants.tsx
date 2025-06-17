@@ -16,12 +16,12 @@ import {
 } from '~/src/segments/constants'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
+import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
 import {
   INFO_BUBBLE_TYPE_SEGMENT,
   INFO_BUBBLE_TYPE_LEFT_BUILDING,
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../constants'
-import ElevationControl from './ElevationControl'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -57,14 +57,10 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   const intl = useIntl()
 
   let variantSets: string[] = []
-  let elevationToggle = false
   switch (type) {
     case INFO_BUBBLE_TYPE_SEGMENT: {
-      const { variants, enableElevation } = getSegmentInfo(segment.type)
+      const { variants } = getSegmentInfo(segment.type)
       variantSets = variants
-      if (enableElevation !== undefined) {
-        elevationToggle = true
-      }
       break
     }
     case INFO_BUBBLE_TYPE_LEFT_BUILDING:
@@ -143,12 +139,13 @@ function Variants (props: VariantsProps): React.ReactElement | null {
       if (!flag?.value) return null
     }
 
-    let title = intl.formatMessage({
+    const label = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
 
     let isLocked = false
+    let sublabel
 
     // If there is an enable condition, add a note to the tooltip if it
     // is locked for a reason (e.g. must sign in, must be a subscriber)
@@ -157,12 +154,11 @@ function Variants (props: VariantsProps): React.ReactElement | null {
       icon.unlockCondition !== undefined &&
       !(icon.unlockWithFlag !== undefined && flags[icon.unlockWithFlag]?.value)
     ) {
-      let unlockConditionText
       switch (icon.unlockCondition) {
         case 'SUBSCRIBE':
           if (!isSubscriber) {
             isLocked = true
-            unlockConditionText = intl.formatMessage({
+            sublabel = intl.formatMessage({
               id: 'plus.locked.sub',
               // Default message ends with a Unicode-only left-right order mark
               // to allow for proper punctuation in `rtl` text direction
@@ -175,7 +171,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
         default:
           if (!isSignedIn) {
             isLocked = true
-            unlockConditionText = intl.formatMessage({
+            sublabel = intl.formatMessage({
               id: 'plus.locked.user',
               // Default message ends with a Unicode-only left-right order mark
               // to allow for proper punctuation in `rtl` text direction
@@ -185,32 +181,34 @@ function Variants (props: VariantsProps): React.ReactElement | null {
           }
           break
       }
-      if (unlockConditionText !== undefined) {
-        title += ' — ' + unlockConditionText
-      }
     }
 
     const isSelected = isVariantCurrentlySelected(set, selection)
 
     return (
-      <Button
+      <Tooltip
+        label={label}
+        sublabel={sublabel}
+        placement="bottom"
         key={set + '.' + selection}
-        title={title}
-        className={isSelected ? 'variant-selected' : undefined}
-        disabled={isSelected || isLocked}
-        onClick={getButtonOnClickHandler(set, selection)}
       >
-        <svg
-          xmlns="http://www.w3.org/1999/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          className="icon"
-          style={icon.color !== undefined ? { fill: icon.color } : undefined}
+        <Button
+          data-testid={icon.title}
+          className={isSelected ? 'variant-selected' : undefined}
+          disabled={isSelected || isLocked}
+          onClick={getButtonOnClickHandler(set, selection)}
         >
-          {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
-          <use xlinkHref={`#icon-${icon.id}`} />
-        </svg>
-        {isLocked && <Icon name="lock" />}
-      </Button>
+          <svg
+            xmlns="http://www.w3.org/1999/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            className="icon"
+            style={icon.color !== undefined ? { fill: icon.color } : undefined}
+          >
+            <use href={`#icon-${icon.id}`} />
+          </svg>
+          {isLocked && <Icon name="lock" />}
+        </Button>
+      </Tooltip>
     )
   }
 
@@ -243,25 +241,6 @@ function Variants (props: VariantsProps): React.ReactElement | null {
           }
         })
 
-        if (elevationToggle) {
-          // Street vendors always have enabled elevation controls
-          // regardless of subscriber state
-          const forceEnable =
-            segment?.type === 'street-vendor' ||
-            flags.ELEVATION_CONTROLS_UNLOCKED.value
-
-          // React wants a unique key here
-          variantEls.push(<hr key="elevation_divider" />)
-          variantEls.push(
-            <ElevationControl
-              position={position}
-              segment={segment}
-              key="elevation_control"
-              forceEnable={forceEnable}
-            />
-          )
-        }
-
         break
       }
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
@@ -282,7 +261,11 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   // Do not render this component if there are no variants to select
   if (variantSets.length === 0) return null
 
-  return <div className="variants">{renderVariantsSelection()}</div>
+  return (
+    <div className="variants">
+      <TooltipGroup>{renderVariantsSelection()}</TooltipGroup>
+    </div>
+  )
 }
 
 export default Variants

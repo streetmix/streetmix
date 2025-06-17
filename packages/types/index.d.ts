@@ -17,6 +17,7 @@ export interface Segment {
   variantString: string
   width: number
   elevation: number
+  slope?: boolean
   variant: Record<string, string>
   warnings: boolean[]
   label?: string

@@ -14,7 +14,11 @@ vi.mock('../info_bubble/info_bubble')
 
 describe('Segment', () => {
   const increment = 0.05
-  let variantString, type, activeElement: number, segment: SliceItem
+  let variantString,
+    type,
+    activeElement: number,
+    segment: SliceItem,
+    initialState
 
   beforeEach(() => {
     variantString = 'inbound|regular'
@@ -32,6 +36,15 @@ describe('Segment', () => {
       elevation: 0,
       warnings: []
     }
+    initialState = {
+      flags: {
+        ANALYTICS: { value: true },
+        COASTMIX_MODE: { value: false },
+        DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
+      },
+      ui: { activeSegment: activeElement },
+      street: { showAnalytics: true, segments: [segment] }
+    }
   })
 
   it('renders correctly', () => {
@@ -42,16 +55,7 @@ describe('Segment', () => {
         segmentLeft={0}
         units={SETTINGS_UNITS_METRIC}
       />,
-      {
-        initialState: {
-          flags: {
-            ANALYTICS: { value: true },
-            DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
-          },
-          ui: { activeSegment: activeElement },
-          street: { showAnalytics: true, segments: [segment] }
-        }
-      }
+      { initialState }
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -67,12 +71,7 @@ describe('Segment', () => {
         segmentLeft={0}
         units={SETTINGS_UNITS_METRIC}
       />,
-      {
-        initialState: {
-          ui: { activeSegment: activeElement },
-          street: { segments: [segment] }
-        }
-      }
+      { initialState }
     )
 
     await user.hover(screen.getByTestId('segment'))
@@ -90,12 +89,7 @@ describe('Segment', () => {
         segmentLeft={0}
         units={SETTINGS_UNITS_METRIC}
       />,
-      {
-        initialState: {
-          ui: { activeSegment: activeElement },
-          street: { segments: [segment] }
-        }
-      }
+      { initialState }
     )
 
     await user.hover(screen.getByTestId('segment'))
@@ -114,12 +108,7 @@ describe('Segment', () => {
           segmentLeft={0}
           units={SETTINGS_UNITS_METRIC}
         />,
-        {
-          initialState: {
-            ui: { activeSegment: activeElement },
-            street: { segments: [segment] }
-          }
-        }
+        { initialState }
       )
 
       await user.hover(screen.getByTestId('segment'))
@@ -139,12 +128,7 @@ describe('Segment', () => {
           segmentLeft={0}
           units={SETTINGS_UNITS_METRIC}
         />,
-        {
-          initialState: {
-            ui: { activeSegment: activeElement },
-            street: { segments: [segment] }
-          }
-        }
+        { initialState }
       )
 
       await user.hover(screen.getByTestId('segment'))
@@ -164,12 +148,7 @@ describe('Segment', () => {
           segmentLeft={0}
           units={SETTINGS_UNITS_METRIC}
         />,
-        {
-          initialState: {
-            ui: { activeSegment: activeElement },
-            street: { segments: [segment] }
-          }
-        }
+        { initialState }
       )
 
       setLastStreet() // ToDo: needs to be refactored
@@ -191,12 +170,7 @@ describe('Segment', () => {
           segmentLeft={0}
           units={SETTINGS_UNITS_METRIC}
         />,
-        {
-          initialState: {
-            ui: { activeSegment: activeElement },
-            street: { segments: [segment] }
-          }
-        }
+        { initialState }
       )
 
       await user.hover(screen.getByTestId('segment'))

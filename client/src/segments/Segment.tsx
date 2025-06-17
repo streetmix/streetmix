@@ -30,8 +30,10 @@ import {
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
-import type { SliceItem, UnitsSetting } from '@streetmix/types'
+import TestSlope from './TestSlope'
 import './Segment.css'
+
+import type { SliceItem, UnitsSetting } from '@streetmix/types'
 
 interface SliceProps {
   sliceIndex: number
@@ -56,6 +58,7 @@ function Segment (props: SliceProps): React.ReactNode {
     typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   )
   const capacitySource = useSelector((state) => state.street.capacitySource)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
   // What is this?
@@ -113,18 +116,6 @@ function Segment (props: SliceProps): React.ReactNode {
       handleSwitchSegments(prevProps.segment.variantString)
     }
   }, [segment.variantString])
-
-  // Also animate the switching if elevation changes.
-  // Maybe we don't always do this forever, but it makes it match
-  // existing elevation variant behavior
-  useEffect(() => {
-    if (
-      prevProps !== null &&
-      prevProps.segment.elevation !== segment.elevation
-    ) {
-      handleSwitchSegments(prevProps.segment.variantString)
-    }
-  }, [segment.elevation])
 
   // Cleanup effect
   useEffect(() => {
@@ -264,6 +255,7 @@ function Segment (props: SliceProps): React.ReactNode {
           randSeed={randSeed}
           elevation={segment.elevation}
         />
+        {coastmixMode && <TestSlope slice={segment} />}
       </div>
     )
   }

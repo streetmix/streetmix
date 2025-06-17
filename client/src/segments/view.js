@@ -254,6 +254,8 @@ const GROUND_LEVEL_OFFSETY = {
  * @returns {?Number} groundLevelOffset
  */
 function getGroundLevelOffset (elevation) {
+  return elevation * 18
+  /* eslint-disable no-unreachable */
   switch (elevation) {
     case -2:
       return GROUND_LEVEL_OFFSETY.DRAINAGE
@@ -379,6 +381,7 @@ export function drawSegmentContents (
 
       // Right now only ground items repeat in the Y direction
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
+
       // countY should always be at minimum 1.
       const countY = sprite.id.startsWith('ground--')
         ? Math.ceil((ctx.canvas.height / dpi - groundLevel) / height)
