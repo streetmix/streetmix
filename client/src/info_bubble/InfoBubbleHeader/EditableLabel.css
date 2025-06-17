@@ -5,9 +5,7 @@
   text-overflow: ellipsis;
   padding-left: 0.25em;
   padding-right: 0.25em;
-  margin-left: -0.25em;
-  margin-top: 0.15em;
-  margin-bottom: 0.15em;
+  margin-inline-start: -0.25em;
   background-color: rgb(255 255 255 / 0%);
   border-radius: 3px;
   display: flex;
@@ -19,12 +17,7 @@
     opacity: 0;
     transform: translateZ(0); /* Prevent jitter when transitioning */
     transition: opacity 120ms ease-in;
-    margin-left: 0.25em;
-
-    [dir="rtl"] & {
-      margin-left: 0;
-      margin-right: 0.25em;
-    }
+    margin-inline-start: 0.25em;
   }
 
   &:hover {

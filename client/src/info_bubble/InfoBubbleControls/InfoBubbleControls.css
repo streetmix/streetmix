@@ -11,7 +11,7 @@
   }
 
   .variants {
-    text-align: left;
+    text-align: start;
     min-height: var(--info-bubble-button-size);
     white-space: nowrap;
     user-select: none;
@@ -36,21 +36,9 @@
 
     [data-icon="lock"] {
       position: absolute;
-      top: -2px;
-      right: -2px;
+      inset-block-start: -2px;
+      inset-inline-end: -2px;
       color: var(--color-copper-800);
-
-      [dir="rtl"] & {
-        left: -2px;
-        right: auto;
-      }
-    }
-
-    [dir="rtl"] & {
-      text-align: right;
-      margin-left: 20px;
-      margin-right: 0;
-      direction: ltr;
     }
   }
 
