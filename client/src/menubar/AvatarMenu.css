@@ -8,24 +8,16 @@
 
 .menu-avatar .avatar {
   position: relative;
-  left: -2px; /* Position tweaking to center in highlight */
+  inset-inline-start: -2px; /* Position tweaking to center in highlight */
   width: 2rem;
   height: 2rem;
   margin: 0;
-
-  [dir="rtl"] & {
-    left: 1px;
-  }
 }
 
 .menu-avatar .menu-avatar-badge {
   position: absolute;
-  left: calc(50% + 4px);
-  top: 1px;
-
-  [dir="rtl"] & {
-    left: calc(50% + 6px);
-  }
+  inset-inline-start: calc(50% + 4px);
+  inset-block-start: 1px;
 }
 
 .menu-avatar-subscriber {

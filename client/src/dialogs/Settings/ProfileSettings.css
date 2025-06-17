@@ -17,12 +17,7 @@
   width: 100%;
 
   > *:not(:last-child) {
-    margin-right: 0.5em;
-
-    [dir="rtl"] & {
-      margin-left: 0.5em;
-      margin-right: 0;
-    }
+    margin-inline-end: 0.5em;
   }
 
   > p {
@@ -47,6 +42,7 @@
     justify-content: center;
     flex-grow: 0;
     flex-shrink: 0;
+    gap: 0.5em;
 
     button {
       position: relative;
@@ -55,15 +51,6 @@
       align-items: center;
       margin: 0;
       padding: 0 1.5em;
-    }
-
-    button + button {
-      margin-left: 0.5em;
-
-      [dir="rtl"] & {
-        margin-left: 0;
-        margin-right: 0.5em;
-      }
     }
   }
 }

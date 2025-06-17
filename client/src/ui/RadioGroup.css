@@ -30,13 +30,8 @@
   }
 
   + label {
-    margin-left: 0.75em;
+    margin-inline-start: 0.75em;
     user-select: none;
-
-    [dir="rtl"] & {
-      margin-left: 0;
-      margin-right: 0.75em;
-    }
   }
 }
 
