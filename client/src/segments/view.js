@@ -255,6 +255,7 @@ const GROUND_LEVEL_OFFSETY = {
  */
 function getGroundLevelOffset (elevation) {
   return elevation * 18
+  /* eslint-disable no-unreachable */
   switch (elevation) {
     case -2:
       return GROUND_LEVEL_OFFSETY.DRAINAGE
