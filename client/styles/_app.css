@@ -198,3 +198,15 @@ body.phone #loading {
   position: absolute;
   z-index: var(--z-09-floating-ui);
 }
+
+.privacy-link {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  text-decoration: none;
+  z-index: -1;
+
+  a {
+    color: #eee;
+  }
+}
