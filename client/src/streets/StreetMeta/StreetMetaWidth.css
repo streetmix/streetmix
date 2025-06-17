@@ -14,24 +14,14 @@
 }
 
 .street-width-over {
-  margin-left: 0.25em;
+  margin-inline-start: 0.25em;
   color: var(--warning-color);
-
-  [dir="rtl"] & {
-    margin-right: 0.25em;
-    margin-left: 0;
-  }
 }
 
 .street-width-under {
-  margin-left: 0.25em;
+  margin-inline-start: 0.25em;
   color: rgb(96 96 96);
   transition: color var(--skybox-transition);
-
-  [dir="rtl"] & {
-    margin-right: 0.25em;
-    margin-left: 0;
-  }
 }
 
 /* Invert the UI text color when there is a dark background */
@@ -72,15 +62,12 @@ body.safari .dropdown-menu-content[data-side="bottom"] {
 .dropdown-menu-radio-item {
   user-select: none;
   outline: none;
-  padding: 0.5em 1em 0.5em 1.5em;
+  padding-block: 0.5em;
+  padding-inline: 1.5em 1em;
   text-decoration: none;
   color: black;
   border-radius: var(--border-radius);
   cursor: pointer;
-
-  [dir="rtl"] & {
-    padding: 0.5em 1.5em 0.5em 1em;
-  }
 }
 
 .dropdown-menu-item[data-disabled],
@@ -102,28 +89,20 @@ body.safari .dropdown-menu-content[data-side="bottom"] {
 }
 
 .dropdown-menu-label {
-  padding: 0.5em 1em 0.5em 1.5em;
+  padding-block: 0.5em;
+  padding-inline: 1.5em 1em;
   font-weight: 500;
   color: var(--color-turquoise-700);
-
-  [dir="rtl"] & {
-    padding: 0.5em 1.5em 0.5em 1em;
-  }
 }
 
 .dropdown-menu-item-indicator {
   position: absolute;
-  left: 0.65em;
-  margin-top: 3px;
+  inset-inline-start: 0.65em;
+  margin-block-start: 3px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--color-turquoise-500);
-
-  [dir="rtl"] & {
-    right: 0.65em;
-    left: auto;
-  }
 }
 
 .dropdown-menu-arrow {

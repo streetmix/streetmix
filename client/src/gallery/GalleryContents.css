@@ -3,17 +3,12 @@
   flex-direction: row;
   flex: 0 0 40px;
   align-items: center;
+  gap: 0.5em;
 
   .avatar {
     flex: 0 0 32px;
     height: 32px;
-    margin-top: -1px;
-    margin-right: 0.5em;
-
-    [dir="rtl"] & {
-      margin-left: 0.5em;
-      margin-right: 0;
-    }
+    margin-block-start: -1px;
   }
 }
 
@@ -34,6 +29,7 @@
 .gallery-streets-container {
   display: flex;
   flex-direction: row;
+  gap: 1rem;
 }
 
 /* Applied by the wrapping element created by <Scrollable /> */
@@ -73,20 +69,13 @@
   flex-direction: column;
   height: 110px;
   margin-top: 6px;
-  margin-right: 16px;
 
   a.btn,
   button {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-inline: 0.5em;
     display: flex !important;
     align-items: center !important;
     justify-content: center;
-  }
-
-  [dir="rtl"] & {
-    margin-left: 16px;
-    margin-right: 0;
   }
 }
 
