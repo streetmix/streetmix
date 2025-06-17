@@ -1,5 +1,5 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { segmentsChanged } from '~/src/segments/view'
@@ -73,7 +73,7 @@ function ElevationControl ({
     if (icon === undefined) return null
 
     const label = intl.formatMessage({
-      id: `variant-icons.${set}|${selection}`,
+      id: `tooltip.${set}-${selection}`,
       defaultMessage: icon.title
     })
 
@@ -135,7 +135,12 @@ function ElevationControl ({
 
   return (
     <div className="info-bubble-control-row">
-      <div className="info-bubble-control-label">Elevation</div>
+      <div className="info-bubble-control-label">
+        <FormattedMessage
+          id="segments.controls.elevation"
+          defaultMessage="Elevation"
+        />
+      </div>
       <div className="variants">{controls}</div>
     </div>
   )

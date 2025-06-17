@@ -380,7 +380,11 @@
     "scroll-street-left": "Scroll street left",
     "scroll-street-right": "Scroll street right",
     "scroll-left": "Scroll left",
-    "scroll-right": "Scroll right"
+    "scroll-right": "Scroll right",
+    "elevation-sidewalk": "Sidewalk level",
+    "elevation-road": "Street level",
+    "elevation-lower": "Lower elevation",
+    "elevation-raise": "Raise elevation"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -406,6 +410,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": "Elevation"
     }
   },
   "section": {
