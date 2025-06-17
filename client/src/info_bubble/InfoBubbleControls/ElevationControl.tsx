@@ -5,6 +5,7 @@ import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { segmentsChanged } from '~/src/segments/view'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
+import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import ElevationControlNew from './ElevationControlNew'
@@ -94,22 +95,24 @@ function ElevationControl ({
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Button
-        title={title}
-        className={isSelected ? 'variant-selected' : undefined}
-        disabled={isSelected || isLocked}
-        onClick={getButtonOnClickHandler(selection)}
-      >
-        <svg
-          xmlns="http://www.w3.org/1999/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          className="icon"
+      <Tooltip label={title} placement="bottom">
+        <Button
+          // title={title}
+          className={isSelected ? 'variant-selected' : undefined}
+          disabled={isSelected || isLocked}
+          onClick={getButtonOnClickHandler(selection)}
         >
-          {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
-          <use xlinkHref={`#icon-${icon.id}`} />
-        </svg>
-        {isLocked && <Icon name="lock" />}
-      </Button>
+          <svg
+            xmlns="http://www.w3.org/1999/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            className="icon"
+          >
+            {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
+            <use xlinkHref={`#icon-${icon.id}`} />
+          </svg>
+          {isLocked && <Icon name="lock" />}
+        </Button>
+      </Tooltip>
     )
   }
 
@@ -124,10 +127,10 @@ function ElevationControl ({
     )
   } else {
     controls = (
-      <>
+      <TooltipGroup>
         {renderButton('elevation', 'sidewalk')}
         {renderButton('elevation', 'road')}
-      </>
+      </TooltipGroup>
     )
   }
 

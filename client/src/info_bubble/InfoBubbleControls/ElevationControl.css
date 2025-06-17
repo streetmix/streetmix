@@ -1,7 +1,6 @@
 .elevation-header {
-  border-bottom: 1px solid var(--color-turquoise-400);
+  border-top: 1px solid var(--color-turquoise-400);
   color: var(--color-turquoise-700);
-  margin-bottom: 0.75em;
-  margin-top: 0.5em;
+  margin-block: 0.5em;
   font-size: 1.1rem;
 }
