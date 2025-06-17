@@ -72,7 +72,7 @@ function ElevationControl ({
 
     if (icon === undefined) return null
 
-    const title = intl.formatMessage({
+    const label = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
@@ -95,7 +95,7 @@ function ElevationControl ({
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Tooltip label={title} sublabel={sublabel}>
+      <Tooltip label={label} sublabel={sublabel}>
         <Button
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
