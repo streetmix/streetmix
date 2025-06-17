@@ -51,7 +51,7 @@ exports[`InfoBubble > is visible 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-inbound"
+                href="#icon-direction-inbound"
               />
             </svg>
           </button>
@@ -66,7 +66,7 @@ exports[`InfoBubble > is visible 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-outbound"
+                href="#icon-direction-outbound"
               />
             </svg>
           </button>
@@ -84,7 +84,7 @@ exports[`InfoBubble > is visible 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -100,7 +100,7 @@ exports[`InfoBubble > is visible 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -115,7 +115,7 @@ exports[`InfoBubble > is visible 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-grass"
+                href="#icon-grass"
               />
             </svg>
           </button>
@@ -182,7 +182,7 @@ exports[`InfoBubble > is visible 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-higher"
+                  href="#icon-elevation-higher"
                 />
               </svg>
               <svg
@@ -201,7 +201,7 @@ exports[`InfoBubble > is visible 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-lower"
+                  href="#icon-elevation-lower"
                 />
               </svg>
               <svg
@@ -271,7 +271,7 @@ exports[`InfoBubble > renders 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-inbound"
+                href="#icon-direction-inbound"
               />
             </svg>
           </button>
@@ -286,7 +286,7 @@ exports[`InfoBubble > renders 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-outbound"
+                href="#icon-direction-outbound"
               />
             </svg>
           </button>
@@ -304,7 +304,7 @@ exports[`InfoBubble > renders 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -320,7 +320,7 @@ exports[`InfoBubble > renders 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -335,7 +335,7 @@ exports[`InfoBubble > renders 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-grass"
+                href="#icon-grass"
               />
             </svg>
           </button>
@@ -402,7 +402,7 @@ exports[`InfoBubble > renders 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-higher"
+                  href="#icon-elevation-higher"
                 />
               </svg>
               <svg
@@ -421,7 +421,7 @@ exports[`InfoBubble > renders 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-lower"
+                  href="#icon-elevation-lower"
                 />
               </svg>
               <svg
@@ -472,7 +472,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-waterfront"
+                href="#icon-waterfront"
               />
             </svg>
           </button>
@@ -488,7 +488,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-grass"
+                href="#icon-grass"
               />
             </svg>
           </button>
@@ -503,7 +503,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-fence"
+                href="#icon-fence"
               />
             </svg>
           </button>
@@ -518,7 +518,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-car"
+                href="#icon-car"
               />
             </svg>
           </button>
@@ -533,7 +533,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-residential"
+                href="#icon-residential"
               />
             </svg>
           </button>
@@ -548,7 +548,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-thin"
+                href="#icon-building-thin"
               />
             </svg>
           </button>
@@ -563,7 +563,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-wide"
+                href="#icon-building-wide"
               />
             </svg>
           </button>
@@ -578,7 +578,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-arcade"
+                href="#icon-building-arcade"
               />
             </svg>
           </button>
@@ -594,7 +594,7 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-compound-wall"
+                href="#icon-compound-wall"
               />
             </svg>
             <svg
@@ -683,7 +683,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-waterfront"
+                href="#icon-waterfront"
               />
             </svg>
           </button>
@@ -699,7 +699,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-grass"
+                href="#icon-grass"
               />
             </svg>
           </button>
@@ -714,7 +714,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-fence"
+                href="#icon-fence"
               />
             </svg>
           </button>
@@ -729,7 +729,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-car"
+                href="#icon-car"
               />
             </svg>
           </button>
@@ -744,7 +744,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-residential"
+                href="#icon-residential"
               />
             </svg>
           </button>
@@ -759,7 +759,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-thin"
+                href="#icon-building-thin"
               />
             </svg>
           </button>
@@ -774,7 +774,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-wide"
+                href="#icon-building-wide"
               />
             </svg>
           </button>
@@ -789,7 +789,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-building-arcade"
+                href="#icon-building-arcade"
               />
             </svg>
           </button>
@@ -805,7 +805,7 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-compound-wall"
+                href="#icon-compound-wall"
               />
             </svg>
             <svg
@@ -913,7 +913,7 @@ exports[`InfoBubble > shows description 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-inbound"
+                href="#icon-direction-inbound"
               />
             </svg>
           </button>
@@ -928,7 +928,7 @@ exports[`InfoBubble > shows description 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-direction-outbound"
+                href="#icon-direction-outbound"
               />
             </svg>
           </button>
@@ -946,7 +946,7 @@ exports[`InfoBubble > shows description 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -962,7 +962,7 @@ exports[`InfoBubble > shows description 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-asphalt"
+                href="#icon-asphalt"
               />
             </svg>
           </button>
@@ -977,7 +977,7 @@ exports[`InfoBubble > shows description 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <use
-                xlink:href="#icon-grass"
+                href="#icon-grass"
               />
             </svg>
           </button>
@@ -1044,7 +1044,7 @@ exports[`InfoBubble > shows description 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-higher"
+                  href="#icon-elevation-higher"
                 />
               </svg>
               <svg
@@ -1063,7 +1063,7 @@ exports[`InfoBubble > shows description 1`] = `
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
                 <use
-                  xlink:href="#icon-elevation-lower"
+                  href="#icon-elevation-lower"
                 />
               </svg>
               <svg

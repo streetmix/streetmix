@@ -204,8 +204,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
             className="icon"
             style={icon.color !== undefined ? { fill: icon.color } : undefined}
           >
-            {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
-            <use xlinkHref={`#icon-${icon.id}`} />
+            <use href={`#icon-${icon.id}`} />
           </svg>
           {isLocked && <Icon name="lock" />}
         </Button>

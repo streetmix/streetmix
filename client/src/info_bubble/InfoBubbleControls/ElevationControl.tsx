@@ -106,8 +106,7 @@ function ElevationControl ({
             xmlnsXlink="http://www.w3.org/1999/xlink"
             className="icon"
           >
-            {/* `xlinkHref` is preferred over `href` for compatibility with Safari */}
-            <use xlinkHref={`#icon-${icon.id}`} />
+            <use href={`#icon-${icon.id}`} />
           </svg>
           {isLocked && <Icon name="lock" />}
         </Button>
