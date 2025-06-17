@@ -45,115 +45,6 @@
     border-top-right-radius: var(--info-bubble-border-radius);
   }
 
-  .icon {
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2px 3px;
-    fill: #231f20;
-  }
-
-  .variants {
-    text-align: left;
-    min-height: var(--info-bubble-button-size);
-    white-space: nowrap;
-    user-select: none;
-    flex-grow: 1;
-
-    button {
-      margin-bottom: 2px;
-      margin-right: 3px;
-    }
-
-    hr {
-      display: block;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      height: 5px;
-    }
-
-    button[disabled] .icon {
-      opacity: 0.4;
-    }
-
-    [data-icon="lock"] {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      color: var(--color-copper-800);
-
-      [dir="rtl"] & {
-        left: -2px;
-        right: auto;
-      }
-    }
-
-    [dir="rtl"] & {
-      text-align: right;
-      margin-left: 20px;
-      margin-right: 0;
-      direction: ltr;
-    }
-  }
-
-  .non-variant {
-    text-align: right;
-    white-space: nowrap;
-    user-select: none;
-
-    /* Takes up the entire width of info-bubble if it is by itself */
-    &:only-child {
-      width: 100%;
-      text-align: center;
-    }
-
-    &.building-height {
-      margin-top: -36px;
-      height: auto;
-      white-space: normal;
-      width: 115px;
-      text-align: center;
-    }
-  }
-
-  .variants,
-  .non-variant {
-    button {
-      white-space: nowrap;
-      position: relative;
-      padding: 0;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-
-      .icon {
-        opacity: 0.666;
-      }
-
-      &:not([disabled]):active {
-        .icon {
-          margin-top: 1px;
-          opacity: 0.9;
-        }
-      }
-    }
-  }
-
-  .variant-selected,
-  .variant-selected:hover {
-    background: var(--color-copper-400) !important;
-    opacity: 1;
-
-    .icon {
-      /* Overrides disabled button opacity */
-      opacity: 1 !important;
-    }
-  }
-
   button {
     width: var(--info-bubble-button-size);
     height: var(--info-bubble-button-size);
@@ -187,18 +78,6 @@
       border-left: 37px solid transparent;
       border-right: none;
     }
-  }
-}
-
-.info-bubble-control-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin: 10px;
-
-  .non-variant {
-    text-align: center;
-    width: auto;
   }
 }
 

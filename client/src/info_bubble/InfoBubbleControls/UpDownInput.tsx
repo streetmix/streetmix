@@ -11,8 +11,8 @@ interface UpDownInputProps {
   // Raw input value must always be a number type which can be
   // compared with the minValue and maxValue. Can be null.
   value: number | null
-  minValue: number
-  maxValue: number
+  minValue?: number
+  maxValue?: number
 
   // Formatter functions are used to optionally format raw values
   // for display. These functions should return a number or a string.
@@ -297,7 +297,8 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
         tabIndex={-1}
         onClick={handleClickDecrement}
         disabled={
-          disabled || (value !== null && minValue ? value <= minValue : false)
+          disabled ||
+          (value !== null && minValue !== undefined ? value <= minValue : false)
         }
       >
         <Icon name="minus" />
@@ -323,7 +324,8 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
         tabIndex={-1}
         onClick={handleClickIncrement}
         disabled={
-          disabled || (value !== null && maxValue ? value >= maxValue : false)
+          disabled ||
+          (value !== null && maxValue !== undefined ? value >= maxValue : false)
         }
       >
         <Icon name="plus" />

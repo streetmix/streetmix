@@ -158,54 +158,58 @@ exports[`InfoBubble > is visible 1`] = `
         </div>
       </div>
       <div
-        class="info-bubble-control-row"
+        class="info-bubble-control-group"
       >
         <div
-          class="variants"
+          class="info-bubble-control-row"
         >
-          <h3
-            class="elevation-header"
+          <div
+            class="info-bubble-control-label"
           >
             Elevation
-          </h3>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
+          </div>
+          <div
+            class="variants"
           >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-higher"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-higher"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
-          >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            </button>
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-lower"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-lower"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -374,54 +378,58 @@ exports[`InfoBubble > renders 1`] = `
         </div>
       </div>
       <div
-        class="info-bubble-control-row"
+        class="info-bubble-control-group"
       >
         <div
-          class="variants"
+          class="info-bubble-control-row"
         >
-          <h3
-            class="elevation-header"
+          <div
+            class="info-bubble-control-label"
           >
             Elevation
-          </h3>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
+          </div>
+          <div
+            class="variants"
           >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-higher"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-higher"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
-          >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            </button>
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-lower"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-lower"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1012,54 +1020,58 @@ exports[`InfoBubble > shows description 1`] = `
         </div>
       </div>
       <div
-        class="info-bubble-control-row"
+        class="info-bubble-control-group"
       >
         <div
-          class="variants"
+          class="info-bubble-control-row"
         >
-          <h3
-            class="elevation-header"
+          <div
+            class="info-bubble-control-label"
           >
             Elevation
-          </h3>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
+          </div>
+          <div
+            class="variants"
           >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-higher"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-higher"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
-          <button
-            class="btn"
-            disabled=""
-            type="button"
-          >
-            <svg
-              class="icon"
-              xmlns="http://www.w3.org/1999/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+            </button>
+            <button
+              class="btn"
+              disabled=""
+              type="button"
             >
-              <use
-                xlink:href="#icon-elevation-lower"
+              <svg
+                class="icon"
+                xmlns="http://www.w3.org/1999/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <use
+                  xlink:href="#icon-elevation-lower"
+                />
+              </svg>
+              <svg
+                data-icon="lock"
+                data-icon-source="test"
               />
-            </svg>
-            <svg
-              data-icon="lock"
-              data-icon-source="test"
-            />
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>

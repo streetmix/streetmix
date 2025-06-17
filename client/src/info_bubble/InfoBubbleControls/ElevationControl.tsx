@@ -95,7 +95,7 @@ function ElevationControl ({
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Tooltip label={title} sublabel={sublabel} placement="bottom">
+      <Tooltip label={title} sublabel={sublabel}>
         <Button
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
@@ -134,9 +134,9 @@ function ElevationControl ({
   }
 
   return (
-    <div className="variants">
-      <h3 className="elevation-header">Elevation</h3>
-      {controls}
+    <div className="info-bubble-control-row">
+      <div className="info-bubble-control-label">Elevation</div>
+      <div className="variants">{controls}</div>
     </div>
   )
 }

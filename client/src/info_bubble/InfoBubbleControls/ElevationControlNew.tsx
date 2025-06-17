@@ -4,7 +4,6 @@ import { segmentsChanged } from '~/src/segments/view'
 import { useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import Checkbox from '~/src/ui/Checkbox'
-import './ElevationControl.css'
 import UpDownInput from './UpDownInput'
 
 import type { Segment } from '@streetmix/types'
@@ -49,7 +48,7 @@ function ElevationControlNew ({
     <div className="variants">
       <UpDownInput
         value={value}
-        minValue={1}
+        minValue={0}
         maxValue={30}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
