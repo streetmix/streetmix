@@ -10,8 +10,8 @@ exports[`WidthControl > renders 1`] = `
     >
       <button
         class="btn up-down-input-decrement"
+        data-testid="down"
         tabindex="-1"
-        title="Decrease width (hold Shift for more precision)"
         type="button"
       >
         <svg
@@ -27,8 +27,8 @@ exports[`WidthControl > renders 1`] = `
       />
       <button
         class="btn up-down-input-increment"
+        data-testid="up"
         tabindex="-1"
-        title="Increase width (hold Shift for more precision)"
         type="button"
       >
         <svg

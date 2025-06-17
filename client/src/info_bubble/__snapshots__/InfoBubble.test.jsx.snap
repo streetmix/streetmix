@@ -128,8 +128,8 @@ exports[`InfoBubble > is visible 1`] = `
           >
             <button
               class="btn up-down-input-decrement"
+              data-testid="down"
               tabindex="-1"
-              title="Decrease width (hold Shift for more precision)"
               type="button"
             >
               <svg
@@ -145,8 +145,8 @@ exports[`InfoBubble > is visible 1`] = `
             />
             <button
               class="btn up-down-input-increment"
+              data-testid="up"
               tabindex="-1"
-              title="Increase width (hold Shift for more precision)"
               type="button"
             >
               <svg
@@ -348,8 +348,8 @@ exports[`InfoBubble > renders 1`] = `
           >
             <button
               class="btn up-down-input-decrement"
+              data-testid="down"
               tabindex="-1"
-              title="Decrease width (hold Shift for more precision)"
               type="button"
             >
               <svg
@@ -365,8 +365,8 @@ exports[`InfoBubble > renders 1`] = `
             />
             <button
               class="btn up-down-input-increment"
+              data-testid="up"
               tabindex="-1"
-              title="Increase width (hold Shift for more precision)"
               type="button"
             >
               <svg
@@ -611,9 +611,9 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
           >
             <button
               class="btn up-down-input-decrement"
+              data-testid="down"
               disabled=""
               tabindex="-1"
-              title="Remove floor"
               type="button"
             >
               <svg
@@ -630,9 +630,9 @@ exports[`InfoBubble > shows building left info bubble 1`] = `
             />
             <button
               class="btn up-down-input-increment"
+              data-testid="up"
               disabled=""
               tabindex="-1"
-              title="Add floor"
               type="button"
             >
               <svg
@@ -822,9 +822,9 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
           >
             <button
               class="btn up-down-input-decrement"
+              data-testid="down"
               disabled=""
               tabindex="-1"
-              title="Remove floor"
               type="button"
             >
               <svg
@@ -841,9 +841,9 @@ exports[`InfoBubble > shows building right info bubble 1`] = `
             />
             <button
               class="btn up-down-input-increment"
+              data-testid="up"
               disabled=""
               tabindex="-1"
-              title="Add floor"
               type="button"
             >
               <svg
@@ -990,8 +990,8 @@ exports[`InfoBubble > shows description 1`] = `
           >
             <button
               class="btn up-down-input-decrement"
+              data-testid="down"
               tabindex="-1"
-              title="Decrease width (hold Shift for more precision)"
               type="button"
             >
               <svg
@@ -1007,8 +1007,8 @@ exports[`InfoBubble > shows description 1`] = `
             />
             <button
               class="btn up-down-input-increment"
+              data-testid="up"
               tabindex="-1"
-              title="Increase width (hold Shift for more precision)"
               type="button"
             >
               <svg

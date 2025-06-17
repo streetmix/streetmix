@@ -22,9 +22,7 @@ const defaultProps = {
   maxValue: 10,
   onClickUp: handleUp,
   onClickDown: handleDown,
-  onUpdatedValue: handleUpdate,
-  upTooltip: 'up',
-  downTooltip: 'down'
+  onUpdatedValue: handleUpdate
 }
 
 describe('UpDownInput', () => {
@@ -40,8 +38,8 @@ describe('UpDownInput', () => {
     render(<UpDownInput {...defaultProps} allowAutoUpdate />)
 
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    const upButton = screen.getByTitle('up')
-    const downButton = screen.getByTitle('down')
+    const upButton = screen.getByTestId('up')
+    const downButton = screen.getByTestId('down')
 
     // Expect input value to be displayed
     expect(inputEl.value).toBe('5')
@@ -158,8 +156,8 @@ describe('UpDownInput', () => {
     render(<UpDownInput {...defaultProps} disabled />)
 
     const inputEl = screen.getByRole('textbox')
-    const upButton = screen.getByTitle('up')
-    const downButton = screen.getByTitle('down')
+    const upButton = screen.getByTestId('up')
+    const downButton = screen.getByTestId('down')
 
     expect(inputEl).toBeDisabled()
     expect(upButton).toBeDisabled()
@@ -169,8 +167,8 @@ describe('UpDownInput', () => {
   it('disables down button when value is the min value', () => {
     render(<UpDownInput {...defaultProps} value={1} />)
 
-    const upButton = screen.getByTitle('up')
-    const downButton = screen.getByTitle('down')
+    const upButton = screen.getByTestId('up')
+    const downButton = screen.getByTestId('down')
 
     expect(upButton).not.toBeDisabled()
     expect(downButton).toBeDisabled()
@@ -179,8 +177,8 @@ describe('UpDownInput', () => {
   it('disables up button when value is the max value', () => {
     render(<UpDownInput {...defaultProps} value={10} />)
 
-    const upButton = screen.getByTitle('up')
-    const downButton = screen.getByTitle('down')
+    const upButton = screen.getByTestId('up')
+    const downButton = screen.getByTestId('down')
 
     expect(upButton).toBeDisabled()
     expect(downButton).not.toBeDisabled()
@@ -195,7 +193,7 @@ describe('UpDownInput', () => {
     render(<UpDownInput {...defaultProps} />)
 
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    const upButton = screen.getByTitle('up')
+    const upButton = screen.getByTestId('up')
 
     await user.clear(inputEl)
     await user.type(inputEl, '6{enter}')
