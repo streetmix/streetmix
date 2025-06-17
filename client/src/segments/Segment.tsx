@@ -30,9 +30,10 @@ import {
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
-import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import './Segment.css'
 import TestSlope from './TestSlope'
+import './Segment.css'
+
+import type { SliceItem, UnitsSetting } from '@streetmix/types'
 
 interface SliceProps {
   sliceIndex: number

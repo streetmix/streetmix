@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import { TILE_SIZE, TILESET_POINT_PER_PIXEL } from './constants'
+import { TILE_SIZE } from './constants'
 import './TestSlope.css'
 
 import type { Segment } from '@streetmix/types'
@@ -10,7 +10,6 @@ interface Props {
   slice: Segment
 }
 
-const GROUND_BASELINE = 400
 const CANVAS_HEIGHT = 480
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
@@ -31,10 +30,17 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
     // Only redraw on certain specific prop changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slice.variantString, slice.width, slice.elevation, slice.slope, leftElevation, rightElevation])
+  }, [
+    slice.variantString,
+    slice.width,
+    slice.elevation,
+    slice.slope,
+    leftElevation,
+    rightElevation
+  ])
 
   function estimateCoord (elev) {
-    return 93 + (elev * 14)
+    return 93 + elev * 14
   }
 
   // const groundLevelOffset = slice.elevation * 18

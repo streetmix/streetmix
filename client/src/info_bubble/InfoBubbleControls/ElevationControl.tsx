@@ -95,7 +95,7 @@ function ElevationControl ({
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Tooltip label={label} sublabel={sublabel}>
+      <Tooltip label={label} sublabel={sublabel} placement="top">
         <Button
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}

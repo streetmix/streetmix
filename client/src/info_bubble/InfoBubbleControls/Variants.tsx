@@ -193,7 +193,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
         key={set + '.' + selection}
       >
         <Button
-          data-testid={label}
+          data-testid={icon.title}
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
           onClick={getButtonOnClickHandler(set, selection)}
