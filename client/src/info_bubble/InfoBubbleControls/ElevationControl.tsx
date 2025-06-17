@@ -72,32 +72,31 @@ function ElevationControl ({
 
     if (icon === undefined) return null
 
-    let title = intl.formatMessage({
+    const title = intl.formatMessage({
       id: `variant-icons.${set}|${selection}`,
       defaultMessage: icon.title
     })
 
     // Only subscribers can do this
     let isLocked = false
+    let sublabel
 
     if (!isSubscriber && !forceEnable) {
       isLocked = true
-      const unlockConditionText = intl.formatMessage({
+      sublabel = intl.formatMessage({
         id: 'plus.locked.sub',
         // Default message ends with a Unicode-only left-right order mark
         // to allow for proper punctuation in `rtl` text direction
         // This character is hidden from editors by default!
         defaultMessage: 'Upgrade to Streetmix+ to use!‎'
       })
-      title += ' — ' + unlockConditionText
     }
 
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Tooltip label={title} placement="bottom">
+      <Tooltip label={title} sublabel={sublabel} placement="bottom">
         <Button
-          // title={title}
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
           onClick={getButtonOnClickHandler(selection)}
