@@ -23,6 +23,8 @@ import type {
 
 export const GROUND_BASELINE_HEIGHT = 44
 
+const INVALID_SHADE_COLOUR = 'rgba(204, 163, 173, .9)'
+
 export function getBoundaryItem (variant: string): BoundaryDefinition {
   const item = BOUNDARY_DEFS[variant]
   if (item.id === undefined) {
@@ -299,8 +301,7 @@ export function drawBoundary (
 function shadeInContext (ctx: CanvasRenderingContext2D): void {
   ctx.save()
   ctx.globalCompositeOperation = 'source-atop'
-  // TODO const
-  ctx.fillStyle = 'rgba(204, 163, 173, .9)'
+  ctx.fillStyle = INVALID_SHADE_COLOUR
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
   ctx.restore()
 }

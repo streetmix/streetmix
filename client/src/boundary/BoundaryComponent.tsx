@@ -35,7 +35,7 @@ function createBoundaryCanvas (
   elevation: number,
   floors: number,
   shadeIn: boolean,
-  dpi: number
+  scale: number
 ): void {
   const elementWidth = el.offsetWidth
 
@@ -57,8 +57,8 @@ function createBoundaryCanvas (
   const canvasEl = document.createElement('canvas')
   const oldCanvasEl = el.querySelector('canvas')
 
-  canvasEl.width = width * dpi
-  canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * dpi
+  canvasEl.width = width * scale
+  canvasEl.height = (height + GROUND_BASELINE_HEIGHT) * scale
   canvasEl.style.width = width + 'px'
   canvasEl.style.height = height + GROUND_BASELINE_HEIGHT + 'px'
 
@@ -83,7 +83,7 @@ function createBoundaryCanvas (
     height,
     0,
     1.0,
-    dpi,
+    scale,
     shadeIn
   )
 }
@@ -109,7 +109,7 @@ function Boundary ({
   const rightBoundaryEditable = useSelector(
     (state) => state.flags.EDIT_BOUNDARY_RIGHT.value
   )
-  const dpi = useSelector((state) => state.system.devicePixelRatio)
+  const scale = useSelector((state) => state.system.devicePixelRatio)
 
   const dispatch = useDispatch()
 
@@ -179,7 +179,7 @@ function Boundary ({
         elevation,
         floors,
         isOverflowed,
-        dpi
+        scale
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -198,7 +198,7 @@ function Boundary ({
       elevation,
       floors,
       isOverflowed,
-      dpi
+      scale
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [switchElements])
