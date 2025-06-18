@@ -1,3 +1,4 @@
+import { drawGround } from '@streetmix/export-image/src/ground'
 import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
@@ -18,7 +19,6 @@ import { formatMessage } from '../locales/locale'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
-const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const SEGMENT_NAME_FONT = 'Rubik Variable'
@@ -268,45 +268,6 @@ function drawClouds (ctx, width, height, dpi, sky) {
 
   // Restore global opacity
   ctx.restore()
-}
-
-/**
- * Draws ground.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Object} street - street data
- * @param {Number} width - width of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} horizonLine - vertical height of horizon
- * @param {Number} groundLevel - vertical height of ground
- * @modifies {CanvasRenderingContext2D} ctx
- */
-function drawGround (
-  ctx,
-  street,
-  width,
-  dpi,
-  multiplier,
-  horizonLine,
-  groundLevel
-) {
-  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
-  ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
-
-  ctx.fillRect(
-    0,
-    groundLevel * dpi,
-    (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    20 * multiplier * dpi
-  )
-
-  ctx.fillRect(
-    (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    groundLevel * dpi,
-    width * dpi,
-    20 * multiplier * dpi
-  )
 }
 
 /**
@@ -771,7 +732,7 @@ export function drawStreetThumbnail (
   }
 
   // Ground
-  drawGround(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
+  drawGround(ctx, street, width, horizonLine, groundLevel, dpi * multiplier)
 
   // Buildings
   drawBoundaries(
