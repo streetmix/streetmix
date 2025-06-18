@@ -77,7 +77,7 @@
   --bottom-background: rgb(216 211 203);
   --warning-color: rgb(220 20 20);
   --segment-text: rgb(40 35 30);
-  --segment-hover-background: rgb(255 255 255 / 20%);
+  --segment-active-background: rgb(255 255 255 / 20%);
   --info-bubble-background: white; /* TODO: rename */
 
   /* Link and button text */

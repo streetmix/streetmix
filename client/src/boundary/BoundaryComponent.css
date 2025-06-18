@@ -15,7 +15,7 @@
     position: absolute;
     z-index: -1;
     inset: -1000px 0 45px;
-    background: var(--segment-hover-background);
+    background: var(--segment-active-background);
     opacity: 0;
   }
 

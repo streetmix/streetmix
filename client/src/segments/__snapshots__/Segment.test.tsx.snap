@@ -3,7 +3,7 @@
 exports[`Segment > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="segment hover show-drag-handles"
+    class="segment active show-drag-handles"
     data-slice-index="0"
     data-testid="segment"
     style="width: 196.850394px; z-index: 15; transform: translateX(0px);"
@@ -67,7 +67,7 @@ exports[`Segment > renders correctly 1`] = `
       </div>
     </div>
     <div
-      class="hover-bk"
+      class="active-bg"
     />
   </div>
 </DocumentFragment>

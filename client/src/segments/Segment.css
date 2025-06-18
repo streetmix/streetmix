@@ -30,12 +30,12 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.hover {
+.segment.active {
   z-index: var(--z-02-segment-focused) !important;
 }
 
-.segment.hover .hover-bk {
-  background: var(--segment-hover-background);
+.segment.active .active-bg {
+  background: var(--segment-active-background);
   position: absolute;
   left: 0;
   right: 0;
