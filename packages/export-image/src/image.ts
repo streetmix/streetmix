@@ -136,7 +136,14 @@ export async function makeStreetImage (
     }
 
     // Ground
-    drawGround(ctx, street, baseWidth, horizonLine, groundLevel, options.scale)
+    drawGround(
+      ctx,
+      street.data.street,
+      baseWidth,
+      horizonLine,
+      groundLevel,
+      options.scale
+    )
 
     // Section element labels
     if (options.elementLabels) {
