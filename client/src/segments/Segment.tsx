@@ -281,7 +281,7 @@ function Segment (props: SliceProps): React.ReactNode {
   if (isDragging) {
     classNames.push('dragged-out')
   } else if (activeSegment === sliceIndex) {
-    classNames.push('hover', 'show-drag-handles')
+    classNames.push('active', 'show-drag-handles')
   }
 
   // Warnings
@@ -338,7 +338,7 @@ function Segment (props: SliceProps): React.ReactNode {
           {renderSegmentCanvas('new', newRef)}
         </CSSTransition>
       </div>
-      <div className="hover-bk" />
+      <div className="active-bg" />
       <EmptyDragPreview dragPreview={dragPreview} />
     </div>
   )

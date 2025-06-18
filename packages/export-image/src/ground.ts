@@ -1,7 +1,7 @@
 import { TILE_SIZE } from './constants.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { Street } from '@streetmix/types'
+import type { StreetJson } from '@streetmix/types'
 
 const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 
@@ -12,7 +12,7 @@ const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
  */
 export function drawGround (
   ctx: Canvas.SKRSContext2D,
-  street: Street,
+  street: StreetJson,
   width: number,
   horizonLine: number,
   groundLevel: number,
@@ -31,12 +31,12 @@ export function drawGround (
   ctx.fillRect(
     0,
     groundLevel * scale,
-    (width / 2 - (street.data.street.width * TILE_SIZE) / 2) * scale,
+    (width / 2 - (street.width * TILE_SIZE) / 2) * scale,
     horizonLine * scale
   )
 
   ctx.fillRect(
-    (width / 2 + (street.data.street.width * TILE_SIZE) / 2) * scale,
+    (width / 2 + (street.width * TILE_SIZE) / 2) * scale,
     groundLevel * scale,
     width * scale,
     horizonLine * scale

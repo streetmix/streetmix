@@ -32,7 +32,7 @@
   text-overflow: ellipsis;
 }
 
-.segment.hover .segment-label {
+.segment.active .segment-label {
   font-weight: 600;
 
   /* Show full label when hovering over segment with a truncated label */

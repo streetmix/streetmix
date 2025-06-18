@@ -1,5 +1,3 @@
-/* TODO: Further refactor / split up of this stylesheet */
-
 #street-section-outer {
   --building-space: 360px;
 
@@ -49,36 +47,4 @@
   margin-left: var(--building-space);
   margin-right: var(--building-space);
   height: calc(var(--canvas-height) + 40px);
-}
-
-.street-section-boundary {
-  display: block;
-  position: absolute;
-  top: -105px;
-  width: 396px;
-  height: calc(var(--canvas-height) + 70px);
-  touch-action: pan-x;
-
-  .hover-bk {
-    position: absolute;
-    z-index: -1;
-    inset: -1000px 0 45px;
-  }
-
-  &.hover .hover-bk {
-    background: var(--segment-hover-background);
-  }
-
-  canvas {
-    position: absolute;
-    bottom: 0;
-  }
-}
-
-.street-segment-boundary-left canvas {
-  left: 0;
-}
-
-.street-segment-boundary-right canvas {
-  right: 0;
 }
