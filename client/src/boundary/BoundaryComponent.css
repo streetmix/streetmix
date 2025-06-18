@@ -1,0 +1,33 @@
+.street-section-boundary {
+  display: block;
+  position: absolute;
+  top: -105px;
+  width: 396px;
+  height: calc(var(--canvas-height) + 70px);
+  touch-action: pan-x;
+
+  canvas {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .active-bg {
+    position: absolute;
+    z-index: -1;
+    inset: -1000px 0 45px;
+    background: var(--segment-hover-background);
+    opacity: 0;
+  }
+
+  &.active .active-bg {
+    opacity: 1;
+  }
+}
+
+.street-segment-boundary-left canvas {
+  left: 0;
+}
+
+.street-segment-boundary-right canvas {
+  right: 0;
+}

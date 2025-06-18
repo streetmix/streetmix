@@ -19,6 +19,7 @@ import {
   drawBoundary,
   GROUND_BASELINE_HEIGHT
 } from './boundary'
+import './BoundaryComponent.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -274,7 +275,7 @@ function Boundary ({
     classNames.push(`street-segment-boundary-${position}`)
 
     if (isPreviousElement && activeSegment === position) {
-      classNames.push('hover')
+      classNames.push('active')
     }
 
     // Outer wrapping div is a workaround for CSSTransition's dependence on
@@ -291,7 +292,7 @@ function Boundary ({
           onMouseEnter={handleElementMouseEnter}
           onMouseLeave={handleElementMouseLeave}
         >
-          <div className="hover-bk" />
+          <div className="active-bg" />
         </section>
       </div>
     )
