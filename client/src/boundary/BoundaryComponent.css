@@ -14,7 +14,7 @@
   .active-bg {
     position: absolute;
     z-index: -1;
-    inset: -1000px 0 45px;
+    inset: -100vh 0 var(--dirt-height-minimum);
     background: var(--segment-active-background);
     opacity: 0;
   }

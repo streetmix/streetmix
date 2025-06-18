@@ -1,8 +1,10 @@
-.street-section-dirt {
+:root {
   --dirt-height: 40px;
   --dirt-height-minimum: 5px;
   --ground-height-minimum: 235px;
+}
 
+.street-section-dirt {
   position: absolute;
   left: 0;
   right: 0;
