@@ -124,9 +124,10 @@ export function prettifyHeight (
  */
 export function drawBoundary (
   ctx: CanvasRenderingContext2D,
-  variant: string,
-  floors: number,
   position: BoundaryPosition,
+  variant: string,
+  elevation: number,
+  floors: number,
   totalWidth: number,
   totalHeight: number,
   offsetLeft: number,

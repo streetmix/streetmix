@@ -338,6 +338,7 @@ function drawBoundaries (
   // without updating schemas
   const leftVariant =
     street.boundary?.left.variant ?? street.leftBuildingVariant
+  const leftElevation = street.boundary?.left.elevation ?? 1
   const leftFloors = street.boundary?.left.floors ?? street.leftBuildingHeight
   const leftBuilding = getBoundaryItem(leftVariant)
   const leftOverhang =
@@ -346,9 +347,10 @@ function drawBoundaries (
       : 0
   drawBoundary(
     ctx,
-    leftVariant,
-    leftFloors,
     'left',
+    leftVariant,
+    leftElevation,
+    leftFloors,
     buildingWidth,
     groundLevel,
     x1 - (buildingWidth - leftOverhang) * multiplier,
@@ -362,6 +364,7 @@ function drawBoundaries (
   // without updating schemas
   const rightVariant =
     street.boundary?.right.variant ?? street.rightBuildingVariant
+  const rightElevation = street.boundary?.right.elevation ?? 1
   const rightFloors =
     street.boundary?.right.floors ?? street.rightBuildingHeight
   const rightBuilding = getBoundaryItem(rightVariant)
@@ -371,9 +374,10 @@ function drawBoundaries (
       : 0
   drawBoundary(
     ctx,
-    rightVariant,
-    rightFloors,
     'right',
+    rightVariant,
+    rightElevation,
+    rightFloors,
     buildingWidth,
     groundLevel,
     x2 - rightOverhang * multiplier,

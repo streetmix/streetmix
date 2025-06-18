@@ -30,8 +30,9 @@ const MAX_CANVAS_HEIGHT = 2048
  */
 function createBoundaryCanvas (
   el: HTMLElement,
-  variant: string,
   position: BoundaryPosition,
+  variant: string,
+  elevation: number,
   floors: number,
   shadeIn: boolean,
   dpi: number
@@ -74,9 +75,10 @@ function createBoundaryCanvas (
 
   drawBoundary(
     ctx,
-    variant,
-    floors,
     position,
+    variant,
+    elevation,
+    floors,
     width,
     height,
     0,
@@ -129,6 +131,7 @@ function Boundary ({
   )
   const variant = street.boundary[position].variant
   const floors = street.boundary[position].floors
+  const elevation = street.boundary[position].elevation
   const isOverflowed = street.remainingWidth < 0
 
   // Keep previous state for comparisons (ported from legacy behavior)
@@ -171,8 +174,9 @@ function Boundary ({
     } else {
       createBoundaryCanvas(
         newEl.current,
-        variant,
         position,
+        variant,
+        elevation,
         floors,
         isOverflowed,
         dpi
@@ -189,8 +193,9 @@ function Boundary ({
     updatePerspective(newEl.current)
     createBoundaryCanvas(
       newEl.current,
-      variant,
       position,
+      variant,
+      elevation,
       floors,
       isOverflowed,
       dpi
