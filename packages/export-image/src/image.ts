@@ -126,11 +126,11 @@ export async function makeStreetImage (
     if (!options.transparentSky) {
       await drawSky(
         ctx,
-        street,
+        street.data.street,
         width,
         height,
-        horizonLine * options.scale,
-        groundLevel * options.scale,
+        horizonLine,
+        groundLevel,
         options.scale
       )
     }
