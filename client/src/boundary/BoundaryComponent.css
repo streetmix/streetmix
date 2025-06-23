@@ -5,9 +5,9 @@
 .street-section-boundary {
   display: block;
   position: absolute;
-  top: -105px;
+  top: calc(-1 * var(--canvas-ground));
   width: 396px;
-  height: calc(var(--canvas-height) + 70px);
+  height: var(--canvas-height);
   touch-action: pan-x;
 
   section {

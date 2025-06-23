@@ -60,8 +60,8 @@ exports[`Segment > renders correctly 1`] = `
       >
         <canvas
           class="segment-image"
-          height="445"
-          style="width: 197px; height: 445px; left: 0px;"
+          height="465"
+          style="width: 197px; height: 465px; left: 0px;"
           width="197"
         />
       </div>

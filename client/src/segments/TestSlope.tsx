@@ -10,7 +10,7 @@ interface Props {
   slice: Segment
 }
 
-const CANVAS_HEIGHT = 480
+const CANVAS_HEIGHT = 500
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 

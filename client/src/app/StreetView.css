@@ -33,7 +33,7 @@
 
 #street-section-editable {
   position: absolute;
-  height: calc(var(--canvas-height) + 80px);
+  height: var(--canvas-height);
   text-align: left;
   touch-action: pan-x;
 }
