@@ -20,10 +20,8 @@
   position: absolute;
   display: block;
   left: 0;
-  bottom: 130px;
-
-  /* TODO: Recalc other heights based on this value? */
-  height: var(--street-section-inner-height);
+  bottom: 160px;
+  height: var(--canvas-height);
   user-select: none;
 
   body.read-only & {
@@ -46,5 +44,5 @@
   top: 0;
   margin-left: var(--building-space);
   margin-right: var(--building-space);
-  height: calc(var(--canvas-height) + 40px);
+  height: var(--canvas-height);
 }
