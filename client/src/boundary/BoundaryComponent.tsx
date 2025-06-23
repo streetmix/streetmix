@@ -277,7 +277,7 @@ function Boundary ({
     const classNames = ['street-section-boundary']
 
     // Add a class name for boundary position
-    classNames.push(`street-segment-boundary-${position}`)
+    classNames.push(`boundary-${position}`)
 
     if (isPreviousElement && activeSegment === position) {
       classNames.push('active')
@@ -288,18 +288,17 @@ function Boundary ({
     // node. This is wrapping the existing <section> to preserve existing
     // node switching functionality
     return (
-      <div className={classNames.join(' ')} style={style} ref={nodeRef}>
+      <button className={classNames.join(' ')} style={style} ref={nodeRef}>
         <section
-          style={{ width: '100%', height: '100%', perspective: '400px' }}
           ref={(ref) => {
             changeRefs(ref, isPreviousElement)
           }}
           onMouseEnter={handleElementMouseEnter}
           onMouseLeave={handleElementMouseLeave}
-        >
-          <div className="active-bg" />
-        </section>
-      </div>
+        />
+        <div className="active-bg" />
+        <div className="boundary-dirt" />
+      </button>
     )
   }
 

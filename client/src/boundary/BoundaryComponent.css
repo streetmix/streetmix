@@ -1,3 +1,7 @@
+:root {
+  --dirt-height: 40px;
+}
+
 .street-section-boundary {
   display: block;
   position: absolute;
@@ -6,6 +10,14 @@
   height: calc(var(--canvas-height) + 70px);
   touch-action: pan-x;
 
+  section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 400px;
+    z-index: 1; /* Allow some boundaries to be placed below ground */
+  }
+
   canvas {
     position: absolute;
     bottom: 0;
@@ -13,8 +25,7 @@
 
   .active-bg {
     position: absolute;
-    z-index: -1;
-    inset: -100vh 0 var(--dirt-height-minimum);
+    inset: -100vh 0 0;
     background: var(--segment-active-background);
     opacity: 0;
   }
@@ -24,10 +35,18 @@
   }
 }
 
-.street-segment-boundary-left canvas {
+.boundary-left canvas {
   left: 0;
 }
 
-.street-segment-boundary-right canvas {
+.boundary-right canvas {
   right: 0;
+}
+
+.boundary-dirt {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: calc(var(--dirt-height) + var(--dirt-height-minimum));
+  background-color: var(--background-dirt-color);
 }

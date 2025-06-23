@@ -1,10 +1,9 @@
 :root {
-  --dirt-height: 40px;
   --dirt-height-minimum: 5px;
   --ground-height-minimum: 235px;
 }
 
-.street-section-dirt {
+.street-section-ground {
   position: absolute;
   left: 0;
   right: 0;
@@ -17,22 +16,4 @@
   background: var(--bottom-background);
   z-index: -2;
   pointer-events: none;
-}
-
-.street-section-dirt-left,
-.street-section-dirt-right {
-  content: " ";
-  position: absolute;
-  top: calc(-1 * (var(--dirt-height) + var(--dirt-height-minimum)));
-  background-color: var(--background-dirt-color);
-  width: 360px;
-  height: calc(var(--dirt-height) + var(--dirt-height-minimum));
-}
-
-.street-section-dirt-left {
-  left: 0;
-}
-
-.street-section-dirt-right {
-  right: 0;
 }
