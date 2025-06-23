@@ -1,0 +1,52 @@
+:root {
+  --dirt-height: 40px;
+}
+
+.street-section-boundary {
+  display: block;
+  position: absolute;
+  top: calc(-1 * var(--canvas-ground));
+  width: 396px;
+  height: var(--canvas-height);
+  touch-action: pan-x;
+
+  section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 400px;
+    z-index: 1; /* Allow some boundaries to be placed below ground */
+  }
+
+  canvas {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .active-bg {
+    position: absolute;
+    inset: -100vh 0 0;
+    background: var(--segment-active-background);
+    opacity: 0;
+  }
+
+  &.active .active-bg {
+    opacity: 1;
+  }
+}
+
+.boundary-left canvas {
+  left: 0;
+}
+
+.boundary-right canvas {
+  right: 0;
+}
+
+.boundary-dirt {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: calc(var(--dirt-height) + var(--dirt-height-minimum));
+  background-color: var(--background-dirt-color);
+}

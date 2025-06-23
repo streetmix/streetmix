@@ -16,7 +16,7 @@ import {
 import { updateStreetMargin } from '../segments/resizing'
 import SkyBox from '../sky/SkyBox'
 import ScrollIndicators from './ScrollIndicators'
-import StreetViewDirt from './StreetViewDirt'
+import StreetViewGround from './StreetViewGround'
 import StreetEditable from './StreetEditable'
 import './StreetView.css'
 
@@ -190,8 +190,8 @@ function StreetView (): React.ReactElement {
    * is calculated as the street scrolls and stored in state.
    */
   function calculateScrollIndicators ():
-  | { left: number, right: number }
-  | undefined {
+    | { left: number; right: number }
+    | undefined {
     const el = sectionEl.current
     if (!el) return
 
@@ -310,7 +310,7 @@ function StreetView (): React.ReactElement {
             />
             <ResizeGuides />
             <EmptySegmentContainer />
-            <StreetViewDirt boundaryWidth={boundaryWidth} />
+            <StreetViewGround boundaryWidth={boundaryWidth} />
           </section>
           <ScrollIndicators
             left={scrollIndicators.left}

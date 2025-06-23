@@ -6,17 +6,16 @@ import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
-const GROUND_BASELINE = 400
-const CANVAS_HEIGHT = 480
+const CANVAS_HEIGHT = 500
 const CANVAS_GROUND = 35
 const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
+const GROUND_BASELINE = CANVAS_HEIGHT - 80
 
 interface SegmentCanvasProps {
   actualWidth: number
   type: string
   variantString: string
   randSeed: string
-  groundBaseline?: number
   elevation?: number
 }
 
@@ -25,7 +24,6 @@ function SegmentCanvas ({
   type,
   variantString,
   randSeed,
-  groundBaseline = GROUND_BASELINE,
   elevation
 }: SegmentCanvasProps): React.ReactElement {
   const [firstRender, setFirstRender] = useState(true)
@@ -68,7 +66,7 @@ function SegmentCanvas ({
       variantString,
       actualWidth,
       0,
-      groundBaseline,
+      GROUND_BASELINE,
       elevation,
       randSeed,
       1,

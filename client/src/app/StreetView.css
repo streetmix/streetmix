@@ -1,5 +1,3 @@
-/* TODO: Further refactor / split up of this stylesheet */
-
 #street-section-outer {
   --building-space: 360px;
 
@@ -22,10 +20,8 @@
   position: absolute;
   display: block;
   left: 0;
-  bottom: 130px;
-
-  /* TODO: Recalc other heights based on this value? */
-  height: var(--street-section-inner-height);
+  bottom: 160px;
+  height: var(--canvas-height);
   user-select: none;
 
   body.read-only & {
@@ -35,7 +31,7 @@
 
 #street-section-editable {
   position: absolute;
-  height: calc(var(--canvas-height) + 80px);
+  height: var(--canvas-height);
   text-align: left;
   touch-action: pan-x;
 }
@@ -48,37 +44,5 @@
   top: 0;
   margin-left: var(--building-space);
   margin-right: var(--building-space);
-  height: calc(var(--canvas-height) + 40px);
-}
-
-.street-section-boundary {
-  display: block;
-  position: absolute;
-  top: -105px;
-  width: 396px;
-  height: calc(var(--canvas-height) + 70px);
-  touch-action: pan-x;
-
-  .hover-bk {
-    position: absolute;
-    z-index: -1;
-    inset: -1000px 0 45px;
-  }
-
-  &.hover .hover-bk {
-    background: var(--segment-hover-background);
-  }
-
-  canvas {
-    position: absolute;
-    bottom: 0;
-  }
-}
-
-.street-segment-boundary-left canvas {
-  left: 0;
-}
-
-.street-segment-boundary-right canvas {
-  right: 0;
+  height: var(--canvas-height);
 }

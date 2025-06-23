@@ -1,0 +1,19 @@
+:root {
+  --dirt-height-minimum: 5px;
+  --ground-height-minimum: 235px;
+}
+
+.street-section-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--canvas-height) - 80px + var(--dirt-height));
+  border-top: var(--dirt-height-minimum) solid var(--background-dirt-color);
+  height: max(
+    calc(50vh - (var(--canvas-height) / 2)),
+    var(--ground-height-minimum)
+  );
+  background: var(--bottom-background);
+  z-index: -2;
+  pointer-events: none;
+}

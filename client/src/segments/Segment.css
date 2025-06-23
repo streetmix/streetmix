@@ -3,8 +3,8 @@
 .segment {
   display: block;
   position: absolute;
-  top: -150px;
-  height: calc(var(--canvas-height) + 85px + 30px);
+  top: calc(-1 * var(--canvas-ground));
+  height: var(--canvas-height);
   text-align: center;
   perspective: 500px;
   touch-action: none;
@@ -30,12 +30,12 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.hover {
+.segment.active {
   z-index: var(--z-02-segment-focused) !important;
 }
 
-.segment.hover .hover-bk {
-  background: var(--segment-hover-background);
+.segment.active .active-bg {
+  background: var(--segment-active-background);
   position: absolute;
   left: 0;
   right: 0;
@@ -61,13 +61,6 @@ body.segment-move-dragging * {
 body.not-within-canvas,
 body.not-within-canvas * {
   cursor: no-drop !important;
-}
-
-body.segment-move-dragging #street-section-editable .segment {
-  transition:
-    left 100ms,
-    transform 300ms;
-  height: calc(var(--canvas-height) + 85px + 30px + 90px);
 }
 
 /* NOTE: targeting immediate child div because CSSTransition wrapper workaround

@@ -6,8 +6,8 @@
 
   position: absolute;
   z-index: var(--z-07-resize-guide);
-  top: -75px;
-  bottom: 120px;
+  top: -70px; /* TODO: replace magic numbers */
+  bottom: 85px; /* TODO: replace magic numbers */
   left: 50%; /* Will be overridden by component */
   pointer-events: none;
 }
@@ -31,7 +31,7 @@
 .resize-guide-min-after {
   width: 50px;
   position: absolute;
-  bottom: 400px;
+  bottom: 75%;
   font-size: 0.8rem;
   color: var(--resize-guide-text-color);
 
