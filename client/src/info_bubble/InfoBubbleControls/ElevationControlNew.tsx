@@ -2,7 +2,10 @@ import React from 'react'
 
 import { segmentsChanged } from '~/src/segments/view'
 import { useDispatch } from '~/src/store/hooks'
-import { changeSegmentProperties } from '~/src/store/slices/street'
+import {
+  changeSegmentProperties,
+  setBoundaryElevation
+} from '~/src/store/slices/street'
 import Checkbox from '~/src/ui/Checkbox'
 import UpDownInput from './UpDownInput'
 
@@ -32,6 +35,8 @@ function ElevationControlNew ({
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: elevation + 1 }))
       segmentsChanged()
+    } else {
+      dispatch(setBoundaryElevation(position, elevation + 1))
     }
   }
 
@@ -39,6 +44,8 @@ function ElevationControlNew ({
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: elevation - 1 }))
       segmentsChanged()
+    } else {
+      dispatch(setBoundaryElevation(position, elevation - 1))
     }
   }
 
