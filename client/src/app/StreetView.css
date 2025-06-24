@@ -58,4 +58,9 @@
   background: var(--bottom-background);
   z-index: -2;
   pointer-events: none;
+
+  body.read-only & {
+    /* TODO document magic number 80 */
+    height: calc(var(--street-section-baseline) - 80px);
+  }
 }
