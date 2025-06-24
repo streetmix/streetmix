@@ -33,13 +33,13 @@ function ElevationControl ({
       return state.street.boundary.left.elevation
     } else if (position === BUILDING_RIGHT_POSITION) {
       return state.street.boundary.right.elevation
-    } else if (typeof position === 'number') {
+    } else {
       return state.street.segments[position].elevation
     }
   })
   const slope = useSelector((state) => {
     if (typeof position === 'number') {
-      return state.street.segments[position].slope
+      return state.street.segments[position].slope ?? false
     } else {
       return false
     }

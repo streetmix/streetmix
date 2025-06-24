@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { segmentsChanged } from '~/src/segments/view'
 import { useDispatch } from '~/src/store/hooks'
@@ -19,54 +19,40 @@ function ElevationControlNew ({
   elevation,
   slope = false
 }: ElevationControlProps): React.ReactElement {
-  const [value, setValue] = useState(elevation)
-  const [isSlope, toggleSlope] = useState(slope)
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  function handleSlopeChange (): void {
     if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { elevation: value }))
+      dispatch(changeSegmentProperties(position, { slope: !slope }))
       segmentsChanged()
     }
-  }, [value])
-
-  useEffect(() => {
-    if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { slope: isSlope }))
-      segmentsChanged()
-    }
-  }, [isSlope])
-
-  function handleChangeValue (value: string): void {
-    const elevation = Number.parseInt(value, 10)
-    setValue(elevation)
   }
 
   function handleIncrement (): void {
-    setValue((value) => value + 1)
+    if (typeof position === 'number') {
+      dispatch(changeSegmentProperties(position, { elevation: elevation + 1 }))
+      segmentsChanged()
+    }
   }
 
   function handleDecrement (): void {
-    setValue((value) => value - 1)
+    if (typeof position === 'number') {
+      dispatch(changeSegmentProperties(position, { elevation: elevation - 1 }))
+      segmentsChanged()
+    }
   }
 
   return (
     <div className="variants">
       <UpDownInput
-        value={value}
+        value={elevation}
         minValue={0}
         maxValue={30}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
-        onUpdatedValue={handleChangeValue}
       />
       {typeof position === 'number' && (
-        <Checkbox
-          checked={isSlope}
-          onChange={() => {
-            toggleSlope(!isSlope)
-          }}
-        >
+        <Checkbox checked={slope} onChange={handleSlopeChange}>
           Slope
         </Checkbox>
       )}
