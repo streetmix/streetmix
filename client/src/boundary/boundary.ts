@@ -143,7 +143,8 @@ export function drawBoundary (
   const svg = images.get(spriteId)
 
   const buildingHeight = getBoundaryImageHeight(variant, position, floors)
-  let offsetTop = totalHeight - buildingHeight * multiplier
+  let offsetTop =
+    totalHeight - buildingHeight * multiplier - (elevation - 1) * 7 * multiplier
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (item.alignAtBaseline === true) {

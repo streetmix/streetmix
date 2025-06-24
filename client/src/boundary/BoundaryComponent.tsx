@@ -90,13 +90,13 @@ function createBoundaryCanvas (
 
 interface BoundaryProps {
   position: BoundaryPosition
-  boundaryWidth: number
+  width: number
   updatePerspective: (el: HTMLElement | null) => void
 }
 
 function Boundary ({
   position,
-  boundaryWidth,
+  width,
   updatePerspective
 }: BoundaryProps): React.ReactElement {
   const street = useSelector((state) => state.street)
@@ -183,7 +183,7 @@ function Boundary ({
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, floors, isOverflowed, boundaryWidth])
+  }, [variant, floors, isOverflowed, width, elevation])
 
   // Effect runs when boundary elements switch in/out
   useEffect(() => {
@@ -265,13 +265,18 @@ function Boundary ({
 
   function renderBoundary (
     boundary: string,
-    nodeRef: React.RefObject<null>
+    nodeRef: React.RefObject<null>,
+    elevation: number,
+    width: number
   ): React.ReactElement {
     const isPreviousElement = boundary === 'old'
 
-    const style = {
-      [position]: `-${boundaryWidth}px`,
-      width: boundaryWidth + 'px'
+    const widthStyle = {
+      [position]: `-${width}px`,
+      width: width + 'px'
+    }
+    const elevationStyle = {
+      height: `${45 + (elevation - 1) * 7}px`
     }
 
     const classNames = ['street-section-boundary']
@@ -288,7 +293,7 @@ function Boundary ({
     // node. This is wrapping the existing <section> to preserve existing
     // node switching functionality
     return (
-      <button className={classNames.join(' ')} style={style} ref={nodeRef}>
+      <button className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
         <section
           ref={(ref) => {
             changeRefs(ref, isPreviousElement)
@@ -297,7 +302,7 @@ function Boundary ({
           onMouseLeave={handleElementMouseLeave}
         />
         <div className="active-bg" />
-        <div className="boundary-dirt" />
+        <div className="boundary-dirt" style={elevationStyle} />
       </button>
     )
   }
@@ -312,7 +317,7 @@ function Boundary ({
         unmountOnExit
         nodeRef={oldRef}
       >
-        {renderBoundary('old', oldRef)}
+        {renderBoundary('old', oldRef, elevation, width)}
       </CSSTransition>
       <CSSTransition
         key="new-boundary"
@@ -323,7 +328,7 @@ function Boundary ({
         unmountOnExit
         nodeRef={newRef}
       >
-        {renderBoundary('new', newRef)}
+        {renderBoundary('new', newRef, elevation, width)}
       </CSSTransition>
     </>
   )

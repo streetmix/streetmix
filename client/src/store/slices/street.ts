@@ -61,7 +61,7 @@ const streetSlice = createSlice({
     addSegment: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, segment: Segment }>
+        action: PayloadAction<{ index: number; segment: Segment }>
       ) {
         const { index, segment } = action.payload
         state.segments.splice(index, 0, segment)
@@ -76,7 +76,7 @@ const streetSlice = createSlice({
     removeSegment: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, immediate: boolean }>
+        action: PayloadAction<{ index: number; immediate: boolean }>
       ) {
         const { index, immediate } = action.payload
         state.segments.splice(index, 1)
@@ -92,7 +92,7 @@ const streetSlice = createSlice({
     moveSegment: {
       reducer (
         state,
-        action: PayloadAction<{ fromIndex: number, toIndex: number }>
+        action: PayloadAction<{ fromIndex: number; toIndex: number }>
       ) {
         const { fromIndex, toIndex } = action.payload
         const segment = state.segments[fromIndex]
@@ -146,7 +146,7 @@ const streetSlice = createSlice({
     },
 
     changeSegmentWidth: {
-      reducer (state, action: PayloadAction<{ index: number, width: number }>) {
+      reducer (state, action: PayloadAction<{ index: number; width: number }>) {
         const { index, width } = action.payload
         state.segments[index].width = width
       },
@@ -160,7 +160,7 @@ const streetSlice = createSlice({
     changeSegmentVariant: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, set: string, selection: string }>
+        action: PayloadAction<{ index: number; set: string; selection: string }>
       ) {
         const { index, set, selection } = action.payload
 
@@ -200,7 +200,7 @@ const streetSlice = createSlice({
     changeSegmentProperties: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, properties: Partial<Segment> }>
+        action: PayloadAction<{ index: number; properties: Partial<Segment> }>
       ) {
         const { index, properties } = action.payload
         Object.assign(state.segments[index], properties)
@@ -256,7 +256,7 @@ const streetSlice = createSlice({
     saveStreetId: {
       reducer (
         state,
-        action: PayloadAction<{ id: string, namespacedId: number }>
+        action: PayloadAction<{ id: string; namespacedId: number }>
       ) {
         const { id, namespacedId } = action.payload
 
@@ -322,6 +322,31 @@ const streetSlice = createSlice({
       }
     },
 
+    setBoundaryElevation: {
+      reducer (
+        state,
+        action: PayloadAction<{ position: BoundaryPosition; value: number }>
+      ) {
+        const { position, value } = action.payload
+
+        if (!value) return
+
+        switch (position) {
+          case 'left':
+            state.boundary.left.elevation = value
+            break
+          case 'right':
+            state.boundary.right.elevation = value
+            break
+        }
+      },
+      prepare (position: BoundaryPosition, value: number) {
+        return {
+          payload: { position, value }
+        }
+      }
+    },
+
     // TODO: Buildings could be a child slice?
     addBuildingFloor (state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
@@ -364,7 +389,7 @@ const streetSlice = createSlice({
     setBuildingFloorValue: {
       reducer (
         state,
-        action: PayloadAction<{ position: BoundaryPosition, value: string }>
+        action: PayloadAction<{ position: BoundaryPosition; value: string }>
       ) {
         const value = Number.parseInt(action.payload.value, 10)
         if (Number.isNaN(value)) return
@@ -396,7 +421,7 @@ const streetSlice = createSlice({
     setBuildingVariant: {
       reducer (
         state,
-        action: PayloadAction<{ position: BoundaryPosition, variant: string }>
+        action: PayloadAction<{ position: BoundaryPosition; variant: string }>
       ) {
         const { position, variant } = action.payload
 
@@ -448,6 +473,7 @@ export const {
   updateSchemaVersion,
   addLocation,
   clearLocation,
+  setBoundaryElevation,
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue,

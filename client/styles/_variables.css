@@ -6,8 +6,6 @@
   /* Dimensions */
   --tile-size: 12px;
   --canvas-height: 500px;
-  --canvas-ground: 35px;
-  --canvas-baseline: calc(var(--canvas-height) - var(--canvas-ground));
 
   /* Baseline is variable depending on screen height, up to a maximum of 400px
      a minimum of 190px */

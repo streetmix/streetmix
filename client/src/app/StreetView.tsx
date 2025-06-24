@@ -29,7 +29,7 @@ function StreetView (): React.ReactElement {
   })
   const [scrollPos, setScrollPos] = useState(0)
   const [resizeType, setResizeType] = useState<number | null>(null)
-  const [boundaryWidth, setBuildingWidth] = useState(0)
+  const [boundaryWidth, setBoundaryWidth] = useState(0)
 
   const sectionEl = useRef<HTMLDivElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -248,7 +248,7 @@ function StreetView (): React.ReactElement {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
-  function getBuildingWidth (el: HTMLDivElement | null): void {
+  function getBoundaryWidth (el: HTMLDivElement | null): void {
     if (el === null) return
     const pos = getElAbsolutePos(el)
 
@@ -257,7 +257,7 @@ function StreetView (): React.ReactElement {
       width = 0
     }
 
-    setBuildingWidth(width)
+    setBoundaryWidth(width)
     setResizeType(null)
   }
 
@@ -293,17 +293,17 @@ function StreetView (): React.ReactElement {
           <section id="street-section-canvas" ref={sectionCanvasEl}>
             <Boundary
               position="left"
-              boundaryWidth={boundaryWidth}
+              width={boundaryWidth}
               updatePerspective={updatePerspective}
             />
             <Boundary
               position="right"
-              boundaryWidth={boundaryWidth}
+              width={boundaryWidth}
               updatePerspective={updatePerspective}
             />
             <StreetEditable
               resizeType={resizeType}
-              setBuildingWidth={getBuildingWidth}
+              setBoundaryWidth={getBoundaryWidth}
               updatePerspective={updatePerspective}
               draggingType={draggingType}
             />
