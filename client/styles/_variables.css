@@ -8,6 +8,13 @@
   --canvas-height: 500px;
   --canvas-ground: 35px;
   --canvas-baseline: calc(var(--canvas-height) - var(--canvas-ground));
+
+  /* Baseline is variable depending on screen height, up to a maximum of 400px
+     a minimum of 190px */
+  --street-section-baseline: min(
+    max(calc(50vh - (var(--canvas-height) / 1.25)), 190px),
+    400px
+  );
   --gallery-height: 180px;
   --left-right-inset: 50px;
   --menu-side-inset: calc(var(--left-right-inset) - 20px);

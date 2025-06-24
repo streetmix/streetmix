@@ -68,8 +68,8 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
             >
               <canvas
                 class="segment-image"
-                height="465"
-                style="width: 4724px; height: 465px; left: 0px;"
+                height="500"
+                style="width: 4724px; height: 500px; left: 0px;"
                 width="4724"
               />
             </div>

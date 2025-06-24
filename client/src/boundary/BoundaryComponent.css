@@ -1,11 +1,10 @@
 :root {
-  --dirt-height: 40px;
+  --dirt-height: 45px;
 }
 
 .street-section-boundary {
   display: block;
   position: absolute;
-  top: calc(-1 * var(--canvas-ground));
   width: 396px;
   height: var(--canvas-height);
   touch-action: pan-x;
@@ -47,6 +46,6 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: calc(var(--dirt-height) + var(--dirt-height-minimum));
+  height: calc(var(--dirt-height));
   background-color: var(--background-dirt-color);
 }

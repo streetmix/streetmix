@@ -3,7 +3,6 @@
 .segment {
   display: block;
   position: absolute;
-  top: calc(-1 * var(--canvas-ground));
   height: var(--canvas-height);
   text-align: center;
   perspective: 500px;
@@ -37,11 +36,8 @@ body.immediate-segment-resize .segment {
 .segment.active .active-bg {
   background: var(--segment-active-background);
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 10px;
+  inset: 0;
   z-index: -1;
-  height: calc(var(--canvas-baseline) - 10px);
   pointer-events: none;
 }
 

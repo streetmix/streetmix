@@ -8,8 +8,8 @@ import './SegmentCanvas.css'
 
 const CANVAS_HEIGHT = 500
 const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
-const GROUND_BASELINE = CANVAS_HEIGHT - 80
+// TODO: Define magic number 80
+const GROUND_BASELINE = CANVAS_HEIGHT - 80 + CANVAS_GROUND
 
 interface SegmentCanvasProps {
   actualWidth: number
@@ -85,7 +85,7 @@ function SegmentCanvas ({
 
   // Determine dimensions to draw DOM element
   const elementWidth = displayWidth * TILE_SIZE
-  const elementHeight = CANVAS_BASELINE
+  const elementHeight = CANVAS_HEIGHT
 
   // Determine size of canvas
   const canvasWidth = Math.round(elementWidth * dpi)

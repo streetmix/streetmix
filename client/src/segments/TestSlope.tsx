@@ -12,7 +12,6 @@ interface Props {
 
 const CANVAS_HEIGHT = 500
 const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
 
 function TestSlope ({ slice }: Props): React.ReactNode | null {
   const street = useSelector((state) => state.street)
@@ -39,14 +38,18 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
     rightElevation
   ])
 
-  function estimateCoord (elev) {
-    return 93 + elev * 14
+  function estimateCoord (elev: number, scale: number): number {
+    // TODO: Define magic numbers 80 and 7
+    return (80 - CANVAS_GROUND + elev * 7) * scale
   }
 
   // const groundLevelOffset = slice.elevation * 18
   // This is estimating the calculation for ground level which I still don't understand yet.
   // const groundLevel = estimateCoord(slice.elevation)
-  const groundLevel = estimateCoord(Math.min(leftElevation, rightElevation))
+  const groundLevel = estimateCoord(
+    Math.min(leftElevation, rightElevation),
+    dpi
+  )
 
   function drawSegment (canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
@@ -64,9 +67,9 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
     // Draw a slope
     ctx.beginPath()
-    ctx.moveTo(0, canvas.height - estimateCoord(leftElevation))
+    ctx.moveTo(0, canvas.height - estimateCoord(leftElevation, dpi))
     ctx.lineTo(0, canvas.height - groundLevel)
-    ctx.lineTo(canvas.width, canvas.height - estimateCoord(rightElevation))
+    ctx.lineTo(canvas.width, canvas.height - estimateCoord(rightElevation, dpi))
     ctx.fill()
     ctx.stroke()
   }
@@ -75,7 +78,7 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
   // Determine dimensions to draw DOM element
   const elementWidth = slice.width * TILE_SIZE
-  const elementHeight = CANVAS_BASELINE
+  const elementHeight = CANVAS_HEIGHT
 
   // Determine size of canvas
   const canvasWidth = Math.round(elementWidth * dpi)
@@ -86,8 +89,8 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
   }
 
   // Get slope
-  const leftpx = estimateCoord(leftElevation)
-  const rightpx = estimateCoord(rightElevation)
+  const leftpx = estimateCoord(leftElevation, dpi)
+  const rightpx = estimateCoord(rightElevation, dpi)
   const rise = Math.abs(leftpx - rightpx)
   const slope = Math.floor((rise / elementWidth) * 100)
 
