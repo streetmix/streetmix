@@ -20,12 +20,13 @@
   position: absolute;
   display: block;
   left: 0;
-  bottom: 195px;
+  bottom: var(--street-section-baseline);
   height: var(--canvas-height);
   user-select: none;
 
   body.read-only & {
-    bottom: 50px;
+    /* TODO document magic number 80 */
+    bottom: calc(var(--street-section-baseline) - 80px);
   }
 }
 

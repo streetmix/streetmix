@@ -8,6 +8,7 @@
   --canvas-height: 500px;
   --canvas-ground: 35px;
   --canvas-baseline: calc(var(--canvas-height) - var(--canvas-ground));
+  --street-section-baseline: 195px;
   --gallery-height: 180px;
   --left-right-inset: 50px;
   --menu-side-inset: calc(var(--left-right-inset) - 20px);

@@ -3,13 +3,14 @@
   left: 0;
   right: 0;
   top: -70px; /* Space for scrolling down when gallery open */
-  height: calc(100% - 100px);
+  height: calc(100vh - var(--street-section-baseline) + 95px);
   pointer-events: none;
   opacity: 1;
 
   /* In read-only mode, there's no UI, so sky needs some more room */
   body.read-only & {
-    height: calc(100% - 20px);
+    /* TODO document magic number 80 */
+    height: calc(100% - var(--street-section-baseline) + 95px + 80px);
   }
 }
 
