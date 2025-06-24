@@ -7,9 +7,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(
-    var(--canvas-height) - var(--canvas-ground) - var(--dirt-height-minimum)
-  );
+  top: calc(var(--canvas-height) - var(--dirt-height-minimum));
   border-top: var(--dirt-height-minimum) solid var(--background-dirt-color);
   height: max(
     calc(50vh - (var(--canvas-height) / 2)),

@@ -2,7 +2,6 @@
   overflow: hidden;
   position: absolute;
   left: 0;
-  top: var(--canvas-ground);
   pointer-events: none;
 }
 

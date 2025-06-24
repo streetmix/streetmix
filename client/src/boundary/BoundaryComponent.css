@@ -5,7 +5,6 @@
 .street-section-boundary {
   display: block;
   position: absolute;
-  top: calc(-1 * var(--canvas-ground));
   width: 396px;
   height: var(--canvas-height);
   touch-action: pan-x;

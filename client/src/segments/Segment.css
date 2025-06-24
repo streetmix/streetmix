@@ -3,7 +3,6 @@
 .segment {
   display: block;
   position: absolute;
-  top: calc(-1 * var(--canvas-ground));
   height: var(--canvas-height);
   text-align: center;
   perspective: 500px;
