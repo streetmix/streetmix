@@ -16,7 +16,6 @@ import {
 import { updateStreetMargin } from '../segments/resizing'
 import SkyBox from '../sky/SkyBox'
 import ScrollIndicators from './ScrollIndicators'
-import StreetViewGround from './StreetViewGround'
 import StreetEditable from './StreetEditable'
 import './StreetView.css'
 
@@ -310,7 +309,7 @@ function StreetView (): React.ReactElement {
             />
             <ResizeGuides />
             <EmptySegmentContainer />
-            <StreetViewGround boundaryWidth={boundaryWidth} />
+            <section className="street-section-ground" />
           </section>
           <ScrollIndicators
             left={scrollIndicators.left}

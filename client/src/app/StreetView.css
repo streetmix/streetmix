@@ -35,6 +35,7 @@
   height: var(--canvas-height);
   text-align: left;
   touch-action: pan-x;
+  border-bottom: 5px solid var(--background-dirt-color);
 }
 
 #street-section-canvas {
@@ -46,5 +47,15 @@
   margin-left: var(--building-space);
   margin-right: var(--building-space);
   height: var(--canvas-height);
-  border-bottom: 5px solid var(--background-dirt-color);
+}
+
+.street-section-ground {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--street-section-baseline);
+  background: var(--bottom-background);
+  z-index: -2;
+  pointer-events: none;
 }
