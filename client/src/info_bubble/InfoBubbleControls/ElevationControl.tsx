@@ -3,6 +3,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { segmentsChanged } from '~/src/segments/view'
+import {
+  BUILDING_LEFT_POSITION,
+  BUILDING_RIGHT_POSITION
+} from '~/src/segments/constants'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
@@ -10,8 +14,10 @@ import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import ElevationControlNew from './ElevationControlNew'
 
+import type { BoundaryPosition } from '@streetmix/types'
+
 interface ElevationControlProps {
-  position: number
+  position: number | BoundaryPosition
 }
 
 function ElevationControl ({
@@ -22,7 +28,22 @@ function ElevationControl ({
     (state) => state.flags.ELEVATION_CONTROLS_UNLOCKED.value
   )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
-  const segment = useSelector((state) => state.street.segments[position])
+  const elevation = useSelector((state) => {
+    if (position === BUILDING_LEFT_POSITION) {
+      return state.street.boundary.left.elevation
+    } else if (position === BUILDING_RIGHT_POSITION) {
+      return state.street.boundary.right.elevation
+    } else if (typeof position === 'number') {
+      return state.street.segments[position].elevation
+    }
+  })
+  const slope = useSelector((state) => {
+    if (typeof position === 'number') {
+      return state.street.segments[position].slope
+    } else {
+      return false
+    }
+  })
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -32,11 +53,11 @@ function ElevationControl ({
 
     switch (selection) {
       case 'sidewalk': {
-        bool = segment.elevation === 1
+        bool = elevation === 1
         break
       }
       case 'road':
-        bool = segment.elevation === 0
+        bool = elevation === 0
         break
       default:
         bool = false
@@ -59,8 +80,10 @@ function ElevationControl ({
     }
 
     return (): void => {
-      dispatch(changeSegmentProperties(position, { elevation }))
-      segmentsChanged()
+      if (typeof position === 'number') {
+        dispatch(changeSegmentProperties(position, { elevation }))
+        segmentsChanged()
+      }
     }
   }
 
@@ -120,7 +143,8 @@ function ElevationControl ({
       <ElevationControlNew
         key={position}
         position={position}
-        segment={segment}
+        elevation={elevation}
+        slope={slope}
       />
     )
   } else {

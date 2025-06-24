@@ -6,29 +6,35 @@ import { changeSegmentProperties } from '~/src/store/slices/street'
 import Checkbox from '~/src/ui/Checkbox'
 import UpDownInput from './UpDownInput'
 
-import type { Segment } from '@streetmix/types'
+import type { BoundaryPosition } from '@streetmix/types'
 
 interface ElevationControlProps {
-  position: number
-  segment: Segment
+  position: number | BoundaryPosition
+  elevation: number
+  slope: boolean
 }
 
 function ElevationControlNew ({
   position,
-  segment
+  elevation,
+  slope = false
 }: ElevationControlProps): React.ReactElement {
-  const [value, setValue] = useState(segment.elevation)
-  const [isSlope, toggleSlope] = useState(segment.slope ?? false)
+  const [value, setValue] = useState(elevation)
+  const [isSlope, toggleSlope] = useState(slope)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(changeSegmentProperties(position, { elevation: value }))
-    segmentsChanged()
+    if (typeof position === 'number') {
+      dispatch(changeSegmentProperties(position, { elevation: value }))
+      segmentsChanged()
+    }
   }, [value])
 
   useEffect(() => {
-    dispatch(changeSegmentProperties(position, { slope: isSlope }))
-    segmentsChanged()
+    if (typeof position === 'number') {
+      dispatch(changeSegmentProperties(position, { slope: isSlope }))
+      segmentsChanged()
+    }
   }, [isSlope])
 
   function handleChangeValue (value: string): void {
@@ -54,14 +60,16 @@ function ElevationControlNew ({
         onClickDown={handleDecrement}
         onUpdatedValue={handleChangeValue}
       />
-      <Checkbox
-        checked={isSlope}
-        onChange={() => {
-          toggleSlope(!isSlope)
-        }}
-      >
-        Slope
-      </Checkbox>
+      {typeof position === 'number' && (
+        <Checkbox
+          checked={isSlope}
+          onChange={() => {
+            toggleSlope(!isSlope)
+          }}
+        >
+          Slope
+        </Checkbox>
+      )}
     </div>
   )
 }

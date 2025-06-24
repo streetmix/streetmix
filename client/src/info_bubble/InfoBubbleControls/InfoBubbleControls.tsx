@@ -25,6 +25,7 @@ function InfoBubbleControls (
 ): React.ReactElement {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
 
   // Determine width or height control type
   let widthOrHeightControl
@@ -49,8 +50,8 @@ function InfoBubbleControls (
         </IntlProvider>
         {widthOrHeightControl}
       </div>
-      {/* Only enabled for segments right now */}
-      {typeof position === 'number' && (
+      {/* Only enabled for segments right now or Coastmix mode */}
+      {(coastmixMode || typeof position === 'number') && (
         <div className="info-bubble-control-group">
           <ElevationControl position={position} />
         </div>
