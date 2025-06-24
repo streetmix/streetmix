@@ -46,4 +46,5 @@
   margin-left: var(--building-space);
   margin-right: var(--building-space);
   height: var(--canvas-height);
+  border-bottom: 5px solid var(--background-dirt-color);
 }
