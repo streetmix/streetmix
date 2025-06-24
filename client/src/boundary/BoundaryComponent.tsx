@@ -183,7 +183,7 @@ function Boundary ({
       )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, floors, isOverflowed, width])
+  }, [variant, floors, isOverflowed, width, elevation])
 
   // Effect runs when boundary elements switch in/out
   useEffect(() => {
