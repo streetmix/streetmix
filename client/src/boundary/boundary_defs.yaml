@@ -60,10 +60,10 @@ narrow:
   spriteId: buildings--apartments-narrow
   hasFloors: true
   variantsCount: 1
-  floorHeight: 3.048 # meters (match illustration)
-  roofHeight: 0.61 # meters (match illustration)
-  mainFloorHeight: 4.267 # meters (match illustration)
-  overhangWidth: 17
+  floorHeight: 3 # meters (match illustration)
+  roofHeight: 0.75 # meters (match illustration)
+  mainFloorHeight: 4.25 # meters (match illustration)
+  overhangWidth: 16
 wide:
   id: wide
   label: Building
