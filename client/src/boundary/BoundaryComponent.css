@@ -9,6 +9,11 @@
   height: var(--canvas-height);
   touch-action: pan-x;
 
+  > button {
+    width: 100%;
+    height: 100%;
+  }
+
   section {
     position: relative;
     width: 100%;
