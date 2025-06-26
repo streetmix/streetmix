@@ -293,17 +293,19 @@ function Boundary ({
     // node. This is wrapping the existing <section> to preserve existing
     // node switching functionality
     return (
-      <button className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <section
-          ref={(ref) => {
-            changeRefs(ref, isPreviousElement)
-          }}
-          onMouseEnter={handleElementMouseEnter}
-          onMouseLeave={handleElementMouseLeave}
-        />
-        <div className="active-bg" />
-        <div className="boundary-dirt" style={elevationStyle} />
-      </button>
+      <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
+        <button>
+          <section
+            ref={(ref) => {
+              changeRefs(ref, isPreviousElement)
+            }}
+            onMouseEnter={handleElementMouseEnter}
+            onMouseLeave={handleElementMouseLeave}
+          />
+          <div className="active-bg" />
+          <div className="boundary-dirt" style={elevationStyle} />
+        </button>
+      </div>
     )
   }
 
