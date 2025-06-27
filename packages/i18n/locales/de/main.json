@@ -371,16 +371,21 @@
     "delete-street": "Straße löschen",
     "segment-width": "Breite des Elements ändern",
     "building-height": "Anzahl der Stockwerke ändern",
-    "street-width": "",
+    "street-width": "Breite der Straße ändern",
     "geotag": "",
-    "increase-width": "Breite vergrößern (Shift gedrückt halten für eine höhere Genauigkeit)",
-    "decrease-width": "Breite verkleinern (Shift gedrückt halten für eine höhere Genauigkeit)",
+    "increase-width": "Breite vergrößern",
+    "decrease-width": "Breite verkleinern",
+    "width-tooltip-sublabel": "(Shift gedrückt halten für eine höhere Genauigkeit)",
     "add-floor": "Stockwerk hinzufügen",
     "remove-floor": "Stockwerk entfernen",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "Straßenniveau",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Unbenannte Straße",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Minimum",
       "max": "Maximum"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

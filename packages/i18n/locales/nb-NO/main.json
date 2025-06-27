@@ -373,14 +373,19 @@
     "building-height": "Endre antall etasjer",
     "street-width": "Endre gatebredde",
     "geotag": "Endre sted",
-    "increase-width": "Øk bredden (hold Shift inne for mindre intervaller)",
-    "decrease-width": "Reduser bredden (hold Shift inne for mindre intervaller)",
+    "increase-width": "Øk bredden",
+    "decrease-width": "Reduser bredden",
+    "width-tooltip-sublabel": "(hold Shift inne for mindre intervaller)",
     "add-floor": "Legg til etasje",
     "remove-floor": "Fjern etasje",
     "scroll-street-left": "Rull gaten til venstre",
     "scroll-street-right": "Rull gaten til høyre",
     "scroll-left": "Rull til venstre",
-    "scroll-right": "Rull til høyre"
+    "scroll-right": "Rull til høyre",
+    "elevation-sidewalk": "Fortausnivå",
+    "elevation-road": "Gatenivå",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Gate uten navn",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Maks"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

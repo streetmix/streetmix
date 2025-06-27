@@ -373,14 +373,19 @@
     "building-height": "Muuta kerroslukua",
     "street-width": "Muuta kadun leveyttä",
     "geotag": "Vaihda sijainti",
-    "increase-width": "Levennä (tarkempi ote pitämällä Shiftiä pohjassa)",
-    "decrease-width": "Kavenna (tarkempi ote pitämällä Shiftiä pohjassa)",
+    "increase-width": "Levennä",
+    "decrease-width": "Kavenna",
+    "width-tooltip-sublabel": "(tarkempi ote pitämällä Shiftiä pohjassa)",
     "add-floor": "Lisää kerros",
     "remove-floor": "Poista kerros",
     "scroll-street-left": "Vieritä katua vasemmalle",
     "scroll-street-right": "Vieritä katua oikealle",
     "scroll-left": "Vieritä vasemmalle",
-    "scroll-right": "Vieritä oikealle"
+    "scroll-right": "Vieritä oikealle",
+    "elevation-sidewalk": "Jalkakäytävän taso",
+    "elevation-road": "Katutaso",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

@@ -373,14 +373,19 @@
     "building-height": "층 개수 변경",
     "street-width": "거리 폭 변경",
     "geotag": "장소 변경",
-    "increase-width": "폭 늘리기 (정확도를 높이려면 Shift 키를 누르세요)",
-    "decrease-width": "폭 줄이기 (정확도를 높이려면 Shift 키를 누르세요)",
+    "increase-width": "폭 늘리기",
+    "decrease-width": "폭 줄이기",
+    "width-tooltip-sublabel": "(정확도를 높이려면 Shift 키를 누르세요)",
     "add-floor": "층 추가",
     "remove-floor": "층 제거",
     "scroll-street-left": "왼쪽으로 스트리트 스크롤",
     "scroll-street-right": "오른쪽으로 스트리트 스크롤",
     "scroll-left": "왼쪽으로 스크롤",
-    "scroll-right": "오른쪽으로 스크롤"
+    "scroll-right": "오른쪽으로 스크롤",
+    "elevation-sidewalk": "보도 높이",
+    "elevation-road": "도로 높이",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "이름없는 도로",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "최소",
       "max": "최대"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

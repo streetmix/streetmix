@@ -373,14 +373,19 @@
     "building-height": "Ubah jumlah lantai",
     "street-width": "Ubah lebar jalan",
     "geotag": "Ubah lokasi",
-    "increase-width": "Perbesar lebar (tahan Shift untuk presisi lebih)",
-    "decrease-width": "Kurangi lebar (tahan Shift untuk presisi lebih)",
+    "increase-width": "Perbesar lebar",
+    "decrease-width": "Kurangi lebar",
+    "width-tooltip-sublabel": "(tahan Shift untuk presisi lebih)",
     "add-floor": "Tambahkan lantai",
     "remove-floor": "Hapus lantai",
     "scroll-street-left": "Gulir jalan ke kiri",
     "scroll-street-right": "Gulir jalan ke kanan",
     "scroll-left": "Gulir ke kiri",
-    "scroll-right": "Gulir ke kanan"
+    "scroll-right": "Gulir ke kanan",
+    "elevation-sidewalk": "Level trotoar",
+    "elevation-road": "Level jalan",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Jl. Unnamed",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Maks"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

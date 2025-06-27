@@ -373,14 +373,19 @@
     "building-height": "Wijzig aantal verdiepingen",
     "street-width": "Wijzig straatbreedte",
     "geotag": "Wijzig locatie",
-    "increase-width": "Maak breder (hou Shift ingedrukt voor meer precisie)",
-    "decrease-width": "Maak smaller (hou Shift ingedrukt voor meer precisie)",
+    "increase-width": "Maak breder",
+    "decrease-width": "Maak smaller",
+    "width-tooltip-sublabel": "(hou Shift ingedrukt voor meer precisie)",
     "add-floor": "Voeg verdieping toe",
     "remove-floor": "Haal verdieping weg",
     "scroll-street-left": "Beweeg straat naar links",
     "scroll-street-right": "Beweeg straat naar rechts",
     "scroll-left": "Scroll naar links",
-    "scroll-right": "Scroll naar rechts"
+    "scroll-right": "Scroll naar rechts",
+    "elevation-sidewalk": "",
+    "elevation-road": "Straatniveau",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Naamloze Straat",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "",
       "max": ""
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

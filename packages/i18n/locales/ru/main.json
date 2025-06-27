@@ -371,16 +371,21 @@
     "delete-street": "Удалить улицу",
     "segment-width": "Изменить ширину сегмента",
     "building-height": "Изменить количество этажей",
-    "street-width": "",
+    "street-width": "Изменить ширину улицы",
     "geotag": "",
-    "increase-width": "Увеличить ширину (зажмите Shift для большей точности)",
-    "decrease-width": "Уменьшить ширину (зажмите Shift для большей точности)",
+    "increase-width": "Увеличить ширину",
+    "decrease-width": "Уменьшить ширину",
+    "width-tooltip-sublabel": "(зажмите Shift для большей точности)",
     "add-floor": "Добавить уровень",
     "remove-floor": "Удалить уровень",
     "scroll-street-left": "Прокрутить улицу влево",
     "scroll-street-right": "Прокрутить улицу вправо",
     "scroll-left": "Прокрутить влево",
-    "scroll-right": "Прокрутить вправо"
+    "scroll-right": "Прокрутить вправо",
+    "elevation-sidewalk": "Уровень тротуара",
+    "elevation-road": "Уровень улицы",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Безымянная улица",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Мин",
       "max": "Макс"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {
