@@ -10,9 +10,15 @@
   /* Baseline is variable depending on screen height, up to a maximum of 400px
      a minimum of 190px */
   --street-section-baseline: min(
-    max(calc(50vh - (var(--canvas-height) / 1.25)), 190px),
-    400px
+    max(
+      calc(50vh - (var(--canvas-height) / 1.25)),
+      var(--street-section-min-baseline)
+    ),
+    var(--street-section-max-baseline)
   );
+  --street-section-min-baseline: 190px;
+  --street-section-max-baseline: 400px;
+  --street-section-scroll-hide: -20px;
   --gallery-height: 180px;
   --left-right-inset: 50px;
   --menu-side-inset: calc(var(--left-right-inset) - 20px);

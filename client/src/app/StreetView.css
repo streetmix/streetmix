@@ -3,7 +3,7 @@
 
   position: absolute;
   display: block;
-  inset: calc(-1 * var(--gallery-height)) 0 -20px; /* Bottom inset hides the scrollbar */
+  inset: calc(-1 * var(--gallery-height)) 0 var(--street-section-scroll-hide); /* Bottom inset hides the scrollbar */
   overflow: scroll hidden;
   touch-action: pan-x;
 
