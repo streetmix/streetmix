@@ -21,13 +21,14 @@ import type { Optional } from '@streetmix/types'
 import './TestPopupUI.css'
 
 // Default settings
-const TOOLTIP_DELAY = {
+const POPUP_DELAY = {
   open: 150,
   close: 0
 }
-const TOOLTIP_DELAY_TIMEOUT = 200
-const TOOLTIP_TRANSITION_DURATION = 150
-const TOOLTIP_TRANSITION_DISTANCE = 8
+const POPUP_DELAY_TIMEOUT = 200
+const POPUP_TRANSITION_DURATION = 150
+const ARROW_WIDTH = 32
+const ARROW_HEIGHT = 16
 
 interface TestPopupProps {
   children: React.ReactElement
@@ -36,7 +37,7 @@ interface TestPopupProps {
 export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
-  const { refs, floatingStyles, context } = useFloating({
+  const { refs, floatingStyles, context, middlewareData } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
     placement: 'top',
@@ -68,22 +69,31 @@ export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
     dismiss
   ])
 
+  const arrowX = middlewareData.arrow?.x ?? 0
+  const arrowY = middlewareData.arrow?.y ?? 0
+  const transformX = arrowX + ARROW_WIDTH / 2
+  const transformY = arrowY + ARROW_HEIGHT
+
   // Define animation
   const { isMounted, styles } = useTransitionStyles(context, {
     duration: isInstantPhase
       ? {
           open: 0,
           close:
-            currentId === context.floatingId ? TOOLTIP_TRANSITION_DURATION : 0
+            currentId === context.floatingId ? POPUP_TRANSITION_DURATION : 0
         }
-      : TOOLTIP_TRANSITION_DURATION,
+      : POPUP_TRANSITION_DURATION,
     initial: ({ side }) => ({
       opacity: 0,
       transform: 'rotateX(-80deg)'
     }),
-    common: () => ({
-      perspective: '1200px',
-      transformOrigin: 'bottom'
+    common: ({ side }) => ({
+      transformOrigin: {
+        top: `${transformX}px calc(100% + ${ARROW_HEIGHT}px)`,
+        bottom: `${transformX}px ${-ARROW_HEIGHT}px`,
+        left: `calc(100% + ${ARROW_HEIGHT}px) ${transformY}px`,
+        right: `${-ARROW_HEIGHT}px ${transformY}px`
+      }[side]
     })
   })
 
@@ -125,12 +135,12 @@ export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
             {...getFloatingProps()}
           >
             {/* Inner div is for styling and additional transforms */}
-            <div className="slice-controls" style={styles}>
-              <p className="tooltip-label">test</p>
+            <div className="popup-controls" style={styles}>
+              <p className="popup-controls-content">test</p>
               <FloatingArrow
-                className="slice-controls-arrow"
-                width={32}
-                height={16}
+                className="popup-controls-arrow"
+                width={ARROW_WIDTH}
+                height={ARROW_HEIGHT}
                 ref={arrowRef}
                 context={context}
               />
@@ -154,8 +164,8 @@ export function TestPopupGroup ({
 }: TestPopupGroupProps): React.ReactNode {
   return (
     <FloatingDelayGroup
-      delay={TOOLTIP_DELAY}
-      timeoutMs={TOOLTIP_DELAY_TIMEOUT}
+      delay={POPUP_DELAY}
+      timeoutMs={POPUP_DELAY_TIMEOUT}
       {...props}
     >
       {children}

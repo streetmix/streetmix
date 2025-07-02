@@ -1,4 +1,4 @@
-.slice-controls {
+.popup-controls {
   --info-bubble-header-background-color: var(--color-turquoise-200);
   --info-bubble-button-size: 30px;
   --info-bubble-border-radius: var(--border-radius);
@@ -20,7 +20,7 @@
   z-index: var(--z-06-info-bubble);
 }
 
-.slice-controls {
+.popup-controls {
   fill: var(--info-bubble-background);
 }
 
@@ -29,4 +29,5 @@
   width: max-content;
   top: 0;
   left: 0;
+  perspective: 1200px;
 }
