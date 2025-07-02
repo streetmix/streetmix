@@ -21,6 +21,7 @@ import {
 } from './boundary'
 import './BoundaryComponent.css'
 
+import { TestPopup } from './TestPopupUI'
 import type { BoundaryPosition } from '@streetmix/types'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -294,17 +295,19 @@ function Boundary ({
     // node switching functionality
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <button>
-          <section
-            ref={(ref) => {
-              changeRefs(ref, isPreviousElement)
-            }}
-            onMouseEnter={handleElementMouseEnter}
-            onMouseLeave={handleElementMouseLeave}
-          />
-          <div className="active-bg" />
-          <div className="boundary-dirt" style={elevationStyle} />
-        </button>
+        <TestPopup>
+          <button>
+            <section
+              ref={(ref) => {
+                changeRefs(ref, isPreviousElement)
+              }}
+              onMouseEnter={handleElementMouseEnter}
+              onMouseLeave={handleElementMouseLeave}
+            />
+            <div className="active-bg" />
+            <div className="boundary-dirt" style={elevationStyle} />
+          </button>
+        </TestPopup>
       </div>
     )
   }
