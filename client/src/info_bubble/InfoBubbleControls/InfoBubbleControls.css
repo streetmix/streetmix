@@ -8,6 +8,7 @@
     height: 100%;
     padding: 2px 3px;
     fill: #231f20;
+    color: var(--color-midnight-900);
   }
 
   .variants {

@@ -1,6 +1,6 @@
 building:
   waterfront:
-    id: waterfront
+    id: waterfront-new
     title: Waterfront
   grass:
     id: grass
@@ -388,10 +388,10 @@ occupants:
     title: Occupied
 elevation:
   sidewalk:
-    id: elevation-higher
+    id: elevation-raise-new
     title: Sidewalk level
   road:
-    id: elevation-lower
+    id: elevation-lower-new
     title: Street level
 temporary-barrier-type:
   traffic-cone:
