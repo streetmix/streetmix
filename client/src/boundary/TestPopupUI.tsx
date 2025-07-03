@@ -12,6 +12,7 @@ import {
   useInteractions,
   useTransitionStyles,
   useMergeRefs,
+  safePolygon,
   FloatingDelayGroup,
   FloatingPortal,
   FloatingArrow
@@ -58,7 +59,16 @@ export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
     ]
   })
   const { delay, currentId, isInstantPhase } = useDelayGroup(context)
-  const hover = useHover(context, { delay, mouseOnly: true }) // TODO: disable hover from closing
+  const hover = useHover(context, {
+    delay,
+    mouseOnly: true,
+    // ISN'T WORKING? HOW DO DEUBG?
+    handleClose: safePolygon({
+      blockPointerEvents: true,
+      buffer: -Infinity,
+      requireIntent: false
+    })
+  }) // TODO: disable hover from closing
   const click = useClick(context)
   const focus = useFocus(context)
   const dismiss = useDismiss(context)
