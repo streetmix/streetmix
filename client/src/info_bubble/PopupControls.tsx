@@ -19,7 +19,7 @@ import {
 } from '@floating-ui/react'
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
-import './TestPopupUI.css'
+import './PopupControls.css'
 
 // Default settings
 const POPUP_DELAY = {
@@ -31,11 +31,13 @@ const POPUP_TRANSITION_DURATION = 150
 const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
 
-interface TestPopupProps {
+interface PopupControlsProps {
   children: React.ReactElement
 }
 
-export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
+export function PopupControls ({
+  children
+}: PopupControlsProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
   const { refs, floatingStyles, context, middlewareData } = useFloating({
@@ -115,7 +117,7 @@ export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
   // - If child element is a React component, the component definition
   //   must also spread its props to whichever element needs to take
   //   floating-ui's props
-  // In general <TestPopup> wraps a <Button> which does that (a normal HTML
+  // In general <PopupControls> wraps a <Button> which does that (a normal HTML
   // <button> also works just fine as is) but if this becomes too complex,
   // a future workaround is to use floating-ui's `asChild` pattern so that
   // some instances can be wrapped with its own element.
@@ -162,16 +164,16 @@ export function TestPopup ({ children }: TestPopupProps): React.ReactNode {
   )
 }
 
-// TestPopupGroupProps takes all of FloatingDelayGroupProps except that
+// PopupControlsGroupProps takes all of FloatingDelayGroupProps except that
 // `delay` is now optional because we provide our own default value
-type TestPopupGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
+type PopupControlsGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
 
 // Re-exports <FloatingDelayGroup> with our own default values. It can be
 // overridden by props.
-export function TestPopupGroup ({
+export function PopupControlsGroup ({
   children,
   ...props
-}: TestPopupGroupProps): React.ReactNode {
+}: PopupControlsGroupProps): React.ReactNode {
   return (
     <FloatingDelayGroup
       delay={POPUP_DELAY}

@@ -12,6 +12,7 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../info_bubble/constants'
 import { infoBubble } from '../info_bubble/info_bubble'
+import { PopupControls } from '../info_bubble/PopupControls'
 import { BOUNDARY_LEFT_POSITION, BOUNDARY_RIGHT_POSITION } from './constants'
 import {
   getBoundaryImageHeight,
@@ -21,7 +22,6 @@ import {
 } from './boundary'
 import './BoundaryComponent.css'
 
-import { TestPopup } from './TestPopupUI'
 import type { BoundaryPosition } from '@streetmix/types'
 
 const MAX_CANVAS_HEIGHT = 2048
@@ -295,7 +295,7 @@ function Boundary ({
     // node switching functionality
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <TestPopup>
+        <PopupControls>
           <button>
             <section
               ref={(ref) => {
@@ -307,7 +307,7 @@ function Boundary ({
             <div className="active-bg" />
             <div className="boundary-dirt" style={elevationStyle} />
           </button>
-        </TestPopup>
+        </PopupControls>
       </div>
     )
   }
