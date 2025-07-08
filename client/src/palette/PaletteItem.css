@@ -73,14 +73,9 @@
 
   [data-icon="lock"] {
     position: absolute;
-    right: 4px;
-    top: 4px;
+    inset-inline-end: 4px;
+    inset-block-start: 4px;
     z-index: 2;
     color: var(--color-copper-800);
-
-    [dir="rtl"] & {
-      left: 4px;
-      right: auto;
-    }
   }
 }

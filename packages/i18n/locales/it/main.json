@@ -371,16 +371,21 @@
     "delete-street": "Cancella la strada",
     "segment-width": "Cambia la larghezza del segmento",
     "building-height": "Cambia il numero dei piani",
-    "street-width": "",
+    "street-width": "Cambia la larghezza della strada",
     "geotag": "",
-    "increase-width": "Incrementa la larghezza (premi Shift per una maggiore precisione)",
-    "decrease-width": "Decrementa la larghezza (premi Shift per una maggiore precisione)",
+    "increase-width": "Incrementa la larghezza",
+    "decrease-width": "Decrementa la larghezza",
+    "width-tooltip-sublabel": "(premi Shift per una maggiore precisione)",
     "add-floor": "Aggiungi un piano",
     "remove-floor": "Cancella un piano",
     "scroll-street-left": "Sposta la strada a sinistra",
     "scroll-street-right": "Sposta la strada a destra",
     "scroll-left": "Scrolla a sinistra",
-    "scroll-right": "Scrolla a destra"
+    "scroll-right": "Scrolla a destra",
+    "elevation-sidewalk": "Quota marciapiede",
+    "elevation-road": "piattaforma a quota stradale",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Strada senza nome",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

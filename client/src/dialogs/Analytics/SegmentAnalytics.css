@@ -21,15 +21,17 @@
 }
 
 .capacity-bars {
+  display: inline-block;
   position: relative;
   height: 50px;
-  margin-right: 10px;
-  display: inline-block;
   min-width: 25px;
-  margin-left: 25px;
+  margin-inline: 25px 10px;
 }
 
 .capacity-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   height: 50px;
   width: 50px;
@@ -62,8 +64,6 @@
   border-radius: 50%;
   width: 42px;
   height: 42px;
-  margin-left: 4px;
-  margin-top: 4px;
   border: 3px solid;
   overflow: hidden;
 
@@ -90,9 +90,10 @@
 
 .capacity-bar {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   height: 50px;
-  border-radius: 0 25px 25px 0;
+  border-start-end-radius: 25px;
+  border-end-end-radius: 25px;
 }
 
 .capacity-bar.capacity-bar-average {

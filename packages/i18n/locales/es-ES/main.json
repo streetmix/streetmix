@@ -371,16 +371,21 @@
     "delete-street": "Eliminar calle",
     "segment-width": "Cambiar ancho del segmento",
     "building-height": "Cambiar el número de pisos",
-    "street-width": "",
+    "street-width": "Cambiar el ancho de la calle",
     "geotag": "",
-    "increase-width": "Aumentar el ancho (mantenga presionado Shift para mayor precisión)",
-    "decrease-width": "Disminuir el ancho (mantenga presionado Shift para mayor precisión)",
+    "increase-width": "Aumentar el ancho",
+    "decrease-width": "Disminuir el ancho",
+    "width-tooltip-sublabel": "(mantenga presionado Shift para mayor precisión)",
     "add-floor": "Añadir un piso",
     "remove-floor": "Eliminar un piso",
     "scroll-street-left": "Desplazar la calle hacia la izquierda",
     "scroll-street-right": "Desplazar la calle hacia la derecha",
     "scroll-left": "Desplazar hacia la izquierda",
-    "scroll-right": "Desplazar hacia la derecha"
+    "scroll-right": "Desplazar hacia la derecha",
+    "elevation-sidewalk": "Nivel de las aceras",
+    "elevation-road": "Nivel de la calzada",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Calle sin nombre",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Mínimo",
       "max": "Máximo"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

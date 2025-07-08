@@ -5,6 +5,17 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## June 20, 2025
+
+### ✨ New features
+
+- Elevation controls
+- Add tooltips to variants panel
+
+### 🐛 Bug fixes
+
+- Fix visual artifacts for the variants panel in right-to-left language modes.
+
 ## May 21, 2025
 
 ### 🐛 Bug fixes

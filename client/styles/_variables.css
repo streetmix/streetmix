@@ -5,10 +5,20 @@
 :root {
   /* Dimensions */
   --tile-size: 12px;
-  --canvas-height: 480px;
-  --canvas-ground: 35px;
-  --canvas-baseline: calc(var(--canvas-height) - var(--canvas-ground) + 150px);
-  --street-section-inner-height: calc(var(--canvas-height) + 45px);
+  --canvas-height: 500px;
+
+  /* Baseline is variable depending on screen height, up to a maximum of 400px
+     a minimum of 190px */
+  --street-section-baseline: min(
+    max(
+      calc(50vh - (var(--canvas-height) / 1.25)),
+      var(--street-section-min-baseline)
+    ),
+    var(--street-section-max-baseline)
+  );
+  --street-section-min-baseline: 190px;
+  --street-section-max-baseline: 400px;
+  --street-section-scroll-hide: -20px;
   --gallery-height: 180px;
   --left-right-inset: 50px;
   --menu-side-inset: calc(var(--left-right-inset) - 20px);
@@ -77,7 +87,7 @@
   --bottom-background: rgb(216 211 203);
   --warning-color: rgb(220 20 20);
   --segment-text: rgb(40 35 30);
-  --segment-hover-background: rgb(255 255 255 / 20%);
+  --segment-active-background: rgb(255 255 255 / 20%);
   --info-bubble-background: white; /* TODO: rename */
 
   /* Link and button text */

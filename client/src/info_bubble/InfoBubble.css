@@ -33,6 +33,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     position: relative;
     padding: 4px 10px;
     height: calc(var(--info-bubble-button-size) + 10px);
@@ -41,117 +42,8 @@
     font-weight: 500;
     color: var(--color-turquoise-900);
     background-color: var(--info-bubble-header-background-color);
-    border-top-left-radius: var(--info-bubble-border-radius);
-    border-top-right-radius: var(--info-bubble-border-radius);
-  }
-
-  .icon {
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    padding: 2px 3px;
-    fill: #231f20;
-  }
-
-  .variants {
-    text-align: left;
-    margin-right: 20px;
-    min-height: var(--info-bubble-button-size);
-    white-space: nowrap;
-    user-select: none;
-
-    button {
-      margin-bottom: 2px;
-      margin-right: 3px;
-    }
-
-    hr {
-      display: block;
-      margin: 0;
-      padding: 0;
-      opacity: 0;
-      height: 5px;
-    }
-
-    button[disabled] .icon {
-      opacity: 0.4;
-    }
-
-    [data-icon="lock"] {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      color: var(--color-copper-800);
-
-      [dir="rtl"] & {
-        left: -2px;
-        right: auto;
-      }
-    }
-
-    [dir="rtl"] & {
-      text-align: right;
-      margin-left: 20px;
-      margin-right: 0;
-      direction: ltr;
-    }
-  }
-
-  .non-variant {
-    text-align: right;
-    white-space: nowrap;
-    user-select: none;
-
-    /* Takes up the entire width of info-bubble if it is by itself */
-    &:only-child {
-      width: 100%;
-      text-align: center;
-    }
-
-    &.building-height {
-      margin-top: -36px;
-      height: auto;
-      white-space: normal;
-      width: 115px;
-      text-align: center;
-    }
-  }
-
-  .variants,
-  .non-variant {
-    button {
-      white-space: nowrap;
-      position: relative;
-      padding: 0;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-
-      .icon {
-        opacity: 0.666;
-      }
-
-      &:not([disabled]):active {
-        .icon {
-          margin-top: 1px;
-          opacity: 0.9;
-        }
-      }
-    }
-  }
-
-  .variant-selected,
-  .variant-selected:hover {
-    background: var(--color-copper-400) !important;
-    opacity: 1;
-
-    .icon {
-      /* Overrides disabled button opacity */
-      opacity: 1 !important;
-    }
+    border-start-start-radius: var(--info-bubble-border-radius);
+    border-start-end-radius: var(--info-bubble-border-radius);
   }
 
   button {
@@ -161,43 +53,18 @@
 }
 
 .info-bubble-type-building header {
-  margin-right: 140px;
-  border-top-right-radius: 0;
-
-  [dir="rtl"] & {
-    border-top-left-radius: 0;
-    border-top-right-radius: var(--info-bubble-border-radius);
-    margin-left: 140px;
-    margin-right: 0;
-  }
+  margin-inline-end: 140px;
+  border-start-end-radius: 0;
 
   &::after {
     content: "";
     position: absolute;
     top: 0;
-    right: -40px;
+    inset-inline-end: -40px;
     width: 0;
     height: 0;
     border-top: 40px solid var(--info-bubble-header-background-color);
-    border-right: 40px solid transparent;
-
-    [dir="rtl"] & {
-      left: -37px;
-      right: auto;
-      border-left: 37px solid transparent;
-      border-right: none;
-    }
-  }
-}
-
-.info-bubble-controls {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-
-  .non-variant {
-    text-align: center;
-    width: auto;
+    border-inline-end: 40px solid transparent;
   }
 }
 
@@ -265,12 +132,5 @@
 
   .description {
     pointer-events: auto;
-  }
-}
-
-[dir="rtl"] {
-  .info-bubble-remove {
-    margin-left: 0;
-    margin-right: 1em;
   }
 }

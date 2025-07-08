@@ -373,14 +373,19 @@
     "building-height": "Change the number of floors",
     "street-width": "Change street width",
     "geotag": "Change location",
-    "increase-width": "Increase width (hold Shift for more precision)",
-    "decrease-width": "Decrease width (hold Shift for more precision)",
+    "increase-width": "Increase width",
+    "decrease-width": "Decrease width",
+    "width-tooltip-sublabel": "(hold Shift for more precision)",
     "add-floor": "Add floor",
     "remove-floor": "Remove floor",
     "scroll-street-left": "Scroll street left",
     "scroll-street-right": "Scroll street right",
     "scroll-left": "Scroll left",
-    "scroll-right": "Scroll right"
+    "scroll-right": "Scroll right",
+    "elevation-sidewalk": "Sidewalk level",
+    "elevation-road": "Street level",
+    "elevation-lower": "Lower elevation",
+    "elevation-raise": "Raise elevation"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": "Elevation"
     }
   },
   "section": {

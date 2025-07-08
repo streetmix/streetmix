@@ -371,16 +371,21 @@
     "delete-street": "Elimina tram",
     "segment-width": "Canvia l'amplada del tram",
     "building-height": "Canvia el nombre de plantes",
-    "street-width": "",
+    "street-width": "Canvia l'amplada del carrer",
     "geotag": "",
-    "increase-width": "Augmenta l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
-    "decrease-width": "Disminueix l’amplada (manteniu premuda la tecla Maj per obtenir més precisió)",
+    "increase-width": "Augmenta l’amplada",
+    "decrease-width": "Disminueix l’amplada",
+    "width-tooltip-sublabel": "(manteniu premuda la tecla Maj per obtenir més precisió)",
     "add-floor": "Afegeix planta",
     "remove-floor": "Treu planta",
     "scroll-street-left": "Desplaceu-vos pel carrer cap a l'esquerra",
     "scroll-street-right": "Desplaceu-vos pel carrer cap a la dreta",
     "scroll-left": "Desplaceu-vos cap a l'esquerra",
-    "scroll-right": "Desplaceu-vos cap a la dreta"
+    "scroll-right": "Desplaceu-vos cap a la dreta",
+    "elevation-sidewalk": "Nivell vorera",
+    "elevation-road": "Nivell de carrer",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Carrer sense nom",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Mín",
       "max": "Màx"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

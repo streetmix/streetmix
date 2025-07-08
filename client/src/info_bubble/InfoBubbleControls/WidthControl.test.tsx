@@ -29,7 +29,7 @@ describe('WidthControl', () => {
         initialState: { street: { segments: [segment], units: 0 } }
       })
 
-      await userEvent.click(screen.getByTitle(/Increase width/i))
+      await userEvent.click(screen.getByTestId('up'))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         3.05
       )
@@ -42,7 +42,7 @@ describe('WidthControl', () => {
         initialState: { street: { segments: [segment], units: 0 } }
       })
 
-      await userEvent.click(screen.getByTitle(/Decrease width/i))
+      await userEvent.click(screen.getByTestId('down'))
       expect(store.getState().street.segments[activeElement].width).toEqual(
         2.95
       )

@@ -443,6 +443,10 @@ export class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
 
+    if (type === null) {
+      return null
+    }
+
     // After Segment refactoring with hook-based react-dnd, the Infobubble
     // component can sometimes be called with a segment position referring to
     // a segment that no longer exists. This does a quick check to make sure
@@ -481,9 +485,6 @@ export class InfoBubble extends React.Component {
         break
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         position = BUILDING_RIGHT_POSITION
-        break
-      default:
-        position = null
         break
     }
 

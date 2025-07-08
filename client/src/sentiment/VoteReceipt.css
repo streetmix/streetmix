@@ -64,7 +64,7 @@
 
   input {
     flex-grow: 1;
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     border-radius: var(--border-radius-medium);
     border: 1px solid var(--color-turquoise-600);
     height: 2.25em;
@@ -79,13 +79,5 @@
 .sentiment-survey-done-buttons {
   display: flex;
   justify-content: space-between;
-
-  a.btn {
-    margin-right: 1em;
-
-    [dir="rtl"] * {
-      margin-right: auto;
-      margin-left: 1em;
-    }
-  }
+  gap: 1em;
 }

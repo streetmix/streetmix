@@ -2,12 +2,7 @@
   img.wm-icon {
     width: 36px;
     height: 36px;
-    margin-right: 0.75em;
-
-    [dir="rtl"] & {
-      margin-right: 0;
-      margin-left: 0.75em;
-    }
+    margin-inline-end: 0.75em;
   }
 
   a,

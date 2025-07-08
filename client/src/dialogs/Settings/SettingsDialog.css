@@ -14,12 +14,8 @@
 
 .settings-dialog-left {
   width: 180px;
-  border-right: 1px solid var(--color-turquoise-500);
+  border-inline-end: 1px solid var(--color-turquoise-500);
   overflow: hidden auto;
-
-  [dir="rtl"] & {
-    border-left: 1px solid var(--color-turquoise-500);
-  }
 
   ul {
     padding: 0;
@@ -65,13 +61,9 @@
 
 .settings-menu-icon {
   vertical-align: text-top;
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   color: var(--color-turquoise-800);
   font-size: 16px;
-
-  [dir="rtl"] & {
-    margin-left: 0.5em;
-  }
 }
 
 .settings-item {

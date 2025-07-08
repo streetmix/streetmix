@@ -371,16 +371,21 @@
     "delete-street": "Supprimer la rue",
     "segment-width": "Changer la largeur de l'élément de voirie",
     "building-height": "Changer le nombre d'étages",
-    "street-width": "",
+    "street-width": "Changer la largeur de la rue",
     "geotag": "",
-    "increase-width": "Augmenter la largeur (Maintenir Shift enfoncé pour obtenir plus de précision)",
-    "decrease-width": "Diminuer la largeur (maintenir Shift enfoncé pour obtenir plus de précision)",
+    "increase-width": "Augmenter la largeur",
+    "decrease-width": "Diminuer la largeur",
+    "width-tooltip-sublabel": "(maintenir Shift enfoncé pour obtenir plus de précision)",
     "add-floor": "Ajouter un étage",
     "remove-floor": "Retirer un étage",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "Hauteur du trottoir",
+    "elevation-road": "Au niveau de la rue",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Rue non nommée",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

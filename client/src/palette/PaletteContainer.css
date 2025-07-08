@@ -6,8 +6,7 @@
   bottom: 0;
   width: 100%;
   height: var(--palette-height);
-  padding-left: var(--left-right-inset);
-  padding-right: var(--left-right-inset);
+  padding-inline: var(--left-right-inset);
   display: flex;
   justify-content: center;
 }
@@ -29,8 +28,7 @@
 
 @media only screen and (width <= 768px) {
   .palette-container-outer {
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline: 0;
   }
 
   .palette-container {
@@ -47,6 +45,7 @@
   align-items: center;
   padding: 1em;
   width: 120px;
+  gap: 0.25em;
 
   button {
     height: 40px;
@@ -66,17 +65,6 @@
   [data-icon="redo"] {
     width: 18px;
     height: 18px;
-  }
-
-  /* Spacing between buttons */
-  button + button {
-    margin-left: 0.25em;
-
-    /* Other way around on rtl */
-    [dir="rtl"] & {
-      margin-left: 0;
-      margin-right: 0.25em;
-    }
   }
 }
 

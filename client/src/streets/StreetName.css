@@ -25,10 +25,6 @@
   font-size: calc(32px * var(--street-name-size));
   line-height: calc(28px * var(--street-name-size));
   letter-spacing: -0.025em;
-
-  [dir="rtl"] {
-    font-size: calc(30px * var(--street-name-size));
-  }
 }
 
 body.segment-move-dragging .street-nameplate-container .street-name {

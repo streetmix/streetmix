@@ -1,11 +1,9 @@
-/* TODO: Further refactor / split up of this stylesheet */
-
 #street-section-outer {
   --building-space: 360px;
 
   position: absolute;
   display: block;
-  inset: calc(-1 * var(--gallery-height)) 0 -20px; /* Bottom inset hides the scrollbar */
+  inset: calc(-1 * var(--gallery-height)) 0 var(--street-section-scroll-hide); /* Bottom inset hides the scrollbar */
   overflow: scroll hidden;
   touch-action: pan-x;
 
@@ -22,22 +20,22 @@
   position: absolute;
   display: block;
   left: 0;
-  bottom: 130px;
-
-  /* TODO: Recalc other heights based on this value? */
-  height: var(--street-section-inner-height);
+  bottom: var(--street-section-baseline);
+  height: var(--canvas-height);
   user-select: none;
 
   body.read-only & {
-    bottom: 50px;
+    /* TODO document magic number 80 */
+    bottom: calc(var(--street-section-baseline) - 80px);
   }
 }
 
 #street-section-editable {
   position: absolute;
-  height: calc(var(--canvas-height) + 80px);
+  height: var(--canvas-height);
   text-align: left;
   touch-action: pan-x;
+  border-bottom: 5px solid var(--background-dirt-color);
 }
 
 #street-section-canvas {
@@ -48,37 +46,21 @@
   top: 0;
   margin-left: var(--building-space);
   margin-right: var(--building-space);
-  height: calc(var(--canvas-height) + 40px);
+  height: var(--canvas-height);
 }
 
-.street-section-boundary {
-  display: block;
-  position: absolute;
-  top: -105px;
-  width: 396px;
-  height: calc(var(--canvas-height) + 70px);
-  touch-action: pan-x;
-
-  .hover-bk {
-    position: absolute;
-    z-index: -1;
-    inset: -1000px 0 45px;
-  }
-
-  &.hover .hover-bk {
-    background: var(--segment-hover-background);
-  }
-
-  canvas {
-    position: absolute;
-    bottom: 0;
-  }
-}
-
-.street-segment-boundary-left canvas {
+.street-section-ground {
+  position: fixed;
   left: 0;
-}
-
-.street-segment-boundary-right canvas {
   right: 0;
+  bottom: 0;
+  height: var(--street-section-baseline);
+  background: var(--bottom-background);
+  z-index: -2;
+  pointer-events: none;
+
+  body.read-only & {
+    /* TODO document magic number 80 */
+    height: calc(var(--street-section-baseline) - 80px);
+  }
 }

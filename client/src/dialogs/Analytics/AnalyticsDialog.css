@@ -16,68 +16,6 @@
   flex-grow: 1;
 }
 
-.analytics-dialog-left {
-  flex-basis: 240px;
-  margin-right: 40px;
-  padding-right: 40px;
-  position: fixed;
-  width: 520px;
-
-  [dir="rtl"] & {
-    margin-left: 40px;
-    margin-right: 0;
-    border-right: 0;
-    padding-left: 40px;
-    padding-right: 0;
-  }
-
-  p:first-child {
-    margin-top: 0;
-  }
-
-  p {
-    margin-top: 1.5em;
-  }
-}
-
-.analytics-dialog-right {
-  flex: 1;
-  margin-bottom: 15px;
-  margin-left: 520px;
-
-  [dir="rtl"] & {
-    margin-right: 320px;
-    margin-left: 0;
-  }
-
-  > :first-child {
-    margin-top: 0;
-  }
-
-  > h2 {
-    margin-top: 1.5em;
-  }
-}
-
-.analytics-dialog-sponsors {
-  margin-top: -1em !important;
-
-  img {
-    height: 40px;
-  }
-}
-
-.analytics-dialog-sponsors li {
-  display: inline-block;
-  margin-right: 1.5em;
-  margin-top: 1em;
-
-  [dir="rtl"] & {
-    margin-left: 1.5em;
-    margin-right: 0;
-  }
-}
-
 .dialog-actions {
   text-align: center;
 }

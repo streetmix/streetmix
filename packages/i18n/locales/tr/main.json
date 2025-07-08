@@ -371,16 +371,21 @@
     "delete-street": "Sokağı sil",
     "segment-width": "Bölümün genişliğini değiştir",
     "building-height": "Kat adedini değiştir",
-    "street-width": "",
+    "street-width": "Sokağın genişliğini değiştir",
     "geotag": "",
-    "increase-width": "Genişliği arttır (Daha hassas ayar için Shift tuşuna basılı tutun)",
-    "decrease-width": "Genişliği azalt (daha fazla hassasiyet için Shift tuşuna basılı tutun)",
+    "increase-width": "Genişliği arttır",
+    "decrease-width": "Genişliği azalt",
+    "width-tooltip-sublabel": "(daha hassas ayar için Shift tuşuna basılı tutun)",
     "add-floor": "Kat ekle",
     "remove-floor": "Kat eksilt",
     "scroll-street-left": "Sokağı sola kaydır",
     "scroll-street-right": "Sokağı sağa kaydır",
     "scroll-left": "Sola kaydır",
-    "scroll-right": "Sağa kaydır"
+    "scroll-right": "Sağa kaydır",
+    "elevation-sidewalk": "Kaldırım seviyesi",
+    "elevation-road": "Yol seviyesi",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "İsimsiz Sk.",
@@ -406,6 +411,9 @@
     "resize": {
       "min": "En az",
       "max": "En çok"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {
