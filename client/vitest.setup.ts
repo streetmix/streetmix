@@ -8,6 +8,7 @@ import { server } from './test/server/index.js'
 // Allow require() so we can configure dotenv with test env vars
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dotenv').config({
+  quiet: true,
   path: path.resolve(process.cwd(), '.env.test')
 })
 

@@ -1,7 +1,9 @@
 const { defineConfig } = require('cypress')
 const dotenv = require('dotenv')
 
-dotenv.config()
+dotenv.config({
+  quiet: true
+})
 
 module.exports = defineConfig({
   projectId: '2bmjk3',
