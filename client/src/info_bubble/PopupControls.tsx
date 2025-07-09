@@ -22,7 +22,7 @@ import { PopupControlContent } from './PopupControlContent'
 import './PopupControls.css'
 
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
-import type { SectionType, BoundaryPosition, Optional } from '@streetmix/types'
+import type { Optional, SectionElementTypeAndPosition } from '@streetmix/types'
 
 // Default settings
 const POPUP_DELAY = {
@@ -34,9 +34,7 @@ const POPUP_TRANSITION_DURATION = 150
 const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
 
-interface PopupControlsProps {
-  type: SectionType
-  position: number | BoundaryPosition
+type PopupControlsProps = SectionElementTypeAndPosition & {
   children: React.ReactElement
 }
 

@@ -5,22 +5,14 @@ import { useSelector } from '~/src/store/hooks'
 import { getBoundaryItem } from '~/src/boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
-import {
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
-  INFO_BUBBLE_TYPE_SEGMENT
-} from '../constants'
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
 
-import type { SectionType, BoundaryPosition, Segment } from '@streetmix/types'
+import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'
 
-interface InfoBubbleHeaderProps {
-  type: number | SectionType // number is deprecated
-  position: number | BoundaryPosition
-}
-
-function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
+function InfoBubbleHeader (
+  props: SectionElementTypeAndPosition
+): React.ReactElement {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
   const street = useSelector((state) => state.street)
@@ -40,7 +32,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
     let defaultMessage = ''
 
     // Return label if provided
-    if (type === INFO_BUBBLE_TYPE_SEGMENT) {
+    if (type === 'slice') {
       if (segment?.label !== undefined) {
         return segment.label
       }
@@ -48,8 +40,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
 
     // Otherwise need to do a lookup
     switch (type) {
-      case 'slice':
-      case INFO_BUBBLE_TYPE_SEGMENT: {
+      case 'slice': {
         if (segment !== undefined) {
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(
@@ -63,24 +54,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         }
         break
       }
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const key = street.boundary.left.variant
-
-        id = `buildings.${key}.name`
-        defaultMessage = getBoundaryItem(key).label
-
-        break
-      }
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const key = street.boundary.right.variant
-
-        id = `buildings.${key}.name`
-        defaultMessage = getBoundaryItem(key).label
-
-        break
-      }
       case 'boundary': {
-        // TODO: position is always 'left' or 'right' when type is 'boundary'
         const key = street.boundary[position].variant
 
         id = `buildings.${key}.name`
