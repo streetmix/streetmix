@@ -26,10 +26,10 @@ import type { SectionType, BoundaryPosition, Optional } from '@streetmix/types'
 
 // Default settings
 const POPUP_DELAY = {
-  open: 150,
-  close: 0
+  open: 0,
+  close: 150
 }
-const POPUP_DELAY_TIMEOUT = 200
+const POPUP_DELAY_TIMEOUT = 500
 const POPUP_TRANSITION_DURATION = 150
 const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
