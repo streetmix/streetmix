@@ -12,7 +12,7 @@ import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
+import { Tooltip } from '~/src/ui/Tooltip'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
@@ -239,11 +239,7 @@ function Variants (
   // Do not render this component if there are no variants to select
   if (variantSets.length === 0) return null
 
-  return (
-    <div className="variants">
-      <TooltipGroup>{renderVariantsSelection()}</TooltipGroup>
-    </div>
-  )
+  return <div className="variants">{renderVariantsSelection()}</div>
 }
 
 export default Variants

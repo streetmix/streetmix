@@ -7,11 +7,6 @@ import {
   removeBuildingFloor
 } from '~/src/store/slices/street'
 import { usePrevious } from '~/src/util/usePrevious'
-import {
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from '../info_bubble/constants'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { PopupControls } from '../info_bubble/PopupControls'
 import { BOUNDARY_LEFT_POSITION, BOUNDARY_RIGHT_POSITION } from './constants'
 import {
@@ -220,16 +215,6 @@ function Boundary ({
     if (!isEditable) return
 
     document.addEventListener('keydown', handleKeyDown)
-
-    let type
-
-    if (position === BOUNDARY_LEFT_POSITION) {
-      type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-    } else if (position === BOUNDARY_RIGHT_POSITION) {
-      type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-    }
-
-    infoBubble.considerShowing(event, el, type)
   }
 
   function handleElementMouseLeave (): void {
@@ -239,10 +224,6 @@ function Boundary ({
     if (!isEditable) return
 
     document.removeEventListener('keydown', handleKeyDown)
-
-    if (infoBubble.considerSegmentEl === el) {
-      infoBubble.dontConsiderShowing()
-    }
   }
 
   function changeRefs (

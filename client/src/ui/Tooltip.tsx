@@ -7,6 +7,7 @@ import {
   shift,
   arrow,
   useDelayGroup,
+  useFloatingNodeId,
   useHover,
   useFocus,
   useDismiss,
@@ -16,7 +17,8 @@ import {
   useMergeRefs,
   FloatingDelayGroup,
   FloatingPortal,
-  FloatingArrow
+  FloatingArrow,
+  FloatingNode
 } from '@floating-ui/react'
 import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
@@ -50,7 +52,9 @@ export function Tooltip ({
 }: TooltipProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
+  const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context } = useFloating({
+    nodeId,
     open: isOpen,
     onOpenChange: setIsOpen,
     placement,
@@ -133,29 +137,31 @@ export function Tooltip ({
   return (
     <>
       {tooltipTriggerElement}
-      {isMounted && (
-        <FloatingPortal>
-          {/* Outer div is our main tooltip wrapper */}
-          <div
-            ref={refs.setFloating}
-            style={floatingStyles}
-            {...getFloatingProps()}
-          >
-            {/* Inner div is for styling and additional transforms */}
-            <div className="tooltip" style={styles}>
-              <p className="tooltip-label">{label}</p>
-              {sublabel !== undefined && (
-                <p className="tooltip-sublabel">{sublabel}</p>
-              )}
-              <FloatingArrow
-                className="tooltip-arrow"
-                ref={arrowRef}
-                context={context}
-              />
+      <FloatingNode id={nodeId}>
+        {isMounted && (
+          <FloatingPortal>
+            {/* Outer div is our main tooltip wrapper */}
+            <div
+              ref={refs.setFloating}
+              style={floatingStyles}
+              {...getFloatingProps()}
+            >
+              {/* Inner div is for styling and additional transforms */}
+              <div className="tooltip" style={styles}>
+                <p className="tooltip-label">{label}</p>
+                {sublabel !== undefined && (
+                  <p className="tooltip-sublabel">{sublabel}</p>
+                )}
+                <FloatingArrow
+                  className="tooltip-arrow"
+                  ref={arrowRef}
+                  context={context}
+                />
+              </div>
             </div>
-          </div>
-        </FloatingPortal>
-      )}
+          </FloatingPortal>
+        )}
+      </FloatingNode>
     </>
   )
 }

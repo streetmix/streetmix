@@ -5,6 +5,7 @@ import {
   shift,
   arrow,
   useDelayGroup,
+  useFloatingNodeId,
   useHover,
   useClick,
   useFocus,
@@ -15,7 +16,8 @@ import {
   safePolygon,
   FloatingDelayGroup,
   FloatingPortal,
-  FloatingArrow
+  FloatingArrow,
+  FloatingNode
 } from '@floating-ui/react'
 
 import { PopupControlContent } from './PopupControlContent'
@@ -45,7 +47,9 @@ export function PopupControls ({
 }: PopupControlsProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
+  const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context, middlewareData } = useFloating({
+    nodeId,
     open: isOpen,
     onOpenChange: setIsOpen,
     placement: 'top',
@@ -142,29 +146,31 @@ export function PopupControls ({
   return (
     <>
       {tooltipTriggerElement}
-      {isMounted && (
-        <FloatingPortal>
-          {/* Outer div is our main tooltip wrapper */}
-          <div
-            ref={refs.setFloating}
-            className="floating-ui-wrapper"
-            style={floatingStyles}
-            {...getFloatingProps()}
-          >
-            {/* Inner div is for styling and additional transforms */}
-            <div className="popup-controls" style={styles}>
-              <PopupControlContent type={type} position={position} />
-              <FloatingArrow
-                className="popup-controls-arrow"
-                width={ARROW_WIDTH}
-                height={ARROW_HEIGHT}
-                ref={arrowRef}
-                context={context}
-              />
+      <FloatingNode id={nodeId}>
+        {isMounted && (
+          <FloatingPortal>
+            {/* Outer div is our main tooltip wrapper */}
+            <div
+              ref={refs.setFloating}
+              className="floating-ui-wrapper"
+              style={floatingStyles}
+              {...getFloatingProps()}
+            >
+              {/* Inner div is for styling and additional transforms */}
+              <div className="popup-controls" style={styles}>
+                <PopupControlContent type={type} position={position} />
+                <FloatingArrow
+                  className="popup-controls-arrow"
+                  width={ARROW_WIDTH}
+                  height={ARROW_HEIGHT}
+                  ref={arrowRef}
+                  context={context}
+                />
+              </div>
             </div>
-          </div>
-        </FloatingPortal>
-      )}
+          </FloatingPortal>
+        )}
+      </FloatingNode>
     </>
   )
 }

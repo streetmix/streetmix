@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { TooltipGroup } from '~/src/ui/Tooltip'
 import InfoBubbleControls from './InfoBubbleControls'
 import InfoBubbleHeader from './InfoBubbleHeader'
 import InfoBubbleLower from './InfoBubbleLower'
@@ -19,9 +20,11 @@ export function PopupControlContent ({
 
   return (
     <div className={classNames.join(' ')}>
-      <InfoBubbleHeader type={type} position={position} />
-      <InfoBubbleControls type={type} position={position} />
-      <InfoBubbleLower position={position} />
+      <TooltipGroup>
+        <InfoBubbleHeader type={type} position={position} />
+        <InfoBubbleControls type={type} position={position} />
+        <InfoBubbleLower position={position} />
+      </TooltipGroup>
     </div>
   )
 }

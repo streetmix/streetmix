@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl'
 import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
+import { FloatingTree } from '@floating-ui/react'
 
 import MenusContainer from '../menubar/MenusContainer'
 import StreetNameplateContainer from '../streets/StreetNameplateContainer'
@@ -56,39 +57,41 @@ function App (): React.ReactElement {
     <>
       <Loading isLoading={isLoading || !everythingLoaded} />
       {!isLoading && everythingLoaded && (
-        <DirectionProvider dir={dir}>
-          <IntlProvider
-            locale={locale.locale}
-            key={locale.locale}
-            messages={locale.messages}
-          >
-            {/* The prop context={window} prevents crash errors with hot-module reloading */}
-            <DndProvider options={HTML5toTouch} context={window}>
-              {/* DndProvider allows multiple children; IntlProvider does not */}
-              <NotificationBar />
-              <BlockingShield />
-              <BlockingError />
-              <Gallery />
-              <DialogRoot />
-              <DebugInfo />
-              <PrintContainer />
-              <div className="main-screen">
-                <MenusContainer />
-                <StreetNameplateContainer />
-                <InfoBubble />
-                <DebugHoverPolygon />
-                <WelcomePanel />
-                <PaletteContainer />
-                <SkyPicker />
-                <SegmentDragLayer />
-                <StreetView />
-                <ToastContainer />
-                <SentimentSurveyContainer />
-              </div>
-              <SponsorBanner />
-            </DndProvider>
-          </IntlProvider>
-        </DirectionProvider>
+        <FloatingTree>
+          <DirectionProvider dir={dir}>
+            <IntlProvider
+              locale={locale.locale}
+              key={locale.locale}
+              messages={locale.messages}
+            >
+              {/* The prop context={window} prevents crash errors with hot-module reloading */}
+              <DndProvider options={HTML5toTouch} context={window}>
+                {/* DndProvider allows multiple children; IntlProvider does not */}
+                <NotificationBar />
+                <BlockingShield />
+                <BlockingError />
+                <Gallery />
+                <DialogRoot />
+                <DebugInfo />
+                <PrintContainer />
+                <div className="main-screen">
+                  <MenusContainer />
+                  <StreetNameplateContainer />
+                  <InfoBubble />
+                  <DebugHoverPolygon />
+                  <WelcomePanel />
+                  <PaletteContainer />
+                  <SkyPicker />
+                  <SegmentDragLayer />
+                  <StreetView />
+                  <ToastContainer />
+                  <SentimentSurveyContainer />
+                </div>
+                <SponsorBanner />
+              </DndProvider>
+            </IntlProvider>
+          </DirectionProvider>
+        </FloatingTree>
       )}
     </>
   )
