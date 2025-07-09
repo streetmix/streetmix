@@ -26,32 +26,11 @@ export function PopupControlContent ({
   type,
   position
 }: PopupControlContentProps): React.ReactNode | null {
-  // const position = useSelector((state) => state.ui.activeSegment)
   const classNames = ['popup-controls-content']
 
   if (type === 'boundary') {
     classNames.push('popup-controls-boundary')
   }
-
-  // let type = null
-  // if (position === BUILDING_LEFT_POSITION) {
-  //   type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-  //   classNames.push('popup-controls-boundary')
-  // } else if (position === BUILDING_RIGHT_POSITION) {
-  //   type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-  //   classNames.push('popup-controls-boundary')
-  // } else if (Number.isFinite(position)) {
-  //   type = INFO_BUBBLE_TYPE_SEGMENT
-  // } else {
-  //   type = null
-  // }
-
-  // if (type === null || position === null) {
-  //   console.log('thisis null')
-  //   return null
-  // }
-
-  // console.log('rendering', type, position)
 
   return (
     <div className={classNames.join(' ')}>

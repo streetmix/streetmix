@@ -46,11 +46,13 @@ function InfoBubbleControls (
 
   return (
     <div className="info-bubble-controls">
-      <div className="info-bubble-control-row">
-        <IntlProvider locale={locale} messages={segmentInfo}>
-          <Variants type={type} position={position} />
-        </IntlProvider>
-        {widthOrHeightControl}
+      <div className="info-bubble-control-group">
+        <div className="info-bubble-control-row">
+          <IntlProvider locale={locale} messages={segmentInfo}>
+            <Variants type={type} position={position} />
+          </IntlProvider>
+          {widthOrHeightControl}
+        </div>
       </div>
       {/* Only enabled for segments right now or Coastmix mode */}
       {(coastmixMode || typeof position === 'number') && (
