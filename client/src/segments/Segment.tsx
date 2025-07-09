@@ -5,6 +5,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
+import { PopupControls } from '~/src/info_bubble/PopupControls'
 import { infoBubble } from '../info_bubble/info_bubble'
 import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { formatMessage } from '../locales/locale'
@@ -144,11 +145,11 @@ function Segment (props: SliceProps): React.ReactNode {
     dispatch(setActiveSegment(sliceIndex))
 
     document.addEventListener('keydown', handleKeyDown)
-    infoBubble.considerShowing(
-      event,
-      streetSegment.current,
-      INFO_BUBBLE_TYPE_SEGMENT
-    )
+    // infoBubble.considerShowing(
+    //   event,
+    //   streetSegment.current,
+    //   INFO_BUBBLE_TYPE_SEGMENT
+    // )
   }
 
   function handleSegmentMouseLeave (): void {
@@ -301,45 +302,49 @@ function Segment (props: SliceProps): React.ReactNode {
       style={segmentStyle}
       className={classNames.join(' ')}
       data-testid="segment"
-      data-slice-index={sliceIndex}
+      // data-slice-index={sliceIndex}
       ref={streetSegment}
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}
     >
-      <SegmentLabelContainer
-        label={displayName}
-        width={segment.width}
-        units={units}
-        locale={locale}
-        capacity={average}
-        showCapacity={enableAnalytics}
-      />
-      <SegmentDragHandles width={elementWidth} />
-      <div ref={dndRef} className="segment-canvas-container">
-        <CSSTransition
-          key="old-variant"
-          in={!switchSegments}
-          classNames="switching-away"
-          timeout={250}
-          onExited={handleSwitchSegments}
-          unmountOnExit
-          nodeRef={oldRef}
-        >
-          {renderSegmentCanvas('old', oldRef)}
-        </CSSTransition>
-        <CSSTransition
-          key="new-variant"
-          in={switchSegments}
-          classNames="switching-in"
-          timeout={250}
-          unmountOnExit
-          nodeRef={newRef}
-        >
-          {renderSegmentCanvas('new', newRef)}
-        </CSSTransition>
-      </div>
-      <div className="active-bg" />
-      <EmptyDragPreview dragPreview={dragPreview} />
+      <PopupControls type="slice" position={sliceIndex}>
+        <button data-slice-index={sliceIndex}>
+          <SegmentLabelContainer
+            label={displayName}
+            width={segment.width}
+            units={units}
+            locale={locale}
+            capacity={average}
+            showCapacity={enableAnalytics}
+          />
+          <SegmentDragHandles width={elementWidth} />
+          <div ref={dndRef} className="segment-canvas-container">
+            <CSSTransition
+              key="old-variant"
+              in={!switchSegments}
+              classNames="switching-away"
+              timeout={250}
+              onExited={handleSwitchSegments}
+              unmountOnExit
+              nodeRef={oldRef}
+            >
+              {renderSegmentCanvas('old', oldRef)}
+            </CSSTransition>
+            <CSSTransition
+              key="new-variant"
+              in={switchSegments}
+              classNames="switching-in"
+              timeout={250}
+              unmountOnExit
+              nodeRef={newRef}
+            >
+              {renderSegmentCanvas('new', newRef)}
+            </CSSTransition>
+          </div>
+          <div className="active-bg" />
+          <EmptyDragPreview dragPreview={dragPreview} />
+        </button>
+      </PopupControls>
     </div>
   )
 }

@@ -18,7 +18,6 @@ import {
   FloatingArrow
 } from '@floating-ui/react'
 
-import { useSelector } from '~/src/store/hooks'
 import { PopupControlContent } from './PopupControlContent'
 import './PopupControls.css'
 

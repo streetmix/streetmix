@@ -40,8 +40,8 @@ function InfoBubbleLower ({
   return (
     <>
       <Warnings segment={segment} />
-      {/* <Triangle highlight={isTriangleHighlighted} />
-      {segment?.type !== undefined && (
+      {/* <Triangle highlight={isTriangleHighlighted} /> */}
+      {/* {segment?.type !== undefined && (
         <Description
           type={segment.type}
           variantString={segment.variantString}

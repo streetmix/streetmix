@@ -10,9 +10,6 @@
   box-shadow: var(--light-box-shadow);
   perspective: 1200px;
   z-index: var(--z-06-info-bubble);
-}
-
-.popup-controls {
   fill: var(--info-bubble-background);
 }
 
