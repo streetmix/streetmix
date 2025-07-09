@@ -17,9 +17,13 @@ import {
   FloatingPortal,
   FloatingArrow
 } from '@floating-ui/react'
+
+import { useSelector } from '~/src/store/hooks'
+import { PopupControlContent } from './PopupControlContent'
+import './PopupControls.css'
+
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
-import './PopupControls.css'
 
 // Default settings
 const POPUP_DELAY = {
@@ -148,7 +152,7 @@ export function PopupControls ({
           >
             {/* Inner div is for styling and additional transforms */}
             <div className="popup-controls" style={styles}>
-              <p className="popup-controls-content">test</p>
+              <PopupControlContent />
               <FloatingArrow
                 className="popup-controls-arrow"
                 width={ARROW_WIDTH}

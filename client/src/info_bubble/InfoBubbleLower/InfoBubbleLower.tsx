@@ -40,7 +40,7 @@ function InfoBubbleLower ({
   return (
     <>
       <Warnings segment={segment} />
-      <Triangle highlight={isTriangleHighlighted} />
+      {/* <Triangle highlight={isTriangleHighlighted} />
       {segment?.type !== undefined && (
         <Description
           type={segment.type}
@@ -51,7 +51,7 @@ function InfoBubbleLower ({
           infoBubbleEl={infoBubbleEl}
           updateHoverPolygon={updateHoverPolygon}
         />
-      )}
+      )} */}
     </>
   )
 }

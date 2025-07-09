@@ -27,7 +27,10 @@
     transform: rotateY(0);
     pointer-events: auto;
   }
+}
 
+.info-bubble,
+.popup-controls {
   header {
     display: flex;
     flex-direction: row;
@@ -52,7 +55,8 @@
   }
 }
 
-.info-bubble-type-building header {
+.info-bubble-type-building header,
+.popup-controls-boundary header {
   margin-inline-end: 140px;
   border-start-end-radius: 0;
 

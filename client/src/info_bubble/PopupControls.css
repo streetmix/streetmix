@@ -5,17 +5,9 @@
 
   min-width: 275px;
   max-width: calc(100vw - 10px);
-  height: 120px;
-  /* opacity: 0; */
   background: var(--info-bubble-background);
   border-radius: var(--info-bubble-border-radius);
   box-shadow: var(--light-box-shadow);
-  /* transition:
-    transform 100ms,
-    margin-top 150ms,
-    height 150ms,
-    opacity 150ms; */
-  /* transform: rotateY(0); */
   perspective: 1200px;
   z-index: var(--z-06-info-bubble);
 }
@@ -30,4 +22,14 @@
   top: 0;
   left: 0;
   perspective: 1200px;
+}
+
+/* Overrides .info-bubble */
+.popup-controls-content {
+  opacity: 1;
+
+  .info-bubble-control-group {
+    /* TODO refactor */
+    padding-bottom: 10px;
+  }
 }
