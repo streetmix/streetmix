@@ -443,7 +443,11 @@ export class InfoBubble extends React.Component {
   render () {
     const type = this.state.type
 
-    if (type === null) {
+    if (
+      type === null ||
+      type === INFO_BUBBLE_TYPE_LEFT_BUILDING ||
+      type === INFO_BUBBLE_TYPE_RIGHT_BUILDING
+    ) {
       return null
     }
 

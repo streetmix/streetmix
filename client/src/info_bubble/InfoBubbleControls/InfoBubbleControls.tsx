@@ -13,10 +13,10 @@ import BuildingHeightControl from './BuildingHeightControl'
 import ElevationControl from './ElevationControl'
 import './InfoBubbleControls.css'
 
-import type { BoundaryPosition } from '@streetmix/types'
+import type { SectionType, BoundaryPosition } from '@streetmix/types'
 
 interface InfoBubbleControlsProps {
-  type: number // Info bubble type
+  type: number | SectionType // number is deprecated
   position: number | BoundaryPosition
 }
 
@@ -30,9 +30,11 @@ function InfoBubbleControls (
   // Determine width or height control type
   let widthOrHeightControl
   switch (type) {
+    case 'slice':
     case INFO_BUBBLE_TYPE_SEGMENT:
       widthOrHeightControl = <WidthControl position={position} />
       break
+    case 'boundary':
     case INFO_BUBBLE_TYPE_LEFT_BUILDING:
     case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
       widthOrHeightControl = <BuildingHeightControl position={position} />

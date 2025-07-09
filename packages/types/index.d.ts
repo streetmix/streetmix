@@ -312,6 +312,7 @@ export interface SpriteDefinition {
   originY?: number
 }
 
+export type SectionType = 'boundary' | 'slice'
 export type BoundaryPosition = 'left' | 'right'
 
 interface BoundaryDefinitionBase {

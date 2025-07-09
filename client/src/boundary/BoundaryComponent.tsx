@@ -295,7 +295,7 @@ function Boundary ({
     // node switching functionality
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <PopupControls>
+        <PopupControls type="boundary" position={position}>
           <button>
             <section
               ref={(ref) => {

@@ -13,10 +13,10 @@ import {
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { SectionType, BoundaryPosition, Segment } from '@streetmix/types'
 
 interface InfoBubbleHeaderProps {
-  type: number
+  type: number | SectionType // number is deprecated
   position: number | BoundaryPosition
 }
 
@@ -48,6 +48,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
 
     // Otherwise need to do a lookup
     switch (type) {
+      case 'slice':
       case INFO_BUBBLE_TYPE_SEGMENT: {
         if (segment !== undefined) {
           const segmentInfo = getSegmentInfo(segment.type)
@@ -72,6 +73,15 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
       }
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
         const key = street.boundary.right.variant
+
+        id = `buildings.${key}.name`
+        defaultMessage = getBoundaryItem(key).label
+
+        break
+      }
+      case 'boundary': {
+        // TODO: position is always 'left' or 'right' when type is 'boundary'
+        const key = street.boundary[position].variant
 
         id = `buildings.${key}.name`
         defaultMessage = getBoundaryItem(key).label

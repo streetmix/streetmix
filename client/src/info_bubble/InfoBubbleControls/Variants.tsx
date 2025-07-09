@@ -23,10 +23,10 @@ import {
   INFO_BUBBLE_TYPE_RIGHT_BUILDING
 } from '../constants'
 
-import type { BoundaryPosition } from '@streetmix/types'
+import type { SectionType, BoundaryPosition } from '@streetmix/types'
 
 interface VariantsProps {
-  type: number
+  type: number | SectionType // number is deprecated
   position: number | BoundaryPosition
 }
 
@@ -58,11 +58,13 @@ function Variants (props: VariantsProps): React.ReactElement | null {
 
   let variantSets: string[] = []
   switch (type) {
+    case 'slice':
     case INFO_BUBBLE_TYPE_SEGMENT: {
       const { variants } = getSegmentInfo(segment.type)
       variantSets = variants
       break
     }
+    case 'boundary':
     case INFO_BUBBLE_TYPE_LEFT_BUILDING:
     case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
       variantSets = Object.keys(VARIANT_ICONS.building)
@@ -78,6 +80,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     let bool = false
 
     switch (type) {
+      case 'slice':
       case INFO_BUBBLE_TYPE_SEGMENT: {
         if (segment) {
           const obj = getVariantInfo(segment.type, variant)
@@ -85,6 +88,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
         }
         break
       }
+      case 'boundary':
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         bool = selection === variant
@@ -101,20 +105,28 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     let handler
 
     switch (type) {
+      case 'slice':
       case INFO_BUBBLE_TYPE_SEGMENT:
         handler = () => {
           dispatch(changeSegmentVariant(position, set, selection))
           segmentsChanged()
         }
         break
+      // DEPRECATED
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
         handler = () => {
           dispatch(setBuildingVariant(BUILDING_LEFT_POSITION, selection))
         }
         break
+      // DEPRECATED
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
         handler = () => {
           dispatch(setBuildingVariant(BUILDING_RIGHT_POSITION, selection))
+        }
+        break
+      case 'boundary':
+        handler = () => {
+          dispatch(setBuildingVariant(position, selection))
         }
         break
       default:
@@ -216,6 +228,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     const variantEls = []
 
     switch (type) {
+      case 'slice':
       case INFO_BUBBLE_TYPE_SEGMENT: {
         let first = true
 
@@ -243,6 +256,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
 
         break
       }
+      case 'boundary':
       case INFO_BUBBLE_TYPE_LEFT_BUILDING:
       case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
         const els = variantSets.map((building) =>

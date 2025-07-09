@@ -23,7 +23,7 @@ import { PopupControlContent } from './PopupControlContent'
 import './PopupControls.css'
 
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
-import type { Optional } from '@streetmix/types'
+import type { SectionType, BoundaryPosition, Optional } from '@streetmix/types'
 
 // Default settings
 const POPUP_DELAY = {
@@ -36,10 +36,14 @@ const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
 
 interface PopupControlsProps {
+  type: SectionType
+  position: number | BoundaryPosition
   children: React.ReactElement
 }
 
 export function PopupControls ({
+  type,
+  position,
   children
 }: PopupControlsProps): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false)
@@ -152,7 +156,7 @@ export function PopupControls ({
           >
             {/* Inner div is for styling and additional transforms */}
             <div className="popup-controls" style={styles}>
-              <PopupControlContent />
+              <PopupControlContent type={type} position={position} />
               <FloatingArrow
                 className="popup-controls-arrow"
                 width={ARROW_WIDTH}
