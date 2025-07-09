@@ -8,7 +8,6 @@ import {
 } from '~/src/store/slices/street'
 import { usePrevious } from '~/src/util/usePrevious'
 import { PopupControls } from '../info_bubble/PopupControls'
-import { BOUNDARY_LEFT_POSITION, BOUNDARY_RIGHT_POSITION } from './constants'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
@@ -122,8 +121,8 @@ function Boundary ({
   const oldRef = useRef(null)
 
   const isEditable = !(
-    (!leftBoundaryEditable && position === BOUNDARY_LEFT_POSITION) ||
-    (!rightBoundaryEditable && position === BOUNDARY_RIGHT_POSITION)
+    (!leftBoundaryEditable && position === 'left') ||
+    (!rightBoundaryEditable && position === 'right')
   )
   const variant = street.boundary[position].variant
   const floors = street.boundary[position].floors
