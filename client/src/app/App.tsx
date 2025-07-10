@@ -13,7 +13,6 @@ import DialogRoot from '../dialogs/DialogRoot'
 import SkyPicker from '../sky/SkyPicker'
 import Gallery from '../gallery/Gallery'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
-import DebugHoverPolygon from '../info_bubble/DebugHoverPolygon'
 import ToastContainer from '../ui/Toasts'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
 import { useSelector } from '../store/hooks'
@@ -78,7 +77,6 @@ function App (): React.ReactElement {
                   <MenusContainer />
                   <StreetNameplateContainer />
                   <InfoBubble />
-                  <DebugHoverPolygon />
                   <WelcomePanel />
                   <PaletteContainer />
                   <SkyPicker />

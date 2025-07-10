@@ -180,19 +180,6 @@ body.phone #loading {
 
 /* -------------------------------------------------------- */
 
-.debug-hover-polygon {
-  position: absolute;
-  z-index: var(--z-07-debug-hover-polygon);
-  inset: 0;
-  pointer-events: none;
-
-  canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-}
-
 /* Ensure floating-ui elements appear above everything else */
 [data-floating-ui-portal] {
   position: absolute;
