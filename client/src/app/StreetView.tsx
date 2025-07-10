@@ -6,7 +6,6 @@ import { Boundary } from '~/src/boundary'
 import { PopupControlsGroup } from '~/src/info_bubble/PopupControls'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants'
 import {
@@ -170,8 +169,6 @@ function StreetView (): React.ReactElement {
    * Event handler for street scrolling.
    */
   function handleStreetScroll (event: React.UIEvent<HTMLDivElement>): void {
-    infoBubble.suppress()
-
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {

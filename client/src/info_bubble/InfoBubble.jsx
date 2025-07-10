@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'just-debounce-it'
 
-import { registerKeypress } from '../app/keypress'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION
@@ -72,21 +71,6 @@ export class InfoBubble extends React.Component {
     this.state = {
       type: null
     }
-
-    // Register keyboard shortcuts to hide info bubble
-    // Only hide if it's currently visible, and if the
-    // description is NOT visible. (If the description
-    // is visible, the escape key should hide that first.)
-    registerKeypress(
-      'esc',
-      {
-        condition: () => this.props.visible && !this.props.descriptionVisible
-      },
-      () => {
-        infoBubble.hide()
-        infoBubble.hideSegment(false)
-      }
-    )
   }
 
   /**
