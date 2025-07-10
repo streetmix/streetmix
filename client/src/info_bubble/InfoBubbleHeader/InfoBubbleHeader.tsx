@@ -19,7 +19,7 @@ function InfoBubbleHeader (
 
   // Segment is undefined when position refers to a building
   let segment: Segment | undefined
-  if (typeof position === 'number') {
+  if (type === 'slice') {
     segment = street.segments[position]
   }
 
@@ -31,17 +31,17 @@ function InfoBubbleHeader (
     let id
     let defaultMessage = ''
 
-    // Return label if provided
-    if (type === 'slice') {
-      if (segment?.label !== undefined) {
-        return segment.label
-      }
-    }
-
-    // Otherwise need to do a lookup
     switch (type) {
       case 'slice': {
-        if (segment !== undefined) {
+        if (segment === undefined) {
+          break
+        }
+
+        // Return label if provided
+        if (segment?.label !== undefined) {
+          return segment.label
+        } else {
+          // Otherwise need to do a lookup
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(
             segment.type,
@@ -80,7 +80,7 @@ function InfoBubbleHeader (
   return (
     <header>
       <EditableLabel label={getLabel()} segment={segment} position={position} />
-      {typeof position === 'number' && <RemoveButton segment={position} />}
+      {type === 'slice' && <RemoveButton segment={position} />}
     </header>
   )
 }

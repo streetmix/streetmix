@@ -20,6 +20,7 @@ import {
   FloatingNode
 } from '@floating-ui/react'
 
+import { useSelector } from '~/src/store/hooks'
 import { PopupControlContent } from './PopupControlContent'
 import './PopupControls.css'
 
@@ -45,6 +46,13 @@ export function PopupControls ({
   position,
   children
 }: PopupControlsProps): React.ReactNode {
+  const element = useSelector((state) => {
+    if (type === 'boundary') {
+      return state.street.boundary[position]
+    } else {
+      return state.street.segments[position]
+    }
+  })
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
   const nodeId = useFloatingNodeId()
@@ -76,8 +84,8 @@ export function PopupControls ({
     // ISN'T WORKING? HOW DO DEUBG?
     handleClose: safePolygon({
       blockPointerEvents: true,
-      buffer: -Infinity,
-      requireIntent: false
+      buffer: -Infinity
+      // requireIntent: false
     })
   }) // TODO: disable hover from closing
   const click = useClick(context)
@@ -157,16 +165,21 @@ export function PopupControls ({
               {...getFloatingProps()}
             >
               {/* Inner div is for styling and additional transforms */}
-              <div className="popup-controls" style={styles}>
-                <PopupControlContent type={type} position={position} />
-                <FloatingArrow
-                  className="popup-controls-arrow"
-                  width={ARROW_WIDTH}
-                  height={ARROW_HEIGHT}
-                  ref={arrowRef}
-                  context={context}
-                />
-              </div>
+              {/* Conditionally checks if element still exists. If a slice is
+                  deleted we don't want this to render. TODO: handle animate
+                  out (using a snapshot of deleted state) */}
+              {element && (
+                <div className="popup-controls" style={styles}>
+                  <PopupControlContent type={type} position={position} />
+                  <FloatingArrow
+                    className="popup-controls-arrow"
+                    width={ARROW_WIDTH}
+                    height={ARROW_HEIGHT}
+                    ref={arrowRef}
+                    context={context}
+                  />
+                </div>
+              )}
             </div>
           </FloatingPortal>
         )}
