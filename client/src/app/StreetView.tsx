@@ -298,16 +298,16 @@ function StreetView (): React.ReactElement {
                 width={boundaryWidth}
                 updatePerspective={updatePerspective}
               />
-              <Boundary
-                position="right"
-                width={boundaryWidth}
-                updatePerspective={updatePerspective}
-              />
               <StreetEditable
                 resizeType={resizeType}
                 setBoundaryWidth={getBoundaryWidth}
                 updatePerspective={updatePerspective}
                 draggingType={draggingType}
+              />
+              <Boundary
+                position="right"
+                width={boundaryWidth}
+                updatePerspective={updatePerspective}
               />
               <ResizeGuides />
               <EmptySegmentContainer />
