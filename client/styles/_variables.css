@@ -202,7 +202,7 @@
   --z-07-trashcan: var(--z-index-07);
   --z-07-resize-guide: var(--z-index-07);
   --z-07-debug-hover-polygon: var(--z-index-07);
-  --z-07-sky-picker: calc(var(--z-index-07) + 50);
+  --z-07-floating-panel: calc(var(--z-index-07) + 50);
   --z-07-menu: calc(var(--z-index-07) + 75);
   --z-08-dialog-box-backdrop: var(--z-index-08);
   --z-08-gallery-shield: var(--z-index-08);

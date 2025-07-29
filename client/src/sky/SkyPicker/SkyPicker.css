@@ -1,71 +1,9 @@
-.sky-picker-container-outer {
-  --sky-picker-border-radius: var(--border-radius-large);
-  --sky-picker-box-shadow: var(--medium-box-shadow);
-  --header-background-color: var(--color-turquoise-200);
-  --header-text-color: var(--color-turquoise-900);
-
-  z-index: var(--z-07-sky-picker);
-  position: absolute;
-
+.sky-picker.floating-panel-container-outer {
   /* TODO: use button trigger to set initial position,
-     and remember position on a per-session basis */
+    and remember position on a per-session basis */
   inset-block-end: 90px;
   inset-inline-start: 50px;
   max-width: 216px; /* prevent upgrade text from expanding width */
-}
-
-.sky-picker-container-inner {
-  background-color: white;
-  border-radius: var(--sky-picker-border-radius);
-  overflow: hidden;
-  box-shadow: var(--sky-picker-box-shadow);
-  user-select: none;
-}
-
-.sky-picker header {
-  padding: 0.5em;
-  background-color: var(--header-background-color);
-  color: var(--header-text-color);
-  display: flex;
-  align-items: center;
-}
-
-.sky-picker.react-draggable header {
-  cursor: move; /* fallback if grab cursor is unsupported */
-  cursor: grab;
-}
-
-.sky-picker.react-draggable-dragging header {
-  cursor: grabbing;
-}
-
-.sky-picker header img {
-  height: 16px;
-  width: auto;
-  margin-inline-start: 0.5em;
-  pointer-events: none;
-}
-
-.sky-picker header h3 {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-  margin: 0 0.25em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1em;
-
-  [data-icon="sun"] {
-    margin-inline-end: 0.5em;
-    width: 16px;
-    height: 16px;
-  }
-}
-
-.sky-picker-content {
-  padding: 0;
 }
 
 .sky-picker-upgrade {
@@ -97,17 +35,4 @@
       color: var(--color-copper-900);
     }
   }
-}
-
-/* Close button overrides */
-.sky-picker .close {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  top: auto;
-  right: auto;
-  display: flex !important;
-  justify-content: center;
-  align-items: center !important;
 }

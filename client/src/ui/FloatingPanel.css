@@ -1,0 +1,70 @@
+.floating-panel-container-outer {
+  --floating-panel-border-radius: var(--border-radius-large);
+  --floating-panel-box-shadow: var(--medium-box-shadow);
+  --header-background-color: var(--color-turquoise-200);
+  --header-text-color: var(--color-turquoise-900);
+
+  z-index: var(--z-07-floating-panel);
+  position: absolute;
+
+  /* TODO: use button trigger to set initial position,
+     and remember position on a per-session basis */
+  inset-block-end: 100px;
+  inset-inline-start: 100px;
+}
+
+.floating-panel-container-inner {
+  background-color: white;
+  border-radius: var(--floating-panel-border-radius);
+  overflow: hidden;
+  box-shadow: var(--floating-panel-box-shadow);
+}
+
+.floating-panel header {
+  padding: 0.5em;
+  background-color: var(--header-background-color);
+  color: var(--header-text-color);
+  display: flex;
+  align-items: center;
+}
+
+.floating-panel.react-draggable header {
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+}
+
+.floating-panel.react-draggable-dragging header {
+  cursor: grabbing;
+}
+
+.floating-panel header h3 {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  margin: 0 0.25em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+
+  /* Icon */
+  svg {
+    margin-inline-end: 0.5em;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Close button overrides */
+.floating-panel .close {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  top: auto;
+  right: auto;
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+}
