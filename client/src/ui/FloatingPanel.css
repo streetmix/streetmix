@@ -10,7 +10,7 @@
 
   /* TODO: use button trigger to set initial position,
      and remember position on a per-session basis */
-  inset-block-end: 100px;
+  inset-block-start: 100px;
   inset-inline-start: 100px;
 }
 
