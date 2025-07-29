@@ -3,11 +3,11 @@
 exports[`SkyPicker > renders for signed-in subscribers 1`] = `
 <DocumentFragment>
   <div
-    class="sky-picker sky-picker-container-outer react-draggable"
+    class="floating-panel floating-panel-container-outer sky-picker react-draggable"
     style="transform: translate(0px,0px);"
   >
     <div
-      class="sky-picker-container-inner"
+      class="floating-panel-container-inner"
       style="opacity: 0; pointer-events: none; transform: scale(0.75);"
     >
       <header>
@@ -29,7 +29,7 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
         </button>
       </header>
       <div
-        class="sky-picker-content"
+        class="floating-panel-content"
       >
         <div
           class="sky-options"
