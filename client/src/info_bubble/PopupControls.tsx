@@ -54,6 +54,7 @@ export function PopupControls ({
     }
   })
   const [isOpen, setIsOpen] = useState(false)
+  const [isArrowHighlighted, setArrowHighlighted] = useState(false)
   const arrowRef = React.useRef(null)
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context, middlewareData } = useFloating({
@@ -151,6 +152,11 @@ export function PopupControls ({
     })
   )
 
+  const arrowClassNames = ['popup-controls-arrow']
+  if (isArrowHighlighted) {
+    arrowClassNames.push('highlight')
+  }
+
   return (
     <>
       {tooltipTriggerElement}
@@ -170,9 +176,13 @@ export function PopupControls ({
                   out (using a snapshot of deleted state) */}
               {element && (
                 <div className="popup-controls" style={styles}>
-                  <PopupControlContent type={type} position={position} />
+                  <PopupControlContent
+                    type={type}
+                    position={position}
+                    setArrowHighlighted={setArrowHighlighted}
+                  />
                   <FloatingArrow
-                    className="popup-controls-arrow"
+                    className={arrowClassNames.join(' ')}
                     width={ARROW_WIDTH}
                     height={ARROW_HEIGHT}
                     ref={arrowRef}

@@ -6,6 +6,7 @@ import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import { formatMessage } from '~/src/locales/locale'
 import { showDescription, hideDescription } from '~/src/store/slices/infoBubble'
 import DescriptionPanel from './DescriptionPanel'
+import './DescriptionPanel.css'
 
 import type { SliceDescription } from '@streetmix/types'
 
@@ -100,7 +101,7 @@ function Description ({
       >
         {prompt}
       </div>
-      <DescriptionPanel
+      {/* <DescriptionPanel
         visible={descriptionVisible}
         onClickHide={handleClickHide}
         image={description.image}
@@ -108,7 +109,7 @@ function Description ({
         caption={imageCaption}
         offline={offline}
         bubbleY={Number.parseInt(infoBubbleEl.style.top)}
-      />
+      /> */}
     </>
   )
 }

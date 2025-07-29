@@ -13,6 +13,12 @@
   fill: var(--info-bubble-background);
 }
 
+.popup-controls-arrow.highlight {
+  &.highlight {
+    fill: var(--color-turquoise-100);
+  }
+}
+
 .floating-ui-wrapper {
   position: absolute;
   width: max-content;

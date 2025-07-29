@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import Triangle from './Triangle'
 import Description from './Description'
 import Warnings from './Warnings'
 
@@ -12,15 +11,16 @@ interface InfoBubbleLowerProps {
   updateBubbleDimensions: () => void
   infoBubbleEl: HTMLDivElement
   updateHoverPolygon: () => void
+  setArrowHighlighted: (v: boolean) => void
 }
 
 function InfoBubbleLower ({
   position,
   updateBubbleDimensions,
   infoBubbleEl,
-  updateHoverPolygon
+  updateHoverPolygon,
+  setArrowHighlighted
 }: InfoBubbleLowerProps): React.ReactElement {
-  const [isTriangleHighlighted, setTriangleHighlighted] = useState(false)
   const street = useSelector((state) => state.street)
 
   // Segment is undefined when position refers to a building
@@ -30,18 +30,17 @@ function InfoBubbleLower ({
   }
 
   function handleDescriptionOver (): void {
-    setTriangleHighlighted(true)
+    setArrowHighlighted(true)
   }
 
   function handleDescriptionOut (): void {
-    setTriangleHighlighted(false)
+    setArrowHighlighted(false)
   }
 
   return (
     <>
       <Warnings segment={segment} />
-      {/* <Triangle highlight={isTriangleHighlighted} /> */}
-      {/* {segment?.type !== undefined && (
+      {segment?.type !== undefined && (
         <Description
           type={segment.type}
           variantString={segment.variantString}
@@ -51,7 +50,7 @@ function InfoBubbleLower ({
           infoBubbleEl={infoBubbleEl}
           updateHoverPolygon={updateHoverPolygon}
         />
-      )} */}
+      )}
     </>
   )
 }

@@ -8,10 +8,15 @@ import './PopupControls.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
+type PopupControlContentProps = SectionElementTypeAndPosition & {
+  setArrowHighlighted: (v: boolean) => void
+}
+
 export function PopupControlContent ({
   type,
-  position
-}: SectionElementTypeAndPosition): React.ReactNode | null {
+  position,
+  setArrowHighlighted
+}: PopupControlContentProps): React.ReactNode | null {
   const classNames = ['popup-controls-content']
 
   if (type === 'boundary') {
@@ -23,7 +28,10 @@ export function PopupControlContent ({
       <TooltipGroup>
         <InfoBubbleHeader type={type} position={position} />
         <InfoBubbleControls type={type} position={position} />
-        <InfoBubbleLower position={position} />
+        <InfoBubbleLower
+          position={position}
+          setArrowHighlighted={setArrowHighlighted}
+        />
       </TooltipGroup>
     </div>
   )

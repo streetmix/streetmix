@@ -10,7 +10,6 @@ import Transition, {
 } from 'react-transition-group/Transition'
 
 import { app } from '~/src/preinit/app_settings'
-import Triangle from './Triangle'
 import './DescriptionPanel.css'
 
 const TRANSITION_DURATION = 250
@@ -21,7 +20,7 @@ const DEFAULT_STYLE = {
   transition: `opacity ${TRANSITION_DURATION}ms, transform ${TRANSITION_DURATION}ms`
 }
 const TRANSITION_STYLES: Partial<
-Record<TransitionStatus, React.CSSProperties>
+  Record<TransitionStatus, React.CSSProperties>
 > = {
   entering: {
     opacity: 1,
@@ -81,21 +80,9 @@ function DescriptionPanel ({
   offline = false
 }: DescriptionPanelProps): React.ReactElement {
   const nodeRef = useRef<HTMLDivElement>(null)
-  const [highlightTriangle, setHighlightTriangle] = useState(false)
-
-  function unhighlightTriangleDelayed (): void {
-    window.setTimeout(() => {
-      setHighlightTriangle(false)
-    }, 200)
-  }
-
-  function handleToggleHighlightTriangle (): void {
-    setHighlightTriangle(!highlightTriangle)
-  }
 
   function handleClickHide (event: React.MouseEvent): void {
     onClickHide(event)
-    unhighlightTriangleDelayed()
   }
 
   // TODO document magic numbers
@@ -161,15 +148,9 @@ function DescriptionPanel ({
               </div>
             </div>
           </div>
-          <div
-            className="description-close"
-            onClick={handleClickHide}
-            onMouseOver={handleToggleHighlightTriangle}
-            onMouseOut={handleToggleHighlightTriangle}
-          >
+          <div className="description-close" onClick={handleClickHide}>
             <FormattedMessage id="btn.close" defaultMessage="Close" />
           </div>
-          <Triangle highlight={highlightTriangle} />
         </div>
       )}
     </Transition>
