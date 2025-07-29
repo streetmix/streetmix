@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
 import { PopupControls } from '~/src/info_bubble/PopupControls'
-import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
+// import { infoBubble } from '../info_bubble/info_bubble'
+// import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {
@@ -52,9 +52,6 @@ function Segment (props: SliceProps): React.ReactNode {
     (state) => state.flags.ANALYTICS.value && state.street.showAnalytics
   )
   const locale = useSelector((state) => state.locale.locale)
-  const descriptionVisible = useSelector(
-    (state) => state.infoBubble.descriptionVisible
-  )
   const activeSegment = useSelector((state) =>
     typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   )
@@ -87,27 +84,27 @@ function Segment (props: SliceProps): React.ReactNode {
     isDragging
   })
 
-  useEffect(() => {
-    // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
-    // During a segment removal or a dragging action, the infoBubble temporarily does not appear
-    // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
-    // the active segment should be shown. The following IF statement checks to see if a removal
-    // or drag action occurred previously to this segment and displays the infoBubble for the
-    // segment if it is equal to the activeSegment and no infoBubble was shown already.
-    const wasDragging =
-      (prevProps?.isDragging && !isDragging) ||
-      (initialRender.current && activeSegment !== null)
+  // useEffect(() => {
+  //   // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
+  //   // During a segment removal or a dragging action, the infoBubble temporarily does not appear
+  //   // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
+  //   // the active segment should be shown. The following IF statement checks to see if a removal
+  //   // or drag action occurred previously to this segment and displays the infoBubble for the
+  //   // segment if it is equal to the activeSegment and no infoBubble was shown already.
+  //   const wasDragging =
+  //     (prevProps?.isDragging && !isDragging) ||
+  //     (initialRender.current && activeSegment !== null)
 
-    initialRender.current = false
+  //   initialRender.current = false
 
-    if (wasDragging && activeSegment === sliceIndex) {
-      infoBubble.considerShowing(
-        false,
-        streetSegment.current,
-        INFO_BUBBLE_TYPE_SEGMENT
-      )
-    }
-  }, [isDragging, activeSegment, sliceIndex])
+  //   if (wasDragging && activeSegment === sliceIndex) {
+  //     infoBubble.considerShowing(
+  //       false,
+  //       streetSegment.current,
+  //       INFO_BUBBLE_TYPE_SEGMENT
+  //     )
+  //   }
+  // }, [isDragging, activeSegment, sliceIndex])
 
   useEffect(() => {
     if (
@@ -145,16 +142,11 @@ function Segment (props: SliceProps): React.ReactNode {
     dispatch(setActiveSegment(sliceIndex))
 
     document.addEventListener('keydown', handleKeyDown)
-    // infoBubble.considerShowing(
-    //   event,
-    //   streetSegment.current,
-    //   INFO_BUBBLE_TYPE_SEGMENT
-    // )
   }
 
   function handleSegmentMouseLeave (): void {
+    dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
-    infoBubble.dontConsiderShowing()
   }
 
   function decrementWidth (position: number, finetune: boolean): void {
@@ -201,13 +193,9 @@ function Segment (props: SliceProps): React.ReactNode {
         break
       case 'Backspace':
       case 'Delete':
-        // Prevent deletion from occurring if the description is visible
-        if (descriptionVisible) return
-
         // If the shift key is pressed, we remove all segments
         if (event.shiftKey) {
           dispatch(clearSegmentsAction())
-          infoBubble.hide()
           dispatch(
             addToast({
               message: formatMessage(
@@ -218,8 +206,6 @@ function Segment (props: SliceProps): React.ReactNode {
             })
           )
         } else {
-          infoBubble.hide()
-          infoBubble.hideSegment()
           dispatch(
             addToast({
               message: formatMessage(
