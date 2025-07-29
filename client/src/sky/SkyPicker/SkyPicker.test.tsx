@@ -55,11 +55,7 @@ describe('SkyPicker', () => {
 
     vi.spyOn(uiSlice, 'toggleToolbox')
 
-    // waitFor animation to remove `pointer-events: none` from parent element
-    // This test is flaky if we don't wait.
-    await waitFor(async () => {
-      await userEvent.click(screen.getByTitle('Dismiss'))
-    })
+    await userEvent.click(screen.getByTitle('Dismiss'))
 
     expect(uiSlice.toggleToolbox).toBeCalled()
   })
