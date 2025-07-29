@@ -8,7 +8,7 @@ const resources = ['main', 'segment-info']
 
 // Check for Transifex API token in environment. It will be undefined if it is
 // not in the environment, and an empty string if it is present but not set
-const { TRANSIFEX_API_TOKEN } = process.env // eslint-disable-line @typescript-eslint/prefer-destructuring
+const { TRANSIFEX_API_TOKEN } = process.env
 if (TRANSIFEX_API_TOKEN === undefined || TRANSIFEX_API_TOKEN === '') {
   console.error('Error: please provide a Transifex API token.')
   process.exit()

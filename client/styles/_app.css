@@ -188,10 +188,10 @@ body.phone #loading {
 
 .privacy-link {
   position: absolute;
-  right: 1px;
+  left: -9999px; /* Move off-screen */
   bottom: 1px;
   text-decoration: none;
-  z-index: -1;
+  visibility: visible; /* Ensure it remains accessible */
 
   a {
     color: #eee;

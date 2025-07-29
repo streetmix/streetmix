@@ -197,6 +197,14 @@ export default defineConfig([
         typescript: true,
         node: true
       }
+    },
+    rules: {
+      // Turns off an error added in typescript-eslint v8 (?) that is much too
+      // strict re: unused variables that exist, like destructured
+      // arrays, try/catch errors, event handlers etc
+      // NOTE: this also blocks an error in eslint-config-love v97+:
+      // `A configuration object specifies rule "eslint-comments/require-description", but could not find plugin "eslint-comments".`
+      '@typescript-eslint/no-unused-vars': 'off'
     }
   },
   {
