@@ -1,6 +1,7 @@
 .floating-panel-container-outer {
   --floating-panel-border-radius: var(--border-radius-large);
   --floating-panel-box-shadow: var(--medium-box-shadow);
+  --floating-panel-background-color: white;
   --header-background-color: var(--color-turquoise-200);
   --header-text-color: var(--color-turquoise-900);
 
@@ -14,7 +15,7 @@
 }
 
 .floating-panel-container-inner {
-  background-color: white;
+  background-color: var(--floating-panel-background-color);
   border-radius: var(--floating-panel-border-radius);
   overflow: hidden;
   box-shadow: var(--floating-panel-box-shadow);
