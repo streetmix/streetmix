@@ -1,8 +1,0 @@
-.description-panel {
-  max-width: 350px;
-}
-
-.description {
-  min-height: 500px;
-  max-height: min(700px, 60vh);
-}

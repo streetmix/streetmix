@@ -112,29 +112,3 @@
     top: 1px;
   }
 }
-
-.info-bubble.show-description {
-  .variants {
-    pointer-events: none;
-  }
-
-  .non-variant {
-    pointer-events: none;
-  }
-
-  .warnings {
-    pointer-events: none;
-  }
-
-  .description-prompt {
-    pointer-events: none;
-  }
-
-  .description-close {
-    pointer-events: auto;
-  }
-
-  .description {
-    pointer-events: auto;
-  }
-}

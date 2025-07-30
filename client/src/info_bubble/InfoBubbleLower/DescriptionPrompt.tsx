@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useDispatch } from '~/src/store/hooks'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import { formatMessage } from '~/src/locales/locale'
 import { showDescription } from '~/src/store/slices/infoBubble'
-import DescriptionPanel from './DescriptionPanel'
-import './DescriptionPanel.css'
+import './DescriptionPrompt.css'
 
 import type { SliceDescription } from '@streetmix/types'
 
@@ -26,15 +25,13 @@ interface DescriptionProps {
   onMouseOut: () => void
 }
 
-function Description ({
+function DescriptionPrompt ({
   type,
   variantString,
   onMouseOver,
   onMouseOut
 }: DescriptionProps): React.ReactElement | null {
-  const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
-
   const description = getDescriptionData(type, variantString)
 
   function handleClickShow (): void {
@@ -63,33 +60,17 @@ function Description ({
       ns: 'segment-info'
     }
   )
-  const imageCaption = formatMessage(
-    `descriptions.${description.key}.imageCaption`,
-    undefined,
-    { ns: 'segment-info' }
-  )
 
   return (
-    <>
-      <div
-        className="description-prompt"
-        onClick={handleClickShow}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-      >
-        {prompt}
-      </div>
-      {/* <DescriptionPanel
-        visible={descriptionVisible}
-        onClickHide={handleClickHide}
-        image={description.image}
-        content={content}
-        caption={imageCaption}
-        offline={offline}
-        bubbleY={Number.parseInt(infoBubbleEl.style.top)}
-      /> */}
-    </>
+    <div
+      className="description-prompt"
+      onClick={handleClickShow}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+    >
+      {prompt}
+    </div>
   )
 }
 
-export default Description
+export default DescriptionPrompt

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import Description from './Description'
+import DescriptionPrompt from './DescriptionPrompt'
 import Warnings from './Warnings'
 
 import type { BoundaryPosition, Segment } from '@streetmix/types'
@@ -35,7 +35,7 @@ function InfoBubbleLower ({
     <>
       <Warnings segment={segment} />
       {segment?.type !== undefined && (
-        <Description
+        <DescriptionPrompt
           type={segment.type}
           variantString={segment.variantString}
           onMouseOver={handleDescriptionOver}

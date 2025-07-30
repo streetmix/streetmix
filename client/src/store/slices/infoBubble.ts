@@ -87,7 +87,8 @@ const infoBubbleSlice = createSlice({
 
     hideDescription (state) {
       state.descriptionVisible = false
-      state.descriptionData = null
+      // Keep data around for exit animation
+      // state.descriptionData = null
     }
   },
 

@@ -4,11 +4,10 @@ import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setSkybox } from '~/src/store/slices/street'
 import { hideDescription } from '~/src/store/slices/infoBubble'
 import { formatMessage } from '~/src/locales/locale'
 import FloatingPanel from '~/src/ui/FloatingPanel'
-import './NewDescriptionPanel.css'
+import './DescriptionPanel.css'
 
 function DescriptionPanel (): React.ReactElement | null {
   const show = useSelector((state) => state.infoBubble.descriptionVisible)
@@ -19,10 +18,6 @@ function DescriptionPanel (): React.ReactElement | null {
 
   function handleClose (): void {
     dispatch(hideDescription())
-  }
-
-  function handleSelect (id: string): void {
-    dispatch(setSkybox(id))
   }
 
   if (description === null) return null
@@ -58,11 +53,11 @@ function DescriptionPanel (): React.ReactElement | null {
 
   return (
     <FloatingPanel
-      icon="sun"
+      icon="book"
       title={
         <FormattedMessage
-          id="tools.skybox.heading"
-          defaultMessage="Environment"
+          id="segments.learn-more"
+          defaultMessage="Learn more"
         />
       }
       show={show}
@@ -70,38 +65,37 @@ function DescriptionPanel (): React.ReactElement | null {
       handleClose={handleClose}
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-        <div className="description">
-          <div className="description-content">
-            {description.image && (
-              <img
-                src={`/images/info-bubble-examples/${description.image}`}
-                alt={caption ?? ''}
-              />
+        <div className="description-content">
+          {description.image && (
+            <img
+              src={`/images/info-bubble-examples/${description.image}`}
+              alt={caption ?? ''}
+              draggable={false}
+            />
+          )}
+          <div className="description-text">
+            <ReactMarkdown
+              allowedElements={allowedElements}
+              unwrapDisallowed
+              rehypePlugins={[
+                [
+                  rehypeExternalLinks,
+                  { rel: 'noopener noreferrer', target: '_blank' }
+                ]
+              ]}
+            >
+              {content}
+            </ReactMarkdown>
+            {caption && (
+              <footer>
+                <FormattedMessage
+                  id="segments.description.photo-credit"
+                  defaultMessage="Photo:"
+                />
+                &nbsp;
+                {caption}
+              </footer>
             )}
-            <div className="description-text">
-              <ReactMarkdown
-                allowedElements={allowedElements}
-                unwrapDisallowed
-                rehypePlugins={[
-                  [
-                    rehypeExternalLinks,
-                    { rel: 'noopener noreferrer', target: '_blank' }
-                  ]
-                ]}
-              >
-                {content}
-              </ReactMarkdown>
-              {caption && (
-                <footer>
-                  <FormattedMessage
-                    id="segments.description.photo-credit"
-                    defaultMessage="Photo:"
-                  />
-                  &nbsp;
-                  {caption}
-                </footer>
-              )}
-            </div>
           </div>
         </div>
       </IntlProvider>
