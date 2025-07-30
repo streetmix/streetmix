@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { type SliceDescription } from '@streetmix/types'
+
 import { createAsyncThunkTyped as createAsyncThunk } from '../createAsyncThunk'
 import { startPrinting } from './app'
 
@@ -6,6 +8,7 @@ interface InfoBubbleState {
   visible: boolean
   mouseInside: boolean
   descriptionVisible: boolean
+  descriptionData: SliceDescription | null
   hoverPolygon: Array<[number, number]>
 }
 
@@ -13,6 +16,7 @@ const initialState: InfoBubbleState = {
   visible: false,
   mouseInside: false,
   descriptionVisible: false,
+  descriptionData: null,
   hoverPolygon: []
 }
 
@@ -76,12 +80,14 @@ const infoBubbleSlice = createSlice({
       state.mouseInside = action.payload
     },
 
-    showDescription (state) {
+    showDescription (state, action) {
       state.descriptionVisible = true
+      state.descriptionData = action.payload
     },
 
     hideDescription (state) {
       state.descriptionVisible = false
+      state.descriptionData = null
     }
   },
 

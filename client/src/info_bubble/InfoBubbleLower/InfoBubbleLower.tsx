@@ -8,17 +8,11 @@ import type { BoundaryPosition, Segment } from '@streetmix/types'
 
 interface InfoBubbleLowerProps {
   position: number | BoundaryPosition
-  updateBubbleDimensions: () => void
-  infoBubbleEl: HTMLDivElement
-  updateHoverPolygon: () => void
   setArrowHighlighted: (v: boolean) => void
 }
 
 function InfoBubbleLower ({
   position,
-  updateBubbleDimensions,
-  infoBubbleEl,
-  updateHoverPolygon,
   setArrowHighlighted
 }: InfoBubbleLowerProps): React.ReactElement {
   const street = useSelector((state) => state.street)
@@ -44,11 +38,8 @@ function InfoBubbleLower ({
         <Description
           type={segment.type}
           variantString={segment.variantString}
-          updateBubbleDimensions={updateBubbleDimensions}
           onMouseOver={handleDescriptionOver}
           onMouseOut={handleDescriptionOut}
-          infoBubbleEl={infoBubbleEl}
-          updateHoverPolygon={updateHoverPolygon}
         />
       )}
     </>
