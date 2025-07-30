@@ -38,12 +38,14 @@ const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
 
 type PopupControlsProps = SectionElementTypeAndPosition & {
+  isDragging: boolean
   children: React.ReactElement
 }
 
 export function PopupControls ({
   type,
   position,
+  isDragging,
   children
 }: PopupControlsProps): React.ReactNode {
   const element = useSelector((state) => {
@@ -59,7 +61,7 @@ export function PopupControls ({
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context, middlewareData } = useFloating({
     nodeId,
-    open: isOpen,
+    open: isOpen && !isDragging,
     onOpenChange: setIsOpen,
     placement: 'top',
     whileElementsMounted: autoUpdate,

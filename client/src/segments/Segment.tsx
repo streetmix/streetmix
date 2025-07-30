@@ -59,8 +59,6 @@ function Segment (props: SliceProps): React.ReactNode {
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
-  // What is this?
-  const initialRender = useRef(true)
   const streetSegment = useRef<HTMLDivElement>(null)
   const dndRef = useRef<HTMLDivElement>(null)
 
@@ -83,28 +81,6 @@ function Segment (props: SliceProps): React.ReactNode {
     segment,
     isDragging
   })
-
-  // useEffect(() => {
-  //   // TODO: there should be checks if the calls to the prop methods should be made in the first place. see discussion here: https://github.com/streetmix/streetmix/pull/1227#discussion_r263536187
-  //   // During a segment removal or a dragging action, the infoBubble temporarily does not appear
-  //   // for the hovered/dragged segment. Once the removal or drag action ends, the infoBubble for
-  //   // the active segment should be shown. The following IF statement checks to see if a removal
-  //   // or drag action occurred previously to this segment and displays the infoBubble for the
-  //   // segment if it is equal to the activeSegment and no infoBubble was shown already.
-  //   const wasDragging =
-  //     (prevProps?.isDragging && !isDragging) ||
-  //     (initialRender.current && activeSegment !== null)
-
-  //   initialRender.current = false
-
-  //   if (wasDragging && activeSegment === sliceIndex) {
-  //     infoBubble.considerShowing(
-  //       false,
-  //       streetSegment.current,
-  //       INFO_BUBBLE_TYPE_SEGMENT
-  //     )
-  //   }
-  // }, [isDragging, activeSegment, sliceIndex])
 
   useEffect(() => {
     if (
@@ -138,7 +114,7 @@ function Segment (props: SliceProps): React.ReactNode {
     }
   }
 
-  function handleSegmentMouseEnter (event: React.MouseEvent): void {
+  function handleSegmentMouseEnter (): void {
     dispatch(setActiveSegment(sliceIndex))
 
     document.addEventListener('keydown', handleKeyDown)
@@ -288,12 +264,11 @@ function Segment (props: SliceProps): React.ReactNode {
       style={segmentStyle}
       className={classNames.join(' ')}
       data-testid="segment"
-      // data-slice-index={sliceIndex}
       ref={streetSegment}
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}
     >
-      <PopupControls type="slice" position={sliceIndex}>
+      <PopupControls type="slice" position={sliceIndex} isDragging={isDragging}>
         <button data-slice-index={sliceIndex}>
           <SegmentLabelContainer
             label={displayName}

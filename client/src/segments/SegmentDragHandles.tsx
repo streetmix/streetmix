@@ -25,18 +25,18 @@ function SegmentDragHandles ({
 
   return (
     <>
-      <span
+      <div
         className="drag-handle drag-handle-left"
         style={{ display, left: adjustX }}
       >
         <Icon name="chevron-left" />
-      </span>
-      <span
+      </div>
+      <div
         className="drag-handle drag-handle-right"
         style={{ display, right: adjustX }}
       >
         <Icon name="chevron-right" />
-      </span>
+      </div>
     </>
   )
 }
