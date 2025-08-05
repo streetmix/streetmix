@@ -29,17 +29,15 @@
   }
 
   @media only screen and (width >= 640px) {
-    & {
-      text-align: center;
+    text-align: center;
 
-      .checkbox-item {
-        display: inline-block;
-        margin-inline-start: 20px;
-      }
+    .checkbox-item {
+      display: inline-block;
+      margin-inline-start: 20px;
+    }
 
-      .checkbox-item:first-of-type {
-        margin-inline-start: 0;
-      }
+    .checkbox-item:first-of-type {
+      margin-inline-start: 0;
     }
   }
 }

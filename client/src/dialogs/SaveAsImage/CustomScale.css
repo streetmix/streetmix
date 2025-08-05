@@ -4,9 +4,7 @@
   flex-direction: column;
 
   @media only screen and (width >= 640px) {
-    & {
-      flex-direction: row;
-    }
+    flex-direction: row;
   }
 }
 
