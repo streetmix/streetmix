@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
 import { PopupControls } from '~/src/info_bubble/PopupControls'
-// import { infoBubble } from '../info_bubble/info_bubble'
-// import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {

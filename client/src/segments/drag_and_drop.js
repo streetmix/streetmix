@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
@@ -23,7 +22,6 @@ import {
   handleSegmentResizeEnd,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  hideControls,
   cancelSegmentResizeTransitions
 } from './resizing'
 import { getVariantInfo, getVariantString } from './variant_utils'
@@ -122,10 +120,6 @@ function handleSegmentResizeStart (event) {
   draggingResize.segmentEl = el.parentNode
 
   draggingResize.segmentEl.classList.add('hover')
-
-  infoBubble.hide()
-  infoBubble.hideSegment(true)
-  hideControls()
 
   window.setTimeout(function () {
     draggingResize.segmentEl.classList.add('hover')
@@ -407,11 +401,6 @@ export function onBodyMouseUp (event) {
   event.preventDefault()
 }
 
-function handleSegmentDragStart () {
-  infoBubble.hide()
-  hideControls()
-}
-
 function handleSegmentDragEnd () {
   oldDraggingState = null
   cancelSegmentResizeTransitions()
@@ -532,8 +521,6 @@ export function createSliceDragSpec (props) {
   return {
     type: Types.SLICE,
     item: () => {
-      handleSegmentDragStart()
-
       store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
       return {
@@ -580,8 +567,6 @@ export function createPaletteItemDragSpec (segment) {
   return {
     type: Types.PALETTE,
     item: () => {
-      handleSegmentDragStart()
-
       // Initialize an empty draggingState object in Redux for palette segments
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and

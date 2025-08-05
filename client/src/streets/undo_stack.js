@@ -1,5 +1,4 @@
 import clone from 'just-clone'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { cancelSegmentResizeTransitions } from '../segments/resizing'
 import store from '../store'
 import { updateStreetData } from '../store/slices/street'
@@ -21,10 +20,6 @@ export function finishUndoOrRedo () {
   cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()
-
-  infoBubble.hide()
-  infoBubble.hideSegment()
-  infoBubble.dontConsiderShowing()
 
   updateEverything(true)
 }

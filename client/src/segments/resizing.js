@@ -1,7 +1,5 @@
 import { round } from '@streetmix/utils'
 
-import { infoBubble } from '../info_bubble/info_bubble'
-import { INFO_BUBBLE_TYPE_SEGMENT } from '../info_bubble/constants'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
@@ -128,15 +126,6 @@ export function handleSegmentResizeEnd (event) {
   el.remove()
 
   draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
-
-  infoBubble.considerSegmentEl = draggingResize.segmentEl
-  infoBubble.show()
-
-  infoBubble.considerShowing(
-    event,
-    draggingResize.segmentEl,
-    INFO_BUBBLE_TYPE_SEGMENT
-  )
 }
 
 /**
@@ -249,17 +238,6 @@ export function normalizeAllSegmentWidths (segments, units) {
       resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
     )
   }))
-}
-
-export function hideControls () {
-  if (infoBubble.segmentEl) {
-    infoBubble.segmentEl.classList.remove('show-drag-handles')
-
-    window.setTimeout(function () {
-      infoBubble.hide()
-      infoBubble.hideSegment(true)
-    }, 0)
-  }
 }
 
 export function cancelSegmentResizeTransitions () {

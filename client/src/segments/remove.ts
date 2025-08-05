@@ -1,4 +1,3 @@
-import { infoBubble } from '../info_bubble/info_bubble'
 import { formatMessage } from '../locales/locale'
 import {
   removeSegment as removeSegmentActionCreator,
@@ -12,11 +11,7 @@ import { segmentsChanged } from './view'
  * Removes a given segment at `position`
  */
 export function removeSegment (position: number): void {
-  infoBubble.hide()
-
-  // This makes sure that the drag handles on the segment
-  // don't appear briefly after animating away
-  infoBubble.hideSegment()
+  // TODO: handle new popup controls (formerly infobubble) here
 
   // Update the store
   // ToDo: Refactor all other methods that use this to update the store via there dispatch
@@ -42,7 +37,6 @@ export function removeSegment (position: number): void {
 export function removeAllSegments (): void {
   store.dispatch(clearSegments())
   segmentsChanged()
-  infoBubble.hide()
   store.dispatch(
     addToast({
       message: formatMessage(

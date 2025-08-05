@@ -7,7 +7,6 @@ import { FloatingTree } from '@floating-ui/react'
 
 import MenusContainer from '../menubar/MenusContainer'
 import StreetNameplateContainer from '../streets/StreetNameplateContainer'
-import InfoBubble from '../info_bubble/InfoBubble'
 import DescriptionPanel from '../info_bubble/DescriptionPanel'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
@@ -77,7 +76,6 @@ function App (): React.ReactElement {
                 <div className="main-screen">
                   <MenusContainer />
                   <StreetNameplateContainer />
-                  {/* <InfoBubble /> */}
                   <DescriptionPanel />
                   <WelcomePanel />
                   <PaletteContainer />

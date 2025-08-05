@@ -8,7 +8,6 @@ import { formatMessage } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { STREET_TEMPLATES } from '../app/constants'
 import { goNewStreet } from '../app/routing'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -220,8 +219,6 @@ function receiveStreetForVerification (transmission) {
         )
       })
     )
-
-    infoBubble.suppress()
 
     unpackServerStreetData(transmission, null, null, false)
 

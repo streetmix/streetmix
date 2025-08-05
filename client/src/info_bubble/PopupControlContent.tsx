@@ -7,8 +7,6 @@ import { setInfoBubbleMouseInside } from '../store/slices/infoBubble'
 import InfoBubbleControls from './InfoBubbleControls'
 import InfoBubbleHeader from './InfoBubbleHeader'
 import InfoBubbleLower from './InfoBubbleLower'
-import './PopupControls.css'
-import './InfoBubble.css' // TODO: combine
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 

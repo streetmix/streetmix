@@ -95,11 +95,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 <input
                   checked=""
                   disabled=""
-                  id="«r5»"
+                  id="«r6»"
                   type="checkbox"
                 />
                 <label
-                  for="«r5»"
+                  for="«r6»"
                 >
                   Watermark 
                   <svg
@@ -133,7 +133,7 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                   class="custom-scale-popover"
                 >
                   <button
-                    aria-controls="radix-«r6»"
+                    aria-controls="radix-«r7»"
                     aria-expanded="false"
                     aria-haspopup="dialog"
                     class="popover-trigger"

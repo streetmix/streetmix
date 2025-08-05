@@ -12,71 +12,74 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
       <div>
         <div
           class="segment active show-drag-handles warning"
-          data-slice-index="0"
           data-testid="segment"
           style="width: 4724.409449px; z-index: 15; transform: translateX(0px);"
         >
-          <div
-            class="segment-label-container"
+          <button
+            data-slice-index="0"
           >
             <div
-              class="segment-grid units-metric"
-            />
-            <div
-              class="segment-width"
+              class="segment-label-container"
             >
-              <span>
-                120 m
-              </span>
+              <div
+                class="segment-grid units-metric"
+              />
+              <div
+                class="segment-width"
+              >
+                <span>
+                  120 m
+                </span>
+              </div>
+              <div
+                class="segment-label"
+              >
+                <p
+                  class="segment-name"
+                >
+                  Streetcar
+                </p>
+                <p
+                  class="segment-capacity"
+                >
+                  18,000 people/hr
+                </p>
+              </div>
             </div>
             <div
-              class="segment-label"
+              class="drag-handle drag-handle-left"
             >
-              <p
-                class="segment-name"
-              >
-                Streetcar
-              </p>
-              <p
-                class="segment-capacity"
-              >
-                18,000 people/hr
-              </p>
-            </div>
-          </div>
-          <span
-            class="drag-handle drag-handle-left"
-          >
-            <svg
-              data-icon="chevron-left"
-              data-icon-source="test"
-            />
-          </span>
-          <span
-            class="drag-handle drag-handle-right"
-          >
-            <svg
-              data-icon="chevron-right"
-              data-icon-source="test"
-            />
-          </span>
-          <div
-            class="segment-canvas-container"
-          >
-            <div
-              style="width: 100%; height: 100%;"
-            >
-              <canvas
-                class="segment-image"
-                height="500"
-                style="width: 4724px; height: 500px; left: 0px;"
-                width="4724"
+              <svg
+                data-icon="chevron-left"
+                data-icon-source="test"
               />
             </div>
-          </div>
-          <div
-            class="active-bg"
-          />
+            <div
+              class="drag-handle drag-handle-right"
+            >
+              <svg
+                data-icon="chevron-right"
+                data-icon-source="test"
+              />
+            </div>
+            <div
+              class="segment-canvas-container"
+            >
+              <div
+                style="width: 100%; height: 100%;"
+              >
+                <canvas
+                  class="segment-image"
+                  height="500"
+                  style="width: 4724px; height: 500px; left: 0px;"
+                  width="4724"
+                />
+              </div>
+            </div>
+            <div
+              class="active-bg"
+            />
+          </button>
         </div>
       </div>
     </div>

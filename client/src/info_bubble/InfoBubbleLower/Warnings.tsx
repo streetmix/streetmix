@@ -9,6 +9,7 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_LARGE,
   SEGMENT_WARNING_DANGEROUS_EXISTING
 } from '~/src/segments/constants'
+import './Warnings.css'
 
 import type { Segment } from '@streetmix/types'
 

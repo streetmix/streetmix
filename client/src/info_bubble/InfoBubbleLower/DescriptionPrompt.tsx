@@ -35,6 +35,7 @@ function DescriptionPrompt ({
   const description = getDescriptionData(type, variantString)
 
   function handleClickShow (): void {
+    console.log(description)
     dispatch(showDescription(description))
   }
 
