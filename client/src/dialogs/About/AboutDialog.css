@@ -2,9 +2,7 @@
   max-width: 820px;
 
   @media only screen and (width > 768px) {
-    & {
-      max-height: 75vh !important;
-    }
+    max-height: 75vh !important;
   }
 
   /* Used by team list and external links */

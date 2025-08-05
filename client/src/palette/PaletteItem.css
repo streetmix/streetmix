@@ -45,9 +45,7 @@
   transition: transform 0.08s cubic-bezier(0, 2.5, 1, 1);
 
   @media (prefers-reduced-motion) {
-    & {
-      transition: none;
-    }
+    transition: none;
   }
 }
 
