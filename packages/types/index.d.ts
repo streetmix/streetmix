@@ -312,7 +312,11 @@ export interface SpriteDefinition {
   originY?: number
 }
 
+export type SectionType = 'boundary' | 'slice'
 export type BoundaryPosition = 'left' | 'right'
+export type SectionElementTypeAndPosition =
+  | { type: Extract<SectionType, 'slice'>; position: number }
+  | { type: Extract<SectionType, 'boundary'>; position: BoundaryPosition }
 
 interface BoundaryDefinitionBase {
   id: string

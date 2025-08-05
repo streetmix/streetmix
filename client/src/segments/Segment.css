@@ -7,6 +7,15 @@
   text-align: center;
   perspective: 500px;
   touch-action: none;
+
+  > button {
+    width: 100%;
+    height: 100%;
+
+    body:not(.read-only) & {
+      cursor: grab;
+    }
+  }
 }
 
 .segment-canvas-container {
@@ -39,10 +48,6 @@ body.immediate-segment-resize .segment {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-}
-
-body:not(.read-only) .segment {
-  cursor: grab;
 }
 
 .segment.dragged-out {

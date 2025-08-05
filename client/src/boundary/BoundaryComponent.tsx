@@ -7,12 +7,7 @@ import {
   removeBuildingFloor
 } from '~/src/store/slices/street'
 import { usePrevious } from '~/src/util/usePrevious'
-import {
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from '../info_bubble/constants'
-import { infoBubble } from '../info_bubble/info_bubble'
-import { BOUNDARY_LEFT_POSITION, BOUNDARY_RIGHT_POSITION } from './constants'
+import { PopupControls } from '../info_bubble/PopupControls'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
@@ -126,8 +121,8 @@ function Boundary ({
   const oldRef = useRef(null)
 
   const isEditable = !(
-    (!leftBoundaryEditable && position === BOUNDARY_LEFT_POSITION) ||
-    (!rightBoundaryEditable && position === BOUNDARY_RIGHT_POSITION)
+    (!leftBoundaryEditable && position === 'left') ||
+    (!rightBoundaryEditable && position === 'right')
   )
   const variant = street.boundary[position].variant
   const floors = street.boundary[position].floors
@@ -219,16 +214,6 @@ function Boundary ({
     if (!isEditable) return
 
     document.addEventListener('keydown', handleKeyDown)
-
-    let type
-
-    if (position === BOUNDARY_LEFT_POSITION) {
-      type = INFO_BUBBLE_TYPE_LEFT_BUILDING
-    } else if (position === BOUNDARY_RIGHT_POSITION) {
-      type = INFO_BUBBLE_TYPE_RIGHT_BUILDING
-    }
-
-    infoBubble.considerShowing(event, el, type)
   }
 
   function handleElementMouseLeave (): void {
@@ -238,10 +223,6 @@ function Boundary ({
     if (!isEditable) return
 
     document.removeEventListener('keydown', handleKeyDown)
-
-    if (infoBubble.considerSegmentEl === el) {
-      infoBubble.dontConsiderShowing()
-    }
   }
 
   function changeRefs (
@@ -293,17 +274,21 @@ function Boundary ({
     // node. This is wrapping the existing <section> to preserve existing
     // node switching functionality
     return (
-      <button className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <section
-          ref={(ref) => {
-            changeRefs(ref, isPreviousElement)
-          }}
-          onMouseEnter={handleElementMouseEnter}
-          onMouseLeave={handleElementMouseLeave}
-        />
-        <div className="active-bg" />
-        <div className="boundary-dirt" style={elevationStyle} />
-      </button>
+      <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
+        <PopupControls type="boundary" position={position}>
+          <button>
+            <section
+              ref={(ref) => {
+                changeRefs(ref, isPreviousElement)
+              }}
+              onMouseEnter={handleElementMouseEnter}
+              onMouseLeave={handleElementMouseLeave}
+            />
+            <div className="active-bg" />
+            <div className="boundary-dirt" style={elevationStyle} />
+          </button>
+        </PopupControls>
+      </div>
     )
   }
 

@@ -10,41 +10,27 @@ import { segmentsChanged } from '~/src/segments/view'
 import { getSegmentInfo } from '~/src/segments/info'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils'
-import {
-  BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
-} from '~/src/segments/constants'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
-import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from '../constants'
+import { Tooltip } from '~/src/ui/Tooltip'
 
-import type { BoundaryPosition } from '@streetmix/types'
+import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-interface VariantsProps {
-  type: number
-  position: number | BoundaryPosition
-}
-
-function Variants (props: VariantsProps): React.ReactElement | null {
+function Variants (
+  props: SectionElementTypeAndPosition
+): React.ReactElement | null {
   const { type, position } = props
 
   // Get the appropriate variant information
   const variant = useSelector((state) => {
-    if (position === BUILDING_LEFT_POSITION) {
-      return state.street.boundary.left.variant
-    } else if (position === BUILDING_RIGHT_POSITION) {
-      return state.street.boundary.right.variant
-    } else if (typeof position === 'number') {
+    if (type === 'boundary') {
+      return state.street.boundary[position].variant
+    } else {
       return state.street.segments[position].variantString
     }
   })
   const segment = useSelector((state) => {
-    if (typeof position === 'number') {
+    if (type === 'slice') {
       return state.street.segments[position]
     }
 
@@ -58,13 +44,12 @@ function Variants (props: VariantsProps): React.ReactElement | null {
 
   let variantSets: string[] = []
   switch (type) {
-    case INFO_BUBBLE_TYPE_SEGMENT: {
+    case 'slice': {
       const { variants } = getSegmentInfo(segment.type)
       variantSets = variants
       break
     }
-    case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-    case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+    case 'boundary':
       variantSets = Object.keys(VARIANT_ICONS.building)
       break
     default:
@@ -78,15 +63,14 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     let bool = false
 
     switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT: {
+      case 'slice': {
         if (segment) {
           const obj = getVariantInfo(segment.type, variant)
           bool = selection === obj[set as keyof typeof obj]
         }
         break
       }
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+      case 'boundary':
         bool = selection === variant
         break
       default:
@@ -101,20 +85,15 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     let handler
 
     switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT:
+      case 'slice':
         handler = () => {
           dispatch(changeSegmentVariant(position, set, selection))
           segmentsChanged()
         }
         break
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
+      case 'boundary':
         handler = () => {
-          dispatch(setBuildingVariant(BUILDING_LEFT_POSITION, selection))
-        }
-        break
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
-        handler = () => {
-          dispatch(setBuildingVariant(BUILDING_RIGHT_POSITION, selection))
+          dispatch(setBuildingVariant(position, selection))
         }
         break
       default:
@@ -216,7 +195,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
     const variantEls = []
 
     switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT: {
+      case 'slice': {
         let first = true
 
         // Each segment has some allowed variant sets (e.g. "direction")
@@ -243,8 +222,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
 
         break
       }
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
+      case 'boundary': {
         const els = variantSets.map((building) =>
           renderButton('building', building)
         )
@@ -261,11 +239,7 @@ function Variants (props: VariantsProps): React.ReactElement | null {
   // Do not render this component if there are no variants to select
   if (variantSets.length === 0) return null
 
-  return (
-    <div className="variants">
-      <TooltipGroup>{renderVariantsSelection()}</TooltipGroup>
-    </div>
-  )
+  return <div className="variants">{renderVariantsSelection()}</div>
 }
 
 export default Variants

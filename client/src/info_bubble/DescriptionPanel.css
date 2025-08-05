@@ -1,0 +1,46 @@
+.description-panel {
+  max-width: 350px;
+}
+
+.description-content {
+  min-height: 500px;
+  max-height: min(700px, 60vh);
+  font-weight: 300;
+  line-height: 1.4;
+  overflow: hidden auto;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin: 1em 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  footer {
+    color: rgb(160 160 160);
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+
+.description-text {
+  padding: 1em;
+  font-size: 16px;
+
+  h1 {
+    font-size: 1.5em;
+    font-weight: 300;
+    line-height: 1.25;
+    margin-top: 0;
+  }
+}

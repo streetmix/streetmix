@@ -5,29 +5,21 @@ import { useSelector } from '~/src/store/hooks'
 import { getBoundaryItem } from '~/src/boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
-import {
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING,
-  INFO_BUBBLE_TYPE_SEGMENT
-} from '../constants'
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'
 
-interface InfoBubbleHeaderProps {
-  type: number
-  position: number | BoundaryPosition
-}
-
-function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
+function InfoBubbleHeader (
+  props: SectionElementTypeAndPosition
+): React.ReactElement {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
   const street = useSelector((state) => state.street)
 
   // Segment is undefined when position refers to a building
   let segment: Segment | undefined
-  if (typeof position === 'number') {
+  if (type === 'slice') {
     segment = street.segments[position]
   }
 
@@ -39,17 +31,17 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
     let id
     let defaultMessage = ''
 
-    // Return label if provided
-    if (type === INFO_BUBBLE_TYPE_SEGMENT) {
-      if (segment?.label !== undefined) {
-        return segment.label
-      }
-    }
-
-    // Otherwise need to do a lookup
     switch (type) {
-      case INFO_BUBBLE_TYPE_SEGMENT: {
-        if (segment !== undefined) {
+      case 'slice': {
+        if (segment === undefined) {
+          break
+        }
+
+        // Return label if provided
+        if (segment?.label !== undefined) {
+          return segment.label
+        } else {
+          // Otherwise need to do a lookup
           const segmentInfo = getSegmentInfo(segment.type)
           const variantInfo = getSegmentVariantInfo(
             segment.type,
@@ -62,16 +54,8 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
         }
         break
       }
-      case INFO_BUBBLE_TYPE_LEFT_BUILDING: {
-        const key = street.boundary.left.variant
-
-        id = `buildings.${key}.name`
-        defaultMessage = getBoundaryItem(key).label
-
-        break
-      }
-      case INFO_BUBBLE_TYPE_RIGHT_BUILDING: {
-        const key = street.boundary.right.variant
+      case 'boundary': {
+        const key = street.boundary[position].variant
 
         id = `buildings.${key}.name`
         defaultMessage = getBoundaryItem(key).label
@@ -96,7 +80,7 @@ function InfoBubbleHeader (props: InfoBubbleHeaderProps): React.ReactElement {
   return (
     <header>
       <EditableLabel label={getLabel()} segment={segment} position={position} />
-      {typeof position === 'number' && <RemoveButton segment={position} />}
+      {type === 'slice' && <RemoveButton segment={position} />}
     </header>
   )
 }

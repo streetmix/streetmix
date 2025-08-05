@@ -44,10 +44,6 @@
     "defaultValue": false,
     "enabled": false
   },
-  "INFO_BUBBLE_HOVER_POLYGON": {
-    "label": "Info bubble — [debug] show Tognazzini zone",
-    "defaultValue": false
-  },
   "ELEVATION_CONTROLS_UNLOCKED": {
     "label": "Info bubble — elevation property controls (unlocked)",
     "defaultValue": false

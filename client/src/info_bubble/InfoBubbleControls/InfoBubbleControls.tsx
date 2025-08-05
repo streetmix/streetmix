@@ -2,26 +2,16 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
-import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from '../constants'
 import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import ElevationControl from './ElevationControl'
 import './InfoBubbleControls.css'
 
-import type { BoundaryPosition } from '@streetmix/types'
-
-interface InfoBubbleControlsProps {
-  type: number // Info bubble type
-  position: number | BoundaryPosition
-}
+import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
 function InfoBubbleControls (
-  props: InfoBubbleControlsProps
+  props: SectionElementTypeAndPosition
 ): React.ReactElement {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
@@ -30,11 +20,10 @@ function InfoBubbleControls (
   // Determine width or height control type
   let widthOrHeightControl
   switch (type) {
-    case INFO_BUBBLE_TYPE_SEGMENT:
+    case 'slice':
       widthOrHeightControl = <WidthControl position={position} />
       break
-    case INFO_BUBBLE_TYPE_LEFT_BUILDING:
-    case INFO_BUBBLE_TYPE_RIGHT_BUILDING:
+    case 'boundary':
       widthOrHeightControl = <BuildingHeightControl position={position} />
       break
     default:
@@ -44,11 +33,13 @@ function InfoBubbleControls (
 
   return (
     <div className="info-bubble-controls">
-      <div className="info-bubble-control-row">
-        <IntlProvider locale={locale} messages={segmentInfo}>
-          <Variants type={type} position={position} />
-        </IntlProvider>
-        {widthOrHeightControl}
+      <div className="info-bubble-control-group">
+        <div className="info-bubble-control-row">
+          <IntlProvider locale={locale} messages={segmentInfo}>
+            <Variants type={type} position={position} />
+          </IntlProvider>
+          {widthOrHeightControl}
+        </div>
       </div>
       {/* Only enabled for segments right now or Coastmix mode */}
       {(coastmixMode || typeof position === 'number') && (

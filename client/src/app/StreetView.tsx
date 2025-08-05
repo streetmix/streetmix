@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from '~/src/store/hooks'
 import { usePrevious } from '~/src/util/usePrevious'
 import { Boundary } from '~/src/boundary'
+import { PopupControlsGroup } from '~/src/info_bubble/PopupControls'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { animate, getElAbsolutePos } from '../util/helpers'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants'
 import {
@@ -169,8 +169,6 @@ function StreetView (): React.ReactElement {
    * Event handler for street scrolling.
    */
   function handleStreetScroll (event: React.UIEvent<HTMLDivElement>): void {
-    infoBubble.suppress()
-
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {
@@ -290,27 +288,29 @@ function StreetView (): React.ReactElement {
         ref={sectionEl}
       >
         <section id="street-section-inner">
-          <section id="street-section-canvas" ref={sectionCanvasEl}>
-            <Boundary
-              position="left"
-              width={boundaryWidth}
-              updatePerspective={updatePerspective}
-            />
-            <Boundary
-              position="right"
-              width={boundaryWidth}
-              updatePerspective={updatePerspective}
-            />
-            <StreetEditable
-              resizeType={resizeType}
-              setBoundaryWidth={getBoundaryWidth}
-              updatePerspective={updatePerspective}
-              draggingType={draggingType}
-            />
-            <ResizeGuides />
-            <EmptySegmentContainer />
-            <section className="street-section-ground" />
-          </section>
+          <PopupControlsGroup>
+            <section id="street-section-canvas" ref={sectionCanvasEl}>
+              <Boundary
+                position="left"
+                width={boundaryWidth}
+                updatePerspective={updatePerspective}
+              />
+              <StreetEditable
+                resizeType={resizeType}
+                setBoundaryWidth={getBoundaryWidth}
+                updatePerspective={updatePerspective}
+                draggingType={draggingType}
+              />
+              <Boundary
+                position="right"
+                width={boundaryWidth}
+                updatePerspective={updatePerspective}
+              />
+              <ResizeGuides />
+              <EmptySegmentContainer />
+              <section className="street-section-ground" />
+            </section>
+          </PopupControlsGroup>
           <ScrollIndicators
             left={scrollIndicators.left}
             right={scrollIndicators.right}

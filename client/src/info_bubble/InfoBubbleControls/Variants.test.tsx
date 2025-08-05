@@ -5,11 +5,6 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
-import {
-  INFO_BUBBLE_TYPE_SEGMENT,
-  INFO_BUBBLE_TYPE_LEFT_BUILDING,
-  INFO_BUBBLE_TYPE_RIGHT_BUILDING
-} from '../constants'
 import Variants from './Variants'
 
 import type { SegmentDefinition } from '@streetmix/types'
@@ -59,19 +54,17 @@ describe('Variants', () => {
     })
 
     it('renders segment buttons', () => {
-      const { asFragment } = render(
-        <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
-        { initialState }
-      )
+      const { asFragment } = render(<Variants type="slice" position={0} />, {
+        initialState
+      })
 
       expect(asFragment()).toMatchSnapshot()
     })
 
     it('handles switching segment variant', async () => {
-      const { store } = render(
-        <Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />,
-        { initialState }
-      )
+      const { store } = render(<Variants type="slice" position={0} />, {
+        initialState
+      })
 
       await userEvent.click(screen.getByTestId('Outbound'))
       expect(store.getState().street.segments[0].variant.direction).toBe(
@@ -85,20 +78,18 @@ describe('Variants', () => {
 
   describe('building variants', () => {
     it('handles switching left building', async () => {
-      const { store } = render(
-        <Variants type={INFO_BUBBLE_TYPE_LEFT_BUILDING} position="left" />,
-        { initialState }
-      )
+      const { store } = render(<Variants type="boundary" position="left" />, {
+        initialState
+      })
 
       await userEvent.click(screen.getByTestId('Waterfront'))
       expect(store.getState().street.boundary.left.variant).toBe('waterfront')
     })
 
     it('handles switching right building', async () => {
-      const { store } = render(
-        <Variants type={INFO_BUBBLE_TYPE_RIGHT_BUILDING} position="right" />,
-        { initialState }
-      )
+      const { store } = render(<Variants type="boundary" position="right" />, {
+        initialState
+      })
 
       await userEvent.click(screen.getByTestId('Waterfront'))
       expect(store.getState().street.boundary.right.variant).toBe('waterfront')
@@ -114,7 +105,7 @@ describe('Variants', () => {
     })
 
     it('renders a button if flag is true', () => {
-      render(<Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />, {
+      render(<Variants type="slice" position={0} />, {
         initialState: {
           ...initialState,
           flags: {
@@ -129,7 +120,7 @@ describe('Variants', () => {
     })
 
     it('does not render a button if flag is false', () => {
-      render(<Variants type={INFO_BUBBLE_TYPE_SEGMENT} position={0} />, {
+      render(<Variants type="slice" position={0} />, {
         initialState: {
           ...initialState,
           flags: {

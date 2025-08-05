@@ -33,6 +33,7 @@ import {
   FiX
 } from 'react-icons/fi'
 import {
+  IoBookOutline,
   IoCartOutline,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
@@ -60,6 +61,7 @@ import googleIcon from 'url:./icons/google.svg'
 const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
+  book: [IoBookOutline, 'io5'],
   cart: [IoCartOutline, 'io5'],
   check: [FaCheck, 'fa'],
   'chevron-down': [FiChevronDown, 'feather'],

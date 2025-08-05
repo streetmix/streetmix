@@ -4,7 +4,6 @@ import { userEvent } from '@testing-library/user-event'
 import { screen } from '@testing-library/dom'
 
 import { render } from '~/test/helpers/render'
-import { infoBubble } from '~/src/info_bubble/info_bubble'
 import { setLastStreet } from '~/src/streets/data_model'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import Segment from './Segment'
@@ -59,43 +58,6 @@ describe('Segment', () => {
     )
 
     expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('shows the info bubble on mouseover', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <Segment
-        segment={segment}
-        sliceIndex={activeElement}
-        segmentLeft={0}
-        units={SETTINGS_UNITS_METRIC}
-      />,
-      { initialState }
-    )
-
-    await user.hover(screen.getByTestId('segment'))
-
-    expect(infoBubble.considerShowing).toHaveBeenCalled()
-  })
-
-  it('hides the info bubble on mouseleave', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <Segment
-        segment={segment}
-        sliceIndex={activeElement}
-        segmentLeft={0}
-        units={SETTINGS_UNITS_METRIC}
-      />,
-      { initialState }
-    )
-
-    await user.hover(screen.getByTestId('segment'))
-    await user.unhover(screen.getByTestId('segment'))
-
-    expect(infoBubble.dontConsiderShowing).toHaveBeenCalledTimes(1)
   })
 
   describe('keyboard events', () => {
@@ -156,8 +118,6 @@ describe('Segment', () => {
       await user.hover(screen.getByTestId('segment'))
       await user.keyboard('{Delete}')
 
-      expect(infoBubble.hide).toHaveBeenCalledTimes(1)
-      expect(infoBubble.hideSegment).toHaveBeenCalledTimes(1)
       expect(store.getState().street.segments.length).toEqual(0)
     })
 

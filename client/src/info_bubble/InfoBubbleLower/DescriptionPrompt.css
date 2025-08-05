@@ -1,0 +1,17 @@
+.description-prompt {
+  border-top: 1px solid var(--color-turquoise-300);
+  white-space: normal;
+  text-align: center;
+  padding: 1em 2em;
+  user-select: none;
+  color: var(--color-turquoise-700);
+  cursor: pointer;
+  overflow: hidden;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+
+  &:hover {
+    color: var(--color-turquoise-800);
+    background-color: var(--color-turquoise-100);
+  }
+}
