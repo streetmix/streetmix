@@ -1,0 +1,11 @@
+.sea-level-rise {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(0 0 255 / 10%);
+  bottom: var(--street-section-baseline);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    height 500ms ease-in-out,
+    opacity 500ms;
+}
