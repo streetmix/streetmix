@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface CoastmixState {
+  controlsVisible: boolean
   waterLevel: number
 }
 
 const initialState: CoastmixState = {
+  controlsVisible: false,
   waterLevel: 0
 }
 
@@ -21,12 +23,25 @@ const coastmixSlice = createSlice({
       }
     },
 
+    showCoastmixControls (state) {
+      state.controlsVisible = true
+    },
+
+    hideCoastmixControls (state) {
+      state.controlsVisible = false
+    },
+
     setWaterLevel (state, action: PayloadAction<number>) {
       state.waterLevel = action.payload
     }
   }
 })
 
-export const { setCoastmixState, setWaterLevel } = coastmixSlice.actions
+export const {
+  setCoastmixState,
+  showCoastmixControls,
+  hideCoastmixControls,
+  setWaterLevel
+} = coastmixSlice.actions
 
 export default coastmixSlice.reducer

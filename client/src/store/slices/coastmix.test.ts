@@ -1,11 +1,30 @@
-import coastmix, { setWaterLevel } from './coastmix'
+import coastmix, {
+  showCoastmixControls,
+  hideCoastmixControls,
+  setWaterLevel
+} from './coastmix'
 
 describe('coastmix reducer', () => {
   const initialState = {
+    controlsVisible: false,
     waterLevel: 0
   }
 
-  describe('should handle setWaterLevel()', () => {
+  describe('toggle controls', () => {
+    it('should show Coastmix controls', () => {
+      const action = coastmix(initialState, showCoastmixControls())
+
+      expect(action.controlsVisible).toEqual(true)
+    })
+
+    it('should set water level to initial', () => {
+      const action = coastmix(initialState, hideCoastmixControls())
+
+      expect(action.controlsVisible).toEqual(false)
+    })
+  })
+
+  describe('setWaterLevel()', () => {
     it('should set water level to something', () => {
       const action = coastmix(initialState, setWaterLevel(1))
 
