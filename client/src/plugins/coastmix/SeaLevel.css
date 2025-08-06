@@ -1,6 +1,7 @@
 .sea-level-rise {
   position: fixed;
   width: 100%;
+  left: 0;
   background-color: rgba(0 0 255 / 10%);
   bottom: var(--street-section-baseline);
   pointer-events: none;
