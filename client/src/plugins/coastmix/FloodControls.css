@@ -1,0 +1,15 @@
+.coastmix-controls {
+  min-width: 260px;
+}
+
+.flood-controls-content {
+  padding: 0.75em;
+
+  .sea-level-button {
+    padding: 0.75em 1em;
+  }
+
+  .sea-level-button:not(:last-child) {
+    margin-right: 0.25em;
+  }
+}

@@ -1,40 +1,40 @@
 import coastmix, {
   showCoastmixControls,
   hideCoastmixControls,
-  setWaterLevel
+  setSeaLevelRise
 } from './coastmix'
 
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
-    waterLevel: 0
+    seaLevelRise: 0
   }
 
   describe('toggle controls', () => {
-    it('should show Coastmix controls', () => {
+    it('should show controls', () => {
       const action = coastmix(initialState, showCoastmixControls())
 
       expect(action.controlsVisible).toEqual(true)
     })
 
-    it('should set water level to initial', () => {
+    it('should hide controls', () => {
       const action = coastmix(initialState, hideCoastmixControls())
 
       expect(action.controlsVisible).toEqual(false)
     })
   })
 
-  describe('setWaterLevel()', () => {
+  describe('setSeaLevelRise()', () => {
     it('should set water level to something', () => {
-      const action = coastmix(initialState, setWaterLevel(1))
+      const action = coastmix(initialState, setSeaLevelRise(1))
 
-      expect(action.waterLevel).toEqual(1)
+      expect(action.seaLevelRise).toEqual(1)
     })
 
     it('should set water level to initial', () => {
-      const action = coastmix(initialState, setWaterLevel(0))
+      const action = coastmix(initialState, setSeaLevelRise(0))
 
-      expect(action.waterLevel).toEqual(0)
+      expect(action.seaLevelRise).toEqual(0)
     })
   })
 })
