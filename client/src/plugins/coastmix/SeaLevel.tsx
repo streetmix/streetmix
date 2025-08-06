@@ -1,23 +1,26 @@
 import React from 'react'
+
 import { useSelector } from '~/src/store/hooks'
+import { TILE_SIZE } from '~/src/segments/constants'
+import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
 import './SeaLevel.css'
 
 function SeaLevel () {
   const seaLevelRise = useSelector((state) => state.coastmix.seaLevelRise)
 
-  let height = 0
+  let height = 45 // matches ground at elevation 0
   let opacity = 0
   switch (seaLevelRise) {
     case 2030:
-      height = 75
+      height += convertImperialMeasurementToMetric(1.5) * TILE_SIZE
       opacity = 1
       break
     case 2050:
-      height = 150
+      height += convertImperialMeasurementToMetric(2.5) * TILE_SIZE
       opacity = 1
       break
     case 2070:
-      height = 250
+      height += convertImperialMeasurementToMetric(4.5) * TILE_SIZE
       opacity = 1
       break
   }

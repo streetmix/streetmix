@@ -6,6 +6,7 @@ import {
   setSeaLevelRise
 } from '~/src/store/slices/coastmix'
 import Button from '~/src/ui/Button'
+import Switch from '~/src/ui/Switch'
 import FloatingPanel from '~/src/ui/FloatingPanel'
 import './FloodControls.css'
 
@@ -67,6 +68,15 @@ function FloodControls (): React.ReactElement | null {
             >
               2070
             </Button>
+          </div>
+        </div>
+        <div
+          className="info-bubble-control-row"
+          style={{ marginTop: '0.75em' }}
+        >
+          <div className="info-bubble-control-label">Storm surge</div>
+          <div className="variants">
+            <Switch />
           </div>
         </div>
       </div>

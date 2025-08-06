@@ -2,11 +2,13 @@
   position: fixed;
   width: 100%;
   left: 0;
-  background-color: rgba(0 0 255 / 10%);
-  bottom: var(--street-section-baseline);
+  background-color: rgba(35 76 107 / 35%);
+  mix-blend-mode: multiply;
+  bottom: calc(var(--street-section-baseline) - 5px);
   pointer-events: none;
   opacity: 0;
   transition:
     height 500ms ease-in-out,
     opacity 500ms;
+  z-index: 300; /* Keep above section -- TODO: figure out actual safe zIndex */
 }
