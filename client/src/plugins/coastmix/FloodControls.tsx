@@ -3,7 +3,8 @@ import React from 'react'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
   hideCoastmixControls,
-  setSeaLevelRise
+  setSeaLevelRise,
+  setStormSurge
 } from '~/src/store/slices/coastmix'
 import Button from '~/src/ui/Button'
 import Switch from '~/src/ui/Switch'
@@ -11,8 +12,9 @@ import FloatingPanel from '~/src/ui/FloatingPanel'
 import './FloodControls.css'
 
 function FloodControls (): React.ReactElement | null {
-  const show = useSelector((state) => state.coastmix.controlsVisible)
-  const seaLevelRise = useSelector((state) => state.coastmix.seaLevelRise)
+  const { controlsVisible, seaLevelRise, stormSurge } = useSelector(
+    (state) => state.coastmix
+  )
 
   const dispatch = useDispatch()
 
@@ -28,7 +30,7 @@ function FloodControls (): React.ReactElement | null {
     <FloatingPanel
       icon="boat"
       title="Flood controls"
-      show={show}
+      show={controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
     >
@@ -76,7 +78,12 @@ function FloodControls (): React.ReactElement | null {
         >
           <div className="info-bubble-control-label">Storm surge</div>
           <div className="variants">
-            <Switch />
+            <Switch
+              onCheckedChange={(checked) => {
+                dispatch(setStormSurge(checked))
+              }}
+              checked={stormSurge}
+            />
           </div>
         </div>
       </div>

@@ -1,13 +1,15 @@
 import coastmix, {
   showCoastmixControls,
   hideCoastmixControls,
-  setSeaLevelRise
+  setSeaLevelRise,
+  setStormSurge
 } from './coastmix'
 
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
-    seaLevelRise: 0
+    seaLevelRise: 0,
+    stormSurge: false
   }
 
   describe('toggle controls', () => {
@@ -35,6 +37,20 @@ describe('coastmix reducer', () => {
       const action = coastmix(initialState, setSeaLevelRise(0))
 
       expect(action.seaLevelRise).toEqual(0)
+    })
+  })
+
+  describe('setStormSurge()', () => {
+    it('should set storm surge to true', () => {
+      const action = coastmix(initialState, setStormSurge(true))
+
+      expect(action.stormSurge).toEqual(true)
+    })
+
+    it('should set storm surge to false', () => {
+      const action = coastmix(initialState, setStormSurge(false))
+
+      expect(action.stormSurge).toEqual(false)
     })
   })
 })
