@@ -39,7 +39,7 @@ function FloodControls (): React.ReactElement | null {
           <div className="info-bubble-control-label">Sea level rise</div>
           <div className="variants">
             <Button
-              className="sea-level-button"
+              className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
               onClick={() => {
                 changeSeaLevelRise(0)
               }}
@@ -47,7 +47,7 @@ function FloodControls (): React.ReactElement | null {
               Current
             </Button>
             <Button
-              className="sea-level-button"
+              className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
               onClick={() => {
                 changeSeaLevelRise(2030)
               }}
@@ -55,7 +55,7 @@ function FloodControls (): React.ReactElement | null {
               2030
             </Button>
             <Button
-              className="sea-level-button"
+              className={`sea-level-button${seaLevelRise === 2050 ? ' sea-level-selected' : ''}`}
               onClick={() => {
                 changeSeaLevelRise(2050)
               }}
@@ -63,7 +63,7 @@ function FloodControls (): React.ReactElement | null {
               2050
             </Button>
             <Button
-              className="sea-level-button"
+              className={`sea-level-button${seaLevelRise === 2070 ? ' sea-level-selected' : ''}`}
               onClick={() => {
                 changeSeaLevelRise(2070)
               }}

@@ -13,4 +13,9 @@
   .sea-level-button:not(:last-child) {
     margin-right: 0.25em;
   }
+
+  .sea-level-selected,
+  .sea-level-selected:hover {
+    background: var(--color-copper-400) !important;
+  }
 }
