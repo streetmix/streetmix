@@ -10,14 +10,16 @@ interface SeaLevelProps {
 }
 
 const GROUND_AT_ELEVATION_ZERO = 45
-const HALF_OF_WAVE_HEIGHT = 8 / 2 /* wave image is rendered at 8px tall */
+const HALF_OF_WAVE_HEIGHT =
+  8 / 2 /* wave image is rendered at 8px tall, doubled again in a surge. */
 const WAVE_OPACITY = 0.4
 
 function SeaLevel (props: SeaLevelProps): React.ReactElement {
   const { scrollPos } = props
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
-  let height = GROUND_AT_ELEVATION_ZERO - HALF_OF_WAVE_HEIGHT
+  let height =
+    GROUND_AT_ELEVATION_ZERO - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
   let opacity = 0
   switch (seaLevelRise) {
     case 2030:
@@ -34,8 +36,11 @@ function SeaLevel (props: SeaLevelProps): React.ReactElement {
       break
   }
 
+  // Verify this math with the waves and stuff
+  // This was originally specc'd at 2 feet (but it was a rough guess anyway)
+  // Currently at 1.25 to account for visual effect (scaleY) of waves.
   const surge = stormSurge
-    ? convertImperialMeasurementToMetric(2) * TILE_SIZE
+    ? convertImperialMeasurementToMetric(1.25) * TILE_SIZE
     : 0
   const styles = {
     height: `${height + surge}px`,
