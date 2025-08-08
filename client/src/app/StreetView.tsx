@@ -4,6 +4,7 @@ import { useSelector } from '~/src/store/hooks'
 import { usePrevious } from '~/src/util/usePrevious'
 import { Boundary } from '~/src/boundary'
 import { PopupControlsGroup } from '~/src/info_bubble/PopupControls'
+import { SeaLevel } from '~/src/plugins/coastmix'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
 import { animate, getElAbsolutePos } from '../util/helpers'
@@ -308,7 +309,8 @@ function StreetView (): React.ReactElement {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <section className="street-section-ground" />
+              <SeaLevel scrollPos={scrollPos} />
+              <div className="street-section-ground" />
             </section>
           </PopupControlsGroup>
           <ScrollIndicators

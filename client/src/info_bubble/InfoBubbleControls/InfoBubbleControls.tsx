@@ -6,6 +6,7 @@ import Variants from './Variants'
 import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import ElevationControl from './ElevationControl'
+import CoastmixControlsButton from './CoastmixControlsButton'
 import './InfoBubbleControls.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
@@ -46,6 +47,9 @@ function InfoBubbleControls (
         <div className="info-bubble-control-group">
           <ElevationControl position={position} />
         </div>
+      )}
+      {coastmixMode && (
+        <CoastmixControlsButton type={type} position={position} />
       )}
     </div>
   )
