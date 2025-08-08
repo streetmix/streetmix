@@ -18,6 +18,6 @@
     "@fontsource/geist-sans": "5.2.5",
     "@fontsource/overpass": "5.2.6",
     "@fontsource/rubik": "5.2.6",
-    "@napi-rs/canvas": "0.1.76"
+    "@napi-rs/canvas": "0.1.77"
   }
 }
