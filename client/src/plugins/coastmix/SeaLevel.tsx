@@ -9,24 +9,28 @@ interface SeaLevelProps {
   scrollPos: number
 }
 
+const GROUND_AT_ELEVATION_ZERO = 45
+const HALF_OF_WAVE_HEIGHT = 8 / 2 /* wave image is rendered at 8px tall */
+const WAVE_OPACITY = 0.4
+
 function SeaLevel (props: SeaLevelProps): React.ReactElement {
   const { scrollPos } = props
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
-  let height = 45 // matches ground at elevation 0
+  let height = GROUND_AT_ELEVATION_ZERO - HALF_OF_WAVE_HEIGHT
   let opacity = 0
   switch (seaLevelRise) {
     case 2030:
       height += convertImperialMeasurementToMetric(1.5) * TILE_SIZE
-      opacity = 1
+      opacity = WAVE_OPACITY
       break
     case 2050:
       height += convertImperialMeasurementToMetric(2.5) * TILE_SIZE
-      opacity = 1
+      opacity = WAVE_OPACITY
       break
     case 2070:
       height += convertImperialMeasurementToMetric(4.5) * TILE_SIZE
-      opacity = 1
+      opacity = WAVE_OPACITY
       break
   }
 
@@ -38,9 +42,17 @@ function SeaLevel (props: SeaLevelProps): React.ReactElement {
     opacity
   }
 
+  const classNames = ['sea-level-waves']
+  if (surge) {
+    classNames.push('sea-level-surge')
+  }
+
   return (
     <div className="sea-level-rise" style={styles}>
-      <div className="sea-level-waves" style={getWavePosition(scrollPos)} />
+      <div
+        className={classNames.join(' ')}
+        style={getWavePosition(scrollPos)}
+      />
     </div>
   )
 }
