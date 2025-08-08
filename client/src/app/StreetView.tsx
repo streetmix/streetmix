@@ -309,7 +309,7 @@ function StreetView (): React.ReactElement {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel />
+              <SeaLevel scrollPos={scrollPos} />
               <div className="street-section-ground" />
             </section>
           </PopupControlsGroup>

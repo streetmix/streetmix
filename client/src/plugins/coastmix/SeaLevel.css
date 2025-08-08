@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   left: 0;
-  background-color: rgba(35 76 107 / 35%);
+  background-color: rgba(54 99 135 / 40%); /* match wave color */
   mix-blend-mode: multiply;
   bottom: calc(var(--street-section-baseline) - 5px);
   pointer-events: none;
@@ -11,4 +11,15 @@
     height 500ms ease-in-out,
     opacity 500ms;
   z-index: 300; /* Keep above section -- TODO: figure out actual safe zIndex */
+}
+
+.sea-level-waves {
+  width: calc(100% + 100px);
+  height: 8px;
+  position: absolute;
+  top: -8px;
+  left: -50px;
+  background-image: url("../../../images/waves-right.svg");
+  background-repeat: repeat-x;
+  opacity: 0.4;
 }

@@ -5,7 +5,12 @@ import { TILE_SIZE } from '~/src/segments/constants'
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
 import './SeaLevel.css'
 
-function SeaLevel () {
+interface SeaLevelProps {
+  scrollPos: number
+}
+
+function SeaLevel (props: SeaLevelProps): React.ReactElement {
+  const { scrollPos } = props
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
   let height = 45 // matches ground at elevation 0
@@ -33,7 +38,20 @@ function SeaLevel () {
     opacity
   }
 
-  return <div className="sea-level-rise" style={styles} />
+  return (
+    <div className="sea-level-rise" style={styles}>
+      <div className="sea-level-waves" style={getWavePosition(scrollPos)} />
+    </div>
+  )
+}
+
+function getWavePosition (scrollPos: number): React.CSSProperties {
+  const speed = 0.5
+  const pos = scrollPos * speed
+
+  return {
+    backgroundPosition: `-${pos}px 0`
+  }
 }
 
 export default SeaLevel
