@@ -29,13 +29,13 @@ import {
   FiRotateCw,
   FiSun,
   FiTrash2,
-  FiUser,
-  FiX
+  FiUser
 } from 'react-icons/fi'
 import {
   IoBoatOutline,
   IoBookOutline,
   IoCartOutline,
+  IoClose,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
   IoLanguage,
@@ -70,7 +70,7 @@ const ICONS = {
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
   clipboard: [FiClipboard, 'feather'],
-  close: [FiX, 'feather'],
+  close: [IoClose, 'io5'],
   copy: [MdOutlineContentCopy, 'md'],
   cube: [RxCube, 'radix'],
   download: [RxDownload, 'radix'],
