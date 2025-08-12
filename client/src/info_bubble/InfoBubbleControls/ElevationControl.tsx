@@ -149,10 +149,12 @@ function ElevationControl ({
     )
   } else {
     controls = (
-      <TooltipGroup>
-        {renderButton('elevation', 'sidewalk')}
-        {renderButton('elevation', 'road')}
-      </TooltipGroup>
+      <div className="variants">
+        <TooltipGroup>
+          {renderButton('elevation', 'sidewalk')}
+          {renderButton('elevation', 'road')}
+        </TooltipGroup>
+      </div>
     )
   }
 
@@ -164,7 +166,7 @@ function ElevationControl ({
           defaultMessage="Elevation"
         />
       </div>
-      <div className="variants">{controls}</div>
+      {controls}
     </div>
   )
 }

@@ -50,7 +50,7 @@ function ElevationControlNew ({
   }
 
   return (
-    <div className="variants">
+    <div className="non-variant">
       <UpDownInput
         value={elevation}
         minValue={0}
@@ -59,9 +59,11 @@ function ElevationControlNew ({
         onClickDown={handleDecrement}
       />
       {typeof position === 'number' && (
-        <Checkbox checked={slope} onChange={handleSlopeChange}>
-          Slope
-        </Checkbox>
+        <div style={{ textAlign: 'left' }}>
+          <Checkbox checked={slope} onChange={handleSlopeChange}>
+            Slope
+          </Checkbox>
+        </div>
       )}
     </div>
   )
