@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group'
 import { useDrag, useDrop } from 'react-dnd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
+import { PopupContainer } from '~/src/info_bubble/PopupContainer'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
 import { formatMessage } from '../locales/locale'
@@ -32,7 +33,6 @@ import TestSlope from './TestSlope'
 import './Segment.css'
 
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import { PopupContainer } from '~src/info_bubble/PopupContainer'
 
 interface SliceProps {
   sliceIndex: number
