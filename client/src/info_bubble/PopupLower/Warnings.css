@@ -1,4 +1,4 @@
-.info-bubble-warnings {
+.popup-warnings {
   margin-top: 1px;
   border-top: 1px solid var(--color-turquoise-300);
   padding: 0.5em 1.5em 0.5em 1em;
@@ -17,7 +17,7 @@
   }
 }
 
-.info-bubble-warning-alert {
+.popup-warning-alert {
   color: var(--alert-text-color);
 
   img {
@@ -29,7 +29,7 @@
   }
 }
 
-.info-bubble-warning-error {
+.popup-warning-error {
   img {
     width: 1.6em;
     height: 1.6em;

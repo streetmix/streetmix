@@ -30,7 +30,7 @@
   .non-variant {
     user-select: none;
 
-    /* Takes up the entire width of info-bubble if it is by itself */
+    /* Takes up the entire width of popup if it is by itself */
     &:only-child {
       width: 100%;
       text-align: center;

@@ -70,7 +70,7 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
 
   if (messages.length > 0) {
     return (
-      <div className="info-bubble-warnings">
+      <div className="popup-warnings">
         <ul>
           {messages.map((item) => {
             let icon
@@ -87,7 +87,7 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
             return (
               <li
                 key={item.message.props.id}
-                className={`info-bubble-warning-${item.type}`}
+                className={`popup-warning-${item.type}`}
               >
                 {icon} {item.message}
               </li>
