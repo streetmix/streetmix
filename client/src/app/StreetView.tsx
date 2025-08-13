@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from '~/src/store/hooks'
 import { usePrevious } from '~/src/util/usePrevious'
 import { Boundary } from '~/src/boundary'
-import { PopupControlsGroup } from '~/src/info_bubble/PopupControls'
+import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer'
 import { SeaLevel } from '~/src/plugins/coastmix'
 import ResizeGuides from '../segments/ResizeGuides'
 import EmptySegmentContainer from '../segments/EmptySegmentContainer'
@@ -289,7 +289,7 @@ function StreetView (): React.ReactElement {
         ref={sectionEl}
       >
         <section id="street-section-inner">
-          <PopupControlsGroup>
+          <PopupContainerGroup>
             <section id="street-section-canvas" ref={sectionCanvasEl}>
               <Boundary
                 position="left"
@@ -312,7 +312,7 @@ function StreetView (): React.ReactElement {
               <SeaLevel scrollPos={scrollPos} />
               <div className="street-section-ground" />
             </section>
-          </PopupControlsGroup>
+          </PopupContainerGroup>
           <ScrollIndicators
             left={scrollIndicators.left}
             right={scrollIndicators.right}

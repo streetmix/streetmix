@@ -21,8 +21,8 @@ import {
 } from '@floating-ui/react'
 
 import { useSelector } from '~/src/store/hooks'
-import { PopupControlContent } from './PopupControlContent'
-import './PopupControls.css'
+import { PopupContent } from './PopupContent'
+import './PopupContainer.css'
 
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
 import type { Optional, SectionElementTypeAndPosition } from '@streetmix/types'
@@ -37,17 +37,17 @@ const POPUP_TRANSITION_DURATION = 150
 const ARROW_WIDTH = 32
 const ARROW_HEIGHT = 16
 
-type PopupControlsProps = SectionElementTypeAndPosition & {
+type PopupContainerProps = SectionElementTypeAndPosition & {
   isDragging: boolean
   children: React.ReactElement
 }
 
-export function PopupControls ({
+export function PopupContainer ({
   type,
   position,
   isDragging,
   children
-}: PopupControlsProps): React.ReactNode {
+}: PopupContainerProps): React.ReactNode {
   const element = useSelector((state) => {
     if (type === 'boundary') {
       return state.street.boundary[position]
@@ -137,7 +137,7 @@ export function PopupControls ({
   // - If child element is a React component, the component definition
   //   must also spread its props to whichever element needs to take
   //   floating-ui's props
-  // In general <PopupControls> wraps a <Button> which does that (a normal HTML
+  // In general <PopupContainer> wraps a <Button> which does that (a normal HTML
   // <button> also works just fine as is) but if this becomes too complex,
   // a future workaround is to use floating-ui's `asChild` pattern so that
   // some instances can be wrapped with its own element.
@@ -154,7 +154,7 @@ export function PopupControls ({
     })
   )
 
-  const arrowClassNames = ['popup-controls-arrow']
+  const arrowClassNames = ['popup-arrow']
   if (isArrowHighlighted) {
     arrowClassNames.push('highlight')
   }
@@ -177,8 +177,8 @@ export function PopupControls ({
                   deleted we don't want this to render. TODO: handle animate
                   out (using a snapshot of deleted state) */}
               {element && (
-                <div className="popup-controls" style={styles}>
-                  <PopupControlContent
+                <div className="popup-container" style={styles}>
+                  <PopupContent
                     type={type}
                     position={position}
                     setArrowHighlighted={setArrowHighlighted}
@@ -200,16 +200,16 @@ export function PopupControls ({
   )
 }
 
-// PopupControlsGroupProps takes all of FloatingDelayGroupProps except that
+// PopupContainerGroupProps takes all of FloatingDelayGroupProps except that
 // `delay` is now optional because we provide our own default value
-type PopupControlsGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
+type PopupContainerGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
 
 // Re-exports <FloatingDelayGroup> with our own default values. It can be
 // overridden by props.
-export function PopupControlsGroup ({
+export function PopupContainerGroup ({
   children,
   ...props
-}: PopupControlsGroupProps): React.ReactNode {
+}: PopupContainerGroupProps): React.ReactNode {
   return (
     <FloatingDelayGroup
       delay={POPUP_DELAY}

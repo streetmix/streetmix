@@ -136,7 +136,7 @@
   bottom: 12px;
   margin-left: -12px;
   transform: rotateZ(45deg);
-  background: var(--info-bubble-background);
+  background: var(--popup-background);
   box-shadow: none;
 }
 

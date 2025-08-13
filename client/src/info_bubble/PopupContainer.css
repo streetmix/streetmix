@@ -1,0 +1,77 @@
+.popup-container {
+  --popup-header-background-color: var(--color-turquoise-200);
+  --popup-button-size: 30px;
+  --popup-border-radius: var(--border-radius);
+
+  min-width: 275px;
+  max-width: calc(100vw - 10px);
+  background: var(--popup-background);
+  border-radius: var(--popup-border-radius);
+  box-shadow: var(--light-box-shadow);
+  perspective: 1200px;
+  z-index: var(--z-06-popup);
+  fill: var(--popup-background);
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    padding: 4px 10px;
+    height: calc(var(--popup-button-size) + 10px);
+    line-height: calc(var(--popup-button-size) + 2px);
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--color-turquoise-900);
+    background-color: var(--popup-header-background-color);
+    border-start-start-radius: var(--popup-border-radius);
+    border-start-end-radius: var(--popup-border-radius);
+  }
+
+  button {
+    width: var(--popup-button-size);
+    height: var(--popup-button-size);
+  }
+}
+
+.popup-arrow.highlight {
+  &.highlight {
+    fill: var(--color-turquoise-100);
+  }
+}
+
+.floating-ui-wrapper {
+  position: absolute;
+  width: max-content;
+  top: 0;
+  left: 0;
+  perspective: 1200px;
+}
+
+.popup-content {
+  /* Somehow this is important on animating a popup in */
+  opacity: 1;
+
+  .popup-control-group {
+    /* TODO refactor */
+    padding-bottom: 10px;
+  }
+}
+
+.popup-at-boundary header {
+  margin-inline-end: 140px;
+  border-start-end-radius: 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline-end: -40px;
+    width: 0;
+    height: 0;
+    border-top: 40px solid var(--popup-header-background-color);
+    border-inline-end: 40px solid transparent;
+  }
+}

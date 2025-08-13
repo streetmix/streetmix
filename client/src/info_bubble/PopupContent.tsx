@@ -10,21 +10,21 @@ import InfoBubbleLower from './InfoBubbleLower'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-type PopupControlContentProps = SectionElementTypeAndPosition & {
+type PopupContentProps = SectionElementTypeAndPosition & {
   setArrowHighlighted: (v: boolean) => void
 }
 
-export function PopupControlContent ({
+export function PopupContent ({
   type,
   position,
   setArrowHighlighted
-}: PopupControlContentProps): React.ReactNode | null {
+}: PopupContentProps): React.ReactNode | null {
   const dispatch = useDispatch()
 
-  const classNames = ['popup-controls-content']
+  const classNames = ['popup-content']
 
   if (type === 'boundary') {
-    classNames.push('popup-controls-boundary')
+    classNames.push('popup-at-boundary')
   }
 
   function handleMouseEnter () {
