@@ -30,7 +30,7 @@ function CoastmixControlsButton (
   }
 
   return (
-    <div className="popup-control-set">
+    <div className="popup-control-group">
       <Button onClick={handleClick} className="coastmix-controls-button">
         Flood controls <BetaTag />
       </Button>

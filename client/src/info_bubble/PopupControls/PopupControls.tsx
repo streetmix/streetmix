@@ -34,7 +34,7 @@ export function PopupControls (
 
   return (
     <div className="popup-controls">
-      <div className="popup-control-set">
+      <div className="popup-control-group">
         <div className="popup-control-row">
           <IntlProvider locale={locale} messages={segmentInfo}>
             <Variants type={type} position={position} />
@@ -44,7 +44,7 @@ export function PopupControls (
       </div>
       {/* Only enabled for segments right now or Coastmix mode */}
       {(coastmixMode || typeof position === 'number') && (
-        <div className="popup-control-set">
+        <div className="popup-control-group">
           <ElevationControl position={position} />
         </div>
       )}
