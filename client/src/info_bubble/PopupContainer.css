@@ -54,7 +54,7 @@
   /* Somehow this is important on animating a popup in */
   opacity: 1;
 
-  .popup-control-group {
+  .popup-control-set {
     /* TODO refactor */
     padding-bottom: 10px;
   }
