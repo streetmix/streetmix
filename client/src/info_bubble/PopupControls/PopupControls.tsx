@@ -7,11 +7,11 @@ import WidthControl from './WidthControl'
 import BuildingHeightControl from './BuildingHeightControl'
 import ElevationControl from './ElevationControl'
 import CoastmixControlsButton from './CoastmixControlsButton'
-import './InfoBubbleControls.css'
+import './PopupControls.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-function InfoBubbleControls (
+export function PopupControls (
   props: SectionElementTypeAndPosition
 ): React.ReactElement {
   const { type, position } = props
@@ -33,9 +33,9 @@ function InfoBubbleControls (
   }
 
   return (
-    <div className="info-bubble-controls">
-      <div className="info-bubble-control-group">
-        <div className="info-bubble-control-row">
+    <div className="popup-controls">
+      <div className="popup-control-group">
+        <div className="popup-control-row">
           <IntlProvider locale={locale} messages={segmentInfo}>
             <Variants type={type} position={position} />
           </IntlProvider>
@@ -44,7 +44,7 @@ function InfoBubbleControls (
       </div>
       {/* Only enabled for segments right now or Coastmix mode */}
       {(coastmixMode || typeof position === 'number') && (
-        <div className="info-bubble-control-group">
+        <div className="popup-control-group">
           <ElevationControl position={position} />
         </div>
       )}
@@ -54,5 +54,3 @@ function InfoBubbleControls (
     </div>
   )
 }
-
-export default InfoBubbleControls

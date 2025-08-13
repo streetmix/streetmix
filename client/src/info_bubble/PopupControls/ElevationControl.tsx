@@ -159,8 +159,8 @@ function ElevationControl ({
   }
 
   return (
-    <div className="info-bubble-control-row">
-      <div className="info-bubble-control-label">
+    <div className="popup-control-row">
+      <div className="popup-control-label">
         <FormattedMessage
           id="segments.controls.elevation"
           defaultMessage="Elevation"

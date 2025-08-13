@@ -1,4 +1,4 @@
-.info-bubble-controls {
+.popup-controls {
   .icon {
     pointer-events: none;
     position: absolute;
@@ -95,13 +95,13 @@
   }
 }
 
-.info-bubble-control-row {
+.popup-control-row {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
 
-.info-bubble-control-group {
+.popup-control-group {
   padding: 10px;
 
   &:not(:first-child) {
@@ -109,7 +109,7 @@
   }
 }
 
-.info-bubble-control-label {
+.popup-control-label {
   display: flex;
   align-items: center;
   flex-grow: 1;

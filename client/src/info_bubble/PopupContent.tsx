@@ -4,7 +4,7 @@ import { useDispatch } from '~/src/store/hooks'
 import { loseAnyFocus } from '~/src/util/focus'
 import { TooltipGroup } from '~/src/ui/Tooltip'
 import { setInfoBubbleMouseInside } from '../store/slices/infoBubble'
-import InfoBubbleControls from './InfoBubbleControls'
+import { PopupControls } from './PopupControls'
 import { PopupHeader } from './PopupHeader'
 import { PopupLower } from './PopupLower'
 
@@ -49,7 +49,7 @@ export function PopupContent ({
     >
       <TooltipGroup>
         <PopupHeader type={type} position={position} />
-        <InfoBubbleControls type={type} position={position} />
+        <PopupControls type={type} position={position} />
         <PopupLower
           position={position}
           setArrowHighlighted={setArrowHighlighted}
