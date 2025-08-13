@@ -6,15 +6,15 @@ import Warnings from './Warnings'
 
 import type { BoundaryPosition, Segment } from '@streetmix/types'
 
-interface InfoBubbleLowerProps {
+interface PopupLowerProps {
   position: number | BoundaryPosition
   setArrowHighlighted: (v: boolean) => void
 }
 
-function InfoBubbleLower ({
+export function PopupLower ({
   position,
   setArrowHighlighted
-}: InfoBubbleLowerProps): React.ReactElement {
+}: PopupLowerProps): React.ReactElement {
   const street = useSelector((state) => state.street)
 
   // Segment is undefined when position refers to a building
@@ -45,5 +45,3 @@ function InfoBubbleLower ({
     </>
   )
 }
-
-export default InfoBubbleLower

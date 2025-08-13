@@ -6,7 +6,7 @@ import { TooltipGroup } from '~/src/ui/Tooltip'
 import { setInfoBubbleMouseInside } from '../store/slices/infoBubble'
 import InfoBubbleControls from './InfoBubbleControls'
 import InfoBubbleHeader from './InfoBubbleHeader'
-import InfoBubbleLower from './InfoBubbleLower'
+import { PopupLower } from './PopupLower'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
@@ -50,7 +50,7 @@ export function PopupContent ({
       <TooltipGroup>
         <InfoBubbleHeader type={type} position={position} />
         <InfoBubbleControls type={type} position={position} />
-        <InfoBubbleLower
+        <PopupLower
           position={position}
           setArrowHighlighted={setArrowHighlighted}
         />
