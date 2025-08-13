@@ -59,11 +59,9 @@ function ElevationControlNew ({
         onClickDown={handleDecrement}
       />
       {typeof position === 'number' && (
-        <div style={{ textAlign: 'left' }}>
-          <Checkbox checked={slope} onChange={handleSlopeChange}>
-            Slope
-          </Checkbox>
-        </div>
+        <Checkbox checked={slope} onChange={handleSlopeChange}>
+          Slope
+        </Checkbox>
       )}
     </div>
   )

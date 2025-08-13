@@ -43,8 +43,6 @@
   }
 
   .non-variant {
-    text-align: right;
-    white-space: nowrap;
     user-select: none;
 
     /* Takes up the entire width of info-bubble if it is by itself */
@@ -101,11 +99,6 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-
-  .non-variant {
-    text-align: center;
-    width: auto;
-  }
 }
 
 .info-bubble-control-group {
