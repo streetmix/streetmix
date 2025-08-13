@@ -10,7 +10,7 @@ import RemoveButton from './RemoveButton'
 
 import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'
 
-function InfoBubbleHeader (
+export function PopupHeader (
   props: SectionElementTypeAndPosition
 ): React.ReactElement {
   const { type, position } = props
@@ -84,5 +84,3 @@ function InfoBubbleHeader (
     </header>
   )
 }
-
-export default InfoBubbleHeader

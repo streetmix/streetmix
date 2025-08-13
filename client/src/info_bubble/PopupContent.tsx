@@ -5,7 +5,7 @@ import { loseAnyFocus } from '~/src/util/focus'
 import { TooltipGroup } from '~/src/ui/Tooltip'
 import { setInfoBubbleMouseInside } from '../store/slices/infoBubble'
 import InfoBubbleControls from './InfoBubbleControls'
-import InfoBubbleHeader from './InfoBubbleHeader'
+import { PopupHeader } from './PopupHeader'
 import { PopupLower } from './PopupLower'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
@@ -48,7 +48,7 @@ export function PopupContent ({
       onMouseLeave={handleMouseLeave}
     >
       <TooltipGroup>
-        <InfoBubbleHeader type={type} position={position} />
+        <PopupHeader type={type} position={position} />
         <InfoBubbleControls type={type} position={position} />
         <PopupLower
           position={position}
