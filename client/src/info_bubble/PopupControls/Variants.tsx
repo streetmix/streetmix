@@ -191,49 +191,25 @@ function Variants (
     )
   }
 
-  function renderVariantsSelection (): Array<React.ReactElement | null> {
-    const variantEls = []
+  function renderVariantSet (set: string, items: string[]): React.ReactElement {
+    return (
+      <div className="popup-control-button-group">
+        {items.map((selection) => renderButton(set, selection))}
+      </div>
+    )
+  }
 
-    switch (type) {
-      case 'slice': {
-        let first = true
-
-        // Each segment has some allowed variant sets (e.g. "direction")
-        variantSets.forEach((set, variant, all) => {
-          // New row for each variant set
-          if (!first) {
-            const el = <hr key={set} />
-            variantEls.push(el)
-          } else {
-            first = false
-          }
-
-          // Each variant set has some selection choices.
-          // VARIANT_ICONS is an object containing a list of what
-          // each of the selections are and data for building an icon.
-          // Different segments may refer to the same variant set
-          // ("direction" is a good example of this)
-          for (const selection in VARIANT_ICONS[set]) {
-            const el = renderButton(set, selection)
-
-            variantEls.push(el)
-          }
-        })
-
-        break
-      }
-      case 'boundary': {
-        const els = variantSets.map((building) =>
-          renderButton('building', building)
-        )
-        variantEls.push(...els)
-        break
-      }
-      default:
-        break
+  function renderVariantsSelection ():
+    | Array<React.ReactElement>
+    | React.ReactElement
+    | null {
+    if (type === 'boundary') {
+      return renderVariantSet('building', variantSets)
+    } else {
+      return variantSets.map((set) =>
+        renderVariantSet(set, Object.keys(VARIANT_ICONS[set]))
+      )
     }
-
-    return variantEls
   }
 
   // Do not render this component if there are no variants to select
