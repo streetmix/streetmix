@@ -118,7 +118,7 @@ function ElevationControl ({
     const isSelected = isVariantCurrentlySelected(selection)
 
     return (
-      <Tooltip label={label} sublabel={sublabel} placement="top">
+      <Tooltip label={label} sublabel={sublabel} placement="bottom">
         <Button
           className={isSelected ? 'variant-selected' : undefined}
           disabled={isSelected || isLocked}
@@ -149,7 +149,7 @@ function ElevationControl ({
     )
   } else {
     controls = (
-      <div className="variants">
+      <div className="variants popup-control-button-group">
         <TooltipGroup>
           {renderButton('elevation', 'sidewalk')}
           {renderButton('elevation', 'road')}
