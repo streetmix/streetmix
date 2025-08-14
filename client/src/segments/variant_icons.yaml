@@ -393,6 +393,17 @@ elevation:
   road:
     id: elevation-lower
     title: Street level
+universal-elevation:
+  sidewalk:
+    id: elevation-higher
+    title: Sidewalk level
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: ELEVATION_CONTROLS_UNLOCKED
+  road:
+    id: elevation-lower
+    title: Street level
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: ELEVATION_CONTROLS_UNLOCKED
 temporary-barrier-type:
   traffic-cone:
     id: traffic-cone

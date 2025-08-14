@@ -18,7 +18,7 @@ body.segment-resize-dragging * {
   color: var(--color-turquoise-700);
   z-index: var(--z-06-drag-handle);
   pointer-events: none;
-  background: var(--info-bubble-background);
+  background: var(--popup-background);
   cursor: col-resize;
   transition:
     transform 150ms,

@@ -42,5 +42,6 @@
     font-weight: 300;
     line-height: 1.25;
     margin-top: 0;
+    text-wrap: balance;
   }
 }

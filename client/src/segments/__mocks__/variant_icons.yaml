@@ -13,6 +13,18 @@ direction:
   empty:
     id: ""
     title: No one
+public-transit-asphalt:
+  regular:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+  colored:
+    id: asphalt
+    color: "#9b1f22"
+    title: Red lane
+  grass:
+    id: grass
+    title: Grass
 flagged-variant:
   foo:
     id: foo

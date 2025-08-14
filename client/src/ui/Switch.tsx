@@ -24,7 +24,7 @@ function Switch (props: SwitchProps): React.ReactElement {
       >
         <SwitchPrimitive.Thumb className="switch-thumb" />
       </SwitchPrimitive.Root>
-      <label htmlFor={elementId}>{children}</label>
+      {children && <label htmlFor={elementId}>{children}</label>}
     </div>
   )
 }
