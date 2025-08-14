@@ -100,7 +100,7 @@ describe('Variants', () => {
     let segment: Partial<SegmentDefinition>
 
     beforeEach(() => {
-      segment = { variants: ['flagged-variant', 'foo'] }
+      segment = { variants: ['flagged-variant'] }
       getSegmentInfo.mockImplementation(() => segment)
     })
 

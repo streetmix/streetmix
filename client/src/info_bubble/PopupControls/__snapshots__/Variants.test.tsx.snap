@@ -5,53 +5,108 @@ exports[`Variants > segment variants > renders segment buttons 1`] = `
   <div
     class="variants"
   >
-    <button
-      class="btn variant-selected"
-      data-testid="Inbound"
-      disabled=""
-      type="button"
+    <div
+      class="popup-control-button-group"
     >
-      <svg
-        class="icon"
-        xmlns="http://www.w3.org/1999/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+      <button
+        class="btn variant-selected"
+        data-testid="Inbound"
+        disabled=""
+        type="button"
       >
-        <use
-          href="#icon-direction-inbound"
-        />
-      </svg>
-    </button>
-    <button
-      class="btn"
-      data-testid="Outbound"
-      type="button"
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-direction-inbound"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Outbound"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-direction-outbound"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="No one"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="popup-control-button-group"
     >
-      <svg
-        class="icon"
-        xmlns="http://www.w3.org/1999/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+      <button
+        class="btn variant-selected"
+        data-testid="Asphalt"
+        disabled=""
+        type="button"
       >
-        <use
-          href="#icon-direction-outbound"
-        />
-      </svg>
-    </button>
-    <button
-      class="btn"
-      data-testid="No one"
-      type="button"
-    >
-      <svg
-        class="icon"
-        xmlns="http://www.w3.org/1999/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        <svg
+          class="icon"
+          style="fill: #292a29;"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-asphalt"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Red lane"
+        type="button"
       >
-        <use
-          href="#icon-"
-        />
-      </svg>
-    </button>
-    <hr />
+        <svg
+          class="icon"
+          style="fill: #9b1f22;"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-asphalt"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Grass"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-grass"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
