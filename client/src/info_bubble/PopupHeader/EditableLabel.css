@@ -1,4 +1,4 @@
-.info-bubble-label {
+.popup-label {
   /* If label exceeds maximum allowed width, cut it off */
   overflow: hidden;
   white-space: nowrap;
@@ -12,8 +12,8 @@
   align-items: center;
 }
 
-.info-bubble-label-editable {
-  .info-bubble-label-editable-icon {
+.popup-label-editable {
+  .popup-label-editable-icon {
     opacity: 0;
     transform: translateZ(0); /* Prevent jitter when transitioning */
     transition: opacity 120ms ease-in;
@@ -25,7 +25,7 @@
     background-color: var(--off-white);
     transition: background-color 120ms ease-in;
 
-    .info-bubble-label-editable-icon {
+    .popup-label-editable-icon {
       opacity: 0.85;
     }
   }

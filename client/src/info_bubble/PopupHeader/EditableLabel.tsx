@@ -33,17 +33,14 @@ function EditableLabel ({
   // If position is a string, it's a building, and buildings are currently not
   // editable at all, so render a label with no interactivity
   if (typeof position === 'string') {
-    return <div className="info-bubble-label">{label}</div>
+    return <div className="popup-label">{label}</div>
   }
 
   if (isSubscriber) {
     return (
-      <div
-        className="info-bubble-label info-bubble-label-editable"
-        onClick={handleClick}
-      >
+      <div className="popup-label popup-label-editable" onClick={handleClick}>
         {label}
-        <Icon name="edit" className="info-bubble-label-editable-icon" />
+        <Icon name="edit" className="popup-label-editable-icon" />
       </div>
     )
   }
@@ -55,9 +52,9 @@ function EditableLabel ({
         defaultMessage: 'Upgrade to Streetmix+ to edit'
       })}
     >
-      <div className="info-bubble-label info-bubble-label-editable">
+      <div className="popup-label popup-label-editable">
         {label}
-        <Icon name="lock" className="info-bubble-label-editable-icon" />
+        <Icon name="lock" className="popup-label-editable-icon" />
       </div>
     </Tooltip>
   )
