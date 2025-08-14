@@ -5,7 +5,7 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
-import Variants from './Variants'
+import { Variants } from './Variants'
 
 import type { SegmentDefinition } from '@streetmix/types'
 

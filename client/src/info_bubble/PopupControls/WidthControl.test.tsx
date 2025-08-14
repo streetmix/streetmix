@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
-import WidthControl from './WidthControl'
+import { WidthControl } from './WidthControl'
 
 import type { Segment } from '@streetmix/types'
 

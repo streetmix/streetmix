@@ -12,13 +12,15 @@ import {
   convertMetricMeasurementToImperial
 } from '~/src/util/width_units'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import UpDownInput from './UpDownInput'
+import { UpDownInput } from './UpDownInput'
 
 interface WidthControlProps {
   position: number
 }
 
-function WidthControl ({ position }: WidthControlProps): React.ReactElement {
+export function WidthControl ({
+  position
+}: WidthControlProps): React.ReactElement {
   const value = useSelector((state) => state.street.segments[position].width)
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
@@ -103,5 +105,3 @@ function WidthControl ({ position }: WidthControlProps): React.ReactElement {
     </div>
   )
 }
-
-export default WidthControl

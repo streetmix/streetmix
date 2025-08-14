@@ -5,8 +5,8 @@ import { useSelector } from '~/src/store/hooks'
 import { getBoundaryItem } from '~/src/boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
-import EditableLabel from './EditableLabel'
-import RemoveButton from './RemoveButton'
+import { EditableLabel } from './EditableLabel'
+import { RemoveButton } from './RemoveButton'
 import './PopupHeader.css'
 
 import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import DescriptionPrompt from './DescriptionPrompt'
-import Warnings from './Warnings'
+import { DescriptionPrompt } from './DescriptionPrompt'
+import { Warnings } from './Warnings'
 
 import type { BoundaryPosition, Segment } from '@streetmix/types'
 

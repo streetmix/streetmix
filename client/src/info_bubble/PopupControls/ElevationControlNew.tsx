@@ -6,7 +6,7 @@ import {
   changeSegmentProperties,
   setBoundaryElevation
 } from '~/src/store/slices/street'
-import UpDownInput from './UpDownInput'
+import { UpDownInput } from './UpDownInput'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -15,7 +15,7 @@ interface ElevationControlProps {
   elevation: number
 }
 
-function ElevationControlNew ({
+export function ElevationControlNew ({
   position,
   elevation
 }: ElevationControlProps): React.ReactElement {
@@ -51,5 +51,3 @@ function ElevationControlNew ({
     </div>
   )
 }
-
-export default ElevationControlNew

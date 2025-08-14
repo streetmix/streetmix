@@ -53,7 +53,7 @@ interface UpDownInputProps {
   allowAutoUpdate?: boolean
 }
 
-function UpDownInput (props: UpDownInputProps): React.ReactElement {
+export function UpDownInput (props: UpDownInputProps): React.ReactElement {
   // Destructure props with default values
   const {
     value,
@@ -354,5 +354,3 @@ function UpDownInput (props: UpDownInputProps): React.ReactElement {
     </div>
   )
 }
-
-export default UpDownInput

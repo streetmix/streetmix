@@ -17,7 +17,7 @@ interface WarningsProps {
   segment?: Pick<Segment, 'warnings'>
 }
 
-const Warnings = (props: WarningsProps): React.ReactElement | null => {
+export function Warnings (props: WarningsProps): React.ReactElement | null {
   const { segment } = props
   const messages = []
 
@@ -100,5 +100,3 @@ const Warnings = (props: WarningsProps): React.ReactElement | null => {
 
   return null
 }
-
-export default Warnings

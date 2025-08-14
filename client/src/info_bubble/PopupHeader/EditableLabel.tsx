@@ -16,7 +16,7 @@ interface EditableLabelProps {
   position: number | BoundaryPosition
 }
 
-function EditableLabel ({
+export function EditableLabel ({
   label,
   segment,
   position
@@ -59,5 +59,3 @@ function EditableLabel ({
     </Tooltip>
   )
 }
-
-export default EditableLabel

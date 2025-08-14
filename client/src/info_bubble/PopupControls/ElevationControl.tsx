@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import { TooltipGroup } from '~/src/ui/Tooltip'
-import ElevationControlNew from './ElevationControlNew'
+import { ElevationControlNew } from './ElevationControlNew'
 import { VariantButton } from './VariantButton'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -18,7 +18,7 @@ interface ElevationControlProps {
   position: number | BoundaryPosition
 }
 
-function ElevationControl ({
+export function ElevationControl ({
   position
 }: ElevationControlProps): React.ReactElement {
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
@@ -119,5 +119,3 @@ function ElevationControl ({
     </div>
   )
 }
-
-export default ElevationControl

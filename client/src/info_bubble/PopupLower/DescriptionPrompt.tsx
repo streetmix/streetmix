@@ -25,7 +25,7 @@ interface DescriptionProps {
   onMouseOut: () => void
 }
 
-function DescriptionPrompt ({
+export function DescriptionPrompt ({
   type,
   variantString,
   onMouseOver,
@@ -73,5 +73,3 @@ function DescriptionPrompt ({
     </div>
   )
 }
-
-export default DescriptionPrompt

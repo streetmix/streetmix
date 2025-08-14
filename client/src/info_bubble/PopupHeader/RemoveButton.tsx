@@ -10,7 +10,9 @@ interface RemoveButtonProps {
   segment: number
 }
 
-function RemoveButton ({ segment }: RemoveButtonProps): React.ReactElement {
+export function RemoveButton ({
+  segment
+}: RemoveButtonProps): React.ReactElement {
   const intl = useIntl()
 
   const handleClick = (event: MouseEvent): void => {
@@ -41,5 +43,3 @@ function RemoveButton ({ segment }: RemoveButtonProps): React.ReactElement {
     </Button>
   )
 }
-
-export default RemoveButton

@@ -8,7 +8,7 @@ import './CoastmixControlsButton.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-function CoastmixControlsButton (
+export function CoastmixControlsButton (
   props: SectionElementTypeAndPosition
 ): React.ReactElement | null {
   const { type, position } = props
@@ -37,5 +37,3 @@ function CoastmixControlsButton (
     </div>
   )
 }
-
-export default CoastmixControlsButton

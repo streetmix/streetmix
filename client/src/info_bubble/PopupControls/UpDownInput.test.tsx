@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import UpDownInput from './UpDownInput'
+import { UpDownInput } from './UpDownInput'
 
 // Mock the `debounce` method so that the debounced `onUpdatedValue` callback
 // will be executed immediately when called (we are not implementing the

@@ -12,7 +12,7 @@ import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION
 } from '~/src/segments/constants'
-import UpDownInput from './UpDownInput'
+import { UpDownInput } from './UpDownInput'
 import './BuildingHeightControl.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -21,7 +21,7 @@ interface BuildingHeightControlProps {
   position: BoundaryPosition
 }
 
-function BuildingHeightControl ({
+export function BuildingHeightControl ({
   position
 }: BuildingHeightControlProps): React.ReactElement {
   const units = useSelector((state) => state.street.units)
@@ -89,5 +89,3 @@ function BuildingHeightControl ({
     </div>
   )
 }
-
-export default BuildingHeightControl
