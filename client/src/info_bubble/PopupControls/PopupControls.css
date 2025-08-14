@@ -88,6 +88,9 @@
 
 .popup-control-group {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 
   &:not(:first-child) {
     border-top: 1px solid var(--color-turquoise-300);

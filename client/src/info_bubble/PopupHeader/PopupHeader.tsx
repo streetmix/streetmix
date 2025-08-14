@@ -7,6 +7,7 @@ import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
 import EditableLabel from './EditableLabel'
 import RemoveButton from './RemoveButton'
+import './PopupHeader.css'
 
 import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'
 
