@@ -30,6 +30,11 @@ export function SlopeControl ({ position }: SlopeControlProps) {
     }
   }
 
+  // No slope control for boundaries
+  if (typeof position !== 'number') {
+    return null
+  }
+
   return (
     <div className="popup-control-row">
       <div className="popup-control-label">
