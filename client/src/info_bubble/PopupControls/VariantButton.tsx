@@ -6,6 +6,7 @@ import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import { Tooltip } from '~/src/ui/Tooltip'
+import './VariantButton.css'
 
 interface VariantButtonProps {
   set: string

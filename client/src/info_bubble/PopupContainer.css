@@ -19,11 +19,6 @@
   perspective: 1200px;
   z-index: var(--z-06-popup);
   fill: var(--popup-background);
-
-  button {
-    width: var(--popup-button-size);
-    height: var(--popup-button-size);
-  }
 }
 
 .popup-content {

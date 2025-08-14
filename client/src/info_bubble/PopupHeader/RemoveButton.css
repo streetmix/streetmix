@@ -1,6 +1,5 @@
-.info-bubble-remove {
-  width: auto !important; /* Override button width of other buttons in infobubble */
-  padding: 0 0.75rem;
+.popup-slice-remove {
+  padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   display: flex;
   align-items: center;

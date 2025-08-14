@@ -54,6 +54,8 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
+      width: var(--popup-button-size);
+      height: var(--popup-button-size);
 
       .icon {
         opacity: 0.666;
@@ -90,7 +92,7 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 0.5em;
 
   &:not(:first-child) {
     border-top: 1px solid var(--color-turquoise-300);

@@ -28,7 +28,7 @@ function RemoveButton ({ segment }: RemoveButtonProps): React.ReactElement {
 
   return (
     <Button
-      className="info-bubble-remove"
+      className="popup-slice-remove"
       tabIndex={-1}
       title={intl.formatMessage({
         id: 'tooltip.remove-segment',
