@@ -80,7 +80,7 @@ function Variants (
 
   function renderButtonGroup (set: string, items: string[]): React.ReactElement {
     return (
-      <div className="popup-control-button-group">
+      <div className="popup-control-button-group" key={set}>
         {items.map((selection) => (
           <VariantButton
             set={set}

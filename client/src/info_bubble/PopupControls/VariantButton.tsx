@@ -78,12 +78,7 @@ export function VariantButton (
   }
 
   return (
-    <Tooltip
-      label={label}
-      sublabel={sublabel}
-      placement="bottom"
-      key={set + '.' + selection}
-    >
+    <Tooltip label={label} sublabel={sublabel} placement="bottom">
       <Button
         data-testid={icon.title}
         className={isSelected ? 'variant-selected' : undefined}

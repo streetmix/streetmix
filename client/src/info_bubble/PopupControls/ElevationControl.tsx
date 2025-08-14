@@ -1,7 +1,6 @@
 import React from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
-import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { segmentsChanged } from '~/src/segments/view'
 import {
   BUILDING_LEFT_POSITION,
@@ -9,10 +8,9 @@ import {
 } from '~/src/segments/constants'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
-import Button from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
+import { TooltipGroup } from '~/src/ui/Tooltip'
 import ElevationControlNew from './ElevationControlNew'
+import { VariantButton } from './VariantButton'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -23,10 +21,6 @@ interface ElevationControlProps {
 function ElevationControl ({
   position
 }: ElevationControlProps): React.ReactElement {
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
-  const forceEnable = useSelector(
-    (state) => state.flags.ELEVATION_CONTROLS_UNLOCKED.value
-  )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const elevation = useSelector((state) => {
     if (position === BUILDING_LEFT_POSITION) {
@@ -46,7 +40,6 @@ function ElevationControl ({
   })
 
   const dispatch = useDispatch()
-  const intl = useIntl()
 
   function isVariantCurrentlySelected (selection: string): boolean {
     let bool
@@ -91,49 +84,13 @@ function ElevationControl ({
     set: string,
     selection: string
   ): React.ReactElement | null {
-    const icon = VARIANT_ICONS[set][selection]
-
-    if (icon === undefined) return null
-
-    const label = intl.formatMessage({
-      id: `tooltip.${set}-${selection}`,
-      defaultMessage: icon.title
-    })
-
-    // Only subscribers can do this
-    let isLocked = false
-    let sublabel
-
-    if (!isSubscriber && !forceEnable) {
-      isLocked = true
-      sublabel = intl.formatMessage({
-        id: 'plus.locked.sub',
-        // Default message ends with a Unicode-only left-right order mark
-        // to allow for proper punctuation in `rtl` text direction
-        // This character is hidden from editors by default!
-        defaultMessage: 'Upgrade to Streetmix+ to use!‎'
-      })
-    }
-
-    const isSelected = isVariantCurrentlySelected(selection)
-
     return (
-      <Tooltip label={label} sublabel={sublabel} placement="bottom">
-        <Button
-          className={isSelected ? 'variant-selected' : undefined}
-          disabled={isSelected || isLocked}
-          onClick={getButtonOnClickHandler(selection)}
-        >
-          <svg
-            xmlns="http://www.w3.org/1999/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            className="icon"
-          >
-            <use href={`#icon-${icon.id}`} />
-          </svg>
-          {isLocked && <Icon name="lock" />}
-        </Button>
-      </Tooltip>
+      <VariantButton
+        set={set}
+        selection={selection}
+        isSelected={isVariantCurrentlySelected(selection)}
+        onClick={getButtonOnClickHandler(selection)}
+      />
     )
   }
 
@@ -151,8 +108,8 @@ function ElevationControl ({
     controls = (
       <div className="variants popup-control-button-group">
         <TooltipGroup>
-          {renderButton('elevation', 'sidewalk')}
-          {renderButton('elevation', 'road')}
+          {renderButton('universal-elevation', 'sidewalk')}
+          {renderButton('universal-elevation', 'road')}
         </TooltipGroup>
       </div>
     )
