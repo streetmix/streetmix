@@ -31,13 +31,6 @@ function ElevationControl ({
       return state.street.segments[position].elevation
     }
   })
-  const slope = useSelector((state) => {
-    if (typeof position === 'number') {
-      return state.street.segments[position].slope ?? false
-    } else {
-      return false
-    }
-  })
 
   const dispatch = useDispatch()
 
@@ -101,7 +94,6 @@ function ElevationControl ({
         key={position}
         position={position}
         elevation={elevation}
-        slope={slope}
       />
     )
   } else {

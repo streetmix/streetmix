@@ -6,7 +6,6 @@ import {
   changeSegmentProperties,
   setBoundaryElevation
 } from '~/src/store/slices/street'
-import Checkbox from '~/src/ui/Checkbox'
 import UpDownInput from './UpDownInput'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -14,22 +13,13 @@ import type { BoundaryPosition } from '@streetmix/types'
 interface ElevationControlProps {
   position: number | BoundaryPosition
   elevation: number
-  slope: boolean
 }
 
 function ElevationControlNew ({
   position,
-  elevation,
-  slope = false
+  elevation
 }: ElevationControlProps): React.ReactElement {
   const dispatch = useDispatch()
-
-  function handleSlopeChange (): void {
-    if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { slope: !slope }))
-      segmentsChanged()
-    }
-  }
 
   function handleIncrement (): void {
     if (typeof position === 'number') {
@@ -58,11 +48,6 @@ function ElevationControlNew ({
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
       />
-      {typeof position === 'number' && (
-        <Checkbox checked={slope} onChange={handleSlopeChange}>
-          Slope
-        </Checkbox>
-      )}
     </div>
   )
 }

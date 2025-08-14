@@ -9,6 +9,7 @@ import ElevationControl from './ElevationControl'
 import CoastmixControlsButton from './CoastmixControlsButton'
 import './PopupControls.css'
 
+import { SlopeControl } from './SlopeControl'
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
 export function PopupControls (
@@ -42,10 +43,16 @@ export function PopupControls (
           {widthOrHeightControl}
         </div>
       </div>
-      {/* Only enabled for segments right now or Coastmix mode */}
-      {(coastmixMode || typeof position === 'number') && (
+      {/* Universal elevation control for slices only, if not in Coastmix mode */}
+      {typeof position === 'number' && !coastmixMode && (
         <div className="popup-control-group">
           <ElevationControl position={position} />
+        </div>
+      )}
+      {coastmixMode && (
+        <div className="popup-control-group">
+          <ElevationControl position={position} />
+          <SlopeControl position={position} />
         </div>
       )}
       {coastmixMode && (
