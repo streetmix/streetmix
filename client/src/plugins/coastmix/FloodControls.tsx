@@ -35,8 +35,8 @@ function FloodControls (): React.ReactElement | null {
       handleClose={handleClose}
     >
       <div className="flood-controls-content">
-        <div className="info-bubble-control-row">
-          <div className="info-bubble-control-label">Sea level rise</div>
+        <div className="popup-control-row">
+          <div className="popup-control-label">Sea level rise</div>
           <div className="variants">
             <Button
               className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
@@ -72,11 +72,8 @@ function FloodControls (): React.ReactElement | null {
             </Button>
           </div>
         </div>
-        <div
-          className="info-bubble-control-row"
-          style={{ marginTop: '0.75em' }}
-        >
-          <div className="info-bubble-control-label">Storm surge</div>
+        <div className="popup-control-row" style={{ marginTop: '0.75em' }}>
+          <div className="popup-control-label">Storm surge</div>
           <div className="variants">
             <Switch
               onCheckedChange={(checked) => {

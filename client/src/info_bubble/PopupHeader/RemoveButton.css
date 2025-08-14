@@ -1,0 +1,12 @@
+.popup-slice-remove {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+
+  .remove-icon {
+    width: 16px;
+    height: 16px;
+    margin-inline-end: 0.35em;
+  }
+}

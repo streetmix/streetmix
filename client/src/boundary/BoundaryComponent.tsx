@@ -7,7 +7,7 @@ import {
   removeBuildingFloor
 } from '~/src/store/slices/street'
 import { usePrevious } from '~/src/util/usePrevious'
-import { PopupControls } from '../info_bubble/PopupControls'
+import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
@@ -275,7 +275,7 @@ function Boundary ({
     // node switching functionality
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <PopupControls type="boundary" position={position}>
+        <PopupContainer type="boundary" position={position}>
           <button>
             <section
               ref={(ref) => {
@@ -287,7 +287,7 @@ function Boundary ({
             <div className="active-bg" />
             <div className="boundary-dirt" style={elevationStyle} />
           </button>
-        </PopupControls>
+        </PopupContainer>
       </div>
     )
   }

@@ -3,9 +3,9 @@ import { CSSTransition } from 'react-transition-group'
 import { useDrag, useDrop } from 'react-dnd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
+import { PopupContainer } from '~/src/info_bubble/PopupContainer'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
-import { PopupControls } from '~/src/info_bubble/PopupControls'
 import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {
@@ -266,7 +266,11 @@ function Segment (props: SliceProps): React.ReactNode {
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}
     >
-      <PopupControls type="slice" position={sliceIndex} isDragging={isDragging}>
+      <PopupContainer
+        type="slice"
+        position={sliceIndex}
+        isDragging={isDragging}
+      >
         <button data-slice-index={sliceIndex}>
           <SegmentLabelContainer
             label={displayName}
@@ -303,7 +307,7 @@ function Segment (props: SliceProps): React.ReactNode {
           <div className="active-bg" />
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>
-      </PopupControls>
+      </PopupContainer>
     </div>
   )
 }

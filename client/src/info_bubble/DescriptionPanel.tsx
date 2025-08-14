@@ -68,7 +68,7 @@ function DescriptionPanel (): React.ReactElement | null {
         <div className="description-content">
           {description.image && (
             <img
-              src={`/images/info-bubble-examples/${description.image}`}
+              src={`/images/descriptions/${description.image}`}
               alt={caption ?? ''}
               draggable={false}
             />

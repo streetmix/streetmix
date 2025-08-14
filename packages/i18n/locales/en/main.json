@@ -413,7 +413,8 @@
       "max": "Max"
     },
     "controls": {
-      "elevation": "Elevation"
+      "elevation": "Elevation",
+      "slope": "Slope"
     }
   },
   "section": {

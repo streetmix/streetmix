@@ -1,0 +1,112 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Variants > segment variants > renders segment buttons 1`] = `
+<DocumentFragment>
+  <div
+    class="variants"
+  >
+    <div
+      class="popup-control-button-group"
+    >
+      <button
+        class="btn variant-selected"
+        data-testid="Inbound"
+        disabled=""
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-direction-inbound"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Outbound"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-direction-outbound"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="No one"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="popup-control-button-group"
+    >
+      <button
+        class="btn variant-selected"
+        data-testid="Asphalt"
+        disabled=""
+        type="button"
+      >
+        <svg
+          class="icon"
+          style="fill: #292a29;"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-asphalt"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Red lane"
+        type="button"
+      >
+        <svg
+          class="icon"
+          style="fill: #9b1f22;"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-asphalt"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn"
+        data-testid="Grass"
+        type="button"
+      >
+        <svg
+          class="icon"
+          xmlns="http://www.w3.org/1999/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <use
+            href="#icon-grass"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
