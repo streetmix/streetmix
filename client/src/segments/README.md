@@ -20,7 +20,7 @@ How to fill in the data for a segment:
 | property       | type               | required? | description                                                                                                                                               |
 | -------------- | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `prompt`       | String             | required  | The text on the "learn more" button, e.g. 'Learn more about parklets'. There's no magic processing on it, you have to write 'Learn more about' each time. |
-| `image`        | String             | required  | Filename for an image. The file is assumed to be located in /public/images/info-bubble-examples                                                           |
+| `image`        | String             | required  | Filename for an image. The file is assumed to be located in /public/images/description                                                                    |
 | `imageCaption` | String             | optional  | Caption text / credits for the image.                                                                                                                     |
 | `lede`         | String             | optional  | A brief statement about the segment that will be displayed in a larger font size.                                                                         |
 | `text`         | Array of _strings_ | required  | Each string in the array will be wrapped in a `<p>` tag. Inline HTML is allowed, for links, emphasis, etc.                                                |
