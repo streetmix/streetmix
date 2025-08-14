@@ -5,7 +5,7 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render'
 import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
-import { Variants } from './Variants'
+import { VariantSet } from './VariantSet'
 
 import type { SegmentDefinition } from '@streetmix/types'
 
@@ -18,7 +18,7 @@ vi.mock(
   async () => await import('../../segments/__mocks__/variant_icons.yaml')
 )
 
-describe('Variants', () => {
+describe('VariantSet', () => {
   const initialState = {
     street: {
       boundary: {
@@ -54,7 +54,7 @@ describe('Variants', () => {
     })
 
     it('renders segment buttons', () => {
-      const { asFragment } = render(<Variants type="slice" position={0} />, {
+      const { asFragment } = render(<VariantSet type="slice" position={0} />, {
         initialState
       })
 
@@ -62,7 +62,7 @@ describe('Variants', () => {
     })
 
     it('handles switching segment variant', async () => {
-      const { store } = render(<Variants type="slice" position={0} />, {
+      const { store } = render(<VariantSet type="slice" position={0} />, {
         initialState
       })
 
@@ -78,7 +78,7 @@ describe('Variants', () => {
 
   describe('building variants', () => {
     it('handles switching left building', async () => {
-      const { store } = render(<Variants type="boundary" position="left" />, {
+      const { store } = render(<VariantSet type="boundary" position="left" />, {
         initialState
       })
 
@@ -87,9 +87,12 @@ describe('Variants', () => {
     })
 
     it('handles switching right building', async () => {
-      const { store } = render(<Variants type="boundary" position="right" />, {
-        initialState
-      })
+      const { store } = render(
+        <VariantSet type="boundary" position="right" />,
+        {
+          initialState
+        }
+      )
 
       await userEvent.click(screen.getByTestId('Waterfront'))
       expect(store.getState().street.boundary.right.variant).toBe('waterfront')
@@ -105,7 +108,7 @@ describe('Variants', () => {
     })
 
     it('renders a button if flag is true', () => {
-      render(<Variants type="slice" position={0} />, {
+      render(<VariantSet type="slice" position={0} />, {
         initialState: {
           ...initialState,
           flags: {
@@ -120,7 +123,7 @@ describe('Variants', () => {
     })
 
     it('does not render a button if flag is false', () => {
-      render(<Variants type="slice" position={0} />, {
+      render(<VariantSet type="slice" position={0} />, {
         initialState: {
           ...initialState,
           flags: {

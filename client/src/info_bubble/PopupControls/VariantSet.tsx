@@ -13,7 +13,7 @@ import { VariantButton } from './VariantButton'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function Variants (
+export function VariantSet (
   props: SectionElementTypeAndPosition
 ): React.ReactElement | null {
   const { type, position } = props

@@ -2,7 +2,7 @@ import React from 'react'
 import { IntlProvider } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
-import { Variants } from './Variants'
+import { VariantSet } from './VariantSet'
 import { WidthControl } from './WidthControl'
 import { BuildingHeightControl } from './BuildingHeightControl'
 import { ElevationControl } from './ElevationControl'
@@ -38,7 +38,7 @@ export function PopupControls (
       <div className="popup-control-group">
         <div className="popup-control-row">
           <IntlProvider locale={locale} messages={segmentInfo}>
-            <Variants type={type} position={position} />
+            <VariantSet type={type} position={position} />
           </IntlProvider>
           {widthOrHeightControl}
         </div>
