@@ -1,2 +1,2 @@
-export { default as FloodControls } from './FloodControls'
-export { default as SeaLevel } from './SeaLevel'
+export * from './CoastalFloodingPanel'
+export * from './SeaLevel'

@@ -2,16 +2,16 @@ import React from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
-  hideCoastmixControls,
+  hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge
 } from '~/src/store/slices/coastmix'
 import Button from '~/src/ui/Button'
 import Switch from '~/src/ui/Switch'
 import FloatingPanel from '~/src/ui/FloatingPanel'
-import './FloodControls.css'
+import './CoastalFloodingPanel.css'
 
-function FloodControls (): React.ReactElement | null {
+export function CoastalFloodingPanel (): React.ReactElement | null {
   const { controlsVisible, seaLevelRise, stormSurge } = useSelector(
     (state) => state.coastmix
   )
@@ -19,7 +19,7 @@ function FloodControls (): React.ReactElement | null {
   const dispatch = useDispatch()
 
   function handleClose (): void {
-    dispatch(hideCoastmixControls())
+    dispatch(hideCoastalFloodingPanel())
   }
 
   function changeSeaLevelRise (x: number): void {
@@ -29,7 +29,7 @@ function FloodControls (): React.ReactElement | null {
   return (
     <FloatingPanel
       icon="boat"
-      title="Flood controls"
+      title="Coastal flooding"
       show={controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
@@ -87,5 +87,3 @@ function FloodControls (): React.ReactElement | null {
     </FloatingPanel>
   )
 }
-
-export default FloodControls

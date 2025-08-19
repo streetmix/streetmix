@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
-import { FloodControls } from '~/src/plugins/coastmix'
+import { CoastalFloodingPanel } from '~/src/plugins/coastmix'
 import MenusContainer from '../menubar/MenusContainer'
 import StreetNameplateContainer from '../streets/StreetNameplateContainer'
 import DescriptionPanel from '../info_bubble/DescriptionPanel'
@@ -78,7 +78,7 @@ function App (): React.ReactElement {
                   <MenusContainer />
                   <StreetNameplateContainer />
                   <DescriptionPanel />
-                  <FloodControls />
+                  <CoastalFloodingPanel />
                   <WelcomePanel />
                   <PaletteContainer />
                   <SkyPicker />

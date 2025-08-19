@@ -6,7 +6,7 @@ import { VariantSet } from './VariantSet'
 import { WidthControl } from './WidthControl'
 import { BuildingHeightControl } from './BuildingHeightControl'
 import { ElevationControl } from './ElevationControl'
-import { CoastmixControlsButton } from './CoastmixControlsButton'
+import { CoastalFloodingButton } from './CoastalFloodingButton'
 import './PopupControls.css'
 
 import { SlopeControl } from './SlopeControl'
@@ -56,7 +56,7 @@ export function PopupControls (
         </div>
       )}
       {coastmixMode && (
-        <CoastmixControlsButton type={type} position={position} />
+        <CoastalFloodingButton type={type} position={position} />
       )}
     </div>
   )

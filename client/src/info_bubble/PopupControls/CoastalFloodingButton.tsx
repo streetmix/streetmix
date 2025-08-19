@@ -1,14 +1,14 @@
 import React from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
-import { showCoastmixControls } from '~/src/store/slices/coastmix'
+import { showCoastalFloodingPanel } from '~/src/store/slices/coastmix'
 import BetaTag from '~/src/menubar/menus/BetaTag'
 import Button from '~/src/ui/Button'
-import './CoastmixControlsButton.css'
+import './CoastalFloodingButton.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function CoastmixControlsButton (
+export function CoastalFloodingButton (
   props: SectionElementTypeAndPosition
 ): React.ReactElement | null {
   const { type, position } = props
@@ -26,13 +26,13 @@ export function CoastmixControlsButton (
   if (type === 'slice' || variant !== 'waterfront') return null
 
   function handleClick () {
-    dispatch(showCoastmixControls())
+    dispatch(showCoastalFloodingPanel())
   }
 
   return (
     <div className="popup-control-group">
       <Button onClick={handleClick} className="coastmix-controls-button">
-        Flood controls <BetaTag />
+        Coastal flooding <BetaTag />
       </Button>
     </div>
   )

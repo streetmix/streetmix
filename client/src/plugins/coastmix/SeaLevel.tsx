@@ -33,7 +33,7 @@ const SEA_LEVEL_RISE_FEET = {
   [SEA_LEVEL_YEAR_2070]: 4.5
 }
 
-function SeaLevel (props: SeaLevelProps): React.ReactElement {
+export function SeaLevel (props: SeaLevelProps): React.ReactElement {
   const { scrollPos } = props
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
@@ -79,5 +79,3 @@ function getWavePosition (scrollPos: number): React.CSSProperties {
     backgroundPosition: `-${pos}px 0`
   }
 }
-
-export default SeaLevel
