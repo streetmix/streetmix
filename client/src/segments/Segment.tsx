@@ -53,6 +53,7 @@ function Segment (props: SliceProps): React.ReactNode {
   const activeSegment = useSelector((state) =>
     typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
   )
+  const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const capacitySource = useSelector((state) => state.street.capacitySource)
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
@@ -121,6 +122,9 @@ function Segment (props: SliceProps): React.ReactNode {
   // We need to define a callback so React can properly clean up event handlers
   const handleKeyDown = useCallback(
     (event: KeyboardEvent): void => {
+      // Bail if hovered over infobubble popup
+      if (infoBubbleHovered) return
+
       switch (event.key) {
         case '-':
         case '_':
@@ -169,7 +173,7 @@ function Segment (props: SliceProps): React.ReactNode {
           break
       }
     },
-    [decrementWidth, incrementWidth, sliceIndex, dispatch]
+    [decrementWidth, incrementWidth, sliceIndex, infoBubbleHovered, dispatch]
   )
 
   // Cleanup effect
