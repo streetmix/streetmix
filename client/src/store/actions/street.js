@@ -33,6 +33,8 @@ import {
   saveStreetId,
   saveOriginalStreetId
 } from '../slices/street'
+import { setInfoBubbleMouseInside } from '../slices/infoBubble'
+import { setActiveSegment } from '../slices/ui'
 
 /**
  * updateStreetWidth as a thunk action that automatically
@@ -67,6 +69,11 @@ export const removeSegmentAction = (segmentIndex) => {
   return async (dispatch, getState) => {
     await dispatch(removeSegment(segmentIndex, false))
     await dispatch(segmentsChanged())
+
+    // Reset various UI states
+    await dispatch(setActiveSegment(null))
+    await dispatch(setInfoBubbleMouseInside(false))
+
     await dispatch(
       addToast({
         message: formatMessage(
@@ -83,6 +90,11 @@ export const clearSegmentsAction = () => {
   return async (dispatch, getState) => {
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
+
+    // Reset various UI states
+    await dispatch(setActiveSegment(null))
+    await dispatch(setInfoBubbleMouseInside(false))
+
     await dispatch(
       addToast({
         message: formatMessage(

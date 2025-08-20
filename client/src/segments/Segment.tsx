@@ -48,9 +48,7 @@ function Segment (props: SliceProps): React.ReactNode {
     (state) => state.flags.ANALYTICS.value && state.street.showAnalytics
   )
   const locale = useSelector((state) => state.locale.locale)
-  const activeSegment = useSelector((state) =>
-    typeof state.ui.activeSegment === 'number' ? state.ui.activeSegment : null
-  )
+  const activeSegment = useSelector((state) => state.ui.activeSegment)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const capacitySource = useSelector((state) => state.street.capacitySource)
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
