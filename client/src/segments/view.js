@@ -254,7 +254,8 @@ const GROUND_LEVEL_OFFSETY = {
  * @returns {?Number} groundLevelOffset
  */
 function getGroundLevelOffset (elevation) {
-  return elevation * 18
+  // At elevation = 1, this is 19.7, pretty close to the 18 we defined as GROUND_LEVEL_OFFSETY.CURB
+  return elevation * 0.5 * TILE_SIZE
   /* eslint-disable no-unreachable */
   switch (elevation) {
     case -2:
