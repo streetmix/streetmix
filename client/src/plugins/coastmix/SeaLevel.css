@@ -4,7 +4,7 @@
   left: 0;
   background-color: rgb(54 99 135); /* match wave color */
   mix-blend-mode: multiply;
-  bottom: calc(var(--street-section-baseline) - 5px);
+  bottom: var(--street-section-baseline);
   pointer-events: none;
   opacity: 0;
   transition:
@@ -24,6 +24,6 @@
   transition: transform 500ms ease-in-out;
 
   &.sea-level-surge {
-    transform: scaleY(200%) scaleX(120%) translateY(-2px);
+    transform: scaleY(200%) scaleX(105%) translateY(-2px);
   }
 }

@@ -6,7 +6,7 @@ import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
-const CANVAS_HEIGHT = 500
+const CANVAS_HEIGHT = 600
 const CANVAS_GROUND = 35
 // TODO: Define magic number 80
 const GROUND_BASELINE = CANVAS_HEIGHT - 80 + CANVAS_GROUND

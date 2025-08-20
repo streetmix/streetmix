@@ -5,7 +5,7 @@
 :root {
   /* Dimensions */
   --tile-size: 12px;
-  --canvas-height: 500px;
+  --canvas-height: 600px;
 
   /* Baseline is variable depending on screen height, up to a maximum of 400px
      a minimum of 190px */
@@ -18,7 +18,6 @@
   );
   --street-section-min-baseline: 190px;
   --street-section-max-baseline: 400px;
-  --street-section-scroll-hide: -20px;
   --gallery-height: 180px;
   --left-right-inset: 50px;
   --menu-side-inset: calc(var(--left-right-inset) - 20px);

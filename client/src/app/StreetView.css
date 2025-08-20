@@ -3,8 +3,9 @@
 
   position: absolute;
   display: block;
-  inset: calc(-1 * var(--gallery-height)) 0 var(--street-section-scroll-hide); /* Bottom inset hides the scrollbar */
+  inset: calc(-1 * var(--gallery-height)) 0 0;
   overflow: scroll hidden;
+  scrollbar-width: none; /* Prevents scrollbar space from shifting section up */
   touch-action: pan-x;
 
   /* Prevent overscroll from doing forward/back navigation on some browsers
@@ -19,8 +20,7 @@
 #street-section-inner {
   position: absolute;
   display: block;
-  left: 0;
-  bottom: var(--street-section-baseline);
+  inset: auto 0 var(--street-section-baseline);
   height: var(--canvas-height);
   user-select: none;
 
