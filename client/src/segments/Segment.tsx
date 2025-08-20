@@ -6,14 +6,12 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { PopupContainer } from '~/src/info_bubble/PopupContainer'
 import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
 import { usePrevious } from '~/src/util/usePrevious'
-import { formatMessage } from '../locales/locale'
 import { setActiveSegment } from '../store/slices/ui'
 import {
   incrementSegmentWidth,
   removeSegmentAction,
   clearSegmentsAction
 } from '../store/actions/street'
-import { addToast } from '../store/slices/toasts'
 import { getSegmentCapacity } from './capacity'
 import { getLocaleSegmentName } from './view'
 import SegmentCanvas from './SegmentCanvas'
@@ -147,25 +145,7 @@ function Segment (props: SliceProps): React.ReactNode {
           // If the shift key is pressed, we remove all segments
           if (event.shiftKey) {
             dispatch(clearSegmentsAction())
-            dispatch(
-              addToast({
-                message: formatMessage(
-                  'toast.all-segments-deleted',
-                  'All segments have been removed.'
-                ),
-                component: 'TOAST_UNDO'
-              })
-            )
           } else {
-            dispatch(
-              addToast({
-                message: formatMessage(
-                  'toast.segment-deleted',
-                  'The segment has been removed.'
-                ),
-                component: 'TOAST_UNDO'
-              })
-            )
             dispatch(removeSegmentAction(sliceIndex))
           }
           break

@@ -1,7 +1,11 @@
 import React, { type MouseEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { removeSegment, removeAllSegments } from '~/src/segments/remove'
+import { useDispatch } from '~/src/store/hooks'
+import {
+  removeSegmentAction,
+  clearSegmentsAction
+} from '~/src/store/actions/street'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import './RemoveButton.css'
@@ -13,6 +17,7 @@ interface RemoveButtonProps {
 export function RemoveButton ({
   segment
 }: RemoveButtonProps): React.ReactElement {
+  const dispatch = useDispatch()
   const intl = useIntl()
 
   const handleClick = (event: MouseEvent): void => {
@@ -21,10 +26,10 @@ export function RemoveButton ({
 
     // Power move: a shift key will remove all segments
     if (event.shiftKey) {
-      removeAllSegments()
+      dispatch(clearSegmentsAction())
     } else {
       // Otherwise, remove one segment
-      removeSegment(segment)
+      dispatch(removeSegmentAction(segment))
     }
   }
 

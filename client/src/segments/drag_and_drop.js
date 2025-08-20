@@ -3,7 +3,8 @@ import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import store, { observeStore } from '../store'
-import { addSegment, removeSegment, moveSegment } from '../store/slices/street'
+import { addSegment, moveSegment } from '../store/slices/street'
+import { removeSegmentAction } from '../store/actions/street'
 import {
   initDraggingState,
   updateDraggingState,
@@ -543,7 +544,7 @@ export function createSliceDragSpec (props) {
           handleSegmentCanvasDrop(item, monitor.getItemType())
         } else if (monitor.getItemType() === Types.SLICE) {
           // if existing segment is dropped outside canvas, delete it
-          store.dispatch(removeSegment(props.sliceIndex))
+          store.dispatch(removeSegmentAction(props.sliceIndex))
         }
       }
 
