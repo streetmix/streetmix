@@ -6,6 +6,7 @@ import {
   addBuildingFloor,
   removeBuildingFloor
 } from '~/src/store/slices/street'
+import { setActiveSegment } from '~/src/store/slices/ui'
 import { usePrevious } from '~/src/util/usePrevious'
 import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
@@ -95,9 +96,7 @@ function Boundary ({
   updatePerspective
 }: BoundaryProps): React.ReactElement {
   const street = useSelector((state) => state.street)
-  const activeSegment = useSelector((state) =>
-    typeof state.ui.activeSegment === 'string' ? state.ui.activeSegment : null
-  )
+  const activeSegment = useSelector((state) => state.ui.activeSegment)
   const leftBoundaryEditable = useSelector(
     (state) => state.flags.EDIT_BOUNDARY_LEFT.value
   )
@@ -213,6 +212,7 @@ function Boundary ({
     if (el === null) return
     if (!isEditable) return
 
+    dispatch(setActiveSegment(position))
     document.addEventListener('keydown', handleKeyDown)
   }
 
@@ -222,6 +222,7 @@ function Boundary ({
     if (el === null) return
     if (!isEditable) return
 
+    dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
   }
 

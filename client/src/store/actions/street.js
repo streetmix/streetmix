@@ -1,4 +1,7 @@
 import clone from 'just-clone'
+
+import { ERRORS } from '../../app/errors'
+import { formatMessage } from '../../locales/locale'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
@@ -7,18 +10,17 @@ import {
   cancelSegmentResizeTransitions
 } from '../../segments/resizing'
 import { getVariantInfo } from '../../segments/variant_utils'
-import { ERRORS } from '../../app/errors'
-import { showError } from '../slices/errors'
-import { recalculateWidth } from '../../streets/width'
-import { saveStreetToServer } from '../../streets/xhr'
 import {
   setIgnoreStreetChanges,
   setLastStreet,
   saveStreetToServerIfNecessary
 } from '../../streets/data_model'
-import { updateSettings } from '../slices/settings'
+import { recalculateWidth } from '../../streets/width'
+import { saveStreetToServer } from '../../streets/xhr'
 import apiClient from '../../util/api'
-
+import { showError } from '../slices/errors'
+import { updateSettings } from '../slices/settings'
+import { addToast } from '../slices/toasts'
 import {
   updateStreetWidth,
   updateSegments,
@@ -31,6 +33,8 @@ import {
   saveStreetId,
   saveOriginalStreetId
 } from '../slices/street'
+import { setInfoBubbleMouseInside } from '../slices/infoBubble'
+import { setActiveSegment } from '../slices/ui'
 
 /**
  * updateStreetWidth as a thunk action that automatically
@@ -65,6 +69,20 @@ export const removeSegmentAction = (segmentIndex) => {
   return async (dispatch, getState) => {
     await dispatch(removeSegment(segmentIndex, false))
     await dispatch(segmentsChanged())
+
+    // Reset various UI states
+    await dispatch(setActiveSegment(null))
+    await dispatch(setInfoBubbleMouseInside(false))
+
+    await dispatch(
+      addToast({
+        message: formatMessage(
+          'toast.segment-deleted',
+          'The segment has been removed.'
+        ),
+        component: 'TOAST_UNDO'
+      })
+    )
   }
 }
 
@@ -72,6 +90,20 @@ export const clearSegmentsAction = () => {
   return async (dispatch, getState) => {
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
+
+    // Reset various UI states
+    await dispatch(setActiveSegment(null))
+    await dispatch(setInfoBubbleMouseInside(false))
+
+    await dispatch(
+      addToast({
+        message: formatMessage(
+          'toast.all-segments-deleted',
+          'All segments have been removed.'
+        ),
+        component: 'TOAST_UNDO'
+      })
+    )
   }
 }
 
