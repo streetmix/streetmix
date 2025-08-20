@@ -89,6 +89,89 @@ function Segment (props: SliceProps): React.ReactNode {
     }
   }, [segment.variantString])
 
+  const decrementWidth = useCallback(
+    (position: number, finetune: boolean): void => {
+      dispatch(
+        incrementSegmentWidth(
+          position, // slice index
+          false, // subtract
+          finetune, // true if shift key is pressed
+          RESIZE_TYPE_INCREMENT
+        )
+      )
+    },
+    [dispatch]
+  )
+
+  const incrementWidth = useCallback(
+    (position: number, finetune: boolean): void => {
+      dispatch(
+        incrementSegmentWidth(
+          position, // slice index
+          true, // add
+          finetune, // true if shift key is pressed
+          RESIZE_TYPE_INCREMENT
+        )
+      )
+    },
+    [dispatch]
+  )
+
+  // `event` type is not a React event because listener is attached through DOM
+  // We need to define a callback so React can properly clean up event handlers
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent): void => {
+      switch (event.key) {
+        case '-':
+        case '_':
+          if (event.metaKey || event.ctrlKey || event.altKey) return
+
+          event.preventDefault()
+          decrementWidth(sliceIndex, event.shiftKey)
+          break
+        // Plus (+) may only triggered with shift key, so also check if
+        // the same physical key (Equal) is pressed
+        case '+':
+        case '=':
+          if (event.metaKey || event.ctrlKey || event.altKey) return
+
+          event.preventDefault()
+          incrementWidth(sliceIndex, event.shiftKey)
+          break
+        case 'Backspace':
+        case 'Delete':
+          // If the shift key is pressed, we remove all segments
+          if (event.shiftKey) {
+            dispatch(clearSegmentsAction())
+            dispatch(
+              addToast({
+                message: formatMessage(
+                  'toast.all-segments-deleted',
+                  'All segments have been removed.'
+                ),
+                component: 'TOAST_UNDO'
+              })
+            )
+          } else {
+            dispatch(
+              addToast({
+                message: formatMessage(
+                  'toast.segment-deleted',
+                  'The segment has been removed.'
+                ),
+                component: 'TOAST_UNDO'
+              })
+            )
+            dispatch(removeSegmentAction(sliceIndex))
+          }
+          break
+        default:
+          break
+      }
+    },
+    [decrementWidth, incrementWidth, sliceIndex, dispatch]
+  )
+
   // Cleanup effect
   useEffect(() => {
     // Event handler is only added on mouseover, but definitely remove if
@@ -96,7 +179,7 @@ function Segment (props: SliceProps): React.ReactNode {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [handleKeyDown])
 
   // When called by CSSTransition `onExited`, `oldVariant` is not passed to the
   // function (is undefined). `switchSegments` should be `true` when this happens.
@@ -114,7 +197,6 @@ function Segment (props: SliceProps): React.ReactNode {
 
   function handleSegmentMouseEnter (): void {
     dispatch(setActiveSegment(sliceIndex))
-
     document.addEventListener('keydown', handleKeyDown)
   }
 
@@ -122,80 +204,6 @@ function Segment (props: SliceProps): React.ReactNode {
     dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
   }
-
-  function decrementWidth (position: number, finetune: boolean): void {
-    dispatch(
-      incrementSegmentWidth(
-        position, // slice index
-        false, // subtract
-        finetune, // true if shift key is pressed
-        RESIZE_TYPE_INCREMENT
-      )
-    )
-  }
-
-  function incrementWidth (position: number, finetune: boolean): void {
-    dispatch(
-      incrementSegmentWidth(
-        position, // slice index
-        true, // add
-        finetune, // true if shift key is pressed
-        RESIZE_TYPE_INCREMENT
-      )
-    )
-  }
-
-  // `event` type is not a React event because listener is attached through DOM
-  // We need to define a callback so React can properly clean up event handlers
-  const handleKeyDown = useCallback((event: KeyboardEvent): void => {
-    switch (event.key) {
-      case '-':
-      case '_':
-        if (event.metaKey || event.ctrlKey || event.altKey) return
-
-        event.preventDefault()
-        decrementWidth(sliceIndex, event.shiftKey)
-        break
-      // Plus (+) may only triggered with shift key, so also check if
-      // the same physical key (Equal) is pressed
-      case '+':
-      case '=':
-        if (event.metaKey || event.ctrlKey || event.altKey) return
-
-        event.preventDefault()
-        incrementWidth(sliceIndex, event.shiftKey)
-        break
-      case 'Backspace':
-      case 'Delete':
-        // If the shift key is pressed, we remove all segments
-        if (event.shiftKey) {
-          dispatch(clearSegmentsAction())
-          dispatch(
-            addToast({
-              message: formatMessage(
-                'toast.all-segments-deleted',
-                'All segments have been removed.'
-              ),
-              component: 'TOAST_UNDO'
-            })
-          )
-        } else {
-          dispatch(
-            addToast({
-              message: formatMessage(
-                'toast.segment-deleted',
-                'The segment has been removed.'
-              ),
-              component: 'TOAST_UNDO'
-            })
-          )
-          dispatch(removeSegmentAction(sliceIndex))
-        }
-        break
-      default:
-        break
-    }
-  }, [])
 
   function renderSegmentCanvas (
     variantType: string,
