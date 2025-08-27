@@ -30,9 +30,7 @@ describe('WidthControl', () => {
       })
 
       await userEvent.click(screen.getByTestId('up'))
-      expect(store.getState().street.segments[activeElement].width).toEqual(
-        3.05
-      )
+      expect(store.getState().street.segments[activeElement].width).toEqual(3.1)
     })
   })
 
@@ -43,9 +41,7 @@ describe('WidthControl', () => {
       })
 
       await userEvent.click(screen.getByTestId('down'))
-      expect(store.getState().street.segments[activeElement].width).toEqual(
-        2.95
-      )
+      expect(store.getState().street.segments[activeElement].width).toEqual(2.9)
     })
   })
 })

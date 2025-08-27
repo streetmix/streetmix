@@ -12,7 +12,7 @@ import type { SliceItem } from '@streetmix/types'
 vi.mock('../info_bubble/info_bubble')
 
 describe('Segment', () => {
-  const increment = 0.05
+  const increment = 0.1
   let variantString,
     type,
     activeElement: number,
