@@ -7,7 +7,7 @@ import { round } from '@streetmix/utils'
 
 import logger from './logger.js'
 
-const LATEST_SCHEMA_VERSION = 32
+const LATEST_SCHEMA_VERSION = 33
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -40,6 +40,7 @@ const LATEST_SCHEMA_VERSION = 32
 // 30: all measurements use metric values
 // 31: fix for streets with old units setting
 // 32: add 'boundary' property to replace left/right building properties
+// 33: drainage channels are now elevation 0
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street
@@ -511,6 +512,19 @@ function incrementSchemaVersion (street) {
       delete street.leftBuildingHeight
       delete street.rightBuildingVariant
       delete street.rightBuildingHeight
+      break
+    case 32:
+      // 33: drainage channels are now elevation 0
+      // previous value was -2, but we want elevation to refer to its base
+      // elevation, in preparation for changes to how we store and render
+      // elevation values. In future, the depth of a drainage channel may
+      // be a spearate property.
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'drainage-channel' && segment.elevation === -2) {
+          segment.elevation = 0
+        }
+      }
       break
     default:
       // no-op

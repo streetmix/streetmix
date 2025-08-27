@@ -37,7 +37,7 @@ import type {
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 32
+const LATEST_SCHEMA_VERSION = 33
 
 function processTemplateSlices (
   slices: SliceItemTemplate[],

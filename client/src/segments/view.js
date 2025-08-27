@@ -235,8 +235,7 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 const GROUND_LEVEL_OFFSETY = {
   ASPHALT: 0,
   CURB: 18,
-  RAISED_CURB: 94,
-  DRAINAGE: -50
+  RAISED_CURB: 94
 }
 
 /**
@@ -251,15 +250,12 @@ const GROUND_LEVEL_OFFSETY = {
  * found, it returns null.
  *
  * @param {Number} elevation
- * @returns {?Number} groundLevelOffset
+ * @returns {Number} groundLevelOffset
  */
-function getGroundLevelOffset (elevation) {
+function getElevation (elevation) {
   // At elevation = 1, this is 19.7, pretty close to the 18 we defined as GROUND_LEVEL_OFFSETY.CURB
-  return elevation * 0.5 * TILE_SIZE
-  /* eslint-disable no-unreachable */
+  // return elevation * 0.5 * TILE_SIZE
   switch (elevation) {
-    case -2:
-      return GROUND_LEVEL_OFFSETY.DRAINAGE
     case 0:
       return GROUND_LEVEL_OFFSETY.ASPHALT
     case 1:
@@ -267,7 +263,7 @@ function getGroundLevelOffset (elevation) {
     case 2:
       return GROUND_LEVEL_OFFSETY.RAISED_CURB
     default:
-      return null
+      return 0
   }
 }
 
@@ -305,10 +301,12 @@ export function drawSegmentContents (
   const left = dimensions.left
   const minWidthQuirk = graphics.quirks?.minWidth
 
-  const groundLevelOffset = getGroundLevelOffset(elevation)
+  const groundLevelOffsetY = variantInfo.offsetY ?? 0
+  const elevationValue = getElevation(elevation)
   const groundLevel =
     groundBaseline -
-    multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
+    multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL) -
+    multiplier * (elevationValue / TILESET_POINT_PER_PIXEL)
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 

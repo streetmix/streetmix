@@ -79,7 +79,7 @@
       }
     },
     "drainage": {
-      "elevation": -2,
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {
