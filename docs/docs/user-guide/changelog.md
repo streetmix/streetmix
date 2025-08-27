@@ -12,7 +12,7 @@ sidebar_position: 5
 
 - Elevation controls
 - Add tooltips to variants panel
-- UI precision for metric slices returns to 0.1m. For more granular resolution of 0.05m, hold 'shift' when adjusting the width. this should be more obvious in the UI tooltip.
+- UI precision for metric slices returns to 0.1m. For more granular resolution of 0.05m, hold 'shift' when adjusting the width. This should be more obvious in the UI tooltip.
 
 ### 🐛 Bug fixes
 
