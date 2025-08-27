@@ -17,6 +17,9 @@ export function PopupControls (
 ): React.ReactElement {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
+  const universalElevation = useSelector(
+    (state) => state.flags.UNIVERSAL_ELEVATION_CONTROLS.value
+  )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
 
   // Determine width or height control type
@@ -44,7 +47,7 @@ export function PopupControls (
         </div>
       </div>
       {/* Universal elevation control for slices only, if not in Coastmix mode */}
-      {typeof position === 'number' && !coastmixMode && (
+      {typeof position === 'number' && universalElevation && !coastmixMode && (
         <div className="popup-control-group">
           <ElevationControl position={position} />
         </div>
