@@ -67,7 +67,7 @@
       }
     },
     "raised-sidewalk": {
-      "elevation": 2,
+      "elevation": 4.5,
       "variants": {
         "type": {
           "default": {

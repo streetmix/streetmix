@@ -232,12 +232,6 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 }
 
-const GROUND_LEVEL_OFFSETY = {
-  ASPHALT: 0,
-  CURB: 18,
-  RAISED_CURB: 94
-}
-
 /**
  * Originally a sprite's dy position was calculated using: dy = offsetTop +
  * (multiplier * TILE_SIZE * (sprite.offsetY || 0)). In order to remove
@@ -254,17 +248,7 @@ const GROUND_LEVEL_OFFSETY = {
  */
 function getElevation (elevation) {
   // At elevation = 1, this is 19.7, pretty close to the 18 we defined as GROUND_LEVEL_OFFSETY.CURB
-  // return elevation * 0.5 * TILE_SIZE
-  switch (elevation) {
-    case 0:
-      return GROUND_LEVEL_OFFSETY.ASPHALT
-    case 1:
-      return GROUND_LEVEL_OFFSETY.CURB
-    case 2:
-      return GROUND_LEVEL_OFFSETY.RAISED_CURB
-    default:
-      return 0
-  }
+  return elevation * 0.5 * TILE_SIZE
 }
 
 /**
