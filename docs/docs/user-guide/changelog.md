@@ -5,16 +5,18 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+<!--  NOT RELEASED YET.
 ## June 20, 2025
 
 ### ✨ New features
 
 - Elevation controls
 - Add tooltips to variants panel
+- UI precision for metric slices returns to 0.1m. For more granular resolution of 0.05m, hold 'shift' when adjusting the width. This should be more obvious in the UI tooltip.
 
 ### 🐛 Bug fixes
 
-- Fix visual artifacts for the variants panel in right-to-left language modes.
+- Fix visual artifacts for the variants panel in right-to-left language modes. -->
 
 ## May 21, 2025
 

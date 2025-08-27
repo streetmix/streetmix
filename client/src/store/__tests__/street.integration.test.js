@@ -162,7 +162,7 @@ describe('street integration test', () => {
       }
       const store = createStore(initialState)
 
-      await store.dispatch(incrementSegmentWidth(0, true, false))
+      await store.dispatch(incrementSegmentWidth(0, true, true))
 
       const { street } = store.getState()
       expect(street.segments[0].width).toEqual(2.15)
