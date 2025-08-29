@@ -16,10 +16,10 @@
 # -- SPECIFICATIONS --
 # variantsCount    (number) actually, not sure
 #                            guess: it varies the upper floor designs
-# mainFloorHeight  (number) in feet, how tall is the ground floor
+# mainFloorHeight  (number) in meters, how tall is the ground floor
 #                            todo: use pixel heights for these?
-# floorHeight      (number) in feet, how tall are intermediate floors (which can repeat)
-# roofHeight       (number) in feet, how tall is the roof structure
+# floorHeight      (number) in meters, how tall are intermediate floors (which can repeat)
+# roofHeight       (number) in meters, how tall is the roof structure
 # overhangWidth    (number) in CSS pixels, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
 grass:
   id: grass
