@@ -38,3 +38,8 @@ export const BUILDING_SPACE = 360
 export const MAX_BUILDING_HEIGHT = 20 // floors
 export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
+
+export const ELEVATION_INCREMENT = 0.15 // meters
+export const ELEVATION_INCREMENT_IMPERIAL = 0.5 // feet
+export const CURB_HEIGHT = ELEVATION_INCREMENT * 1
+export const CURB_HEIGHT_IMPERIAL = ELEVATION_INCREMENT_IMPERIAL * 1

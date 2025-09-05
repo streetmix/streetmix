@@ -10,7 +10,8 @@ import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
-  BUILDING_LEFT_POSITION
+  BUILDING_LEFT_POSITION,
+  CURB_HEIGHT
 } from '../segments/constants'
 import { drawSegmentImage } from '../segments/view'
 
@@ -79,7 +80,6 @@ function calculateRealHeightNumber (
   position: BoundaryPosition,
   floors: number
 ): number {
-  const CURB_HEIGHT = 0.15 // meters
   return (
     (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
     TILE_SIZE

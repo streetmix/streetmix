@@ -4,11 +4,15 @@ import { FormattedMessage } from 'react-intl'
 import { segmentsChanged } from '~/src/segments/view'
 import {
   BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
+  BUILDING_RIGHT_POSITION,
+  CURB_HEIGHT,
+  CURB_HEIGHT_IMPERIAL
 } from '~/src/segments/constants'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import { TooltipGroup } from '~/src/ui/Tooltip'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
+import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
 import { ElevationControlNew } from './ElevationControlNew'
 import { VariantButton } from './VariantButton'
 
@@ -22,6 +26,7 @@ export function ElevationControl ({
   position
 }: ElevationControlProps): React.ReactElement {
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
+  const units = useSelector((state) => state.street.units)
   const elevation = useSelector((state) => {
     if (position === BUILDING_LEFT_POSITION) {
       return state.street.boundary.left.elevation
@@ -37,9 +42,14 @@ export function ElevationControl ({
   function isVariantCurrentlySelected (selection: string): boolean {
     let bool
 
+    // TODO: remove when elevation work is complete
+    // I think this is only null in buggy cases
+    if (elevation === null) return false
+
     switch (selection) {
       case 'sidewalk': {
-        bool = elevation === 1
+        // Quickly convert both metric and imperial values to 0.15
+        bool = +elevation.toFixed(2) === CURB_HEIGHT
         break
       }
       case 'road':
@@ -55,10 +65,13 @@ export function ElevationControl ({
 
   function getButtonOnClickHandler (selection: string): () => void {
     let elevation: number
-
     switch (selection) {
       case 'sidewalk':
-        elevation = 1
+        if (units === SETTINGS_UNITS_IMPERIAL) {
+          elevation = convertImperialMeasurementToMetric(CURB_HEIGHT_IMPERIAL)
+        } else {
+          elevation = CURB_HEIGHT
+        }
         break
       case 'road':
         elevation = 0

@@ -17,6 +17,7 @@ import {
   convertImperialMeasurementToMetric,
   getWidthInMetric
 } from '../util/width_units'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
@@ -590,7 +591,7 @@ export function createPaletteItemDragSpec (segment) {
       let elevation = 0
       if (segment.defaultElevation !== undefined) {
         if (typeof segment.defaultElevation !== 'number') {
-          if (units === 1) {
+          if (units === SETTINGS_UNITS_IMPERIAL) {
             elevation = convertImperialMeasurementToMetric(
               segment.defaultElevation.imperial
             )
@@ -603,7 +604,7 @@ export function createPaletteItemDragSpec (segment) {
       } else {
         const variantInfo = getSegmentVariantInfo(type, variantString)
         if (typeof variantInfo.elevation !== 'number') {
-          if (units === 1) {
+          if (units === SETTINGS_UNITS_IMPERIAL) {
             elevation = convertImperialMeasurementToMetric(
               variantInfo.elevation.imperial
             )
