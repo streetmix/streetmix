@@ -13,7 +13,10 @@ import {
   setDraggingType
 } from '../store/slices/ui'
 import { generateRandSeed } from '../util/random'
-import { getWidthInMetric } from '../util/width_units'
+import {
+  convertImperialMeasurementToMetric,
+  getWidthInMetric
+} from '../util/width_units'
 import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
@@ -581,15 +584,35 @@ export function createPaletteItemDragSpec (segment) {
       // string is specified by `defaultVariant`. If the property isn't present,
       // use the first defined variant in segment details.
       const variantString =
-        segment.defaultVariant || Object.keys(segment.details).shift()
+        segment.defaultVariant ?? Object.keys(segment.details).shift()
 
       // This allows dropped segment to be created with the correct elevation value
       let elevation = 0
       if (segment.defaultElevation !== undefined) {
-        elevation = segment.defaultElevation
+        if (typeof segment.defaultElevation !== 'number') {
+          if (units === 1) {
+            elevation = convertImperialMeasurementToMetric(
+              segment.defaultElevation.imperial
+            )
+          } else {
+            elevation = segment.defaultElevation.metric
+          }
+        } else {
+          elevation = segment.defaultElevation
+        }
       } else {
         const variantInfo = getSegmentVariantInfo(type, variantString)
-        elevation = variantInfo.elevation
+        if (typeof variantInfo.elevation !== 'number') {
+          if (units === 1) {
+            elevation = convertImperialMeasurementToMetric(
+              variantInfo.elevation.imperial
+            )
+          } else {
+            elevation = variantInfo.elevation.metric
+          }
+        } else {
+          elevation = variantInfo.elevation
+        }
       }
 
       return {
