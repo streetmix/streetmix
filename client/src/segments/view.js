@@ -14,7 +14,8 @@ import {
   TILE_SIZE_ACTUAL,
   MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
+  BUILDING_RIGHT_POSITION,
+  VERTICAL_SCALE_CHEAT_FACTOR
 } from './constants'
 import PEOPLE from './people.yaml'
 
@@ -233,22 +234,17 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 }
 
 /**
- * Originally a sprite's dy position was calculated using: dy = offsetTop +
- * (multiplier * TILE_SIZE * (sprite.offsetY || 0)). In order to remove
- * `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground",
- * or "lane", sprites in pixels in `GROUND_LEVEL_OFFSETY`. This was calculated
- * by taking the difference of the `offsetY` value for ground level 0 and the
- * `offsetY` for the elevation of the current segment. Using `elevation`, which
- * is defined for each segment based on the "ground" component being used, this
- * function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not
- * found, it returns null.
+ * Given an elevation value (in meters), return the pixel height it should be
+ * rendered at. For legacy reasons, we cheat the vertical scale to make a curb
+ * height difference more visible.
  *
  * @param {Number} elevation
- * @returns {Number} groundLevelOffset
+ * @returns {Number} pixels
  */
 function getElevation (elevation) {
-  // At elevation = 1, this is 19.7, pretty close to the 18 we defined as GROUND_LEVEL_OFFSETY.CURB
-  return elevation * 0.5 * TILE_SIZE
+  // At elevation = 0.15 (m) (legacy value of elevation = 1), we get 17.95,
+  // pretty close to the 18 pixel value that was originally defined
+  return elevation * TILE_SIZE * VERTICAL_SCALE_CHEAT_FACTOR
 }
 
 /**
