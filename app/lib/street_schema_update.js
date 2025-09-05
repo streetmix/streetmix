@@ -527,6 +527,7 @@ function incrementSchemaVersion (street) {
       //   of `1` is now set to 0.15m or 6" depending on the units setting
       //   of the street.
       // - Elevation values that were `0` remain at `0`.
+      // Elevation for boundaries are also adjusted to metric values.
       const conversion = 0.3048
       for (const i in street.segments) {
         const segment = street.segments[i]
@@ -551,6 +552,22 @@ function incrementSchemaVersion (street) {
           }
         }
       }
+
+      // Handle boundary elevation conversion
+      if (street.units === 1) {
+        street.boundary.left.elevation = round(
+          street.boundary.left.elevation * 0.5 * conversion,
+          3
+        )
+        street.boundary.right.elevation = round(
+          street.boundary.right.elevation * 0.5 * conversion,
+          3
+        )
+      } else {
+        street.boundary.left.elevation = street.boundary.left.elevation * 0.15
+        street.boundary.right.elevation = street.boundary.right.elevation * 0.15
+      }
+
       break
     }
     default:
