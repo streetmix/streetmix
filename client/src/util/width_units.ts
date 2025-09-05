@@ -7,7 +7,11 @@ import {
 import store from '../store'
 import { formatNumber } from './number_format'
 
-import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
+import type {
+  MeasurementDefinition,
+  UnitsSetting,
+  WidthDefinition
+} from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
@@ -223,7 +227,7 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * imperial value to metric and return it.
  */
 export function getWidthInMetric (
-  width: WidthDefinition,
+  width: WidthDefinition | MeasurementDefinition,
   units: UnitsSetting
 ): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {

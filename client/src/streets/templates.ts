@@ -105,7 +105,13 @@ function processTemplateSlices (
       slice.width = getWidthInMetric(sliceTemplate.width, units)
     }
 
-    slice.elevation = variantInfo.elevation ?? 0
+    if (typeof variantInfo.elevation === 'undefined') {
+      slice.elevation = 0
+    } else if (typeof variantInfo.elevation !== 'number') {
+      slice.elevation = getWidthInMetric(variantInfo.elevation, units)
+    } else {
+      slice.elevation = variantInfo.elevation
+    }
 
     processed.push(slice)
   }
