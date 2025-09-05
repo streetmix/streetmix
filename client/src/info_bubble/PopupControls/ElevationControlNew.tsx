@@ -1,4 +1,5 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { Decimal } from 'decimal.js'
 
 import {
@@ -28,6 +29,7 @@ export function ElevationControlNew ({
   units
 }: ElevationControlProps): React.ReactElement {
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   function handleIncrement (): void {
     const increment =
@@ -65,6 +67,14 @@ export function ElevationControlNew ({
         maxValue={30}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
+        upTooltip={intl.formatMessage({
+          id: 'tooltip.elevation-raise',
+          defaultMessage: 'Raise elevation'
+        })}
+        downTooltip={intl.formatMessage({
+          id: 'tooltip.elevation-lower',
+          defaultMessage: 'Lower elevation'
+        })}
       />
     </div>
   )
