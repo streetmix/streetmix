@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import { TooltipGroup } from '~/src/ui/Tooltip'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
 import { ElevationControlNew } from './ElevationControlNew'
 import { VariantButton } from './VariantButton'
 
@@ -67,11 +66,8 @@ export function ElevationControl ({
     let elevation: number
     switch (selection) {
       case 'sidewalk':
-        if (units === SETTINGS_UNITS_IMPERIAL) {
-          elevation = convertImperialMeasurementToMetric(CURB_HEIGHT_IMPERIAL)
-        } else {
-          elevation = CURB_HEIGHT
-        }
+        elevation =
+          units === SETTINGS_UNITS_IMPERIAL ? CURB_HEIGHT_IMPERIAL : CURB_HEIGHT
         break
       case 'road':
         elevation = 0
@@ -107,6 +103,7 @@ export function ElevationControl ({
         key={position}
         position={position}
         elevation={elevation}
+        units={units}
       />
     )
   } else {

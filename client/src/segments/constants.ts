@@ -40,6 +40,6 @@ export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
 
 export const ELEVATION_INCREMENT = 0.15 // meters
-export const ELEVATION_INCREMENT_IMPERIAL = 0.5 // feet
+export const ELEVATION_INCREMENT_IMPERIAL = 0.5 * 0.3048 // feet => m
 export const CURB_HEIGHT = ELEVATION_INCREMENT * 1
 export const CURB_HEIGHT_IMPERIAL = ELEVATION_INCREMENT_IMPERIAL * 1
