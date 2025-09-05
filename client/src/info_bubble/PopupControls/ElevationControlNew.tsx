@@ -1,4 +1,5 @@
 import React from 'react'
+import { Decimal } from 'decimal.js'
 
 import {
   ELEVATION_INCREMENT,
@@ -33,13 +34,12 @@ export function ElevationControlNew ({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const newValue = new Decimal(elevation).plus(increment).toNumber()
     if (typeof position === 'number') {
-      dispatch(
-        changeSegmentProperties(position, { elevation: elevation + increment })
-      )
+      dispatch(changeSegmentProperties(position, { elevation: newValue }))
       segmentsChanged()
     } else {
-      dispatch(setBoundaryElevation(position, elevation + increment))
+      dispatch(setBoundaryElevation(position, newValue))
     }
   }
 
@@ -48,13 +48,12 @@ export function ElevationControlNew ({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const newValue = new Decimal(elevation).minus(increment).toNumber()
     if (typeof position === 'number') {
-      dispatch(
-        changeSegmentProperties(position, { elevation: elevation - increment })
-      )
+      dispatch(changeSegmentProperties(position, { elevation: newValue }))
       segmentsChanged()
     } else {
-      dispatch(setBoundaryElevation(position, elevation - increment))
+      dispatch(setBoundaryElevation(position, newValue))
     }
   }
 
