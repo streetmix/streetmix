@@ -36,7 +36,10 @@ export function ElevationControlNew ({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
-    const newValue = new Decimal(elevation).plus(increment).toNumber()
+    const newValue = new Decimal(elevation)
+      .plus(increment)
+      .toDecimalPlaces(3)
+      .toNumber()
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
       segmentsChanged()
@@ -50,7 +53,10 @@ export function ElevationControlNew ({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
-    const newValue = new Decimal(elevation).minus(increment).toNumber()
+    const newValue = new Decimal(elevation)
+      .minus(increment)
+      .toDecimalPlaces(3)
+      .toNumber()
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
       segmentsChanged()
