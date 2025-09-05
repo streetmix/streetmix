@@ -513,27 +513,46 @@ function incrementSchemaVersion (street) {
       delete street.rightBuildingVariant
       delete street.rightBuildingHeight
       break
-    case 32:
+    case 32: {
       // 33: elevation adjustments
       // Elevation values for drainage channels and light rail platform
       // are adjusted to new values:
       // - Drainage channels are now elevation 0 (previous value was -2).
       //   Drainage channel elevation now refers to its base elevation.
       //   Channel depth will be a value stored elsewhere.
-      // - Light rail platforms ("raised sidewalk") are now elevation 4.5
-      //   (previous value 2). This value is a transitional one that
-      //   accounts for its actual relative Y position compared to curb
-      //   height.
+      // - Light rail platforms ("raised sidewalk") are now at 0.75m or
+      //   2.5' (depending on units setting of the street). (Previous
+      //   value was an abstract value of `2`.)
+      // - All elevation values that were previously at the abstract value
+      //   of `1` is now set to 0.15m or 6" depending on the units setting
+      //   of the street.
+      // - Elevation values that were `0` remain at `0`.
+      const conversion = 0.3048
       for (const i in street.segments) {
         const segment = street.segments[i]
         if (segment.type === 'drainage-channel' && segment.elevation === -2) {
           segment.elevation = 0
-        }
-        if (segment.type === 'transit-shelter' && segment.elevation === 2) {
-          segment.elevation = 4.5
+        } else if (
+          segment.type === 'transit-shelter' &&
+          segment.elevation === 2
+        ) {
+          if (street.units === 1) {
+            // Converts 2.5' to metric
+            segment.elevation = round(2.5 * conversion, 3)
+          } else {
+            segment.elevation = 0.75
+          }
+        } else if (segment.elevation === 1) {
+          if (street.units === 1) {
+            // Converts 6" to metric
+            segment.elevation = round(0.5 * conversion, 3)
+          } else {
+            segment.elevation = 0.15
+          }
         }
       }
       break
+    }
     default:
       // no-op
       break
