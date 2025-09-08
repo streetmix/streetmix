@@ -12,11 +12,15 @@ boundary:
   left:
     variant: grass
     floors: 0
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   right:
     variant: waterfront
     floors: 0
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
 slices:
   - type: sidewalk
     variant:
@@ -24,7 +28,9 @@ slices:
     width:
       metric: 6
       imperial: 20
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Pedestrian walk
   - type: beach
     variant:

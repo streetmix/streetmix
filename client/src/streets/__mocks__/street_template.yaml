@@ -9,11 +9,15 @@ boundary:
   left:
     variant: narrow
     floors: 4
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   right:
     variant: wide
     floors: 3
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
 slices:
   - type: sidewalk
     variant:

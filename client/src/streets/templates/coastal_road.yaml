@@ -15,11 +15,15 @@ boundary:
   left:
     variant: wide
     floors: 4
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   right:
     variant: waterfront
     floors: 0
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
 slices:
   - type: sidewalk
     variant:
@@ -27,7 +31,9 @@ slices:
     width:
       metric: 1.9
       imperial: 6
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   - type: sidewalk-tree
     variant:
       tree-type: big
