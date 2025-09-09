@@ -7,12 +7,13 @@ import {
   ELEVATION_INCREMENT_IMPERIAL
 } from '~/src/segments/constants'
 import { segmentsChanged } from '~/src/segments/view'
-import { useDispatch } from '~/src/store/hooks'
+import { useDispatch, useSelector } from '~/src/store/hooks'
 import {
   changeSegmentProperties,
   setBoundaryElevation
 } from '~/src/store/slices/street'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
+import { prettifyWidth } from '~/src/util/width_units'
 import { UpDownInput } from './UpDownInput'
 
 import type { BoundaryPosition, UnitsSetting } from '@streetmix/types'
@@ -26,11 +27,29 @@ interface ElevationControlProps {
 const MIN_ELEVATION = 0
 const MAX_ELEVATION = 5 // in meters
 
+/**
+ * Given the elevation height, return a formatted value (using the
+ * user's units setting and locale). Examples:
+ *  - 0.15 => 0.15 m
+ *  - 0.152 => 6″
+ *  - 0.456 => 1′-6″
+ * NOTE: This is actually using original prettifyWidth so we don't show
+ * feet-inches in this^ format yet.
+ */
+function prettifyElevationHeight (
+  value: number,
+  units: UnitsSetting,
+  locale: string
+): string {
+  return prettifyWidth(value, units, locale)
+}
+
 export function ElevationControlNew ({
   position,
   elevation,
   units
 }: ElevationControlProps): React.ReactElement {
+  const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -71,8 +90,7 @@ export function ElevationControlNew ({
   }
 
   const displayValueFormatter = (value: number): string => {
-    return value.toString()
-    // return prettifyHeight(variant, position, value, units, intl.formatMessage)
+    return prettifyElevationHeight(value, units, locale)
   }
 
   return (
