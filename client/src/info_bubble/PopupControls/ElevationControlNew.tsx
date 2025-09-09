@@ -23,6 +23,9 @@ interface ElevationControlProps {
   units: UnitsSetting
 }
 
+const MIN_ELEVATION = 0
+const MAX_ELEVATION = 5 // in meters
+
 export function ElevationControlNew ({
   position,
   elevation,
@@ -38,6 +41,7 @@ export function ElevationControlNew ({
         : ELEVATION_INCREMENT
     const newValue = new Decimal(elevation)
       .plus(increment)
+      .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
     if (typeof position === 'number') {
@@ -55,6 +59,7 @@ export function ElevationControlNew ({
         : ELEVATION_INCREMENT
     const newValue = new Decimal(elevation)
       .minus(increment)
+      .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
     if (typeof position === 'number') {
@@ -65,12 +70,18 @@ export function ElevationControlNew ({
     }
   }
 
+  const displayValueFormatter = (value: number): string => {
+    return value.toString()
+    // return prettifyHeight(variant, position, value, units, intl.formatMessage)
+  }
+
   return (
     <div className="non-variant">
       <UpDownInput
         value={elevation}
-        minValue={0}
-        maxValue={30}
+        minValue={MIN_ELEVATION}
+        maxValue={MAX_ELEVATION}
+        displayValueFormatter={displayValueFormatter}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
         upTooltip={intl.formatMessage({
