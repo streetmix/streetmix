@@ -329,8 +329,6 @@ const streetSlice = createSlice({
       ) {
         const { position, value } = action.payload
 
-        if (!value) return
-
         switch (position) {
           case 'left':
             state.boundary.left.elevation = value
