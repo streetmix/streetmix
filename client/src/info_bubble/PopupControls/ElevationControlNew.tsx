@@ -89,6 +89,22 @@ export function ElevationControlNew ({
     }
   }
 
+  const updateValue = (value: string): void => {
+    if (!value) return
+
+    const newValue = new Decimal(value)
+      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .toDecimalPlaces(3)
+      .toNumber()
+
+    if (typeof position === 'number') {
+      dispatch(changeSegmentProperties(position, { elevation: newValue }))
+      segmentsChanged()
+    } else {
+      dispatch(setBoundaryElevation(position, newValue))
+    }
+  }
+
   const displayValueFormatter = (value: number): string => {
     return prettifyElevationHeight(value, units, locale)
   }
@@ -102,6 +118,7 @@ export function ElevationControlNew ({
         displayValueFormatter={displayValueFormatter}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
+        onUpdatedValue={updateValue}
         upTooltip={intl.formatMessage({
           id: 'tooltip.elevation-raise',
           defaultMessage: 'Raise elevation'
