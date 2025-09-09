@@ -8,6 +8,7 @@ import {
 } from '~/src/store/slices/street'
 import { setActiveSegment } from '~/src/store/slices/ui'
 import { usePrevious } from '~/src/util/usePrevious'
+import { getElevation } from '~/src/segments/view'
 import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
   getBoundaryImageHeight,
@@ -257,8 +258,9 @@ function Boundary ({
       [position]: `-${width}px`,
       width: width + 'px'
     }
+    // NOTE - this still renders "higher" because of the "ground plane" on sprites
     const elevationStyle = {
-      height: `${45 + (elevation - 1) * 7}px`
+      height: `${GROUND_BASELINE_HEIGHT + getElevation(elevation)}px`
     }
 
     const classNames = ['street-section-boundary']

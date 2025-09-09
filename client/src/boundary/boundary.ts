@@ -13,7 +13,7 @@ import {
   BUILDING_LEFT_POSITION,
   CURB_HEIGHT
 } from '../segments/constants'
-import { drawSegmentImage } from '../segments/view'
+import { drawSegmentImage, getElevation } from '../segments/view'
 
 import type { IntlShape } from 'react-intl'
 import type {
@@ -144,7 +144,9 @@ export function drawBoundary (
 
   const buildingHeight = getBoundaryImageHeight(variant, position, floors)
   let offsetTop =
-    totalHeight - buildingHeight * multiplier - (elevation - 1) * 7 * multiplier
+    totalHeight -
+    buildingHeight * multiplier -
+    getElevation(elevation) * multiplier
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (item.alignAtBaseline === true) {

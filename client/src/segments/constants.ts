@@ -5,8 +5,6 @@ export const TILESET_POINT_PER_PIXEL = 2.0 * 1.27 // this is a 1-inch to 1cm con
 export const TILE_SIZE = 12 / 0.3048 // pixels, using imperial conversion rate to preserve render scale
 export const TILE_SIZE_ACTUAL = TILE_SIZE * TILESET_POINT_PER_PIXEL // pixels
 
-export const VERTICAL_SCALE_CHEAT_FACTOR = 3
-
 export const MIN_SEGMENT_WIDTH = 0.25 // meters
 export const MAX_SEGMENT_WIDTH = 120 // meters
 

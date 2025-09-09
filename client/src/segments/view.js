@@ -14,8 +14,7 @@ import {
   TILE_SIZE_ACTUAL,
   MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION,
-  VERTICAL_SCALE_CHEAT_FACTOR
+  BUILDING_RIGHT_POSITION
 } from './constants'
 import PEOPLE from './people.yaml'
 
@@ -235,16 +234,13 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
 
 /**
  * Given an elevation value (in meters), return the pixel height it should be
- * rendered at. For legacy reasons, we cheat the vertical scale to make a curb
- * height difference more visible.
+ * rendered at.
  *
  * @param {Number} elevation
  * @returns {Number} pixels
  */
-function getElevation (elevation) {
-  // At elevation = 0.15 (m) (legacy value of elevation = 1), we get 17.95,
-  // pretty close to the 18 pixel value that was originally defined
-  return elevation * TILE_SIZE * VERTICAL_SCALE_CHEAT_FACTOR
+export function getElevation (elevation) {
+  return elevation * TILE_SIZE
 }
 
 /**
@@ -286,7 +282,7 @@ export function drawSegmentContents (
   const groundLevel =
     groundBaseline -
     multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL) -
-    multiplier * (elevationValue / TILESET_POINT_PER_PIXEL)
+    multiplier * elevationValue
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
