@@ -481,7 +481,8 @@ function drawSegmentNamesAndWidths (
     const x = (offsetLeft + availableWidth / 2) * dpi
 
     // Width label
-    const text = prettifyWidth(segment.width, street.units)
+    // TODO: submit actual locale
+    const text = prettifyWidth(segment.width, street.units, 'en')
     ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
 
     // Segment name label
