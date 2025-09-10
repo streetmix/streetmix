@@ -48,7 +48,10 @@ function createBoundaryCanvas (
 
   // Determine canvas dimensions from physical dimensions
   const width = elementWidth + overhangWidth
-  const height = Math.min(MAX_CANVAS_HEIGHT, itemHeight)
+  const height = Math.min(
+    MAX_CANVAS_HEIGHT,
+    itemHeight + getElevation(elevation)
+  )
 
   // Create canvas
   const canvasEl = document.createElement('canvas')
