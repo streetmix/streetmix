@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 980 930" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="arcade-right" transform="matrix(-1.27,0,0,1.27,980.237,0.36)">
-        <g id="ground" transform="matrix(0.509432,0,0,0.557743,-113.931,-338.866)">
-            <rect x="224.009" y="1896" width="1456" height="24" style="fill:rgb(53,45,39);"/>
-        </g>
-        <g id="upstairs-wall" serif:id="upstairs wall" transform="matrix(1.00057,0,0,1.03169,0.186267,-5.1671)">
+<svg width="100%" height="100%" viewBox="0 0 980 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="arcade-right" transform="matrix(-1.27,0,0,1.27,980.237,-12.64)">
+        <g id="upstairs-wall" serif:id="upstairs wall" transform="matrix(1.00057,0,0,1.04233,0.186267,-9.14633)">
             <rect x="0" y="126.681" width="741.312" height="247.192" style="fill:rgb(225,207,168);"/>
         </g>
         <g id="ground-floor-wall" serif:id="ground floor wall" transform="matrix(1,0,0,1,0,-1.15254)">
@@ -377,7 +374,7 @@
                 </g>
             </g>
         </g>
-        <g id="roof" transform="matrix(0.974418,0,0,0.64633,-218.27,-347.404)">
+        <g id="roof" transform="matrix(0.974418,0,0,0.64633,-218.27,-350.035)">
             <path d="M224,710.359L1000.59,713.969L874.698,564.095L224,563.095L224,710.359Z" style="fill:rgb(116,91,78);fill-rule:nonzero;"/>
             <g id="shadow1" serif:id="shadow" transform="matrix(1.02625,0,0,1.79654,224,504.132)">
                 <rect x="0" y="126.681" width="741.919" height="24.114" style="fill:rgb(42,42,41);fill-opacity:0.12;"/>

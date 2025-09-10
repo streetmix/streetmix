@@ -81,8 +81,8 @@ arcade:
   hasFloors: true
   variantsCount: 1
   floorHeight: 3.1 # meters (match illustration)
-  roofHeight: 1.9 # meters (match illustration)
-  mainFloorHeight: 4.25 # meters (match illustration)
+  roofHeight: 1.8 # meters (match illustration)
+  mainFloorHeight: 4.1 # meters (match illustration)
   overhangWidth: 15 # pixels
 compound-wall:
   id: compound-wall
