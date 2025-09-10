@@ -587,14 +587,14 @@ export function createPaletteItemDragSpec (segment) {
       let elevation = 0
       if (segment.defaultElevation !== undefined) {
         if (typeof segment.defaultElevation !== 'number') {
-          elevation = getWidthInMetric(segment.defaultElevation)
+          elevation = getWidthInMetric(segment.defaultElevation, units)
         } else {
           elevation = segment.defaultElevation
         }
       } else {
         const variantInfo = getSegmentVariantInfo(type, variantString)
         if (typeof variantInfo.elevation !== 'number') {
-          elevation = getWidthInMetric(variantInfo.elevation)
+          elevation = getWidthInMetric(variantInfo.elevation, units)
         } else {
           elevation = variantInfo.elevation
         }
