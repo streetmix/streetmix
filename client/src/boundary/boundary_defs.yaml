@@ -62,8 +62,8 @@ narrow:
   hasFloors: true
   variantsCount: 1
   floorHeight: 3 # meters (match illustration)
-  roofHeight: 0.75 # meters (match illustration)
-  mainFloorHeight: 4.25 # meters (match illustration)
+  roofHeight: 0.7 # meters (match illustration)
+  mainFloorHeight: 4.1 # meters (match illustration)
   overhangWidth: 16
 wide:
   id: wide
