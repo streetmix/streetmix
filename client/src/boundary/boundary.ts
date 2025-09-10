@@ -11,6 +11,7 @@ import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
   BUILDING_LEFT_POSITION,
+  GROUND_BASELINE_HEIGHT,
   CURB_HEIGHT
 } from '../segments/constants'
 import { drawSegmentImage, getElevation } from '../segments/view'
@@ -21,8 +22,6 @@ import type {
   BoundaryPosition,
   UnitsSetting
 } from '@streetmix/types'
-
-export const GROUND_BASELINE_HEIGHT = 44
 
 const INVALID_SHADE_COLOUR = 'rgba(204, 163, 173, .9)'
 

@@ -3,13 +3,9 @@ import { images } from '../app/load_resources'
 import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
-import {
-  getBoundaryItem,
-  drawBoundary,
-  GROUND_BASELINE_HEIGHT
-} from '../boundary'
+import { getBoundaryItem, drawBoundary } from '../boundary'
 import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
-import { TILE_SIZE } from '../segments/constants'
+import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants'
 import {
   getVariantInfoDimensions,
   drawSegmentContents,

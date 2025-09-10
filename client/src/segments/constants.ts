@@ -37,6 +37,8 @@ export const MAX_BUILDING_HEIGHT = 20 // floors
 export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
 
+export const GROUND_BASELINE_HEIGHT = 44
+
 export const ELEVATION_INCREMENT = 0.15 // meters
 export const ELEVATION_INCREMENT_IMPERIAL = 0.5 * 0.3048 // feet => m
 export const CURB_HEIGHT = ELEVATION_INCREMENT * 1

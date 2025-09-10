@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import { TILE_SIZE } from '~/src/segments/constants'
+import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants'
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
 import {
   SEA_LEVEL_YEAR_2030,
@@ -13,9 +13,6 @@ import './SeaLevel.css'
 interface SeaLevelProps {
   scrollPos: number
 }
-
-// In pixels, hardcoded number using existing ground height
-const GROUND_AT_ELEVATION_ZERO = 45
 
 // Wave image is rendered at 8px tall, so we half it to render an "average".
 // It is doubled again in a surge.
@@ -38,7 +35,7 @@ export function SeaLevel (props: SeaLevelProps): React.ReactElement {
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
   let height =
-    GROUND_AT_ELEVATION_ZERO - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
+    GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
   let opacity = 0
   if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
     height +=

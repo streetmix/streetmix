@@ -8,13 +8,13 @@ import {
 } from '~/src/store/slices/street'
 import { setActiveSegment } from '~/src/store/slices/ui'
 import { usePrevious } from '~/src/util/usePrevious'
+import { GROUND_BASELINE_HEIGHT } from '~/src/segments/constants'
 import { getElevation } from '~/src/segments/view'
 import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
-  drawBoundary,
-  GROUND_BASELINE_HEIGHT
+  drawBoundary
 } from './boundary'
 import './BoundaryComponent.css'
 
