@@ -41,10 +41,6 @@ export function ElevationControl ({
   function isVariantCurrentlySelected (selection: string): boolean {
     let bool
 
-    // TODO: remove when elevation work is complete
-    // I think this is only null in buggy cases
-    if (elevation === null) return false
-
     switch (selection) {
       case 'sidewalk': {
         // Quickly convert both metric and imperial values to 0.15
