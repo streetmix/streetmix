@@ -189,15 +189,13 @@ const streetSlice = createSlice({
           segment.variantString
         )
         if (segmentInfo.enableElevation !== true) {
-          if (typeof variantInfo.elevation === 'undefined') {
-            segment.elevation = 0
-          } else if (typeof variantInfo.elevation !== 'number') {
+          if (typeof variantInfo.elevation === 'number') {
+            segment.elevation = variantInfo.elevation
+          } else if (typeof variantInfo.elevation !== 'undefined') {
             segment.elevation = getWidthInMetric(
               variantInfo.elevation,
               state.units
             )
-          } else {
-            segment.elevation = variantInfo.elevation
           }
         }
       },
