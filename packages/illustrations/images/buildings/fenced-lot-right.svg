@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 125 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="fenced-lot-right" transform="matrix(1.27025,0,0,1.27025,-6886.36,-882.263)">
-        <g id="grass" transform="matrix(-1,0,0,1,10941.6,0)">
+<svg width="100%" height="100%" viewBox="0 0 125 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="fenced-lot-right" transform="matrix(1.27025,0,0,1.27025,-6886.36,-922.263)">
+        <g id="grass" transform="matrix(-1,0,0,1,10941.6,19.9959)">
             <g transform="matrix(1,0,0,1,-4.72347,0)">
                 <path d="M5481.37,853.109L5495.17,833.209L5492.56,828.634L5479.73,851.797L5481.37,853.109Z" style="fill:rgb(102,156,70);fill-rule:nonzero;"/>
                 <path d="M5484.79,853.838L5487.57,810.672L5481.68,817.089L5482.17,830.505L5484.79,853.838Z" style="fill:rgb(102,156,70);fill-rule:nonzero;"/>
@@ -20,13 +20,13 @@
                 <path d="M5505.33,848.606L5511.01,809.502L5503.59,830.324" style="fill:rgb(102,156,70);fill-rule:nonzero;"/>
             </g>
         </g>
-        <g id="ground" transform="matrix(-1,0,0,1,10941.6,0)">
+        <g id="ground" transform="matrix(-1,0,0,1,10941.6,19.9959)">
             <g transform="matrix(1.02007,0,0,1,-110.765,0)">
                 <path d="M5520.3,856.833L5520.31,863.5L5423.84,863.5L5423.86,856.286L5520.3,856.833Z" style="fill:rgb(124,113,91);fill-rule:nonzero;"/>
             </g>
             <path d="M5513.29,863.363L5449.97,856.56L5423.77,863.5L5513.29,863.363Z" style="fill:rgb(151,138,117);fill-rule:nonzero;"/>
         </g>
-        <g id="fence" transform="matrix(-1,0,0,1,10941.6,0)">
+        <g id="fence" transform="matrix(-1,0,0,1,10941.6,19.9959)">
             <rect x="5421.9" y="706" width="98.406" height="157.5" style="fill:none;"/>
             <clipPath id="_clip1">
                 <rect x="5421.9" y="706" width="98.406" height="157.5"/>
@@ -95,9 +95,6 @@
                     </g>
                 </g>
             </g>
-        </g>
-        <g id="dirt" transform="matrix(-1.00785,-8.15763e-18,8.50655e-18,1.03368,5518.01,689.541)">
-            <rect x="-1.639" y="168.292" width="97.639" height="19.345" style="fill:rgb(53,45,38);"/>
         </g>
     </g>
 </svg>
