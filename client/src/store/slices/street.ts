@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getVariantString } from '../../segments/variant_utils'
-import { DEFAULT_SKYBOX } from '../../sky/constants'
-import { MAX_BUILDING_HEIGHT } from '../../segments/constants'
-import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
-import { SETTINGS_UNITS_METRIC } from '../../users/constants'
+import { getWidthInMetric } from '~/src/util/width_units'
+import { getVariantString } from '~/src/segments/variant_utils'
+import { DEFAULT_SKYBOX } from '~/src/sky/constants'
+import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
+import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 
 import type { BoundaryPosition, Segment, StreetState } from '@streetmix/types'
 import type { PayloadAction } from '@reduxjs/toolkit'
@@ -181,13 +182,23 @@ const streetSlice = createSlice({
         // elevation from the new variant information. Sometimes a
         // variant has different elevations, see "divider" type for example
         // NOTE: skip this if `enableElevation` is on
+        // TODO: also skip this if segment elevation has been manually set
         const segmentInfo = getSegmentInfo(segment.type)
         const variantInfo = getSegmentVariantInfo(
           segment.type,
           segment.variantString
         )
         if (segmentInfo.enableElevation !== true) {
-          segment.elevation = variantInfo.elevation
+          if (typeof variantInfo.elevation === 'undefined') {
+            segment.elevation = 0
+          } else if (typeof variantInfo.elevation !== 'number') {
+            segment.elevation = getWidthInMetric(
+              variantInfo.elevation,
+              state.units
+            )
+          } else {
+            segment.elevation = variantInfo.elevation
+          }
         }
       },
       prepare (index: number, set: string, selection: string) {
