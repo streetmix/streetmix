@@ -21,8 +21,8 @@
   "dependencies": {
     "@docusaurus/core": "^3.8.1",
     "@docusaurus/preset-classic": "^3.8.1",
-    "@fontsource-variable/manrope": "^5.2.6",
-    "@mdx-js/react": "^3.1.0",
+    "@fontsource-variable/manrope": "^5.2.7",
+    "@mdx-js/react": "^3.1.1",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",
@@ -33,9 +33,9 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@argos-ci/cli": "^3.0.3",
-    "@argos-ci/playwright": "^6.1.0",
-    "@playwright/test": "^1.54.2",
+    "@argos-ci/cli": "^3.0.7",
+    "@argos-ci/playwright": "^6.1.4",
+    "@playwright/test": "^1.55.0",
     "cheerio": "^1.1.2"
   },
   "browserslist": {
