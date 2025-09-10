@@ -437,6 +437,7 @@ function drawSegmentNamesBackground (
  * @param {Number} multiplier - scale factor of image
  * @param {Number} groundLevel - vertical height of ground
  * @param {Number} offsetLeft - left position to start from
+ * @param {Number} locale - locale to render labels in
  * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawSegmentNamesAndWidths (
@@ -445,7 +446,8 @@ function drawSegmentNamesAndWidths (
   dpi,
   multiplier,
   groundLevel,
-  offsetLeft
+  offsetLeft,
+  locale
 ) {
   ctx.save()
 
@@ -481,7 +483,7 @@ function drawSegmentNamesAndWidths (
     const x = (offsetLeft + availableWidth / 2) * dpi
 
     // Width label
-    const text = prettifyWidth(segment.width, street.units)
+    const text = prettifyWidth(segment.width, street.units, locale)
     ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
 
     // Segment name label
@@ -690,7 +692,8 @@ export function drawStreetThumbnail (
     transparentSky,
     segmentNamesAndWidths,
     streetName,
-    watermark = true
+    watermark = true,
+    locale = 'en'
   }
 ) {
   // Calculations
@@ -757,7 +760,8 @@ export function drawStreetThumbnail (
       dpi,
       multiplier,
       groundLevel,
-      offsetLeft
+      offsetLeft,
+      locale
     )
   }
 

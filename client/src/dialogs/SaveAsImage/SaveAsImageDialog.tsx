@@ -165,7 +165,8 @@ function SaveAsImageDialog (): React.ReactElement {
       segmentNames,
       streetName,
       DEFAULT_IMAGE_DPI * scale,
-      watermark
+      watermark,
+      locale
     )
   }
 

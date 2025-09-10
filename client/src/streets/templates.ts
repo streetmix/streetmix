@@ -7,6 +7,7 @@ import {
   resolutionForResizeType,
   RESIZE_TYPE_INITIAL
 } from '../segments/resizing'
+import { getElevationValue } from '../segments/elevation'
 import { getVariantString } from '../segments/variant_utils'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
@@ -105,13 +106,7 @@ function processTemplateSlices (
       slice.width = getWidthInMetric(sliceTemplate.width, units)
     }
 
-    if (typeof variantInfo.elevation === 'undefined') {
-      slice.elevation = 0
-    } else if (typeof variantInfo.elevation !== 'number') {
-      slice.elevation = getWidthInMetric(variantInfo.elevation, units)
-    } else {
-      slice.elevation = variantInfo.elevation
-    }
+    slice.elevation = getElevationValue(variantInfo.elevation, units)
 
     processed.push(slice)
   }

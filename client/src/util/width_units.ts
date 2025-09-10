@@ -4,7 +4,6 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
-import store from '../store'
 import { formatNumber } from './number_format'
 
 import type {
@@ -113,13 +112,6 @@ export function prettifyWidth (
   locale: string
 ): string {
   let widthText = ''
-
-  // LEGACY: Not all uses of this function pass in locale.
-  // This is _not_ an optional value. After TypeScript conversion,
-  // missing this parameter throws an error.
-  if (!locale) {
-    locale = store.getState().locale.locale
-  }
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL: {

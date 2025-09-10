@@ -22,7 +22,8 @@ export function getStreetImage (
   segmentNamesAndWidths,
   streetName,
   dpi = SAVE_AS_IMAGE_DPI,
-  watermark = true
+  watermark = true,
+  locale
 ) {
   const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
 
@@ -68,7 +69,8 @@ export function getStreetImage (
     transparentSky,
     segmentNamesAndWidths,
     streetName,
-    watermark
+    watermark,
+    locale
   })
 
   return el
