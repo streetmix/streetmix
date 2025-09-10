@@ -384,6 +384,7 @@
     "scroll-right": "Scroll right",
     "elevation-sidewalk": "Sidewalk level",
     "elevation-road": "Street level",
+    "elevation-input": "Change elevation",
     "elevation-lower": "Lower elevation",
     "elevation-raise": "Raise elevation"
   },

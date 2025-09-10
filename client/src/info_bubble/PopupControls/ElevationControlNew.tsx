@@ -13,7 +13,12 @@ import {
   setBoundaryElevation
 } from '~/src/store/slices/street'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import { prettifyWidth } from '~/src/util/width_units'
+import {
+  convertMetricMeasurementToImperial,
+  prettifyWidth,
+  processWidthInput,
+  stringifyMeasurementValue
+} from '~/src/util/width_units'
 import { UpDownInput } from './UpDownInput'
 
 import type { BoundaryPosition, UnitsSetting } from '@streetmix/types'
@@ -90,9 +95,10 @@ export function ElevationControlNew ({
   }
 
   const updateValue = (value: string): void => {
+    const processedValue = processWidthInput(value, units)
     let newValue
     try {
-      newValue = new Decimal(value)
+      newValue = new Decimal(processedValue)
         .clamp(MIN_ELEVATION, MAX_ELEVATION)
         .toDecimalPlaces(3)
         .toNumber()
@@ -115,6 +121,19 @@ export function ElevationControlNew ({
     }
   }
 
+  /**
+   * Given a raw numerical value, format it and return a decorated string for
+   * when the input is being edited.
+   */
+  const inputValueFormatter = (value: number): string => {
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      const imperialValue = convertMetricMeasurementToImperial(value)
+      return stringifyMeasurementValue(imperialValue, units, locale)
+    } else {
+      return stringifyMeasurementValue(value, units, locale)
+    }
+  }
+
   const displayValueFormatter = (value: number): string => {
     return prettifyElevationHeight(value, units, locale)
   }
@@ -125,10 +144,15 @@ export function ElevationControlNew ({
         value={elevation}
         minValue={MIN_ELEVATION}
         maxValue={MAX_ELEVATION}
+        inputValueFormatter={inputValueFormatter}
         displayValueFormatter={displayValueFormatter}
         onClickUp={handleIncrement}
         onClickDown={handleDecrement}
         onUpdatedValue={updateValue}
+        inputTooltip={intl.formatMessage({
+          id: 'tooltip.elevation-input',
+          defaultMessage: 'Change elevation'
+        })}
         upTooltip={intl.formatMessage({
           id: 'tooltip.elevation-raise',
           defaultMessage: 'Raise elevation'
