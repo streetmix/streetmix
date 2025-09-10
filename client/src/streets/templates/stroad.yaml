@@ -13,13 +13,13 @@ width:
 boundary:
   left:
     variant: parking-lot
-    floors: 0
+    floors: 1
     elevation:
       metric: 0.15
       imperial: 0.5
   right:
     variant: parking-lot
-    floors: 0
+    floors: 1
     elevation:
       metric: 0.15
       imperial: 0.5

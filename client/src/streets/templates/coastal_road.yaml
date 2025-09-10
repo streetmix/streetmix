@@ -20,7 +20,7 @@ boundary:
       imperial: 0.5
   right:
     variant: waterfront
-    floors: 0
+    floors: 1
     elevation: 0
 slices:
   - type: sidewalk
