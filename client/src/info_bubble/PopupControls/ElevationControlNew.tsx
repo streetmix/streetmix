@@ -90,12 +90,22 @@ export function ElevationControlNew ({
   }
 
   const updateValue = (value: string): void => {
-    if (!value) return
+    let newValue
+    try {
+      newValue = new Decimal(value)
+        .clamp(MIN_ELEVATION, MAX_ELEVATION)
+        .toDecimalPlaces(3)
+        .toNumber()
+    } catch (e) {
+      // Silently drop values that Decimal cannot parse
+      if (e instanceof Error && /DecimalError/.test(e.message)) {
+        return
+      }
 
-    const newValue = new Decimal(value)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
-      .toDecimalPlaces(3)
-      .toNumber()
+      // Log other errors
+      console.error(e)
+      return
+    }
 
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
