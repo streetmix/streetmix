@@ -48,6 +48,10 @@
     "label": "Info bubble — elevation property controls (unlocked)",
     "defaultValue": false
   },
+  "UNIVERSAL_ELEVATION_CONTROLS": {
+    "label": "Info bubble — universal elevation controls",
+    "defaultValue": false
+  },
   "TOAST_LIFE_BAR": {
     "label": "Toasts — [debug] show life bar",
     "defaultValue": false

@@ -43,13 +43,13 @@ describe('createStreetData()', () => {
       {
         "boundary": {
           "left": {
-            "elevation": 1,
+            "elevation": 0.15,
             "floors": 4,
             "id": "left",
             "variant": "narrow",
           },
           "right": {
-            "elevation": 1,
+            "elevation": 0.15,
             "floors": 3,
             "id": "right",
             "variant": "wide",
@@ -57,7 +57,7 @@ describe('createStreetData()', () => {
         },
         "segments": [
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_0",
             "type": "sidewalk",
             "variant": {
@@ -67,7 +67,7 @@ describe('createStreetData()', () => {
             "width": 1.8,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_1",
             "type": "transit-shelter",
             "variant": {
@@ -78,7 +78,7 @@ describe('createStreetData()', () => {
             "width": 2.7,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_2",
             "type": "sidewalk-lamp",
             "variant": {
@@ -122,7 +122,7 @@ describe('createStreetData()', () => {
             "width": 2.1,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_6",
             "type": "sidewalk-lamp",
             "variant": {
@@ -133,7 +133,7 @@ describe('createStreetData()', () => {
             "width": 0.6,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_7",
             "type": "sidewalk",
             "variant": {
@@ -158,13 +158,13 @@ describe('createStreetData()', () => {
       {
         "boundary": {
           "left": {
-            "elevation": 1,
+            "elevation": 0.152,
             "floors": 4,
             "id": "left",
             "variant": "narrow",
           },
           "right": {
-            "elevation": 1,
+            "elevation": 0.152,
             "floors": 3,
             "id": "right",
             "variant": "wide",
@@ -172,7 +172,7 @@ describe('createStreetData()', () => {
         },
         "segments": [
           {
-            "elevation": 1,
+            "elevation": 0.152,
             "id": "segment_0",
             "type": "sidewalk",
             "variant": {
@@ -182,7 +182,7 @@ describe('createStreetData()', () => {
             "width": 1.829,
           },
           {
-            "elevation": 1,
+            "elevation": 0.152,
             "id": "segment_1",
             "type": "transit-shelter",
             "variant": {
@@ -193,7 +193,7 @@ describe('createStreetData()', () => {
             "width": 2.743,
           },
           {
-            "elevation": 1,
+            "elevation": 0.152,
             "id": "segment_2",
             "type": "sidewalk-lamp",
             "variant": {
@@ -237,7 +237,7 @@ describe('createStreetData()', () => {
             "width": 2.134,
           },
           {
-            "elevation": 1,
+            "elevation": 0.152,
             "id": "segment_6",
             "type": "sidewalk-lamp",
             "variant": {
@@ -248,7 +248,7 @@ describe('createStreetData()', () => {
             "width": 0.61,
           },
           {
-            "elevation": 1,
+            "elevation": 0.152,
             "id": "segment_7",
             "type": "sidewalk",
             "variant": {
@@ -276,13 +276,13 @@ describe('createStreetData()', () => {
       {
         "boundary": {
           "left": {
-            "elevation": 1,
+            "elevation": 0.15,
             "floors": 4,
             "id": "left",
             "variant": "narrow",
           },
           "right": {
-            "elevation": 1,
+            "elevation": 0.15,
             "floors": 3,
             "id": "right",
             "variant": "wide",
@@ -290,7 +290,7 @@ describe('createStreetData()', () => {
         },
         "segments": [
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_0",
             "type": "sidewalk",
             "variant": {
@@ -300,7 +300,7 @@ describe('createStreetData()', () => {
             "width": 1.8,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_1",
             "type": "sidewalk-lamp",
             "variant": {
@@ -344,7 +344,7 @@ describe('createStreetData()', () => {
             "width": 2.7,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_5",
             "type": "sidewalk-lamp",
             "variant": {
@@ -355,7 +355,7 @@ describe('createStreetData()', () => {
             "width": 0.6,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_6",
             "type": "transit-shelter",
             "variant": {
@@ -366,7 +366,7 @@ describe('createStreetData()', () => {
             "width": 2.7,
           },
           {
-            "elevation": 1,
+            "elevation": 0.15,
             "id": "segment_7",
             "type": "sidewalk",
             "variant": {

@@ -28,7 +28,10 @@
       }
     },
     "sidewalk": {
-      "elevation": 1,
+      "elevation": {
+        "metric": 0.15,
+        "imperial": 0.5
+      },
       "variants": {
         "color": {
           "regular": {
@@ -67,7 +70,10 @@
       }
     },
     "raised-sidewalk": {
-      "elevation": 2,
+      "elevation": {
+        "metric": 0.75,
+        "imperial": 2.5
+      },
       "variants": {
         "type": {
           "default": {
@@ -79,7 +85,7 @@
       }
     },
     "drainage": {
-      "elevation": -2,
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {

@@ -14,7 +14,10 @@
         "imperial": 6
       }
     },
-    "defaultElevation": 1,
+    "defaultElevation": {
+      "metric": 0.15,
+      "imperial": 0.5
+    },
     "enableElevation": true,
     "variants": ["sidewalk-density"],
     "details": {
@@ -883,7 +886,10 @@
         "imperial": 4
       }
     },
-    "defaultElevation": 1,
+    "defaultElevation": {
+      "metric": 0.15,
+      "imperial": 0.5
+    },
     "enableElevation": true,
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "table|concrete",
@@ -1530,7 +1536,8 @@
               }
             }
           ]
-        }
+        },
+        "offsetY": -50
       },
       "vertical": {
         "components": {
@@ -1550,7 +1557,8 @@
               }
             }
           ]
-        }
+        },
+        "offsetY": -50
       }
     }
   },

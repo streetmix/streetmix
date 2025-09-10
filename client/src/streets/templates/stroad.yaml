@@ -13,12 +13,16 @@ width:
 boundary:
   left:
     variant: parking-lot
-    floors: 0
-    elevation: 1
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   right:
     variant: parking-lot
-    floors: 0
-    elevation: 1
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
 slices:
   - type: sidewalk
     variant:
@@ -26,7 +30,9 @@ slices:
     width:
       metric: 1.2
       imperial: 4
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   - type: sidewalk-lamp
     variant:
       lamp-orientation: right
@@ -34,7 +40,9 @@ slices:
     width:
       metric: 0.3
       imperial: 1
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   - type: parking-lane
     variant:
       parking-lane-direction: inbound
@@ -90,11 +98,15 @@ slices:
     width:
       metric: 0.3
       imperial: 1
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   - type: sidewalk
     variant:
       sidewalk-density: normal
     width:
       metric: 1.2
       imperial: 4
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5

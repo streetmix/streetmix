@@ -581,15 +581,23 @@ export function createPaletteItemDragSpec (segment) {
       // string is specified by `defaultVariant`. If the property isn't present,
       // use the first defined variant in segment details.
       const variantString =
-        segment.defaultVariant || Object.keys(segment.details).shift()
+        segment.defaultVariant ?? Object.keys(segment.details).shift()
 
       // This allows dropped segment to be created with the correct elevation value
       let elevation = 0
       if (segment.defaultElevation !== undefined) {
-        elevation = segment.defaultElevation
+        if (typeof segment.defaultElevation !== 'number') {
+          elevation = getWidthInMetric(segment.defaultElevation, units)
+        } else {
+          elevation = segment.defaultElevation
+        }
       } else {
         const variantInfo = getSegmentVariantInfo(type, variantString)
-        elevation = variantInfo.elevation
+        if (typeof variantInfo.elevation !== 'number') {
+          elevation = getWidthInMetric(variantInfo.elevation, units)
+        } else {
+          elevation = variantInfo.elevation
+        }
       }
 
       return {

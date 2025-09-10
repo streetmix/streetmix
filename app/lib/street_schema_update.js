@@ -7,7 +7,7 @@ import { round } from '@streetmix/utils'
 
 import logger from './logger.js'
 
-const LATEST_SCHEMA_VERSION = 32
+const LATEST_SCHEMA_VERSION = 33
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -40,6 +40,7 @@ const LATEST_SCHEMA_VERSION = 32
 // 30: all measurements use metric values
 // 31: fix for streets with old units setting
 // 32: add 'boundary' property to replace left/right building properties
+// 33: elevation adjustments
 
 export function updateToLatestSchemaVersion (street) {
   // Clone original street
@@ -512,6 +513,63 @@ function incrementSchemaVersion (street) {
       delete street.rightBuildingVariant
       delete street.rightBuildingHeight
       break
+    case 32: {
+      // 33: elevation adjustments
+      // Elevation values for drainage channels and light rail platform
+      // are adjusted to new values:
+      // - Drainage channels are now elevation 0 (previous value was -2).
+      //   Drainage channel elevation now refers to its base elevation.
+      //   Channel depth will be a value stored elsewhere.
+      // - Light rail platforms ("raised sidewalk") are now at 0.75m or
+      //   2.5' (depending on units setting of the street). (Previous
+      //   value was an abstract value of `2`.)
+      // - All elevation values that were previously at the abstract value
+      //   of `1` is now set to 0.15m or 6" depending on the units setting
+      //   of the street.
+      // - Elevation values that were `0` remain at `0`.
+      // Elevation for boundaries are also adjusted to metric values.
+      const conversion = 0.3048
+      for (const i in street.segments) {
+        const segment = street.segments[i]
+        if (segment.type === 'drainage-channel' && segment.elevation === -2) {
+          segment.elevation = 0
+        } else if (
+          segment.type === 'transit-shelter' &&
+          segment.elevation === 2
+        ) {
+          if (street.units === 1) {
+            // Converts 2.5' to metric
+            segment.elevation = round(2.5 * conversion, 3)
+          } else {
+            segment.elevation = 0.75
+          }
+        } else if (segment.elevation === 1) {
+          if (street.units === 1) {
+            // Converts 6" to metric
+            segment.elevation = round(0.5 * conversion, 3)
+          } else {
+            segment.elevation = 0.15
+          }
+        }
+      }
+
+      // Handle boundary elevation conversion
+      if (street.units === 1) {
+        street.boundary.left.elevation = round(
+          street.boundary.left.elevation * 0.5 * conversion,
+          3
+        )
+        street.boundary.right.elevation = round(
+          street.boundary.right.elevation * 0.5 * conversion,
+          3
+        )
+      } else {
+        street.boundary.left.elevation = street.boundary.left.elevation * 0.15
+        street.boundary.right.elevation = street.boundary.right.elevation * 0.15
+      }
+
+      break
+    }
     default:
       // no-op
       break

@@ -12,12 +12,14 @@ showAnalytics: false
 boundary:
   left:
     variant: fence
-    floors: 0
-    elevation: 1
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   right:
     variant: waterfront
-    floors: 0
-    elevation: 1
+    floors: 1
+    elevation: 0
 slices:
   - type: divider
     variant:
@@ -25,7 +27,9 @@ slices:
     width:
       metric: 1
       imperial: 3
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Park
   - type: divider
     variant:
@@ -33,7 +37,9 @@ slices:
     width:
       metric: 4
       imperial: 14
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Park
   - type: divider
     variant:
@@ -41,7 +47,9 @@ slices:
     width:
       metric: 1
       imperial: 3
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Park
   - type: bike-lane
     variant:
@@ -51,7 +59,9 @@ slices:
     width:
       metric: 3
       imperial: 10
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Cycletrack
   - type: sidewalk-lamp
     variant:
@@ -60,14 +70,18 @@ slices:
     width:
       metric: 0.5
       imperial: 2
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
   - type: divider
     variant:
       divider-type: big-tree
     width:
       metric: 2.5
       imperial: 8
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Park
   - type: divider
     variant:
@@ -75,7 +89,9 @@ slices:
     width:
       metric: 8
       imperial: 26
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Future berm
   - type: sidewalk
     variant:
@@ -83,7 +99,9 @@ slices:
     width:
       metric: 3.5
       imperial: 12
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
     label: Harborwalk
   - type: sidewalk-lamp
     variant:
@@ -92,4 +110,6 @@ slices:
     width:
       metric: 0.5
       imperial: 2
-    elevation: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5

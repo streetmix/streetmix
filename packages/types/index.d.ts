@@ -24,10 +24,14 @@ export interface Segment {
 }
 export type SliceItem = Segment // Alias for future use
 
-export interface WidthDefinition {
+// Usable for width and height measurements
+export interface MeasurementDefinition {
   metric: number // in meters
   imperial: number // in feet
 }
+
+// Alias for existing usage in widths
+export type WidthDefinition = MeasurementDefinition
 
 export interface SliceItemTemplate {
   type: string
@@ -188,7 +192,7 @@ export interface SegmentLookup {
   zIndex?: number
   defaultWidth: WidthDefinition
   defaultVariant?: string
-  defaultElevation?: number
+  defaultElevation?: number | MeasurementDefinition
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
@@ -218,7 +222,7 @@ export interface VariantInfo {
   defaultWidth?: WidthDefinition
   minWidth?: WidthDefinition
   maxWidth?: WidthDefinition
-  elevation: number
+  elevation: number | MeasurementDefinition
   graphics: Record<string, unknown> // TODO
 }
 

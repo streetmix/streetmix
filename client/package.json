@@ -36,6 +36,7 @@
     "autoprefixer": "10.4.21",
     "copy-to-clipboard": "3.3.3",
     "date-fns": "4.1.0",
+    "decimal.js": "10.6.0",
     "downshift": "9.0.10",
     "downshift-pelias": "0.0.4-alpha",
     "file-saver": "2.0.5",

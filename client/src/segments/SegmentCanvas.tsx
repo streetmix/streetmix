@@ -1,4 +1,5 @@
 import React, { memo, useState, useRef, useEffect } from 'react'
+import { Decimal } from 'decimal.js'
 
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
@@ -84,16 +85,20 @@ function SegmentCanvas ({
   const displayWidth = totalWidth > actualWidth ? totalWidth : actualWidth
 
   // Determine dimensions to draw DOM element
-  const elementWidth = displayWidth * TILE_SIZE
+  // Widths use decimal.js to fix rounding errors that lead to gaps
+  // This is slower than raw math so don't do it for height
+  const elementWidth = new Decimal(displayWidth).times(TILE_SIZE)
   const elementHeight = CANVAS_HEIGHT
 
   // Determine size of canvas
-  const canvasWidth = Math.round(elementWidth * dpi)
+  const canvasWidth = elementWidth.times(dpi).round().toNumber()
   const canvasHeight = elementHeight * dpi
   const canvasStyle = {
-    width: Math.round(elementWidth),
+    width: elementWidth.round().toNumber(),
     height: elementHeight,
-    left: dimensions.left * TILE_SIZE
+    // Left placement uses decimal.js to fix rounding errors that lead to gaps
+    // This is slower than raw math so don't do it for height
+    left: new Decimal(dimensions.left).times(TILE_SIZE).round().toNumber()
   }
 
   return (

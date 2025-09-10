@@ -10,9 +10,11 @@ import { SETTINGS_UNITS_METRIC } from '../users/constants'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
-  BUILDING_LEFT_POSITION
+  BUILDING_LEFT_POSITION,
+  GROUND_BASELINE_HEIGHT,
+  CURB_HEIGHT
 } from '../segments/constants'
-import { drawSegmentImage } from '../segments/view'
+import { drawSegmentImage, getElevation } from '../segments/view'
 
 import type { IntlShape } from 'react-intl'
 import type {
@@ -20,8 +22,6 @@ import type {
   BoundaryPosition,
   UnitsSetting
 } from '@streetmix/types'
-
-export const GROUND_BASELINE_HEIGHT = 44
 
 const INVALID_SHADE_COLOUR = 'rgba(204, 163, 173, .9)'
 
@@ -79,7 +79,6 @@ function calculateRealHeightNumber (
   position: BoundaryPosition,
   floors: number
 ): number {
-  const CURB_HEIGHT = 0.15 // meters
   return (
     (getBoundaryImageHeight(variant, position, floors) - CURB_HEIGHT) /
     TILE_SIZE
@@ -144,7 +143,9 @@ export function drawBoundary (
 
   const buildingHeight = getBoundaryImageHeight(variant, position, floors)
   let offsetTop =
-    totalHeight - buildingHeight * multiplier - (elevation - 1) * 7 * multiplier
+    totalHeight -
+    buildingHeight * multiplier -
+    getElevation(elevation) * multiplier
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (item.alignAtBaseline === true) {

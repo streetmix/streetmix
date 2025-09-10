@@ -232,42 +232,15 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
   }
 }
 
-const GROUND_LEVEL_OFFSETY = {
-  ASPHALT: 0,
-  CURB: 18,
-  RAISED_CURB: 94,
-  DRAINAGE: -50
-}
-
 /**
- * Originally a sprite's dy position was calculated using: dy = offsetTop +
- * (multiplier * TILE_SIZE * (sprite.offsetY || 0)). In order to remove
- * `offsetY` from `SPRITE_DEF`, we are defining the `offsetY` for all "ground",
- * or "lane", sprites in pixels in `GROUND_LEVEL_OFFSETY`. This was calculated
- * by taking the difference of the `offsetY` value for ground level 0 and the
- * `offsetY` for the elevation of the current segment. Using `elevation`, which
- * is defined for each segment based on the "ground" component being used, this
- * function returns the `GROUND_LEVEL_OFFSETY` for that `elevation`. If not
- * found, it returns null.
+ * Given an elevation value (in meters), return the pixel height it should be
+ * rendered at.
  *
  * @param {Number} elevation
- * @returns {?Number} groundLevelOffset
+ * @returns {Number} pixels
  */
-function getGroundLevelOffset (elevation) {
-  return elevation * 18
-  /* eslint-disable no-unreachable */
-  switch (elevation) {
-    case -2:
-      return GROUND_LEVEL_OFFSETY.DRAINAGE
-    case 0:
-      return GROUND_LEVEL_OFFSETY.ASPHALT
-    case 1:
-      return GROUND_LEVEL_OFFSETY.CURB
-    case 2:
-      return GROUND_LEVEL_OFFSETY.RAISED_CURB
-    default:
-      return null
-  }
+export function getElevation (elevation) {
+  return elevation * TILE_SIZE
 }
 
 /**
@@ -304,10 +277,12 @@ export function drawSegmentContents (
   const left = dimensions.left
   const minWidthQuirk = graphics.quirks?.minWidth
 
-  const groundLevelOffset = getGroundLevelOffset(elevation)
+  const groundLevelOffsetY = variantInfo.offsetY ?? 0
+  const elevationValue = getElevation(elevation)
   const groundLevel =
     groundBaseline -
-    multiplier * (groundLevelOffset / TILESET_POINT_PER_PIXEL || 0)
+    multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL) -
+    multiplier * elevationValue
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
