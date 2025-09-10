@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getWidthInMetric } from '~/src/util/width_units'
+import { getElevationValue } from '~/src/segments/elevation'
 import { getVariantString } from '~/src/segments/variant_utils'
 import { DEFAULT_SKYBOX } from '~/src/sky/constants'
 import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
@@ -189,14 +189,10 @@ const streetSlice = createSlice({
           segment.variantString
         )
         if (segmentInfo.enableElevation !== true) {
-          if (typeof variantInfo.elevation === 'number') {
-            segment.elevation = variantInfo.elevation
-          } else if (typeof variantInfo.elevation !== 'undefined') {
-            segment.elevation = getWidthInMetric(
-              variantInfo.elevation,
-              state.units
-            )
-          }
+          segment.elevation = getElevationValue(
+            variantInfo.elevation,
+            state.units
+          )
         }
       },
       prepare (index: number, set: string, selection: string) {
