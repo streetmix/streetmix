@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 1100 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="parking-lot-right" transform="matrix(0.635,0,0,0.635,0,-419.2)">
-        <g id="parking-sign">
+        <g id="parking-sign" transform="matrix(1,0,0,1,0,1.41655)">
             <path d="M134.461,1894.96L179.84,1894.96L157.613,964.799L139.332,974.061L134.461,1894.96Z" style="fill:rgb(93,95,96);fill-rule:nonzero;"/>
             <path d="M179.844,1894.96L134.457,1894.96L171.27,1542.18L179.844,1894.96Z" style="fill:rgb(42,43,42);fill-rule:nonzero;"/>
             <path d="M138.039,1223.8L157.605,964.799L139.328,974.091L138.039,1223.8Z" style="fill:rgb(42,43,42);fill-rule:nonzero;"/>
@@ -10,7 +10,7 @@
             <path d="M220.473,957.935L75.77,957.935L65.516,858.676L75.496,784.678L220.696,784.678L230.68,858.74L220.473,957.935ZM56.625,765.721L46.633,858.739L56.903,976.735L239.391,976.735L249.61,858.864L239.614,765.721L56.625,765.721Z" style="fill:rgb(243,242,237);fill-rule:nonzero;"/>
             <path d="M169.57,865.52L169.57,865.514L124.82,865.514L124.82,827.682L169.57,827.682L169.57,827.676L180.695,838.801L180.695,854.395L169.57,865.52ZM199.566,831.012L199.531,831.024L199.55,830.973L177.386,808.806L105.953,808.779L105.91,932.512L124.82,932.575L124.82,884.383L177.386,884.39L199.55,862.223L199.547,862.21L199.566,862.2L199.566,831.012Z" style="fill:rgb(243,242,237);fill-rule:nonzero;"/>
         </g>
-        <g transform="matrix(1.00248,0,0,1.00248,0,-4.75941)">
+        <g transform="matrix(1.00248,0,0,0.984252,0,30.2362)">
             <g id="ground">
                 <rect x="0" y="1896" width="1728" height="24" style="fill:rgb(93,94,95);fill-rule:nonzero;"/>
             </g>
@@ -85,7 +85,7 @@
                 <path d="M306.083,139.461L304.157,143.397L240.119,143.452L237.527,139.18L306.083,139.461Z" style="fill:rgb(92,94,95);fill-rule:nonzero;"/>
             </g>
         </g>
-        <g id="parking-stops">
+        <g id="parking-stops" transform="matrix(1,0,0,1,0,-0.195747)">
             <path d="M138.473,1869.12L147.571,1896.47L93.188,1896.57L102.041,1869L138.473,1869.12Z" style="fill:rgb(228,226,220);fill-rule:nonzero;"/>
             <path d="M1210.87,1869.12L1219.97,1896.47L939.969,1896.57L948.822,1869L1210.87,1869.12Z" style="fill:rgb(228,226,220);fill-rule:nonzero;"/>
             <path d="M1642.87,1869.12L1651.97,1896.47L1371.97,1896.57L1380.82,1869L1642.87,1869.12Z" style="fill:rgb(228,226,220);fill-rule:nonzero;"/>

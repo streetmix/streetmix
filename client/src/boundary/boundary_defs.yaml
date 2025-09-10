@@ -38,6 +38,7 @@ parking-lot:
   spriteId: buildings--parking-lot
   hasFloors: false
   repeatHalf: true
+  offsetY: -15 # TODO: implement
 waterfront:
   id: waterfront
   label: Waterfront
