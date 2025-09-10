@@ -122,7 +122,7 @@ export default defineConfig([
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: 'client',
+        tsconfigRootDir: path.resolve(__dirname, 'client'),
         project: './tsconfig.json'
       }
     },
@@ -155,7 +155,7 @@ export default defineConfig([
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: 'packages/export-image',
+        tsconfigRootDir: path.resolve(__dirname, 'packages/export-image'),
         project: './tsconfig.json'
       }
     },
@@ -188,7 +188,7 @@ export default defineConfig([
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: 'packages/i18n',
+        tsconfigRootDir: path.resolve(__dirname, 'packages/i18n'),
         project: './tsconfig.json'
       }
     },
