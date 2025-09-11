@@ -4,13 +4,11 @@ import { Decimal } from 'decimal.js'
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE } from './constants'
+import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
 const CANVAS_HEIGHT = 600
-const CANVAS_GROUND = 35
-// TODO: Define magic number 80
-const GROUND_BASELINE = CANVAS_HEIGHT - 80 + CANVAS_GROUND
+const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 interface SegmentCanvasProps {
   actualWidth: number

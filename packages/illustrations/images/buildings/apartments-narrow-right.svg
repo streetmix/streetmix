@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 600 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="apartments-narrow-right" transform="matrix(1.27,0,0,1.27,55.2114,7.52)">
-        <g transform="matrix(1.09884,1.03861e-19,1.02273e-19,1.11549,-2441.9,-403.223)">
-            <rect x="2212.78" y="908.875" width="399.848" height="12" style="fill:rgb(53,45,39);fill-rule:nonzero;"/>
-        </g>
+<svg width="100%" height="100%" viewBox="0 0 600 780" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="apartments-narrow-right" transform="matrix(1.27,0,0,1.27,55.2114,4.52)">
         <g transform="matrix(-1,0,0,1,2087.52,-296.875)">
             <path d="M2097.92,672.482L2128.63,671.393L2107.97,586.623L2097.92,586.229L2097.92,672.482Z" style="fill:rgb(205,172,128);fill-rule:nonzero;"/>
         </g>

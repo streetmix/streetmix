@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 980 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="apartments-wide-left" transform="matrix(1.27,0,0,1.27,0,38)">
+<svg width="100%" height="100%" viewBox="0 0 980 780" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="apartments-wide-left" transform="matrix(1.27,0,0,1.27,0,35)">
         <g transform="matrix(1,0,0,1,-1369.57,-320.875)">
             <path d="M2097.92,672.482L2128.63,671.393L2107.97,586.623L2097.92,586.229L2097.92,672.482Z" style="fill:rgb(206,173,128);fill-rule:nonzero;"/>
-        </g>
-        <g transform="matrix(1.00045,0,0,1.11549,-0.594266,-427.223)">
-            <path d="M0.594,920.875L728.614,920.875L728.594,908.875L0.594,908.875L0.594,920.875Z" style="fill:rgb(53,45,39);fill-rule:nonzero;"/>
         </g>
         <g transform="matrix(1.00048,0,0,1.00164,-0.627599,-322.965)">
             <path d="M0.627,342.875L0.627,908.856L728.617,908.875L728.627,342.875L0.627,342.875Z" style="fill:rgb(236,219,177);fill-rule:nonzero;"/>

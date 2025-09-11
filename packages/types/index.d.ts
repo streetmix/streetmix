@@ -330,6 +330,7 @@ interface BoundaryDefinitionBase {
   sameOnBothSides?: boolean
   repeatHalf?: boolean
   alignAtBaseline?: boolean
+  offsetY?: number
   variantsCount?: number
   overhangWidth?: number
 }
