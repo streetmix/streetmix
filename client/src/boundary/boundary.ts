@@ -152,6 +152,11 @@ export function drawBoundary (
     offsetTop += GROUND_BASELINE_HEIGHT
   }
 
+  // Adjust offset of sprite by a distance, if provided, in meters
+  if (typeof item.offsetY !== 'undefined') {
+    offsetTop += item.offsetY * TILE_SIZE
+  }
+
   // Some building sprites tile itself, while others tile just half of it
   let width, x, lastX, firstX
   if (item.repeatHalf === true) {
