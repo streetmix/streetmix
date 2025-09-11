@@ -52,9 +52,9 @@ residential:
   spriteId: buildings--residential
   hasFloors: true
   variantsCount: 0
-  floorHeight: 3.048 # meters (match illustration)
-  roofHeight: 1.832 # meters (match illustration)
-  mainFloorHeight: 7.468 # meters (match illustration)
+  floorHeight: 3 # meters (match illustration)
+  roofHeight: 2 # meters (match illustration)
+  mainFloorHeight: 7.25 # meters (match illustration)
 narrow:
   id: narrow
   label: Building
