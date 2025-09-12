@@ -1,17 +1,24 @@
 import React, { useRef, useEffect } from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import { TILE_SIZE } from './constants'
+import {
+  GROUND_BASELINE_HEIGHT,
+  TILE_SIZE,
+  TILE_SIZE_ACTUAL
+} from './constants'
 import './TestSlope.css'
 
+import { getElevation } from './view'
 import type { Segment } from '@streetmix/types'
 
 interface Props {
   slice: Segment
 }
 
-const CANVAS_HEIGHT = 500
-const CANVAS_GROUND = 35
+// const CANVAS_HEIGHT = 500
+// const CANVAS_GROUND = 35
+const CANVAS_HEIGHT = 600
+const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 function TestSlope ({ slice }: Props): React.ReactNode | null {
   const street = useSelector((state) => state.street)
@@ -39,17 +46,13 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
   ])
 
   function estimateCoord (elev: number, scale: number): number {
-    // TODO: Define magic numbers 80 and 7
-    return (80 - CANVAS_GROUND + elev * 7) * scale
+    return getElevation(elev) * scale
   }
 
-  // const groundLevelOffset = slice.elevation * 18
-  // This is estimating the calculation for ground level which I still don't understand yet.
-  // const groundLevel = estimateCoord(slice.elevation)
-  const groundLevel = estimateCoord(
-    Math.min(leftElevation, rightElevation),
-    dpi
-  )
+  // TODO: redefine magic number in a less hacky way
+  const magicNumber = dpi * GROUND_BASELINE_HEIGHT
+  const groundLevel =
+    magicNumber + estimateCoord(Math.min(leftElevation, rightElevation), dpi)
 
   function drawSegment (canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
@@ -59,17 +62,24 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
     // These rectangles are telling us that we're drawing at the right places.
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
-    // Start at the bottom left corner and use a negative number to draw upwards
     ctx.strokeStyle = 'red'
     ctx.lineWidth = 2
+    // Start at the bottom left corner and use a negative number to draw upwards
     ctx.fillRect(0, canvas.height, canvas.width, groundLevel * -1)
     ctx.strokeRect(0, canvas.height, canvas.width, groundLevel * -1)
 
     // Draw a slope
     ctx.beginPath()
-    ctx.moveTo(0, canvas.height - estimateCoord(leftElevation, dpi))
-    ctx.lineTo(0, canvas.height - groundLevel)
-    ctx.lineTo(canvas.width, canvas.height - estimateCoord(rightElevation, dpi))
+    ctx.moveTo(0, canvas.height - groundLevel)
+    ctx.moveTo(
+      0,
+      canvas.height - estimateCoord(leftElevation, dpi) - magicNumber
+    )
+    ctx.lineTo(
+      canvas.width,
+      canvas.height - estimateCoord(rightElevation, dpi) - magicNumber
+    )
+    ctx.lineTo(canvas.width, canvas.height - groundLevel)
     ctx.fill()
     ctx.stroke()
   }
