@@ -1,11 +1,39 @@
+import { Decimal } from 'decimal.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
-import { processWidthInput, prettifyWidth } from './width_units'
+import {
+  processWidthInput,
+  prettifyWidth,
+  roundToPrecision,
+  roundToNearestEighth
+} from './width_units'
 
 // Use this when it doesn't matter what the unit is.
 const DEFAULT_UNITS = SETTINGS_UNITS_METRIC
+
+describe('roundToPrecision()', () => {
+  it('matches decimal.js toDecimalPlaces() behavior', () => {
+    // Randomly select a few numbers to test.
+    for (let i = 0; i < 10; i += Math.random()) {
+      const a = roundToPrecision(i)
+      const b = new Decimal(i).toDecimalPlaces(3).toNumber()
+      expect(a).toEqual(b)
+    }
+  })
+})
+
+describe('roundToNearestEighth()', () => {
+  it('matches decimal.js toDecimalPlaces() behavior', () => {
+    // Randomly select a few numbers to test.
+    for (let i = 0; i < 10; i += Math.random()) {
+      const a = roundToNearestEighth(i)
+      const b = new Decimal(i).toNearest(0.125).toNumber()
+      expect(a).toEqual(b)
+    }
+  })
+})
 
 describe('processWidthInput()', () => {
   it('trims leading and trailing whitespace', () => {
