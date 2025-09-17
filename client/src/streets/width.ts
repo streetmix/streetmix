@@ -1,3 +1,4 @@
+import { Decimal } from 'decimal.js'
 import { round } from '@streetmix/utils'
 
 import {
@@ -9,13 +10,15 @@ import {
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { getWidthInMetric, roundToPrecision } from '../util/width_units'
+import { getWidthInMetric } from '../util/width_units'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
   MIN_CUSTOM_STREET_WIDTH_IMPERIAL,
   MAX_CUSTOM_STREET_WIDTH_IMPERIAL
 } from './constants'
+
+import type { Segment, StreetJson, UnitsSetting } from '@streetmix/types'
 
 /**
  * Given an input width value, constrains the value to the
@@ -25,7 +28,7 @@ import {
  * @param {Number} units - metric or imperial
  * @returns {Number}
  */
-export function normalizeStreetWidth (width, units) {
+export function normalizeStreetWidth (width: number, units: UnitsSetting) {
   const minValue =
     units === SETTINGS_UNITS_IMPERIAL
       ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
@@ -55,32 +58,20 @@ export function normalizeStreetWidth (width, units) {
 /**
  * Adds up all the segment widths to get the total occupied width
  * An empty array should return 0
- *
- * @param {Array} segments
- * @returns {Number} occupiedWidth
+ * Uses decimal.js to avoid floating point errors during addition
  */
-function calculateOccupiedWidth (segments = []) {
+function calculateOccupiedWidth (segments: Segment[] = []): Decimal {
   return segments
     .map((segment) => segment.width)
-    .reduce((occupiedWidth, width) => occupiedWidth + width, 0)
+    .reduce((occupiedWidth, width) => occupiedWidth.plus(width), new Decimal(0))
 }
 
 /**
  * Subtracts occupied width from street width to get remaining width.
- *
- * @param {Number} streetWidth
- * @param {Number} occupiedWidth
- * @returns {Number} remainingWidth
+ * Uses decimal.js to avoid floating point errors during subtraction
  */
-function calculateRemainingWidth (streetWidth, occupiedWidth) {
-  let remainingWidth = streetWidth - occupiedWidth
-
-  // Rounding problems :·(
-  if (Math.abs(remainingWidth) < 0.01) {
-    remainingWidth = 0
-  }
-
-  return roundToPrecision(remainingWidth)
+function calculateRemainingWidth (streetWidth: Decimal, occupiedWidth: Decimal) {
+  return streetWidth.minus(occupiedWidth)
 }
 
 /**
@@ -90,26 +81,26 @@ function calculateRemainingWidth (streetWidth, occupiedWidth) {
  *    - Warnings for each segment, if the segment is outside the
  *      street or is too small or too large.
  *
- * @param {Object} street
  * @returns {Object} containing calculated occupied width, remaining width,
  *       and clone of segments array with warnings.
  */
-export function recalculateWidth (street) {
+export function recalculateWidth (street: StreetJson) {
   // Determine occupied and remaining width
+  const streetWidth = new Decimal(street.width)
   const occupiedWidth = calculateOccupiedWidth(street.segments)
-  const remainingWidth = calculateRemainingWidth(street.width, occupiedWidth)
+  const remainingWidth = calculateRemainingWidth(streetWidth, occupiedWidth)
   const units = street.units
 
   // Add warnings to segments, if necessary.
   // The position is the left pixel position of each segment. This is initialized
   // with the left pixel of the first segment and will be modified when looking at
   // each subsequent segment.
-  let position = street.width / 2 - occupiedWidth / 2
+  let position = streetWidth.dividedBy(2).minus(occupiedWidth.dividedBy(2))
 
   // Creates an empty array so that we can clone original segments into it.
-  const segments = []
+  const segments: Segment[] = []
 
-  street.segments.forEach((segment) => {
+  street.segments.forEach((segment: Segment) => {
     const variantInfo = getSegmentVariantInfo(
       segment.type,
       segment.variantString
@@ -119,8 +110,9 @@ export function recalculateWidth (street) {
     // Apply a warning if any portion of the segment exceeds the boundaries of
     // the street.
     if (
-      remainingWidth < 0 &&
-      (position < 0 || position + segment.width > street.width)
+      remainingWidth.lessThan(0) &&
+      (position.lessThan(0) ||
+        position.plus(segment.width).greaterThan(street.width))
     ) {
       warnings[SEGMENT_WARNING_OUTSIDE] = true
     } else {
@@ -158,7 +150,7 @@ export function recalculateWidth (street) {
     }
 
     // Increment the position counter.
-    position += segment.width
+    position = position.add(segment.width)
 
     segments.push({
       ...segment,
@@ -167,8 +159,8 @@ export function recalculateWidth (street) {
   })
 
   return {
-    occupiedWidth,
-    remainingWidth,
+    occupiedWidth: occupiedWidth.toNumber(),
+    remainingWidth: remainingWidth.toNumber(),
     segments
   }
 }
