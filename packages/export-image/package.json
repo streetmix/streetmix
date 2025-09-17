@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@fontsource/geist-sans": "5.2.5",
-    "@fontsource/overpass": "5.2.7",
-    "@fontsource/rubik": "5.2.6",
-    "@napi-rs/canvas": "0.1.79"
+    "@fontsource/overpass": "5.2.8",
+    "@fontsource/rubik": "5.2.8",
+    "@napi-rs/canvas": "0.1.80"
   }
 }
