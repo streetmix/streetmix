@@ -20,6 +20,7 @@ import {
 } from './constants'
 import { segmentsChanged } from './view'
 import { draggingResize } from './drag_and_drop'
+
 import type { Segment, UnitsSetting } from '@streetmix/types'
 
 const SHORT_DELAY = 100
@@ -41,7 +42,7 @@ export function resizeSegment (
   // from state
   const resolution = resolutionForResizeType(
     resizeType,
-    units || store.getState().street.units
+    units ?? store.getState().street.units
   )
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
@@ -75,15 +76,15 @@ export function handleSegmentResizeCancel (): void {
  *
  */
 export function updateStreetMargin (
-  canvasRef?: HTMLElement | null,
-  streetOuterRef?: HTMLElement | null,
+  canvasRef: HTMLElement | null,
+  streetOuterRef: HTMLElement | null,
   dontDelay: boolean = false
 ): boolean {
   const streetSectionCanvas =
-    canvasRef ||
+    canvasRef ??
     (document.querySelector('#street-section-canvas') as HTMLElement)
   const streetSectionOuter =
-    streetOuterRef ||
+    streetOuterRef ??
     (document.querySelector('#street-section-outer') as HTMLElement)
 
   const prevMargin =
@@ -96,8 +97,9 @@ export function updateStreetMargin (
   }
 
   const deltaMargin = streetMargin - prevMargin
-
-  if (!deltaMargin) return false
+  if (deltaMargin === 0) {
+    return false
+  }
 
   const maxScrollLeft =
     streetSectionOuter.scrollWidth - streetSectionOuter.clientWidth
@@ -122,10 +124,10 @@ export function updateStreetMargin (
   return !delayUpdate
 }
 
-export function handleSegmentResizeEnd (event?: Event): void {
+export function handleSegmentResizeEnd (): void {
   setIgnoreStreetChanges(false)
 
-  updateStreetMargin()
+  updateStreetMargin(null, null, false)
   segmentsChanged()
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
@@ -139,8 +141,6 @@ export function handleSegmentResizeEnd (event?: Event): void {
 /**
  * Returns the minimum resolution for segment / street widths.
  * Default return value is in metric units.
- *
- * @param units - metric or imperial
  */
 export function getSegmentWidthResolution (units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
@@ -153,8 +153,6 @@ export function getSegmentWidthResolution (units: UnitsSetting): number {
 /**
  * Returns the minimum resolution when click-resizing segments
  * Default return value is in metric units.
- *
- * @param units - metric or imperial
  */
 export function getSegmentClickResizeResolution (units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
@@ -167,8 +165,6 @@ export function getSegmentClickResizeResolution (units: UnitsSetting): number {
 /**
  * Returns the minimum resolution when drag-resizing segments
  * Default return value is in metric units.
- *
- * @param units - metric or imperial
  */
 export function getSegmentDragResizeResolution (units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
@@ -185,9 +181,6 @@ export function getSegmentDragResizeResolution (units: UnitsSetting): number {
  * is also different depending on whether the street is measured in
  * metric or imperial units. This function returns the minimum resolution
  * depending on the type of resize action and the measurement units.
- *
- * @param resizeType
- * @param units - metric or imperial
  */
 export function resolutionForResizeType (
   resizeType: number,
@@ -212,9 +205,6 @@ export function resolutionForResizeType (
 /**
  * Given an input width value, constrains the value to the
  * minimum or maximum value, then rounds it to nearest precision
- *
- * @param width - input width value
- * @param resolution - resolution to round to
  */
 export function normalizeSegmentWidth (
   width: number,
@@ -234,9 +224,6 @@ export function normalizeSegmentWidth (
 /**
  * Performs `normalizeSegmentWidth` on an array of segments and
  * returns the new array.
- *
- * @param segments
- * @param units - metric or imperial units
  */
 export function normalizeAllSegmentWidths (
   segments: Segment[],
