@@ -31,7 +31,7 @@ export function processUrl (): void {
   // be possible for the URL to contain a trailing slash, but we don't want
   // that, so remove it, if present. This will cause the root pathname to be
   // an empty string.
-  const url = new URL(window.location)
+  const url = new URL(window.location.href)
   const pathname = url.pathname.replace(/\/+$/, '')
 
   // parts being split, although we really don't need to
@@ -94,20 +94,27 @@ export function processUrl (): void {
     store.dispatch(setGalleryUserId(urlParts[0]))
     setMode(MODES.USER_GALLERY)
 
-    // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
   } else if (
     urlParts.length === 2 &&
     urlParts[0] === ANONYMOUS_USER_ID_FRAGMENT &&
     urlParts[1]
   ) {
-    store.dispatch(saveCreatorId(null))
-    store.dispatch(saveStreetId(null, urlParts[1]))
-    setMode(MODES.EXISTING_STREET)
+    const namespacedId = Number.parseInt(urlParts[1], 10)
+
+    if (Number.isInteger(namespacedId)) {
+      store.dispatch(saveCreatorId(null))
+      store.dispatch(saveStreetId(null, namespacedId))
+      setMode(MODES.EXISTING_STREET)
+    } else {
+      // If `urlParts[1]` is not an integer, redirect to 404
+      setMode(MODES.NOT_FOUND)
+    }
 
     // Existing street by a user person
   } else if (urlParts.length >= 2 && urlParts[0] && urlParts[1]) {
     let creatorId = urlParts[0]
+    const namespacedId = Number.parseInt(urlParts[1], 10)
 
     if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
       creatorId = creatorId.substr(1)
@@ -116,11 +123,11 @@ export function processUrl (): void {
     store.dispatch(saveCreatorId(creatorId))
 
     // if `urlParts[1]` is not an integer, redirect to user's gallery
-    if (Number.isInteger(window.parseInt(urlParts[1])) === false) {
+    if (Number.isInteger(namespacedId) === false) {
       store.dispatch(setGalleryUserId(urlParts[0]))
       setMode(MODES.USER_GALLERY)
     } else {
-      store.dispatch(saveStreetId(null, urlParts[1]))
+      store.dispatch(saveStreetId(null, namespacedId))
       setMode(MODES.EXISTING_STREET)
     }
 
@@ -144,7 +151,6 @@ export function getStreetUrl (street: StreetState): string {
   }
 
   url += '/'
-
   url += street.namespacedId
 
   if (street.creatorId) {
