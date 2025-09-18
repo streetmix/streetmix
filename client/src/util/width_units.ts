@@ -233,7 +233,7 @@ export function getWidthInMetric (
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-function roundToNearestEighth (value: number): number {
+export function roundToNearestEighth (value: number): number {
   return Math.round(value * 8) / 8
 }
 
