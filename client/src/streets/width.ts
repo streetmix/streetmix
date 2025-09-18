@@ -91,6 +91,20 @@ export function recalculateWidth (street: StreetJson) {
   // Creates an empty array so that we can clone original segments into it.
   const segments: Segment[] = []
 
+  // Workaround for rounding errors in imperial units where remainingWidth may
+  // be a very small number because things are not adding up to 0 evenly.
+  // Rounding errors are likely to happen in metric only after a street originally
+  // in imperial units are converted to metric.
+  // Sometimes we still get small numbers because the conversion of segment widths
+  // are not perfect after units change
+  const MIN_DISPLAY_THRESHOLD = units === SETTINGS_UNITS_IMPERIAL ? 0.01 : 0.001
+  let remainingWidthNumber
+  if (remainingWidth.abs().lt(MIN_DISPLAY_THRESHOLD)) {
+    remainingWidthNumber = 0
+  } else {
+    remainingWidthNumber = remainingWidth.toDecimalPlaces(3).toNumber()
+  }
+
   street.segments.forEach((segment: Segment) => {
     const variantInfo = getSegmentVariantInfo(
       segment.type,
@@ -101,7 +115,7 @@ export function recalculateWidth (street: StreetJson) {
     // Apply a warning if any portion of the segment exceeds the boundaries of
     // the street.
     if (
-      remainingWidth.lessThan(0) &&
+      Math.abs(remainingWidthNumber) > 0 &&
       (position.lessThan(0) ||
         position.plus(segment.width).greaterThan(streetWidth))
     ) {
@@ -151,7 +165,7 @@ export function recalculateWidth (street: StreetJson) {
 
   return {
     occupiedWidth: occupiedWidth.toNumber(),
-    remainingWidth: remainingWidth.toNumber(),
+    remainingWidth: remainingWidthNumber,
     segments
   }
 }
