@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid'
+
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
@@ -35,12 +36,7 @@ import {
   DRAGGING_TYPE_RESIZE
 } from './constants'
 import { segmentsChanged } from './view'
-import type {
-  Segment,
-  SegmentDefinition,
-  VariantInfo,
-  UnitsSetting
-} from '@streetmix/types'
+
 import type { RootState } from '../store'
 
 export const draggingResize: {
@@ -147,14 +143,16 @@ function handleSegmentResizeStart (event: MouseEvent | TouchEvent): void {
   }, 0)
 }
 
-function handleSegmentResizeMove (event) {
+function handleSegmentResizeMove (event: MouseEvent | TouchEvent): void {
   let x, y, resizeType
-  if (event.touches && event.touches[0]) {
+  if ('touches' in event && event.touches[0]) {
     x = event.touches[0].pageX
     y = event.touches[0].pageY
-  } else {
+  } else if ('pageX' in event) {
     x = event.pageX
     y = event.pageY
+  } else {
+    return
   }
 
   const deltaX = x - draggingResize.mouseX
@@ -195,7 +193,7 @@ export function onBodyMouseDown (event: MouseEvent | TouchEvent): void {
     return
   }
 
-  if (event.target && (event.target as Element).closest('.drag-handle')) {
+  if ((event.target as HTMLElement).closest('.drag-handle')) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }
@@ -252,7 +250,7 @@ export function onBodyMouseMove (event: MouseEvent | TouchEvent): void {
   event.preventDefault()
 }
 
-function doDropHeuristics (draggedItem, draggedItemType) {
+function doDropHeuristics (draggedItem, draggedItemType): void {
   // Automatically figure out width
   const street = store.getState().street
   const { variantString, type, actualWidth } = draggedItem
@@ -484,8 +482,8 @@ function updateIfDraggingStateChanged (
 }
 
 function handleSegmentCanvasDrop (draggedItem, type) {
-  // `oldDraggingState` can be `null` or undefined, if so, bail
-  if (!oldDraggingState) return
+  // `oldDraggingState` can be `null`, if so, bail
+  if (oldDraggingState === null) return
 
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
