@@ -222,6 +222,7 @@ export interface VariantInfo {
   defaultWidth?: WidthDefinition
   minWidth?: WidthDefinition
   maxWidth?: WidthDefinition
+  dangerous?: boolean
   elevation: number | MeasurementDefinition
   graphics: Record<string, unknown> // TODO
 }
