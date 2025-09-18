@@ -23,12 +23,11 @@ import type { Segment, StreetJson, UnitsSetting } from '@streetmix/types'
 /**
  * Given an input width value, constrains the value to the
  * minimum or maximum value, then rounds it to nearest precision
- *
- * @param {Number} width - input width value
- * @param {Number} units - metric or imperial
- * @returns {Number}
  */
-export function normalizeStreetWidth (width: number, units: UnitsSetting) {
+export function normalizeStreetWidth (
+  width: number,
+  units: UnitsSetting
+): number {
   const minValue =
     units === SETTINGS_UNITS_IMPERIAL
       ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
@@ -38,21 +37,13 @@ export function normalizeStreetWidth (width: number, units: UnitsSetting) {
       ? MAX_CUSTOM_STREET_WIDTH_IMPERIAL
       : MAX_CUSTOM_STREET_WIDTH
 
-  // Constrain within bounds
-  if (width < minValue) {
-    width = minValue
-  } else if (width > maxValue) {
-    width = maxValue
-  }
-
-  // Constrain to resolution
-  const resolution = getSegmentWidthResolution(units)
-  width = Math.round(width / resolution) * resolution
-
-  // Round to decimal precision
-  width = round(width, 3)
-
-  return width
+  // Clamp width within bounds, round to nearest resolution, rounds to 3 decimal
+  // places (needed for imperial units) and returns number
+  return new Decimal(width)
+    .clampedTo(minValue, maxValue)
+    .toNearest(getSegmentWidthResolution(units))
+    .toDecimalPlaces(3)
+    .toNumber()
 }
 
 /**
@@ -112,7 +103,7 @@ export function recalculateWidth (street: StreetJson) {
     if (
       remainingWidth.lessThan(0) &&
       (position.lessThan(0) ||
-        position.plus(segment.width).greaterThan(street.width))
+        position.plus(segment.width).greaterThan(streetWidth))
     ) {
       warnings[SEGMENT_WARNING_OUTSIDE] = true
     } else {
