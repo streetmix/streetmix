@@ -60,9 +60,26 @@ function calculateOccupiedWidth (segments: Segment[] = []): Decimal {
 /**
  * Subtracts occupied width from street width to get remaining width.
  * Uses decimal.js to avoid floating point errors during subtraction
+ * However, aggregate segment values might not add up exactly to occupied
+ * width so handle small near-zero values as well
  */
-function calculateRemainingWidth (streetWidth: Decimal, occupiedWidth: Decimal) {
-  return streetWidth.minus(occupiedWidth)
+function calculateRemainingWidth (
+  streetWidth: Decimal,
+  occupiedWidth: Decimal
+): Decimal {
+  const remainingWidth = streetWidth.minus(occupiedWidth)
+
+  // Rounding problems :·(
+  // Even after adopting decimal.js, this resulting calculation may still be a
+  // very small non-zero number. This tends to happen in imperial units
+  // (because the values are converted from metric), or can happen metric after
+  // being converted from imperial units. When a remaining width value is below
+  // this threshold, just return zero
+  if (remainingWidth.abs().lt(0.01)) {
+    return new Decimal(0)
+  }
+
+  return remainingWidth.toDecimalPlaces(3)
 }
 
 /**
@@ -91,20 +108,6 @@ export function recalculateWidth (street: StreetJson) {
   // Creates an empty array so that we can clone original segments into it.
   const segments: Segment[] = []
 
-  // Workaround for rounding errors in imperial units where remainingWidth may
-  // be a very small number because things are not adding up to 0 evenly.
-  // Rounding errors are likely to happen in metric only after a street originally
-  // in imperial units are converted to metric.
-  // Sometimes we still get small numbers because the conversion of segment widths
-  // are not perfect after units change
-  const MIN_DISPLAY_THRESHOLD = units === SETTINGS_UNITS_IMPERIAL ? 0.01 : 0.001
-  let remainingWidthNumber
-  if (remainingWidth.abs().lt(MIN_DISPLAY_THRESHOLD)) {
-    remainingWidthNumber = 0
-  } else {
-    remainingWidthNumber = remainingWidth.toDecimalPlaces(3).toNumber()
-  }
-
   street.segments.forEach((segment: Segment) => {
     const variantInfo = getSegmentVariantInfo(
       segment.type,
@@ -115,7 +118,7 @@ export function recalculateWidth (street: StreetJson) {
     // Apply a warning if any portion of the segment exceeds the boundaries of
     // the street.
     if (
-      Math.abs(remainingWidthNumber) > 0 &&
+      remainingWidth.abs().gt(0) &&
       (position.lessThan(0) ||
         position.plus(segment.width).greaterThan(streetWidth))
     ) {
@@ -165,7 +168,7 @@ export function recalculateWidth (street: StreetJson) {
 
   return {
     occupiedWidth: occupiedWidth.toNumber(),
-    remainingWidth: remainingWidthNumber,
+    remainingWidth: remainingWidth.toNumber(),
     segments
   }
 }
