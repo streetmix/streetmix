@@ -35,8 +35,26 @@ import {
   DRAGGING_TYPE_RESIZE
 } from './constants'
 import { segmentsChanged } from './view'
+import type {
+  Segment,
+  SegmentDefinition,
+  VariantInfo,
+  UnitsSetting
+} from '@streetmix/types'
+import type { RootState } from '../store'
 
-export const draggingResize = {
+export const draggingResize: {
+  segmentEl: HTMLElement | null
+  floatingEl: HTMLElement | null
+  mouseX: number | null
+  mouseY: number | null
+  elX: number | null
+  elY: number | null
+  width: number | null
+  originalX: number | null
+  originalWidth: number | null
+  right: boolean
+} = {
   segmentEl: null,
   floatingEl: null,
   mouseX: null,
@@ -50,9 +68,9 @@ export const draggingResize = {
 }
 
 export function initDragTypeSubscriber () {
-  const select = (state) => state.ui.draggingType
+  const select = (state: RootState) => state.ui.draggingType
 
-  const onChange = (draggingType) => {
+  const onChange = (draggingType: number) => {
     document.body.classList.remove('segment-move-dragging')
     document.body.classList.remove('segment-resize-dragging')
 
@@ -69,18 +87,20 @@ export function initDragTypeSubscriber () {
   return observeStore(select, onChange)
 }
 
-function handleSegmentResizeStart (event) {
-  let x, y
+function handleSegmentResizeStart (event: MouseEvent | TouchEvent): void {
+  let x: number, y: number
   if (app.readOnly) {
     return
   }
 
-  if (event.touches && event.touches[0]) {
+  if ('touches' in event && event.touches[0]) {
     x = event.touches[0].pageX
     y = event.touches[0].pageY
-  } else {
+  } else if ('pageX' in event) {
     x = event.pageX
     y = event.pageY
+  } else {
+    return
   }
 
   setIgnoreStreetChanges(true)
@@ -170,27 +190,32 @@ function handleSegmentResizeMove (event) {
   draggingResize.mouseY = y
 }
 
-export function onBodyMouseDown (event) {
-  if (app.readOnly || (event.touches && event.touches.length !== 1)) {
+export function onBodyMouseDown (event: MouseEvent | TouchEvent): void {
+  if (app.readOnly || ('touches' in event && event.touches.length !== 1)) {
     return
   }
 
-  if (event.target.closest('.drag-handle')) {
+  if (event.target && (event.target as Element).closest('.drag-handle')) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }
 }
 
-export function isSegmentWithinCanvas (event, canvasEl) {
+export function isSegmentWithinCanvas (
+  event: MouseEvent | TouchEvent,
+  canvasEl: HTMLElement
+): boolean {
   const { remainingWidth } = store.getState().street
 
-  let x, y
-  if (event.touches && event.touches[0]) {
+  let x: number, y: number
+  if ('touches' in event && event.touches[0]) {
     x = event.touches[0].pageX
     y = event.touches[0].pageY
-  } else {
+  } else if ('x' in event) {
     x = event.x
     y = event.y
+  } else {
+    return false
   }
 
   const { top, bottom, left, right } = canvasEl.getBoundingClientRect()
@@ -215,7 +240,7 @@ export function isSegmentWithinCanvas (event, canvasEl) {
   return withinCanvas
 }
 
-export function onBodyMouseMove (event) {
+export function onBodyMouseMove (event: MouseEvent | TouchEvent): void {
   const { draggingType } = store.getState().ui
 
   if (draggingType === DRAGGING_TYPE_NONE) {
@@ -388,7 +413,7 @@ function doDropHeuristics (draggedItem, draggedItemType) {
   draggedItem.variantString = getVariantString(variant)
 }
 
-export function onBodyMouseUp (event) {
+export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
   const { draggingType } = store.getState().ui
 
   switch (draggingType) {
@@ -402,7 +427,7 @@ export function onBodyMouseUp (event) {
   event.preventDefault()
 }
 
-function handleSegmentDragEnd () {
+function handleSegmentDragEnd (): void {
   oldDraggingState = null
   cancelSegmentResizeTransitions()
   segmentsChanged(false)
@@ -410,7 +435,12 @@ function handleSegmentDragEnd () {
   document.body.classList.remove('not-within-canvas')
 }
 
-let oldDraggingState
+let oldDraggingState: {
+  segmentBeforeEl?: number
+  segmentAfterEl?: number
+  draggedSegment: number
+  withinCanvas?: boolean
+} | null = null
 
 // Checks to see if Redux dragging state needs to be updated, and if so, dispatches action.
 // This prevents a constant dispatch of the updateDraggingState action which causes the
@@ -516,7 +546,7 @@ function isOverLeftOrRightCanvas (segment, droppedPosition) {
 export const Types = {
   SLICE: 'SLICE',
   PALETTE: 'PALETTE'
-}
+} as const
 
 export function createSliceDragSpec (props) {
   return {

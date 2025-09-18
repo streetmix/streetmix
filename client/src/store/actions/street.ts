@@ -35,22 +35,24 @@ import {
 } from '../slices/street'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble'
 import { setActiveSegment } from '../slices/ui'
+import type { AppDispatch, RootState } from '../index'
+import type { StreetState, UnitsSetting } from '@streetmix/types'
 
 /**
  * updateStreetWidth as a thunk action that automatically
  * dispatches segmentChanged
  *
- * @param {Number} width
+ * @param width
  */
-export function updateStreetWidthAction (width) {
-  return async (dispatch, getState) => {
+export function updateStreetWidthAction (width: number) {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     await dispatch(updateStreetWidth(width))
     await dispatch(segmentsChanged())
   }
 }
 
 export const segmentsChanged = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     const street = getState().street
     const updatedStreet = recalculateWidth(street)
     await dispatch(
@@ -65,8 +67,8 @@ export const segmentsChanged = () => {
   }
 }
 
-export const removeSegmentAction = (segmentIndex) => {
-  return async (dispatch, getState) => {
+export const removeSegmentAction = (segmentIndex: number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     await dispatch(removeSegment(segmentIndex, false))
     await dispatch(segmentsChanged())
 
@@ -87,7 +89,7 @@ export const removeSegmentAction = (segmentIndex) => {
 }
 
 export const clearSegmentsAction = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
 
@@ -107,27 +109,27 @@ export const clearSegmentsAction = () => {
   }
 }
 
-export const setShowAnalytics = (isVisible) => {
-  return async (dispatch, getState) => {
+export const setShowAnalytics = (isVisible: boolean) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     await dispatch(updateShowAnalytics(isVisible))
     await dispatch(segmentsChanged())
   }
 }
 
-export const setCapacitySource = (source) => {
-  return async (dispatch, getState) => {
+export const setCapacitySource = (source: string) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     await dispatch(updateCapacitySource(source))
     await dispatch(segmentsChanged())
   }
 }
 
 export const incrementSegmentWidth = (
-  sliceIndex,
-  add,
-  precise,
-  resizeType = RESIZE_TYPE_INCREMENT
+  sliceIndex: number,
+  add: boolean,
+  precise: boolean,
+  resizeType: number = RESIZE_TYPE_INCREMENT
 ) => {
-  return async (dispatch, getState) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     const units = getState().street.units
     const origWidth = getState().street.segments[sliceIndex].width
 
@@ -169,7 +171,13 @@ export const incrementSegmentWidth = (
   }
 }
 
-const createStreetFromResponse = (response) => {
+const createStreetFromResponse = (response: {
+  data: { street: StreetState }
+  creatorId?: string
+  originalStreetId?: string
+  updatedAt?: string
+  name?: string
+}): StreetState => {
   const street = clone(response.data.street)
   street.creatorId = response.creatorId || null
   street.originalStreetId = response.originalStreetId || null
@@ -188,7 +196,7 @@ const createStreetFromResponse = (response) => {
 
 // Currently not being used but could replace fetchLastStreet in xhr.js
 export const getLastStreet = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
     const lastStreetId = getState().app.priorLastStreetId
     const { id, namespacedId } = getState().street
     try {
