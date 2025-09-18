@@ -14,17 +14,18 @@ import {
   STREET_TEMPLATES
 } from './constants'
 import { setMode, MODES } from './mode'
+import type { StreetState } from '@streetmix/types'
 
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'
 
 let errorUrl = ''
 
-export function getErrorUrl () {
+export function getErrorUrl (): string {
   return errorUrl
 }
 
-export function processUrl () {
+export function processUrl (): void {
   // Get current pathname. The pathname will contain an initial `/` followed
   // by the path of the URL. The root pathname should always be `/`. It may
   // be possible for the URL to contain a trailing slash, but we don't want
@@ -129,7 +130,7 @@ export function processUrl () {
   }
 }
 
-export function getStreetUrl (street) {
+export function getStreetUrl (street: StreetState): string {
   let url = '/'
   if (street.creatorId) {
     // Add a initial slash to the creator check to match reserved paths
@@ -156,8 +157,11 @@ export function getStreetUrl (street) {
   return url
 }
 
-export function updatePageUrl (forceGalleryUrl, userId = null) {
-  let url
+export function updatePageUrl (
+  forceGalleryUrl: boolean,
+  userId: string | null = null
+): void {
+  let url: string
   if (forceGalleryUrl) {
     const slug = userId || 'gallery/'
     url = '/' + slug
@@ -171,16 +175,16 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
   // parsing code, but now we use the `URLSearchParams` global interface.
   // For clarity, truthy values are set to the value of 1.
   if (debug.forceLeftHandTraffic) {
-    params.set('debug-force-left-hand-traffic', 1)
+    params.set('debug-force-left-hand-traffic', '1')
   }
   if (debug.forceNonRetina) {
-    params.set('debug-force-non-retina', 1)
+    params.set('debug-force-non-retina', '1')
   }
   if (debug.forceReadOnly) {
-    params.set('debug-force-read-only', 1)
+    params.set('debug-force-read-only', '1')
   }
   if (debug.forceOfflineMode) {
-    params.set('debug-force-offline', 1)
+    params.set('debug-force-offline', '1')
   }
 
   // If we have params, append to the URL

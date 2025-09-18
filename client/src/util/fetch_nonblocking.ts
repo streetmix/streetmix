@@ -11,7 +11,7 @@ import { addToast } from '../store/slices/toasts'
 // Code has been removed in favor of axios. Remaining functions
 // handle various edge cases in connectivity. TODO: refactor
 
-export function onNoConnection (event) {
+export function onNoConnection (event: Event): void {
   const state = store.getState()
 
   // Don't display this in offline mode
@@ -28,7 +28,7 @@ export function onNoConnection (event) {
   )
 }
 
-function checkIfChangesSaved () {
+function checkIfChangesSaved (): boolean | undefined {
   if (store.getState().errors.abortEverything) {
     return
   }
@@ -54,7 +54,9 @@ function checkIfChangesSaved () {
   }
 }
 
-export function onWindowBeforeUnload (event) {
+export function onWindowBeforeUnload (
+  event: BeforeUnloadEvent
+): string | undefined {
   const shouldPrompt = checkIfChangesSaved()
 
   if (shouldPrompt) {

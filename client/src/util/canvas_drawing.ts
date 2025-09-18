@@ -1,4 +1,11 @@
-export function drawLine (ctx, x1, y1, x2, y2, dpi) {
+export function drawLine (
+  ctx: CanvasRenderingContext2D,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  dpi: number
+): void {
   x1 *= dpi
   y1 *= dpi
   x2 *= dpi
@@ -10,7 +17,15 @@ export function drawLine (ctx, x1, y1, x2, y2, dpi) {
   ctx.stroke()
 }
 
-export function drawArrowLine (ctx, x1, y1, x2, y2, text, dpi) {
+export function drawArrowLine (
+  ctx: CanvasRenderingContext2D,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  text: string | null,
+  dpi: number
+): void {
   x1 += 2
   x2 -= 2
 
