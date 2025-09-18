@@ -10,7 +10,7 @@ import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
 import type { StreetState, StreetJson } from '@streetmix/types'
 
-let _lastStreet: StreetJson | null = null
+let _lastStreet: StreetJson
 
 export function setLastStreet (): void {
   _lastStreet = trimStreetData(store.getState().street)
