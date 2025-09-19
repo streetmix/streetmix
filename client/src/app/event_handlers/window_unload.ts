@@ -1,36 +1,14 @@
-import { getSaveStreetIncomplete } from '../streets/xhr'
+import store from '~/src/store'
+import { getSaveStreetIncomplete } from '~/src/streets/xhr'
 import {
   isThumbnailSaved,
   SAVE_THUMBNAIL_EVENTS,
   saveStreetThumbnail
-} from '../streets/image'
-import store from '../store'
-import { addToast } from '../store/slices/toasts'
+} from '~/src/streets/image'
 
-// Note: this has historically been an AJAX request handler library.
-// Code has been removed in favor of axios. Remaining functions
-// handle various edge cases in connectivity. TODO: refactor
-
-export function onNoConnection (event: Event): void {
-  const state = store.getState()
-
-  // Don't display this in offline mode
-  if (state.system.offline) {
-    return
-  }
-
-  store.dispatch(
-    addToast({
-      component: 'TOAST_NO_CONNECTION',
-      method: 'warning',
-      duration: Infinity
-    })
-  )
-}
-
-function checkIfChangesSaved (): boolean | undefined {
+function checkIfChangesSaved (): boolean {
   if (store.getState().errors.abortEverything) {
-    return
+    return false
   }
 
   let showWarning = false
@@ -52,6 +30,8 @@ function checkIfChangesSaved (): boolean | undefined {
 
     return true
   }
+
+  return false
 }
 
 export function onWindowBeforeUnload (
