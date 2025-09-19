@@ -261,7 +261,7 @@ const streetSlice = createSlice({
     saveStreetId: {
       reducer (
         state,
-        action: PayloadAction<{ id: string; namespacedId: number }>
+        action: PayloadAction<{ id: string | null; namespacedId: number }>
       ) {
         const { id, namespacedId } = action.payload
 
@@ -272,7 +272,7 @@ const streetSlice = createSlice({
 
         state.namespacedId = namespacedId
       },
-      prepare (id: string, namespacedId: number) {
+      prepare (id: string | null, namespacedId: number) {
         return {
           payload: { id, namespacedId }
         }

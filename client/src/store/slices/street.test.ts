@@ -345,13 +345,13 @@ describe('street reducer', () => {
       street(
         {
           id: 'baz',
-          namespacedId: 'qux'
+          namespacedId: 123
         },
-        saveStreetId('foo', 'bar')
+        saveStreetId('foo', 456)
       )
     ).toEqual({
       id: 'foo',
-      namespacedId: 'bar'
+      namespacedId: 456
     })
   })
 
@@ -362,14 +362,14 @@ describe('street reducer', () => {
         updateStreetIdMetadata({
           creatorId: 'foo',
           id: 'bar',
-          namespacedId: 'baz'
+          namespacedId: 123
         })
       )
     ).toEqual({
       ...initialState,
       creatorId: 'foo',
       id: 'bar',
-      namespacedId: 'baz'
+      namespacedId: 123
     })
   })
 

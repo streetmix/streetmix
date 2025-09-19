@@ -16,7 +16,9 @@ sidebar_position: 5
 
 ### 🐛 Bug fixes
 
-- Fix visual artifacts for the variants panel in right-to-left language modes. -->
+- Fix visual artifacts for the variants panel in right-to-left language modes.
+- Clearing a slice's custom label will now reset it to its original default label.
+-->
 
 ## May 21, 2025
 

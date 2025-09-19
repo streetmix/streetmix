@@ -114,8 +114,8 @@ export function drawElementLabels (
   ctx.restore()
 }
 
-function drawLine (
-  ctx: Canvas.SKRSContext2D,
+export function drawLine (
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -135,18 +135,32 @@ function drawLine (
   ctx.restore()
 }
 
-// function drawArrowLine (ctx, x1, y1, x2, y2, text, dpi) {
-//   x1 += 2
-//   x2 -= 2
+/**
+ * Ported from client, but this has never been used
+ */
+export function drawArrowLine (
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  scale: number,
+  text?: string
+): void {
+  x1 += 2
+  x2 -= 2
 
-//   drawLine(ctx, x1, y1, x2, y2, dpi)
+  drawLine(ctx, x1, y1, x2, y2, scale)
 
-//   if (text) {
-//     ctx.font = 12 * dpi + 'px Arial'
-//     ctx.textAlign = 'center'
-//     ctx.fillText(text, ((x1 + x2) / 2) * dpi, y1 * dpi - 10)
-//   }
-// }
+  if (text) {
+    ctx.save()
+    ctx.font = 12 * scale + 'px Arial'
+    ctx.textAlign = 'center'
+    ctx.fillText(text, ((x1 + x2) / 2) * scale, y1 * scale - 10)
+    ctx.restore()
+  }
+}
+
 const ELEMENT_UNKNOWN = {
   unknown: true,
   name: 'Unknown',

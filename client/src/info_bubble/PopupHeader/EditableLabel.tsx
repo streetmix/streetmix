@@ -7,13 +7,13 @@ import Icon from '~/src/ui/Icon'
 import { Tooltip } from '~/src/ui/Tooltip'
 import './EditableLabel.css'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { Segment } from '@streetmix/types'
 
 interface EditableLabelProps {
   // Label can be string, or React element (if translated by ReactIntl)
   label: string | React.ReactElement
   segment?: Segment
-  position: number | BoundaryPosition
+  position: number
 }
 
 export function EditableLabel ({
