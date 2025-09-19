@@ -11,12 +11,9 @@
  * WARNING: This is not a drop in replacement solution and it might not work
  * for some edge cases.
  *
- * @param funcs - array of functions
+ * @param {Array} funcs - array of functions
  * @returns Function
  */
-export function flow<T extends unknown[], R> (
-  funcs: Array<(...args: unknown[]) => unknown>
-): (...args: T) => R {
-  return (...args: T): R =>
-    funcs.reduce((prev, fnc) => [fnc(...prev)], args)[0] as R
+export function flow (funcs) {
+  return (...args) => funcs.reduce((prev, fnc) => [fnc(...prev)], args)[0]
 }
