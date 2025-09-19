@@ -17,11 +17,13 @@ import {
   BUILDING_RIGHT_POSITION
 } from './constants'
 import PEOPLE from './people.yaml'
+
 import type {
   VariantInfo,
   VariantInfoDimensions,
   Segment,
-  BoundaryPosition
+  BoundaryPosition,
+  UnknownVariantInfo
 } from '@streetmix/types'
 
 // Adjust spacing between people to be slightly closer
@@ -49,19 +51,21 @@ export function drawSegmentImage (
   ctx: CanvasRenderingContext2D,
   sx: number = 0,
   sy: number = 0,
-  sw?: number,
-  sh?: number,
+  sw: number | undefined,
+  sh: number | undefined,
   dx: number,
   dy: number,
-  dw?: number,
-  dh?: number,
+  dw: number | undefined,
+  dh: number | undefined,
   multiplier: number = 1,
   dpi?: number
 ): void {
   // If asked to render a source or destination image with width or height
   // that is equal to or less than 0, bail. Attempting to render such an image
   // will throw an IndexSizeError error in Firefox.
-  if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) return
+  // If any of these values are undefined, the comparison evaluates to false.
+  // So it's valid, even though it's a type error. Overridden with `!`
+  if (sw! <= 0 || sh! <= 0 || dw! <= 0 || dh! <= 0) return
 
   // Settings
   const state = store.getState()
@@ -73,8 +77,8 @@ export function drawSegmentImage (
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
-  sw = sw === undefined ? svg.width : sw * TILESET_POINT_PER_PIXEL
-  sh = sh === undefined ? svg.height : sh * TILESET_POINT_PER_PIXEL
+  sw = sw === undefined ? (svg.width as number) : sw * TILESET_POINT_PER_PIXEL
+  sh = sh === undefined ? (svg.height as number) : sh * TILESET_POINT_PER_PIXEL
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
@@ -83,8 +87,8 @@ export function drawSegmentImage (
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = dw === undefined ? svg.width / TILESET_POINT_PER_PIXEL : dw
-  dh = dh === undefined ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw = dw === undefined ? (svg.width as number) / TILESET_POINT_PER_PIXEL : dw
+  dh = dh === undefined ? (svg.height as number) / TILESET_POINT_PER_PIXEL : dh
   dw *= multiplier * dpi
   dh *= multiplier * dpi
 
@@ -126,7 +130,7 @@ export function drawSegmentImage (
  * @param actualWidth - segment's actual real life width
  */
 export function getVariantInfoDimensions (
-  variantInfo: VariantInfo,
+  variantInfo: VariantInfo | UnknownVariantInfo,
   actualWidth: number = 0
 ): VariantInfoDimensions {
   // Convert actualWidth to units that work with images' intrinsic dimensions
@@ -655,8 +659,8 @@ export function segmentsChanged (): void {
  * @params name - Segment label to check
  * @returns normalized / sanitized segment label
  */
-function normalizeSegmentLabel (label: string): string {
-  if (!label) return ''
+function normalizeSegmentLabel (label: string | null): string | undefined {
+  if (!label) return undefined
 
   label = label.trim()
 
@@ -673,20 +677,20 @@ function normalizeSegmentLabel (label: string): string {
  * @param segment - object describing the segment to edit
  * @param position - index of segment to edit
  */
-export function editSegmentLabel (
-  segment: Segment,
-  position: number | BoundaryPosition
-): void {
+export function editSegmentLabel (segment: Segment, position: number): void {
   const prevLabel =
     segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+
+  // If prompt returns null, set label to undefined. This resets the label
+  // to the original default name
   const label = normalizeSegmentLabel(
     window.prompt(
       formatMessage('prompt.segment-label', 'New segment label:'),
       prevLabel
-    ) || ''
+    )
   )
 
-  if (label && label !== prevLabel) {
+  if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
     segmentsChanged()
   }
@@ -700,12 +704,9 @@ export function editSegmentLabel (
  *              or a number for the position of the segment. Should be
  *              the `segmentIndex` or `position` variables.
  */
-export function getSegmentEl (
-  position: number | string | null
-): HTMLElement | undefined {
-  if (!position && position !== 0) return
+export function getSegmentEl (position: number | BoundaryPosition): HTMLElement {
+  let segmentEl: HTMLElement
 
-  let segmentEl: HTMLElement | undefined
   if (position === BUILDING_LEFT_POSITION) {
     segmentEl = document.querySelectorAll(
       '.street-section-boundary'
@@ -716,9 +717,10 @@ export function getSegmentEl (
     )[1] as HTMLElement
   } else {
     const segments = document
-      .getElementById('street-section-editable')
-      ?.querySelectorAll('.segment')
-    segmentEl = segments?.[position as number] as HTMLElement
+      .getElementById('street-section-editable')!
+      .querySelectorAll('.segment')
+    segmentEl = segments?.[position] as HTMLElement
   }
+
   return segmentEl
 }
