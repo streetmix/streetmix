@@ -91,18 +91,14 @@ export function trimStreetData (street: StreetState): StreetJson {
     userUpdated: street.userUpdated,
     skybox: street.skybox,
     boundary: street.boundary,
-    segments: street.segments.map((origSegment) => {
-      const segment = {
-        id: origSegment.id,
-        type: origSegment.type,
-        variantString: origSegment.variantString,
-        width: origSegment.width,
-        elevation: origSegment.elevation,
-        label: origSegment.label
-      }
-
-      return segment
-    })
+    segments: street.segments.map((s) => ({
+      id: s.id,
+      type: s.type,
+      variantString: s.variantString,
+      width: s.width,
+      elevation: s.elevation,
+      label: s.label
+    }))
   }
 
   if (street.editCount !== null) {
@@ -112,25 +108,15 @@ export function trimStreetData (street: StreetState): StreetJson {
   return newData
 }
 
-/**
- * @todo: documentation
- *
- * @param dontScroll - document this
- * @param save - if set to `false`, calling this function will not
- *          cause a re-save of street to the server. (e.g. in the case of
- *          live update feature.) Default is `true`.
- */
-export function updateEverything (
-  dontScroll: boolean,
-  save: boolean = true
-): void {
+export function updateEverything (save: boolean = true): void {
   setIgnoreStreetChanges(true)
-  // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged()
   setIgnoreStreetChanges(false)
 
   setLastStreet()
 
+  // If `save` is `false`, this will not re-save the street to the server
+  // (e.g. in the case of live update feature)
   if (save === true) {
     scheduleSavingStreetToServer()
   }

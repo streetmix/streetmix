@@ -224,7 +224,7 @@ function receiveStreetForVerification (transmission) {
 
     // Update everything, but don't re-save the street to the server,
     // which will re-invalidate the local copy.
-    updateEverything(true, false)
+    updateEverything(false)
   }
 }
 
