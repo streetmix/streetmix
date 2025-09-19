@@ -10,9 +10,8 @@ import {
   darkenBlockingShield
 } from '../app/blocking_shield'
 
-interface BlockingAjaxRequest {
+interface BlockingAjaxRequest extends RequestInit {
   url: string
-  [key: string]: unknown
 }
 
 let blockingAjaxRequest: BlockingAjaxRequest | null = null
@@ -36,6 +35,7 @@ export function newBlockingAjaxRequest (
   doneFunc: (data: unknown) => void,
   cancelFunc: () => void
 ): void {
+  console.log('new blocking ajax request')
   showBlockingShield(mode)
 
   blockingAjaxRequestInProgress = true
@@ -49,20 +49,20 @@ export function newBlockingAjaxRequest (
 
 function successBlockingAjaxRequest (data: unknown): void {
   hideBlockingShield()
-  blockingAjaxRequestInProgress = false
-  if (blockingAjaxRequestDoneFunc) {
+  if (blockingAjaxRequestDoneFunc !== null) {
     blockingAjaxRequestDoneFunc(data)
   }
+  blockingRequestCleanup()
 }
 
 function errorBlockingAjaxRequest (): void {
-  if (blockingAjaxRequestCancelFunc) {
-    darkenBlockingShield(blockingAjaxRequestCancelFunc)
+  if (blockingAjaxRequestCancelFunc !== null) {
+    darkenBlockingShield(true)
   }
 }
 
 function makeBlockingAjaxRequest (): void {
-  if (!blockingAjaxRequest) return
+  if (blockingAjaxRequest === null) return
 
   window
     .fetch(blockingAjaxRequest.url, blockingAjaxRequest)
@@ -84,8 +84,15 @@ export function blockingTryAgain (): void {
 }
 
 export function blockingCancel (): void {
-  blockingAjaxRequestInProgress = false
   if (blockingAjaxRequestCancelFunc) {
     blockingAjaxRequestCancelFunc()
   }
+  blockingRequestCleanup()
+}
+
+function blockingRequestCleanup (): void {
+  blockingAjaxRequest = null
+  blockingAjaxRequestDoneFunc = null
+  blockingAjaxRequestCancelFunc = null
+  blockingAjaxRequestInProgress = false
 }
