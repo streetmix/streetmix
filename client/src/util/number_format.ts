@@ -1,6 +1,3 @@
-// Initialize a memoized instance of Intl.NumberFormat
-const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)
-
 /**
  * Formats a number using Intl.NumberFormat to the given locale. This uses
  * the memoized formatter (defined above) to improve performance.
@@ -42,14 +39,31 @@ function orderedProps (obj: Record<string, unknown>): Record<string, unknown>[] 
     .map((k) => ({ [k]: obj[k] }))
 }
 
-function memoizeFormatConstructor<
-  T extends new (...args: unknown[]) => unknown
->(
-  FormatConstructor: T
-): (...args: ConstructorParameters<T>) => InstanceType<T> {
-  const cache: Record<string, InstanceType<T>> = {}
+interface MemoizeFormatConstructorFn {
+  (
+    constructor: typeof Intl.NumberFormat
+  ): (
+    ...args: ConstructorParameters<typeof Intl.NumberFormat>
+  ) => Intl.NumberFormat
+  (
+    constructor: typeof Intl.DateTimeFormat
+  ): (
+    ...args: ConstructorParameters<typeof Intl.DateTimeFormat>
+  ) => Intl.DateTimeFormat
+  (
+    constructor: typeof Intl.RelativeTimeFormat
+  ): (
+    ...args: ConstructorParameters<typeof Intl.RelativeTimeFormat>
+  ) => Intl.RelativeTimeFormat
+  (constructor: unknown): (...args: unknown[]) => unknown
+}
 
-  return (...args: ConstructorParameters<T>): InstanceType<T> => {
+const memoizeFormatConstructor: MemoizeFormatConstructorFn = (
+  FormatConstructor
+) => {
+  const cache = {}
+
+  return (...args) => {
     const cacheId = getCacheId(args)
     let format = cacheId && cache[cacheId]
     if (!format) {
@@ -62,3 +76,6 @@ function memoizeFormatConstructor<
     return format
   }
 }
+
+// Initialize a memoized instance of Intl.NumberFormat
+const NumberFormat = memoizeFormatConstructor(Intl.NumberFormat)

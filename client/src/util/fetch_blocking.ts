@@ -35,7 +35,6 @@ export function newBlockingAjaxRequest (
   doneFunc: (data: unknown) => void,
   cancelFunc: () => void
 ): void {
-  console.log('new blocking ajax request')
   showBlockingShield(mode)
 
   blockingAjaxRequestInProgress = true
