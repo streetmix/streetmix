@@ -728,8 +728,8 @@ export function getSegmentEl (position: number | BoundaryPosition): HTMLElement 
   } else {
     const segments = document
       .getElementById('street-section-editable')!
-      .querySelectorAll('.segment')
-    segmentEl = segments?.[position] as HTMLElement
+      .querySelectorAll('.segment') as NodeListOf<HTMLElement>
+    segmentEl = segments?.[position]
   }
 
   return segmentEl
