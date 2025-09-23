@@ -123,7 +123,7 @@ export function processUrl (): void {
     store.dispatch(saveCreatorId(creatorId))
 
     // if `urlParts[1]` is not an integer, redirect to user's gallery
-    if (Number.isInteger(namespacedId) === false) {
+    if (!Number.isInteger(namespacedId)) {
       store.dispatch(setGalleryUserId(urlParts[0]))
       setMode(MODES.USER_GALLERY)
     } else {
