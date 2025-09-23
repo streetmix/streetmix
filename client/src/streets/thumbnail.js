@@ -1,6 +1,7 @@
 import { drawGround } from '@streetmix/export-image/src/ground'
+import { drawLine } from '@streetmix/export-image/src/labels'
+
 import { images } from '../app/load_resources'
-import { drawLine } from '../util/canvas_drawing'
 import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import { getBoundaryItem, drawBoundary } from '../boundary'

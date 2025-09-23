@@ -5,7 +5,7 @@ import { prepareStreet } from './templates'
 import { saveStreetToServer } from './xhr'
 
 // These are deprecated, but we may be able to use them elsewhere
-export function makeDefaultStreet () {
+export function makeDefaultStreet (): void {
   setIgnoreStreetChanges(true)
   prepareStreet('default')
 
@@ -17,7 +17,7 @@ export function makeDefaultStreet () {
   saveStreetToServer(false)
 }
 
-export function onNewStreetEmptyClick () {
+export function onNewStreetEmptyClick (): void {
   setIgnoreStreetChanges(true)
   prepareStreet('empty')
 

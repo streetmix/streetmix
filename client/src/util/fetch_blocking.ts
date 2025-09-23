@@ -10,9 +10,13 @@ import {
   darkenBlockingShield
 } from '../app/blocking_shield'
 
-let blockingAjaxRequest
-let blockingAjaxRequestDoneFunc
-let blockingAjaxRequestCancelFunc
+interface BlockingAjaxRequest extends RequestInit {
+  url: string
+}
+
+let blockingAjaxRequest: BlockingAjaxRequest | null = null
+let blockingAjaxRequestDoneFunc: ((data: unknown) => void) | null = null
+let blockingAjaxRequestCancelFunc: (() => void) | null = null
 
 let blockingAjaxRequestInProgress = false
 
@@ -21,11 +25,16 @@ let blockingAjaxRequestInProgress = false
 // binding to the package, so we use a getter function to achieve
 // the same
 // TODO: Store application state differently
-export function isblockingAjaxRequestInProgress () {
+export function isblockingAjaxRequestInProgress (): boolean {
   return blockingAjaxRequestInProgress
 }
 
-export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
+export function newBlockingAjaxRequest (
+  mode: string,
+  request: BlockingAjaxRequest,
+  doneFunc: (data: unknown) => void,
+  cancelFunc: () => void
+): void {
   showBlockingShield(mode)
 
   blockingAjaxRequestInProgress = true
@@ -37,17 +46,23 @@ export function newBlockingAjaxRequest (mode, request, doneFunc, cancelFunc) {
   makeBlockingAjaxRequest()
 }
 
-function successBlockingAjaxRequest (data) {
+function successBlockingAjaxRequest (data: unknown): void {
   hideBlockingShield()
-  blockingAjaxRequestInProgress = false
-  blockingAjaxRequestDoneFunc(data)
+  if (blockingAjaxRequestDoneFunc !== null) {
+    blockingAjaxRequestDoneFunc(data)
+  }
+  blockingRequestCleanup()
 }
 
-function errorBlockingAjaxRequest () {
-  darkenBlockingShield(blockingAjaxRequestCancelFunc)
+function errorBlockingAjaxRequest (): void {
+  if (blockingAjaxRequestCancelFunc !== null) {
+    darkenBlockingShield(true)
+  }
 }
 
-function makeBlockingAjaxRequest () {
+function makeBlockingAjaxRequest (): void {
+  if (blockingAjaxRequest === null) return
+
   window
     .fetch(blockingAjaxRequest.url, blockingAjaxRequest)
     .then((response) => {
@@ -63,11 +78,20 @@ function makeBlockingAjaxRequest () {
 
 // These export to the blocking shield to retry or cancel requests
 
-export function blockingTryAgain () {
+export function blockingTryAgain (): void {
   makeBlockingAjaxRequest()
 }
 
-export function blockingCancel () {
+export function blockingCancel (): void {
+  if (blockingAjaxRequestCancelFunc) {
+    blockingAjaxRequestCancelFunc()
+  }
+  blockingRequestCleanup()
+}
+
+function blockingRequestCleanup (): void {
+  blockingAjaxRequest = null
+  blockingAjaxRequestDoneFunc = null
+  blockingAjaxRequestCancelFunc = null
   blockingAjaxRequestInProgress = false
-  blockingAjaxRequestCancelFunc()
 }

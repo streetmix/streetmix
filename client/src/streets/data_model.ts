@@ -8,17 +8,18 @@ import {
 import store from '../store'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
 import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
+import type { StreetState, StreetJson } from '@streetmix/types'
 
-let _lastStreet
+let _lastStreet: StreetJson
 
-export function setLastStreet () {
+export function setLastStreet (): void {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
 // `updateToLatestSchemaVersion` to the server side.
-export function addAltVariantObject (street) {
+export function addAltVariantObject (street: StreetState): void {
   street.segments = street.segments.map((segment) => {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
@@ -28,14 +29,14 @@ export function addAltVariantObject (street) {
   })
 }
 
-export function setStreetCreatorId (newId) {
+export function setStreetCreatorId (newId: string): void {
   store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
   updateLastStreetInfo()
 }
 
-export function setUpdateTimeToNow () {
+export function setUpdateTimeToNow (): void {
   const updateTime = new Date().toISOString()
   store.dispatch(setUpdateTime(updateTime))
   unifyUndoStack()
@@ -43,11 +44,11 @@ export function setUpdateTimeToNow () {
 
 let ignoreStreetChanges = false
 
-export function setIgnoreStreetChanges (value) {
+export function setIgnoreStreetChanges (value: boolean): void {
   ignoreStreetChanges = value
 }
 
-export function saveStreetToServerIfNecessary () {
+export function saveStreetToServerIfNecessary (): void {
   if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
@@ -74,8 +75,8 @@ export function saveStreetToServerIfNecessary () {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData (street) {
-  const newData = {
+export function trimStreetData (street: StreetState): StreetJson {
+  const newData: StreetJson = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
     capacitySource: street.capacitySource,
@@ -90,18 +91,14 @@ export function trimStreetData (street) {
     userUpdated: street.userUpdated,
     skybox: street.skybox,
     boundary: street.boundary,
-    segments: street.segments.map((origSegment) => {
-      const segment = {
-        id: origSegment.id,
-        type: origSegment.type,
-        variantString: origSegment.variantString,
-        width: origSegment.width,
-        elevation: origSegment.elevation,
-        label: origSegment.label
-      }
-
-      return segment
-    })
+    segments: street.segments.map((s) => ({
+      id: s.id,
+      type: s.type,
+      variantString: s.variantString,
+      width: s.width,
+      elevation: s.elevation,
+      label: s.label
+    }))
   }
 
   if (street.editCount !== null) {
@@ -111,22 +108,15 @@ export function trimStreetData (street) {
   return newData
 }
 
-/**
- * @todo: documentation
- *
- * @param {Boolean} dontScroll - document this
- * @param {Boolean} save - if set to `false`, calling this function will not
- *          cause a re-save of street to the server. (e.g. in the case of
- *          live update feature.) Default is `true`.
- */
-export function updateEverything (dontScroll, save = true) {
+export function updateEverything (save: boolean = true): void {
   setIgnoreStreetChanges(true)
-  // TODO Verify that we don't need to dispatch an update width event here
   segmentsChanged()
   setIgnoreStreetChanges(false)
 
   setLastStreet()
 
+  // If `save` is `false`, this will not re-save the street to the server
+  // (e.g. in the case of live update feature)
   if (save === true) {
     scheduleSavingStreetToServer()
   }

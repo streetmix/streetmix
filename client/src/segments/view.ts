@@ -18,6 +18,14 @@ import {
 } from './constants'
 import PEOPLE from './people.yaml'
 
+import type {
+  VariantInfo,
+  VariantInfoDimensions,
+  Segment,
+  BoundaryPosition,
+  UnknownVariantInfo
+} from '@streetmix/types'
+
 // Adjust spacing between people to be slightly closer
 const PERSON_SPACING_ADJUSTMENT = -0.1 // in meters
 const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
@@ -25,37 +33,39 @@ const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
 /**
  * Draws SVG sprite to canvas
  *
- * @param {string} id - identifier of sprite
- * @param {CanvasRenderingContext2D} ctx
- * @param {Number} sx - x position of sprite to read from (default = 0)
- * @param {Number} sy - y position of sprite to read from (default = 0)
- * @param {Number|undefined} sw - sub-rectangle width to draw
- * @param {Number|undefined} sh - sub-rectangle height to draw
- * @param {Number} dx - x position on canvas
- * @param {Number} dy - y position on canvas
- * @param {Number|undefined} dw - destination width to draw
- * @param {Number|undefined} dh - destination height to draw
- * @param {Number} multiplier - scale to draw at (default = 1)
- * @param {Number} dpi
+ * @param id - identifier of sprite
+ * @param ctx
+ * @param sx - x position of sprite to read from (default = 0)
+ * @param sy - y position of sprite to read from (default = 0)
+ * @param sw - sub-rectangle width to draw
+ * @param sh - sub-rectangle height to draw
+ * @param dx - x position on canvas
+ * @param dy - y position on canvas
+ * @param dw - destination width to draw
+ * @param dh - destination height to draw
+ * @param multiplier - scale to draw at (default = 1)
+ * @param dpi
  */
 export function drawSegmentImage (
-  id,
-  ctx,
-  sx = 0,
-  sy = 0,
-  sw,
-  sh,
-  dx,
-  dy,
-  dw,
-  dh,
-  multiplier = 1,
-  dpi
-) {
+  id: string,
+  ctx: CanvasRenderingContext2D,
+  sx: number = 0,
+  sy: number = 0,
+  sw: number | undefined,
+  sh: number | undefined,
+  dx: number,
+  dy: number,
+  dw: number | undefined,
+  dh: number | undefined,
+  multiplier: number = 1,
+  dpi?: number
+): void {
   // If asked to render a source or destination image with width or height
   // that is equal to or less than 0, bail. Attempting to render such an image
   // will throw an IndexSizeError error in Firefox.
-  if (sw <= 0 || sh <= 0 || dw <= 0 || dh <= 0) return
+  // If any of these values are undefined, the comparison evaluates to false.
+  // So it's valid, even though it's a type error. Overridden with `!`
+  if (sw! <= 0 || sh! <= 0 || dw! <= 0 || dh! <= 0) return
 
   // Settings
   const state = store.getState()
@@ -67,8 +77,8 @@ export function drawSegmentImage (
   // Source width and height is based off of intrinsic image width and height,
   // but it can be overridden in the parameters, e.g. when repeating sprites
   // in a sequence and the last sprite needs to be truncated
-  sw = sw === undefined ? svg.width : sw * TILESET_POINT_PER_PIXEL
-  sh = sh === undefined ? svg.height : sh * TILESET_POINT_PER_PIXEL
+  sw = sw === undefined ? (svg.width as number) : sw * TILESET_POINT_PER_PIXEL
+  sh = sh === undefined ? (svg.height as number) : sh * TILESET_POINT_PER_PIXEL
 
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
@@ -77,8 +87,8 @@ export function drawSegmentImage (
   // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
-  dw = dw === undefined ? svg.width / TILESET_POINT_PER_PIXEL : dw
-  dh = dh === undefined ? svg.height / TILESET_POINT_PER_PIXEL : dh
+  dw = dw === undefined ? (svg.width as number) / TILESET_POINT_PER_PIXEL : dw
+  dh = dh === undefined ? (svg.height as number) / TILESET_POINT_PER_PIXEL : dh
   dw *= multiplier * dpi
   dh *= multiplier * dpi
 
@@ -116,11 +126,13 @@ export function drawSegmentImage (
  * right, and center Y-values needed to render sprites so that they are not
  * truncated at the edge of the segment.
  *
- * @param {VariantInfo} variantInfo - segment variant info
- * @param {Number} actualWidth - segment's actual real life width
- * @returns {VariantInfoDimensions}
+ * @param variantInfo - segment variant info
+ * @param actualWidth - segment's actual real life width
  */
-export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
+export function getVariantInfoDimensions (
+  variantInfo: VariantInfo | UnknownVariantInfo,
+  actualWidth: number = 0
+): VariantInfoDimensions {
   // Convert actualWidth to units that work with images' intrinsic dimensions
   const displayWidth = actualWidth * TILE_SIZE_ACTUAL
 
@@ -236,37 +248,37 @@ export function getVariantInfoDimensions (variantInfo, actualWidth = 0) {
  * Given an elevation value (in meters), return the pixel height it should be
  * rendered at.
  *
- * @param {Number} elevation
- * @returns {Number} pixels
+ * @param elevation
+ * @returns pixels
  */
-export function getElevation (elevation) {
+export function getElevation (elevation: number): number {
   return elevation * TILE_SIZE
 }
 
 /**
  *
- * @param {CanvasRenderingContext2D} ctx
- * @param {string} type
- * @param {string} variantString
- * @param {Number} actualWidth - The real-world width of a segment, in meters
- * @param {Number} offsetLeft
- * @param {Number} groundBaseline
- * @param {string} randSeed
- * @param {Number} multiplier
- * @param {Number} dpi
+ * @param ctx
+ * @param type
+ * @param variantString
+ * @param actualWidth - The real-world width of a segment, in meters
+ * @param offsetLeft
+ * @param groundBaseline
+ * @param randSeed
+ * @param multiplier
+ * @param dpi
  */
 export function drawSegmentContents (
-  ctx,
-  type,
-  variantString,
-  actualWidth,
-  offsetLeft,
-  groundBaseline,
-  elevation = 0,
-  randSeed,
-  multiplier,
-  dpi
-) {
+  ctx: CanvasRenderingContext2D,
+  type: string,
+  variantString: string,
+  actualWidth: number,
+  offsetLeft: number,
+  groundBaseline: number,
+  elevation: number = 0,
+  randSeed: string,
+  multiplier: number,
+  dpi: number
+): void {
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const graphics = variantInfo.graphics
 
@@ -610,7 +622,10 @@ export function drawSegmentContents (
   }
 }
 
-export function getLocaleSegmentName (type, variantString) {
+export function getLocaleSegmentName (
+  type: string,
+  variantString: string
+): string {
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
   const defaultName = variantInfo.name ?? segmentInfo.name
@@ -623,7 +638,7 @@ export function getLocaleSegmentName (type, variantString) {
 /**
  * TODO: remove this
  */
-export function segmentsChanged () {
+export function segmentsChanged (): void {
   const street = store.getState().street
   const updatedStreet = recalculateWidth(street)
 
@@ -641,14 +656,18 @@ export function segmentsChanged () {
 /**
  * Process / sanitize segment labels
  *
- * @params {string} name - Segment label to check
- * @returns {string} - normalized / sanitized segment label
+ * @params name - Segment label to check
+ * @returns normalized / sanitized segment label
  */
-function normalizeSegmentLabel (label) {
-  if (!label) return ''
-
+function normalizeSegmentLabel (label: string): string | undefined {
   label = label.trim()
 
+  // If label is the empty string, return undefined
+  if (label === '') {
+    return undefined
+  }
+
+  // Trim a long label
   if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
     label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
   }
@@ -659,20 +678,29 @@ function normalizeSegmentLabel (label) {
 /**
  * Uses browser prompt to change the segment label
  *
- * @param {Segment} segment - object describing the segment to edit
- * @param {Number | BoundaryPosition} position - index of segment to edit
+ * @param segment - object describing the segment to edit
+ * @param position - index of segment to edit
  */
-export function editSegmentLabel (segment, position) {
+export function editSegmentLabel (segment: Segment, position: number): void {
   const prevLabel =
     segment.label || getLocaleSegmentName(segment.type, segment.variantString)
-  const label = normalizeSegmentLabel(
-    window.prompt(
-      formatMessage('prompt.segment-label', 'New segment label:'),
-      prevLabel
-    )
+
+  // If prompt returns empty string, set label to undefined. This resets the
+  // label to the original default name
+  // If prompt returns null (the prompt has been canceled), do not change the
+  // label.
+  const labelInput = window.prompt(
+    formatMessage('prompt.segment-label', 'New segment label:'),
+    prevLabel
   )
 
-  if (label && label !== prevLabel) {
+  if (labelInput === null) {
+    return
+  }
+
+  const label = normalizeSegmentLabel(labelInput)
+
+  if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
     segmentsChanged()
   }
@@ -682,24 +710,27 @@ export function editSegmentLabel (segment, position) {
  * Given the position of a segment or building, retrieve a reference to its
  * DOM element.
  *
- * @param {Number|string} position - either "left" or "right" for building,
+ * @param position - either "left" or "right" for building,
  *              or a number for the position of the segment. Should be
  *              the `segmentIndex` or `position` variables.
- * @returns {HTMLElement}
  */
-export function getSegmentEl (position) {
-  if (!position && position !== 0) return
+export function getSegmentEl (position: number | BoundaryPosition): HTMLElement {
+  let segmentEl: HTMLElement
 
-  let segmentEl
   if (position === BUILDING_LEFT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-boundary')[0]
+    segmentEl = document.querySelectorAll(
+      '.street-section-boundary'
+    )[0] as HTMLElement
   } else if (position === BUILDING_RIGHT_POSITION) {
-    segmentEl = document.querySelectorAll('.street-section-boundary')[1]
+    segmentEl = document.querySelectorAll(
+      '.street-section-boundary'
+    )[1] as HTMLElement
   } else {
     const segments = document
-      .getElementById('street-section-editable')
-      .querySelectorAll('.segment')
-    segmentEl = segments[position]
+      .getElementById('street-section-editable')!
+      .querySelectorAll('.segment') as NodeListOf<HTMLElement>
+    segmentEl = segments?.[position]
   }
+
   return segmentEl
 }

@@ -14,23 +14,24 @@ import {
   STREET_TEMPLATES
 } from './constants'
 import { setMode, MODES } from './mode'
+import type { StreetState } from '@streetmix/types'
 
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'
 
 let errorUrl = ''
 
-export function getErrorUrl () {
+export function getErrorUrl (): string {
   return errorUrl
 }
 
-export function processUrl () {
+export function processUrl (): void {
   // Get current pathname. The pathname will contain an initial `/` followed
   // by the path of the URL. The root pathname should always be `/`. It may
   // be possible for the URL to contain a trailing slash, but we don't want
   // that, so remove it, if present. This will cause the root pathname to be
   // an empty string.
-  const url = new URL(window.location)
+  const url = new URL(window.location.href)
   const pathname = url.pathname.replace(/\/+$/, '')
 
   // parts being split, although we really don't need to
@@ -93,20 +94,27 @@ export function processUrl () {
     store.dispatch(setGalleryUserId(urlParts[0]))
     setMode(MODES.USER_GALLERY)
 
-    // TODO add is integer urlParts[1]
     // Existing street by an anonymous person
   } else if (
     urlParts.length === 2 &&
     urlParts[0] === ANONYMOUS_USER_ID_FRAGMENT &&
     urlParts[1]
   ) {
-    store.dispatch(saveCreatorId(null))
-    store.dispatch(saveStreetId(null, urlParts[1]))
-    setMode(MODES.EXISTING_STREET)
+    const namespacedId = Number.parseInt(urlParts[1], 10)
+
+    if (Number.isInteger(namespacedId)) {
+      store.dispatch(saveCreatorId(null))
+      store.dispatch(saveStreetId(null, namespacedId))
+      setMode(MODES.EXISTING_STREET)
+    } else {
+      // If `urlParts[1]` is not an integer, redirect to 404
+      setMode(MODES.NOT_FOUND)
+    }
 
     // Existing street by a user person
   } else if (urlParts.length >= 2 && urlParts[0] && urlParts[1]) {
     let creatorId = urlParts[0]
+    const namespacedId = Number.parseInt(urlParts[1], 10)
 
     if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
       creatorId = creatorId.substr(1)
@@ -115,11 +123,11 @@ export function processUrl () {
     store.dispatch(saveCreatorId(creatorId))
 
     // if `urlParts[1]` is not an integer, redirect to user's gallery
-    if (Number.isInteger(window.parseInt(urlParts[1])) === false) {
+    if (!Number.isInteger(namespacedId)) {
       store.dispatch(setGalleryUserId(urlParts[0]))
       setMode(MODES.USER_GALLERY)
     } else {
-      store.dispatch(saveStreetId(null, urlParts[1]))
+      store.dispatch(saveStreetId(null, namespacedId))
       setMode(MODES.EXISTING_STREET)
     }
 
@@ -129,7 +137,7 @@ export function processUrl () {
   }
 }
 
-export function getStreetUrl (street) {
+export function getStreetUrl (street: StreetState): string {
   let url = '/'
   if (street.creatorId) {
     // Add a initial slash to the creator check to match reserved paths
@@ -143,7 +151,6 @@ export function getStreetUrl (street) {
   }
 
   url += '/'
-
   url += street.namespacedId
 
   if (street.creatorId) {
@@ -156,8 +163,11 @@ export function getStreetUrl (street) {
   return url
 }
 
-export function updatePageUrl (forceGalleryUrl, userId = null) {
-  let url
+export function updatePageUrl (
+  forceGalleryUrl: boolean,
+  userId: string | null = null
+): void {
+  let url: string
   if (forceGalleryUrl) {
     const slug = userId || 'gallery/'
     url = '/' + slug
@@ -171,16 +181,16 @@ export function updatePageUrl (forceGalleryUrl, userId = null) {
   // parsing code, but now we use the `URLSearchParams` global interface.
   // For clarity, truthy values are set to the value of 1.
   if (debug.forceLeftHandTraffic) {
-    params.set('debug-force-left-hand-traffic', 1)
+    params.set('debug-force-left-hand-traffic', '1')
   }
   if (debug.forceNonRetina) {
-    params.set('debug-force-non-retina', 1)
+    params.set('debug-force-non-retina', '1')
   }
   if (debug.forceReadOnly) {
-    params.set('debug-force-read-only', 1)
+    params.set('debug-force-read-only', '1')
   }
   if (debug.forceOfflineMode) {
-    params.set('debug-force-offline', 1)
+    params.set('debug-force-offline', '1')
   }
 
   // If we have params, append to the URL
