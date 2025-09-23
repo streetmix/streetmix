@@ -659,11 +659,15 @@ export function segmentsChanged (): void {
  * @params name - Segment label to check
  * @returns normalized / sanitized segment label
  */
-function normalizeSegmentLabel (label: string | null): string | undefined {
-  if (!label) return undefined
-
+function normalizeSegmentLabel (label: string): string | undefined {
   label = label.trim()
 
+  // If label is the empty string, return undefined
+  if (label === '') {
+    return undefined
+  }
+
+  // Trim a long label
   if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
     label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
   }
@@ -681,14 +685,20 @@ export function editSegmentLabel (segment: Segment, position: number): void {
   const prevLabel =
     segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
-  // If prompt returns null, set label to undefined. This resets the label
-  // to the original default name
-  const label = normalizeSegmentLabel(
-    window.prompt(
-      formatMessage('prompt.segment-label', 'New segment label:'),
-      prevLabel
-    )
+  // If prompt returns empty string, set label to undefined. This resets the
+  // label to the original default name
+  // If prompt returns null (the prompt has been canceled), do not change the
+  // label.
+  const labelInput = window.prompt(
+    formatMessage('prompt.segment-label', 'New segment label:'),
+    prevLabel
   )
+
+  if (labelInput === null) {
+    return
+  }
+
+  const label = normalizeSegmentLabel(labelInput)
 
   if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
