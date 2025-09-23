@@ -14,7 +14,7 @@ interface UiState {
   welcomePanelDismissed: boolean
   toolboxVisible: boolean
   activeSegment: number | BoundaryPosition | null
-  draggingState: DraggingState | null
+  draggingState: DraggingState
   draggingType: number
   resizeGuidesVisible: boolean
 }
@@ -24,7 +24,7 @@ const initialState: UiState = {
   welcomePanelDismissed: false,
   toolboxVisible: false,
   activeSegment: null,
-  draggingState: null,
+  draggingState: {},
   draggingType: 0,
   resizeGuidesVisible: false
 }
@@ -55,12 +55,9 @@ const uiSlice = createSlice({
       state.draggingType = action.payload
     },
 
-    updateDraggingState (
-      state,
-      action: PayloadAction<UiState['draggingState']>
-    ) {
+    updateDraggingState (state, action: PayloadAction<DraggingState>) {
       if (!action.payload) {
-        state.draggingState = null
+        state.draggingState = {}
       } else {
         state.draggingState = {
           segmentBeforeEl: action.payload.segmentBeforeEl,
@@ -71,7 +68,7 @@ const uiSlice = createSlice({
     },
 
     clearDraggingState (state, action) {
-      state.draggingState = null
+      state.draggingState = {}
       state.draggingType = DRAGGING_TYPE_NONE
     },
 

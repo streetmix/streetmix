@@ -19,7 +19,7 @@ describe('ui reducer', () => {
     welcomePanelDismissed: false,
     toolboxVisible: false,
     activeSegment: null,
-    draggingState: null,
+    draggingState: {},
     draggingType: 0,
     resizeGuidesVisible: false
   }
@@ -30,7 +30,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: 0,
       resizeGuidesVisible: false
     })
@@ -42,7 +42,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: true,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: 0,
       resizeGuidesVisible: false
     })
@@ -54,7 +54,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: 1,
-      draggingState: null,
+      draggingState: {},
       draggingType: 0,
       resizeGuidesVisible: false
     })
@@ -67,7 +67,7 @@ describe('ui reducer', () => {
           welcomePanelDismissed: false,
           toolboxVisible: false,
           activeSegment: null,
-          draggingState: null,
+          draggingState: {},
           draggingType: 0,
           resizeGuidesVisible: true
         },
@@ -78,7 +78,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: 0,
       resizeGuidesVisible: true
     })
@@ -90,7 +90,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: 1,
       resizeGuidesVisible: false
     })
@@ -144,7 +144,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: 0,
       resizeGuidesVisible: false
     })
@@ -156,7 +156,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: DRAGGING_TYPE_NONE,
       resizeGuidesVisible: false
     })
@@ -166,7 +166,7 @@ describe('ui reducer', () => {
       welcomePanelDismissed: false,
       toolboxVisible: false,
       activeSegment: null,
-      draggingState: null,
+      draggingState: {},
       draggingType: DRAGGING_TYPE_RESIZE,
       resizeGuidesVisible: true
     })

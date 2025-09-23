@@ -3,7 +3,7 @@ import { useDragLayer } from 'react-dnd'
 
 import { usePrevious } from '~/src/util/usePrevious'
 import SegmentCanvas from './SegmentCanvas'
-import { Types } from './drag_and_drop'
+import { DragTypes } from './drag_and_drop'
 import './SegmentDragLayer.css'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150 // TODO: Document magic numbers
@@ -43,7 +43,7 @@ function SegmentDragLayer (): React.ReactElement {
     if (currentOffset === null || floatingEl.current === null) return
 
     let { x, y } = currentOffset
-    if (type === Types.PALETTE) {
+    if (type === DragTypes.PALETTE) {
       x -= item.actualWidth * 4 // TODO: document magic number, probably TILE_SIZE * PALETTE_MULTIPLIER
       y += DRAG_OFFSET_Y_PALETTE
     }

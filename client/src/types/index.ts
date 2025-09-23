@@ -108,5 +108,5 @@ export type FeatureFlagSettings = Record<string, FeatureFlagSetting>
 export interface DraggingState {
   segmentBeforeEl?: number
   segmentAfterEl?: number
-  draggedSegment: number
+  draggedSegment?: number
 }
