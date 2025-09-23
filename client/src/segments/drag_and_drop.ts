@@ -42,6 +42,25 @@ import type { DropTargetMonitor } from 'react-dnd'
 import type { RootState } from '../store'
 import type { DraggingState } from '../types'
 
+/* react-dnd specs */
+export const DragTypes = {
+  SLICE: 'SLICE',
+  PALETTE: 'PALETTE'
+} as const
+
+type DragType = (typeof DragTypes)[keyof typeof DragTypes]
+
+// NOTE: is similar to SliceItem / Segment type
+interface DraggedItem {
+  id: string
+  sliceIndex: number
+  variantString: string
+  type: string
+  label?: string
+  actualWidth: number
+  elevation: number
+}
+
 export const draggingResize: {
   segmentEl: HTMLElement | null
   floatingEl: HTMLElement | null
@@ -258,7 +277,10 @@ export function onBodyMouseMove (event: MouseEvent | TouchEvent): void {
   event.preventDefault()
 }
 
-function doDropHeuristics (draggedItem, draggedItemType): void {
+function doDropHeuristics (
+  draggedItem: DraggedItem,
+  draggedItemType: DragType
+): void {
   // Automatically figure out width
   const street = store.getState().street
   const { variantString, type, actualWidth } = draggedItem
@@ -288,8 +310,6 @@ function doDropHeuristics (draggedItem, draggedItemType): void {
 
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
-
-  console.log('yes?', segmentBeforeEl, segmentAfterEl)
 
   const left =
     segmentAfterEl !== undefined ? street.segments[segmentAfterEl] : null
@@ -454,8 +474,8 @@ let oldDraggingState: DraggingState & {
 function updateIfDraggingStateChanged (
   segmentBeforeEl: number | undefined,
   segmentAfterEl: number | undefined,
-  draggedItem,
-  draggedItemType: typeof DragTypes
+  draggedItem: DraggedItem,
+  draggedItemType: DragType
 ) {
   let changed = false
 
@@ -488,7 +508,10 @@ function updateIfDraggingStateChanged (
   return changed
 }
 
-function handleSegmentCanvasDrop (draggedItem, type: typeof DragTypes | null) {
+function handleSegmentCanvasDrop (
+  draggedItem: DraggedItem,
+  type: DragType | null
+) {
   // `draggedSegment` can be undefined, if so, bail
   if (oldDraggingState.draggedSegment === undefined) return
 
@@ -553,16 +576,10 @@ function isOverLeftOrRightCanvas (
       : null
 }
 
-/* react-dnd specs */
-export const DragTypes = {
-  SLICE: 'SLICE',
-  PALETTE: 'PALETTE'
-} as const
-
 export function createSliceDragSpec (props) {
   return {
     type: DragTypes.SLICE,
-    item: () => {
+    item: (): DraggedItem => {
       store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
 
       return {
@@ -575,7 +592,7 @@ export function createSliceDragSpec (props) {
         elevation: props.segment.elevation
       }
     },
-    end (item, monitor: DropTargetMonitor) {
+    end (item: DraggedItem, monitor: DropTargetMonitor) {
       store.dispatch(clearDraggingState())
 
       if (!monitor.didDrop()) {
@@ -597,7 +614,7 @@ export function createSliceDragSpec (props) {
     isDragging (monitor: DropTargetMonitor) {
       return monitor.getItem().id === props.segment.id
     },
-    collect (monitor: DropTargetMonitor, props) {
+    collect (monitor: DropTargetMonitor) {
       return {
         isDragging: monitor.isDragging()
       }
@@ -608,7 +625,7 @@ export function createSliceDragSpec (props) {
 export function createPaletteItemDragSpec (segment: SegmentDefinition) {
   return {
     type: DragTypes.PALETTE,
-    item: () => {
+    item: (): DraggedItem => {
       // Initialize an empty draggingState object in Redux for palette segments
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and
@@ -649,7 +666,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         elevation
       }
     },
-    end: (item, monitor: DropTargetMonitor) => {
+    end: (item: DraggedItem, monitor: DropTargetMonitor) => {
       store.dispatch(clearDraggingState())
 
       const withinCanvas = oldDraggingState?.withinCanvas
@@ -671,7 +688,7 @@ export function createSliceDropTargetSpec (
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
-    hover (item, monitor: DropTargetMonitor) {
+    hover (item: DraggedItem, monitor: DropTargetMonitor) {
       if (!monitor.canDrop()) return
 
       const dragIndex = item.sliceIndex
@@ -730,14 +747,14 @@ export function createStreetDropTargetSpec (
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
-    drop (item, monitor: DropTargetMonitor) {
+    drop (item: DraggedItem, monitor: DropTargetMonitor) {
       const draggedItemType = monitor.getItemType()
 
       handleSegmentCanvasDrop(item, draggedItemType)
 
       return { withinCanvas: true }
     },
-    hover (item, monitor: DropTargetMonitor) {
+    hover (item: DraggedItem, monitor: DropTargetMonitor) {
       if (!monitor.canDrop()) return
 
       if (monitor.isOver({ shallow: true })) {
