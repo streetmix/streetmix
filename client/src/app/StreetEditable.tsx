@@ -85,10 +85,16 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   const [collectedProps, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {
-    if (!prevProps?.draggingState && draggingState) {
+    if (
+      !prevProps?.draggingState.draggedSegment &&
+      draggingState.draggedSegment
+    ) {
       window.addEventListener('dragover', updateWithinCanvas)
       window.addEventListener('touchmove', updateWithinCanvas)
-    } else if (prevProps?.draggingState && !draggingState) {
+    } else if (
+      prevProps?.draggingState.draggedSegment &&
+      !draggingState.draggedSegment
+    ) {
       window.removeEventListener('dragover', updateWithinCanvas)
       window.removeEventListener('touchmove', updateWithinCanvas)
     }
@@ -98,7 +104,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
       window.removeEventListener('dragover', updateWithinCanvas)
       window.removeEventListener('touchmove', updateWithinCanvas)
     }
-  }, [draggingState])
+  }, [draggingState.draggedSegment, prevProps?.draggingState.draggedSegment])
 
   useEffect(() => {
     if (prevProps === null || prevProps === undefined) return
@@ -153,21 +159,19 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     for (let i = 0; i < sliceIndex; i++) {
       const width =
-        draggingState && draggingState.draggedSegment === i
-          ? 0
-          : segments[i].width * TILE_SIZE
+        draggingState.draggedSegment === i ? 0 : segments[i].width * TILE_SIZE
       currPos += width
     }
 
     let mainLeft = remainingWidth
-    if (draggingState && segments[draggingState.draggedSegment] !== undefined) {
+    if (draggingState.draggedSegment) {
       const draggedWidth = segments[draggingState.draggedSegment].width || 0
       mainLeft += draggedWidth
     }
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (draggingState && withinCanvas.current) {
+    if (draggingState.draggedSegment && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const gap = makeSpaceBetweenSlices(sliceIndex, draggingState)
       return mainLeft + currPos + gap
