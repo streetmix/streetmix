@@ -106,7 +106,9 @@ export type FeatureFlags = Record<string, FeatureFlagDefinition>
 export type FeatureFlagSettings = Record<string, FeatureFlagSetting>
 
 export interface DraggingState {
-  segmentBeforeEl?: number
-  segmentAfterEl?: number
-  draggedSegment?: number
+  isDragging: boolean
+  segmentBeforeEl: number | null
+  segmentAfterEl: number | null
+  draggedSegment: number | null
+  withinCanvas: boolean
 }

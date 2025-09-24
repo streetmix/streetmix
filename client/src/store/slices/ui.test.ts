@@ -1,5 +1,6 @@
 import {
   DRAGGING_TYPE_NONE,
+  DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE
 } from '../../segments/constants'
 import ui, {
@@ -19,80 +20,57 @@ describe('ui reducer', () => {
     welcomePanelDismissed: false,
     toolboxVisible: false,
     activeSegment: null,
-    draggingState: {},
-    draggingType: 0,
+    draggingState: {
+      isDragging: false,
+      segmentBeforeEl: null,
+      segmentAfterEl: null,
+      draggedSegment: null,
+      withinCanvas: false
+    },
+    draggingType: DRAGGING_TYPE_NONE,
     resizeGuidesVisible: false
   }
 
   it('should handle setWelcomePanelVisible()', () => {
     expect(ui(initialState, setWelcomePanelVisible())).toEqual({
-      welcomePanelVisible: true,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
-      draggingType: 0,
-      resizeGuidesVisible: false
+      ...initialState,
+      welcomePanelVisible: true
     })
   })
 
   it('should handle setWelcomePanelDismissed()', () => {
     expect(ui(initialState, setWelcomePanelDismissed())).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: true,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
-      draggingType: 0,
-      resizeGuidesVisible: false
+      ...initialState,
+      welcomePanelDismissed: true
     })
   })
 
   it('should handle setActiveSegment()', () => {
     expect(ui(initialState, setActiveSegment(1))).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: 1,
-      draggingState: {},
-      draggingType: 0,
-      resizeGuidesVisible: false
+      ...initialState,
+      activeSegment: 1
     })
 
     // if resize guides visible, don't set active segment
     expect(
       ui(
         {
-          welcomePanelVisible: false,
-          welcomePanelDismissed: false,
-          toolboxVisible: false,
-          activeSegment: null,
-          draggingState: {},
-          draggingType: 0,
+          ...initialState,
           resizeGuidesVisible: true
         },
         setActiveSegment(1)
       )
     ).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
+      ...initialState,
       activeSegment: null,
-      draggingState: {},
-      draggingType: 0,
       resizeGuidesVisible: true
     })
   })
 
   it('should handle initDraggingState()', () => {
     expect(ui(initialState, initDraggingState(1))).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
-      draggingType: 1,
-      resizeGuidesVisible: false
+      ...initialState,
+      draggingType: 1
     })
   })
 
@@ -101,23 +79,21 @@ describe('ui reducer', () => {
       ui(
         initialState,
         updateDraggingState({
+          isDragging: true,
           segmentBeforeEl: 1,
           segmentAfterEl: 3,
           draggedSegment: 2
         })
       )
     ).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
+      ...initialState,
       draggingState: {
+        isDragging: true,
         segmentBeforeEl: 1,
         segmentAfterEl: 3,
-        draggedSegment: 2
-      },
-      draggingType: 0,
-      resizeGuidesVisible: false
+        draggedSegment: 2,
+        withinCanvas: false
+      }
     })
   })
 
@@ -125,48 +101,36 @@ describe('ui reducer', () => {
     expect(
       ui(
         {
-          welcomePanelVisible: false,
-          welcomePanelDismissed: false,
-          toolboxVisible: false,
-          activeSegment: null,
+          ...initialState,
           draggingState: {
+            isDragging: true,
             segmentBeforeEl: 1,
             segmentAfterEl: 3,
-            draggedSegment: 2
+            draggedSegment: 2,
+            withinCanvas: true
           },
-          draggingType: 1,
-          resizeGuidesVisible: false
+          draggingType: 1
         },
-        clearDraggingState({})
+        clearDraggingState()
       )
-    ).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
-      draggingType: 0,
-      resizeGuidesVisible: false
-    })
+    ).toEqual(initialState)
   })
 
   it('should handle setDraggingType()', () => {
     expect(ui(initialState, setDraggingType(DRAGGING_TYPE_NONE))).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
-      draggingType: DRAGGING_TYPE_NONE,
-      resizeGuidesVisible: false
+      ...initialState,
+      draggingType: DRAGGING_TYPE_NONE
     })
 
+    // For move
+    expect(ui(initialState, setDraggingType(DRAGGING_TYPE_MOVE))).toEqual({
+      ...initialState,
+      draggingType: DRAGGING_TYPE_MOVE
+    })
+
+    // For resize
     expect(ui(initialState, setDraggingType(DRAGGING_TYPE_RESIZE))).toEqual({
-      welcomePanelVisible: false,
-      welcomePanelDismissed: false,
-      toolboxVisible: false,
-      activeSegment: null,
-      draggingState: {},
+      ...initialState,
       draggingType: DRAGGING_TYPE_RESIZE,
       resizeGuidesVisible: true
     })
