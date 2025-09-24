@@ -37,7 +37,9 @@ export const MAX_BUILDING_HEIGHT = 20 // floors
 export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
 
-export const GROUND_BASELINE_HEIGHT = 45
+export const MAX_CANVAS_HEIGHT = 2048 // pixels
+export const CANVAS_HEIGHT = 600 // pixels
+export const GROUND_BASELINE_HEIGHT = 45 // pixels
 
 export const ELEVATION_INCREMENT = 0.15 // meters
 export const ELEVATION_INCREMENT_IMPERIAL = 0.5 * 0.3048 // feet => m

@@ -8,7 +8,10 @@ import {
 } from '~/src/store/slices/street'
 import { setActiveSegment } from '~/src/store/slices/ui'
 import { usePrevious } from '~/src/util/usePrevious'
-import { GROUND_BASELINE_HEIGHT } from '~/src/segments/constants'
+import {
+  MAX_CANVAS_HEIGHT,
+  GROUND_BASELINE_HEIGHT
+} from '~/src/segments/constants'
 import { getElevation } from '~/src/segments/view'
 import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
@@ -19,8 +22,6 @@ import {
 import './BoundaryComponent.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
-
-const MAX_CANVAS_HEIGHT = 2048
 
 /**
  * Creates building canvas element to draw on

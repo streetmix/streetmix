@@ -1,11 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import {
-  GROUND_BASELINE_HEIGHT,
-  TILE_SIZE,
-  TILE_SIZE_ACTUAL
-} from './constants'
+import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './TestSlope.css'
 
 import { getElevation } from './view'
@@ -14,11 +10,6 @@ import type { Segment } from '@streetmix/types'
 interface Props {
   slice: Segment
 }
-
-// const CANVAS_HEIGHT = 500
-// const CANVAS_GROUND = 35
-const CANVAS_HEIGHT = 600
-const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 function TestSlope ({ slice }: Props): React.ReactNode | null {
   const street = useSelector((state) => state.street)

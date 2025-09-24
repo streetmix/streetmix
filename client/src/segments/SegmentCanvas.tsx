@@ -4,10 +4,9 @@ import { Decimal } from 'decimal.js'
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
+import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
-const CANVAS_HEIGHT = 600
 const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 interface SegmentCanvasProps {
