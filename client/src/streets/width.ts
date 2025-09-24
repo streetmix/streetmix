@@ -5,7 +5,8 @@ import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE,
-  SEGMENT_WARNING_DANGEROUS_EXISTING
+  SEGMENT_WARNING_DANGEROUS_EXISTING,
+  SEGMENT_WARNING_SLOPE_EXCEEDED
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { getSegmentWidthResolution } from '../segments/resizing'
@@ -108,7 +109,7 @@ export function recalculateWidth (street: StreetJson) {
   // Creates an empty array so that we can clone original segments into it.
   const segments: Segment[] = []
 
-  street.segments.forEach((segment: Segment) => {
+  street.segments.forEach((segment: Segment, index: number) => {
     const variantInfo = getSegmentVariantInfo(
       segment.type,
       segment.variantString
@@ -155,6 +156,19 @@ export function recalculateWidth (street: StreetJson) {
       warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = true
     } else {
       warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = false
+    }
+
+    // Apply a warning for slope
+    // Does this belong here? Warnings might need to be figured out elsewhere!
+    warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = false // default value
+    if (segment.slope) {
+      const leftElevation = street.segments[index - 1]?.elevation ?? 0
+      const rightElevation = street.segments[index + 1]?.elevation ?? 0
+      const rise = Math.abs(leftElevation - rightElevation)
+      const ratio = Number((segment.width / rise).toFixed(2))
+      if (ratio < 3) {
+        warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = true
+      }
     }
 
     // Increment the position counter.

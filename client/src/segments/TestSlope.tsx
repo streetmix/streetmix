@@ -89,15 +89,29 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
     height: elementHeight
   }
 
-  // Get slope
-  const leftpx = estimateCoord(leftElevation, dpi)
-  const rightpx = estimateCoord(rightElevation, dpi)
-  const rise = Math.abs(leftpx - rightpx)
-  const slope = Math.floor((rise / elementWidth) * 100)
+  // Get slope in percentage
+  const rise = Math.abs(leftElevation - rightElevation)
+  const slope = ((rise / slice.width) * 100).toFixed(2)
+
+  // Get slope as ratio (horizontal:vertical)
+  // for berms:
+  // "Slopes of 3H:1V (Horizontal:Vertical) are recommended for stability and ease of maintenance"
+  // for paths:
+  // "ADA accessibility and connection to inland area and waterfront is required. Accessible routes shall not exceed 5% (1V:20H (vertical:horizontal)) slope"
+  const ratio = Number((slice.width / rise).toFixed(2))
+  const styles = {
+    color: 'inherit'
+  }
+  if (ratio < 3) {
+    styles.color = 'red'
+  }
 
   return (
     <div className="test-slope-container">
-      <div className="slope-debug">{slope} %</div>
+      <div className="slope-debug">
+        <p style={styles}>{slope} %</p>
+        <p style={styles}>{ratio}:1</p>
+      </div>
       <canvas
         ref={canvasEl}
         width={canvasWidth}

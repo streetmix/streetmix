@@ -44,9 +44,9 @@ describe('recalculateWidth', () => {
       occupiedWidth: 20,
       remainingWidth: 0,
       segments: [
-        { width: 4, warnings: [false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false] }
+        { width: 4, warnings: [false, false, false, false, false, false] },
+        { width: 8, warnings: [false, false, false, false, false, false] },
+        { width: 8, warnings: [false, false, false, false, false, false] }
       ]
     })
   })
@@ -60,8 +60,8 @@ describe('recalculateWidth', () => {
       occupiedWidth: 12,
       remainingWidth: 8,
       segments: [
-        { width: 4, warnings: [false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false] }
+        { width: 4, warnings: [false, false, false, false, false, false] },
+        { width: 8, warnings: [false, false, false, false, false, false] }
       ]
     })
   })
@@ -75,9 +75,9 @@ describe('recalculateWidth', () => {
       occupiedWidth: 22,
       remainingWidth: -2,
       segments: [
-        { width: 8, warnings: [false, true, false, false, false] },
-        { width: 6, warnings: [false, false, false, false, false] },
-        { width: 8, warnings: [false, true, false, false, false] }
+        { width: 8, warnings: [false, true, false, false, false, false] },
+        { width: 6, warnings: [false, false, false, false, false, false] },
+        { width: 8, warnings: [false, true, false, false, false, false] }
       ]
     })
   })
@@ -99,19 +99,19 @@ describe('recalculateWidth', () => {
           width: 0.6,
           type: 'sidewalk',
           variantString: 'normal',
-          warnings: [false, false, true, false, false]
+          warnings: [false, false, true, false, false, false]
         },
         {
           width: 3,
           type: 'divider',
           variantString: 'bush',
-          warnings: [false, false, false, false, false]
+          warnings: [false, false, false, false, false, false]
         },
         {
           width: 5.4,
           type: 'parking-lane',
           variantString: 'inbound|left',
-          warnings: [false, false, false, true, false]
+          warnings: [false, false, false, true, false, false]
         }
       ]
     })

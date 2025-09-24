@@ -7,7 +7,8 @@ import {
   SEGMENT_WARNING_OUTSIDE,
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE,
-  SEGMENT_WARNING_DANGEROUS_EXISTING
+  SEGMENT_WARNING_DANGEROUS_EXISTING,
+  SEGMENT_WARNING_SLOPE_EXCEEDED
 } from '~/src/segments/constants'
 import './Warnings.css'
 
@@ -29,7 +30,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       message: (
         <FormattedMessage
           id="segments.warnings.dangerous"
-          defaultMessage="This segment represents a dangerous existing condition."
+          defaultMessage="This is a dangerous existing condition."
         />
       )
     })
@@ -40,7 +41,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       message: (
         <FormattedMessage
           id="segments.warnings.does-not-fit"
-          defaultMessage="This segment doesn’t fit within the street."
+          defaultMessage="This doesn’t fit within the street."
         />
       )
     })
@@ -51,7 +52,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       message: (
         <FormattedMessage
           id="segments.warnings.not-wide"
-          defaultMessage="This segment might not be wide enough."
+          defaultMessage="This may not be wide enough."
         />
       )
     })
@@ -62,7 +63,18 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       message: (
         <FormattedMessage
           id="segments.warnings.too-wide"
-          defaultMessage="This segment might be too wide."
+          defaultMessage="This may be too wide."
+        />
+      )
+    })
+  }
+  if (segment.warnings[SEGMENT_WARNING_SLOPE_EXCEEDED]) {
+    messages.push({
+      type: 'error',
+      message: (
+        <FormattedMessage
+          id="segments.warnings.slope-too-high"
+          defaultMessage="This may be too steep."
         />
       )
     })
