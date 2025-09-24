@@ -9,7 +9,6 @@ import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { STREET_TEMPLATES } from '../app/constants'
 import { goNewStreet } from '../app/routing'
 import { app } from '../preinit/app_settings'
-import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import {
   deleteStreet,
@@ -23,6 +22,7 @@ import {
   newBlockingAjaxRequest
 } from '../util/fetch_blocking'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street'
 import { updateSettings } from '../store/slices/settings'
 import {
   saveStreetId,
@@ -413,7 +413,7 @@ function receiveLastStreet (transmission) {
   // now have to update again to change edit count - how to fix?
   unifyUndoStack()
 
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   setIgnoreStreetChanges(false)
   setLastStreet()

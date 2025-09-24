@@ -3,6 +3,7 @@ import { round } from '@streetmix/utils'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street'
 import { changeSegmentWidth } from '../store/slices/street'
 import { setDraggingType } from '../store/slices/ui'
 import {
@@ -18,7 +19,6 @@ import {
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
   BUILDING_SPACE
 } from './constants'
-import { segmentsChanged } from './view'
 import { draggingResize } from './drag_and_drop'
 
 import type { Segment, UnitsSetting } from '@streetmix/types'
@@ -47,7 +47,7 @@ export function resizeSegment (
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(segmentIndex, width))
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
   return width
 }
 
@@ -128,7 +128,7 @@ export function handleSegmentResizeEnd (): void {
   setIgnoreStreetChanges(false)
 
   updateStreetMargin(null, null, false)
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 

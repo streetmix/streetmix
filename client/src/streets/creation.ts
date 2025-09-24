@@ -1,4 +1,4 @@
-import { segmentsChanged } from '~/src/segments/view'
+import { segmentsChangedLEGACY } from '~/src/segments/view'
 
 import { setLastStreet, setIgnoreStreetChanges } from './data_model'
 import { prepareStreet } from './templates'
@@ -9,7 +9,7 @@ export function makeDefaultStreet (): void {
   setIgnoreStreetChanges(true)
   prepareStreet('default')
 
-  segmentsChanged()
+  segmentsChangedLEGACY()
 
   setIgnoreStreetChanges(false)
   setLastStreet()
@@ -21,7 +21,7 @@ export function onNewStreetEmptyClick (): void {
   setIgnoreStreetChanges(true)
   prepareStreet('empty')
 
-  segmentsChanged()
+  segmentsChangedLEGACY()
 
   setIgnoreStreetChanges(false)
   setLastStreet()

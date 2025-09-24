@@ -5,6 +5,7 @@ import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street'
 import { updateSegments, changeSegmentProperties } from '../store/slices/street'
 import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawScatteredSprites } from './scatter'
@@ -638,7 +639,7 @@ export function getLocaleSegmentName (
 /**
  * TODO: remove this
  */
-export function segmentsChanged (): void {
+export function segmentsChangedLEGACY (): void {
   const street = store.getState().street
   const updatedStreet = recalculateWidth(street)
 
@@ -702,7 +703,7 @@ export function editSegmentLabel (segment: Segment, position: number): void {
 
   if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
-    segmentsChanged()
+    store.dispatch(segmentsChanged())
   }
 }
 

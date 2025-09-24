@@ -1,7 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { segmentsChanged } from '~/src/segments/view'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
@@ -9,6 +8,7 @@ import {
   CURB_HEIGHT_IMPERIAL
 } from '~/src/segments/constants'
 import { useSelector, useDispatch } from '~/src/store/hooks'
+import { segmentsChanged } from '~/src/store/actions/street'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import { TooltipGroup } from '~/src/ui/Tooltip'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
@@ -73,7 +73,7 @@ export function ElevationControl ({
     return (): void => {
       if (typeof position === 'number') {
         dispatch(changeSegmentProperties(position, { elevation }))
-        segmentsChanged()
+        dispatch(segmentsChanged())
       }
     }
   }

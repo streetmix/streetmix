@@ -1,8 +1,8 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { segmentsChanged } from '~/src/segments/view'
 import { useSelector, useDispatch } from '~/src/store/hooks'
+import { segmentsChanged } from '~/src/store/actions/street'
 import { changeSegmentProperties } from '~/src/store/slices/street'
 import Switch from '~/src/ui/Switch'
 
@@ -26,7 +26,7 @@ export function SlopeControl ({ position }: SlopeControlProps) {
   function handleSlopeChange (checked: boolean): void {
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { slope: checked }))
-      segmentsChanged()
+      dispatch(segmentsChanged())
     }
   }
 

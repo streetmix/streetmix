@@ -1,7 +1,6 @@
 import clone from 'just-clone'
 import { debug } from '../preinit/debug_settings'
 import { normalizeAllSegmentWidths } from '../segments/resizing'
-import { segmentsChanged } from '../segments/view'
 import {
   saveStreetToServerIfNecessary,
   setIgnoreStreetChanges
@@ -9,6 +8,7 @@ import {
 import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
 import { normalizeStreetWidth } from '../streets/width'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street'
 import {
   setUnits,
   updateStreetWidth,
@@ -173,7 +173,7 @@ export function updateUnits (newUnits) {
   } else {
     store.dispatch(updateStreetData(clone(undoStack[undoPosition - 1])))
   }
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   setIgnoreStreetChanges(false)
 

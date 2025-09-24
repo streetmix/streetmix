@@ -5,7 +5,7 @@ import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import store, { observeStore } from '../store'
 import { addSegment, moveSegment } from '../store/slices/street'
-import { removeSegmentAction } from '../store/actions/street'
+import { removeSegmentAction, segmentsChanged } from '../store/actions/street'
 import {
   initDraggingState,
   updateDraggingState,
@@ -35,7 +35,6 @@ import {
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE
 } from './constants'
-import { segmentsChanged } from './view'
 
 import type { SegmentDefinition, StreetJson } from '@streetmix/types'
 import type { DropTargetMonitor } from 'react-dnd'
@@ -458,7 +457,7 @@ export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
 function handleSegmentDragEnd (): void {
   oldDraggingState = {}
   cancelSegmentResizeTransitions()
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   document.body.classList.remove('not-within-canvas')
 }

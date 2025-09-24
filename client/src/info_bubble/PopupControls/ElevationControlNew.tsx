@@ -6,8 +6,8 @@ import {
   ELEVATION_INCREMENT,
   ELEVATION_INCREMENT_IMPERIAL
 } from '~/src/segments/constants'
-import { segmentsChanged } from '~/src/segments/view'
 import { useDispatch, useSelector } from '~/src/store/hooks'
+import { segmentsChanged } from '~/src/store/actions/street'
 import {
   changeSegmentProperties,
   setBoundaryElevation
@@ -70,7 +70,7 @@ export function ElevationControlNew ({
       .toNumber()
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
-      segmentsChanged()
+      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
@@ -88,7 +88,7 @@ export function ElevationControlNew ({
       .toNumber()
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
-      segmentsChanged()
+      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
@@ -115,7 +115,7 @@ export function ElevationControlNew ({
 
     if (typeof position === 'number') {
       dispatch(changeSegmentProperties(position, { elevation: newValue }))
-      segmentsChanged()
+      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }

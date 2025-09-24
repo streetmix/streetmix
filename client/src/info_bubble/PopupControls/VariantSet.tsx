@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
+import { segmentsChanged } from '~/src/store/actions/street'
 import {
   setBuildingVariant,
   changeSegmentVariant
 } from '~/src/store/slices/street'
-import { segmentsChanged } from '~/src/segments/view'
 import { getSegmentInfo } from '~/src/segments/info'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils'
@@ -71,7 +71,7 @@ export function VariantSet (
     } else {
       handler = () => {
         dispatch(changeSegmentVariant(position, set, selection))
-        segmentsChanged()
+        dispatch(segmentsChanged())
       }
     }
 

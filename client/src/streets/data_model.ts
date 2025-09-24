@@ -1,5 +1,5 @@
 import { getVariantInfo } from '../segments/variant_utils'
-import { segmentsChanged } from '../segments/view'
+import { segmentsChanged } from '../store/actions/street'
 import {
   setUpdateTime,
   saveCreatorId,
@@ -110,7 +110,7 @@ export function trimStreetData (street: StreetState): StreetJson {
 
 export function updateEverything (save: boolean = true): void {
   setIgnoreStreetChanges(true)
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
   setIgnoreStreetChanges(false)
 
   setLastStreet()
