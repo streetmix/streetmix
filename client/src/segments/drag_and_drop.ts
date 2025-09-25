@@ -38,7 +38,7 @@ import {
 import { segmentsChanged } from './view'
 
 import type { SegmentDefinition, StreetJson } from '@streetmix/types'
-import type { DropTargetMonitor } from 'react-dnd'
+import type { DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import type { RootState } from '../store'
 import type { DraggingState } from '../types'
 
@@ -554,15 +554,15 @@ function handleSegmentCanvasDrop (
 /**
  * Determines if segment was dropped/hovered on left or right side of street
  *
- * @param {Node} segment - reference to StreetEditable
- * @param {Number} droppedPosition - x position of dropped segment in reference
+ * @param segment - reference to StreetEditable
+ * @param droppedPosition - x position of dropped segment in reference
  *    to StreetEditable
- * @returns {string} - left, right, or null if dropped/hovered over a segment
+ * @returns `left` or `right`; or `null` if dropped/hovered over a segment
  */
 function isOverLeftOrRightCanvas (
   segment: HTMLElement,
   droppedPosition: number
-) {
+): string | null {
   const { remainingWidth } = store.getState().street
   const { left, right } = segment.getBoundingClientRect()
 
@@ -591,7 +591,7 @@ export function createSliceDragSpec (props) {
         elevation: props.segment.elevation
       }
     },
-    end (item: DraggedItem, monitor: DropTargetMonitor) {
+    end (item: DraggedItem, monitor: DragSourceMonitor) {
       store.dispatch(clearDraggingState())
 
       if (!monitor.didDrop()) {
@@ -607,13 +607,13 @@ export function createSliceDragSpec (props) {
 
       handleSegmentDragEnd()
     },
-    canDrag (monitor: DropTargetMonitor) {
+    canDrag (monitor: DragSourceMonitor) {
       return !store.getState().app.readOnly
     },
-    isDragging (monitor: DropTargetMonitor) {
+    isDragging (monitor: DragSourceMonitor<DraggedItem>) {
       return monitor.getItem().id === props.segment.id
     },
-    collect (monitor: DropTargetMonitor) {
+    collect (monitor: DragSourceMonitor) {
       return {
         isDragging: monitor.isDragging()
       }
@@ -666,7 +666,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         elevation
       }
     },
-    end: (item: DraggedItem, monitor: DropTargetMonitor) => {
+    end: (item: DraggedItem, monitor: DragSourceMonitor) => {
       store.dispatch(clearDraggingState())
 
       const withinCanvas = oldDraggingState?.withinCanvas
@@ -676,7 +676,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
 
       handleSegmentDragEnd()
     },
-    canDrag: (monitor: DropTargetMonitor) => {
+    canDrag: (monitor: DragSourceMonitor) => {
       return !store.getState().app.readOnly
     }
   }
@@ -766,9 +766,8 @@ export function createStreetDropTargetSpec (
         if (!position) return
 
         const { segments } = street
-        const segmentBeforeEl = position === 'left' ? 0 : undefined
-        const segmentAfterEl =
-          position === 'left' ? undefined : segments.length - 1
+        const segmentBeforeEl = position === 'left' ? 0 : null
+        const segmentAfterEl = position === 'left' ? null : segments.length - 1
 
         updateIfDraggingStateChanged(
           segmentBeforeEl,
