@@ -311,10 +311,9 @@ function doDropHeuristics (
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  const left =
-    segmentAfterEl !== undefined ? street.segments[segmentAfterEl] : null
+  const left = segmentAfterEl !== null ? street.segments[segmentAfterEl] : null
   const right =
-    segmentBeforeEl !== undefined ? street.segments[segmentBeforeEl] : null
+    segmentBeforeEl !== null ? street.segments[segmentBeforeEl] : null
 
   const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
@@ -472,8 +471,8 @@ let oldDraggingState: DraggingState & {
 // dragging of the segment to be laggy and choppy.
 
 function updateIfDraggingStateChanged (
-  segmentBeforeEl: number | undefined,
-  segmentAfterEl: number | undefined,
+  segmentBeforeEl: number | null,
+  segmentAfterEl: number | null,
   draggedItem: DraggedItem,
   draggedItemType: DragType
 ) {
@@ -597,7 +596,7 @@ export function createSliceDragSpec (props) {
 
       if (!monitor.didDrop()) {
         // if no object returned by a drop handler, check if it is still within the canvas
-        const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+        const withinCanvas = oldDraggingState.withinCanvas
         if (withinCanvas) {
           handleSegmentCanvasDrop(item, monitor.getItemType())
         } else if (monitor.getItemType() === DragTypes.SLICE) {
@@ -630,6 +629,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and
       // one dispatch to reduce batch renders.
+      console.log('hi')
       store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
       const { units } = store.getState().street
@@ -696,9 +696,7 @@ export function createSliceDropTargetSpec (
 
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
-      const hoverMiddleX = Math.round(
-        left + (props.actualWidth * TILE_SIZE) / 2
-      )
+      const hoverMiddleX = Math.round(left + (item.actualWidth * TILE_SIZE) / 2)
       const { x } = monitor.getClientOffset()
 
       // Ignore hovering over the dragged segment after dragging state is already set.
@@ -706,10 +704,11 @@ export function createSliceDropTargetSpec (
       // draggingState as when the dragged segment is behind another segment.
       if (dragIndex === hoverIndex && oldDraggingState) return
 
+      console.log('indexes', dragIndex, hoverIndex)
       if (dragIndex === hoverIndex) {
         updateIfDraggingStateChanged(
           dragIndex,
-          undefined,
+          null,
           item,
           monitor.getItemType()
         )
@@ -720,16 +719,17 @@ export function createSliceDropTargetSpec (
           x > hoverMiddleX && hoverIndex !== segments.length - 1
             ? hoverIndex + 1
             : hoverIndex === segments.length - 1
-              ? undefined
+              ? null
               : hoverIndex
 
         const segmentAfterEl =
           x > hoverMiddleX && hoverIndex !== 0
             ? hoverIndex
             : hoverIndex === 0
-              ? undefined
+              ? null
               : hoverIndex - 1
 
+        console.log('yo', x, hoverMiddleX, segmentBeforeEl, segmentAfterEl)
         updateIfDraggingStateChanged(
           segmentBeforeEl,
           segmentAfterEl,

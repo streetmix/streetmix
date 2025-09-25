@@ -28,18 +28,25 @@ function makeSpaceBetweenSlices (
 
   let gap = 0
 
-  if (segmentBeforeEl !== undefined && sliceIndex >= segmentBeforeEl) {
+  console.log(
+    `index: ${sliceIndex}, before: ${segmentBeforeEl}, after: ${segmentAfterEl}`
+  )
+  if (segmentBeforeEl !== null && sliceIndex >= segmentBeforeEl) {
+    console.log('mode', 1)
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
-    if (segmentAfterEl === undefined) {
+    if (segmentAfterEl === null) {
+      console.log('mode', 2)
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }
 
-  if (segmentAfterEl !== undefined && sliceIndex > segmentAfterEl) {
+  if (segmentAfterEl !== null && sliceIndex > segmentAfterEl) {
+    console.log('mode', 3)
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
-    if (segmentBeforeEl === undefined) {
+    if (segmentBeforeEl === null) {
+      console.log('mode', 4)
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }
@@ -62,7 +69,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
   // Internal "state", but does not affect renders, so it is not React state
   const withinCanvas = useRef<boolean>(false)
-  const streetSectionEditable = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   // According to "rule of hooks", useRef() must not be called in a loop
   // This is a top-level container to manage a list of refs as a workaround
@@ -78,33 +85,18 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   })
 
   // Set up drop target
-  const dropTargetSpec = createStreetDropTargetSpec(
-    street,
-    streetSectionEditable
-  )
+  const dropTargetSpec = createStreetDropTargetSpec(street, ref)
   const [collectedProps, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {
-    if (
-      !prevProps?.draggingState.draggedSegment &&
-      draggingState.draggedSegment
-    ) {
-      window.addEventListener('dragover', updateWithinCanvas)
-      window.addEventListener('touchmove', updateWithinCanvas)
-    } else if (
-      prevProps?.draggingState.draggedSegment &&
-      !draggingState.draggedSegment
-    ) {
-      window.removeEventListener('dragover', updateWithinCanvas)
-      window.removeEventListener('touchmove', updateWithinCanvas)
-    }
+    window.addEventListener('dragover', updateWithinCanvas)
+    window.addEventListener('touchmove', updateWithinCanvas)
 
-    // Cleanup
     return () => {
       window.removeEventListener('dragover', updateWithinCanvas)
       window.removeEventListener('touchmove', updateWithinCanvas)
     }
-  }, [draggingState.draggedSegment, prevProps?.draggingState.draggedSegment])
+  }, [])
 
   useEffect(() => {
     if (prevProps === null || prevProps === undefined) return
@@ -113,7 +105,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
       (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
         draggingType !== undefined)
     ) {
-      setBoundaryWidth(streetSectionEditable.current)
+      setBoundaryWidth(ref.current)
     }
   }, [resizeType, draggingType])
 
@@ -127,7 +119,9 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }, [street.id, street.width])
 
   function updateWithinCanvas (event: MouseEvent | TouchEvent): void {
-    const newValue = isSegmentWithinCanvas(event, streetSectionEditable.current)
+    if (ref.current === null) return
+
+    const newValue = isSegmentWithinCanvas(event, ref.current)
 
     if (newValue) {
       document.body.classList.remove('not-within-canvas')
@@ -165,8 +159,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     let mainLeft = remainingWidth
     if (draggingState.draggedSegment) {
-      const draggedWidth = segments[draggingState.draggedSegment].width || 0
-      mainLeft += draggedWidth
+      mainLeft += segments[draggingState.draggedSegment].width
     }
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
@@ -233,12 +226,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }
 
   return (
-    <div
-      id="street-section-editable"
-      key={street.id}
-      style={style}
-      ref={streetSectionEditable}
-    >
+    <div id="street-section-editable" key={street.id} style={style} ref={ref}>
       <div style={{ width: '100%', height: '100%' }} ref={drop}>
         <TransitionGroup
           key={street.id}
