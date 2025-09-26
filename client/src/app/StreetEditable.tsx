@@ -28,25 +28,18 @@ function makeSpaceBetweenSlices (
 
   let gap = 0
 
-  console.log(
-    `index: ${sliceIndex}, before: ${segmentBeforeEl}, after: ${segmentAfterEl}`
-  )
   if (segmentBeforeEl !== null && sliceIndex >= segmentBeforeEl) {
-    console.log('mode', 1)
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentAfterEl === null) {
-      console.log('mode', 2)
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }
 
   if (segmentAfterEl !== null && sliceIndex > segmentAfterEl) {
-    console.log('mode', 3)
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
     if (segmentBeforeEl === null) {
-      console.log('mode', 4)
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }

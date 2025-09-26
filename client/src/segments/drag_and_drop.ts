@@ -512,7 +512,10 @@ function handleSegmentCanvasDrop (
   type: DragType | null
 ) {
   // `draggedSegment` can be undefined, if so, bail
-  if (oldDraggingState.draggedSegment === undefined) return
+  // if (oldDraggingState.draggedSegment === undefined) {
+  //   console.log('this bailed')
+  //   return
+  // }
 
   // If monitor.getItemType() returns `null` type, bail
   if (type === null) return
@@ -629,7 +632,6 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and
       // one dispatch to reduce batch renders.
-      console.log('hi')
       store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
 
       const { units } = store.getState().street
@@ -669,7 +671,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {
       store.dispatch(clearDraggingState())
 
-      const withinCanvas = oldDraggingState?.withinCanvas
+      const withinCanvas = oldDraggingState.withinCanvas
       if (!monitor.didDrop() && withinCanvas) {
         handleSegmentCanvasDrop(item, monitor.getItemType())
       }
@@ -699,12 +701,6 @@ export function createSliceDropTargetSpec (
       const hoverMiddleX = Math.round(left + (item.actualWidth * TILE_SIZE) / 2)
       const { x } = monitor.getClientOffset()
 
-      // Ignore hovering over the dragged segment after dragging state is already set.
-      // This prevents react-dnd's hover method from being confused on what to update
-      // draggingState as when the dragged segment is behind another segment.
-      if (dragIndex === hoverIndex && oldDraggingState) return
-
-      console.log('indexes', dragIndex, hoverIndex)
       if (dragIndex === hoverIndex) {
         updateIfDraggingStateChanged(
           dragIndex,
@@ -729,7 +725,6 @@ export function createSliceDropTargetSpec (
               ? null
               : hoverIndex - 1
 
-        console.log('yo', x, hoverMiddleX, segmentBeforeEl, segmentAfterEl)
         updateIfDraggingStateChanged(
           segmentBeforeEl,
           segmentAfterEl,
