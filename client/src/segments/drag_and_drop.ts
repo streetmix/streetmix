@@ -455,7 +455,13 @@ export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
 }
 
 function handleSegmentDragEnd (): void {
-  oldDraggingState = {}
+  oldDraggingState = {
+    isDragging: false,
+    segmentBeforeEl: null,
+    segmentAfterEl: null,
+    draggedSegment: null,
+    withinCanvas: false
+  }
   cancelSegmentResizeTransitions()
   segmentsChanged()
 
@@ -489,6 +495,8 @@ function updateIfDraggingStateChanged (
 
   if (changed) {
     oldDraggingState = {
+      ...oldDraggingState,
+      isDragging: true,
       segmentBeforeEl,
       segmentAfterEl,
       draggedSegment: draggedItem.sliceIndex
@@ -496,6 +504,7 @@ function updateIfDraggingStateChanged (
 
     store.dispatch(
       updateDraggingState({
+        isDragging: true,
         segmentBeforeEl,
         segmentAfterEl,
         draggedSegment: draggedItem.sliceIndex
@@ -582,7 +591,12 @@ export function createSliceDragSpec (props) {
   return {
     type: DragTypes.SLICE,
     item: (): DraggedItem => {
-      store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
+      store.dispatch(
+        initDraggingState({
+          type: DRAGGING_TYPE_MOVE,
+          dragIndex: props.sliceIndex
+        })
+      )
 
       return {
         id: props.segment.id,
@@ -632,7 +646,11 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and
       // one dispatch to reduce batch renders.
-      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
+      store.dispatch(
+        initDraggingState({
+          type: DRAGGING_TYPE_MOVE
+        })
+      )
 
       const { units } = store.getState().street
       const type = segment.id

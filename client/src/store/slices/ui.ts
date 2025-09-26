@@ -57,8 +57,18 @@ const uiSlice = createSlice({
       }
     },
 
-    initDraggingState (state, action: PayloadAction<UiState['draggingType']>) {
-      state.draggingType = action.payload
+    initDraggingState (
+      state,
+      action: PayloadAction<{
+        type: UiState['draggingType']
+        dragIndex?: number
+      }>
+    ) {
+      state.draggingState.isDragging = true
+      if (action.payload.dragIndex !== undefined) {
+        state.draggingState.draggedSegment = action.payload.dragIndex
+      }
+      state.draggingType = action.payload.type
     },
 
     updateDraggingState (state, action: PayloadAction<Partial<DraggingState>>) {
