@@ -26,6 +26,7 @@ afterAll(() => {
 // Add mock stubs for global methods
 global.print = vi.fn()
 global.confirm = vi.fn(() => true)
+global.prompt = vi.fn()
 
 // Declare all mock modules globally
 vi.mock('./src/ui/Icon.tsx')
