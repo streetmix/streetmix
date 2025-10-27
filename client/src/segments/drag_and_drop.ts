@@ -520,12 +520,6 @@ function handleSegmentCanvasDrop (
   draggedItem: DraggedItem,
   type: DragType | null
 ) {
-  // `draggedSegment` can be undefined, if so, bail
-  // if (oldDraggingState.draggedSegment === undefined) {
-  //   console.log('this bailed')
-  //   return
-  // }
-
   // If monitor.getItemType() returns `null` type, bail
   if (type === null) return
 
