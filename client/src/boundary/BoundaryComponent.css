@@ -32,6 +32,7 @@
     inset: -100vh 0 0;
     background: var(--segment-active-background);
     opacity: 0;
+    pointer-events: none;
   }
 
   &.active .active-bg {
