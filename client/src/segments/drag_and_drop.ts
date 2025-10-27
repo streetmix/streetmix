@@ -38,7 +38,7 @@ import {
 import { segmentsChanged } from './view'
 
 import type { SegmentDefinition, StreetJson } from '@streetmix/types'
-import type { DropTargetMonitor } from 'react-dnd'
+import type { DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import type { RootState } from '../store'
 import type { DraggingState } from '../types'
 
@@ -311,10 +311,9 @@ function doDropHeuristics (
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  const left =
-    segmentAfterEl !== undefined ? street.segments[segmentAfterEl] : null
+  const left = segmentAfterEl !== null ? street.segments[segmentAfterEl] : null
   const right =
-    segmentBeforeEl !== undefined ? street.segments[segmentBeforeEl] : null
+    segmentBeforeEl !== null ? street.segments[segmentBeforeEl] : null
 
   const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
@@ -456,7 +455,13 @@ export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
 }
 
 function handleSegmentDragEnd (): void {
-  oldDraggingState = {}
+  oldDraggingState = {
+    isDragging: false,
+    segmentBeforeEl: null,
+    segmentAfterEl: null,
+    draggedSegment: null,
+    withinCanvas: false
+  }
   cancelSegmentResizeTransitions()
   segmentsChanged()
 
@@ -472,8 +477,8 @@ let oldDraggingState: DraggingState & {
 // dragging of the segment to be laggy and choppy.
 
 function updateIfDraggingStateChanged (
-  segmentBeforeEl: number | undefined,
-  segmentAfterEl: number | undefined,
+  segmentBeforeEl: number | null,
+  segmentAfterEl: number | null,
   draggedItem: DraggedItem,
   draggedItemType: DragType
 ) {
@@ -490,6 +495,8 @@ function updateIfDraggingStateChanged (
 
   if (changed) {
     oldDraggingState = {
+      ...oldDraggingState,
+      isDragging: true,
       segmentBeforeEl,
       segmentAfterEl,
       draggedSegment: draggedItem.sliceIndex
@@ -497,6 +504,7 @@ function updateIfDraggingStateChanged (
 
     store.dispatch(
       updateDraggingState({
+        isDragging: true,
         segmentBeforeEl,
         segmentAfterEl,
         draggedSegment: draggedItem.sliceIndex
@@ -512,9 +520,6 @@ function handleSegmentCanvasDrop (
   draggedItem: DraggedItem,
   type: DragType | null
 ) {
-  // `draggedSegment` can be undefined, if so, bail
-  if (oldDraggingState.draggedSegment === undefined) return
-
   // If monitor.getItemType() returns `null` type, bail
   if (type === null) return
 
@@ -555,15 +560,15 @@ function handleSegmentCanvasDrop (
 /**
  * Determines if segment was dropped/hovered on left or right side of street
  *
- * @param {Node} segment - reference to StreetEditable
- * @param {Number} droppedPosition - x position of dropped segment in reference
+ * @param segment - reference to StreetEditable
+ * @param droppedPosition - x position of dropped segment in reference
  *    to StreetEditable
- * @returns {string} - left, right, or null if dropped/hovered over a segment
+ * @returns `left` or `right`; or `null` if dropped/hovered over a segment
  */
 function isOverLeftOrRightCanvas (
   segment: HTMLElement,
   droppedPosition: number
-) {
+): string | null {
   const { remainingWidth } = store.getState().street
   const { left, right } = segment.getBoundingClientRect()
 
@@ -580,7 +585,12 @@ export function createSliceDragSpec (props) {
   return {
     type: DragTypes.SLICE,
     item: (): DraggedItem => {
-      store.dispatch(setDraggingType(DRAGGING_TYPE_MOVE))
+      store.dispatch(
+        initDraggingState({
+          type: DRAGGING_TYPE_MOVE,
+          dragIndex: props.sliceIndex
+        })
+      )
 
       return {
         id: props.segment.id,
@@ -592,12 +602,12 @@ export function createSliceDragSpec (props) {
         elevation: props.segment.elevation
       }
     },
-    end (item: DraggedItem, monitor: DropTargetMonitor) {
+    end (item: DraggedItem, monitor: DragSourceMonitor) {
       store.dispatch(clearDraggingState())
 
       if (!monitor.didDrop()) {
         // if no object returned by a drop handler, check if it is still within the canvas
-        const withinCanvas = oldDraggingState && oldDraggingState.withinCanvas
+        const withinCanvas = oldDraggingState.withinCanvas
         if (withinCanvas) {
           handleSegmentCanvasDrop(item, monitor.getItemType())
         } else if (monitor.getItemType() === DragTypes.SLICE) {
@@ -608,13 +618,13 @@ export function createSliceDragSpec (props) {
 
       handleSegmentDragEnd()
     },
-    canDrag (monitor: DropTargetMonitor) {
+    canDrag (monitor: DragSourceMonitor) {
       return !store.getState().app.readOnly
     },
-    isDragging (monitor: DropTargetMonitor) {
+    isDragging (monitor: DragSourceMonitor<DraggedItem>) {
       return monitor.getItem().id === props.segment.id
     },
-    collect (monitor: DropTargetMonitor) {
+    collect (monitor: DragSourceMonitor) {
       return {
         isDragging: monitor.isDragging()
       }
@@ -630,7 +640,11 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
       // in order to add event listener in StreetEditable once dragging begins.
       // Also set the dragging type to MOVE. We use one action creator here and
       // one dispatch to reduce batch renders.
-      store.dispatch(initDraggingState(DRAGGING_TYPE_MOVE))
+      store.dispatch(
+        initDraggingState({
+          type: DRAGGING_TYPE_MOVE
+        })
+      )
 
       const { units } = store.getState().street
       const type = segment.id
@@ -666,17 +680,17 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         elevation
       }
     },
-    end: (item: DraggedItem, monitor: DropTargetMonitor) => {
+    end: (item: DraggedItem, monitor: DragSourceMonitor) => {
       store.dispatch(clearDraggingState())
 
-      const withinCanvas = oldDraggingState?.withinCanvas
+      const withinCanvas = oldDraggingState.withinCanvas
       if (!monitor.didDrop() && withinCanvas) {
         handleSegmentCanvasDrop(item, monitor.getItemType())
       }
 
       handleSegmentDragEnd()
     },
-    canDrag: (monitor: DropTargetMonitor) => {
+    canDrag: (monitor: DragSourceMonitor) => {
       return !store.getState().app.readOnly
     }
   }
@@ -697,19 +711,14 @@ export function createSliceDropTargetSpec (
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
       const hoverMiddleX = Math.round(
-        left + (props.actualWidth * TILE_SIZE) / 2
+        left + (props.segment.width * TILE_SIZE) / 2
       )
       const { x } = monitor.getClientOffset()
-
-      // Ignore hovering over the dragged segment after dragging state is already set.
-      // This prevents react-dnd's hover method from being confused on what to update
-      // draggingState as when the dragged segment is behind another segment.
-      if (dragIndex === hoverIndex && oldDraggingState) return
 
       if (dragIndex === hoverIndex) {
         updateIfDraggingStateChanged(
           dragIndex,
-          undefined,
+          null,
           item,
           monitor.getItemType()
         )
@@ -720,14 +729,14 @@ export function createSliceDropTargetSpec (
           x > hoverMiddleX && hoverIndex !== segments.length - 1
             ? hoverIndex + 1
             : hoverIndex === segments.length - 1
-              ? undefined
+              ? null
               : hoverIndex
 
         const segmentAfterEl =
           x > hoverMiddleX && hoverIndex !== 0
             ? hoverIndex
             : hoverIndex === 0
-              ? undefined
+              ? null
               : hoverIndex - 1
 
         updateIfDraggingStateChanged(
@@ -766,9 +775,8 @@ export function createStreetDropTargetSpec (
         if (!position) return
 
         const { segments } = street
-        const segmentBeforeEl = position === 'left' ? 0 : undefined
-        const segmentAfterEl =
-          position === 'left' ? undefined : segments.length - 1
+        const segmentBeforeEl = position === 'left' ? 0 : null
+        const segmentAfterEl = position === 'left' ? null : segments.length - 1
 
         updateIfDraggingStateChanged(
           segmentBeforeEl,

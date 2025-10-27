@@ -24,8 +24,14 @@ const initialState: UiState = {
   welcomePanelDismissed: false,
   toolboxVisible: false,
   activeSegment: null,
-  draggingState: {},
-  draggingType: 0,
+  draggingState: {
+    isDragging: false,
+    segmentBeforeEl: null,
+    segmentAfterEl: null,
+    draggedSegment: null,
+    withinCanvas: false
+  },
+  draggingType: DRAGGING_TYPE_NONE,
   resizeGuidesVisible: false
 }
 
@@ -51,24 +57,35 @@ const uiSlice = createSlice({
       }
     },
 
-    initDraggingState (state, action: PayloadAction<UiState['draggingType']>) {
-      state.draggingType = action.payload
+    initDraggingState (
+      state,
+      action: PayloadAction<{
+        type: UiState['draggingType']
+        dragIndex?: number
+      }>
+    ) {
+      state.draggingState.isDragging = true
+      if (action.payload.dragIndex !== undefined) {
+        state.draggingState.draggedSegment = action.payload.dragIndex
+      }
+      state.draggingType = action.payload.type
     },
 
-    updateDraggingState (state, action: PayloadAction<DraggingState>) {
-      if (!action.payload) {
-        state.draggingState = {}
-      } else {
-        state.draggingState = {
-          segmentBeforeEl: action.payload.segmentBeforeEl,
-          segmentAfterEl: action.payload.segmentAfterEl,
-          draggedSegment: action.payload.draggedSegment
-        }
+    updateDraggingState (state, action: PayloadAction<Partial<DraggingState>>) {
+      state.draggingState = {
+        ...state.draggingState,
+        ...action.payload
       }
     },
 
-    clearDraggingState (state, action) {
-      state.draggingState = {}
+    clearDraggingState (state) {
+      state.draggingState = {
+        isDragging: false,
+        segmentBeforeEl: null,
+        segmentAfterEl: null,
+        draggedSegment: null,
+        withinCanvas: false
+      }
       state.draggingType = DRAGGING_TYPE_NONE
     },
 

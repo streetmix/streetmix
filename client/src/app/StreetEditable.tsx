@@ -28,18 +28,18 @@ function makeSpaceBetweenSlices (
 
   let gap = 0
 
-  if (segmentBeforeEl !== undefined && sliceIndex >= segmentBeforeEl) {
+  if (segmentBeforeEl !== null && sliceIndex >= segmentBeforeEl) {
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
-    if (segmentAfterEl === undefined) {
+    if (segmentAfterEl === null) {
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }
 
-  if (segmentAfterEl !== undefined && sliceIndex > segmentAfterEl) {
+  if (segmentAfterEl !== null && sliceIndex > segmentAfterEl) {
     gap += DRAGGING_MOVE_HOLE_WIDTH
 
-    if (segmentBeforeEl === undefined) {
+    if (segmentBeforeEl === null) {
       gap += DRAGGING_MOVE_HOLE_WIDTH
     }
   }
@@ -62,7 +62,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
   // Internal "state", but does not affect renders, so it is not React state
   const withinCanvas = useRef<boolean>(false)
-  const streetSectionEditable = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   // According to "rule of hooks", useRef() must not be called in a loop
   // This is a top-level container to manage a list of refs as a workaround
@@ -78,27 +78,18 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   })
 
   // Set up drop target
-  const dropTargetSpec = createStreetDropTargetSpec(
-    street,
-    streetSectionEditable
-  )
+  const dropTargetSpec = createStreetDropTargetSpec(street, ref)
   const [collectedProps, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {
-    if (!prevProps?.draggingState && draggingState) {
-      window.addEventListener('dragover', updateWithinCanvas)
-      window.addEventListener('touchmove', updateWithinCanvas)
-    } else if (prevProps?.draggingState && !draggingState) {
-      window.removeEventListener('dragover', updateWithinCanvas)
-      window.removeEventListener('touchmove', updateWithinCanvas)
-    }
+    window.addEventListener('dragover', updateWithinCanvas)
+    window.addEventListener('touchmove', updateWithinCanvas)
 
-    // Cleanup
     return () => {
       window.removeEventListener('dragover', updateWithinCanvas)
       window.removeEventListener('touchmove', updateWithinCanvas)
     }
-  }, [draggingState])
+  }, [])
 
   useEffect(() => {
     if (prevProps === null || prevProps === undefined) return
@@ -107,7 +98,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
       (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
         draggingType !== undefined)
     ) {
-      setBoundaryWidth(streetSectionEditable.current)
+      setBoundaryWidth(ref.current)
     }
   }, [resizeType, draggingType])
 
@@ -121,7 +112,9 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }, [street.id, street.width])
 
   function updateWithinCanvas (event: MouseEvent | TouchEvent): void {
-    const newValue = isSegmentWithinCanvas(event, streetSectionEditable.current)
+    if (ref.current === null) return
+
+    const newValue = isSegmentWithinCanvas(event, ref.current)
 
     if (newValue) {
       document.body.classList.remove('not-within-canvas')
@@ -153,21 +146,22 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     for (let i = 0; i < sliceIndex; i++) {
       const width =
-        draggingState && draggingState.draggedSegment === i
-          ? 0
-          : segments[i].width * TILE_SIZE
+        draggingState.draggedSegment === i ? 0 : segments[i].width * TILE_SIZE
       currPos += width
     }
 
     let mainLeft = remainingWidth
-    if (draggingState && segments[draggingState.draggedSegment] !== undefined) {
-      const draggedWidth = segments[draggingState.draggedSegment].width || 0
-      mainLeft += draggedWidth
+    // Do this additional calculation if the slice is in the street
+    // (meaning that it is indexed in the array of slices)
+    if (typeof draggingState.draggedSegment === 'number') {
+      mainLeft += segments[draggingState.draggedSegment].width
     }
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (draggingState && withinCanvas.current) {
+    // Only need to check if the draggedSegment isn't null here, because
+    // slices being dragged from palette will have a value of `undefined`
+    if (draggingState.draggedSegment !== null && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const gap = makeSpaceBetweenSlices(sliceIndex, draggingState)
       return mainLeft + currPos + gap
@@ -229,12 +223,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }
 
   return (
-    <div
-      id="street-section-editable"
-      key={street.id}
-      style={style}
-      ref={streetSectionEditable}
-    >
+    <div id="street-section-editable" key={street.id} style={style} ref={ref}>
       <div style={{ width: '100%', height: '100%' }} ref={drop}>
         <TransitionGroup
           key={street.id}
