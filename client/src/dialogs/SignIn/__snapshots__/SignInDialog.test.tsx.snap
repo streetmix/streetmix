@@ -41,13 +41,13 @@ exports[`SignInDialog > renders 1`] = `
             <form>
               <label
                 class="sign-in-email-label"
-                for="«r0»"
+                for="_r_0_"
               >
                 Email
               </label>
               <input
                 class="sign-in-input "
-                id="«r0»"
+                id="_r_0_"
                 name="email"
                 placeholder="test@test.com"
                 required=""
