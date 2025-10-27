@@ -72,7 +72,7 @@ describe('ui reducer', () => {
       ui(
         initialState,
         initDraggingState({
-          type: 1,
+          type: DRAGGING_TYPE_MOVE,
           dragIndex: 0
         })
       )
@@ -83,7 +83,7 @@ describe('ui reducer', () => {
         isDragging: true,
         draggedSegment: 0
       },
-      draggingType: 1
+      draggingType: DRAGGING_TYPE_MOVE
     })
   })
 
