@@ -10,7 +10,7 @@ exports[`StreetMeta > renders without crashing 1`] = `
       aria-haspopup="menu"
       class="street-meta-item street-width street-width-editable"
       data-state="closed"
-      id="radix-«r0»"
+      id="radix-_r_0_"
       type="button"
     >
       <button

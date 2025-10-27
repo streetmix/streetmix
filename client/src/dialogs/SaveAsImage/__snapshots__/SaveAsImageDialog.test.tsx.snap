@@ -42,11 +42,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 class="checkbox-item"
               >
                 <input
-                  id="«r0»"
+                  id="_r_0_"
                   type="checkbox"
                 />
                 <label
-                  for="«r0»"
+                  for="_r_0_"
                 >
                   Segment names and widths
                 </label>
@@ -59,11 +59,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 class="checkbox-item"
               >
                 <input
-                  id="«r1»"
+                  id="_r_1_"
                   type="checkbox"
                 />
                 <label
-                  for="«r1»"
+                  for="_r_1_"
                 >
                   Street name
                 </label>
@@ -76,11 +76,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 class="checkbox-item"
               >
                 <input
-                  id="«r2»"
+                  id="_r_2_"
                   type="checkbox"
                 />
                 <label
-                  for="«r2»"
+                  for="_r_2_"
                 >
                   Transparent sky
                 </label>
@@ -95,11 +95,11 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 <input
                   checked=""
                   disabled=""
-                  id="«r6»"
+                  id="_r_6_"
                   type="checkbox"
                 />
                 <label
-                  for="«r6»"
+                  for="_r_6_"
                 >
                   Watermark 
                   <svg
@@ -133,7 +133,7 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                   class="custom-scale-popover"
                 >
                   <button
-                    aria-controls="radix-«r7»"
+                    aria-controls="radix-_r_7_"
                     aria-expanded="false"
                     aria-haspopup="dialog"
                     class="popover-trigger"
