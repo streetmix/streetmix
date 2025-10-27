@@ -40,12 +40,12 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
             </p>
             <form>
               <label
-                for="«r0»"
+                for="_r_0_"
               >
                 Enter your email
               </label>
               <input
-                id="«r0»"
+                id="_r_0_"
                 name="email"
                 placeholder="test@example.com"
                 required=""

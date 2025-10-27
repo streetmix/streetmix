@@ -43,11 +43,11 @@ exports[`FeatureFlagDialog > renders 1`] = `
                 >
                   <input
                     checked=""
-                    id="«r0»"
+                    id="_r_0_"
                     type="checkbox"
                   />
                   <label
-                    for="«r0»"
+                    for="_r_0_"
                   >
                     <span
                       class=""
@@ -66,11 +66,11 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   class="checkbox-item"
                 >
                   <input
-                    id="«r1»"
+                    id="_r_1_"
                     type="checkbox"
                   />
                   <label
-                    for="«r1»"
+                    for="_r_1_"
                   >
                     <span
                       class="feature-flag-label-modified"
@@ -90,11 +90,11 @@ exports[`FeatureFlagDialog > renders 1`] = `
                 >
                   <input
                     checked=""
-                    id="«r2»"
+                    id="_r_2_"
                     type="checkbox"
                   />
                   <label
-                    for="«r2»"
+                    for="_r_2_"
                   >
                     <span
                       class=""
@@ -114,11 +114,11 @@ exports[`FeatureFlagDialog > renders 1`] = `
                 >
                   <input
                     disabled=""
-                    id="«r3»"
+                    id="_r_3_"
                     type="checkbox"
                   />
                   <label
-                    for="«r3»"
+                    for="_r_3_"
                   >
                     <span
                       class="feature-flag-label-modified"
