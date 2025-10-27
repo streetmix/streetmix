@@ -157,7 +157,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
-    if (draggingState.draggedSegment && withinCanvas.current) {
+    if (draggingState.draggedSegment !== null && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const gap = makeSpaceBetweenSlices(sliceIndex, draggingState)
       return mainLeft + currPos + gap
