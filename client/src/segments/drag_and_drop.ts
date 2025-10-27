@@ -710,7 +710,9 @@ export function createSliceDropTargetSpec (
 
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
-      const hoverMiddleX = Math.round(left + (item.actualWidth * TILE_SIZE) / 2)
+      const hoverMiddleX = Math.round(
+        left + (props.segment.width * TILE_SIZE) / 2
+      )
       const { x } = monitor.getClientOffset()
 
       if (dragIndex === hoverIndex) {
