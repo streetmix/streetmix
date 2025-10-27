@@ -151,12 +151,16 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
 
     let mainLeft = remainingWidth
-    if (draggingState.draggedSegment) {
+    // Do this additional calculation if the slice is in the street
+    // (meaning that it is indexed in the array of slices)
+    if (typeof draggingState.draggedSegment === 'number') {
       mainLeft += segments[draggingState.draggedSegment].width
     }
 
     mainLeft = (mainLeft * TILE_SIZE) / 2
 
+    // Only need to check if the draggedSegment isn't null here, because
+    // slices being dragged from palette will have a value of `undefined`
     if (draggingState.draggedSegment !== null && withinCanvas.current) {
       mainLeft -= DRAGGING_MOVE_HOLE_WIDTH
       const gap = makeSpaceBetweenSlices(sliceIndex, draggingState)
