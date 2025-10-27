@@ -68,8 +68,21 @@ describe('ui reducer', () => {
   })
 
   it('should handle initDraggingState()', () => {
-    expect(ui(initialState, initDraggingState(1))).toEqual({
+    expect(
+      ui(
+        initialState,
+        initDraggingState({
+          type: 1,
+          dragIndex: 0
+        })
+      )
+    ).toEqual({
       ...initialState,
+      draggingState: {
+        ...initialState.draggingState,
+        isDragging: true,
+        draggedSegment: 0
+      },
       draggingType: 1
     })
   })
