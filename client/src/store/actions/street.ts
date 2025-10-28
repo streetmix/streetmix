@@ -15,6 +15,7 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary
 } from '../../streets/data_model'
+import { applyWarningsToSlices } from '../../streets/warnings'
 import { recalculateWidth } from '../../streets/width'
 import { saveStreetToServer } from '../../streets/xhr'
 import apiClient from '../../util/api'
@@ -55,12 +56,14 @@ export function updateStreetWidthAction (width: number) {
 export const segmentsChanged = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const street = getState().street
-    const updatedStreet = recalculateWidth(street)
+    const calculatedWidths = recalculateWidth(street)
+    const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
+
     await dispatch(
       updateSegments(
-        updatedStreet.segments,
-        updatedStreet.occupiedWidth,
-        updatedStreet.remainingWidth
+        updatedSlices,
+        calculatedWidths.occupiedWidth.toNumber(),
+        calculatedWidths.remainingWidth.toNumber()
       )
     )
     // ToDo: Refactor this out to be dispatched as well

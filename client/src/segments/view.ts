@@ -3,6 +3,7 @@ import { percentToNumber } from '@streetmix/utils'
 import { images } from '../app/load_resources'
 import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
+import { applyWarningsToSlices } from '../streets/warnings'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
 import { updateSegments, changeSegmentProperties } from '../store/slices/street'
@@ -640,13 +641,14 @@ export function getLocaleSegmentName (
  */
 export function segmentsChanged (): void {
   const street = store.getState().street
-  const updatedStreet = recalculateWidth(street)
+  const calculatedWidths = recalculateWidth(street)
+  const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
 
   store.dispatch(
     updateSegments(
-      updatedStreet.segments,
-      updatedStreet.occupiedWidth,
-      updatedStreet.remainingWidth
+      updatedSlices,
+      calculatedWidths.occupiedWidth.toNumber(),
+      calculatedWidths.remainingWidth.toNumber()
     )
   )
 

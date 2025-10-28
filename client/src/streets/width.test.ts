@@ -34,20 +34,30 @@ describe('normalizeStreetWidth', () => {
   })
 })
 
+// Helper function to convert Decimal.js values to plain numbers from the
+// `recalculateWidth()` return value
+function convertToNumbers (obj) {
+  const result = {}
+  const keys = [...Object.getOwnPropertyNames(obj)]
+
+  for (const key of keys) {
+    // Assumes every value is a Decimal instance with a toNumber() method
+    result[key] = obj[key].toNumber()
+  }
+
+  return result
+}
+
 describe('recalculateWidth', () => {
   it('calculates a full street', () => {
     const street = {
       width: 20,
       segments: [{ width: 4 }, { width: 8 }, { width: 8 }]
     }
-    expect(recalculateWidth(street)).toEqual({
+    expect(convertToNumbers(recalculateWidth(street))).toEqual({
+      streetWidth: 20,
       occupiedWidth: 20,
-      remainingWidth: 0,
-      segments: [
-        { width: 4, warnings: [false, false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false, false] }
-      ]
+      remainingWidth: 0
     })
   })
 
@@ -56,13 +66,10 @@ describe('recalculateWidth', () => {
       width: 20,
       segments: [{ width: 4 }, { width: 8 }]
     }
-    expect(recalculateWidth(street)).toEqual({
+    expect(convertToNumbers(recalculateWidth(street))).toEqual({
+      streetWidth: 20,
       occupiedWidth: 12,
-      remainingWidth: 8,
-      segments: [
-        { width: 4, warnings: [false, false, false, false, false, false] },
-        { width: 8, warnings: [false, false, false, false, false, false] }
-      ]
+      remainingWidth: 8
     })
   })
 
@@ -71,49 +78,10 @@ describe('recalculateWidth', () => {
       width: 20,
       segments: [{ width: 8 }, { width: 6 }, { width: 8 }]
     }
-    expect(recalculateWidth(street)).toEqual({
+    expect(convertToNumbers(recalculateWidth(street))).toEqual({
+      streetWidth: 20,
       occupiedWidth: 22,
-      remainingWidth: -2,
-      segments: [
-        { width: 8, warnings: [false, true, false, false, false, false] },
-        { width: 6, warnings: [false, false, false, false, false, false] },
-        { width: 8, warnings: [false, true, false, false, false, false] }
-      ]
-    })
-  })
-
-  it('calculates warnings for segments above max width or below min width', () => {
-    const street = {
-      width: 20,
-      segments: [
-        { width: 0.6, type: 'sidewalk', variantString: 'normal' },
-        { width: 3, type: 'divider', variantString: 'bush' },
-        { width: 5.4, type: 'parking-lane', variantString: 'inbound|left' }
-      ]
-    }
-    expect(recalculateWidth(street)).toEqual({
-      occupiedWidth: 9,
-      remainingWidth: 11,
-      segments: [
-        {
-          width: 0.6,
-          type: 'sidewalk',
-          variantString: 'normal',
-          warnings: [false, false, true, false, false, false]
-        },
-        {
-          width: 3,
-          type: 'divider',
-          variantString: 'bush',
-          warnings: [false, false, false, false, false, false]
-        },
-        {
-          width: 5.4,
-          type: 'parking-lane',
-          variantString: 'inbound|left',
-          warnings: [false, false, false, true, false, false]
-        }
-      ]
+      remainingWidth: -2
     })
   })
 
@@ -122,10 +90,10 @@ describe('recalculateWidth', () => {
       width: 20,
       segments: []
     }
-    expect(recalculateWidth(street)).toEqual({
+    expect(convertToNumbers(recalculateWidth(street))).toEqual({
+      streetWidth: 20,
       occupiedWidth: 0,
-      remainingWidth: 20,
-      segments: []
+      remainingWidth: 20
     })
   })
 })
