@@ -48,10 +48,10 @@ export const DragTypes = {
   PALETTE: 'PALETTE'
 } as const
 
-type DragType = (typeof DragTypes)[keyof typeof DragTypes]
+export type DragType = (typeof DragTypes)[keyof typeof DragTypes]
 
 // NOTE: is similar to SliceItem / Segment type
-interface DraggedItem {
+export interface DraggedItem {
   id: string
   sliceIndex: number
   variantString: string
