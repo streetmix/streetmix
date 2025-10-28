@@ -6,6 +6,7 @@ import {
   SEGMENT_WARNING_SLOPE_EXCEEDED
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
+import { calculateSlope } from '../segments/slope'
 import { getWidthInMetric } from '../util/width_units'
 
 import type { Segment, StreetJson } from '@streetmix/types'
@@ -78,18 +79,15 @@ export function applyWarningsToSlices (
     }
 
     // Apply a warning for slope
-    warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = false // default value
-    if (segment.slope) {
-      const leftElevation = street.segments[index - 1]?.elevation ?? 0
-      const rightElevation = street.segments[index + 1]?.elevation ?? 0
-      const rise = Math.abs(leftElevation - rightElevation)
-      const ratio = Number((segment.width / rise).toFixed(2))
-      if (ratio < 3) {
-        warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = true
-      }
+    // TODO: handle slope exceeded for paths
+    const slopes = calculateSlope(street, index)
+    if (slopes.warnings.slopeExceededBerm) {
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = true
+    } else {
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = false
     }
 
-    // Increment the position counter.
+    // Increment the position counter
     position = position.add(segment.width)
 
     segments.push({
