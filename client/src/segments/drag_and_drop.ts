@@ -544,8 +544,7 @@ function handleSegmentCanvasDrop (
     draggedItem.variant ??
     getVariantInfo(newSegment.type, newSegment.variantString)
 
-  let newIndex =
-    segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
+  let newIndex = segmentAfterEl !== null ? segmentAfterEl + 1 : segmentBeforeEl
 
   if (type === DragTypes.SLICE) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
