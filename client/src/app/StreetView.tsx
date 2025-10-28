@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useSelector } from '~/src/store/hooks'
 import { usePrevious } from '~/src/util/usePrevious'
@@ -23,6 +23,48 @@ import './StreetView.css'
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2
 
+/**
+ * Based on street width and scroll position, determine how many
+ * left and right "scroll indicator" arrows to display. This number
+ * is calculated as the street scrolls and stored in state.
+ */
+function calculateScrollIndicators (
+  el: HTMLDivElement | null,
+  streetWidth: number
+): { left: number; right: number } | undefined {
+  if (el === null) return
+
+  let scrollIndicatorsLeft
+  let scrollIndicatorsRight
+
+  if (el.scrollWidth <= el.offsetWidth) {
+    scrollIndicatorsLeft = 0
+    scrollIndicatorsRight = 0
+  } else {
+    const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
+
+    // TODO const off max width street
+    let posMax = Math.round((streetWidth / MAX_CUSTOM_STREET_WIDTH) * 6)
+    if (posMax < 2) {
+      posMax = 2
+    }
+
+    scrollIndicatorsLeft = Math.round(posMax * left)
+    if (left > 0 && scrollIndicatorsLeft === 0) {
+      scrollIndicatorsLeft = 1
+    }
+    if (left < 1.0 && scrollIndicatorsLeft === posMax) {
+      scrollIndicatorsLeft = posMax - 1
+    }
+    scrollIndicatorsRight = posMax - scrollIndicatorsLeft
+  }
+
+  return {
+    left: scrollIndicatorsLeft,
+    right: scrollIndicatorsRight
+  }
+}
+
 function StreetView (): React.ReactElement {
   const [scrollIndicators, setScrollIndicators] = useState({
     left: 0,
@@ -45,6 +87,43 @@ function StreetView (): React.ReactElement {
     street
   })
 
+  const onResize = useCallback((): number | undefined => {
+    if (!sectionCanvasEl.current) return
+
+    const viewportWidth = window.innerWidth
+    const streetWidth = street.width * TILE_SIZE
+    let streetSectionCanvasLeft =
+      (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
+
+    if (streetSectionCanvasLeft < 0) {
+      streetSectionCanvasLeft = 0
+    }
+
+    sectionCanvasEl.current.style.width = streetWidth + 'px'
+    sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
+
+    return STREETVIEW_RESIZED
+  }, [street.width])
+
+  const handleStreetResize = useCallback(() => {
+    // Place all scroll-based positioning effects inside of a "raf"
+    // callback for better performance.
+    window.requestAnimationFrame(() => {
+      const resizeType = onResize()
+      const scrollIndicators = calculateScrollIndicators(
+        sectionEl.current,
+        street.width
+      )
+
+      if (resizeType !== undefined) {
+        setResizeType(resizeType)
+      }
+      if (scrollIndicators !== undefined) {
+        setScrollIndicators(scrollIndicators)
+      }
+    })
+  }, [onResize, street.width])
+
   useEffect(() => {
     handleStreetResize()
     window.addEventListener('resize', handleStreetResize)
@@ -52,11 +131,31 @@ function StreetView (): React.ReactElement {
     return () => {
       window.removeEventListener('resize', handleStreetResize)
     }
-  }, [])
+  }, [handleStreetResize])
 
   useEffect(() => {
     handleStreetResize()
-  }, [street.width])
+  }, [handleStreetResize, street.width])
+
+  const updateScrollLeft = useCallback(
+    (deltaX?: number): void => {
+      if (!sectionEl.current) return
+
+      let scrollLeft = sectionEl.current.scrollLeft
+
+      if (deltaX !== undefined) {
+        scrollLeft += deltaX
+      } else {
+        const streetWidth = street.width * TILE_SIZE
+        const currBuildingSpace = boundaryWidth ?? BUILDING_SPACE
+        scrollLeft =
+          (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
+      }
+
+      sectionEl.current.scrollLeft = scrollLeft
+    },
+    [boundaryWidth, street.width]
+  )
 
   useEffect(() => {
     // Two cases where scrollLeft might have to be updated:
@@ -85,7 +184,7 @@ function StreetView (): React.ReactElement {
         resizeStreetExtent(SEGMENT_RESIZED, true)
       }
     }
-  }, [boundaryWidth, resizeType])
+  }, [boundaryWidth, resizeType, updateScrollLeft])
 
   useEffect(() => {
     // Updating margins when segment is resized by dragging is handled in resizing.js
@@ -116,56 +215,6 @@ function StreetView (): React.ReactElement {
     }
   }
 
-  function updateScrollLeft (deltaX?: number): void {
-    if (!sectionEl.current) return
-
-    let scrollLeft = sectionEl.current.scrollLeft
-
-    if (deltaX !== undefined) {
-      scrollLeft += deltaX
-    } else {
-      const streetWidth = street.width * TILE_SIZE
-      const currBuildingSpace = boundaryWidth ?? BUILDING_SPACE
-      scrollLeft = (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
-    }
-
-    sectionEl.current.scrollLeft = scrollLeft
-  }
-
-  function onResize (): number | undefined {
-    if (!sectionCanvasEl.current) return
-
-    const viewportWidth = window.innerWidth
-    const streetWidth = street.width * TILE_SIZE
-    let streetSectionCanvasLeft =
-      (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
-
-    if (streetSectionCanvasLeft < 0) {
-      streetSectionCanvasLeft = 0
-    }
-
-    sectionCanvasEl.current.style.width = streetWidth + 'px'
-    sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
-
-    return STREETVIEW_RESIZED
-  }
-
-  function handleStreetResize (): void {
-    // Place all scroll-based positioning effects inside of a "raf"
-    // callback for better performance.
-    window.requestAnimationFrame(() => {
-      const resizeType = onResize()
-      const scrollIndicators = calculateScrollIndicators()
-
-      if (resizeType !== undefined) {
-        setResizeType(resizeType)
-      }
-      if (scrollIndicators !== undefined) {
-        setScrollIndicators(scrollIndicators)
-      }
-    })
-  }
-
   /**
    * Event handler for street scrolling.
    */
@@ -173,55 +222,16 @@ function StreetView (): React.ReactElement {
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {
-      const scrollIndicators = calculateScrollIndicators()
+      const scrollIndicators = calculateScrollIndicators(
+        sectionEl.current,
+        street.width
+      )
 
       if (scrollIndicators !== undefined) {
         setScrollIndicators(scrollIndicators)
         setScrollPos(getStreetScrollPosition())
       }
     })
-  }
-
-  /**
-   * Based on street width and scroll position, determine how many
-   * left and right "scroll indicator" arrows to display. This number
-   * is calculated as the street scrolls and stored in state.
-   */
-  function calculateScrollIndicators ():
-    | { left: number; right: number }
-    | undefined {
-    const el = sectionEl.current
-    if (!el) return
-
-    let scrollIndicatorsLeft
-    let scrollIndicatorsRight
-
-    if (el.scrollWidth <= el.offsetWidth) {
-      scrollIndicatorsLeft = 0
-      scrollIndicatorsRight = 0
-    } else {
-      const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
-
-      // TODO const off max width street
-      let posMax = Math.round((street.width / MAX_CUSTOM_STREET_WIDTH) * 6)
-      if (posMax < 2) {
-        posMax = 2
-      }
-
-      scrollIndicatorsLeft = Math.round(posMax * left)
-      if (left > 0 && scrollIndicatorsLeft === 0) {
-        scrollIndicatorsLeft = 1
-      }
-      if (left < 1.0 && scrollIndicatorsLeft === posMax) {
-        scrollIndicatorsLeft = posMax - 1
-      }
-      scrollIndicatorsRight = posMax - scrollIndicatorsLeft
-    }
-
-    return {
-      left: scrollIndicatorsLeft,
-      right: scrollIndicatorsRight
-    }
   }
 
   function scrollStreet (left: boolean, far = false): void {

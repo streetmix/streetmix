@@ -48,10 +48,10 @@ export const DragTypes = {
   PALETTE: 'PALETTE'
 } as const
 
-type DragType = (typeof DragTypes)[keyof typeof DragTypes]
+export type DragType = (typeof DragTypes)[keyof typeof DragTypes]
 
 // NOTE: is similar to SliceItem / Segment type
-interface DraggedItem {
+export interface DraggedItem {
   id: string
   sliceIndex: number
   variantString: string
@@ -544,8 +544,7 @@ function handleSegmentCanvasDrop (
     draggedItem.variant ??
     getVariantInfo(newSegment.type, newSegment.variantString)
 
-  let newIndex =
-    segmentAfterEl !== undefined ? segmentAfterEl + 1 : segmentBeforeEl
+  let newIndex = segmentAfterEl !== null ? segmentAfterEl + 1 : segmentBeforeEl
 
   if (type === DragTypes.SLICE) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
