@@ -6,10 +6,21 @@ import './TestSlope.css'
 
 import { calculateSlope } from './slope'
 import { getElevation } from './view'
+import { getSegmentVariantInfo } from './info'
 import type { Segment } from '@streetmix/types'
 
 interface Props {
   slice: Segment
+}
+
+// TODO: maybe we don't hard-code these here, but it's enough to get started
+const GROUND_COLORS = {
+  sand: '#ECDBB1',
+  'asphalt-red': '#992025',
+  'asphalt-green': '#2E6550',
+  asphalt: '#292B29',
+  'asphalt-gray': '#5C5E5F',
+  concrete: '#D8D3CB'
 }
 
 function estimateCoord (elev: number, scale: number): number {
@@ -18,6 +29,7 @@ function estimateCoord (elev: number, scale: number): number {
 
 function drawSegment (
   canvas: HTMLCanvasElement,
+  slice: Segment,
   leftElevation: number,
   rightElevation: number,
   dpi: number
@@ -32,18 +44,32 @@ function drawSegment (
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+  const variantInfo = getSegmentVariantInfo(slice.type, slice.variantString)
+  const graphics = variantInfo.graphics
+  let ground
+  if (Array.isArray(graphics.repeat)) {
+    const found = graphics.repeat.find((id) => id.startsWith('ground--'))
+    console.log(found)
+    ground = found
+  } else {
+    ground = graphics.repeat
+  }
+  const texture = ground.split('--')[1]
+
   // These rectangles are telling us that we're drawing at the right places.
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
-  ctx.strokeStyle = 'red'
-  ctx.lineWidth = 2
+  ctx.fillStyle = GROUND_COLORS[texture]
+  // ctx.fillStyle = GROUND_COLORS.asphalt
+  ctx.strokeStyle = 'transparent'
+  ctx.lineWidth = 0
   // Start at the bottom left corner and use a negative number to draw upwards
   ctx.fillRect(0, canvas.height, canvas.width, groundLevel * -1)
   ctx.strokeRect(0, canvas.height, canvas.width, groundLevel * -1)
 
   // Draw a slope
+  // TODO: move this to the function that draws other stuff
   ctx.beginPath()
   ctx.moveTo(0, canvas.height - groundLevel)
-  ctx.moveTo(0, canvas.height - estimateCoord(leftElevation, dpi) - magicNumber)
+  ctx.lineTo(0, canvas.height - estimateCoord(leftElevation, dpi) - magicNumber)
   ctx.lineTo(
     canvas.width,
     canvas.height - estimateCoord(rightElevation, dpi) - magicNumber
@@ -66,16 +92,9 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
     if (slice.slope) {
       const { leftElevation, rightElevation } = slopeData
-      drawSegment(canvasEl.current, leftElevation, rightElevation, dpi)
+      drawSegment(canvasEl.current, slice, leftElevation, rightElevation, dpi)
     }
-  }, [
-    slice.variantString,
-    slice.width,
-    slice.elevation,
-    slice.slope,
-    slopeData,
-    dpi
-  ])
+  }, [slice, slopeData, dpi])
 
   // Bail if slice is not sloped, or it has been removed
   if (slice.slope !== true || slopeData === null) return null
