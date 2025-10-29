@@ -56,6 +56,7 @@ function drawSegment (
 function TestSlope ({ slice }: Props): React.ReactNode | null {
   const street = useSelector((state) => state.street)
   const dpi = useSelector((state) => state.system.devicePixelRatio)
+  const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
   const canvasEl = useRef<HTMLCanvasElement>(null)
   const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
   const slopeData = calculateSlope(street, sliceIndex)
@@ -77,7 +78,7 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
   ])
 
   // Bail if slice is not sloped, or it has been removed
-  if (slice.slope === false || slopeData === null) return null
+  if (slice.slope !== true || slopeData === null) return null
 
   const { slope, ratio, warnings } = slopeData
 
@@ -103,10 +104,12 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
 
   return (
     <div className="test-slope-container">
-      <div className="slope-debug">
-        <p style={styles}>{slope} %</p>
-        <p style={styles}>{ratio}:1</p>
-      </div>
+      {debug && (
+        <div className="slope-debug">
+          <p style={styles}>{slope} %</p>
+          <p style={styles}>{ratio}:1</p>
+        </div>
+      )}
       <canvas
         ref={canvasEl}
         width={canvasWidth}

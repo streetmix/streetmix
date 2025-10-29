@@ -69,20 +69,20 @@
     "defaultValue": true
   },
   "SEGMENT_3D_PARKING": {
-    "label": "Segment — 3d angled parking",
+    "label": "Component — 3d angled parking",
     "defaultValue": false,
     "enabled": false
   },
   "SEGMENT_CROSSWALK": {
-    "label": "Segment — crosswalk",
+    "label": "Component — crosswalk",
     "defaultValue": false
   },
   "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED": {
-    "label": "Segment — drainage channel (unlocked)",
+    "label": "Component — drainage channel (unlocked)",
     "defaultValue": false
   },
   "SEGMENT_INCEPTION_TRAIN": {
-    "label": "Segment — the train from “Inception”",
+    "label": "Component — the train from “Inception”",
     "defaultValue": false
   },
   "VARIANT_MIXED_DRIVE_LANES_1": {
@@ -94,7 +94,11 @@
     "defaultValue": false
   },
   "DEBUG_SEGMENT_CANVAS_RECTANGLES": {
-    "label": "Segment — [debug] canvas rectangles",
+    "label": "Slice — [debug] canvas rectangles",
+    "defaultValue": false
+  },
+  "DEBUG_SLICE_SLOPE": {
+    "label": "Slice — [debug] slope measurements",
     "defaultValue": false
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
