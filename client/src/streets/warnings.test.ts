@@ -10,9 +10,9 @@ describe('applyWarningsToSlices', () => {
     }
     const widths = recalculateWidth(street)
     expect(applyWarningsToSlices(street, widths)).toEqual([
-      { width: 4, warnings: [false, false, false, false, false, false] },
-      { width: 8, warnings: [false, false, false, false, false, false] },
-      { width: 8, warnings: [false, false, false, false, false, false] }
+      { width: 4, warnings: [false, false, false, false, false, false, false] },
+      { width: 8, warnings: [false, false, false, false, false, false, false] },
+      { width: 8, warnings: [false, false, false, false, false, false, false] }
     ])
   })
 
@@ -24,9 +24,9 @@ describe('applyWarningsToSlices', () => {
     }
     const widths = recalculateWidth(street)
     expect(applyWarningsToSlices(street, widths)).toEqual([
-      { width: 8, warnings: [false, true, false, false, false, false] },
-      { width: 6, warnings: [false, false, false, false, false, false] },
-      { width: 8, warnings: [false, true, false, false, false, false] }
+      { width: 8, warnings: [false, true, false, false, false, false, false] },
+      { width: 6, warnings: [false, false, false, false, false, false, false] },
+      { width: 8, warnings: [false, true, false, false, false, false, false] }
     ])
   })
 
@@ -46,19 +46,19 @@ describe('applyWarningsToSlices', () => {
         width: 0.6,
         type: 'sidewalk',
         variantString: 'normal',
-        warnings: [false, false, true, false, false, false]
+        warnings: [false, false, true, false, false, false, false]
       },
       {
         width: 3,
         type: 'divider',
         variantString: 'bush',
-        warnings: [false, false, false, false, false, false]
+        warnings: [false, false, false, false, false, false, false]
       },
       {
         width: 5.4,
         type: 'parking-lane',
         variantString: 'inbound|left',
-        warnings: [false, false, false, true, false, false]
+        warnings: [false, false, false, true, false, false, false]
       }
     ])
   })
@@ -77,7 +77,7 @@ describe('applyWarningsToSlices', () => {
         width: 3,
         type: 'drive-lane',
         variantString: 'inbound|car-with-bike',
-        warnings: [false, false, false, false, true, false]
+        warnings: [false, false, false, false, true, false, false]
       }
     ])
   })
@@ -97,17 +97,17 @@ describe('applyWarningsToSlices', () => {
       {
         width: 3,
         elevation: 0,
-        warnings: [false, false, false, false, false, false]
+        warnings: [false, false, false, false, false, false, false]
       },
       {
         width: 3,
         slope: true,
-        warnings: [false, false, false, false, false, true]
+        warnings: [false, false, false, false, false, true, true]
       },
       {
         width: 3,
         elevation: 4,
-        warnings: [false, false, false, false, false, false]
+        warnings: [false, false, false, false, false, false, false]
       }
     ])
   })

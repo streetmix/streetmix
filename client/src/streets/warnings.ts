@@ -3,7 +3,8 @@ import {
   SEGMENT_WARNING_WIDTH_TOO_SMALL,
   SEGMENT_WARNING_WIDTH_TOO_LARGE,
   SEGMENT_WARNING_DANGEROUS_EXISTING,
-  SEGMENT_WARNING_SLOPE_EXCEEDED
+  SEGMENT_WARNING_SLOPE_EXCEEDED_BERM,
+  SEGMENT_WARNING_SLOPE_EXCEEDED_PATH
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { calculateSlope } from '../segments/slope'
@@ -79,12 +80,16 @@ export function applyWarningsToSlices (
     }
 
     // Apply a warning for slope
-    // TODO: handle slope exceeded for paths
     const slopes = calculateSlope(street, index)
     if (slopes?.warnings.slopeExceededBerm) {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = true
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_BERM] = true
     } else {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = false
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_BERM] = false
+    }
+    if (slopes?.warnings.slopeExceededPath) {
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_PATH] = true
+    } else {
+      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_PATH] = false
     }
 
     // Increment the position counter
