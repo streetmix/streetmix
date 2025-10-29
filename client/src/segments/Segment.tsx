@@ -206,6 +206,7 @@ function Segment (props: SliceProps): React.ReactNode {
           variantString={isOldVariant ? oldVariant : segment.variantString}
           randSeed={randSeed}
           elevation={segment.elevation}
+          slope={segment.slope}
         />
         {coastmixMode && <TestSlope slice={segment} />}
       </div>

@@ -276,6 +276,7 @@ export function drawSegmentContents (
   offsetLeft: number,
   groundBaseline: number,
   elevation: number = 0,
+  slope: boolean = false,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -316,6 +317,10 @@ export function drawSegmentContents (
 
       // Skip drawing if sprite is missing
       if (!svg) continue
+
+      // Slip drawing ground assets if slice is sloped
+      // This is temporary because the test slope shape overlays ground markings
+      if (slope && sprite.id.includes('ground')) continue
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const padding = sprites[l].padding ?? 0

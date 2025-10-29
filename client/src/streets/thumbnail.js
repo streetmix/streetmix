@@ -389,6 +389,7 @@ function drawSegments (ctx, street, dpi, multiplier, groundLevel, offsetLeft) {
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
           segment.elevation,
+          segment.slope,
           randSeed,
           multiplier,
           dpi
