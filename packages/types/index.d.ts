@@ -314,6 +314,7 @@ export interface SkyboxDefWithStyles extends SkyboxDefinition {
 export interface SpriteDefinition {
   id: string
   offsetX?: number
+  offsetY?: number
   originY?: number
 }
 
