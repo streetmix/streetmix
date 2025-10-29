@@ -23,7 +23,7 @@ import {
   SLICE_WARNING_OUTSIDE,
   SLICE_WARNING_WIDTH_TOO_SMALL,
   SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_SLOPE_EXCEEDED
+  SLICE_WARNING_SLOPE_EXCEEDED_BERM
 } from './constants'
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { getSegmentInfo } from './info'
@@ -237,11 +237,12 @@ function Segment (props: SliceProps): React.ReactNode {
   }
 
   // Warnings
+  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH
   if (
     segment.warnings[SLICE_WARNING_OUTSIDE] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED]
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]
   ) {
     classNames.push('warning')
   }
