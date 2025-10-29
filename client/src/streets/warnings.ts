@@ -1,10 +1,10 @@
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE,
-  SEGMENT_WARNING_DANGEROUS_EXISTING,
-  SEGMENT_WARNING_SLOPE_EXCEEDED_BERM,
-  SEGMENT_WARNING_SLOPE_EXCEEDED_PATH
+  SLICE_WARNING_OUTSIDE,
+  SLICE_WARNING_WIDTH_TOO_SMALL,
+  SLICE_WARNING_WIDTH_TOO_LARGE,
+  SLICE_WARNING_DANGEROUS_EXISTING,
+  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH
 } from '../segments/constants'
 import { getSegmentVariantInfo } from '../segments/info'
 import { calculateSlope } from '../segments/slope'
@@ -44,9 +44,9 @@ export function applyWarningsToSlices (
       (position.lessThan(0) ||
         position.plus(segment.width).greaterThan(streetWidth))
     ) {
-      warnings[SEGMENT_WARNING_OUTSIDE] = true
+      warnings[SLICE_WARNING_OUTSIDE] = true
     } else {
-      warnings[SEGMENT_WARNING_OUTSIDE] = false
+      warnings[SLICE_WARNING_OUTSIDE] = false
     }
 
     // Apply a warning if segment width is less than the minimum width
@@ -55,9 +55,9 @@ export function applyWarningsToSlices (
       variantInfo.minWidth !== undefined &&
       segment.width < getWidthInMetric(variantInfo.minWidth, street.units)
     ) {
-      warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = true
+      warnings[SLICE_WARNING_WIDTH_TOO_SMALL] = true
     } else {
-      warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL] = false
+      warnings[SLICE_WARNING_WIDTH_TOO_SMALL] = false
     }
 
     // Apply a warning if segment width is greater than the maximum width
@@ -66,30 +66,30 @@ export function applyWarningsToSlices (
       variantInfo.maxWidth &&
       segment.width > getWidthInMetric(variantInfo.maxWidth, street.units)
     ) {
-      warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = true
+      warnings[SLICE_WARNING_WIDTH_TOO_LARGE] = true
     } else {
-      warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE] = false
+      warnings[SLICE_WARNING_WIDTH_TOO_LARGE] = false
     }
 
     // Apply a warning if the segment type and variant is the mixed-use
     // drive lane with bicycle, which is a dangerous existing condition
     if (variantInfo.dangerous === true) {
-      warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = true
+      warnings[SLICE_WARNING_DANGEROUS_EXISTING] = true
     } else {
-      warnings[SEGMENT_WARNING_DANGEROUS_EXISTING] = false
+      warnings[SLICE_WARNING_DANGEROUS_EXISTING] = false
     }
 
     // Apply a warning for slope
     const slopes = calculateSlope(street, index)
     if (slopes?.warnings.slopeExceededBerm) {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_BERM] = true
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = true
     } else {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_BERM] = false
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
     }
     if (slopes?.warnings.slopeExceededPath) {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_PATH] = true
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = true
     } else {
-      warnings[SEGMENT_WARNING_SLOPE_EXCEEDED_PATH] = false
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
     }
 
     // Increment the position counter

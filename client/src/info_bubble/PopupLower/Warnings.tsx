@@ -4,11 +4,11 @@ import { FormattedMessage } from 'react-intl'
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE,
-  SEGMENT_WARNING_DANGEROUS_EXISTING,
-  SEGMENT_WARNING_SLOPE_EXCEEDED
+  SLICE_WARNING_OUTSIDE,
+  SLICE_WARNING_WIDTH_TOO_SMALL,
+  SLICE_WARNING_WIDTH_TOO_LARGE,
+  SLICE_WARNING_DANGEROUS_EXISTING,
+  SLICE_WARNING_SLOPE_EXCEEDED
 } from '~/src/segments/constants'
 import './Warnings.css'
 
@@ -24,7 +24,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
 
   if (segment === undefined) return null
 
-  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING]) {
+  if (segment.warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
     messages.push({
       type: 'alert',
       message: (
@@ -35,7 +35,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+  if (segment.warnings[SLICE_WARNING_OUTSIDE]) {
     messages.push({
       type: 'error',
       message: (
@@ -46,7 +46,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
     messages.push({
       type: 'error',
       message: (
@@ -57,7 +57,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
     messages.push({
       type: 'error',
       message: (
@@ -68,7 +68,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_SLOPE_EXCEEDED]) {
+  if (segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED]) {
     messages.push({
       type: 'error',
       message: (
