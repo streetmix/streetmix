@@ -57,26 +57,29 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
   const street = useSelector((state) => state.street)
   const dpi = useSelector((state) => state.system.devicePixelRatio)
   const canvasEl = useRef<HTMLCanvasElement>(null)
-
-  // Get elevation of neighboring items
   const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
-  const { leftElevation, rightElevation, slope, ratio, warnings } =
-    calculateSlope(street, sliceIndex)
+  const slopeData = calculateSlope(street, sliceIndex)
 
   useEffect(() => {
-    if (!canvasEl.current) return
-    drawSegment(canvasEl.current, leftElevation, rightElevation, dpi)
+    if (!canvasEl.current || slopeData === null) return
+
+    if (slice.slope) {
+      const { leftElevation, rightElevation } = slopeData
+      drawSegment(canvasEl.current, leftElevation, rightElevation, dpi)
+    }
   }, [
     slice.variantString,
     slice.width,
     slice.elevation,
     slice.slope,
-    leftElevation,
-    rightElevation,
+    slopeData,
     dpi
   ])
 
-  if (slice.slope !== true) return null
+  // Bail if slice is not sloped, or it has been removed
+  if (slice.slope === false || slopeData === null) return null
+
+  const { slope, ratio, warnings } = slopeData
 
   // Determine dimensions to draw DOM element
   const elementWidth = slice.width * TILE_SIZE

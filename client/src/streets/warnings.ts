@@ -81,7 +81,7 @@ export function applyWarningsToSlices (
     // Apply a warning for slope
     // TODO: handle slope exceeded for paths
     const slopes = calculateSlope(street, index)
-    if (slopes.warnings.slopeExceededBerm) {
+    if (slopes?.warnings.slopeExceededBerm) {
       warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = true
     } else {
       warnings[SEGMENT_WARNING_SLOPE_EXCEEDED] = false

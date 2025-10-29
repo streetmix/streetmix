@@ -14,8 +14,11 @@ export interface SlopeCalculation {
 export function calculateSlope (
   street: StreetJson,
   index: number
-): SlopeCalculation {
+): SlopeCalculation | null {
   const slice = street.segments[index]
+
+  // If slice does not exist (e.g. index out of bounds) return null
+  if (!slice) return null
 
   // Get elevation of slices adjacent to current slice
   let leftElevation = street.segments[index - 1]?.elevation
