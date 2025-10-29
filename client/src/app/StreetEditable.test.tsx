@@ -21,6 +21,20 @@ describe('StreetEditable', () => {
     describe('too large', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
         const street = {
+          boundary: {
+            left: {
+              id: '',
+              variant: '',
+              floors: 0,
+              elevation: 0
+            },
+            right: {
+              id: '',
+              variant: '',
+              floors: 0,
+              elevation: 0
+            }
+          },
           segments: [segment],
           width: 120,
           units: SETTINGS_UNITS_METRIC,

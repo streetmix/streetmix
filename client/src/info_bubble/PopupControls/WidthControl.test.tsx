@@ -9,6 +9,7 @@ describe('WidthControl', () => {
   const activeElement = 0
   const initialState = {
     street: {
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
         {
           type: 'streetcar',

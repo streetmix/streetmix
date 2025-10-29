@@ -5,6 +5,7 @@ describe('applyWarningsToSlices', () => {
   it('applies no warnings', () => {
     const street = {
       width: 20,
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [{ width: 4 }, { width: 8 }, { width: 8 }]
     }
     const widths = recalculateWidth(street)
@@ -18,6 +19,7 @@ describe('applyWarningsToSlices', () => {
   it('applies warnings to overoccupied street', () => {
     const street = {
       width: 20,
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [{ width: 8 }, { width: 6 }, { width: 8 }]
     }
     const widths = recalculateWidth(street)
@@ -31,6 +33,7 @@ describe('applyWarningsToSlices', () => {
   it('applies warnings for slices above max width or below min width', () => {
     const street = {
       width: 20,
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
         { width: 0.6, type: 'sidewalk', variantString: 'normal' },
         { width: 3, type: 'divider', variantString: 'bush' },
@@ -63,6 +66,7 @@ describe('applyWarningsToSlices', () => {
   it('applies a warning for a dangerous condition', () => {
     const street = {
       width: 20,
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
         { width: 3, type: 'drive-lane', variantString: 'inbound|car-with-bike' }
       ]
@@ -81,6 +85,7 @@ describe('applyWarningsToSlices', () => {
   it('applies a warning for exceeding maximum slope', () => {
     const street = {
       width: 20,
+      boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
         { width: 3, elevation: 0 },
         { width: 3, slope: true },

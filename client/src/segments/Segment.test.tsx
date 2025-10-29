@@ -42,7 +42,12 @@ describe('Segment', () => {
         DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
       },
       ui: { activeSegment: activeElement },
-      street: { showAnalytics: true, segments: [segment], width: 5 }
+      street: {
+        showAnalytics: true,
+        boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+        segments: [segment],
+        width: 5
+      }
     }
   })
 
