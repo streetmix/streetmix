@@ -54,6 +54,7 @@ describe('street integration test', () => {
       it('by resolution (metric)', async () => {
         const initialState = {
           street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 10 }, { width: 10 }],
             width: 20,
             units: 0
@@ -70,6 +71,7 @@ describe('street integration test', () => {
       it('by resolution (imperial)', async () => {
         const initialState = {
           street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 3.048 }, { width: 3.048 }],
             width: 6.096,
             units: 1
@@ -86,6 +88,7 @@ describe('street integration test', () => {
       it('by clickIncrement', async () => {
         const initialState = {
           street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 6.05 }, { width: 6.05 }],
             width: 12.1,
             units: 0
@@ -103,6 +106,7 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             width: 24,
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 12 }, { width: 12 }],
             units: 0
           }
@@ -119,7 +123,12 @@ describe('street integration test', () => {
 
       it('handles decrementing an imprecise value to nearest precise value', async () => {
         const initialState = {
-          street: { segments: [{ width: 2.123 }], width: 2.5, units: 0 }
+          street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            segments: [{ width: 2.123 }],
+            width: 2.5,
+            units: 0
+          }
         }
         const store = createStore(initialState)
 
@@ -134,6 +143,7 @@ describe('street integration test', () => {
       it('by resolution', async () => {
         const initialState = {
           street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 5 }, { width: 5 }],
             width: 10,
             units: 0
@@ -150,6 +160,7 @@ describe('street integration test', () => {
       it('by clickIncrement', async () => {
         const initialState = {
           street: {
+            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
             segments: [{ width: 3.658 }, { width: 3.658 }],
             width: 7.316,
             units: 1
@@ -168,6 +179,7 @@ describe('street integration test', () => {
     it('saves to server', async () => {
       const initialState = {
         street: {
+          boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
           segments: [{ width: 200 }, { width: 200 }],
           width: 400,
           units: 0
@@ -182,7 +194,12 @@ describe('street integration test', () => {
 
     it('handles incrementing an imprecise value to nearest precise value', async () => {
       const initialState = {
-        street: { segments: [{ width: 2.147 }], width: 2.5, units: 0 }
+        street: {
+          boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+          segments: [{ width: 2.147 }],
+          width: 2.5,
+          units: 0
+        }
       }
       const store = createStore(initialState)
 

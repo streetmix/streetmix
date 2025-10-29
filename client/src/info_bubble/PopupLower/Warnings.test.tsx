@@ -10,9 +10,7 @@ describe('Warnings', () => {
       warnings: [null, true]
     }
     const { container } = render(<Warnings segment={segment} />)
-    expect(container).toHaveTextContent(
-      'This segment doesn’t fit within the street.'
-    )
+    expect(container).toHaveTextContent('This doesn’t fit within the street.')
   })
 
   it('renders warning 2', () => {
@@ -20,9 +18,7 @@ describe('Warnings', () => {
       warnings: [null, false, true, false]
     }
     const { container } = render(<Warnings segment={segment} />)
-    expect(container).toHaveTextContent(
-      'This segment might not be wide enough.'
-    )
+    expect(container).toHaveTextContent('This may not be wide enough.')
   })
 
   it('renders warning 3', () => {
@@ -30,7 +26,7 @@ describe('Warnings', () => {
       warnings: [null, false, false, true]
     }
     const { container } = render(<Warnings segment={segment} />)
-    expect(container).toHaveTextContent('This segment might be too wide.')
+    expect(container).toHaveTextContent('This may be too wide.')
   })
 
   it('renders two warnings', () => {
@@ -39,13 +35,9 @@ describe('Warnings', () => {
     }
     const { container } = render(<Warnings segment={segment} />)
 
-    expect(container).toHaveTextContent(
-      'This segment doesn’t fit within the street.'
-    )
-    expect(container).toHaveTextContent('This segment might be too wide.')
-    expect(container).not.toHaveTextContent(
-      'This segment might not be wide enough.'
-    )
+    expect(container).toHaveTextContent('This doesn’t fit within the street.')
+    expect(container).toHaveTextContent('This may be too wide.')
+    expect(container).not.toHaveTextContent('This may not be wide enough.')
   })
 
   it('renders three warnings', () => {
@@ -54,13 +46,9 @@ describe('Warnings', () => {
     }
     const { container } = render(<Warnings segment={segment} />)
 
-    expect(container).toHaveTextContent(
-      'This segment doesn’t fit within the street.'
-    )
-    expect(container).toHaveTextContent('This segment might be too wide.')
-    expect(container).toHaveTextContent(
-      'This segment might not be wide enough.'
-    )
+    expect(container).toHaveTextContent('This doesn’t fit within the street.')
+    expect(container).toHaveTextContent('This may be too wide.')
+    expect(container).toHaveTextContent('This may not be wide enough.')
   })
 
   it('renders no warnings', () => {
@@ -70,12 +58,10 @@ describe('Warnings', () => {
     const { container } = render(<Warnings segment={segment} />)
 
     expect(container).not.toHaveTextContent(
-      'This segment doesn’t fit within the street.'
+      'This doesn’t fit within the street.'
     )
-    expect(container).not.toHaveTextContent('This segment might be too wide.')
-    expect(container).not.toHaveTextContent(
-      'This segment might not be wide enough.'
-    )
+    expect(container).not.toHaveTextContent('This may be too wide.')
+    expect(container).not.toHaveTextContent('This may not be wide enough.')
   })
 
   it('renders nothing if segment is not defined', () => {
@@ -83,11 +69,9 @@ describe('Warnings', () => {
     const { container } = render(<Warnings segment={segment} />)
 
     expect(container).not.toHaveTextContent(
-      'This segment doesn’t fit within the street.'
+      'This doesn’t fit within the street.'
     )
-    expect(container).not.toHaveTextContent('This segment might be too wide.')
-    expect(container).not.toHaveTextContent(
-      'This segment might not be wide enough.'
-    )
+    expect(container).not.toHaveTextContent('This may be too wide.')
+    expect(container).not.toHaveTextContent('This may not be wide enough.')
   })
 })

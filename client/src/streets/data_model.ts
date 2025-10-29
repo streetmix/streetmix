@@ -97,6 +97,7 @@ export function trimStreetData (street: StreetState): StreetJson {
       variantString: s.variantString,
       width: s.width,
       elevation: s.elevation,
+      slope: s.slope,
       label: s.label
     }))
   }

@@ -4,10 +4,11 @@ import { FormattedMessage } from 'react-intl'
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL,
-  SEGMENT_WARNING_WIDTH_TOO_LARGE,
-  SEGMENT_WARNING_DANGEROUS_EXISTING
+  SLICE_WARNING_OUTSIDE,
+  SLICE_WARNING_WIDTH_TOO_SMALL,
+  SLICE_WARNING_WIDTH_TOO_LARGE,
+  SLICE_WARNING_DANGEROUS_EXISTING,
+  SLICE_WARNING_SLOPE_EXCEEDED_BERM
 } from '~/src/segments/constants'
 import './Warnings.css'
 
@@ -23,46 +24,58 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
 
   if (segment === undefined) return null
 
-  if (segment.warnings[SEGMENT_WARNING_DANGEROUS_EXISTING]) {
+  if (segment.warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
     messages.push({
       type: 'alert',
       message: (
         <FormattedMessage
           id="segments.warnings.dangerous"
-          defaultMessage="This segment represents a dangerous existing condition."
+          defaultMessage="This is a dangerous existing condition."
         />
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_OUTSIDE]) {
+  if (segment.warnings[SLICE_WARNING_OUTSIDE]) {
     messages.push({
       type: 'error',
       message: (
         <FormattedMessage
           id="segments.warnings.does-not-fit"
-          defaultMessage="This segment doesn’t fit within the street."
+          defaultMessage="This doesn’t fit within the street."
         />
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]) {
+  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
     messages.push({
       type: 'error',
       message: (
         <FormattedMessage
           id="segments.warnings.not-wide"
-          defaultMessage="This segment might not be wide enough."
+          defaultMessage="This may not be wide enough."
         />
       )
     })
   }
-  if (segment.warnings[SEGMENT_WARNING_WIDTH_TOO_LARGE]) {
+  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
     messages.push({
       type: 'error',
       message: (
         <FormattedMessage
           id="segments.warnings.too-wide"
-          defaultMessage="This segment might be too wide."
+          defaultMessage="This may be too wide."
+        />
+      )
+    })
+  }
+  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH based on use case
+  if (segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]) {
+    messages.push({
+      type: 'error',
+      message: (
+        <FormattedMessage
+          id="segments.warnings.slope-exceeded"
+          defaultMessage="This may be too steep."
         />
       )
     })

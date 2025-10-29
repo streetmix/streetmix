@@ -16,4 +16,9 @@
   top: 100px;
   text-align: center;
   width: 100%;
+
+  > p {
+    white-space: nowrap;
+    margin: 0;
+  }
 }

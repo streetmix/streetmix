@@ -12,11 +12,13 @@ export const DRAGGING_MOVE_HOLE_WIDTH = 40 // pixels
 
 // Warnings are an array of booleans.
 // Historically, the warning at 0 index is unused.
-export const SEGMENT_WARNING_UNUSED = 0
-export const SEGMENT_WARNING_OUTSIDE = 1
-export const SEGMENT_WARNING_WIDTH_TOO_SMALL = 2
-export const SEGMENT_WARNING_WIDTH_TOO_LARGE = 3
-export const SEGMENT_WARNING_DANGEROUS_EXISTING = 4
+export const SLICE_WARNING_UNUSED = 0
+export const SLICE_WARNING_OUTSIDE = 1
+export const SLICE_WARNING_WIDTH_TOO_SMALL = 2
+export const SLICE_WARNING_WIDTH_TOO_LARGE = 3
+export const SLICE_WARNING_DANGEROUS_EXISTING = 4
+export const SLICE_WARNING_SLOPE_EXCEEDED_BERM = 5
+export const SLICE_WARNING_SLOPE_EXCEEDED_PATH = 6
 
 export const SEGMENT_WIDTH_RESOLUTION_IMPERIAL = 0.25 * 0.3048 // feet => m
 export const SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL = 0.5 * 0.3048 // feet => m
@@ -37,7 +39,9 @@ export const MAX_BUILDING_HEIGHT = 20 // floors
 export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
 
-export const GROUND_BASELINE_HEIGHT = 45
+export const MAX_CANVAS_HEIGHT = 2048 // pixels
+export const CANVAS_HEIGHT = 600 // pixels
+export const GROUND_BASELINE_HEIGHT = 45 // pixels
 
 export const ELEVATION_INCREMENT = 0.15 // meters
 export const ELEVATION_INCREMENT_IMPERIAL = 0.5 * 0.3048 // feet => m

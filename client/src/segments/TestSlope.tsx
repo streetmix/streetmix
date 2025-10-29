@@ -1,13 +1,10 @@
 import React, { useRef, useEffect } from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import {
-  GROUND_BASELINE_HEIGHT,
-  TILE_SIZE,
-  TILE_SIZE_ACTUAL
-} from './constants'
+import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './TestSlope.css'
 
+import { calculateSlope } from './slope'
 import { getElevation } from './view'
 import type { Segment } from '@streetmix/types'
 
@@ -15,76 +12,75 @@ interface Props {
   slice: Segment
 }
 
-// const CANVAS_HEIGHT = 500
-// const CANVAS_GROUND = 35
-const CANVAS_HEIGHT = 600
-const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
+function estimateCoord (elev: number, scale: number): number {
+  return getElevation(elev) * scale
+}
 
-function TestSlope ({ slice }: Props): React.ReactNode | null {
-  const street = useSelector((state) => state.street)
-  const dpi = useSelector((state) => state.system.devicePixelRatio)
-  const canvasEl = useRef<HTMLCanvasElement>(null)
-
-  // Get elevation of neighboring items
-  const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
-  const leftElevation = street.segments[sliceIndex - 1]?.elevation ?? 0
-  const rightElevation = street.segments[sliceIndex + 1]?.elevation ?? 0
-
-  useEffect(() => {
-    if (!canvasEl.current) return
-    drawSegment(canvasEl.current)
-
-    // Only redraw on certain specific prop changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    slice.variantString,
-    slice.width,
-    slice.elevation,
-    slice.slope,
-    leftElevation,
-    rightElevation
-  ])
-
-  function estimateCoord (elev: number, scale: number): number {
-    return getElevation(elev) * scale
-  }
+function drawSegment (
+  canvas: HTMLCanvasElement,
+  leftElevation: number,
+  rightElevation: number,
+  dpi: number
+): void {
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
 
   // TODO: redefine magic number in a less hacky way
   const magicNumber = dpi * GROUND_BASELINE_HEIGHT
   const groundLevel =
     magicNumber + estimateCoord(Math.min(leftElevation, rightElevation), dpi)
 
-  function drawSegment (canvas: HTMLCanvasElement): void {
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  // These rectangles are telling us that we're drawing at the right places.
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
+  ctx.strokeStyle = 'red'
+  ctx.lineWidth = 2
+  // Start at the bottom left corner and use a negative number to draw upwards
+  ctx.fillRect(0, canvas.height, canvas.width, groundLevel * -1)
+  ctx.strokeRect(0, canvas.height, canvas.width, groundLevel * -1)
 
-    // These rectangles are telling us that we're drawing at the right places.
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
-    ctx.strokeStyle = 'red'
-    ctx.lineWidth = 2
-    // Start at the bottom left corner and use a negative number to draw upwards
-    ctx.fillRect(0, canvas.height, canvas.width, groundLevel * -1)
-    ctx.strokeRect(0, canvas.height, canvas.width, groundLevel * -1)
+  // Draw a slope
+  ctx.beginPath()
+  ctx.moveTo(0, canvas.height - groundLevel)
+  ctx.moveTo(0, canvas.height - estimateCoord(leftElevation, dpi) - magicNumber)
+  ctx.lineTo(
+    canvas.width,
+    canvas.height - estimateCoord(rightElevation, dpi) - magicNumber
+  )
+  ctx.lineTo(canvas.width, canvas.height - groundLevel)
+  ctx.fill()
+  ctx.stroke()
+}
 
-    // Draw a slope
-    ctx.beginPath()
-    ctx.moveTo(0, canvas.height - groundLevel)
-    ctx.moveTo(
-      0,
-      canvas.height - estimateCoord(leftElevation, dpi) - magicNumber
-    )
-    ctx.lineTo(
-      canvas.width,
-      canvas.height - estimateCoord(rightElevation, dpi) - magicNumber
-    )
-    ctx.lineTo(canvas.width, canvas.height - groundLevel)
-    ctx.fill()
-    ctx.stroke()
-  }
+function TestSlope ({ slice }: Props): React.ReactNode | null {
+  const street = useSelector((state) => state.street)
+  const dpi = useSelector((state) => state.system.devicePixelRatio)
+  const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
+  const canvasEl = useRef<HTMLCanvasElement>(null)
+  const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
+  const slopeData = calculateSlope(street, sliceIndex)
 
-  if (slice.slope !== true) return null
+  useEffect(() => {
+    if (!canvasEl.current || slopeData === null) return
+
+    if (slice.slope) {
+      const { leftElevation, rightElevation } = slopeData
+      drawSegment(canvasEl.current, leftElevation, rightElevation, dpi)
+    }
+  }, [
+    slice.variantString,
+    slice.width,
+    slice.elevation,
+    slice.slope,
+    slopeData,
+    dpi
+  ])
+
+  // Bail if slice is not sloped, or it has been removed
+  if (slice.slope !== true || slopeData === null) return null
+
+  const { slope, ratio, warnings } = slopeData
 
   // Determine dimensions to draw DOM element
   const elementWidth = slice.width * TILE_SIZE
@@ -98,15 +94,22 @@ function TestSlope ({ slice }: Props): React.ReactNode | null {
     height: elementHeight
   }
 
-  // Get slope
-  const leftpx = estimateCoord(leftElevation, dpi)
-  const rightpx = estimateCoord(rightElevation, dpi)
-  const rise = Math.abs(leftpx - rightpx)
-  const slope = Math.floor((rise / elementWidth) * 100)
+  const styles = {
+    color: 'inherit'
+  }
+  // TODO: handle slope exceeded for paths
+  if (warnings.slopeExceededBerm) {
+    styles.color = 'red'
+  }
 
   return (
     <div className="test-slope-container">
-      <div className="slope-debug">{slope} %</div>
+      {debug && (
+        <div className="slope-debug">
+          <p style={styles}>{slope} %</p>
+          <p style={styles}>{ratio}:1</p>
+        </div>
+      )}
       <canvas
         ref={canvasEl}
         width={canvasWidth}

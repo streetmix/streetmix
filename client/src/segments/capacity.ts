@@ -3,8 +3,8 @@ import { Parser } from '@json2csv/plainjs'
 import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
-  SEGMENT_WARNING_OUTSIDE,
-  SEGMENT_WARNING_WIDTH_TOO_SMALL
+  SLICE_WARNING_OUTSIDE,
+  SLICE_WARNING_WIDTH_TOO_SMALL
 } from './constants'
 import SOURCE_DATA from './capacity_data.json'
 
@@ -147,8 +147,8 @@ export function getSegmentCapacity (
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
   if (
-    segment.warnings[SEGMENT_WARNING_OUTSIDE] ||
-    segment.warnings[SEGMENT_WARNING_WIDTH_TOO_SMALL]
+    segment.warnings[SLICE_WARNING_OUTSIDE] ||
+    segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]
   ) {
     return {
       average: 0,
