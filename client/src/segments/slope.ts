@@ -17,9 +17,18 @@ export function calculateSlope (
 ): SlopeCalculation {
   const slice = street.segments[index]
 
-  // TODO: handle left and right boundaries
-  const leftElevation = street.segments[index - 1]?.elevation ?? 0
-  const rightElevation = street.segments[index + 1]?.elevation ?? 0
+  // Get elevation of slices adjacent to current slice
+  let leftElevation = street.segments[index - 1]?.elevation
+  let rightElevation = street.segments[index + 1]?.elevation
+
+  // If slice is first or last in the list, adjacent elevation is
+  // taken from boundary
+  if (index === 0) {
+    leftElevation = street.boundary.left.elevation
+  }
+  if (index === street.segments.length - 1) {
+    rightElevation = street.boundary.right.elevation
+  }
 
   // If slope is off, don't calculate the change in elevation, even if
   // neighboring elevation differs
@@ -35,9 +44,12 @@ export function calculateSlope (
   // Warnings for exceeded slope
   // There are two thresholds:
   // (1) for berms:
-  // "Slopes of 3H:1V (Horizontal:Vertical) are recommended for stability and ease of maintenance"
+  //    "Slopes of 3H:1V (Horizontal:Vertical) are recommended for stability
+  //    and ease of maintenance"
   // (2) for paths:
-  // "ADA accessibility and connection to inland area and waterfront is required. Accessible routes shall not exceed 5% (1V:20H (vertical:horizontal)) slope"
+  //    "ADA accessibility and connection to inland area and waterfront is
+  //    required. Accessible routes shall not exceed 5% (1V:20H
+  //    (vertical:horizontal)) slope"
   const warnings = {
     slopeExceededBerm: ratio !== undefined && ratio < 3,
     slopeExceededPath: ratio !== undefined && ratio < 20
