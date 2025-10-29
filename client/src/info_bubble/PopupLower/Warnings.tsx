@@ -74,7 +74,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
       type: 'error',
       message: (
         <FormattedMessage
-          id="segments.warnings.slope-too-high"
+          id="segments.warnings.slope-exceeded"
           defaultMessage="This may be too steep."
         />
       )
