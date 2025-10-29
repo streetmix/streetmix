@@ -6510,8 +6510,7 @@
               "variants": {
                 "type": "default"
               },
-              "offsetX": 50,
-              "offsetY": 10
+              "offsetX": 50
             }
           ]
         }

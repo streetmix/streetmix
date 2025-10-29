@@ -126,5 +126,8 @@ lamps--pride-banner-left:
 effects--sweat-drop:
   id: effects--sweat-drop
   originY: -160
+beach--surface:
+  id: beach--surface
+  offsetY: -12
 missing:
   id: missing
