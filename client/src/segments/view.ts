@@ -290,18 +290,13 @@ function drawGroundPattern (
   // Save context state before drawing ground pattern
   ctx.save()
 
-  // Clear previous context
-  // ctx.clearRect(0, 0, width, groundLevel)
-
   // Draw a shape representing the ground
   ctx.beginPath()
   // Bottom left
   ctx.moveTo(dx, ground)
   // Top left
-  // ctx.lineTo(dx, groundLevel - getCanvasElevation(slope.left, scale))
   ctx.lineTo(dx, ground - getCanvasElevation(slope.left, scale))
   // Top right
-  // ctx.lineTo(dx + dw, groundLevel - getCanvasElevation(slope.right, scale))
   ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, scale))
   // Bottom right
   ctx.lineTo(dx + dw, ground)
