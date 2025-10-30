@@ -15,16 +15,18 @@ import {
   TILE_SIZE_ACTUAL,
   MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
+  BUILDING_RIGHT_POSITION,
+  GROUND_BASELINE_HEIGHT
 } from './constants'
 import PEOPLE from './people.yaml'
 
 import type {
-  VariantInfo,
-  VariantInfoDimensions,
-  Segment,
   BoundaryPosition,
-  UnknownVariantInfo
+  ElevationChange,
+  Segment,
+  UnknownVariantInfo,
+  VariantInfo,
+  VariantInfoDimensions
 } from '@streetmix/types'
 
 // Adjust spacing between people to be slightly closer
@@ -256,6 +258,66 @@ export function getElevation (elevation: number): number {
   return elevation * TILE_SIZE
 }
 
+// Ground rendering helper functions
+function getCanvasElevation (elev: number, scale: number): number {
+  return (getElevation(elev) + GROUND_BASELINE_HEIGHT) * scale
+}
+
+function drawGroundPattern (
+  ctx: CanvasRenderingContext2D,
+  dw: number,
+  dx: number,
+  groundLevel: number,
+  slope: ElevationChange,
+  spriteId: string,
+  scale: number
+): void {
+  const spriteDef = getSpriteDef(spriteId)
+  const spriteImage = images.get(spriteDef.id)
+  const pattern = ctx.createPattern(spriteImage.img, 'repeat')
+  if (!pattern) return
+
+  // TODO: scale the pattern according to image scale
+  // This will only be important if we have patterns that aren't solid colors
+  // pattern.setTransform(new DOMMatrix().scale(1))
+
+  // Adjust values for canvas scale
+  dw *= scale
+  dx *= scale
+
+  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * scale
+
+  // Save context state before drawing ground pattern
+  ctx.save()
+
+  // Clear previous context
+  // ctx.clearRect(0, 0, width, groundLevel)
+
+  // Draw a shape representing the ground
+  ctx.beginPath()
+  // Bottom left
+  ctx.moveTo(dx, ground)
+  // Top left
+  // ctx.lineTo(dx, groundLevel - getCanvasElevation(slope.left, scale))
+  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, scale))
+  // Top right
+  // ctx.lineTo(dx + dw, groundLevel - getCanvasElevation(slope.right, scale))
+  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, scale))
+  // Bottom right
+  ctx.lineTo(dx + dw, ground)
+  ctx.closePath()
+
+  // Clip our fill to this shape
+  ctx.clip()
+
+  // Then fill the clipped shape
+  ctx.fillStyle = pattern
+  ctx.fillRect(dx, 0, dx + dw, ground)
+
+  // Restore context state
+  ctx.restore()
+}
+
 /**
  *
  * @param ctx
@@ -275,8 +337,8 @@ export function drawSegmentContents (
   actualWidth: number,
   offsetLeft: number,
   groundBaseline: number,
-  elevation: number = 0,
-  slope: boolean = false,
+  elevation: number,
+  slope: ElevationChange,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -318,9 +380,23 @@ export function drawSegmentContents (
       // Skip drawing if sprite is missing
       if (!svg) continue
 
-      // Slip drawing ground assets if slice is sloped
-      // This is temporary because the test slope shape overlays ground markings
-      if (slope && sprite.id.includes('ground')) continue
+      // For ground assets, use a shape and fill, skip the rest
+      // TODO: ground might be a different thing, not `repeat`
+      if (sprite.id.includes('ground')) {
+        // Adjust left position because some slices have a left overhang
+        const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
+
+        drawGroundPattern(
+          ctx,
+          segmentWidth,
+          offsetLeft,
+          groundBaseline,
+          slope,
+          sprite.id,
+          dpi
+        )
+        continue
+      }
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const padding = sprites[l].padding ?? 0
@@ -328,12 +404,8 @@ export function drawSegmentContents (
       let drawWidth
       // If quirks.minWidth is defined, and the segment width is less than that
       // value, then the draw width is the minimum renderable width, not the
-      // segment width. Skip this for ground assets.
-      if (
-        minWidthQuirk &&
-        actualWidth < minWidthQuirk &&
-        !sprite.id.includes('ground')
-      ) {
+      // segment width.
+      if (minWidthQuirk && actualWidth < minWidthQuirk) {
         drawWidth = minWidthQuirk * TILE_SIZE - padding * 2 * TILE_SIZE
       } else {
         drawWidth = segmentWidth - padding * 2 * TILE_SIZE
@@ -345,13 +417,8 @@ export function drawSegmentContents (
       if (left < 0) {
         // If quirks.minWidth is defined, and the segment width is less than
         // that value, then render the left edge at minimum width boundary,
-        // don't reposition it along the segment's left edge. Skip this process
-        // if it's a ground asset.
-        if (
-          minWidthQuirk &&
-          actualWidth < minWidthQuirk &&
-          !sprite.id.includes('ground')
-        ) {
+        // don't reposition it along the segment's left edge.
+        if (minWidthQuirk && actualWidth < minWidthQuirk) {
           repeatStartX = 0
         } else {
           // This is for rendering beyond the left edge of the segment
@@ -376,6 +443,9 @@ export function drawSegmentContents (
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
 
       // countY should always be at minimum 1.
+      // TODO: apply this to assets that need to be repeated in Y
+      // direction that are not ground (which are rendered using
+      // different logic now) -- e.g. markings
       const countY = sprite.id.startsWith('ground--')
         ? Math.ceil((ctx.canvas.height / dpi - groundLevel) / height)
         : 1
