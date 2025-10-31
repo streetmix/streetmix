@@ -6,22 +6,22 @@
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--asphalt"
+              "ground": "ground--asphalt"
             }
           },
           "red": {
             "graphics": {
-              "repeat": "ground--asphalt-red"
+              "ground": "ground--asphalt-red"
             }
           },
           "green": {
             "graphics": {
-              "repeat": "ground--asphalt-green"
+              "ground": "ground--asphalt-green"
             }
           },
           "gray": {
             "graphics": {
-              "repeat": "ground--asphalt-gray"
+              "ground": "ground--asphalt-gray"
             }
           }
         }
@@ -36,34 +36,34 @@
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           },
           "black": {
             "graphics": {
-              "repeat": "ground--asphalt"
+              "ground": "ground--asphalt"
             }
           },
           "red": {
             "graphics": {
-              "repeat": "ground--asphalt-red"
+              "ground": "ground--asphalt-red"
             }
           },
           "green": {
             "graphics": {
-              "repeat": "ground--asphalt-green"
+              "ground": "ground--asphalt-green"
             }
           },
           "gray": {
             "graphics": {
-              "repeat": "ground--asphalt-gray"
+              "ground": "ground--asphalt-gray"
             }
           }
         },
         "density": {
           "empty": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           }
         }
@@ -78,7 +78,7 @@
         "type": {
           "default": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           }
         }
@@ -90,7 +90,7 @@
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           }
         }
@@ -102,7 +102,8 @@
         "type": {
           "default": {
             "graphics": {
-              "repeat": ["ground--sand", "beach--surface"]
+              "repeat": "beach--surface",
+              "ground": "ground--sand"
             }
           }
         }
