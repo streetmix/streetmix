@@ -63,7 +63,7 @@ export interface DraggedItem {
   label?: string
   actualWidth: number
   elevation: number
-  slope: ElevationChange
+  slope: boolean | ElevationChange
 }
 
 export const draggingResize: {
@@ -542,7 +542,8 @@ function handleSegmentCanvasDrop (
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     elevation: draggedItem.elevation,
-    label: draggedItem.label
+    label: draggedItem.label,
+    slope: false
   }
 
   newSegment.variant =
@@ -687,7 +688,8 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         type,
         variantString,
         actualWidth: getWidthInMetric(segment.defaultWidth, units),
-        elevation
+        elevation,
+        slope: false
       }
     },
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {
