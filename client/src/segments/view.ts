@@ -24,6 +24,7 @@ import type {
   BoundaryPosition,
   ElevationChange,
   Segment,
+  SpriteDefinition,
   UnknownVariantInfo,
   VariantInfo,
   VariantInfoDimensions
@@ -217,7 +218,7 @@ export function getVariantInfoDimensions (
     }
   }
 
-  if (graphics.repeat && graphics.repeat[0]) {
+  if (graphics.ground) {
     newLeft = center - displayWidth / 2
     newRight = center + displayWidth / 2
 
@@ -245,6 +246,13 @@ export function getVariantInfoDimensions (
     right: right / TILE_SIZE_ACTUAL,
     center: center / TILE_SIZE_ACTUAL
   }
+}
+
+// Convert single string or object values to single-item array
+function normalizeSpriteDefs (
+  def: string | SpriteDefinition[]
+): SpriteDefinition[] {
+  return Array.isArray(def) ? def : [{ id: def }]
 }
 
 /**
@@ -357,41 +365,44 @@ export function drawSegmentContents (
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
-  if (graphics.repeat) {
-    // Convert single string or object values to single-item array
-    let sprites = Array.isArray(graphics.repeat)
-      ? graphics.repeat
-      : [graphics.repeat]
-    // Convert array of strings into array of objects
-    // If already an object, pass through
-    sprites = sprites.map((def) =>
-      typeof def === 'string' ? { id: def } : def
-    )
+  if (graphics.ground) {
+    const sprites = normalizeSpriteDefs(graphics.ground)
 
+    // This technically supports multiple ground textures because it's the same
+    // data structure as the other sprite definitions, but in practice you
+    // would only render/see one texture.
     for (let l = 0; l < sprites.length; l++) {
-      const sprite = getSpriteDef(sprites[l].id)
+      const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
       // Skip drawing if sprite is missing
       if (!svg) continue
 
       // For ground assets, use a shape and fill, skip the rest
-      // TODO: ground might be a different thing, not `repeat`
-      if (sprite.id.includes('ground')) {
-        // Adjust left position because some slices have a left overhang
-        const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
+      // Adjust left position because some slices have a left overhang
+      const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
 
-        drawGroundPattern(
-          ctx,
-          segmentWidth,
-          offsetLeft,
-          groundBaseline,
-          slope,
-          sprite.id,
-          dpi
-        )
-        continue
-      }
+      drawGroundPattern(
+        ctx,
+        segmentWidth,
+        offsetLeft,
+        groundBaseline,
+        slope,
+        sprite.id,
+        dpi
+      )
+    }
+  }
+
+  if (graphics.repeat) {
+    const sprites = normalizeSpriteDefs(graphics.repeat)
+
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
+      // Skip drawing if sprite is missing
+      if (!svg) continue
 
       let width = (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE
       const padding = sprites[l].padding ?? 0
@@ -480,9 +491,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.left) {
-    const sprites = Array.isArray(graphics.left)
-      ? graphics.left
-      : [graphics.left]
+    const sprites = normalizeSpriteDefs(graphics.left)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -531,9 +541,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.right) {
-    const sprites = Array.isArray(graphics.right)
-      ? graphics.right
-      : [graphics.right]
+    const sprites = normalizeSpriteDefs(graphics.right)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -587,9 +596,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.center) {
-    const sprites = Array.isArray(graphics.center)
-      ? graphics.center
-      : [graphics.center]
+    const sprites = normalizeSpriteDefs(graphics.center)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
