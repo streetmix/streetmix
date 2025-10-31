@@ -291,18 +291,35 @@ function drawGround (
   ctx.fillStyle = BACKGROUND_DIRT_COLOUR
   ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
 
+  // Get elevation at boundaries if they are set to something
+  // The `boundary` property does not exist prior to schema version 31,
+  // and gallery will still need to render data that doesn't have it.
+  // There are intermediary schemas where the boundary property did
+  // not use real units (they were using 0 or 1) but these don't exist
+  // in the wild, so don't bother handling this case
+  let leftElevation = 0
+  let rightElevation = 0
+  if (street.boundary?.left.elevation > 0) {
+    leftElevation = street.boundary.left.elevation * TILE_SIZE
+  }
+  if (street.boundary?.right.elevation > 0) {
+    rightElevation = street.boundary.right.elevation * TILE_SIZE
+  }
+
+  // Left boundary
   ctx.fillRect(
     0,
-    groundLevel * dpi,
+    (groundLevel - leftElevation * multiplier) * dpi,
     (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    20 * multiplier * dpi
+    (20 + leftElevation) * multiplier * dpi
   )
 
+  // RightElevation
   ctx.fillRect(
     (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    groundLevel * dpi,
+    (groundLevel - rightElevation * multiplier) * dpi,
     width * dpi,
-    20 * multiplier * dpi
+    (20 + rightElevation) * multiplier * dpi
   )
 }
 
