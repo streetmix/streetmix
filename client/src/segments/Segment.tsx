@@ -31,6 +31,7 @@ import { RESIZE_TYPE_INCREMENT } from './resizing'
 import TestSlope from './TestSlope'
 import './Segment.css'
 
+import { calculateSlope } from './slope'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
 
 interface SliceProps {
@@ -45,13 +46,13 @@ function Segment (props: SliceProps): React.ReactNode {
   const [switchSegments, setSwitchSegments] = useState(false)
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)
 
+  const street = useSelector((state) => state.street)
   const enableAnalytics = useSelector(
     (state) => state.flags.ANALYTICS.value && state.street.showAnalytics
   )
   const locale = useSelector((state) => state.locale.locale)
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
-  const capacitySource = useSelector((state) => state.street.capacitySource)
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
@@ -194,9 +195,15 @@ function Segment (props: SliceProps): React.ReactNode {
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
 
-    // The segment ID is a string that uniquely identifies the segment
-    // and can be used as a consistent and reliable seed for a PRNG
-    const randSeed = segment.id
+    const slopeData = calculateSlope(street, sliceIndex)
+    const elevationChange = {
+      left: segment.elevation,
+      right: segment.elevation
+    }
+    if (segment.slope && slopeData !== null) {
+      elevationChange.left = slopeData.leftElevation
+      elevationChange.right = slopeData.rightElevation
+    }
 
     return (
       <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
@@ -204,8 +211,11 @@ function Segment (props: SliceProps): React.ReactNode {
           actualWidth={segment.width}
           type={segment.type}
           variantString={isOldVariant ? oldVariant : segment.variantString}
-          randSeed={randSeed}
+          // The segment ID is a string that uniquely identifies the segment
+          // and can be used as a consistent and reliable seed for a PRNG
+          randSeed={segment.id}
           elevation={segment.elevation}
+          slope={elevationChange}
         />
         {coastmixMode && <TestSlope slice={segment} />}
       </div>
@@ -219,7 +229,7 @@ function Segment (props: SliceProps): React.ReactNode {
   const displayName =
     segment.label ?? getLocaleSegmentName(segment.type, segment.variantString)
 
-  const average = getSegmentCapacity(segment, capacitySource)?.average
+  const average = getSegmentCapacity(segment, street.capacitySource)?.average
   const elementWidth = segment.width * TILE_SIZE
 
   const segmentStyle = {

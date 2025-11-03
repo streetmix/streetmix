@@ -37,7 +37,11 @@ import {
 } from './constants'
 import { segmentsChanged } from './view'
 
-import type { SegmentDefinition, StreetJson } from '@streetmix/types'
+import type {
+  ElevationChange,
+  SegmentDefinition,
+  StreetJson
+} from '@streetmix/types'
 import type { DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import type { RootState } from '../store'
 import type { DraggingState } from '../types'
@@ -59,6 +63,7 @@ export interface DraggedItem {
   label?: string
   actualWidth: number
   elevation: number
+  slope: boolean | ElevationChange
 }
 
 export const draggingResize: {
@@ -537,7 +542,8 @@ function handleSegmentCanvasDrop (
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     elevation: draggedItem.elevation,
-    label: draggedItem.label
+    label: draggedItem.label,
+    slope: false
   }
 
   newSegment.variant =
@@ -598,7 +604,13 @@ export function createSliceDragSpec (props) {
         type: props.segment.type,
         label: props.segment.label,
         actualWidth: props.segment.width,
-        elevation: props.segment.elevation
+        elevation: props.segment.elevation,
+        // TODO: show actual slope in preview
+        // For now the slope preview is just regular elevation value
+        slope: {
+          left: props.segment.elevation,
+          right: props.segment.elevation
+        }
       }
     },
     end (item: DraggedItem, monitor: DragSourceMonitor) {
@@ -676,7 +688,8 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         type,
         variantString,
         actualWidth: getWidthInMetric(segment.defaultWidth, units),
-        elevation
+        elevation,
+        slope: false
       }
     },
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {

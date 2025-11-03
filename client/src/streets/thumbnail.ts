@@ -1,4 +1,3 @@
-import { drawGround } from '@streetmix/export-image/src/ground'
 import { drawLine } from '@streetmix/export-image/src/labels'
 
 import { images } from '../app/load_resources'
@@ -15,7 +14,15 @@ import {
 import { formatMessage } from '../locales/locale'
 import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
 
+import type {
+  CSSGradientDeclaration,
+  SkyboxDefWithStyles,
+  SkyboxObject,
+  StreetState
+} from '@streetmix/types'
+
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
+const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const SEGMENT_NAME_FONT = 'Rubik Variable'
@@ -38,32 +45,27 @@ const WORDMARK_MARGIN = 4
 
 /**
  * Draws sky.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Object} street - street data
- * @param {Number} width - width of area to draw
- * @param {Number} height - width of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} horizonLine - vertical height of horizon
- * @param {Number} groundLevel - vertical height of ground
- * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawSky (
-  ctx,
-  street,
-  width,
-  height,
-  dpi,
-  multiplier,
-  horizonLine,
-  groundLevel
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState, // street data
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  horizonLine: number, // lower edge of sky area (vertical height of horizon)
+  groundLevel: number // ground elevation line (vertical height of ground)
 ) {
   const sky = getSkyboxDef(street.skybox)
 
   // Solid color fill
-  if (sky.backgroundColor) {
-    drawBackgroundColor(ctx, width, horizonLine, dpi, sky.backgroundColor)
+  if (sky.backgroundColor !== undefined) {
+    drawBackgroundColor(
+      ctx,
+      width * dpi,
+      horizonLine * dpi,
+      sky.backgroundColor
+    )
   }
 
   // Background image fill
@@ -101,30 +103,30 @@ function drawSky (
 
 /**
  * Draws a layer of background color
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {string} color - color to render
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundColor (ctx, width, height, dpi, color) {
+function drawBackgroundColor (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw (scaled)
+  height: number, // height of area to draw (scaled)
+  color: string // color to render
+): void {
+  ctx.save()
   ctx.fillStyle = color
-  ctx.fillRect(0, 0, width * dpi, height * dpi)
+  ctx.fillRect(0, 0, width, height)
+  ctx.restore()
 }
 
 /**
  * Draws background image as a repeating pattern.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Object} imageId - image ID to render
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundImage (ctx, width, height, dpi, multiplier, imageId) {
+function drawBackgroundImage (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  imageId: unknown // image ID to render
+): void {
   const img = images.get(imageId)
 
   for (let i = 0; i < Math.floor((height / img.height) * multiplier) + 1; i++) {
@@ -146,15 +148,14 @@ function drawBackgroundImage (ctx, width, height, dpi, multiplier, imageId) {
 
 /**
  * Draws background linear gradient.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Array} backgroundGradient - skybox definition of gradient
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
+function drawBackgroundGradient (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  backgroundGradient: CSSGradientDeclaration // skybox definition of gradient
+): void {
   const gradient = ctx.createLinearGradient(0, 0, 0, height * dpi)
 
   // Make color stops
@@ -164,21 +165,23 @@ function drawBackgroundGradient (ctx, width, height, dpi, backgroundGradient) {
     gradient.addColorStop(stop, color)
   }
 
+  ctx.save()
   ctx.fillStyle = gradient
   ctx.fillRect(0, 0, width * dpi, height * dpi)
+  ctx.restore()
 }
 
 /**
  * Draws background linear gradient.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - scale factor of image
- * @param {Array} objects - skybox definition of background objects
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
+function drawBackgroundObjects (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  objects: SkyboxObject[] // skybox definition of background objects
+): void {
   objects.forEach((object) => {
     const {
       image: imageId,
@@ -202,15 +205,14 @@ function drawBackgroundObjects (ctx, width, height, dpi, multiplier, objects) {
 
 /**
  * Draws clouds.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {SkyboxDefWithStyles} sky - skybox settings
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawClouds (ctx, width, height, dpi, sky) {
+function drawClouds (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  sky: SkyboxDefWithStyles // skybox settings
+): void {
   // Handle cloud opacity
   ctx.save()
   ctx.globalAlpha = sky.cloudOpacity ?? 1
@@ -268,26 +270,64 @@ function drawClouds (ctx, width, height, dpi, sky) {
 }
 
 /**
+ * Draws ground.
+ */
+function drawGround (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState, // street data
+  width: number, // width of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  horizonLine: number, // vertical height of horizon
+  groundLevel: number // vertical height of ground
+) {
+  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
+  ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
+
+  // Get elevation at boundaries if they are set to something
+  // The `boundary` property does not exist prior to schema version 31,
+  // and gallery will still need to render data that doesn't have it.
+  // There are intermediary schemas where the boundary property did
+  // not use real units (they were using 0 or 1) but these don't exist
+  // in the wild, so don't bother handling this case
+  let leftElevation = 0
+  let rightElevation = 0
+  if (street.boundary?.left.elevation > 0) {
+    leftElevation = street.boundary.left.elevation * TILE_SIZE
+  }
+  if (street.boundary?.right.elevation > 0) {
+    rightElevation = street.boundary.right.elevation * TILE_SIZE
+  }
+
+  // Left boundary
+  ctx.fillRect(
+    0,
+    (groundLevel - leftElevation * multiplier) * dpi,
+    (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
+    (20 + leftElevation) * multiplier * dpi
+  )
+
+  // RightElevation
+  ctx.fillRect(
+    (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
+    (groundLevel - rightElevation * multiplier) * dpi,
+    width * dpi,
+    (20 + rightElevation) * multiplier * dpi
+  )
+}
+
+/**
  * Draws buildings.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Object} street - street data
- * @param {Number} width - width of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} groundLevel - vertical height of ground
- * @param {Number} buildingOffsetLeft
- * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawBoundaries (
-  ctx,
-  street,
-  width,
-  dpi,
-  multiplier,
-  groundLevel,
-  buildingOffsetLeft
-) {
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState, // street data
+  width: number, // width of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  groundLevel: number, // vertical height of ground
+  buildingOffsetLeft: number
+): void {
   const buildingWidth = buildingOffsetLeft / multiplier
 
   // Left building
@@ -346,16 +386,15 @@ function drawBoundaries (
 
 /**
  * Draws segments.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Object} street - street data
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} groundLevel - vertical height of ground
- * @param {Number} offsetLeft - left position to start from
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawSegments (ctx, street, dpi, multiplier, groundLevel, offsetLeft) {
+function drawSegments (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState, // street data
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  groundLevel: number, // vertical height of ground
+  offsetLeft: number // left position to start from
+): void {
   // Collect z-indexes
   const zIndexes = []
   for (const segment of street.segments) {
@@ -389,6 +428,7 @@ function drawSegments (ctx, street, dpi, multiplier, groundLevel, offsetLeft) {
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
           segment.elevation,
+          segment.slope,
           randSeed,
           multiplier,
           dpi
@@ -402,25 +442,15 @@ function drawSegments (ctx, street, dpi, multiplier, groundLevel, offsetLeft) {
 
 /**
  * Draws the segment names background.
- *
- *  * Draws segments.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} groundLevel - vertical height of ground
- * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawSegmentNamesBackground (
-  ctx,
-  width,
-  height,
-  dpi,
-  multiplier,
-  groundLevel
-) {
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  groundLevel: number // vertical height of ground
+): void {
   ctx.fillStyle = BOTTOM_BACKGROUND
   ctx.fillRect(
     0,
@@ -432,24 +462,16 @@ function drawSegmentNamesBackground (
 
 /**
  * Draws segment names and widths.
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} dpi - pixel density of canvas
- * @param {Number} multiplier - scale factor of image
- * @param {Number} groundLevel - vertical height of ground
- * @param {Number} offsetLeft - left position to start from
- * @param {Number} locale - locale to render labels in
- * @modifies {CanvasRenderingContext2D} ctx
  */
 function drawSegmentNamesAndWidths (
-  ctx,
-  street,
-  dpi,
-  multiplier,
-  groundLevel,
-  offsetLeft,
-  locale
-) {
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState,
+  dpi: number, // pixel density of canvas
+  multiplier: number, // scale factor of image
+  groundLevel: number, // vertical height of ground
+  offsetLeft: number, // left position to start from
+  locale: string // locale to render labels in
+): void {
   ctx.save()
 
   ctx.strokeStyle = 'black'
@@ -461,9 +483,8 @@ function drawSegmentNamesAndWidths (
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
 
-  for (const i in street.segments) {
-    const segment = street.segments[i]
-    const availableWidth = segment.width * TILE_SIZE * multiplier
+  street.segments.forEach((element, i) => {
+    const availableWidth = element.width * TILE_SIZE * multiplier
 
     let left = offsetLeft
 
@@ -484,12 +505,12 @@ function drawSegmentNamesAndWidths (
     const x = (offsetLeft + availableWidth / 2) * dpi
 
     // Width label
-    const text = prettifyWidth(segment.width, street.units, locale)
+    const text = prettifyWidth(element.width, street.units, locale)
     ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
 
     // Segment name label
     const name =
-      segment.label ?? getLocaleSegmentName(segment.type, segment.variantString)
+      element.label ?? getLocaleSegmentName(element.type, element.variantString)
     const nameWidth = ctx.measureText(name).width / dpi
 
     if (nameWidth <= availableWidth - 10 * multiplier) {
@@ -497,7 +518,7 @@ function drawSegmentNamesAndWidths (
     }
 
     offsetLeft += availableWidth
-  }
+  })
 
   // Final right-hand side line
   const left = offsetLeft + 1
@@ -515,29 +536,29 @@ function drawSegmentNamesAndWidths (
 
 /**
  * Turns drawn objects on canvas into a single-colour silhouette
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Number} width - width of area to draw
- * @param {Number} height - height of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawSilhouette (ctx, width, height, dpi) {
+function drawSilhouette (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  width: number, // width of area to draw
+  height: number, // height of area to draw
+  dpi: number // pixel density of canvas
+): void {
+  ctx.save()
   ctx.globalCompositeOperation = 'source-atop'
   ctx.fillStyle = SILHOUETTE_FILL_COLOUR
   ctx.fillRect(0, 0, width * dpi, height * dpi)
+  ctx.restore()
 }
 
 /**
  * Draws street nameplate
- *
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on
- * @param {Object} street - street data
- * @param {Number} width - width of area to draw
- * @param {Number} dpi - pixel density of canvas
- * @modifies {CanvasRenderingContext2D} ctx
  */
-function drawStreetNameplate (ctx, street, width, dpi) {
+function drawStreetNameplate (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  street: StreetState, // street data
+  width: number, // width of area to draw
+  dpi: number // pixel density of canvas
+): void {
   let text = street.name || formatMessage('street.default-name', 'Unnamed St')
 
   ctx.textAlign = 'center'
@@ -592,14 +613,12 @@ function drawStreetNameplate (ctx, street, width, dpi) {
 
 /**
  * Draws a "made with Streetmix" watermark on the lower right of the image.
- *
- * @todo Make it work with rtl
- * @param {CanvasRenderingContext2D} ctx - the canvas context to draw on.
- * @param {Number} dpi - pixel density of canvas
- * @param {Boolean} invert - if `true`, render light text for dark background
- * @modifies {CanvasRenderingContext2D}
  */
-function drawWatermark (ctx, dpi, invert = false) {
+function drawWatermark (
+  ctx: CanvasRenderingContext2D, // the canvas context to draw on
+  dpi: number, // pixel density of canvas
+  invert = false // if `true`, render light text for dark background
+): void {
   const text = formatMessage(
     'export.watermark',
     'Made with {streetmixWordmark}',
@@ -664,39 +683,38 @@ function drawWatermark (ctx, dpi, invert = false) {
   }
 }
 
+interface ThumbnailOptions {
+  width: number
+  height: number
+  dpi: number
+  multiplier: number
+  silhouette: boolean
+  transparentSky: boolean
+  segmentNamesAndWidths: boolean
+  streetName: boolean
+  watermark: boolean
+  locale: string
+}
+
 /**
  * Draws street image to 2D canvas element.
- *
- * @param {CanvasRenderingContext2D} ctx - 2D canvas context to draw on
- * @param {Object} street - Street data
- * @param {Object} params
- * @param {Number} params.width - Width of resulting image
- * @param {Number} params.height - Height of resulting image
- * @param {Number} params.dpi - Pixel density of canvas
- * @param {Number} params.multiplier - Scale factor of image
- * @param {Boolean} params.silhouette - If `true`, image is a silhouette
- * @param {Boolean} params.transparentSky - If `true`, sky is transparent
- * @param {Boolean} params.segmentNamesAndWidths - If `true`, include segment names and widths
- * @param {Boolean} params.streetName - If `true`, include street nameplate
- * @param {Boolean} params.watermark - If `true`, include Streetmix watermark
- * @modifies {CanvasRenderingContext2D} ctx
  */
 export function drawStreetThumbnail (
-  ctx,
-  street,
+  ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
+  street: StreetState, // Street data
   {
-    width,
-    height,
-    dpi,
-    multiplier,
+    width, // Width of resulting image
+    height, // Height of resulting image
+    dpi, // Pixel density of canvas
+    multiplier, // Scale factor of image
     silhouette,
-    transparentSky,
-    segmentNamesAndWidths,
-    streetName,
-    watermark = true,
+    transparentSky, // If `true`, image is a silhouette
+    segmentNamesAndWidths, // If `true`, include segment names and widths
+    streetName, // If `true`, include street nameplate
+    watermark = true, // If `true`, include Streetmix watermark
     locale = 'en'
-  }
-) {
+  }: ThumbnailOptions
+): void {
   // Calculations
 
   // Determine how wide the street is
@@ -732,7 +750,7 @@ export function drawStreetThumbnail (
   }
 
   // Ground
-  drawGround(ctx, street, width, horizonLine, groundLevel, dpi * multiplier)
+  drawGround(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
 
   // Buildings
   drawBoundaries(

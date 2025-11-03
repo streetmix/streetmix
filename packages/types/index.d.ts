@@ -17,12 +17,17 @@ export interface Segment {
   variantString: string
   width: number
   elevation: number
-  slope?: boolean
+  slope?: boolean | ElevationChange
   variant: Record<string, string>
   warnings: boolean[]
   label?: string
 }
 export type SliceItem = Segment // Alias for future use
+
+export interface ElevationChange {
+  left: number
+  right: number
+}
 
 // Usable for width and height measurements
 export interface MeasurementDefinition {

@@ -15,16 +15,19 @@ import {
   TILE_SIZE_ACTUAL,
   MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
-  BUILDING_RIGHT_POSITION
+  BUILDING_RIGHT_POSITION,
+  GROUND_BASELINE_HEIGHT
 } from './constants'
 import PEOPLE from './people.yaml'
 
 import type {
-  VariantInfo,
-  VariantInfoDimensions,
-  Segment,
   BoundaryPosition,
-  UnknownVariantInfo
+  ElevationChange,
+  Segment,
+  SpriteDefinition,
+  UnknownVariantInfo,
+  VariantInfo,
+  VariantInfoDimensions
 } from '@streetmix/types'
 
 // Adjust spacing between people to be slightly closer
@@ -215,7 +218,7 @@ export function getVariantInfoDimensions (
     }
   }
 
-  if (graphics.repeat && graphics.repeat[0]) {
+  if (graphics.ground) {
     newLeft = center - displayWidth / 2
     newRight = center + displayWidth / 2
 
@@ -245,6 +248,13 @@ export function getVariantInfoDimensions (
   }
 }
 
+// Convert single string or object values to single-item array
+function normalizeSpriteDefs (
+  def: string | SpriteDefinition[]
+): SpriteDefinition[] {
+  return Array.isArray(def) ? def : [{ id: def }]
+}
+
 /**
  * Given an elevation value (in meters), return the pixel height it should be
  * rendered at.
@@ -254,6 +264,61 @@ export function getVariantInfoDimensions (
  */
 export function getElevation (elevation: number): number {
   return elevation * TILE_SIZE
+}
+
+// Ground rendering helper functions
+function getCanvasElevation (elev: number, scale: number): number {
+  return (getElevation(elev) + GROUND_BASELINE_HEIGHT) * scale
+}
+
+function drawGroundPattern (
+  ctx: CanvasRenderingContext2D,
+  dw: number,
+  dx: number,
+  groundLevel: number,
+  slope: ElevationChange,
+  spriteId: string,
+  scale: number
+): void {
+  const spriteDef = getSpriteDef(spriteId)
+  const spriteImage = images.get(spriteDef.id)
+  const pattern = ctx.createPattern(spriteImage.img, 'repeat')
+  if (!pattern) return
+
+  // TODO: scale the pattern according to image scale
+  // This will only be important if we have patterns that aren't solid colors
+  // pattern.setTransform(new DOMMatrix().scale(1))
+
+  // Adjust values for canvas scale
+  dw *= scale
+  dx *= scale
+
+  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * scale
+
+  // Save context state before drawing ground pattern
+  ctx.save()
+
+  // Draw a shape representing the ground
+  ctx.beginPath()
+  // Bottom left
+  ctx.moveTo(dx, ground)
+  // Top left
+  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, scale))
+  // Top right
+  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, scale))
+  // Bottom right
+  ctx.lineTo(dx + dw, ground)
+  ctx.closePath()
+
+  // Clip our fill to this shape
+  ctx.clip()
+
+  // Then fill the clipped shape
+  ctx.fillStyle = pattern
+  ctx.fillRect(dx, 0, dx + dw, ground)
+
+  // Restore context state
+  ctx.restore()
 }
 
 /**
@@ -275,7 +340,8 @@ export function drawSegmentContents (
   actualWidth: number,
   offsetLeft: number,
   groundBaseline: number,
-  elevation: number = 0,
+  elevation: number,
+  slope: ElevationChange,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -299,19 +365,45 @@ export function drawSegmentContents (
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
+  if (graphics.ground) {
+    const sprites = normalizeSpriteDefs(graphics.ground)
+
+    // This technically supports multiple ground textures because it's the same
+    // data structure as the other sprite definitions, but in practice you
+    // would only render/see one texture.
+    for (let l = 0; l < sprites.length; l++) {
+      const sprite = getSpriteDef(sprites[l])
+      const svg = images.get(sprite.id)
+
+      // Skip drawing if sprite is missing
+      if (!svg) continue
+
+      // For ground assets, use a shape and fill, skip the rest
+      // Adjust left position because some slices have a left overhang
+      const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
+
+      drawGroundPattern(
+        ctx,
+        segmentWidth,
+        offsetLeft,
+        groundBaseline,
+        // Temporary: if slope is undefined or false, replace this with a
+        // slope definition that uses elevation (so it's a flat slope)
+        slope ?? {
+          left: elevation,
+          right: elevation
+        },
+        sprite.id,
+        dpi
+      )
+    }
+  }
+
   if (graphics.repeat) {
-    // Convert single string or object values to single-item array
-    let sprites = Array.isArray(graphics.repeat)
-      ? graphics.repeat
-      : [graphics.repeat]
-    // Convert array of strings into array of objects
-    // If already an object, pass through
-    sprites = sprites.map((def) =>
-      typeof def === 'string' ? { id: def } : def
-    )
+    const sprites = normalizeSpriteDefs(graphics.repeat)
 
     for (let l = 0; l < sprites.length; l++) {
-      const sprite = getSpriteDef(sprites[l].id)
+      const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
 
       // Skip drawing if sprite is missing
@@ -323,12 +415,8 @@ export function drawSegmentContents (
       let drawWidth
       // If quirks.minWidth is defined, and the segment width is less than that
       // value, then the draw width is the minimum renderable width, not the
-      // segment width. Skip this for ground assets.
-      if (
-        minWidthQuirk &&
-        actualWidth < minWidthQuirk &&
-        !sprite.id.includes('ground')
-      ) {
+      // segment width.
+      if (minWidthQuirk && actualWidth < minWidthQuirk) {
         drawWidth = minWidthQuirk * TILE_SIZE - padding * 2 * TILE_SIZE
       } else {
         drawWidth = segmentWidth - padding * 2 * TILE_SIZE
@@ -340,13 +428,8 @@ export function drawSegmentContents (
       if (left < 0) {
         // If quirks.minWidth is defined, and the segment width is less than
         // that value, then render the left edge at minimum width boundary,
-        // don't reposition it along the segment's left edge. Skip this process
-        // if it's a ground asset.
-        if (
-          minWidthQuirk &&
-          actualWidth < minWidthQuirk &&
-          !sprite.id.includes('ground')
-        ) {
+        // don't reposition it along the segment's left edge.
+        if (minWidthQuirk && actualWidth < minWidthQuirk) {
           repeatStartX = 0
         } else {
           // This is for rendering beyond the left edge of the segment
@@ -371,6 +454,9 @@ export function drawSegmentContents (
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
 
       // countY should always be at minimum 1.
+      // TODO: apply this to assets that need to be repeated in Y
+      // direction that are not ground (which are rendered using
+      // different logic now) -- e.g. markings
       const countY = sprite.id.startsWith('ground--')
         ? Math.ceil((ctx.canvas.height / dpi - groundLevel) / height)
         : 1
@@ -410,9 +496,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.left) {
-    const sprites = Array.isArray(graphics.left)
-      ? graphics.left
-      : [graphics.left]
+    const sprites = normalizeSpriteDefs(graphics.left)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -461,9 +546,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.right) {
-    const sprites = Array.isArray(graphics.right)
-      ? graphics.right
-      : [graphics.right]
+    const sprites = normalizeSpriteDefs(graphics.right)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)
@@ -517,9 +601,8 @@ export function drawSegmentContents (
   }
 
   if (graphics.center) {
-    const sprites = Array.isArray(graphics.center)
-      ? graphics.center
-      : [graphics.center]
+    const sprites = normalizeSpriteDefs(graphics.center)
+
     for (let l = 0; l < sprites.length; l++) {
       const sprite = getSpriteDef(sprites[l])
       const svg = images.get(sprite.id)

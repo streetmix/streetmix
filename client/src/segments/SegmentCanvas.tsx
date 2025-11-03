@@ -7,6 +7,8 @@ import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
+import type { ElevationChange } from '@streetmix/types'
+
 const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 interface SegmentCanvasProps {
@@ -14,7 +16,8 @@ interface SegmentCanvasProps {
   type: string
   variantString: string
   randSeed: string
-  elevation?: number
+  elevation: number
+  slope: ElevationChange
 }
 
 function SegmentCanvas ({
@@ -22,7 +25,8 @@ function SegmentCanvas ({
   type,
   variantString,
   randSeed,
-  elevation
+  elevation,
+  slope
 }: SegmentCanvasProps): React.ReactElement {
   const [firstRender, setFirstRender] = useState(true)
   const canvasEl = useRef<HTMLCanvasElement>(null)
@@ -51,7 +55,7 @@ function SegmentCanvas ({
 
     // Only redraw on certain specific prop changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variantString, actualWidth, elevation, redrawCanvas])
+  }, [variantString, actualWidth, elevation, redrawCanvas, slope])
 
   function drawSegment (canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
@@ -66,6 +70,7 @@ function SegmentCanvas ({
       0,
       GROUND_BASELINE,
       elevation,
+      slope,
       randSeed,
       1,
       dpi
