@@ -25,12 +25,13 @@ export function calculateSlope (
   let rightElevation = street.segments[index + 1]?.elevation
 
   // If slice is first or last in the list, adjacent elevation is
-  // taken from boundary
+  // taken from boundary. We need a fallback for older street data
+  // that don't have boundary data
   if (index === 0) {
-    leftElevation = street.boundary.left.elevation
+    leftElevation = street.boundary?.left.elevation ?? 0.15
   }
   if (index === street.segments.length - 1) {
-    rightElevation = street.boundary.right.elevation
+    rightElevation = street.boundary?.right.elevation ?? 0.15
   }
 
   // If slope is off, don't calculate the change in elevation, even if
