@@ -13,7 +13,7 @@ import {
   getLocaleSegmentName
 } from '../segments/view'
 import { formatMessage } from '../locales/locale'
-import { SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING } from './image'
+import { SAVE_AS_IMAGE_LABEL_PADDING } from './image'
 
 import type {
   CSSGradientDeclaration,
@@ -26,9 +26,9 @@ const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
-const SEGMENT_NAME_FONT = 'Rubik Variable'
-const SEGMENT_NAME_FONT_SIZE = 12
-const SEGMENT_NAME_FONT_WEIGHT = '400'
+const LABEL_FONT = 'Rubik Variable'
+const LABEL_FONT_SIZE = 12
+const LABEL_FONT_WEIGHT = '400'
 
 const STREET_NAME_FONT = 'Overpass Variable'
 const STREET_NAME_FONT_SIZE = 70
@@ -386,9 +386,9 @@ function drawBoundaries (
 }
 
 /**
- * Draws segments.
+ * Draws slices.
  */
-function drawSegments (
+function drawSlices (
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   dpi: number, // pixel density of canvas
@@ -398,11 +398,11 @@ function drawSegments (
 ): void {
   // Collect z-indexes
   const zIndexes = []
-  for (const segment of street.segments) {
-    const segmentInfo = getSegmentInfo(segment.type)
+  for (const slice of street.segments) {
+    const sliceInfo = getSegmentInfo(slice.type)
 
-    if (zIndexes.indexOf(segmentInfo.zIndex) === -1) {
-      zIndexes.push(segmentInfo.zIndex)
+    if (zIndexes.indexOf(sliceInfo.zIndex) === -1) {
+      zIndexes.push(sliceInfo.zIndex)
     }
   }
 
@@ -411,36 +411,36 @@ function drawSegments (
     let currentOffsetLeft = offsetLeft
 
     for (let i = 0; i < street.segments.length; i++) {
-      const segment = street.segments[i]
-      const segmentInfo = getSegmentInfo(segment.type)
+      const slice = street.segments[i]
+      const sliceInfo = getSegmentInfo(slice.type)
 
-      if (segmentInfo.zIndex === zIndex) {
+      if (sliceInfo.zIndex === zIndex) {
         const variantInfo = getSegmentVariantInfo(
-          segment.type,
-          segment.variantString
+          slice.type,
+          slice.variantString
         )
-        const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
-        const randSeed = segment.id
+        const dimensions = getVariantInfoDimensions(variantInfo, slice.width)
+        const randSeed = slice.id
 
         // Slope
         const slopeData = calculateSlope(street, i)
         const elevationChange = {
-          left: segment.elevation,
-          right: segment.elevation
+          left: slice.elevation,
+          right: slice.elevation
         }
-        if (segment.slope && slopeData !== null) {
+        if (slice.slope && slopeData !== null) {
           elevationChange.left = slopeData.leftElevation
           elevationChange.right = slopeData.rightElevation
         }
 
         drawSegmentContents(
           ctx,
-          segment.type,
-          segment.variantString,
-          segment.width,
+          slice.type,
+          slice.variantString,
+          slice.width,
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
-          segment.elevation,
+          slice.elevation,
           elevationChange,
           randSeed,
           multiplier,
@@ -448,7 +448,7 @@ function drawSegments (
         )
       }
 
-      currentOffsetLeft += segment.width * TILE_SIZE * multiplier
+      currentOffsetLeft += slice.width * TILE_SIZE * multiplier
     }
   }
 }
@@ -456,7 +456,7 @@ function drawSegments (
 /**
  * Draws the segment names background.
  */
-function drawSegmentNamesBackground (
+function drawLabelBackground (
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -476,7 +476,7 @@ function drawSegmentNamesBackground (
 /**
  * Draws segment names and widths.
  */
-function drawSegmentNamesAndWidths (
+function drawLabels (
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState,
   dpi: number, // pixel density of canvas
@@ -489,9 +489,9 @@ function drawSegmentNamesAndWidths (
 
   ctx.strokeStyle = 'black'
   ctx.lineWidth = 0.25 * dpi
-  ctx.font = `normal ${SEGMENT_NAME_FONT_WEIGHT} ${
-    SEGMENT_NAME_FONT_SIZE * dpi
-  }px ${SEGMENT_NAME_FONT},sans-serif`
+  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${
+    LABEL_FONT_SIZE * dpi
+  }px ${LABEL_FONT},sans-serif`
   ctx.fillStyle = 'black'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
@@ -703,7 +703,7 @@ interface ThumbnailOptions {
   multiplier: number
   silhouette: boolean
   transparentSky: boolean
-  segmentNamesAndWidths: boolean
+  labels: boolean
   streetName: boolean
   watermark: boolean
   locale: string
@@ -722,7 +722,7 @@ export function drawStreetThumbnail (
     multiplier, // Scale factor of image
     silhouette,
     transparentSky, // If `true`, image is a silhouette
-    segmentNamesAndWidths, // If `true`, include segment names and widths
+    labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en'
@@ -738,8 +738,8 @@ export function drawStreetThumbnail (
 
   // Align things to bottom edge of image
   let offsetTop = height - 180 * multiplier
-  if (segmentNamesAndWidths) {
-    offsetTop -= SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING * multiplier
+  if (labels) {
+    offsetTop -= SAVE_AS_IMAGE_LABEL_PADDING * multiplier
   }
 
   const offsetLeft = (width - occupiedWidth * TILE_SIZE * multiplier) / 2
@@ -776,25 +776,17 @@ export function drawStreetThumbnail (
     buildingOffsetLeft
   )
 
-  // Segments
-  drawSegments(ctx, street, dpi, multiplier, groundLevel, offsetLeft)
+  // Slices
+  drawSlices(ctx, street, dpi, multiplier, groundLevel, offsetLeft)
 
-  // Segment names background
-  if (segmentNamesAndWidths || silhouette) {
-    drawSegmentNamesBackground(ctx, width, height, dpi, multiplier, groundLevel)
+  // Labels (background)
+  if (labels || silhouette) {
+    drawLabelBackground(ctx, width, height, dpi, multiplier, groundLevel)
   }
 
-  // Segment names
-  if (segmentNamesAndWidths) {
-    drawSegmentNamesAndWidths(
-      ctx,
-      street,
-      dpi,
-      multiplier,
-      groundLevel,
-      offsetLeft,
-      locale
-    )
+  // Labels (slice names and widths)
+  if (labels) {
+    drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
   }
 
   // Silhouette
@@ -809,6 +801,6 @@ export function drawStreetThumbnail (
 
   // Watermark
   if (watermark) {
-    drawWatermark(ctx, dpi, !segmentNamesAndWidths)
+    drawWatermark(ctx, dpi, !labels)
   }
 }
