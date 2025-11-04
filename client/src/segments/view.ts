@@ -278,7 +278,8 @@ function drawGroundPattern (
   groundLevel: number,
   slope: ElevationChange,
   spriteId: string,
-  scale: number
+  multiplier: number = 1,
+  dpi: number
 ): void {
   const spriteDef = getSpriteDef(spriteId)
   const spriteImage = images.get(spriteDef.id)
@@ -290,10 +291,12 @@ function drawGroundPattern (
   // pattern.setTransform(new DOMMatrix().scale(1))
 
   // Adjust values for canvas scale
-  dw *= scale
-  dx *= scale
+  dw *= multiplier * dpi
 
-  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * scale
+  // Set render dimensions based on pixel density
+  dx *= dpi
+
+  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * dpi
 
   // Save context state before drawing ground pattern
   ctx.save()
@@ -303,9 +306,9 @@ function drawGroundPattern (
   // Bottom left
   ctx.moveTo(dx, ground)
   // Top left
-  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, scale))
+  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, dpi))
   // Top right
-  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, scale))
+  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, dpi))
   // Bottom right
   ctx.lineTo(dx + dw, ground)
   ctx.closePath()
@@ -380,7 +383,7 @@ export function drawSegmentContents (
 
       // For ground assets, use a shape and fill, skip the rest
       // Adjust left position because some slices have a left overhang
-      const x = left < 0 ? -left * TILE_SIZE : 0
+      const x = left < 0 ? -left * TILE_SIZE * multiplier : 0
 
       drawGroundPattern(
         ctx,
@@ -389,6 +392,7 @@ export function drawSegmentContents (
         groundBaseline,
         slope,
         sprite.id,
+        multiplier,
         dpi
       )
     }
