@@ -149,7 +149,7 @@ export function drawBoundary (
 
   // Adjust offset if the building should be aligned at baseline instead of ground plane
   if (item.alignAtBaseline === true) {
-    offsetTop += GROUND_BASELINE_HEIGHT
+    offsetTop += GROUND_BASELINE_HEIGHT * multiplier
   }
 
   // Adjust offset of sprite by a distance, if provided, in meters
