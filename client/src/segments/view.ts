@@ -275,6 +275,7 @@ function drawGroundPattern (
   ctx: CanvasRenderingContext2D,
   dw: number,
   dx: number,
+  groundBaseline: number,
   groundLevel: number,
   slope: ElevationChange,
   spriteId: string,
@@ -296,7 +297,7 @@ function drawGroundPattern (
   // Set render dimensions based on pixel density
   dx *= dpi
 
-  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * dpi
+  const ground = (groundBaseline + GROUND_BASELINE_HEIGHT) * dpi
 
   // Save context state before drawing ground pattern
   ctx.save()
@@ -390,6 +391,7 @@ export function drawSegmentContents (
         segmentWidth,
         offsetLeft + x,
         groundBaseline,
+        groundLevel,
         slope,
         sprite.id,
         multiplier,
