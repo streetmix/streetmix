@@ -80,7 +80,7 @@
   --color-gray-400: #999; /* ported from actual usage */
 
   /* Misc colors */
-  --background-dirt-color: rgb(53 45 39);
+  --background-earth-color: rgb(53 45 39);
   --sky-color: rgb(169 204 219); /* deprecated for everything except palette */
   --off-white: rgb(247 247 247);
   --bottom-background: rgb(216 211 203);

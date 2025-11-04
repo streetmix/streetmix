@@ -3,7 +3,7 @@ import { TILE_SIZE } from './constants.js'
 import type * as Canvas from '@napi-rs/canvas'
 import type { StreetJson } from '@streetmix/types'
 
-const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
+const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 
 /**
  * Draws ground.
@@ -22,7 +22,7 @@ export function drawGround (
   ctx.save()
 
   // Draw ground
-  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
+  ctx.fillStyle = BACKGROUND_EARTH_COLOUR
 
   // Ground below entire street
   ctx.fillRect(0, horizonLine * scale, width * scale, 25 * scale)

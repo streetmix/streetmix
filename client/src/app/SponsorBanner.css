@@ -2,9 +2,9 @@
   position: relative;
   z-index: var(--z-08-notification-bar);
   padding: 0.5em 1em 0.75em;
-  background-color: var(--background-dirt-color);
+  background-color: var(--background-earth-color);
   border-top: 5px solid
-    color-mix(in oklch, black 10%, var(--background-dirt-color));
+    color-mix(in oklch, black 10%, var(--background-earth-color));
   color: white;
 }
 

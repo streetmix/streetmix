@@ -23,7 +23,7 @@ import type {
 } from '@streetmix/types'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
-const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
+const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const SEGMENT_NAME_FONT = 'Rubik Variable'
@@ -282,7 +282,7 @@ function drawGround (
   horizonLine: number, // vertical height of horizon
   groundLevel: number // vertical height of ground
 ) {
-  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
+  ctx.fillStyle = BACKGROUND_EARTH_COLOUR
   ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
 
   // Get elevation at boundaries if they are set to something
