@@ -280,7 +280,7 @@ export type CapacityForDisplay = Required<
 export interface StreetImageOptions {
   locale: string
   transparentSky: boolean
-  elementLabels: boolean // formerly 'segmentLabels'
+  labels: boolean // formerly 'segmentLabels'
   streetName: boolean
   watermark: boolean
   scale: number // formerly `dpi`

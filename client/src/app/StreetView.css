@@ -35,7 +35,7 @@
   height: var(--canvas-height);
   text-align: left;
   touch-action: pan-x;
-  border-bottom: 5px solid var(--background-dirt-color);
+  border-bottom: 5px solid var(--background-earth-color);
 }
 
 #street-section-canvas {

@@ -275,10 +275,11 @@ function drawGroundPattern (
   ctx: CanvasRenderingContext2D,
   dw: number,
   dx: number,
-  groundLevel: number,
+  groundBaseline: number,
   slope: ElevationChange,
   spriteId: string,
-  scale: number
+  multiplier: number = 1,
+  dpi: number
 ): void {
   const spriteDef = getSpriteDef(spriteId)
   const spriteImage = images.get(spriteDef.id)
@@ -290,10 +291,12 @@ function drawGroundPattern (
   // pattern.setTransform(new DOMMatrix().scale(1))
 
   // Adjust values for canvas scale
-  dw *= scale
-  dx *= scale
+  dw *= multiplier * dpi
 
-  const ground = (groundLevel + GROUND_BASELINE_HEIGHT) * scale
+  // Set render dimensions based on pixel density
+  dx *= dpi
+
+  const ground = groundBaseline + GROUND_BASELINE_HEIGHT * multiplier
 
   // Save context state before drawing ground pattern
   ctx.save()
@@ -301,13 +304,16 @@ function drawGroundPattern (
   // Draw a shape representing the ground
   ctx.beginPath()
   // Bottom left
-  ctx.moveTo(dx, ground)
+  ctx.moveTo(dx, ground * dpi)
   // Top left
-  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, scale))
+  ctx.lineTo(dx, (ground - getCanvasElevation(slope.left, multiplier)) * dpi)
   // Top right
-  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, scale))
+  ctx.lineTo(
+    dx + dw,
+    (ground - getCanvasElevation(slope.right, multiplier)) * dpi
+  )
   // Bottom right
-  ctx.lineTo(dx + dw, ground)
+  ctx.lineTo(dx + dw, ground * dpi)
   ctx.closePath()
 
   // Clip our fill to this shape
@@ -315,7 +321,7 @@ function drawGroundPattern (
 
   // Then fill the clipped shape
   ctx.fillStyle = pattern
-  ctx.fillRect(dx, 0, dx + dw, ground)
+  ctx.fillRect(dx, 0, dx + dw, ground * dpi)
 
   // Restore context state
   ctx.restore()
@@ -380,20 +386,16 @@ export function drawSegmentContents (
 
       // For ground assets, use a shape and fill, skip the rest
       // Adjust left position because some slices have a left overhang
-      const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
+      const x = left < 0 ? -left * TILE_SIZE * multiplier : 0
 
       drawGroundPattern(
         ctx,
         segmentWidth,
-        offsetLeft,
+        offsetLeft + x,
         groundBaseline,
-        // Temporary: if slope is undefined or false, replace this with a
-        // slope definition that uses elevation (so it's a flat slope)
-        slope ?? {
-          left: elevation,
-          right: elevation
-        },
+        slope,
         sprite.id,
+        multiplier,
         dpi
       )
     }

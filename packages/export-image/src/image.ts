@@ -5,8 +5,8 @@ import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
 import { TILE_SIZE } from './constants.js'
-import { drawGround } from './ground.js'
-import { drawElementLabelBackground, drawElementLabels } from './labels.js'
+import { drawEarth } from './earth.js'
+import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSky } from './sky.js'
 import { drawWatermark } from './watermark.js'
@@ -93,7 +93,7 @@ export async function makeStreetImage (
   //   silhouette: false,
   //   bottomAligned: true,
   //   transparentSky,
-  //   elementLabels,
+  //   labels,
   //   streetName,
   //   watermark
   // })
@@ -102,8 +102,8 @@ export async function makeStreetImage (
 
   // Determine how wide the street is
   let occupiedWidth = 0
-  for (const element of street.data.street.segments) {
-    occupiedWidth += element.width
+  for (const slice of street.data.street.segments) {
+    occupiedWidth += slice.width
   }
 
   // TODO: adjust scale for these numbers early?
@@ -111,7 +111,7 @@ export async function makeStreetImage (
 
   // Align things to bottom edge of image
   let offsetTop = baseHeight - 180
-  if (options.elementLabels) {
+  if (options.labels) {
     offsetTop -= IMAGE_NAMES_WIDTHS_PADDING
   }
 
@@ -135,8 +135,8 @@ export async function makeStreetImage (
       )
     }
 
-    // Ground
-    drawGround(
+    // Earth
+    drawEarth(
       ctx,
       street.data.street,
       baseWidth,
@@ -145,16 +145,16 @@ export async function makeStreetImage (
       options.scale
     )
 
-    // Section element labels
-    if (options.elementLabels) {
-      drawElementLabelBackground(
+    // Labels
+    if (options.labels) {
+      drawLabelBackground(
         ctx,
         baseWidth,
         baseHeight,
         groundLevel,
         options.scale
       )
-      drawElementLabels(ctx, street, groundLevel, offsetLeft, options.scale)
+      drawLabels(ctx, street, groundLevel, offsetLeft, options.scale)
     }
 
     // Street nameplate
@@ -165,12 +165,7 @@ export async function makeStreetImage (
     // Watermark
     if (options.watermark) {
       // Watermark is inverted (white) if segment labels are shown
-      await drawWatermark(
-        ctx,
-        options.locale,
-        !options.elementLabels,
-        options.scale
-      )
+      await drawWatermark(ctx, options.locale, !options.labels, options.scale)
     }
   } catch (err) {
     console.error(err)
@@ -217,7 +212,7 @@ function calculateImageHeight (
   options: StreetImageOptions
 ): number {
   // const streetData = street.data.street
-  const { streetName, elementLabels } = options
+  const { streetName, labels } = options
 
   // TODO: we can't do a real calc yet because we don't have access to assets
   // Replace with getBoundaryImageHeight
@@ -244,7 +239,7 @@ function calculateImageHeight (
 
   height += IMAGE_BOTTOM_PADDING
 
-  if (elementLabels) {
+  if (labels) {
     height += IMAGE_NAMES_WIDTHS_PADDING
   }
 

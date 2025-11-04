@@ -292,7 +292,7 @@ function Boundary ({
               onMouseLeave={handleElementMouseLeave}
             />
             <div className="active-bg" />
-            <div className="boundary-dirt" style={elevationStyle} />
+            <div className="boundary-earth" style={elevationStyle} />
           </button>
         </PopupContainer>
       </div>

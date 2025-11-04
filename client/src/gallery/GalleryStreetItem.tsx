@@ -58,7 +58,7 @@ function GalleryStreetItem (
         multiplier: THUMBNAIL_MULTIPLIER,
         silhouette: false,
         transparentSky: false,
-        segmentNamesAndWidths: false,
+        labels: false,
         streetName: false,
         watermark: false
       })

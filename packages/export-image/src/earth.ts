@@ -3,14 +3,14 @@ import { TILE_SIZE } from './constants.js'
 import type * as Canvas from '@napi-rs/canvas'
 import type { StreetJson } from '@streetmix/types'
 
-const BACKGROUND_DIRT_COLOUR = 'rgb(53, 45, 39)'
+const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 
 /**
- * Draws ground.
+ * Draws earth (soil and dirt below ground).
  *
  * @modifies {CanvasRenderingContext2D} ctx
  */
-export function drawGround (
+export function drawEarth (
   ctx: Canvas.SKRSContext2D,
   street: StreetJson,
   width: number,
@@ -21,10 +21,10 @@ export function drawGround (
   // Save previous canvas context
   ctx.save()
 
-  // Draw ground
-  ctx.fillStyle = BACKGROUND_DIRT_COLOUR
+  // Set style
+  ctx.fillStyle = BACKGROUND_EARTH_COLOUR
 
-  // Ground below entire street
+  // Earth below entire street
   ctx.fillRect(0, horizonLine * scale, width * scale, 25 * scale)
 
   // Get elevation at boundaries if they are set to something
@@ -42,7 +42,7 @@ export function drawGround (
     rightElevation = street.boundary.right.elevation * TILE_SIZE
   }
 
-  // Ground below left boundary
+  // Earth below left boundary
   ctx.fillRect(
     0,
     (groundLevel - leftElevation) * scale,
@@ -50,7 +50,7 @@ export function drawGround (
     horizonLine * scale
   )
 
-  // Ground below right boundary
+  // Earth below right boundary
   ctx.fillRect(
     (width / 2 + (street.width * TILE_SIZE) / 2) * scale,
     (groundLevel - rightElevation) * scale,

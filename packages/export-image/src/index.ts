@@ -14,8 +14,7 @@ export async function runTestCanvas (
   // Coerce string values to booleans
   // For values that default to `true`, set it if property is undefined.
   const transparentSky = opts.transparentSky === 'true'
-  const elementLabels =
-    opts.elementLabels === undefined ? true : opts.elementLabels === 'true'
+  const labels = opts.labels === undefined ? true : opts.labels === 'true'
   const streetName =
     opts.streetName === undefined ? true : opts.streetName === 'true'
   const watermark =
@@ -34,7 +33,7 @@ export async function runTestCanvas (
   const options: StreetImageOptions = {
     locale,
     transparentSky,
-    elementLabels,
+    labels,
     streetName,
     watermark,
     scale
