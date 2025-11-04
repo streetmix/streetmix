@@ -380,12 +380,12 @@ export function drawSegmentContents (
 
       // For ground assets, use a shape and fill, skip the rest
       // Adjust left position because some slices have a left overhang
-      const offsetLeft = left < 0 ? -left * TILE_SIZE : 0
+      const x = left < 0 ? -left * TILE_SIZE : 0
 
       drawGroundPattern(
         ctx,
         segmentWidth,
-        offsetLeft,
+        offsetLeft + x,
         groundBaseline,
         slope,
         sprite.id,
