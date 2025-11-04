@@ -276,7 +276,6 @@ function drawGroundPattern (
   dw: number,
   dx: number,
   groundBaseline: number,
-  groundLevel: number,
   slope: ElevationChange,
   spriteId: string,
   multiplier: number = 1,
@@ -297,7 +296,7 @@ function drawGroundPattern (
   // Set render dimensions based on pixel density
   dx *= dpi
 
-  const ground = (groundBaseline + GROUND_BASELINE_HEIGHT) * dpi
+  const ground = groundBaseline + GROUND_BASELINE_HEIGHT * multiplier
 
   // Save context state before drawing ground pattern
   ctx.save()
@@ -305,13 +304,16 @@ function drawGroundPattern (
   // Draw a shape representing the ground
   ctx.beginPath()
   // Bottom left
-  ctx.moveTo(dx, ground)
+  ctx.moveTo(dx, ground * dpi)
   // Top left
-  ctx.lineTo(dx, ground - getCanvasElevation(slope.left, dpi))
+  ctx.lineTo(dx, (ground - getCanvasElevation(slope.left, multiplier)) * dpi)
   // Top right
-  ctx.lineTo(dx + dw, ground - getCanvasElevation(slope.right, dpi))
+  ctx.lineTo(
+    dx + dw,
+    (ground - getCanvasElevation(slope.right, multiplier)) * dpi
+  )
   // Bottom right
-  ctx.lineTo(dx + dw, ground)
+  ctx.lineTo(dx + dw, ground * dpi)
   ctx.closePath()
 
   // Clip our fill to this shape
@@ -319,7 +321,7 @@ function drawGroundPattern (
 
   // Then fill the clipped shape
   ctx.fillStyle = pattern
-  ctx.fillRect(dx, 0, dx + dw, ground)
+  ctx.fillRect(dx, 0, dx + dw, ground * dpi)
 
   // Restore context state
   ctx.restore()
@@ -391,7 +393,6 @@ export function drawSegmentContents (
         segmentWidth,
         offsetLeft + x,
         groundBaseline,
-        groundLevel,
         slope,
         sprite.id,
         multiplier,
