@@ -271,9 +271,9 @@ function drawClouds (
 }
 
 /**
- * Draws ground.
+ * Draws earth (soil and dirt below ground).
  */
-function drawGround (
+function drawEarth (
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   width: number, // width of area to draw
@@ -762,8 +762,8 @@ export function drawStreetThumbnail (
     )
   }
 
-  // Ground
-  drawGround(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
+  // Earth
+  drawEarth(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
 
   // Buildings
   drawBoundaries(
