@@ -4,8 +4,9 @@ import { images } from '../app/load_resources'
 import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import { getBoundaryItem, drawBoundary } from '../boundary'
-import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants'
+import { getSegmentInfo, getSegmentVariantInfo } from '../segments/info'
+import { calculateSlope } from '../segments/slope'
 import {
   getVariantInfoDimensions,
   drawSegmentContents,
@@ -409,7 +410,8 @@ function drawSegments (
   for (const zIndex of zIndexes) {
     let currentOffsetLeft = offsetLeft
 
-    for (const segment of street.segments) {
+    for (let i = 0; i < street.segments.length; i++) {
+      const segment = street.segments[i]
       const segmentInfo = getSegmentInfo(segment.type)
 
       if (segmentInfo.zIndex === zIndex) {
@@ -420,6 +422,17 @@ function drawSegments (
         const dimensions = getVariantInfoDimensions(variantInfo, segment.width)
         const randSeed = segment.id
 
+        // Slope
+        const slopeData = calculateSlope(street, i)
+        const elevationChange = {
+          left: segment.elevation,
+          right: segment.elevation
+        }
+        if (segment.slope && slopeData !== null) {
+          elevationChange.left = slopeData.leftElevation
+          elevationChange.right = slopeData.rightElevation
+        }
+
         drawSegmentContents(
           ctx,
           segment.type,
@@ -428,7 +441,7 @@ function drawSegments (
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
           segment.elevation,
-          segment.slope,
+          elevationChange,
           randSeed,
           multiplier,
           dpi

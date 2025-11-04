@@ -387,12 +387,7 @@ export function drawSegmentContents (
         segmentWidth,
         offsetLeft,
         groundBaseline,
-        // Temporary: if slope is undefined or false, replace this with a
-        // slope definition that uses elevation (so it's a flat slope)
-        slope ?? {
-          left: elevation,
-          right: elevation
-        },
+        slope,
         sprite.id,
         dpi
       )
