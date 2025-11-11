@@ -61,7 +61,7 @@ function SaveAsImageDialog (): React.ReactElement {
       updatePreview()
     }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transparentSky, segmentNames, streetName, watermark])
+  }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
 
   function makeFilename (): string {
     let filename = normalizeSlug(street.name)
@@ -176,6 +176,15 @@ function SaveAsImageDialog (): React.ReactElement {
   }
 
   const updatePreview = (): void => {
+    // If we're previewing using the new export image pipeline, set url
+    // to the API export directly, then skip the rest of the function
+    if (isNewExport) {
+      setDownloadDataUrl(
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
+      )
+      return
+    }
+
     updatePreviewImage(1)
     // Only set base dimensions when preview is generated at scale = 1.
     // The custom slider will update target dimensions by multiplying base * scale
