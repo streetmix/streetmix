@@ -27,24 +27,25 @@ function SaveAsImageDialog (): React.ReactElement {
   const [downloadDataUrl, setDownloadDataUrl] = useState<string | null>(null)
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
-  const transparentSky = useSelector(
-    (state) => state.settings.saveAsImageTransparentSky
-  )
-  const segmentNames = useSelector(
-    (state) => state.settings.saveAsImageSegmentNamesAndWidths
-  )
-  const streetName = useSelector(
-    (state) => state.settings.saveAsImageStreetName
-  )
+  const {
+    saveAsImageTransparentSky: transparentSky,
+    saveAsImageSegmentNamesAndWidths: segmentNames,
+    saveAsImageStreetName: streetName
+  } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
     (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
   )
   const street = useSelector((state) => state.street)
-  const name = useSelector((state) => state.street.name)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
+
+  // New export pipeline for testing
+  const newExport = useSelector(
+    (state) => state.flags.SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE.value
+  )
+  const [isNewExport, setNewExport] = useState(newExport)
 
   useEffect(() => {
     updatePreview()
@@ -63,7 +64,7 @@ function SaveAsImageDialog (): React.ReactElement {
   }, [transparentSky, segmentNames, streetName, watermark])
 
   function makeFilename (): string {
-    let filename = normalizeSlug(name)
+    let filename = normalizeSlug(street.name)
     if (filename === undefined) {
       filename = 'street'
     }
@@ -73,7 +74,7 @@ function SaveAsImageDialog (): React.ReactElement {
   }
 
   // When options change, this changes props.
-  const handleChangeOptionTransparentSky = (
+  const toggleTransparentSky = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     dispatch(
@@ -83,7 +84,7 @@ function SaveAsImageDialog (): React.ReactElement {
     )
   }
 
-  const handleChangeOptionSegmentNames = (
+  const toggleSegmentNames = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     dispatch(
@@ -93,16 +94,20 @@ function SaveAsImageDialog (): React.ReactElement {
     )
   }
 
-  const handleChangeOptionStreetName = (
+  const toggleStreetName = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
   }
 
-  const handleChangeOptionWatermark = (
+  const toggleWatermark = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
+  }
+
+  const toggleNewExport = (): void => {
+    setNewExport(!isNewExport)
   }
 
   const handleChangeScale = (value: number): void => {
@@ -211,20 +216,21 @@ function SaveAsImageDialog (): React.ReactElement {
           </header>
           <div className="dialog-content">
             <div className="save-as-image-options">
-              <Checkbox
-                onChange={handleChangeOptionSegmentNames}
-                checked={segmentNames}
-              >
+              {newExport && (
+                <p style={{ marginTop: 0, marginBottom: '0.25em' }}>
+                  <Checkbox onChange={toggleNewExport} checked={isNewExport}>
+                    New export pipeline (WIP)
+                  </Checkbox>
+                </p>
+              )}
+              <Checkbox onChange={toggleSegmentNames} checked={segmentNames}>
                 <FormattedMessage
                   id="dialogs.save.option-labels"
                   defaultMessage="Segment names and widths"
                 />
               </Checkbox>
 
-              <Checkbox
-                onChange={handleChangeOptionStreetName}
-                checked={streetName}
-              >
+              <Checkbox onChange={toggleStreetName} checked={streetName}>
                 <FormattedMessage
                   id="dialogs.save.option-name"
                   defaultMessage="Street name"
@@ -232,7 +238,7 @@ function SaveAsImageDialog (): React.ReactElement {
               </Checkbox>
 
               <Checkbox
-                onChange={handleChangeOptionTransparentSky}
+                onChange={toggleTransparentSky}
                 checked={transparentSky}
               >
                 <FormattedMessage
@@ -243,10 +249,7 @@ function SaveAsImageDialog (): React.ReactElement {
 
               {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
               {isSubscriber ? (
-                <Checkbox
-                  onChange={handleChangeOptionWatermark}
-                  checked={watermark}
-                >
+                <Checkbox onChange={toggleWatermark} checked={watermark}>
                   <FormattedMessage
                     id="dialogs.save.option-watermark"
                     defaultMessage="Watermark"
@@ -263,7 +266,7 @@ function SaveAsImageDialog (): React.ReactElement {
                   })}
                 >
                   <Checkbox
-                    onChange={handleChangeOptionWatermark}
+                    onChange={toggleWatermark}
                     checked={watermark}
                     disabled={!isSubscriber}
                   >
