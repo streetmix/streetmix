@@ -138,6 +138,18 @@ function SaveAsImageDialog (): React.ReactElement {
     event.preventDefault()
     setIsSaving(true)
 
+    if (isNewExport) {
+      const filename = makeFilename()
+      saveAs(
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
+        filename
+      )
+      window.setTimeout(() => {
+        setIsSaving(false)
+      }, 0)
+      return
+    }
+
     try {
       // Update the image with the actual size before saving.
       // Images that are too large can throw an error, so catch it
