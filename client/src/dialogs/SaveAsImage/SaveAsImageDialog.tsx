@@ -63,7 +63,7 @@ function SaveAsImageDialog (): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
 
-  // Same as above but ONLY update preview if it we're using the new export
+  // Same as above but ONLY update preview if we're using the new export
   // pipeline, and the scale changes
   useEffect(() => {
     if (isNewExport) {
