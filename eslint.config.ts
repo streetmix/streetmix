@@ -122,7 +122,6 @@ export default defineConfig([
       parser: tsParser,
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: true,
         projectService: {
           // Run eslint on configuration files that will _not_ be built by
           // the TypeScript compiler.
