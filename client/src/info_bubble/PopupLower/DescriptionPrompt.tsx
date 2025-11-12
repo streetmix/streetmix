@@ -1,7 +1,7 @@
 import React from 'react'
+import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import { useDispatch } from '~/src/store/hooks'
-import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import { formatMessage } from '~/src/locales/locale'
 import { showDescription } from '~/src/store/slices/infoBubble'
 import './DescriptionPrompt.css'
