@@ -102,7 +102,11 @@
     "defaultValue": false
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
-    "label": "Save images at custom scale",
+    "label": "Export images at custom scale",
+    "defaultValue": false
+  },
+  "SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE": {
+    "label": "Export images using new experimental pipeline",
     "defaultValue": false
   },
   "ALWAYS_DISPLAY_WHATS_NEW": {

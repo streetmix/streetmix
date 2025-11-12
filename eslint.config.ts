@@ -105,10 +105,9 @@ export default defineConfig([
     }
   },
   {
+    // Only run TypeScript linting on TypeScript files
     ...love,
-    // Only run TypeScript linting on TypeScript files, otherwise it'd
-    // report TypeScript errors on regular JavaScript files (bad!)
-    files: ['client/**/*.{ts,tsx}', 'packages/types/**/*.ts'],
+    files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
     extends: fixupConfigRules(
       compat.extends(
         'plugin:@typescript-eslint/recommended',
@@ -122,8 +121,13 @@ export default defineConfig([
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: path.resolve(__dirname, 'client'),
-        project: './tsconfig.json'
+        tsconfigRootDir: __dirname,
+        project: true,
+        projectService: {
+          // Run eslint on configuration files that will _not_ be built by
+          // the TypeScript compiler.
+          allowDefaultProject: ['packages/*/vitest.config.ts']
+        }
       }
     },
     settings: {
@@ -136,74 +140,6 @@ export default defineConfig([
       // Turns off an error added in typescript-eslint v8 (?) that is much too
       // strict re: unused variables that exist, like destructured
       // arrays, try/catch errors, event handlers etc
-      '@typescript-eslint/no-unused-vars': 'off'
-    }
-  },
-  {
-    ...love,
-    files: ['packages/export-image/**/*.ts'],
-    extends: fixupConfigRules(
-      compat.extends(
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript'
-      )
-    ),
-    plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(importPlugin)
-    },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        tsconfigRootDir: path.resolve(__dirname, 'packages/export-image'),
-        project: './tsconfig.json'
-      }
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true
-      }
-    },
-    rules: {
-      // Turns off an error added in typescript-eslint v8 (?) that is much too
-      // strict re: unused variables that exist, like destructured
-      // arrays, try/catch errors, event handlers etc
-      '@typescript-eslint/no-unused-vars': 'off'
-    }
-  },
-  {
-    ...love,
-    files: ['packages/i18n/src/*.ts'],
-    extends: fixupConfigRules(
-      compat.extends(
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript'
-      )
-    ),
-    plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(importPlugin)
-    },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        tsconfigRootDir: path.resolve(__dirname, 'packages/i18n'),
-        project: './tsconfig.json'
-      }
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true
-      }
-    },
-    rules: {
-      // Turns off an error added in typescript-eslint v8 (?) that is much too
-      // strict re: unused variables that exist, like destructured
-      // arrays, try/catch errors, event handlers etc
-      // NOTE: this also blocks an error in eslint-config-love v97+:
-      // `A configuration object specifies rule "eslint-comments/require-description", but could not find plugin "eslint-comments".`
       '@typescript-eslint/no-unused-vars': 'off'
     }
   },
