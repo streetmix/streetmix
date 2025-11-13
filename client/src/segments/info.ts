@@ -129,7 +129,7 @@ function getSegmentLookup (
  * the graphic sprites necessary to render the segment as well as any rules
  * to follow, e.g. `minWidth` based on the `type` and `variant`.
  */
-export function getSegmentVariantInfo (
+function getSegmentVariantInfo (
   type: string,
   variant: string
 ): VariantInfo | UnknownVariantInfo {

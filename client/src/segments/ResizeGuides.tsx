@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { useSelector } from '../store/hooks'
 import { getElRelativePos } from '../util/helpers'
 import { getWidthInMetric } from '../util/width_units'
 import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
-import { getSegmentVariantInfo } from './info'
 import { getSegmentEl } from './view'
 import type { Segment, UnitsSetting } from '@streetmix/types'
 import './ResizeGuides.css'
