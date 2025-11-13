@@ -1,16 +1,23 @@
 import React from 'react'
-import { vi } from 'vitest'
+import { vi, type Mock } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
+import { getSegmentInfo } from '@streetmix/parts'
 
 import { render } from '~/test/helpers/render'
-import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import { VariantSet } from './VariantSet'
 
 import type { SegmentDefinition } from '@streetmix/types'
 
 // Enable mocking of the return value of `getSegmentInfo`
-vi.mock('../../segments/info')
+vi.mock('@streetmix/parts', () => {
+  return {
+    getSegmentInfo: vi.fn(),
+    getSegmentVariantInfo: vi.fn().mockReturnValue({
+      elevation: 0
+    })
+  }
+})
 
 // Provide mock variant icons so that we can test icons with `enabledWithFlag`
 vi.mock(
@@ -47,10 +54,7 @@ describe('VariantSet', () => {
 
     beforeEach(() => {
       segment = { variants: ['direction', 'public-transit-asphalt'] }
-      getSegmentInfo.mockImplementation(() => segment)
-      getSegmentVariantInfo.mockImplementation(() => ({
-        elevation: 0
-      }))
+      ;(getSegmentInfo as Mock).mockImplementation(() => segment)
     })
 
     it('renders segment buttons', () => {
@@ -104,7 +108,7 @@ describe('VariantSet', () => {
 
     beforeEach(() => {
       segment = { variants: ['flagged-variant'] }
-      getSegmentInfo.mockImplementation(() => segment)
+      ;(getSegmentInfo as Mock).mockImplementation(() => segment)
     })
 
     it('renders a button if flag is true', () => {

@@ -92,7 +92,7 @@ function createSegmentDefinition ([key, obj]: [
  * Returns all segment data as an array.
  * Object keys are converted to an `id` property for each segment.
  */
-export function getAllSegmentInfo (): SegmentDefinition[] {
+function getAllSegmentInfo (): SegmentDefinition[] {
   return Object.entries(
     SEGMENT_LOOKUP_SOURCE as Record<string, SegmentLookup>
   ).map(createSegmentDefinition)
@@ -104,7 +104,7 @@ export function getAllSegmentInfo (): SegmentDefinition[] {
  * placeholder if the type is not found. The unknown segment placeholder
  * allows means bad data, experimental segments, etc. won't break rendering.
  */
-export function getSegmentInfo (
+function getSegmentInfo (
   type: string
 ): SegmentDefinition | UnknownSegmentDefinition {
   return SEGMENT_LOOKUP[type] ?? SEGMENT_UNKNOWN

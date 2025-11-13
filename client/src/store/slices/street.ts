@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import { getElevationValue } from '~/src/segments/elevation'
 import { getVariantString } from '~/src/segments/variant_utils'
 import { DEFAULT_SKYBOX } from '~/src/sky/constants'
 import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
-import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 
 import type { BoundaryPosition, Segment, StreetState } from '@streetmix/types'
