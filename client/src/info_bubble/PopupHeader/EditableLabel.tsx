@@ -7,13 +7,13 @@ import Icon from '~/src/ui/Icon'
 import { Tooltip } from '~/src/ui/Tooltip'
 import './EditableLabel.css'
 
-import type { Segment } from '@streetmix/types'
+import type { BoundaryPosition, Segment } from '@streetmix/types'
 
 interface EditableLabelProps {
   // Label can be string, or React element (if translated by ReactIntl)
   label: string | React.ReactElement
   segment?: Segment
-  position: number
+  position: number | BoundaryPosition
 }
 
 export function EditableLabel ({
@@ -25,7 +25,7 @@ export function EditableLabel ({
   const intl = useIntl()
 
   const handleClick = (): void => {
-    if (segment !== undefined) {
+    if (segment !== undefined && typeof position === 'number') {
       editSegmentLabel(segment, position)
     }
   }
