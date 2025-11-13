@@ -1,3 +1,8 @@
+import {
+  getSegmentInfo,
+  getSegmentVariantInfo,
+  getSpriteDef
+} from '@streetmix/parts'
 import { percentToNumber } from '@streetmix/utils'
 
 import { images } from '../app/load_resources'
@@ -7,7 +12,6 @@ import { applyWarningsToSlices } from '../streets/warnings'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
 import { updateSegments, changeSegmentProperties } from '../store/slices/street'
-import { getSegmentInfo, getSegmentVariantInfo, getSpriteDef } from './info'
 import { drawScatteredSprites } from './scatter'
 import {
   TILE_SIZE,
