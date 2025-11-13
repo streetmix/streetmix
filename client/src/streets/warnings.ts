@@ -1,3 +1,5 @@
+import { getSegmentVariantInfo } from '@streetmix/parts'
+
 import {
   SLICE_WARNING_OUTSIDE,
   SLICE_WARNING_WIDTH_TOO_SMALL,
@@ -6,7 +8,6 @@ import {
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
   SLICE_WARNING_SLOPE_EXCEEDED_PATH
 } from '../segments/constants'
-import { getSegmentVariantInfo } from '../segments/info'
 import { calculateSlope } from '../segments/slope'
 import { getWidthInMetric } from '../util/width_units'
 

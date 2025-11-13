@@ -1,10 +1,10 @@
 import React from 'react'
 import { vi, type Mock } from 'vitest'
+import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { render } from '~/test/helpers/render'
 import ResizeGuides from './ResizeGuides'
 import { TILE_SIZE } from './constants'
-import { getSegmentVariantInfo } from './info'
 
 vi.mock('./view', () => ({
   // Function returns a mock element with properties we need to read
@@ -19,7 +19,7 @@ vi.mock('../util/helpers', () => ({
   getElRelativePos: () => [50, 0]
 }))
 
-vi.mock('./info', () => ({
+vi.mock('@streetmix/parts', () => ({
   // Function returns mock segment variant info of nothing
   // Specific tests can use `mockImplementation` to make it return other info
   getSegmentVariantInfo: vi.fn(() => ({}))

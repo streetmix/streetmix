@@ -1,8 +1,8 @@
 import React, { memo, useState, useRef, useEffect } from 'react'
 import { Decimal } from 'decimal.js'
+import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { useSelector } from '../store/hooks'
-import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
