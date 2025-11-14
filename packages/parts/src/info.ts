@@ -145,11 +145,11 @@ export function getSegmentVariantInfo (
   const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
   variantInfo.graphics = getSegmentSprites(components)
 
-  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
-  // of the first item in the "lane" component group.
+  // Assuming a segment has one "lane" component, a segment's elevation can be
+  // found using the id of the first item in the "lane" component group.
   const lane = getSegmentComponentInfo(
     COMPONENT_GROUPS.LANES,
-    components.lanes[0].id
+    components.lanes?.[0].id
   )
   variantInfo.elevation = lane.elevation
 
@@ -169,7 +169,7 @@ export function getSpriteDef (
 
   if (typeof sprite === 'object') {
     def = {
-      ...SPRITE_DEFS[sprite.id],
+      ...SPRITE_DEFS[sprite.id as keyof typeof SPRITE_DEFS],
       ...sprite
     }
   } else {
@@ -177,7 +177,7 @@ export function getSpriteDef (
     // modifying the reference. If there is no original sprite def, return a
     // minimal placeholder object with just its ID.
     def = {
-      ...(SPRITE_DEFS[sprite] ?? { id: sprite })
+      ...(SPRITE_DEFS[sprite as keyof typeof SPRITE_DEFS] ?? { id: sprite })
     }
   }
 
