@@ -1,23 +1,17 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
+import eslint from '@eslint/js'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
-import importPlugin from 'eslint-plugin-import'
-import love from 'eslint-config-love'
+// import love from 'eslint-config-love'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
-  baseDirectory: __dirname
+  baseDirectory: import.meta.dirname
 })
 
 export default defineConfig([
@@ -27,11 +21,14 @@ export default defineConfig([
     '**/build',
     '**/docs'
   ]),
-  js.configs.recommended,
+  eslint.configs.recommended,
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     files: ['**/*.{js,jsx,ts,tsx,cjs}'],
+    // Most of this compat is required because `standard` is not compatible
+    // with Eslint v9 flat config. We can simplify the config by migrating off
+    // standard or to another package, e.g. neostandard
     extends: fixupConfigRules(
       compat.extends(
         'standard',
@@ -106,33 +103,23 @@ export default defineConfig([
   },
   {
     // Only run TypeScript linting on TypeScript files
-    ...love,
+    // Disabling eslint-config-love for now, since I can't find a way to make
+    // it work in this config
+    // ...love,
     files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
-    extends: fixupConfigRules(
-      compat.extends(
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript'
-      )
-    ),
-    plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(importPlugin)
-    },
+    extends: [tseslint.configs.recommended],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
         projectService: {
-          // Run eslint on configuration files that will _not_ be built by
-          // the TypeScript compiler.
-          allowDefaultProject: ['packages/*/vitest.config.ts']
+          // Run eslint on configuration and test files that will _not_ be
+          // built by the TypeScript compiler. Globs are not allowed here, so
+          // we need to specify included test file paths.
+          allowDefaultProject: [
+            'packages/*/vitest.config.ts',
+            'packages/utils/src/*.test.ts'
+          ]
         }
-      }
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true
       }
     },
     rules: {
@@ -153,9 +140,6 @@ export default defineConfig([
   },
   {
     files: ['cypress/**/*.cy.js'],
-    plugins: {
-      cypress
-    },
     extends: [cypress.configs.recommended]
   }
 ])

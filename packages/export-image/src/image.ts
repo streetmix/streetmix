@@ -1,7 +1,6 @@
 // import { TILE_SIZE, BUILDING_SPACE } from '../../../client/src/segments/constants.js'
 // import { getBuildingImageHeight } from '../../../client/src/segments/buildings.js'
 import path from 'node:path'
-import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
 import { TILE_SIZE } from './constants.js'
@@ -13,23 +12,19 @@ import { drawWatermark } from './watermark.js'
 
 import type { Street, StreetImageOptions } from '@streetmix/types'
 
-// Set up some legacy Node.js globals for convenience
-const __filename = url.fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
 // exist yet. See https://github.com/Brooooooklyn/canvas/issues/495
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-400-normal.woff2'
   ),
   'Rubik'
 )
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-600-normal.woff2'
   ),
   'Rubik'
@@ -39,14 +34,14 @@ Canvas.GlobalFonts.registerFromPath(
 // foot-grave marker, so we use this one for now and see how we like it.
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2'
   ),
   'Geist Sans'
 )
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-600-normal.woff2'
   ),
   'Geist Sans'
@@ -54,7 +49,7 @@ Canvas.GlobalFonts.registerFromPath(
 
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/overpass/files/overpass-latin-700-normal.woff2'
   ),
   'Overpass'

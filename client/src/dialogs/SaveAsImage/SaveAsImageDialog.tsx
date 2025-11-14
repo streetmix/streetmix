@@ -250,11 +250,11 @@ function SaveAsImageDialog (): React.ReactElement {
           <div className="dialog-content">
             <div className="save-as-image-options">
               {newExport && (
-                <p style={{ marginTop: 0, marginBottom: '0.25em' }}>
+                <div style={{ marginTop: 0, marginBottom: '0.25em' }}>
                   <Checkbox onChange={toggleNewExport} checked={isNewExport}>
                     New export pipeline (WIP)
                   </Checkbox>
-                </p>
+                </div>
               )}
               <Checkbox onChange={toggleSegmentNames} checked={segmentNames}>
                 <FormattedMessage

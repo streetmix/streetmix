@@ -9,7 +9,11 @@ const config: Config = {
   url: 'https://docs.streetmix.net',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn'
+    }
+  },
   favicon: 'img/favicon.ico',
   organizationName: 'streetmix', // Usually your GitHub org/user name.
   projectName: 'streetmix', // Usually your repo name.
