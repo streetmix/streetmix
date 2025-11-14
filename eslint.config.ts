@@ -26,6 +26,9 @@ export default defineConfig([
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     files: ['**/*.{js,jsx,ts,tsx,cjs}'],
+    // Most of this compat is required because `standard` is not compatible
+    // with Eslint v9 flat config. We can simplify the config by migrating off
+    // standard or to another package, e.g. neostandard
     extends: fixupConfigRules(
       compat.extends(
         'standard',
