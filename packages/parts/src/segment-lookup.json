@@ -1,0 +1,6520 @@
+{
+  "sidewalk": {
+    "name": "Sidewalk",
+    "nameKey": "sidewalk",
+    "owner": "PEDESTRIAN",
+    "zIndex": 30,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 1.8,
+        "imperial": 6
+      }
+    },
+    "defaultElevation": {
+      "metric": 0.15,
+      "imperial": 0.5
+    },
+    "enableElevation": true,
+    "variants": ["sidewalk-density"],
+    "details": {
+      "dense": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "dense"
+              }
+            }
+          ]
+        }
+      },
+      "normal": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
+            }
+          ]
+        }
+      },
+      "sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "sparse"
+              }
+            }
+          ]
+        }
+      },
+      "empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sidewalk-tree": {
+    "name": "Sidewalk tree",
+    "nameKey": "sidewalk-tree",
+    "owner": "NATURE",
+    "zIndex": 22,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "variants": ["tree-type"],
+    "details": {
+      "big": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "tree",
+              "variants": {
+                "type": "big"
+              }
+            }
+          ]
+        }
+      },
+      "palm-tree": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "tree",
+              "variants": {
+                "type": "palm-tree"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sidewalk-bike-rack": {
+    "name": "Bike rack",
+    "nameKey": "bike-rack",
+    "owner": "BIKE",
+    "zIndex": 23,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
+    "defaultVariant": "left|sidewalk",
+    "variants": ["orientation", "bike-rack-elevation"],
+    "details": {
+      "left|sidewalk-parallel": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["parallel", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk-parallel": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["parallel", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["perpendicular", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["perpendicular", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["perpendicular", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bike-rack",
+              "variants": {
+                "direction|orientation": ["perpendicular", "right"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sidewalk-bench": {
+    "name": "Bench",
+    "nameKey": "bench",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "variants": ["bench-orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "center": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "center"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bench",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "outdoor-dining": {
+    "name": "Outdoor dining",
+    "nameKey": "outdoor-dining",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
+    "unlockCondition": "SIGN_IN",
+    "variants": ["occupants", "elevation"],
+    "details": {
+      "occupied|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "occupied"
+              }
+            }
+          ]
+        }
+      },
+      "empty|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      },
+      "occupied|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "occupied"
+              }
+            }
+          ]
+        }
+      },
+      "empty|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "outdoor-dining",
+              "variants": {
+                "occupants": "empty"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sidewalk-wayfinding": {
+    "name": "Wayfinding sign",
+    "nameKey": "wayfinding-sign",
+    "owner": "PEDESTRIAN",
+    "zIndex": 21,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "description": {
+      "key": "wayfinding-sign",
+      "image": "wayfinding-02.jpg"
+    },
+    "variants": ["wayfinding-type"],
+    "details": {
+      "large": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "large"
+              }
+            }
+          ]
+        }
+      },
+      "medium": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "medium"
+              }
+            }
+          ]
+        }
+      },
+      "small": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wayfinding-sign",
+              "variants": {
+                "type": "small"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sidewalk-lamp": {
+    "name": "Lamp",
+    "nameKey": "sidewalk-lamp",
+    "owner": "PEDESTRIAN",
+    "zIndex": 19,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "defaultVariant": "both|traditional",
+    "variants": ["lamp-orientation", "lamp-type"],
+    "details": {
+      "right|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "both|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "both"]
+              }
+            }
+          ]
+        }
+      },
+      "left|modern": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["traditional", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "both|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["traditional", "both"]
+              }
+            }
+          ]
+        }
+      },
+      "left|traditional": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["traditional", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "right"]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "left|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "left"]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "both|pride": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "lamp",
+              "variants": {
+                "type|orientation": ["modern", "both"]
+              }
+            },
+            {
+              "id": "pride-banner",
+              "variants": {
+                "orientation": "both"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "utilities": {
+    "name": "Utility pole",
+    "nameKey": "utility-pole",
+    "owner": "NONE",
+    "zIndex": 10,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "unlockCondition": "SIGN_IN",
+    "variants": ["orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "utility-pole",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "parklet": {
+    "name": "Parklet",
+    "nameKey": "parklet",
+    "owner": "NATURE",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
+    "description": {
+      "key": "parklet",
+      "image": "parklets-01.jpg"
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.4,
+        "imperial": 8
+      }
+    },
+    "variants": ["orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "parklet",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "parklet",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "street-vendor": {
+    "name": "Street vendor",
+    "nameKey": "street-vendor",
+    "owner": "PEDESTRIAN",
+    "zIndex": 24,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 1.2,
+        "imperial": 4
+      }
+    },
+    "defaultElevation": {
+      "metric": 0.15,
+      "imperial": 0.5
+    },
+    "enableElevation": true,
+    "unlockCondition": "SIGN_IN",
+    "defaultVariant": "table|concrete",
+    "variants": ["vendor-type", "ground"],
+    "details": {
+      "handcart|concrete": {
+        "rules": {
+          "minWidth": {
+            "metric": 0.9,
+            "imperial": 3
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "handcart"
+              }
+            }
+          ]
+        }
+      },
+      "table|concrete": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "table"
+              }
+            }
+          ]
+        }
+      },
+      "tarp|concrete": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "tarp"
+              }
+            }
+          ]
+        }
+      },
+      "platform|concrete": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "platform"
+              }
+            }
+          ]
+        }
+      },
+      "handcart|asphalt": {
+        "rules": {
+          "minWidth": {
+            "metric": 0.9,
+            "imperial": 3
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "handcart"
+              }
+            }
+          ]
+        }
+      },
+      "table|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "table"
+              }
+            }
+          ]
+        }
+      },
+      "tarp|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "tarp"
+              }
+            }
+          ]
+        }
+      },
+      "platform|asphalt": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "street-vendor",
+              "variants": {
+                "vendor-type": "platform"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "divider": {
+    "name": "Buffer",
+    "nameKey": "divider",
+    "owner": "NATURE",
+    "zIndex": 20,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
+    "defaultVariant": "flowers",
+    "variants": ["divider-type"],
+    "details": {
+      "planting-strip": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ]
+        }
+      },
+      "planter-box": {
+        "name": "Planter box",
+        "nameKey": "planter-box",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "planter-box",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "median": {
+        "name": "Median",
+        "nameKey": "median",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ]
+        }
+      },
+      "striped-buffer": {
+        "name": "Buffer",
+        "nameKey": "divider",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ]
+        }
+      },
+      "bush": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "bush"
+              }
+            }
+          ]
+        }
+      },
+      "flowers": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "flowers"
+              }
+            }
+          ]
+        }
+      },
+      "big-tree": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "tree",
+              "variants": {
+                "type": "big"
+              }
+            }
+          ]
+        }
+      },
+      "palm-tree": {
+        "name": "Planting strip",
+        "nameKey": "planting-strip",
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "tree",
+              "variants": {
+                "type": "palm-tree"
+              }
+            }
+          ]
+        }
+      },
+      "bollard": {
+        "name": "Bollard",
+        "nameKey": "bollard",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bollard",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "dome": {
+        "name": "Traffic exclusion dome",
+        "nameKey": "dome",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--stripes-diagonal"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "dome",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "crosswalk": {
+    "name": "Crosswalk",
+    "nameKey": "crosswalk",
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "defaultVariant": "zebra-crossing",
+    "defaultElevation": 0,
+    "enableElevation": true,
+    "enableWithFlag": "SEGMENT_CROSSWALK",
+    "variants": ["crosswalk-type"],
+    "details": {
+      "zebra-crossing": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--crosswalk-zebra"
+            }
+          ]
+        }
+      },
+      "zebra-crossing-bike": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--crosswalk-zebra-bike"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "temporary": {
+    "name": "Temporary barrier",
+    "nameKey": "temporary-barrier",
+    "zIndex": 20,
+    "defaultWidth": {
+      "metric": 0.5,
+      "imperial": 2
+    },
+    "defaultVariant": "traffic-cone",
+    "unlockCondition": "SIGN_IN",
+    "variants": ["temporary-barrier-type"],
+    "details": {
+      "barricade": {
+        "name": "Barricade",
+        "nameKey": "barricade",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "barricade",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "traffic-cone": {
+        "name": "Traffic cone",
+        "nameKey": "traffic-cone",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "traffic-cone",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "jersey-barrier-concrete": {
+        "name": "Jersey barrier",
+        "nameKey": "jersey-barrier",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "jersey-barrier",
+              "variants": {
+                "material": "concrete"
+              }
+            }
+          ]
+        }
+      },
+      "jersey-barrier-plastic": {
+        "name": "Jersey barrier",
+        "nameKey": "jersey-barrier",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "jersey-barrier",
+              "variants": {
+                "material": "plastic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "drainage-channel": {
+    "name": "Drainage channel",
+    "nameKey": "drainage-channel",
+    "owner": "UTILITY",
+    "unlockWithFlag": "SEGMENT_DRAINAGE_CHANNEL_UNLOCKED",
+    "unlockCondition": "SUBSCRIBE",
+    "defaultWidth": {
+      "metric": 1,
+      "imperial": 3.25
+    },
+    "variants": ["drainage-sides"],
+    "details": {
+      "slanted": {
+        "components": {
+          "lanes": [
+            {
+              "id": "drainage",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "open-drain",
+              "variants": {
+                "drainage-sides": ["slanted"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      },
+      "vertical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "drainage",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "open-drain",
+              "variants": {
+                "drainage-sides": ["vertical"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      }
+    }
+  },
+  "scooter": {
+    "name": "Electric scooter",
+    "nameKey": "scooter",
+    "owner": "BIKE",
+    "zIndex": 16,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 1.2,
+        "imperial": 4
+      }
+    },
+    "variants": ["direction", "bike-asphalt"],
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|green": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|green": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "scooter-drop-zone": {
+    "name": "Scooter drop zone",
+    "nameKey": "scooter-drop-zone",
+    "owner": "FLEX",
+    "zIndex": 21,
+    "defaultWidth": {
+      "metric": 1.5,
+      "imperial": 5
+    },
+    "defaultVariant": "right|sidewalk|empty",
+    "variants": ["orientation", "scooter-elevation", "scooter-riders"],
+    "details": {
+      "left|sidewalk|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["empty", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["empty", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["sparse", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["sparse", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|road|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["empty", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|road|empty": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["empty", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|road|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["sparse", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|road|sparse": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left-half"
+            },
+            {
+              "id": "markings--lane-right-half"
+            },
+            {
+              "id": "markings--lane-horiz"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "scooter",
+              "variants": {
+                "riders|orientation": ["sparse", "right"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "bike-lane": {
+    "name": "Bike lane",
+    "nameKey": "bike-lane",
+    "owner": "BIKE",
+    "zIndex": 16,
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
+    "description": {
+      "key": "bike-lane",
+      "image": "bike-lane-02.jpg"
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 1.5,
+        "imperial": 5
+      }
+    },
+    "variants": ["bike-direction", "bike-asphalt", "elevation"],
+    "details": {
+      "inbound|regular|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|regular|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|regular|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      },
+      "inbound|green|road": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|green|road": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|green|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|green|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      },
+      "inbound|red|road": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|red|road": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|red|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|red|road": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      },
+      "inbound|regular|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "black"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "black"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|regular|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "black"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|regular|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "black"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      },
+      "inbound|green|sidewalk": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|green|sidewalk": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|green|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|green|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      },
+      "inbound|red|sidewalk": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|red|sidewalk": {
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "twoway-left|red|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "-50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "50%"
+            }
+          ]
+        }
+      },
+      "twoway-right|red|sidewalk": {
+        "name": "Two-way bike lane",
+        "nameKey": "twoway-bike-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "description": {
+          "key": "colored-bike-lane",
+          "image": "bike-lane-colored-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--twoway-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              },
+              "offsetX": "50%"
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-01", "outbound"]
+              },
+              "offsetX": "-50%"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "bikeshare": {
+    "name": "Bikeshare station",
+    "nameKey": "bikeshare-station",
+    "owner": "FLEX",
+    "zIndex": 21,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
+    },
+    "variants": ["orientation", "elevation"],
+    "details": {
+      "left|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right|road": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "left|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right|sidewalk": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "bikeshare",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "food-truck": {
+    "name": "Food truck",
+    "nameKey": "foodtruck",
+    "owner": "FLEX",
+    "zIndex": 20,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
+    },
+    "variants": ["orientation"],
+    "details": {
+      "left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "food-truck",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "food-truck",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "flex-zone": {
+    "name": "Flex zone",
+    "nameKey": "flex-zone",
+    "owner": "FLEX",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
+    },
+    "variants": ["flex-type", "direction", "orientation"],
+    "details": {
+      "taxi|inbound|left": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": ["inbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|inbound|right": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|outbound|left": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "taxi|outbound|right": {
+        "name": "Taxi loading zone",
+        "nameKey": "taxi-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "taxi",
+              "variants": {
+                "direction|orientation": ["outbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|inbound|left": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": ["inbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|inbound|right": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|outbound|left": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "rideshare|outbound|right": {
+        "name": "Rideshare loading zone",
+        "nameKey": "rideshare-pick-up",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--lane-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "rideshare",
+              "variants": {
+                "direction|orientation": ["outbound", "right"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "flex-zone-curb": {
+    "name": "Waiting area",
+    "nameKey": "flex-zone-curb",
+    "owner": "FLEX",
+    "zIndex": 30,
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "variants": ["waiting-area", "orientation"],
+    "details": {
+      "sparse|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "right"
+              }
+            },
+            {
+              "id": "person-waiting",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "sparse|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "left"
+              }
+            },
+            {
+              "id": "person-waiting",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      },
+      "empty|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "right"
+              }
+            }
+          ]
+        }
+      },
+      "empty|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "pickup-sign",
+              "variants": {
+                "orientation": "left"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "parking-lane": {
+    "name": "Parking lane",
+    "nameKey": "parking-lane",
+    "owner": "CAR",
+    "zIndex": 13,
+    "defaultWidth": {
+      "metric": 2,
+      "imperial": 7
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.1,
+        "imperial": 7
+      },
+      "maxWidth": {
+        "metric": 3,
+        "imperial": 10
+      }
+    },
+    "variants": ["parking-lane-direction", "parking-lane-orientation"],
+    "details": {
+      "inbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--parking-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "offsetX": -80,
+              "variants": {
+                "direction|orientation": ["inbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--parking-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "offsetX": -80,
+              "variants": {
+                "direction|orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--parking-left"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "offsetX": -80,
+              "variants": {
+                "direction|orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--parking-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "offsetX": -80,
+              "variants": {
+                "direction|orientation": ["outbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "sideways|left": {
+        "name": "Perpendicular parking",
+        "nameKey": "perpendicular-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 6,
+            "imperial": 20
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["sideways", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "sideways|right": {
+        "name": "Perpendicular parking",
+        "nameKey": "perpendicular-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 6,
+            "imperial": 20
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["sideways", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-front-left|left": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-front-left", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-front-right|left": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-front-right", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-rear-left|left": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-rear-left", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-rear-right|left": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-rear-right", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-front-left|right": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-front-left", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-front-right|right": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-front-right", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-rear-left|right": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-rear-left", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "angled-rear-right|right": {
+        "name": "Angled parking",
+        "nameKey": "angled-parking",
+        "rules": {
+          "minWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          },
+          "maxWidth": {
+            "metric": 5.4,
+            "imperial": 18
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|orientation": ["angled-rear-right", "right"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "drive-lane": {
+    "name": "Drive lane",
+    "nameKey": "drive-lane",
+    "owner": "CAR",
+    "zIndex": 14,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.4,
+        "imperial": 8
+      },
+      "maxWidth": {
+        "metric": 3.6,
+        "imperial": 12
+      }
+    },
+    "variants": ["direction", "car-type"],
+    "details": {
+      "inbound|car": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|car-with-bus": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus-alt",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car-with-bus": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus-alt",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|car-with-bike": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "dangerous": true
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ],
+          "effects": [
+            {
+              "id": "biker-stress",
+              "offsetX": 20,
+              "variants": {
+                "type": "sweat-drop"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|car-with-bike": {
+        "name": "Mixed-traffic drive lane",
+        "nameKey": "mixed-drive-lane",
+        "rules": {
+          "dangerous": true
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|sharrow": {
+        "name": "Sharrow",
+        "nameKey": "sharrow",
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "description": {
+          "key": "sharrow",
+          "image": "sharrow-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|sharrow": {
+        "name": "Sharrow",
+        "nameKey": "sharrow",
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "description": {
+          "key": "sharrow",
+          "image": "sharrow-01.jpg"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|bus": {
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|bus": {
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|truck": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "truck",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|truck": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "truck",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|microvan": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "microvan",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|microvan": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "microvan",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|av": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|motorcycle-sidecar": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "motorcycle-sidecar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|motorcycle-sidecar": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "motorcycle-sidecar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|pedestrian": {
+        "name": "Pedestrian",
+        "nameKey": "pedestrian",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|pedestrian": {
+        "name": "Pedestrian",
+        "nameKey": "pedestrian",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "pedestrian",
+              "variants": {
+                "density": "normal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "turn-lane": {
+    "name": "Turn lane",
+    "nameKey": "turn-lane",
+    "owner": "CAR",
+    "zIndex": 13,
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.7,
+        "imperial": 9
+      },
+      "maxWidth": {
+        "metric": 3.6,
+        "imperial": 12
+      }
+    },
+    "variants": ["direction", "turn-lane-orientation"],
+    "details": {
+      "inbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|left-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-straight-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|straight": {
+        "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-straight-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|both": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--both-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|left-right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-right-straight-inbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["inbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared": {
+        "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--shared-inbound"
+            },
+            {
+              "id": "markings--center-lane-left"
+            },
+            {
+              "id": "markings--center-lane-right"
+            }
+          ]
+        }
+      },
+      "outbound|left": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|left-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-straight-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|straight": {
+        "name": "No turn lane",
+        "nameKey": "turn-lane-straight",
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-straight-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|right": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--right-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|both": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--both-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|left-right-straight": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--left-right-straight-outbound"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "car",
+              "variants": {
+                "direction|turn-orientation": ["outbound", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared": {
+        "name": "Center turn lane",
+        "nameKey": "turn-lane-center",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          },
+          "maxWidth": {
+            "metric": 4.8,
+            "imperial": 16
+          }
+        },
+        "defaultWidth": {
+          "metric": 3.6,
+          "imperial": 12
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--shared-outbound"
+            },
+            {
+              "id": "markings--center-lane-left"
+            },
+            {
+              "id": "markings--center-lane-right"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "bus-lane": {
+    "name": "Bus lane",
+    "nameKey": "bus-lane",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 3.9,
+        "imperial": 13
+      }
+    },
+    "variants": ["direction", "bus-asphalt", "bus-type"],
+    "details": {
+      "inbound|regular|typical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|typical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored|typical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored|typical": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared|typical": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared|typical": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|regular|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored|double-decker": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared|double-decker": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared|double-decker": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "double-decker-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      },
+      "inbound|regular|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored|av-shuttle": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|shared|av-shuttle": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-inbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "inbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": 30,
+              "variants": {
+                "type|direction": ["biker-02", "inbound"]
+              }
+            }
+          ]
+        }
+      },
+      "outbound|shared|av-shuttle": {
+        "name": "Shared bus/bike lane",
+        "nameKey": "bus-lane-shared",
+        "defaultWidth": {
+          "metric": 4.2,
+          "imperial": 14
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 3.6,
+            "imperial": 12
+          },
+          "maxWidth": {
+            "metric": 4.2,
+            "imperial": 14
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--sharrow-outbound"
+            },
+            {
+              "id": "markings--lane-left"
+            },
+            {
+              "id": "markings--lane-right"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "av-shuttle",
+              "variants": {
+                "direction": "outbound"
+              }
+            },
+            {
+              "id": "bike",
+              "offsetX": -30,
+              "variants": {
+                "type|direction": ["biker-02", "outbound"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "streetcar": {
+    "name": "Streetcar",
+    "nameKey": "streetcar",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
+    },
+    "variants": ["direction", "public-transit-asphalt"],
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-01"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-01"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "streetcar",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "light-rail": {
+    "name": "Light rail",
+    "nameKey": "light-rail",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 3.6,
+      "imperial": 12
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 3,
+        "imperial": 10
+      },
+      "maxWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
+    },
+    "variants": ["direction", "public-transit-asphalt"],
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "gray"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "gray"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|colored": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|grass": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "green"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--streetcar-track-02"
+            },
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "light-rail",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "transit-shelter": {
+    "name": "Transit shelter",
+    "nameKey": "transit-shelter",
+    "owner": "TRANSIT",
+    "zIndex": 20,
+    "defaultWidth": {
+      "metric": 2.7,
+      "imperial": 9
+    },
+    "defaultVariant": "right|street-level",
+    "rules": {
+      "minWidth": {
+        "metric": 2.7,
+        "imperial": 9
+      }
+    },
+    "variants": ["orientation", "transit-shelter-elevation"],
+    "details": {
+      "left|street-level": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": ["transit-shelter-01", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|street-level": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": ["transit-shelter-01", "right"]
+              }
+            }
+          ]
+        }
+      },
+      "left|light-rail": {
+        "description": {
+          "key": "transit-shelter-elevated",
+          "image": "transit-station-elevated.jpg"
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 2.4,
+            "imperial": 8
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "raised-sidewalk",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": ["transit-shelter-02", "left"]
+              }
+            }
+          ]
+        }
+      },
+      "right|light-rail": {
+        "description": {
+          "key": "transit-shelter-elevated",
+          "image": "transit-station-elevated.jpg"
+        },
+        "rules": {
+          "minWidth": {
+            "metric": 2.4,
+            "imperial": 8
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "raised-sidewalk",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "transit-shelter",
+              "variants": {
+                "type|orientation": ["transit-shelter-02", "right"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "brt-station": {
+    "name": "BRT station",
+    "nameKey": "brt-station",
+    "owner": "TRANSIT",
+    "zIndex": 20,
+    "defaultWidth": {
+      "metric": 4,
+      "imperial": 13.5
+    },
+    "unlockCondition": "SIGN_IN",
+    "defaultVariant": "center",
+    "paletteDefaultWidth": 10,
+    "rules": {
+      "minWidth": {
+        "metric": 4,
+        "imperial": 13.5
+      }
+    },
+    "variants": ["brt-station-orientation"],
+    "details": {
+      "left": {
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["left"]
+              }
+            }
+          ]
+        }
+      },
+      "right": {
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          }
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["right"]
+              }
+            }
+          ]
+        }
+      },
+      "center": {
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "brt-station",
+              "variants": {
+                "orientation": ["center"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "brt-lane": {
+    "name": "Bus rapid transit lane",
+    "nameKey": "brt-lane",
+    "owner": "TRANSIT",
+    "zIndex": 15,
+    "defaultWidth": {
+      "metric": 3.5,
+      "imperial": 11.667
+    },
+    "unlockCondition": "SIGN_IN",
+    "rules": {
+      "minWidth": {
+        "metric": 3.4,
+        "imperial": 11.5
+      },
+      "maxWidth": {
+        "metric": 4,
+        "imperial": 13
+      }
+    },
+    "variants": ["direction", "brt-asphalt"],
+    "details": {
+      "inbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|regular": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      },
+      "inbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-inbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "inbound"
+              }
+            }
+          ]
+        }
+      },
+      "outbound|red": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "red"
+              }
+            }
+          ],
+          "markings": [
+            {
+              "id": "markings--straight-outbound-light"
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "brt-bus",
+              "variants": {
+                "direction": "outbound"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "train": {
+    "name": "“Inception” train",
+    "nameKey": "inception-train",
+    "owner": "TRANSIT",
+    "zIndex": 10,
+    "defaultWidth": {
+      "metric": 4.2,
+      "imperial": 14
+    },
+    "enableWithFlag": "SEGMENT_INCEPTION_TRAIN",
+    "description": {
+      "key": "inception-train",
+      "image": "train.jpg"
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 4.2,
+        "imperial": 14
+      }
+    },
+    "variants": [""],
+    "details": {
+      "": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "train",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "magic-carpet": {
+    "name": "Magic carpet",
+    "nameKey": "magic-carpet",
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "unlockCondition": "SIGN_IN",
+    "defaultVariant": "jasmine-aladdin",
+    "variants": ["magic-carpet-occupants"],
+    "details": {
+      "aladdin": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "aladdin"
+              }
+            }
+          ]
+        }
+      },
+      "jasmine": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "jasmine"
+              }
+            }
+          ]
+        }
+      },
+      "aladdin-jasmine": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "aladdin-jasmine"
+              }
+            }
+          ]
+        }
+      },
+      "jasmine-aladdin": {
+        "components": {
+          "lanes": [
+            {
+              "id": "asphalt",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "vehicles": [
+            {
+              "id": "magic-carpet",
+              "variants": {
+                "magic-carpet-occupants": "jasmine-aladdin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "beach": {
+    "name": "Beach",
+    "nameKey": "beach",
+    "owner": "NATURE",
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "defaultVariant": "beach",
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["beach-type"],
+    "details": {
+      "beach": {
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      },
+      "lounger": {
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "beach-lounger",
+              "variants": {
+                "type": "default"
+              },
+              "offsetX": 50
+            }
+          ]
+        }
+      }
+    }
+  }
+}

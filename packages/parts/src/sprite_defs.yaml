@@ -1,0 +1,133 @@
+markings--straight-inbound-light:
+  id: markings--straight-inbound-light
+  originY: 120
+markings--straight-outbound-light:
+  id: markings--straight-outbound-light
+  originY: 120
+markings--straight-inbound:
+  id: markings--straight-inbound
+  originY: 120
+markings--straight-outbound:
+  id: markings--straight-outbound
+  originY: 120
+markings--left-inbound:
+  id: markings--left-inbound
+  originY: 120
+markings--left-outbound:
+  id: markings--left-outbound
+  originY: 120
+markings--left-straight-inbound:
+  id: markings--left-straight-inbound
+  originY: 120
+markings--left-straight-outbound:
+  id: markings--left-straight-outbound
+  originY: 120
+markings--right-inbound:
+  id: markings--right-inbound
+  originY: 120
+markings--right-outbound:
+  id: markings--right-outbound
+  originY: 120
+markings--right-straight-inbound:
+  id: markings--right-straight-inbound
+  originY: 120
+markings--right-straight-outbound:
+  id: markings--right-straight-outbound
+  originY: 120
+markings--both-inbound:
+  id: markings--both-inbound
+  originY: 120
+markings--both-outbound:
+  id: markings--both-outbound
+  originY: 120
+markings--left-right-straight-inbound:
+  id: markings--left-right-straight-inbound
+  originY: 120
+markings--left-right-straight-outbound:
+  id: markings--left-right-straight-outbound
+  originY: 120
+markings--shared-inbound:
+  id: markings--shared-inbound
+  originY: 120
+markings--shared-outbound:
+  id: markings--shared-outbound
+  originY: 120
+markings--sharrow-inbound:
+  id: markings--sharrow-inbound
+  originY: 120
+markings--sharrow-outbound:
+  id: markings--sharrow-outbound
+  originY: 120
+markings--lane-left:
+  id: markings--lane-left
+  originY: 120
+markings--lane-right:
+  id: markings--lane-right
+  originY: 120
+markings--lane-left-half:
+  id: markings--lane-left-half
+  originY: 120
+markings--lane-right-half:
+  id: markings--lane-right-half
+  originY: 120
+markings--lane-horiz:
+  id: markings--lane-horiz
+  originY: 120
+markings--center-lane:
+  id: markings--center-lane
+  originY: 120
+markings--center-lane-left:
+  id: markings--center-lane-left
+  originY: 120
+markings--center-lane-right:
+  id: markings--center-lane-right
+  originY: 120
+markings--parking-left:
+  id: markings--parking-left
+  originY: 120
+markings--parking-right:
+  id: markings--parking-right
+  originY: 120
+markings--streetcar-track-01:
+  id: markings--streetcar-track-01
+  originY: 120
+markings--streetcar-track-02:
+  id: markings--streetcar-track-02
+  originY: 120
+markings--stripes-diagonal:
+  id: markings--stripes-diagonal
+  originY: 120
+markings--crosswalk-zebra:
+  id: markings--crosswalk-zebra
+  originY: 120
+markings--crosswalk-zebra-bike:
+  id: markings--crosswalk-zebra-bike
+  originY: 120
+lamps--lamp-modern-left:
+  id: lamps--lamp-modern-left
+  offsetX: -315
+lamps--lamp-modern-right:
+  id: lamps--lamp-modern-right
+  offsetX: -315
+lamps--lamp-traditional-right:
+  id: lamps--lamp-traditional-right
+  offsetX: -45
+lamps--lamp-traditional-left:
+  id: lamps--lamp-traditional-left
+  offsetX: -45
+lamps--pride-banner-right:
+  id: lamps--pride-banner-right
+  offsetX: -83
+  originY: -536
+lamps--pride-banner-left:
+  id: lamps--pride-banner-left
+  offsetX: -83
+  originY: -536
+effects--sweat-drop:
+  id: effects--sweat-drop
+  originY: -160
+beach--surface:
+  id: beach--surface
+  offsetY: -12
+missing:
+  id: missing
