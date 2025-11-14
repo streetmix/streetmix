@@ -153,9 +153,6 @@ export default defineConfig([
   },
   {
     files: ['cypress/**/*.cy.js'],
-    plugins: {
-      cypress
-    },
     extends: [cypress.configs.recommended]
   }
 ])
