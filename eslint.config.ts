@@ -117,7 +117,8 @@ export default defineConfig([
           // we need to specify included test file paths.
           allowDefaultProject: [
             'packages/*/vitest.config.ts',
-            'packages/utils/src/*.test.ts'
+            'packages/utils/src/*.test.ts',
+            'packages/parts/src/*.test.ts'
           ]
         }
       }

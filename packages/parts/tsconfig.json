@@ -110,5 +110,6 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "plugins": [{ "name": "typescript-yaml-plugin" }]
   },
-  "include": ["src/"]
+  "include": ["src/"],
+  "exclude": ["src/**/*.test.ts"]
 }
