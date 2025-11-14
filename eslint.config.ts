@@ -1,16 +1,14 @@
 import { defineConfig, globalIgnores } from 'eslint/config'
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
+import eslint from '@eslint/js'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
-import importPlugin from 'eslint-plugin-import'
-import love from 'eslint-config-love'
+// import love from 'eslint-config-love'
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname
@@ -23,7 +21,7 @@ export default defineConfig([
     '**/build',
     '**/docs'
   ]),
-  js.configs.recommended,
+  eslint.configs.recommended,
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
@@ -102,20 +100,12 @@ export default defineConfig([
   },
   {
     // Only run TypeScript linting on TypeScript files
-    ...love,
+    // Disabling eslint-config-love for now, since I can't find a way to make
+    // it work in this config
+    // ...love,
     files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
-    extends: fixupConfigRules(
-      compat.extends(
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/typescript'
-      )
-    ),
-    plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      import: fixupPluginRules(importPlugin)
-    },
+    extends: [tseslint.configs.recommended],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
         projectService: {
@@ -127,12 +117,6 @@ export default defineConfig([
             'packages/utils/src/*.test.ts'
           ]
         }
-      }
-    },
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true
       }
     },
     rules: {
