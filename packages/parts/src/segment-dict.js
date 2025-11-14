@@ -32,8 +32,8 @@ export function getSegmentLookup (type, variant) {
  *
  * @param {string} group - component group, one of values "lanes", "vehicles"
  *    or "objects"
- * @param {string} id - name of segment component, e.g. "scooter"
- * @returns {object} segmentInfo
+ * @param {string | undefined} id - name of segment component, e.g. "scooter"
+ * @returns {SegmentDefinition | UnknownSegmentDefinition} segmentInfo
  */
 export function getSegmentComponentInfo (group, id) {
   return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
@@ -177,8 +177,8 @@ function mergeVariantGraphics (variantGraphics) {
  *
  * @param {Object} details - details for segment `type` and of a specific
  *    `variant`
- * @param {Object} segmentRules - rules applied to the segment `type`
- * @returns {Object} variantInfo - object with any rules or segment info
+ * @param {SegmentDefinition['rules'] | undefined} segmentRules - rules applied to the segment `type`
+ * @returns {VariantInfo} variantInfo - object with any rules or segment info
  *    overrides
  */
 export function applySegmentInfoOverridesAndRules (details, segmentRules) {
