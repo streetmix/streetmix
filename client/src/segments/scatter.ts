@@ -1,9 +1,9 @@
 import seedrandom from 'seedrandom'
+import { getSpriteDef } from '@streetmix/parts'
 
 import { images } from '../app/load_resources'
 import { maxBy } from '../util/maxBy'
 import { drawSegmentImage } from './view'
-import { getSpriteDef } from './info'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 
 const DEFAULT_SELECTION_WEIGHT = 50

@@ -1,9 +1,9 @@
 import React from 'react'
 import { IntlProvider, FormattedMessage } from 'react-intl'
+import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import { useSelector } from '~/src/store/hooks'
 import { getBoundaryItem } from '~/src/boundary'
-import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
 
 import { EditableLabel } from './EditableLabel'
 import { RemoveButton } from './RemoveButton'

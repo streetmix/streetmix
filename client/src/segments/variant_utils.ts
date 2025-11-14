@@ -1,4 +1,4 @@
-import { getSegmentInfo } from './info'
+import { getSegmentInfo } from '@streetmix/parts'
 
 const VARIANT_SEPARATOR = '|'
 

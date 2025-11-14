@@ -1,12 +1,13 @@
-import SEGMENT_LOOKUP_SOURCE from './segment-lookup.json'
+import SEGMENT_LOOKUP_SOURCE from './segment-lookup.json' with { type: 'json' }
+import SPRITE_DEFS from './sprite_defs.json' with { type: 'json' }
 import {
   // getSegmentLookup,
   applySegmentInfoOverridesAndRules,
   getSegmentComponentInfo,
   getSegmentSprites,
   COMPONENT_GROUPS
-} from './segment-dict'
-import SPRITE_DEFS from './sprite_defs.yaml'
+} from './segment-dict.js'
+
 import type {
   SegmentLookup,
   SegmentDefinition,
@@ -144,11 +145,11 @@ export function getSegmentVariantInfo (
   const variantInfo = applySegmentInfoOverridesAndRules(details, rules)
   variantInfo.graphics = getSegmentSprites(components)
 
-  // Assuming a segment has one "lane" component, a segment's elevation can be found using the id
-  // of the first item in the "lane" component group.
+  // Assuming a segment has one "lane" component, a segment's elevation can be
+  // found using the id of the first item in the "lane" component group.
   const lane = getSegmentComponentInfo(
     COMPONENT_GROUPS.LANES,
-    components.lanes[0].id
+    components.lanes?.[0].id
   )
   variantInfo.elevation = lane.elevation
 
@@ -168,7 +169,7 @@ export function getSpriteDef (
 
   if (typeof sprite === 'object') {
     def = {
-      ...SPRITE_DEFS[sprite.id],
+      ...SPRITE_DEFS[sprite.id as keyof typeof SPRITE_DEFS],
       ...sprite
     }
   } else {
@@ -176,7 +177,7 @@ export function getSpriteDef (
     // modifying the reference. If there is no original sprite def, return a
     // minimal placeholder object with just its ID.
     def = {
-      ...(SPRITE_DEFS[sprite] ?? { id: sprite })
+      ...(SPRITE_DEFS[sprite as keyof typeof SPRITE_DEFS] ?? { id: sprite })
     }
   }
 

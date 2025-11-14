@@ -1,0 +1,18 @@
+{
+  "foo": {
+    "id": "foo",
+    "originY": 120
+  },
+  "bar": {
+    "id": "bar",
+    "offsetX": 45
+  },
+  "baz": {
+    "id": "baz",
+    "offsetX": -315,
+    "originY": -160
+  },
+  "qux": {
+    "id": "qux"
+  }
+}

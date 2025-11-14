@@ -3,7 +3,7 @@ import {
   getSegmentComponentInfo,
   applySegmentInfoOverridesAndRules,
   getSegmentSprites
-} from '../segment-dict'
+} from './segment-dict.js'
 
 describe('getSegmentLookup()', () => {
   it('returns component groups data for a segment type and variant', () => {

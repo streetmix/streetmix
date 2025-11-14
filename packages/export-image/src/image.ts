@@ -8,6 +8,7 @@ import { drawEarth } from './earth.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSky } from './sky.js'
+import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
 
 import type { Street, StreetImageOptions } from '@streetmix/types'
@@ -139,6 +140,9 @@ export async function makeStreetImage (
       groundLevel,
       options.scale
     )
+
+    // Slices
+    drawSlices(ctx, street.data.street, groundLevel, offsetLeft, options.scale)
 
     // Labels
     if (options.labels) {

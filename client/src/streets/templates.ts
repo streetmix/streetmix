@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import clone from 'just-clone'
+import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { STREET_TEMPLATES } from '../app/constants'
 import {
@@ -14,7 +15,6 @@ import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import { getLeftHandTraffic } from '../users/localization'
 import { updateStreetData } from '../store/slices/street'
 import store from '../store'
-import { getSegmentVariantInfo } from '../segments/info'
 import { DEFAULT_SKYBOX } from '../sky/constants'
 import { getWidthInMetric } from '../util/width_units'
 import { updateLastStreetInfo } from './xhr'

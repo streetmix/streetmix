@@ -1,4 +1,5 @@
 import React from 'react'
+import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
@@ -6,7 +7,6 @@ import {
   changeSegmentVariant
 } from '~/src/store/slices/street'
 import { segmentsChanged } from '~/src/segments/view'
-import { getSegmentInfo } from '~/src/segments/info'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils'
 import { VariantButton } from './VariantButton'

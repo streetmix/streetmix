@@ -13,9 +13,10 @@ vi.mock('../segments/view', async (importOriginal) => {
     drawSegmentContents: vi.fn()
   }
 })
+// TODO: different way of mocking this...?
 vi.mock(
-  '../segments/segment-lookup.json',
-  async () => await import('../segments/__mocks__/segment-lookup.json')
+  '@streetmix/parts/build/segment-lookup.json',
+  async () => await import('@streetmix/parts/src/__mocks__/segment-lookup.json')
 )
 
 describe('PaletteContainer', () => {
