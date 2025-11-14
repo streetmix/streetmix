@@ -121,11 +121,15 @@ export default defineConfig([
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
         projectService: {
-          // Run eslint on configuration files that will _not_ be built by
-          // the TypeScript compiler.
-          allowDefaultProject: ['packages/*/vitest.config.ts']
+          // Run eslint on configuration and test files that will _not_ be
+          // built by the TypeScript compiler. Globs are not allowed here, so
+          // we need to specify included test file paths.
+          allowDefaultProject: [
+            'packages/*/vitest.config.ts',
+            'packages/utils/src/*.test.ts'
+          ]
         }
       }
     },
