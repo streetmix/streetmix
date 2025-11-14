@@ -14,5 +14,7 @@
     "build": "tsc --project tsconfig.json --outDir build",
     "start": "echo Nothing to run!"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "typescript-yaml-plugin": "1.0.11"
+  }
 }
