@@ -6,85 +6,104 @@
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--asphalt"
+              "ground": "ground--asphalt"
             }
           },
           "red": {
             "graphics": {
-              "repeat": "ground--asphalt-red"
+              "ground": "ground--asphalt-red"
             }
           },
           "green": {
             "graphics": {
-              "repeat": "ground--asphalt-green"
+              "ground": "ground--asphalt-green"
             }
           },
           "gray": {
             "graphics": {
-              "repeat": "ground--asphalt-gray"
+              "ground": "ground--asphalt-gray"
             }
           }
         }
       }
     },
     "sidewalk": {
-      "elevation": 1,
+      "elevation": {
+        "metric": 0.15,
+        "imperial": 0.5
+      },
       "variants": {
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           },
           "black": {
             "graphics": {
-              "repeat": "ground--asphalt"
+              "ground": "ground--asphalt"
             }
           },
           "red": {
             "graphics": {
-              "repeat": "ground--asphalt-red"
+              "ground": "ground--asphalt-red"
             }
           },
           "green": {
             "graphics": {
-              "repeat": "ground--asphalt-green"
+              "ground": "ground--asphalt-green"
             }
           },
           "gray": {
             "graphics": {
-              "repeat": "ground--asphalt-gray"
+              "ground": "ground--asphalt-gray"
             }
           }
         },
         "density": {
           "empty": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           }
         }
       }
     },
     "raised-sidewalk": {
-      "elevation": 2,
+      "elevation": {
+        "metric": 0.75,
+        "imperial": 2.5
+      },
       "variants": {
         "type": {
           "default": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
             }
           }
         }
       }
     },
     "drainage": {
-      "elevation": -2,
+      "elevation": 0,
       "variants": {
         "color": {
           "regular": {
             "graphics": {
-              "repeat": "ground--concrete"
+              "ground": "ground--concrete"
+            }
+          }
+        }
+      }
+    },
+    "beach": {
+      "elevation": 0,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "repeat": "beach--surface",
+              "ground": "ground--sand"
             }
           }
         }
@@ -895,6 +914,17 @@
               "repeat": "utilities--drainage-channel-piece-center",
               "left": "utilities--drainage-channel-piece-left-vertical",
               "right": "utilities--drainage-channel-piece-right-vertical"
+            }
+          }
+        }
+      }
+    },
+    "beach-lounger": {
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "beach--lounger"
             }
           }
         }

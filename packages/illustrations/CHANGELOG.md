@@ -1,3 +1,12 @@
+# v2.3.0 (in progress)
+
+- Add sand ground texture
+- Add beach lounger
+- Optimize buildings for metric units
+- Slightly increase the depth of "narrow" buildings.
+- Remove ground plane from grass, fenced lot, compound wall, apartment buildings, arcade building, and residential building
+- Tweak pavement dimensions on parking lot
+
 # v2.2.0
 
 - Moved `environs` icons into the `sky` namespace.

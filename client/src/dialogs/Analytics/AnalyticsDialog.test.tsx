@@ -6,9 +6,10 @@ import AnalyticsDialog from './AnalyticsDialog'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('../../segments/capacity_data.json', () => ({
-  default: require('../../segments/__mocks__/capacity_data.json')
-}))
+vi.mock(
+  '../../segments/capacity_data.json',
+  async () => await import('../../segments/__mocks__/capacity_data.json')
+)
 
 const initialState = {
   locale: {
@@ -17,23 +18,27 @@ const initialState = {
   street: {
     segments: [
       {
-        type: 'baz'
+        type: 'baz',
+        warnings: []
       },
       // Include two segments (both should be added)
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       // Include a segment without capacity (adds zero)
       {
-        type: 'bar'
+        type: 'bar',
+        warnings: []
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [null, true, false, false]
+        warnings: [false, true, false, false]
       }
     ]
   }

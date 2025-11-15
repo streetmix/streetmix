@@ -1,0 +1,77 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Segment > renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="segment active show-drag-handles"
+    data-testid="segment"
+    style="width: 196.850394px; z-index: 15; transform: translateX(0px);"
+  >
+    <button
+      data-slice-index="0"
+    >
+      <div
+        class="segment-label-container"
+      >
+        <div
+          class="segment-grid units-metric"
+        />
+        <div
+          class="segment-width"
+        >
+          <span>
+            5 m
+          </span>
+        </div>
+        <div
+          class="segment-label"
+        >
+          <p
+            class="segment-name"
+          >
+            Streetcar
+          </p>
+          <p
+            class="segment-capacity"
+          >
+            18,000 people/hr
+          </p>
+        </div>
+      </div>
+      <div
+        class="drag-handle drag-handle-left"
+      >
+        <svg
+          data-icon="chevron-left"
+          data-icon-source="test"
+        />
+      </div>
+      <div
+        class="drag-handle drag-handle-right"
+      >
+        <svg
+          data-icon="chevron-right"
+          data-icon-source="test"
+        />
+      </div>
+      <div
+        class="segment-canvas-container"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        >
+          <canvas
+            class="segment-image"
+            height="600"
+            style="width: 197px; height: 600px; left: 0px;"
+            width="197"
+          />
+        </div>
+      </div>
+      <div
+        class="active-bg"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

@@ -1,36 +1,47 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { COLOR_MODE_LIGHT } from '../../app/constants'
-import { NEW_STREET_DEFAULT } from '../../streets/constants'
+
+import type { ColorModes } from '~/src/app/constants'
+import { COLOR_MODE_LIGHT } from '~/src/app/constants'
+import {
+  SETTINGS_UNITS_IMPERIAL,
+  SETTINGS_UNITS_METRIC
+} from '~/src/users/constants'
+import { STREETMIX_INSTANCE } from '../../app/config'
 import { changeLocale } from './locale'
-import type { ColorModes } from '../../app/constants'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { UnitsSetting } from '@streetmix/types'
 
 interface SettingsState {
   lastStreetId: string | null
   lastStreetNamespacedId: number | null
   lastStreetCreatorId: string | null
-  newStreetPreference: number
+  newStreetPreference: number // Deprecated
   saveAsImageTransparentSky: boolean
   saveAsImageSegmentNamesAndWidths: boolean
   saveAsImageStreetName: boolean
   saveAsImageWatermark: boolean
   colorMode: ColorModes
   locale: string | null
-  units: number | null
+  units: UnitsSetting
 }
 
 const initialState: SettingsState = {
   lastStreetId: null,
   lastStreetNamespacedId: null,
   lastStreetCreatorId: null,
-  newStreetPreference: NEW_STREET_DEFAULT,
+  newStreetPreference: 1,
   saveAsImageTransparentSky: false,
   saveAsImageSegmentNamesAndWidths: false,
   saveAsImageStreetName: false,
   saveAsImageWatermark: true,
   colorMode: COLOR_MODE_LIGHT,
   locale: null,
-  units: null
+  // Temporary workaround: coastmix instance defaults to US customary units
+  units:
+    STREETMIX_INSTANCE === 'coastmix'
+      ? SETTINGS_UNITS_IMPERIAL
+      : SETTINGS_UNITS_METRIC
 }
 
 const settingsSlice = createSlice({

@@ -32,7 +32,7 @@ function AnalyticsDialog (): React.ReactElement {
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = (): void => {
     setVisible(!isVisible)
-    void dispatch(setShowAnalytics(!isVisible))
+    dispatch(setShowAnalytics(!isVisible))
   }
 
   const capacityData = getCapacityData(street.capacitySource)
@@ -170,7 +170,7 @@ function AnalyticsDialog (): React.ReactElement {
                 </p>
               )}
               <br />
-              <Button primary={true} onClick={exportCSV}>
+              <Button primary onClick={exportCSV}>
                 <FormattedMessage
                   id="dialogs.analytics.export-csv"
                   defaultMessage="Export as CSV"

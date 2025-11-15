@@ -1,19 +1,21 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
 import Button from '../ui/Button'
-import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
 import './UpgradeButton.css'
 
-interface UpgradeButtonProps {
-  onClick: () => void
-}
+function UpgradeButton (): React.ReactElement {
+  function handleClickUpgrade (): void {
+    // dispatch(showDialog('UPGRADE'))
+    window.open(
+      'https://docs.streetmix.net/user-guide/streetmix-plus',
+      '_blank'
+    )
+  }
 
-function UpgradeButton ({
-  onClick = () => undefined
-}: UpgradeButtonProps): React.ReactElement {
   return (
-    <Button tertiary={true} className="menu-upgrade" onClick={onClick}>
+    <Button tertiary className="menu-upgrade" onClick={handleClickUpgrade}>
       <img
         className="menu-avatar-subscriber"
         src={streetmixPlusIcon}

@@ -2,39 +2,27 @@
   display: inline-block;
   position: relative;
   background-size: 100%;
-  background-color: white;
+  background-color: rgb(127 127 127 / 10%);
   width: 20px;
   height: 20px;
   border-radius: 50%;
   vertical-align: middle;
   margin-left: 3px;
   margin-right: 5px;
-
-  /* Prevent alt text from "leaking" from underneath the ::after pseudo-
-     element, when an image is broken */
   overflow: hidden;
 
-  img {
-    position: absolute;
-    inset: 0;
-    max-width: 100%;
+  /* Avatar images are loaded in an object element to allow for fallbacks
+     when image source is broken */
+  object {
+    width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
   }
 
-  /* Broken images will apply this pseudo-element, displaying a fallback image
-     An ::after pseudo-element overlaps alt text, which still displays on some
-     browsers */
-  img::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+  /* Should only display as fallback when object source is broken */
+  img {
     border-radius: 50%;
-    box-shadow: inset 0 0 0 1px white;
-    background-image: url("../../images/avatar.svg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    border: 1px solid white;
   }
 }

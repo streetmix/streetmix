@@ -42,7 +42,7 @@ function DialogRoot (): React.ReactElement | null {
 
   // Wrap Dialog with an ErrorBoundary wrapper to catch errors
   return (
-    <ErrorBoundary fallbackElement={<ErrorDialog />}>
+    <ErrorBoundary fallbackComponent={<ErrorDialog />}>
       <Dialog />
     </ErrorBoundary>
   )

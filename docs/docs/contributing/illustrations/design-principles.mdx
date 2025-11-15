@@ -1,11 +1,12 @@
 ---
 sidebar_position: 2
 ---
+
 # Design principles
 
 Streetmix illustrations use the following principles to achieve its simple, unique style.
 
-export function IllustrationCompare ({ yep, nope }) {
+export function IllustrationCompare({ yep, nope }) {
   return (
     <table className="stmx-illustration-compare">
       <colgroup>
@@ -38,7 +39,7 @@ export function IllustrationCompare ({ yep, nope }) {
   )
 }
 
-export function IllustrationSingle ({ src, alt, small }) {
+export function IllustrationSingle({ src, alt, small }) {
   const classNames = ['stmx-illustration-container']
   if (small) {
     classNames.push('stmx-illustration-small')
@@ -49,7 +50,6 @@ export function IllustrationSingle ({ src, alt, small }) {
     </div>
   )
 }
-
 
 ## Simplified forms and reduced details
 
@@ -68,7 +68,6 @@ The complexity of form is reduced to a simple silhouette and each object contain
   }}
 />
 
-
 ## Sharp angles
 
 All of the illustrations are comprised of sharp angles, with a minimal use of perfect circles.
@@ -82,10 +81,9 @@ All of the illustrations are comprised of sharp angles, with a minimal use of pe
   nope={{
     imgSrc: 'sharp-angles-01.svg',
     imgAlt: 'Vehicle with round angles',
-    text: 'Don\'t draw rounded corners or bulby shapes.'
+    text: "Don't draw rounded corners or bulby shapes."
   }}
 />
-
 
 ## Few orthogonal lines
 
@@ -113,7 +111,7 @@ There are very few entirely straight vertical lines. All of the objects slant in
   nope={{
     imgSrc: 'trapezoid-shapes-03.svg',
     imgAlt: 'Object with rectangular shape',
-    text: 'Lines shouldn\'t be straight up and down.'
+    text: "Lines shouldn't be straight up and down."
   }}
 />
 
@@ -129,31 +127,38 @@ Shapes that recur throughout illustrations helps everything read as part of the 
 
 Some angled elements can be drawn at exactly 45 degrees. These work well for window reflections and shadows.
 
-<IllustrationSingle src="45-degree-angles.svg" alt="45-degree angled elements" />
+<IllustrationSingle
+  src="45-degree-angles.svg"
+  alt="45-degree angled elements"
+/>
 
 ### The "brick"
 
 This is a simple trapezoidal shape of similar size and proportion that can be used as a small object, detail, or addition to a larger shape.
 
-<IllustrationSingle src="brick.svg" alt='The "brick"' small={true} />
+<IllustrationSingle src="brick.svg" alt='The "brick"' small />
 
-<IllustrationSingle src="brick-example.svg" alt='Example usage of the "brick"' />
+<IllustrationSingle
+  src="brick-example.svg"
+  alt='Example usage of the "brick"'
+/>
 
 ### The "platter"
 
 Similar to the Brick, the Platter is a trapezoidal shape but much longer and flatter.
 
-<IllustrationSingle src="platter.svg" alt='The "platter"' small={true} />
+<IllustrationSingle src="platter.svg" alt='The "platter"' small />
 
-<IllustrationSingle src="platter-example.svg" alt='Example usage of the "platter"' />
-
+<IllustrationSingle
+  src="platter-example.svg"
+  alt='Example usage of the "platter"'
+/>
 
 ## Letters and words
 
 Avoid using actual words or letters in illustrations. Streetmix is used all over the world, and we want to avoid making illustrations that are English-only (or specific to your preferred language).
 
 One notable exception to this is the use of numbers or letters as transportation route identifiers.
-
 
 ## Brands, logos, and other recognizable features
 
@@ -162,7 +167,6 @@ Similarly, avoid specific brands and logos, whether that's commercial businesses
 :::info In the future...
 ...we may be able to relax these guidelines by localizing illustrations to specific regions. For now, prefer abstractions that make an illustration look generic, even if it's an homage to a real place.
 :::
-
 
 ## Color palette
 
@@ -182,9 +186,15 @@ export const ColorSwatch = function ({ hex, name }) {
   return (
     <div className={`stmx-color-swatch stmx-color-${name}`}>
       <div className="line-block">
-        <div className="line"><strong>R</strong> {rgb[0]}</div>
-        <div className="line"><strong>G</strong> {rgb[1]}</div>
-        <div className="line"><strong>B</strong> {rgb[2]}</div>
+        <div className="line">
+          <strong>R</strong> {rgb[0]}
+        </div>
+        <div className="line">
+          <strong>G</strong> {rgb[1]}
+        </div>
+        <div className="line">
+          <strong>B</strong> {rgb[2]}
+        </div>
       </div>
       <p>{hex}</p>
     </div>
@@ -243,7 +253,7 @@ Recommended for: foliage, trees, plants
   <ColorSwatch hex="#988a74" name="brown-1" />
 </SwatchGroup>
 
-Recommended for: wood, dirt
+Recommended for: wood, earth
 
 ### Grayscale
 
@@ -304,8 +314,7 @@ You can download a palette swatch for use in your favorite graphics editing prog
 
 - [Adobe Swatch Exchange (ASE) format](https://github.com/streetmix/illustrations/raw/main/swatches/streetmix.ase) can be used in Adobe Illustrator or Affinity Designer.
 - [GIMP GPL format](https://github.com/streetmix/illustrations/raw/main/swatches/streetmix.gpl) can be used in open-source image editing applications such as GIMP, Krita, or Inkscape.
-:::
-
+  :::
 
 ## Shadows and highlights
 
@@ -333,10 +342,9 @@ Many elements have one solid color with a highlight and a low light. Exceptions 
   nope={{
     imgSrc: 'gradients-01.svg',
     imgAlt: 'Tree with gradient shading',
-    text: 'Don\'t use gradients to blend shadows and highlights.'
+    text: "Don't use gradients to blend shadows and highlights."
   }}
 />
-
 
 ## Contrast
 

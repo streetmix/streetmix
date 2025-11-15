@@ -1,4 +1,5 @@
 import app from '../slices/app'
+import coastmix from '../slices/coastmix'
 import debug from '../slices/debug'
 import dialogs from '../slices/dialogs'
 import errors from '../slices/errors'
@@ -18,6 +19,7 @@ import user from '../slices/user'
 
 const reducers = {
   app,
+  coastmix,
   debug,
   dialogs,
   errors,

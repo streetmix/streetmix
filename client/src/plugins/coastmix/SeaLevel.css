@@ -1,0 +1,29 @@
+.sea-level-rise {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  background-color: rgb(54 99 135); /* match wave color */
+  mix-blend-mode: multiply;
+  bottom: var(--street-section-baseline);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    height 500ms ease-in-out,
+    opacity 500ms;
+  z-index: 300; /* Keep above section -- TODO: figure out actual safe zIndex */
+}
+
+.sea-level-waves {
+  width: calc(100% + 100px);
+  height: 8px;
+  position: absolute;
+  top: -8px;
+  left: -50px;
+  background-image: url("../../../images/waves-right.svg");
+  background-repeat: repeat-x;
+  transition: transform 500ms ease-in-out;
+
+  &.sea-level-surge {
+    transform: scaleY(200%) scaleX(105%) translateY(-2px);
+  }
+}

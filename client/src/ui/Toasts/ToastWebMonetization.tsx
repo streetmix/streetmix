@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
+import wmIcon from 'url:../../../images/wm-icon-animated.svg'
 import { useSelector } from '../../store/hooks'
 import { doSignIn } from '../../users/authentication'
-import wmIcon from '../../../images/wm-icon-animated.svg'
 import ExternalLink from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
 import './ToastWebMonetization.css'

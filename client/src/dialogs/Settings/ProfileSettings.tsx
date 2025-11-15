@@ -88,7 +88,7 @@ function ProfileSettings (): React.ReactElement | null {
 
   function handleSubmit (event: React.FormEvent): void {
     event.preventDefault()
-    void handleSaveDisplayName()
+    handleSaveDisplayName()
   }
 
   // Not signed-in users shouldn't see this,
@@ -153,7 +153,7 @@ function ProfileSettings (): React.ReactElement | null {
         <div className="profile-settings-editable">
           <p>{user.id}</p>
           <div className="profile-settings-button">
-            <Button disabled={true}>
+            <Button disabled>
               <FormattedMessage id="btn.edit" defaultMessage="Edit" />
             </Button>
           </div>
@@ -192,10 +192,8 @@ function ProfileSettings (): React.ReactElement | null {
               </p>
               <div className="profile-settings-button">
                 <Button
-                  onClick={() => {
-                    void handleSaveDisplayName()
-                  }}
-                  primary={true}
+                  onClick={handleSaveDisplayName}
+                  primary
                   disabled={isPending}
                 >
                   <FormattedMessage id="btn.save" defaultMessage="Save" />
@@ -207,7 +205,7 @@ function ProfileSettings (): React.ReactElement | null {
                 </Button>
                 <Button
                   onClick={handleResetDisplayName}
-                  tertiary={true}
+                  tertiary
                   disabled={isPending}
                 >
                   <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />

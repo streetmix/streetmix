@@ -59,10 +59,8 @@ function VoteComment ({ streetId }: VoteCommentProps): React.ReactElement {
             )
           : (
             <Button
-              secondary={true}
-              onClick={() => {
-                void handleSubmitComment()
-              }}
+              secondary
+              onClick={handleSubmitComment}
             >
               <FormattedMessage
                 id="sentiment.comment.submit"

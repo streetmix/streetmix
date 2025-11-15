@@ -9,16 +9,16 @@ on:
 defaults:
   run:
     working-directory: ./docs
-    
+
 jobs:
   take-screenshots:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: current
 

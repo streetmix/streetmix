@@ -239,12 +239,10 @@ export async function get (req, res) {
         res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       case ERRORS.UNAUTHORISED_ACCESS:
-        res
-          .status(401)
-          .json({ status: 401, msg: 'User with that login token not found.' })
+        res.status(401).json({ status: 401, msg: 'Unauthorized request.' })
         return
       default:
-        res.status(500).end()
+        res.status(500).json({ status: 500, msg: 'Unknown error.' })
     }
   }
 
@@ -266,40 +264,42 @@ export async function get (req, res) {
     return user
   }
 
-  if (!userId) {
-    if (!req.auth?.sub) {
-      res
-        .status(401)
-        .json({ status: 401, msg: 'Please sign in to get all users.' })
-    }
-
-    const callingUser = await User.findOne({
-      where: { auth0_id: req.auth.sub }
-    })
-
-    const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
-
-    if (isAdmin) {
-      const userList = await User.findAll({ raw: true })
-      res.status(200).send(asUserJson(userList))
-      return
-    }
-
-    res.status(401).json({ status: 401, msg: 'Please provide user ID.' })
-    return
-  }
-
   try {
-    const result = await findUserById(userId)
+    // If userId parameter is defined, go get it
+    if (userId !== undefined) {
+      const result = await findUserById(userId)
 
-    // Only send the full user object if it matches the requesting user
-    if (req.auth?.sub === result.auth0Id) {
-      res.status(200).send(asUserJson(result))
+      // Only send the full user object if it matches the requesting user
+      if (req.auth?.sub === result.auth0Id) {
+        res.status(200).send(asUserJson(result))
+      } else {
+        res.status(200).send(asUserJsonBasic(result))
+      }
     } else {
-      res.status(200).send(asUserJsonBasic(result))
+      // If userId parameter is undefined, attempt to retrieve all
+      // users if requesting user is an admin
+      // TODO: This is an expensive request and we should paginate it.
+      // First check if requesting user is logged in
+      if (!req.auth?.sub) {
+        throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+      }
+
+      const callingUser = await User.findOne({
+        where: { auth0_id: req.auth.sub }
+      })
+
+      const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
+
+      if (isAdmin) {
+        const results = await User.findAll({ raw: true })
+        const userList = results.map(asUserJson)
+        res.status(200).json(userList)
+      } else {
+        throw new Error(ERRORS.UNAUTHORISED_ACCESS)
+      }
     }
   } catch (err) {
-    handleError(err)
+    handleError(err.message)
   }
 } // END function - get
 

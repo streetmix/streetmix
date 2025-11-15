@@ -29,15 +29,15 @@ exports[`StreetMetaWidth > does not render interactive elements when not editabl
 exports[`StreetMetaWidth > renders 1`] = `
 <DocumentFragment>
   <div
+    aria-expanded="false"
+    aria-haspopup="menu"
     class="street-meta-item street-width street-width-editable"
+    data-state="closed"
+    id="radix-_r_0_"
+    type="button"
   >
     <button
-      aria-expanded="false"
-      aria-haspopup="menu"
       aria-label="Change width of the street"
-      data-state="closed"
-      id="radix-:r0:"
-      type="button"
     >
       <div
         class="street-meta-icon"

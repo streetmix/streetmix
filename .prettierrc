@@ -1,7 +1,7 @@
 {
   "overrides": [
     {
-      "files": ["*.js", "*.jsx", "*.ts", ".tsx"],
+      "files": ["*.{js,jsx,ts,tsx,cjs,mdx}"],
       "options": {
         "trailingComma": "none",
         "semi": false,
@@ -11,9 +11,9 @@
       }
     },
     {
-      "files": ["*.md"],
+      "files": ["*.md,mdx"],
       "options": {
-        "proseWrap": "never"
+        "proseWrap": "preserve"
       }
     }
   ]

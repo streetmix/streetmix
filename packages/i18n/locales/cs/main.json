@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Přihlášení pomocí Twitteru"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Vytvořit kopii",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Zde je vaše nová ulice.",
       "default": "Začněte ukázkovou ulicí",
       "empty": "Začněte s prázdnou ulicí",
-      "last": "Začněte s kopií poslední ulice"
+      "last": "Začněte s kopií poslední ulice",
+      "dismiss": ""
     },
     "about": {
       "heading": "O Streetmixu.",
@@ -366,14 +373,19 @@
     "building-height": "Změnit počet podlaží",
     "street-width": "Změnit šířku ulice",
     "geotag": "Změnit polohu",
-    "increase-width": "Zvětšení šířky (pro větší přesnost podržte Shift)",
-    "decrease-width": "Zmenšení šířky (pro větší přesnost podržte Shift)",
+    "increase-width": "Zvětšení šířky",
+    "decrease-width": "Zmenšení šířky",
+    "width-tooltip-sublabel": "(pro větší přesnost podržte Shift)",
     "add-floor": "Přidat podlaží",
     "remove-floor": "Odstranit podlaží",
     "scroll-street-left": "Posun ulice doleva",
     "scroll-street-right": "Posun ulice doprava",
     "scroll-left": "Posun vlevo",
-    "scroll-right": "Posun vpravo"
+    "scroll-right": "Posun vpravo",
+    "elevation-sidewalk": "Úroveň chodníku",
+    "elevation-road": "Úroveň vozovky",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Ulice bez jména",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

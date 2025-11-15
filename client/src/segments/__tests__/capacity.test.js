@@ -15,7 +15,8 @@ vi.mock('../../segments/capacity_data.json', () => ({
 describe('segment capacity', () => {
   it('returns capacity data for segment', () => {
     const segment = {
-      type: 'foo'
+      type: 'foo',
+      warnings: []
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -26,7 +27,8 @@ describe('segment capacity', () => {
 
   it('returns capacity data for segment with inherited data', () => {
     const segment = {
-      type: 'zed'
+      type: 'zed',
+      warnings: []
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -40,7 +42,8 @@ describe('segment capacity', () => {
       type: 'qux',
       variant: {
         var: 'foofoo'
-      }
+      },
+      warnings: []
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -51,7 +54,8 @@ describe('segment capacity', () => {
 
   it('returns capacity data for segment from common data source', () => {
     const segment = {
-      type: 'baz'
+      type: 'baz',
+      warnings: []
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -63,7 +67,7 @@ describe('segment capacity', () => {
   it('drops capacity to zero for segments outside the street', () => {
     const segment = {
       type: 'foo',
-      warnings: [null, true, false, false]
+      warnings: [false, true, false, false]
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -75,7 +79,7 @@ describe('segment capacity', () => {
   it('drops capacity to zero for segments that are too small', () => {
     const segment = {
       type: 'foo',
-      warnings: [null, false, true, false]
+      warnings: [false, false, true, false]
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -86,7 +90,8 @@ describe('segment capacity', () => {
 
   it('returns undefined if segment does not have a capacity data point', () => {
     const segment = {
-      type: 'bar'
+      type: 'bar',
+      warnings: []
     }
 
     expect(getSegmentCapacity(segment)).toEqual(undefined)
@@ -96,7 +101,7 @@ describe('segment capacity', () => {
     // is changed or refactored.
     const segment2 = {
       type: 'bar',
-      warnings: [null, true, false, false]
+      warnings: [false, true, false, false]
     }
 
     expect(getSegmentCapacity(segment2)).toEqual(undefined)
@@ -108,23 +113,27 @@ describe('street capacity', () => {
     const street = {
       segments: [
         {
-          type: 'baz'
+          type: 'baz',
+          warnings: []
         },
         // Include two segments (both should be added)
         {
-          type: 'foo'
+          type: 'foo',
+          warnings: []
         },
         {
-          type: 'foo'
+          type: 'foo',
+          warnings: []
         },
         // Include a segment without capacity (adds zero)
         {
-          type: 'bar'
+          type: 'bar',
+          warnings: []
         },
         // Include a segment with warnings (adds zero)
         {
           type: 'baz',
-          warnings: [null, true, false, false]
+          warnings: [false, true, false, false]
         }
       ]
     }
@@ -139,11 +148,12 @@ describe('street capacity', () => {
     const street = {
       segments: [
         {
-          type: 'bar'
+          type: 'bar',
+          warnings: []
         },
         {
           type: 'baz',
-          warnings: [null, true, false, false]
+          warnings: [false, true, false, false]
         }
       ]
     }
@@ -159,31 +169,37 @@ describe('rolled-up segment capacities', () => {
   const street = {
     segments: [
       {
-        type: 'qux'
+        type: 'qux',
+        warnings: []
       },
       // Include two segments (both should be added)
       // and sorted before 'qux'
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       {
-        type: 'foo'
+        type: 'foo',
+        warnings: []
       },
       // Result should sort 'baz' before 'foo'
       {
-        type: 'baz'
+        type: 'baz',
+        warnings: []
       },
       {
-        type: 'qux'
+        type: 'qux',
+        warnings: []
       },
       // Include a segment without capacity (adds zero)
       {
-        type: 'bar'
+        type: 'bar',
+        warnings: []
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [null, true, false, false]
+        warnings: [false, true, false, false]
       }
     ]
   }
@@ -211,7 +227,8 @@ describe('rolled-up segment capacities', () => {
     const street = {
       segments: [
         {
-          type: 'bar'
+          type: 'bar',
+          warnings: []
         }
       ]
     }

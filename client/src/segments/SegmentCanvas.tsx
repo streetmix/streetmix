@@ -1,24 +1,23 @@
 import React, { memo, useState, useRef, useEffect } from 'react'
+import { Decimal } from 'decimal.js'
 
 import { useSelector } from '../store/hooks'
 import { getSegmentVariantInfo } from './info'
 import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { TILE_SIZE } from './constants'
+import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
-const GROUND_BASELINE = 400
-const CANVAS_HEIGHT = 480
-const CANVAS_GROUND = 35
-const CANVAS_BASELINE = CANVAS_HEIGHT - CANVAS_GROUND
+import type { ElevationChange } from '@streetmix/types'
+
+const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
 interface SegmentCanvasProps {
   actualWidth: number
   type: string
   variantString: string
   randSeed: string
-  groundBaseline?: number
-  elevation?: number
-  updatePerspective: (el: HTMLCanvasElement) => void
+  elevation: number
+  slope: ElevationChange
 }
 
 function SegmentCanvas ({
@@ -26,9 +25,8 @@ function SegmentCanvas ({
   type,
   variantString,
   randSeed,
-  groundBaseline = GROUND_BASELINE,
   elevation,
-  updatePerspective = () => {}
+  slope
 }: SegmentCanvasProps): React.ReactElement {
   const [firstRender, setFirstRender] = useState(true)
   const canvasEl = useRef<HTMLCanvasElement>(null)
@@ -39,7 +37,6 @@ function SegmentCanvas ({
 
   useEffect(() => {
     if (!canvasEl.current) return
-    updatePerspective(canvasEl.current)
     drawSegment(canvasEl.current)
 
     // Normally drawSegment() on its own works just fine, except in
@@ -58,7 +55,7 @@ function SegmentCanvas ({
 
     // Only redraw on certain specific prop changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variantString, actualWidth, elevation, redrawCanvas])
+  }, [variantString, actualWidth, elevation, redrawCanvas, slope])
 
   function drawSegment (canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
@@ -71,8 +68,9 @@ function SegmentCanvas ({
       variantString,
       actualWidth,
       0,
-      groundBaseline,
+      GROUND_BASELINE,
       elevation,
+      slope,
       randSeed,
       1,
       dpi
@@ -89,16 +87,20 @@ function SegmentCanvas ({
   const displayWidth = totalWidth > actualWidth ? totalWidth : actualWidth
 
   // Determine dimensions to draw DOM element
-  const elementWidth = displayWidth * TILE_SIZE
-  const elementHeight = CANVAS_BASELINE
+  // Widths use decimal.js to fix rounding errors that lead to gaps
+  // This is slower than raw math so don't do it for height
+  const elementWidth = new Decimal(displayWidth).times(TILE_SIZE)
+  const elementHeight = CANVAS_HEIGHT
 
   // Determine size of canvas
-  const canvasWidth = Math.round(elementWidth * dpi)
+  const canvasWidth = elementWidth.times(dpi).round().toNumber()
   const canvasHeight = elementHeight * dpi
   const canvasStyle = {
-    width: Math.round(elementWidth),
+    width: elementWidth.round().toNumber(),
     height: elementHeight,
-    left: dimensions.left * TILE_SIZE
+    // Left placement uses decimal.js to fix rounding errors that lead to gaps
+    // This is slower than raw math so don't do it for height
+    left: new Decimal(dimensions.left).times(TILE_SIZE).round().toNumber()
   }
 
   return (

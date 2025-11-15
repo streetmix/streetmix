@@ -72,20 +72,23 @@ function calculateStyles (
   remainingWidth: number,
   units: UnitsSetting
 ): {
-    style?: React.CSSProperties
-    minGuideStyle?: React.CSSProperties
-    maxGuideStyle?: React.CSSProperties
-  } {
+  style?: React.CSSProperties
+  minGuideStyle?: React.CSSProperties
+  maxGuideStyle?: React.CSSProperties
+} {
   if (!isVisible || segmentId === null || segment === null) return {}
 
-  const variantInfo = getSegmentVariantInfo(
-    segment.type,
-    segment.variantString
-  )
+  const variantInfo = getSegmentVariantInfo(segment.type, segment.variantString)
 
   // If the variant has a minimum width defined, we show minimum-width guides
-  const minWidth = getWidthInMetric(variantInfo.minWidth, units)
-  const maxWidth = getWidthInMetric(variantInfo.maxWidth, units)
+  const minWidth =
+    variantInfo.minWidth !== undefined
+      ? getWidthInMetric(variantInfo.minWidth, units)
+      : undefined
+  const maxWidth =
+    variantInfo.maxWidth !== undefined
+      ? getWidthInMetric(variantInfo.maxWidth, units)
+      : undefined
 
   // Maximum-width guides are based on several factors:
   // - If the variant does not have a maximum width defined, then the segment's

@@ -23,11 +23,11 @@ function Toast (props: ToastProps): React.ReactElement {
     className,
     children
   } = props
-  const { mode, title, message, action } = item
+  const { method, title, action } = item
 
   const classNames = ['toast']
-  if (mode !== undefined) {
-    classNames.push('toast-' + mode)
+  if (method !== undefined) {
+    classNames.push('toast-' + method)
   }
   if (className !== undefined) {
     classNames.push(className)
@@ -39,7 +39,10 @@ function Toast (props: ToastProps): React.ReactElement {
         <CloseButton onClick={handleClose} />
         <div className="toast-body">
           {title !== undefined && <h3>{title}</h3>}
-          {children ?? <p className="toast-message">{message}</p>}
+          {children ??
+            ('message' in item && (
+              <p className="toast-message">{item.message}</p>
+            ))}
         </div>
         {action !== undefined && (
           <div className="toast-action">

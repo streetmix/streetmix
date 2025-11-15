@@ -1,0 +1,115 @@
+###############################################################################
+##
+##  Harborwalk
+##
+##  Coastal condition where a public pedestrian zone is on or adjacent to a
+##  a seawall abutting a body of water.
+##
+###############################################################################
+
+width: 24 # 80' in US customary units
+showAnalytics: false
+boundary:
+  left:
+    variant: fence
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  right:
+    variant: waterfront
+    floors: 1
+    elevation: 0
+slices:
+  - type: divider
+    variant:
+      divider-type: big-tree
+    width:
+      metric: 1
+      imperial: 3
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Park
+  - type: divider
+    variant:
+      divider-type: flowers
+    width:
+      metric: 4
+      imperial: 14
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Park
+  - type: divider
+    variant:
+      divider-type: big-tree
+    width:
+      metric: 1
+      imperial: 3
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Park
+  - type: bike-lane
+    variant:
+      bike-direction: twoway-right
+      bike-asphalt: regular
+      elevation: sidewalk
+    width:
+      metric: 3
+      imperial: 10
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Cycletrack
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: left
+      lamp-type: traditional
+    width:
+      metric: 0.5
+      imperial: 2
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  - type: divider
+    variant:
+      divider-type: big-tree
+    width:
+      metric: 2.5
+      imperial: 8
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Park
+  - type: divider
+    variant:
+      divider-type: planting-strip
+    width:
+      metric: 8
+      imperial: 26
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Future berm
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width:
+      metric: 3.5
+      imperial: 12
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Harborwalk
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: both
+      lamp-type: traditional
+    width:
+      metric: 0.5
+      imperial: 2
+    elevation:
+      metric: 0.15
+      imperial: 0.5

@@ -71,11 +71,7 @@ export default class BlockingShield extends React.Component {
 
     this.setState({
       visible: true,
-
-      // Internet Explorer and some other browsers may not support `event.detail`
-      // See Sentry #STREETMIX-2MM
-      //  https://sentry.io/share/issue/25aaf22cd58647b8b3402f77875fd5ee/
-      mode: (event.detail && event.detail.mode) || 'load'
+      mode: event.detail?.mode ?? 'load'
     })
 
     this.blockingShieldTimerId = window.setTimeout(() => {
@@ -94,7 +90,7 @@ export default class BlockingShield extends React.Component {
       visible: true,
       immediate: true,
       errorType: 'try-again',
-      showCancel: (event.detail && event.detail.showCancel) || true
+      showCancel: event.detail?.showCancel ?? true
     })
   }
 
@@ -160,7 +156,7 @@ export default class BlockingShield extends React.Component {
                 defaultMessage="Streetmix is having trouble connecting to the Internet."
               />
             </p>
-            <Button primary={true} onClick={this.handleClickTryAgain}>
+            <Button primary onClick={this.handleClickTryAgain}>
               <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
             </Button>
             {this.state.showCancel && (

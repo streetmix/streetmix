@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getVariantString } from '../../segments/variant_utils'
-import { DEFAULT_SKYBOX } from '../../sky/constants'
-import { MAX_BUILDING_HEIGHT } from '../../segments/constants'
-import { getSegmentInfo, getSegmentVariantInfo } from '../../segments/info'
-import { SETTINGS_UNITS_METRIC } from '../../users/constants'
+import { getElevationValue } from '~/src/segments/elevation'
+import { getVariantString } from '~/src/segments/variant_utils'
+import { DEFAULT_SKYBOX } from '~/src/sky/constants'
+import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
+import { getSegmentInfo, getSegmentVariantInfo } from '~/src/segments/info'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 
-import type { BuildingPosition, Segment, StreetState } from '@streetmix/types'
+import type { BoundaryPosition, Segment, StreetState } from '@streetmix/types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StreetState = {
@@ -17,10 +18,20 @@ const initialState: StreetState = {
   width: 0,
   name: null,
   segments: [],
-  leftBuildingHeight: 0,
-  rightBuildingHeight: 0,
-  leftBuildingVariant: '',
-  rightBuildingVariant: '',
+  boundary: {
+    left: {
+      id: '',
+      variant: '',
+      floors: 0,
+      elevation: 0
+    },
+    right: {
+      id: '',
+      variant: '',
+      floors: 0,
+      elevation: 0
+    }
+  },
   skybox: DEFAULT_SKYBOX,
   location: null,
   showAnalytics: false,
@@ -51,7 +62,7 @@ const streetSlice = createSlice({
     addSegment: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, segment: Segment }>
+        action: PayloadAction<{ index: number; segment: Segment }>
       ) {
         const { index, segment } = action.payload
         state.segments.splice(index, 0, segment)
@@ -66,7 +77,7 @@ const streetSlice = createSlice({
     removeSegment: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, immediate: boolean }>
+        action: PayloadAction<{ index: number; immediate: boolean }>
       ) {
         const { index, immediate } = action.payload
         state.segments.splice(index, 1)
@@ -82,7 +93,7 @@ const streetSlice = createSlice({
     moveSegment: {
       reducer (
         state,
-        action: PayloadAction<{ fromIndex: number, toIndex: number }>
+        action: PayloadAction<{ fromIndex: number; toIndex: number }>
       ) {
         const { fromIndex, toIndex } = action.payload
         const segment = state.segments[fromIndex]
@@ -136,7 +147,7 @@ const streetSlice = createSlice({
     },
 
     changeSegmentWidth: {
-      reducer (state, action: PayloadAction<{ index: number, width: number }>) {
+      reducer (state, action: PayloadAction<{ index: number; width: number }>) {
         const { index, width } = action.payload
         state.segments[index].width = width
       },
@@ -150,7 +161,7 @@ const streetSlice = createSlice({
     changeSegmentVariant: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, set: string, selection: string }>
+        action: PayloadAction<{ index: number; set: string; selection: string }>
       ) {
         const { index, set, selection } = action.payload
 
@@ -171,13 +182,17 @@ const streetSlice = createSlice({
         // elevation from the new variant information. Sometimes a
         // variant has different elevations, see "divider" type for example
         // NOTE: skip this if `enableElevation` is on
+        // TODO: also skip this if segment elevation has been manually set
         const segmentInfo = getSegmentInfo(segment.type)
         const variantInfo = getSegmentVariantInfo(
           segment.type,
           segment.variantString
         )
         if (segmentInfo.enableElevation !== true) {
-          segment.elevation = variantInfo.elevation
+          segment.elevation = getElevationValue(
+            variantInfo.elevation,
+            state.units
+          )
         }
       },
       prepare (index: number, set: string, selection: string) {
@@ -190,7 +205,7 @@ const streetSlice = createSlice({
     changeSegmentProperties: {
       reducer (
         state,
-        action: PayloadAction<{ index: number, properties: Partial<Segment> }>
+        action: PayloadAction<{ index: number; properties: Partial<Segment> }>
       ) {
         const { index, properties } = action.payload
         Object.assign(state.segments[index], properties)
@@ -217,6 +232,11 @@ const streetSlice = createSlice({
             // Normalize street name input
             // TODO: Consider whether to limit street name length here
             state.name = streetName.trim()
+
+            // If a streetname is an empty string, unset it
+            if (streetName === '') {
+              state.name = null
+            }
           } else {
             // If a streetname is null, unset it
             state.name = null
@@ -241,7 +261,7 @@ const streetSlice = createSlice({
     saveStreetId: {
       reducer (
         state,
-        action: PayloadAction<{ id: string, namespacedId: number }>
+        action: PayloadAction<{ id: string | null; namespacedId: number }>
       ) {
         const { id, namespacedId } = action.payload
 
@@ -252,7 +272,7 @@ const streetSlice = createSlice({
 
         state.namespacedId = namespacedId
       },
-      prepare (id: string, namespacedId: number) {
+      prepare (id: string | null, namespacedId: number) {
         return {
           payload: { id, namespacedId }
         }
@@ -307,35 +327,67 @@ const streetSlice = createSlice({
       }
     },
 
+    setBoundaryElevation: {
+      reducer (
+        state,
+        action: PayloadAction<{ position: BoundaryPosition; value: number }>
+      ) {
+        const { position, value } = action.payload
+
+        if (typeof value !== 'number' || Number.isNaN(value)) {
+          return
+        }
+        switch (position) {
+          case 'left':
+            state.boundary.left.elevation = value
+            break
+          case 'right':
+            state.boundary.right.elevation = value
+            break
+        }
+      },
+      prepare (position: BoundaryPosition, value: number) {
+        return {
+          payload: { position, value }
+        }
+      }
+    },
+
     // TODO: Buildings could be a child slice?
-    addBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
+    addBuildingFloor (state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
 
       switch (position) {
         case 'left':
-          state.leftBuildingHeight = Math.min(
-            state.leftBuildingHeight + 1,
+          state.boundary.left.floors = Math.min(
+            state.boundary.left.floors + 1,
             MAX_BUILDING_HEIGHT
           )
           break
         case 'right':
-          state.rightBuildingHeight = Math.min(
-            state.rightBuildingHeight + 1,
+          state.boundary.right.floors = Math.min(
+            state.boundary.right.floors + 1,
             MAX_BUILDING_HEIGHT
           )
           break
       }
     },
 
-    removeBuildingFloor (state, action: PayloadAction<BuildingPosition>) {
+    removeBuildingFloor (state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
 
       switch (position) {
         case 'left':
-          state.leftBuildingHeight = Math.max(state.leftBuildingHeight - 1, 1)
+          state.boundary.left.floors = Math.max(
+            state.boundary.left.floors - 1,
+            1
+          )
           break
         case 'right':
-          state.rightBuildingHeight = Math.max(state.rightBuildingHeight - 1, 1)
+          state.boundary.right.floors = Math.max(
+            state.boundary.right.floors - 1,
+            1
+          )
           break
       }
     },
@@ -343,7 +395,7 @@ const streetSlice = createSlice({
     setBuildingFloorValue: {
       reducer (
         state,
-        action: PayloadAction<{ position: BuildingPosition, value: string }>
+        action: PayloadAction<{ position: BoundaryPosition; value: string }>
       ) {
         const value = Number.parseInt(action.payload.value, 10)
         if (Number.isNaN(value)) return
@@ -352,20 +404,20 @@ const streetSlice = createSlice({
 
         switch (position) {
           case 'left':
-            state.leftBuildingHeight = Math.min(
+            state.boundary.left.floors = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
             break
           case 'right':
-            state.rightBuildingHeight = Math.min(
+            state.boundary.right.floors = Math.min(
               Math.max(value, 1),
               MAX_BUILDING_HEIGHT
             )
             break
         }
       },
-      prepare (position: BuildingPosition, value: string) {
+      prepare (position: BoundaryPosition, value: string) {
         return {
           payload: { position, value }
         }
@@ -375,7 +427,7 @@ const streetSlice = createSlice({
     setBuildingVariant: {
       reducer (
         state,
-        action: PayloadAction<{ position: BuildingPosition, variant: string }>
+        action: PayloadAction<{ position: BoundaryPosition; variant: string }>
       ) {
         const { position, variant } = action.payload
 
@@ -383,14 +435,14 @@ const streetSlice = createSlice({
 
         switch (position) {
           case 'left':
-            state.leftBuildingVariant = variant
+            state.boundary.left.variant = variant
             break
           case 'right':
-            state.rightBuildingVariant = variant
+            state.boundary.right.variant = variant
             break
         }
       },
-      prepare (position: BuildingPosition, variant: string) {
+      prepare (position: BoundaryPosition, variant: string) {
         return {
           payload: { position, variant }
         }
@@ -427,6 +479,7 @@ export const {
   updateSchemaVersion,
   addLocation,
   clearLocation,
+  setBoundaryElevation,
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue,

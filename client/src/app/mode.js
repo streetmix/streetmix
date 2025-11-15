@@ -25,13 +25,19 @@ export const MODES = {
 }
 
 let mode
+let modeData = {}
 
 export function getMode () {
   return mode
 }
 
-export function setMode (value) {
+export function getModeData () {
+  return modeData
+}
+
+export function setMode (value, data = {}) {
   mode = value
+  modeData = data
 }
 
 export function processMode () {
@@ -70,8 +76,6 @@ export function processMode () {
       showError(ERRORS.FORCE_RELOAD_SIGN_IN, true)
       break
     case MODES.NEW_STREET:
-      setServerContacted(false)
-      break
     case MODES.NEW_STREET_COPY_LAST:
       setServerContacted(false)
       break

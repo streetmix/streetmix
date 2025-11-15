@@ -1,0 +1,24 @@
+###############################################################################
+##
+##  Empty street
+##
+##  The "empty street" is like a blank slate. It has no slices (or lanes)
+##  and only have plain grass on either side.
+##
+###############################################################################
+
+width: 24
+boundary:
+  left:
+    variant: grass
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  right:
+    variant: grass
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+slices: []

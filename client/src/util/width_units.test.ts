@@ -1,11 +1,39 @@
+import { Decimal } from 'decimal.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
-import { processWidthInput, prettifyWidth } from './width_units'
+import {
+  processWidthInput,
+  prettifyWidth,
+  roundToPrecision,
+  roundToNearestEighth
+} from './width_units'
 
 // Use this when it doesn't matter what the unit is.
 const DEFAULT_UNITS = SETTINGS_UNITS_METRIC
+
+describe('roundToPrecision()', () => {
+  it('matches decimal.js toDecimalPlaces() behavior', () => {
+    // Randomly select a few numbers to test.
+    for (let i = 0; i < 10; i += Math.random()) {
+      const a = roundToPrecision(i)
+      const b = new Decimal(i).toDecimalPlaces(3).toNumber()
+      expect(a).toEqual(b)
+    }
+  })
+})
+
+describe('roundToNearestEighth()', () => {
+  it('matches decimal.js toDecimalPlaces() behavior', () => {
+    // Randomly select a few numbers to test.
+    for (let i = 0; i < 10; i += Math.random()) {
+      const a = roundToNearestEighth(i)
+      const b = new Decimal(i).toNearest(0.125).toNumber()
+      expect(a).toEqual(b)
+    }
+  })
+})
 
 describe('processWidthInput()', () => {
   it('trims leading and trailing whitespace', () => {
@@ -281,9 +309,25 @@ describe('processWidthInput()', () => {
     expect(input2).toEqual(0.076)
   })
 
+  it('parses feet and inches using a vulgar fraction (3¼′")', () => {
+    // When a vulgar fraction is present it is very likely included with the
+    // prime mark
+    const value = '3¼′'
+
+    // Even in metric mode, the prime symbol should cause the value to be
+    // interpreted as imperial units
+    const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
+    expect(input1).toEqual(0.991)
+
+    const input2 = processWidthInput(value, SETTINGS_UNITS_IMPERIAL)
+    expect(input2).toEqual(0.991)
+  })
+
   it('parses a value using the prime mark (3′)', () => {
     const value = '3′'
 
+    // Even in metric mode, the prime symbol should cause the value to be
+    // interpreted as imperial units
     const input1 = processWidthInput(value, SETTINGS_UNITS_METRIC)
     expect(input1).toEqual(0.914)
 

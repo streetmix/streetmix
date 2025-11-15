@@ -1,0 +1,27 @@
+.up-down-input-element {
+  width: 50px;
+  font-family: var(--font-family);
+  text-align: center;
+  background: var(--form-element-background);
+  border: 1px solid var(--form-element-border);
+  border-left: 0;
+  border-right: 0;
+  vertical-align: bottom;
+  height: 30px;
+  line-height: 22px;
+  outline: none;
+}
+
+.up-down-input-decrement {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.up-down-input-increment {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.up-down-input button svg {
+  color: var(--color-midnight-900) !important;
+}

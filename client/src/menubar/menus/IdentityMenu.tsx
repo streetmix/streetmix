@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
 import { onSignOutClick } from '~/src/users/authentication'
 import Avatar from '~/src/users/Avatar'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { openGallery } from '~/src/store/actions/gallery'
 import { showDialog } from '~/src/store/slices/dialogs'
-import streetmixPlusIcon from '~/src/ui/icons/streetmix-plus.svg'
 import Icon from '~/src/ui/Icon'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 import MenuSeparator from './MenuSeparator'
 import './IdentityMenu.css'
 
@@ -22,15 +23,15 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
     (event: React.MouseEvent) => {
-      event.preventDefault()
-      void dispatch(openGallery({ userId: user.id }))
+      const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
+      window.history.pushState({}, '', myStreetsLink)
+      dispatch(openGallery({ userId: user.id }))
     },
     [user?.id, dispatch]
   )
 
   const isAdmin: boolean =
     user?.roles?.includes(USER_ROLES.ADMIN.value) ?? false
-  const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
 
   return (
     <Menu {...props} className="identity-menu">
@@ -73,24 +74,24 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
             </div>
           </div>
           <MenuSeparator />
-          <a href={myStreetsLink} onClick={handleClickMyStreets}>
+          <MenuItem onClick={handleClickMyStreets}>
             <Icon name="star" className="menu-item-icon" />
             <FormattedMessage
               id="menu.item.my-streets"
               defaultMessage="My streets"
             />
-          </a>
+          </MenuItem>
         </>
       )}
-      <a onClick={() => dispatch(showDialog('SETTINGS'))}>
+      <MenuItem onClick={() => dispatch(showDialog('SETTINGS'))}>
         <Icon name="settings" className="menu-item-icon" />
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
-      </a>
+      </MenuItem>
       <MenuSeparator />
-      <a className="menu-item menu-sign-out" onClick={onSignOutClick}>
+      <MenuItem className="menu-item menu-sign-out" onClick={onSignOutClick}>
         <Icon name="sign-out" className="menu-item-icon" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
-      </a>
+      </MenuItem>
     </Menu>
   )
 }

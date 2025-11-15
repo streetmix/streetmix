@@ -38,7 +38,7 @@ function SegmentLabelContainer (
       </div>
       <div className="segment-label">
         <p className="segment-name">{label}</p>
-        {showCapacity && capacity !== null && (
+        {showCapacity && capacity !== undefined && (
           <p className="segment-capacity">
             <FormattedMessage
               id="capacity.ppl-per-hour"

@@ -9,66 +9,70 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
       class="dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
-      role="dialog"
+      class="dialog-box-display-area"
     >
-      <button
-        class="close"
-        title="Dismiss"
-      >
-        <svg
-          data-icon="close"
-          data-icon-source="test"
-        />
-      </button>
       <div
-        class="newsletter-dialog"
+        class="dialog-box"
+        role="dialog"
       >
-        <header>
-          <h1>
-            Subscribe to our newsletter
-          </h1>
-        </header>
-        <div
-          class="dialog-content"
+        <button
+          class="close"
+          title="Dismiss"
         >
-          <p>
-            We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!
-          </p>
-          <form>
-            <label
-              for=":r0:"
-            >
-              Enter your email
-            </label>
-            <input
-              id=":r0:"
-              name="email"
-              placeholder="test@example.com"
-              required=""
-              type="email"
-            />
-            <input
-              name="tag"
-              type="hidden"
-              value="via app"
-            />
-            <input
-              name="embed"
-              type="hidden"
-              value="1"
-            />
-            <div
-              class="subscribe-buttons"
-            >
-              <button
-                class="btn btn-primary"
-                type="submit"
+          <svg
+            data-icon="close"
+            data-icon-source="test"
+          />
+        </button>
+        <div
+          class="newsletter-dialog"
+        >
+          <header>
+            <h1>
+              Subscribe to our newsletter
+            </h1>
+          </header>
+          <div
+            class="dialog-content"
+          >
+            <p>
+              We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!
+            </p>
+            <form>
+              <label
+                for="_r_0_"
               >
-                Subscribe
-              </button>
-            </div>
-          </form>
+                Enter your email
+              </label>
+              <input
+                id="_r_0_"
+                name="email"
+                placeholder="test@example.com"
+                required=""
+                type="email"
+              />
+              <input
+                name="tag"
+                type="hidden"
+                value="via app"
+              />
+              <input
+                name="embed"
+                type="hidden"
+                value="1"
+              />
+              <div
+                class="subscribe-buttons"
+              >
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

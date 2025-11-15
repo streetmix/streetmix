@@ -4,26 +4,35 @@ exports[`HelpMenu > renders 1`] = `
 <DocumentFragment>
   <div
     class="menu"
+    role="menu"
   >
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="info"
         data-icon-source="test"
       />
       About Streetmix…
-    </a>
-    <a>
+    </button>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="rocket"
         data-icon-source="test"
       />
       What’s new?‎
-    </a>
+    </button>
     <a
+      class="menu-item"
       href="https://docs.streetmix.net/user-guide/intro"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -38,11 +47,15 @@ exports[`HelpMenu > renders 1`] = `
       />
     </a>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <a
+      class="menu-item"
       href="https://cottonbureau.com/people/streetmix"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -57,10 +70,12 @@ exports[`HelpMenu > renders 1`] = `
       />
     </a>
     <div
+      aria-orientation="horizontal"
       class="menu-separator"
+      role="separator"
     />
     <div
-      class="help-menu-shortcuts"
+      class="keyboard-shortcuts"
     >
       <svg
         class="menu-item-icon"
@@ -91,9 +106,7 @@ exports[`HelpMenu > renders 1`] = `
             </td>
           </tr>
           <tr>
-            <td
-              dir="ltr"
-            >
+            <td>
               <kbd
                 class="key key-icon"
                 title="Minus"
@@ -126,27 +139,29 @@ exports[`HelpMenu > renders 1`] = `
             </td>
           </tr>
           <tr>
-            <td
-              dir="ltr"
-            >
-              <kbd
-                class="key key-icon"
-                title="Left arrow"
+            <td>
+              <span
+                dir="ltr"
               >
-                <svg
-                  data-icon="arrow-left"
-                  data-icon-source="test"
-                />
-              </kbd>
-              <kbd
-                class="key key-icon"
-                title="Right arrow"
-              >
-                <svg
-                  data-icon="arrow-right"
-                  data-icon-source="test"
-                />
-              </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Left arrow"
+                >
+                  <svg
+                    data-icon="arrow-left"
+                    data-icon-source="test"
+                  />
+                </kbd>
+                <kbd
+                  class="key key-icon"
+                  title="Right arrow"
+                >
+                  <svg
+                    data-icon="arrow-right"
+                    data-icon-source="test"
+                  />
+                </kbd>
+              </span>
             </td>
             <td>
               Move around the street

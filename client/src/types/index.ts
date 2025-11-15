@@ -5,18 +5,13 @@ import type { StreetState } from '@streetmix/types'
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
 
-// Helper type that can be combined with a component's props
-// to allow pass-through of arbitrary props
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PassthroughProps = Record<string, any>
-
 export interface UserSettings {
   colorMode: ColorModes
   lastStreetCreatorId: string
   lastStreetId: string
   lastStreetNamespacedId: number
   locale: string
-  newStreetPreference: number
+  newStreetPreference: number // Deprecated
   saveAsImageSegmentNamesAndWidths: boolean
   saveAsImageStreetName: boolean
   saveAsImageTransparentSky: boolean
@@ -56,6 +51,8 @@ export interface UserState {
   }
 }
 
+export type ContentDirection = 'ltr' | 'rtl'
+
 export interface SentimentVote {
   score: number
   data: StreetState
@@ -67,15 +64,32 @@ export interface SentimentComment {
   comment: string
 }
 
-export interface ToastItem {
-  mode?: 'success' | 'warning'
-  component?: string
+type ToastComponent =
+  | 'TOAST_UNDO'
+  | 'TOAST_SIGN_IN'
+  | 'TOAST_WEB_MONETIZATION'
+  | 'TOAST_WEB_MONETIZATION_SUCCESS'
+  | 'TOAST_NO_CONNECTION'
+
+interface BaseToastItem {
+  method?: 'success' | 'warning'
   title?: string
-  message: string
   action?: string
   duration?: number
   timestamp: number
 }
+
+// Toasts that specify component should not provide its own message
+export interface ToastItemWithComponent extends BaseToastItem {
+  component: ToastComponent
+}
+
+// Toasts that use a message should not specify a component name
+export interface ToastItemWithMessage extends BaseToastItem {
+  message: string
+}
+
+export type ToastItem = ToastItemWithComponent | ToastItemWithMessage
 
 export interface FeatureFlagDefinition {
   label: string
@@ -83,4 +97,18 @@ export interface FeatureFlagDefinition {
   enabled?: boolean
 }
 
+export interface FeatureFlagSetting extends FeatureFlagDefinition {
+  value: boolean
+  source: string
+}
+
 export type FeatureFlags = Record<string, FeatureFlagDefinition>
+export type FeatureFlagSettings = Record<string, FeatureFlagSetting>
+
+export interface DraggingState {
+  isDragging: boolean
+  segmentBeforeEl: number | null
+  segmentAfterEl: number | null
+  draggedSegment: number | null
+  withinCanvas: boolean
+}

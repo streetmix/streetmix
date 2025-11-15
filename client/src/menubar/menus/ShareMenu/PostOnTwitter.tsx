@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Icon from '~/src/ui/Icon'
-import ExternalLink from '~/src/ui/ExternalLink'
+import MenuItem from '../MenuItem'
 import type { SocialShareProps } from './helpers'
 
 function PostOnTwitter ({
@@ -17,13 +17,13 @@ function PostOnTwitter ({
     encodeURIComponent(shareUrl)
 
   return (
-    <ExternalLink href={twitterLink} icon={true}>
+    <MenuItem href={twitterLink}>
       <Icon name="twitter" className="menu-item-icon" />
       <FormattedMessage
         id="menu.share.twitter"
         defaultMessage="Share using Twitter"
       />
-    </ExternalLink>
+    </MenuItem>
   )
 }
 

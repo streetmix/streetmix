@@ -10,13 +10,13 @@ We have [a public chat room on Discord](https://strt.mx/discord). Contributors t
 
 Our [code repository is on GitHub](https://github.com/streetmix/streetmix). Most development-related conversations happen here. You can file bug reports or feature requests on the [issues page](https://github.com/streetmix/streetmix/issues).
 
+## Bluesky {#contact-bluesky}
+
+You can reach us on Bluesky at [@streetmix.app](https://bsky.app/profile/streetmix.app).
+
 ## Mastodon {#contact-mastodon}
 
 You can reach us on Mastodon at [@streetmix@urbanists.social](https://urbanists.social/@streetmix).
-
-## Twitter {#contact-twitter}
-
-You can reach us on Twitter at [@streetmix](https://twitter.com/streetmix).
 
 ## E-mail {#contact-email}
 

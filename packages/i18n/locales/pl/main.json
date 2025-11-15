@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Zaloguj się przez Twittera"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Utwórz kopię",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Oto Twoja nowa ulica.",
       "default": "Zacznij od przykładowej ulicy",
       "empty": "Zacznij od pustej ulicy",
-      "last": "Edytuj kopię ostatniego projektu ulicy"
+      "last": "Edytuj kopię ostatniego projektu ulicy",
+      "dismiss": ""
     },
     "about": {
       "heading": "O aplikacji Streetmix.",
@@ -364,16 +371,21 @@
     "delete-street": "Usuń ulicę",
     "segment-width": "Zmień szerokość segmentu",
     "building-height": "Zmień liczbę pięter",
-    "street-width": "",
+    "street-width": "Zmień szerokość ulicy",
     "geotag": "",
-    "increase-width": "Zwiększ szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
-    "decrease-width": "Zmniejsz szerokość (przytrzymaj Shift dla zwiększenia precyzji)",
+    "increase-width": "Zwiększ szerokość",
+    "decrease-width": "Zmniejsz szerokość",
+    "width-tooltip-sublabel": "(przytrzymaj Shift dla zwiększenia precyzji)",
     "add-floor": "Dodaj piętro",
     "remove-floor": "Usuń piętro",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "Poziom jezdni",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Ul. Nienazwana",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "Min.",
       "max": "Max."
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

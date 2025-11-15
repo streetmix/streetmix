@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
+import logo from 'url:../../images/logo_horizontal.svg'
 import { useSelector } from '../store/hooks'
 import AccessibleIcon from '../ui/AccessibleIcon'
 import Icon from '../ui/Icon'
 import { doSignIn } from '../users/authentication'
-import logo from '../../images/logo_horizontal.svg'
 import InstanceBadge from './InstanceBadge'
 import MenuBarItem from './MenuBarItem'
 import SignInButton from './SignInButton'
@@ -62,23 +62,13 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
    * Pass in the name of this menu, and it returns (curries) a function
    * that handles the event.
    */
-  function handleClickMenuButton (
-    menu: string
-  ): (event: React.MouseEvent) => void {
+  function handleClick (menu: string): (event: React.MouseEvent) => void {
     return (event: React.MouseEvent) => {
       const el = (event.target as HTMLElement).closest('button')
       if (el !== null) {
         onMenuDropdownClick(menu, el)
       }
     }
-  }
-
-  function handleClickUpgrade (): void {
-    // dispatch(showDialog('UPGRADE'))
-    window.open(
-      'https://docs.streetmix.net/user-guide/streetmix-plus',
-      '_blank'
-    )
   }
 
   function handleWindowResize (): void {
@@ -105,7 +95,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
           <AvatarMenu
             user={user}
             isSubscriber={isSubscriber}
-            onClick={handleClickMenuButton('identity')}
+            onClick={handleClick('identity')}
           />
         </li>
         )
@@ -117,7 +107,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
   }
 
   return (
-    <nav className="menu-bar">
+    <nav className="menu-bar" role="menubar" aria-orientation="horizontal">
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img src={logo} alt="Streemix" className="menu-bar-logo" />
@@ -126,16 +116,18 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         <MenuBarItem
           label="Help"
           translation="menu.item.help"
-          onClick={handleClickMenuButton('help')}
+          id="menubar-help"
+          onClick={handleClick('help')}
         />
         {!offline && (
           <>
             <MenuBarItem
               label="Contact"
               translation="menu.item.contact"
-              onClick={handleClickMenuButton('contact')}
+              id="menubar-contact"
+              onClick={handleClick('contact')}
             />
-            {!isSubscriber && <UpgradeButton onClick={handleClickUpgrade} />}
+            {!isSubscriber && <UpgradeButton />}
           </>
         )}
       </ul>
@@ -143,17 +135,19 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
         <MenuBarItem
           label="New street"
           translation="menu.item.new-street"
-          url="/new"
-          target="_blank"
+          id="menubar-new"
+          onClick={handleClick('new')}
         />
         <MenuBarItem
           label="Share"
           translation="menu.item.share"
-          onClick={handleClickMenuButton('share')}
+          id="menubar-share"
+          onClick={handleClick('share')}
         />
         {enableLocaleSettings && (
           <MenuBarItem
-            onClick={handleClickMenuButton('locale')}
+            id="menubar-locale"
+            onClick={handleClick('locale')}
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>

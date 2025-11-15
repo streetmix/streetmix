@@ -17,8 +17,8 @@ describe('CloseButton', () => {
         onClick={vi.fn()}
         title="foofoo"
         className="my-class"
-        disabled={true}
-        hidden={true}
+        disabled
+        hidden
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -26,9 +26,7 @@ describe('CloseButton', () => {
 
   it('should call onClick function when button is clicked', async () => {
     const onClick = vi.fn()
-    const { getByTitle } = render(
-      <CloseButton onClick={onClick} title="foo" />
-    )
+    const { getByTitle } = render(<CloseButton onClick={onClick} title="foo" />)
     await userEvent.click(getByTitle('foo'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })

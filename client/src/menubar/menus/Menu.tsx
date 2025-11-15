@@ -32,7 +32,8 @@ function Menu ({
   alignOpposite,
   onShow = () => undefined,
   onHide = () => undefined,
-  children
+  children,
+  ...props
 }: MenuProps): React.ReactElement {
   const ref = useRef<HTMLDivElement>(null)
   const contentDirection = useSelector((state) => state.app.contentDirection)
@@ -83,15 +84,15 @@ function Menu ({
 
   return (
     <CSSTransition
-      appear={true}
+      appear
       in={isActive}
       timeout={100}
       classNames="menu-visible"
-      mountOnEnter={true}
-      unmountOnExit={true}
+      mountOnEnter
+      unmountOnExit
       nodeRef={ref}
     >
-      <div className={classNames.join(' ')} ref={ref}>
+      <div role="menu" className={classNames.join(' ')} ref={ref} {...props}>
         {children}
       </div>
     </CSSTransition>
@@ -157,12 +158,7 @@ function updateMenuPosition (
   contentDirection: 'ltr' | 'rtl' = 'ltr',
   alignOpposite = false // whether element is right-aligned
 ): void {
-  const pos = getMenuPosition(
-    el,
-    menuItemNode,
-    contentDirection,
-    alignOpposite
-  )
+  const pos = getMenuPosition(el, menuItemNode, contentDirection, alignOpposite)
 
   // Set element position and make it visible
   if (el && pos !== undefined) {

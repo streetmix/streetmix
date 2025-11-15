@@ -8,9 +8,7 @@ import MenuBarItem from './MenuBarItem'
 
 describe('MenuBarItem', () => {
   it('renders', () => {
-    const { asFragment } = render(
-      <MenuBarItem label="foo" translation="foo" />
-    )
+    const { asFragment } = render(<MenuBarItem label="foo" translation="foo" />)
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -19,7 +17,8 @@ describe('MenuBarItem', () => {
     const handleClick = vi.fn()
     render(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
 
-    await userEvent.click(screen.getByRole('button'))
+    // A button is rendered with the role `menuitem`
+    await userEvent.click(screen.getByRole('menuitem'))
 
     expect(handleClick).toBeCalled()
   })
@@ -32,8 +31,8 @@ describe('MenuBarItem', () => {
       </MenuBarItem>
     )
 
-    // Expect an anchor tag element to be present, then click it
-    await userEvent.click(screen.getByRole('link'))
+    // An anchor tag is rendered with the role `menuitem`
+    await userEvent.click(screen.getByRole('menuitem'))
 
     expect(handleClick).toBeCalled()
   })

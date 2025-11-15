@@ -23,7 +23,6 @@ Here's some of the features that are currently available to Streetmix+ members, 
 - Export images at print-ready resolutions
 - New segments: double decker bus, microvan, and autonomous shuttles
 - Unlimited streets (Technically, everyone does have unlimited streets already, but this creates some data storage problems on our end, so we need to start setting caps. We'll do this in a fair way. Stay tuned for more.)
-- **Coming soon:** Member-only Discord community
 
 Streetmix+ members will also be able to help us prioritize future features to come!
 

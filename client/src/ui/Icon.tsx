@@ -2,6 +2,7 @@ import React from 'react'
 import {
   FaArrowLeft,
   FaArrowRight,
+  FaBluesky,
   FaCheck,
   FaDiscord,
   FaGithub,
@@ -28,11 +29,13 @@ import {
   FiRotateCw,
   FiSun,
   FiTrash2,
-  FiUser,
-  FiX
+  FiUser
 } from 'react-icons/fi'
 import {
+  IoBoatOutline,
+  IoBookOutline,
   IoCartOutline,
+  IoClose,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
   IoLanguage,
@@ -41,6 +44,8 @@ import {
   IoRocketOutline,
   IoTrailSignOutline
 } from 'react-icons/io5'
+import { MdOutlineAddRoad, MdOutlineContentCopy } from 'react-icons/md'
+import { RiFunctionAddLine } from 'react-icons/ri'
 import {
   RxCube,
   RxDownload,
@@ -52,29 +57,21 @@ import {
   RxStar
 } from 'react-icons/rx'
 
-import googleIcon from './icons/google.svg'
-
-export type IconNames = BaseIconNames | ExtraIconNames
-type BaseIconNames = keyof typeof ICONS
-type ExtraIconNames = 'google'
-
-interface IconProps {
-  name: IconNames
-
-  // All other props
-  [attr: string]: string
-}
+import googleIcon from 'url:./icons/google.svg'
 
 const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
+  boat: [IoBoatOutline, 'io5'],
+  book: [IoBookOutline, 'io5'],
   cart: [IoCartOutline, 'io5'],
   check: [FaCheck, 'fa'],
   'chevron-down': [FiChevronDown, 'feather'],
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
-  close: [FiX, 'feather'],
-  copy: [FiClipboard, 'feather'],
+  clipboard: [FiClipboard, 'feather'],
+  close: [IoClose, 'io5'],
+  copy: [MdOutlineContentCopy, 'md'],
   cube: [RxCube, 'radix'],
   download: [RxDownload, 'radix'],
   edit: [FiEdit3, 'feather'],
@@ -90,6 +87,7 @@ const ICONS = {
   lock: [FaLock, 'fa'],
   mail: [IoMailOutline, 'io5'],
   minus: [FaMinus, 'fa'],
+  'new-street': [MdOutlineAddRoad, 'md'],
   plus: [FaPlus, 'fa'],
   print: [IoPrintOutline, 'io5'],
   redo: [FiRotateCw, 'feather'],
@@ -99,6 +97,7 @@ const ICONS = {
   'sign-out': [RxExit, 'radix'],
   star: [RxStar, 'radix'],
   sun: [FiSun, 'feather'],
+  template: [RiFunctionAddLine, 'ri'],
   time: [FiClock, 'feather'],
   'trail-sign': [IoTrailSignOutline, 'io5'],
   trash: [FiTrash2, 'feather'],
@@ -107,12 +106,24 @@ const ICONS = {
 
   // Social icons
   // Google is not defined here, see special case
+  bluesky: [FaBluesky, 'fa'],
   discord: [FaDiscord, 'fa'],
   facebook: [FaSquareFacebook, 'fa'],
   github: [FaGithub, 'fa'],
   instagram: [FaInstagram, 'fa'],
   mastodon: [FaMastodon, 'fa'],
   twitter: [FaTwitter, 'fa']
+}
+
+type BaseIconNames = keyof typeof ICONS
+type ExtraIconNames = 'google'
+export type IconNames = BaseIconNames | ExtraIconNames
+
+interface IconProps {
+  name: IconNames
+
+  // All other props
+  [attr: string]: string
 }
 
 function makeComponent (

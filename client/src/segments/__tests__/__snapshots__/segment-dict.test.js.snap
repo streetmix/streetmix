@@ -2,7 +2,7 @@
 
 exports[`getSegmentSprites() > works 1`] = `
 {
-  "repeat": "ground--concrete",
+  "ground": "ground--concrete",
   "scatter": {
     "maxSpacing": 1.5,
     "minSpacing": 0,

@@ -29,7 +29,7 @@ function BlockingError (): React.ReactElement | null {
   let cta: React.ReactElement | string = ''
 
   const homeButton = (
-    <Button primary={true} onClick={goHome}>
+    <Button primary onClick={goHome}>
       <FormattedMessage
         id="error.button.return"
         defaultMessage="Return to Streetmix"
@@ -47,7 +47,7 @@ function BlockingError (): React.ReactElement | null {
       : null
   }
   const reloadButton = (
-    <Button primary={true} onClick={goReload}>
+    <Button primary onClick={goReload}>
       <FormattedMessage
         id="error.button.reload"
         defaultMessage="Reload the page"
@@ -55,7 +55,7 @@ function BlockingError (): React.ReactElement | null {
     </Button>
   )
   const tryAgainButton = (
-    <Button primary={true} onClick={goNewStreet}>
+    <Button primary onClick={goNewStreet}>
       <FormattedMessage
         id="error.button.try-again"
         defaultMessage="Try again"
@@ -63,7 +63,7 @@ function BlockingError (): React.ReactElement | null {
     </Button>
   )
   const signInButton = (
-    <Button primary={true} onClick={doSignIn}>
+    <Button primary onClick={doSignIn}>
       <FormattedMessage id="menu.item.sign-in" defaultMessage="Sign in" />
     </Button>
   )
@@ -72,7 +72,6 @@ function BlockingError (): React.ReactElement | null {
       id="error.please-try-again-contact-us"
       defaultMessage="Please try again later. If you still need help, please <a>contact us</a>."
       values={{
-        // eslint-disable-next-line react/display-name
         a: (chunks) => (
           <ExternalLink href="https://docs.streetmix.net/community">
             {chunks}
@@ -443,19 +442,16 @@ function BlockingError (): React.ReactElement | null {
               id="error.unsupported-browser-description"
               defaultMessage="Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari."
               values={{
-                // eslint-disable-next-line react/display-name
                 chrome_link: (chunks) => (
                   <ExternalLink href="https://www.google.com/chrome">
                     {chunks}
                   </ExternalLink>
                 ),
-                // eslint-disable-next-line react/display-name
                 firefox_link: (chunks) => (
                   <ExternalLink href="https://www.mozilla.org/firefox">
                     {chunks}
                   </ExternalLink>
                 ),
-                // eslint-disable-next-line react/display-name
                 edge_link: (chunks) => (
                   <ExternalLink href="https://www.microsoft.com/en-us/windows/microsoft-edge">
                     {chunks}
@@ -469,7 +465,6 @@ function BlockingError (): React.ReactElement | null {
               id="error.unsupported-browser-internet-explorer"
               defaultMessage="Are you on Internet Explorer? <a>Find out more.</a>"
               values={{
-                // eslint-disable-next-line react/display-name
                 a: (chunks) => (
                   <ExternalLink href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer">
                     {chunks}
@@ -483,7 +478,6 @@ function BlockingError (): React.ReactElement | null {
               id="error.unsupported-browser-contact-us"
               defaultMessage="If you think your browser should be supported, please <a>contact us</a>."
               values={{
-                // eslint-disable-next-line react/display-name
                 a: (chunks) => (
                   <ExternalLink href="https://docs.streetmix.net/community">
                     {chunks}
@@ -511,7 +505,7 @@ function BlockingError (): React.ReactElement | null {
         </p>
       )
       cta = (
-        <Button primary={true} onClick={goExampleStreet}>
+        <Button primary onClick={goExampleStreet}>
           <FormattedMessage
             id="error.button.view-example"
             defaultMessage="View an example street"

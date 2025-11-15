@@ -1,0 +1,92 @@
+###############################################################################
+##
+##  Coastal road
+##
+##  Coastal condition where an existing vehicular road is separated from a
+##  body of water by a vegetated area.
+##
+###############################################################################
+
+width:
+  metric: 19.5
+  imperial: 64
+showAnalytics: false
+boundary:
+  left:
+    variant: wide
+    floors: 4
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  right:
+    variant: waterfront
+    floors: 1
+    elevation: 0
+slices:
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width:
+      metric: 1.9
+      imperial: 6
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  - type: sidewalk-tree
+    variant:
+      tree-type: big
+    width: 0.6
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: right
+      lamp-type: modern
+    width: 0.6
+  - type: brt-lane
+    variant:
+      direction: inbound
+      brt-asphalt: regular
+    width: 3.6
+  - type: drive-lane
+    variant:
+      direction: inbound
+      car-type: car
+    width:
+      metric: 2.7
+      imperial: 9
+  - type: drive-lane
+    variant:
+      direction: outbound
+      car-type: car
+    width:
+      metric: 2.7
+      imperial: 9
+  - type: parking-lane
+    variant:
+      parking-lane-direction: outbound
+      parking-lane-orientation: right
+    width:
+      metric: 2.3
+      imperial: 8
+  - type: bike-lane
+    variant:
+      bike-direction: outbound
+      bike-asphalt: green
+      elevation: road
+    width:
+      metric: 2
+      imperial: 6
+  - type: sidewalk-lamp
+    variant:
+      lamp-orientation: left
+      lamp-type: modern
+    width: 0.6
+  - type: sidewalk-tree
+    variant:
+      tree-type: big
+    width: 0.6
+  - type: sidewalk
+    variant:
+      sidewalk-density: dense
+    width:
+      metric: 1.9
+      imperial: 6

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
+import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
 import Avatar from '../users/Avatar'
-import streetmixPlusIcon from '../ui/icons/streetmix-plus.svg'
 import type { UserProfile } from '../types'
 import './AvatarMenu.css'
 
@@ -27,7 +27,12 @@ function AvatarMenu ({
     : ''
 
   return (
-    <button className="menu-attached menu-avatar" onClick={onClick}>
+    <button
+      className="menu-trigger menu-avatar"
+      role="menuitem"
+      onClick={onClick}
+      id="menubar-identity"
+    >
       <Avatar userId={user.id} />
       {isSubscriber && (
         <img

@@ -1,0 +1,29 @@
+.keyboard-shortcuts {
+  padding-block: 0.8em 1em;
+  padding-inline: 2.5em 1em;
+  max-width: 360px;
+  position: relative;
+
+  p:first-child {
+    margin-block-start: 0;
+  }
+
+  table {
+    margin-block-start: 0.5em;
+    border-collapse: collapse;
+
+    td {
+      vertical-align: top;
+      padding: 0.25em;
+    }
+
+    td:first-child {
+      min-width: 60px;
+      padding-inline-start: 0;
+    }
+  }
+
+  [data-icon="keyboard"] {
+    top: 0.9em;
+  }
+}

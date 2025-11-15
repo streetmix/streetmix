@@ -1,0 +1,33 @@
+.floating-ui-wrapper {
+  position: absolute;
+  width: max-content;
+  top: 0;
+  left: 0;
+  perspective: 1200px;
+}
+
+.popup-container {
+  --popup-header-background-color: var(--color-turquoise-200);
+  --popup-button-size: 30px;
+  --popup-border-radius: var(--border-radius);
+
+  min-width: 275px;
+  max-width: calc(100vw - 10px);
+  background: var(--popup-background);
+  border-radius: var(--popup-border-radius);
+  box-shadow: var(--light-box-shadow);
+  perspective: 1200px;
+  z-index: var(--z-06-popup);
+  fill: var(--popup-background);
+}
+
+.popup-content {
+  /* Somehow this is important on animating a popup in */
+  opacity: 1;
+}
+
+.popup-arrow.highlight {
+  &.highlight {
+    fill: var(--color-turquoise-100);
+  }
+}

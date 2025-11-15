@@ -1,7 +1,7 @@
 .toast-container {
   position: absolute;
-  top: 50px;
-  right: 30px;
+  inset-block-start: 50px;
+  inset-inline-end: 30px;
   min-width: 300px;
   max-width: 330px;
   z-index: var(--z-07-toasts);
@@ -21,11 +21,6 @@
   > div {
     will-change: transform;
     transform: translate3d(0, 0, 0);
-  }
-
-  [dir="rtl"] & {
-    right: auto;
-    left: 30px;
   }
 }
 

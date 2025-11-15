@@ -5,11 +5,107 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+<!--  NOT RELEASED YET.
+## June 20, 2025
+
+### ✨ New features
+
+- Elevation controls
+- Add tooltips to variants panel
+- UI precision for metric slices returns to 0.1m. For more granular resolution of 0.05m, hold 'shift' when adjusting the width. This should be more obvious in the UI tooltip.
+
+### 🐛 Bug fixes
+
+- Fix visual artifacts for the variants panel in right-to-left language modes.
+- Clearing a slice's custom label will now reset it to its original default label.
+-->
+
+## May 21, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a bug preventing building heights from being adjusted with keyboard controls.
+- Fixed a bug that blocked sharing street URLs if the username contained a `+` character.
+
+## April 24, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a mysterious globe icon showing up when dragging a section element in Chrome on Mac OSX.
+- Fixed drag interaction not working at all in Safari (!!)
+
+## April 23, 2025
+
+### ✨ New features
+
+- **Export to Streetmeter!** We've partnered with [Streetmeter](https://streetmeter.net/) to export your Streetmix street into their new analysis tool, where you can dive into a more thorough evaluation of your street's performance!
+- **Cycletracks for everyone.** This is a new old feature! A few years ago we released two-way cycletracks for Streetmix+ members, sponsored by our friends at ITDP Africa. Today we're making these available for all signed-in users!
+
+### 🎮 UI improvements
+
+- **A redesigned "new street" menu.** It's now a dropdown where you can select what kind of new street you want.
+- Improved keyboard navigation across menus.
+
+### 🐛 Bug fixes
+
+- Fixed a bug where completely deleting a street name would not unname it.
+
+### 🐞 New bugs 😳
+
+Some interaction functionality is being reworked, which has resulted in some known issues that have not yet been resolved:
+
+- Keyboard shortcuts for resizing and deleting section elements may not correctly target the one under the mouse pointer.
+- When dragging a section element, some existing elements will sometimes get "stuck" together instead of making space for a dropped item.
+- In some cases, there may be some difficulty dropping a section element on the right side of a street section.
+
+## March 28, 2025
+
+### 🐛 Bug fixes
+
+- Fixed an animation issue where the moon would not appear when it was supposed to.
+
+## March 27, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a bug where manually entering a new street width in U.S. customary units with a fraction caused the street to be ten times wider than expected.
+- Fixed an animation issue where a dragging an item from the palette caused a preview to flash briefly on the left-hand side of the screen.
+
+## March 25, 2025
+
+### 🐛 Bug fixes
+
+- Fixed a layout issue that caused tall dialogs to be cut off on very short screens.
+
+### 🎨 Improvements
+
+- Added Bluesky social links.
+- Removed Twitter and Instagram social links.
+
+## August 12, 2024
+
+### 🎮 UI improvements
+
+- Improved dialog box behavior on mobile devices.
+
+## August 8, 2024
+
+### 🎮 UI improvements
+
+- Visual upgrade for the street width dropdown menu.
+
+## August 4, 2024
+
+### 🎮 UI improvements
+
+- Visual upgrades for menus and icons.
+
 ## May 9, 2024
 
 ### 🐛 Bug fixes
 
 - Fixed a database issue that can prevent logins from a Google e-mail address, in rare cases.
+- Fixed a bug that could prevent two-way bike lanes from being available.
 
 ## April 26, 2024
 

@@ -4,7 +4,8 @@ exports[`MenuBarItem > renders 1`] = `
 <DocumentFragment>
   <li>
     <button
-      class="menu-attached"
+      class="menu-trigger"
+      role="menuitem"
     >
       foo
       <svg

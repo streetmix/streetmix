@@ -8,17 +8,16 @@ import { IntlProvider } from 'react-intl'
 
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
-import Tooltip, { useSingleton } from '../ui/Tooltip'
-import { getAllSegmentInfoArray } from '../segments/info'
+import { TooltipGroup } from '../ui/Tooltip'
+import { getAllSegmentInfo } from '../segments/info'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.css'
 
 function PaletteItems (): React.ReactElement {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
-  const [source, target] = useSingleton()
 
-  const segments = getAllSegmentInfoArray()
+  const segments = getAllSegmentInfo()
 
   // For each segment, filter out the ones that have been disabled
   // by feature flag
@@ -29,24 +28,16 @@ function PaletteItems (): React.ReactElement {
         (segment.enableWithFlag !== undefined &&
           flags[segment.enableWithFlag]?.value)
     )
-    .map((segment) => (
-      <PaletteItem
-        key={segment.id}
-        segment={segment}
-        unlockCondition={segment.unlockCondition}
-        tooltipTarget={target}
-      />
-    ))
+    .map((segment) => <PaletteItem key={segment.id} segment={segment} />)
 
   return (
-    <>
-      <Tooltip source={source} />
+    <TooltipGroup>
       <Scrollable className="palette-items">
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
           <ul>{displayedSegments}</ul>
         </IntlProvider>
       </Scrollable>
-    </>
+    </TooltipGroup>
   )
 }
 

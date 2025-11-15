@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Log in met Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Maak een kopie",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Hier is je nieuwe straat.",
       "default": "Begin met een voorbeeldstraat.",
       "empty": "Begin met een lege straat.",
-      "last": "Begin met een kopie van je laatste straat."
+      "last": "Begin met een kopie van je laatste straat.",
+      "dismiss": ""
     },
     "about": {
       "heading": "Over Streetmix.",
@@ -366,14 +373,19 @@
     "building-height": "Wijzig aantal verdiepingen",
     "street-width": "Wijzig straatbreedte",
     "geotag": "Wijzig locatie",
-    "increase-width": "Maak breder (hou Shift ingedrukt voor meer precisie)",
-    "decrease-width": "Maak smaller (hou Shift ingedrukt voor meer precisie)",
+    "increase-width": "Maak breder",
+    "decrease-width": "Maak smaller",
+    "width-tooltip-sublabel": "(hou Shift ingedrukt voor meer precisie)",
     "add-floor": "Voeg verdieping toe",
     "remove-floor": "Haal verdieping weg",
     "scroll-street-left": "Beweeg straat naar links",
     "scroll-street-right": "Beweeg straat naar rechts",
     "scroll-left": "Scroll naar links",
-    "scroll-right": "Scroll naar rechts"
+    "scroll-right": "Scroll naar rechts",
+    "elevation-sidewalk": "",
+    "elevation-road": "Straatniveau",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Naamloze Straat",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "",
       "max": ""
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

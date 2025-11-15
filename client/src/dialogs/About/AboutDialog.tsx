@@ -1,12 +1,12 @@
 import React, { memo } from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import logo from 'url:~/images/logo_horizontal.svg'
+import numoLogo from 'url:~/images/sponsors/numo.svg'
+import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
+import mozlogo from 'url:~/images/sponsors/mozilla.svg'
 import { useSelector } from '~/src/store/hooks'
 import ExternalLink from '~/src/ui/ExternalLink'
-import logo from '~/images/logo_horizontal.svg'
-import numoLogo from '~/images/sponsors/numo.svg'
-import cfalogo from '~/images/sponsors/codeforamerica.png'
-import mozlogo from '~/images/sponsors/mozilla.svg'
 import Dialog from '../Dialog'
 import Credits from './Credits'
 import SocialLinks from './SocialLinks'
@@ -131,7 +131,6 @@ function AboutDialog (): React.ReactElement {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
@@ -164,7 +163,6 @@ function AboutDialog (): React.ReactElement {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL"
@@ -197,7 +195,6 @@ function AboutDialog (): React.ReactElement {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://github.com/RedHatOfficial/Overpass/blob/master/OFL.txt"
@@ -239,7 +236,6 @@ function AboutDialog (): React.ReactElement {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://fontawesome.com/license/free"
@@ -267,7 +263,6 @@ function AboutDialog (): React.ReactElement {
                           id="dialogs.about.license-label"
                           defaultMessage="(<a>License</a>)"
                           values={{
-                            // eslint-disable-next-line react/display-name
                             a: (chunks) => (
                               <ExternalLink
                                 href="https://creativecommons.org/licenses/by-sa/4.0/#"

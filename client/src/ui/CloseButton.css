@@ -6,8 +6,8 @@ button.close {
 
   /* Position in dialog boxes */
   position: absolute;
-  right: var(--close-button-margin);
-  top: var(--close-button-margin);
+  inset-inline-end: var(--close-button-margin);
+  inset-block-start: var(--close-button-margin);
 
   /* Touch-friendly size */
   width: var(--close-button-size);
@@ -25,12 +25,7 @@ button.close {
   cursor: pointer;
   user-select: none;
   background-color: transparent;
-
-  /* Mirror position in rtl */
-  [dir="rtl"] & {
-    right: auto;
-    left: var(--close-button-margin);
-  }
+  font-size: 1.1em;
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);

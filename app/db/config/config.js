@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 // This script can be loaded from the command line via
 // `npx sequelize`, so we still need to load environment variables
 dotenv.config({
+  quiet: true,
   debug: process.env.DEBUG,
   path:
     process.env.NODE_ENV === 'test'

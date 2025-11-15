@@ -1,6 +1,5 @@
 import './app/globals.js'
 import path from 'node:path'
-import url from 'node:url'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cookieSession from 'cookie-session'
@@ -31,9 +30,6 @@ await Promise.all([
 
 const app = express()
 export default app
-
-// Set __dirname (no longer automatically globally accessible in ESM)
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 // Get the timestamp of this server's start time to use as a cachebusting filename.
 const cacheTimestamp = Date.now()
@@ -96,18 +92,18 @@ const csp = {
     childSrc: ['platform.twitter.com'],
     frameAncestors: ["'self'", 'https:'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
-    imgSrc: [
+    imgSrc: ["'self'", 'data:', '*.basemaps.cartocdn.com', '*.stripe.com'],
+    objectSrc: [
       "'self'",
-      'data:',
       // Profile images
+      'abs.twimg.com',
       'pbs.twimg.com',
       'syndication.twitter.com',
+      'platform-lookaside.fbsbx.com',
       's.gravatar.com',
-      'lh3.googleusercontent.com',
-      '*.wp.com/cdn.auth0.com', // Auth0 default profile images
-      '*.basemaps.cartocdn.com',
+      '*.googleusercontent.com',
       'res.cloudinary.com',
-      '*.stripe.com'
+      '*.wp.com/cdn.auth0.com' // Auth0 default profile images
     ],
     fontSrc: ["'self'"],
     connectSrc: [
@@ -178,7 +174,6 @@ app.use((req, res, next) => {
 })
 
 // Set CSP directives
-// eslint-disable-next-line import/no-named-as-default-member
 app.use(helmet.contentSecurityPolicy(csp))
 
 // Rewrite requests with timestamp
@@ -190,7 +185,7 @@ app.use((req, res, next) => {
 })
 
 app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, '/app/views'))
+app.set('views', path.join(import.meta.dirname, '/app/views'))
 
 app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
@@ -232,8 +227,8 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api', apiRoutes)
 app.use('/services', serviceRoutes)
 
-app.use('/assets', express.static(path.join(__dirname, '/build')))
-app.use(express.static(path.join(__dirname, '/public')))
+app.use('/assets', express.static(path.join(import.meta.dirname, '/build')))
+app.use(express.static(path.join(import.meta.dirname, '/public')))
 
 // Serve static error pages for /error/ routes
 app.get('/error/:errorType', (req, res) => {

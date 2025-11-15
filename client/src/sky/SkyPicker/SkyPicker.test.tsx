@@ -7,9 +7,10 @@ import { render } from '~/test/helpers/render'
 import * as uiSlice from '~/src/store/slices/ui'
 import SkyPicker from './SkyPicker'
 
-vi.mock('../skybox-defs.json', () => ({
-  default: require('../__mocks__/skybox-defs.json')
-}))
+vi.mock(
+  '../skybox-defs.json',
+  async () => await import('../__mocks__/skybox-defs.json')
+)
 vi.mock('../constants', () => ({ DEFAULT_SKYBOX: 'default' }))
 
 describe('SkyPicker', () => {
@@ -54,11 +55,7 @@ describe('SkyPicker', () => {
 
     vi.spyOn(uiSlice, 'toggleToolbox')
 
-    // waitFor animation to remove `pointer-events: none` from parent element
-    // This test is flaky if we don't wait.
-    await waitFor(async () => {
-      await userEvent.click(screen.getByTitle('Dismiss'))
-    })
+    await userEvent.click(screen.getByTitle('Dismiss'))
 
     expect(uiSlice.toggleToolbox).toBeCalled()
   })

@@ -1,11 +1,8 @@
 .about-dialog {
   max-width: 820px;
-  min-height: 660px;
 
   @media only screen and (width > 768px) {
-    & {
-      max-height: 75vh !important;
-    }
+    max-height: 75vh !important;
   }
 
   /* Used by team list and external links */
@@ -18,11 +15,7 @@
   header {
     background-color: white;
     padding: 0;
-    text-align: left;
-
-    [dir="rtl"] & {
-      text-align: right;
-    }
+    text-align: start;
   }
 
   header h1 {
@@ -46,15 +39,10 @@
 }
 
 .about-dialog-left {
-  border-right: 1px solid var(--color-turquoise-500);
-  padding: 0 3.5em 0 2em;
+  border-inline-end: 1px solid var(--color-turquoise-500);
+  padding-block: 0;
+  padding-inline: 2em 3.5em;
   width: min(30%, 280px);
-
-  [dir="rtl"] & {
-    padding: 0 2em 0 3.5em;
-    border-left: 1px solid var(--color-turquoise-500);
-    border-right: 0;
-  }
 
   p:first-child {
     margin-top: 0;
@@ -106,11 +94,6 @@
 
 .about-dialog-sponsors li {
   display: inline-block;
-  margin-right: 1.5em;
-  margin-top: 1em;
-
-  [dir="rtl"] & {
-    margin-left: 1.5em;
-    margin-right: 0;
-  }
+  margin-block-start: 1em;
+  margin-inline-end: 1.5em;
 }

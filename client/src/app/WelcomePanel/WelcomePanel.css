@@ -38,59 +38,10 @@
     padding: 0.5em 1em;
   }
 
-  ul,
   p,
   .paragraph {
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 5px;
-  }
-
-  p,
-  .paragraph {
-    line-height: 1.5;
-    display: block;
     max-width: 700px;
-  }
-
-  li {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-
-    &:not(:first-child)::before {
-      content: "·";
-      margin: 0 5px;
-      color: var(--color-turquoise-700);
-      padding-left: 0;
-    }
-  }
-
-  input[type="radio"] {
-    display: none;
-    border: 0;
-    background: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  label {
-    cursor: pointer;
-
-    &:hover {
-      color: black;
-    }
-  }
-
-  input[type="radio"]:checked + label {
-    color: black;
-    font-weight: 550;
-  }
-
-  input[type="radio"]:not(:checked) + label {
-    text-decoration: underline;
+    margin-block: 0.5em;
   }
 }
 

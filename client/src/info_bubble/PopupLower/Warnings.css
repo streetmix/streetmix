@@ -1,0 +1,40 @@
+.popup-warnings {
+  margin-top: 1px;
+  border-top: 1px solid var(--color-turquoise-300);
+  padding: 0.5em 1.5em 0.5em 1em;
+  white-space: normal;
+  color: var(--warning-color);
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 0.5em;
+    text-align: center;
+  }
+}
+
+.popup-warning-alert {
+  color: var(--alert-text-color);
+
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: bottom;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.popup-warning-error {
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: bottom;
+    position: relative;
+    top: 1px;
+  }
+}

@@ -1,0 +1,36 @@
+- name: Ashe
+  id: character-01
+  width: 2
+- name: Bob
+  id: character-02
+  alts:
+    - character-02b
+    - character-02c
+  width: 2
+- name: The fast-follower
+  id: character-03
+  width: 2
+  disallowFirst: true
+- name: The shy one
+  id: character-04
+  width: 2
+  disallowFirst: true
+  weight: 20
+- name: The popular one
+  id: character-05
+  width: 2
+  weight: 100
+- name: The rare one
+  id: character-06
+  width: 2
+  weight: 5
+- id: The flaky one
+  width: 2
+  weight: 30
+- id: The thicc one
+  width: 3
+- id: The boisterous one
+  width: 3
+  weight: 65
+- id: The regular one
+  width: 2

@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { changeLocale } from '~/src/store/slices/locale'
 import { clearMenus } from '~/src/store/slices/menus'
-import { DEFAULT_LOCALE } from '~/src/locales/constants'
 import {
   getAvailableLocales,
   getActualLocaleFromRequested
@@ -12,9 +12,10 @@ import {
 import Icon from '~/src/ui/Icon'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Menu, { type MenuProps } from './Menu'
+import MenuItem from './MenuItem'
 
 function LocaleMenu (props: MenuProps): React.ReactElement {
-  const locale = useSelector((state) => state.locale.locale || DEFAULT_LOCALE)
+  const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)
   const requestedLocale = useSelector((state) => state.locale.requestedLocale)
   const dispatch = useDispatch()
   const filteredLocales = getAvailableLocales()
@@ -23,8 +24,6 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
   async function selectLocale (newLocale: string): Promise<void> {
     if (locale === newLocale) return
 
-    // Don't know how to fix, but this is valid.
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await dispatch(changeLocale(newLocale))
 
     // Hide the menu after a locale is selected.
@@ -38,23 +37,20 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
   function renderLocaleOptions (): React.ReactElement[] {
     // Render each option
     return filteredLocales.map((locale) => {
-      const classNames = ['menu-item']
+      const selectedClassName =
+        locale.value === actuallySelectedLocale
+          ? 'menu-item-selected'
+          : undefined
 
-      if (locale.value === actuallySelectedLocale) {
-        classNames.push('menu-item-selected')
-      }
-
-      // TODO: ARIA roles and attributes have been added to help with
-      // testing, but these are not actually to accessible spec
       return (
-        <li
-          className={classNames.join(' ')}
+        <MenuItem
           key={locale.value}
+          className={selectedClassName}
           onClick={() => {
-            void selectLocale(locale.value)
+            selectLocale(locale.value)
           }}
-          role="option"
-          aria-selected={locale.value === actuallySelectedLocale}
+          role="menuitemradio"
+          aria-checked={locale.value === actuallySelectedLocale}
         >
           {locale.value === requestedLocale && <LoadingSpinner size="small" />}
           {locale.value === actuallySelectedLocale && (
@@ -66,18 +62,12 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
           <span className="menu-item-subtext">
             <FormattedMessage id={locale.key} defaultMessage={locale.name} />
           </span>
-        </li>
+        </MenuItem>
       )
     })
   }
 
-  return (
-    <Menu {...props}>
-      <ul className="menu-item-group" role="listbox">
-        {renderLocaleOptions()}
-      </ul>
-    </Menu>
-  )
+  return <Menu {...props}>{renderLocaleOptions()}</Menu>
 }
 
 export default LocaleMenu

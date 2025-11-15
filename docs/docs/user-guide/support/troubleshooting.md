@@ -47,7 +47,7 @@ This section is a work in progress.
 
 These are error codes that may occur while using Streetmix.
 
-| Error code | Reason | Suggested fix |
-| :-- | :-- | :-- |
-| **9B** | **Data error**: The server sent street data that had no data in it. | Load a different street. |
-| **RM1** | **Authentication error**: The user attempted to load Streetmix with remembered credentials which have become corrupted. | Reset cache and site data for the site. |
+| Error code | Reason                                                                                                                  | Suggested fix                           |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
+| **9B**     | **Data error**: The server sent street data that had no data in it.                                                     | Load a different street.                |
+| **RM1**    | **Authentication error**: The user attempted to load Streetmix with remembered credentials which have become corrupted. | Reset cache and site data for the site. |

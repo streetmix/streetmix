@@ -4,10 +4,13 @@ exports[`ContactMenu > renders 1`] = `
 <DocumentFragment>
   <div
     class="menu"
+    role="menu"
   >
     <a
+      class="menu-item"
       href="https://strt.mx/discord"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -22,8 +25,10 @@ exports[`ContactMenu > renders 1`] = `
       />
     </a>
     <a
+      class="menu-item"
       href="https://github.com/streetmix/streetmix/"
       rel="noopener noreferrer"
+      role="menuitem"
       target="_blank"
     >
       <svg
@@ -37,14 +42,17 @@ exports[`ContactMenu > renders 1`] = `
         data-icon-source="test"
       />
     </a>
-    <a>
+    <button
+      class="menu-item"
+      role="menuitem"
+    >
       <svg
         class="menu-item-icon"
         data-icon="mail"
         data-icon-source="test"
       />
       Subscribe to our newsletter
-    </a>
+    </button>
   </div>
 </DocumentFragment>
 `;

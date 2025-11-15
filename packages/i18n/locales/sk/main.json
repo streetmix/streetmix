@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": ""
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "",
       "default": "",
       "empty": "",
-      "last": ""
+      "last": "",
+      "dismiss": ""
     },
     "about": {
       "heading": "",
@@ -368,12 +375,17 @@
     "geotag": "",
     "increase-width": "",
     "decrease-width": "",
+    "width-tooltip-sublabel": "",
     "add-floor": "",
     "remove-floor": "",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "",
       "max": ""
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

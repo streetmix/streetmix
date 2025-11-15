@@ -6,8 +6,8 @@ import {
 } from '../app/initialization'
 import { formatMessage } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
+import { STREET_TEMPLATES } from '../app/constants'
 import { goNewStreet } from '../app/routing'
-import { infoBubble } from '../info_bubble/info_bubble'
 import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
@@ -33,10 +33,7 @@ import {
 import { addToast } from '../store/slices/toasts'
 import { resetUndoStack } from '../store/slices/history'
 import { makeDefaultStreet } from './creation'
-import { NEW_STREET_EMPTY } from './constants'
 import {
-  prepareEmptyStreet,
-  prepareDefaultStreet,
   trimStreetData,
   updateEverything,
   addAltVariantObject,
@@ -45,6 +42,7 @@ import {
   setLastStreet,
   setIgnoreStreetChanges
 } from './data_model'
+import { prepareStreet } from './templates'
 import {
   getRemixOnFirstEdit,
   setRemixOnFirstEdit,
@@ -69,14 +67,8 @@ export function setSaveStreetIncomplete (value) {
 
 let latestRequestId
 
-export async function createNewStreetOnServer () {
-  const settings = store.getState().settings
-
-  if (settings.newStreetPreference === NEW_STREET_EMPTY) {
-    prepareEmptyStreet()
-  } else {
-    prepareDefaultStreet()
-  }
+export async function createNewStreetOnServer (type = STREET_TEMPLATES.DEFAULT) {
+  prepareStreet(type)
 
   const transmission = packServerStreetDataRaw()
 
@@ -228,13 +220,11 @@ function receiveStreetForVerification (transmission) {
       })
     )
 
-    infoBubble.suppress()
-
     unpackServerStreetData(transmission, null, null, false)
 
     // Update everything, but don't re-save the street to the server,
     // which will re-invalidate the local copy.
-    updateEverything(true, false)
+    updateEverything(false)
   }
 }
 
@@ -272,6 +262,12 @@ function unpackStreetDataFromServerTransmission (transmission) {
   street.name = transmission.name ?? null
   street.location = transmission.data.street.location ?? null
   street.editCount = transmission.data.street.editCount ?? 0
+
+  // Delete deprecated properties, if present
+  delete street.leftBuildingVariant
+  delete street.leftBuildingHeight
+  delete street.rightBuildingVariant
+  delete street.rightBuildingHeight
 
   return street
 }
@@ -375,6 +371,8 @@ export function scheduleSavingStreetToServer () {
   }
 }
 
+// Look into replacing with getLastStreet() from store/actions
+// -- it was formerly used by "here's your new street" in <WelcomePanel />
 export function fetchLastStreet () {
   const streetId = store.getState().app.priorLastStreetId
 

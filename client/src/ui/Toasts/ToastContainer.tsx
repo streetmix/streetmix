@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useTransition, animated } from '@react-spring/web'
 
+import { type ToastItem } from '~/src/types'
 import { useSelector, useDispatch } from '../../store/hooks'
 import { destroyToast } from '../../store/slices/toasts'
 import Toast from './Toast'
@@ -77,7 +78,7 @@ function ToastContainer (): React.ReactElement {
         height: 0
       }
     ],
-    onRest: (result, ctrl, item) => {
+    onRest: (result, ctrl, item: ToastItem) => {
       dispatch(destroyToast(item.timestamp))
     },
     config: (item, index, phase) => (key) =>
@@ -90,7 +91,9 @@ function ToastContainer (): React.ReactElement {
     <div className="toast-container">
       {transitions(({ life, ...style }, item) => {
         function setRef<T> (ref: T | null): void {
-          ref !== null && refMap.set(item, ref)
+          if (ref !== null) {
+            refMap.set(item, ref)
+          }
         }
 
         function handleClose (event?: React.MouseEvent | Event): void {
@@ -105,57 +108,60 @@ function ToastContainer (): React.ReactElement {
 
         let childComponent
 
-        switch (item.component) {
-          case 'TOAST_UNDO':
-            childComponent = (
-              <ToastUndo
-                setRef={setRef}
-                handleClose={handleClose}
-                item={item}
-              />
-            )
-            break
-          case 'TOAST_SIGN_IN':
-            childComponent = (
-              <ToastSignIn
-                setRef={setRef}
-                handleClose={handleClose}
-                item={item}
-              />
-            )
-            break
-          case 'TOAST_WEB_MONETIZATION':
-            childComponent = (
-              <ToastWebMonetization
-                setRef={setRef}
-                handleClose={handleClose}
-                item={item}
-              />
-            )
-            break
-          case 'TOAST_WEB_MONETIZATION_SUCCESS':
-            childComponent = (
-              <ToastWebMonetizationSuccess
-                setRef={setRef}
-                handleClose={handleClose}
-                item={item}
-              />
-            )
-            break
-          case 'TOAST_NO_CONNECTION':
-            childComponent = (
-              <ToastNoConnection
-                setRef={setRef}
-                handleClose={handleClose}
-                item={item}
-              />
-            )
-            break
-          default:
-            childComponent = (
-              <Toast setRef={setRef} handleClose={handleClose} item={item} />
-            )
-            break
+        // Handle toasts with a named component
+        if ('component' in item) {
+          switch (item.component) {
+            case 'TOAST_UNDO':
+              childComponent = (
+                <ToastUndo
+                  setRef={setRef}
+                  handleClose={handleClose}
+                  item={item}
+                />
+              )
+              break
+            case 'TOAST_SIGN_IN':
+              childComponent = (
+                <ToastSignIn
+                  setRef={setRef}
+                  handleClose={handleClose}
+                  item={item}
+                />
+              )
+              break
+            case 'TOAST_WEB_MONETIZATION':
+              childComponent = (
+                <ToastWebMonetization
+                  setRef={setRef}
+                  handleClose={handleClose}
+                  item={item}
+                />
+              )
+              break
+            case 'TOAST_WEB_MONETIZATION_SUCCESS':
+              childComponent = (
+                <ToastWebMonetizationSuccess
+                  setRef={setRef}
+                  handleClose={handleClose}
+                  item={item}
+                />
+              )
+              break
+            case 'TOAST_NO_CONNECTION':
+              childComponent = (
+                <ToastNoConnection
+                  setRef={setRef}
+                  handleClose={handleClose}
+                  item={item}
+                />
+              )
+              break
+          }
+        } else {
+          // Otherwise, toast with custom message
+          childComponent = (
+            <Toast setRef={setRef} handleClose={handleClose} item={item} />
+          )
         }
 
         return (

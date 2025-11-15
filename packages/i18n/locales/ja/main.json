@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Twitterでログイン"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "コピー作成",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "新しいストリートを作成しました。",
       "default": "サンプルのストリートを修正",
       "empty": "何も配置しない",
-      "last": "最後に表示したストリートをコピー"
+      "last": "最後に表示したストリートをコピー",
+      "dismiss": ""
     },
     "about": {
       "heading": "Streetmixについて",
@@ -364,16 +371,21 @@
     "delete-street": "ストリート削除",
     "segment-width": "セグメントの幅を変更",
     "building-height": "階数変更",
-    "street-width": "",
+    "street-width": "ストリートの道路幅変更",
     "geotag": "",
-    "increase-width": "幅を増やす (Shiftを押すと微調整可)",
-    "decrease-width": "幅を減らす (Shiftを押すと微調整可)",
+    "increase-width": "幅を増やす",
+    "decrease-width": "幅を減らす",
+    "width-tooltip-sublabel": "(Shiftを押すと微調整可)",
     "add-floor": "階数を追加",
     "remove-floor": "階数を減らす",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "ストリートの段差",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "したがきストリート",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "最小",
       "max": "最大"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

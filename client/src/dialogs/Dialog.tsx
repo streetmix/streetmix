@@ -30,7 +30,7 @@ interface DialogProps {
 
 function Dialog ({ children }: DialogProps): React.ReactElement {
   // Appear state controls transition in/out
-  const dialogEl = useRef(null)
+  const dialogEl = useRef<HTMLDivElement>(null)
   const nodeRef = useRef(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()
@@ -59,7 +59,7 @@ function Dialog ({ children }: DialogProps): React.ReactElement {
 
   return (
     <CSSTransition
-      appear={true}
+      appear
       in={appear}
       timeout={80}
       classNames="dialog-transition"
@@ -68,9 +68,11 @@ function Dialog ({ children }: DialogProps): React.ReactElement {
     >
       <div className="dialog-box-container" ref={nodeRef}>
         <div className="dialog-box-backdrop" />
-        <div className="dialog-box" role="dialog" ref={dialogEl}>
-          <CloseButton onClick={handleClose} />
-          {children(handleClose)}
+        <div className="dialog-box-display-area">
+          <div className="dialog-box" role="dialog" ref={dialogEl}>
+            <CloseButton onClick={handleClose} />
+            {children(handleClose)}
+          </div>
         </div>
       </div>
     </CSSTransition>

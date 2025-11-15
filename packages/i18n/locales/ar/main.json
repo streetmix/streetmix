@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "تسجيل الدخول باستخدام حساب تويتر"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "عمل نسخة",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "ها هو شارعك الجديد.",
       "default": "البدء بمثال لشوارع سابقة",
       "empty": "البدء بشارع فارغ",
-      "last": "البدء بنسخة من الشارع الأخير"
+      "last": "البدء بنسخة من الشارع الأخير",
+      "dismiss": ""
     },
     "about": {
       "heading": "حول Streetmix.",
@@ -364,16 +371,21 @@
     "delete-street": "شطب الشارع",
     "segment-width": "تغيير عرض الجزء",
     "building-height": "تغيير عدد الطوابق",
-    "street-width": "",
+    "street-width": "تغيير عرض الشارع",
     "geotag": "",
-    "increase-width": "زيادة العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
-    "decrease-width": "تقليل العرض (لمزيد من الدقة إضغط على المفتاح Shift)",
+    "increase-width": "زيادة العرض",
+    "decrease-width": "تقليل العرض ",
+    "width-tooltip-sublabel": "(لمزيد من الدقة إضغط على المفتاح Shift)",
     "add-floor": "إضافة طابق",
     "remove-floor": "إزالة الطابق",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "مستوى الشارع",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "شارع غير مُسمى",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "حد أدنى",
       "max": "حد أقصى"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

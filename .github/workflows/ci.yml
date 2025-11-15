@@ -12,28 +12,25 @@ jobs:
       HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    # Use the current LTS version of Node.js
-    - name: Use Node.js 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - run: npm ci
-    - run: npm run lint
+      - name: Checkout
+        uses: actions/checkout@v5
+      # Use the current LTS version of Node.js
+      - name: Use Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npm run lint
 
   test:
     name: Unit and integration tests
     runs-on: ubuntu-latest
     container: node:lts-buster
     strategy:
-      # Use current LTS and later versions of Node.js if present
+      # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        # Tests on Node 22 are momentarily pinned to 22.6.x to avoid segfault
-        # error on Parcel + 22.7.0+.
-        # https://github.com/parcel-bundler/parcel/issues/9926
-        node-version: [20.x, 22.6.x]
+        node-version: [22.x, 24.x]
     env:
       NODE_ENV: test
       HUSKY: "0"
@@ -55,33 +52,33 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        # Codecov reporting needs fetch-depth > 1
-        fetch-depth: 2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - name: Seed test database
-      run: npm run db:migrate
-    - name: Build files (e.g. TypeScript)
-      run: npm run build
-      env:
-        # We need this because sourcemaps are getting uploaded after build
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    - name: Run tests
-      run: npm run vitest:ci
-    - name: Report code coverage
-      uses: codecov/codecov-action@v4
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          # Codecov reporting needs fetch-depth > 1
+          fetch-depth: 2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - name: Seed test database
+        run: npm run db:migrate
+      - name: Build files (e.g. TypeScript)
+        run: npm run build
+        env:
+          # Do not upload build sourcemaps to Sentry
+          SENTRY_ALLOW_FAILURE: true
+      - name: Run tests
+        run: npm run vitest:ci
+      - name: Report code coverage
+        uses: codecov/codecov-action@v5
 
   cypress:
     name: End-to-end (E2E) tests
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node-20.14.0-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
+      image: cypress/browsers:node-22.14.0-chrome-133.0.6943.53-1-ff-135.0-edge-133.0.3065.59-1
     env:
       HUSKY: "0"
       # We need placeholder API keys to mock some third party integrations
@@ -89,7 +86,7 @@ jobs:
       PELIAS_HOST_NAME: dummy.pelias.com
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -97,11 +94,11 @@ jobs:
         with:
           build: npm run build
           start: npm run serve
-          wait-on: 'http://localhost:8000'
+          wait-on: "http://localhost:8000"
           # Run on chrome for recording
           browser: chrome
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # We need this because sourcemaps are getting uploaded after build
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # Do not upload build sourcemaps to Sentry
+          SENTRY_ALLOW_FAILURE: true

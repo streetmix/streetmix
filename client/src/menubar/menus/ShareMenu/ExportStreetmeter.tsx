@@ -1,28 +1,15 @@
 import React from 'react'
 
-import ExternalLink from '~/src/ui/ExternalLink'
+import Icon from '~/src/ui/Icon'
+import MenuItem from '../MenuItem'
+import BetaTag from '../BetaTag'
 
 function ExportStreetmeter (): React.ReactElement {
   return (
-    <ExternalLink
-      href={`https://streetmeter.net/#${window.location.href}`}
-      icon={true}
-    >
-      Open in Streetmeter
-      <span
-        style={{
-          backgroundColor: 'var(--color-citrine-300)',
-          color: 'var(--color-copper-900)',
-          borderRadius: 'var(--border-radius)',
-          marginLeft: '.5em',
-          padding: '.25em .5em',
-          fontSize: '.85em',
-          fontWeight: '550'
-        }}
-      >
-        BETA
-      </span>
-    </ExternalLink>
+    <MenuItem href={`https://streetmeter.net/#${window.location.href}`}>
+      <Icon name="graph" className="menu-item-icon" />
+      Open in Streetmeter <BetaTag />
+    </MenuItem>
   )
 }
 

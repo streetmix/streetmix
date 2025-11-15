@@ -15,10 +15,18 @@ export const Swatch = function ({ color, name }) {
   return (
     <div className={`stmx-color-swatch stmx-brand-color-${name}`}>
       <div className="line-block">
-        <div className="line"><strong>{name.split('-')[1]}</strong></div>
-        <div className="line"><strong>R</strong> {rgb[0]}</div>
-        <div className="line"><strong>G</strong> {rgb[1]}</div>
-        <div className="line"><strong>B</strong> {rgb[2]}</div>
+        <div className="line">
+          <strong>{name.split('-')[1]}</strong>
+        </div>
+        <div className="line">
+          <strong>R</strong> {rgb[0]}
+        </div>
+        <div className="line">
+          <strong>G</strong> {rgb[1]}
+        </div>
+        <div className="line">
+          <strong>B</strong> {rgb[2]}
+        </div>
       </div>
       <p>{hex}</p>
     </div>

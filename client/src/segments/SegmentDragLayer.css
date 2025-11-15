@@ -1,11 +1,8 @@
 .segment-drag-layer {
   position: fixed;
+  inset: 0;
   pointer-events: none;
-  z-index: 400; /* TODO: Put on z-index hierarchy */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  z-index: var(--z-04-drag-layer);
 }
 
 .segment.floating {
@@ -13,7 +10,6 @@
   left: 0;
   top: 0;
   opacity: 0.75;
-  z-index: var(--z-02-segment-focused);
   pointer-events: none;
   transition: none !important;
 }

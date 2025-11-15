@@ -1,0 +1,5 @@
+.menu-separator {
+  height: 1px;
+  margin-block: 0.35em;
+  background-color: var(--color-turquoise-300);
+}

@@ -39,13 +39,8 @@
   }
 
   + label {
-    margin-left: 0.75em;
+    margin-inline-start: 0.75em;
     user-select: none;
-
-    [dir="rtl"] & {
-      margin-left: 0;
-      margin-right: 0.75em;
-    }
   }
 }
 
@@ -70,6 +65,6 @@
   }
 
   &[data-disabled] {
-    background-color: rgba(0 0 0 / 10%);
+    background-color: rgb(0 0 0 / 10%);
   }
 }

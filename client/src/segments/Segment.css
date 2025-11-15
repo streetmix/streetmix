@@ -3,11 +3,19 @@
 .segment {
   display: block;
   position: absolute;
-  top: -150px;
-  height: calc(var(--canvas-height) + 85px + 30px);
+  height: var(--canvas-height);
   text-align: center;
   perspective: 500px;
   touch-action: none;
+
+  > button {
+    width: 100%;
+    height: 100%;
+
+    body:not(.read-only) & {
+      cursor: grab;
+    }
+  }
 }
 
 .segment-canvas-container {
@@ -30,27 +38,16 @@ body.immediate-segment-resize .segment {
   transition: none !important;
 }
 
-.segment.create {
-  transition: none !important;
-}
-
-.segment.hover {
+.segment.active {
   z-index: var(--z-02-segment-focused) !important;
 }
 
-.segment.hover .hover-bk {
-  background: var(--segment-hover-background);
+.segment.active .active-bg {
+  background: var(--segment-active-background);
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 10px;
+  inset: 0;
   z-index: -1;
-  height: calc(var(--canvas-baseline) - 10px);
   pointer-events: none;
-}
-
-body:not(.read-only) .segment {
-  cursor: grab;
 }
 
 .segment.dragged-out {
@@ -67,25 +64,24 @@ body.not-within-canvas * {
   cursor: no-drop !important;
 }
 
-body.segment-move-dragging #street-section-editable .segment {
-  transition:
-    left 100ms,
-    transform 300ms;
-  height: calc(var(--canvas-height) + 85px + 30px + 90px);
-}
-
+/* NOTE: targeting immediate child div because CSSTransition wrapper workaround
+   -- only on removal transition, not switching transition */
+.slice-remove-exit > div,
 .switching-away-exit {
   position: absolute;
   z-index: var(--z-10-switch-away);
   pointer-events: none;
   transform: none !important;
+  transition: none !important;
   perspective: 400px;
 }
 
+.slice-remove-exit-done > div,
 .switching-away-exit-done {
   z-index: var(--z-10-switch-away) !important;
 }
 
+.slice-remove-exit-active canvas,
 .switching-away-exit-active canvas {
   transition:
     transform var(--segment-switching-time) ease-in,

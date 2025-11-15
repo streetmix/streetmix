@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
-import { DEFAULT_LOCALE } from '../../locales/constants'
 import { getAppTranslations, getSegmentTranslations } from '../../util/api'
 
 type LocaleMessages = Record<string, string>
@@ -27,12 +27,7 @@ const initialState: LocaleState = {
 // ES6-ported function from https://gist.github.com/penguinboy/762197
 // Ignores arrays and passes them through unchanged.
 // Does not address null values, since the responses from the server will not be containing those.
-// type NestedObjectValues = string | string[] | Record<string, NestedObjectValues>
-
-type NestedObjectValues = string | string[] | NestedStringObject
-interface NestedStringObject extends Record<string, NestedObjectValues> {}
-
-function flattenObject (obj: NestedObjectValues): LocaleMessages {
+function flattenObject (obj): LocaleMessages {
   const toReturn: LocaleMessages = {}
   let flatObject: LocaleMessages
   Object.keys(obj).forEach((i: string) => {

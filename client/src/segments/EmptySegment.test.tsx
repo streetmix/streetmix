@@ -26,7 +26,7 @@ describe('EmptySegment', () => {
 
     const el = container.firstChild as HTMLElement
     expect(el.classList.contains('segment-empty')).toBeTruthy()
-    expect(el.style.width).toEqual(`${3.75 * TILE_SIZE}px`)
+    expect(el.style.width).toEqual(`${(3.75 * TILE_SIZE).toFixed(6)}px`)
     expect(el.style.left).toEqual('0px')
   })
 
@@ -37,8 +37,8 @@ describe('EmptySegment', () => {
 
     const el = container.firstChild as HTMLElement
     expect(el.classList.contains('segment-empty')).toBeTruthy()
-    expect(el.style.width).toEqual(`${4.5 * TILE_SIZE}px`)
-    expect(el.style.left).toEqual(`${10 * TILE_SIZE}px`)
+    expect(el.style.width).toEqual(`${(4.5 * TILE_SIZE).toFixed(6)}px`)
+    expect(el.style.left).toEqual(`${(10 * TILE_SIZE).toFixed(6)}px`)
   })
 
   it('renders text content', () => {

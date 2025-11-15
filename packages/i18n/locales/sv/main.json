@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Logga in med Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Gör en kopia",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Här är din nya gata.",
       "default": "Börja med en exempelgata",
       "empty": "Börja med en tom gata",
-      "last": "Börja med en kopia av din senaste gata"
+      "last": "Börja med en kopia av din senaste gata",
+      "dismiss": ""
     },
     "about": {
       "heading": "Om Streetmix.",
@@ -364,16 +371,21 @@
     "delete-street": "Ta bort gata",
     "segment-width": "Ändra bredd på segmentet",
     "building-height": "Ändra antal våningar",
-    "street-width": "",
+    "street-width": "Ändra gatans bredd",
     "geotag": "",
-    "increase-width": "Öka bredd (håll inne Shift för ökad precision)",
-    "decrease-width": "Minska bredd (håll inne Shift för ökad precision)",
+    "increase-width": "Öka bredd",
+    "decrease-width": "Minska bredd",
+    "width-tooltip-sublabel": "(håll inne Shift för ökad precision)",
     "add-floor": "Lägg till våning",
     "remove-floor": "Ta bort våning",
     "scroll-street-left": "Panorera vänster",
     "scroll-street-right": "Panorera höger",
     "scroll-left": "Scrolla vänster",
-    "scroll-right": "Scrolla höger"
+    "scroll-right": "Scrolla höger",
+    "elevation-sidewalk": "Upphöjd",
+    "elevation-road": "Gatunivå",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Namnlös gata",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

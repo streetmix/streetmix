@@ -99,7 +99,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
 
     // Change width to the desired selection
     if (newWidth) {
-      void dispatch(updateStreetWidth(newWidth))
+      dispatch(updateStreetWidth(newWidth))
     }
   }
 
@@ -143,7 +143,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
       units
     )
 
-    void dispatch(updateStreetWidth(newWidth))
+    dispatch(updateStreetWidth(newWidth))
   }
 
   const DefaultWidthOptions = (): React.ReactElement[] =>
@@ -162,7 +162,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild={true}>
+      <DropdownMenu.Trigger asChild>
         <StreetMetaItem
           className={className}
           isEditable={editable}
@@ -189,7 +189,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
               defaultMessage="Occupied width"
             />
           </DropdownMenu.Label>
-          <DropdownMenu.Item className="dropdown-menu-item" disabled={true}>
+          <DropdownMenu.Item className="dropdown-menu-item" disabled>
             {/* If width is U.S. customary and fractional, force `ltr` for proper display */}
             <span dir={units === 1 ? 'ltr' : undefined}>
               {prettifyWidth(occupiedWidth, units, locale)}

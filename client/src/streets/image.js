@@ -1,4 +1,4 @@
-import { getBuildingImageHeight } from '../segments/buildings'
+import { getBoundaryImageHeight } from '../boundary'
 import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants'
 import { deleteStreetImage } from '../util/api'
 import store, { observeStore } from '../store'
@@ -14,27 +14,28 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 
 // Used in thumbnail
 // TODO: a way to remove the circular dependency?!
-export const SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING = 65
+export const SAVE_AS_IMAGE_LABEL_PADDING = 65
 
 export function getStreetImage (
   street,
   transparentSky,
-  segmentNamesAndWidths,
+  labels,
   streetName,
   dpi = SAVE_AS_IMAGE_DPI,
-  watermark = true
+  watermark = true,
+  locale
 ) {
   const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
 
-  const leftHeight = getBuildingImageHeight(
-    street.leftBuildingVariant,
+  const leftHeight = getBoundaryImageHeight(
+    street.boundary.left.variant,
     'left',
-    street.leftBuildingHeight
+    street.boundary.left.floors
   )
-  const rightHeight = getBuildingImageHeight(
-    street.rightBuildingVariant,
+  const rightHeight = getBoundaryImageHeight(
+    street.boundary.right.variant,
     'right',
-    street.rightBuildingHeight
+    street.boundary.right.floors
   )
 
   let height = Math.max(leftHeight, rightHeight)
@@ -49,8 +50,8 @@ export function getStreetImage (
 
   height += SAVE_AS_IMAGE_BOTTOM_PADDING
 
-  if (segmentNamesAndWidths) {
-    height += SAVE_AS_IMAGE_NAMES_WIDTHS_PADDING
+  if (labels) {
+    height += SAVE_AS_IMAGE_LABEL_PADDING
   }
 
   const el = document.createElement('canvas')
@@ -66,9 +67,10 @@ export function getStreetImage (
     multiplier: 1.0,
     silhouette: false,
     transparentSky,
-    segmentNamesAndWidths,
+    labels,
     streetName,
-    watermark
+    watermark,
+    locale
   })
 
   return el

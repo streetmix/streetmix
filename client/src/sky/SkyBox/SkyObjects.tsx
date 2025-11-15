@@ -1,41 +1,50 @@
-import React from 'react'
+import React, { createRef, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources'
 import './SkyObjects.css'
 
-import type { SkyboxDefinition } from '@streetmix/types'
+import type { SkyboxObject } from '@streetmix/types'
 
 interface SkyObjectsProps {
-  objects: SkyboxDefinition['backgroundObjects']
+  objects: SkyboxObject[]
 }
 
 function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
+  // According to "rule of hooks", useRef() must not be called in a loop
+  const refs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({})
+
   return (
     <TransitionGroup className="sky-background-objects">
       {objects.map((object) => {
-        const img = images.get(object.image)
+        const key = object.image
+        const img = images.get(key)
+        // Refs are created with createRef and then stored in parent `refs`
+        const ref = createRef<HTMLDivElement>()
+        refs.current[key] = ref
+
+        const style: React.CSSProperties = {
+          width: object.width,
+          height: object.height,
+          position: 'absolute',
+          left: `calc(${object.left * 100}% - ${object.width / 2}px)`,
+          top: `calc(${object.top * 100}% - ${object.height / 2}px)`
+        }
 
         // Render only if asset is found
         if (img !== undefined) {
           return (
             <CSSTransition
               key={object.image}
+              nodeRef={ref}
+              appear
               timeout={{
                 enter: 0,
                 exit: 500
               }}
               classNames="sky-background-object"
             >
-              <div
-                style={{
-                  width: object.width,
-                  height: object.height,
-                  position: 'absolute',
-                  left: `calc(${object.left * 100}% - (${object.width}px / 2)`,
-                  top: `calc(${object.top * 100}% - (${object.height}px / 2)`
-                }}
-              >
+              <div ref={ref} style={style}>
                 <img src={img.src} style={{ width: '100%', height: '100%' }} />
               </div>
             </CSSTransition>

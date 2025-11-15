@@ -1,66 +1,34 @@
-import React from 'react'
+import React, { type ButtonHTMLAttributes } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import type { PassthroughProps } from '~/src/types'
-import ExternalLink from '../ui/ExternalLink'
 import Icon from '../ui/Icon'
-import Tooltip from '../ui/Tooltip'
-import { isUrlExternal } from '../util/helpers'
+import { Tooltip } from '../ui/Tooltip'
 
-interface MenuBarItemProps {
+interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Accepts children to render
   children?: React.ReactNode
-  // If URL is provided, renders using anchor tags intead of buttons
-  url?: string
-  // Otherwise, uses a <FormattedMessage /> component to render menu label
+  // Otherwise use <FormattedMessage /> to render a label
   translation?: string
   label?: string
   // Other optional props
   tooltip?: string
-  target?: string
-  onClick?: (event: React.MouseEvent) => void
 }
 
 export default function MenuBarItem ({
   translation = '',
   label = '',
   tooltip,
-  url,
   children = <FormattedMessage id={translation} defaultMessage={label} />,
   ...restProps
-}: MenuBarItemProps | PassthroughProps): React.ReactElement {
-  let component
-
-  if (typeof url === 'string') {
-    if (isUrlExternal(url)) {
-      component = (
-        <li>
-          <ExternalLink href={url} {...restProps}>
-            {children}
-            <Icon name="external-link" className="menu-external-link" />
-          </ExternalLink>
-        </li>
-      )
-    } else {
-      component = (
-        <li>
-          <a href={url} {...restProps}>
-            {children}
-            <Icon name="external-link" className="menu-external-link" />
-          </a>
-        </li>
-      )
-    }
-  } else {
-    component = (
-      <li>
-        <button className="menu-attached" {...restProps}>
-          {children}
-          <Icon name="chevron-down" className="menu-carat-down" />
-        </button>
-      </li>
-    )
-  }
+}: MenuBarItemProps): React.ReactElement {
+  const component = (
+    <li>
+      <button className="menu-trigger" role="menuitem" {...restProps}>
+        {children}
+        <Icon name="chevron-down" className="menu-carat-down" />
+      </button>
+    </li>
+  )
 
   if (tooltip !== undefined) {
     return (

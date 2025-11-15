@@ -1,0 +1,64 @@
+###############################################################################
+##
+##  Beach
+##
+##  Coastal condition where a beach area abuts a body of water.
+##
+###############################################################################
+
+width: 24 # 80' in US customary units
+showAnalytics: false
+boundary:
+  left:
+    variant: grass
+    floors: 1
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+  right:
+    variant: waterfront
+    floors: 1
+    elevation: 0
+slices:
+  - type: sidewalk
+    variant:
+      sidewalk-density: normal
+    width:
+      metric: 6
+      imperial: 20
+    elevation:
+      metric: 0.15
+      imperial: 0.5
+    label: Pedestrian walk
+  - type: beach
+    variant:
+      beach-type: beach
+    width:
+      metric: 5
+      imperial: 17
+    elevation: 0
+    label: "Future dune"
+  - type: beach
+    variant:
+      beach-type: beach
+    width:
+      metric: 0.5
+      imperial: 2
+    elevation: 0
+    label: "Future dune"
+  - type: beach
+    variant:
+      beach-type: beach
+    width:
+      metric: 2
+      imperial: 6
+    elevation: 0
+    label: "Future dune"
+
+  - type: beach
+    variant:
+      beach-type: lounger
+    width:
+      metric: 10.5
+      imperial: 35
+    elevation: 0

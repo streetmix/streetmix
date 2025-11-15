@@ -1,0 +1,448 @@
+building:
+  waterfront:
+    id: waterfront
+    title: Waterfront
+  grass:
+    id: grass
+    title: Grass
+  fence:
+    id: fence
+    title: Empty lot
+  parking-lot:
+    id: car
+    title: Parking lot
+  residential:
+    id: residential
+    title: Home
+  narrow:
+    id: building-thin
+    title: Narrow building
+  wide:
+    id: building-wide
+    title: Wide building
+  arcade:
+    id: building-arcade
+    title: Arcade building
+  compound-wall:
+    id: compound-wall
+    title: Compound wall
+    unlockCondition: SIGN_IN
+ground:
+  concrete:
+    id: concrete
+    color: "#ff0000"
+    title: Concrete
+  asphalt:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+direction:
+  inbound:
+    id: direction-inbound
+    title: Inbound
+  outbound:
+    id: direction-outbound
+    title: Outbound
+bike-direction:
+  inbound:
+    id: direction-inbound
+    title: Inbound
+  outbound:
+    id: direction-outbound
+    title: Outbound
+  twoway-left:
+    id: direction-twoway-left
+    title: Two-way (left-hand)
+    unlockCondition: SIGN_IN
+  twoway-right:
+    id: direction-twoway-right
+    title: Two-way (right-hand)
+    unlockCondition: SIGN_IN
+parking-lane-direction:
+  inbound:
+    id: direction-inbound
+    title: Inbound
+  outbound:
+    id: direction-outbound
+    title: Outbound
+  sideways:
+    id: direction-both
+    title: Perpendicular
+  angled-front-left:
+    id: direction-down-left
+    title: Angled
+  angled-front-right:
+    id: direction-down-right
+    title: Angled
+  angled-rear-left:
+    id: direction-up-left
+    title: Angled
+  angled-rear-right:
+    id: direction-up-right
+    title: Angled
+tree-type:
+  big:
+    id: tree
+    title: Tree
+  palm-tree:
+    id: palm-tree
+    title: Palm tree
+lamp-orientation:
+  left:
+    id: direction-left
+    title: Left
+  both:
+    id: direction-both
+    title: Both
+  right:
+    id: direction-right
+    title: Right
+lamp-type:
+  modern:
+    id: lamp-modern
+    title: Modern
+  traditional:
+    id: lamp-traditional-right
+    title: Traditional
+  pride:
+    id: rainbow
+    title: Modern with pride banner
+bench-orientation:
+  left:
+    id: direction-left
+    title: Left
+  center:
+    id: direction-both
+    title: Center
+  right:
+    id: direction-right
+    title: Right
+turn-lane-orientation:
+  left:
+    id: turn-lane-left
+    title: Left
+  left-straight:
+    id: turn-lane-left-straight
+    title: Left and straight
+  straight:
+    id: turn-lane-straight
+    title: Straight
+  right-straight:
+    id: turn-lane-right-straight
+    title: Right and straight
+  right:
+    id: turn-lane-right
+    title: Right
+  both:
+    id: turn-lane-both
+    title: Both
+  left-right-straight:
+    id: turn-lane-left-right-straight
+    title: Left, right and straight
+  shared:
+    id: turn-lane-shared
+    title: Shared
+divider-type:
+  median:
+    id: median
+    title: Median
+  striped-buffer:
+    id: buffer
+    title: Striped buffer
+  planting-strip:
+    id: grass
+    title: Planting strip
+  planter-box:
+    id: planter-box
+    title: Planter box
+  bush:
+    id: bush
+    title: Planting strip with a bush
+  flowers:
+    id: flowers
+    title: Planting strip with flowers
+  big-tree:
+    id: tree
+    title: Planting strip with a tree
+  palm-tree:
+    id: palm-tree
+    title: Planting strip with a palm tree
+  bollard:
+    id: bollard
+    title: Bollard
+  dome:
+    id: dome
+    title: Traffic exclusion dome
+crosswalk-type:
+  zebra-crossing:
+    id: buffer
+    title: Crosswalk
+  zebra-crossing-bike:
+    id: buffer
+    title: Bike crossing
+orientation:
+  left:
+    id: orientation-left
+    title: Left
+  right:
+    id: orientation-right
+    title: Right
+public-transit-asphalt:
+  regular:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+  colored:
+    id: asphalt
+    color: "#9b1f22"
+    title: Red lane
+  grass:
+    id: grass
+    title: Grass
+bus-asphalt:
+  regular:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+  colored:
+    id: asphalt
+    color: "#9b1f22"
+    title: Red lane
+  shared:
+    id: sharrow
+    title: Shared bus/bike lane
+bus-type:
+  typical:
+    id: bus
+    title: Typical bus
+  double-decker:
+    id: double-decker-bus
+    title: Double decker bus
+    unlockCondition: SUBSCRIBE
+  av-shuttle:
+    id: av-shuttle
+    title: Autonomous shuttle
+    unlockCondition: SUBSCRIBE
+brt-asphalt:
+  regular:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+  red:
+    id: asphalt
+    color: "#9b1f22"
+    title: Red lane
+brt-station-orientation:
+  left:
+    id: orientation-left
+    title: Left
+  right:
+    id: orientation-right
+    title: Right
+  center:
+    id: orientation-center
+    title: Center
+bike-asphalt:
+  regular:
+    id: asphalt
+    color: "#292a29"
+    title: Asphalt
+  green:
+    id: asphalt
+    color: "#2b6750"
+    title: Green lane
+  red:
+    id: asphalt
+    color: "#9b1f22"
+    title: "Red lane "
+transit-shelter-elevation:
+  street-level:
+    id: elevation-lower
+    title: Street level
+  light-rail:
+    id: elevation-higher
+    title: Light rail platform
+bike-rack-elevation:
+  sidewalk-parallel:
+    id: direction-both
+    title: Parallel parking, sidewalk level
+  sidewalk:
+    id: elevation-higher
+    title: Perpendicular parking, sidewalk level
+  road:
+    id: elevation-lower
+    title: Perpendicular parking, road level
+car-type:
+  car:
+    id: car
+    title: Car
+  car-with-bus:
+    id: car-with-bus
+    title: Car with bus
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: VARIANT_MIXED_DRIVE_LANES_1
+  car-with-bike:
+    id: car-with-bike
+    title: Car with bike
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: VARIANT_MIXED_DRIVE_LANES_2
+  sharrow:
+    id: sharrow
+    title: Sharrow
+  truck:
+    id: truck
+    title: Truck
+  microvan:
+    id: microvan
+    title: Microvan
+    unlockCondition: SUBSCRIBE
+  av:
+    id: rideshare
+    title: Autonomous vehicle
+    unlockCondition: SIGN_IN
+  motorcycle-sidecar:
+    id: motorcycle-sidecar
+    title: Motorcycle with sidecar
+    unlockCondition: SIGN_IN
+  pedestrian:
+    id: sidewalk-density-normal
+    title: Pedestrian
+    unlockCondition: SIGN_IN
+sidewalk-density:
+  dense:
+    id: sidewalk-density-dense
+    title: Dense
+  normal:
+    id: sidewalk-density-normal
+    title: Normal
+  sparse:
+    id: sidewalk-density-sparse
+    title: Sparse
+  empty:
+    id: ""
+    title: Empty
+parking-lane-orientation:
+  left:
+    id: orientation-left
+    title: Left
+  right:
+    id: orientation-right
+    title: Right
+wayfinding-type:
+  large:
+    id: wayfinding-large
+    title: Large
+  medium:
+    id: wayfinding-medium
+    title: Medium
+  small:
+    id: wayfinding-small
+    title: Small
+flex-type:
+  taxi:
+    id: taxi
+    title: Taxi
+  rideshare:
+    id: rideshare
+    title: Rideshare
+waiting-area:
+  sparse:
+    id: sidewalk-density-sparse
+    title: Someone
+  empty:
+    id: ""
+    title: No one
+scooter-elevation:
+  sidewalk:
+    id: elevation-higher
+    title: Sidewalk level
+  road:
+    id: elevation-lower
+    title: Road level
+scooter-riders:
+  empty:
+    id: ""
+    title: No one
+  sparse:
+    id: sidewalk-density-sparse
+    title: Someone
+magic-carpet-occupants:
+  aladdin:
+    id: aladdin
+    title: Aladdin
+  jasmine:
+    id: jasmine
+    title: Jasmine
+  aladdin-jasmine:
+    id: aladdin-jasmine
+    title: Aladdin & Jasmine
+  jasmine-aladdin:
+    id: jasmine-aladdin
+    title: Jasmine & Aladdin
+occupants:
+  empty:
+    id: ""
+    title: Empty
+  occupied:
+    id: sidewalk-density-normal
+    title: Occupied
+elevation:
+  sidewalk:
+    id: elevation-higher
+    title: Sidewalk level
+  road:
+    id: elevation-lower
+    title: Street level
+universal-elevation:
+  sidewalk:
+    id: elevation-higher
+    title: Sidewalk level
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: ELEVATION_CONTROLS_UNLOCKED
+  road:
+    id: elevation-lower
+    title: Street level
+    unlockCondition: SUBSCRIBE
+    unlockWithFlag: ELEVATION_CONTROLS_UNLOCKED
+temporary-barrier-type:
+  traffic-cone:
+    id: traffic-cone
+    title: Traffic cone
+  barricade:
+    id: barricade
+    title: Barricade
+  jersey-barrier-concrete:
+    id: jersey-barrier
+    title: Jersey barrier (concrete)
+  jersey-barrier-plastic:
+    id: jersey-barrier
+    color: "#ef9c74"
+    title: Jersey barrier (plastic)
+drainage-sides:
+  slanted:
+    id: drainage-slanted
+    title: Slanted sides
+  vertical:
+    id: drainage-vertical
+    title: Vertical sides
+brt-bus: {}
+vendor-type:
+  handcart:
+    id: vendor-handcart
+    title: Vendor with hand cart
+  table:
+    id: vendor-table
+    title: Vendor at table
+  tarp:
+    id: vendor-tarp
+    title: Vendor on tarp on ground
+  platform:
+    id: vendor-platform
+    title: Vendor at platform
+beach-type:
+  beach:
+    id: beach
+    title: Beach
+  lounger:
+    id: lounger
+    title: Beach lounger

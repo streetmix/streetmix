@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "በትዊተር ይግቡ።"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "ኮፒ ያድርጉ",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "ይህ የእርስዎ አዲስ መንገድ ነው ",
       "default": "ለምሳሌነት በሚያገለግል መንገድ ይጀምሩ ",
       "empty": "በባዶ መንገድ ይጀምሩ",
-      "last": "በመጨረሻው መንገድ ኮፒ ይጀምሩ "
+      "last": "በመጨረሻው መንገድ ኮፒ ይጀምሩ ",
+      "dismiss": ""
     },
     "about": {
       "heading": "ስትሪትሚክስን በተመለከተ",
@@ -364,16 +371,21 @@
     "delete-street": "መንገድ ሰርዝ",
     "segment-width": "የመንገዱን ክፍልስፋት ይለውጡ",
     "building-height": "የወለሎችን ብዛት ይለውጡ",
-    "street-width": "",
+    "street-width": "የመንገዱን ስፋት ይለውጡ",
     "geotag": "",
-    "increase-width": "ስፋትን ይጨምሩ (ለተጨማሪ ትክክለኛነት ሺፍትን ይያዙ)",
-    "decrease-width": "ስፋትን ይቀንሱ (ለተጨማሪ ትክክለኛነት ሺፍትን ይያዙ)",
+    "increase-width": "ስፋትን ይጨምሩ",
+    "decrease-width": "ስፋትን ይቀንሱ ",
+    "width-tooltip-sublabel": "(ለተጨማሪ ትክክለኛነት ሺፍትን ይያዙ)",
     "add-floor": "ወለል ያክሉ",
     "remove-floor": "ወለሉን ያስወግዱ",
     "scroll-street-left": "መንገዱን ወደ ግራ ስክሮል አድርግ",
     "scroll-street-right": "መንገዱን ወደ ቀኝ ስክሮል አድርግ",
     "scroll-left": "ወደ ግራ ስክሮኮል",
-    "scroll-right": "ወደ ቀኝ ስክሮኮል"
+    "scroll-right": "ወደ ቀኝ ስክሮኮል",
+    "elevation-sidewalk": "የእግረኛ መንገድ",
+    "elevation-road": "የጎዳና ደረጃ",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "ያልተሰየመ መንገድ",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "ዝቅተኛ",
       "max": "ከፍተኛ"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

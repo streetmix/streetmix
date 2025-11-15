@@ -4,10 +4,13 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC
 } from '../users/constants'
-import store from '../store'
 import { formatNumber } from './number_format'
 
-import type { UnitsSetting, WidthDefinition } from '@streetmix/types'
+import type {
+  MeasurementDefinition,
+  UnitsSetting,
+  WidthDefinition
+} from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
@@ -33,13 +36,14 @@ const WIDTH_INPUT_CONVERSION = [
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
-  0.125: '⅛',
-  0.25: '¼',
-  0.375: '⅜',
-  0.5: '½',
-  0.625: '⅝',
-  0.75: '¾',
-  0.875: '⅞'
+  // Do not change these strings to numbers
+  '.125': '⅛',
+  '.25': '¼',
+  '.375': '⅜',
+  '.5': '½',
+  '.625': '⅝',
+  '.75': '¾',
+  '.875': '⅞'
 }
 
 export function roundToPrecision (value: number): number {
@@ -108,13 +112,6 @@ export function prettifyWidth (
   locale: string
 ): string {
   let widthText = ''
-
-  // LEGACY: Not all uses of this function pass in locale.
-  // This is _not_ an optional value. After TypeScript conversion,
-  // missing this parameter throws an error.
-  if (!locale) {
-    locale = store.getState().locale.locale
-  }
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL: {
@@ -222,12 +219,9 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * imperial value to metric and return it.
  */
 export function getWidthInMetric (
-  width: WidthDefinition | undefined,
+  width: WidthDefinition | MeasurementDefinition,
   units: UnitsSetting
-): number | undefined {
-  // If no value is provided, return undefined
-  if (width === undefined) return
-
+): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return convertImperialMeasurementToMetric(width.imperial)
   } else {
@@ -239,7 +233,7 @@ export function getWidthInMetric (
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-function roundToNearestEighth (value: number): number {
+export function roundToNearestEighth (value: number): number {
   return Math.round(value * 8) / 8
 }
 
@@ -253,8 +247,9 @@ export function getImperialMeasurementWithVulgarFractions (
 ): string {
   // Determine if there is a vulgar fraction to display
   const floor = Math.floor(value)
-  const remainder = value - floor
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[remainder]
+  const decimal = value - floor
+  const key = decimal.toString().replace(/^0/, '')
+  const fraction = IMPERIAL_VULGAR_FRACTIONS[key]
 
   // If a fraction exists:
   if (fraction !== undefined) {

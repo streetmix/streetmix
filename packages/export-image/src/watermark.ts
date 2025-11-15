@@ -1,5 +1,5 @@
 import path from 'node:path'
-import url from 'node:url'
+import fs from 'node:fs'
 import * as Canvas from '@napi-rs/canvas'
 
 import { getWatermarkString } from './locale.js'
@@ -13,10 +13,6 @@ const WATERMARK_DARK_COLOR = '#333333'
 const WATERMARK_LIGHT_COLOR = '#cccccc'
 
 const WORDMARK_MARGIN = 4
-
-// Set up some legacy Node.js globals for convenience
-const __filename = url.fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 /**
  * Draws a "made with Streetmix" watermark on the lower right of the image.
@@ -37,16 +33,13 @@ export async function drawWatermark (
 
   // Reload image each render because the width/height setting needs to start
   // from scratch
-  let wordmarkImage
-  if (invert) {
-    wordmarkImage = await Canvas.loadImage(
-      path.join(__dirname, '../assets/wordmark_white.svg')
-    )
-  } else {
-    wordmarkImage = await Canvas.loadImage(
-      path.join(__dirname, '../assets/wordmark_black.svg')
-    )
-  }
+  const source = invert
+    ? '../assets/wordmark_white.svg'
+    : '../assets/wordmark_black.svg'
+  const image = await fs.promises.readFile(
+    path.join(import.meta.dirname, source)
+  )
+  const wordmarkImage = await Canvas.loadImage(image)
 
   // Set the width and height properties on the image so it scales without
   // pixellation. Also, divide by 4 because source image is larger

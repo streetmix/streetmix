@@ -234,38 +234,38 @@ For local development, you can obtain your own keys from each third-party servic
 
 The only required environment variables are the keys used for the [Auth0](https://auth0.com/) authentication service. Streetmix will run without this, but a lot of functionality is only available to signed-in users, and you will need these keys to sign in.
 
-| Variable name | Description | Required |
-| --- | --- | --- |
-| `AUTH0_DOMAIN` | Authentication service (Auth0) domain | Yes |
-| `AUTH0_CLIENT_ID` | Authentication service (Auth0) client ID | Yes |
-| `AUTH0_CLIENT_SECRET` | Authentication service (Auth0) client secret | Yes |
+| Variable name         | Description                                  | Required |
+| --------------------- | -------------------------------------------- | -------- |
+| `AUTH0_DOMAIN`        | Authentication service (Auth0) domain        | Yes      |
+| `AUTH0_CLIENT_ID`     | Authentication service (Auth0) client ID     | Yes      |
+| `AUTH0_CLIENT_SECRET` | Authentication service (Auth0) client secret | Yes      |
 
 #### Server configuration environment variables
 
 These environment variables configure the Node.js environment and the URL (hostname, port, and protocol) used for creating canonical URLs to an instance of Streetmix. By default, Streetmix assumes it is running in a local, development environment.
 
-| Variable name | Description | Default value | Required |
-| --- | --- | --- | --- |
-| `NODE_ENV` | Name of the Node.js environment. `production` is used for live services. `test` is used for local testing and continuous integration. | `development` | No |
-| `APP_DOMAIN` | Domain name hosting this instance | `localhost` | No |
-| `APP_PROTOCOL` | URL protocol for this instance, either `http` or `https`. | `http` for `localhost`; `https` for all other domains | No |
-| `PORT` | Domain port for this instance | `8000` | No |
+| Variable name  | Description                                                                                                                           | Default value                                         | Required |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------- |
+| `NODE_ENV`     | Name of the Node.js environment. `production` is used for live services. `test` is used for local testing and continuous integration. | `development`                                         | No       |
+| `APP_DOMAIN`   | Domain name hosting this instance                                                                                                     | `localhost`                                           | No       |
+| `APP_PROTOCOL` | URL protocol for this instance, either `http` or `https`.                                                                             | `http` for `localhost`; `https` for all other domains | No       |
+| `PORT`         | Domain port for this instance                                                                                                         | `8000`                                                | No       |
 
 #### Optional environment variables for third-party services
 
 Streetmix will run without these keys. Some non-critical functionality may be limited.
 
-| Variable name | Description | Required |
-| --- | --- | --- |
-| `CLOUDINARY_API_KEY` | Image cloud storage (Cloudinary) key | No |
-| `CLOUDINARY_API_SECRET` | Image cloud storage (Cloudinary) secret | No |
-| `FACEBOOK_APP_ID` | Facebook app ID for social sharing | No |
-| `NEW_RELIC_LICENSE_KEY` | New Relic monitoring API key | No |
-| `PELIAS_API_KEY` | Geocoding (Pelias) API key | No |
-| `PELIAS_HOST_NAME` | Geocoding (Pelias) API server | No |
-| `PLAUSIBLE_DOMAIN` | Analytics (Plausible) domain to track | No |
-| `TRANSIFEX_API_TOKEN` | Translations (Transifex) API token | No |
-| `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No |
+| Variable name                      | Description                                       | Required |
+| ---------------------------------- | ------------------------------------------------- | -------- |
+| `CLOUDINARY_API_KEY`               | Image cloud storage (Cloudinary) key              | No       |
+| `CLOUDINARY_API_SECRET`            | Image cloud storage (Cloudinary) secret           | No       |
+| `FACEBOOK_APP_ID`                  | Facebook app ID for social sharing                | No       |
+| `NEW_RELIC_LICENSE_KEY`            | New Relic monitoring API key                      | No       |
+| `PELIAS_API_KEY`                   | Geocoding (Pelias) API key                        | No       |
+| `PELIAS_HOST_NAME`                 | Geocoding (Pelias) API server                     | No       |
+| `PLAUSIBLE_DOMAIN`                 | Analytics (Plausible) domain to track             | No       |
+| `TRANSIFEX_API_TOKEN`              | Translations (Transifex) API token                | No       |
+| `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No       |
 
 #### Optional environment variables for PostgreSQL database configuration
 
@@ -290,12 +290,12 @@ A `DATABASE_URL` may be provided by hosting services with database add-ons, like
 
 These optional keys may be set to adjust functionality.
 
-| Variable name | Description | Required |
-| --- | --- | --- |
-| `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No |
-| `DEBUG` | If `true`, turns on verbose debug logging. | No |
-| `OFFLINE_MODE` | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access. | No |
-| `STREETMIX_INSTANCE` | Streetmix instance identifier | No |
+| Variable name           | Description                                                                                                                       | Required |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `COOKIE_SESSION_SECRET` | A secret key for verifying the integrity of signed cookies. If your environment can securely generate or rotate secrets, do that. | No       |
+| `DEBUG`                 | If `true`, turns on verbose debug logging.                                                                                        | No       |
+| `OFFLINE_MODE`          | If `true`, set ["offline mode"](#offline-mode) to make the app work without Internet access.                                      | No       |
+| `STREETMIX_INSTANCE`    | Streetmix instance identifier                                                                                                     | No       |
 
 #### Sample .env
 

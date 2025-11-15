@@ -8,6 +8,7 @@ import {
   HelpMenu,
   IdentityMenu,
   LocaleMenu,
+  NewStreetMenu,
   ShareMenu
 } from './menus'
 import MenuBar from './MenuBar'
@@ -22,11 +23,7 @@ function MenusContainer (): React.ReactElement {
 
   useEffect(() => {
     // Hide menus if page loses visibility.
-    document.addEventListener(
-      'visibilitychange',
-      handleVisibilityChange,
-      false
-    )
+    document.addEventListener('visibilitychange', handleVisibilityChange, false)
 
     // Hide menus if a click occurs outside of a menu or menu button
     document.addEventListener('pointerdown', onBodyMouseDown)
@@ -79,7 +76,7 @@ function MenusContainer (): React.ReactElement {
    */
   function onBodyMouseDown (event: Event): void {
     if (
-      (event.target as HTMLElement).closest('.menu, .menu-attached') === null
+      (event.target as HTMLElement).closest('.menu, .menu-trigger') === null
     ) {
       hideAllMenus()
     }
@@ -104,23 +101,33 @@ function MenusContainer (): React.ReactElement {
         <HelpMenu
           isActive={activeMenu === 'help'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-help"
         />
         <ContactMenu
           isActive={activeMenu === 'contact'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-contact"
         />
-        <LocaleMenu
-          isActive={activeMenu === 'locale'}
+        <NewStreetMenu
+          isActive={activeMenu === 'new'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-new"
         />
         <ShareMenu
           isActive={activeMenu === 'share'}
           menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-share"
+        />
+        <LocaleMenu
+          isActive={activeMenu === 'locale'}
+          menuItemNode={activeMenuItemNode}
+          aria-labelledby="menubar-locale"
         />
         <IdentityMenu
           isActive={activeMenu === 'identity'}
           menuItemNode={activeMenuItemNode}
-          alignOpposite={true}
+          alignOpposite
+          aria-labelledby="menubar-identity"
         />
       </div>
     </>

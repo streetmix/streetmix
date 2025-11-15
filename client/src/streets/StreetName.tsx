@@ -21,14 +21,14 @@ function normalizeStreetName (name: string | null): string | null {
 
 interface StreetNameProps {
   name: string | null
-  childRef?: React.RefObject<HTMLDivElement>
+  ref?: React.RefObject<HTMLDivElement | null>
   onClick?: () => void
   editable?: boolean
 }
 
 function StreetName ({
   name,
-  childRef,
+  ref,
   onClick = () => {},
   editable = false
 }: StreetNameProps): React.ReactElement {
@@ -45,7 +45,7 @@ function StreetName ({
   return (
     <div
       className="street-name"
-      ref={childRef}
+      ref={ref}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}

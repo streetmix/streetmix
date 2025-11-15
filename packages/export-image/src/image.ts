@@ -1,35 +1,30 @@
 // import { TILE_SIZE, BUILDING_SPACE } from '../../../client/src/segments/constants.js'
 // import { getBuildingImageHeight } from '../../../client/src/segments/buildings.js'
 import path from 'node:path'
-import url from 'node:url'
 import * as Canvas from '@napi-rs/canvas'
 
 import { TILE_SIZE } from './constants.js'
-import { drawGround } from './ground.js'
-import { drawElementLabelBackground, drawElementLabels } from './labels.js'
+import { drawEarth } from './earth.js'
+import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSky } from './sky.js'
 import { drawWatermark } from './watermark.js'
 
 import type { Street, StreetImageOptions } from '@streetmix/types'
 
-// Set up some legacy Node.js globals for convenience
-const __filename = url.fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
 // exist yet. See https://github.com/Brooooooklyn/canvas/issues/495
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-400-normal.woff2'
   ),
   'Rubik'
 )
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/rubik/files/rubik-latin-600-normal.woff2'
   ),
   'Rubik'
@@ -39,14 +34,14 @@ Canvas.GlobalFonts.registerFromPath(
 // foot-grave marker, so we use this one for now and see how we like it.
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2'
   ),
   'Geist Sans'
 )
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/geist-sans/files/geist-sans-latin-600-normal.woff2'
   ),
   'Geist Sans'
@@ -54,7 +49,7 @@ Canvas.GlobalFonts.registerFromPath(
 
 Canvas.GlobalFonts.registerFromPath(
   path.join(
-    __dirname,
+    import.meta.dirname,
     '../../../node_modules/@fontsource/overpass/files/overpass-latin-700-normal.woff2'
   ),
   'Overpass'
@@ -93,7 +88,7 @@ export async function makeStreetImage (
   //   silhouette: false,
   //   bottomAligned: true,
   //   transparentSky,
-  //   elementLabels,
+  //   labels,
   //   streetName,
   //   watermark
   // })
@@ -102,13 +97,16 @@ export async function makeStreetImage (
 
   // Determine how wide the street is
   let occupiedWidth = 0
-  for (const element of street.data.street.segments) {
-    occupiedWidth += element.width
+  for (const slice of street.data.street.segments) {
+    occupiedWidth += slice.width
   }
+
+  // TODO: adjust scale for these numbers early?
+  // See drawSky for an example where scaled values are passed in to draw function
 
   // Align things to bottom edge of image
   let offsetTop = baseHeight - 180
-  if (options.elementLabels) {
+  if (options.labels) {
     offsetTop -= IMAGE_NAMES_WIDTHS_PADDING
   }
 
@@ -123,28 +121,35 @@ export async function makeStreetImage (
     if (!options.transparentSky) {
       await drawSky(
         ctx,
-        street,
-        baseWidth,
-        baseHeight,
+        street.data.street,
+        width,
+        height,
         horizonLine,
         groundLevel,
         options.scale
       )
     }
 
-    // Ground
-    drawGround(ctx, street, baseWidth, horizonLine, groundLevel, options.scale)
+    // Earth
+    drawEarth(
+      ctx,
+      street.data.street,
+      baseWidth,
+      horizonLine,
+      groundLevel,
+      options.scale
+    )
 
-    // Section element labels
-    if (options.elementLabels) {
-      drawElementLabelBackground(
+    // Labels
+    if (options.labels) {
+      drawLabelBackground(
         ctx,
         baseWidth,
         baseHeight,
         groundLevel,
         options.scale
       )
-      drawElementLabels(ctx, street, groundLevel, offsetLeft, options.scale)
+      drawLabels(ctx, street, groundLevel, offsetLeft, options.scale)
     }
 
     // Street nameplate
@@ -155,12 +160,7 @@ export async function makeStreetImage (
     // Watermark
     if (options.watermark) {
       // Watermark is inverted (white) if segment labels are shown
-      await drawWatermark(
-        ctx,
-        options.locale,
-        !options.elementLabels,
-        options.scale
-      )
+      await drawWatermark(ctx, options.locale, !options.labels, options.scale)
     }
   } catch (err) {
     console.error(err)
@@ -175,8 +175,8 @@ export async function makeStreetImage (
     const image = await Canvas.loadImage(file)
 
     // Set the width and height here to scale properly
-    image.width = image.width * options.scale
-    image.height = image.height * options.scale
+    image.width = image.naturalWidth * options.scale
+    image.height = image.naturalHeight * options.scale
 
     // Draw the image; don't use the dw and dh arguments for scaling, it will
     // be pixelated. That's why we set the width/height properties earlier.
@@ -207,9 +207,10 @@ function calculateImageHeight (
   options: StreetImageOptions
 ): number {
   // const streetData = street.data.street
-  const { streetName, elementLabels } = options
+  const { streetName, labels } = options
 
   // TODO: we can't do a real calc yet because we don't have access to assets
+  // Replace with getBoundaryImageHeight
   // const leftHeight = getBuildingImageHeight(
   //   streetData.leftBuildingVariant,
   //   'left',
@@ -233,7 +234,7 @@ function calculateImageHeight (
 
   height += IMAGE_BOTTOM_PADDING
 
-  if (elementLabels) {
+  if (labels) {
     height += IMAGE_NAMES_WIDTHS_PADDING
   }
 

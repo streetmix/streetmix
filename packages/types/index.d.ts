@@ -3,15 +3,83 @@ import type {
   SETTINGS_UNITS_METRIC
 } from '@streetmix/client/src/users/constants'
 
+// Utility type for making a single property (K) optional
+// when a type (T) has defined K as required.
+export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
+
+export type UnitsSetting =
+  | typeof SETTINGS_UNITS_METRIC
+  | typeof SETTINGS_UNITS_IMPERIAL
+
 export interface Segment {
   id: string
   type: string
   variantString: string
   width: number
   elevation: number
+  slope?: boolean | ElevationChange
   variant: Record<string, string>
-  warnings: Array<boolean | null>
+  warnings: boolean[]
   label?: string
+}
+export type SliceItem = Segment // Alias for future use
+
+export interface ElevationChange {
+  left: number
+  right: number
+}
+
+// Usable for width and height measurements
+export interface MeasurementDefinition {
+  metric: number // in meters
+  imperial: number // in feet
+}
+
+// Alias for existing usage in widths
+export type WidthDefinition = MeasurementDefinition
+
+export interface SliceItemTemplate {
+  type: string
+  variant: Record<string, string>
+  width: WidthDefinition | number
+  elevation?: number
+  label?: string
+}
+
+export interface StreetBoundary {
+  id: string
+  variant: string
+  floors: number
+  elevation: number
+}
+
+// Subset of @types/leaflet's `LatLngExpression` type, which is not
+// serializable. Don't use that one.
+export interface LatLngObject {
+  lat: number
+  lng: number
+}
+
+export interface StreetLocation {
+  lntlng: LatLngObject
+  wofId: string
+  label: string
+  hierarchy: {
+    country?: string
+    locality?: string
+    neighbourhood?: string
+    region?: string
+    street?: string
+  }
+}
+
+export interface StreetTemplate {
+  width: number
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
+  slices: SliceItemTemplate[]
 }
 
 export interface StreetJson {
@@ -21,10 +89,14 @@ export interface StreetJson {
   units: UnitsSetting
   width: number
   segments: Segment[]
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
+  leftBuildingHeight?: number // Deprecated
+  rightBuildingHeight?: number // Deprecated
+  leftBuildingVariant?: string // Deprecated
+  rightBuildingVariant?: string // Deprecated
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
   skybox: string
   location: StreetLocation | null
   showAnalytics: boolean
@@ -54,19 +126,6 @@ export interface Street {
   creatorId: string | null
 }
 
-export interface StreetLocation {
-  lntlng: LatLngObject
-  wofId: string
-  label: string
-  hierarchy: {
-    country?: string
-    locality?: string
-    neighbourhood?: string
-    region?: string
-    street?: string
-  }
-}
-
 // TODO: many of these values were "optional" but it might be worthwhile to
 // convert most of them to values that cannot be "undefined" to make it easier
 // to work with as more TypeScript is adopted.
@@ -81,10 +140,10 @@ export interface StreetState extends StreetJsonExtra {
   width: number
   name: string | null
   segments: Segment[]
-  leftBuildingHeight: number
-  rightBuildingHeight: number
-  leftBuildingVariant: string
-  rightBuildingVariant: string
+  boundary: {
+    left: StreetBoundary
+    right: StreetBoundary
+  }
   skybox: string
   location: StreetLocation | null
   showAnalytics: boolean
@@ -99,63 +158,82 @@ export interface StreetState extends StreetJsonExtra {
   immediateRemoval: boolean
 }
 
-// Subset of @types/leaflet's `LatLngExpression` type, which is not
-// serializable. Don't use that one.
-export interface LatLngObject {
-  lat: number
-  lng: number
+export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
+
+export interface SliceDescription {
+  key: string
+  image: string
 }
 
-// TODO: May be incomplete. Update with segment-lookup.json values
-export interface SegmentDefinition {
+export interface SliceVariantComponentDefinition {
   id: string
+  variants?: Record<string, string | string[]>
+  offsetX?: number
+}
+
+// TODO: double check if same or different or can be combined with VariantInfo
+export interface SliceVariantDetails {
+  name?: string
+  nameKey?: string
+  rules?: {
+    minWidth?: WidthDefinition
+    maxWidth?: WidthDefinition
+    dangerous?: boolean
+  }
+  defaultWidth?: WidthDefinition
+  description?: SliceDescription
+  components: {
+    lanes?: SliceVariantComponentDefinition[]
+    markings?: SliceVariantComponentDefinition[]
+    components?: SliceVariantComponentDefinition[]
+    effects?: SliceVariantComponentDefinition[]
+  }
+}
+
+export interface SegmentLookup {
   name: string
   nameKey: string
-  owner: string
-  zIndex: number
+  owner?: string
+  zIndex?: number
   defaultWidth: WidthDefinition
-  defaultVariant: string
-  defaultElevation?: number
+  defaultVariant?: string
+  defaultElevation?: number | MeasurementDefinition
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
-  unlockCondition?: string
-  description?: SegmentDescription
+  unlockCondition?: UnlockCondition
+  description?: SliceDescription
   rules?: {
     minWidth?: WidthDefinition
     maxWidth?: WidthDefinition
   }
   variants: string[]
-  details: object
+  details: Record<string, SliceVariantDetails>
 }
 
-export interface SegmentDescription {
-  key: string
-  image: string
+export interface SegmentDefinition extends SegmentLookup {
+  id: string
 }
 
-export interface WidthDefinition {
-  metric: number // in meters
-  imperial: number // in feet
+export interface UnknownSegmentDefinition extends Partial<SegmentDefinition> {
+  unknown: true
 }
-
-export type UnitsSetting =
-  | typeof SETTINGS_UNITS_METRIC
-  | typeof SETTINGS_UNITS_IMPERIAL
-
-export type BuildingPosition = 'left' | 'right'
 
 // Subset of / derived from SegmentDefinition
 export interface VariantInfo {
   name?: string
   nameKey?: string
-  description?: SegmentDescription
+  description?: SliceDescription
   defaultWidth?: WidthDefinition
   minWidth?: WidthDefinition
   maxWidth?: WidthDefinition
-  unknown?: boolean // Set to true when variant doesn't exist
-  elevation: number
+  dangerous?: boolean
+  elevation: number | MeasurementDefinition
   graphics: Record<string, unknown> // TODO
+}
+
+export interface UnknownVariantInfo extends Partial<VariantInfo> {
+  unknown: true
 }
 
 export interface VariantInfoDimensions {
@@ -164,11 +242,7 @@ export interface VariantInfoDimensions {
   center: number
 }
 
-export type CapacitySourceData = Record<
-string,
-CapacitySourceDefinition | CapacityBaseDefinition
->
-export type CapacityData = Record<string, CapacitySourceDefinition>
+export type CapacitySegments = Record<string, CapacitySegmentDefinition>
 
 export interface CapacityBaseDefinition {
   id: string
@@ -185,7 +259,11 @@ export interface CapacitySourceDefinition {
   segments: CapacitySegments
 }
 
-export type CapacitySegments = Record<string, CapacitySegmentDefinition>
+export type CapacitySourceData = Record<
+  string,
+  CapacitySourceDefinition | CapacityBaseDefinition
+>
+export type CapacityData = Record<string, CapacitySourceDefinition>
 
 export interface CapacitySegmentDefinition {
   minimum?: number
@@ -196,13 +274,13 @@ export interface CapacitySegmentDefinition {
 }
 
 export type CapacityForDisplay = Required<
-Pick<CapacitySegmentDefinition, 'average' | 'potential'>
+  Pick<CapacitySegmentDefinition, 'average' | 'potential'>
 >
 
 export interface StreetImageOptions {
   locale: string
   transparentSky: boolean
-  elementLabels: boolean // formerly 'segmentLabels'
+  labels: boolean // formerly 'segmentLabels'
   streetName: boolean
   watermark: boolean
   scale: number // formerly `dpi`
@@ -211,6 +289,14 @@ export interface StreetImageOptions {
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]
 
+export interface SkyboxObject {
+  image: string // Illustration asset ID
+  width: number // in pixels
+  height: number // in pixels
+  top: number // Percentage as decimal
+  left: number // Percentage as decimal
+}
+
 export interface SkyboxDefinition {
   name: string
   enabled?: boolean
@@ -218,13 +304,7 @@ export interface SkyboxDefinition {
   backgroundColor?: string // CSS color string
   backgroundImage?: string // Illustration asset ID
   backgroundGradient?: CSSGradientDeclaration
-  backgroundObjects?: Array<{
-    image: string // Illustration asset ID
-    width: number // in pixels
-    height: number // in pixels
-    top: number // Percentage as decimal
-    left: number // Percentage as decimal
-  }>
+  backgroundObjects?: SkyboxObject[]
   foregroundGradient?: CSSGradientDeclaration
   cloudOpacity?: number // Percentage as decimal
   invertUITextColor?: boolean
@@ -235,3 +315,42 @@ export interface SkyboxDefWithStyles extends SkyboxDefinition {
   style: React.CSSProperties
   iconStyle: React.CSSProperties
 }
+
+export interface SpriteDefinition {
+  id: string
+  offsetX?: number
+  offsetY?: number
+  originY?: number
+}
+
+export type SectionType = 'boundary' | 'slice'
+export type BoundaryPosition = 'left' | 'right'
+export type SectionElementTypeAndPosition =
+  | { type: Extract<SectionType, 'slice'>; position: number }
+  | { type: Extract<SectionType, 'boundary'>; position: BoundaryPosition }
+
+interface BoundaryDefinitionBase {
+  id: string
+  label: string
+  spriteId: string
+  hasFloors: false
+  sameOnBothSides?: boolean
+  repeatHalf?: boolean
+  alignAtBaseline?: boolean
+  offsetY?: number
+  variantsCount?: number
+  overhangWidth?: number
+}
+
+// If boundary definition has floors, the following properties are
+// required to also be present
+interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
+  hasFloors: true
+  floorHeight: number
+  roofHeight: number
+  mainFloorHeight: number
+}
+
+export type BoundaryDefinition =
+  | BoundaryDefinitionBase
+  | BoundaryDefinitionWithFloors

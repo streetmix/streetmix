@@ -4,7 +4,7 @@ exports[`NotificationBar > renders snapshot 1`] = `
 <DocumentFragment>
   <div
     class="notification-bar"
-    style="transition: margin 250ms ease-out; margin-top: -0px;"
+    style="transition: margin 250ms ease-out; margin-top: 0px;"
   >
     <strong
       class="notification-bar-intro"

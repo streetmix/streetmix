@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "用推特登錄"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "複製",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "這是你新的街道。",
       "default": "用示例街道開始",
       "empty": "用空白街道開始",
-      "last": "用前一條街道的副本開始"
+      "last": "用前一條街道的副本開始",
+      "dismiss": ""
     },
     "about": {
       "heading": "關於Streetmix。",
@@ -364,16 +371,21 @@
     "delete-street": "刪除街道",
     "segment-width": "更改該部分的寬度",
     "building-height": "更改層數",
-    "street-width": "",
+    "street-width": "更改街道的寬度",
     "geotag": "",
-    "increase-width": "增加寬度（長按 Shift 來微調）",
-    "decrease-width": "減少寬度（長按 Shift 來微調）",
+    "increase-width": "增加寬度",
+    "decrease-width": "減少寬度",
+    "width-tooltip-sublabel": "（長按 Shift 來微調）",
     "add-floor": "增加樓層",
     "remove-floor": "移除樓層",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "街面",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "無名街",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "最窄",
       "max": "最寬"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

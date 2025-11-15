@@ -11,14 +11,8 @@ interface SegmentDragHandlesProps {
 function SegmentDragHandles ({
   width
 }: SegmentDragHandlesProps): React.ReactElement {
-  const infoBubbleHovered = useSelector(
-    (state) => state.infoBubble.mouseInside
-  )
-  const descriptionVisible = useSelector(
-    (state) => state.infoBubble.descriptionVisible
-  )
-
-  const display = infoBubbleHovered || descriptionVisible ? 'none' : undefined
+  const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
+  const display = infoBubbleHovered ? 'none' : undefined
 
   // To prevent drag handles from overlapping each other when the segment
   // widths are very small, we calculate an X-position adjustment when the
@@ -31,18 +25,18 @@ function SegmentDragHandles ({
 
   return (
     <>
-      <span
+      <div
         className="drag-handle drag-handle-left"
         style={{ display, left: adjustX }}
       >
         <Icon name="chevron-left" />
-      </span>
-      <span
+      </div>
+      <div
         className="drag-handle drag-handle-right"
         style={{ display, right: adjustX }}
       >
         <Icon name="chevron-right" />
-      </span>
+      </div>
     </>
   )
 }

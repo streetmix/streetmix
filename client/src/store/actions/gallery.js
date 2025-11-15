@@ -1,16 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { hideControls } from '../../segments/resizing'
 import { fetchGalleryData } from '../../gallery/index'
 import { updatePageUrl } from '../../app/page_url'
 import { showError, ERRORS } from '../../app/errors'
 import { MODES, getMode, setMode } from '../../app/mode'
-import { onWindowFocus } from '../../app/focus'
+import { onWindowFocus } from '../../app/event_handlers/focus'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
   async ({ userId }, { rejectWithValue }) => {
     updatePageUrl(true, userId)
-    hideControls()
 
     // TODO: Handle modes better.
     if (

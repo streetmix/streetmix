@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": ""
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "",
       "default": "Magsimula sa halimbawang kalsada",
       "empty": "",
-      "last": ""
+      "last": "",
+      "dismiss": ""
     },
     "about": {
       "heading": "",
@@ -366,14 +373,19 @@
     "building-height": "",
     "street-width": "",
     "geotag": "",
-    "increase-width": "",
-    "decrease-width": "Bawasan ang lapad (ihawak ang Shift upang matumpak)",
+    "increase-width": "Dagdagan ang lapad",
+    "decrease-width": "Bawasan ang lapad",
+    "width-tooltip-sublabel": "(ihawak ang Shift upang matumpak)",
     "add-floor": "",
     "remove-floor": "",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "",
       "max": ""
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

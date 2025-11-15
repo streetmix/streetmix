@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Sign in with Twitter"
+    },
+    "new-street": {
+      "default": "New example street",
+      "empty": "New empty street",
+      "copy": "Make a copy",
+      "template": "New from template…"
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Here’s your new street.",
       "default": "Start with an example street",
       "empty": "Start with an empty street",
-      "last": "Start with a copy of last street"
+      "last": "Start with a copy of last street",
+      "dismiss": "Let’s go!"
     },
     "about": {
       "heading": "About Streetmix.",
@@ -366,14 +373,20 @@
     "building-height": "Change the number of floors",
     "street-width": "Change street width",
     "geotag": "Change location",
-    "increase-width": "Increase width (hold Shift for more precision)",
-    "decrease-width": "Decrease width (hold Shift for more precision)",
+    "increase-width": "Increase width",
+    "decrease-width": "Decrease width",
+    "width-tooltip-sublabel": "(hold Shift for more precision)",
     "add-floor": "Add floor",
     "remove-floor": "Remove floor",
     "scroll-street-left": "Scroll street left",
     "scroll-street-right": "Scroll street right",
     "scroll-left": "Scroll left",
-    "scroll-right": "Scroll right"
+    "scroll-right": "Scroll right",
+    "elevation-sidewalk": "Sidewalk level",
+    "elevation-road": "Street level",
+    "elevation-input": "Change elevation",
+    "elevation-lower": "Lower elevation",
+    "elevation-raise": "Raise elevation"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -384,10 +397,11 @@
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "This segment doesn’t fit within the street.",
-      "not-wide": "This segment might not be wide enough.",
-      "too-wide": "This segment might be too wide.",
-      "dangerous": "This segment represents a dangerous existing condition."
+      "does-not-fit": "This doesn’t fit within the street.",
+      "not-wide": "This may not be wide enough.",
+      "too-wide": "This may be too wide.",
+      "dangerous": "This is a dangerous existing condition.",
+      "slope-exceeded": "This may be too steep."
     },
     "learn-more": "Learn more",
     "unknown": {
@@ -399,6 +413,10 @@
     "resize": {
       "min": "Min",
       "max": "Max"
+    },
+    "controls": {
+      "elevation": "Elevation",
+      "slope": "Slope"
     }
   },
   "section": {

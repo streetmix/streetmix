@@ -1,63 +1,68 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: weekly
-  open-pull-requests-limit: 10
-  target-branch: updates
-  reviewers:
-  - louh
-  labels:
-  - dependencies
-  versioning-strategy: increase-if-necessary
-  groups:
-    react:
-      patterns:
-        - "react"
-        - "react-dom"
-        - "@types/react"
-        - "@types/react-dom"
-    eslint:
-      patterns:
-        - "eslint"
-        - "eslint-*"
-        - "@typescript-eslint/*"
-    babel:
-      patterns:
-        - "@babel/*"
-    radix-ui:
-      patterns:
-        - "@radix-ui/*"
-    auth0:
-      patterns:
-        - "auth0"
-        - "auth0-js"
-        - "@types/auth0-js"
-    parcel:
-      patterns:
-        - "parcel"
-        - "@parcel/*"
-    stylelint:
-      patterns:
-        - "stylelint"
-        - "stylelint-*"
-    vitest:
-      patterns:
-        - "vitest"
-        - "@vitest/*"
-        - "vitest-canvas-mock"
-    commitlint:
-      patterns:
-        - "@commitlint/*"
-    fontsource:
-      patterns:
-        - "@fontsource/*"
-        - "@fontsource-variable/*"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    target-branch: updates
+    reviewers:
+      - louh
+    labels:
+      - dependencies
+    versioning-strategy: increase-if-necessary
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@typescript-eslint/*"
+      babel:
+        patterns:
+          - "@babel/*"
+      radix-ui:
+        patterns:
+          - "@radix-ui/*"
+      auth0:
+        patterns:
+          - "auth0"
+          - "auth0-js"
+          - "@types/auth0-js"
+      parcel:
+        patterns:
+          - "parcel"
+          - "@parcel/*"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-*"
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "vitest-canvas-mock"
+      commitlint:
+        patterns:
+          - "@commitlint/*"
+      fontsource:
+        patterns:
+          - "@fontsource/*"
+          - "@fontsource-variable/*"
+      react-dnd:
+        patterns:
+          - "react-dnd"
+          - "react-dnd-*"
+          - "rdndmb-html5-to-touch"
 
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: weekly
-  reviewers:
-  - louh
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    reviewers:
+      - louh

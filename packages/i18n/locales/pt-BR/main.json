@@ -66,6 +66,12 @@
     },
     "sign-in": {
       "twitter": "Entrar com Twitter"
+    },
+    "new-street": {
+      "default": "",
+      "empty": "",
+      "copy": "Fazer uma cópia",
+      "template": ""
     }
   },
   "settings": {
@@ -203,7 +209,8 @@
       "heading": "Aqui está sua rua nova.",
       "default": "Comece com uma rua modelo",
       "empty": "Comece com uma rua vazia",
-      "last": "Comece com uma cópia da última rua"
+      "last": "Comece com uma cópia da última rua",
+      "dismiss": ""
     },
     "about": {
       "heading": "Sobre o Streetmix.",
@@ -364,16 +371,21 @@
     "delete-street": "Deletar esta rua",
     "segment-width": "Alterar largura do segmento",
     "building-height": "Alterar número de andares",
-    "street-width": "",
+    "street-width": "Alterar largura da rua",
     "geotag": "",
-    "increase-width": "Aumentar largura (segure o Shift para mais precisão)",
-    "decrease-width": "Diminuir largura (segure o Shift para mais precisão)",
+    "increase-width": "Aumentar largura",
+    "decrease-width": "Diminuir largura",
+    "width-tooltip-sublabel": "(segure o Shift para mais precisão)",
     "add-floor": "Adicionar andar",
     "remove-floor": "Remover andar",
     "scroll-street-left": "",
     "scroll-street-right": "",
     "scroll-left": "",
-    "scroll-right": ""
+    "scroll-right": "",
+    "elevation-sidewalk": "",
+    "elevation-road": "Nível da rua",
+    "elevation-lower": "",
+    "elevation-raise": ""
   },
   "street": {
     "default-name": "Rua anônima",
@@ -399,6 +411,9 @@
     "resize": {
       "min": "Mín",
       "max": "Máx"
+    },
+    "controls": {
+      "elevation": ""
     }
   },
   "section": {

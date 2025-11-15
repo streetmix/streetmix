@@ -11,7 +11,7 @@
 
 .main-screen {
   position: relative;
-  z-index: var(--z-01-main-screen);
+  z-index: var(--z-00-main-screen);
   flex-grow: 1;
 
   body:not(.safari) & {
@@ -180,15 +180,20 @@ body.phone #loading {
 
 /* -------------------------------------------------------- */
 
-.debug-hover-polygon {
+/* Ensure floating-ui elements appear above everything else */
+[data-floating-ui-portal] {
   position: absolute;
-  z-index: var(--z-07-debug-hover-polygon);
-  inset: 0;
-  pointer-events: none;
+  z-index: var(--z-09-floating-ui);
+}
 
-  canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
+.privacy-link {
+  position: absolute;
+  left: -9999px; /* Move off-screen */
+  bottom: 1px;
+  text-decoration: none;
+  visibility: visible; /* Ensure it remains accessible */
+
+  a {
+    color: #eee;
   }
 }

@@ -19,8 +19,7 @@ describe('EmptySegment', () => {
 
     const firstComponentWidth = (container.firstChild as HTMLElement)?.style
       .width
-    const lastComponentWidth = (container.lastChild as HTMLElement)?.style
-      .width
+    const lastComponentWidth = (container.lastChild as HTMLElement)?.style.width
     expect(firstComponentWidth).toEqual(lastComponentWidth)
   })
 
@@ -36,7 +35,7 @@ describe('EmptySegment', () => {
 
     expect(getAllByText(/empty space/i).length).toEqual(1)
     expect((container.firstChild as HTMLElement)?.style.width).toEqual(
-      `${50 * TILE_SIZE}px`
+      `${(50 * TILE_SIZE).toFixed(6)}px`
     )
   })
 

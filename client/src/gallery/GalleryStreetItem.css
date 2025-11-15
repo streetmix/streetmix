@@ -115,8 +115,8 @@
   padding: 0;
   width: 20px;
   height: 20px;
-  bottom: 7px;
-  right: 7px;
+  inset-block-end: 7px;
+  inset-inline-end: 7px;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
@@ -126,11 +126,6 @@
   border: 0;
   border-radius: 50%;
   font-size: 0.65em;
-
-  [dir="rtl"] & {
-    left: 7px;
-    right: auto;
-  }
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);
@@ -157,6 +152,7 @@
   justify-content: center;
   height: 100%;
   color: var(--color-turquoise-800);
+  white-space: normal;
 
   /* Top/bottom padding accounts for street name */
   padding: 20px 1.5em 2px;

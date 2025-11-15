@@ -1,6 +1,7 @@
 .segment-label-container {
   --segment-rule-color: rgb(160 160 160);
   --segment-grid-height: 10px;
+  --label-container-height: 90px;
 
   display: flex;
   justify-content: center;
@@ -9,8 +10,8 @@
   right: -1px;
   border-left: 1px solid var(--segment-rule-color);
   border-right: 1px solid var(--segment-rule-color);
-  top: var(--canvas-baseline);
-  height: 90px;
+  bottom: calc(-1 * var(--label-container-height));
+  height: var(--label-container-height);
   font-size: 0.9em;
 }
 
@@ -32,7 +33,7 @@
   text-overflow: ellipsis;
 }
 
-.segment.hover .segment-label {
+.segment.active .segment-label {
   font-weight: 600;
 
   /* Show full label when hovering over segment with a truncated label */

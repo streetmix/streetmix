@@ -23,9 +23,7 @@ describe('KeyboardKey', () => {
 
   it('renders a <kbd> element with icon and title', async () => {
     const { container, asFragment } = render(
-      <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>
-        foo
-      </KeyboardKey>
+      <KeyboardKey icon={{ prefix: 'fas', iconName: 'minus' }}>foo</KeyboardKey>
     )
 
     const elementWithTitle = screen.getByTitle('foo')

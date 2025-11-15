@@ -2,8 +2,8 @@
   z-index: var(--z-02-menu-bar);
   display: none;
   position: absolute;
-  left: 9px;
-  bottom: -14px;
+  inset-inline-start: 9px;
+  inset-block-end: -14px;
   padding: 0.25em 1em;
   text-transform: uppercase;
   font-size: 0.75rem;
@@ -30,12 +30,5 @@
   &.instance-label-demo {
     display: inline-block;
     background-color: rgb(28 189 209);
-  }
-}
-
-[dir="rtl"] {
-  .instance-badge {
-    right: 9px;
-    left: auto;
   }
 }

@@ -1,8 +1,18 @@
 export const JUST_SIGNED_IN_PATH = '/services/auth/just-signed-in'
 
+// New street template params
+export const STREET_TEMPLATES = {
+  DEFAULT: 'default',
+  EMPTY: 'empty',
+  COPY: 'copy',
+  HARBORWALK: 'harborwalk',
+  COASTAL_ROAD: 'coastal_road',
+  BEACH: 'beach',
+  STROAD: 'stroad'
+}
+
 // Path segments
 export const URL_NEW_STREET = '/new'
-export const URL_NEW_STREET_COPY_LAST = '/copy-last'
 export const URL_GLOBAL_GALLERY = '/gallery'
 export const URL_ERROR = '/error'
 export const URL_HELP = '/help'
@@ -22,7 +32,6 @@ export const URL_EXAMPLE_STREET = '/streetmix/7'
 export const RESERVED_URLS = [
   '/services',
   URL_NEW_STREET,
-  URL_NEW_STREET_COPY_LAST,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
   URL_HELP,

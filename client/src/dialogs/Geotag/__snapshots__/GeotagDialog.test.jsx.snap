@@ -9,232 +9,236 @@ exports[`GeotagDialog > renders 1`] = `
       class="dialog-box-backdrop"
     />
     <div
-      class="dialog-box"
-      role="dialog"
+      class="dialog-box-display-area"
     >
-      <button
-        class="close"
-        title="Dismiss"
-      >
-        <svg
-          data-icon="close"
-          data-icon-source="test"
-        />
-      </button>
       <div
-        class="geotag-dialog"
+        class="dialog-box"
+        role="dialog"
       >
+        <button
+          class="close"
+          title="Dismiss"
+        >
+          <svg
+            data-icon="close"
+            data-icon-source="test"
+          />
+        </button>
         <div
-          class="geotag-input-container"
+          class="geotag-dialog"
         >
           <div
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            aria-labelledby="downshift-0-label"
-            class="geotag-input-form"
-            role="combobox"
+            class="geotag-input-container"
           >
-            <input
-              aria-autocomplete="list"
+            <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
               aria-labelledby="downshift-0-label"
-              autocomplete="off"
-              class="geotag-input"
-              id="downshift-0-input"
-              placeholder="Search for a location"
-              value=""
-            />
+              class="geotag-input-form"
+              role="combobox"
+            >
+              <input
+                aria-autocomplete="list"
+                aria-labelledby="downshift-0-label"
+                autocomplete="off"
+                class="geotag-input"
+                id="downshift-0-input"
+                placeholder="Search for a location"
+                value=""
+              />
+            </div>
           </div>
-        </div>
-        <div
-          class="leaflet-container leaflet-touch leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
-          style="position: relative;"
-          tabindex="0"
-        >
           <div
-            class="leaflet-pane leaflet-map-pane"
-            style="left: 0px; top: 0px;"
+            class="leaflet-container leaflet-touch leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+            style="position: relative;"
+            tabindex="0"
           >
             <div
-              class="leaflet-pane leaflet-tile-pane"
+              class="leaflet-pane leaflet-map-pane"
+              style="left: 0px; top: 0px;"
             >
               <div
-                class="leaflet-layer "
-                style="z-index: 1;"
+                class="leaflet-pane leaflet-tile-pane"
               >
                 <div
-                  class="leaflet-tile-container leaflet-zoom-animated"
-                  style="z-index: 18; left: 0px; top: 0px;"
-                >
-                  <img
-                    alt=""
-                    class="leaflet-tile"
-                    src="https://c.basemaps.cartocdn.com/rastertiles/voyager/12/2047/2047.png"
-                    style="width: 256px; height: 256px; left: -251px; top: -221px;"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              class="leaflet-pane leaflet-overlay-pane"
-            />
-            <div
-              class="leaflet-pane leaflet-shadow-pane"
-            >
-              <img
-                alt=""
-                class="leaflet-marker-shadow leaflet-zoom-hide"
-                src="/images/marker-shadow.png"
-                style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; left: 5px; top: 35px;"
-              />
-            </div>
-            <div
-              class="leaflet-pane leaflet-marker-pane"
-            >
-              <img
-                alt="Marker"
-                class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive leaflet-marker-draggable"
-                role="button"
-                src="/images/marker-icon.png"
-                style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; left: 5px; top: 35px; z-index: 35;"
-                tabindex="0"
-              />
-            </div>
-            <div
-              class="leaflet-pane leaflet-tooltip-pane"
-            />
-            <div
-              class="leaflet-pane leaflet-popup-pane"
-            >
-              <div
-                class="leaflet-popup  leaflet-zoom-animated"
-                style="bottom: -5px; left: 5px;"
-              >
-                <div
-                  class="leaflet-popup-content-wrapper"
+                  class="leaflet-layer "
+                  style="z-index: 1;"
                 >
                   <div
-                    class="leaflet-popup-content"
-                    style="width: 51px;"
+                    class="leaflet-tile-container leaflet-zoom-animated"
+                    style="z-index: 18; left: 0px; top: 0px;"
                   >
-                    <div
-                      class="geotag-location-label"
-                    >
-                      Null Island
-                    </div>
+                    <img
+                      alt=""
+                      class="leaflet-tile"
+                      src="https://c.basemaps.cartocdn.com/rastertiles/voyager/12/2047/2047.png"
+                      style="width: 256px; height: 256px; left: -251px; top: -221px;"
+                    />
                   </div>
                 </div>
+              </div>
+              <div
+                class="leaflet-pane leaflet-overlay-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-shadow-pane"
+              >
+                <img
+                  alt=""
+                  class="leaflet-marker-shadow leaflet-zoom-hide"
+                  src="/images/marker-shadow.png"
+                  style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; left: 5px; top: 35px;"
+                />
+              </div>
+              <div
+                class="leaflet-pane leaflet-marker-pane"
+              >
+                <img
+                  alt="Marker"
+                  class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive leaflet-marker-draggable"
+                  role="button"
+                  src="/images/marker-icon.png"
+                  style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; left: 5px; top: 35px; z-index: 35;"
+                  tabindex="0"
+                />
+              </div>
+              <div
+                class="leaflet-pane leaflet-tooltip-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-popup-pane"
+              >
                 <div
-                  class="leaflet-popup-tip-container"
+                  class="leaflet-popup  leaflet-zoom-animated"
+                  style="bottom: -5px; left: 5px;"
                 >
                   <div
-                    class="leaflet-popup-tip"
-                  />
+                    class="leaflet-popup-content-wrapper"
+                  >
+                    <div
+                      class="leaflet-popup-content"
+                      style="width: 51px;"
+                    >
+                      <div
+                        class="geotag-location-label"
+                      >
+                        Null Island
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="leaflet-popup-tip-container"
+                  >
+                    <div
+                      class="leaflet-popup-tip"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="leaflet-control-container"
-          >
             <div
-              class="leaflet-top leaflet-left"
+              class="leaflet-control-container"
             >
               <div
-                class="leaflet-control-zoom leaflet-bar leaflet-control"
+                class="leaflet-top leaflet-left"
               >
-                <a
-                  aria-disabled="false"
-                  aria-label="Zoom in"
-                  class="leaflet-control-zoom-in"
-                  href="#"
-                  role="button"
-                  title="Zoom in"
+                <div
+                  class="leaflet-control-zoom leaflet-bar leaflet-control"
                 >
-                  <span
-                    aria-hidden="true"
+                  <a
+                    aria-disabled="false"
+                    aria-label="Zoom in"
+                    class="leaflet-control-zoom-in"
+                    href="#"
+                    role="button"
+                    title="Zoom in"
                   >
-                    +
-                  </span>
-                </a>
-                <a
-                  aria-disabled="false"
-                  aria-label="Zoom out"
-                  class="leaflet-control-zoom-out"
-                  href="#"
-                  role="button"
-                  title="Zoom out"
-                >
-                  <span
-                    aria-hidden="true"
+                    <span
+                      aria-hidden="true"
+                    >
+                      +
+                    </span>
+                  </a>
+                  <a
+                    aria-disabled="false"
+                    aria-label="Zoom out"
+                    class="leaflet-control-zoom-out"
+                    href="#"
+                    role="button"
+                    title="Zoom out"
                   >
-                    −
-                  </span>
-                </a>
+                    <span
+                      aria-hidden="true"
+                    >
+                      −
+                    </span>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div
-              class="leaflet-top leaflet-right"
-            />
-            <div
-              class="leaflet-bottom leaflet-left"
-            />
-            <div
-              class="leaflet-bottom leaflet-right"
-            >
               <div
-                class="leaflet-control-attribution leaflet-control"
+                class="leaflet-top leaflet-right"
+              />
+              <div
+                class="leaflet-bottom leaflet-left"
+              />
+              <div
+                class="leaflet-bottom leaflet-right"
               >
-                <a
-                  href="https://leafletjs.com"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="A JavaScript library for interactive maps"
+                <div
+                  class="leaflet-control-attribution leaflet-control"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="leaflet-attribution-flag"
-                    height="8"
-                    viewBox="0 0 12 8"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <a
+                    href="https://leafletjs.com"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    title="A JavaScript library for interactive maps"
                   >
-                    <path
-                      d="M0 0h12v4H0z"
-                      fill="#4C7BE1"
-                    />
-                    <path
-                      d="M0 4h12v3H0z"
-                      fill="#FFD500"
-                    />
-                    <path
-                      d="M0 7h12v1H0z"
-                      fill="#E0BC00"
-                    />
-                  </svg>
-                   Leaflet
-                </a>
-                 
-                <span
-                  aria-hidden="true"
-                >
-                  |
-                </span>
-                 © 
-                <a
-                  href="https://www.openstreetmap.org/copyright"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  OpenStreetMap
-                </a>
-                , © 
-                <a
-                  href="https://carto.com/attribution"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  CARTO
-                </a>
+                    <svg
+                      aria-hidden="true"
+                      class="leaflet-attribution-flag"
+                      height="8"
+                      viewBox="0 0 12 8"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h12v4H0z"
+                        fill="#4C7BE1"
+                      />
+                      <path
+                        d="M0 4h12v3H0z"
+                        fill="#FFD500"
+                      />
+                      <path
+                        d="M0 7h12v1H0z"
+                        fill="#E0BC00"
+                      />
+                    </svg>
+                     Leaflet
+                  </a>
+                   
+                  <span
+                    aria-hidden="true"
+                  >
+                    |
+                  </span>
+                   &copy; 
+                  <a
+                    href="https://www.openstreetmap.org/copyright"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    OpenStreetMap
+                  </a>
+                  , &copy; 
+                  <a
+                    href="https://carto.com/attribution"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    CARTO
+                  </a>
+                </div>
               </div>
             </div>
           </div>
