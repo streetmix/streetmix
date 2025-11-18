@@ -15,7 +15,7 @@ const LABEL_FONT_WEIGHT = '400'
 /**
  * Draws slice label background.
  *
- * @modifies {CanvasRenderingContext2D} ctx
+ * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawLabelBackground (
   ctx: Canvas.SKRSContext2D,
@@ -40,7 +40,7 @@ export function drawLabelBackground (
 /**
  * Draws labels.
  *
- * @modifies {CanvasRenderingContext2D} ctx
+ * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawLabels (
   ctx: Canvas.SKRSContext2D,
@@ -112,7 +112,7 @@ export function drawLabels (
 }
 
 export function drawLine (
-  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  ctx: Canvas.SKRSContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -136,7 +136,7 @@ export function drawLine (
  * Ported from client, but this has never been used
  */
 export function drawArrowLine (
-  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  ctx: Canvas.SKRSContext2D,
   x1: number,
   y1: number,
   x2: number,

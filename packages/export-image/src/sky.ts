@@ -2,6 +2,8 @@ import * as Canvas from '@napi-rs/canvas'
 
 import type { SkyboxDefWithStyles, StreetJson } from '@streetmix/types'
 
+const SKY_GAP = 120 // height difference between sky-rear and sky-front images
+
 export async function drawSky (
   ctx: Canvas.SKRSContext2D,
   street: StreetJson,
@@ -69,7 +71,7 @@ function getSkyboxDef (_id: string): SkyboxDefWithStyles {
 /**
  * Draws a layer of background color
  *
- * @modifies {Canvas.SKRSContext2D | CanvasRenderingContext2D}
+ * @modifies {Canvas.SKRSContext2D}
  */
 function drawBackgroundColor (
   ctx: Canvas.SKRSContext2D,
@@ -86,7 +88,7 @@ function drawBackgroundColor (
 /**
  * Draws clouds.
  *
- * @modifies {Canvas.SKRSContext2D | CanvasRenderingContext2D}
+ * @modifies {Canvas.SKRSContext2D}
  */
 async function drawClouds (
   ctx: Canvas.SKRSContext2D,
@@ -110,52 +112,43 @@ async function drawClouds (
   const skyRearImg = await Canvas.loadImage(skyRearImgPath)
 
   // Set the width and height here to scale properly
-  // Source images are 2x scale intrinsically, so we also scale down by 2
-  skyFrontImg.width = (skyFrontImg.naturalWidth * scale) / 2
-  skyFrontImg.height = (skyFrontImg.naturalHeight * scale) / 2
-  skyRearImg.width = (skyRearImg.naturalWidth * scale) / 2
-  skyRearImg.height = (skyRearImg.naturalHeight * scale) / 2
+  skyFrontImg.width = skyFrontImg.naturalWidth * scale
+  skyFrontImg.height = skyFrontImg.naturalHeight * scale
+  skyRearImg.width = skyRearImg.naturalWidth * scale
+  skyRearImg.height = skyRearImg.naturalHeight * scale
 
-  // Variables for convenience
-  const skyFrontWidth = skyFrontImg.width
-  const skyFrontHeight = skyFrontImg.height
-  const skyRearWidth = skyRearImg.width
-  const skyRearHeight = skyRearImg.height
+  // dy1 = top edge of sky-front image
+  const dy1 = height * scale - skyFrontImg.height
 
-  // TODO document magic numbers
-  // y1 = top edge of sky-front image
-  const y1 = height * scale - skyFrontHeight
-
-  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyFrontImg.width) + 1; i++) {
     ctx.drawImage(
       skyFrontImg,
       0,
       0,
-      skyFrontWidth,
-      skyFrontHeight,
-      i * skyFrontWidth,
-      y1,
-      skyFrontWidth,
-      skyFrontHeight
+      skyFrontImg.width,
+      skyFrontImg.height,
+      i * skyFrontImg.width,
+      dy1,
+      skyFrontImg.width,
+      skyFrontImg.height
     )
   }
 
-  // TODO document magic numbers
-  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-  // 120 must also be adjusted by scale value
-  const y2 = height * scale - skyFrontHeight - 120 * scale
+  // dy2 = top edge of sky-rear is SKY_GAP pixels above the top edge of sky-front
+  // (height - SKY_GAP) must also be adjusted by scale value
+  const dy2 = (height - SKY_GAP) * scale - skyFrontImg.height
 
-  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyRearImg.width) + 1; i++) {
     ctx.drawImage(
       skyRearImg,
       0,
       0,
-      skyRearWidth,
-      skyRearHeight,
-      i * skyRearWidth,
-      y2,
-      skyRearWidth,
-      skyRearHeight
+      skyRearImg.width,
+      skyRearImg.height,
+      i * skyRearImg.width,
+      dy2,
+      skyRearImg.width,
+      skyRearImg.height
     )
   }
 
