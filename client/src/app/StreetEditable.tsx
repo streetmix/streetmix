@@ -79,7 +79,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
 
   // Set up drop target
   const dropTargetSpec = createStreetDropTargetSpec(street, ref)
-  const [, /* collectedProps */ drop] = useDrop(dropTargetSpec)
+  const [, drop] = useDrop(dropTargetSpec)
 
   useEffect(() => {
     window.addEventListener('dragover', updateWithinCanvas)

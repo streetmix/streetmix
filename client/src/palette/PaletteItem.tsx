@@ -21,7 +21,7 @@ function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null 
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
-  const [, /* collected */ drag, dragPreview] = useDrag(() =>
+  const [, drag, dragPreview] = useDrag(() =>
     createPaletteItemDragSpec(segment)
   )
 

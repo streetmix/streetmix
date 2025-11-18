@@ -128,7 +128,7 @@ export default defineConfig([
         'error',
         {
           // Allows unused variables to be prefixed with `_`
-          // Event handlers generally should not omit event arguments
+          // Event handlers generally should not omit arguments
           argsIgnorePattern: '^_',
           // Allows argument passed to catch() to be unused
           caughtErrors: 'none',
