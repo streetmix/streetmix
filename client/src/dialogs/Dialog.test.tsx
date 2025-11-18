@@ -7,9 +7,7 @@ const Contents = (): React.ReactElement => <>foo</>
 
 describe('Dialog', () => {
   it('renders', () => {
-    const { getByRole } = render(
-      <Dialog>{(closeDialog) => <Contents />}</Dialog>
-    )
+    const { getByRole } = render(<Dialog>{() => <Contents />}</Dialog>)
 
     expect(getByRole('dialog')).toBeInTheDocument()
   })

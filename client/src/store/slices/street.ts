@@ -316,7 +316,7 @@ const streetSlice = createSlice({
       state.location = action.payload
     },
 
-    clearLocation (state, action) {
+    clearLocation (state) {
       state.location = null
 
       // If the street name was added as a result of geotagging, but not

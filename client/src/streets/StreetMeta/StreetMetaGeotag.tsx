@@ -19,7 +19,7 @@ function StreetMetaGeotag (): React.ReactElement | null {
   // Render nothing if there is no street location, and geolocation is not enabled
   if (!editable && !street.location) return null
 
-  function handleClickGeotag (event: React.MouseEvent): void {
+  function handleClickGeotag (_event: React.MouseEvent): void {
     dispatch(showDialog('GEOTAG'))
   }
 

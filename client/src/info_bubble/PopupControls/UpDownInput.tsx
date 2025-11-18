@@ -166,7 +166,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     onClickDown(event)
   }
 
-  function handleInputClick (event: React.MouseEvent): void {
+  function handleInputClick (_event: React.MouseEvent): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
@@ -205,7 +205,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
    * Not sure what causes this, but this handler fixes that issue.
    */
   function handleInputMouseDown (
-    event: React.MouseEvent<HTMLInputElement>
+    _event: React.MouseEvent<HTMLInputElement>
   ): void {
     // Bail if already in editing mode.
     if (isEditing) return

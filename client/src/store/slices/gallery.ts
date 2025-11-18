@@ -29,7 +29,7 @@ export const gallerySlice = createSlice({
       state.mode = 'none'
     },
 
-    hideGallery (state, action: PayloadAction<undefined>) {
+    hideGallery (state) {
       state.visible = false
     },
 

@@ -211,7 +211,7 @@ function Boundary ({
     }
   }, [handleKeyDown])
 
-  function handleElementMouseEnter (event: React.MouseEvent): void {
+  function handleElementMouseEnter (_event: React.MouseEvent): void {
     const el = newEl.current
 
     if (el === null) return
@@ -221,7 +221,7 @@ function Boundary ({
     document.addEventListener('keydown', handleKeyDown)
   }
 
-  function handleElementMouseLeave (): void {
+  function handleElementMouseLeave (_event: React.MouseEvent): void {
     const el = newEl.current
 
     if (el === null) return

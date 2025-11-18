@@ -9,9 +9,7 @@ import HelpMenu from './HelpMenu'
 
 vi.mock('../../store/slices/dialogs', () => ({
   default: {},
-  // We don't use these actions for anything, but they must return
-  // a plain object or the dispatch() throws an error
-  showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('HelpMenu', () => {

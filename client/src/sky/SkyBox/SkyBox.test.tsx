@@ -15,7 +15,7 @@ vi.mock(
 // The `src` property is normally a data-url.
 vi.mock('../../app/load_resources', () => ({
   images: {
-    get: (id: string) => ({
+    get: (_id: string) => ({
       src: 'bar.svg'
     })
   }
