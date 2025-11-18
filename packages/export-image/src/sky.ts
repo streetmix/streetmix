@@ -71,7 +71,7 @@ function getSkyboxDef (_id: string): SkyboxDefWithStyles {
 /**
  * Draws a layer of background color
  *
- * @modifies {Canvas.SKRSContext2D | CanvasRenderingContext2D}
+ * @modifies {Canvas.SKRSContext2D}
  */
 function drawBackgroundColor (
   ctx: Canvas.SKRSContext2D,
@@ -88,7 +88,7 @@ function drawBackgroundColor (
 /**
  * Draws clouds.
  *
- * @modifies {Canvas.SKRSContext2D | CanvasRenderingContext2D}
+ * @modifies {Canvas.SKRSContext2D}
  */
 async function drawClouds (
   ctx: Canvas.SKRSContext2D,
@@ -135,7 +135,7 @@ async function drawClouds (
   }
 
   // dy2 = top edge of sky-rear is SKY_GAP pixels above the top edge of sky-front
-  // (height - 120) must also be adjusted by scale value
+  // (height - SKY_GAP) must also be adjusted by scale value
   const dy2 = (height - SKY_GAP) * scale - skyFrontImg.height
 
   for (let i = 0; i < Math.floor(width / skyRearImg.width) + 1; i++) {
