@@ -23,7 +23,7 @@ const dialogsSlice = createSlice({
       state.name = action.payload
     },
 
-    clearDialogs (state, action: PayloadAction<undefined>) {
+    clearDialogs (state) {
       state.name = null
     }
   }

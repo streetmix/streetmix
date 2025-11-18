@@ -218,7 +218,7 @@ function StreetView (): React.ReactElement {
   /**
    * Event handler for street scrolling.
    */
-  function handleStreetScroll (event: React.UIEvent<HTMLDivElement>): void {
+  function handleStreetScroll (_event: React.UIEvent<HTMLDivElement>): void {
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {

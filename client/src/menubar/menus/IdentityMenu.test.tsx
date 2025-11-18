@@ -9,7 +9,7 @@ import { onSignOutClick } from '~/src/users/authentication'
 import IdentityMenu from './IdentityMenu'
 
 vi.mock('../../store/actions/gallery', () => ({
-  openGallery: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
+  openGallery: vi.fn((_id) => ({ type: 'MOCK_ACTION' }))
 }))
 vi.mock('../../users/authentication', () => ({
   onSignOutClick: vi.fn()

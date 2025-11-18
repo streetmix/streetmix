@@ -9,7 +9,7 @@ import LocaleMenu from './LocaleMenu'
 
 vi.mock('../../store/slices/menus', () => ({
   default: {},
-  clearMenus: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
+  clearMenus: vi.fn((_id) => ({ type: 'MOCK_ACTION' }))
 }))
 
 const initialState = {

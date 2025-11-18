@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import { clearLocation } from './street'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { LatLngObject } from '@streetmix/types'
 
@@ -29,14 +31,14 @@ const mapSlice = createSlice({
       }
     },
 
-    resetMapState () {
+    resetMapState (_state) {
       return initialState
     }
   },
 
   extraReducers: (builder) => {
     // If location is cleared from the street, also reset map state.
-    builder.addCase(clearLocation, (state) => initialState)
+    builder.addCase(clearLocation, () => initialState)
   }
 })
 

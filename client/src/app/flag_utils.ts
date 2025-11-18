@@ -21,7 +21,7 @@ function whatAreTheFlagsWeNeedToSave (
   return (
     Object.entries(flags)
       // filter out all non-user set flags
-      .filter(([key, flag]) => flag.source === 'session')
+      .filter(([, flag]) => flag.source === 'session')
       // convert back to obj but simplify it to just the value
       .reduce((obj, [key, flag]) => {
         obj[key] = flag.value
