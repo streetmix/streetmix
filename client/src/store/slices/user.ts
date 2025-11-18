@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import { getGeoIp } from '../../util/api'
+
 import type { UserState, UserProfile, UserSignInDetails } from '../../types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
@@ -40,7 +42,7 @@ const userSlice = createSlice({
       }
     },
 
-    clearSignInData (state, action) {
+    clearSignInData (state) {
       state.signInData = null
       state.signedIn = false
       state.isSubscriber = false

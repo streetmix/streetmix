@@ -9,7 +9,7 @@ import MenuBar from './MenuBar'
 
 vi.mock('../store/slices/dialogs', () => ({
   default: {},
-  showDialog: vi.fn((id) => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
 }))
 
 describe('MenuBar', () => {

@@ -47,7 +47,7 @@ import type { StreetState } from '@streetmix/types'
  * @param width
  */
 export function updateStreetWidthAction (width: number) {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     await dispatch(updateStreetWidth(width))
     await dispatch(segmentsChanged())
   }
@@ -72,7 +72,7 @@ export const segmentsChanged = () => {
 }
 
 export const removeSegmentAction = (segmentIndex: number) => {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     await dispatch(removeSegment(segmentIndex, false))
     await dispatch(segmentsChanged())
 
@@ -93,7 +93,7 @@ export const removeSegmentAction = (segmentIndex: number) => {
 }
 
 export const clearSegmentsAction = () => {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
 
@@ -114,14 +114,14 @@ export const clearSegmentsAction = () => {
 }
 
 export const setShowAnalytics = (isVisible: boolean) => {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     await dispatch(updateShowAnalytics(isVisible))
     await dispatch(segmentsChanged())
   }
 }
 
 export const setCapacitySource = (source: string) => {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     await dispatch(updateCapacitySource(source))
     await dispatch(segmentsChanged())
   }

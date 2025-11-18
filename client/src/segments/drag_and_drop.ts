@@ -629,7 +629,7 @@ export function createSliceDragSpec (props) {
 
       handleSegmentDragEnd()
     },
-    canDrag (monitor: DragSourceMonitor) {
+    canDrag (_monitor: DragSourceMonitor) {
       return !store.getState().app.readOnly
     },
     isDragging (monitor: DragSourceMonitor<DraggedItem>) {
@@ -702,7 +702,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
 
       handleSegmentDragEnd()
     },
-    canDrag: (monitor: DragSourceMonitor) => {
+    canDrag: (_monitor: DragSourceMonitor) => {
       return !store.getState().app.readOnly
     }
   }

@@ -15,9 +15,9 @@ import MenuBar from './MenuBar'
 import './MenusContainer.css'
 
 function MenusContainer (): React.ReactElement {
-  const activeMenu = useSelector((state): string | null => state.menus)
+  const activeMenu = useSelector((state): string | null => state.menus.id)
   const [activeMenuItemNode, setActiveMenuItemNode] = useState<
-  HTMLElement | undefined
+    HTMLElement | undefined
   >(undefined)
   const dispatch = useDispatch()
 

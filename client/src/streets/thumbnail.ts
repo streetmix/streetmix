@@ -44,6 +44,8 @@ const WATERMARK_LIGHT_COLOR = '#cccccc'
 
 const WORDMARK_MARGIN = 4
 
+const SKY_GAP = 120 // pixels
+
 /**
  * Draws sky.
  */
@@ -222,47 +224,37 @@ function drawClouds (
   const skyFrontImg = images.get('/images/sky-front.svg')
   const skyRearImg = images.get('/images/sky-rear.svg')
 
-  // Source images are 2x what they need to be for the math to work
-  // so until we resize the intrinsic size of the images, we have to
-  // do this and then size it back up later
-  const skyFrontWidth = skyFrontImg.width / 2
-  const skyFrontHeight = skyFrontImg.height / 2
-  const skyRearWidth = skyRearImg.width / 2
-  const skyRearHeight = skyRearImg.height / 2
+  // dy1 = top edge of sky-front image
+  const dy1 = height - skyFrontImg.height
 
-  // TODO document magic numbers
-  // y1 = top edge of sky-front image
-  const y1 = height - skyFrontHeight
-
-  for (let i = 0; i < Math.floor(width / skyFrontWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyFrontImg.width) + 1; i++) {
     ctx.drawImage(
       skyFrontImg.img,
       0,
       0,
-      skyFrontWidth * 2,
-      skyFrontHeight * 2, // todo: change intrinsic size
-      i * skyFrontWidth * dpi,
-      y1 * dpi,
-      skyFrontWidth * dpi,
-      skyFrontHeight * dpi
+      skyFrontImg.width,
+      skyFrontImg.height,
+      i * skyFrontImg.width * dpi,
+      dy1 * dpi,
+      skyFrontImg.width * dpi,
+      skyFrontImg.height * dpi
     )
   }
 
-  // TODO document magic numbers
-  // y2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
-  const y2 = height - skyFrontHeight - 120
+  // dy2 = top edge of sky-rear is 120 pixels above the top edge of sky-front
+  const dy2 = height - SKY_GAP - skyFrontImg.height
 
-  for (let i = 0; i < Math.floor(width / skyRearWidth) + 1; i++) {
+  for (let i = 0; i < Math.floor(width / skyRearImg.width) + 1; i++) {
     ctx.drawImage(
       skyRearImg.img,
       0,
       0,
-      skyRearWidth * 2,
-      skyRearHeight * 2, // todo: change intrinsic size
-      i * skyRearWidth * dpi,
-      y2 * dpi,
-      skyRearWidth * dpi,
-      skyRearHeight * dpi
+      skyRearImg.width,
+      skyRearImg.height,
+      i * skyRearImg.width * dpi,
+      dy2 * dpi,
+      skyRearImg.width * dpi,
+      skyRearImg.height * dpi
     )
   }
 

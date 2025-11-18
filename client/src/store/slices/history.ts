@@ -64,7 +64,7 @@ const undoSlice = createSlice({
       state.position = newPosition < 0 ? 0 : newPosition
     },
 
-    redo (state, action) {
+    redo (state) {
       const newPosition = state.position + 1
       const stackSize = state.stack.length - 1
 

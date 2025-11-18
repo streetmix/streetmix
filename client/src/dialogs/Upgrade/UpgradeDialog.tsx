@@ -82,16 +82,18 @@ function UpgradeDialog (): React.ReactElement {
 
   return (
     <Dialog>
-      {(closeDialog) => (
-        <div className="upgrade-dialog" dir="ltr">
-          <header>
-            <h1>
-              <FormattedMessage id="upgrade.title" defaultMessage="Upgrade" />
-            </h1>
-          </header>
-          {activePanel}
-        </div>
-      )}
+      {
+        (/* closeDialog */) => (
+          <div className="upgrade-dialog" dir="ltr">
+            <header>
+              <h1>
+                <FormattedMessage id="upgrade.title" defaultMessage="Upgrade" />
+              </h1>
+            </header>
+            {activePanel}
+          </div>
+        )
+      }
     </Dialog>
   )
 }
