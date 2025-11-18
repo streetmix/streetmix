@@ -52,7 +52,7 @@ export async function drawSky (
 }
 
 // TODO: Read other sky definitions.
-function getSkyboxDef (id: string): SkyboxDefWithStyles {
+function getSkyboxDef (_id: string): SkyboxDefWithStyles {
   return {
     name: 'Day',
     backgroundColor: '#a9ccdb',

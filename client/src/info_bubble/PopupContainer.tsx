@@ -117,7 +117,13 @@ export function PopupContainer ({
       : POPUP_TRANSITION_DURATION,
     initial: ({ side }) => ({
       opacity: 0,
-      transform: 'rotateX(-80deg)'
+      // TODO: confirm that rotate values are correct for bottom/left/right
+      transform: {
+        top: 'rotateX(-80deg)',
+        bottom: 'rotateX(80deg)',
+        left: 'rotateY(-80deg)',
+        right: 'rotateY(80deg)'
+      }[side]
     }),
     common: ({ side }) => ({
       transformOrigin: {

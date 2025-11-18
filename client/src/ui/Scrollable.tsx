@@ -43,14 +43,14 @@ const WrappedScrollable = forwardRef(function Scrollable (
 
   useEffect(() => {
     if (allowKeyboardScroll) {
-      registerKeypress('left', handleClickLeft)
-      registerKeypress('right', handleClickRight)
+      registerKeypress('left', handleLeft)
+      registerKeypress('right', handleRight)
     }
 
     return () => {
       if (allowKeyboardScroll) {
-        deregisterKeypress('left', handleClickLeft)
-        deregisterKeypress('right', handleClickRight)
+        deregisterKeypress('left', handleLeft)
+        deregisterKeypress('right', handleRight)
       }
     }
   })
@@ -64,8 +64,10 @@ const WrappedScrollable = forwardRef(function Scrollable (
     }
   })
 
-  function handleClickLeft (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  function handleLeft (
+    _event:
+      | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLDivElement>
   ): void {
     const el = scrollerEl.current
 
@@ -76,8 +78,10 @@ const WrappedScrollable = forwardRef(function Scrollable (
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleClickRight (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  function handleRight (
+    _event:
+      | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLDivElement>
   ): void {
     const el = scrollerEl.current
 
@@ -149,7 +153,7 @@ const WrappedScrollable = forwardRef(function Scrollable (
       {/* Buttons frame the content to preserve tab order */}
       <Button
         className="scrollable scroll-left"
-        onClick={handleClickLeft}
+        onClick={handleLeft}
         ref={leftButtonEl}
       >
         <Icon name="chevron-left" />
@@ -168,7 +172,7 @@ const WrappedScrollable = forwardRef(function Scrollable (
       </div>
       <Button
         className="scrollable scroll-right"
-        onClick={handleClickRight}
+        onClick={handleRight}
         ref={rightButtonEl}
       >
         <Icon name="chevron-right" />

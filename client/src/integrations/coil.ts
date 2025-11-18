@@ -10,7 +10,7 @@ export function initCoil (): void {
   // users will automatically get subscription benefits regardless of any
   // connected monetization providers
   if (document.monetization !== undefined) {
-    document.monetization.addEventListener('monetizationstart', (event) => {
+    document.monetization.addEventListener('monetizationstart', (_event) => {
       console.log('monetization start!') //, event.detail)
       store.dispatch(setCoilPluginSubscriber(true))
 
@@ -35,11 +35,11 @@ export function initCoil (): void {
         }
       }
     })
-    document.monetization.addEventListener('monetizationstop', (event) => {
+    document.monetization.addEventListener('monetizationstop', (_event) => {
       console.log('monetization stop!') //, event.detail)
       store.dispatch(setCoilPluginSubscriber(false))
     })
-    document.monetization.addEventListener('monetizationpending', (event) => {
+    document.monetization.addEventListener('monetizationpending', (_event) => {
       console.log('monetization pending!') //, event.detail)
     })
     // document.monetization.addEventListener('monetizationprogress', (event) => {

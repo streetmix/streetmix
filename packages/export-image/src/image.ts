@@ -193,7 +193,7 @@ function calculateImageWidth (
   street: Street,
   // Don't need options, but this is keeping function signature the same
   // as `calculateImageHeight`
-  options: StreetImageOptions
+  _options: StreetImageOptions
 ): number {
   const streetData = street.data.street
   const streetWidth = TILE_SIZE * streetData.width // translate width to pixels

@@ -22,7 +22,7 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
   const handleClickMyStreets = useCallback(
-    (event: React.MouseEvent) => {
+    (_event: React.MouseEvent) => {
       const myStreetsLink = user?.id !== undefined ? `/${user.id}` : ''
       window.history.pushState({}, '', myStreetsLink)
       dispatch(openGallery({ userId: user.id }))

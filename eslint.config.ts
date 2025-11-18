@@ -123,10 +123,19 @@ export default defineConfig([
       }
     },
     rules: {
-      // Turns off an error added in typescript-eslint v8 (?) that is much too
-      // strict re: unused variables that exist, like destructured
-      // arrays, try/catch errors, event handlers etc
-      '@typescript-eslint/no-unused-vars': 'off'
+      // Relaxes strict error checking for unused variables.
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          // Allows unused variables to be prefixed with `_`
+          // Event handlers generally should not omit arguments
+          argsIgnorePattern: '^_',
+          // Allows argument passed to catch() to be unused
+          caughtErrors: 'none',
+          // Allow rest properties to omit sibling properties from an object
+          ignoreRestSiblings: true
+        }
+      ]
     }
   },
   {
