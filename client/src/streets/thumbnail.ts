@@ -224,7 +224,7 @@ function drawClouds (
   const skyFrontImg = images.get('/images/sky-front.svg')
   const skyRearImg = images.get('/images/sky-rear.svg')
 
-  // y1 = top edge of sky-front image
+  // dy1 = top edge of sky-front image
   const dy1 = height - skyFrontImg.height
 
   for (let i = 0; i < Math.floor(width / skyFrontImg.width) + 1; i++) {
