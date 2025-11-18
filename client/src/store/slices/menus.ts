@@ -1,8 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-import { showDialog } from './dialogs'
-import { startPrinting } from './app'
-
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: string | null = null
@@ -24,12 +20,9 @@ const menusSlice = createSlice({
   // Certain other actions in the app will also hide menus.
   extraReducers: (builder) => {
     builder
-      .addCase('gallery/openGallery/pending', (_state) => null)
-      // This is a workaround for Jest, because many tests are using a mock
-      // showDialog action, which breaks addCase since the `type` will be
-      // undefined. If it's not there, pass the string action name instead
-      .addCase(showDialog.type ?? 'dialogs/showDialog', (_state) => null)
-      .addCase(startPrinting, (_state) => null)
+      .addCase('gallery/openGallery/pending', () => null)
+      .addCase('dialogs/showDialog', () => null)
+      .addCase('app/startPrinting', () => null)
   }
 })
 
