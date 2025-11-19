@@ -79,7 +79,6 @@ export async function fetchGalleryData(userId: string) {
     if (userId) {
       const response = await getGalleryForUser(userId)
       const streets = receiveGalleryData(response.data)
-      console.log(streets)
       return streets
     } else {
       const response = await getGalleryForAllStreets()
@@ -100,15 +99,12 @@ export async function fetchGalleryData(userId: string) {
   }
 }
 
-function receiveGalleryData(transmission) {
-  // Prepare data object
-  const streets = transmission.streets.map((street: Street) => {
-    // There is a bug where sometimes street data is non-existent for an
-    // unknown reason. Skip over so that the rest of gallery will display
-    if (!street.data) return {}
-
-    return street
-  })
+function receiveGalleryData(transmission: { streets: Street[] }) {
+  // There is a bug where sometimes street data is non-existent for an
+  // unknown reason. Skip over so that the rest of gallery will display
+  const streets = transmission.streets.filter(
+    (street) => typeof street.data !== 'undefined'
+  )
 
   if (
     (getMode() === MODES.USER_GALLERY && streets.length) ||
