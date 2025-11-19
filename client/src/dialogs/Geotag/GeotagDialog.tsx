@@ -1,7 +1,7 @@
-/* global L */
 import React, { useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useIntl } from 'react-intl'
+import L from 'leaflet'
 import {
   MapContainer,
   TileLayer,
@@ -18,12 +18,17 @@ import {
   clearLocation,
   saveStreetName,
 } from '~/src/store/slices/street'
+import type { RootState } from '~/src/store'
 import Dialog from '../Dialog'
 import ErrorBanner from './ErrorBanner'
 import GeoSearch from './GeoSearch'
 import LocationPopup from './LocationPopup'
 import LocationMarker from './LocationMarker'
 import './GeotagDialog.css'
+
+import type { GeoJsonProperties, Position } from 'geojson'
+import type { LeafletEvent, LatLng, LeafletMouseEvent } from 'leaflet'
+import type { StreetState, LatLngObject } from '@streetmix/types'
 
 const ukrainianFlag =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
@@ -56,12 +61,30 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png',
 })
 
+interface AddressInformation {
+  id?: string
+  label?: string
+  country?: string
+  region?: string
+  locality?: string
+  neighbourhood?: string
+  street?: string
+  [key: string]: unknown
+}
+
+interface GetInitialStateParams {
+  street: StreetState
+  markerLocation: LatLngObject | null
+  addressInformation: AddressInformation | null
+  userLocation: { latitude: number; longitude: number } | null
+}
+
 function getInitialState({
   street,
   markerLocation,
   addressInformation,
   userLocation,
-}) {
+}: GetInitialStateParams) {
   // Determine initial map center, and what to display
   let mapCenter, zoom, marker, label
 
@@ -88,7 +111,7 @@ function getInitialState({
     mapCenter = markerLocation
     zoom = MAP_LOCATION_ZOOM
     marker = markerLocation
-    label = addressInformation.label
+    label = addressInformation?.label
     // If there's no prior location data, use the user's location, if available
     // In this case, display the map view, but no marker or popup
   } else if (userLocation && userLocation.longitude) {
@@ -123,13 +146,18 @@ reverse geocodeing based on user input (the user can click on the map to reverse
 It is tested primary via cypress at the moment
  */
 function GeotagDialog() {
-  const street = useSelector((state) => state.street)
-  const markerLocation = useSelector((state) => state.map.markerLocation)
-  const addressInformation = useSelector(
-    (state) => state.map.addressInformation
+  const street = useSelector((state: RootState) => state.street)
+  const markerLocation = useSelector(
+    (state: RootState) => state.map.markerLocation
   )
-  const userLocation = useSelector((state) => state.user.geolocation.data)
-  const offline = useSelector((state) => state.system.offline)
+  const addressInformation = useSelector(
+    (state: RootState) =>
+      state.map.addressInformation as AddressInformation | null
+  )
+  const userLocation = useSelector(
+    (state: RootState) => state.user.geolocation.data
+  )
+  const offline = useSelector((state: RootState) => state.system.offline)
 
   // this kinda goofy initial state object is a result of refactoring
   // some legacy code. definetly worth refactoring further in the future
@@ -155,13 +183,15 @@ function GeotagDialog() {
   // `dpi` is a bad name for what is supposed to be referring to the devicePixelRatio
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load
   // higher resolution map tiles.
-  const dpi = useSelector((state) => state.system.devicePixelRatio || 1.0)
+  const dpi = useSelector(
+    (state: RootState) => state.system.devicePixelRatio || 1.0
+  )
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
   // Child component to handle click events in MapContainer
   function MapClick() {
     const map = useMapEvents({
-      click(event) {
+      click(event: LeafletMouseEvent) {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
@@ -180,7 +210,7 @@ function GeotagDialog() {
     return null
   }
 
-  const handleMarkerDragStart = (_event) => {
+  const handleMarkerDragStart = (_event: LeafletEvent) => {
     setRenderPopup(false)
   }
 
@@ -213,19 +243,34 @@ function GeotagDialog() {
     })
   }
 
-  const handleClearLocation = (_event) => {
+  const handleClearLocation = (_event: React.MouseEvent) => {
     dispatch(clearLocation())
   }
 
-  const reverseGeocode = (latlng) => {
+  interface ReverseGeocodeResponse {
+    features: Array<{
+      geometry: {
+        coordinates: [number, number]
+      }
+      properties: GeoJsonProperties
+      label?: string
+    }>
+  }
+
+  const reverseGeocode = (latlng: LatLng): Promise<ReverseGeocodeResponse> => {
     const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
 
     return window.fetch(url).then((response) => response.json())
   }
 
   // Search dialog state dosen't sync up with map state (IMO should clear or update with label)
-  const handleSearchResults = (point, locationProperties) => {
-    const latlng = {
+  const handleSearchResults = (
+    point: Position,
+    locationProperties: GeoJsonProperties | null
+  ) => {
+    if (!locationProperties) return
+
+    const latlng: LatLngObject = {
       lat: point[0],
       lng: point[1],
     }
@@ -268,8 +313,9 @@ function GeotagDialog() {
    * This does not check for street ownership. See `canEditLocation()` for that.
    */
   const canClearLocation = () => {
-    const latlng = street.location?.latlng ?? {}
+    const latlng = street.location?.lntlng ?? null
 
+    if (!latlng || !marker) return false
     return latlng.lat === marker.lat && latlng.lng === marker.lng
   }
 
@@ -311,11 +357,11 @@ function GeotagDialog() {
                 label={label}
                 isEditable={geocodeAvailable && canEditLocation()}
                 isClearable={geocodeAvailable && canClearLocation()}
-                handleConfirm={(e) => {
+                handleConfirm={(e: React.MouseEvent) => {
                   handleConfirmLocation(e)
                   closeDialog()
                 }}
-                handleClear={(e) => {
+                handleClear={(e: React.MouseEvent) => {
                   handleClearLocation(e)
                   closeDialog()
                 }}
