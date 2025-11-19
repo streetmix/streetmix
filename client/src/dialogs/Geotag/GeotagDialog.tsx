@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch, batch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 import L from 'leaflet'
 import {
@@ -223,10 +223,11 @@ function GeotagDialog() {
       intersectionId: null,
     }
 
-    batch(() => {
-      dispatch(addLocation(location))
-      dispatch(saveStreetName(location.hierarchy.street, false))
-    })
+    dispatch(addLocation(location))
+
+    // Street name may be `undefined` if a POI is selected that doesn't
+    // have that information
+    dispatch(saveStreetName(location.hierarchy.street ?? null, false))
   }
 
   const handleClearLocation = (_event: React.MouseEvent) => {

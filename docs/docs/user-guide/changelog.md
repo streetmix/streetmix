@@ -18,6 +18,7 @@ sidebar_position: 5
 
 - Fix visual artifacts for the variants panel in right-to-left language modes.
 - Clearing a slice's custom label will now reset it to its original default label.
+- Fix a bug where after clearing a user-provided street name, changing its geo location will not automatically attach a new street name
 -->
 
 ## May 21, 2025
