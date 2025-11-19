@@ -7,7 +7,7 @@ import {
   TileLayer,
   ZoomControl,
   AttributionControl,
-  useMapEvents
+  useMapEvents,
 } from 'react-leaflet'
 
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '~/src/app/config'
@@ -16,7 +16,7 @@ import { setMapState } from '~/src/store/slices/map'
 import {
   addLocation,
   clearLocation,
-  saveStreetName
+  saveStreetName,
 } from '~/src/store/slices/street'
 import Dialog from '../Dialog'
 import ErrorBanner from './ErrorBanner'
@@ -45,7 +45,7 @@ const MAP_LOCATION_ZOOM = 12
 const DEFAULT_MAP_ZOOM = 2
 const DEFAULT_MAP_LOCATION = {
   lat: 10.45,
-  lng: -10.78
+  lng: -10.78,
 }
 
 // Override icon paths in stock Leaflet's stylesheet
@@ -53,14 +53,14 @@ delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: '/images/marker-icon-2x.png',
   iconUrl: '/images/marker-icon.png',
-  shadowUrl: '/images/marker-shadow.png'
+  shadowUrl: '/images/marker-shadow.png',
 })
 
-function getInitialState ({
+function getInitialState({
   street,
   markerLocation,
   addressInformation,
-  userLocation
+  userLocation,
 }) {
   // Determine initial map center, and what to display
   let mapCenter, zoom, marker, label
@@ -94,7 +94,7 @@ function getInitialState ({
   } else if (userLocation && userLocation.longitude) {
     mapCenter = {
       lat: userLocation.latitude,
-      lng: userLocation.longitude
+      lng: userLocation.longitude,
     }
     zoom = MAP_LOCATION_ZOOM
     // As a last resort, show an overview of the world.
@@ -107,7 +107,7 @@ function getInitialState ({
     mapCenter,
     zoom,
     markerLocation: marker,
-    label
+    label,
   }
 }
 
@@ -122,7 +122,7 @@ reverse geocodeing based on user input (the user can click on the map to reverse
 
 It is tested primary via cypress at the moment
  */
-function GeotagDialog () {
+function GeotagDialog() {
   const street = useSelector((state) => state.street)
   const markerLocation = useSelector((state) => state.map.markerLocation)
   const addressInformation = useSelector(
@@ -138,7 +138,7 @@ function GeotagDialog () {
     street,
     markerLocation,
     addressInformation,
-    userLocation
+    userLocation,
   })
 
   const [mapCenter, setMapCenter] = useState(initialState.mapCenter)
@@ -159,9 +159,9 @@ function GeotagDialog () {
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
   // Child component to handle click events in MapContainer
-  function MapClick () {
+  function MapClick() {
     const map = useMapEvents({
-      click (event) {
+      click(event) {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
@@ -169,18 +169,18 @@ function GeotagDialog () {
         reverseGeocode(latlng).then((res) => {
           const latlng = {
             lat: res.features[0].geometry.coordinates[1],
-            lng: res.features[0].geometry.coordinates[0]
+            lng: res.features[0].geometry.coordinates[0],
           }
           setZoom(zoom)
           updateMap(latlng, res.features[0].properties, res.features[0].label)
         })
-      }
+      },
     })
 
     return null
   }
 
-  const handleMarkerDragStart = (event) => {
+  const handleMarkerDragStart = (_event) => {
     setRenderPopup(false)
   }
 
@@ -191,7 +191,7 @@ function GeotagDialog () {
     })
   }
 
-  const handleConfirmLocation = (event) => {
+  const handleConfirmLocation = (_event) => {
     const location = {
       latlng: markerLocation,
       wofId: addressInformation.id,
@@ -201,10 +201,10 @@ function GeotagDialog () {
         region: addressInformation.region,
         locality: addressInformation.locality,
         neighbourhood: addressInformation.neighbourhood,
-        street: addressInformation.street
+        street: addressInformation.street,
       },
       geometryId: null,
-      intersectionId: null
+      intersectionId: null,
     }
 
     batch(() => {
@@ -213,7 +213,7 @@ function GeotagDialog () {
     })
   }
 
-  const handleClearLocation = (event) => {
+  const handleClearLocation = (_event) => {
     dispatch(clearLocation())
   }
 
@@ -227,12 +227,12 @@ function GeotagDialog () {
   const handleSearchResults = (point, locationProperties) => {
     const latlng = {
       lat: point[0],
-      lng: point[1]
+      lng: point[1],
     }
     updateMap(latlng, locationProperties)
   }
 
-  function updateMap (latlng, locationProperties) {
+  function updateMap(latlng, locationProperties) {
     /*
     after the location position is updated,
     we need to update the map UI elements
@@ -246,7 +246,7 @@ function GeotagDialog () {
     dispatch(
       setMapState({
         markerLocation: latlng,
-        addressInformation: locationProperties
+        addressInformation: locationProperties,
       })
     )
   }
@@ -277,18 +277,16 @@ function GeotagDialog () {
     <Dialog>
       {(closeDialog) => (
         <div className="geotag-dialog">
-          {geocodeAvailable
-            ? (
-              <div className="geotag-input-container">
-                <GeoSearch
-                  handleSearchResults={handleSearchResults}
-                  focus={mapCenter}
-                />
-              </div>
-              )
-            : (
-              <ErrorBanner />
-              )}
+          {geocodeAvailable ? (
+            <div className="geotag-input-container">
+              <GeoSearch
+                handleSearchResults={handleSearchResults}
+                focus={mapCenter}
+              />
+            </div>
+          ) : (
+            <ErrorBanner />
+          )}
           <MapContainer
             center={mapCenter}
             zoomControl={false}
@@ -299,11 +297,11 @@ function GeotagDialog () {
             <ZoomControl
               zoomInTitle={intl.formatMessage({
                 id: 'dialogs.geotag.zoom-in',
-                defaultMessage: 'Zoom in'
+                defaultMessage: 'Zoom in',
               })}
               zoomOutTitle={intl.formatMessage({
                 id: 'dialogs.geotag.zoom-out',
-                defaultMessage: 'Zoom out'
+                defaultMessage: 'Zoom out',
               })}
             />
 
