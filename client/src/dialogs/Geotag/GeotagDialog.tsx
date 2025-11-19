@@ -59,21 +59,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: '/images/marker-shadow.png',
 })
 
-interface AddressInformation {
-  id?: string
-  label?: string
-  country?: string
-  region?: string
-  locality?: string
-  neighbourhood?: string
-  street?: string
-  [key: string]: unknown
-}
-
 interface GetInitialStateParams {
   street: StreetState
   markerLocation: LatLngObject | null
-  addressInformation: AddressInformation | null
+  addressInformation: GeoJsonProperties
   userLocation: { latitude: number; longitude: number } | null
 }
 
@@ -138,8 +127,7 @@ function GeotagDialog() {
     (state: RootState) => state.map.markerLocation
   )
   const addressInformation = useSelector(
-    (state: RootState) =>
-      state.map.addressInformation as AddressInformation | null
+    (state: RootState) => state.map.addressInformation
   )
   const userLocation = useSelector(
     (state: RootState) => state.user.geolocation.data
@@ -208,16 +196,18 @@ function GeotagDialog() {
   }
 
   const handleConfirmLocation = (_event: React.MouseEvent) => {
+    // Maps GeoJSON properties from geocode response to an object
+    // that fits type StreetLocation
     const location = {
       latlng: markerLocation,
-      wofId: addressInformation.id,
-      label: addressInformation.label,
+      wofId: addressInformation?.id,
+      label: addressInformation?.label,
       hierarchy: {
-        country: addressInformation.country,
-        region: addressInformation.region,
-        locality: addressInformation.locality,
-        neighbourhood: addressInformation.neighbourhood,
-        street: addressInformation.street,
+        country: addressInformation?.country,
+        region: addressInformation?.region,
+        locality: addressInformation?.locality,
+        neighbourhood: addressInformation?.neighbourhood,
+        street: addressInformation?.street,
       },
       geometryId: null,
       intersectionId: null,
@@ -255,18 +245,18 @@ function GeotagDialog() {
   // Search dialog state dosen't sync up with map state (IMO should clear or update with label)
   const handleSearchResults = (
     point: Position,
-    locationProperties: GeoJsonProperties | null
+    properties: GeoJsonProperties
   ) => {
-    if (!locationProperties) return
+    if (!properties) return
 
     const latlng: LatLngObject = {
       lat: point[0],
       lng: point[1],
     }
-    updateMap(latlng, locationProperties)
+    updateMap(latlng, properties)
   }
 
-  function updateMap(latlng: LatLngObject, locationProperties) {
+  function updateMap(latlng: LatLngObject, properties: GeoJsonProperties) {
     /*
     after the location position is updated,
     we need to update the map UI elements
@@ -274,13 +264,13 @@ function GeotagDialog() {
     */
     setRenderPopup(true)
     setMarkerLocation(latlng)
-    setLabel(locationProperties.label)
+    setLabel(properties?.label)
     setMapCenter(latlng)
 
     dispatch(
       setMapState({
         markerLocation: latlng,
-        addressInformation: locationProperties,
+        addressInformation: properties,
       })
     )
   }
