@@ -11,7 +11,7 @@ import {
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
   RESERVED_URLS,
-  STREET_TEMPLATES
+  STREET_TEMPLATES,
 } from './constants'
 import { setMode, MODES } from './mode'
 import type { StreetState } from '@streetmix/types'
@@ -21,11 +21,11 @@ export const ANONYMOUS_USER_ID_FRAGMENT = '-'
 
 let errorUrl = ''
 
-export function getErrorUrl (): string {
+export function getErrorUrl(): string {
   return errorUrl
 }
 
-export function processUrl (): void {
+export function processUrl(): void {
   // Get current pathname. The pathname will contain an initial `/` followed
   // by the path of the URL. The root pathname should always be `/`. It may
   // be possible for the URL to contain a trailing slash, but we don't want
@@ -137,7 +137,7 @@ export function processUrl (): void {
   }
 }
 
-export function getStreetUrl (street: StreetState): string {
+export function getStreetUrl(street: StreetState): string {
   let url = '/'
   if (street.creatorId) {
     // Add a initial slash to the creator check to match reserved paths
@@ -163,8 +163,8 @@ export function getStreetUrl (street: StreetState): string {
   return url
 }
 
-export function updatePageUrl (
-  forceGalleryUrl: boolean,
+export function updatePageUrl(
+  forceGalleryUrl: boolean = false,
   userId: string | null = null
 ): void {
   let url: string

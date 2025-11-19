@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchGalleryData } from '../../gallery/index'
-import { updatePageUrl } from '../../app/page_url'
-import { showError, ERRORS } from '../../app/errors'
-import { MODES, getMode, setMode } from '../../app/mode'
+
+import { ERRORS, showError } from '../../app/errors'
 import { onWindowFocus } from '../../app/event_handlers/focus'
+import { MODES, getMode, setMode } from '../../app/mode'
+import { updatePageUrl } from '../../app/page_url'
+import { fetchGalleryData } from '../../gallery/index'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
@@ -28,7 +29,7 @@ export const openGallery = createAsyncThunk(
       // to display a "not-found" screen without the gallery
       if (error.response?.status === 404) {
         return rejectWithValue({
-          killGallery: true
+          killGallery: true,
         })
       }
 
@@ -60,6 +61,6 @@ export const closeGallery = createAsyncThunk(
       if (!visible) {
         return false
       }
-    }
+    },
   }
 )

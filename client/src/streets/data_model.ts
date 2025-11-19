@@ -1,25 +1,26 @@
 import { getVariantInfo } from '../segments/variant_utils'
 import { segmentsChanged } from '../segments/view'
-import {
-  setUpdateTime,
-  saveCreatorId,
-  updateEditCount
-} from '../store/slices/street'
 import store from '../store'
+import {
+  saveCreatorId,
+  setUpdateTime,
+  updateEditCount,
+} from '../store/slices/street'
 import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
-import { updateLastStreetInfo, scheduleSavingStreetToServer } from './xhr'
-import type { StreetState, StreetJson } from '@streetmix/types'
+import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr'
+
+import type { StreetJson, StreetState } from '@streetmix/types'
 
 let _lastStreet: StreetJson
 
-export function setLastStreet (): void {
+export function setLastStreet() {
   _lastStreet = trimStreetData(store.getState().street)
 }
 
 // Do some work to update segment data, although they're not technically
 // part of the schema (yet?) -- carried over after moving bulk of
 // `updateToLatestSchemaVersion` to the server side.
-export function addAltVariantObject (street: StreetState): void {
+export function addAltVariantObject(street: StreetState) {
   street.segments = street.segments.map((segment) => {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
@@ -29,14 +30,14 @@ export function addAltVariantObject (street: StreetState): void {
   })
 }
 
-export function setStreetCreatorId (newId: string): void {
+export function setStreetCreatorId(newId: string) {
   store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
   updateLastStreetInfo()
 }
 
-export function setUpdateTimeToNow (): void {
+export function setUpdateTimeToNow() {
   const updateTime = new Date().toISOString()
   store.dispatch(setUpdateTime(updateTime))
   unifyUndoStack()
@@ -44,11 +45,11 @@ export function setUpdateTimeToNow (): void {
 
 let ignoreStreetChanges = false
 
-export function setIgnoreStreetChanges (value: boolean): void {
+export function setIgnoreStreetChanges(value: boolean) {
   ignoreStreetChanges = value
 }
 
-export function saveStreetToServerIfNecessary (): void {
+export function saveStreetToServerIfNecessary() {
   if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
@@ -75,7 +76,7 @@ export function saveStreetToServerIfNecessary (): void {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData (street: StreetState): StreetJson {
+export function trimStreetData(street: StreetState): StreetJson {
   const newData: StreetJson = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
@@ -98,8 +99,8 @@ export function trimStreetData (street: StreetState): StreetJson {
       width: s.width,
       elevation: s.elevation,
       slope: s.slope,
-      label: s.label
-    }))
+      label: s.label,
+    })),
   }
 
   if (street.editCount !== null) {
@@ -109,7 +110,7 @@ export function trimStreetData (street: StreetState): StreetJson {
   return newData
 }
 
-export function updateEverything (save: boolean = true): void {
+export function updateEverything(save = true) {
   setIgnoreStreetChanges(true)
   segmentsChanged()
   setIgnoreStreetChanges(false)

@@ -1,10 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { undo, redo } from '../slices/history'
-import { addToast } from '../slices/toasts'
+
+import { formatMessage } from '../../locales/locale'
+import { trimStreetData } from '../../streets/data_model'
 import { isOwnedByCurrentUser } from '../../streets/owner'
 import { finishUndoOrRedo } from '../../streets/undo_stack'
-import { trimStreetData } from '../../streets/data_model'
-import { formatMessage } from '../../locales/locale'
+import { redo, undo } from '../slices/history'
+import { addToast } from '../slices/toasts'
+
+import type { Dispatch, RootState } from '../index'
 
 // These async thunks remain in a separate module because they import other
 // modules with deeply nested dependencies ... some of which will throw
@@ -14,7 +17,10 @@ import { formatMessage } from '../../locales/locale'
 
 export const handleUndo = createAsyncThunk(
   'history/handleUndo',
-  function (arg, { dispatch, getState }) {
+  function (
+    arg,
+    { dispatch, getState }: { dispatch: Dispatch; getState: () => RootState }
+  ) {
     const { position } = getState().history
     const { street } = getState()
 
@@ -28,7 +34,7 @@ export const handleUndo = createAsyncThunk(
       dispatch(
         addToast({
           message: formatMessage('toast.no-undo', 'Nothing to undo.'),
-          duration: 4000
+          duration: 4000,
         })
       )
     }
@@ -37,7 +43,10 @@ export const handleUndo = createAsyncThunk(
 
 export const handleRedo = createAsyncThunk(
   'history/handleRedo',
-  function (arg, { dispatch, getState }) {
+  function (
+    arg,
+    { dispatch, getState }: { dispatch: Dispatch; getState: () => RootState }
+  ) {
     const { position, stack } = getState().history
 
     // Don’t allow undo/redo unless you own the street
@@ -52,7 +61,7 @@ export const handleRedo = createAsyncThunk(
       dispatch(
         addToast({
           message: formatMessage('toast.no-redo', 'Nothing to redo.'),
-          duration: 4000
+          duration: 4000,
         })
       )
     }
