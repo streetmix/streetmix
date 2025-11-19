@@ -3,6 +3,8 @@
     {
       "files": ["*.{js,jsx,ts,tsx,cjs,mdx}"],
       "options": {
+        "trailingComma": "es5",
+        "semi": false,
         "singleQuote": true,
         "htmlWhitespaceSensitivity": "strict"
       }
