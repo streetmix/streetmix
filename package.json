@@ -50,7 +50,7 @@
     "not dead"
   ],
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,cjs}": [
+    "*.{js,ts,tsx,cjs}": [
       "prettier --write",
       "eslint --fix"
     ],
