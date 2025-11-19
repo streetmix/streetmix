@@ -1,12 +1,12 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
-import eslint from '@eslint/js';
-import globals from 'globals';
-import babelParser from '@babel/eslint-parser';
-import tseslint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import cypress from 'eslint-plugin-cypress/flat';
+import { defineConfig, globalIgnores } from 'eslint/config'
+import eslint from '@eslint/js'
+import globals from 'globals'
+import babelParser from '@babel/eslint-parser'
+import tseslint from 'typescript-eslint'
+import importPlugin from 'eslint-plugin-import'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import cypress from 'eslint-plugin-cypress/flat'
 
 export default defineConfig([
   globalIgnores([
@@ -133,4 +133,4 @@ export default defineConfig([
     files: ['cypress/**/*.cy.js'],
     extends: [cypress.configs.recommended],
   },
-]);
+])
