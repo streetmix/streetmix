@@ -5,6 +5,7 @@ import eslint from '@eslint/js'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
 import tseslint from 'typescript-eslint'
+import importPlugin from 'eslint-plugin-import'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
@@ -25,7 +26,7 @@ export default defineConfig([
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
-    files: ['**/*.{js,jsx,ts,tsx,cjs}'],
+    files: ['**/*.{js,jsx,cjs}'],
     // Most of this compat is required because `standard` is not compatible
     // with Eslint v9 flat config. We can simplify the config by migrating off
     // standard or to another package, e.g. neostandard
@@ -77,37 +78,24 @@ export default defineConfig([
         }
       ],
       'jsx-quotes': ['error', 'prefer-double'],
-      'react/jsx-no-bind': 0,
-      'no-restricted-globals': [
-        'error',
-        {
-          name: 'isNaN',
-          message: 'Use Number.isNaN() instead of the global isNan().'
-        },
-        {
-          name: 'isFinite',
-          message: 'Use Number.isFinite() instead of the global isFinite().'
-        },
-        {
-          name: 'parseInt',
-          message: 'Use Number.parseInt() instead of the global parseInt().'
-        },
-        {
-          name: 'parseFloat',
-          message: 'Use Number.parseFloat() instead of the global parseFloat().'
-        }
-      ],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn'
+      'react/jsx-no-bind': 0
     }
   },
   {
     // Only run TypeScript linting on TypeScript files
     // Disabling eslint-config-love for now, since I can't find a way to make
     // it work in this config
+    ...react.configs.flat.recommended,
+    ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     // ...love,
+    ...reactHooks.configs.flat.recommended,
+    ...importPlugin.flatConfigs.recommended,
     files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
     extends: [tseslint.configs.recommended],
+    plugins: {
+      'react-hooks': reactHooks,
+      import: importPlugin
+    },
     languageOptions: {
       parserOptions: {
         tsconfigRootDir: import.meta.dirname,
@@ -136,7 +124,53 @@ export default defineConfig([
           // Allow rest properties to omit sibling properties from an object
           ignoreRestSiblings: true
         }
-      ]
+      ],
+      'import/no-unresolved': 0,
+      'import/order': [
+        'warn',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type'
+          ],
+          pathGroups: [
+            {
+              pattern: '~/**',
+              group: 'internal'
+            }
+          ]
+        }
+      ],
+      'jsx-quotes': ['error', 'prefer-double'],
+      'react/jsx-no-bind': 0,
+      'no-restricted-globals': [
+        'error',
+        {
+          name: 'isNaN',
+          message: 'Use Number.isNaN() instead of the global isNan().'
+        },
+        {
+          name: 'isFinite',
+          message: 'Use Number.isFinite() instead of the global isFinite().'
+        },
+        {
+          name: 'parseInt',
+          message: 'Use Number.parseInt() instead of the global parseInt().'
+        },
+        {
+          name: 'parseFloat',
+          message: 'Use Number.parseFloat() instead of the global parseFloat().'
+        }
+      ],
+      // `react-hooks` plugin really wants you to manually define rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn'
     }
   },
   {
