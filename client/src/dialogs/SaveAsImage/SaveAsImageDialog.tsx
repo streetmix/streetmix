@@ -1,190 +1,182 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { saveAs } from 'file-saver';
+import React, { useState, useEffect, useRef } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
+import { saveAs } from 'file-saver'
 
-import { useSelector, useDispatch } from '~/src/store/hooks';
-import { updateSettings } from '~/src/store/slices/settings';
-import Button from '~/src/ui/Button';
-import Checkbox from '~/src/ui/Checkbox';
-import Icon from '~/src/ui/Icon';
-import { Tooltip } from '~/src/ui/Tooltip';
-import Terms from '~/src/app/Terms';
-import { getStreetImage } from '~/src/streets/image';
-import { normalizeSlug } from '~/src/util/helpers';
-import Dialog from '../Dialog';
-import CustomScale from './CustomScale';
-import './SaveAsImageDialog.css';
+import { useSelector, useDispatch } from '~/src/store/hooks'
+import { updateSettings } from '~/src/store/slices/settings'
+import Button from '~/src/ui/Button'
+import Checkbox from '~/src/ui/Checkbox'
+import Icon from '~/src/ui/Icon'
+import { Tooltip } from '~/src/ui/Tooltip'
+import Terms from '~/src/app/Terms'
+import { getStreetImage } from '~/src/streets/image'
+import { normalizeSlug } from '~/src/util/helpers'
+import Dialog from '../Dialog'
+import CustomScale from './CustomScale'
+import './SaveAsImageDialog.css'
 
-const DEFAULT_IMAGE_DPI = 2;
+const DEFAULT_IMAGE_DPI = 2
 
-function SaveAsImageDialog(): React.ReactElement {
-  const imageCanvas = useRef<HTMLCanvasElement | null>(null);
-  const [scale, setScale] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [errorMessage2, setErrorMessage2] = useState<boolean>(false);
-  const [downloadDataUrl, setDownloadDataUrl] = useState<string | null>(null);
-  const [baseDimensions, setBaseDimensions] = useState({});
-  const locale = useSelector((state) => state.locale.locale);
+function SaveAsImageDialog() {
+  const imageCanvas = useRef<HTMLCanvasElement | null>(null)
+  const [scale, setScale] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [errorMessage2, setErrorMessage2] = useState<boolean>(false)
+  const [downloadDataUrl, setDownloadDataUrl] = useState<string | null>(null)
+  const [baseDimensions, setBaseDimensions] = useState({})
+  const locale = useSelector((state) => state.locale.locale)
   const {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
-  } = useSelector((state) => state.settings);
+  } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
-    (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber,
-  );
-  const street = useSelector((state) => state.street);
-  const isSubscriber = useSelector((state) => state.user.isSubscriber);
-  const intl = useIntl();
-  const dispatch = useDispatch();
+    (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
+  )
+  const street = useSelector((state) => state.street)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const intl = useIntl()
+  const dispatch = useDispatch()
 
   // New export pipeline for testing
   const newExport = useSelector(
-    (state) => state.flags.SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE.value,
-  );
-  const [isNewExport, setNewExport] = useState(newExport);
+    (state) => state.flags.SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE.value
+  )
+  const [isNewExport, setNewExport] = useState(newExport)
 
   useEffect(() => {
-    updatePreview();
+    updatePreview()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     // Update preview when props change; make a slight delay because there is
     // a slight lag on image creation, but it's so short it feels weird.
     // Time delay makes the "Loading" feel "right."
     window.setTimeout(() => {
-      updatePreview();
-    }, 100);
+      updatePreview()
+    }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transparentSky, segmentNames, streetName, watermark, isNewExport]);
+  }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
 
   // Same as above but ONLY update preview if we're using the new export
   // pipeline, and the scale changes
   useEffect(() => {
     if (isNewExport) {
-      setIsLoading(true);
+      setIsLoading(true)
       window.setTimeout(() => {
-        updatePreview();
-      }, 100);
+        updatePreview()
+      }, 100)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scale, isNewExport]);
+  }, [scale, isNewExport])
 
-  function makeFilename(): string {
-    let filename = normalizeSlug(street.name);
+  function makeFilename() {
+    let filename = normalizeSlug(street.name)
     if (filename === undefined) {
-      filename = 'street';
+      filename = 'street'
     }
-    filename += '.png';
+    filename += '.png'
 
-    return filename;
+    return filename
   }
 
   // When options change, this changes props.
-  const toggleTransparentSky = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const toggleTransparentSky = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateSettings({
         saveAsImageTransparentSky: event.target.checked,
-      }),
-    );
-  };
+      })
+    )
+  }
 
-  const toggleSegmentNames = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const toggleSegmentNames = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateSettings({
         saveAsImageSegmentNamesAndWidths: event.target.checked,
-      }),
-    );
-  };
+      })
+    )
+  }
 
-  const toggleStreetName = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }));
-  };
+  const toggleStreetName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
+  }
 
-  const toggleWatermark = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => {
-    dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }));
-  };
+  const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
+  }
 
-  const toggleNewExport = (): void => {
-    setNewExport(!isNewExport);
-  };
+  const toggleNewExport = () => {
+    setNewExport(!isNewExport)
+  }
 
-  const handleChangeScale = (value: number): void => {
-    setErrorMessage2(false); // Clears "too big" error if present
-    setScale(value);
-  };
+  const handleChangeScale = (value: number) => {
+    setErrorMessage2(false) // Clears "too big" error if present
+    setScale(value)
+  }
 
-  const handlePreviewLoaded = (): void => {
-    setIsLoading(false);
-  };
+  const handlePreviewLoaded = () => {
+    setIsLoading(false)
+  }
 
-  const handlePreviewError = (): void => {
-    setIsLoading(false);
+  const handlePreviewError = () => {
+    setIsLoading(false)
     setErrorMessage(
       intl.formatMessage({
         id: 'dialogs.save.error-preview',
         defaultMessage: 'There was an error displaying a preview image.',
-      }),
-    );
-  };
+      })
+    )
+  }
 
   /**
    * When download links are clicked, convert the dataURL to a blob for download.
    * Designed to get around a limitation in IE where a dataURL is not downloadable
    * directly (https://msdn.microsoft.com/en-us/library/cc848897(v=vs.85).aspx)
    */
-  const handleClickDownloadImage = (event: React.MouseEvent): void => {
-    event.preventDefault();
-    setIsSaving(true);
+  const handleClickDownloadImage = (event: React.MouseEvent) => {
+    event.preventDefault()
+    setIsSaving(true)
 
     if (isNewExport) {
-      const filename = makeFilename();
+      const filename = makeFilename()
       saveAs(
         `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
-        filename,
-      );
+        filename
+      )
       window.setTimeout(() => {
-        setIsSaving(false);
-      }, 0);
-      return;
+        setIsSaving(false)
+      }, 0)
+      return
     }
 
     try {
       // Update the image with the actual size before saving.
       // Images that are too large can throw an error, so catch it
       // and show an error
-      updatePreviewImage(scale);
+      updatePreviewImage(scale)
 
       imageCanvas.current?.toBlob((blob) => {
         // Also throw an error if blob is null, which is a possible input
         // value of toBlob() according to typescript
-        if (blob === null) throw new Error();
+        if (blob === null) throw new Error()
 
         // Save that file
-        const filename = makeFilename();
-        saveAs(blob, filename);
+        const filename = makeFilename()
+        saveAs(blob, filename)
         window.setTimeout(() => {
-          setIsSaving(false);
-        }, 0);
-      });
+          setIsSaving(false)
+        }, 0)
+      })
     } catch (err) {
-      setIsSaving(false);
-      setErrorMessage2(true);
+      setIsSaving(false)
+      setErrorMessage2(true)
     }
-  };
+  }
 
   const updatePreviewImage = (scale = 1): void => {
     // The preview is rendered at the default scale at first.
@@ -195,45 +187,45 @@ function SaveAsImageDialog(): React.ReactElement {
       streetName,
       DEFAULT_IMAGE_DPI * scale,
       watermark,
-      locale,
-    );
-  };
+      locale
+    )
+  }
 
   const updatePreview = (): void => {
     // If we're previewing using the new export image pipeline, set url
     // to the API export directly, then skip the rest of the function
     if (isNewExport) {
       setDownloadDataUrl(
-        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
-      );
-      return;
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
+      )
+      return
     }
 
-    updatePreviewImage(1);
+    updatePreviewImage(1)
     // Only set base dimensions when preview is generated at scale = 1.
     // The custom slider will update target dimensions by multiplying base * scale
     // which is faster than rendering the entire image and reading its dimensions.
     setBaseDimensions({
       width: imageCanvas.current?.width,
       height: imageCanvas.current?.height,
-    });
+    })
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() should not appear on any of the newer evergreen browsers.
     try {
-      const dataUrl = imageCanvas.current?.toDataURL('image/png');
-      if (dataUrl === undefined) throw new Error();
-      setDownloadDataUrl(dataUrl);
-      setErrorMessage(null);
+      const dataUrl = imageCanvas.current?.toDataURL('image/png')
+      if (dataUrl === undefined) throw new Error()
+      setDownloadDataUrl(dataUrl)
+      setErrorMessage(null)
     } catch (e) {
       setErrorMessage(
         intl.formatMessage({
           id: 'dialogs.save.error-unavailable',
           defaultMessage: 'Saving to image is not available on this browser.',
-        }),
-      );
+        })
+      )
     }
-  };
+  }
 
   return (
     <Dialog>
@@ -385,7 +377,7 @@ function SaveAsImageDialog(): React.ReactElement {
         </div>
       )}
     </Dialog>
-  );
+  )
 }
 
-export default SaveAsImageDialog;
+export default SaveAsImageDialog
