@@ -7,7 +7,7 @@
  * times it can be "darkened" (creating a translucent overlay)
  * showing messages or errors.
  */
-import React from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Button from '../ui/Button'
@@ -18,175 +18,159 @@ import './BlockingShield.css'
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
 
-export default class BlockingShield extends React.Component {
-  constructor (props) {
-    super(props)
+export default function BlockingShield() {
+  const el = useRef(null)
+  const blockingShieldTimerIdRef = useRef(-1)
+  const blockingShieldTooSlowTimerIdRef = useRef(-1)
 
-    this.el = React.createRef()
-    this.blockingShieldTimerId = -1
-    this.blockingShieldTooSlowTimerId = -1
+  const [visible, setVisible] = useState(false)
+  const [mode, setMode] = useState('load')
+  const [errorType, setErrorType] = useState(null)
+  const [immediate, setImmediate] = useState(false)
+  const [darken, setDarken] = useState(false)
+  const [showCancel, setShowCancel] = useState(false)
 
-    this.state = {
-      visible: false,
-      mode: 'load',
-      errorType: null,
-      immediate: false,
-      darken: false,
-      showCancel: false
-    }
-  }
+  const clearTimers = useCallback(() => {
+    window.clearTimeout(blockingShieldTimerIdRef.current)
+    window.clearTimeout(blockingShieldTooSlowTimerIdRef.current)
+  }, [])
 
-  /* TODO: move blocking shield state to Redux store */
-  componentDidMount () {
-    window.addEventListener(
-      'stmx:show_blocking_shield',
-      this.showBlockingShield
-    )
-    window.addEventListener(
-      'stmx:darken_blocking_shield',
-      this.darkenBlockingShield
-    )
-    window.addEventListener('stmx:hide_blocking_shield', this.hide)
-  }
+  const hide = useCallback(() => {
+    clearTimers()
 
-  componentWillUnmount () {
-    window.removeEventListener(
-      'stmx:show_blocking_shield',
-      this.showBlockingShield
-    )
-    window.removeEventListener(
-      'stmx:darken_blocking_shield',
-      this.darkenBlockingShield
-    )
-    window.removeEventListener('stmx:hide_blocking_shield', this.hide)
-  }
+    setVisible(false)
+    setErrorType(null)
+    setImmediate(false)
+    setDarken(false)
+    setShowCancel(false)
+  }, [clearTimers])
 
-  clearTimers = () => {
-    window.clearTimeout(this.blockingShieldTimerId)
-    window.clearTimeout(this.blockingShieldTooSlowTimerId)
-  }
+  const showBlockingShield = useCallback(
+    (event) => {
+      clearTimers()
 
-  showBlockingShield = (event) => {
-    this.clearTimers()
+      setVisible(true)
+      setMode(event.detail?.mode ?? 'load')
 
-    this.setState({
-      visible: true,
-      mode: event.detail?.mode ?? 'load'
-    })
+      blockingShieldTimerIdRef.current = window.setTimeout(() => {
+        setDarken(true)
+      }, BLOCKING_SHIELD_DARKEN_DELAY)
 
-    this.blockingShieldTimerId = window.setTimeout(() => {
-      this.setState({ darken: true })
-    }, BLOCKING_SHIELD_DARKEN_DELAY)
+      blockingShieldTooSlowTimerIdRef.current = window.setTimeout(() => {
+        setErrorType('too-slow')
+      }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
+    },
+    [clearTimers]
+  )
 
-    this.blockingShieldTooSlowTimerId = window.setTimeout(() => {
-      this.setState({ errorType: 'too-slow' })
-    }, BLOCKING_SHIELD_TOO_SLOW_DELAY)
-  }
+  const darkenBlockingShield = useCallback(
+    (event) => {
+      clearTimers()
 
-  darkenBlockingShield = (event) => {
-    this.clearTimers()
+      setVisible(true)
+      setImmediate(true)
+      setErrorType('try-again')
+      setShowCancel(event.detail?.showCancel ?? true)
+    },
+    [clearTimers]
+  )
 
-    this.setState({
-      visible: true,
-      immediate: true,
-      errorType: 'try-again',
-      showCancel: event.detail?.showCancel ?? true
-    })
-  }
-
-  handleClickTryAgain = (event) => {
-    this.setState({
-      errorType: null,
-      showCancel: false
-    })
+  const handleClickTryAgain = useCallback((event) => {
+    setErrorType(null)
+    setShowCancel(false)
 
     blockingTryAgain()
+  }, [])
+
+  const handleClickCancel = useCallback(
+    (event) => {
+      hide()
+
+      blockingCancel()
+    },
+    [hide]
+  )
+
+  /* TODO: move blocking shield state to Redux store */
+  useEffect(() => {
+    window.addEventListener('stmx:show_blocking_shield', showBlockingShield)
+    window.addEventListener('stmx:darken_blocking_shield', darkenBlockingShield)
+    window.addEventListener('stmx:hide_blocking_shield', hide)
+
+    return () => {
+      window.removeEventListener(
+        'stmx:show_blocking_shield',
+        showBlockingShield
+      )
+      window.removeEventListener(
+        'stmx:darken_blocking_shield',
+        darkenBlockingShield
+      )
+      window.removeEventListener('stmx:hide_blocking_shield', hide)
+      clearTimers()
+    }
+  }, [showBlockingShield, darkenBlockingShield, hide, clearTimers])
+
+  const classNames = ['blocking-shield']
+
+  if (!visible) {
+    classNames.push('hidden')
+  }
+  if (immediate) {
+    classNames.push('darken-immediately')
+  }
+  if (darken) {
+    classNames.push('darken')
   }
 
-  handleClickCancel = (event) => {
-    this.hide()
-
-    blockingCancel()
-  }
-
-  hide = () => {
-    this.clearTimers()
-
-    this.setState({
-      visible: false,
-      errorType: null,
-      immediate: false,
-      darken: false,
-      showCancel: false
-    })
-  }
-
-  render () {
-    const classNames = ['blocking-shield']
-
-    if (!this.state.visible) {
-      classNames.push('hidden')
-    }
-    if (this.state.immediate) {
-      classNames.push('darken-immediately')
-    }
-    if (this.state.darken) {
-      classNames.push('darken')
-    }
-
-    return (
-      <div
-        className={classNames.join(' ')}
-        ref={this.el}
-        hidden={!this.state.visible}
-      >
-        <h1>
-          {this.state.mode === 'load' && (
-            <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
-          )}
-          {this.state.mode === 'remix' && (
-            <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />
-          )}
-        </h1>
-        {this.state.errorType === 'try-again' && (
-          <div className="error-content">
-            <p>
-              <FormattedMessage
-                id="msg.no-connection"
-                defaultMessage="Streetmix is having trouble connecting to the Internet."
-              />
-            </p>
-            <Button primary onClick={this.handleClickTryAgain}>
-              <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
-            </Button>
-            {this.state.showCancel && (
-              <Button onClick={this.handleClickCancel}>
-                <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
-              </Button>
-            )}
-          </div>
+  return (
+    <div className={classNames.join(' ')} ref={el} hidden={!visible}>
+      <h1>
+        {mode === 'load' && (
+          <FormattedMessage id="msg.loading" defaultMessage="Loading…" />
         )}
-        {this.state.errorType === 'too-slow' && (
-          <div className="error-content">
-            <p>
-              <FormattedMessage
-                id="msg.slow-connection-1"
-                defaultMessage="Streetmix wasn’t able to connect to the Internet in awhile now."
-              />
-            </p>
-            <p>
-              <FormattedMessage
-                id="msg.slow-connection-2"
-                defaultMessage="You might want to reload the page and try again. Please note
-                    you might lose the latest change to the street. Sorry!"
-              />
-            </p>
-            <Button onClick={goReload}>
-              <FormattedMessage id="btn.reload" defaultMessage="Reload" />
-            </Button>
-          </div>
+        {mode === 'remix' && (
+          <FormattedMessage id="msg.remixing" defaultMessage="Remixing…" />
         )}
-      </div>
-    )
-  }
+      </h1>
+      {errorType === 'try-again' && (
+        <div className="error-content">
+          <p>
+            <FormattedMessage
+              id="msg.no-connection"
+              defaultMessage="Streetmix is having trouble connecting to the Internet."
+            />
+          </p>
+          <Button primary onClick={handleClickTryAgain}>
+            <FormattedMessage id="btn.try-again" defaultMessage="Try again" />
+          </Button>
+          {showCancel && (
+            <Button onClick={handleClickCancel}>
+              <FormattedMessage id="btn.cancel" defaultMessage="Cancel" />
+            </Button>
+          )}
+        </div>
+      )}
+      {errorType === 'too-slow' && (
+        <div className="error-content">
+          <p>
+            <FormattedMessage
+              id="msg.slow-connection-1"
+              defaultMessage="Streetmix wasn't able to connect to the Internet in awhile now."
+            />
+          </p>
+          <p>
+            <FormattedMessage
+              id="msg.slow-connection-2"
+              defaultMessage="You might want to reload the page and try again. Please note
+                  you might lose the latest change to the street. Sorry!"
+            />
+          </p>
+          <Button onClick={goReload}>
+            <FormattedMessage id="btn.reload" defaultMessage="Reload" />
+          </Button>
+        </div>
+      )}
+    </div>
+  )
 }
