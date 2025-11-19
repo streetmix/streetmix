@@ -53,8 +53,7 @@ const DEFAULT_MAP_LOCATION = {
   lng: -10.78,
 }
 
-// Override icon paths in stock Leaflet's stylesheet
-delete L.Icon.Default.prototype._getIconUrl
+// Override icon paths in Leaflet's stock stylesheet
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: '/images/marker-icon-2x.png',
   iconUrl: '/images/marker-icon.png',
