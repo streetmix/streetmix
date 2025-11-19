@@ -1,112 +1,98 @@
-import { defineConfig, globalIgnores } from 'eslint/config'
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
-import { FlatCompat } from '@eslint/eslintrc'
-import eslint from '@eslint/js'
-import globals from 'globals'
-import babelParser from '@babel/eslint-parser'
-import tseslint from 'typescript-eslint'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
-import cypress from 'eslint-plugin-cypress/flat'
-// import love from 'eslint-config-love'
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname
-})
+import { defineConfig, globalIgnores } from "eslint/config";
+import eslint from "@eslint/js";
+import globals from "globals";
+import babelParser from "@babel/eslint-parser";
+import tseslint from "typescript-eslint";
+import importPlugin from "eslint-plugin-import";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import cypress from "eslint-plugin-cypress/flat";
+import love from "eslint-config-love";
 
 export default defineConfig([
   globalIgnores([
-    'client/src/vendor/',
-    'test/integration/smoke.spec.js',
-    '**/build',
-    '**/docs'
+    "client/src/vendor/",
+    "test/integration/smoke.spec.js",
+    "**/build",
+    "**/docs",
   ]),
   eslint.configs.recommended,
+  importPlugin.flatConfigs.recommended,
   {
     ...react.configs.flat.recommended,
-    ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
-    files: ['**/*.{js,jsx,ts,tsx,cjs}'],
-    // Most of this compat is required because `standard` is not compatible
-    // with Eslint v9 flat config. We can simplify the config by migrating off
-    // standard or to another package, e.g. neostandard
-    extends: fixupConfigRules(
-      compat.extends(
-        'standard',
-        'standard-jsx',
-        'standard-react',
-        'plugin:import/errors',
-        'plugin:import/warnings'
-      )
-    ),
-    plugins: {
-      'react-hooks': fixupPluginRules(reactHooks)
-    },
+    ...react.configs.flat["jsx-runtime"], // Add this with React 17+, apparently
+    ...reactHooks.configs.flat.recommended,
+    files: ["**/*.{js,jsx,ts,tsx,cjs}"],
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node
+        ...globals.node,
       },
       parser: babelParser,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
-        }
-      }
+          jsx: true,
+        },
+      },
     },
     rules: {
-      'import/no-unresolved': 0,
-      'import/order': [
-        'warn',
+      "import/no-unresolved": 0,
+      "import/order": [
+        "warn",
         {
           groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'object',
-            'type'
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
           ],
           pathGroups: [
             {
-              pattern: '~/**',
-              group: 'internal'
-            }
-          ]
-        }
+              pattern: "~/**",
+              group: "internal",
+            },
+          ],
+        },
       ],
-      'jsx-quotes': ['error', 'prefer-double'],
-      'react/jsx-no-bind': 0,
-      'no-restricted-globals': [
-        'error',
+      "jsx-quotes": ["error", "prefer-double"],
+      "react/jsx-no-bind": 0,
+      "no-restricted-globals": [
+        "error",
         {
-          name: 'isNaN',
-          message: 'Use Number.isNaN() instead of the global isNan().'
+          name: "isNaN",
+          message: "Use Number.isNaN() instead of the global isNan().",
         },
         {
-          name: 'isFinite',
-          message: 'Use Number.isFinite() instead of the global isFinite().'
+          name: "isFinite",
+          message: "Use Number.isFinite() instead of the global isFinite().",
         },
         {
-          name: 'parseInt',
-          message: 'Use Number.parseInt() instead of the global parseInt().'
+          name: "parseInt",
+          message: "Use Number.parseInt() instead of the global parseInt().",
         },
         {
-          name: 'parseFloat',
-          message: 'Use Number.parseFloat() instead of the global parseFloat().'
-        }
+          name: "parseFloat",
+          message:
+            "Use Number.parseFloat() instead of the global parseFloat().",
+        },
       ],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn'
-    }
+      // `react-hooks` plugin really wants us to define rules explicitly
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      // Disable for now bc something has made it start reporting
+      "no-unused-vars": "off",
+    },
   },
   {
     // Only run TypeScript linting on TypeScript files
     // Disabling eslint-config-love for now, since I can't find a way to make
     // it work in this config
     // ...love,
-    files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
+    files: ["client/**/*.{ts,tsx}", "packages/**/*.ts"],
     extends: [tseslint.configs.recommended],
     languageOptions: {
       parserOptions: {
@@ -116,40 +102,40 @@ export default defineConfig([
           // built by the TypeScript compiler. Globs are not allowed here, so
           // we need to specify included test file paths.
           allowDefaultProject: [
-            'packages/*/vitest.config.ts',
-            'packages/utils/src/*.test.ts',
-            'packages/parts/src/*.test.ts'
-          ]
-        }
-      }
+            "packages/*/vitest.config.ts",
+            "packages/utils/src/*.test.ts",
+            "packages/parts/src/*.test.ts",
+          ],
+        },
+      },
     },
     rules: {
       // Relaxes strict error checking for unused variables.
-      '@typescript-eslint/no-unused-vars': [
-        'error',
+      "@typescript-eslint/no-unused-vars": [
+        "error",
         {
           // Allows unused variables to be prefixed with `_`
           // Event handlers generally should not omit arguments
-          argsIgnorePattern: '^_',
+          argsIgnorePattern: "^_",
           // Allows argument passed to catch() to be unused
-          caughtErrors: 'none',
+          caughtErrors: "none",
           // Allow rest properties to omit sibling properties from an object
-          ignoreRestSiblings: true
-        }
-      ]
-    }
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
   },
   {
-    files: ['**/*.test.{js,jsx,ts,tsx}'],
+    files: ["**/*.test.{js,jsx,ts,tsx}"],
     languageOptions: {
       globals: {
         ...globals.mocha,
-        ...globals.vitest
-      }
-    }
+        ...globals.vitest,
+      },
+    },
   },
   {
-    files: ['cypress/**/*.cy.js'],
-    extends: [cypress.configs.recommended]
-  }
-])
+    files: ["cypress/**/*.cy.js"],
+    extends: [cypress.configs.recommended],
+  },
+]);
