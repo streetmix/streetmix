@@ -1,7 +1,8 @@
-import { unique } from '../util/unique'
-import SEGMENT_COMPONENTS from './components.json'
-import SEGMENT_LOOKUP from './segment-lookup.json'
-import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info'
+import { unique } from '@streetmix/utils'
+
+import SEGMENT_COMPONENTS from './components.json' with { type: 'json' }
+import SEGMENT_LOOKUP from './segment-lookup.json' with { type: 'json' }
+import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
 
 export const COMPONENT_GROUPS = {
   LANES: 'lanes',
@@ -31,8 +32,8 @@ export function getSegmentLookup (type, variant) {
  *
  * @param {string} group - component group, one of values "lanes", "vehicles"
  *    or "objects"
- * @param {string} id - name of segment component, e.g. "scooter"
- * @returns {object} segmentInfo
+ * @param {string | undefined} id - name of segment component, e.g. "scooter"
+ * @returns {SegmentDefinition | UnknownSegmentDefinition} segmentInfo
  */
 export function getSegmentComponentInfo (group, id) {
   return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
@@ -176,48 +177,13 @@ function mergeVariantGraphics (variantGraphics) {
  *
  * @param {Object} details - details for segment `type` and of a specific
  *    `variant`
- * @param {Object} segmentRules - rules applied to the segment `type`
- * @returns {Object} variantInfo - object with any rules or segment info
+ * @param {SegmentDefinition['rules'] | undefined} segmentRules - rules applied to the segment `type`
+ * @returns {VariantInfo} variantInfo - object with any rules or segment info
  *    overrides
  */
 export function applySegmentInfoOverridesAndRules (details, segmentRules) {
   const { rules, ...segmentInfoOverrides } = details
   return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
-}
-
-/**
- * Based on the list of `lanes`, `markings`, `objects`, and/or `vehicles`
- * components that makes up the segment `type` and `variant`, this function
- * creates a graphics object with all the sprite definitions needed to
- * render the segment.
- *
- * @param {Object} components - all segment components that make up the
- *    segment `type` and `variant`
- * @returns {Object} sprites - all sprite definitions necessary to render the
- *    segment
- */
-
-const gatherAnalytics = (componentArray, mapSection) => {
-  // so what do we have?
-  if (!componentArray) return []
-
-  // if (componentArray.length > 0) {
-  //   console.log({ withAnalytics, componentArray })
-  // }
-  return {}
-}
-
-// serves up complete analytics data the a set of component variants that make
-// up a segment
-export function getSegmentAnalytics ({ objects, lanes, vehicles, markings }) {
-  // 1) Loop through each component group that makes up the segment.
-  const analytics = {}
-  analytics.vehicles = gatherAnalytics(vehicles, 'vehicles')
-  analytics.objects = gatherAnalytics(objects, 'objects')
-  analytics.lanes = gatherAnalytics(lanes, 'lanes')
-  analytics.markings = gatherAnalytics(markings, 'markings')
-
-  return analytics
 }
 
 /**

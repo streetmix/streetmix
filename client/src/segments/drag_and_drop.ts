@@ -1,4 +1,9 @@
 import { nanoid } from 'nanoid'
+import {
+  SegmentTypes,
+  getSegmentInfo,
+  getSegmentVariantInfo
+} from '@streetmix/parts'
 
 import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
@@ -15,7 +20,6 @@ import {
 } from '../store/slices/ui'
 import { generateRandSeed } from '../util/random'
 import { getWidthInMetric } from '../util/width_units'
-import { SegmentTypes, getSegmentInfo, getSegmentVariantInfo } from './info'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,

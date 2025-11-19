@@ -5,11 +5,11 @@
  */
 import React from 'react'
 import { IntlProvider } from 'react-intl'
+import { getAllSegmentInfo } from '@streetmix/parts'
 
 import { useSelector } from '../store/hooks'
 import Scrollable from '../ui/Scrollable'
 import { TooltipGroup } from '../ui/Tooltip'
-import { getAllSegmentInfo } from '../segments/info'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.css'
 

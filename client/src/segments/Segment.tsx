@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { useDrag, useDrop } from 'react-dnd'
+import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { PopupContainer } from '~/src/info_bubble/PopupContainer'
@@ -26,7 +27,6 @@ import {
   SLICE_WARNING_SLOPE_EXCEEDED_BERM
 } from './constants'
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
-import { getSegmentInfo } from './info'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
 import TestSlope from './TestSlope'
 import './Segment.css'
