@@ -4,6 +4,7 @@
       "files": ["*.{js,jsx,ts,tsx,cjs,mdx}"],
       "options": {
         "trailingComma": "es5",
+        "singleQuote": true,
         "htmlWhitespaceSensitivity": "strict"
       }
     },
