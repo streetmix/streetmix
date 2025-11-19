@@ -38,9 +38,7 @@ We do not use a strict BEM framework/naming convention for class names. Some goo
 
 ## JavaScript
 
-Our JavaScript code style is [Standard JS](https://standardjs.com/). We enforce code style with a combination of [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/).
-
-[![JavaScript Standard code style badge](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+Our JavaScript code style is enforced with a combination of [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/).
 
 Keep code concise, but consider readability. Resist the urge to play [code golf](https://en.wikipedia.org/wiki/Code_golf).
 
@@ -107,19 +105,7 @@ window.addEventListener("click", (e) => {
 
 ## React
 
-We extend the Standard JS ESLint rules with the [eslint-config-standard-react](https://github.com/standard/eslint-config-standard-react/) package.
-
-:::info
-
-We have only overridden one rule, [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes), to prefer double quotation marks in JSX attributes. This is because, unlike regular JavaScript, double quotation marks are _more_ typical in HTML, and this convention has carried over to JSX. You can see single quotes in JavaScript and double quotes for JSX attributes coexisting in [React documentation](https://reactjs.org/docs/introducing-jsx.html), and we believe developers expect this to be typical across the React ecosystem. This is a rare instance where we disagree with Standard JS's rule.
-
-:::
-
-### Additional guidelines
-
-- **Prefer functional components.** We'll let React developer Dan Abramov [do the talking](https://twitter.com/dan_abramov/status/993103559297204224) (and [the writing](https://overreacted.io/how-are-function-components-different-from-classes/)). Refactor existing class components to functional components only when it's cheap to do so.
-- **Lifecycle ordering.** For class components, lifecycle methods should be in a consistent order. Refer to [the Airbnb JSX guide](https://github.com/airbnb/javascript/tree/master/react#ordering) for guidance.
-- **State variable naming.** A variable that stores UI state as a boolean value should be named with the pattern `is[State]`. For instance, that's `state.isVisible === true`, and not `state.visible === true` Or `state.isEditing`, not `state.editing`.
+We use the [eslint-config-react](https://github.com/jsx-eslint/eslint-plugin-react) recommended rules.
 
 ## Commits {#code-commit-style}
 
