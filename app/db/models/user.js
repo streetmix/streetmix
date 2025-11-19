@@ -14,18 +14,18 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         unique: true,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       auth0Id: {
         type: DataTypes.STRING,
-        field: 'auth0_id'
+        field: 'auth0_id',
       },
       displayName: {
         type: DataTypes.STRING,
         field: 'display_name',
         validate: {
-          len: [0, 30]
-        }
+          len: [0, 30],
+        },
       },
       email: { type: DataTypes.STRING, unique: true },
       identities: DataTypes.JSON,
@@ -38,12 +38,12 @@ export default (sequelize, DataTypes) => {
           for every value in the array, check if its valid against the set of valid roles
           to do this we have a custom validator
           */
-          arrayIsValid (userRoles) {
+          arrayIsValid(userRoles) {
             if (!userRoles.every((value) => validUserRoles.includes(value))) {
               throw new Error('Role does not match list of valid roles')
             }
-          }
-        }
+          },
+        },
       },
       profileImageUrl: {
         // The maximum URL length should be "under 2000 characters"
@@ -53,34 +53,34 @@ export default (sequelize, DataTypes) => {
         // just slightly longer. Bumping to 2048 characters should prevent
         // SQL insert errors that block people from signing in.
         type: DataTypes.STRING(2048),
-        field: 'profile_image_url'
+        field: 'profile_image_url',
       },
       flags: DataTypes.JSON,
       data: DataTypes.JSON,
       lastStreetId: {
         type: DataTypes.INTEGER,
-        field: 'last_street_id'
+        field: 'last_street_id',
       },
       createdAt: { type: DataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: DataTypes.DATE, field: 'updated_at' }
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     },
     {
-      timestamp: true
+      timestamp: true,
     },
     {
       indexes: [
         {
           unique: true,
-          fields: ['email']
+          fields: ['email'],
         },
         {
-          fields: ['auth0_id']
+          fields: ['auth0_id'],
         },
         {
           unique: true,
-          fields: ['id']
-        }
-      ]
+          fields: ['id'],
+        },
+      ],
     }
   )
 
@@ -120,7 +120,7 @@ export default (sequelize, DataTypes) => {
     this.update((this.roles = newRoles))
   }
 
-  User.associate = function (models) {
+  User.associate = function (_models) {
     // associations can be defined here
   }
 

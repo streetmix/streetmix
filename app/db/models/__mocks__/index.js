@@ -5,14 +5,14 @@ const CONTAINS_KEY = 'CONTAINS_KEY'
 
 const StreetMock = DBConnectionMock.define('street', {
   creatorId: 'user1',
-  status: 'ACTIVE'
+  status: 'ACTIVE',
 })
 
 const VoteMock = DBConnectionMock.define('vote', {
   id: 'vote2',
   voterId: 'user2',
   streetId: 'street2',
-  data: {}
+  data: {},
 })
 const SequenceMock = DBConnectionMock.define('sequence')
 const UserMock = DBConnectionMock.define(
@@ -22,14 +22,14 @@ const UserMock = DBConnectionMock.define(
     name: 'Test User',
     id: 'user1',
     email: 'email@example.com',
-    profileImageUrl: 'http://example.com/example.gif'
+    profileImageUrl: 'http://example.com/example.gif',
   },
   {
     instanceMethods: {
       increment: function () {
         return this
-      }
-    }
+      },
+    },
   }
 )
 const ADMIN_DEFAULTS = {
@@ -37,43 +37,43 @@ const ADMIN_DEFAULTS = {
   profileImageUrl: 'http://example.com/example.gif',
   email: 'email@example.com',
   id: 'admin1',
-  roles: ['ADMIN']
+  roles: ['ADMIN'],
 }
 
 const USER_DEFAULTS = {
   auth0Id: 'foo|123',
   email: 'email@example.com',
-  id: 'user1'
+  id: 'user1',
 }
 
 const ALT_USER_DEFAULTS = {
   ...USER_DEFAULTS,
   auth0Id: 'bar|456',
-  id: 'user2'
+  id: 'user2',
 }
 
 const STREET_ONE = {
   id: 'street1',
-  creatorId: 'user1'
+  creatorId: 'user1',
 }
 const STREET_TWO = {
   id: 'street2',
-  creatorId: 'user2'
+  creatorId: 'user2',
 }
 
 const VOTE_ONE = {
   id: 'vote1',
   voterId: 'user2',
-  streetId: 'street2'
+  streetId: 'street2',
 }
 
 const VOTE_TWO = {
   id: 'vote2',
   voterId: 'user1',
-  streetId: 'street1'
+  streetId: 'street1',
 }
 
-VoteMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
+VoteMock.$queryInterface.$useHandler(function (query, queryOptions, _done) {
   if (query === 'findAll') {
     return [VoteMock.build(VOTE_ONE)]
   }
@@ -93,7 +93,7 @@ VoteMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
 
   return VoteMock.build(VOTE_ONE)
 })
-StreetMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
+StreetMock.$queryInterface.$useHandler(function (query, queryOptions, _done) {
   if (query === 'findAndCountAll') {
     return { rows: [StreetMock.build(STREET_ONE)], count: 1 }
   }
@@ -109,7 +109,7 @@ StreetMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
   return StreetMock.build(STREET_ONE)
 })
 
-UserMock.$queryInterface.$useHandler(function (query, queryOptions, done) {
+UserMock.$queryInterface.$useHandler(function (query, queryOptions, _done) {
   if (query === 'update') return [1, [UserMock.build(USER_DEFAULTS)]]
   if (
     queryOptions[0] &&
@@ -142,5 +142,5 @@ module.exports = {
   Street: StreetMock,
   Vote: VoteMock,
   User: UserMock,
-  Sequelize: { Op: { contains: CONTAINS_KEY } }
+  Sequelize: { Op: { contains: CONTAINS_KEY } },
 }

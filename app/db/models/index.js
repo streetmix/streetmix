@@ -29,7 +29,7 @@ const models = {
   Street,
   User,
   UserConnections,
-  Vote
+  Vote,
 }
 
 Object.values(models).forEach((modelDefiner) => {

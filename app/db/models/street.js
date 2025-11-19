@@ -5,72 +5,72 @@ export default (sequelize, DataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
       },
       namespacedId: {
         type: DataTypes.INTEGER,
-        field: 'namespaced_id'
+        field: 'namespaced_id',
       },
       status: {
         type: DataTypes.ENUM,
         values: ['ACTIVE', 'DELETED'],
-        defaultValue: 'ACTIVE'
+        defaultValue: 'ACTIVE',
       },
       name: DataTypes.STRING,
       creatorId: {
         type: DataTypes.STRING,
-        field: 'creator_id'
+        field: 'creator_id',
       },
       data: DataTypes.JSON,
       creatorIp: {
         type: DataTypes.STRING,
-        field: 'creator_ip'
+        field: 'creator_ip',
       },
       originalStreetId: {
         type: DataTypes.STRING,
-        field: 'original_street_id'
+        field: 'original_street_id',
       },
       clientUpdatedAt: {
         type: DataTypes.DATE,
-        field: 'client_updated_at'
+        field: 'client_updated_at',
       },
       createdAt: { type: DataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: DataTypes.DATE, field: 'updated_at' }
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     },
     {
       indexes: [
         {
           unique: true,
-          fields: ['namespaced_id', 'creator_id']
+          fields: ['namespaced_id', 'creator_id'],
         },
         {
           unique: true,
-          fields: ['id']
+          fields: ['id'],
         },
         {
-          fields: ['original_street_id']
-        }
-      ]
+          fields: ['original_street_id'],
+        },
+      ],
     },
     {
       timestamp: true,
       index: [
         {
-          fields: ['namespaced_id', 'created_at', 'updated_at']
-        }
-      ]
+          fields: ['namespaced_id', 'created_at', 'updated_at'],
+        },
+      ],
     }
   )
 
   Street.associate = function (models) {
     models.Street.belongsTo(models.User, {
       foreignKey: 'creatorId',
-      targetKey: 'id'
+      targetKey: 'id',
     })
 
     models.Street.belongsTo(models.Street, {
       foreignKey: 'originalStreetId',
-      targetKey: 'id'
+      targetKey: 'id',
     })
   }
 
