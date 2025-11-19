@@ -16,7 +16,7 @@ interface MapState {
 const initialState: MapState = {
   markerLocation: null,
   addressInformation: {},
-  rawInputString: null
+  rawInputString: null,
 }
 
 const mapSlice = createSlice({
@@ -24,22 +24,22 @@ const mapSlice = createSlice({
   initialState,
 
   reducers: {
-    setMapState (state, action: PayloadAction<MapState>) {
+    setMapState(state, action: PayloadAction<Partial<MapState>>) {
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       }
     },
 
-    resetMapState (_state) {
+    resetMapState(_state) {
       return initialState
-    }
+    },
   },
 
   extraReducers: (builder) => {
     // If location is cleared from the street, also reset map state.
     builder.addCase(clearLocation, () => initialState)
-  }
+  },
 })
 
 export const { setMapState, resetMapState } = mapSlice.actions
