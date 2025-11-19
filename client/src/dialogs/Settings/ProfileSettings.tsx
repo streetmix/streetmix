@@ -1,103 +1,103 @@
-import React, { useState, useRef, useId } from 'react'
-import { FormattedMessage, useIntl } from 'react-intl'
+import React, { useState, useRef, useId } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { updateDisplayName } from '~/src/store/slices/user'
-import Button from '~/src/ui/Button'
-import LoadingSpinner from '~/src/ui/LoadingSpinner'
-import Popover from '~/src/ui/Popover'
-import { patchUser } from '~/src/util/api'
-import './ProfileSettings.css'
+import { useSelector, useDispatch } from '~/src/store/hooks';
+import { updateDisplayName } from '~/src/store/slices/user';
+import Button from '~/src/ui/Button';
+import LoadingSpinner from '~/src/ui/LoadingSpinner';
+import Popover from '~/src/ui/Popover';
+import { patchUser } from '~/src/util/api';
+import './ProfileSettings.css';
 
-const DISPLAY_NAME_MAX_CHARS = 30
-const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10
+const DISPLAY_NAME_MAX_CHARS = 30;
+const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10;
 
-function ProfileSettings (): React.ReactElement | null {
-  const user = useSelector((state) => state.user.signInData?.details)
+function ProfileSettings(): React.ReactElement | null {
+  const user = useSelector((state) => state.user.signInData?.details);
   const [displayNameValue, setDisplayNameValue] = useState(
-    user?.displayName ?? user?.id ?? ''
-  )
-  const [isEditing, setEditing] = useState(false)
-  const [isPending, setPending] = useState(false)
-  const [isError, setError] = useState(false)
-  const displayNameInputRef = useRef<HTMLInputElement>(null)
-  const displayNameInputId = useId()
+    user?.displayName ?? user?.id ?? '',
+  );
+  const [isEditing, setEditing] = useState(false);
+  const [isPending, setPending] = useState(false);
+  const [isError, setError] = useState(false);
+  const displayNameInputRef = useRef<HTMLInputElement>(null);
+  const displayNameInputId = useId();
 
-  const intl = useIntl()
-  const dispatch = useDispatch()
+  const intl = useIntl();
+  const dispatch = useDispatch();
 
-  function handleEditDisplayName (): void {
-    setEditing(true)
+  function handleEditDisplayName(): void {
+    setEditing(true);
 
     // Focuses the input and selects it if has the default username
     // setTimeout of 0 is needed to run after render
     window.setTimeout(() => {
       if (displayNameInputRef.current) {
-        displayNameInputRef.current.focus()
+        displayNameInputRef.current.focus();
         if (displayNameValue === user?.id) {
-          displayNameInputRef.current.select()
+          displayNameInputRef.current.select();
         }
       }
-    }, 0)
+    }, 0);
   }
 
-  function handleResetDisplayName (): void {
-    setEditing(false)
-    setDisplayNameValue(user?.displayName ?? user?.id ?? '')
+  function handleResetDisplayName(): void {
+    setEditing(false);
+    setDisplayNameValue(user?.displayName ?? user?.id ?? '');
   }
 
-  function handleChangeDisplayName (
-    event: React.ChangeEvent<HTMLInputElement>
+  function handleChangeDisplayName(
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    setDisplayNameValue(event.target.value)
+    setDisplayNameValue(event.target.value);
   }
 
-  async function handleSaveDisplayName (): Promise<void> {
-    setPending(true)
+  async function handleSaveDisplayName(): Promise<void> {
+    setPending(true);
 
-    if (user === undefined) return
+    if (user === undefined) return;
 
     try {
       // Update display name
-      await patchUser(user.id, { displayName: displayNameValue })
+      await patchUser(user.id, { displayName: displayNameValue });
 
       // Update local data for it
-      dispatch(updateDisplayName(displayNameValue))
+      dispatch(updateDisplayName(displayNameValue));
 
       // Restore editing state
-      setError(false)
+      setError(false);
 
       // "Thinking time"
       window.setTimeout(() => {
-        setEditing(false)
-        setPending(false)
-      }, 500)
+        setEditing(false);
+        setPending(false);
+      }, 500);
     } catch (err) {
-      console.error('Profile settings error', err)
+      console.error('Profile settings error', err);
 
       // "Thinking time"
       window.setTimeout(() => {
-        setError(true)
-        setPending(false)
+        setError(true);
+        setPending(false);
         if (displayNameInputRef.current) {
-          displayNameInputRef.current.focus()
+          displayNameInputRef.current.focus();
         }
-      }, 500)
+      }, 500);
     }
   }
 
-  function handleSubmit (event: React.FormEvent): void {
-    event.preventDefault()
-    handleSaveDisplayName()
+  function handleSubmit(event: React.FormEvent): void {
+    event.preventDefault();
+    handleSaveDisplayName();
   }
 
   // Not signed-in users shouldn't see this,
   // but if they somehow access it, just refuse to render
   if (!user) {
-    return null
+    return null;
   }
 
-  const messages = []
+  const messages = [];
 
   if (
     isEditing &&
@@ -109,22 +109,22 @@ function ProfileSettings (): React.ReactElement | null {
         {
           id: 'settings.profile.display-name-characters-remaining',
           defaultMessage:
-            'Characters remaining: {currentNum} ({maxNum} maximum)'
+            'Characters remaining: {currentNum} ({maxNum} maximum)',
         },
         {
           currentNum: DISPLAY_NAME_MAX_CHARS - displayNameValue.length,
-          maxNum: DISPLAY_NAME_MAX_CHARS
-        }
-      )
-    )
+          maxNum: DISPLAY_NAME_MAX_CHARS,
+        },
+      ),
+    );
   }
   if (isError) {
     messages.push(
       intl.formatMessage({
         id: 'settings.profile..display-name-error',
-        defaultMessage: 'Display name could not be saved'
-      })
-    )
+        defaultMessage: 'Display name could not be saved',
+      }),
+    );
   }
 
   return (
@@ -175,7 +175,6 @@ function ProfileSettings (): React.ReactElement | null {
             />
           </Popover>
         </h3>
-        {/* eslint-disable-next-line */}
         {isEditing ? (
           <div className="profile-settings-editable">
             <form onSubmit={handleSubmit}>
@@ -239,7 +238,7 @@ function ProfileSettings (): React.ReactElement | null {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default ProfileSettings
+export default ProfileSettings;
