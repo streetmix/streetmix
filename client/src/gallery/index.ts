@@ -1,22 +1,24 @@
-import { showBlockingShield, hideBlockingShield } from '../app/blocking_shield'
-import { showError, ERRORS } from '../app/errors'
-import { MODES, processMode, setMode, getMode } from '../app/mode'
+import { hideBlockingShield, showBlockingShield } from '../app/blocking_shield'
+import { ERRORS, showError } from '../app/errors'
+import { getMode, MODES, processMode, setMode } from '../app/mode'
 import { segmentsChanged } from '../segments/view'
-import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
-import { saveStreetThumbnail, SAVE_THUMBNAIL_EVENTS } from '../streets/image'
-import { unpackServerStreetData } from '../streets/xhr'
 import store from '../store'
-import { resetMapState } from '../store/slices/map'
 import { hideError } from '../store/slices/errors'
+import { resetMapState } from '../store/slices/map'
+import { setIgnoreStreetChanges, setLastStreet } from '../streets/data_model'
+import { SAVE_THUMBNAIL_EVENTS, saveStreetThumbnail } from '../streets/image'
+import { unpackServerStreetData } from '../streets/xhr'
 import {
-  getStreet,
+  getGalleryForAllStreets,
   getGalleryForUser,
-  getGalleryForAllStreets
+  getStreet,
 } from '../util/api'
 
-let lastRequestedStreetId = null
+import type { Street } from '@streetmix/types'
 
-export function switchGalleryStreet (id) {
+let lastRequestedStreetId: string | null = null
+
+export function switchGalleryStreet(id: string) {
   // Save previous street's thumbnail before switching streets.
   saveStreetThumbnail(
     store.getState().street,
@@ -26,13 +28,13 @@ export function switchGalleryStreet (id) {
   fetchGalleryStreet(id)
 }
 
-function fetchGalleryStreet (streetId) {
+function fetchGalleryStreet(streetId: string) {
   showBlockingShield()
 
   lastRequestedStreetId = streetId
 
   getStreet(streetId)
-    .then((response) => {
+    .then((response): Street => {
       hideBlockingShield()
       return response.data
     })
@@ -41,7 +43,7 @@ function fetchGalleryStreet (streetId) {
 }
 
 // TODO similar to receiveLastStreet
-function receiveGalleryStreet (transmission) {
+function receiveGalleryStreet(transmission: Street) {
   // Reject stale transmissions
   if (transmission.id !== lastRequestedStreetId) {
     return
@@ -66,18 +68,17 @@ function receiveGalleryStreet (transmission) {
   store.dispatch(resetMapState())
 }
 
-function errorReceiveGalleryStreet (err) {
+function errorReceiveGalleryStreet(err: unknown) {
   console.log(err)
   showError(ERRORS.GALLERY_STREET_FAILURE, false)
   // updateGallerySelection()
 }
 
-export async function fetchGalleryData (userId) {
+export async function fetchGalleryData(userId: string) {
   try {
     if (userId) {
       const response = await getGalleryForUser(userId)
       const streets = receiveGalleryData(response.data)
-
       return streets
     } else {
       const response = await getGalleryForAllStreets()
@@ -87,7 +88,7 @@ export async function fetchGalleryData (userId) {
     }
   } catch (error) {
     // If the error is a 404, throw up a not-found page
-    if (error.response.status === 404) {
+    if (error.response?.status === 404) {
       setMode(MODES.NOT_FOUND)
       processMode()
     }
@@ -98,15 +99,12 @@ export async function fetchGalleryData (userId) {
   }
 }
 
-function receiveGalleryData (transmission) {
-  // Prepare data object
-  const streets = transmission.streets.map((street) => {
-    // There is a bug where sometimes street data is non-existent for an
-    // unknown reason. Skip over so that the rest of gallery will display
-    if (!street.data) return {}
-
-    return street
-  })
+function receiveGalleryData(transmission: { streets: Street[] }) {
+  // There is a bug where sometimes street data is non-existent for an
+  // unknown reason. Skip over so that the rest of gallery will display
+  const streets = transmission.streets.filter(
+    (street) => typeof street.data !== 'undefined'
+  )
 
   if (
     (getMode() === MODES.USER_GALLERY && streets.length) ||

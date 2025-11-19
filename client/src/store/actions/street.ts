@@ -7,13 +7,13 @@ import {
   RESIZE_TYPE_PRECISE_DRAGGING,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelSegmentResizeTransitions
+  cancelSegmentResizeTransitions,
 } from '../../segments/resizing'
 import { getVariantInfo } from '../../segments/variant_utils'
 import {
   setIgnoreStreetChanges,
   setLastStreet,
-  saveStreetToServerIfNecessary
+  saveStreetToServerIfNecessary,
 } from '../../streets/data_model'
 import { applyWarningsToSlices } from '../../streets/warnings'
 import { recalculateWidth } from '../../streets/width'
@@ -32,7 +32,7 @@ import {
   updateShowAnalytics,
   updateCapacitySource,
   saveStreetId,
-  saveOriginalStreetId
+  saveOriginalStreetId,
 } from '../slices/street'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble'
 import { setActiveSegment } from '../slices/ui'
@@ -46,7 +46,7 @@ import type { StreetState } from '@streetmix/types'
  *
  * @param width
  */
-export function updateStreetWidthAction (width: number) {
+export function updateStreetWidthAction(width: number) {
   return async (dispatch: Dispatch) => {
     await dispatch(updateStreetWidth(width))
     await dispatch(segmentsChanged())
@@ -86,7 +86,7 @@ export const removeSegmentAction = (segmentIndex: number) => {
           'toast.segment-deleted',
           'The segment has been removed.'
         ),
-        component: 'TOAST_UNDO'
+        component: 'TOAST_UNDO',
       })
     )
   }
@@ -107,7 +107,7 @@ export const clearSegmentsAction = () => {
           'toast.all-segments-deleted',
           'All segments have been removed.'
         ),
-        component: 'TOAST_UNDO'
+        component: 'TOAST_UNDO',
       })
     )
   }
@@ -203,6 +203,9 @@ export const getLastStreet = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const lastStreetId = getState().app.priorLastStreetId
     const { id, namespacedId } = getState().street
+
+    if (!lastStreetId) return
+
     try {
       const response = await apiClient.getStreet(lastStreetId)
       const data = response.data
@@ -212,7 +215,7 @@ export const getLastStreet = () => {
         updateSettings({
           lastStreetId: data.id,
           lastStreetNamespacedId: data.namespacedId,
-          lastStreetCreatorId: street.creatorId
+          lastStreetCreatorId: street.creatorId,
         })
       )
       dispatch(updateStreetData(street))

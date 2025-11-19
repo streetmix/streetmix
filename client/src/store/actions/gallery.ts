@@ -1,13 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchGalleryData } from '../../gallery/index'
-import { updatePageUrl } from '../../app/page_url'
-import { showError, ERRORS } from '../../app/errors'
-import { MODES, getMode, setMode } from '../../app/mode'
+
+import { ERRORS, showError } from '../../app/errors'
 import { onWindowFocus } from '../../app/event_handlers/focus'
+import { MODES, getMode, setMode } from '../../app/mode'
+import { updatePageUrl } from '../../app/page_url'
+import { fetchGalleryData } from '../../gallery/index'
+
+import type { RootState } from '../index'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
-  async ({ userId }, { rejectWithValue }) => {
+  async ({ userId }: { userId: string | null }, { rejectWithValue }) => {
     updatePageUrl(true, userId)
 
     // TODO: Handle modes better.
@@ -21,14 +24,14 @@ export const openGallery = createAsyncThunk(
 
     // Fetch data and catch errors if fetch goes wrong
     try {
-      const streets = await fetchGalleryData(userId)
+      const streets = await fetchGalleryData(userId ?? '')
       return { streets }
-    } catch (error) {
+    } catch (error: unknown) {
       // If the server error is 404, special rejection value
       // to display a "not-found" screen without the gallery
       if (error.response?.status === 404) {
         return rejectWithValue({
-          killGallery: true
+          killGallery: true,
         })
       }
 
@@ -38,9 +41,13 @@ export const openGallery = createAsyncThunk(
   }
 )
 
-export const closeGallery = createAsyncThunk(
+export const closeGallery = createAsyncThunk<
+  { instant: boolean },
+  { instant?: boolean } | undefined,
+  { state: RootState }
+>(
   'gallery/closeGallery',
-  ({ instant = false } = {}, { getState }) => {
+  async ({ instant = false } = {}, { getState }) => {
     const state = getState()
 
     if (!state.errors.abortEverything) {
@@ -60,6 +67,6 @@ export const closeGallery = createAsyncThunk(
       if (!visible) {
         return false
       }
-    }
+    },
   }
 )
