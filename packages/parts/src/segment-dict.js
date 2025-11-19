@@ -9,7 +9,7 @@ export const COMPONENT_GROUPS = {
   MARKINGS: 'markings',
   OBJECTS: 'objects',
   VEHICLES: 'vehicles',
-  EFFECTS: 'effects'
+  EFFECTS: 'effects',
 }
 
 /**
@@ -22,7 +22,7 @@ export const COMPONENT_GROUPS = {
  * @returns {object|boolean} segmentLookup - returns an object in the shape of:
  *   { details, components: { lanes, objects, vehicles } } or `false` if not found.
  */
-export function getSegmentLookup (type, variant) {
+export function getSegmentLookup(type, variant) {
   return SEGMENT_LOOKUP[type]?.details?.[variant]
 }
 
@@ -35,7 +35,7 @@ export function getSegmentLookup (type, variant) {
  * @param {string | undefined} id - name of segment component, e.g. "scooter"
  * @returns {SegmentDefinition | UnknownSegmentDefinition} segmentInfo
  */
-export function getSegmentComponentInfo (group, id) {
+export function getSegmentComponentInfo(group, id) {
   return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
 }
 
@@ -50,7 +50,7 @@ export function getSegmentComponentInfo (group, id) {
  * @returns {object} componentGroupInfo - returns object in shape of { id:
  *    { characteristics, rules, variants } }
  */
-function getComponentGroupInfo (group, groupItems) {
+function getComponentGroupInfo(group, groupItems) {
   return groupItems.reduce((obj, item) => {
     obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj
@@ -67,7 +67,7 @@ function getComponentGroupInfo (group, groupItems) {
  * @param {number|undefined} offsetY
  * @returns {object} graphicsWithOffsets
  */
-function applyOffsetsIfAnyToSprites (graphics, offsetX, offsetY) {
+function applyOffsetsIfAnyToSprites(graphics, offsetX, offsetY) {
   if (!offsetX && !offsetY) return graphics
 
   return Object.entries(graphics).reduce((graphicsWithOffsets, [key, id]) => {
@@ -88,7 +88,7 @@ function applyOffsetsIfAnyToSprites (graphics, offsetX, offsetY) {
  * @returns {Array} componentGroupVariants - returns array of graphic
  *    definitions in shape of [ { graphics } ]
  */
-function getComponentGroupVariants (groupItems, componentGroupInfo) {
+function getComponentGroupVariants(groupItems, componentGroupInfo) {
   return groupItems.reduce((array, item) => {
     const { id, offsetX, offsetY, variants } = item
     // groupItemVariants - all variants possible for the particular group item
@@ -132,7 +132,7 @@ function getComponentGroupVariants (groupItems, componentGroupInfo) {
  * @param {Array|string} source
  * @returns {Array} graphicsInfo
  */
-function appendVariantSprites (target, source) {
+function appendVariantSprites(target, source) {
   const targetArray = Array.isArray(target) ? target : [target]
   const sourceArray = Array.isArray(source) ? source : [source]
 
@@ -147,7 +147,7 @@ function appendVariantSprites (target, source) {
  * @param {Array} variantGraphics
  * @returns {object} graphics
  */
-function mergeVariantGraphics (variantGraphics) {
+function mergeVariantGraphics(variantGraphics) {
   return variantGraphics.reduce((graphics, variantInfo) => {
     if (variantInfo) {
       Object.keys(variantInfo).forEach((key) => {
@@ -181,7 +181,7 @@ function mergeVariantGraphics (variantGraphics) {
  * @returns {VariantInfo} variantInfo - object with any rules or segment info
  *    overrides
  */
-export function applySegmentInfoOverridesAndRules (details, segmentRules) {
+export function applySegmentInfoOverridesAndRules(details, segmentRules) {
   const { rules, ...segmentInfoOverrides } = details
   return Object.assign({}, segmentRules, rules, segmentInfoOverrides)
 }
@@ -197,7 +197,7 @@ export function applySegmentInfoOverridesAndRules (details, segmentRules) {
  * @returns {Object} sprites - all sprite definitions necessary to render the
  *    segment
  */
-export function getSegmentSprites (components) {
+export function getSegmentSprites(components) {
   // 1) Loop through each component group that makes up the segment.
   const sprites = Object.entries(components).reduce(
     (graphicsArray, componentGroup) => {

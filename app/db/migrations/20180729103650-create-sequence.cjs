@@ -6,15 +6,15 @@ module.exports = {
       id: {
         allowNull: false,
         type: Sequelize.STRING,
-        primaryKey: true
+        primaryKey: true,
       },
       seq: {
         type: Sequelize.INTEGER,
-        defaultValue: 1
-      }
+        defaultValue: 1,
+      },
     })
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Sequences')
-  }
+  },
 }

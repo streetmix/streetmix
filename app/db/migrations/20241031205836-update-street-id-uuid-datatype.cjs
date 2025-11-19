@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface) {
     return queryInterface.sequelize.query(`
       ALTER TABLE "Streets"
       ALTER COLUMN id
@@ -16,7 +16,7 @@ module.exports = {
     // })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface) {
     return queryInterface.sequelize.query(`
       ALTER TABLE "Streets"
       ALTER COLUMN id
@@ -26,5 +26,5 @@ module.exports = {
     // return queryInterface.changeColumn('Streets', 'id', {
     //   type: Sequelize.DataTypes.STRING
     // })
-  }
+  },
 }

@@ -6,32 +6,32 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       data: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       score: {
         type: Sequelize.DOUBLE,
-        defaultValue: 0
+        defaultValue: 0,
       },
       street_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       voter_id: {
-        type: Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+      },
     })
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Votes')
-  }
+  },
 }

@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.addColumn('Users', 'flags', Sequelize.JSON)
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.removeColumn('Users', 'flags')
-  }
+  },
 }

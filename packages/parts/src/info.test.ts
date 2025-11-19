@@ -3,7 +3,7 @@ import {
   getSpriteDef,
   getAllSegmentInfo,
   getSegmentInfo,
-  getSegmentVariantInfo
+  getSegmentVariantInfo,
 } from './info.js'
 
 // vi.mock(
@@ -22,14 +22,14 @@ describe('segment info', () => {
 
     expect(sprite).toEqual({
       id: 'foo',
-      originY: 120
+      originY: 120,
     })
   })
 
   it('overwrites sprite definition properties with an object', () => {
     const ref = {
       id: 'bar',
-      offsetX: 12
+      offsetX: 12,
     }
 
     const sprite = getSpriteDef(ref)

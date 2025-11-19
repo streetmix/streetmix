@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate (models) {
+    static associate(_models) {
       // define association here
     }
   }
@@ -18,23 +18,23 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       user_id: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       provider: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       provider_user_id: DataTypes.STRING,
       deleted: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       monetized: DataTypes.BOOLEAN,
-      metadata: DataTypes.JSON
+      metadata: DataTypes.JSON,
     },
     {
       sequelize,
@@ -42,9 +42,9 @@ export default (sequelize, DataTypes) => {
       indexes: [
         {
           unique: true,
-          fields: ['user_id', 'provider']
-        }
-      ]
+          fields: ['user_id', 'provider'],
+        },
+      ],
     }
   )
 

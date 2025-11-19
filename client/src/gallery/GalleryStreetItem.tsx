@@ -25,16 +25,14 @@ interface GalleryStreetItemProps {
   doDelete: (id: string) => void
 }
 
-function GalleryStreetItem (
-  props: GalleryStreetItemProps
-): React.ReactElement | null {
+function GalleryStreetItem(props: GalleryStreetItemProps) {
   const {
     street,
     showStreetOwner = true,
     selected = false,
     allowDelete = false,
     doSelect,
-    doDelete
+    doDelete,
   } = props
   const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
@@ -60,7 +58,7 @@ function GalleryStreetItem (
         transparentSky: false,
         labels: false,
         streetName: false,
-        watermark: false
+        watermark: false,
       })
     } catch (error) {
       console.error(error)
@@ -69,13 +67,13 @@ function GalleryStreetItem (
   }, [thumbnailEl, street, dpi])
 
   // Define event handlers
-  function handleSelectStreet (event: React.MouseEvent): void {
+  function handleSelectStreet(event: React.MouseEvent) {
     event.preventDefault()
     if (event.shiftKey || event.ctrlKey || event.metaKey) return
     doSelect(street.id)
   }
 
-  function handleDeleteStreet (event: React.MouseEvent): void {
+  function handleDeleteStreet(event: React.MouseEvent) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -83,15 +81,15 @@ function GalleryStreetItem (
       {
         id: 'prompt.delete-street',
         defaultMessage:
-          'Are you sure you want to permanently delete {streetName}? This cannot be undone.'
+          'Are you sure you want to permanently delete {streetName}? This cannot be undone.',
       },
       {
         streetName:
           street.name ??
           intl.formatMessage({
             id: 'street.default-name',
-            defaultMessage: 'Unnamed St'
-          })
+            defaultMessage: 'Unnamed St',
+          }),
       }
     )
 
@@ -117,7 +115,6 @@ function GalleryStreetItem (
       <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
         <div className="gallery-street-item-inner">
           <div className="gallery-street-item-canvas">
-            {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
             {isError ? (
               <div className="gallery-street-item-error">
                 <FormattedMessage
@@ -142,7 +139,7 @@ function GalleryStreetItem (
                   street.creatorId ??
                   intl.formatMessage({
                     id: 'users.anonymous',
-                    defaultMessage: 'Anonymous'
+                    defaultMessage: 'Anonymous',
                   })}
               </div>
             )}
@@ -161,7 +158,7 @@ function GalleryStreetItem (
           onClick={handleDeleteStreet}
           title={intl.formatMessage({
             id: 'gallery.delete-street-tooltip',
-            defaultMessage: 'Delete street'
+            defaultMessage: 'Delete street',
           })}
         >
           <Icon name="trash" />

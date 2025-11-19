@@ -17,7 +17,7 @@ import './SaveAsImageDialog.css'
 
 const DEFAULT_IMAGE_DPI = 2
 
-function SaveAsImageDialog (): React.ReactElement {
+function SaveAsImageDialog() {
   const imageCanvas = useRef<HTMLCanvasElement | null>(null)
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -30,7 +30,7 @@ function SaveAsImageDialog (): React.ReactElement {
   const {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
-    saveAsImageStreetName: streetName
+    saveAsImageStreetName: streetName,
   } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
@@ -75,7 +75,7 @@ function SaveAsImageDialog (): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scale, isNewExport])
 
-  function makeFilename (): string {
+  function makeFilename() {
     let filename = normalizeSlug(street.name)
     if (filename === undefined) {
       filename = 'street'
@@ -86,57 +86,49 @@ function SaveAsImageDialog (): React.ReactElement {
   }
 
   // When options change, this changes props.
-  const toggleTransparentSky = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const toggleTransparentSky = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateSettings({
-        saveAsImageTransparentSky: event.target.checked
+        saveAsImageTransparentSky: event.target.checked,
       })
     )
   }
 
-  const toggleSegmentNames = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const toggleSegmentNames = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       updateSettings({
-        saveAsImageSegmentNamesAndWidths: event.target.checked
+        saveAsImageSegmentNamesAndWidths: event.target.checked,
       })
     )
   }
 
-  const toggleStreetName = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const toggleStreetName = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
   }
 
-  const toggleWatermark = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
   }
 
-  const toggleNewExport = (): void => {
+  const toggleNewExport = () => {
     setNewExport(!isNewExport)
   }
 
-  const handleChangeScale = (value: number): void => {
+  const handleChangeScale = (value: number) => {
     setErrorMessage2(false) // Clears "too big" error if present
     setScale(value)
   }
 
-  const handlePreviewLoaded = (): void => {
+  const handlePreviewLoaded = () => {
     setIsLoading(false)
   }
 
-  const handlePreviewError = (): void => {
+  const handlePreviewError = () => {
     setIsLoading(false)
     setErrorMessage(
       intl.formatMessage({
         id: 'dialogs.save.error-preview',
-        defaultMessage: 'There was an error displaying a preview image.'
+        defaultMessage: 'There was an error displaying a preview image.',
       })
     )
   }
@@ -146,7 +138,7 @@ function SaveAsImageDialog (): React.ReactElement {
    * Designed to get around a limitation in IE where a dataURL is not downloadable
    * directly (https://msdn.microsoft.com/en-us/library/cc848897(v=vs.85).aspx)
    */
-  const handleClickDownloadImage = (event: React.MouseEvent): void => {
+  const handleClickDownloadImage = (event: React.MouseEvent) => {
     event.preventDefault()
     setIsSaving(true)
 
@@ -215,7 +207,7 @@ function SaveAsImageDialog (): React.ReactElement {
     // which is faster than rendering the entire image and reading its dimensions.
     setBaseDimensions({
       width: imageCanvas.current?.width,
-      height: imageCanvas.current?.height
+      height: imageCanvas.current?.height,
     })
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
@@ -229,7 +221,7 @@ function SaveAsImageDialog (): React.ReactElement {
       setErrorMessage(
         intl.formatMessage({
           id: 'dialogs.save.error-unavailable',
-          defaultMessage: 'Saving to image is not available on this browser.'
+          defaultMessage: 'Saving to image is not available on this browser.',
         })
       )
     }
@@ -280,7 +272,6 @@ function SaveAsImageDialog (): React.ReactElement {
                 />
               </Checkbox>
 
-              {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
               {isSubscriber ? (
                 <Checkbox onChange={toggleWatermark} checked={watermark}>
                   <FormattedMessage
@@ -295,7 +286,7 @@ function SaveAsImageDialog (): React.ReactElement {
                     // Default message ends with a Unicode-only left-right order mark
                     // to allow for proper punctuation in `rtl` text direction
                     // This character is hidden from editors by default!
-                    defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+                    defaultMessage: 'Upgrade to Streetmix+ to use!‎',
                   })}
                 >
                   <Checkbox
@@ -336,7 +327,7 @@ function SaveAsImageDialog (): React.ReactElement {
                       onError={handlePreviewError}
                       alt={intl.formatMessage({
                         id: 'dialogs.save.preview-image-alt',
-                        defaultMessage: 'Preview'
+                        defaultMessage: 'Preview',
                       })}
                     />
                   )}
@@ -362,7 +353,6 @@ function SaveAsImageDialog (): React.ReactElement {
                   />
                 </span>
               )}
-              {/* eslint-disable-next-line multiline-ternary -- Formatting conflicts with prettier */}
               {errorMessage === null && !isSaving ? (
                 <Button primary onClick={handleClickDownloadImage}>
                   <FormattedMessage

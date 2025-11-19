@@ -2,7 +2,7 @@ import {
   getSegmentLookup,
   getSegmentComponentInfo,
   applySegmentInfoOverridesAndRules,
-  getSegmentSprites
+  getSegmentSprites,
 } from './segment-dict.js'
 
 describe('getSegmentLookup()', () => {
@@ -44,8 +44,8 @@ describe('applySegmentInfoOverridesAndRules()', () => {
       name: 'Bar',
       nameKey: 'bar',
       rules: {
-        minWidth: 1
-      }
+        minWidth: 1,
+      },
     }
 
     const variantInfo = applySegmentInfoOverridesAndRules(details, segmentRules)
@@ -53,7 +53,7 @@ describe('applySegmentInfoOverridesAndRules()', () => {
       name: 'Bar',
       nameKey: 'bar',
       minWidth: 1,
-      maxWidth: 2
+      maxWidth: 2,
     })
   })
 })

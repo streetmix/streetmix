@@ -7,36 +7,36 @@ import SaveAsImageDialog from './SaveAsImageDialog'
 // Mock dependencies that could break tests
 vi.mock('../../streets/image', () => {
   return {
-    getStreetImage: () => {}
+    getStreetImage: () => {},
   }
 })
 
 const initialState = {
   locale: {
-    locale: 'en'
+    locale: 'en',
   },
   settings: {
     saveAsImageTransparentSky: false,
     saveAsImageSegmentNamesAndWidths: false,
     saveAsImageStreetName: false,
-    saveAsImageWatermark: true
+    saveAsImageWatermark: true,
   },
   street: {
-    name: 'foo'
+    name: 'foo',
   },
   user: {
-    isSubscriber: false
+    isSubscriber: false,
   },
   flags: {
     SAVE_AS_IMAGE_CUSTOM_DPI: { value: false },
-    SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE: { value: false }
-  }
+    SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE: { value: false },
+  },
 }
 
 describe('SaveAsImageDialog', () => {
   it('renders snapshot', () => {
     const { asFragment } = render(<SaveAsImageDialog />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })

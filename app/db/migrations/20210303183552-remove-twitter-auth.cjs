@@ -1,13 +1,13 @@
 'use strict'
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
         queryInterface.removeColumn('Users', 'twitter_id', { transaction: t }),
         queryInterface.removeColumn('Users', 'twitter_credentials', {
-          transaction: t
-        })
+          transaction: t,
+        }),
       ])
     })
   },
@@ -19,7 +19,7 @@ module.exports = {
           'Users',
           'twitter_id',
           {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
           },
           { transaction: t }
         ),
@@ -27,11 +27,11 @@ module.exports = {
           'Users',
           'twitter_credentials',
           {
-            type: Sequelize.JSON
+            type: Sequelize.JSON,
           },
           { transaction: t }
-        )
+        ),
       ])
     })
-  }
+  },
 }

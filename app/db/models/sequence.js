@@ -4,19 +4,19 @@ export default (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
       },
       seq: {
         type: DataTypes.INTEGER,
-        defaultValue: 1
-      }
+        defaultValue: 1,
+      },
     },
     {
-      timestamps: false
+      timestamps: false,
     }
   )
 
-  Sequence.associate = function (models) {
+  Sequence.associate = function (_models) {
     // associations can be defined here
   }
 
