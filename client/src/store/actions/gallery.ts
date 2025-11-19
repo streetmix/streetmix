@@ -6,9 +6,11 @@ import { MODES, getMode, setMode } from '../../app/mode'
 import { updatePageUrl } from '../../app/page_url'
 import { fetchGalleryData } from '../../gallery/index'
 
+import type { RootState } from '../index'
+
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
-  async ({ userId }, { rejectWithValue }) => {
+  async ({ userId }: { userId: string | null }, { rejectWithValue }) => {
     updatePageUrl(true, userId)
 
     // TODO: Handle modes better.
@@ -22,9 +24,9 @@ export const openGallery = createAsyncThunk(
 
     // Fetch data and catch errors if fetch goes wrong
     try {
-      const streets = await fetchGalleryData(userId)
+      const streets = await fetchGalleryData(userId ?? '')
       return { streets }
-    } catch (error) {
+    } catch (error: unknown) {
       // If the server error is 404, special rejection value
       // to display a "not-found" screen without the gallery
       if (error.response?.status === 404) {
@@ -39,9 +41,13 @@ export const openGallery = createAsyncThunk(
   }
 )
 
-export const closeGallery = createAsyncThunk(
+export const closeGallery = createAsyncThunk<
+  { instant: boolean },
+  { instant?: boolean } | undefined,
+  { state: RootState }
+>(
   'gallery/closeGallery',
-  ({ instant = false } = {}, { getState }) => {
+  async ({ instant = false } = {}, { getState }) => {
     const state = getState()
 
     if (!state.errors.abortEverything) {

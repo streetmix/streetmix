@@ -88,7 +88,7 @@ export async function fetchGalleryData(userId: string) {
     }
   } catch (error) {
     // If the error is a 404, throw up a not-found page
-    if (error.response.status === 404) {
+    if (error.response?.status === 404) {
       setMode(MODES.NOT_FOUND)
       processMode()
     }
