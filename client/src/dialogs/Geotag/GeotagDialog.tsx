@@ -173,7 +173,8 @@ function GeotagDialog() {
   const dpi = useSelector((state: RootState) => state.system.devicePixelRatio)
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
-  // Child component to handle click events in MapContainer
+  // This looks funny, but `useMapEvents` can only be called in a child of
+  // MapContainer. So this is a null component that exists only to call a hook
   function MapClick() {
     const map = useMapEvents({
       click(event: L.LeafletMouseEvent) {
