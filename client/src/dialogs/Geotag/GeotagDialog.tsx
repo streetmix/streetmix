@@ -27,7 +27,6 @@ import LocationMarker from './LocationMarker'
 import './GeotagDialog.css'
 
 import type { GeoJsonProperties, Position } from 'geojson'
-import type { LeafletEvent, LatLng, LeafletMouseEvent } from 'leaflet'
 import type { StreetState, LatLngObject } from '@streetmix/types'
 
 const ukrainianFlag =
@@ -133,17 +132,6 @@ function getInitialState({
   }
 }
 
-/*
-This Dialog uses the generic Dialog component and combines it with the GeoSearch
-and LocationPopup components as well as a map to display the coordinates on
-It handles:
-setting, displaying, and clearing location information associated with a 'street'
-user permission checks for whether location can be updated for a street based on the user
-reverse geocodeing based on user input (the user can click on the map to reverse geocode at the
-  clicked point, or it can drag the marker to a new location to confirm)
-
-It is tested primary via cypress at the moment
- */
 function GeotagDialog() {
   const street = useSelector((state: RootState) => state.street)
   const markerLocation = useSelector(
@@ -182,15 +170,13 @@ function GeotagDialog() {
   // `dpi` is a bad name for what is supposed to be referring to the devicePixelRatio
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load
   // higher resolution map tiles.
-  const dpi = useSelector(
-    (state: RootState) => state.system.devicePixelRatio || 1.0
-  )
+  const dpi = useSelector((state: RootState) => state.system.devicePixelRatio)
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
   // Child component to handle click events in MapContainer
   function MapClick() {
     const map = useMapEvents({
-      click(event: LeafletMouseEvent) {
+      click(event: L.LeafletMouseEvent) {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
@@ -201,7 +187,7 @@ function GeotagDialog() {
             lng: res.features[0].geometry.coordinates[0],
           }
           setZoom(zoom)
-          updateMap(latlng, res.features[0].properties, res.features[0].label)
+          updateMap(latlng, res.features[0].properties)
         })
       },
     })
@@ -209,18 +195,18 @@ function GeotagDialog() {
     return null
   }
 
-  const handleMarkerDragStart = (_event: LeafletEvent) => {
+  const handleMarkerDragStart = (_event: L.LeafletEvent) => {
     setRenderPopup(false)
   }
 
-  const handleMarkerDragEnd = (event) => {
+  const handleMarkerDragEnd = (event: L.LeafletEvent) => {
     const latlng = event.target.getLatLng()
     reverseGeocode(latlng).then((res) => {
       updateMap(latlng, res.features[0].properties)
     })
   }
 
-  const handleConfirmLocation = (_event) => {
+  const handleConfirmLocation = (_event: React.MouseEvent) => {
     const location = {
       latlng: markerLocation,
       wofId: addressInformation.id,
@@ -256,7 +242,9 @@ function GeotagDialog() {
     }>
   }
 
-  const reverseGeocode = (latlng: LatLng): Promise<ReverseGeocodeResponse> => {
+  const reverseGeocode = (
+    latlng: L.LatLng
+  ): Promise<ReverseGeocodeResponse> => {
     const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
 
     return window.fetch(url).then((response) => response.json())
@@ -276,7 +264,7 @@ function GeotagDialog() {
     updateMap(latlng, locationProperties)
   }
 
-  function updateMap(latlng, locationProperties) {
+  function updateMap(latlng: LatLngObject, locationProperties) {
     /*
     after the location position is updated,
     we need to update the map UI elements
@@ -308,13 +296,15 @@ function GeotagDialog() {
 
   /**
    * Location can be cleared from a street that has a saved location, and
-   * if that location is equal to the current marker position.
-   * This does not check for street ownership. See `canEditLocation()` for that.
+   * if that location is equal to the current marker position. This
+   * does not check for street ownership. See `canEditLocation()` for that.
    */
   const canClearLocation = () => {
-    const latlng = street.location?.lntlng ?? null
+    const latlng = street.location?.latlng
 
+    // Bail if either location object is missing
     if (!latlng || !marker) return false
+
     return latlng.lat === marker.lat && latlng.lng === marker.lng
   }
 

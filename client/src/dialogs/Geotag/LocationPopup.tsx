@@ -12,7 +12,7 @@ const POPUP_OFFSET: PointExpression = [0, -30]
 
 interface LocationPopupProps {
   position: LatLngObject
-  label: string
+  label?: string
   isEditable: boolean
   isClearable: boolean
   handleConfirm: (event: React.MouseEvent) => void
@@ -25,7 +25,7 @@ const LocationPopup = ({
   isEditable = false,
   isClearable = false,
   handleConfirm,
-  handleClear
+  handleClear,
 }: LocationPopupProps): React.ReactElement => {
   return (
     <Popup
@@ -37,27 +37,25 @@ const LocationPopup = ({
     >
       <div className="geotag-location-label">{label}</div>
       {isEditable &&
-        (isClearable
-          ? (
-            <div>
-              <Button tertiary onClick={handleClear}>
-                <FormattedMessage
-                  id="dialogs.geotag.clear-location"
-                  defaultMessage="Clear location"
-                />
-              </Button>
-            </div>
-            )
-          : (
-            <div>
-              <Button primary onClick={handleConfirm}>
-                <FormattedMessage
-                  id="dialogs.geotag.confirm-location"
-                  defaultMessage="Confirm location"
-                />
-              </Button>
-            </div>
-            ))}
+        (isClearable ? (
+          <div>
+            <Button tertiary onClick={handleClear}>
+              <FormattedMessage
+                id="dialogs.geotag.clear-location"
+                defaultMessage="Clear location"
+              />
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button primary onClick={handleConfirm}>
+              <FormattedMessage
+                id="dialogs.geotag.confirm-location"
+                defaultMessage="Confirm location"
+              />
+            </Button>
+          </div>
+        ))}
     </Popup>
   )
 }
