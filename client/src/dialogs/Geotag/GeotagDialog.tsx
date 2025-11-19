@@ -1,33 +1,32 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useIntl } from 'react-intl'
 import L from 'leaflet'
+import React, { useState } from 'react'
+import { useIntl } from 'react-intl'
 import {
+  AttributionControl,
   MapContainer,
   TileLayer,
-  ZoomControl,
-  AttributionControl,
   useMapEvents,
+  ZoomControl,
 } from 'react-leaflet'
 
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '~/src/app/config'
-import { isOwnedByCurrentUser } from '~/src/streets/owner'
+import { PELIAS_API_KEY, PELIAS_HOST_NAME } from '~/src/app/config'
+import { useDispatch, useSelector } from '~/src/store/hooks'
 import { setMapState } from '~/src/store/slices/map'
 import {
   addLocation,
   clearLocation,
   saveStreetName,
 } from '~/src/store/slices/street'
-import type { RootState } from '~/src/store'
+import { isOwnedByCurrentUser } from '~/src/streets/owner'
 import Dialog from '../Dialog'
 import ErrorBanner from './ErrorBanner'
 import GeoSearch from './GeoSearch'
-import LocationPopup from './LocationPopup'
-import LocationMarker from './LocationMarker'
 import './GeotagDialog.css'
+import LocationMarker from './LocationMarker'
+import LocationPopup from './LocationPopup'
 
+import type { LatLngObject, StreetState } from '@streetmix/types'
 import type { GeoJsonProperties, Position } from 'geojson'
-import type { StreetState, LatLngObject } from '@streetmix/types'
 
 const ukrainianFlag =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
@@ -122,17 +121,13 @@ function getInitialState({
 }
 
 function GeotagDialog() {
-  const street = useSelector((state: RootState) => state.street)
-  const markerLocation = useSelector(
-    (state: RootState) => state.map.markerLocation
-  )
+  const street = useSelector((state) => state.street)
+  const markerLocation = useSelector((state) => state.map.markerLocation)
   const addressInformation = useSelector(
-    (state: RootState) => state.map.addressInformation
+    (state) => state.map.addressInformation
   )
-  const userLocation = useSelector(
-    (state: RootState) => state.user.geolocation.data
-  )
-  const offline = useSelector((state: RootState) => state.system.offline)
+  const userLocation = useSelector((state) => state.user.geolocation.data)
+  const offline = useSelector((state) => state.system.offline)
 
   // this kinda goofy initial state object is a result of refactoring
   // some legacy code. definetly worth refactoring further in the future
@@ -158,7 +153,7 @@ function GeotagDialog() {
   // `dpi` is a bad name for what is supposed to be referring to the devicePixelRatio
   // value. A devicePixelRatio higher than 1 (e.g. Retina or 4k monitors) will load
   // higher resolution map tiles.
-  const dpi = useSelector((state: RootState) => state.system.devicePixelRatio)
+  const dpi = useSelector((state) => state.system.devicePixelRatio)
   const tileUrl = dpi > 1 ? MAP_TILES_2X : MAP_TILES
 
   // This looks funny, but `useMapEvents` can only be called in a child of
