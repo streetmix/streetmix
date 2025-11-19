@@ -1,18 +1,18 @@
 /**
  * It's kinda the same as BlockingError, but not
  *
- * Blocking shield is an overlay over the screen that prevents
- * interaction. At its most basic version it is fully transparent
- * and allows other UI to take priority (e.g. gallery). At other
- * times it can be "darkened" (creating a translucent overlay)
- * showing messages or errors.
+ * Blocking shield is an overlay over the screen that prevents interaction.
+ * At its most basic version it is fully transparent and allows other UI to
+ * take priority (e.g. gallery). At other times it can be "darkened" (creating
+ * a translucent overlay) showing messages or errors.
  */
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import Button from '../ui/Button'
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
 import { goReload } from './routing'
+
 import './BlockingShield.css'
 
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
@@ -25,7 +25,7 @@ export default function BlockingShield() {
 
   const [visible, setVisible] = useState(false)
   const [mode, setMode] = useState('load')
-  const [errorType, setErrorType] = useState(null)
+  const [errorType, setErrorType] = useState<string | null>(null)
   const [immediate, setImmediate] = useState(false)
   const [darken, setDarken] = useState(false)
   const [showCancel, setShowCancel] = useState(false)
@@ -46,7 +46,7 @@ export default function BlockingShield() {
   }, [clearTimers])
 
   const showBlockingShield = useCallback(
-    (event) => {
+    (event: CustomEventInit<{ mode: string }>) => {
       clearTimers()
 
       setVisible(true)
@@ -64,7 +64,7 @@ export default function BlockingShield() {
   )
 
   const darkenBlockingShield = useCallback(
-    (event) => {
+    (event: CustomEventInit<{ showCancel: boolean }>) => {
       clearTimers()
 
       setVisible(true)
@@ -75,7 +75,7 @@ export default function BlockingShield() {
     [clearTimers]
   )
 
-  const handleClickTryAgain = useCallback((event) => {
+  const handleClickTryAgain = useCallback((_event: React.MouseEvent) => {
     setErrorType(null)
     setShowCancel(false)
 
@@ -83,7 +83,7 @@ export default function BlockingShield() {
   }, [])
 
   const handleClickCancel = useCallback(
-    (event) => {
+    (_event: React.MouseEvent) => {
       hide()
 
       blockingCancel()
