@@ -10,7 +10,7 @@ module.exports = {
     // would not be longer than 1024 characters. See the issue at
     // https://github.com/streetmix/streetmix/issues/2335 for more information.
     await queryInterface.changeColumn('Users', 'profile_image_url', {
-      type: Sequelize.STRING(1024)
+      type: Sequelize.STRING(1024),
     })
   },
 
@@ -50,11 +50,11 @@ module.exports = {
           'Users',
           'profile_image_url',
           {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
           },
           { transaction: t }
-        )
+        ),
       ])
     })
-  }
+  },
 }

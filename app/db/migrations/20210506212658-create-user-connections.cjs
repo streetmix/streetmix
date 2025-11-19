@@ -7,39 +7,39 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       provider: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       provider_user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       deleted: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       monetized: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       metadata: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     })
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('UserConnections')
-  }
+  },
 }

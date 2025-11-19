@@ -6,46 +6,46 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       namespaced_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       status: {
         type: Sequelize.ENUM,
         values: ['ACTIVE', 'DELETED'],
-        defaultValue: 'ACTIVE'
+        defaultValue: 'ACTIVE',
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       creator_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       data: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       client_updated_at: {
         allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       creator_ip: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       original_street_id: {
-        type: Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+      },
     })
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Streets')
-  }
+  },
 }

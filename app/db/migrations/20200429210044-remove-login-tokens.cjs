@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     return queryInterface.removeColumn('Users', 'login_tokens')
   },
 
@@ -11,5 +11,5 @@ module.exports = {
       'login_tokens',
       Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.TEXT)
     )
-  }
+  },
 }

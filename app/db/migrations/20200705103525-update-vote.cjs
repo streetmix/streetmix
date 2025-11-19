@@ -10,7 +10,7 @@ module.exports = {
           'Votes',
           'submitted',
           {
-            type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.TEXT)
+            type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.TEXT),
           },
           { transaction: t }
         ),
@@ -18,19 +18,19 @@ module.exports = {
           'Votes',
           'comment',
           {
-            type: Sequelize.DataTypes.STRING(MAX_COMMENT_LENGTH)
+            type: Sequelize.DataTypes.STRING(MAX_COMMENT_LENGTH),
           },
           { transaction: t }
-        )
+        ),
       ])
     })
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
         queryInterface.removeColumn('Votes', 'submitted', { transaction: t }),
-        queryInterface.removeColumn('Votes', 'comment', { transaction: t })
+        queryInterface.removeColumn('Votes', 'comment', { transaction: t }),
       ])
     })
-  }
+  },
 }

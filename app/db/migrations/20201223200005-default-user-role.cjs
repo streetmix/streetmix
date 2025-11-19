@@ -1,16 +1,17 @@
 'use strict'
 const { DataTypes } = require('sequelize')
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     return queryInterface.changeColumn('Users', 'roles', {
       type: DataTypes.ARRAY(DataTypes.TEXT),
-      defaultValue: ['USER']
+      defaultValue: ['USER'],
     })
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.changeColumn('Users', 'roles', {
-      type: DataTypes.ARRAY(DataTypes.TEXT)
+      type: DataTypes.ARRAY(DataTypes.TEXT),
     })
-  }
+  },
 }

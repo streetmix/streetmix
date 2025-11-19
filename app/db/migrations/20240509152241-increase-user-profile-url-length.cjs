@@ -7,13 +7,13 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.changeColumn('Users', 'profile_image_url', {
-      type: Sequelize.STRING(2048)
+      type: Sequelize.STRING(2048),
     })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     // See the comment in 20210506170155-update-user-profile-url
     // for why we use this pattern here when we roll back this step.
     return queryInterface.sequelize.transaction((t) => {
@@ -30,11 +30,11 @@ module.exports = {
           'Users',
           'profile_image_url',
           {
-            type: Sequelize.STRING(1024)
+            type: Sequelize.STRING(1024),
           },
           { transaction: t }
-        )
+        ),
       ])
     })
-  }
+  },
 }
