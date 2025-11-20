@@ -53,6 +53,10 @@ export interface StreetBoundary {
   elevation: number
 }
 
+export interface GeolocationData {
+  countryCode: string
+}
+
 // Subset of @types/leaflet's `LatLngExpression` type, which is not
 // serializable. Don't use that one.
 export interface LatLngObject {

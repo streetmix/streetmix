@@ -66,54 +66,9 @@ const router = Router()
  *   GeolocationResponse:
  *     type: object
  *     properties:
- *       ip:
- *         type: string
- *       type:
- *         type: string
- *         example: "ipv4"
- *       continent_code:
- *         type: string
- *         example: "NA"
- *       continent_name:
- *         type: string
- *         example: "North America"
- *       country_code:
+ *       countryCode:
  *         type: string
  *         example: "US"
- *       country_name:
- *         type: string
- *         example: "United States"
- *       region_code:
- *         type: string
- *         example: "NY"
- *       region_name:
- *         type: string
- *         example: "New York"
- *       city:
- *         type: string
- *         example: "Astoria"
- *       zip:
- *         type: string
- *         example: "11106"
- *       latitude:
- *         type: number
- *         format: float
- *       longitude:
- *         type: number
- *         format: float
- *       location:
- *         type: object
- *         properties:
- *           geoname_id:
- *             type: integer
- *             example: 5107464
- *           capital:
- *             type: string
- *             example: "Washington D.C."
- *           languages:
- *             type: array
- *             items:
- *               $ref: '#/definitions/Language'
  *   StreetImageData:
  *     type: object
  *     properties:

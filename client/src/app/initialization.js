@@ -28,11 +28,11 @@ import { loadImages } from './load_resources'
 
 let serverContacted
 
-export function setServerContacted (value) {
+export function setServerContacted(value) {
   serverContacted = value
 }
 
-function preInit () {
+function preInit() {
   initSystemCapabilities()
   setIgnoreStreetChanges(true)
 
@@ -50,7 +50,7 @@ function preInit () {
   observeStoreToUpdateBodyClasses()
 }
 
-export async function initialize () {
+export async function initialize() {
   preInit()
 
   window.dispatchEvent(new window.CustomEvent('stmx:init'))
@@ -71,8 +71,8 @@ export async function initialize () {
   // This dispatch returns a Promise. We await it so we can update
   // settings when it's retrieved. TODO: handle this in Redux
   const geo = await store.dispatch(detectGeolocation())
-  if (geo?.payload?.country_code) {
-    updateSettingsFromCountryCode(geo.payload.country_code)
+  if (geo?.payload?.countryCode) {
+    updateSettingsFromCountryCode(geo.payload.countryCode)
   }
 
   // Parallel tasks
@@ -89,7 +89,7 @@ export async function initialize () {
   checkIfEverythingIsLoaded()
 }
 
-export function checkIfEverythingIsLoaded () {
+export function checkIfEverythingIsLoaded() {
   if (store.getState().errors.abortEverything) {
     return
   }
@@ -99,7 +99,7 @@ export function checkIfEverythingIsLoaded () {
   }
 }
 
-function onEverythingLoaded () {
+function onEverythingLoaded() {
   if (getMode() === MODES.NEW_STREET_COPY_LAST) {
     fetchLastStreet()
   }
@@ -127,13 +127,13 @@ function onEverythingLoaded () {
     store.dispatch(
       openGallery({
         userId: store.getState().gallery.userId,
-        instant: true
+        instant: true,
       })
     )
   } else if (mode === MODES.GLOBAL_GALLERY) {
     store.dispatch(
       openGallery({
-        instant: true
+        instant: true,
       })
     )
   }
@@ -191,7 +191,7 @@ function onEverythingLoaded () {
   }
 }
 
-function showConsoleMessage () {
+function showConsoleMessage() {
   console.log(
     `%c
   ____  _    %cWelcome to%c   _             _      _
@@ -217,7 +217,7 @@ function showConsoleMessage () {
  * Toggle features based on system state. (This allows toggling to debug things,
  * which will allow us to remove the debug URL parameters as a future TODO)
  */
-function observeStoreToUpdateBodyClasses () {
+function observeStoreToUpdateBodyClasses() {
   const select = (state) => ({ system: state.system, app: state.app })
   const onChange = (state) => {
     document.body.classList.toggle('windows', state.system.windows)
