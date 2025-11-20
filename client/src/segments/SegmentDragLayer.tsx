@@ -71,13 +71,6 @@ function SegmentDragLayer() {
     }
   }, [isDragging, currentOffset, prevOffset, type, item])
 
-  if (item && item.slope === false) {
-    item.slope = {
-      left: item.elevation,
-      right: item.elevation,
-    }
-  }
-
   return (
     <div className="segment-drag-layer">
       {isDragging && item && 'id' in item && (

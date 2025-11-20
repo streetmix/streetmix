@@ -6,7 +6,7 @@ import { STREET_TEMPLATES } from '../app/constants'
 import {
   normalizeSegmentWidth,
   resolutionForResizeType,
-  RESIZE_TYPE_INITIAL
+  RESIZE_TYPE_INITIAL,
 } from '../segments/resizing'
 import { getElevationValue } from '../segments/elevation'
 import { getVariantString } from '../segments/variant_utils'
@@ -31,16 +31,16 @@ import type {
   SliceItemTemplate,
   StreetState,
   StreetTemplate,
-  UnitsSetting
+  UnitsSetting,
 } from '@streetmix/types'
 
 // TODO: put together with other measurement conversion code?
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 33
+const LATEST_SCHEMA_VERSION = 34
 
-function processTemplateSlices (
+function processTemplateSlices(
   slices: SliceItemTemplate[],
   units: UnitsSetting
 ) {
@@ -54,7 +54,7 @@ function processTemplateSlices (
     const slice = {
       ...clone(sliceTemplate),
       id: nanoid(),
-      warnings: [false]
+      warnings: [false],
     } as SliceItem
 
     // We mirror the street slices when in left-hand traffic mode,
@@ -118,17 +118,17 @@ function processTemplateSlices (
   return processed
 }
 
-function processTemplateBoundaries (
+function processTemplateBoundaries(
   boundary: StreetTemplate['boundary'],
   units: UnitsSetting
 ): StreetTemplate['boundary'] {
   const processed = {
     left: {
-      ...boundary.left
+      ...boundary.left,
     },
     right: {
-      ...boundary.right
-    }
+      ...boundary.right,
+    },
   }
 
   // Create boundary ids
@@ -150,7 +150,7 @@ function processTemplateBoundaries (
 }
 
 // Exported for test only
-export function createStreetData (data: StreetTemplate, units: UnitsSetting) {
+export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   const currentDate = new Date().toISOString()
   const slices = processTemplateSlices(data.slices, units)
   const boundary = processTemplateBoundaries(data.boundary, units)
@@ -176,7 +176,7 @@ export function createStreetData (data: StreetTemplate, units: UnitsSetting) {
     clientUpdatedAt: currentDate,
     creatorId,
     ...data,
-    boundary
+    boundary,
   }
 
   // Cleanup
@@ -204,7 +204,7 @@ export function createStreetData (data: StreetTemplate, units: UnitsSetting) {
   return street
 }
 
-export function prepareStreet (type: string) {
+export function prepareStreet(type: string) {
   const units = store.getState().settings.units
 
   let streetTemplate
