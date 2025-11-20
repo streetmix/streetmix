@@ -5,19 +5,20 @@ describe('calculateSlope', () => {
     const street = {
       segments: [
         { width: 4, elevation: 0 },
-        { width: 4, slope: true },
-        { width: 4, elevation: 0.125 }
-      ]
+        { width: 4, slope: { on: true, values: [0, 0.125] } },
+        { width: 4, elevation: 0.125 },
+      ],
     }
     expect(calculateSlope(street, 1)).toEqual({
+      values: [0, 0.125],
       leftElevation: 0,
       rightElevation: 0.125,
       slope: '3.13',
       ratio: 32,
       warnings: {
         slopeExceededBerm: false,
-        slopeExceededPath: false
-      }
+        slopeExceededPath: false,
+      },
     })
   })
 
@@ -26,19 +27,20 @@ describe('calculateSlope', () => {
       width: 20,
       segments: [
         { width: 4, elevation: 0 },
-        { width: 4, slope: true },
-        { width: 4, elevation: 1 }
-      ]
+        { width: 4, slope: { on: true, values: [0, 1] } },
+        { width: 4, elevation: 1 },
+      ],
     }
     expect(calculateSlope(street, 1)).toEqual({
+      values: [0, 1],
       leftElevation: 0,
       rightElevation: 1,
       slope: '25.00',
       ratio: 4,
       warnings: {
         slopeExceededBerm: false,
-        slopeExceededPath: true
-      }
+        slopeExceededPath: true,
+      },
     })
   })
 
@@ -46,19 +48,20 @@ describe('calculateSlope', () => {
     const street = {
       segments: [
         { width: 4, elevation: 0 },
-        { width: 4, slope: true },
-        { width: 4, elevation: 2 }
-      ]
+        { width: 4, slope: { on: true, values: [0, 2] } },
+        { width: 4, elevation: 2 },
+      ],
     }
     expect(calculateSlope(street, 1)).toEqual({
+      values: [0, 2],
       leftElevation: 0,
       rightElevation: 2,
       slope: '50.00',
       ratio: 2,
       warnings: {
         slopeExceededBerm: true,
-        slopeExceededPath: true
-      }
+        slopeExceededPath: true,
+      },
     })
   })
 
@@ -70,18 +73,19 @@ describe('calculateSlope', () => {
       segments: [
         { width: 4, elevation: 0 },
         { width: 4, elevation: 0 },
-        { width: 4, elevation: 2 }
-      ]
+        { width: 4, elevation: 2 },
+      ],
     }
     expect(calculateSlope(street, 1)).toEqual({
+      values: [0, 2],
       leftElevation: 0,
       rightElevation: 2,
       slope: '0.00',
       ratio: undefined,
       warnings: {
         slopeExceededBerm: false,
-        slopeExceededPath: false
-      }
+        slopeExceededPath: false,
+      },
     })
   })
 })

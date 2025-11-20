@@ -7,7 +7,7 @@ import { drawSegmentContents, getVariantInfoDimensions } from './view'
 import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
 import './SegmentCanvas.css'
 
-import type { ElevationChange } from '@streetmix/types'
+import type { SlopeProperties } from '@streetmix/types'
 
 const GROUND_BASELINE = CANVAS_HEIGHT - GROUND_BASELINE_HEIGHT
 
@@ -17,17 +17,17 @@ interface SegmentCanvasProps {
   variantString: string
   randSeed: string
   elevation: number
-  slope: ElevationChange
+  slope: SlopeProperties
 }
 
-function SegmentCanvas ({
+function SegmentCanvas({
   actualWidth,
   type,
   variantString,
   randSeed,
   elevation,
-  slope
-}: SegmentCanvasProps): React.ReactElement {
+  slope,
+}: SegmentCanvasProps) {
   const [firstRender, setFirstRender] = useState(true)
   const canvasEl = useRef<HTMLCanvasElement>(null)
   const dpi = useSelector((state) => state.system.devicePixelRatio)
@@ -57,7 +57,7 @@ function SegmentCanvas ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variantString, actualWidth, elevation, redrawCanvas, slope])
 
-  function drawSegment (canvas: HTMLCanvasElement): void {
+  function drawSegment(canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
@@ -100,7 +100,7 @@ function SegmentCanvas ({
     height: elementHeight,
     // Left placement uses decimal.js to fix rounding errors that lead to gaps
     // This is slower than raw math so don't do it for height
-    left: new Decimal(dimensions.left).times(TILE_SIZE).round().toNumber()
+    left: new Decimal(dimensions.left).times(TILE_SIZE).round().toNumber(),
   }
 
   return (

@@ -7,7 +7,7 @@ import { round } from '@streetmix/utils'
 
 import logger from './logger.js'
 
-const LATEST_SCHEMA_VERSION = 33
+const LATEST_SCHEMA_VERSION = 34
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -41,8 +41,9 @@ const LATEST_SCHEMA_VERSION = 33
 // 31: fix for streets with old units setting
 // 32: add 'boundary' property to replace left/right building properties
 // 33: elevation adjustments
+// 34: add slope properties
 
-export function updateToLatestSchemaVersion (street) {
+export function updateToLatestSchemaVersion(street) {
   // Clone original street
   let updatedStreet = JSON.parse(JSON.stringify(street))
   let updated = false
@@ -69,7 +70,7 @@ export function updateToLatestSchemaVersion (street) {
   return [updated, updatedStreet]
 }
 
-function incrementSchemaVersion (street) {
+function incrementSchemaVersion(street) {
   if (street.schemaVersion === undefined) {
     // Fix a bug in 2018 where a street did not have a schema version
     // when it should've.
@@ -262,7 +263,7 @@ function incrementSchemaVersion (street) {
       if (street.location && Array.isArray(street.location.latlng)) {
         street.location.latlng = {
           lat: street.location.latlng[0],
-          lng: street.location.latlng[1]
+          lng: street.location.latlng[1],
         }
       }
       break
@@ -497,14 +498,14 @@ function incrementSchemaVersion (street) {
           id: nanoid(),
           variant: street.leftBuildingVariant,
           floors: street.leftBuildingHeight,
-          elevation: 1
+          elevation: 1,
         },
         right: {
           id: nanoid(),
           variant: street.rightBuildingVariant,
           floors: street.rightBuildingHeight,
-          elevation: 1
-        }
+          elevation: 1,
+        },
       }
 
       // Delete deprecated properties
@@ -530,25 +531,22 @@ function incrementSchemaVersion (street) {
       // Elevation for boundaries are also adjusted to metric values.
       const conversion = 0.3048
       for (const i in street.segments) {
-        const segment = street.segments[i]
-        if (segment.type === 'drainage-channel' && segment.elevation === -2) {
-          segment.elevation = 0
-        } else if (
-          segment.type === 'transit-shelter' &&
-          segment.elevation === 2
-        ) {
+        const slice = street.segments[i]
+        if (slice.type === 'drainage-channel' && slice.elevation === -2) {
+          slice.elevation = 0
+        } else if (slice.type === 'transit-shelter' && slice.elevation === 2) {
           if (street.units === 1) {
             // Converts 2.5' to metric
-            segment.elevation = round(2.5 * conversion, 3)
+            slice.elevation = round(2.5 * conversion, 3)
           } else {
-            segment.elevation = 0.75
+            slice.elevation = 0.75
           }
-        } else if (segment.elevation === 1) {
+        } else if (slice.elevation === 1) {
           if (street.units === 1) {
             // Converts 6" to metric
-            segment.elevation = round(0.5 * conversion, 3)
+            slice.elevation = round(0.5 * conversion, 3)
           } else {
-            segment.elevation = 0.15
+            slice.elevation = 0.15
           }
         }
       }
@@ -566,6 +564,21 @@ function incrementSchemaVersion (street) {
       } else {
         street.boundary.left.elevation = street.boundary.left.elevation * 0.15
         street.boundary.right.elevation = street.boundary.right.elevation * 0.15
+      }
+
+      break
+    }
+    case 33: {
+      // 34: add slope properties
+      // By default, slices are not sloped (`on` is `false`).
+      // `values` is initialized as an empty array, which is interpreted as
+      // "same elevation as the `elevation` property"
+      for (const i in street.segments) {
+        const slice = street.segments[i]
+        slice.slope = {
+          on: false,
+          values: [],
+        }
       }
 
       break

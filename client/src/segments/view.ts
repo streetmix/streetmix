@@ -1,7 +1,7 @@
 import {
   getSegmentInfo,
   getSegmentVariantInfo,
-  getSpriteDef
+  getSpriteDef,
 } from '@streetmix/parts'
 import { percentToNumber } from '@streetmix/utils'
 
@@ -20,18 +20,18 @@ import {
   MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
-  GROUND_BASELINE_HEIGHT
+  GROUND_BASELINE_HEIGHT,
 } from './constants'
 import PEOPLE from './people.yaml'
 
 import type {
   BoundaryPosition,
-  ElevationChange,
+  SlopeProperties,
   Segment,
   SpriteDefinition,
   UnknownVariantInfo,
   VariantInfo,
-  VariantInfoDimensions
+  VariantInfoDimensions,
 } from '@streetmix/types'
 
 // Adjust spacing between people to be slightly closer
@@ -54,7 +54,7 @@ const PERSON_SPRITE_OFFSET_Y = 10 // in pixels
  * @param multiplier - scale to draw at (default = 1)
  * @param dpi
  */
-export function drawSegmentImage (
+export function drawSegmentImage(
   id: string,
   ctx: CanvasRenderingContext2D,
   sx: number = 0,
@@ -137,7 +137,7 @@ export function drawSegmentImage (
  * @param variantInfo - segment variant info
  * @param actualWidth - segment's actual real life width
  */
-export function getVariantInfoDimensions (
+export function getVariantInfoDimensions(
   variantInfo: VariantInfo | UnknownVariantInfo,
   actualWidth: number = 0
 ): VariantInfoDimensions {
@@ -248,12 +248,12 @@ export function getVariantInfoDimensions (
   return {
     left: left / TILE_SIZE_ACTUAL,
     right: right / TILE_SIZE_ACTUAL,
-    center: center / TILE_SIZE_ACTUAL
+    center: center / TILE_SIZE_ACTUAL,
   }
 }
 
 // Convert single string or object values to single-item array
-function normalizeSpriteDefs (
+function normalizeSpriteDefs(
   def: string | SpriteDefinition[]
 ): SpriteDefinition[] {
   return Array.isArray(def) ? def : [{ id: def }]
@@ -266,21 +266,22 @@ function normalizeSpriteDefs (
  * @param elevation
  * @returns pixels
  */
-export function getElevation (elevation: number): number {
+export function getElevation(elevation: number): number {
   return elevation * TILE_SIZE
 }
 
 // Ground rendering helper functions
-function getCanvasElevation (elev: number, scale: number): number {
+function getCanvasElevation(elev: number, scale: number): number {
   return (getElevation(elev) + GROUND_BASELINE_HEIGHT) * scale
 }
 
-function drawGroundPattern (
+function drawGroundPattern(
   ctx: CanvasRenderingContext2D,
   dw: number,
   dx: number,
   groundBaseline: number,
-  slope: ElevationChange,
+  elevation: number,
+  slope: SlopeProperties,
   spriteId: string,
   multiplier: number = 1,
   dpi: number
@@ -305,17 +306,21 @@ function drawGroundPattern (
   // Save context state before drawing ground pattern
   ctx.save()
 
+  // Handle slopes or flat ground
+  // This also handles if slope.values is an empty array
+  const leftElevation = slope.on ? (slope.values[0] ?? elevation) : elevation
+  const rightElevation = slope.on ? (slope.values[1] ?? elevation) : elevation
+  const leftCanvasValue = getCanvasElevation(leftElevation, multiplier)
+  const rightCanvasValue = getCanvasElevation(rightElevation, multiplier)
+
   // Draw a shape representing the ground
   ctx.beginPath()
   // Bottom left
   ctx.moveTo(dx, ground * dpi)
   // Top left
-  ctx.lineTo(dx, (ground - getCanvasElevation(slope.left, multiplier)) * dpi)
+  ctx.lineTo(dx, (ground - leftCanvasValue) * dpi)
   // Top right
-  ctx.lineTo(
-    dx + dw,
-    (ground - getCanvasElevation(slope.right, multiplier)) * dpi
-  )
+  ctx.lineTo(dx + dw, (ground - rightCanvasValue) * dpi)
   // Bottom right
   ctx.lineTo(dx + dw, ground * dpi)
   ctx.closePath()
@@ -343,7 +348,7 @@ function drawGroundPattern (
  * @param multiplier
  * @param dpi
  */
-export function drawSegmentContents (
+export function drawSegmentContents(
   ctx: CanvasRenderingContext2D,
   type: string,
   variantString: string,
@@ -351,7 +356,7 @@ export function drawSegmentContents (
   offsetLeft: number,
   groundBaseline: number,
   elevation: number,
-  slope: ElevationChange,
+  slope: SlopeProperties,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -397,6 +402,7 @@ export function drawSegmentContents (
         segmentWidth,
         offsetLeft + x,
         groundBaseline,
+        elevation,
         slope,
         sprite.id,
         multiplier,
@@ -712,7 +718,7 @@ export function drawSegmentContents (
   }
 }
 
-export function getLocaleSegmentName (
+export function getLocaleSegmentName(
   type: string,
   variantString: string
 ): string {
@@ -728,7 +734,7 @@ export function getLocaleSegmentName (
 /**
  * TODO: remove this
  */
-export function segmentsChanged (): void {
+export function segmentsChanged(): void {
   const street = store.getState().street
   const calculatedWidths = recalculateWidth(street)
   const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
@@ -750,7 +756,7 @@ export function segmentsChanged (): void {
  * @params name - Segment label to check
  * @returns normalized / sanitized segment label
  */
-function normalizeSegmentLabel (label: string): string | undefined {
+function normalizeSegmentLabel(label: string): string | undefined {
   label = label.trim()
 
   // If label is the empty string, return undefined
@@ -772,7 +778,7 @@ function normalizeSegmentLabel (label: string): string | undefined {
  * @param segment - object describing the segment to edit
  * @param position - index of segment to edit
  */
-export function editSegmentLabel (segment: Segment, position: number): void {
+export function editSegmentLabel(segment: Segment, position: number): void {
   const prevLabel =
     segment.label || getLocaleSegmentName(segment.type, segment.variantString)
 
@@ -805,7 +811,7 @@ export function editSegmentLabel (segment: Segment, position: number): void {
  *              or a number for the position of the segment. Should be
  *              the `segmentIndex` or `position` variables.
  */
-export function getSegmentEl (position: number | BoundaryPosition): HTMLElement {
+export function getSegmentEl(position: number | BoundaryPosition): HTMLElement {
   let segmentEl: HTMLElement
 
   if (position === BUILDING_LEFT_POSITION) {

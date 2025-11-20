@@ -10,7 +10,7 @@ import { calculateSlope } from '../segments/slope'
 import {
   getVariantInfoDimensions,
   drawSegmentContents,
-  getLocaleSegmentName
+  getLocaleSegmentName,
 } from '../segments/view'
 import { formatMessage } from '../locales/locale'
 import { SAVE_AS_IMAGE_LABEL_PADDING } from './image'
@@ -19,7 +19,8 @@ import type {
   CSSGradientDeclaration,
   SkyboxDefWithStyles,
   SkyboxObject,
-  StreetState
+  SlopeProperties,
+  StreetState,
 } from '@streetmix/types'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
@@ -49,7 +50,7 @@ const SKY_GAP = 120 // pixels
 /**
  * Draws sky.
  */
-function drawSky (
+function drawSky(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   width: number, // width of area to draw
@@ -107,7 +108,7 @@ function drawSky (
 /**
  * Draws a layer of background color
  */
-function drawBackgroundColor (
+function drawBackgroundColor(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw (scaled)
   height: number, // height of area to draw (scaled)
@@ -122,7 +123,7 @@ function drawBackgroundColor (
 /**
  * Draws background image as a repeating pattern.
  */
-function drawBackgroundImage (
+function drawBackgroundImage(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -152,7 +153,7 @@ function drawBackgroundImage (
 /**
  * Draws background linear gradient.
  */
-function drawBackgroundGradient (
+function drawBackgroundGradient(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -177,7 +178,7 @@ function drawBackgroundGradient (
 /**
  * Draws background linear gradient.
  */
-function drawBackgroundObjects (
+function drawBackgroundObjects(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -191,7 +192,7 @@ function drawBackgroundObjects (
       width: imageWidth,
       height: imageHeight,
       top,
-      left
+      left,
     } = object
     const image = images.get(imageId).img
     ctx.drawImage(
@@ -209,7 +210,7 @@ function drawBackgroundObjects (
 /**
  * Draws clouds.
  */
-function drawClouds (
+function drawClouds(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -265,7 +266,7 @@ function drawClouds (
 /**
  * Draws earth (soil and dirt below ground).
  */
-function drawEarth (
+function drawEarth(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   width: number, // width of area to draw
@@ -312,7 +313,7 @@ function drawEarth (
 /**
  * Draws buildings.
  */
-function drawBoundaries (
+function drawBoundaries(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   width: number, // width of area to draw
@@ -380,7 +381,7 @@ function drawBoundaries (
 /**
  * Draws slices.
  */
-function drawSlices (
+function drawSlices(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   dpi: number, // pixel density of canvas
@@ -415,14 +416,15 @@ function drawSlices (
         const randSeed = slice.id
 
         // Slope
+        // TODO: slope values should be calced elsewhere and saved
         const slopeData = calculateSlope(street, i)
-        const elevationChange = {
-          left: slice.elevation,
-          right: slice.elevation
+        const slopeTemp: SlopeProperties = {
+          // Also handle old schema versions without slope property
+          on: slice.slope?.on ?? false,
+          values: [],
         }
-        if (slice.slope && slopeData !== null) {
-          elevationChange.left = slopeData.leftElevation
-          elevationChange.right = slopeData.rightElevation
+        if (slopeData !== null) {
+          slopeTemp.values = slopeData.values
         }
 
         drawSegmentContents(
@@ -433,7 +435,7 @@ function drawSlices (
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
           slice.elevation,
-          elevationChange,
+          slopeTemp,
           randSeed,
           multiplier,
           dpi
@@ -448,7 +450,7 @@ function drawSlices (
 /**
  * Draws the segment names background.
  */
-function drawLabelBackground (
+function drawLabelBackground(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -468,7 +470,7 @@ function drawLabelBackground (
 /**
  * Draws segment names and widths.
  */
-function drawLabels (
+function drawLabels(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState,
   dpi: number, // pixel density of canvas
@@ -542,7 +544,7 @@ function drawLabels (
 /**
  * Turns drawn objects on canvas into a single-colour silhouette
  */
-function drawSilhouette (
+function drawSilhouette(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   width: number, // width of area to draw
   height: number, // height of area to draw
@@ -558,7 +560,7 @@ function drawSilhouette (
 /**
  * Draws street nameplate
  */
-function drawStreetNameplate (
+function drawStreetNameplate(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetState, // street data
   width: number, // width of area to draw
@@ -619,7 +621,7 @@ function drawStreetNameplate (
 /**
  * Draws a "made with Streetmix" watermark on the lower right of the image.
  */
-function drawWatermark (
+function drawWatermark(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   dpi: number, // pixel density of canvas
   invert = false // if `true`, render light text for dark background
@@ -630,7 +632,7 @@ function drawWatermark (
     {
       // Replace the {placeholder} with itself. Later, this is used to
       // render the logo image in place of the text.
-      streetmixWordmark: '{streetmixWordmark}'
+      streetmixWordmark: '{streetmixWordmark}',
     }
   )
   const wordmarkImage = invert
@@ -704,7 +706,7 @@ interface ThumbnailOptions {
 /**
  * Draws street image to 2D canvas element.
  */
-export function drawStreetThumbnail (
+export function drawStreetThumbnail(
   ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
   street: StreetState, // Street data
   {
@@ -717,7 +719,7 @@ export function drawStreetThumbnail (
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
     watermark = true, // If `true`, include Streetmix watermark
-    locale = 'en'
+    locale = 'en',
   }: ThumbnailOptions
 ): void {
   // Calculations

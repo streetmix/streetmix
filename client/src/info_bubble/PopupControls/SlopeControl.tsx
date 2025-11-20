@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { segmentsChanged } from '~/src/segments/view'
 import { useSelector, useDispatch } from '~/src/store/hooks'
-import { changeSegmentProperties } from '~/src/store/slices/street'
+import { toggleSliceSlope } from '~/src/store/slices/street'
 import Switch from '~/src/ui/Switch'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -12,10 +12,10 @@ interface SlopeControlProps {
   position: number | BoundaryPosition
 }
 
-export function SlopeControl ({ position }: SlopeControlProps) {
-  const slope = useSelector((state) => {
+export function SlopeControl({ position }: SlopeControlProps) {
+  const isSloped = useSelector((state) => {
     if (typeof position === 'number') {
-      return state.street.segments[position].slope ?? false
+      return state.street.segments[position].slope.on
     } else {
       return false
     }
@@ -23,9 +23,9 @@ export function SlopeControl ({ position }: SlopeControlProps) {
 
   const dispatch = useDispatch()
 
-  function handleSlopeChange (checked: boolean): void {
+  function handleSlopeChange(checked: boolean): void {
     if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { slope: checked }))
+      dispatch(toggleSliceSlope(position, checked))
       segmentsChanged()
     }
   }
@@ -41,7 +41,7 @@ export function SlopeControl ({ position }: SlopeControlProps) {
         <FormattedMessage id="segments.controls.slope" defaultMessage="Slope" />
       </div>
       <div>
-        <Switch onCheckedChange={handleSlopeChange} checked={slope} />
+        <Switch onCheckedChange={handleSlopeChange} checked={isSloped} />
       </div>
     </div>
   )
