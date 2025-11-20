@@ -44,7 +44,7 @@ function GeoSearch({ map, handleResults }: GeoSearchProps) {
     if (!selection) return
 
     handleResults(
-      selection.geometry.coordinates.reverse(),
+      selection.geometry.coordinates.toReversed(),
       selection.properties
     )
     inputEl.current?.focus()
