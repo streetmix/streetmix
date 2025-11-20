@@ -55,14 +55,7 @@ function SegmentCanvas({
 
     // Only redraw on certain specific prop changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    variantString,
-    actualWidth,
-    elevation,
-    redrawCanvas,
-    slope.on,
-    JSON.stringify(slope.values),
-  ])
+  }, [variantString, actualWidth, elevation, redrawCanvas, slope])
 
   function drawSegment(canvas: HTMLCanvasElement): void {
     const ctx = canvas.getContext('2d')
