@@ -36,14 +36,6 @@ const initialState = {
       id: 'polyline123',
     },
   },
-  user: {
-    geolocation: {
-      data: {
-        lat: 10,
-        lng: 10,
-      },
-    },
-  },
   system: {
     devicePixelRatio: 1,
     offline: false,

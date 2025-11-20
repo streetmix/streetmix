@@ -71,7 +71,7 @@ exports[`GeotagDialog > renders 1`] = `
                     <img
                       alt=""
                       class="leaflet-tile"
-                      src="https://c.basemaps.cartocdn.com/rastertiles/voyager/12/2047/2047.png"
+                      src="https://c.basemaps.cartocdn.com/rastertiles/voyager/18/131071/131071.png"
                       style="width: 256px; height: 256px; left: -251px; top: -221px;"
                     />
                   </div>
@@ -146,9 +146,9 @@ exports[`GeotagDialog > renders 1`] = `
                   class="leaflet-control-zoom leaflet-bar leaflet-control"
                 >
                   <a
-                    aria-disabled="false"
+                    aria-disabled="true"
                     aria-label="Zoom in"
-                    class="leaflet-control-zoom-in"
+                    class="leaflet-control-zoom-in leaflet-disabled"
                     href="#"
                     role="button"
                     title="Zoom in"
