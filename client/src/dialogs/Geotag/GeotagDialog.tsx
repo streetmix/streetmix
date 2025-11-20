@@ -5,6 +5,7 @@ import {
   AttributionControl,
   MapContainer,
   TileLayer,
+  useMap,
   useMapEvents,
   ZoomControl,
 } from 'react-leaflet'
@@ -26,7 +27,12 @@ import LocationMarker from './LocationMarker'
 import LocationPopup from './LocationPopup'
 
 import type { LatLngObject, StreetState } from '@streetmix/types'
-import type { GeoJsonProperties, Position } from 'geojson'
+import type {
+  FeatureCollection,
+  GeoJsonProperties,
+  Point,
+  Position,
+} from 'geojson'
 
 const ukrainianFlag =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
@@ -43,7 +49,7 @@ const MAP_ATTRIBUTION =
 // propose features to Leaflet.
 const MAP_ATTRIBUTION_PREFIX = `<a href="https://leafletjs.com" title="A JavaScript library for interactive maps" target="_blank" rel="noopener noreferrer">${ukrainianFlag} Leaflet</a>`
 // zoom level for a closer, 'street' zoom level
-const MAP_LOCATION_ZOOM = 12
+const MAP_LOCATION_ZOOM = 18
 // Default location if geo IP not detected; this hovers over the Atlantic Ocean
 const DEFAULT_MAP_ZOOM = 2
 const DEFAULT_MAP_LOCATION = {
@@ -62,14 +68,12 @@ interface GetInitialStateParams {
   street: StreetState
   markerLocation: LatLngObject | null
   addressInformation: GeoJsonProperties
-  userLocation: { latitude: number; longitude: number } | null
 }
 
 function getInitialState({
   street,
   markerLocation,
   addressInformation,
-  userLocation,
 }: GetInitialStateParams) {
   // Determine initial map center, and what to display
   let mapCenter, zoom, marker, label
@@ -98,14 +102,6 @@ function getInitialState({
     zoom = MAP_LOCATION_ZOOM
     marker = markerLocation
     label = addressInformation?.label
-    // If there's no prior location data, use the user's location, if available
-    // In this case, display the map view, but no marker or popup
-  } else if (userLocation && userLocation.longitude) {
-    mapCenter = {
-      lat: userLocation.latitude,
-      lng: userLocation.longitude,
-    }
-    zoom = MAP_LOCATION_ZOOM
     // As a last resort, show an overview of the world.
   } else {
     mapCenter = DEFAULT_MAP_LOCATION
@@ -126,7 +122,6 @@ function GeotagDialog() {
   const addressInformation = useSelector(
     (state) => state.map.addressInformation
   )
-  const userLocation = useSelector((state) => state.user.geolocation.data)
   const offline = useSelector((state) => state.system.offline)
 
   // this kinda goofy initial state object is a result of refactoring
@@ -136,7 +131,6 @@ function GeotagDialog() {
     street,
     markerLocation,
     addressInformation,
-    userLocation,
   })
 
   const [mapCenter, setMapCenter] = useState(initialState.mapCenter)
@@ -144,6 +138,7 @@ function GeotagDialog() {
   const [marker, setMarkerLocation] = useState(initialState.markerLocation)
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
+  const [locationRequested, setLocationRequested] = useState(false)
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -158,8 +153,17 @@ function GeotagDialog() {
 
   // This looks funny, but `useMapEvents` can only be called in a child of
   // MapContainer. So this is a null component that exists only to call a hook
-  function MapClick() {
-    const map = useMapEvents({
+  // Example: https://react-leaflet.js.org/docs/api-map/#usemapevents
+  function TheMap() {
+    const map = useMap()
+
+    // Initiate a request for user's geolocation API
+    // Only do this once while the component is active
+    if (!locationRequested) {
+      map.locate()
+    }
+
+    useMapEvents({
       click(event: L.LeafletMouseEvent) {
         if (!geocodeAvailable) return
 
@@ -173,6 +177,15 @@ function GeotagDialog() {
           setZoom(zoom)
           updateMap(latlng, res.features[0].properties)
         })
+      },
+      locationfound(event: L.LocationEvent) {
+        if (locationRequested) return
+
+        // Only set this if we're not already centered on an existing location
+        if (!street.location || !markerLocation) {
+          setLocationRequested(true)
+          map.fitBounds(event.bounds)
+        }
       },
     })
 
@@ -219,19 +232,9 @@ function GeotagDialog() {
     dispatch(clearLocation())
   }
 
-  interface ReverseGeocodeResponse {
-    features: Array<{
-      geometry: {
-        coordinates: [number, number]
-      }
-      properties: GeoJsonProperties
-      label?: string
-    }>
-  }
-
   const reverseGeocode = (
     latlng: L.LatLng
-  ): Promise<ReverseGeocodeResponse> => {
+  ): Promise<FeatureCollection<Point>> => {
     const url = `${REVERSE_GEOCODE_ENDPOINT}&point.lat=${latlng.lat}&point.lon=${latlng.lng}`
 
     return window.fetch(url).then((response) => response.json())
@@ -352,7 +355,7 @@ function GeotagDialog() {
                 onDragEnd={handleMarkerDragEnd}
               />
             )}
-            <MapClick />
+            <TheMap />
             <AttributionControl prefix={MAP_ATTRIBUTION_PREFIX} />
           </MapContainer>
         </div>
