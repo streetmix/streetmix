@@ -44,6 +44,7 @@ export interface SliceItemTemplate {
   width: WidthDefinition | number
   elevation?: number
   label?: string
+  slope?: SlopeProperties
 }
 
 export interface StreetBoundary {

@@ -55,6 +55,11 @@ function processTemplateSlices(
       ...clone(sliceTemplate),
       id: nanoid(),
       warnings: [false],
+      // Initialize a slope property, if not present
+      slope: sliceTemplate.slope ?? {
+        on: false,
+        values: [],
+      },
     } as SliceItem
 
     // We mirror the street slices when in left-hand traffic mode,
