@@ -1,26 +1,35 @@
 .geotag-input-container {
-  position: absolute;
-  top: 10px;
   width: 100%;
   z-index: var(--z-index-10);
   pointer-events: none;
+  position: absolute;
+  top: 0;
+
+  --v-buffer: 16px;
+  --h-buffer: 24px;
 }
 
 .geotag-input-form {
   position: relative;
   width: 30vw;
-  min-width: 220px;
+  min-width: calc(220px + calc(var(--h-buffer) * 2));
   margin: 0 auto;
-  box-shadow: 0 0 0 4px rgb(255 255 255 / 85%);
+  padding: var(--v-buffer) var(--h-buffer); /* Buffer area for absorbing clicks */
   pointer-events: auto;
 }
 
 .geotag-input-clear {
   position: absolute;
-  right: 0;
-  top: 0;
+  top: var(--v-buffer);
+  right: var(--h-buffer);
   padding: 8px;
+  width: 24px;
+  text-align: center;
   cursor: pointer;
+
+  &:hover {
+    color: var(--warning-color);
+  }
 }
 
 .geotag-input {
@@ -31,6 +40,7 @@
   font-size: inherit;
   line-height: 2;
   background-color: var(--form-element-background);
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 85%);
 }
 
 .geotag-suggestions-container {
