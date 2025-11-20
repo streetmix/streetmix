@@ -59,7 +59,7 @@ function SegmentDragLayer() {
   const prevOffset = usePrevious(currentOffset)
 
   useEffect(() => {
-    if (isDragging && 'id' in item) {
+    if (isDragging && item && 'id' in item) {
       const deg = getDegree(currentOffset, prevOffset)
       applySegmentStyle(
         floatingEl.current,
@@ -73,7 +73,7 @@ function SegmentDragLayer() {
 
   return (
     <div className="segment-drag-layer">
-      {isDragging && 'id' in item && (
+      {isDragging && item && 'id' in item && (
         <div className="floating segment" ref={floatingEl}>
           <SegmentCanvas randSeed={item.id} {...item} />
         </div>
