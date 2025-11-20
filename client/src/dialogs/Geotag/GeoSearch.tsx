@@ -17,7 +17,7 @@ import type { Map } from 'leaflet'
 
 interface GeoSearchProps {
   map: Map | null
-  handleSearchResults: (geo: Position, properties: GeoJsonProperties) => void
+  handleResults: (geo: Position, properties: GeoJsonProperties) => void
 }
 
 type DownshiftPeliasGetter = (opts: unknown) => Record<string, unknown>
@@ -28,10 +28,10 @@ interface DownshiftPeliasProps {
   clearSelection: () => void
   inputValue: string
   isOpen: boolean
-  results: FeatureCollection
+  results: FeatureCollection<Point>
 }
 
-function GeoSearch({ map, handleSearchResults }: GeoSearchProps) {
+function GeoSearch({ map, handleResults }: GeoSearchProps) {
   const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -40,11 +40,11 @@ function GeoSearch({ map, handleSearchResults }: GeoSearchProps) {
     inputEl.current?.focus()
   }
 
-  function handleChange(selection?: Feature) {
+  function handleChange(selection?: Feature<Point>) {
     if (!selection) return
 
-    handleSearchResults(
-      (selection.geometry as Point).coordinates.reverse(),
+    handleResults(
+      selection.geometry.coordinates.reverse(),
       selection.properties
     )
     inputEl.current?.focus()

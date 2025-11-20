@@ -302,7 +302,7 @@ function GeotagDialog() {
         <div className="geotag-dialog">
           {geocodeAvailable ? (
             <div className="geotag-input-container">
-              <GeoSearch map={map} handleSearchResults={handleSearchResults} />
+              <GeoSearch map={map} handleResults={handleSearchResults} />
             </div>
           ) : (
             <ErrorBanner />
