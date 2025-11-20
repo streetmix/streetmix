@@ -51,7 +51,7 @@ describe('GeotagDialog', () => {
   })
 
   it('allows a location to be cleared when the street is owned by the current user', () => {
-    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(true)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValue(true)
     render(<GeotagDialog />, {
       initialState,
     })
@@ -62,7 +62,7 @@ describe('GeotagDialog', () => {
   })
 
   it('allows a location to be added when the current user started this street', () => {
-    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(true)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValue(true)
     render(<GeotagDialog />, {
       initialState: {
         ...initialState,
@@ -79,7 +79,7 @@ describe('GeotagDialog', () => {
 
   /* neither confirm or clear location buttons should show up in this case */
   it('does not allow a location to be edited when the current user is not the street owner', () => {
-    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(false)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValue(false)
     render(<GeotagDialog />, {
       initialState,
     })
@@ -90,7 +90,7 @@ describe('GeotagDialog', () => {
   })
 
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
-    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(false)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValue(false)
     render(<GeotagDialog />, {
       initialState: {
         ...initialState,
