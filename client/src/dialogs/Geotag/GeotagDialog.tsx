@@ -133,7 +133,6 @@ function GeotagDialog() {
     addressInformation,
   })
 
-  const [mapCenter, setMapCenter] = useState(initialState.mapCenter)
   const [marker, setMarkerLocation] = useState(initialState.markerLocation)
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
@@ -262,8 +261,6 @@ function GeotagDialog() {
     setRenderPopup(true)
     setMarkerLocation(latlng)
     setLabel(properties?.label)
-    setMapCenter(latlng)
-    console.log('update map called', latlng, properties)
 
     dispatch(
       setMapState({
@@ -302,18 +299,8 @@ function GeotagDialog() {
     <Dialog>
       {(closeDialog) => (
         <div className="geotag-dialog">
-          {geocodeAvailable ? (
-            <div className="geotag-input-container">
-              <GeoSearch
-                handleSearchResults={handleSearchResults}
-                focus={mapCenter}
-              />
-            </div>
-          ) : (
-            <ErrorBanner />
-          )}
           <MapContainer
-            center={mapCenter}
+            center={initialState.mapCenter}
             zoomControl={false}
             attributionControl={false}
             zoom={initialState.zoom}
@@ -329,6 +316,14 @@ function GeotagDialog() {
                 defaultMessage: 'Zoom out',
               })}
             />
+
+            {geocodeAvailable ? (
+              <div className="geotag-input-container">
+                <GeoSearch handleSearchResults={handleSearchResults} />
+              </div>
+            ) : (
+              <ErrorBanner />
+            )}
 
             {renderPopup && marker && (
               <LocationPopup

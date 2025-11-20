@@ -1,0 +1,57 @@
+.geotag-input-container {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  z-index: var(--z-index-10);
+  pointer-events: none;
+}
+
+.geotag-input-form {
+  position: relative;
+  width: 30vw;
+  min-width: 220px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 85%);
+  pointer-events: auto;
+}
+
+.geotag-input-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.geotag-input {
+  width: 100%;
+  padding: 3px 24px 3px 6px !important;
+  border: 1px solid var(--form-element-border);
+  resize: none;
+  font-size: inherit;
+  line-height: 2;
+  background-color: var(--form-element-background);
+}
+
+.geotag-suggestions-container {
+  border: 1px solid var(--form-element-border);
+  border-top: 0;
+  background-color: white;
+  font-family: var(--font-family);
+  list-style-type: none;
+}
+
+.geotag-suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.geotag-suggestion {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.geotag-suggestion[aria-selected="true"] {
+  background-color: var(--form-element-background);
+}
