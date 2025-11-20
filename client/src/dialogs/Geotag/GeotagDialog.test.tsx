@@ -1,16 +1,16 @@
-import React from 'react'
-import { vi } from 'vitest'
-import clone from 'just-clone'
 import { screen } from '@testing-library/react'
+import clone from 'just-clone'
+import React from 'react'
+import { type Mock, vi } from 'vitest'
 
-import { render } from '~/test/helpers/render'
 import * as constants from '~/src/app/config'
 import { isOwnedByCurrentUser } from '~/src/streets/owner'
+import { render } from '~/test/helpers/render'
 import GeotagDialog from './GeotagDialog'
 
-// Mock dependencies that could break tests
+// Mock this method to allow it to return values we need for test
 vi.mock('../../streets/owner', () => ({
-  isOwnedByCurrentUser: vi.fn()
+  isOwnedByCurrentUser: vi.fn(),
 }))
 
 // as mocked, the intial state is a street with a previously saved location, and a new marker location
@@ -24,44 +24,36 @@ const initialState = {
       wofId: '1234',
       latlng: {
         lat: 0,
-        lng: 0
-      }
-    }
+        lng: 0,
+      },
+    },
   },
   map: {
     markerLocation: { lat: -1, lng: -1 },
     addressInformation: {
       street: 'Null Island Port',
       label: 'Null Island Port, Null Island',
-      id: 'polyline123'
-    }
-  },
-  user: {
-    geolocation: {
-      data: {
-        lat: 10,
-        lng: 10
-      }
-    }
+      id: 'polyline123',
+    },
   },
   system: {
     devicePixelRatio: 1,
-    offline: false
-  }
+    offline: false,
+  },
 }
 
 describe('GeotagDialog', () => {
   it('renders', () => {
-    const { asFragment } = render(<GeotagDialog renderPopup />, {
-      initialState
+    const { asFragment } = render(<GeotagDialog />, {
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('allows a location to be cleared when the street is owned by the current user', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(true)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(true)
     render(<GeotagDialog />, {
-      initialState
+      initialState,
     })
 
     expect(
@@ -70,15 +62,15 @@ describe('GeotagDialog', () => {
   })
 
   it('allows a location to be added when the current user started this street', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(true)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(true)
     render(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
           creatorId: 'mayorofnullisland',
-          location: null
-        }
-      }
+          location: null,
+        },
+      },
     })
     expect(
       screen.getByRole('button', { name: 'Confirm location' })
@@ -87,9 +79,9 @@ describe('GeotagDialog', () => {
 
   /* neither confirm or clear location buttons should show up in this case */
   it('does not allow a location to be edited when the current user is not the street owner', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(false)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(false)
     render(<GeotagDialog />, {
-      initialState
+      initialState,
     })
     // in this case we want to make sure neither button shows up, so we use regex to check the button name
     expect(
@@ -98,15 +90,15 @@ describe('GeotagDialog', () => {
   })
 
   it('allows a location to be confirmed when the current anonymous user is not the street owner but there is no existing location attached', () => {
-    isOwnedByCurrentUser.mockReturnValueOnce(false)
+    ;(isOwnedByCurrentUser as Mock).mockReturnValueOnce(false)
     render(<GeotagDialog />, {
       initialState: {
         ...initialState,
         street: {
           creatorId: 'creatorMadeThisWithNoLocation',
-          location: null
-        }
-      }
+          location: null,
+        },
+      },
     })
 
     expect(
@@ -162,7 +154,7 @@ describe('GeotagDialog', () => {
       newInitialState.system.offline = true
 
       render(<GeotagDialog />, {
-        initialState: newInitialState
+        initialState: newInitialState,
       })
 
       expect(screen.getByText(errorText, { exact: false })).toBeInTheDocument()

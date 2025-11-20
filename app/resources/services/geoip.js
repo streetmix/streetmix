@@ -1,6 +1,6 @@
 import appURL from '../../lib/url.js'
 
-export function get (req, res) {
+export function get(req, res) {
   // Prevent this service from being accessed by third parties
   if (
     req.headers.referer === undefined ||
@@ -8,7 +8,7 @@ export function get (req, res) {
   ) {
     res.status(403).json({
       status: 403,
-      msg: "I'm sorry — you do not have access to this service."
+      msg: "I'm sorry — you do not have access to this service.",
     })
 
     return
@@ -26,7 +26,7 @@ export function get (req, res) {
 
     res.set('CF-IPCountry', countryCode)
     res.status(200).json({
-      country_code: countryCode
+      countryCode,
     })
   }
   requestGeolocation()

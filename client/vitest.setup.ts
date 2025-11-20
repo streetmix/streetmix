@@ -9,7 +9,7 @@ import { server } from './test/server/index.js'
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dotenv').config({
   quiet: true,
-  path: path.resolve(process.cwd(), '.env.test')
+  path: path.resolve(process.cwd(), '.env.test'),
 })
 
 // Set up listeners on API with mock-service-worker
@@ -27,6 +27,14 @@ afterAll(() => {
 global.print = vi.fn()
 global.confirm = vi.fn(() => true)
 global.prompt = vi.fn()
+
+// Cannot directly reassign to `global.navigator.geolocation`, but this works
+Object.defineProperty(global.navigator, 'geolocation', {
+  value: {
+    getCurrentPosition: vi.fn(),
+    watchPosition: vi.fn(),
+  },
+})
 
 // Declare all mock modules globally
 vi.mock('./src/ui/Icon.tsx')

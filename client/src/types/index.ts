@@ -1,6 +1,6 @@
 import type { ColorModes } from '~/src/app/constants'
 import type { SerializedError } from '@reduxjs/toolkit'
-import type { StreetState } from '@streetmix/types'
+import type { StreetState, GeolocationData } from '@streetmix/types'
 
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
@@ -46,7 +46,7 @@ export interface UserState {
   isCoilPluginSubscriber: boolean
   geolocation: {
     attempted: boolean
-    data: null
+    data: GeolocationData | null
     error: string | SerializedError | null
   }
 }

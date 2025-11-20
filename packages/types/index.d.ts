@@ -1,6 +1,6 @@
 import type {
   SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
+  SETTINGS_UNITS_METRIC,
 } from '@streetmix/client/src/users/constants'
 
 // Utility type for making a single property (K) optional
@@ -53,6 +53,10 @@ export interface StreetBoundary {
   elevation: number
 }
 
+export interface GeolocationData {
+  countryCode: string
+}
+
 // Subset of @types/leaflet's `LatLngExpression` type, which is not
 // serializable. Don't use that one.
 export interface LatLngObject {
@@ -61,7 +65,7 @@ export interface LatLngObject {
 }
 
 export interface StreetLocation {
-  lntlng: LatLngObject
+  latlng: LatLngObject
   wofId: string
   label: string
   hierarchy: {

@@ -4,7 +4,7 @@ describe('map reducer', () => {
   const initialState = {
     markerLocation: null,
     addressInformation: {},
-    rawInputString: null
+    rawInputString: null,
   }
 
   it('should handle setMapState()', () => {
@@ -12,26 +12,28 @@ describe('map reducer', () => {
       map(
         initialState,
         setMapState({
-          markerLocation: [1, 2],
+          markerLocation: {
+            lat: 1,
+            lng: 2,
+          },
           addressInformation: {
-            foo: 'bar'
-          }
+            foo: 'bar',
+          },
         })
       )
     ).toEqual({
-      markerLocation: [1, 2],
-      addressInformation: {
-        foo: 'bar'
+      markerLocation: {
+        lat: 1,
+        lng: 2,
       },
-      rawInputString: null
+      addressInformation: {
+        foo: 'bar',
+      },
+      rawInputString: null,
     })
   })
 
   it('should handle resetMapState()', () => {
     expect(map(initialState, resetMapState())).toEqual(initialState)
-  })
-
-  it('should handle extra reducers', () => {
-    expect(map(initialState, 'CLEAR_LOCATION')).toEqual(initialState)
   })
 })

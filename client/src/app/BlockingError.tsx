@@ -1,6 +1,4 @@
 /**
- * BlockingError.jsx
- *
  * Displays a blocking error message on top of the application.
  *
  * @module BlockingError
@@ -19,7 +17,7 @@ import { ERRORS } from './errors'
 
 import type { StreetState } from '@streetmix/types'
 
-function BlockingError (): React.ReactElement | null {
+function BlockingError(): React.ReactElement | null {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
@@ -37,14 +35,12 @@ function BlockingError (): React.ReactElement | null {
     </Button>
   )
   const linkToUser = (street: StreetState): React.ReactElement | null => {
-    return street?.creatorId !== null
-      ? (
-        <a href={'/' + street.creatorId}>
-          <Avatar userId={street.creatorId} />
-          {creatorProfile?.displayName ?? street.creatorId}
-        </a>
-        )
-      : null
+    return street?.creatorId !== null ? (
+      <a href={'/' + street.creatorId}>
+        <Avatar userId={street.creatorId} />
+        {creatorProfile?.displayName ?? street.creatorId}
+      </a>
+    ) : null
   }
   const reloadButton = (
     <Button primary onClick={goReload}>
@@ -76,7 +72,7 @@ function BlockingError (): React.ReactElement | null {
           <ExternalLink href="https://docs.streetmix.net/community">
             {chunks}
           </ExternalLink>
-        )
+        ),
       }}
     />
   )
@@ -139,7 +135,7 @@ function BlockingError (): React.ReactElement | null {
             id="error.street-not-found-but-user-description"
             defaultMessage="There is no street with this link! But you can look at other streets by {user}"
             values={{
-              user: linkToUser(street)
+              user: linkToUser(street),
             }}
           />
         </p>
@@ -159,7 +155,7 @@ function BlockingError (): React.ReactElement | null {
             id="error.street-deleted-description"
             defaultMessage="There is no longer a street with this link, but you can look at other streets by {user}"
             values={{
-              user: linkToUser(street)
+              user: linkToUser(street),
             }}
           />
         </p>
@@ -456,7 +452,7 @@ function BlockingError (): React.ReactElement | null {
                   <ExternalLink href="https://www.microsoft.com/en-us/windows/microsoft-edge">
                     {chunks}
                   </ExternalLink>
-                )
+                ),
               }}
             />
           </p>
@@ -469,7 +465,7 @@ function BlockingError (): React.ReactElement | null {
                   <ExternalLink href="https://docs.streetmix.net/user-guide/support/faq#internet-explorer">
                     {chunks}
                   </ExternalLink>
-                )
+                ),
               }}
             />
           </p>
@@ -482,7 +478,7 @@ function BlockingError (): React.ReactElement | null {
                   <ExternalLink href="https://docs.streetmix.net/community">
                     {chunks}
                   </ExternalLink>
-                )
+                ),
               }}
             />
           </p>

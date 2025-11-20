@@ -21,7 +21,7 @@ export default defineConfig([
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     ...reactHooks.configs.flat.recommended,
-    files: ['**/*.{js,jsx,ts,tsx,cjs}'],
+    files: ['**/*.{js,ts,tsx,cjs}'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -129,7 +129,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['**/*.test.{js,jsx,ts,tsx}'],
+    files: ['**/*.test.{js,ts,tsx}'],
     languageOptions: {
       globals: {
         ...globals.mocha,
