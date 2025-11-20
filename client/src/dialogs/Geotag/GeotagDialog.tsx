@@ -1,4 +1,4 @@
-import L from 'leaflet'
+import L, { type Map } from 'leaflet'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 import {
@@ -137,6 +137,7 @@ function GeotagDialog() {
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
   const [locationRequested, setLocationRequested] = useState(false)
+  const [map, setMap] = useState<Map | null>(null)
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -299,11 +300,20 @@ function GeotagDialog() {
     <Dialog>
       {(closeDialog) => (
         <div className="geotag-dialog">
+          {geocodeAvailable ? (
+            <div className="geotag-input-container">
+              <GeoSearch map={map} handleSearchResults={handleSearchResults} />
+            </div>
+          ) : (
+            <ErrorBanner />
+          )}
+
           <MapContainer
             center={initialState.mapCenter}
             zoomControl={false}
             attributionControl={false}
             zoom={initialState.zoom}
+            ref={setMap}
           >
             <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
             <ZoomControl
@@ -316,14 +326,6 @@ function GeotagDialog() {
                 defaultMessage: 'Zoom out',
               })}
             />
-
-            {geocodeAvailable ? (
-              <div className="geotag-input-container">
-                <GeoSearch handleSearchResults={handleSearchResults} />
-              </div>
-            ) : (
-              <ErrorBanner />
-            )}
 
             {renderPopup && marker && (
               <LocationPopup

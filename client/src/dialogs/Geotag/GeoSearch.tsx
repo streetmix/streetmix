@@ -1,6 +1,5 @@
 import React, { useRef } from 'react'
 import { useIntl } from 'react-intl'
-import { useMap } from 'react-leaflet'
 import DownshiftPelias from 'downshift-pelias' // TODO: type definitions
 import Pelias from 'pelias-js' // TODO: type definitions
 
@@ -14,8 +13,10 @@ import type {
   Point,
   Position,
 } from 'geojson'
+import type { Map } from 'leaflet'
 
 interface GeoSearchProps {
+  map: Map | null
   handleSearchResults: (geo: Position, properties: GeoJsonProperties) => void
 }
 
@@ -30,10 +31,9 @@ interface DownshiftPeliasProps {
   results: FeatureCollection
 }
 
-function GeoSearch({ handleSearchResults }: GeoSearchProps) {
+function GeoSearch({ map, handleSearchResults }: GeoSearchProps) {
   const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
-  const map = useMap()
 
   function handleClickClearSearch(clearSelection: () => void) {
     clearSelection()
@@ -86,7 +86,7 @@ function GeoSearch({ handleSearchResults }: GeoSearchProps) {
     peliasUrl: `https://${PELIAS_HOST_NAME}`,
     apiKey: PELIAS_API_KEY,
   })
-  const focus = map.getCenter()
+  const focus = map?.getCenter() ?? { lat: 0, lng: 0 }
 
   pelias.search.setBoundaryCircle({
     lat: focus.lat,
