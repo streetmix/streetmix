@@ -134,7 +134,6 @@ function GeotagDialog() {
   })
 
   const [mapCenter, setMapCenter] = useState(initialState.mapCenter)
-  const [zoom, setZoom] = useState(initialState.zoom)
   const [marker, setMarkerLocation] = useState(initialState.markerLocation)
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
@@ -168,13 +167,12 @@ function GeotagDialog() {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
-        const zoom = map.getZoom()
+        map.flyTo(latlng)
         reverseGeocode(latlng).then((res) => {
           const latlng = {
             lat: res.features[0].geometry.coordinates[1],
             lng: res.features[0].geometry.coordinates[0],
           }
-          setZoom(zoom)
           updateMap(latlng, res.features[0].properties)
         })
       },
@@ -183,9 +181,10 @@ function GeotagDialog() {
 
         // Only set this if we're not already centered on an existing location
         if (!street.location || !markerLocation) {
-          setLocationRequested(true)
           map.fitBounds(event.bounds)
         }
+
+        setLocationRequested(true)
       },
     })
 
@@ -264,6 +263,7 @@ function GeotagDialog() {
     setMarkerLocation(latlng)
     setLabel(properties?.label)
     setMapCenter(latlng)
+    console.log('update map called', latlng, properties)
 
     dispatch(
       setMapState({
@@ -316,7 +316,7 @@ function GeotagDialog() {
             center={mapCenter}
             zoomControl={false}
             attributionControl={false}
-            zoom={zoom}
+            zoom={initialState.zoom}
           >
             <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
             <ZoomControl
