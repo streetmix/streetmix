@@ -307,8 +307,9 @@ function drawGroundPattern(
   ctx.save()
 
   // Handle slopes or flat ground
-  const leftElevation = slope.on ? slope.values[0] : elevation
-  const rightElevation = slope.on ? slope.values[1] : elevation
+  // This also handles if slope.values is an empty array
+  const leftElevation = slope.on ? (slope.values[0] ?? elevation) : elevation
+  const rightElevation = slope.on ? (slope.values[1] ?? elevation) : elevation
   const leftCanvasValue = getCanvasElevation(leftElevation, multiplier)
   const rightCanvasValue = getCanvasElevation(rightElevation, multiplier)
 
