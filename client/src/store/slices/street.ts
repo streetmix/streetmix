@@ -207,11 +207,7 @@ const streetSlice = createSlice({
         const { index, value } = action.payload
         const slice = state.segments[index]
 
-        // Always make sure values exists, because it might not be there
-        slice.slope = {
-          on: value,
-          values: slice.slope.values ?? [slice.elevation, slice.elevation],
-        }
+        slice.slope.on = value
       },
       prepare(index: number, value: boolean) {
         return {
