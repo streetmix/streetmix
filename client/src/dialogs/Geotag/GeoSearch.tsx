@@ -4,19 +4,20 @@ import DownshiftPelias from 'downshift-pelias' // TODO: type definitions
 import Pelias from 'pelias-js' // TODO: type definitions
 
 import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
+import './GeoSearch.css'
 
-import type { LatLngObject } from '@streetmix/types'
 import type {
   Feature,
   FeatureCollection,
   GeoJsonProperties,
   Point,
-  Position
+  Position,
 } from 'geojson'
+import type { Map } from 'leaflet'
 
 interface GeoSearchProps {
-  handleSearchResults: (geo: Position, properties: GeoJsonProperties) => void
-  focus: LatLngObject
+  map: Map | null
+  handleResults: (geo: Position, properties: GeoJsonProperties) => void
 }
 
 type DownshiftPeliasGetter = (opts: unknown) => Record<string, unknown>
@@ -27,37 +28,34 @@ interface DownshiftPeliasProps {
   clearSelection: () => void
   inputValue: string
   isOpen: boolean
-  results: FeatureCollection
+  results: FeatureCollection<Point>
 }
 
-function GeoSearch ({
-  handleSearchResults,
-  focus = { lat: 0, lng: 0 }
-}: GeoSearchProps): React.ReactElement {
+function GeoSearch({ map, handleResults }: GeoSearchProps) {
+  const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
-  const inputEl = useRef<HTMLInputElement>()
 
-  function handleClickClearSearch (clearSelection: () => void): void {
+  function handleClickClearSearch(clearSelection: () => void) {
     clearSelection()
     inputEl.current?.focus()
   }
 
-  function handleChange (selection?: Feature): void {
+  function handleChange(selection?: Feature<Point>) {
     if (!selection) return
 
-    handleSearchResults(
-      (selection.geometry as Point).coordinates.reverse(),
+    handleResults(
+      selection.geometry.coordinates.toReversed(),
       selection.properties
     )
     inputEl.current?.focus()
   }
 
-  function renderSuggestion (
+  function renderSuggestion(
     item: Feature,
     index: number,
     inputValue: string,
     getItemProps: DownshiftPeliasGetter
-  ): React.ReactElement {
+  ) {
     const label = item.properties?.label
 
     // Highlight the input query
@@ -76,7 +74,7 @@ function GeoSearch ({
           className: 'geotag-suggestion',
           key: item.properties?.gid,
           index,
-          item
+          item,
         })}
       >
         {highlighted}
@@ -86,13 +84,14 @@ function GeoSearch ({
 
   const pelias = new Pelias({
     peliasUrl: `https://${PELIAS_HOST_NAME}`,
-    apiKey: PELIAS_API_KEY
+    apiKey: PELIAS_API_KEY,
   })
+  const focus = map?.getCenter() ?? { lat: 0, lng: 0 }
 
   pelias.search.setBoundaryCircle({
     lat: focus.lat,
     lon: focus.lng,
-    radius: 10
+    radius: 10,
   })
   pelias.autocomplete.setFocusPoint({ lat: focus.lat, lon: focus.lng })
 
@@ -105,7 +104,7 @@ function GeoSearch ({
         clearSelection,
         inputValue,
         isOpen,
-        results
+        results,
       }: DownshiftPeliasProps) => (
         <div className="geotag-input-form">
           <input
@@ -115,15 +114,15 @@ function GeoSearch ({
               ref: inputEl,
               placeholder: intl.formatMessage({
                 id: 'dialogs.geotag.search',
-                defaultMessage: 'Search for a location'
-              })
+                defaultMessage: 'Search for a location',
+              }),
             })}
           />
           {inputValue && (
             <span
               title={intl.formatMessage({
                 id: 'dialogs.geotag.clear-search',
-                defaultMessage: 'Clear search'
+                defaultMessage: 'Clear search',
               })}
               className="geotag-input-clear"
               onClick={() => {

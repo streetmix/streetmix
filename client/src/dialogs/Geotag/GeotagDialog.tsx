@@ -1,4 +1,4 @@
-import L from 'leaflet'
+import L, { type Map } from 'leaflet'
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 import {
@@ -133,12 +133,11 @@ function GeotagDialog() {
     addressInformation,
   })
 
-  const [mapCenter, setMapCenter] = useState(initialState.mapCenter)
-  const [zoom, setZoom] = useState(initialState.zoom)
   const [marker, setMarkerLocation] = useState(initialState.markerLocation)
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
   const [locationRequested, setLocationRequested] = useState(false)
+  const [map, setMap] = useState<Map | null>(null)
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -168,13 +167,12 @@ function GeotagDialog() {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
-        const zoom = map.getZoom()
+        map.flyTo(latlng)
         reverseGeocode(latlng).then((res) => {
           const latlng = {
             lat: res.features[0].geometry.coordinates[1],
             lng: res.features[0].geometry.coordinates[0],
           }
-          setZoom(zoom)
           updateMap(latlng, res.features[0].properties)
         })
       },
@@ -183,9 +181,10 @@ function GeotagDialog() {
 
         // Only set this if we're not already centered on an existing location
         if (!street.location || !markerLocation) {
-          setLocationRequested(true)
           map.fitBounds(event.bounds)
         }
+
+        setLocationRequested(true)
       },
     })
 
@@ -263,7 +262,6 @@ function GeotagDialog() {
     setRenderPopup(true)
     setMarkerLocation(latlng)
     setLabel(properties?.label)
-    setMapCenter(latlng)
 
     dispatch(
       setMapState({
@@ -304,19 +302,18 @@ function GeotagDialog() {
         <div className="geotag-dialog">
           {geocodeAvailable ? (
             <div className="geotag-input-container">
-              <GeoSearch
-                handleSearchResults={handleSearchResults}
-                focus={mapCenter}
-              />
+              <GeoSearch map={map} handleResults={handleSearchResults} />
             </div>
           ) : (
             <ErrorBanner />
           )}
+
           <MapContainer
-            center={mapCenter}
+            center={initialState.mapCenter}
             zoomControl={false}
             attributionControl={false}
-            zoom={zoom}
+            zoom={initialState.zoom}
+            ref={setMap}
           >
             <TileLayer attribution={MAP_ATTRIBUTION} url={tileUrl} />
             <ZoomControl

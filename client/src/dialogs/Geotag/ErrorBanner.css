@@ -1,0 +1,26 @@
+.geotag-error-banner {
+  /* Very similar to the notification bar banner */
+  padding: 0.75em 2.5em;
+  text-align: center;
+  background-color: var(--alert-background);
+  border-bottom: var(--alert-border);
+  border-bottom-left-radius: var(--border-radius-medium);
+  border-bottom-right-radius: var(--border-radius-medium);
+  box-shadow: var(--medium-box-shadow);
+
+  /* Place error banner above map */
+  position: absolute;
+  top: 0;
+
+  /* Place above leaflet tiles, which have a z-index of 400 */
+  z-index: 500;
+
+  /* Constrain width of banner to allow for zoom widget and close
+     dialog button */
+  width: calc(100% - (var(--geotag-error-banner-margin) * 2));
+  margin: 0 var(--geotag-error-banner-margin);
+
+  /* Pretty text wrapping */
+  text-wrap: balance;
+  text-wrap: pretty; /* Unsupported in Firefox */
+}
