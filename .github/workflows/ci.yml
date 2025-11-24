@@ -13,7 +13,7 @@ jobs:
       CYPRESS_INSTALL_BINARY: "0"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       # Use the current LTS version of Node.js
       - name: Use Node.js 22
         uses: actions/setup-node@v6
@@ -53,7 +53,7 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           # Codecov reporting needs fetch-depth > 1
           fetch-depth: 2
@@ -86,7 +86,7 @@ jobs:
       PELIAS_HOST_NAME: dummy.pelias.com
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
