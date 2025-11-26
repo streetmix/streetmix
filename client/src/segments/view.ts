@@ -372,10 +372,13 @@ export function drawSegmentContents(
 
   const groundLevelOffsetY = variantInfo.offsetY ?? 0
   const elevationValue = getElevation(elevation)
-  const groundLevel =
-    groundBaseline -
-    multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL) -
-    multiplier * elevationValue
+  let groundLevel =
+    groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
+
+  // Slope proof of concept: ignore elevation value if slice is sloped
+  if (!slope.on) {
+    groundLevel -= multiplier * elevationValue
+  }
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
@@ -545,7 +548,7 @@ export function drawSegmentContents(
           slope,
           actualWidth,
           x,
-          svg,
+          svg.width,
           multiplier,
           segmentWidth
         )
@@ -613,7 +616,7 @@ export function drawSegmentContents(
           slope,
           actualWidth,
           x,
-          svg,
+          svg.width,
           multiplier,
           segmentWidth
         )
@@ -673,7 +676,7 @@ export function drawSegmentContents(
           slope,
           actualWidth,
           x,
-          svg,
+          svg.width,
           multiplier,
           segmentWidth
         )
@@ -760,7 +763,7 @@ function calculateSlopeYAdjustment(
   slope: SlopeProperties,
   actualWidth: number,
   x: number,
-  svg: unknown,
+  svgWidth: number,
   multiplier: number,
   segmentWidth: number
 ) {
@@ -773,7 +776,7 @@ function calculateSlopeYAdjustment(
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
   const midpoint =
-    x + (svg.width / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+    x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
   const midpointPercentage = midpoint / segmentWidth
   const x3 = midpointPercentage * (x2 - x1)
 
