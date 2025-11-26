@@ -3,12 +3,12 @@ import { getSegmentInfo } from '@streetmix/parts'
 import { TILE_SIZE } from './constants.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { StreetJson, ElevationChange } from '@streetmix/types'
+import type { StreetJson, SlopeProperties } from '@streetmix/types'
 
 /**
  * Draws slices.
  */
-export function drawSlices (
+export function drawSlices(
   ctx: Canvas.SKRSContext2D,
   street: StreetJson, // street data
   groundLevel: number, // vertical height of ground
@@ -87,7 +87,7 @@ export interface SlopeCalculation {
   }
 }
 
-export function calculateSlope (
+export function calculateSlope(
   street: StreetJson,
   index: number
 ): SlopeCalculation | null {
@@ -132,7 +132,7 @@ export function calculateSlope (
   //    (vertical:horizontal)) slope"
   const warnings = {
     slopeExceededBerm: ratio !== undefined && ratio < 3,
-    slopeExceededPath: ratio !== undefined && ratio < 20
+    slopeExceededPath: ratio !== undefined && ratio < 20,
   }
 
   return {
@@ -140,7 +140,7 @@ export function calculateSlope (
     rightElevation,
     slope,
     ratio,
-    warnings
+    warnings,
   }
 }
 
@@ -153,7 +153,7 @@ export function calculateSlope (
 //   offsetLeft: number,
 //   groundBaseline: number,
 //   elevation: number,
-//   slope: ElevationChange,
+//   slope: SlopeProperties,
 //   randSeed: string,
 //   scale: number
 // ) {
