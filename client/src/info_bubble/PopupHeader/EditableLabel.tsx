@@ -24,18 +24,18 @@ export function EditableLabel({
 
   // Boundary labels are not currently editable, so labels are not interactive
   if (type === 'boundary') {
-    return <div className="popup-label">{label}</div>
+    return <h3 className="popup-label">{label}</h3>
   }
 
   if (isEditUnlocked) {
     return (
-      <div
+      <h3
         className="popup-label popup-label-editable"
         onClick={handleClickEdit}
       >
         {label}
         <Icon name="edit" className="popup-label-editable-icon" />
-      </div>
+      </h3>
     )
   }
 
@@ -46,10 +46,10 @@ export function EditableLabel({
         defaultMessage: 'Upgrade to Streetmix+ to edit',
       })}
     >
-      <div className="popup-label popup-label-editable">
+      <h3 className="popup-label popup-label-editable">
         {label}
         <Icon name="lock" className="popup-label-editable-icon" />
-      </div>
+      </h3>
     </Tooltip>
   )
 }
