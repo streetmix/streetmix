@@ -40,10 +40,10 @@ export function getLocaleSliceName(
   type: string,
   variantString: string
 ): string {
-  const segmentInfo = getSegmentInfo(type)
+  const sliceInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
-  const defaultName = variantInfo.name ?? segmentInfo.name
-  const nameKey = variantInfo.nameKey ?? segmentInfo.nameKey
+  const defaultName = variantInfo.name ?? sliceInfo.name
+  const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
   const key = `segments.${nameKey}`
 
   return formatMessage(key, defaultName, { ns: 'segment-info' })
@@ -88,49 +88,27 @@ export function getLabel(
   type: SectionType,
   position: number | BoundaryPosition
 ) {
-  let id
-  let defaultMessage = ''
+  // If we have a slice
+  if (type === 'slice' && typeof position === 'number') {
+    const slice = street.segments[position]
 
-  switch (true) {
-    case type === 'slice' && typeof position === 'number': {
-      const slice = street.segments[position]
-
-      if (slice === undefined) {
-        break
-      }
-
-      // Return label if provided
-      if (slice?.label !== undefined) {
-        return slice.label
-      } else {
-        // Otherwise need to do a lookup
-        const sliceInfo = getSegmentInfo(slice.type)
-        const variantInfo = getSegmentVariantInfo(
-          slice.type,
-          slice.variantString
-        )
-        const key = variantInfo.nameKey ?? sliceInfo.nameKey
-
-        id = `segments.${key}`
-        defaultMessage = variantInfo.name ?? sliceInfo.name ?? ''
-      }
-      break
+    // Return label if provided
+    if (slice.label !== undefined) {
+      return slice.label
+    } else {
+      // Otherwise need to do a lookup
+      return getLocaleSliceName(slice.type, slice.variantString)
     }
-    case type === 'boundary' && typeof position !== 'number': {
-      const key = street.boundary[position].variant
+    // Otherwise, if we have a boundary
+  } else if (type === 'boundary' && typeof position !== 'number') {
+    const key = street.boundary[position].variant
 
-      id = `buildings.${key}.name`
-      defaultMessage = getBoundaryItem(key).label
+    const id = `buildings.${key}.name`
+    const defaultMessage = getBoundaryItem(key).label
 
-      break
-    }
-    default:
-      break
-  }
-
-  if (typeof id !== 'undefined') {
     return formatMessage(id, defaultMessage, { ns: 'segment-info' })
-  } else {
-    return ''
   }
+
+  // If we've fallen through for any reason, return empty string
+  return ''
 }
