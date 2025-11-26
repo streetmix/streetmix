@@ -202,6 +202,20 @@ const streetSlice = createSlice({
       },
     },
 
+    toggleSliceSlope: {
+      reducer(state, action: PayloadAction<{ index: number; value: boolean }>) {
+        const { index, value } = action.payload
+        const slice = state.segments[index]
+
+        slice.slope.on = value
+      },
+      prepare(index: number, value: boolean) {
+        return {
+          payload: { index, value },
+        }
+      },
+    },
+
     changeSegmentProperties: {
       reducer(
         state,
@@ -470,6 +484,7 @@ export const {
   clearSegments,
   changeSegmentWidth,
   changeSegmentVariant,
+  toggleSliceSlope,
   changeSegmentProperties,
   saveStreetName,
   saveCreatorId,
