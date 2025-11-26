@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import {
   SegmentTypes,
   getSegmentInfo,
-  getSegmentVariantInfo
+  getSegmentVariantInfo,
 } from '@streetmix/parts'
 
 import { app } from '../preinit/app_settings'
@@ -16,7 +16,7 @@ import {
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
-  setDraggingType
+  setDraggingType,
 } from '../store/slices/ui'
 import { generateRandSeed } from '../util/random'
 import { getWidthInMetric } from '../util/width_units'
@@ -28,7 +28,7 @@ import {
   handleSegmentResizeEnd,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelSegmentResizeTransitions
+  cancelSegmentResizeTransitions,
 } from './resizing'
 import { getVariantInfo, getVariantString } from './variant_utils'
 import {
@@ -37,14 +37,14 @@ import {
   DRAGGING_MOVE_HOLE_WIDTH,
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_MOVE,
-  DRAGGING_TYPE_RESIZE
+  DRAGGING_TYPE_RESIZE,
 } from './constants'
 import { segmentsChanged } from './view'
 
 import type {
-  ElevationChange,
+  SlopeProperties,
   SegmentDefinition,
-  StreetJson
+  StreetJson,
 } from '@streetmix/types'
 import type { DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
 import type { RootState } from '../store'
@@ -53,7 +53,7 @@ import type { DraggingState } from '../types'
 /* react-dnd specs */
 export const DragTypes = {
   SLICE: 'SLICE',
-  PALETTE: 'PALETTE'
+  PALETTE: 'PALETTE',
 } as const
 
 export type DragType = (typeof DragTypes)[keyof typeof DragTypes]
@@ -67,7 +67,7 @@ export interface DraggedItem {
   label?: string
   actualWidth: number
   elevation: number
-  slope: boolean | ElevationChange
+  slope: SlopeProperties
 }
 
 export const draggingResize: {
@@ -91,10 +91,10 @@ export const draggingResize: {
   width: null,
   originalX: null,
   originalWidth: null,
-  right: false
+  right: false,
 }
 
-export function initDragTypeSubscriber () {
+export function initDragTypeSubscriber() {
   const select = (state: RootState) => state.ui.draggingType
 
   const onChange = (draggingType: number) => {
@@ -114,7 +114,7 @@ export function initDragTypeSubscriber () {
   return observeStore(select, onChange)
 }
 
-function handleSegmentResizeStart (event: MouseEvent | TouchEvent): void {
+function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   let x: number, y: number
   if (app.readOnly) {
     return
@@ -179,7 +179,7 @@ function handleSegmentResizeStart (event: MouseEvent | TouchEvent): void {
   }, 0)
 }
 
-function handleSegmentResizeMove (event: MouseEvent | TouchEvent): void {
+function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   let x, y, resizeType
   if ('touches' in event && event.touches[0]) {
     x = event.touches[0].pageX
@@ -224,7 +224,7 @@ function handleSegmentResizeMove (event: MouseEvent | TouchEvent): void {
   draggingResize.mouseY = y
 }
 
-export function onBodyMouseDown (event: MouseEvent | TouchEvent): void {
+export function onBodyMouseDown(event: MouseEvent | TouchEvent): void {
   if (app.readOnly || ('touches' in event && event.touches.length !== 1)) {
     return
   }
@@ -235,7 +235,7 @@ export function onBodyMouseDown (event: MouseEvent | TouchEvent): void {
   }
 }
 
-export function isSegmentWithinCanvas (
+export function isSegmentWithinCanvas(
   event: MouseEvent | TouchEvent,
   canvasEl: HTMLElement
 ): boolean {
@@ -274,7 +274,7 @@ export function isSegmentWithinCanvas (
   return withinCanvas
 }
 
-export function onBodyMouseMove (event: MouseEvent | TouchEvent): void {
+export function onBodyMouseMove(event: MouseEvent | TouchEvent): void {
   const { draggingType } = store.getState().ui
 
   if (draggingType === DRAGGING_TYPE_NONE) {
@@ -286,7 +286,7 @@ export function onBodyMouseMove (event: MouseEvent | TouchEvent): void {
   event.preventDefault()
 }
 
-function doDropHeuristics (
+function doDropHeuristics(
   draggedItem: DraggedItem,
   draggedItemType: DragType
 ): void {
@@ -449,7 +449,7 @@ function doDropHeuristics (
   draggedItem.variantString = getVariantString(variant)
 }
 
-export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
+export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
   const { draggingType } = store.getState().ui
 
   switch (draggingType) {
@@ -463,13 +463,13 @@ export function onBodyMouseUp (event: MouseEvent | TouchEvent): void {
   event.preventDefault()
 }
 
-function handleSegmentDragEnd (): void {
+function handleSegmentDragEnd(): void {
   oldDraggingState = {
     isDragging: false,
     segmentBeforeEl: null,
     segmentAfterEl: null,
     draggedSegment: null,
-    withinCanvas: false
+    withinCanvas: false,
   }
   cancelSegmentResizeTransitions()
   segmentsChanged()
@@ -485,7 +485,7 @@ let oldDraggingState: DraggingState & {
 // This prevents a constant dispatch of the updateDraggingState action which causes the
 // dragging of the segment to be laggy and choppy.
 
-function updateIfDraggingStateChanged (
+function updateIfDraggingStateChanged(
   segmentBeforeEl: number | null,
   segmentAfterEl: number | null,
   draggedItem: DraggedItem,
@@ -508,7 +508,7 @@ function updateIfDraggingStateChanged (
       isDragging: true,
       segmentBeforeEl,
       segmentAfterEl,
-      draggedSegment: draggedItem.sliceIndex
+      draggedSegment: draggedItem.sliceIndex,
     }
 
     store.dispatch(
@@ -516,7 +516,7 @@ function updateIfDraggingStateChanged (
         isDragging: true,
         segmentBeforeEl,
         segmentAfterEl,
-        draggedSegment: draggedItem.sliceIndex
+        draggedSegment: draggedItem.sliceIndex,
       })
     )
     doDropHeuristics(draggedItem, draggedItemType)
@@ -525,7 +525,7 @@ function updateIfDraggingStateChanged (
   return changed
 }
 
-function handleSegmentCanvasDrop (
+function handleSegmentCanvasDrop(
   draggedItem: DraggedItem,
   type: DragType | null
 ) {
@@ -547,7 +547,10 @@ function handleSegmentCanvasDrop (
     width: draggedItem.actualWidth,
     elevation: draggedItem.elevation,
     label: draggedItem.label,
-    slope: false
+    slope: {
+      on: false,
+      values: [],
+    },
   }
 
   newSegment.variant =
@@ -574,7 +577,7 @@ function handleSegmentCanvasDrop (
  *    to StreetEditable
  * @returns `left` or `right`; or `null` if dropped/hovered over a segment
  */
-function isOverLeftOrRightCanvas (
+function isOverLeftOrRightCanvas(
   segment: HTMLElement,
   droppedPosition: number
 ): string | null {
@@ -590,14 +593,14 @@ function isOverLeftOrRightCanvas (
       : null
 }
 
-export function createSliceDragSpec (props) {
+export function createSliceDragSpec(props) {
   return {
     type: DragTypes.SLICE,
     item: (): DraggedItem => {
       store.dispatch(
         initDraggingState({
           type: DRAGGING_TYPE_MOVE,
-          dragIndex: props.sliceIndex
+          dragIndex: props.sliceIndex,
         })
       )
 
@@ -612,12 +615,12 @@ export function createSliceDragSpec (props) {
         // TODO: show actual slope in preview
         // For now the slope preview is just regular elevation value
         slope: {
-          left: props.segment.elevation,
-          right: props.segment.elevation
-        }
+          on: false,
+          values: [],
+        },
       }
     },
-    end (item: DraggedItem, monitor: DragSourceMonitor) {
+    end(item: DraggedItem, monitor: DragSourceMonitor) {
       store.dispatch(clearDraggingState())
 
       if (!monitor.didDrop()) {
@@ -633,21 +636,21 @@ export function createSliceDragSpec (props) {
 
       handleSegmentDragEnd()
     },
-    canDrag (_monitor: DragSourceMonitor) {
+    canDrag(_monitor: DragSourceMonitor) {
       return !store.getState().app.readOnly
     },
-    isDragging (monitor: DragSourceMonitor<DraggedItem>) {
+    isDragging(monitor: DragSourceMonitor<DraggedItem>) {
       return monitor.getItem().id === props.segment.id
     },
-    collect (monitor: DragSourceMonitor) {
+    collect(monitor: DragSourceMonitor) {
       return {
-        isDragging: monitor.isDragging()
+        isDragging: monitor.isDragging(),
       }
-    }
+    },
   }
 }
 
-export function createPaletteItemDragSpec (segment: SegmentDefinition) {
+export function createPaletteItemDragSpec(segment: SegmentDefinition) {
   return {
     type: DragTypes.PALETTE,
     item: (): DraggedItem => {
@@ -657,7 +660,7 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
       // one dispatch to reduce batch renders.
       store.dispatch(
         initDraggingState({
-          type: DRAGGING_TYPE_MOVE
+          type: DRAGGING_TYPE_MOVE,
         })
       )
 
@@ -693,7 +696,10 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
         variantString,
         actualWidth: getWidthInMetric(segment.defaultWidth, units),
         elevation,
-        slope: false
+        slope: {
+          on: false,
+          values: [],
+        },
       }
     },
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {
@@ -708,17 +714,17 @@ export function createPaletteItemDragSpec (segment: SegmentDefinition) {
     },
     canDrag: (_monitor: DragSourceMonitor) => {
       return !store.getState().app.readOnly
-    }
+    },
   }
 }
 
-export function createSliceDropTargetSpec (
+export function createSliceDropTargetSpec(
   props,
   ref: React.Ref<HTMLDivElement>
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
-    hover (item: DraggedItem, monitor: DropTargetMonitor) {
+    hover(item: DraggedItem, monitor: DropTargetMonitor) {
       if (!monitor.canDrop()) return
 
       const dragIndex = item.sliceIndex
@@ -762,24 +768,24 @@ export function createSliceDropTargetSpec (
           monitor.getItemType()
         )
       }
-    }
+    },
   }
 }
 
-export function createStreetDropTargetSpec (
+export function createStreetDropTargetSpec(
   street: StreetJson,
   ref: React.Ref<HTMLDivElement>
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
-    drop (item: DraggedItem, monitor: DropTargetMonitor) {
+    drop(item: DraggedItem, monitor: DropTargetMonitor) {
       const draggedItemType = monitor.getItemType()
 
       handleSegmentCanvasDrop(item, draggedItemType)
 
       return { withinCanvas: true }
     },
-    hover (item: DraggedItem, monitor: DropTargetMonitor) {
+    hover(item: DraggedItem, monitor: DropTargetMonitor) {
       if (!monitor.canDrop()) return
 
       if (monitor.isOver({ shallow: true })) {
@@ -801,6 +807,6 @@ export function createStreetDropTargetSpec (
           monitor.getItemType()
         )
       }
-    }
+    },
   }
 }

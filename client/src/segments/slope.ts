@@ -1,6 +1,7 @@
 import type { StreetJson } from '@streetmix/types'
 
 export interface SlopeCalculation {
+  values: number[]
   leftElevation: number
   rightElevation: number
   slope: string
@@ -11,7 +12,7 @@ export interface SlopeCalculation {
   }
 }
 
-export function calculateSlope (
+export function calculateSlope(
   street: StreetJson,
   index: number
 ): SlopeCalculation | null {
@@ -34,9 +35,13 @@ export function calculateSlope (
     rightElevation = street.boundary?.right.elevation ?? 0.15
   }
 
+  // New elevation change format
+  const values = [leftElevation, rightElevation]
+
   // If slope is off, don't calculate the change in elevation, even if
   // neighboring elevation differs
-  const rise = slice.slope ? Math.abs(leftElevation - rightElevation) : 0
+  // `slope` property may not be present on older streets
+  const rise = slice.slope?.on ? Math.abs(leftElevation - rightElevation) : 0
 
   // Get slope in percentage
   const slope = ((rise / slice.width) * 100).toFixed(2)
@@ -56,14 +61,15 @@ export function calculateSlope (
   //    (vertical:horizontal)) slope"
   const warnings = {
     slopeExceededBerm: ratio !== undefined && ratio < 3,
-    slopeExceededPath: ratio !== undefined && ratio < 20
+    slopeExceededPath: ratio !== undefined && ratio < 20,
   }
 
   return {
+    values,
     leftElevation,
     rightElevation,
     slope,
     ratio,
-    warnings
+    warnings,
   }
 }

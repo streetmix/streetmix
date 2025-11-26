@@ -11,7 +11,7 @@ import { setActiveSegment } from '../store/slices/ui'
 import {
   incrementSegmentWidth,
   removeSegmentAction,
-  clearSegmentsAction
+  clearSegmentsAction,
 } from '../store/actions/street'
 import { getSegmentCapacity } from './capacity'
 import { getLocaleSegmentName } from './view'
@@ -24,7 +24,7 @@ import {
   SLICE_WARNING_OUTSIDE,
   SLICE_WARNING_WIDTH_TOO_SMALL,
   SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM
+  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
 } from './constants'
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
@@ -41,7 +41,7 @@ interface SliceProps {
   segmentLeft: number
 }
 
-function Segment (props: SliceProps): React.ReactNode {
+function Segment(props: SliceProps): React.ReactNode {
   const { sliceIndex, segment, units, segmentLeft } = props
   const [switchSegments, setSwitchSegments] = useState(false)
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)
@@ -76,7 +76,7 @@ function Segment (props: SliceProps): React.ReactNode {
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
     segment,
-    isDragging
+    isDragging,
   })
 
   useEffect(() => {
@@ -167,7 +167,7 @@ function Segment (props: SliceProps): React.ReactNode {
 
   // When called by CSSTransition `onExited`, `oldVariant` is not passed to the
   // function (is undefined). `switchSegments` should be `true` when this happens.
-  function handleSwitchSegments (oldVariant?: string): void {
+  function handleSwitchSegments(oldVariant?: string): void {
     setSwitchSegments(!switchSegments)
     if (switchSegments) {
       setOldVariant(segment.variantString)
@@ -179,30 +179,27 @@ function Segment (props: SliceProps): React.ReactNode {
     }
   }
 
-  function handleSegmentMouseEnter (): void {
+  function handleSegmentMouseEnter(): void {
     dispatch(setActiveSegment(sliceIndex))
     document.addEventListener('keydown', handleKeyDown)
   }
 
-  function handleSegmentMouseLeave (): void {
+  function handleSegmentMouseLeave(): void {
     dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
   }
 
-  function renderSegmentCanvas (
+  function renderSegmentCanvas(
     variantType: string,
     nodeRef: React.RefObject<HTMLDivElement | null>
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
 
     const slopeData = calculateSlope(street, sliceIndex)
-    const elevationChange = {
-      left: segment.elevation,
-      right: segment.elevation
-    }
-    if (segment.slope && slopeData !== null) {
-      elevationChange.left = slopeData.leftElevation
-      elevationChange.right = slopeData.rightElevation
+    // TODO: slope values should be calced elsewhere and saved
+    const slopeTemp = { ...segment.slope }
+    if (slopeData !== null) {
+      slopeTemp.values = slopeData.values
     }
 
     return (
@@ -215,7 +212,7 @@ function Segment (props: SliceProps): React.ReactNode {
           // and can be used as a consistent and reliable seed for a PRNG
           randSeed={segment.id}
           elevation={segment.elevation}
-          slope={elevationChange}
+          slope={slopeTemp}
         />
         {coastmixMode && <TestSlope slice={segment} />}
       </div>
@@ -235,7 +232,7 @@ function Segment (props: SliceProps): React.ReactNode {
   const segmentStyle = {
     width: elementWidth + 'px',
     zIndex: segmentInfo.zIndex,
-    transform: `translateX(${segmentLeft}px)`
+    transform: `translateX(${segmentLeft}px)`,
   }
 
   const classNames = ['segment']
