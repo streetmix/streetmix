@@ -254,9 +254,15 @@ export function getVariantInfoDimensions(
 
 // Convert single string or object values to single-item array
 function normalizeSpriteDefs(
-  def: string | SpriteDefinition[]
+  def: string | SpriteDefinition | SpriteDefinition[]
 ): SpriteDefinition[] {
-  return Array.isArray(def) ? def : [{ id: def }]
+  if (typeof def === 'string') {
+    return [{ id: def }]
+  } else if (Array.isArray(def)) {
+    return def
+  } else {
+    return [def]
+  }
 }
 
 /**
