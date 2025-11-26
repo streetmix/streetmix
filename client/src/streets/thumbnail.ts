@@ -6,12 +6,9 @@ import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import { getBoundaryItem, drawBoundary } from '../boundary'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants'
+import { getLocaleSegmentName } from '../segments/labels'
 import { calculateSlope } from '../segments/slope'
-import {
-  getVariantInfoDimensions,
-  drawSegmentContents,
-  getLocaleSegmentName,
-} from '../segments/view'
+import { getVariantInfoDimensions, drawSegmentContents } from '../segments/view'
 import { formatMessage } from '../locales/locale'
 import { SAVE_AS_IMAGE_LABEL_PADDING } from './image'
 

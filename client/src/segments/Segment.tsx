@@ -14,7 +14,7 @@ import {
   clearSegmentsAction,
 } from '../store/actions/street'
 import { getSegmentCapacity } from './capacity'
-import { getLocaleSegmentName } from './view'
+import { getLocaleSegmentName } from './labels'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'

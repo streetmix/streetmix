@@ -1,39 +1,38 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import { editSegmentLabel } from '~/src/segments/view'
 import Icon from '~/src/ui/Icon'
 import { Tooltip } from '~/src/ui/Tooltip'
 import './EditableLabel.css'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { SectionType } from '@streetmix/types'
 
 interface EditableLabelProps {
   readonly label: string | React.JSX.Element
-  readonly position: number | BoundaryPosition
-  readonly slice?: Segment
+  readonly type: SectionType
+  readonly isEditUnlocked: boolean
+  readonly handleClickEdit: () => void
 }
 
-export function EditableLabel({ label, position, slice }: EditableLabelProps) {
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
+export function EditableLabel({
+  label,
+  type,
+  handleClickEdit,
+  isEditUnlocked,
+}: EditableLabelProps) {
   const intl = useIntl()
 
-  const handleClick = () => {
-    if (slice !== undefined && typeof position === 'number') {
-      editSegmentLabel(position, slice)
-    }
-  }
-
-  // If position is a string, it's a building, and buildings are currently not
-  // editable at all, so render a label with no interactivity
-  if (typeof position === 'string') {
+  // Boundary labels are not currently editable, so labels are not interactive
+  if (type === 'boundary') {
     return <div className="popup-label">{label}</div>
   }
 
-  if (isSubscriber) {
+  if (isEditUnlocked) {
     return (
-      <div className="popup-label popup-label-editable" onClick={handleClick}>
+      <div
+        className="popup-label popup-label-editable"
+        onClick={handleClickEdit}
+      >
         {label}
         <Icon name="edit" className="popup-label-editable-icon" />
       </div>

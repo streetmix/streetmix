@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import { getLocaleSegmentName } from '~/src/segments/view'
+import { getLocaleSegmentName } from '~/src/segments/labels'
 import { images } from '~/src/app/load_resources'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
@@ -18,11 +18,11 @@ interface SegmentAnalyticsProps {
   capacity: CapacityForDisplay
 }
 
-function SegmentAnalytics ({
+function SegmentAnalytics({
   index,
   type,
   max,
-  capacity
+  capacity,
 }: SegmentAnalyticsProps): React.ReactElement | null {
   const locale = useSelector((state) => state.locale.locale)
 

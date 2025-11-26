@@ -1,23 +1,17 @@
-import {
-  getSegmentInfo,
-  getSegmentVariantInfo,
-  getSpriteDef,
-} from '@streetmix/parts'
+import { getSegmentVariantInfo, getSpriteDef } from '@streetmix/parts'
 import { percentToNumber } from '@streetmix/utils'
 
 import { images } from '../app/load_resources'
-import { formatMessage } from '../locales/locale'
 import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import { applyWarningsToSlices } from '../streets/warnings'
 import { recalculateWidth } from '../streets/width'
 import store from '../store'
-import { updateSegments, changeSegmentProperties } from '../store/slices/street'
+import { updateSegments } from '../store/slices/street'
 import { drawScatteredSprites } from './scatter'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
   TILE_SIZE_ACTUAL,
-  MAX_SEGMENT_LABEL_LENGTH,
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
   GROUND_BASELINE_HEIGHT,
@@ -27,7 +21,6 @@ import PEOPLE from './people.yaml'
 import type {
   BoundaryPosition,
   SlopeProperties,
-  Segment,
   SpriteDefinition,
   UnknownVariantInfo,
   VariantInfo,
@@ -724,19 +717,6 @@ export function drawSegmentContents(
   }
 }
 
-export function getLocaleSegmentName(
-  type: string,
-  variantString: string
-): string {
-  const segmentInfo = getSegmentInfo(type)
-  const variantInfo = getSegmentVariantInfo(type, variantString)
-  const defaultName = variantInfo.name ?? segmentInfo.name
-  const nameKey = variantInfo.nameKey ?? segmentInfo.nameKey
-  const key = `segments.${nameKey}`
-
-  return formatMessage(key, defaultName, { ns: 'segment-info' })
-}
-
 /**
  * TODO: remove this
  */
@@ -754,59 +734,6 @@ export function segmentsChanged(): void {
   )
 
   saveStreetToServerIfNecessary()
-}
-
-/**
- * Process / sanitize segment labels
- *
- * @params name - Segment label to check
- * @returns normalized / sanitized segment label
- */
-function normalizeSegmentLabel(label: string): string | undefined {
-  label = label.trim()
-
-  // If label is the empty string, return undefined
-  if (label === '') {
-    return undefined
-  }
-
-  // Trim a long label
-  if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
-    label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
-  }
-
-  return label
-}
-
-/**
- * Uses browser prompt to change the segment label
- *
- * @param segment - object describing the segment to edit
- * @param position - index of segment to edit
- */
-export function editSegmentLabel(position: number, slice: Segment) {
-  const prevLabel =
-    slice.label || getLocaleSegmentName(slice.type, slice.variantString)
-
-  // If prompt returns empty string, set label to undefined. This resets the
-  // label to the original default name
-  // If prompt returns null (the prompt has been canceled), do not change the
-  // label.
-  const labelInput = window.prompt(
-    formatMessage('prompt.segment-label', 'New segment label:'),
-    prevLabel
-  )
-
-  if (labelInput === null) {
-    return
-  }
-
-  const label = normalizeSegmentLabel(labelInput)
-
-  if (label !== prevLabel) {
-    store.dispatch(changeSegmentProperties(position, { label }))
-    segmentsChanged()
-  }
 }
 
 /**
