@@ -1,9 +1,9 @@
 import { getWidthInMetric } from '~/src/util/width_units'
 
-import type { MeasurementDefinition, UnitsSetting } from '@streetmix/types'
+import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 
-export function getElevationValue (
-  elevation: number | MeasurementDefinition | undefined,
+export function getElevationValue(
+  elevation: number | MeasurementValues | undefined,
   units: UnitsSetting
 ): number {
   if (typeof elevation === 'number') {

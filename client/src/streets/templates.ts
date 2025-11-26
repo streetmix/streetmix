@@ -88,7 +88,7 @@ function processTemplateSlices(
 
     const variantInfo = getSegmentVariantInfo(slice.type, slice.variantString)
 
-    // If width is defined as a WidthDefinition:
+    // If width is defined as a MeasurementValues:
     //  - for metric units, use the metric value as-is
     //  - for US customary units, convert the value to metric
     // If width is defined as a number:
@@ -160,6 +160,10 @@ export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   const slices = processTemplateSlices(data.slices, units)
   const boundary = processTemplateBoundaries(data.boundary, units)
   const creatorId = (isSignedIn() && getSignInData().userId) ?? null
+
+  // Remove `slices` from the existing data because it is being stored
+  // as `segments` for backwards compatibility
+  const { slices: _discarded, ...restData } = data
   const street: Omit<
     StreetState,
     | 'id'
@@ -180,14 +184,11 @@ export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId,
-    ...data,
+    ...restData,
     boundary,
   }
 
-  // Cleanup
-  delete street.slices
-
-  // If width is defined as a WidthDefinition:
+  // If width is defined as MeasurementValues:
   //  - for metric units, use the metric value as-is
   //  - for US customary units, convert the value to metric
   // If width is defined as a number:
