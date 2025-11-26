@@ -7,6 +7,13 @@ import type {
 // when a type (T) has defined K as required.
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
+// Utility type for simplifying a complex type into more readable object
+// when hovering over it in an editor
+// https://www.totaltypescript.com/concepts/the-prettify-helper
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & {}
+
 export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
@@ -30,18 +37,15 @@ export interface SlopeProperties {
 }
 
 // Usable for width and height measurements
-export interface MeasurementDefinition {
+export interface MeasurementValues {
   metric: number // in meters
   imperial: number // in feet
 }
 
-// Alias for existing usage in widths
-export type WidthDefinition = MeasurementDefinition
-
 export interface SliceItemTemplate {
   type: string
   variant: Record<string, string>
-  width: WidthDefinition | number
+  width: MeasurementValues | number
   elevation?: number
   label?: string
   slope?: SlopeProperties
@@ -181,11 +185,11 @@ export interface SliceVariantDetails {
   name?: string
   nameKey?: string
   rules?: {
-    minWidth?: WidthDefinition
-    maxWidth?: WidthDefinition
+    minWidth?: MeasurementValues
+    maxWidth?: MeasurementValues
     dangerous?: boolean
   }
-  defaultWidth?: WidthDefinition
+  defaultWidth?: MeasurementValues
   description?: SliceDescription
   components: {
     lanes?: SliceVariantComponentDefinition[]
@@ -200,17 +204,17 @@ export interface SegmentLookup {
   nameKey: string
   owner?: string
   zIndex?: number
-  defaultWidth: WidthDefinition
+  defaultWidth: MeasurementValues
   defaultVariant?: string
-  defaultElevation?: number | MeasurementDefinition
+  defaultElevation?: number | MeasurementValues
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: UnlockCondition
   description?: SliceDescription
   rules?: {
-    minWidth?: WidthDefinition
-    maxWidth?: WidthDefinition
+    minWidth?: MeasurementValues
+    maxWidth?: MeasurementValues
   }
   variants: string[]
   details: Record<string, SliceVariantDetails>
@@ -229,11 +233,11 @@ export interface VariantInfo {
   name?: string
   nameKey?: string
   description?: SliceDescription
-  defaultWidth?: WidthDefinition
-  minWidth?: WidthDefinition
-  maxWidth?: WidthDefinition
+  defaultWidth?: MeasurementValues
+  minWidth?: MeasurementValues
+  maxWidth?: MeasurementValues
   dangerous?: boolean
-  elevation: number | MeasurementDefinition
+  elevation: number | MeasurementValues
   graphics: Record<string, unknown> // TODO
 }
 
@@ -260,7 +264,7 @@ export interface CapacitySourceDefinition {
   source_title: string
   source_author: string
   source_url?: string // URL
-  typical_lane_width: WidthDefinition
+  typical_lane_width: MeasurementValues
   segments: CapacitySegments
 }
 

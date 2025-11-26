@@ -2,15 +2,11 @@ import { round } from '@streetmix/utils'
 
 import {
   SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
+  SETTINGS_UNITS_METRIC,
 } from '../users/constants'
 import { formatNumber } from './number_format'
 
-import type {
-  MeasurementDefinition,
-  UnitsSetting,
-  WidthDefinition
-} from '@streetmix/types'
+import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
@@ -32,7 +28,7 @@ const WIDTH_INPUT_CONVERSION = [
   { text: '′', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
   { text: 'ft', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
   { text: 'ft.', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
-  { text: 'feet', multiplier: 1 * IMPERIAL_CONVERSION_RATE }
+  { text: 'feet', multiplier: 1 * IMPERIAL_CONVERSION_RATE },
 ]
 
 const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
@@ -43,10 +39,10 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   '.5': '½',
   '.625': '⅝',
   '.75': '¾',
-  '.875': '⅞'
+  '.875': '⅞',
 }
 
-export function roundToPrecision (value: number): number {
+export function roundToPrecision(value: number): number {
   // Assumes metric
   return round(value, METRIC_PRECISION)
 }
@@ -54,7 +50,7 @@ export function roundToPrecision (value: number): number {
 /**
  * Processes a string width input from user, returns a number
  */
-export function processWidthInput (
+export function processWidthInput(
   widthInput: string,
   units: UnitsSetting
 ): number {
@@ -106,7 +102,7 @@ export function processWidthInput (
  * Formats a width to a "pretty" output and converts the value to the user's
  * current units settings (imperial or metric).
  */
-export function prettifyWidth (
+export function prettifyWidth(
   width: number,
   units: UnitsSetting,
   locale: string
@@ -159,7 +155,7 @@ export function prettifyWidth (
  * or formatting, and converts to the desired units, if necessary.
  * Used primarily when converting input box values to a simple number format
  */
-export function stringifyMeasurementValue (
+export function stringifyMeasurementValue(
   value: number,
   units: UnitsSetting,
   locale: string
@@ -177,7 +173,7 @@ export function stringifyMeasurementValue (
     case SETTINGS_UNITS_IMPERIAL: {
       string = formatNumber(value, locale, {
         style: 'decimal',
-        maximumFractionDigits: IMPERIAL_PRECISION
+        maximumFractionDigits: IMPERIAL_PRECISION,
       })
       break
     }
@@ -185,7 +181,7 @@ export function stringifyMeasurementValue (
     default: {
       string = formatNumber(value, locale, {
         style: 'decimal',
-        maximumFractionDigits: METRIC_PRECISION
+        maximumFractionDigits: METRIC_PRECISION,
       })
       break
     }
@@ -198,7 +194,7 @@ export function stringifyMeasurementValue (
  * Given a measurement value (stored internally in Streetmix as metric units),
  * return an imperial quantity up to three decimal point precision.
  */
-export function convertMetricMeasurementToImperial (value: number): number {
+export function convertMetricMeasurementToImperial(value: number): number {
   return roundToNearestEighth(
     round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
   )
@@ -208,7 +204,7 @@ export function convertMetricMeasurementToImperial (value: number): number {
  * Given a measurement, assumed to be in imperial units,
  * return a metric value up to three decimal point precision.
  */
-export function convertImperialMeasurementToMetric (value: number): number {
+export function convertImperialMeasurementToMetric(value: number): number {
   return round(value * IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
 }
 
@@ -218,8 +214,8 @@ export function convertImperialMeasurementToMetric (value: number): number {
  * then return the metric value as is. If `units` is imperial, convert the
  * imperial value to metric and return it.
  */
-export function getWidthInMetric (
-  width: WidthDefinition | MeasurementDefinition,
+export function getWidthInMetric(
+  width: MeasurementValues,
   units: UnitsSetting
 ): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
@@ -233,7 +229,7 @@ export function getWidthInMetric (
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-export function roundToNearestEighth (value: number): number {
+export function roundToNearestEighth(value: number): number {
   return Math.round(value * 8) / 8
 }
 
@@ -241,7 +237,7 @@ export function roundToNearestEighth (value: number): number {
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  */
-export function getImperialMeasurementWithVulgarFractions (
+export function getImperialMeasurementWithVulgarFractions(
   value: number,
   locale: string
 ): string {
@@ -273,7 +269,7 @@ export function getImperialMeasurementWithVulgarFractions (
  * Given a width in any unit (including no unit), parses for units and returns
  * value multiplied by the appropriate multiplier.
  */
-function parseStringForUnits (widthInput: string, units: UnitsSetting): number {
+function parseStringForUnits(widthInput: string, units: UnitsSetting): number {
   if (widthInput.includes('-')) {
     widthInput = widthInput.replace(/-/g, '') // Dashes would mean negative in the parseFloat
   }

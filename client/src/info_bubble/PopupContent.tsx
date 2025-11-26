@@ -14,11 +14,11 @@ type PopupContentProps = SectionElementTypeAndPosition & {
   setArrowHighlighted: (v: boolean) => void
 }
 
-export function PopupContent ({
+export function PopupContent({
   type,
   position,
-  setArrowHighlighted
-}: PopupContentProps): React.ReactNode | null {
+  setArrowHighlighted,
+}: PopupContentProps) {
   const dispatch = useDispatch()
 
   const classNames = ['popup-content']
@@ -27,11 +27,11 @@ export function PopupContent ({
     classNames.push('popup-at-boundary')
   }
 
-  function handleMouseEnter () {
+  function handleMouseEnter() {
     dispatch(setInfoBubbleMouseInside(true))
   }
 
-  function handleMouseLeave () {
+  function handleMouseLeave() {
     dispatch(setInfoBubbleMouseInside(false))
 
     // Returns focus to body when pointer leaves the info bubble area
