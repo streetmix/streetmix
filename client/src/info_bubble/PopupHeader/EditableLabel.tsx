@@ -16,15 +16,15 @@ interface EditableLabelProps {
   position: number | BoundaryPosition
 }
 
-export function EditableLabel ({
+export function EditableLabel({
   label,
   segment,
-  position
-}: EditableLabelProps): React.ReactElement {
+  position,
+}: EditableLabelProps) {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
-  const handleClick = (): void => {
+  const handleClick = () => {
     if (segment !== undefined && typeof position === 'number') {
       editSegmentLabel(segment, position)
     }
@@ -49,7 +49,7 @@ export function EditableLabel ({
     <Tooltip
       label={intl.formatMessage({
         id: 'plus.locked.sub-edit',
-        defaultMessage: 'Upgrade to Streetmix+ to edit'
+        defaultMessage: 'Upgrade to Streetmix+ to edit',
       })}
     >
       <div className="popup-label popup-label-editable">

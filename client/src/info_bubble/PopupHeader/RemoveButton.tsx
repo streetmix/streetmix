@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useDispatch } from '~/src/store/hooks'
 import {
   removeSegmentAction,
-  clearSegmentsAction
+  clearSegmentsAction,
 } from '~/src/store/actions/street'
 import Button from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
@@ -14,13 +14,11 @@ interface RemoveButtonProps {
   segment: number
 }
 
-export function RemoveButton ({
-  segment
-}: RemoveButtonProps): React.ReactElement {
+export function RemoveButton({ segment }: RemoveButtonProps) {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const handleClick = (event: MouseEvent): void => {
+  const handleClick = (event: MouseEvent) => {
     // Prevent this “leaking” to a segment below
     event.preventDefault()
 
@@ -39,7 +37,7 @@ export function RemoveButton ({
       tabIndex={-1}
       title={intl.formatMessage({
         id: 'tooltip.remove-segment',
-        defaultMessage: 'Remove segment'
+        defaultMessage: 'Remove segment',
       })}
       onClick={handleClick}
     >

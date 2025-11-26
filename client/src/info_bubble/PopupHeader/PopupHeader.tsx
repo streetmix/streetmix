@@ -11,9 +11,7 @@ import './PopupHeader.css'
 
 import type { Segment, SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function PopupHeader (
-  props: SectionElementTypeAndPosition
-): React.ReactElement {
+export function PopupHeader(props: SectionElementTypeAndPosition) {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
   const street = useSelector((state) => state.street)
@@ -28,7 +26,7 @@ export function PopupHeader (
    * Retrieve name from segment data. It should also find the equivalent strings from the
    * translation files if provided.
    */
-  function getLabel (): React.ReactElement | string {
+  function getLabel() {
     let id
     let defaultMessage = ''
 
@@ -67,15 +65,13 @@ export function PopupHeader (
         break
     }
 
-    return id !== undefined
-      ? (
-        <IntlProvider locale={locale} messages={segmentInfo}>
-          <FormattedMessage id={id} defaultMessage={defaultMessage} />
-        </IntlProvider>
-        )
-      : (
-          ''
-        )
+    return id !== undefined ? (
+      <IntlProvider locale={locale} messages={segmentInfo}>
+        <FormattedMessage id={id} defaultMessage={defaultMessage} />
+      </IntlProvider>
+    ) : (
+      ''
+    )
   }
 
   return (

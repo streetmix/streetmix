@@ -48,17 +48,18 @@ type PopupContainerProps = Prettify<
   }
 >
 
+// `...props` is a discriminated union of `SectionElementTypeAndPosition`,
+// do not destructure it or it will lose type safety!
 export function PopupContainer({
-  type,
-  position,
   isDragging,
   children,
+  ...props
 }: PopupContainerProps) {
   const element = useSelector((state) => {
-    if (type === 'boundary') {
-      return state.street.boundary[position]
+    if (props.type === 'boundary') {
+      return state.street.boundary[props.position]
     } else {
-      return state.street.segments[position]
+      return state.street.segments[props.position]
     }
   })
   const [isOpen, setIsOpen] = useState(false)
@@ -191,9 +192,8 @@ export function PopupContainer({
               {element && (
                 <div className="popup-container" style={styles}>
                   <PopupContent
-                    type={type}
-                    position={position}
                     setArrowHighlighted={setArrowHighlighted}
+                    {...props}
                   />
                   <FloatingArrow
                     className={arrowClassNames.join(' ')}
