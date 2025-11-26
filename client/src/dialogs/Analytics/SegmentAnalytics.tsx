@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
-import { getLocaleSegmentName } from '~/src/segments/labels'
+import { getLocaleSliceName } from '~/src/segments/labels'
 import { images } from '~/src/app/load_resources'
 import CapacityMessage from './CapacityMessage'
 import CapacityBar from './CapacityBar'
@@ -27,7 +27,7 @@ function SegmentAnalytics({
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
-  const label = getLocaleSegmentName(type, locale)
+  const label = getLocaleSliceName(type, locale)
   const colorScheme = (index % BAR_COLORS) + 1
 
   if (average === 0) return null

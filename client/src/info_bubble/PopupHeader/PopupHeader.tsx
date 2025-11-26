@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useSelector } from '~/src/store/hooks'
 
-import { editSegmentLabel, getLabel } from '~/src/segments/labels'
+import { editSliceLabel, getLabel } from '~/src/segments/labels'
 import { EditableLabel } from './EditableLabel'
 import { RemoveButton } from './RemoveButton'
 import './PopupHeader.css'
@@ -19,7 +19,7 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
   const handleClickEdit = () => {
     if (type === 'slice') {
       const slice = street.segments[position]
-      editSegmentLabel(position, slice)
+      editSliceLabel(position, slice)
     }
   }
 

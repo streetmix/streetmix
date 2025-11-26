@@ -6,7 +6,7 @@ import { prettifyWidth } from '../util/width_units'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import { getBoundaryItem, drawBoundary } from '../boundary'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants'
-import { getLocaleSegmentName } from '../segments/labels'
+import { getLocaleSliceName } from '../segments/labels'
 import { calculateSlope } from '../segments/slope'
 import { getVariantInfoDimensions, drawSegmentContents } from '../segments/view'
 import { formatMessage } from '../locales/locale'
@@ -514,7 +514,7 @@ function drawLabels(
 
     // Segment name label
     const name =
-      element.label ?? getLocaleSegmentName(element.type, element.variantString)
+      element.label ?? getLocaleSliceName(element.type, element.variantString)
     const nameWidth = ctx.measureText(name).width / dpi
 
     if (nameWidth <= availableWidth - 10 * multiplier) {

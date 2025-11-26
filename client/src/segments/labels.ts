@@ -4,7 +4,6 @@ import { formatMessage } from '../locales/locale'
 import store from '../store'
 import { changeSegmentProperties } from '../store/slices/street'
 import { getBoundaryItem } from '../boundary'
-import { MAX_SEGMENT_LABEL_LENGTH } from './constants'
 import { segmentsChanged } from './view'
 
 import type {
@@ -14,13 +13,14 @@ import type {
   StreetJson,
 } from '@streetmix/types'
 
+const MAX_LABEL_LENGTH = 50
+
 /**
- * Process / sanitize segment labels
+ * Process / sanitize slice labels
  *
- * @params name - Segment label to check
- * @returns normalized / sanitized segment label
+ * @params label - Slice label to normalize
  */
-function normalizeSegmentLabel(label: string): string | undefined {
+function normalizeSliceLabel(label: string): string | undefined {
   label = label.trim()
 
   // If label is the empty string, return undefined
@@ -29,14 +29,14 @@ function normalizeSegmentLabel(label: string): string | undefined {
   }
 
   // Trim a long label
-  if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
-    label = label.substring(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
+  if (label.length > MAX_LABEL_LENGTH) {
+    label = label.substring(0, MAX_LABEL_LENGTH) + '…'
   }
 
   return label
 }
 
-export function getLocaleSegmentName(
+export function getLocaleSliceName(
   type: string,
   variantString: string
 ): string {
@@ -50,14 +50,14 @@ export function getLocaleSegmentName(
 }
 
 /**
- * Uses browser prompt to change the segment label
+ * Uses browser prompt to change the slice label
  *
- * @param segment - object describing the segment to edit
- * @param position - index of segment to edit
+ * @param position - index of slice to edit
+ * @param slice - the slice object itself
  */
-export function editSegmentLabel(position: number, slice: SliceItem) {
+export function editSliceLabel(position: number, slice: SliceItem) {
   const prevLabel =
-    slice.label || getLocaleSegmentName(slice.type, slice.variantString)
+    slice.label || getLocaleSliceName(slice.type, slice.variantString)
 
   // If prompt returns empty string, set label to undefined. This resets the
   // label to the original default name
@@ -72,7 +72,7 @@ export function editSegmentLabel(position: number, slice: SliceItem) {
     return
   }
 
-  const label = normalizeSegmentLabel(labelInput)
+  const label = normalizeSliceLabel(labelInput)
 
   if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
