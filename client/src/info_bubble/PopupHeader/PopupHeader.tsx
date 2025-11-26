@@ -22,10 +22,9 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
     segment = street.segments[position]
   }
 
-  /**
-   * Retrieve name from segment data. It should also find the equivalent strings from the
-   * translation files if provided.
-   */
+  // A slice has a label: either a user-specified string, or the default one
+  // for a given slice type and variant. Default labels are translated into
+  // the user's preferred locale.
   function getLabel() {
     let id
     let defaultMessage = ''
@@ -65,12 +64,10 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
         break
     }
 
-    return id !== undefined ? (
+    return (
       <IntlProvider locale={locale} messages={segmentInfo}>
         <FormattedMessage id={id} defaultMessage={defaultMessage} />
       </IntlProvider>
-    ) : (
-      ''
     )
   }
 
