@@ -7,6 +7,13 @@ import type {
 // when a type (T) has defined K as required.
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
 
+// Utility type for simplifying a complex type into more readable object
+// when hovering over it in an editor
+// https://www.totaltypescript.com/concepts/the-prettify-helper
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & {}
+
 export type UnitsSetting =
   | typeof SETTINGS_UNITS_METRIC
   | typeof SETTINGS_UNITS_IMPERIAL
