@@ -784,9 +784,9 @@ function normalizeSegmentLabel(label: string): string | undefined {
  * @param segment - object describing the segment to edit
  * @param position - index of segment to edit
  */
-export function editSegmentLabel(segment: Segment, position: number): void {
+export function editSegmentLabel(position: number, slice: Segment) {
   const prevLabel =
-    segment.label || getLocaleSegmentName(segment.type, segment.variantString)
+    slice.label || getLocaleSegmentName(slice.type, slice.variantString)
 
   // If prompt returns empty string, set label to undefined. This resets the
   // label to the original default name

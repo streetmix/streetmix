@@ -73,8 +73,8 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
 
   return (
     <header>
-      <EditableLabel label={getLabel()} segment={segment} position={position} />
-      {type === 'slice' && <RemoveButton segment={position} />}
+      <EditableLabel label={getLabel()} position={position} slice={segment} />
+      {type === 'slice' && <RemoveButton slice={position} />}
     </header>
   )
 }

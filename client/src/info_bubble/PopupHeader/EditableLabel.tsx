@@ -10,23 +10,18 @@ import './EditableLabel.css'
 import type { BoundaryPosition, Segment } from '@streetmix/types'
 
 interface EditableLabelProps {
-  // Label can be string, or React element (if translated by ReactIntl)
-  label: string | React.ReactElement
-  segment?: Segment
-  position: number | BoundaryPosition
+  readonly label: string | React.JSX.Element
+  readonly position: number | BoundaryPosition
+  readonly slice?: Segment
 }
 
-export function EditableLabel({
-  label,
-  segment,
-  position,
-}: EditableLabelProps) {
+export function EditableLabel({ label, position, slice }: EditableLabelProps) {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
   const handleClick = () => {
-    if (segment !== undefined && typeof position === 'number') {
-      editSegmentLabel(segment, position)
+    if (slice !== undefined && typeof position === 'number') {
+      editSegmentLabel(position, slice)
     }
   }
 

@@ -11,23 +11,23 @@ import Icon from '~/src/ui/Icon'
 import './RemoveButton.css'
 
 interface RemoveButtonProps {
-  segment: number
+  readonly slice: number
 }
 
-export function RemoveButton({ segment }: RemoveButtonProps) {
+export function RemoveButton({ slice }: RemoveButtonProps) {
   const dispatch = useDispatch()
   const intl = useIntl()
 
   const handleClick = (event: MouseEvent) => {
-    // Prevent this “leaking” to a segment below
+    // Prevent this “leaking” to a slice below
     event.preventDefault()
 
-    // Power move: a shift key will remove all segments
+    // Power move: a shift key will remove all slices
     if (event.shiftKey) {
       dispatch(clearSegmentsAction())
     } else {
-      // Otherwise, remove one segment
-      dispatch(removeSegmentAction(segment))
+      // Otherwise, remove one slice
+      dispatch(removeSegmentAction(slice))
     }
   }
 
