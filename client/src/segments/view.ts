@@ -635,11 +635,17 @@ export function drawSegmentContents(
           offsetX / TILE_SIZE_ACTUAL) *
         TILE_SIZE *
         multiplier
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        distanceFromGround +=
+          ((multiplier * (slope.values[0] + slope.values[1])) / 2) * TILE_SIZE
+      }
 
       drawSegmentImage(
         sprite.id,
