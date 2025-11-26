@@ -30,7 +30,7 @@ function normalizeSegmentLabel(label: string): string | undefined {
 
   // Trim a long label
   if (label.length > MAX_SEGMENT_LABEL_LENGTH) {
-    label = label.substr(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
+    label = label.substring(0, MAX_SEGMENT_LABEL_LENGTH) + '…'
   }
 
   return label

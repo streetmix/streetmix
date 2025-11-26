@@ -117,7 +117,7 @@ export function processUrl(): void {
     const namespacedId = Number.parseInt(urlParts[1], 10)
 
     if (creatorId.charAt(0) === URL_RESERVED_PREFIX) {
-      creatorId = creatorId.substr(1)
+      creatorId = creatorId.slice(1)
     }
 
     store.dispatch(saveCreatorId(creatorId))

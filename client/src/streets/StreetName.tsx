@@ -5,7 +5,7 @@ import './StreetName.css'
 
 const MAX_STREET_NAME_WIDTH = 50
 
-function normalizeStreetName (name: string | null): string | null {
+function normalizeStreetName(name: string | null): string | null {
   // If name is null, pass through -- a placeholder display name
   // will be handled by localization
   if (name === null) return null
@@ -13,7 +13,7 @@ function normalizeStreetName (name: string | null): string | null {
   name = name.trim()
 
   if (name.length > MAX_STREET_NAME_WIDTH) {
-    name = name.substr(0, MAX_STREET_NAME_WIDTH) + '…'
+    name = name.substring(0, MAX_STREET_NAME_WIDTH) + '…'
   }
 
   return name
@@ -26,19 +26,19 @@ interface StreetNameProps {
   editable?: boolean
 }
 
-function StreetName ({
+function StreetName({
   name,
   ref,
   onClick = () => {},
-  editable = false
+  editable = false,
 }: StreetNameProps): React.ReactElement {
   const [isHovered, setHovered] = useState(false)
 
-  function handleMouseEnter (): void {
+  function handleMouseEnter(): void {
     setHovered(true)
   }
 
-  function handleMouseLeave (): void {
+  function handleMouseLeave(): void {
     setHovered(false)
   }
 
