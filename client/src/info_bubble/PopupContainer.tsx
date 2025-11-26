@@ -43,8 +43,8 @@ const ARROW_HEIGHT = 16
 
 type PopupContainerProps = Prettify<
   SectionElementTypeAndPosition & {
-    isDragging: boolean
-    children: React.ReactElement
+    isDragging?: boolean
+    children: React.JSX.Element
   }
 >
 
@@ -158,11 +158,7 @@ export function PopupContainer({
     children,
     getReferenceProps({
       // Refs are merged between useFloating and an existing child ref, if any.
-      ref: useMergeRefs([
-        refs.setReference,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as any).ref,
-      ]),
+      ref: useMergeRefs([refs.setReference, children.ref]),
       ...children.props,
     })
   )

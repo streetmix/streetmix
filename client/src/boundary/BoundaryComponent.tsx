@@ -4,20 +4,20 @@ import { CSSTransition } from 'react-transition-group'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
   addBuildingFloor,
-  removeBuildingFloor
+  removeBuildingFloor,
 } from '~/src/store/slices/street'
 import { setActiveSegment } from '~/src/store/slices/ui'
 import { usePrevious } from '~/src/util/usePrevious'
 import {
   MAX_CANVAS_HEIGHT,
-  GROUND_BASELINE_HEIGHT
+  GROUND_BASELINE_HEIGHT,
 } from '~/src/segments/constants'
 import { getElevation } from '~/src/segments/view'
 import { PopupContainer } from '../info_bubble/PopupContainer'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
-  drawBoundary
+  drawBoundary,
 } from './boundary'
 import './BoundaryComponent.css'
 
@@ -26,7 +26,7 @@ import type { BoundaryPosition } from '@streetmix/types'
 /**
  * Creates building canvas element to draw on
  */
-function createBoundaryCanvas (
+function createBoundaryCanvas(
   el: HTMLElement,
   position: BoundaryPosition,
   variant: string,
@@ -95,11 +95,7 @@ interface BoundaryProps {
   updatePerspective: (el: HTMLElement | null) => void
 }
 
-function Boundary ({
-  position,
-  width,
-  updatePerspective
-}: BoundaryProps): React.ReactElement {
+function Boundary({ position, width, updatePerspective }: BoundaryProps) {
   const street = useSelector((state) => state.street)
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const leftBoundaryEditable = useSelector(
@@ -136,12 +132,12 @@ function Boundary ({
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevState = usePrevious({
     streetId: street.id,
-    variant
+    variant,
   })
 
   // `event` type is not a React event because listener is attached through DOM
   // We need to define a callback so React can properly clean up event handlers
-  const handleKeyDown = useCallback((event: KeyboardEvent): void => {
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (!isEditable) return
 
     const negative = event.key === '-'
@@ -211,7 +207,7 @@ function Boundary ({
     }
   }, [handleKeyDown])
 
-  function handleElementMouseEnter (_event: React.MouseEvent): void {
+  function handleElementMouseEnter(_event: React.MouseEvent) {
     const el = newEl.current
 
     if (el === null) return
@@ -221,7 +217,7 @@ function Boundary ({
     document.addEventListener('keydown', handleKeyDown)
   }
 
-  function handleElementMouseLeave (_event: React.MouseEvent): void {
+  function handleElementMouseLeave(_event: React.MouseEvent) {
     const el = newEl.current
 
     if (el === null) return
@@ -231,10 +227,7 @@ function Boundary ({
     document.removeEventListener('keydown', handleKeyDown)
   }
 
-  function changeRefs (
-    ref: HTMLElement | null,
-    isPreviousElement: boolean
-  ): void {
+  function changeRefs(ref: HTMLElement | null, isPreviousElement: boolean) {
     if (!switchElements && !isPreviousElement) return
 
     if (switchElements && isPreviousElement) {
@@ -244,13 +237,13 @@ function Boundary ({
     }
   }
 
-  function handleSwitchElements (): void {
+  function handleSwitchElements() {
     setSwitchElements((s) => !s)
     setNewElementEnter((s) => !s)
     setOldElementEnter((s) => !s)
   }
 
-  function renderBoundary (
+  function renderBoundary(
     boundary: string,
     nodeRef: React.RefObject<null>,
     elevation: number,
@@ -260,11 +253,11 @@ function Boundary ({
 
     const widthStyle = {
       [position]: `-${width}px`,
-      width: width + 'px'
+      width: width + 'px',
     }
     // NOTE - this still renders "higher" because of the "ground plane" on sprites
     const elevationStyle = {
-      height: `${GROUND_BASELINE_HEIGHT + getElevation(elevation)}px`
+      height: `${GROUND_BASELINE_HEIGHT + getElevation(elevation)}px`,
     }
 
     const classNames = ['street-section-boundary']
