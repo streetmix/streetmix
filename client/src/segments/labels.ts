@@ -18,7 +18,7 @@ const MAX_LABEL_LENGTH = 50
 /**
  * Process / sanitize slice labels
  *
- * @params label - Slice label to normalize
+ * @param label - Slice label to normalize
  */
 function normalizeSliceLabel(label: string): string | undefined {
   label = label.trim()
