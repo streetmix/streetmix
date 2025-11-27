@@ -50,18 +50,29 @@ describe('labels', () => {
 
   describe('getLocaleSliceName', () => {
     it('returns variant name when variant has name', () => {
-      const result = getLocaleSliceName('segment-type', 'variant-string')
+      const result = getLocaleSliceName('slice-type', 'variant-string')
 
       expect(result).toBe('Default variant name')
     })
 
-    it('returns segment name when variant does not have name', () => {
+    it('returns slice name when variant does not have name', () => {
       ;(getSegmentVariantInfo as Mock).mockReturnValueOnce({
         name: undefined,
         nameKey: undefined,
       })
 
-      const result = getLocaleSliceName('segment-type', 'variant-string')
+      const result = getLocaleSliceName('slice-type', 'variant-string')
+
+      expect(result).toBe('Default slice name')
+    })
+
+    it('returns slice name when variant string is not provided', () => {
+      ;(getSegmentVariantInfo as Mock).mockReturnValueOnce({
+        name: undefined,
+        nameKey: undefined,
+      })
+
+      const result = getLocaleSliceName('slice-type')
 
       expect(result).toBe('Default slice name')
     })
@@ -69,7 +80,7 @@ describe('labels', () => {
 
   describe('editSliceLabel', () => {
     const mockSlice = {
-      type: 'segment-type',
+      type: 'slice-type',
       variantString: 'variant-string',
       label: undefined,
     } as SliceItem

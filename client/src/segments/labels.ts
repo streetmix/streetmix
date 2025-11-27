@@ -36,12 +36,20 @@ function normalizeSliceLabel(label: string): string | undefined {
   return label
 }
 
+/**
+ * Gets the default slice name.
+ *
+ * If `variantString` is not provided, return its default generic name.
+ * This calls `formatMessage`, which reads the locale from app state.
+ */
 export function getLocaleSliceName(
   type: string,
-  variantString: string
+  variantString?: string
 ): string {
   const sliceInfo = getSegmentInfo(type)
-  const variantInfo = getSegmentVariantInfo(type, variantString)
+  const variantInfo = variantString
+    ? getSegmentVariantInfo(type, variantString)
+    : {}
   const defaultName = variantInfo.name ?? sliceInfo.name
   const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
   const key = `segments.${nameKey}`
@@ -51,9 +59,6 @@ export function getLocaleSliceName(
 
 /**
  * Uses browser prompt to change the slice label
- *
- * @param position - index of slice to edit
- * @param slice - the slice object itself
  */
 export function editSliceLabel(position: number, slice: SliceItem) {
   const prevLabel =

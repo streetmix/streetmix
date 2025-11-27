@@ -27,7 +27,7 @@ function SegmentAnalytics({
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
-  const label = getLocaleSliceName(type, locale)
+  const label = getLocaleSliceName(type)
   const colorScheme = (index % BAR_COLORS) + 1
 
   if (average === 0) return null
