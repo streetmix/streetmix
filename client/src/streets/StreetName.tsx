@@ -20,10 +20,10 @@ function normalizeStreetName(name: string | null): string | null {
 }
 
 interface StreetNameProps {
-  name: string | null
-  ref?: React.RefObject<HTMLDivElement | null>
-  onClick?: () => void
-  editable?: boolean
+  readonly name: string | null
+  readonly ref?: React.RefObject<HTMLDivElement | null>
+  readonly onClick?: () => void
+  readonly editable?: boolean
 }
 
 function StreetName({
@@ -31,7 +31,7 @@ function StreetName({
   ref,
   onClick = () => {},
   editable = false,
-}: StreetNameProps): React.ReactElement {
+}: StreetNameProps) {
   const [isHovered, setHovered] = useState(false)
 
   function handleMouseEnter(): void {
