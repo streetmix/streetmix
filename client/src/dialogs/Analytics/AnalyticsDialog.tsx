@@ -22,7 +22,7 @@ import CapacitySources from './CapacitySources'
 import SliceAnalytics from './SliceAnalytics'
 import './AnalyticsDialog.css'
 
-function AnalyticsDialog(): React.ReactElement {
+function AnalyticsDialog() {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ function AnalyticsDialog(): React.ReactElement {
   const max = useRef(0)
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
-  const toggleVisible = (): void => {
+  const toggleVisible = () => {
     setVisible(!isVisible)
     dispatch(setShowAnalytics(!isVisible))
   }
@@ -91,7 +91,7 @@ function AnalyticsDialog(): React.ReactElement {
     ...rolledUp.map((item) => item.capacity?.potential ?? 0)
   )
 
-  function exportCSV(): void {
+  function exportCSV() {
     const name =
       street.name ??
       intl.formatMessage({

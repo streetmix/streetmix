@@ -4,18 +4,17 @@ import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
   SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL
+  SLICE_WARNING_WIDTH_TOO_SMALL,
 } from './constants'
 import SOURCE_DATA from './capacity_data.json'
 
 import type {
   CapacityData,
   CapacityForDisplay,
-  CapacitySegmentDefinition,
   CapacitySegments,
   CapacitySourceDefinition,
   Segment,
-  StreetState
+  StreetState,
 } from '@streetmix/types'
 
 const BASE_DATA_SOURCE = 'common'
@@ -35,7 +34,7 @@ interface SegmentCapacities {
  *   removed in the future. Code that works with the entire capacity
  *   source object should handle the "none" case manually.
  */
-function processCapacityData (): CapacityData {
+function processCapacityData(): CapacityData {
   const processed: CapacityData = {}
   const baseData = SOURCE_DATA[BASE_DATA_SOURCE]
   const sourceData = omit(SOURCE_DATA, [BASE_DATA_SOURCE]) as CapacityData
@@ -51,8 +50,8 @@ function processCapacityData (): CapacityData {
         // Clone "common" segments into our processed definition
         ...baseData.segments,
         // Iterate through source segment data and process each.
-        ...processInheritedValues(data.segments)
-      }
+        ...processInheritedValues(data.segments),
+      },
     }
   }
 
@@ -68,7 +67,7 @@ function processCapacityData (): CapacityData {
  * @param {Object} definitions - object to process
  * @param {Object} inheritSource - optional source of inherited values
  */
-function processInheritedValues (
+function processInheritedValues(
   definitions: CapacitySegments,
   inheritSource?: CapacitySegments
 ): CapacitySegments {
@@ -85,11 +84,11 @@ function processInheritedValues (
     let clone
     if (segment.inherits !== undefined) {
       clone = {
-        ...source[segment.inherits]
+        ...source[segment.inherits],
       }
     } else {
       clone = {
-        ...segment
+        ...segment,
       }
     }
 
@@ -104,11 +103,11 @@ function processInheritedValues (
   return processed
 }
 
-export function getAllCapacityDataSources (): CapacityData {
+export function getAllCapacityDataSources(): CapacityData {
   return CAPACITIES
 }
 
-export function getCapacityData (
+export function getCapacityData(
   source = DEFAULT_CAPACITY_SOURCE
 ): CapacitySourceDefinition {
   return CAPACITIES[source]
@@ -123,7 +122,7 @@ export function getCapacityData (
  * small. We may, in the future, handle other cases that affect capacity,
  * such as segment width or adjacent segment types.
  */
-export function getSegmentCapacity (
+export function getSegmentCapacity(
   segment: Segment,
   source: string = DEFAULT_CAPACITY_SOURCE
 ): CapacityForDisplay | undefined {
@@ -152,7 +151,7 @@ export function getSegmentCapacity (
   ) {
     return {
       average: 0,
-      potential: 0
+      potential: 0,
     }
   }
 
@@ -160,7 +159,7 @@ export function getSegmentCapacity (
     // Temporary: map minimum values to average
     average: capacity.average ?? capacity.minimum ?? 0,
     // Temporary: map undefined potential values from average
-    potential: capacity.potential ?? capacity.average ?? 0
+    potential: capacity.potential ?? capacity.average ?? 0,
   }
 }
 
@@ -170,9 +169,7 @@ export function getSegmentCapacity (
  * segment capacity, this will always return an object. Values are set to zero
  * if street has no capacity data.
  */
-export function getStreetCapacity (
-  street: StreetState
-): CapacitySegmentDefinition {
+export function getStreetCapacity(street: StreetState): CapacityForDisplay {
   const { segments, capacitySource } = street
   const segmentCapacities = segments.map((segment: Segment) =>
     getSegmentCapacity(segment, capacitySource)
@@ -191,7 +188,7 @@ export function getStreetCapacity (
 
   return {
     average,
-    potential
+    potential,
   }
 }
 
@@ -199,7 +196,7 @@ export function getStreetCapacity (
  * Given a street, calculate the capacity for each type of segment, rolling
  * up identical segment types together.
  */
-export function getRolledUpSegmentCapacities (
+export function getRolledUpSegmentCapacities(
   street: StreetState
 ): SegmentCapacities[] {
   const { segments, capacitySource } = street
@@ -214,7 +211,7 @@ export function getRolledUpSegmentCapacities (
 
       return {
         type: segment.type,
-        capacity
+        capacity,
       }
     })
     // Drop all segments without capacity information
@@ -233,22 +230,22 @@ export function getRolledUpSegmentCapacities (
   return Object.keys(capacities)
     .map((key) => ({
       type: key,
-      capacity: capacities[key]
+      capacity: capacities[key],
     }))
     .sort(sortByCapacity)
 }
 
-function mergeCapacity (
+function mergeCapacity(
   a: Partial<CapacityForDisplay> = {},
   b: Partial<CapacityForDisplay> = {}
 ): CapacityForDisplay {
   return {
     average: (a.average ?? 0) + (b.average ?? 0),
-    potential: (a.potential ?? 0) + (b.potential ?? 0)
+    potential: (a.potential ?? 0) + (b.potential ?? 0),
   }
 }
 
-function sortByCapacity (a: SegmentCapacities, b: SegmentCapacities): number {
+function sortByCapacity(a: SegmentCapacities, b: SegmentCapacities): number {
   const a1 = a.capacity?.average ?? 0
   const b1 = b.capacity?.average ?? 0
   const a2 = a.capacity?.potential ?? 0
@@ -262,13 +259,13 @@ function sortByCapacity (a: SegmentCapacities, b: SegmentCapacities): number {
   return 0
 }
 
-export function getCsv (data: SegmentCapacities[]): string {
+export function getCsv(data: SegmentCapacities[]): string {
   const fields = ['type', 'averageCapacity', 'potentialCapacity']
   const opts = { fields }
   const formattedData = data.map((row) => ({
     type: row.type,
     averageCapacity: row.capacity?.average ?? 0,
-    potentialCapacity: row.capacity?.potential ?? 0
+    potentialCapacity: row.capacity?.potential ?? 0,
   }))
 
   const parser = new Parser(opts)
@@ -280,7 +277,7 @@ export function getCsv (data: SegmentCapacities[]): string {
 /**
  * Converts capacity data into a CSV file for exporting
  */
-export function saveCsv (data: SegmentCapacities[], streetName: string): void {
+export function saveCsv(data: SegmentCapacities[], streetName: string): void {
   try {
     const csv = getCsv(data)
     const downloadLink = document.createElement('a')
