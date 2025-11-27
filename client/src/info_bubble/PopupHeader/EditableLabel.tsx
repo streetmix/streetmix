@@ -1,47 +1,41 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import { editSegmentLabel } from '~/src/segments/view'
 import Icon from '~/src/ui/Icon'
 import { Tooltip } from '~/src/ui/Tooltip'
 import './EditableLabel.css'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { SectionType } from '@streetmix/types'
 
 interface EditableLabelProps {
-  // Label can be string, or React element (if translated by ReactIntl)
-  label: string | React.ReactElement
-  segment?: Segment
-  position: number | BoundaryPosition
+  readonly label: string | React.JSX.Element
+  readonly type: SectionType
+  readonly isEditUnlocked: boolean
+  readonly handleClickEdit: () => void
 }
 
-export function EditableLabel ({
+export function EditableLabel({
   label,
-  segment,
-  position
-}: EditableLabelProps): React.ReactElement {
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  type,
+  handleClickEdit,
+  isEditUnlocked,
+}: EditableLabelProps) {
   const intl = useIntl()
 
-  const handleClick = (): void => {
-    if (segment !== undefined && typeof position === 'number') {
-      editSegmentLabel(segment, position)
-    }
+  // Boundary labels are not currently editable, so labels are not interactive
+  if (type === 'boundary') {
+    return <h3 className="popup-label">{label}</h3>
   }
 
-  // If position is a string, it's a building, and buildings are currently not
-  // editable at all, so render a label with no interactivity
-  if (typeof position === 'string') {
-    return <div className="popup-label">{label}</div>
-  }
-
-  if (isSubscriber) {
+  if (isEditUnlocked) {
     return (
-      <div className="popup-label popup-label-editable" onClick={handleClick}>
+      <h3
+        className="popup-label popup-label-editable"
+        onClick={handleClickEdit}
+      >
         {label}
         <Icon name="edit" className="popup-label-editable-icon" />
-      </div>
+      </h3>
     )
   }
 
@@ -49,13 +43,13 @@ export function EditableLabel ({
     <Tooltip
       label={intl.formatMessage({
         id: 'plus.locked.sub-edit',
-        defaultMessage: 'Upgrade to Streetmix+ to edit'
+        defaultMessage: 'Upgrade to Streetmix+ to edit',
       })}
     >
-      <div className="popup-label popup-label-editable">
+      <h3 className="popup-label popup-label-editable">
         {label}
         <Icon name="lock" className="popup-label-editable-icon" />
-      </div>
+      </h3>
     </Tooltip>
   )
 }

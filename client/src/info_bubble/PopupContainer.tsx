@@ -43,22 +43,23 @@ const ARROW_HEIGHT = 16
 
 type PopupContainerProps = Prettify<
   SectionElementTypeAndPosition & {
-    isDragging: boolean
-    children: React.ReactElement
+    isDragging?: boolean
+    children: React.JSX.Element
   }
 >
 
+// `...props` is a discriminated union of `SectionElementTypeAndPosition`,
+// do not destructure it or it will lose type safety!
 export function PopupContainer({
-  type,
-  position,
   isDragging,
   children,
+  ...props
 }: PopupContainerProps) {
   const element = useSelector((state) => {
-    if (type === 'boundary') {
-      return state.street.boundary[position]
+    if (props.type === 'boundary') {
+      return state.street.boundary[props.position]
     } else {
-      return state.street.segments[position]
+      return state.street.segments[props.position]
     }
   })
   const [isOpen, setIsOpen] = useState(false)
@@ -157,11 +158,7 @@ export function PopupContainer({
     children,
     getReferenceProps({
       // Refs are merged between useFloating and an existing child ref, if any.
-      ref: useMergeRefs([
-        refs.setReference,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as any).ref,
-      ]),
+      ref: useMergeRefs([refs.setReference, children.ref]),
       ...children.props,
     })
   )
@@ -191,9 +188,8 @@ export function PopupContainer({
               {element && (
                 <div className="popup-container" style={styles}>
                   <PopupContent
-                    type={type}
-                    position={position}
                     setArrowHighlighted={setArrowHighlighted}
+                    {...props}
                   />
                   <FloatingArrow
                     className={arrowClassNames.join(' ')}

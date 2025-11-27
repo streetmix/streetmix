@@ -1,41 +1,36 @@
 import React from 'react'
 
-import { useSelector } from '~/src/store/hooks'
-import { getLocaleSegmentName } from '~/src/segments/view'
 import { images } from '~/src/app/load_resources'
-import CapacityMessage from './CapacityMessage'
+import { getLocaleSliceName } from '~/src/segments/labels'
+import { useSelector } from '~/src/store/hooks'
 import CapacityBar from './CapacityBar'
-import './SegmentAnalytics.css'
+import CapacityMessage from './CapacityMessage'
+import './SliceAnalytics.css'
 
 import type { CapacityForDisplay } from '@streetmix/types'
 
 const BAR_COLORS = 4
 
-interface SegmentAnalyticsProps {
-  index: number
-  type: string
-  max: number
-  capacity: CapacityForDisplay
+interface SliceAnalyticsProps {
+  readonly index: number
+  readonly type: string
+  readonly max: number
+  readonly capacity: CapacityForDisplay
 }
 
-function SegmentAnalytics ({
-  index,
-  type,
-  max,
-  capacity
-}: SegmentAnalyticsProps): React.ReactElement | null {
+function SliceAnalytics({ index, type, max, capacity }: SliceAnalyticsProps) {
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
-  const label = getLocaleSegmentName(type, locale)
+  const label = getLocaleSliceName(type)
   const colorScheme = (index % BAR_COLORS) + 1
 
   if (average === 0) return null
 
-  let ImageElement
+  let imageEl
   switch (type) {
     case 'magic-carpet':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('vehicles--magic-carpet-jasmine').src}
           style={{ width: '100%', marginTop: '-22%' }}
@@ -43,7 +38,7 @@ function SegmentAnalytics ({
       )
       break
     case 'drive-lane':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('vehicles--car-inbound').src}
           style={{ width: '100%', marginTop: '-10%' }}
@@ -51,7 +46,7 @@ function SegmentAnalytics ({
       )
       break
     case 'bike-lane':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('bikes--biker-01-inbound').src}
           style={{ width: '45%', marginTop: '0%' }}
@@ -59,7 +54,7 @@ function SegmentAnalytics ({
       )
       break
     case 'brt-lane':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('transit--brt-bus-inbound').src}
           style={{ width: '85%', marginTop: '-5%' }}
@@ -67,7 +62,7 @@ function SegmentAnalytics ({
       )
       break
     case 'sidewalk':
-      ImageElement = (
+      imageEl = (
         <>
           <img src={images.get('people--people-01').src} />
           <img
@@ -78,7 +73,7 @@ function SegmentAnalytics ({
       )
       break
     case 'scooter':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('scooters--scooter-inbound').src}
           style={{ width: '38%', marginTop: '0%' }}
@@ -86,7 +81,7 @@ function SegmentAnalytics ({
       )
       break
     case 'light-rail':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('transit--light-rail-inbound').src}
           style={{ width: '65%', marginTop: '-15%' }}
@@ -94,7 +89,7 @@ function SegmentAnalytics ({
       )
       break
     case 'bus-lane':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('transit--bus-inbound').src}
           style={{ width: '90%', marginTop: '0%' }}
@@ -102,7 +97,7 @@ function SegmentAnalytics ({
       )
       break
     case 'streetcar':
-      ImageElement = (
+      imageEl = (
         <img
           src={images.get('transit--streetcar-inbound').src}
           style={{ width: '80%', marginTop: '-15%' }}
@@ -112,9 +107,9 @@ function SegmentAnalytics ({
   }
 
   return (
-    <div className="segment-analytics" data-color={colorScheme}>
+    <div className="slice-analytics" data-color={colorScheme}>
       <div className="capacity-icon">
-        <div className="capacity-icon-image">{ImageElement}</div>
+        <div className="capacity-icon-image">{imageEl}</div>
       </div>
       <CapacityBar average={average} potential={potential} max={max} />
       <div className="capacity-text">
@@ -131,4 +126,4 @@ function SegmentAnalytics ({
   )
 }
 
-export default SegmentAnalytics
+export default SliceAnalytics

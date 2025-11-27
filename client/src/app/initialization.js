@@ -38,7 +38,7 @@ function preInit() {
 
   let language = window.navigator.userLanguage || window.navigator.language
   if (language) {
-    language = language.substr(0, 2).toUpperCase()
+    language = language.substring(0, 2).toUpperCase()
     updateSettingsFromCountryCode(language)
   }
 

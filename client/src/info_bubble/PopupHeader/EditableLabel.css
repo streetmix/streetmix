@@ -3,9 +3,11 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: inherit;
   padding-left: 0.25em;
   padding-right: 0.25em;
   margin-inline-start: -0.25em;
+  margin-block: 0;
   background-color: rgb(255 255 255 / 0%);
   border-radius: 3px;
   display: flex;

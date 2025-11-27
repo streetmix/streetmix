@@ -8,22 +8,25 @@ import { PopupControls } from './PopupControls'
 import { PopupHeader } from './PopupHeader'
 import { PopupLower } from './PopupLower'
 
-import type { SectionElementTypeAndPosition } from '@streetmix/types'
+import type { SectionElementTypeAndPosition, Prettify } from '@streetmix/types'
 
-type PopupContentProps = SectionElementTypeAndPosition & {
-  setArrowHighlighted: (v: boolean) => void
-}
+type PopupContentProps = Prettify<
+  SectionElementTypeAndPosition & {
+    setArrowHighlighted: (v: boolean) => void
+  }
+>
 
+// `...props` is a discriminated union of `SectionElementTypeAndPosition`,
+// do not destructure it or it will lose type safety!
 export function PopupContent({
-  type,
-  position,
   setArrowHighlighted,
+  ...props
 }: PopupContentProps) {
   const dispatch = useDispatch()
 
   const classNames = ['popup-content']
 
-  if (type === 'boundary') {
+  if (props.type === 'boundary') {
     classNames.push('popup-at-boundary')
   }
 
@@ -48,12 +51,9 @@ export function PopupContent({
       onMouseLeave={handleMouseLeave}
     >
       <TooltipGroup>
-        <PopupHeader type={type} position={position} />
-        <PopupControls type={type} position={position} />
-        <PopupLower
-          position={position}
-          setArrowHighlighted={setArrowHighlighted}
-        />
+        <PopupHeader {...props} />
+        <PopupControls {...props} />
+        <PopupLower setArrowHighlighted={setArrowHighlighted} {...props} />
       </TooltipGroup>
     </div>
   )

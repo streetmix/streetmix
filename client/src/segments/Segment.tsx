@@ -14,7 +14,7 @@ import {
   clearSegmentsAction,
 } from '../store/actions/street'
 import { getSegmentCapacity } from './capacity'
-import { getLocaleSegmentName } from './view'
+import { getLocaleSliceName } from './labels'
 import SegmentCanvas from './SegmentCanvas'
 import SegmentDragHandles from './SegmentDragHandles'
 import SegmentLabelContainer from './SegmentLabelContainer'
@@ -224,7 +224,7 @@ function Segment(props: SliceProps): React.ReactNode {
   // Get localized names from store, fall back to segment default names if
   // translated text is not found. TODO: port to react-intl/formatMessage later.
   const displayName =
-    segment.label ?? getLocaleSegmentName(segment.type, segment.variantString)
+    segment.label ?? getLocaleSliceName(segment.type, segment.variantString)
 
   const average = getSegmentCapacity(segment, street.capacitySource)?.average
   const elementWidth = segment.width * TILE_SIZE
