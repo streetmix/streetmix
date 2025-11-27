@@ -50,7 +50,7 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                  people per hour. Capacity values are based on 3 m-wide lanes.
               </p>
               <div
-                class="segment-analytics"
+                class="slice-analytics"
                 data-color="1"
               >
                 <div
@@ -93,7 +93,7 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                 </div>
               </div>
               <div
-                class="segment-analytics"
+                class="slice-analytics"
                 data-color="2"
               >
                 <div
