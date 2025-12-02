@@ -56,7 +56,7 @@ function Segment(props: SliceProps): React.ReactNode {
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
-  const streetSegment = useRef<HTMLDivElement>(null)
+  const elementRef = useRef<HTMLDivElement>(null)
   const dndRef = useRef<HTMLDivElement>(null)
 
   // These refs are a workaround for CSSTransition's dependence on
@@ -66,9 +66,9 @@ function Segment(props: SliceProps): React.ReactNode {
 
   // Set up drag and drop targets
   // Specs are created on each render with changed props
-  const dropSpec = createSliceDropTargetSpec(props, streetSegment)
+  const dropSpec = createSliceDropTargetSpec(sliceIndex, segment, elementRef)
   const [, drop] = useDrop(dropSpec)
-  const dragSpec = createSliceDragSpec(props)
+  const dragSpec = createSliceDragSpec(sliceIndex, segment)
   const [collected, drag, dragPreview] = useDrag(dragSpec)
   const { isDragging }: { isDragging: boolean } = collected
   drag(drop(dndRef))
@@ -262,7 +262,7 @@ function Segment(props: SliceProps): React.ReactNode {
       style={segmentStyle}
       className={classNames.join(' ')}
       data-testid="segment"
-      ref={streetSegment}
+      ref={elementRef}
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}
     >

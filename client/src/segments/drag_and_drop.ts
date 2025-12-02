@@ -42,6 +42,7 @@ import {
 import { segmentsChanged } from './view'
 
 import type {
+  SliceItem,
   SlopeProperties,
   SegmentDefinition,
   StreetJson,
@@ -593,25 +594,25 @@ function isOverLeftOrRightCanvas(
       : null
 }
 
-export function createSliceDragSpec(props) {
+export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
   return {
     type: DragTypes.SLICE,
     item: (): DraggedItem => {
       store.dispatch(
         initDraggingState({
           type: DRAGGING_TYPE_MOVE,
-          dragIndex: props.sliceIndex,
+          dragIndex: sliceIndex,
         })
       )
 
       return {
-        id: props.segment.id,
-        sliceIndex: props.sliceIndex,
-        variantString: props.segment.variantString,
-        type: props.segment.type,
-        label: props.segment.label,
-        actualWidth: props.segment.width,
-        elevation: props.segment.elevation,
+        id: slice.id,
+        sliceIndex,
+        variantString: slice.variantString,
+        type: slice.type,
+        label: slice.label,
+        actualWidth: slice.width,
+        elevation: slice.elevation,
         // TODO: show actual slope in preview
         // For now the slope preview is just regular elevation value
         slope: {
@@ -630,7 +631,7 @@ export function createSliceDragSpec(props) {
           handleSegmentCanvasDrop(item, monitor.getItemType())
         } else if (monitor.getItemType() === DragTypes.SLICE) {
           // if existing segment is dropped outside canvas, delete it
-          store.dispatch(removeSegmentAction(props.sliceIndex))
+          store.dispatch(removeSegmentAction(sliceIndex))
         }
       }
 
@@ -640,7 +641,7 @@ export function createSliceDragSpec(props) {
       return !store.getState().app.readOnly
     },
     isDragging(monitor: DragSourceMonitor<DraggedItem>) {
-      return monitor.getItem().id === props.segment.id
+      return monitor.getItem().id === slice.id
     },
     collect(monitor: DragSourceMonitor) {
       return {
@@ -719,22 +720,21 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
 }
 
 export function createSliceDropTargetSpec(
-  props,
-  ref: React.Ref<HTMLDivElement>
+  sliceIndex: number,
+  slice: SliceItem,
+  ref: React.RefObject<HTMLDivElement | null>
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
     hover(item: DraggedItem, monitor: DropTargetMonitor) {
-      if (!monitor.canDrop()) return
+      if (!monitor.canDrop() || !ref.current) return
 
       const dragIndex = item.sliceIndex
-      const hoverIndex = props.sliceIndex
+      const hoverIndex = sliceIndex
 
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
-      const hoverMiddleX = Math.round(
-        left + (props.segment.width * TILE_SIZE) / 2
-      )
+      const hoverMiddleX = Math.round(left + (slice.width * TILE_SIZE) / 2)
       const { x } = monitor.getClientOffset()
 
       if (dragIndex === hoverIndex) {
@@ -774,7 +774,7 @@ export function createSliceDropTargetSpec(
 
 export function createStreetDropTargetSpec(
   street: StreetJson,
-  ref: React.Ref<HTMLDivElement>
+  ref: React.RefObject<HTMLDivElement>
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
