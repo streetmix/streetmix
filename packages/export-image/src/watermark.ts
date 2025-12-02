@@ -20,7 +20,7 @@ const WORDMARK_MARGIN = 4
  * @todo Make it work with rtl
  * @modifies {Canvas.SKRSContext2D}
  */
-export async function drawWatermark (
+export async function drawWatermark(
   ctx: Canvas.SKRSContext2D,
   locale: string,
   invert: boolean = false,
@@ -55,6 +55,8 @@ export async function drawWatermark (
   ctx.font = `normal ${WATERMARK_FONT_WEIGHT} ${
     WATERMARK_FONT_SIZE * scale
   }px ${WATERMARK_FONT},sans-serif`
+  // This is NOT standard, but is currently implemented this way in @napi-rs/canvas
+  ctx.fontVariationSettings = `'wght' ${WATERMARK_FONT_WEIGHT}`
   ctx.fillStyle = invert ? WATERMARK_LIGHT_COLOR : WATERMARK_DARK_COLOR
 
   // Set starting X/Y positions so that watermark is aligned right and bottom of image
