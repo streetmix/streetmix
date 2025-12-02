@@ -4,21 +4,21 @@ import { useIntl } from 'react-intl'
 import Icon from './Icon'
 import './CloseButton.css'
 
-interface CloseButtonProps {
+interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string
   className?: string
   onClick: (event: React.MouseEvent) => void
 }
 
-function CloseButton ({
+function CloseButton({
   title,
   className = 'close',
   onClick,
   ...restProps
-}: CloseButtonProps): React.ReactElement {
+}: CloseButtonProps) {
   const defaultTitle = useIntl().formatMessage({
     id: 'btn.dismiss',
-    defaultMessage: 'Dismiss'
+    defaultMessage: 'Dismiss',
   })
 
   return (

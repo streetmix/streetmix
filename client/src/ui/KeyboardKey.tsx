@@ -15,7 +15,7 @@ interface KeyboardKeyWithoutIconProps {
 
 type KeyboardKeyProps = KeyboardKeyWithIconProps | KeyboardKeyWithoutIconProps
 
-function KeyboardKey ({ icon, children }: KeyboardKeyProps): React.ReactElement {
+function KeyboardKey({ icon, children }: KeyboardKeyProps) {
   if (icon !== undefined) {
     // The `title` property on <kbd> is suggested to provide
     // accessible text for the icon being displayed. In this

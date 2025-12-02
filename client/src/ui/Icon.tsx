@@ -12,7 +12,7 @@ import {
   FaMinus,
   FaPlus,
   FaSquareFacebook,
-  FaTwitter
+  FaTwitter,
 } from 'react-icons/fa6'
 import {
   FiBarChart2,
@@ -29,7 +29,7 @@ import {
   FiRotateCw,
   FiSun,
   FiTrash2,
-  FiUser
+  FiUser,
 } from 'react-icons/fi'
 import {
   IoBoatOutline,
@@ -42,7 +42,7 @@ import {
   IoMailOutline,
   IoPrintOutline,
   IoRocketOutline,
-  IoTrailSignOutline
+  IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad, MdOutlineContentCopy } from 'react-icons/md'
 import { RiFunctionAddLine } from 'react-icons/ri'
@@ -54,7 +54,7 @@ import {
   RxLink2,
   RxMixerHorizontal,
   RxRulerHorizontal,
-  RxStar
+  RxStar,
 } from 'react-icons/rx'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -112,7 +112,7 @@ const ICONS = {
   github: [FaGithub, 'fa'],
   instagram: [FaInstagram, 'fa'],
   mastodon: [FaMastodon, 'fa'],
-  twitter: [FaTwitter, 'fa']
+  twitter: [FaTwitter, 'fa'],
 }
 
 type BaseIconNames = keyof typeof ICONS
@@ -126,10 +126,7 @@ interface IconProps {
   [attr: string]: string
 }
 
-function makeComponent (
-  name: BaseIconNames,
-  attrs?: Record<string, string>
-): React.ReactElement {
+function makeComponent(name: BaseIconNames, attrs?: Record<string, string>) {
   const [Component, source] = ICONS[name]
 
   return (
@@ -147,7 +144,7 @@ function makeComponent (
   )
 }
 
-function Icon ({ name, ...attrs }: IconProps): React.ReactElement {
+function Icon({ name, ...attrs }: IconProps) {
   // The Google icon is a special case because it's the only multicolor one.
   // The colors are baked into the source image.
   // TODO: this can return an SVG also, if we want.

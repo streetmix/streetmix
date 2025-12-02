@@ -18,7 +18,7 @@ import {
   FloatingDelayGroup,
   FloatingPortal,
   FloatingArrow,
-  FloatingNode
+  FloatingNode,
 } from '@floating-ui/react'
 import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
@@ -28,7 +28,7 @@ import './Tooltip.css'
 const TOOLTIP_PLACEMENT = 'top'
 const TOOLTIP_DELAY = {
   open: 150,
-  close: 0
+  close: 0,
 }
 const TOOLTIP_DELAY_TIMEOUT = 200
 const TOOLTIP_TRANSITION_DURATION = 150
@@ -44,12 +44,12 @@ interface TooltipProps extends TooltipOptions {
   children: React.ReactElement
 }
 
-export function Tooltip ({
+export function Tooltip({
   label,
   sublabel,
   placement = TOOLTIP_PLACEMENT,
-  children
-}: TooltipProps): React.ReactNode {
+  children,
+}: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false)
   const arrowRef = React.useRef(null)
   const nodeId = useFloatingNodeId()
@@ -64,13 +64,13 @@ export function Tooltip ({
       flip({
         crossAxis: placement.includes('-'),
         fallbackAxisSideDirection: 'start',
-        padding: 5
+        padding: 5,
       }),
       shift({ padding: 5 }),
       arrow({
-        element: arrowRef
-      })
-    ]
+        element: arrowRef,
+      }),
+    ],
   })
   const { delay, currentId, isInstantPhase } = useDelayGroup(context)
   const hover = useHover(context, { delay })
@@ -81,7 +81,7 @@ export function Tooltip ({
     hover,
     focus,
     dismiss,
-    role
+    role,
   ])
 
   // Define animation
@@ -90,7 +90,7 @@ export function Tooltip ({
       ? {
           open: 0,
           close:
-            currentId === context.floatingId ? TOOLTIP_TRANSITION_DURATION : 0
+            currentId === context.floatingId ? TOOLTIP_TRANSITION_DURATION : 0,
         }
       : TOOLTIP_TRANSITION_DURATION,
     initial: ({ side }) => ({
@@ -99,9 +99,9 @@ export function Tooltip ({
         top: `translateY(-${TOOLTIP_TRANSITION_DISTANCE}px)`,
         bottom: `translateY(${TOOLTIP_TRANSITION_DISTANCE}px)`,
         left: `translateX(-${TOOLTIP_TRANSITION_DISTANCE}px)`,
-        right: `translateX(${TOOLTIP_TRANSITION_DISTANCE}px)`
-      }[side]
-    })
+        right: `translateX(${TOOLTIP_TRANSITION_DISTANCE}px)`,
+      }[side],
+    }),
   })
 
   // We clone the child element so we can apply floating-ui's props
@@ -123,9 +123,9 @@ export function Tooltip ({
       ref: useMergeRefs([
         refs.setReference,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as any).ref
+        (children as any).ref,
       ]),
-      ...children.props
+      ...children.props,
     })
   )
 
@@ -172,10 +172,7 @@ type TooltipGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
 
 // Re-exports <FloatingDelayGroup> with our own default values. It can be
 // overridden by props.
-export function TooltipGroup ({
-  children,
-  ...props
-}: TooltipGroupProps): React.ReactNode {
+export function TooltipGroup({ children, ...props }: TooltipGroupProps) {
   return (
     <FloatingDelayGroup
       delay={TOOLTIP_DELAY}

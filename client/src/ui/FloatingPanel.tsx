@@ -15,14 +15,14 @@ interface FloatingPanelProps {
   children: React.ReactNode
 }
 
-function FloatingPanel ({
+function FloatingPanel({
   icon,
   title,
   show,
   className,
   handleClose,
-  children
-}: FloatingPanelProps): React.ReactElement {
+  children,
+}: FloatingPanelProps) {
   const nodeRef = useRef<HTMLDivElement>(null)
 
   const classNames = ['floating-panel', 'floating-panel-container-outer']
@@ -34,7 +34,7 @@ function FloatingPanel ({
     from: { opacity: 0, scale: 0.75, pointerEvents: 'none' },
     enter: { opacity: 1, scale: 1, pointerEvents: 'auto' },
     leave: { opacity: 0, scale: 0.85, pointerEvents: 'none' },
-    config: { tension: 300, friction: 5, clamp: true }
+    config: { tension: 300, friction: 5, clamp: true },
   })
 
   return transitions(

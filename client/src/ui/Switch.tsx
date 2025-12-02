@@ -4,7 +4,7 @@ import type { SwitchProps } from '@radix-ui/react-switch'
 
 import './Switch.css'
 
-function Switch (props: SwitchProps): React.ReactElement {
+function Switch(props: SwitchProps) {
   const { className, children, ...restProps } = props
 
   // Generate an `id` to associate a `label` with an `input` element.
