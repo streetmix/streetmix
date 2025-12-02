@@ -1,7 +1,7 @@
 /**
  * Adds scroll buttons to UI elements.
  */
-import React, { forwardRef, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useEffect, useRef, useLayoutEffect } from 'react'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress'
 import { animate } from '../util/helpers'
@@ -14,19 +14,18 @@ interface ScrollableProps {
   onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
   allowKeyboardScroll?: boolean
   children?: React.ReactNode
+  ref?: React.ForwardedRef<HTMLDivElement>
 }
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-const WrappedScrollable = forwardRef(function Scrollable(
-  props: ScrollableProps,
-  ref: React.ForwardedRef<HTMLDivElement>
-) {
+function Scrollable(props: ScrollableProps) {
   const {
     className,
     onScroll = () => undefined,
     allowKeyboardScroll = false,
     children,
+    ref = null,
   } = props
   const scrollerEl = useRef<HTMLDivElement>(null)
   const leftButtonEl = useRef<HTMLButtonElement>(null)
@@ -179,6 +178,6 @@ const WrappedScrollable = forwardRef(function Scrollable(
       </Button>
     </div>
   )
-})
+}
 
-export default WrappedScrollable
+export default Scrollable
