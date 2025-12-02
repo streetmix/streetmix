@@ -13,6 +13,7 @@ export default defineConfig([
     'client/src/vendor/',
     'test/integration/smoke.spec.js',
     '**/build',
+    '**/coverage',
     '**/docs',
   ]),
   eslint.configs.recommended,
