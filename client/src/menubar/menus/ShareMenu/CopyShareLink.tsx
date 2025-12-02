@@ -12,8 +12,8 @@ interface CopyShareLinkProps {
 const CopyShareLink = forwardRef(
   (
     { shareUrl }: CopyShareLinkProps,
-    ref: React.Ref<HTMLInputElement>
-  ): React.ReactElement => {
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
     const intl = useIntl()
 
     return (
@@ -35,7 +35,7 @@ const CopyShareLink = forwardRef(
           <Button
             title={intl.formatMessage({
               id: 'menu.share.copy-to-clipboard',
-              defaultMessage: 'Copy to clipboard'
+              defaultMessage: 'Copy to clipboard',
             })}
             onClick={(event) => {
               event.preventDefault()

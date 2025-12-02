@@ -14,11 +14,10 @@ import React, { forwardRef } from 'react'
 
 import './Button.css'
 
-interface ButtonProps
-  extends Partial<
+interface ButtonProps extends Partial<
   React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
-  > {
+    React.AnchorHTMLAttributes<HTMLAnchorElement>
+> {
   children?: React.ReactNode
   className?: string
   type?: 'button' | 'submit'
@@ -42,7 +41,7 @@ const Button = forwardRef(
       tertiary = false,
       ...props
     }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>
+    ref: React.ForwardedRef<HTMLButtonElement | HTMLAnchorElement>
   ) => {
     const classNames = ['btn']
     if (primary) {
@@ -62,7 +61,7 @@ const Button = forwardRef(
     if (href) {
       return (
         <a
-          ref={ref as React.Ref<HTMLAnchorElement>}
+          ref={ref as React.RefObject<HTMLAnchorElement>}
           href={href}
           className={classNames.join(' ')}
           {...props}
@@ -75,7 +74,7 @@ const Button = forwardRef(
     // Otherwise, use a button element.
     return (
       <button
-        ref={ref as React.Ref<HTMLButtonElement>}
+        ref={ref as React.RefObject<HTMLButtonElement>}
         type={type}
         className={classNames.join(' ')}
         {...props}

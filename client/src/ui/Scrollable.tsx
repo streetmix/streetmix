@@ -18,15 +18,15 @@ interface ScrollableProps {
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-const WrappedScrollable = forwardRef(function Scrollable (
+const WrappedScrollable = forwardRef(function Scrollable(
   props: ScrollableProps,
-  ref: React.Ref<HTMLDivElement>
-): React.ReactElement {
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
   const {
     className,
     onScroll = () => undefined,
     allowKeyboardScroll = false,
-    children
+    children,
   } = props
   const scrollerEl = useRef<HTMLDivElement>(null)
   const leftButtonEl = useRef<HTMLButtonElement>(null)
@@ -64,11 +64,11 @@ const WrappedScrollable = forwardRef(function Scrollable (
     }
   })
 
-  function handleLeft (
+  function handleLeft(
     _event:
       | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
       | React.KeyboardEvent<HTMLDivElement>
-  ): void {
+  ) {
     const el = scrollerEl.current
 
     if (el === null) return
@@ -78,11 +78,11 @@ const WrappedScrollable = forwardRef(function Scrollable (
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleRight (
+  function handleRight(
     _event:
       | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
       | React.KeyboardEvent<HTMLDivElement>
-  ): void {
+  ) {
     const el = scrollerEl.current
 
     if (!el) return
@@ -92,14 +92,14 @@ const WrappedScrollable = forwardRef(function Scrollable (
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleScrollContainer (event: React.UIEvent<HTMLDivElement>): void {
+  function handleScrollContainer(event: React.UIEvent<HTMLDivElement>) {
     checkButtonVisibilityState()
 
     // If parent has provided its own onScroll handler function, call that now.
     onScroll(event)
   }
 
-  function checkButtonVisibilityState (): void {
+  function checkButtonVisibilityState() {
     const el = scrollerEl.current
 
     if (!el) return
@@ -165,7 +165,7 @@ const WrappedScrollable = forwardRef(function Scrollable (
         style={{
           // Prevent overscroll from doing forward/back
           // navigation on some browsers
-          overscrollBehaviorX: 'contain'
+          overscrollBehaviorX: 'contain',
         }}
       >
         {children}
