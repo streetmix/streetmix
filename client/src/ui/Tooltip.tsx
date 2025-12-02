@@ -41,7 +41,7 @@ interface TooltipOptions {
 interface TooltipProps extends TooltipOptions {
   label?: string
   sublabel?: string
-  children: React.ReactElement
+  children: React.JSX.Element
 }
 
 export function Tooltip({
@@ -120,11 +120,7 @@ export function Tooltip({
     children,
     getReferenceProps({
       // Refs are merged between useFloating and an existing child ref, if any.
-      ref: useMergeRefs([
-        refs.setReference,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (children as any).ref,
-      ]),
+      ref: useMergeRefs([refs.setReference, children.props.ref]),
       ...children.props,
     })
   )
