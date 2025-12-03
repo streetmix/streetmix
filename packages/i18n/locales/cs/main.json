@@ -68,10 +68,10 @@
       "twitter": "Přihlášení pomocí Twitteru"
     },
     "new-street": {
-      "default": "",
-      "empty": "",
+      "default": "Nový příklad ulice",
+      "empty": "Nová prázdná ulice",
       "copy": "Vytvořit kopii",
-      "template": ""
+      "template": "Nová z šablony…"
     }
   },
   "settings": {
@@ -210,7 +210,7 @@
       "default": "Začněte ukázkovou ulicí",
       "empty": "Začněte s prázdnou ulicí",
       "last": "Začněte s kopií poslední ulice",
-      "dismiss": ""
+      "dismiss": "Jdeme na to!"
     },
     "about": {
       "heading": "O Streetmixu.",
@@ -384,8 +384,9 @@
     "scroll-right": "Posun vpravo",
     "elevation-sidewalk": "Úroveň chodníku",
     "elevation-road": "Úroveň vozovky",
-    "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-input": "Změnit nadmořskou výšku",
+    "elevation-lower": "Snížit nadmořskou výšku",
+    "elevation-raise": "Zvýšit nadmořskou výšku"
   },
   "street": {
     "default-name": "Ulice bez jména",
@@ -399,7 +400,8 @@
       "does-not-fit": "Tento úsek se do ulice nevejde.",
       "not-wide": "Tento segment nemusí být dostatečně široký.",
       "too-wide": "Tento segment může být příliš široký.",
-      "dangerous": "Tento úsek představuje nebezpečný stávající stav."
+      "dangerous": "Tento úsek představuje nebezpečný stávající stav.",
+      "slope-exceeded": ""
     },
     "learn-more": "Zjistěte více",
     "unknown": {
@@ -413,7 +415,8 @@
       "max": "Max"
     },
     "controls": {
-      "elevation": ""
+      "elevation": "Nadmořská výška",
+      "slope": "Sklon"
     }
   },
   "section": {

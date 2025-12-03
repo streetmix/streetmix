@@ -384,8 +384,9 @@
     "scroll-right": "Vieritä oikealle",
     "elevation-sidewalk": "Jalkakäytävän taso",
     "elevation-road": "Katutaso",
-    "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-input": "Muuta korkeusasemaa",
+    "elevation-lower": "Matala",
+    "elevation-raise": "Korkea"
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -399,7 +400,8 @@
       "does-not-fit": "Elementti ei mahdu kadulle.",
       "not-wide": "Elementti ei ehkä ole riittävän leveä.",
       "too-wide": "Elementti saattaa olla leveä.",
-      "dangerous": "Segmentti kuvastaa nykytilan mukaista vaarallista ratkaisua."
+      "dangerous": "Segmentti kuvastaa nykytilan mukaista vaarallista ratkaisua.",
+      "slope-exceeded": ""
     },
     "learn-more": "Lue lisää",
     "unknown": {
@@ -413,7 +415,8 @@
       "max": "Max"
     },
     "controls": {
-      "elevation": ""
+      "elevation": "Korkeus",
+      "slope": "Kaltevuus"
     }
   },
   "section": {
