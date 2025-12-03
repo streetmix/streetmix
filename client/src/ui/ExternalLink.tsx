@@ -3,20 +3,21 @@ import React from 'react'
 import { useSelector } from '~/src/store/hooks'
 import Icon from '~/src/ui/Icon'
 
-interface ExternalLinkProps
-  extends Partial<React.AnchorHTMLAttributes<HTMLAnchorElement>> {
+interface ExternalLinkProps extends Partial<
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
+> {
   children: React.ReactNode
   href: string
   icon?: boolean
   className?: string
 }
 
-function ExternalLink ({
+function ExternalLink({
   children,
   href,
   icon = false,
   ...restProps
-}: ExternalLinkProps): React.ReactElement {
+}: ExternalLinkProps) {
   const offline = useSelector((state) => state.system.offline)
 
   if (offline) {

@@ -19,20 +19,14 @@ import type { Street, StreetImageOptions } from '@streetmix/types'
 Canvas.GlobalFonts.registerFromPath(
   path.join(
     import.meta.dirname,
-    '../../../node_modules/@fontsource/rubik/files/rubik-latin-400-normal.woff2'
-  ),
-  'Rubik'
-)
-Canvas.GlobalFonts.registerFromPath(
-  path.join(
-    import.meta.dirname,
-    '../../../node_modules/@fontsource/rubik/files/rubik-latin-600-normal.woff2'
+    '../../../node_modules/@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2'
   ),
   'Rubik'
 )
 
 // Rubik (and many others) don't actually have the 1/8 vulgar fractions and
 // foot-grave marker, so we use this one for now and see how we like it.
+// Geist Sans does not have a variable form
 Canvas.GlobalFonts.registerFromPath(
   path.join(
     import.meta.dirname,
@@ -51,7 +45,7 @@ Canvas.GlobalFonts.registerFromPath(
 Canvas.GlobalFonts.registerFromPath(
   path.join(
     import.meta.dirname,
-    '../../../node_modules/@fontsource/overpass/files/overpass-latin-700-normal.woff2'
+    '../../../node_modules/@fontsource-variable/overpass/files/overpass-latin-wght-normal.woff2'
   ),
   'Overpass'
 )
@@ -64,7 +58,7 @@ const IMAGE_NAMES_WIDTHS_PADDING = 65
 // copy paste values witout importing for now
 const BUILDING_SPACE = 360
 
-export async function makeStreetImage (
+export async function makeStreetImage(
   street: Street,
   options: StreetImageOptions
 ): Promise<Buffer> {
@@ -193,7 +187,7 @@ export async function makeStreetImage (
   return await canvas.encode('png')
 }
 
-function calculateImageWidth (
+function calculateImageWidth(
   street: Street,
   // Don't need options, but this is keeping function signature the same
   // as `calculateImageHeight`
@@ -206,7 +200,7 @@ function calculateImageWidth (
   return baseWidth
 }
 
-function calculateImageHeight (
+function calculateImageHeight(
   street: Street,
   options: StreetImageOptions
 ): number {

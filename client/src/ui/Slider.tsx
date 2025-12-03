@@ -7,7 +7,7 @@ import './Slider.css'
 const Slider = forwardRef(
   (
     { value, defaultValue, className, ...props }: SliderProps,
-    ref: React.Ref<HTMLSpanElement>
+    ref: React.ForwardedRef<HTMLSpanElement>
   ) => {
     const displayValues = value ?? defaultValue ?? []
 

@@ -10,13 +10,13 @@
  */
 import { useEffect } from 'react'
 
-export function useOnClickOutside (
+export function useOnClickOutside(
   ref: React.RefObject<HTMLElement | null>,
   handler: (event?: MouseEvent | TouchEvent) => void
-): void {
+) {
   useEffect(
     () => {
-      const listener = (event: MouseEvent | TouchEvent): void => {
+      const listener = (event: MouseEvent | TouchEvent) => {
         // Do nothing if clicking ref's element or descendent elements
         if (
           ref.current === null ||

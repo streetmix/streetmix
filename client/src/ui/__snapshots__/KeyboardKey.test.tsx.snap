@@ -12,20 +12,6 @@ exports[`KeyboardKey > renders a <kbd> element with element child 1`] = `
 </DocumentFragment>
 `;
 
-exports[`KeyboardKey > renders a <kbd> element with icon and title 1`] = `
-<DocumentFragment>
-  <kbd
-    class="key key-icon"
-    title="foo"
-  >
-    <svg
-      data-icon="[object Object]"
-      data-icon-source="test"
-    />
-  </kbd>
-</DocumentFragment>
-`;
-
 exports[`KeyboardKey > renders a <kbd> element with string child 1`] = `
 <DocumentFragment>
   <kbd
