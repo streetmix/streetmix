@@ -526,13 +526,7 @@ function updateIfDraggingStateChanged(
   return changed
 }
 
-function handleSegmentCanvasDrop(
-  draggedItem: DraggedItem,
-  type: DragType | null
-) {
-  // If monitor.getItemType() returns `null` type, bail
-  if (type === null) return
-
+function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
   const { segmentBeforeEl, segmentAfterEl, draggedSegment } = oldDraggingState
 
   // If dropped in same position as dragged segment was before, return
@@ -580,8 +574,10 @@ function handleSegmentCanvasDrop(
  */
 function isOverLeftOrRightCanvas(
   segment: HTMLElement,
-  droppedPosition: number
-): string | null {
+  droppedPosition: number | undefined
+): 'left' | 'right' | null {
+  if (!droppedPosition) return null
+
   const { remainingWidth } = store.getState().street
   const { left, right } = segment.getBoundingClientRect()
 
@@ -627,9 +623,10 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
       if (!monitor.didDrop()) {
         // if no object returned by a drop handler, check if it is still within the canvas
         const withinCanvas = oldDraggingState.withinCanvas
+        const type = monitor.getItemType() as DragType
         if (withinCanvas) {
-          handleSegmentCanvasDrop(item, monitor.getItemType())
-        } else if (monitor.getItemType() === DragTypes.SLICE) {
+          handleSegmentCanvasDrop(item, type)
+        } else if (type === DragTypes.SLICE) {
           // if existing segment is dropped outside canvas, delete it
           store.dispatch(removeSegmentAction(sliceIndex))
         }
@@ -708,7 +705,7 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
 
       const withinCanvas = oldDraggingState.withinCanvas
       if (!monitor.didDrop() && withinCanvas) {
-        handleSegmentCanvasDrop(item, monitor.getItemType())
+        handleSegmentCanvasDrop(item, monitor.getItemType() as DragType)
       }
 
       handleSegmentDragEnd()
@@ -735,14 +732,16 @@ export function createSliceDropTargetSpec(
       // `ref` is the slice being hovered over
       const { left } = ref.current.getBoundingClientRect()
       const hoverMiddleX = Math.round(left + (slice.width * TILE_SIZE) / 2)
-      const { x } = monitor.getClientOffset()
+      const x = monitor.getClientOffset()?.x
+
+      if (!x) return
 
       if (dragIndex === hoverIndex) {
         updateIfDraggingStateChanged(
           dragIndex,
           null,
           item,
-          monitor.getItemType()
+          monitor.getItemType() as DragType
         )
       } else {
         const { segments } = store.getState().street
@@ -765,7 +764,7 @@ export function createSliceDropTargetSpec(
           segmentBeforeEl,
           segmentAfterEl,
           item,
-          monitor.getItemType()
+          monitor.getItemType() as DragType
         )
       }
     },
@@ -779,7 +778,7 @@ export function createStreetDropTargetSpec(
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
     drop(item: DraggedItem, monitor: DropTargetMonitor) {
-      const draggedItemType = monitor.getItemType()
+      const draggedItemType = monitor.getItemType() as DragType
 
       handleSegmentCanvasDrop(item, draggedItemType)
 
@@ -791,7 +790,7 @@ export function createStreetDropTargetSpec(
       if (monitor.isOver({ shallow: true })) {
         const position = isOverLeftOrRightCanvas(
           ref.current,
-          monitor.getClientOffset().x
+          monitor.getClientOffset()?.x
         )
 
         if (!position) return
@@ -804,7 +803,7 @@ export function createStreetDropTargetSpec(
           segmentBeforeEl,
           segmentAfterEl,
           item,
-          monitor.getItemType()
+          monitor.getItemType() as DragType
         )
       }
     },
