@@ -774,7 +774,7 @@ export function createSliceDropTargetSpec(
 
 export function createStreetDropTargetSpec(
   street: StreetJson,
-  ref: React.RefObject<HTMLDivElement>
+  ref: React.RefObject<HTMLDivElement | null>
 ) {
   return {
     accept: [DragTypes.SLICE, DragTypes.PALETTE],
@@ -786,7 +786,7 @@ export function createStreetDropTargetSpec(
       return { withinCanvas: true }
     },
     hover(item: DraggedItem, monitor: DropTargetMonitor) {
-      if (!monitor.canDrop()) return
+      if (!monitor.canDrop() || !ref.current) return
 
       if (monitor.isOver({ shallow: true })) {
         const position = isOverLeftOrRightCanvas(
