@@ -8,12 +8,12 @@ import FloatingPanel from './FloatingPanel'
 
 describe('FloatingPanel', () => {
   const props = {
-    icon: 'sun',
+    icon: 'sun' as const,
     title: 'foo',
     show: true,
     className: 'cx',
     handleClose: vi.fn(),
-    children: <span>bar</span>
+    children: <span>bar</span>,
   }
 
   it('calls handleClose when close button is clicked', async () => {

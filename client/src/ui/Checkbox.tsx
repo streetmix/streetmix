@@ -29,7 +29,7 @@ interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 
-function Checkbox (props: CheckboxProps): React.ReactElement {
+function Checkbox(props: CheckboxProps) {
   const {
     children,
     checked = false,

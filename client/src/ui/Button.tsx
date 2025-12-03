@@ -10,15 +10,14 @@
  * focusability, events handling, etc. but they should not look like stylized
  * UI buttons.
  */
-import React, { forwardRef } from 'react'
+import React from 'react'
 
 import './Button.css'
 
-interface ButtonProps
-  extends Partial<
+interface ButtonProps extends Partial<
   React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
-  > {
+    React.AnchorHTMLAttributes<HTMLAnchorElement>
+> {
   children?: React.ReactNode
   className?: string
   type?: 'button' | 'submit'
@@ -28,63 +27,60 @@ interface ButtonProps
   primary?: boolean
   secondary?: boolean
   tertiary?: boolean
+  ref?: React.ForwardedRef<HTMLButtonElement | HTMLAnchorElement>
 }
 
-const Button = forwardRef(
-  (
-    {
-      children,
-      className = '',
-      type = 'button',
-      href = '',
-      primary = false,
-      secondary = false,
-      tertiary = false,
-      ...props
-    }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement | HTMLAnchorElement>
-  ) => {
-    const classNames = ['btn']
-    if (primary) {
-      classNames.push('btn-primary')
-    }
-    if (secondary) {
-      classNames.push('btn-secondary')
-    }
-    if (tertiary) {
-      classNames.push('btn-tertiary')
-    }
-    if (className) {
-      classNames.push(className)
-    }
+function Button({
+  children,
+  className = '',
+  type = 'button',
+  href = '',
+  primary = false,
+  secondary = false,
+  tertiary = false,
+  ref = null,
+  ...props
+}: ButtonProps) {
+  const classNames = ['btn']
+  if (primary) {
+    classNames.push('btn-primary')
+  }
+  if (secondary) {
+    classNames.push('btn-secondary')
+  }
+  if (tertiary) {
+    classNames.push('btn-tertiary')
+  }
+  if (className) {
+    classNames.push(className)
+  }
 
-    // If `href` is present, return an anchor element.
-    if (href) {
-      return (
-        <a
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          href={href}
-          className={classNames.join(' ')}
-          {...props}
-        >
-          {children}
-        </a>
-      )
-    }
-
-    // Otherwise, use a button element.
+  // If `href` is present, return an anchor element.
+  if (href) {
     return (
-      <button
-        ref={ref as React.Ref<HTMLButtonElement>}
-        type={type}
+      <a
+        ref={ref as React.RefObject<HTMLAnchorElement>}
+        href={href}
         className={classNames.join(' ')}
         {...props}
       >
         {children}
-      </button>
+      </a>
     )
   }
-)
+
+  // Otherwise, use a button element.
+  return (
+    <button
+      ref={ref as React.RefObject<HTMLButtonElement>}
+      type={type}
+      className={classNames.join(' ')}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}
 
 Button.displayName = 'Button'
 

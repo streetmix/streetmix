@@ -2,7 +2,7 @@ import React, { useId } from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import type {
   RadioGroupProps,
-  RadioGroupItemProps
+  RadioGroupItemProps,
 } from '@radix-ui/react-radio-group'
 
 import './RadioGroup.css'
@@ -20,7 +20,7 @@ interface RadioProps extends RadioGroupProps {
   values: RadioItemProps[]
 }
 
-function RadioGroup (props: RadioProps): React.ReactElement {
+function RadioGroup(props: RadioProps) {
   const { className = '', values, ...restProps } = props
 
   const classNames = ['radio-group-root']
@@ -37,13 +37,13 @@ function RadioGroup (props: RadioProps): React.ReactElement {
   )
 }
 
-function RadioGroupItem ({
+function RadioGroupItem({
   value,
   label,
   sublabel = '',
   disabled = false,
-  required = false
-}: RadioItemProps): React.ReactElement {
+  required = false,
+}: RadioItemProps) {
   const elementId = useId()
 
   return (

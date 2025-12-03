@@ -16,7 +16,7 @@ interface PopoverProps {
 const PopoverContent = forwardRef(
   (
     { children, ...props }: PopoverContentProps,
-    ref: React.Ref<HTMLDivElement>
+    ref: React.ForwardedRef<HTMLDivElement>
   ) => (
     <PopoverPrimitive.Content {...props} ref={ref}>
       {children}
@@ -27,13 +27,13 @@ const PopoverContent = forwardRef(
 
 PopoverContent.displayName = 'PopoverContent'
 
-function Popover ({ label, children }: PopoverProps): React.ReactElement {
+function Popover({ label, children }: PopoverProps) {
   const intl = useIntl()
   const a11yLabel =
     label ??
     intl.formatMessage({
       id: 'settings.info-tooltip',
-      defaultMessage: 'Description'
+      defaultMessage: 'Description',
     })
 
   return (

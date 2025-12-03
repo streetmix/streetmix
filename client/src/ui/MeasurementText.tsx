@@ -8,7 +8,7 @@ interface MeasurementTextProps {
   locale: string
 }
 
-function MeasurementText (props: MeasurementTextProps): React.ReactElement {
+function MeasurementText(props: MeasurementTextProps) {
   const { value, units, locale } = props
 
   return <span>{prettifyWidth(value, units, locale)}</span>
