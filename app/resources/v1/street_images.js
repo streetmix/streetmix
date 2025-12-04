@@ -312,8 +312,8 @@ export async function get(req, res) {
           logger.error(error)
           if (error instanceof z.ZodError) {
             res
-              .status(500)
-              .json({ status: 500, errors: z.flattenError(error).fieldErrors })
+              .status(400)
+              .json({ status: 400, errors: z.flattenError(error).fieldErrors })
           } else {
             res
               .status(500)
