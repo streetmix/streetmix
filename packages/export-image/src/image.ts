@@ -11,7 +11,8 @@ import { drawSky } from './sky.js'
 import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
 
-import type { Street, StreetImageOptions } from '@streetmix/types'
+import type { Street } from '@streetmix/types'
+import type { StreetImageExportOptions } from './index.js'
 
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
@@ -60,7 +61,7 @@ const BUILDING_SPACE = 360
 
 export async function makeStreetImage(
   street: Street,
-  options: StreetImageOptions
+  options: StreetImageExportOptions
 ): Promise<Buffer> {
   // Easier to work in base width/height numbers first,
   // then multiply by scale _after_ all +/- calculations are done
@@ -191,7 +192,7 @@ function calculateImageWidth(
   street: Street,
   // Don't need options, but this is keeping function signature the same
   // as `calculateImageHeight`
-  _options: StreetImageOptions
+  _options: StreetImageExportOptions
 ): number {
   const streetData = street.data.street
   const streetWidth = TILE_SIZE * streetData.width // translate width to pixels
@@ -202,7 +203,7 @@ function calculateImageWidth(
 
 function calculateImageHeight(
   street: Street,
-  options: StreetImageOptions
+  options: StreetImageExportOptions
 ): number {
   // const streetData = street.data.street
   const { streetName, labels } = options
