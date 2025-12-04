@@ -29,16 +29,19 @@ const parseQueryParam = (defaultValue: boolean) =>
   )
 
 export const StreetImageExportSchema = z.object({
-  locale: z.string().default('en'),
+  locale: z.preprocess(emptyStringToUndefined, z.string().default('en')),
   transparentSky: parseQueryParam(false),
   labels: parseQueryParam(true), // formerly 'segmentLabels'
   streetName: parseQueryParam(true),
   watermark: parseQueryParam(true),
-  scale: z.coerce
-    .number()
-    .min(MIN_IMAGE_SCALE)
-    .max(MAX_IMAGE_SCALE)
-    .default(DEFAULT_IMAGE_SCALE), // formerly `dpi`
+  scale: z.preprocess(
+    emptyStringToUndefined,
+    z.coerce
+      .number()
+      .min(MIN_IMAGE_SCALE)
+      .max(MAX_IMAGE_SCALE)
+      .default(DEFAULT_IMAGE_SCALE)
+  ), // formerly `dpi`
 })
 
 export type StreetImageExportOptions = z.infer<typeof StreetImageExportSchema>
