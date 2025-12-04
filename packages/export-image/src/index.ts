@@ -20,7 +20,7 @@ const emptyStringToUndefined = (val: string) => (val === '' ? undefined : val)
 
 // Shorthand function for parsing query params
 // Converts string bools to booleans
-// Converts empty strings undefined
+// Converts empty strings to undefined
 // Applies default boolean value to undefined values
 const parseQueryParam = (defaultValue: boolean) =>
   z.preprocess(
