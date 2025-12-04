@@ -286,15 +286,6 @@ export type CapacityForDisplay = Required<
   Pick<CapacitySegmentDefinition, 'average' | 'potential'>
 >
 
-export interface StreetImageOptions {
-  locale: string
-  transparentSky: boolean
-  labels: boolean // formerly 'segmentLabels'
-  streetName: boolean
-  watermark: boolean
-  scale: number // formerly `dpi`
-}
-
 export type CSSGradientStop = string | [string, number?] // [CSS color string, opacity]
 export type CSSGradientDeclaration = CSSGradientStop[]
 

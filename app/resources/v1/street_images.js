@@ -1,6 +1,7 @@
 import axios from 'axios'
 import cloudinary from 'cloudinary'
-import { runTestCanvas } from '@streetmix/export-image'
+import { runTestCanvas, StreetImageExportSchema } from '@streetmix/export-image'
+import { z } from 'zod'
 
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
@@ -9,7 +10,7 @@ import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
-export async function post (req, res) {
+export async function post(req, res) {
   let json
 
   // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
@@ -58,7 +59,7 @@ export async function post (req, res) {
     public_id: publicId,
     street_type: streetType,
     creatorId,
-    edit_count: editCount
+    edit_count: editCount,
   }
 
   // 2) Check if street thumbnail exists.
@@ -92,7 +93,7 @@ export async function post (req, res) {
 
     res.status(501).json({
       status: 501,
-      msg: 'Only saving initial street rendered thumbnail.'
+      msg: 'Only saving initial street rendered thumbnail.',
     })
     return
   }
@@ -104,7 +105,7 @@ export async function post (req, res) {
       height: resource.height,
       format: resource.format,
       secure_url: resource.secure_url,
-      created_at: resource.created_at
+      created_at: resource.created_at,
     }
 
     res.status(201).json(thumbnail)
@@ -122,7 +123,7 @@ export async function post (req, res) {
       await cloudinary.v2.uploader.remove_all_tags([publicId])
       resource = await cloudinary.v2.uploader.upload(image, {
         public_id: publicId,
-        tags: editCount
+        tags: editCount,
       })
     } catch (error) {
       logger.error(error)
@@ -143,7 +144,7 @@ export async function post (req, res) {
     if (!req.auth?.sub) {
       res.status(401).json({
         status: 401,
-        msg: 'Sign in to upload street thumnail for owned street.'
+        msg: 'Sign in to upload street thumnail for owned street.',
       })
       return
     }
@@ -166,7 +167,7 @@ export async function post (req, res) {
     if (street.creatorId.toString() !== user.id.toString()) {
       res.status(403).json({
         status: 403,
-        msg: 'User does not have the right permissions to upload street thumbnail.'
+        msg: 'User does not have the right permissions to upload street thumbnail.',
       })
       return
     }
@@ -197,12 +198,12 @@ export async function post (req, res) {
   } else {
     res.status(403).json({
       status: 403,
-      msg: 'User does not have the right permissions to upload street thumbnail.'
+      msg: 'User does not have the right permissions to upload street thumbnail.',
     })
   }
 }
 
-export async function del (req, res) {
+export async function del(req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -251,7 +252,7 @@ export async function del (req, res) {
   } else if (street.creatorId.toString() !== user.id.toString()) {
     res.status(403).json({
       status: 403,
-      msg: 'Signed in user cannot delete street thumbnail.'
+      msg: 'Signed in user cannot delete street thumbnail.',
     })
     return
   }
@@ -271,7 +272,7 @@ export async function del (req, res) {
   })
 }
 
-export async function get (req, res) {
+export async function get(req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return
@@ -301,10 +302,24 @@ export async function get (req, res) {
       // only run on purpose
       // Options are passed via query params
       if (req.query.experimental === '1') {
-        const image = await runTestCanvas(street.dataValues, req.query)
+        try {
+          const params = StreetImageExportSchema.parse(req.query)
+          const image = await runTestCanvas(street.dataValues, params)
 
-        res.set('Content-Type', 'image/png')
-        res.status(200).send(image)
+          res.set('Content-Type', 'image/png')
+          res.status(200).send(image)
+        } catch (error) {
+          logger.error(error)
+          if (error instanceof z.ZodError) {
+            res
+              .status(400)
+              .json({ status: 400, errors: z.flattenError(error).fieldErrors })
+          } else {
+            res
+              .status(500)
+              .json({ status: 500, msg: 'Error finding street image.' })
+          }
+        }
       } else {
         res
           .status(404)
@@ -322,7 +337,7 @@ export async function get (req, res) {
   if (!resource) {
     res.status(404).json({
       status: 404,
-      msg: 'Did not receive any information from upstream provider.'
+      msg: 'Did not receive any information from upstream provider.',
     })
     return
   }
@@ -333,7 +348,7 @@ export async function get (req, res) {
     axios({
       method: 'get',
       url: resource.url,
-      responseType: 'stream'
+      responseType: 'stream',
     }).then((response) => {
       response.data.pipe(res)
     })
