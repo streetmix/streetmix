@@ -1,7 +1,9 @@
-import type {
+import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
-} from '@streetmix/client/src/users/constants'
+} from '@streetmix/client/src/users/constants.js'
+
+import type React from 'react'
 
 // Utility type for making a single property (K) optional
 // when a type (T) has defined K as required.
@@ -336,7 +338,7 @@ interface BoundaryDefinitionBase {
   id: string
   label: string
   spriteId: string
-  hasFloors: false
+  hasFloors: boolean
   sameOnBothSides?: boolean
   repeatHalf?: boolean
   alignAtBaseline?: boolean
