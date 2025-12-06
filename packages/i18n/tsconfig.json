@@ -1,16 +1,30 @@
 {
   "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Core */
     "target": "es2023",
     "module": "nodenext",
-    "rootDir": "src",
     "moduleResolution": "nodenext",
-    "allowJs": true,
-    "declaration": true,
+    "rootDir": "src",
     "outDir": "build",
+
+    /* Interoperability */
+    "allowJs": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+
+    /* Working in monorepo */
+    "declaration": true,
+    "composite": true,
+    "sourceMap": true,
+    "declarationMap": true,
+
+    /* Typechecking and linting */
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src/"]
 }

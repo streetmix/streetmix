@@ -3,7 +3,6 @@
 .LSOverride
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -16,6 +15,8 @@ npm-debug.log*
 
 # Ignore built assets
 build
+# TypeScript cache
+*.tsbuildinfo
 # Current parcel cache
 .parcel-cache
 # Legacy parcel-bundler cache
