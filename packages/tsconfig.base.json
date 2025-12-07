@@ -8,6 +8,11 @@
     "moduleResolution": "nodenext",
     "rootDir": "${configDir}/src",
     "outDir": "${configDir}/build",
+    "types": [
+      "node",
+      /* Recognize test globals in test suites */
+      "vitest/globals"
+    ],
 
     /* Interoperability */
     "allowJs": true,
@@ -26,5 +31,11 @@
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["${configDir}/src"]
+
+  /* All packages use `src` as root directory. Must manually include
+     json imports when extending from this config. */
+  "include": ["${configDir}/src", "${configDir}/src/**/*.json"],
+
+  /* Never compile test files */
+  "exclude": ["${configDir}/src/**/*.test.ts"]
 }
