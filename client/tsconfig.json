@@ -18,6 +18,9 @@
       "@modyfi/vite-plugin-yaml/modules" /* Type definitions for YAML */
     ],
 
+    /* Emit */
+    "noEmit": true, // Will be compiled by Parcel
+
     /* JavaScript Support */
     "allowJs": true,
 
