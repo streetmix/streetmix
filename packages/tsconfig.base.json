@@ -2,34 +2,42 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
-    /* Core */
+    /* Language and Environment */
     "target": "es2023",
+
+    /* Modules */
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
     "rootDir": "${configDir}/src",
-    "outDir": "${configDir}/build",
     "types": [
       "node",
       /* Recognize test globals in test suites */
       "vitest/globals"
     ],
 
-    /* Interoperability */
-    "allowJs": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-
-    /* Working in monorepo */
+    /* Emit */
     "declaration": true,
-    "composite": true,
-    "sourceMap": true,
     "declarationMap": true,
+    "outDir": "${configDir}/build",
+    "sourceMap": true,
 
-    /* Typechecking and linting */
-    "strict": true,
-    "skipLibCheck": true,
+    /* JavaScript Support */
+    "allowJs": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+
+    /* Projects */
+    "composite": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
   },
 
   /* All packages use `src` as root directory. Must manually include
