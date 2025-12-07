@@ -24,6 +24,7 @@
     /* Interop Constraints */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
 
     /* Type Checking */
     "strict": true,
