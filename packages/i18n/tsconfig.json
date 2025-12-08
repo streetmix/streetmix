@@ -1,16 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "es2023",
-    "module": "nodenext",
-    "rootDir": "src",
-    "moduleResolution": "nodenext",
-    "allowJs": true,
-    "declaration": true,
-    "outDir": "build",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
-  },
-  "include": ["src/"]
+  "extends": "../tsconfig.base.json"
 }

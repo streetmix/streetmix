@@ -11,7 +11,7 @@
   "type": "module",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json --outDir build",
+    "build": "tsc --project tsconfig.json",
     "start": "echo Nothing to run!"
   },
   "devDependencies": {

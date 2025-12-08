@@ -9,13 +9,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
 
 export default defineConfig([
-  globalIgnores([
-    'client/src/vendor/',
-    'test/integration/smoke.spec.js',
-    '**/build',
-    '**/coverage',
-    '**/docs',
-  ]),
+  globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
   {

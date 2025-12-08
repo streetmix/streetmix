@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Language and Environment */
+    "target": "es2023",
+
+    /* Modules */
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "rootDir": "${configDir}/src",
+    "types": [
+      "node",
+      /* Recognize test globals in test suites */
+      "vitest/globals"
+    ],
+
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "${configDir}/build",
+    "sourceMap": true,
+
+    /* JavaScript Support */
+    "allowJs": true,
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+
+    /* Projects */
+    "composite": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+
+  /* All packages use `src` as root directory. Must manually include
+     json imports when extending from this config. */
+  "include": ["${configDir}/src", "${configDir}/src/**/*.json"],
+
+  /* Never compile test files */
+  "exclude": ["${configDir}/src/**/*.test.ts"]
+}
