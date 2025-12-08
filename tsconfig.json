@@ -1,0 +1,20 @@
+{
+  "references": [
+    {
+      "path": "./packages/types/tsconfig.json"
+    },
+    {
+      "path": "./packages/utils/tsconfig.json"
+    },
+    {
+      "path": "./packages/parts/tsconfig.json"
+    },
+    {
+      "path": "./packages/export-image/tsconfig.json"
+    },
+    {
+      "path": "./packages/i18n/tsconfig.json"
+    }
+  ],
+  "files": []
+}
