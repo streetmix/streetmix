@@ -1,19 +1,19 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { segmentsChanged } from '~/src/segments/view'
+import { segmentsChanged } from '~/src/segments/view.js'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
   CURB_HEIGHT,
-  CURB_HEIGHT_IMPERIAL
-} from '~/src/segments/constants'
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { changeSegmentProperties } from '~/src/store/slices/street'
-import { TooltipGroup } from '~/src/ui/Tooltip'
-import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import { ElevationControlNew } from './ElevationControlNew'
-import { VariantButton } from './VariantButton'
+  CURB_HEIGHT_IMPERIAL,
+} from '~/src/segments/constants.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { changeSegmentProperties } from '~/src/store/slices/street.js'
+import { TooltipGroup } from '~/src/ui/Tooltip.js'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
+import { ElevationControlNew } from './ElevationControlNew.js'
+import { VariantButton } from './VariantButton.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -21,9 +21,7 @@ interface ElevationControlProps {
   position: number | BoundaryPosition
 }
 
-export function ElevationControl ({
-  position
-}: ElevationControlProps): React.ReactElement {
+export function ElevationControl({ position }: ElevationControlProps) {
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const units = useSelector((state) => state.street.units)
   const elevation = useSelector((state) => {
@@ -38,7 +36,7 @@ export function ElevationControl ({
 
   const dispatch = useDispatch()
 
-  function isVariantCurrentlySelected (selection: string): boolean {
+  function isVariantCurrentlySelected(selection: string): boolean {
     let bool
 
     switch (selection) {
@@ -58,7 +56,7 @@ export function ElevationControl ({
     return bool
   }
 
-  function getButtonOnClickHandler (selection: string): () => void {
+  function getButtonOnClickHandler(selection: string): React.MouseEventHandler {
     let elevation: number
     switch (selection) {
       case 'sidewalk':
@@ -70,7 +68,7 @@ export function ElevationControl ({
         break
     }
 
-    return (): void => {
+    return () => {
       if (typeof position === 'number') {
         dispatch(changeSegmentProperties(position, { elevation }))
         segmentsChanged()
@@ -78,10 +76,7 @@ export function ElevationControl ({
     }
   }
 
-  function renderButton (
-    set: string,
-    selection: string
-  ): React.ReactElement | null {
+  function renderButton(set: string, selection: string) {
     return (
       <VariantButton
         set={set}

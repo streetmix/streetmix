@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Popup } from 'react-leaflet'
 
-import Button from '~/src/ui/Button'
+import Button from '~/src/ui/Button.js'
 
 import type { LatLngObject } from '@streetmix/types'
 import type { PointExpression } from 'leaflet'
@@ -15,8 +15,8 @@ interface LocationPopupProps {
   label?: string
   isEditable: boolean
   isClearable: boolean
-  handleConfirm: (event: React.MouseEvent) => void
-  handleClear: (event: React.MouseEvent) => void
+  handleConfirm: React.MouseEventHandler
+  handleClear: React.MouseEventHandler
 }
 
 const LocationPopup = ({
@@ -26,7 +26,7 @@ const LocationPopup = ({
   isClearable = false,
   handleConfirm,
   handleClear,
-}: LocationPopupProps): React.ReactElement => {
+}: LocationPopupProps) => {
   return (
     <Popup
       position={position}

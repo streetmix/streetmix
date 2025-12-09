@@ -1,5 +1,7 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
+
+import type { ForwardedRef } from 'react'
 import type { SliderProps } from '@radix-ui/react-slider'
 
 import './Slider.css'
@@ -7,7 +9,7 @@ import './Slider.css'
 const Slider = forwardRef(
   (
     { value, defaultValue, className, ...props }: SliderProps,
-    ref: React.ForwardedRef<HTMLSpanElement>
+    ref: ForwardedRef<HTMLSpanElement>
   ) => {
     const displayValues = value ?? defaultValue ?? []
 

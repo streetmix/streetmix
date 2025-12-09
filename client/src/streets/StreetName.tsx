@@ -20,10 +20,10 @@ function normalizeStreetName(name: string | null): string | null {
 }
 
 interface StreetNameProps {
-  readonly name: string | null
-  readonly ref?: React.RefObject<HTMLDivElement | null>
-  readonly onClick?: () => void
-  readonly editable?: boolean
+  name: string | null
+  ref?: React.RefObject<HTMLDivElement | null>
+  onClick?: React.MouseEventHandler
+  editable?: boolean
 }
 
 function StreetName({

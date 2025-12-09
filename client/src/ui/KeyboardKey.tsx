@@ -1,6 +1,7 @@
-import React from 'react'
+import Icon, { type IconNames } from './Icon.js'
 
-import Icon, { type IconNames } from './Icon'
+import type { ReactNode } from 'react'
+
 import './KeyboardKey.css'
 
 interface KeyboardKeyWithIconProps {
@@ -10,7 +11,7 @@ interface KeyboardKeyWithIconProps {
 
 interface KeyboardKeyWithoutIconProps {
   icon?: never
-  children: React.ReactNode
+  children: ReactNode
 }
 
 type KeyboardKeyProps = KeyboardKeyWithIconProps | KeyboardKeyWithoutIconProps

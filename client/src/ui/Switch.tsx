@@ -1,4 +1,4 @@
-import React, { useId } from 'react'
+import { useId } from 'react'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
 import type { SwitchProps } from '@radix-ui/react-switch'
 

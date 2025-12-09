@@ -1,13 +1,13 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '~/src/ui/Button'
+import Button from '~/src/ui/Button.js'
 
 interface NewStreetProps {
-  handleDismiss: (event: React.MouseEvent) => void
+  handleDismiss: React.MouseEventHandler
 }
 
-function NewStreet ({ handleDismiss }: NewStreetProps): React.ReactElement {
+function NewStreet({ handleDismiss }: NewStreetProps) {
   return (
     <div className="welcome-panel-content new-street">
       <h1>

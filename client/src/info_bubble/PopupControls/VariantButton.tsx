@@ -1,22 +1,20 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
+import { useSelector } from '~/src/store/hooks.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
-import Button from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
-import { Tooltip } from '~/src/ui/Tooltip'
+import Button from '~/src/ui/Button.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 
 interface VariantButtonProps {
   set: string
   selection: string
   isSelected: boolean
-  onClick: () => void
+  onClick: React.MouseEventHandler
 }
 
-export function VariantButton (
-  props: VariantButtonProps
-): React.ReactElement | null {
+export function VariantButton(props: VariantButtonProps) {
   const { set, selection, isSelected, onClick } = props
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
@@ -35,7 +33,7 @@ export function VariantButton (
 
   const label = intl.formatMessage({
     id: `variant-icons.${set}|${selection}`,
-    defaultMessage: icon.title
+    defaultMessage: icon.title,
   })
 
   let isLocked = false
@@ -57,7 +55,7 @@ export function VariantButton (
             // Default message ends with a Unicode-only left-right order mark
             // to allow for proper punctuation in `rtl` text direction
             // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+            defaultMessage: 'Upgrade to Streetmix+ to use!‎',
           })
         }
         break
@@ -70,7 +68,7 @@ export function VariantButton (
             // Default message ends with a Unicode-only left-right order mark
             // to allow for proper punctuation in `rtl` text direction
             // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎'
+            defaultMessage: 'Sign in to use!‎',
           })
         }
         break

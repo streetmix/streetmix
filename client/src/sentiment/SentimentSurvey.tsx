@@ -2,28 +2,28 @@ import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useTransition, animated, config } from '@react-spring/web'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { showDialog } from '../store/slices/dialogs'
-import Button from '../ui/Button'
-import CloseButton from '../ui/CloseButton'
-import { doSignIn } from '../users/authentication'
-import VoteReceipt from './VoteReceipt'
-import VoteButtons from './VoteButtons'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { showDialog } from '../store/slices/dialogs.js'
+import Button from '../ui/Button.js'
+import CloseButton from '../ui/CloseButton.js'
+import { doSignIn } from '../users/authentication.js'
+import VoteReceipt from './VoteReceipt.js'
+import VoteButtons from './VoteButtons.js'
 import './SentimentSurvey.css'
 
 interface SentimentSurveyProps {
   visible: boolean
-  onClose: () => void
+  onClose: React.MouseEventHandler
   handleVote: (score: number) => void
   streetId: string
 }
 
-function SentimentSurvey ({
+function SentimentSurvey({
   visible = false,
   onClose = () => {},
   handleVote,
-  streetId
-}: SentimentSurveyProps): React.ReactElement {
+  streetId,
+}: SentimentSurveyProps) {
   const [score, setScore] = useState<number>()
   const isUserSignedIn = useSelector((state) => state.user.signedIn)
   const dispatch = useDispatch()
@@ -32,7 +32,7 @@ function SentimentSurvey ({
     from: { y: -50, opacity: 0 },
     enter: { y: 0, opacity: 1 },
     leave: { y: -50, opacity: 0 },
-    config: config.wobbly
+    config: config.wobbly,
   })
 
   const classNames = ['sentiment-survey-container']
@@ -40,7 +40,7 @@ function SentimentSurvey ({
     classNames.push('sentiment-survey-visible')
   }
 
-  function handleClick (score: number): void {
+  function handleClick(score: number): void {
     // Do not handle this vote if the user is not signed in.
     // These vote buttons are normally blocked if the user is not signed in,
     // but we have to verify this in case that DOM element fails or is user-
@@ -51,11 +51,11 @@ function SentimentSurvey ({
     handleVote(score)
   }
 
-  function handleClickAbout (): void {
+  function handleClickAbout(): void {
     dispatch(showDialog('SENTIMENT_SURVEY'))
   }
 
-  function handleClickSignIn (): void {
+  function handleClickSignIn(): void {
     doSignIn()
   }
 
@@ -73,7 +73,7 @@ function SentimentSurvey ({
                   id="sentiment.prompt.intro"
                   defaultMessage="<strong>Pardon the interruption.</strong> We’d love your feedback on this street."
                   values={{
-                    strong: (chunks) => <strong>{chunks}</strong>
+                    strong: (chunks) => <strong>{chunks}</strong>,
                   }}
                 />
               </p>
@@ -82,24 +82,22 @@ function SentimentSurvey ({
                   id="sentiment.prompt.joyful"
                   defaultMessage="Would you say this street feels <em>joyful</em>?"
                   values={{
-                    em: (chunks) => <em>{chunks}</em>
+                    em: (chunks) => <em>{chunks}</em>,
                   }}
                 />
               </h2>
               <sub>
-                {isUserSignedIn
-                  ? (
-                    <FormattedMessage
-                      id="sentiment.prompt.choose-one"
-                      defaultMessage="(choose one)"
-                    />
-                    )
-                  : (
-                    <FormattedMessage
-                      id="sentiment.sign-in-prompt"
-                      defaultMessage="Please sign in now to make your voice heard."
-                    />
-                    )}
+                {isUserSignedIn ? (
+                  <FormattedMessage
+                    id="sentiment.prompt.choose-one"
+                    defaultMessage="(choose one)"
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="sentiment.sign-in-prompt"
+                    defaultMessage="Please sign in now to make your voice heard."
+                  />
+                )}
               </sub>
               <div className="sentiment-survey-buttons">
                 <VoteButtons handleVote={handleClick} selectedScore={score} />

@@ -20,8 +20,10 @@ import {
   FloatingArrow,
   FloatingNode,
 } from '@floating-ui/react'
+
 import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
+
 import './Tooltip.css'
 
 // Default settings

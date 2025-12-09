@@ -1,5 +1,6 @@
-import React, { useId } from 'react'
+import { useId } from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
+
 import type {
   RadioGroupProps,
   RadioGroupItemProps,
