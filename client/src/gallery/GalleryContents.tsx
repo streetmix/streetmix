@@ -18,7 +18,7 @@ interface GalleryContentsProps {
   user?: UserProfile
 }
 
-function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
+function GalleryContents({ user }: GalleryContentsProps): React.ReactElement {
   const streets = useSelector((state) => state.gallery.streets)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
@@ -48,12 +48,12 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
     }
   }, [selectedStreet])
 
-  function selectStreet (streetId: string): void {
+  function selectStreet(streetId: string): void {
     setSelectedStreet(streetId)
     switchGalleryStreet(streetId)
   }
 
-  function deleteStreet (streetId: string): void {
+  function deleteStreet(streetId: string): void {
     if (streetId === currentStreetId) {
       setSelectedStreet(null)
       showError(ERRORS.NO_STREET, false)
@@ -94,6 +94,7 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
         {isOwnedByCurrentUser && (
           <div className="gallery-user-buttons">
             <Button
+              type="link"
               href={URL_NEW_STREET}
               className="gallery-new-street"
               rel="noopener noreferrer"
@@ -104,22 +105,21 @@ function GalleryContents ({ user }: GalleryContentsProps): React.ReactElement {
                 defaultMessage="Create new street"
               />
             </Button>
-            {selectedStreet !== null
-              ? (
-                <Button
-                  href={`${URL_NEW_STREET}?type=${STREET_TEMPLATES.COPY}`}
-                  className="gallery-copy-last-street"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </Button>
-                )
-              : (
-                <Button className="gallery-copy-last-street" disabled>
-                  <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-                </Button>
-                )}
+            {selectedStreet !== null ? (
+              <Button
+                type="link"
+                href={`${URL_NEW_STREET}?type=${STREET_TEMPLATES.COPY}`}
+                className="gallery-copy-last-street"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </Button>
+            ) : (
+              <Button className="gallery-copy-last-street" disabled>
+                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
+              </Button>
+            )}
           </div>
         )}
 

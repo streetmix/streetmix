@@ -85,7 +85,7 @@ function VoteReceipt({ score, handleClose, streetId }: VoteReceiptProps) {
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">
-          <Button primary href="/survey">
+          <Button primary type="link" href="/survey">
             <FormattedMessage
               id="sentiment.done.vote-another"
               defaultMessage="Vote on another!"
