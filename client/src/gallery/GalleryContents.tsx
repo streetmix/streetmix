@@ -1,16 +1,17 @@
-import React, { useRef, useState, useLayoutEffect } from 'react'
+import { useRef, useState, useLayoutEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { deleteGalleryStreet } from '../store/slices/gallery'
-import Button from '../ui/Button'
-import Scrollable from '../ui/Scrollable'
-import Avatar from '../users/Avatar'
-import { sendDeleteStreetToServer } from '../streets/xhr'
-import { showError, ERRORS } from '../app/errors'
-import { URL_NEW_STREET, STREET_TEMPLATES } from '../app/constants'
-import GalleryStreetItem from './GalleryStreetItem'
-import { switchGalleryStreet } from './index'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { deleteGalleryStreet } from '../store/slices/gallery.js'
+import Button from '../ui/Button.js'
+import Scrollable from '../ui/Scrollable.js'
+import Avatar from '../users/Avatar.js'
+import { sendDeleteStreetToServer } from '../streets/xhr.js'
+import { showError, ERRORS } from '../app/errors.js'
+import { URL_NEW_STREET, STREET_TEMPLATES } from '../app/constants.js'
+import { GalleryStreetItem } from './GalleryStreetItem.js'
+import { switchGalleryStreet } from './index.js'
+
 import type { UserProfile } from '../types'
 import './GalleryContents.css'
 
@@ -18,7 +19,7 @@ interface GalleryContentsProps {
   user?: UserProfile
 }
 
-function GalleryContents({ user }: GalleryContentsProps): React.ReactElement {
+export function GalleryContents({ user }: GalleryContentsProps) {
   const streets = useSelector((state) => state.gallery.streets)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
@@ -140,5 +141,3 @@ function GalleryContents({ user }: GalleryContentsProps): React.ReactElement {
     </>
   )
 }
-
-export default GalleryContents

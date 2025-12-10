@@ -12,7 +12,7 @@ import DescriptionPanel from '../info_bubble/DescriptionPanel'
 import PaletteContainer from '../palette/PaletteContainer'
 import DialogRoot from '../dialogs/DialogRoot'
 import SkyPicker from '../sky/SkyPicker'
-import Gallery from '../gallery/Gallery'
+import { Gallery } from '../gallery/Gallery'
 import SegmentDragLayer from '../segments/SegmentDragLayer'
 import ToastContainer from '../ui/Toasts'
 import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
@@ -27,7 +27,7 @@ import NotificationBar from './NotificationBar'
 import Loading from './Loading'
 import SponsorBanner from './SponsorBanner'
 
-function App (): React.ReactElement {
+function App(): React.ReactElement {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
   const dir: Direction = useSelector(
