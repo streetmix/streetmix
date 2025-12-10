@@ -68,15 +68,15 @@ function GeoSearch({ map, handleResults }: GeoSearchProps) {
       return part
     })
 
+    const { key, ...props } = getItemProps({
+      className: 'geotag-suggestion',
+      key: item.properties?.gid,
+      index,
+      item,
+    })
+
     return (
-      <li
-        {...getItemProps({
-          className: 'geotag-suggestion',
-          key: item.properties?.gid,
-          index,
-          item,
-        })}
-      >
+      <li key={key} {...props}>
         {highlighted}
       </li>
     )
