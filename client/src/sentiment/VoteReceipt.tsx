@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import VoteComment from './VoteComment.js'
 import SentimentIcon from './SentimentIcon.js'
 import { getDataForScore } from './scores.js'

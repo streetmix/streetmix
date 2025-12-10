@@ -2,11 +2,11 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
-import Button from '../ui/Button'
+import { Button } from '../ui/Button'
 import './UpgradeButton.css'
 
-function UpgradeButton (): React.ReactElement {
-  function handleClickUpgrade (): void {
+function UpgradeButton(): React.ReactElement {
+  function handleClickUpgrade(): void {
     // dispatch(showDialog('UPGRADE'))
     window.open(
       'https://docs.streetmix.net/user-guide/streetmix-plus',

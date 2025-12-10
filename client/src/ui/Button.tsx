@@ -45,7 +45,7 @@ interface ButtonLinkProps
 // Button is either <button> or <a>, discriminated by `type` prop if present
 type ButtonProps = ButtonInputProps | ButtonLinkProps
 
-function Button(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   const classNames = ['btn']
   const { primary, secondary, tertiary, className, ...restProps } = props
   if (primary) {
@@ -84,7 +84,3 @@ function Button(props: ButtonProps) {
     </button>
   )
 }
-
-Button.displayName = 'Button'
-
-export default Button

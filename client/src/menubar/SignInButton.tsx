@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import './SignInButton.css'
 
 interface SignInButtonProps {

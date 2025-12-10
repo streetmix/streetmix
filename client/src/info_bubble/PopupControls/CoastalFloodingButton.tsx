@@ -3,12 +3,12 @@ import React from 'react'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { showCoastalFloodingPanel } from '~/src/store/slices/coastmix'
 import BetaTag from '~/src/menubar/menus/BetaTag'
-import Button from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button'
 import './CoastalFloodingButton.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function CoastalFloodingButton (
+export function CoastalFloodingButton(
   props: SectionElementTypeAndPosition
 ): React.ReactElement | null {
   const { type, position } = props
@@ -25,7 +25,7 @@ export function CoastalFloodingButton (
 
   if (type === 'slice' || variant !== 'waterfront') return null
 
-  function handleClick () {
+  function handleClick() {
     dispatch(showCoastalFloodingPanel())
   }
 

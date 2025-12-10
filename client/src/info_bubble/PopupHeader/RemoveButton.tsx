@@ -6,7 +6,7 @@ import {
   removeSegmentAction,
   clearSegmentsAction,
 } from '~/src/store/actions/street'
-import Button from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import './RemoveButton.css'
 

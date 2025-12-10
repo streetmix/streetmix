@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '~/src/ui/Button.js'
+import { Button } from '~/src/ui/Button.js'
 
 interface NewStreetProps {
   handleDismiss: React.MouseEventHandler

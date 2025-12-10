@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { deleteGalleryStreet } from '../store/slices/gallery.js'
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import Scrollable from '../ui/Scrollable.js'
 import Avatar from '../users/Avatar.js'
 import { sendDeleteStreetToServer } from '../streets/xhr.js'

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
-import Button from '~/src/ui/Button.js'
+import { Button } from '~/src/ui/Button.js'
 import Icon from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 

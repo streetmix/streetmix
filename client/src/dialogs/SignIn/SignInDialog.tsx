@@ -5,15 +5,15 @@ import {
   goEmailSignIn,
   goTwitterSignIn,
   goFacebookSignIn,
-  goGoogleSignIn
+  goGoogleSignIn,
 } from '~/src/app/routing'
-import Button from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button'
 import Icon from '~/src/ui/Icon'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Dialog from '../Dialog'
 import './SignInDialog.css'
 
-function SignInDialog (): React.ReactElement {
+function SignInDialog(): React.ReactElement {
   const [email, setEmail] = useState('')
   const [emailSent, setEmailSent] = useState(false)
   const [sendingEmail, setSendingEmail] = useState(false)
@@ -27,32 +27,32 @@ function SignInDialog (): React.ReactElement {
     emailInputEl.current?.focus()
   }, [])
 
-  function handleChange (event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const target = event.target
     const value = target.value
 
     setEmail(value)
   }
 
-  function handleFacebookSignIn (event: React.MouseEvent): void {
+  function handleFacebookSignIn(event: React.MouseEvent): void {
     event.preventDefault()
     setSigningIng(true)
     goFacebookSignIn()
   }
 
-  function handleGoogleSignIn (event: React.MouseEvent): void {
+  function handleGoogleSignIn(event: React.MouseEvent): void {
     event.preventDefault()
     setSigningIng(true)
     goGoogleSignIn()
   }
 
-  function handleTwitterSignIn (event: React.MouseEvent): void {
+  function handleTwitterSignIn(event: React.MouseEvent): void {
     event.preventDefault()
     setSigningIng(true)
     goTwitterSignIn()
   }
 
-  function handleGoEmailSignIn (error: string | null): void {
+  function handleGoEmailSignIn(error: string | null): void {
     if (error !== null) {
       console.error(error)
       return
@@ -64,12 +64,12 @@ function SignInDialog (): React.ReactElement {
     setError(false)
   }
 
-  function handleEmailResend (event: React.MouseEvent): void {
+  function handleEmailResend(event: React.MouseEvent): void {
     event.preventDefault()
     setEmailSent(false)
   }
 
-  function handleSubmit (event: React.FormEvent): void {
+  function handleSubmit(event: React.FormEvent): void {
     event.preventDefault()
 
     // Note: we don't validate the input here;
@@ -78,7 +78,7 @@ function SignInDialog (): React.ReactElement {
     setSendingEmail(true)
   }
 
-  function ErrorMessage (): React.ReactElement {
+  function ErrorMessage(): React.ReactElement {
     return (
       <p className="sign-in-error-message">
         <FormattedMessage
@@ -89,7 +89,7 @@ function SignInDialog (): React.ReactElement {
     )
   }
 
-  function SignInWaiting (): React.ReactElement {
+  function SignInWaiting(): React.ReactElement {
     return (
       <Dialog>
         {() => (
@@ -115,7 +115,7 @@ function SignInDialog (): React.ReactElement {
     )
   }
 
-  function EmailSent (): React.ReactElement {
+  function EmailSent(): React.ReactElement {
     return (
       <Dialog>
         {() => (
@@ -134,7 +134,7 @@ function SignInDialog (): React.ReactElement {
                   id="dialogs.sign-in.sent-message-with-email"
                   defaultMessage="We’ve sent an email to {email}. Please follow the instructions there to continue signing in!"
                   values={{
-                    email: <span className="sign-in-email">{email}</span>
+                    email: <span className="sign-in-email">{email}</span>,
                   }}
                 />
               </p>
@@ -298,7 +298,7 @@ function SignInDialog (): React.ReactElement {
                           defaultMessage="privacy policy"
                         />
                       </a>
-                    )
+                    ),
                   }}
                 />
               </p>

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { openGallery } from '../store/actions/gallery.js'
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 
 export function GalleryError() {
   const userId = useSelector((state) => state.gallery.userId)

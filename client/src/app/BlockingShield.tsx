@@ -9,7 +9,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking.js'
 import { goReload } from './routing.js'
 
