@@ -1,9 +1,9 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useIntl } from 'react-intl'
 import DownshiftPelias from 'downshift-pelias' // TODO: type definitions
 import Pelias from 'pelias-js' // TODO: type definitions
 
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config.js'
 import './GeoSearch.css'
 
 import type {
@@ -16,7 +16,7 @@ import type {
 import type { Map } from 'leaflet'
 
 interface GeoSearchProps {
-  map: Map | null
+  map: Map | undefined
   handleResults: (geo: Position, properties: GeoJsonProperties) => void
 }
 

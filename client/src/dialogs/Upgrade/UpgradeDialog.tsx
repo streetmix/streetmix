@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import axios from 'axios'
 
-import { useSelector } from '~/src/store/hooks'
+import { useSelector } from '~/src/store/hooks.js'
 import userRoles from '../../../../app/data/user_roles.json'
-import Dialog from '../Dialog'
+import Dialog from '../Dialog.js'
 import './UpgradeDialog.css'
 
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 
-function UpgradeDialog (): React.ReactElement {
+function UpgradeDialog() {
   const userId = useSelector((state) => state.user.signInData?.userId)
   const roles: string[] = useSelector(
     (state) => state.user.signInData?.details?.roles ?? []
   )
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<unknown | null>(null)
-  const [data, setData] = useState<unknown | null>(null)
+  const [error, setError] = useState<unknown>()
+  const [data, setData] = useState<unknown>()
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
@@ -51,7 +51,7 @@ function UpgradeDialog (): React.ReactElement {
         <FormattedMessage id="upgrade.loading" defaultMessage="Loading..." />
       </p>
     )
-  } else if (error !== null) {
+  } else if (error !== undefined) {
     activePanel = (
       <p>
         <FormattedMessage
@@ -61,7 +61,7 @@ function UpgradeDialog (): React.ReactElement {
         {error}
       </p>
     )
-  } else if (data !== null) {
+  } else if (data !== undefined) {
     activePanel = (
       <p>
         <FormattedMessage

@@ -18,13 +18,13 @@ import './SaveAsImageDialog.css'
 const DEFAULT_IMAGE_DPI = 2
 
 function SaveAsImageDialog() {
-  const imageCanvas = useRef<HTMLCanvasElement | null>(null)
+  const imageCanvas = useRef<HTMLCanvasElement>(null)
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string>()
   const [errorMessage2, setErrorMessage2] = useState<boolean>(false)
-  const [downloadDataUrl, setDownloadDataUrl] = useState<string | null>(null)
+  const [downloadDataUrl, setDownloadDataUrl] = useState<string>()
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
   const {
@@ -216,7 +216,7 @@ function SaveAsImageDialog() {
       const dataUrl = imageCanvas.current?.toDataURL('image/png')
       if (dataUrl === undefined) throw new Error()
       setDownloadDataUrl(dataUrl)
-      setErrorMessage(null)
+      setErrorMessage(undefined)
     } catch (e) {
       setErrorMessage(
         intl.formatMessage({
@@ -305,7 +305,7 @@ function SaveAsImageDialog() {
               )}
             </div>
             <div className="save-as-image-preview">
-              {errorMessage === null && (
+              {errorMessage === undefined && (
                 <div className="save-as-image-preview-image">
                   <div
                     className="save-as-image-preview-loading"
@@ -316,11 +316,11 @@ function SaveAsImageDialog() {
                       defaultMessage="Loading…"
                     />
                   </div>
-                  {/* Initial value of `downloadDataUrl` is null, rather than an
-                      empty string. We get a warning that this could cause a
-                      browser to re-download the page if `src` is set to an
-                      empty string. */}
-                  {downloadDataUrl !== null && (
+                  {/* Initial value of `downloadDataUrl` is undefined, rather
+                      than an empty string. We get a warning that this could
+                      cause a browser to re-download the page if `src` is set
+                      to an empty string. */}
+                  {downloadDataUrl !== undefined && (
                     <img
                       src={downloadDataUrl}
                       onLoad={handlePreviewLoaded}
@@ -333,7 +333,7 @@ function SaveAsImageDialog() {
                   )}
                 </div>
               )}
-              {errorMessage !== null && (
+              {errorMessage !== undefined && (
                 <div className="save-as-image-preview-error">
                   {errorMessage}
                 </div>
@@ -353,7 +353,7 @@ function SaveAsImageDialog() {
                   />
                 </span>
               )}
-              {errorMessage === null && !isSaving ? (
+              {errorMessage === undefined && !isSaving ? (
                 <Button primary onClick={handleClickDownloadImage}>
                   <FormattedMessage
                     id="dialogs.save.save-button"

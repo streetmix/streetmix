@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react'
+import { useRef, useMemo } from 'react'
 import { Marker } from 'react-leaflet'
 
 import type { LeafletEvent, LeafletEventHandlerFn } from 'leaflet'

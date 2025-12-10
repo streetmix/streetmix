@@ -1,15 +1,14 @@
 import { screen } from '@testing-library/react'
 import clone from 'just-clone'
-import React from 'react'
 import { type Mock, vi } from 'vitest'
 
-import * as constants from '~/src/app/config'
-import { isOwnedByCurrentUser } from '~/src/streets/owner'
-import { render } from '~/test/helpers/render'
-import GeotagDialog from './GeotagDialog'
+import * as constants from '~/src/app/config.js'
+import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
+import { render } from '~/test/helpers/render.js'
+import GeotagDialog from './GeotagDialog.js'
 
 // Mock this method to allow it to return values we need for test
-vi.mock('../../streets/owner', () => ({
+vi.mock('../../streets/owner.js', () => ({
   isOwnedByCurrentUser: vi.fn(),
 }))
 

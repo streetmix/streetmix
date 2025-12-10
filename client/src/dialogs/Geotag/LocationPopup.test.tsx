@@ -1,10 +1,9 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import LocationPopup from './LocationPopup'
+import { render } from '~/test/helpers/render.js'
+import LocationPopup from './LocationPopup.js'
 
 // Mock the <Popup /> component of react-leaflet so that it doesn't
 // run its own side-effects; we only want to render as a wrapper
