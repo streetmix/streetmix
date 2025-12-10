@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react'
+import { useState, useRef, useLayoutEffect } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
