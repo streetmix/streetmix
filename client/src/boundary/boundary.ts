@@ -2,30 +2,30 @@ import seedrandom from 'seedrandom'
 import { round } from '@streetmix/utils'
 
 import BOUNDARY_DEFS from '../boundary/boundary_defs.yaml'
-import { generateRandSeed } from '../util/random'
-import { prettifyWidth } from '../util/width_units'
-import { images } from '../app/load_resources'
-import store from '../store'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
+import { generateRandSeed } from '../util/random.js'
+import { prettifyWidth } from '../util/width_units.js'
+import { images } from '../app/load_resources.js'
+import store from '../store/index.js'
+import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
   BUILDING_LEFT_POSITION,
   GROUND_BASELINE_HEIGHT,
-  CURB_HEIGHT
-} from '../segments/constants'
-import { drawSegmentImage, getElevation } from '../segments/view'
+  CURB_HEIGHT,
+} from '../segments/constants.js'
+import { drawSegmentImage, getElevation } from '../segments/view.js'
 
 import type { IntlShape } from 'react-intl'
 import type {
   BoundaryDefinition,
   BoundaryPosition,
-  UnitsSetting
+  UnitsSetting,
 } from '@streetmix/types'
 
 const INVALID_SHADE_COLOUR = 'rgba(204, 163, 173, .9)'
 
-export function getBoundaryItem (variant: string): BoundaryDefinition {
+export function getBoundaryItem(variant: string): BoundaryDefinition {
   const item = BOUNDARY_DEFS[variant]
   if (item.id === undefined) {
     item.id = variant
@@ -37,7 +37,7 @@ export function getBoundaryItem (variant: string): BoundaryDefinition {
 /**
  * Returns sprite id, given variant and position
  */
-function getSpriteId (variant: string, position: BoundaryPosition): string {
+function getSpriteId(variant: string, position: BoundaryPosition): string {
   const item = getBoundaryItem(variant)
   return item.spriteId + (item.sameOnBothSides === true ? '' : '-' + position)
 }
@@ -48,7 +48,7 @@ function getSpriteId (variant: string, position: BoundaryPosition): string {
  * multiple floors, this must be calculated from the number of floors and
  * sprite pixel specifications.
  */
-export function getBoundaryImageHeight (
+export function getBoundaryImageHeight(
   variant: string,
   position: BoundaryPosition,
   floors = 1
@@ -74,7 +74,7 @@ export function getBoundaryImageHeight (
 /**
  * Converts the number of floors to an actual height in meters
  */
-function calculateRealHeightNumber (
+function calculateRealHeightNumber(
   variant: string,
   position: BoundaryPosition,
   floors: number
@@ -91,7 +91,7 @@ function calculateRealHeightNumber (
  * looks like this:
  *    "4 floors (45m)"
  */
-export function prettifyHeight (
+export function prettifyHeight(
   variant: string,
   position: BoundaryPosition,
   floors: number,
@@ -101,10 +101,10 @@ export function prettifyHeight (
   let text = formatMessage(
     {
       id: 'building.floors-count',
-      defaultMessage: '{count, plural, one {# floor} other {# floors}}'
+      defaultMessage: '{count, plural, one {# floor} other {# floors}}',
     },
     {
-      count: floors
+      count: floors,
     }
   )
 
@@ -123,7 +123,7 @@ export function prettifyHeight (
 /**
  * Draws boundary item on a canvas
  */
-export function drawBoundary (
+export function drawBoundary(
   ctx: CanvasRenderingContext2D,
   position: BoundaryPosition,
   variant: string,
@@ -305,7 +305,7 @@ export function drawBoundary (
 /**
  * Fills the building rendered area with a color
  */
-function shadeInContext (ctx: CanvasRenderingContext2D): void {
+function shadeInContext(ctx: CanvasRenderingContext2D): void {
   ctx.save()
   ctx.globalCompositeOperation = 'source-atop'
   ctx.fillStyle = INVALID_SHADE_COLOUR

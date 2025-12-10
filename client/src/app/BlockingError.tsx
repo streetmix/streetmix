@@ -1,23 +1,18 @@
-/**
- * Displays a blocking error message on top of the application.
- *
- * @module BlockingError
- */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '../store/hooks'
-import { useGetUserQuery } from '../store/services/api'
-import Button from '../ui/Button'
-import ExternalLink from '../ui/ExternalLink'
-import Avatar from '../users/Avatar'
-import { doSignIn } from '../users/authentication'
-import { goReload, goHome, goNewStreet, goExampleStreet } from './routing'
-import { ERRORS } from './errors'
+import { useSelector } from '../store/hooks.js'
+import { useGetUserQuery } from '../store/services/api.js'
+import Button from '../ui/Button.js'
+import ExternalLink from '../ui/ExternalLink.js'
+import Avatar from '../users/Avatar.js'
+import { doSignIn } from '../users/authentication.js'
+import { goReload, goHome, goNewStreet, goExampleStreet } from './routing.js'
+import { ERRORS } from './errors.js'
 
 import type { StreetState } from '@streetmix/types'
 
-function BlockingError(): React.ReactElement | null {
+function BlockingError() {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)

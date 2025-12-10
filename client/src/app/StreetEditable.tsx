@@ -2,25 +2,25 @@ import React, { useEffect, useRef, createRef, cloneElement } from 'react'
 import { useDrop } from 'react-dnd'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { useSelector } from '~/src/store/hooks'
-import { usePrevious } from '~/src/util/usePrevious'
-import type { DraggingState } from '~/src/types'
-import Segment from '../segments/Segment'
+import { useSelector } from '~/src/store/hooks.js'
+import { usePrevious } from '~/src/util/usePrevious.js'
+import type { DraggingState } from '~/src/types/index.js'
+import Segment from '../segments/Segment.js'
 import {
   TILE_SIZE,
   DRAGGING_MOVE_HOLE_WIDTH,
-  DRAGGING_TYPE_RESIZE
-} from '../segments/constants'
-import { cancelSegmentResizeTransitions } from '../segments/resizing'
+  DRAGGING_TYPE_RESIZE,
+} from '../segments/constants.js'
+import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import {
   isSegmentWithinCanvas,
-  createStreetDropTargetSpec
-} from '../segments/drag_and_drop'
+  createStreetDropTargetSpec,
+} from '../segments/drag_and_drop.js'
 
 /**
  * Calculates the gap shown before or after slices while dragging another slice
  */
-function makeSpaceBetweenSlices (
+function makeSpaceBetweenSlices(
   sliceIndex: number,
   draggingState: DraggingState
 ): number {
@@ -48,13 +48,13 @@ function makeSpaceBetweenSlices (
 }
 
 interface StreetEditableProps {
-  resizeType: number | null
+  resizeType: number | undefined
   setBoundaryWidth: (node: HTMLDivElement | null) => void
   updatePerspective: (el: HTMLElement | null) => void
   draggingType?: number
 }
 
-function StreetEditable (props: StreetEditableProps): React.ReactElement {
+function StreetEditable(props: StreetEditableProps) {
   const { resizeType, setBoundaryWidth, updatePerspective, draggingType } =
     props
   const street = useSelector((state) => state.street)
@@ -74,7 +74,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     resizeType,
     draggingType,
     street,
-    draggingState
+    draggingState,
   })
 
   // Set up drop target
@@ -92,15 +92,15 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }, [])
 
   useEffect(() => {
-    if (prevProps === null || prevProps === undefined) return
+    if (prevProps === null) return
     if (
-      (resizeType !== undefined && prevProps.resizeType !== undefined) ??
+      resizeType !== undefined ||
       (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
         draggingType !== undefined)
     ) {
       setBoundaryWidth(ref.current)
     }
-  }, [resizeType, draggingType])
+  }, [resizeType, draggingType, setBoundaryWidth, prevProps])
 
   useEffect(() => {
     if (
@@ -109,9 +109,9 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     ) {
       cancelSegmentResizeTransitions()
     }
-  }, [street.id, street.width])
+  }, [street.id, street.width, prevProps])
 
-  function updateWithinCanvas (event: MouseEvent | TouchEvent): void {
+  function updateWithinCanvas(event: MouseEvent | TouchEvent): void {
     if (ref.current === null) return
 
     const newValue = isSegmentWithinCanvas(event, ref.current)
@@ -127,7 +127,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }
 
-  function handleSwitchSliceAway (el: HTMLDivElement, sliceIndex: number): void {
+  function handleSwitchSliceAway(el: HTMLDivElement, sliceIndex: number): void {
     // Targeting first child node instead of el because of wrapper div workaround
     // for CSSTransition
     const childNode = el.firstChild as HTMLDivElement
@@ -139,7 +139,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     updatePerspective(childNode)
   }
 
-  function calculateSlicePosition (sliceIndex: number): number {
+  function calculateSlicePosition(sliceIndex: number): number {
     const { segments, remainingWidth } = street
 
     let currPos = 0
@@ -170,13 +170,13 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
     }
   }
 
-  function onExitAnimations (child: React.ReactElement): React.ReactElement {
+  function onExitAnimations(child: React.ReactElement): React.ReactElement {
     return cloneElement(child, {
-      exit: !street.immediateRemoval
+      exit: !street.immediateRemoval,
     })
   }
 
-  function renderStreetSegments (): React.ReactNode {
+  function renderStreetSegments(): React.ReactNode {
     const { segments, units, immediateRemoval } = street
     const streetId = street.id
 
@@ -219,7 +219,7 @@ function StreetEditable (props: StreetEditableProps): React.ReactElement {
   }
 
   const style = {
-    width: street.width * TILE_SIZE + 'px'
+    width: street.width * TILE_SIZE + 'px',
   }
 
   return (

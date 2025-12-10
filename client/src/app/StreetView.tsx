@@ -1,23 +1,23 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useSelector } from '~/src/store/hooks'
-import { usePrevious } from '~/src/util/usePrevious'
-import { Boundary } from '~/src/boundary'
-import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer'
-import { SeaLevel } from '~/src/plugins/coastmix'
-import ResizeGuides from '../segments/ResizeGuides'
-import EmptySegmentContainer from '../segments/EmptySegmentContainer'
-import { animate, getElAbsolutePos } from '../util/helpers'
-import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants'
+import { useSelector } from '~/src/store/hooks.js'
+import { usePrevious } from '~/src/util/usePrevious.js'
+import { Boundary } from '~/src/boundary/index.js'
+import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
+import { SeaLevel } from '~/src/plugins/coastmix/index.js'
+import ResizeGuides from '../segments/ResizeGuides.js'
+import EmptySegmentContainer from '../segments/EmptySegmentContainer.js'
+import { animate, getElAbsolutePos } from '../util/helpers.js'
+import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
 import {
   TILE_SIZE,
   DRAGGING_TYPE_RESIZE,
-  BUILDING_SPACE
-} from '../segments/constants'
-import { updateStreetMargin } from '../segments/resizing'
-import SkyBox from '../sky/SkyBox'
-import ScrollIndicators from './ScrollIndicators'
-import StreetEditable from './StreetEditable'
+  BUILDING_SPACE,
+} from '../segments/constants.js'
+import { updateStreetMargin } from '../segments/resizing.js'
+import SkyBox from '../sky/SkyBox/index.js'
+import ScrollIndicators from './ScrollIndicators.js'
+import StreetEditable from './StreetEditable.js'
 import './StreetView.css'
 
 const SEGMENT_RESIZED = 1
@@ -28,7 +28,7 @@ const STREETVIEW_RESIZED = 2
  * left and right "scroll indicator" arrows to display. This number
  * is calculated as the street scrolls and stored in state.
  */
-function calculateScrollIndicators (
+function calculateScrollIndicators(
   el: HTMLDivElement | null,
   streetWidth: number
 ): { left: number; right: number } | undefined {
@@ -61,18 +61,18 @@ function calculateScrollIndicators (
 
   return {
     left: scrollIndicatorsLeft,
-    right: scrollIndicatorsRight
+    right: scrollIndicatorsRight,
   }
 }
 
-function StreetView (): React.ReactElement {
+function StreetView() {
   const [scrollIndicators, setScrollIndicators] = useState({
     left: 0,
-    right: 0
+    right: 0,
   })
   const [scrollPos, setScrollPos] = useState(0)
-  const [resizeType, setResizeType] = useState<number | null>(null)
-  const [boundaryWidth, setBoundaryWidth] = useState(0)
+  const [resizeType, setResizeType] = useState<number>()
+  const [boundaryWidth, setBoundaryWidth] = useState<number>()
 
   const sectionEl = useRef<HTMLDivElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -84,7 +84,7 @@ function StreetView (): React.ReactElement {
   const prevState = usePrevious({
     boundaryWidth,
     resizeType,
-    street
+    street,
   })
 
   const onResize = useCallback((): number | undefined => {
@@ -165,9 +165,9 @@ function StreetView (): React.ReactElement {
     //    building width
     if (
       prevState?.boundaryWidth !== boundaryWidth ||
-      (prevState?.resizeType === STREETVIEW_RESIZED && resizeType !== null)
+      (prevState?.resizeType === STREETVIEW_RESIZED && resizeType !== undefined)
     ) {
-      const deltaX = boundaryWidth - (prevState?.boundaryWidth ?? 0)
+      const deltaX = (boundaryWidth ?? 0) - (prevState?.boundaryWidth ?? 0)
 
       // If segment was resized (either dragged or incremented), update
       // scrollLeft to make up for margin change.
@@ -184,7 +184,7 @@ function StreetView (): React.ReactElement {
         resizeStreetExtent(SEGMENT_RESIZED, true)
       }
     }
-  }, [boundaryWidth, resizeType, updateScrollLeft])
+  }, [boundaryWidth, resizeType, updateScrollLeft, prevState])
 
   useEffect(() => {
     // Updating margins when segment is resized by dragging is handled in resizing.js
@@ -201,9 +201,9 @@ function StreetView (): React.ReactElement {
       const dontDelay = resizeType === STREETVIEW_RESIZED
       resizeStreetExtent(resizeType, dontDelay)
     }
-  }, [street.occupiedWidth])
+  }, [street, prevState, draggingType])
 
-  function resizeStreetExtent (resizeType: number, dontDelay: boolean): void {
+  function resizeStreetExtent(resizeType: number, dontDelay: boolean): void {
     const marginUpdated = updateStreetMargin(
       sectionCanvasEl.current,
       sectionEl.current,
@@ -218,7 +218,7 @@ function StreetView (): React.ReactElement {
   /**
    * Event handler for street scrolling.
    */
-  function handleStreetScroll (_event: React.UIEvent<HTMLDivElement>): void {
+  function handleStreetScroll(_event: React.UIEvent<HTMLDivElement>): void {
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {
@@ -234,7 +234,7 @@ function StreetView (): React.ReactElement {
     })
   }
 
-  function scrollStreet (left: boolean, far = false): void {
+  function scrollStreet(left: boolean, far = false): void {
     const el = sectionEl.current
     if (!el) return
 
@@ -257,7 +257,7 @@ function StreetView (): React.ReactElement {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
-  function getBoundaryWidth (el: HTMLDivElement | null): void {
+  function getBoundaryWidth(el: HTMLDivElement | null): void {
     if (el === null) return
     const pos = getElAbsolutePos(el)
 
@@ -267,10 +267,10 @@ function StreetView (): React.ReactElement {
     }
 
     setBoundaryWidth(width)
-    setResizeType(null)
+    setResizeType(undefined)
   }
 
-  function getStreetScrollPosition (): number {
+  function getStreetScrollPosition(): number {
     return sectionEl.current?.scrollLeft ?? 0
   }
 
@@ -281,7 +281,7 @@ function StreetView (): React.ReactElement {
    * this function after a render. Do not set state or call other side effects
    * from this function.
    */
-  function updatePerspective (el: HTMLElement | null): void {
+  function updatePerspective(el: HTMLElement | null): void {
     if (el === null) return
 
     const pos = getElAbsolutePos(el)
