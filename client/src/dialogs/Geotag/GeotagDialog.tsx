@@ -20,10 +20,10 @@ import {
 } from '~/src/store/slices/street.js'
 import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
 import Dialog from '../Dialog.js'
-import ErrorBanner from './ErrorBanner.js'
-import GeoSearch from './GeoSearch.js'
-import LocationMarker from './LocationMarker.js'
-import LocationPopup from './LocationPopup.js'
+import { ErrorBanner } from './ErrorBanner.js'
+import { GeoSearch } from './GeoSearch.js'
+import { LocationMarker } from './LocationMarker.js'
+import { LocationPopup } from './LocationPopup.js'
 import './GeotagDialog.css'
 
 import type { LatLngObject, StreetState } from '@streetmix/types'
@@ -116,7 +116,7 @@ function getInitialState({
   }
 }
 
-function GeotagDialog() {
+export function GeotagDialog() {
   const street = useSelector((state) => state.street)
   const markerLocation = useSelector((state) => state.map.markerLocation)
   const addressInformation = useSelector(
@@ -360,5 +360,3 @@ function GeotagDialog() {
     </Dialog>
   )
 }
-
-export default GeotagDialog

@@ -11,7 +11,7 @@ interface LocationMarkerProps {
   onDragEnd: LeafletEventHandlerFn
 }
 
-function LocationMarker({
+export function LocationMarker({
   position,
   geocodeAvailable,
   onDragStart,
@@ -45,5 +45,3 @@ function LocationMarker({
     />
   )
 }
-
-export default LocationMarker

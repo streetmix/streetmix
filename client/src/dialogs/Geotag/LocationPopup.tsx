@@ -19,7 +19,7 @@ interface LocationPopupProps {
   handleClear: React.MouseEventHandler
 }
 
-const LocationPopup = ({
+export const LocationPopup = ({
   position,
   label,
   isEditable = false,
@@ -59,5 +59,3 @@ const LocationPopup = ({
     </Popup>
   )
 }
-
-export default LocationPopup

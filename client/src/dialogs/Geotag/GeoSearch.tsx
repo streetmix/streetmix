@@ -31,7 +31,7 @@ interface DownshiftPeliasProps {
   results: FeatureCollection<Point>
 }
 
-function GeoSearch({ map, handleResults }: GeoSearchProps) {
+export function GeoSearch({ map, handleResults }: GeoSearchProps) {
   const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -146,5 +146,3 @@ function GeoSearch({ map, handleResults }: GeoSearchProps) {
     </DownshiftPelias>
   )
 }
-
-export default GeoSearch

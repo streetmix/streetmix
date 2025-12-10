@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl'
 
 import './ErrorBanner.css'
 
-function ErrorBanner() {
+export function ErrorBanner() {
   return (
     <div className="geotag-error-banner">
       <FormattedMessage
@@ -14,5 +14,3 @@ function ErrorBanner() {
     </div>
   )
 }
-
-export default ErrorBanner

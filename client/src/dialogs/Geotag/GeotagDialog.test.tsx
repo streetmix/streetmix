@@ -5,7 +5,7 @@ import { type Mock, vi } from 'vitest'
 import * as constants from '~/src/app/config.js'
 import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
 import { render } from '~/test/helpers/render.js'
-import GeotagDialog from './GeotagDialog.js'
+import { GeotagDialog } from './GeotagDialog.js'
 
 // Mock this method to allow it to return values we need for test
 vi.mock('../../streets/owner.js', () => ({
