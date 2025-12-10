@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useLayoutEffect } from 'react'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
 import { animate } from '../util/helpers.js'
-import Button from './Button.js'
+import { Button } from './Button.js'
 import Icon from './Icon.js'
 import './Scrollable.css'
 

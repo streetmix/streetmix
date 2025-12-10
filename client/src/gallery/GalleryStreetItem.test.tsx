@@ -1,17 +1,16 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render.js'
 import { MOCK_STREET } from '~/test/fixtures'
-import GalleryStreetItem from './GalleryStreetItem'
+import { GalleryStreetItem } from './GalleryStreetItem.js'
 
 // Mock dependencies
-vi.mock('../streets/thumbnail', () => ({
+vi.mock('../streets/thumbnail.js', () => ({
   drawStreetThumbnail: vi.fn(),
 }))
-vi.mock('../app/page_url', () => ({
+vi.mock('../app/page_url.js', () => ({
   getStreetUrl: vi.fn(),
 }))
 

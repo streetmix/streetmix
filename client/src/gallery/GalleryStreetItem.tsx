@@ -1,13 +1,13 @@
-import React, { useState, useRef, useLayoutEffect } from 'react'
+import { useState, useRef, useLayoutEffect } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { useSelector } from '../store/hooks'
-import { useGetUserQuery } from '../store/services/api'
-import { getStreetUrl } from '../app/page_url'
-import DateTimeRelative from '../app/DateTimeRelative'
-import StreetName from '../streets/StreetName'
-import { drawStreetThumbnail } from '../streets/thumbnail'
-import Icon from '../ui/Icon'
+import { useSelector } from '../store/hooks.js'
+import { useGetUserQuery } from '../store/services/api.js'
+import { getStreetUrl } from '../app/page_url.js'
+import DateTimeRelative from '../app/DateTimeRelative.js'
+import StreetName from '../streets/StreetName.js'
+import { drawStreetThumbnail } from '../streets/thumbnail.js'
+import Icon from '../ui/Icon.js'
 
 import type { Street } from '@streetmix/types'
 import './GalleryStreetItem.css'
@@ -25,7 +25,7 @@ interface GalleryStreetItemProps {
   doDelete: (id: string) => void
 }
 
-function GalleryStreetItem(props: GalleryStreetItemProps) {
+export function GalleryStreetItem(props: GalleryStreetItemProps) {
   const {
     street,
     showStreetOwner = true,
@@ -167,5 +167,3 @@ function GalleryStreetItem(props: GalleryStreetItemProps) {
     </div>
   )
 }
-
-export default GalleryStreetItem

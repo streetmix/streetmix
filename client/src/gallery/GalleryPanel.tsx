@@ -1,13 +1,11 @@
-import React from 'react'
-
-import { useSelector } from '../store/hooks'
-import { useGetUserQuery } from '../store/services/api'
-import GalleryError from './GalleryError'
-import GalleryLoading from './GalleryLoading'
-import GalleryContents from './GalleryContents'
+import { useSelector } from '../store/hooks.js'
+import { useGetUserQuery } from '../store/services/api.js'
+import { GalleryError } from './GalleryError.js'
+import { GalleryLoading } from './GalleryLoading.js'
+import { GalleryContents } from './GalleryContents.js'
 
 // This component only handles switching between display modes
-function GalleryPanel (): React.ReactElement {
+export function GalleryPanel() {
   // Mode is set in state after streets have loaded
   // We use RTK Query to load user data in this component
   // There might be a better way of combining these requests!
@@ -29,5 +27,3 @@ function GalleryPanel (): React.ReactElement {
 
   return <div className="gallery-panel">{childElements}</div>
 }
-
-export default GalleryPanel

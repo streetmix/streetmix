@@ -4,7 +4,7 @@ import { useTransition, animated, config } from '@react-spring/web'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { showDialog } from '../store/slices/dialogs.js'
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import CloseButton from '../ui/CloseButton.js'
 import { doSignIn } from '../users/authentication.js'
 import VoteReceipt from './VoteReceipt.js'

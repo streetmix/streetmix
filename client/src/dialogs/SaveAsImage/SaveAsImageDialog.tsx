@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateSettings } from '~/src/store/slices/settings.js'
-import Button from '~/src/ui/Button.js'
+import { Button } from '~/src/ui/Button.js'
 import Checkbox from '~/src/ui/Checkbox.js'
 import Icon from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'

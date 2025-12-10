@@ -2,7 +2,7 @@ import React, { useState, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useForm } from 'react-hook-form'
 
-import Button from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button'
 import Dialog from '../Dialog'
 import './NewsletterDialog.css'
 
@@ -17,7 +17,7 @@ import './NewsletterDialog.css'
  * @param {Object} data - provided by react-hook-form's `handleSubmit()`
  * @returns {string} - data expected by the newsletter POST endpoint
  */
-function jsObjectToFormBody (data: object): string {
+function jsObjectToFormBody(data: object): string {
   const formBody = []
   for (const property in data) {
     const encodedKey = encodeURIComponent(property)
@@ -27,9 +27,9 @@ function jsObjectToFormBody (data: object): string {
   return formBody.join('&')
 }
 
-function NewsletterDialog (): React.ReactElement {
+function NewsletterDialog(): React.ReactElement {
   const { register, handleSubmit } = useForm({
-    progressive: true
+    progressive: true,
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
   const emailInputId = useId()
@@ -44,9 +44,9 @@ function NewsletterDialog (): React.ReactElement {
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: formBody
+          body: formBody,
         }
       )
 
@@ -127,7 +127,7 @@ function NewsletterDialog (): React.ReactElement {
                         id="dialogs.newsletter.ok-message"
                         defaultMessage="<strong>Thank you! You’re almost subscribed.</strong> We’ve sent you an email to confirm your address. Click it and you’re in!"
                         values={{
-                          strong: (chunks) => <strong>{chunks}</strong>
+                          strong: (chunks) => <strong>{chunks}</strong>,
                         }}
                       />
                     </p>

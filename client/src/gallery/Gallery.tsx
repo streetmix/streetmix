@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { closeGallery } from '../store/actions/gallery'
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import GalleryPanel from './GalleryPanel'
-import GalleryShield from './GalleryShield'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { closeGallery } from '../store/actions/gallery.js'
+import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
+import { GalleryPanel } from './GalleryPanel.js'
+import { GalleryShield } from './GalleryShield.js'
 import './Gallery.css'
 
-function Gallery (): React.ReactElement {
+export function Gallery() {
   const { visible, instant } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
   const hide = useCallback(() => {
@@ -61,5 +61,3 @@ function Gallery (): React.ReactElement {
     </div>
   )
 }
-
-export default Gallery

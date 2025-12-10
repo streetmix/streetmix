@@ -1,20 +1,19 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render.js'
 import MOCK_STREET from '~/test/fixtures/street.json'
-import { closeGallery } from '~/src/store/actions/gallery'
-import Gallery from './Gallery'
+import { closeGallery } from '~/src/store/actions/gallery.js'
+import { Gallery } from './Gallery.js'
 import { switchGalleryStreet } from './index'
 
-vi.mock('./index')
-vi.mock('../app/errors')
-vi.mock('../streets/thumbnail')
-vi.mock('../streets/xhr')
-vi.mock('../store/actions/gallery', () => ({
-  closeGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+vi.mock('./index.js')
+vi.mock('../app/errors.js')
+vi.mock('../streets/thumbnail.js')
+vi.mock('../streets/xhr.js')
+vi.mock('../store/actions/gallery.js', () => ({
+  closeGallery: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 const initialState = {
@@ -22,17 +21,17 @@ const initialState = {
     userId: 'foo',
     visible: true,
     mode: 'gallery',
-    streets: [MOCK_STREET]
+    streets: [MOCK_STREET],
   },
   street: {
-    id: '2556be10-df45-11e9-92a0-b5e383de159b'
+    id: '2556be10-df45-11e9-92a0-b5e383de159b',
   },
   user: {
     signedIn: true,
     signInData: {
-      userId: 'foo'
-    }
-  }
+      userId: 'foo',
+    },
+  },
 }
 
 describe('Gallery', () => {
@@ -55,10 +54,10 @@ describe('Gallery', () => {
           signInData: {
             // We are signed in as user 'baz'
             // We're displaying the gallery for user 'foo'
-            userId: 'baz'
-          }
-        }
-      }
+            userId: 'baz',
+          },
+        },
+      },
     })
 
     await waitFor(() => {
@@ -74,14 +73,14 @@ describe('Gallery', () => {
         userId: null,
         visible: true,
         mode: 'gallery',
-        streets: [MOCK_STREET]
+        streets: [MOCK_STREET],
       },
       street: {
-        id: '2556be10-df45-11e9-92a0-b5e383de159b'
+        id: '2556be10-df45-11e9-92a0-b5e383de159b',
       },
       user: {
-        signedIn: false
-      }
+        signedIn: false,
+      },
     }
 
     const { getByText, asFragment } = render(<Gallery />, { initialState })
@@ -96,8 +95,8 @@ describe('Gallery', () => {
     const initialState = {
       gallery: {
         visible: true,
-        mode: 'loading'
-      }
+        mode: 'loading',
+      },
     }
 
     const { asFragment } = render(<Gallery />, { initialState })
@@ -111,8 +110,8 @@ describe('Gallery', () => {
     const initialState = {
       gallery: {
         visible: true,
-        mode: 'error'
-      }
+        mode: 'error',
+      },
     }
 
     render(<Gallery />, { initialState })
@@ -135,7 +134,7 @@ describe('Gallery', () => {
   describe('street item', () => {
     it('selects street', async () => {
       const { getByText } = render(<Gallery />, {
-        initialState
+        initialState,
       })
 
       await waitFor(async () => {
@@ -146,7 +145,7 @@ describe('Gallery', () => {
 
     it('deletes street', async () => {
       const { getByTitle, queryByTitle } = render(<Gallery />, {
-        initialState
+        initialState,
       })
 
       await waitFor(async () => {

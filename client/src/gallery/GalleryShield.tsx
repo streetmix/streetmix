@@ -1,5 +1,3 @@
-import React from 'react'
-
 import './GalleryShield.css'
 
 interface GalleryShieldProps {
@@ -10,8 +8,10 @@ interface GalleryShieldProps {
 // The Gallery 'Shield' renders across the entire screen behind the gallery
 // and creates a space for the user to click to dismiss the gallery
 // very similar to a modal
-
-function GalleryShield({ visible = false, onClick }: GalleryShieldProps) {
+export function GalleryShield({
+  visible = false,
+  onClick,
+}: GalleryShieldProps) {
   return visible ? (
     <div
       className="gallery-shield"
@@ -20,5 +20,3 @@ function GalleryShield({ visible = false, onClick }: GalleryShieldProps) {
     />
   ) : null
 }
-
-export default GalleryShield

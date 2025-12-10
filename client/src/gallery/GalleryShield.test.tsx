@@ -1,6 +1,6 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import GalleryShield from './GalleryShield'
+
+import { GalleryShield } from './GalleryShield.js'
 
 describe('GalleryShield', () => {
   it('renders nothing when gallery is not visible', () => {

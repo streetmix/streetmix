@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
 
-import Button from '~/src/ui/Button.js'
+import { Button } from '~/src/ui/Button.js'
 import Icon from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import './UpDownInput.css'

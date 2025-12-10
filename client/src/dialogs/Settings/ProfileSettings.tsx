@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { updateDisplayName } from '~/src/store/slices/user'
-import Button from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button'
 import LoadingSpinner from '~/src/ui/LoadingSpinner'
 import Popover from '~/src/ui/Popover'
 import { patchUser } from '~/src/util/api'

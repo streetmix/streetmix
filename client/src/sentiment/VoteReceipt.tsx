@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '../ui/Button.js'
+import { Button } from '../ui/Button.js'
 import VoteComment from './VoteComment.js'
 import SentimentIcon from './SentimentIcon.js'
 import { getDataForScore } from './scores.js'
@@ -85,7 +85,7 @@ function VoteReceipt({ score, handleClose, streetId }: VoteReceiptProps) {
           </div>
         </div>
         <div className="sentiment-survey-done-buttons">
-          <Button primary href="/survey">
+          <Button primary type="link" href="/survey">
             <FormattedMessage
               id="sentiment.done.vote-another"
               defaultMessage="Vote on another!"

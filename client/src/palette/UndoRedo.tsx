@@ -3,23 +3,23 @@ import { useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '../store/hooks'
 import { handleUndo, handleRedo } from '../store/actions/history'
-import Button from '../ui/Button'
+import { Button } from '../ui/Button'
 import Icon from '../ui/Icon'
 import { Tooltip, TooltipGroup } from '../ui/Tooltip'
 import { isOwnedByCurrentUser } from '../streets/owner'
 
-function UndoRedo (): React.ReactElement {
+function UndoRedo(): React.ReactElement {
   const undoPosition = useSelector((state) => state.history.position)
   const undoStack = useSelector((state) => state.history.stack)
   const dispatch = useDispatch()
   const intl = useIntl()
 
   // Don’t allow undo/redo unless you own the street
-  function isUndoAvailable (): boolean {
+  function isUndoAvailable(): boolean {
     return undoPosition > 0 && isOwnedByCurrentUser()
   }
 
-  function isRedoAvailable (): boolean {
+  function isRedoAvailable(): boolean {
     return (
       undoPosition >= 0 &&
       undoPosition < undoStack.length - 1 &&

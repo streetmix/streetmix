@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import Button from '../ui/Button'
+import { Button } from '../ui/Button'
 import LoadingSpinner from '../ui/LoadingSpinner'
 import { putSentimentSurveyComment } from '../util/api'
 
@@ -11,18 +11,18 @@ interface VoteCommentProps {
   streetId: string
 }
 
-function VoteComment ({ streetId }: VoteCommentProps): React.ReactElement {
+function VoteComment({ streetId }: VoteCommentProps): React.ReactElement {
   const [comment, setComment] = useState('')
   const [isPending, setPending] = useState(false)
   const [isComplete, setComplete] = useState(false)
   const intl = useIntl()
 
-  async function handleSubmitComment (): Promise<void> {
+  async function handleSubmitComment(): Promise<void> {
     setPending(true)
 
     await putSentimentSurveyComment({
       id: streetId,
-      comment
+      comment,
     })
 
     // Post comment here
@@ -43,31 +43,24 @@ function VoteComment ({ streetId }: VoteCommentProps): React.ReactElement {
         }}
         placeholder={intl.formatMessage({
           id: 'sentiment.comment.example',
-          defaultMessage: '(for instance, “I liked the trees.”)'
+          defaultMessage: '(for instance, “I liked the trees.”)',
         })}
       />
-      {isComplete
-        ? (
+      {isComplete ? (
+        <FormattedMessage
+          id="sentiment.comment.thanks"
+          defaultMessage="Got it!"
+        />
+      ) : isPending ? (
+        <LoadingSpinner size="small" />
+      ) : (
+        <Button secondary onClick={handleSubmitComment}>
           <FormattedMessage
-            id="sentiment.comment.thanks"
-            defaultMessage="Got it!"
+            id="sentiment.comment.submit"
+            defaultMessage="Submit"
           />
-          )
-        : isPending
-          ? (
-            <LoadingSpinner size="small" />
-            )
-          : (
-            <Button
-              secondary
-              onClick={handleSubmitComment}
-            >
-              <FormattedMessage
-                id="sentiment.comment.submit"
-                defaultMessage="Submit"
-              />
-            </Button>
-            )}
+        </Button>
+      )}
     </div>
   )
 }

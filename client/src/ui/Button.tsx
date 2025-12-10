@@ -14,34 +14,30 @@ import React from 'react'
 
 import './Button.css'
 
-interface ButtonProps extends Partial<
-  React.ButtonHTMLAttributes<HTMLButtonElement> &
-    React.AnchorHTMLAttributes<HTMLAnchorElement>
-> {
-  children?: React.ReactNode
-  className?: string
-  type?: 'button' | 'submit'
-  href?: string
-  // Warning: while in theory these are mutually exclusive,
-  // nothing enforces it!
+interface ButtonBaseProps {
   primary?: boolean
   secondary?: boolean
   tertiary?: boolean
-  ref?: React.ForwardedRef<HTMLButtonElement | HTMLAnchorElement>
 }
 
-function Button({
-  children,
-  className = '',
-  type = 'button',
-  href = '',
-  primary = false,
-  secondary = false,
-  tertiary = false,
-  ref = null,
-  ...props
-}: ButtonProps) {
+// Buttons can allow all attributes of <button> element
+interface ButtonInputProps
+  extends ButtonBaseProps, React.ComponentProps<'button'> {
+  href?: undefined // Error if `href` is provided to buttons
+}
+
+// ...or buttons can allow all attributes of <a> element
+interface ButtonLinkProps extends ButtonBaseProps, React.ComponentProps<'a'> {
+  type: 'link'
+  href: string
+}
+
+// Button is either <button> or <a>, discriminated by `type` prop if present
+type ButtonProps = ButtonInputProps | ButtonLinkProps
+
+export function Button(props: ButtonProps) {
   const classNames = ['btn']
+  const { primary, secondary, tertiary, className, ...restProps } = props
   if (primary) {
     classNames.push('btn-primary')
   }
@@ -55,33 +51,26 @@ function Button({
     classNames.push(className)
   }
 
-  // If `href` is present, return an anchor element.
-  if (href) {
+  // If Button type is intended to be a link, return an anchor element.
+  if (restProps.type === 'link') {
+    const { ref, type, href, children, ...moreProps } = restProps
     return (
-      <a
-        ref={ref as React.RefObject<HTMLAnchorElement>}
-        href={href}
-        className={classNames.join(' ')}
-        {...props}
-      >
+      <a ref={ref} href={href} className={classNames.join(' ')} {...moreProps}>
         {children}
       </a>
     )
   }
 
   // Otherwise, use a button element.
+  const { ref, type = 'button', children, ...moreProps } = restProps
   return (
     <button
-      ref={ref as React.RefObject<HTMLButtonElement>}
+      ref={ref}
       type={type}
       className={classNames.join(' ')}
-      {...props}
+      {...moreProps}
     >
       {children}
     </button>
   )
 }
-
-Button.displayName = 'Button'
-
-export default Button

@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { openGallery } from '../store/actions/gallery'
-import Button from '../ui/Button'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { openGallery } from '../store/actions/gallery.js'
+import { Button } from '../ui/Button.js'
 
-function GalleryError (): React.ReactElement {
+export function GalleryError() {
   const userId = useSelector((state) => state.gallery.userId)
   const dispatch = useDispatch()
 
@@ -27,5 +27,3 @@ function GalleryError (): React.ReactElement {
     </div>
   )
 }
-
-export default GalleryError
