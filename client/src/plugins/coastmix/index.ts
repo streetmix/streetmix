@@ -1,2 +1,2 @@
-export * from './CoastalFloodingPanel'
-export * from './SeaLevel'
+export * from './CoastalFloodingPanel.js'
+export * from './SeaLevel.js'

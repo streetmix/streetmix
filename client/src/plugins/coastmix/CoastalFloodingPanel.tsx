@@ -1,28 +1,26 @@
-import React from 'react'
-
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
-  setStormSurge
-} from '~/src/store/slices/coastmix'
-import Button from '~/src/ui/Button'
-import Switch from '~/src/ui/Switch'
-import FloatingPanel from '~/src/ui/FloatingPanel'
+  setStormSurge,
+} from '~/src/store/slices/coastmix.js'
+import Button from '~/src/ui/Button.js'
+import Switch from '~/src/ui/Switch.js'
+import FloatingPanel from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 
-export function CoastalFloodingPanel (): React.ReactElement | null {
+export function CoastalFloodingPanel() {
   const { controlsVisible, seaLevelRise, stormSurge } = useSelector(
     (state) => state.coastmix
   )
 
   const dispatch = useDispatch()
 
-  function handleClose (): void {
+  function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
   }
 
-  function changeSeaLevelRise (x: number): void {
+  function changeSeaLevelRise(x: number): void {
     dispatch(setSeaLevelRise(x))
   }
 

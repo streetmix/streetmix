@@ -1,11 +1,10 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import Popover from '~/src/ui/Popover'
-import Slider from '~/src/ui/Slider'
-import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt'
-import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
+import { useSelector } from '~/src/store/hooks.js'
+import Popover from '~/src/ui/Popover.js'
+import Slider from '~/src/ui/Slider.js'
+import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt.js'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
 import './CustomScale.css'
 
 const MIN_IMAGE_MULTIPLIER = 1
@@ -20,18 +19,18 @@ interface CustomScaleProps {
   onChange: (value: number) => void
 }
 
-function CustomScale ({
+export function CustomScale({
   scale,
   baseDimensions = {},
-  onChange = () => {}
-}: CustomScaleProps): React.ReactElement {
+  onChange = () => {},
+}: CustomScaleProps) {
   const units = useSelector((state) => state.settings.units)
   const allowCustomScale = useSelector(
     (state) => state.flags.SAVE_AS_IMAGE_CUSTOM_DPI.value
   )
   const { width = 0, height = 0 } = baseDimensions
 
-  function handleChangeScale ([value]: [number]): void {
+  function handleChangeScale([value]: [number]): void {
     if (!allowCustomScale) return
 
     // Make sure value is within range
@@ -65,13 +64,11 @@ function CustomScale ({
         />
         <span className="custom-scale-popover">
           <Popover>
-            {!allowCustomScale
-              ? (
-                <StreetmixPlusPrompt>{description}</StreetmixPlusPrompt>
-                )
-              : (
-                  description
-                )}
+            {!allowCustomScale ? (
+              <StreetmixPlusPrompt>{description}</StreetmixPlusPrompt>
+            ) : (
+              description
+            )}
           </Popover>
         </span>
       </div>
@@ -117,5 +114,3 @@ function CustomScale ({
     </div>
   )
 }
-
-export default CustomScale

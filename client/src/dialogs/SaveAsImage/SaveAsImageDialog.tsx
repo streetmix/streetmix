@@ -2,22 +2,22 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { updateSettings } from '~/src/store/slices/settings'
-import Button from '~/src/ui/Button'
-import Checkbox from '~/src/ui/Checkbox'
-import Icon from '~/src/ui/Icon'
-import { Tooltip } from '~/src/ui/Tooltip'
-import Terms from '~/src/app/Terms'
-import { getStreetImage } from '~/src/streets/image'
-import { normalizeSlug } from '~/src/util/helpers'
-import Dialog from '../Dialog'
-import CustomScale from './CustomScale'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { updateSettings } from '~/src/store/slices/settings.js'
+import Button from '~/src/ui/Button.js'
+import Checkbox from '~/src/ui/Checkbox.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
+import Terms from '~/src/app/Terms.js'
+import { getStreetImage } from '~/src/streets/image.js'
+import { normalizeSlug } from '~/src/util/helpers.js'
+import Dialog from '../Dialog.js'
+import { CustomScale } from './CustomScale.js'
 import './SaveAsImageDialog.css'
 
 const DEFAULT_IMAGE_DPI = 2
 
-function SaveAsImageDialog() {
+export function SaveAsImageDialog() {
   const imageCanvas = useRef<HTMLCanvasElement>(null)
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -379,5 +379,3 @@ function SaveAsImageDialog() {
     </Dialog>
   )
 }
-
-export default SaveAsImageDialog

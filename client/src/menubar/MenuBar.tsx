@@ -15,11 +15,16 @@ import AvatarMenu from './AvatarMenu'
 import type { UserProfile } from '../types'
 import './MenuBar.css'
 
+export interface MenuCoords {
+  leftMenuBarRightPos?: number
+  rightMenuBarLeftPos?: number
+}
+
 interface MenuBarProps {
   onMenuDropdownClick: (menu: string, node: HTMLElement) => void
 }
 
-function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
+function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
   const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
@@ -37,7 +42,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
 
   const languageLabel = intl.formatMessage({
     id: 'settings.language.label',
-    defaultMessage: 'Language'
+    defaultMessage: 'Language',
   })
 
   useEffect(() => {
@@ -62,7 +67,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
    * Pass in the name of this menu, and it returns (curries) a function
    * that handles the event.
    */
-  function handleClick (menu: string): (event: React.MouseEvent) => void {
+  function handleClick(menu: string): (event: React.MouseEvent) => void {
     return (event: React.MouseEvent) => {
       const el = (event.target as HTMLElement).closest('button')
       if (el !== null) {
@@ -71,7 +76,7 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
     }
   }
 
-  function handleWindowResize (): void {
+  function handleWindowResize(): void {
     // Throw this event so that the StreetName can figure out if it needs
     // to push itself lower than the menubar
     const rightMenuBarLeftPos =
@@ -79,31 +84,29 @@ function MenuBar ({ onMenuDropdownClick }: MenuBarProps): React.ReactElement {
     const leftMenuBarRightPos =
       menuBarLeftEl.current?.getBoundingClientRect().right
     window.dispatchEvent(
-      new CustomEvent('stmx:menu_bar_resized', {
+      new CustomEvent<MenuCoords>('stmx:menu_bar_resized', {
         detail: {
           rightMenuBarLeftPos,
-          leftMenuBarRightPos
-        }
+          leftMenuBarRightPos,
+        },
       })
     )
   }
 
-  function renderUserAvatar (user?: UserProfile): React.ReactElement {
-    return user
-      ? (
-        <li>
-          <AvatarMenu
-            user={user}
-            isSubscriber={isSubscriber}
-            onClick={handleClick('identity')}
-          />
-        </li>
-        )
-      : (
-        <li>
-          <SignInButton onClick={doSignIn} />
-        </li>
-        )
+  function renderUserAvatar(user?: UserProfile) {
+    return user ? (
+      <li>
+        <AvatarMenu
+          user={user}
+          isSubscriber={isSubscriber}
+          onClick={handleClick('identity')}
+        />
+      </li>
+    ) : (
+      <li>
+        <SignInButton onClick={doSignIn} />
+      </li>
+    )
   }
 
   return (

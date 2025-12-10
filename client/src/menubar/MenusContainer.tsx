@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
 import { showMenu, clearMenus } from '../store/slices/menus.js'

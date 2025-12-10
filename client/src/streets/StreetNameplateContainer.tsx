@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { saveStreetName } from '../store/slices/street'
-import StreetName from './StreetName'
-import StreetMeta from './StreetMeta'
-import './StreetNameplateContainer.css'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { saveStreetName } from '../store/slices/street.js'
+import StreetMeta from './StreetMeta/index.js'
+import StreetName from './StreetName.js'
 
-interface MenuCoords {
-  leftMenuBarRightPos?: number
-  rightMenuBarLeftPos?: number
-}
+import type { MenuCoords } from '../menubar/MenuBar.js'
+
+import './StreetNameplateContainer.css'
 
 interface StreetNameCoords {
   left: number
   width: number
 }
 
-function StreetNameplateContainer (): React.ReactElement {
+function StreetNameplateContainer() {
   const isVisible = useSelector((state) => !state.ui.welcomePanelVisible)
   const isEditable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_NAME.value
@@ -30,7 +28,7 @@ function StreetNameplateContainer (): React.ReactElement {
   const [menuCoords, setMenuCoords] = useState<MenuCoords>({})
   const [streetNameCoords, setStreetNameCoords] = useState<StreetNameCoords>({
     left: 0,
-    width: 0
+    width: 0,
   })
 
   const updateCoords = useCallback(() => {
@@ -38,7 +36,7 @@ function StreetNameplateContainer (): React.ReactElement {
     const rect = streetNameEl.current.getBoundingClientRect()
     const coords = {
       left: rect.left,
-      width: rect.width
+      width: rect.width,
     }
 
     if (
@@ -51,20 +49,27 @@ function StreetNameplateContainer (): React.ReactElement {
     }
   }, [])
 
-  const updatePositions = useCallback((event: CustomEvent): void => {
+  const updatePositions = useCallback((event: CustomEvent<MenuCoords>) => {
     if (event.detail !== undefined) {
-      setMenuCoords(event.detail as MenuCoords)
+      setMenuCoords(event.detail)
     }
   }, [])
 
   // Add listeners on mount
   useEffect(() => {
     window.addEventListener('resize', updateCoords)
-    window.addEventListener('stmx:menu_bar_resized', updatePositions)
+    window.addEventListener(
+      'stmx:menu_bar_resized',
+      updatePositions as EventListener
+    )
     window.dispatchEvent(new CustomEvent('stmx:streetnameplate_mounted'))
+
     return () => {
       window.removeEventListener('resize', updateCoords)
-      window.removeEventListener('stmx:menu_bar_resized', updatePositions)
+      window.removeEventListener(
+        'stmx:menu_bar_resized',
+        updatePositions as EventListener
+      )
     }
   }, [updateCoords, updatePositions])
 
@@ -74,14 +79,14 @@ function StreetNameplateContainer (): React.ReactElement {
     updateCoords()
   }, [streetName, updateCoords])
 
-  function handleResizeStreetName (coords: StreetNameCoords): void {
+  function handleResizeStreetName(coords: StreetNameCoords): void {
     setStreetNameCoords({
       left: coords.left,
-      width: coords.width
+      width: coords.width,
     })
   }
 
-  function determineClassNames (): string {
+  function determineClassNames(): string {
     const classNames = ['street-nameplate-container']
     const { leftMenuBarRightPos, rightMenuBarLeftPos } = menuCoords
 
@@ -107,20 +112,20 @@ function StreetNameplateContainer (): React.ReactElement {
     return classNames.join(' ')
   }
 
-  function handleClickStreetName (): void {
+  function handleClickStreetName(): void {
     if (!isEditable) return
 
     const newName = window.prompt(
       intl.formatMessage({
         id: 'prompt.new-street',
-        defaultMessage: 'New street name:'
+        defaultMessage: 'New street name:',
       }),
       typeof streetName === 'string'
         ? streetName
         : intl.formatMessage({
-          id: 'street.default-name',
-          defaultMessage: 'Unnamed St'
-        })
+            id: 'street.default-name',
+            defaultMessage: 'Unnamed St',
+          })
     )
 
     // If window.prompt returns `null`, the interaction is canceled.
