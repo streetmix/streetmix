@@ -29,6 +29,7 @@ interface ButtonInputProps
     Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> {
   type?: 'button' | 'submit' // Will default to 'button' if undefined
   ref?: React.ForwardedRef<HTMLButtonElement>
+  href?: undefined // Error if `href` is provided to buttons
 }
 
 // ...or buttons can allow all attributes of <a> element
