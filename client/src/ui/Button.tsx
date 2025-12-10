@@ -15,8 +15,6 @@ import React from 'react'
 import './Button.css'
 
 interface ButtonBaseProps {
-  children?: React.ReactNode
-  className?: string
   primary?: boolean
   secondary?: boolean
   tertiary?: boolean
@@ -24,21 +22,13 @@ interface ButtonBaseProps {
 
 // Buttons can allow all attributes of <button> element
 interface ButtonInputProps
-  extends
-    ButtonBaseProps,
-    Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> {
-  type?: 'button' | 'submit' // Will default to 'button' if undefined
-  ref?: React.ForwardedRef<HTMLButtonElement>
+  extends ButtonBaseProps, React.ComponentProps<'button'> {
   href?: undefined // Error if `href` is provided to buttons
 }
 
 // ...or buttons can allow all attributes of <a> element
-interface ButtonLinkProps
-  extends
-    ButtonBaseProps,
-    Partial<React.AnchorHTMLAttributes<HTMLAnchorElement>> {
+interface ButtonLinkProps extends ButtonBaseProps, React.ComponentProps<'a'> {
   type: 'link'
-  ref?: React.ForwardedRef<HTMLAnchorElement>
   href: string
 }
 
