@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CloseButton from '../CloseButton'
+import CloseButton from '../CloseButton.js'
 import './Toast.css'
 
 import { type ToastItem } from '../../types'
@@ -8,20 +8,20 @@ import { type ToastItem } from '../../types'
 export interface ToastProps {
   item: ToastItem
   setRef: <T>(ref: T | null) => void
-  handleClose: (event?: React.MouseEvent | Event) => void
-  handleAction?: (event: React.MouseEvent) => void
+  handleClose: React.MouseEventHandler
+  handleAction?: React.MouseEventHandler
   className?: string
   children?: React.ReactNode
 }
 
-function Toast (props: ToastProps): React.ReactElement {
+function Toast(props: ToastProps) {
   const {
     item,
     setRef,
     handleClose,
     handleAction = () => {},
     className,
-    children
+    children,
   } = props
   const { method, title, action } = item
 

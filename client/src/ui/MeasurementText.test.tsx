@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import MeasurementText from './MeasurementText'
+import { render } from '~/test/helpers/render.js'
+import MeasurementText from './MeasurementText.js'
 
 describe('MeasurementText', () => {
   it('renders without crashing', () => {

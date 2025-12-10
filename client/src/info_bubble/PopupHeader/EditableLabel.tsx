@@ -1,8 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import Icon from '~/src/ui/Icon'
-import { Tooltip } from '~/src/ui/Tooltip'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import './EditableLabel.css'
 
 import type { SectionType } from '@streetmix/types'
@@ -11,7 +11,7 @@ interface EditableLabelProps {
   readonly label: string | React.JSX.Element
   readonly type: SectionType
   readonly isEditUnlocked: boolean
-  readonly handleClickEdit: () => void
+  readonly handleClickEdit: React.MouseEventHandler
 }
 
 export function EditableLabel({

@@ -3,15 +3,15 @@
  */
 import React, { useEffect, useRef, useLayoutEffect } from 'react'
 
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { animate } from '../util/helpers'
-import Button from './Button'
-import Icon from './Icon'
+import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
+import { animate } from '../util/helpers.js'
+import Button from './Button.js'
+import Icon from './Icon.js'
 import './Scrollable.css'
 
 interface ScrollableProps {
   className?: string
-  onScroll?: (event: React.UIEvent<HTMLDivElement>) => void
+  onScroll?: React.UIEventHandler
   allowKeyboardScroll?: boolean
   children?: React.ReactNode
   ref?: React.ForwardedRef<HTMLDivElement>
@@ -63,11 +63,7 @@ function Scrollable(props: ScrollableProps) {
     }
   })
 
-  function handleLeft(
-    _event:
-      | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLDivElement>
-  ) {
+  function handleLeft(_event: React.MouseEvent | React.KeyboardEvent) {
     const el = scrollerEl.current
 
     if (el === null) return
@@ -77,11 +73,7 @@ function Scrollable(props: ScrollableProps) {
     animate(el, { scrollLeft: position }, SCROLL_ANIMATE_DURATION)
   }
 
-  function handleRight(
-    _event:
-      | React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLDivElement>
-  ) {
+  function handleRight(_event: React.MouseEvent | React.KeyboardEvent) {
     const el = scrollerEl.current
 
     if (!el) return

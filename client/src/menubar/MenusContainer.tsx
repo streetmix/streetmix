@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { registerKeypress, deregisterKeypress } from '../app/keypress'
-import { showMenu, clearMenus } from '../store/slices/menus'
-import { useSelector, useDispatch } from '../store/hooks'
+import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
+import { showMenu, clearMenus } from '../store/slices/menus.js'
+import { useSelector, useDispatch } from '../store/hooks.js'
 import {
   ContactMenu,
   HelpMenu,
   IdentityMenu,
   LocaleMenu,
   NewStreetMenu,
-  ShareMenu
-} from './menus'
-import MenuBar from './MenuBar'
+  ShareMenu,
+} from './menus/index.js'
+import MenuBar from './MenuBar.js'
 import './MenusContainer.css'
 
-function MenusContainer (): React.ReactElement {
+function MenusContainer() {
   const activeMenu = useSelector((state): string | null => state.menus.id)
-  const [activeMenuItemNode, setActiveMenuItemNode] = useState<
-    HTMLElement | undefined
-  >(undefined)
+  const [activeMenuItemNode, setActiveMenuItemNode] = useState<HTMLElement>()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,7 +55,7 @@ function MenusContainer (): React.ReactElement {
    * what was clicked and a reference to that element, which is then passed to
    * individual menus.
    */
-  function handleMenuDropdownClick (menu: string, node: HTMLElement): void {
+  function handleMenuDropdownClick(menu: string, node: HTMLElement): void {
     // If the clicked menu is already active, it's toggled off.
     if (activeMenu === menu) {
       setActiveMenuItemNode(undefined)
@@ -74,7 +72,7 @@ function MenusContainer (): React.ReactElement {
    * This remains in use despite the useOnClickOutside() hook, which
    * can't apply in this situation because we need to listen on two elements.
    */
-  function onBodyMouseDown (event: Event): void {
+  function onBodyMouseDown(event: Event): void {
     if (
       (event.target as HTMLElement).closest('.menu, .menu-trigger') === null
     ) {
@@ -82,13 +80,13 @@ function MenusContainer (): React.ReactElement {
     }
   }
 
-  function handleVisibilityChange (): void {
+  function handleVisibilityChange(): void {
     if (document.hidden) {
       hideAllMenus()
     }
   }
 
-  function hideAllMenus (): void {
+  function hideAllMenus(): void {
     dispatch(clearMenus())
     setActiveMenuItemNode(undefined)
   }

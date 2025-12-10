@@ -10,21 +10,21 @@ import {
   ZoomControl,
 } from 'react-leaflet'
 
-import { PELIAS_API_KEY, PELIAS_HOST_NAME } from '~/src/app/config'
-import { useDispatch, useSelector } from '~/src/store/hooks'
-import { setMapState } from '~/src/store/slices/map'
+import { PELIAS_API_KEY, PELIAS_HOST_NAME } from '~/src/app/config.js'
+import { useDispatch, useSelector } from '~/src/store/hooks.js'
+import { setMapState } from '~/src/store/slices/map.js'
 import {
   addLocation,
   clearLocation,
   saveStreetName,
-} from '~/src/store/slices/street'
-import { isOwnedByCurrentUser } from '~/src/streets/owner'
-import Dialog from '../Dialog'
-import ErrorBanner from './ErrorBanner'
-import GeoSearch from './GeoSearch'
+} from '~/src/store/slices/street.js'
+import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
+import Dialog from '../Dialog.js'
+import { ErrorBanner } from './ErrorBanner.js'
+import { GeoSearch } from './GeoSearch.js'
+import { LocationMarker } from './LocationMarker.js'
+import { LocationPopup } from './LocationPopup.js'
 import './GeotagDialog.css'
-import LocationMarker from './LocationMarker'
-import LocationPopup from './LocationPopup'
 
 import type { LatLngObject, StreetState } from '@streetmix/types'
 import type {
@@ -116,7 +116,7 @@ function getInitialState({
   }
 }
 
-function GeotagDialog() {
+export function GeotagDialog() {
   const street = useSelector((state) => state.street)
   const markerLocation = useSelector((state) => state.map.markerLocation)
   const addressInformation = useSelector(
@@ -137,7 +137,7 @@ function GeotagDialog() {
   const [label, setLabel] = useState(initialState.label)
   const [renderPopup, setRenderPopup] = useState(!!initialState.markerLocation)
   const [locationRequested, setLocationRequested] = useState(false)
-  const [map, setMap] = useState<Map | null>(null)
+  const [map, setMap] = useState<Map>()
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -360,5 +360,3 @@ function GeotagDialog() {
     </Dialog>
   )
 }
-
-export default GeotagDialog

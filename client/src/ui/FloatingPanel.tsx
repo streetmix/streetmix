@@ -2,8 +2,8 @@ import React, { useRef } from 'react'
 import { useTransition, animated } from '@react-spring/web'
 import Draggable from 'react-draggable'
 
-import CloseButton from '~/src/ui/CloseButton'
-import Icon, { type IconNames } from '~/src/ui/Icon'
+import CloseButton from '~/src/ui/CloseButton.js'
+import Icon, { type IconNames } from '~/src/ui/Icon.js'
 import './FloatingPanel.css'
 
 interface FloatingPanelProps {
@@ -11,7 +11,7 @@ interface FloatingPanelProps {
   title: string | React.ReactElement /* typeof FormattedMessage */
   show: boolean
   className?: string
-  handleClose: () => void
+  handleClose: React.MouseEventHandler
   children: React.ReactNode
 }
 

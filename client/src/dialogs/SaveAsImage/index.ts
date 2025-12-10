@@ -1,1 +1,1 @@
-export { default } from './SaveAsImageDialog'
+export * from './SaveAsImageDialog'

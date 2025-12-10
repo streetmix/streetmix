@@ -1,8 +1,8 @@
 import {
   SETTINGS_UNITS_METRIC,
-  SETTINGS_UNITS_IMPERIAL
-} from '../users/constants'
-import { prettifyHeight } from './boundary'
+  SETTINGS_UNITS_IMPERIAL,
+} from '../users/constants.js'
+import { prettifyHeight } from './boundary.js'
 
 describe('prettifyHeight()', () => {
   it('formats a building with floors with height (metric)', () => {

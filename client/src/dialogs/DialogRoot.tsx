@@ -7,8 +7,8 @@ import ErrorBoundary from '../util/ErrorBoundary'
 import AboutDialog from './About'
 import AnalyticsDialog from './Analytics'
 import FeatureFlagDialog from './FeatureFlag'
-import GeotagDialog from './Geotag'
-import SaveAsImageDialog from './SaveAsImage'
+import { GeotagDialog } from './Geotag'
+import { SaveAsImageDialog } from './SaveAsImage'
 import SettingsDialog from './Settings'
 import SignInDialog from './SignIn'
 import WhatsNewDialog from './WhatsNew'
@@ -28,10 +28,10 @@ const DIALOG_COMPONENTS = {
   WHATS_NEW: WhatsNewDialog,
   NEWSLETTER: NewsletterDialog,
   UPGRADE: UpgradeDialog,
-  SENTIMENT_SURVEY: SentimentSurveyDialog
+  SENTIMENT_SURVEY: SentimentSurveyDialog,
 }
 
-function DialogRoot (): React.ReactElement | null {
+function DialogRoot() {
   const name = useSelector((state) => state.dialogs.name)
 
   // Bail if no dialog name is provided

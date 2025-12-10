@@ -1,41 +1,40 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import StreetNameplateContainer from './StreetNameplateContainer'
+import { render } from '~/test/helpers/render.js'
+import StreetNameplateContainer from './StreetNameplateContainer.js'
 
 const initialState = {
   ui: {
-    welcomePanelVisible: false
+    welcomePanelVisible: false,
   },
   app: {
-    readOnly: false
+    readOnly: false,
   },
   flags: {
     EDIT_STREET_NAME: {
-      value: true
+      value: true,
     },
     EDIT_STREET_WIDTH: {
-      value: true
+      value: true,
     },
     GEOTAG: {
-      value: true
-    }
+      value: true,
+    },
   },
   street: {
     name: 'foo',
     location: null,
     width: 10,
-    units: 0
-  }
+    units: 0,
+  },
 }
 
 describe('StreetNameplateContainer', () => {
   it('renders', async () => {
     render(<StreetNameplateContainer />, {
-      initialState
+      initialState,
     })
 
     await waitFor(() => {
@@ -46,7 +45,7 @@ describe('StreetNameplateContainer', () => {
   it('renders default street name', async () => {
     render(<StreetNameplateContainer />, {
       ...initialState,
-      street: { name: null }
+      street: { name: null },
     })
 
     await waitFor(() => {
@@ -61,7 +60,7 @@ describe('StreetNameplateContainer', () => {
 
     // Mount, mimic click interaction and expect street name to have changed
     render(<StreetNameplateContainer />, {
-      initialState
+      initialState,
     })
 
     await userEvent.click(screen.getByText('foo'))
@@ -79,7 +78,7 @@ describe('StreetNameplateContainer', () => {
 
     // Mount, mimic click interaction and expect street name to have changed
     render(<StreetNameplateContainer />, {
-      initialState
+      initialState,
     })
 
     await userEvent.click(screen.getByText('foo'))
@@ -97,7 +96,7 @@ describe('StreetNameplateContainer', () => {
 
     // Mount, mimic click interaction and expect street name to have changed
     render(<StreetNameplateContainer />, {
-      initialState
+      initialState,
     })
 
     await userEvent.click(screen.getByText('foo'))
@@ -112,7 +111,7 @@ describe('StreetNameplateContainer', () => {
     const user = userEvent.setup()
 
     render(<StreetNameplateContainer />, {
-      initialState
+      initialState,
     })
 
     await user.hover(screen.getByText('foo'))
@@ -131,10 +130,10 @@ describe('StreetNameplateContainer', () => {
         flags: {
           ...initialState.flags,
           EDIT_STREET_NAME: {
-            value: false
-          }
-        }
-      }
+            value: false,
+          },
+        },
+      },
     })
 
     await user.hover(screen.getByText('foo'))

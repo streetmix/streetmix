@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
 
-import Button from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
-import { Tooltip } from '~/src/ui/Tooltip'
+import Button from '~/src/ui/Button.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import './UpDownInput.css'
 
 const EDIT_INPUT_DELAY = 200
@@ -33,8 +33,8 @@ interface UpDownInputProps {
   // Handler functions are specified by the parent component. These
   // handlers should be responsible for validating raw inputs and
   // updating street data.
-  onClickUp?: (event: React.MouseEvent) => void
-  onClickDown?: (event: React.MouseEvent) => void
+  onClickUp?: React.MouseEventHandler
+  onClickDown?: React.MouseEventHandler
   onUpdatedValue?: (value: string) => void
 
   // When `true`, the input box and buttons are disabled
@@ -53,7 +53,7 @@ interface UpDownInputProps {
   allowAutoUpdate?: boolean
 }
 
-export function UpDownInput (props: UpDownInputProps): React.ReactElement {
+export function UpDownInput(props: UpDownInputProps) {
   // Destructure props with default values
   const {
     value,
@@ -70,7 +70,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     downTooltip = 'Decrement',
     upTooltipSublabel,
     downTooltipSublabel,
-    allowAutoUpdate = false
+    allowAutoUpdate = false,
   } = props
 
   const oldValue = useRef<string | null>(null)
@@ -138,7 +138,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     isEditing,
     isHovered,
     inputValueFormatter,
-    displayValueFormatter
+    displayValueFormatter,
   ])
 
   /**
@@ -156,17 +156,17 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing])
 
-  function handleClickIncrement (event: React.MouseEvent): void {
+  function handleClickIncrement(event: React.MouseEvent): void {
     setIsEditing(false)
     onClickUp(event)
   }
 
-  function handleClickDecrement (event: React.MouseEvent): void {
+  function handleClickDecrement(event: React.MouseEvent): void {
     setIsEditing(false)
     onClickDown(event)
   }
 
-  function handleInputClick (_event: React.MouseEvent): void {
+  function handleInputClick(_event: React.MouseEvent): void {
     // Bail if already in editing mode.
     if (isEditing) return
 
@@ -175,7 +175,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     setIsEditing(true)
   }
 
-  function handleInputChange (event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.target.value
 
     // Update the input element to display user input
@@ -188,7 +188,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     }
   }
 
-  function handleInputBlur (event: React.FocusEvent<HTMLInputElement>): void {
+  function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
     setIsHovered(false)
     setIsEditing(false)
 
@@ -204,7 +204,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
    * input value momentarily changes to the unblurred (prettified) value.
    * Not sure what causes this, but this handler fixes that issue.
    */
-  function handleInputMouseDown (
+  function handleInputMouseDown(
     _event: React.MouseEvent<HTMLInputElement>
   ): void {
     // Bail if already in editing mode.
@@ -216,7 +216,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
   /**
    * On mouse over, UI assumes user is ready to edit.
    */
-  function handleInputMouseOver (
+  function handleInputMouseOver(
     event: React.MouseEvent<HTMLInputElement>
   ): void {
     // Bail if already in editing mode.
@@ -240,7 +240,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
   /**
    * On mouse out, if user is not editing, UI returns to default view.
    */
-  function handleInputMouseOut (
+  function handleInputMouseOut(
     event: React.MouseEvent<HTMLInputElement>
   ): void {
     // Bail if already in editing mode.
@@ -260,7 +260,7 @@ export function UpDownInput (props: UpDownInputProps): React.ReactElement {
     }
   }
 
-  function handleInputKeyDown (
+  function handleInputKeyDown(
     event: React.KeyboardEvent<HTMLInputElement>
   ): void {
     switch (event.key) {

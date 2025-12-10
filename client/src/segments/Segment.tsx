@@ -41,7 +41,7 @@ interface SliceProps {
   segmentLeft: number
 }
 
-function Segment(props: SliceProps): React.ReactNode {
+function Segment(props: SliceProps) {
   const { sliceIndex, segment, units, segmentLeft } = props
   const [switchSegments, setSwitchSegments] = useState(false)
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)

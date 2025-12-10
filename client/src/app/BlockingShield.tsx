@@ -9,9 +9,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Button from '../ui/Button'
-import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking'
-import { goReload } from './routing'
+import Button from '../ui/Button.js'
+import { blockingCancel, blockingTryAgain } from '../util/fetch_blocking.js'
+import { goReload } from './routing.js'
 
 import './BlockingShield.css'
 
@@ -25,7 +25,7 @@ export default function BlockingShield() {
 
   const [visible, setVisible] = useState(false)
   const [mode, setMode] = useState('load')
-  const [errorType, setErrorType] = useState<string | null>(null)
+  const [errorType, setErrorType] = useState<string>()
   const [immediate, setImmediate] = useState(false)
   const [darken, setDarken] = useState(false)
   const [showCancel, setShowCancel] = useState(false)
@@ -39,7 +39,7 @@ export default function BlockingShield() {
     clearTimers()
 
     setVisible(false)
-    setErrorType(null)
+    setErrorType(undefined)
     setImmediate(false)
     setDarken(false)
     setShowCancel(false)
@@ -76,7 +76,7 @@ export default function BlockingShield() {
   )
 
   const handleClickTryAgain = useCallback((_event: React.MouseEvent) => {
-    setErrorType(null)
+    setErrorType(undefined)
     setShowCancel(false)
 
     blockingTryAgain()

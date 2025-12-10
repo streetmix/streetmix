@@ -1,14 +1,14 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
-import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants'
-import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
+import { useSelector } from '~/src/store/hooks.js'
+import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
+import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import {
   SEA_LEVEL_YEAR_2030,
   SEA_LEVEL_YEAR_2050,
-  SEA_LEVEL_YEAR_2070
-} from './constants'
+  SEA_LEVEL_YEAR_2070,
+} from './constants.js'
 import './SeaLevel.css'
+
+import type { CSSProperties } from 'react'
 
 interface SeaLevelProps {
   scrollPos: number
@@ -27,10 +27,10 @@ const SURGE_HEIGHT_FEET = 1.25
 const SEA_LEVEL_RISE_FEET = {
   [SEA_LEVEL_YEAR_2030]: 1.5,
   [SEA_LEVEL_YEAR_2050]: 2.5,
-  [SEA_LEVEL_YEAR_2070]: 4.5
+  [SEA_LEVEL_YEAR_2070]: 4.5,
 }
 
-export function SeaLevel (props: SeaLevelProps): React.ReactElement {
+export function SeaLevel(props: SeaLevelProps) {
   const { scrollPos } = props
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
 
@@ -39,8 +39,9 @@ export function SeaLevel (props: SeaLevelProps): React.ReactElement {
   let opacity = 0
   if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
     height +=
-      convertImperialMeasurementToMetric(SEA_LEVEL_RISE_FEET[seaLevelRise]) *
-      TILE_SIZE
+      convertImperialMeasurementToMetric(
+        SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
+      ) * TILE_SIZE
     opacity = WAVE_OPACITY
   }
 
@@ -50,7 +51,7 @@ export function SeaLevel (props: SeaLevelProps): React.ReactElement {
     : 0
   const styles = {
     height: `${height + surge}px`,
-    opacity
+    opacity,
   }
 
   const classNames = ['sea-level-waves']
@@ -68,11 +69,11 @@ export function SeaLevel (props: SeaLevelProps): React.ReactElement {
   )
 }
 
-function getWavePosition (scrollPos: number): React.CSSProperties {
+function getWavePosition(scrollPos: number): CSSProperties {
   const speed = 0.5
   const pos = scrollPos * speed
 
   return {
-    backgroundPosition: `-${pos}px 0`
+    backgroundPosition: `-${pos}px 0`,
   }
 }

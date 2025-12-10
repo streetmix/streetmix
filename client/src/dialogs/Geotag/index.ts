@@ -1,1 +1,1 @@
-export { default } from './GeotagDialog'
+export * from './GeotagDialog'

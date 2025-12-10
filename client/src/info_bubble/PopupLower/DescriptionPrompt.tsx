@@ -1,14 +1,14 @@
 import React from 'react'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
-import { useDispatch } from '~/src/store/hooks'
-import { formatMessage } from '~/src/locales/locale'
-import { showDescription } from '~/src/store/slices/infoBubble'
+import { useDispatch } from '~/src/store/hooks.js'
+import { formatMessage } from '~/src/locales/locale.js'
+import { showDescription } from '~/src/store/slices/infoBubble.js'
 import './DescriptionPrompt.css'
 
 import type { SliceDescription } from '@streetmix/types'
 
-function getDescriptionData (
+function getDescriptionData(
   type: string,
   variantString: string
 ): SliceDescription | undefined {
@@ -21,20 +21,20 @@ function getDescriptionData (
 interface DescriptionProps {
   type: string
   variantString: string
-  onMouseOver: () => void
-  onMouseOut: () => void
+  onMouseOver: React.MouseEventHandler
+  onMouseOut: React.MouseEventHandler
 }
 
-export function DescriptionPrompt ({
+export function DescriptionPrompt({
   type,
   variantString,
   onMouseOver,
-  onMouseOut
-}: DescriptionProps): React.ReactElement | null {
+  onMouseOut,
+}: DescriptionProps) {
   const dispatch = useDispatch()
   const description = getDescriptionData(type, variantString)
 
-  function handleClickShow (): void {
+  function handleClickShow(): void {
     dispatch(showDescription(description))
   }
 
@@ -45,7 +45,7 @@ export function DescriptionPrompt ({
     `descriptions.${description.key}.content`,
     undefined,
     {
-      ns: 'segment-info'
+      ns: 'segment-info',
     }
   )
 
@@ -57,7 +57,7 @@ export function DescriptionPrompt ({
     `descriptions.${description.key}.prompt`,
     defaultPrompt,
     {
-      ns: 'segment-info'
+      ns: 'segment-info',
     }
   )
 

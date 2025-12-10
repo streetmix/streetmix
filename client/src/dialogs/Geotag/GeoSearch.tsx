@@ -1,9 +1,9 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useIntl } from 'react-intl'
 import DownshiftPelias from 'downshift-pelias' // TODO: type definitions
 import Pelias from 'pelias-js' // TODO: type definitions
 
-import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config'
+import { PELIAS_HOST_NAME, PELIAS_API_KEY } from '../../app/config.js'
 import './GeoSearch.css'
 
 import type {
@@ -16,7 +16,7 @@ import type {
 import type { Map } from 'leaflet'
 
 interface GeoSearchProps {
-  map: Map | null
+  map: Map | undefined
   handleResults: (geo: Position, properties: GeoJsonProperties) => void
 }
 
@@ -31,7 +31,7 @@ interface DownshiftPeliasProps {
   results: FeatureCollection<Point>
 }
 
-function GeoSearch({ map, handleResults }: GeoSearchProps) {
+export function GeoSearch({ map, handleResults }: GeoSearchProps) {
   const inputEl = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -68,15 +68,15 @@ function GeoSearch({ map, handleResults }: GeoSearchProps) {
       return part
     })
 
+    const { key, ...props } = getItemProps({
+      className: 'geotag-suggestion',
+      key: item.properties?.gid,
+      index,
+      item,
+    })
+
     return (
-      <li
-        {...getItemProps({
-          className: 'geotag-suggestion',
-          key: item.properties?.gid,
-          index,
-          item,
-        })}
-      >
+      <li key={key} {...props}>
         {highlighted}
       </li>
     )
@@ -146,5 +146,3 @@ function GeoSearch({ map, handleResults }: GeoSearchProps) {
     </DownshiftPelias>
   )
 }
-
-export default GeoSearch

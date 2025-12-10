@@ -1,24 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   addBuildingFloor,
   removeBuildingFloor,
-} from '~/src/store/slices/street'
-import { setActiveSegment } from '~/src/store/slices/ui'
-import { usePrevious } from '~/src/util/usePrevious'
+} from '~/src/store/slices/street.js'
+import { setActiveSegment } from '~/src/store/slices/ui.js'
+import { usePrevious } from '~/src/util/usePrevious.js'
 import {
   MAX_CANVAS_HEIGHT,
   GROUND_BASELINE_HEIGHT,
-} from '~/src/segments/constants'
-import { getElevation } from '~/src/segments/view'
-import { PopupContainer } from '../info_bubble/PopupContainer'
+} from '~/src/segments/constants.js'
+import { getElevation } from '~/src/segments/view.js'
+import { PopupContainer } from '../info_bubble/PopupContainer.js'
 import {
   getBoundaryImageHeight,
   getBoundaryItem,
   drawBoundary,
-} from './boundary'
+} from './boundary.js'
 import './BoundaryComponent.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -91,7 +91,7 @@ function createBoundaryCanvas(
 
 interface BoundaryProps {
   position: BoundaryPosition
-  width: number
+  width: number | undefined
   updatePerspective: (el: HTMLElement | null) => void
 }
 

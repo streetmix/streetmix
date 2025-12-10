@@ -1,17 +1,15 @@
-import React from 'react'
+import { render } from '~/test/helpers/render.js'
+import BlockingError from './BlockingError.js'
+import { ERRORS } from './errors.js'
 
-import { render } from '~/test/helpers/render'
-import BlockingError from './BlockingError'
-import { ERRORS } from './errors'
-
-function getInitialState (errorType: number | null): object {
+function getInitialState(errorType: number | null): object {
   return {
     errors: {
-      errorType
+      errorType,
     },
     street: {
-      creatorId: 'foo'
-    }
+      creatorId: 'foo',
+    },
   }
 }
 
@@ -19,7 +17,7 @@ describe('BlockingError', () => {
   it.each(Object.keys(ERRORS))('renders %s', (error) => {
     const initialState = getInitialState(ERRORS[error as keyof typeof ERRORS])
     const { asFragment } = render(<BlockingError />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -27,7 +25,7 @@ describe('BlockingError', () => {
   it('renders nothing if no error provided', () => {
     const initialState = getInitialState(null)
     const { container } = render(<BlockingError />, {
-      initialState
+      initialState,
     })
     expect(container.firstChild).toBeNull()
   })

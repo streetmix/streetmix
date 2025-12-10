@@ -1,37 +1,37 @@
-import React, { useRef, useMemo } from 'react'
+import { useRef, useMemo } from 'react'
 import { Marker } from 'react-leaflet'
 
-import type { LeafletEvent } from 'leaflet'
+import type { LeafletEvent, LeafletEventHandlerFn } from 'leaflet'
 import type { LatLngObject } from '@streetmix/types'
 
 interface LocationMarkerProps {
   position: LatLngObject
   geocodeAvailable: boolean
-  onDragStart: (event: LeafletEvent) => void
-  onDragEnd: (event: LeafletEvent) => void
+  onDragStart: LeafletEventHandlerFn
+  onDragEnd: LeafletEventHandlerFn
 }
 
-function LocationMarker ({
+export function LocationMarker({
   position,
   geocodeAvailable,
   onDragStart,
-  onDragEnd
-}: LocationMarkerProps): React.ReactElement {
+  onDragEnd,
+}: LocationMarkerProps) {
   const ref = useRef(null)
   const eventHandlers = useMemo(
     () => ({
-      dragstart (event: LeafletEvent) {
+      dragstart(event: LeafletEvent) {
         const marker = ref.current
         if (marker !== null) {
           onDragStart(event)
         }
       },
-      dragend (event: LeafletEvent) {
+      dragend(event: LeafletEvent) {
         const marker = ref.current
         if (marker !== null) {
           onDragEnd(event)
         }
-      }
+      },
     }),
     [onDragStart, onDragEnd]
   )
@@ -45,5 +45,3 @@ function LocationMarker ({
     />
   )
 }
-
-export default LocationMarker

@@ -1,13 +1,13 @@
 import React, { memo } from 'react'
 import { useIntl } from 'react-intl'
 
-import Icon from './Icon'
+import Icon from './Icon.js'
 import './CloseButton.css'
 
 interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string
   className?: string
-  onClick: (event: React.MouseEvent) => void
+  onClick: React.MouseEventHandler
 }
 
 function CloseButton({

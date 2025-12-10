@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Tooltip } from '../../ui/Tooltip'
+import { Tooltip } from '../../ui/Tooltip.js'
 import './StreetMetaItem.css'
 
 interface StreetMetaItemProps {
@@ -8,7 +8,7 @@ interface StreetMetaItemProps {
   isEditable?: boolean // Might need a better name; isInteractive?
   tooltip?: string
   sublabel?: string
-  onClick?: (event: React.MouseEvent) => void
+  onClick?: React.MouseEventHandler
   icon?: React.ReactNode
   children: React.ReactNode
 
@@ -16,7 +16,7 @@ interface StreetMetaItemProps {
   'data-state'?: string
 }
 
-function StreetMetaItem ({
+function StreetMetaItem({
   className = '',
   isEditable = false,
   tooltip,
@@ -26,8 +26,8 @@ function StreetMetaItem ({
   children,
   // extra props from Radix UI's dropdown menu are spread to child element
   ...restProps
-}: StreetMetaItemProps): React.ReactNode {
-  function handleClick (event: React.MouseEvent): void {
+}: StreetMetaItemProps) {
+  function handleClick(event: React.MouseEvent): void {
     event.preventDefault()
     onClick(event)
   }

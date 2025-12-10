@@ -1,15 +1,14 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { showDialog } from '~/src/store/slices/dialogs'
-import MenuBar from './MenuBar'
+import { render } from '~/test/helpers/render.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import MenuBar from './MenuBar.js'
 
 vi.mock('../store/slices/dialogs', () => ({
   default: {},
-  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('MenuBar', () => {
@@ -19,9 +18,9 @@ describe('MenuBar', () => {
         flags: {
           LOCALES_LEVEL_1: { value: true },
           LOCALES_LEVEL_2: { value: true },
-          LOCALES_LEVEL_3: { value: true }
-        }
-      }
+          LOCALES_LEVEL_3: { value: true },
+        },
+      },
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -30,9 +29,9 @@ describe('MenuBar', () => {
     const { asFragment } = render(<MenuBar onMenuDropdownClick={vi.fn()} />, {
       initialState: {
         system: {
-          offline: true
-        }
-      }
+          offline: true,
+        },
+      },
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -44,11 +43,11 @@ describe('MenuBar', () => {
           signInData: {
             details: {
               id: 'foo',
-              roles: ['USER']
-            }
-          }
-        }
-      }
+              roles: ['USER'],
+            },
+          },
+        },
+      },
     })
     expect(asFragment()).toMatchSnapshot()
   })
