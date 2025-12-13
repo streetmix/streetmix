@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
@@ -23,7 +23,12 @@ describe('NewsletterDialog', () => {
 
     await user.click(screen.getByText('Subscribe'))
 
-    expect(screen.queryByText('Please wait...')).toBeDisabled()
+    // Wait for changes to DOM
+    // `waitFor` isn't always required, but this test is fails without it in
+    // CI, so it seems best to leave in place
+    waitFor(() => {
+      expect(screen.queryByText('Please wait...')).toBeDisabled()
+    })
   })
 
   it('displays content on success state', async () => {
