@@ -1,9 +1,8 @@
-import React from 'react'
-import { screen, act } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import NewsletterDialog from './NewsletterDialog'
+import { render } from '~/test/helpers/render.js'
+import { NewsletterDialog } from './NewsletterDialog.js'
 
 describe('NewsletterDialog', () => {
   it('renders snapshot', () => {
@@ -11,9 +10,7 @@ describe('NewsletterDialog', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  // Skipping these tests because jsdom is throwing
-  // `Error: Not implemented: HTMLFormElement.prototype.requestSubmit`
-  it.skip('disables a submit button while pending subscription', async () => {
+  it('disables a submit button while pending subscription', async () => {
     const user = userEvent.setup()
 
     render(<NewsletterDialog />)
@@ -27,12 +24,14 @@ describe('NewsletterDialog', () => {
     await user.click(screen.getByText('Subscribe'))
 
     // Wait for changes to DOM
-    act(() => {
+    // `waitFor` isn't always required, but this test is fails without it in
+    // CI, so it seems best to leave in place
+    waitFor(() => {
       expect(screen.queryByText('Please wait...')).toBeDisabled()
     })
   })
 
-  it.skip('displays content on success state', async () => {
+  it('displays content on success state', async () => {
     const user = userEvent.setup()
 
     render(<NewsletterDialog />)
@@ -47,7 +46,7 @@ describe('NewsletterDialog', () => {
     expect(screen.queryByText('Close')).toBeInTheDocument()
   })
 
-  it.skip('displays content on error state from subscription endpoint', async () => {
+  it('displays content on error state from subscription endpoint', async () => {
     const user = userEvent.setup()
 
     render(<NewsletterDialog />)
@@ -61,7 +60,7 @@ describe('NewsletterDialog', () => {
     expect(screen.queryByText('Subscribe')).toBeInTheDocument()
   })
 
-  it.skip('displays content on error state from client failure', async () => {
+  it('displays content on error state from client failure', async () => {
     const user = userEvent.setup()
 
     render(<NewsletterDialog />)
