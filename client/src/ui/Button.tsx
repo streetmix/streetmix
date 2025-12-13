@@ -22,12 +22,13 @@ interface ButtonBaseProps {
 
 // Buttons can allow all attributes of <button> element
 interface ButtonInputProps
-  extends ButtonBaseProps, React.ComponentProps<'button'> {
+  extends ButtonBaseProps, React.ComponentPropsWithRef<'button'> {
   href?: undefined // Error if `href` is provided to buttons
 }
 
 // ...or buttons can allow all attributes of <a> element
-interface ButtonLinkProps extends ButtonBaseProps, React.ComponentProps<'a'> {
+interface ButtonLinkProps
+  extends ButtonBaseProps, React.ComponentPropsWithRef<'a'> {
   type: 'link'
   href: string
 }
