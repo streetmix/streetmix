@@ -40,8 +40,12 @@ export function NewsletterDialog() {
   const emailInputId = useId()
 
   useEffect(() => {
-    setFocus('email')
-  })
+    // Wrapping `setFocus()` in a `setTimeout` of 0 allows it to find the
+    // DOM element and properly focus it after render
+    window.setTimeout(() => {
+      setFocus('email')
+    }, 0)
+  }, [setFocus])
 
   const onSubmit = async (data: Record<string, string>): Promise<void> => {
     setSubmitState('PENDING')
