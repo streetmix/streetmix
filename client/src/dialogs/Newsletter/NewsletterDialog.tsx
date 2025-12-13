@@ -7,9 +7,8 @@ import Dialog from '../Dialog.js'
 import './NewsletterDialog.css'
 
 /**
- * Converts a JavaScript object returned from react-hook-form's
- * `handleSubmit()`) into a string that can be POSTed to an endpoint that
- * expects a 'application/x-www-form-urlencoded' MIME-type.
+ * Converts an object returned from react-hook-form's `handleSubmit()`
+ * into a string fitting a 'application/x-www-form-urlencoded' MIME-type.
  *
  * This function is generic and can be ported to a common utility module
  * if we ever need it in more than one place.
