@@ -1,23 +1,23 @@
-import React, { useState, useId } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { useEffect, useId, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { FormattedMessage } from 'react-intl'
 
-import { Button } from '~/src/ui/Button'
-import Dialog from '../Dialog'
+import { Button } from '~/src/ui/Button.js'
+import Dialog from '../Dialog.js'
 import './NewsletterDialog.css'
 
 /**
- * Converts a JavaScript object of key-value pairs (which is the format of
- * a given payload from react-hook-form's `handleSubmit()`) into a string
- * that would normally be submitted by a form to an endpoint that expects
- * a 'application/x-www-form-urlencoded' MIME-type. This function is generic
- * and can be ported to a common utility module if we ever need it in more
- * than one place.
+ * Converts a JavaScript object returned from react-hook-form's
+ * `handleSubmit()`) into a string that can be POSTed to an endpoint that
+ * expects a 'application/x-www-form-urlencoded' MIME-type.
  *
- * @param {Object} data - provided by react-hook-form's `handleSubmit()`
- * @returns {string} - data expected by the newsletter POST endpoint
+ * This function is generic and can be ported to a common utility module
+ * if we ever need it in more than one place.
+ *
+ * @param data provided by react-hook-form's `handleSubmit()`
+ * @returns string expected by the newsletter POST endpoint
  */
-function jsObjectToFormBody(data: object): string {
+function jsObjectToFormBody(data: Record<string, string>): string {
   const formBody = []
   for (const property in data) {
     const encodedKey = encodeURIComponent(property)
@@ -27,14 +27,24 @@ function jsObjectToFormBody(data: object): string {
   return formBody.join('&')
 }
 
-function NewsletterDialog(): React.ReactElement {
-  const { register, handleSubmit } = useForm({
+type NewsletterFormValues = {
+  email: string
+  tag: 'via app'
+  embed: '1'
+}
+
+export function NewsletterDialog() {
+  const { register, handleSubmit, setFocus } = useForm<NewsletterFormValues>({
     progressive: true,
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
   const emailInputId = useId()
 
-  const onSubmit = async (data: object): Promise<void> => {
+  useEffect(() => {
+    setFocus('email')
+  })
+
+  const onSubmit = async (data: Record<string, string>): Promise<void> => {
     setSubmitState('PENDING')
     const formBody = jsObjectToFormBody(data)
 
@@ -85,7 +95,7 @@ function NewsletterDialog(): React.ReactElement {
                   defaultMessage="We send occasional email updates through our newsletter, just several times a year. Sign up to ensure you don’t miss a thing!"
                 />
               </p>
-              <form onSubmit={() => handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor={emailInputId}>
                   <FormattedMessage
                     id="dialogs.newsletter.email-label"
@@ -168,5 +178,3 @@ function NewsletterDialog(): React.ReactElement {
     </Dialog>
   )
 }
-
-export default NewsletterDialog
