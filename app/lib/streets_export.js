@@ -27,7 +27,7 @@ export function streetsToCSV(json) {
       name: street['name'] ?? '',
       creator_id: street['creatorId'] ?? '',
       width: street.data.street.width,
-      widthImperial: convertMetricMeasurementToImperial(
+      width_imperial: convertMetricMeasurementToImperial(
         street.data.street.width
       ),
       left_boundary_variant: street.data.street.boundary.left.variant,
