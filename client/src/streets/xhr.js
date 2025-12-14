@@ -2,7 +2,7 @@ import clone from 'just-clone'
 import { showError, ERRORS } from '../app/errors'
 import {
   checkIfEverythingIsLoaded,
-  setServerContacted
+  setServerContacted,
 } from '../app/initialization'
 import { formatMessage } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
@@ -16,11 +16,11 @@ import {
   getStreet,
   getStreetWithParams,
   postStreet,
-  putStreet
+  putStreet,
 } from '../util/api'
 import {
   isblockingAjaxRequestInProgress,
-  newBlockingAjaxRequest
+  newBlockingAjaxRequest,
 } from '../util/fetch_blocking'
 import store from '../store'
 import { updateSettings } from '../store/slices/settings'
@@ -28,7 +28,7 @@ import {
   saveStreetId,
   saveOriginalStreetId,
   updateEditCount,
-  updateStreetData
+  updateStreetData,
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import { resetUndoStack } from '../store/slices/history'
@@ -40,14 +40,14 @@ import {
   setStreetCreatorId,
   setUpdateTimeToNow,
   setLastStreet,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
 } from './data_model'
 import { prepareStreet } from './templates'
 import {
   getRemixOnFirstEdit,
   setRemixOnFirstEdit,
   remixStreet,
-  addRemixSuffixToName
+  addRemixSuffixToName,
 } from './remix'
 import { unifyUndoStack } from './undo_stack'
 import { deleteStreetThumbnail } from './image'
@@ -57,30 +57,30 @@ const SAVE_STREET_DELAY = 500
 let saveStreetTimerId = -1
 let saveStreetIncomplete = false
 
-export function getSaveStreetIncomplete () {
+export function getSaveStreetIncomplete() {
   return saveStreetIncomplete
 }
 
-export function setSaveStreetIncomplete (value) {
+export function setSaveStreetIncomplete(value) {
   saveStreetIncomplete = value
 }
 
 let latestRequestId
 
-export async function createNewStreetOnServer (type = STREET_TEMPLATES.DEFAULT) {
-  prepareStreet(type)
+export async function createNewStreetOnServer(type = STREET_TEMPLATES.DEFAULT) {
+  await prepareStreet(type)
 
   const transmission = packServerStreetDataRaw()
 
   postStreet(transmission).then(receiveNewStreet).catch(errorReceiveNewStreet)
 }
 
-function receiveNewStreet ({ data }) {
+function receiveNewStreet({ data }) {
   setStreetId(data.id, data.namespacedId)
   saveStreetToServer(true)
 }
 
-function errorReceiveNewStreet ({ response }) {
+function errorReceiveNewStreet({ response }) {
   if (response.status === 401) {
     showError(ERRORS.AUTH_EXPIRED, true)
   } else {
@@ -88,7 +88,7 @@ function errorReceiveNewStreet ({ response }) {
   }
 }
 
-export async function fetchStreetFromServer () {
+export async function fetchStreetFromServer() {
   const street = store.getState().street
 
   try {
@@ -102,7 +102,7 @@ export async function fetchStreetFromServer () {
   }
 }
 
-function errorReceiveStreet (error) {
+function errorReceiveStreet(error) {
   const data = error.response.data
   const mode = getMode()
   if (
@@ -130,7 +130,7 @@ function errorReceiveStreet (error) {
   }
 }
 
-export function saveStreetToServer (initial) {
+export function saveStreetToServer(initial) {
   if (app.readOnly) {
     return
   }
@@ -147,16 +147,16 @@ export function saveStreetToServer (initial) {
   })
 }
 
-function confirmSaveStreetToServerInitial () {
+function confirmSaveStreetToServerInitial() {
   setServerContacted(true)
   checkIfEverythingIsLoaded()
 }
 
-function clearScheduledSavingStreetToServer () {
+function clearScheduledSavingStreetToServer() {
   window.clearTimeout(saveStreetTimerId)
 }
 
-export async function fetchStreetForVerification () {
+export async function fetchStreetForVerification() {
   // Don’t do it with any network services pending
   // NOTE: this used to check for all nonblocking requests,
   // but this system is getting refactored away -- so we're
@@ -175,7 +175,7 @@ export async function fetchStreetForVerification () {
 
   try {
     const response = await getStreet(streetId, {
-      headers: { 'x-streetmix-request-id': latestRequestId }
+      headers: { 'x-streetmix-request-id': latestRequestId },
     })
 
     // Response headers are lower-case via Axios
@@ -205,7 +205,7 @@ export async function fetchStreetForVerification () {
  *
  * @param {Object} transmission - server data
  */
-function receiveStreetForVerification (transmission) {
+function receiveStreetForVerification(transmission) {
   const localUpdatedAt = new Date(store.getState().street.clientUpdatedAt)
   const serverUpdatedAt = new Date(transmission.clientUpdatedAt)
 
@@ -216,7 +216,7 @@ function receiveStreetForVerification (transmission) {
         message: formatMessage(
           'toast.reloaded',
           'Your street was reloaded from the server as it was modified elsewhere.'
-        )
+        ),
       })
     )
 
@@ -228,7 +228,7 @@ function receiveStreetForVerification (transmission) {
   }
 }
 
-function errorReceiveStreetForVerification (data) {
+function errorReceiveStreetForVerification(data) {
   // 404 should never happen here, since 410 designates streets that have
   // been deleted (but remain hidden on the server)
 
@@ -237,7 +237,7 @@ function errorReceiveStreetForVerification (data) {
   }
 }
 
-function receiveStreet (transmission) {
+function receiveStreet(transmission) {
   unpackServerStreetData(transmission, null, null, true)
 
   setServerContacted(true)
@@ -246,7 +246,7 @@ function receiveStreet (transmission) {
   checkIfEverythingIsLoaded()
 }
 
-function unpackStreetDataFromServerTransmission (transmission) {
+function unpackStreetDataFromServerTransmission(transmission) {
   // Catch a data error where a user's street might be retrieved
   // without any data in it (so-called error 9B)
   if (!transmission.data) {
@@ -272,7 +272,7 @@ function unpackStreetDataFromServerTransmission (transmission) {
   return street
 }
 
-export function unpackServerStreetData (
+export function unpackServerStreetData(
   transmission,
   id,
   namespacedId,
@@ -303,7 +303,7 @@ export function unpackServerStreetData (
   }
 }
 
-export function packServerStreetDataRaw () {
+export function packServerStreetDataRaw() {
   const data = {}
   data.street = trimStreetData(store.getState().street)
 
@@ -326,7 +326,7 @@ export function packServerStreetDataRaw () {
     name: street.name,
     originalStreetId: street.originalStreetId,
     data,
-    clientUpdatedAt: street.clientUpdatedAt
+    clientUpdatedAt: street.clientUpdatedAt,
   }
 
   return transmission
@@ -334,30 +334,30 @@ export function packServerStreetDataRaw () {
 
 // Legacy: converts raw JS objects to JSON.
 // axios-based requests do this automatically.
-export function packServerStreetData () {
+export function packServerStreetData() {
   const transmission = packServerStreetDataRaw()
   return JSON.stringify(transmission)
 }
 
-export function setStreetId (newId, newNamespacedId) {
+export function setStreetId(newId, newNamespacedId) {
   store.dispatch(saveStreetId(newId, newNamespacedId))
 
   unifyUndoStack()
   updateLastStreetInfo()
 }
 
-export function updateLastStreetInfo () {
+export function updateLastStreetInfo() {
   const street = store.getState().street
   store.dispatch(
     updateSettings({
       lastStreetId: street.id,
       lastStreetNamespacedId: street.namespacedId,
-      lastStreetCreatorId: street.creatorId
+      lastStreetCreatorId: street.creatorId,
     })
   )
 }
 
-export function scheduleSavingStreetToServer () {
+export function scheduleSavingStreetToServer() {
   saveStreetIncomplete = true
 
   clearScheduledSavingStreetToServer()
@@ -373,7 +373,7 @@ export function scheduleSavingStreetToServer () {
 
 // Look into replacing with getLastStreet() from store/actions
 // -- it was formerly used by "here's your new street" in <WelcomePanel />
-export function fetchLastStreet () {
+export function fetchLastStreet() {
   const streetId = store.getState().app.priorLastStreetId
 
   newBlockingAjaxRequest(
@@ -381,18 +381,18 @@ export function fetchLastStreet () {
     {
       // TODO const
       url: '/api/v1/streets/' + streetId,
-      method: 'GET'
+      method: 'GET',
     },
     receiveLastStreet,
     cancelReceiveLastStreet
   )
 }
 
-function cancelReceiveLastStreet () {
+function cancelReceiveLastStreet() {
   makeDefaultStreet()
 }
 
-function receiveLastStreet (transmission) {
+function receiveLastStreet(transmission) {
   setIgnoreStreetChanges(true)
   const street = store.getState().street
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
@@ -421,7 +421,7 @@ function receiveLastStreet (transmission) {
   saveStreetToServer(false)
 }
 
-export function sendDeleteStreetToServer (id) {
+export function sendDeleteStreetToServer(id) {
   deleteStreet(id)
 
   // Delete street thumbnail from Cloudinary.
@@ -436,7 +436,7 @@ export function sendDeleteStreetToServer (id) {
       updateSettings({
         lastStreetId: null,
         lastStreetCreatorId: null,
-        lastStreetNamespacedId: null
+        lastStreetNamespacedId: null,
       })
     )
   }

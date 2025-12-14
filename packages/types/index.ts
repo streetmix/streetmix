@@ -44,15 +44,6 @@ export interface MeasurementValues {
   imperial: number // in feet
 }
 
-export interface SliceItemTemplate {
-  type: string
-  variant: Record<string, string>
-  width: MeasurementValues | number
-  elevation?: number
-  label?: string
-  slope?: SlopeProperties
-}
-
 export interface StreetBoundary {
   id: string
   variant: string
@@ -82,15 +73,6 @@ export interface StreetLocation {
     region?: string
     street?: string
   }
-}
-
-export interface StreetTemplate {
-  width: number
-  boundary: {
-    left: StreetBoundary
-    right: StreetBoundary
-  }
-  slices: SliceItemTemplate[]
 }
 
 export interface StreetJson {
