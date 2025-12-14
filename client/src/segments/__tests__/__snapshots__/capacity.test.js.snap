@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`rolled-up segment capacities > exports csv data 1`] = `
-""type","averageCapacity","potentialCapacity"
-"baz",100,200
-"foo",400,600
-"qux",600,600"
+"type,averageCapacity,potentialCapacity
+baz,100,200
+foo,400,600
+qux,600,600"
 `;
