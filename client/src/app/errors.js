@@ -1,13 +1,6 @@
 import store from '../store'
 import { everythingLoaded } from '../store/slices/app'
 import { showError as showErrorAction } from '../store/slices/errors'
-import {
-  URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
-  URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
-  URL_ERROR_NO_ACCESS_TOKEN,
-  URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_ACCESS_DENIED
-} from './constants'
 
 export const ERRORS = {
   NOT_FOUND: 1,
@@ -47,21 +40,6 @@ export function showErrorFromUrl (errorUrl) {
 
   // TODO const
   switch (errorUrl) {
-    case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN
-      break
-    case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN
-      break
-    case URL_ERROR_NO_ACCESS_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_ACCESS_TOKEN
-      break
-    case URL_ERROR_AUTHENTICATION_API_PROBLEM:
-      errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
-      break
-    case URL_ERROR_ACCESS_DENIED:
-      errorType = ERRORS.ACCESS_DENIED
-      break
     default:
       errorType = ERRORS.GENERIC_ERROR
       break
