@@ -34,7 +34,7 @@ export function streetsToCSV(json) {
       left_boundary_floors: street.data.street.boundary.left.floors,
       ...slices,
       right_boundary_variant: street.data.street.boundary.right.variant,
-      right_boundary_floors: street.data.street.boundary.left.floors,
+      right_boundary_floors: street.data.street.boundary.right.floors,
       edit_count: street.data.street['editCount'] ?? '',
       created_at: street['createdAt'] ?? '',
       url: getStreetUrl(street),
