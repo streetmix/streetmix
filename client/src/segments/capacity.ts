@@ -1,4 +1,4 @@
-import { Parser } from '@json2csv/plainjs'
+import Papa from 'papaparse'
 
 import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
@@ -260,18 +260,13 @@ function sortByCapacity(a: SegmentCapacities, b: SegmentCapacities): number {
 }
 
 export function getCsv(data: SegmentCapacities[]): string {
-  const fields = ['type', 'averageCapacity', 'potentialCapacity']
-  const opts = { fields }
-  const formattedData = data.map((row) => ({
+  const object = data.map((row) => ({
     type: row.type,
     averageCapacity: row.capacity?.average ?? 0,
     potentialCapacity: row.capacity?.potential ?? 0,
   }))
 
-  const parser = new Parser(opts)
-  const csv = parser.parse(formattedData)
-
-  return csv
+  return Papa.unparse(object)
 }
 
 /**
