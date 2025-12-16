@@ -25,7 +25,7 @@ initCloudinary()
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
   compileSVGSprites('assets/images/illustrations', 'illustrations', 'image'),
-  compileSVGSprites('packages/illustrations/images/', 'images', 'image')
+  compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
 const app = express()
@@ -56,7 +56,8 @@ process.on('SIGINT', function () {
 // Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-  WEB_MONETIZATION_PAYMENT_POINTER: process.env.WEB_MONETIZATION_PAYMENT_POINTER
+  WEB_MONETIZATION_PAYMENT_POINTER:
+    process.env.WEB_MONETIZATION_PAYMENT_POINTER,
 }
 
 // Not all headers from `helmet` are on by default. These turns on specific
@@ -67,11 +68,11 @@ const helmetConfig = {
   crossOriginEmbedderPolicy: false, // Load external assets
   hsts: {
     maxAge: 5184000, // 60 days
-    includeSubDomains: false // we don't have a wildcard ssl cert
+    includeSubDomains: false, // we don't have a wildcard ssl cert
   },
   referrerPolicy: {
-    policy: 'strict-origin-when-cross-origin'
-  }
+    policy: 'strict-origin-when-cross-origin',
+  },
 }
 
 // CSP directives are defined separately so we can generate nonces
@@ -86,7 +87,7 @@ const csp = {
       '*.basemaps.cartocdn.com',
       process.env.PELIAS_HOST_NAME,
       'checkout.stripe.com',
-      'plausible.io'
+      'plausible.io',
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
@@ -103,7 +104,7 @@ const csp = {
       's.gravatar.com',
       '*.googleusercontent.com',
       'res.cloudinary.com',
-      '*.wp.com/cdn.auth0.com' // Auth0 default profile images
+      '*.wp.com/cdn.auth0.com', // Auth0 default profile images
     ],
     fontSrc: ["'self'"],
     connectSrc: [
@@ -115,9 +116,9 @@ const csp = {
       'checkout.stripe.com',
       'plausible.io',
       'buttondown.com',
-      'buttondown.email'
+      'buttondown.email',
     ],
-    reportUri: '/services/csp-report/'
+    reportUri: '/services/csp-report/',
   },
   // Report (but do not block) CSP violations in development mode.
   // This allows developers to work on new or experimental features without
@@ -126,7 +127,7 @@ const csp = {
   // Reported CSP violations should be addressed before releasing to
   // production. IF A NEW FEATURE IS REPORTING A CSP VIOLATION, IT WILL
   // FAIL IN PRODUCTION, EVEN THOUGH IT WORKS IN DEVELOPMENT MODE.
-  reportOnly: process.env.NODE_ENV === 'development'
+  reportOnly: process.env.NODE_ENV === 'development',
 }
 
 // Allows websockets for hot-module reloading
@@ -143,7 +144,7 @@ app.use(cookieParser())
 app.use(
   cookieSession({
     secret: process.env.COOKIE_SESSION_SECRET || 'seger handrail',
-    sameSite: 'strict'
+    sameSite: 'strict',
   })
 )
 
@@ -164,7 +165,7 @@ app.use((req, res, next) => {
   res.locals.STREETMIX_IMAGE = {
     image: 'https://streetmix.net/images/thumbnail.png',
     width: 1008,
-    height: 522
+    height: 522,
   }
 
   res.locals.STREETMIX_TITLE = 'Streetmix'
@@ -205,13 +206,13 @@ if (process.env.NODE_ENV !== 'production') {
     definition: {
       info: {
         title: 'Streetmix',
-        version: process.env.npm_package_version
-      }
+        version: process.env.npm_package_version,
+      },
     },
-    apis: ['app/api_routes.js', 'app/service_routes.js']
+    apis: ['app/api_routes.js', 'app/service_routes.js'],
   }
   const displayOptions = {
-    customCss: '.swagger-ui .topbar { display: none }'
+    customCss: '.swagger-ui .topbar { display: none }',
   }
   const swaggerSpec = swaggerJSDoc(options)
 
@@ -228,6 +229,13 @@ app.use('/api', apiRoutes)
 app.use('/services', serviceRoutes)
 
 app.use('/assets', express.static(path.join(import.meta.dirname, '/build')))
+// Not sure if this sticks around forever, but it's a good way to serve static files
+// for templates, this can go away once the responsibility for making new streets and
+// processing template data entirely happens server side, which it may as well
+app.use(
+  '/assets/data',
+  express.static(path.join(import.meta.dirname, '/app/data'))
+)
 app.use(express.static(path.join(import.meta.dirname, '/public')))
 
 // Catch-all for broken asset paths.

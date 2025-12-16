@@ -5,9 +5,9 @@ import { prepareStreet } from './templates'
 import { saveStreetToServer } from './xhr'
 
 // These are deprecated, but we may be able to use them elsewhere
-export function makeDefaultStreet (): void {
+export async function makeDefaultStreet(): Promise<void> {
   setIgnoreStreetChanges(true)
-  prepareStreet('default')
+  await prepareStreet('default')
 
   segmentsChanged()
 
@@ -17,9 +17,9 @@ export function makeDefaultStreet (): void {
   saveStreetToServer(false)
 }
 
-export function onNewStreetEmptyClick (): void {
+export async function onNewStreetEmptyClick(): Promise<void> {
   setIgnoreStreetChanges(true)
-  prepareStreet('empty')
+  await prepareStreet('empty')
 
   segmentsChanged()
 
