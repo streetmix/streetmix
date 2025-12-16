@@ -142,8 +142,7 @@ function processTemplateBoundaries(
   return processed
 }
 
-// Exported for test only
-export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
+function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   const currentDate = new Date().toISOString()
   const slices = processTemplateSlices(data.slices, units)
   const boundary = processTemplateBoundaries(data.boundary, units)
@@ -252,7 +251,7 @@ export const StreetTemplate = z.strictObject({
 type StreetTemplate = z.infer<typeof StreetTemplate>
 
 async function getTemplateData(id: string): Promise<StreetTemplate> {
-  const response = await fetch(`/assets/data/templates/${id}.yaml`)
+  const response = await window.fetch(`/assets/data/templates/${id}.yaml`)
   const yaml = await response.text()
   const json = load(yaml, {
     schema: JSON_SCHEMA,
@@ -260,8 +259,10 @@ async function getTemplateData(id: string): Promise<StreetTemplate> {
   return StreetTemplate.parse(json)
 }
 
-export async function prepareStreet(type: string) {
-  const units = store.getState().settings.units
+// `testUnits` can be passed in to force units apart from Redux store.
+// Currently we only use this in tests
+export async function prepareStreet(type: string, testUnits?: UnitsSetting) {
+  const units = testUnits ?? store.getState().settings.units
 
   // TODO: handle errors
   // Possible throws:
