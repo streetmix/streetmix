@@ -1,38 +1,26 @@
 import { nanoid } from 'nanoid'
 import clone from 'just-clone'
+import { load, JSON_SCHEMA } from 'js-yaml'
+import * as z from 'zod'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { STREET_TEMPLATES } from '../app/constants'
 import {
   normalizeSegmentWidth,
   resolutionForResizeType,
   RESIZE_TYPE_INITIAL,
-} from '../segments/resizing'
-import { getElevationValue } from '../segments/elevation'
-import { getVariantString } from '../segments/variant_utils'
-import { getSignInData, isSignedIn } from '../users/authentication'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { getLeftHandTraffic } from '../users/localization'
-import { updateStreetData } from '../store/slices/street'
+} from '../segments/resizing.js'
+import { getElevationValue } from '../segments/elevation.js'
+import { getVariantString } from '../segments/variant_utils.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants.js'
+import { getLeftHandTraffic } from '../users/localization.js'
+import { updateStreetData } from '../store/slices/street.js'
 import store from '../store'
-import { DEFAULT_SKYBOX } from '../sky/constants'
-import { getWidthInMetric } from '../util/width_units'
-import { updateLastStreetInfo } from './xhr'
+import { DEFAULT_SKYBOX } from '../sky/constants.js'
+import { getWidthInMetric } from '../util/width_units.js'
+import { updateLastStreetInfo } from './xhr.js'
 
-import defaultStreetTemplate from './templates/default.yaml'
-import emptyStreetTemplate from './templates/empty.yaml'
-import beachTemplate from './templates/beach.yaml'
-import coastalRoadTemplate from './templates/coastal_road.yaml'
-import harborwalkTemplate from './templates/harborwalk.yaml'
-import stroadTemplate from './templates/stroad.yaml'
-
-import type {
-  SliceItem,
-  SliceItemTemplate,
-  StreetState,
-  StreetTemplate,
-  UnitsSetting,
-} from '@streetmix/types'
+import type { SliceItem, StreetState, UnitsSetting } from '@streetmix/types'
 
 // TODO: put together with other measurement conversion code?
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
@@ -41,7 +29,7 @@ const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 const LATEST_SCHEMA_VERSION = 34
 
 function processTemplateSlices(
-  slices: SliceItemTemplate[],
+  slices: StreetTemplate['slices'],
   units: UnitsSetting
 ) {
   const processed: SliceItem[] = []
@@ -154,8 +142,7 @@ function processTemplateBoundaries(
   return processed
 }
 
-// Exported for test only
-export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
+function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   const currentDate = new Date().toISOString()
   const slices = processTemplateSlices(data.slices, units)
   const boundary = processTemplateBoundaries(data.boundary, units)
@@ -210,31 +197,83 @@ export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   return street
 }
 
-export function prepareStreet(type: string) {
-  const units = store.getState().settings.units
+/**
+ * This is a Zod validation schema which contains a subset of the properties
+ * that are defined in TypeScript. Unfortunately Zod cannot be programmatically
+ * created from TypeScript, so we have to manually keep these in sync.
+ *
+ * The goal is to define all of the required / optional properties that are
+ * allowed in a template definition. Later a JSON schema of this can be
+ * published as documentation.
+ */
+const measurementSchema = z.union([
+  z.number(),
+  z.object({
+    metric: z.number(),
+    imperial: z.number(),
+  }),
+])
+const boundarySchema = z.object({
+  variant: z.string(),
+  // It is not required to pass in `floors`, which has a default value of `1`.
+  floors: z.number().default(1),
+  // By default, elevations are given a metric height. If you want a template
+  // to work with round values in US customary units, the template should be
+  // defined with `{ metric: 0.15; imperial 0.5; }`
+  elevation: measurementSchema.default(0.15),
+})
+// In order to catch typos or deprecated properties, this validation will
+// throw if unknown properties are encountered.
+export const StreetTemplate = z.strictObject({
+  width: measurementSchema,
+  showAnalytics: z.boolean().optional(),
+  boundary: z.object({
+    left: boundarySchema,
+    right: boundarySchema,
+  }),
+  slices: z.array(
+    z.object({
+      type: z.string(),
+      variant: z.record(z.string(), z.string()),
+      width: measurementSchema,
+      elevation: measurementSchema.optional(),
+      label: z.string().optional(),
+      slope: z
+        .object({
+          on: z.boolean(),
+          values: z.array(z.number()),
+        })
+        .optional(),
+    })
+  ),
+})
 
-  let streetTemplate
-  switch (type) {
-    case STREET_TEMPLATES.EMPTY:
-      streetTemplate = emptyStreetTemplate as StreetTemplate
-      break
-    case STREET_TEMPLATES.STROAD:
-      streetTemplate = stroadTemplate as StreetTemplate
-      break
-    case STREET_TEMPLATES.HARBORWALK:
-      streetTemplate = harborwalkTemplate as StreetTemplate
-      break
-    case STREET_TEMPLATES.COASTAL_ROAD:
-      streetTemplate = coastalRoadTemplate as StreetTemplate
-      break
-    case STREET_TEMPLATES.BEACH:
-      streetTemplate = beachTemplate as StreetTemplate
-      break
-    case STREET_TEMPLATES.DEFAULT:
-    default:
-      streetTemplate = defaultStreetTemplate as StreetTemplate
-      break
-  }
+type StreetTemplate = z.infer<typeof StreetTemplate>
+
+async function getTemplateData(id: string): Promise<StreetTemplate> {
+  const response = await window.fetch(`/assets/data/templates/${id}.yaml`)
+  const yaml = await response.text()
+  const json = load(yaml, {
+    schema: JSON_SCHEMA,
+  })
+  return StreetTemplate.parse(json)
+}
+
+// `testUnits` can be passed in to force units apart from Redux store.
+// Currently we only use this in tests
+export async function prepareStreet(type: string, testUnits?: UnitsSetting) {
+  const units = testUnits ?? store.getState().settings.units
+
+  // TODO: handle errors
+  // Possible throws:
+  // -- file not returned errors (server errors, HTTP errors)
+  // -- unparseable as YAML
+  // -- unvalidated by Zod
+  const streetTemplate = await getTemplateData(type)
+
+  // Here possible errors are:
+  // -- transforms to street data go wrong
+  // -- types and variants don't exist
   const street = createStreetData(streetTemplate, units)
 
   store.dispatch(updateStreetData(street))

@@ -54,7 +54,6 @@ slices:
       imperial: 6
     elevation: 0
     label: "Future dune"
-
   - type: beach
     variant:
       beach-type: lounger
