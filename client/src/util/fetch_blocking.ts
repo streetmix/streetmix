@@ -7,7 +7,7 @@
 import {
   showBlockingShield,
   hideBlockingShield,
-  darkenBlockingShield
+  darkenBlockingShield,
 } from '../app/blocking_shield'
 
 interface BlockingAjaxRequest extends RequestInit {
@@ -25,15 +25,15 @@ let blockingAjaxRequestInProgress = false
 // binding to the package, so we use a getter function to achieve
 // the same
 // TODO: Store application state differently
-export function isblockingAjaxRequestInProgress (): boolean {
+export function isblockingAjaxRequestInProgress(): boolean {
   return blockingAjaxRequestInProgress
 }
 
-export function newBlockingAjaxRequest (
+export function newBlockingAjaxRequest(
   mode: string,
   request: BlockingAjaxRequest,
   doneFunc: (data: unknown) => void,
-  cancelFunc: () => void
+  cancelFunc: () => Promise<void> | void
 ): void {
   showBlockingShield(mode)
 
@@ -46,7 +46,7 @@ export function newBlockingAjaxRequest (
   makeBlockingAjaxRequest()
 }
 
-function successBlockingAjaxRequest (data: unknown): void {
+function successBlockingAjaxRequest(data: unknown): void {
   hideBlockingShield()
   if (blockingAjaxRequestDoneFunc !== null) {
     blockingAjaxRequestDoneFunc(data)
@@ -54,13 +54,13 @@ function successBlockingAjaxRequest (data: unknown): void {
   blockingRequestCleanup()
 }
 
-function errorBlockingAjaxRequest (): void {
+function errorBlockingAjaxRequest(): void {
   if (blockingAjaxRequestCancelFunc !== null) {
     darkenBlockingShield(true)
   }
 }
 
-function makeBlockingAjaxRequest (): void {
+function makeBlockingAjaxRequest(): void {
   if (blockingAjaxRequest === null) return
 
   window
@@ -78,18 +78,18 @@ function makeBlockingAjaxRequest (): void {
 
 // These export to the blocking shield to retry or cancel requests
 
-export function blockingTryAgain (): void {
+export function blockingTryAgain(): void {
   makeBlockingAjaxRequest()
 }
 
-export function blockingCancel (): void {
+export function blockingCancel(): void {
   if (blockingAjaxRequestCancelFunc) {
     blockingAjaxRequestCancelFunc()
   }
   blockingRequestCleanup()
 }
 
-function blockingRequestCleanup (): void {
+function blockingRequestCleanup(): void {
   blockingAjaxRequest = null
   blockingAjaxRequestDoneFunc = null
   blockingAjaxRequestCancelFunc = null

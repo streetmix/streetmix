@@ -388,8 +388,8 @@ export function fetchLastStreet() {
   )
 }
 
-function cancelReceiveLastStreet() {
-  makeDefaultStreet()
+async function cancelReceiveLastStreet() {
+  await makeDefaultStreet()
 }
 
 function receiveLastStreet(transmission) {

@@ -200,7 +200,7 @@ export function createStreetData(data: StreetTemplate, units: UnitsSetting) {
 
 /**
  * This is a Zod validation schema which contains a subset of the properties
- * that are defined in TypeScript. Unfortunately Zod cannot be programatically
+ * that are defined in TypeScript. Unfortunately Zod cannot be programmatically
  * created from TypeScript, so we have to manually keep these in sync.
  *
  * The goal is to define all of the required / optional properties that are
@@ -218,7 +218,7 @@ const boundarySchema = z.object({
   variant: z.string(),
   // It is not required to pass in `floors`, which has a default value of `1`.
   floors: z.number().default(1),
-  // Be default, elevations are given a metric height. If you want a template
+  // By default, elevations are given a metric height. If you want a template
   // to work with round values in US customary units, the template should be
   // defined with `{ metric: 0.15; imperial 0.5; }`
   elevation: measurementSchema.default(0.15),
