@@ -17,10 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       # Use the current LTS version of Node.js
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
       # TODO: only install necessary dependencies
       - name: Install dependencies
         run: npm install
