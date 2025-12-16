@@ -533,11 +533,24 @@ export function drawSegmentContents(
             multiplier
       }
 
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
+      }
 
       drawSegmentImage(
         sprite.id,
@@ -588,11 +601,24 @@ export function drawSegmentContents(
           multiplier
       }
 
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
+      }
 
       drawSegmentImage(
         sprite.id,
@@ -643,8 +669,15 @@ export function drawSegmentContents(
 
       // Proof of concept ground adjustment for sloped items
       if (slope.on) {
-        distanceFromGround +=
-          ((multiplier * (slope.values[0] + slope.values[1])) / 2) * TILE_SIZE
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
       }
 
       drawSegmentImage(
@@ -721,6 +754,47 @@ export function drawSegmentContents(
       )
     }
   }
+}
+
+function calculateSlopeYAdjustment(
+  slope: SlopeProperties,
+  actualWidth: number,
+  x: number,
+  svg: unknown,
+  multiplier: number,
+  segmentWidth: number
+) {
+  const y1 = slope.values[0]
+  const y2 = slope.values[1]
+  const x1 = 0
+  const x2 = actualWidth
+  const m = (y2 - y1) / (x2 - x1) // Slope
+
+  // Find x3, the x position along the slope where we need the new y height
+  // TODO: can we calc this without the numbers from pixel dimensions
+  const midpoint =
+    x + (svg.width / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+  const midpointPercentage = midpoint / segmentWidth
+  const x3 = midpointPercentage * (x2 - x1)
+
+  // Solve for y3
+  const y3 = m * (x3 - x1) + y1
+
+  const adjustment = y3 * TILE_SIZE * multiplier
+  return adjustment
+}
+
+export function getLocaleSegmentName(
+  type: string,
+  variantString: string
+): string {
+  const segmentInfo = getSegmentInfo(type)
+  const variantInfo = getSegmentVariantInfo(type, variantString)
+  const defaultName = variantInfo.name ?? segmentInfo.name
+  const nameKey = variantInfo.nameKey ?? segmentInfo.nameKey
+  const key = `segments.${nameKey}`
+
+  return formatMessage(key, defaultName, { ns: 'segment-info' })
 }
 
 /**
