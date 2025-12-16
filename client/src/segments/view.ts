@@ -776,7 +776,11 @@ function calculateSlopeYAdjustment(
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
   const midpoint =
-    x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+    x > 0
+      ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+      : // If x is less than 0, midpoint is 1/2 of segment width
+        // This only works if the object is in the center.
+        segmentWidth / 2
   const midpointPercentage = midpoint / segmentWidth
   const x3 = midpointPercentage * (x2 - x1)
 
@@ -784,6 +788,7 @@ function calculateSlopeYAdjustment(
   const y3 = m * (x3 - x1) + y1
 
   const adjustment = y3 * TILE_SIZE * multiplier
+  console.log(midpointPercentage, x, x3, adjustment)
   return adjustment
 }
 
