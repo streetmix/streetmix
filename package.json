@@ -24,10 +24,10 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "start": "concurrently --names \"SERVER,CLIENT,TSC\" -c \"bgBlueBright.bold,bgMagentaBright.bold,black.bgYellowBright.bold\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-tsc\"",
-    "serve": "nodemon -r newrelic index.ts",
+    "serve": "nodemon -r newrelic --exec node index.ts",
     "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
-    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.ts --watch app.js index.ts --watch packages",
+    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.ts --watch app.js --watch packages --exec node index.ts",
     "dev-tsc": "tsc -b --watch --preserveWatchOutput",
     "clean": "rm -rf ./.parcel-cache && rm -rf ./build",
     "test": "npm run lint && npm run vitest",
@@ -44,11 +44,6 @@
     "test:models": "NODE_ENV=test vitest --watchAll --testPathPattern=app/db/models/_tests_",
     "posttest:models": "NODE_ENV=test npm run db:reset",
     "prepare": "husky"
-  },
-  "nodemonConfig": {
-    "execMap": {
-      "ts": "node"
-    }
   },
   "browserslist": [
     "> 0.5%",
