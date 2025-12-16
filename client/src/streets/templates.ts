@@ -8,17 +8,17 @@ import {
   normalizeSegmentWidth,
   resolutionForResizeType,
   RESIZE_TYPE_INITIAL,
-} from '../segments/resizing'
-import { getElevationValue } from '../segments/elevation'
-import { getVariantString } from '../segments/variant_utils'
-import { getSignInData, isSignedIn } from '../users/authentication'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
-import { getLeftHandTraffic } from '../users/localization'
-import { updateStreetData } from '../store/slices/street'
+} from '../segments/resizing.js'
+import { getElevationValue } from '../segments/elevation.js'
+import { getVariantString } from '../segments/variant_utils.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants.js'
+import { getLeftHandTraffic } from '../users/localization.js'
+import { updateStreetData } from '../store/slices/street.js'
 import store from '../store'
-import { DEFAULT_SKYBOX } from '../sky/constants'
-import { getWidthInMetric } from '../util/width_units'
-import { updateLastStreetInfo } from './xhr'
+import { DEFAULT_SKYBOX } from '../sky/constants.js'
+import { getWidthInMetric } from '../util/width_units.js'
+import { updateLastStreetInfo } from './xhr.js'
 
 import type { SliceItem, StreetState, UnitsSetting } from '@streetmix/types'
 
@@ -29,7 +29,7 @@ const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 const LATEST_SCHEMA_VERSION = 34
 
 function processTemplateSlices(
-  slices: SliceItemTemplate[],
+  slices: StreetTemplate['slices'],
   units: UnitsSetting
 ) {
   const processed: SliceItem[] = []
