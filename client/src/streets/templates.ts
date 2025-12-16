@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import clone from 'just-clone'
 import { load, JSON_SCHEMA } from 'js-yaml'
-import { z } from 'zod'
+import * as z from 'zod'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import {
