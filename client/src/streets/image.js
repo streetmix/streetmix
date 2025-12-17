@@ -16,7 +16,7 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_LABEL_PADDING = 65
 
-export function getStreetImage (
+export function getStreetImage(
   street,
   transparentSky,
   labels,
@@ -70,7 +70,7 @@ export function getStreetImage (
     labels,
     streetName,
     watermark,
-    locale
+    locale,
   })
 
   return el
@@ -88,15 +88,15 @@ export const SAVE_THUMBNAIL_EVENTS = {
   SHARE: 'SHARE',
   TIMER: 'TIMER',
   BEFOREUNLOAD: 'BEFOREUNLOAD',
-  PREVIOUS_STREET: 'PREVIOUS_STREET'
+  PREVIOUS_STREET: 'PREVIOUS_STREET',
 }
 
-export function isThumbnailSaved () {
+export function isThumbnailSaved() {
   // return _savedThumbnail
   return true
 }
 
-export function initStreetThumbnailSubscriber () {
+export function initStreetThumbnailSubscriber() {
   // Save street thumbnail on initial street render.
   saveStreetThumbnail(
     trimStreetData(store.getState().street),
@@ -125,7 +125,7 @@ export function initStreetThumbnailSubscriber () {
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
 // TEMPORARILY DISABLED.
-export async function saveStreetThumbnail (street, event) {
+export async function saveStreetThumbnail(_street, _event) {
   // if (_savedThumbnail) return
   // _lastSavedTimestamp = Date.now()
   // const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
@@ -171,7 +171,7 @@ export async function saveStreetThumbnail (street, event) {
 }
 
 // Handles removing street thumbnail from cloudinary.
-export async function deleteStreetThumbnail (streetId) {
+export async function deleteStreetThumbnail(streetId) {
   try {
     // As this function returns a Promise, awaiting it allows rejected
     // Promises to be caught by the `catch` block below.

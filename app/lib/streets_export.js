@@ -1,7 +1,7 @@
 import { round } from '@streetmix/utils'
 import Papa from 'papaparse'
 
-import appURL from './url.js'
+import { appURL } from './url.ts'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const IMPERIAL_PRECISION = 3

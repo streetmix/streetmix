@@ -1,4 +1,4 @@
-import appURL from '../../lib/url.js'
+import { appURL } from '../../lib/url.ts'
 
 export function get(req, res) {
   // Prevent this service from being accessed by third parties

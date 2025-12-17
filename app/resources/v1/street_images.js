@@ -259,7 +259,7 @@ export async function del(req, res) {
 
   // 4) Delete street thumbnail from cloudinary.
   const publicId = `${process.env.NODE_ENV}/street_thumbnails/${req.params.street_id}`
-  cloudinary.v2.uploader.destroy(publicId, function (error, result) {
+  cloudinary.v2.uploader.destroy(publicId, function (error, _result) {
     if (error) {
       logger.error(error)
       res

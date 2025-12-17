@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import app from './app.js'
+import app from './app.ts'
 import logger from './app/lib/logger.js'
 
 app.listen(process.env.PORT, () => {

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 const SequelizeMock = require('sequelize-mock')
 const DBConnectionMock = new SequelizeMock()
 const CONTAINS_KEY = 'CONTAINS_KEY'

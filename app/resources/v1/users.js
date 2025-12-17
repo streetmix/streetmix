@@ -5,12 +5,12 @@ import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
 
 const { User } = models
 
-export async function post (req, res) {
+export async function post(req, res) {
   const handleCreateUser = function (user) {
     if (!user) {
       res.status(500).json({
         status: 500,
-        msg: 'Could not create user, user not found after creation.'
+        msg: 'Could not create user, user not found after creation.',
       })
       return
     }
@@ -51,14 +51,14 @@ export async function post (req, res) {
   const handleAuth0TwitterSignIn = async function (credentials) {
     try {
       const user = await User.findOne({
-        where: { id: credentials.screenName }
+        where: { id: credentials.screenName },
       })
 
       if (!user) {
         const newUserData = {
           id: credentials.screenName,
           auth0Id: credentials.auth0Id,
-          profileImageUrl: credentials.profileImageUrl
+          profileImageUrl: credentials.profileImageUrl,
         }
 
         try {
@@ -76,7 +76,7 @@ export async function post (req, res) {
             userUpdates,
             {
               where: { id: credentials.screenName },
-              returning: true
+              returning: true,
             }
           )
 
@@ -92,7 +92,7 @@ export async function post (req, res) {
       logger.error(err)
       res.status(500).json({
         status: 500,
-        msg: 'Error finding user with Auth0 Twitter sign-in.'
+        msg: 'Error finding user with Auth0 Twitter sign-in.',
       })
     }
   } // END function - handleAuth0TwitterSignIn
@@ -147,7 +147,7 @@ export async function post (req, res) {
       }
       if (!user) {
         const numOfUser = await User.findOne({
-          where: { id: credentials.nickname }
+          where: { id: credentials.nickname },
         })
 
         // Ensure there is no existing user with id same this nickname
@@ -156,7 +156,7 @@ export async function post (req, res) {
             id: credentials.nickname,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
-            profileImageUrl: credentials.profileImageUrl
+            profileImageUrl: credentials.profileImageUrl,
           }
           try {
             await User.create(newUserData).then(handleCreateUser)
@@ -169,7 +169,7 @@ export async function post (req, res) {
             id,
             auth0Id: credentials.auth0Id,
             email: credentials.email,
-            profileImageUrl: credentials.profileImageUrl
+            profileImageUrl: credentials.profileImageUrl,
           }
           await User.create(newUserData).then(handleCreateUser)
         }
@@ -185,7 +185,7 @@ export async function post (req, res) {
             userUpdates,
             {
               where: { auth0Id: credentials.auth0Id },
-              returning: true
+              returning: true,
             }
           )
 
@@ -226,7 +226,7 @@ export async function post (req, res) {
   }
 } // END function - post
 
-export async function get (req, res) {
+export async function get(req, res) {
   // Flag error if user ID is not provided
   const userId = req.params.user_id
 
@@ -285,7 +285,7 @@ export async function get (req, res) {
       }
 
       const callingUser = await User.findOne({
-        where: { auth0_id: req.auth.sub }
+        where: { auth0_id: req.auth.sub },
       })
 
       const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
@@ -303,7 +303,7 @@ export async function get (req, res) {
   }
 } // END function - get
 
-export async function del (req, res) {
+export async function del(req, res) {
   const userId = req.params.user_id
   let user
   try {
@@ -319,7 +319,7 @@ export async function del (req, res) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth.sub }
+    where: { auth0_id: req.auth.sub },
   })
 
   const isAdmin =
@@ -333,7 +333,7 @@ export async function del (req, res) {
     return
   }
   User.update(user, { where: { id: user.id }, returning: true })
-    .then((result) => {
+    .then((_result) => {
       res.status(204).end()
     })
     .catch((err) => {
@@ -342,7 +342,7 @@ export async function del (req, res) {
     })
 } // END function - delete
 
-export async function put (req, res) {
+export async function put(req, res) {
   let body
   try {
     body = req.body
@@ -373,7 +373,7 @@ export async function put (req, res) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth.sub }
+    where: { auth0_id: req.auth.sub },
   })
 
   const isAdmin =
@@ -388,11 +388,11 @@ export async function put (req, res) {
 
   User.update(
     {
-      data: body.data || {}
+      data: body.data || {},
     },
     { where: { id: user.id }, returning: true }
   )
-    .then((result) => {
+    .then((_result) => {
       res.status(204).end()
     })
     .catch((err) => {
@@ -403,7 +403,7 @@ export async function put (req, res) {
     })
 } // END function - put
 
-export async function patch (req, res) {
+export async function patch(req, res) {
   let body
   try {
     body = req.body
@@ -437,11 +437,11 @@ export async function patch (req, res) {
   // if they are present in the body
   User.update(
     {
-      displayName: body.displayName || null
+      displayName: body.displayName || null,
     },
     { where: { id: user.id }, returning: true }
   )
-    .then((result) => {
+    .then((_result) => {
       res.status(204).end()
     })
     .catch((err) => {
