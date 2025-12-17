@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { userClient } from '../lib/auth0.js'
+
+import { userClient } from '../lib/auth0.ts'
 import logger from '../lib/logger.js'
-import appURL from '../lib/url.js'
+import { appURL } from '../lib/url.ts'
 
 const AccessTokenHandler = function (req, res) {
   return async (response) => {
@@ -21,8 +22,8 @@ const AccessTokenHandler = function (req, res) {
       const endpoint = `${appURL.origin}/api/v1/users`
       const apiRequestOptions = {
         headers: {
-          Cookie: `login_token=${idToken};`
-        }
+          Cookie: `login_token=${idToken};`,
+        },
       }
 
       axios
@@ -34,7 +35,7 @@ const AccessTokenHandler = function (req, res) {
             : apiRequestBody.auth0.nickname
           const cookieOptions = {
             maxAge: 9000000000,
-            sameSite: 'strict'
+            sameSite: 'strict',
           }
 
           res.cookie('user_id', user.id || userAuthData, cookieOptions)
@@ -72,8 +73,8 @@ const getUserAuth0Info = function (user) {
       nickname: user.nickname,
       auth0Id: user.sub,
       email: user.email,
-      profileImageUrl: user.picture
-    }
+      profileImageUrl: user.picture,
+    },
   }
 }
 
@@ -82,12 +83,12 @@ const getUserTwitterAuth0Info = function (user) {
     auth0_twitter: {
       screenName: user['https://twitter.com/screen_name'],
       auth0Id: user.sub,
-      profileImageUrl: user.picture
-    }
+      profileImageUrl: user.picture,
+    },
   }
 }
 
-export function get (req, res) {
+export function get(req, res) {
   logger.info('[auth0] Logging in user with data:', req.query)
 
   if (req.query.error) {
@@ -102,11 +103,11 @@ export function get (req, res) {
     client_id: process.env.AUTH0_CLIENT_ID,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
     code: req.query.code,
-    redirect_uri: `${appURL.origin}/services/auth/sign-in-callback`
+    redirect_uri: `${appURL.origin}/services/auth/sign-in-callback`,
   }
   const options = {
     headers: { 'content-type': 'application/json' },
-    json: true
+    json: true,
   }
 
   axios

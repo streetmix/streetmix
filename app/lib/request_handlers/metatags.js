@@ -1,7 +1,8 @@
 import request from 'request'
+
 import models from '../../db/models/index.js'
 import logger from '../logger.js'
-import appURL from '../url.js'
+import { appURL } from '../url.ts'
 
 const ANON_CREATOR = '-'
 const { User, Street } = models
@@ -34,13 +35,13 @@ export default async function (req, res, next) {
     }
 
     return Street.findOne({
-      where: { creator_id: user.id, namespacedId }
+      where: { creator_id: user.id, namespacedId },
     })
   }
 
   const findStreetWithNamespacedId = async function (namespacedId) {
     return Street.findOne({
-      where: { creator_id: null, namespacedId }
+      where: { creator_id: null, namespacedId },
     })
   }
 
@@ -54,7 +55,7 @@ export default async function (req, res, next) {
           res.locals.STREETMIX_IMAGE = {
             image: results.secure_url,
             width: results.width,
-            height: results.height
+            height: results.height,
           }
         }
       } catch (error) {
