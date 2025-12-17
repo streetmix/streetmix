@@ -5,7 +5,7 @@ import {
   setStormSurge,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
-import Switch from '~/src/ui/Switch.js'
+import { Switch } from '~/src/ui/Switch.js'
 import FloatingPanel from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 

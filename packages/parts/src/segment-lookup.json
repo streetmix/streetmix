@@ -1108,6 +1108,9 @@
       "planting-strip": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1163,6 +1166,9 @@
       "median": {
         "name": "Median",
         "nameKey": "median",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1202,6 +1208,9 @@
       "bush": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1230,6 +1239,9 @@
       "flowers": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1258,6 +1270,9 @@
       "big-tree": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1286,6 +1301,9 @@
       "palm-tree": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
