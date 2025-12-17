@@ -99,7 +99,7 @@
   },
   "DEBUG_SLICE_SLOPE": {
     "label": "Slice — [debug] slope measurements",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SAVE_AS_IMAGE_CUSTOM_DPI": {
     "label": "Export images at custom scale",
@@ -119,7 +119,7 @@
   },
   "COASTMIX_MODE": {
     "label": "Coastmix features",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
