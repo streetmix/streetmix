@@ -9,6 +9,7 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
 import chalk from 'chalk'
 import passport from 'passport'
+
 import * as controllers from './app/controllers/index.js'
 import * as requestHandlers from './app/lib/request_handlers/index.js'
 import { initCloudinary } from './app/lib/cloudinary.js'
