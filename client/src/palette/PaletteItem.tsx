@@ -40,43 +40,43 @@ function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
   let isLocked = false
   let sublabel
 
-  if (
-    unlockCondition &&
-    !(
-      segment.unlockWithFlag !== undefined &&
-      flags[segment.unlockWithFlag]?.value
-    )
-  ) {
-    switch (unlockCondition) {
-      case 'SUBSCRIBE':
-        if (!isSubscriber) {
-          classNames.push('palette-item-disabled')
-          isLocked = true
-          sublabel = intl.formatMessage({
-            id: 'plus.locked.sub',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎',
-          })
-        }
-        break
-      case 'SIGN_IN':
-      default:
-        if (!isSignedIn) {
-          classNames.push('palette-item-disabled')
-          isLocked = true
-          sublabel = intl.formatMessage({
-            id: 'plus.locked.user',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎',
-          })
-        }
-        break
-    }
-  }
+  // if (
+  //   unlockCondition &&
+  //   !(
+  //     segment.unlockWithFlag !== undefined &&
+  //     flags[segment.unlockWithFlag]?.value
+  //   )
+  // ) {
+  //   switch (unlockCondition) {
+  //     case 'SUBSCRIBE':
+  //       if (!isSubscriber) {
+  //         classNames.push('palette-item-disabled')
+  //         isLocked = true
+  //         sublabel = intl.formatMessage({
+  //           id: 'plus.locked.sub',
+  //           // Default message ends with a Unicode-only left-right order mark
+  //           // to allow for proper punctuation in `rtl` text direction
+  //           // This character is hidden from editors by default!
+  //           defaultMessage: 'Upgrade to Streetmix+ to use!‎',
+  //         })
+  //       }
+  //       break
+  //     case 'SIGN_IN':
+  //     default:
+  //       if (!isSignedIn) {
+  //         classNames.push('palette-item-disabled')
+  //         isLocked = true
+  //         sublabel = intl.formatMessage({
+  //           id: 'plus.locked.user',
+  //           // Default message ends with a Unicode-only left-right order mark
+  //           // to allow for proper punctuation in `rtl` text direction
+  //           // This character is hidden from editors by default!
+  //           defaultMessage: 'Sign in to use!‎',
+  //         })
+  //       }
+  //       break
+  //   }
+  // }
 
   const thumbnail =
     images.get(`thumbnails--${segment.id}`)?.src ??
