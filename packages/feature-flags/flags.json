@@ -41,7 +41,7 @@
   },
   "ENVIRONMENTS_UNLOCKED": {
     "label": "Environment — unlocked",
-    "defaultValue": false
+    "defaultValue": true
   },
   "WEATHER_EFFECTS": {
     "label": "Environment — weather effects",
@@ -127,7 +127,7 @@
   },
   "COASTMIX_MODE": {
     "label": "Coastmix features",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
