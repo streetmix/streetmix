@@ -25,10 +25,11 @@ import {
   SLICE_WARNING_WIDTH_TOO_SMALL,
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
 } from './constants'
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
-import TestSlope from './TestSlope'
+import { TestSlope } from './TestSlope'
 import './Segment.css'
 
 import { calculateSlope } from './slope'
@@ -244,12 +245,12 @@ function Segment(props: SliceProps) {
   }
 
   // Warnings
-  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH
   if (
     segment.warnings[SLICE_WARNING_OUTSIDE] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
   ) {
     classNames.push('warning')
   }

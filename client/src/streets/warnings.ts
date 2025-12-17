@@ -6,18 +6,18 @@ import {
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_DANGEROUS_EXISTING,
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH
-} from '../segments/constants'
-import { calculateSlope } from '../segments/slope'
-import { getWidthInMetric } from '../util/width_units'
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
+} from '../segments/constants.js'
+import { calculateSlope } from '../segments/slope.js'
+import { getWidthInMetric } from '../util/width_units.js'
 
 import type { Segment, StreetJson } from '@streetmix/types'
-import type { CalculatedWidths } from './width'
+import type { CalculatedWidths } from './width.js'
 
 /**
  * Applies warnings to slices, if necessary.
  */
-export function applyWarningsToSlices (
+export function applyWarningsToSlices(
   street: StreetJson,
   calculatedWidths: CalculatedWidths
 ): Segment[] {
@@ -82,14 +82,19 @@ export function applyWarningsToSlices (
 
     // Apply a warning for slope
     const slopes = calculateSlope(street, index)
-    if (slopes?.warnings.slopeExceededBerm) {
+    if (variantInfo.slope === 'berm' && slopes?.warnings.slopeExceededBerm) {
       warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = true
-    } else {
+      // The idea is that if you've exceeded the slope for berm you've also
+      // exceeded the slope for path
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = true
+    } else if (
+      variantInfo.slope === 'path' &&
+      slopes?.warnings.slopeExceededPath
+    ) {
       warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
-    }
-    if (slopes?.warnings.slopeExceededPath) {
       warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = true
     } else {
+      warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
       warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
     }
 
@@ -98,7 +103,7 @@ export function applyWarningsToSlices (
 
     segments.push({
       ...segment,
-      warnings
+      warnings,
     })
   })
 

@@ -9,6 +9,7 @@ import {
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_DANGEROUS_EXISTING,
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
 } from '~/src/segments/constants.js'
 import './Warnings.css'
 
@@ -68,8 +69,10 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH based on use case
-  if (segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]) {
+  if (
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+  ) {
     messages.push({
       type: 'error',
       message: (
