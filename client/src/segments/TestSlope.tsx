@@ -31,7 +31,7 @@ export function TestSlope({ slice }: Props) {
 
   return (
     <div className="test-slope-container">
-      {debug && street.segments[sliceIndex].slope && (
+      {debug && street.segments[sliceIndex].slope.on && (
         <div className="slope-debug">
           <p style={styles}>{slope} %</p>
           <p style={styles}>{ratio ?? 0}:1</p>
