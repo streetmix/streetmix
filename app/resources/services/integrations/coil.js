@@ -10,7 +10,7 @@ import {
   findUser,
   addUserConnection,
   syncAccountStatus,
-  addOrUpdateByProviderName
+  addOrUpdateByProviderName,
 } from './helpers.js'
 
 const { User } = models
@@ -24,7 +24,7 @@ const { User } = models
  *
  * @param {String} str
  */
-function btoa (str) {
+function btoa(str) {
   Buffer.from(str.toString(), 'binary').toString('base64')
 }
 
@@ -46,8 +46,8 @@ const initCoil = () => {
       passReqToCallback: true,
       customHeaders: {
         authorization: `Basic ${authToken}`,
-        'content-type': 'application/x-www-form-urlencoded'
-      }
+        'content-type': 'application/x-www-form-urlencoded',
+      },
     },
     async function (req, accessToken, refreshToken, params, profile, done) {
       // params are returned by passport from the request
@@ -67,8 +67,8 @@ const initCoil = () => {
         url: 'https://api.coil.com/user/info',
         headers: {
           Authorization: 'Bearer ' + accessToken,
-          'content-type': 'application/x-www-form-urlencoded'
-        }
+          'content-type': 'application/x-www-form-urlencoded',
+        },
       }
       const response = await axios(requestConfig)
       const profile = { provider: 'coil' }
@@ -104,7 +104,7 @@ if (process.env.COIL_CLIENT_ID && process.env.COIL_CLIENT_SECRET) {
   initCoil()
 }
 
-export function get (req, res, next) {
+export function get(req, res, next) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
@@ -120,23 +120,23 @@ export function get (req, res, next) {
     */
   passport.authorize('coil', {
     state: req.auth.sub,
-    failureRedirect: '/error'
+    failureRedirect: '/error',
   })(req, res, next)
 }
 
-export function callback (req, res, next) {
+export function callback(req, res, next) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
   }
   passport._strategies.coil._oauth2.setAuthMethod('BASIC')
   passport.authorize('coil', {
-    failureRedirect: '/error'
+    failureRedirect: '/error',
   })(req, res, next)
 }
 
 // Check for coil provider to set access token to stream payments
-export async function BTPTokenCheck (req, res, next) {
+export async function BTPTokenCheck(req, res, next) {
   if (!req.auth?.sub) {
     return next()
   }
@@ -165,7 +165,7 @@ export async function BTPTokenCheck (req, res, next) {
     addOrUpdateByProviderName(identities, coilData)
     await User.update(
       {
-        identities
+        identities,
       },
       { where: { auth0Id: userData.auth0Id }, returning: true }
     )
@@ -182,7 +182,7 @@ export async function BTPTokenCheck (req, res, next) {
 }
 
 // passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
-export async function refreshAccessToken (refreshToken) {
+export async function refreshAccessToken(refreshToken) {
   try {
     const encodedAuth = btoa(
       process.env.COIL_CLIENT_ID +
@@ -191,16 +191,16 @@ export async function refreshAccessToken (refreshToken) {
     )
     const data = new URLSearchParams({
       grant_type: 'refresh_token',
-      refresh_token: refreshToken
+      refresh_token: refreshToken,
     })
     const requestConfig = {
       method: 'post',
       url: 'https://coil.com/oauth/token',
       headers: {
         Authorization: `Basic ${encodedAuth}`,
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/x-www-form-urlencoded',
       },
-      data
+      data,
     }
     const response = await axios(requestConfig)
     return response.data.access_token
@@ -209,15 +209,15 @@ export async function refreshAccessToken (refreshToken) {
   }
 }
 
-export async function getBTPToken (accessToken) {
+export async function getBTPToken(accessToken) {
   try {
     const requestConfig = {
       method: 'post',
       url: 'https://api.coil.com/user/btp',
       headers: {
         Authorization: 'Bearer ' + accessToken,
-        'content-type': 'application/x-www-form-urlencoded'
-      }
+        'content-type': 'application/x-www-form-urlencoded',
+      },
     }
     const response = await axios(requestConfig)
     const token = response.data.btpToken
@@ -231,7 +231,7 @@ export async function getBTPToken (accessToken) {
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-export async function connectUser (req, res, next) {
+export async function connectUser(req, res, _next) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account

@@ -15,13 +15,13 @@ const IMAGES_TO_BE_LOADED = [
   '/images/wordmark_black.svg',
   '/images/wordmark_white.svg',
   '/images/sky-front.svg',
-  '/images/sky-rear.svg'
+  '/images/sky-rear.svg',
 ]
 
 const SVGStagingEl = document.getElementById('svg')
 const loading = []
 
-export async function loadImages () {
+export async function loadImages() {
   for (const url of IMAGES_TO_BE_LOADED) {
     loading.push(loadImage(url))
   }
@@ -29,7 +29,7 @@ export async function loadImages () {
   return Promise.all(loading)
 }
 
-async function loadImage (url) {
+async function loadImage(url) {
   try {
     const response = await window.fetch(url)
     const body = await response.text()
@@ -85,7 +85,7 @@ async function loadImage (url) {
  * @param {SVGElement} svg
  * @return {string}
  */
-function getSVGOuterHTML (svg) {
+function getSVGOuterHTML(svg) {
   // Height and width values are required to render to canvas in Firefox.
   //
   // Applications that export SVG may set width and height values that differ from viewBox
@@ -119,7 +119,7 @@ function getSVGOuterHTML (svg) {
  * @param {SVGSymbolElement}
  * @return {string}
  */
-function getSVGSymbolInnerHTML (symbol) {
+function getSVGSymbolInnerHTML(symbol) {
   let innerHTML = symbol.innerHTML
 
   // The `innerHTML` property is not available on IE / Edge
@@ -128,11 +128,9 @@ function getSVGSymbolInnerHTML (symbol) {
   // serializes each element to a string.
   if (typeof innerHTML === 'undefined') {
     innerHTML = ''
-    Array.prototype.slice
-      .call(symbol.childNodes)
-      .forEach(function (node, index) {
-        innerHTML += new window.XMLSerializer().serializeToString(node)
-      })
+    Array.prototype.slice.call(symbol.childNodes).forEach(function (node) {
+      innerHTML += new window.XMLSerializer().serializeToString(node)
+    })
   }
 
   return innerHTML
@@ -145,7 +143,7 @@ function getSVGSymbolInnerHTML (symbol) {
  * @param {SVGSymbolElement} symbol
  * @return {string}
  */
-function convertSVGSymbolToSVGHTML (symbol) {
+function convertSVGSymbolToSVGHTML(symbol) {
   // Get a string representation of <symbol>
   const symbolHTML = getSVGSymbolInnerHTML(symbol)
 
@@ -163,7 +161,7 @@ function convertSVGSymbolToSVGHTML (symbol) {
  * @param {SVGElement|SVGSymbolElement} svg - original DOM nodes
  * @param {string} svgHTML - string representation of SVG
  */
-function cacheSVGObject (id, svg, svgHTML) {
+function cacheSVGObject(id, svg, svgHTML) {
   // Browsers appear to do better with base-64 URLs rather than Blobs
   // (Chrome works with blobs, but setting width and height on SVG
   // makes rendering intermittent)
@@ -178,6 +176,6 @@ function cacheSVGObject (id, svg, svgHTML) {
     src,
     img,
     width: svg.viewBox.baseVal.width,
-    height: svg.viewBox.baseVal.height
+    height: svg.viewBox.baseVal.height,
   })
 }

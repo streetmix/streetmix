@@ -7,7 +7,7 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 const { User, Street, Sequence } = models
 
-export async function post (req, res) {
+export async function post(req, res) {
   let body
   const street = {}
   street.id = randomUUID()
@@ -35,7 +35,7 @@ export async function post (req, res) {
     street.creatorIp = requestIp(req)
   }
 
-  function updateUserLastStreetId (userId) {
+  function updateUserLastStreetId(userId) {
     return User.findOne({ where: { auth0_id: userId } }).then((user) => {
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
@@ -44,7 +44,7 @@ export async function post (req, res) {
     })
   }
 
-  async function updateSequence () {
+  async function updateSequence() {
     let sequence
     try {
       sequence = await Sequence.findByPk('streets')
@@ -60,7 +60,7 @@ export async function post (req, res) {
     }
     return Sequence.create({
       id: 'streets',
-      seq: 1
+      seq: 1,
     })
   }
 
@@ -95,7 +95,7 @@ export async function post (req, res) {
       let origStreet
       try {
         origStreet = await Street.findOne({
-          where: { id: body.originalStreetId }
+          where: { id: body.originalStreetId },
         })
       } catch (err) {
         logger.error(err)
@@ -122,7 +122,7 @@ export async function post (req, res) {
     res.status(201).json(s)
   }
 
-  function handleErrors (error) {
+  function handleErrors(error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -149,7 +149,7 @@ export async function post (req, res) {
     let user
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub }
+        where: { auth0_id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -167,7 +167,7 @@ export async function post (req, res) {
   }
 }
 
-export async function del (req, res) {
+export async function del(req, res) {
   if (!req.auth) {
     res.status(401).end()
     return
@@ -178,7 +178,7 @@ export async function del (req, res) {
     return
   }
 
-  async function deleteStreet (street) {
+  async function deleteStreet(street) {
     let user
     if (!req.auth) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
@@ -186,7 +186,7 @@ export async function del (req, res) {
 
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub }
+        where: { auth0_id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -210,7 +210,7 @@ export async function del (req, res) {
     return street.save({ returning: true })
   }
 
-  function handleErrors (error) {
+  function handleErrors(error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -224,7 +224,7 @@ export async function del (req, res) {
       case ERRORS.FORBIDDEN_REQUEST:
         res.status(403).json({
           status: 403,
-          msg: 'Signed-in user cannot delete this street.'
+          msg: 'Signed-in user cannot delete this street.',
         })
         return
       default:
@@ -236,7 +236,7 @@ export async function del (req, res) {
 
   try {
     targetStreet = await Street.findOne({
-      where: { id: req.params.street_id }
+      where: { id: req.params.street_id },
     })
   } catch (err) {
     logger.error(err)
@@ -249,13 +249,13 @@ export async function del (req, res) {
   }
 
   deleteStreet(targetStreet)
-    .then((street) => {
+    .then((_street) => {
       res.status(204).end()
     })
     .catch(handleErrors)
 } // END function - export delete
 
-export async function get (req, res) {
+export async function get(req, res) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -264,7 +264,7 @@ export async function get (req, res) {
 
   try {
     street = await Street.findOne({
-      where: { id: req.params.street_id }
+      where: { id: req.params.street_id },
     })
   } catch (err) {
     logger.error(err)
@@ -313,7 +313,7 @@ export async function get (req, res) {
   res.status(200).json(streetJson)
 } // END function - export get
 
-export async function find (req, res) {
+export async function find(req, res) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
   const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
@@ -332,13 +332,13 @@ export async function find (req, res) {
       return
     }
     return Street.findOne({
-      where: { namespacedId, creatorId: user.id }
+      where: { namespacedId, creatorId: user.id },
     })
   } // END function - findStreetWithCreatorId
 
   const findStreetWithNamespacedId = async function (namespacedId) {
     return Street.findOne({
-      where: { namespacedId, creatorId: null }
+      where: { namespacedId, creatorId: null },
     })
   }
 
@@ -347,14 +347,14 @@ export async function find (req, res) {
       where: { status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
       offset: start,
-      limit: count
+      limit: count,
     })
   } // END function - findStreets
 
   // TODO: There is a bug here where errors thrown by `new Error` will have
   // its value in `error.message`, not error! We should figure out how to
   // make this be consistent
-  function handleErrors (error) {
+  function handleErrors(error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -371,7 +371,7 @@ export async function find (req, res) {
       case ERRORS.FORBIDDEN_REQUEST:
         res.status(403).json({
           status: 403,
-          msg: 'Signed-in user cannot delete this street.'
+          msg: 'Signed-in user cannot delete this street.',
         })
         return
       default:
@@ -403,10 +403,10 @@ export async function find (req, res) {
     const json = {
       meta: {
         links: {
-          self: selfUri
-        }
+          self: selfUri,
+        },
       },
-      streets
+      streets,
     }
 
     if (start > 0) {
@@ -453,7 +453,7 @@ export async function find (req, res) {
   }
 }
 
-export async function put (req, res) {
+export async function put(req, res) {
   let body
 
   if (req.body) {
@@ -477,7 +477,7 @@ export async function put (req, res) {
     return
   }
 
-  function handleErrors (error) {
+  function handleErrors(error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -497,7 +497,7 @@ export async function put (req, res) {
       case ERRORS.FORBIDDEN_REQUEST:
         res.status(403).json({
           status: 403,
-          msg: 'Signed-in user cannot update this street.'
+          msg: 'Signed-in user cannot update this street.',
         })
         return
       default:
@@ -505,7 +505,7 @@ export async function put (req, res) {
     }
   } // END function - handleErrors
 
-  async function updateStreetData (street) {
+  async function updateStreetData(street) {
     street.name = body.name || street.name
     street.data = body.data || street.data
     street.clientUpdatedAt =
@@ -515,7 +515,7 @@ export async function put (req, res) {
       let origStreet
       try {
         origStreet = await Street.findOne({
-          where: { id: body.originalStreetId }
+          where: { id: body.originalStreetId },
         })
       } catch (err) {
         logger.error(err)
@@ -533,14 +533,14 @@ export async function put (req, res) {
   let street
   try {
     street = await Street.findOne({
-      where: { id: req.params.street_id }
+      where: { id: req.params.street_id },
     })
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_UPDATE_STREET)
   }
 
-  async function updateStreetWithUser (street, user) {
+  async function updateStreetWithUser(street, user) {
     if (!user) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
@@ -567,7 +567,7 @@ export async function put (req, res) {
 
   if (!street.creatorId) {
     updateStreetData(street)
-      .then((street) => {
+      .then((_street) => {
         res.status(204).end()
       })
       .catch(handleErrors)
@@ -578,7 +578,7 @@ export async function put (req, res) {
     }
 
     const user = await User.findOne({
-      where: { auth0_id: req.auth.sub }
+      where: { auth0_id: req.auth.sub },
     })
 
     const isOwner = user && user.id === street.creatorId
@@ -588,7 +588,7 @@ export async function put (req, res) {
     }
 
     updateStreetWithUser(street, user)
-      .then((street) => {
+      .then((_street) => {
         res.status(204).end()
       })
       .catch(handleErrors)

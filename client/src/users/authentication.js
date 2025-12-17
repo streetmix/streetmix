@@ -24,15 +24,15 @@ const SIGN_IN_TOKEN_COOKIE = 'login_token'
 const REFRESH_TOKEN_COOKIE = 'refresh_token'
 const LOCAL_STORAGE_SIGN_IN_ID = 'sign-in'
 
-export function doSignIn () {
+export function doSignIn() {
   store.dispatch(showDialog('SIGN_IN'))
 }
 
-export function getSignInData () {
+export function getSignInData() {
   return store.getState().user.signInData ?? {}
 }
 
-export function isSignedIn () {
+export function isSignedIn() {
   return store.getState().user.signedIn
 }
 
@@ -42,13 +42,13 @@ export function isSignedIn () {
  * Do not use this to sign out a user. For that, use signOut(), which ensures
  * that sign out data is also sent to the server.
  */
-function clearAllClientSignInData () {
+function clearAllClientSignInData() {
   store.dispatch(clearSignInData())
   window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
   removeSignInCookies()
 }
 
-export function onStorageChange () {
+export function onStorageChange() {
   if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
     setMode(MODES.FORCE_RELOAD_SIGN_OUT)
     processMode()
@@ -58,7 +58,7 @@ export function onStorageChange () {
   }
 }
 
-function saveSignInDataLocally () {
+function saveSignInDataLocally() {
   const signInData = getSignInData()
   if (signInData) {
     window.localStorage.setItem(
@@ -70,13 +70,13 @@ function saveSignInDataLocally () {
   }
 }
 
-function removeSignInCookies () {
+function removeSignInCookies() {
   Cookies.remove(SIGN_IN_TOKEN_COOKIE)
   Cookies.remove(REFRESH_TOKEN_COOKIE)
   Cookies.remove(USER_ID_COOKIE)
 }
 
-export async function loadSignIn () {
+export async function loadSignIn() {
   const signInCookie = Cookies.get(SIGN_IN_TOKEN_COOKIE)
   const refreshCookie = Cookies.get(REFRESH_TOKEN_COOKIE)
   const userIdCookie = Cookies.get(USER_ID_COOKIE)
@@ -86,7 +86,7 @@ export async function loadSignIn () {
       setSignInData({
         token: signInCookie,
         refreshToken: refreshCookie,
-        userId: userIdCookie
+        userId: userIdCookie,
       })
     )
 
@@ -158,15 +158,15 @@ export async function loadSignIn () {
  * @param {String} refreshToken
  * @returns {Object}
  */
-async function refreshLoginToken (refreshToken) {
+async function refreshLoginToken(refreshToken) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
     const response = await window.fetch('/services/auth/refresh-login-token', {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: requestBody
+      body: requestBody,
     })
 
     if (!response.ok) {
@@ -177,7 +177,7 @@ async function refreshLoginToken (refreshToken) {
   }
 }
 
-function errorRefreshLoginToken (data) {
+function errorRefreshLoginToken(data) {
   if (data.status === 401) {
     signOut(true)
 
@@ -197,7 +197,7 @@ function errorRefreshLoginToken (data) {
  * @param {String} userId
  * @returns {Array}
  */
-async function fetchSignInDetails (userId) {
+async function fetchSignInDetails(userId) {
   try {
     // TODO: See if it's possible to use RTK Query's implementation of getUser
     // because that will cache user details.
@@ -215,7 +215,7 @@ async function fetchSignInDetails (userId) {
         generateFlagOverrides(USER_ROLES[key].flags, `role:${key}`)
       ),
       // user flag overrides
-      generateFlagOverrides(flags, 'user')
+      generateFlagOverrides(flags, 'user'),
     ]
 
     receiveSignInDetails(response.data)
@@ -225,16 +225,16 @@ async function fetchSignInDetails (userId) {
   }
 }
 
-function receiveSignInDetails (details) {
+function receiveSignInDetails(details) {
   const signInData = {
     ...getSignInData(),
-    details
+    details,
   }
   store.dispatch(setSignInData(signInData))
   saveSignInDataLocally()
 }
 
-function errorReceiveSignInDetails (data) {
+function errorReceiveSignInDetails(data) {
   if (data.status === 401) {
     signOut(true)
 
@@ -249,7 +249,7 @@ function errorReceiveSignInDetails (data) {
           'We automatically signed you out due to inactivity. Please sign in again.'
         ),
         component: 'TOAST_SIGN_IN',
-        duration: Infinity
+        duration: Infinity,
       })
     )
 
@@ -263,7 +263,7 @@ function errorReceiveSignInDetails (data) {
   store.dispatch(clearSignInData())
 }
 
-export function onSignOutClick (event) {
+export function onSignOutClick(event) {
   signOut(false)
 
   if (event) {
@@ -271,22 +271,22 @@ export function onSignOutClick (event) {
   }
 }
 
-function signOut (quiet) {
+function signOut(quiet) {
   const signInData = getSignInData()
   store.dispatch(
     updateSettings({
       lastStreetId: null,
       lastStreetNamespacedId: null,
-      lastStreetCreatorId: null
+      lastStreetCreatorId: null,
     })
   )
 
   sendSignOutToServer(signInData.userId, quiet)
 }
 
-function sendSignOutToServer (userId, quiet) {
+function sendSignOutToServer(userId, quiet) {
   return deleteUserLoginToken(userId)
-    .then((response) => {
+    .then((_response) => {
       if (!quiet) {
         receiveSignOutConfirmationFromServer()
       }
@@ -298,17 +298,17 @@ function sendSignOutToServer (userId, quiet) {
     })
 }
 
-function receiveSignOutConfirmationFromServer () {
+function receiveSignOutConfirmationFromServer() {
   setMode(MODES.SIGN_OUT)
   processMode()
 }
 
-function errorReceiveSignOutConfirmationFromServer () {
+function errorReceiveSignOutConfirmationFromServer() {
   setMode(MODES.SIGN_OUT)
   processMode()
 }
 
-function _signInLoaded () {
+function _signInLoaded() {
   loadSettings()
   const street = store.getState().street
   let mode = getMode()
@@ -337,7 +337,7 @@ function _signInLoaded () {
         updateStreetIdMetadata({
           creatorId: settings.lastStreetCreatorId,
           id: settings.lastStreetId,
-          namespacedId: settings.lastStreetNamespacedId
+          namespacedId: settings.lastStreetNamespacedId,
         })
       )
 
@@ -352,7 +352,7 @@ function _signInLoaded () {
               'error.survey-finished',
               'Survey complete. Congratulations and thank you!'
             ),
-            duration: Infinity
+            duration: Infinity,
           })
         )
         setMode(MODES.CONTINUE)

@@ -35,7 +35,7 @@ const initPatreon = () => {
         clientSecret: process.env.PATREON_CLIENT_SECRET,
         callbackURL: `${appURL.origin}/services/integrations/patreon/callback`,
         scope: 'users pledges-to-me my-campaign',
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       async function (req, accessToken, refreshToken, profile, done) {
         /*
@@ -69,7 +69,7 @@ if (process.env.PATREON_CLIENT_ID && process.env.PATREON_CLIENT_SECRET) {
   initPatreon()
 }
 
-export function get (req, res, next) {
+export function get(req, res, next) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -87,11 +87,11 @@ export function get (req, res, next) {
   */
   passport.authorize('patreon', {
     state: req.auth.sub,
-    failureRedirect: '/error'
+    failureRedirect: '/error',
   })(req, res, next)
 }
 
-export function callback (req, res, next) {
+export function callback(req, res, next) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -100,7 +100,7 @@ export function callback (req, res, next) {
   }
 
   passport.authorize('patreon', {
-    failureRedirect: '/error'
+    failureRedirect: '/error',
   })(req, res, next)
 }
 
@@ -108,7 +108,7 @@ export function callback (req, res, next) {
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-export async function connectUser (req, res) {
+export async function connectUser(req, res) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account
@@ -123,7 +123,7 @@ export async function connectUser (req, res) {
   }
 }
 
-export function webhook (req, res, next) {
+export function webhook(req, res, _next) {
   // Check for the existence of headers specified by Patreon Webhooks docs
   // https://docs.patreon.com/#webhooks
   // While the docs specify headers with capitalization, the actual headers
