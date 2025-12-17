@@ -61,38 +61,38 @@ export function VariantButton(props: VariantButtonProps) {
   // If there is an enable condition, add a note to the tooltip if it
   // is locked for a reason (e.g. must sign in, must be a subscriber)
   // If an "unlock flag" is set, enable the thing
-  if (
-    icon.unlockCondition !== undefined &&
-    !(icon.unlockWithFlag !== undefined && flags[icon.unlockWithFlag]?.value)
-  ) {
-    switch (icon.unlockCondition) {
-      case 'SUBSCRIBE':
-        if (!isSubscriber) {
-          isLocked = true
-          sublabel = intl.formatMessage({
-            id: 'plus.locked.sub',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎',
-          })
-        }
-        break
-      case 'SIGN_IN':
-      default:
-        if (!isSignedIn) {
-          isLocked = true
-          sublabel = intl.formatMessage({
-            id: 'plus.locked.user',
-            // Default message ends with a Unicode-only left-right order mark
-            // to allow for proper punctuation in `rtl` text direction
-            // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎',
-          })
-        }
-        break
-    }
-  }
+  // if (
+  //   icon.unlockCondition !== undefined &&
+  //   !(icon.unlockWithFlag !== undefined && flags[icon.unlockWithFlag]?.value)
+  // ) {
+  //   switch (icon.unlockCondition) {
+  //     case 'SUBSCRIBE':
+  //       if (!isSubscriber) {
+  //         isLocked = true
+  //         sublabel = intl.formatMessage({
+  //           id: 'plus.locked.sub',
+  //           // Default message ends with a Unicode-only left-right order mark
+  //           // to allow for proper punctuation in `rtl` text direction
+  //           // This character is hidden from editors by default!
+  //           defaultMessage: 'Upgrade to Streetmix+ to use!‎',
+  //         })
+  //       }
+  //       break
+  //     case 'SIGN_IN':
+  //     default:
+  //       if (!isSignedIn) {
+  //         isLocked = true
+  //         sublabel = intl.formatMessage({
+  //           id: 'plus.locked.user',
+  //           // Default message ends with a Unicode-only left-right order mark
+  //           // to allow for proper punctuation in `rtl` text direction
+  //           // This character is hidden from editors by default!
+  //           defaultMessage: 'Sign in to use!‎',
+  //         })
+  //       }
+  //       break
+  //   }
+  // }
 
   return (
     <Tooltip label={label} sublabel={sublabel} placement="bottom">
