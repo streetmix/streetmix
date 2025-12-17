@@ -1,38 +1,29 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import { getSegmentInfo } from '@streetmix/parts'
 
-import { segmentsChanged } from '~/src/segments/view'
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { toggleSliceSlope } from '~/src/store/slices/street'
-import Switch from '~/src/ui/Switch'
-
-import type { BoundaryPosition } from '@streetmix/types'
+import { segmentsChanged } from '~/src/segments/view.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { toggleSliceSlope } from '~/src/store/slices/street.js'
+import Switch from '~/src/ui/Switch.js'
 
 interface SlopeControlProps {
-  position: number | BoundaryPosition
+  position: number
 }
 
 export function SlopeControl({ position }: SlopeControlProps) {
-  const isSloped = useSelector((state) => {
-    if (typeof position === 'number') {
-      return state.street.segments[position].slope.on
-    } else {
-      return false
-    }
+  const slice = useSelector((state) => {
+    return state.street.segments[position]
   })
-
   const dispatch = useDispatch()
 
-  function handleSlopeChange(checked: boolean): void {
-    if (typeof position === 'number') {
-      dispatch(toggleSliceSlope(position, checked))
-      segmentsChanged()
-    }
-  }
+  const { rules } = getSegmentInfo(slice.type)
+  // Allow sloping when slope rule is `path` or `berm`. Defaults to false.
+  const allowSlope = rules?.slope === 'path' || rules?.slope === 'berm'
+  const isSloped = allowSlope && slice.slope.on
 
-  // No slope control for boundaries
-  if (typeof position !== 'number') {
-    return null
+  function handleSlopeChange(checked: boolean): void {
+    dispatch(toggleSliceSlope(position, checked))
+    segmentsChanged()
   }
 
   return (
@@ -41,7 +32,11 @@ export function SlopeControl({ position }: SlopeControlProps) {
         <FormattedMessage id="segments.controls.slope" defaultMessage="Slope" />
       </div>
       <div>
-        <Switch onCheckedChange={handleSlopeChange} checked={isSloped} />
+        <Switch
+          onCheckedChange={handleSlopeChange}
+          checked={isSloped}
+          disabled={!allowSlope}
+        />
       </div>
     </div>
   )

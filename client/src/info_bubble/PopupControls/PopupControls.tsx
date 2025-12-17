@@ -12,7 +12,7 @@ import './PopupControls.css'
 import { SlopeControl } from './SlopeControl'
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function PopupControls (
+export function PopupControls(
   props: SectionElementTypeAndPosition
 ): React.ReactElement {
   const { type, position } = props
@@ -55,7 +55,8 @@ export function PopupControls (
       {coastmixMode && (
         <div className="popup-control-group">
           <ElevationControl position={position} />
-          <SlopeControl position={position} />
+          {/* No slope control for boundaries */}
+          {typeof position === 'number' && <SlopeControl position={position} />}
         </div>
       )}
       {coastmixMode && (
