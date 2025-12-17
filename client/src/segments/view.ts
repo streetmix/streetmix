@@ -375,6 +375,17 @@ export function drawSegmentContents(
   let groundLevel =
     groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
 
+  // Catch if the variant doesn't allow sloping, so we turn it off
+  const canSlope = !(
+    variantInfo.slope === 'off' || variantInfo.slope === undefined
+  )
+  // Make sure this doesn't actually update the parent object! It's only
+  // meant to affect the render.
+  if (!canSlope) {
+    slope.on = false
+    slope.values = []
+  }
+
   // Slope proof of concept: ignore elevation value if slice is sloped
   if (!slope.on) {
     groundLevel -= multiplier * elevationValue
