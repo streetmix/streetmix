@@ -9,7 +9,7 @@
   },
   "ANALYTICS": {
     "label": "UI — Street analytics",
-    "defaultValue": true
+    "defaultValue": false
   },
   "EDIT_STREET_WIDTH": {
     "label": "UI — Edit street width",
@@ -41,11 +41,11 @@
   },
   "ENVIRONMENTS_UNLOCKED": {
     "label": "Environment — unlocked",
-    "defaultValue": false
+    "defaultValue": true
   },
   "WEATHER_EFFECTS": {
     "label": "Environment — weather effects",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
@@ -127,7 +127,7 @@
   },
   "COASTMIX_MODE": {
     "label": "Coastmix features",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SILLY_CLOWNS": {
     "label": "Silly clowns",
