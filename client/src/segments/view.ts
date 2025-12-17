@@ -799,7 +799,6 @@ function calculateSlopeYAdjustment(
   const y3 = m * (x3 - x1) + y1
 
   const adjustment = y3 * TILE_SIZE * multiplier
-  console.log(midpointPercentage, x, x3, adjustment)
   return adjustment
 }
 
