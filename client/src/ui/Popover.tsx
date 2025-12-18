@@ -27,7 +27,7 @@ const PopoverContent = forwardRef(
 
 PopoverContent.displayName = 'PopoverContent'
 
-function Popover({ label, children }: PopoverProps) {
+export function Popover({ label, children }: PopoverProps) {
   const intl = useIntl()
   const a11yLabel =
     label ??
@@ -56,5 +56,3 @@ function Popover({ label, children }: PopoverProps) {
     </PopoverPrimitive.Root>
   )
 }
-
-export default Popover

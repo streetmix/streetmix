@@ -355,7 +355,7 @@ export function drawSegmentContents(
   offsetLeft: number,
   groundBaseline: number,
   elevation: number,
-  slope: SlopeProperties,
+  slopeOrig: SlopeProperties,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -372,10 +372,26 @@ export function drawSegmentContents(
 
   const groundLevelOffsetY = variantInfo.offsetY ?? 0
   const elevationValue = getElevation(elevation)
-  const groundLevel =
-    groundBaseline -
-    multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL) -
-    multiplier * elevationValue
+  let groundLevel =
+    groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
+
+  // Clone the slope object from the function argument so it can be
+  // overridden if slope is turned off by slice element/variant rules
+  const slope: SlopeProperties = {
+    on: slopeOrig.on,
+    values: [...slopeOrig.values],
+  }
+
+  // If the slice element/variant doesn't allow sloping, turn it off
+  if (variantInfo.slope === 'off' || variantInfo.slope === undefined) {
+    slope.on = false
+    slope.values = []
+  }
+
+  // Slope proof of concept: ignore elevation value if slice is sloped
+  if (!slope.on) {
+    groundLevel -= multiplier * elevationValue
+  }
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
 
@@ -533,11 +549,24 @@ export function drawSegmentContents(
             multiplier
       }
 
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg.width,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
+      }
 
       drawSegmentImage(
         sprite.id,
@@ -588,11 +617,24 @@ export function drawSegmentContents(
           multiplier
       }
 
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg.width,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
+      }
 
       drawSegmentImage(
         sprite.id,
@@ -635,11 +677,24 @@ export function drawSegmentContents(
           offsetX / TILE_SIZE_ACTUAL) *
         TILE_SIZE *
         multiplier
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      // Proof of concept ground adjustment for sloped items
+      if (slope.on) {
+        const adjustment = calculateSlopeYAdjustment(
+          slope,
+          actualWidth,
+          x,
+          svg.width,
+          multiplier,
+          segmentWidth
+        )
+        distanceFromGround += adjustment
+      }
 
       drawSegmentImage(
         sprite.id,
@@ -715,6 +770,51 @@ export function drawSegmentContents(
       )
     }
   }
+}
+
+function calculateSlopeYAdjustment(
+  slope: SlopeProperties,
+  actualWidth: number,
+  x: number,
+  svgWidth: number,
+  multiplier: number,
+  segmentWidth: number
+) {
+  const y1 = slope.values[0]
+  const y2 = slope.values[1]
+  const x1 = 0
+  const x2 = actualWidth
+  const m = (y2 - y1) / (x2 - x1) // Slope
+
+  // Find x3, the x position along the slope where we need the new y height
+  // TODO: can we calc this without the numbers from pixel dimensions
+  const midpoint =
+    x > 0
+      ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+      : // If x is less than 0, midpoint is 1/2 of segment width
+        // This only works if the object is in the center.
+        segmentWidth / 2
+  const midpointPercentage = midpoint / segmentWidth
+  const x3 = midpointPercentage * (x2 - x1)
+
+  // Solve for y3
+  const y3 = m * (x3 - x1) + y1
+
+  const adjustment = y3 * TILE_SIZE * multiplier
+  return adjustment
+}
+
+export function getLocaleSegmentName(
+  type: string,
+  variantString: string
+): string {
+  const segmentInfo = getSegmentInfo(type)
+  const variantInfo = getSegmentVariantInfo(type, variantString)
+  const defaultName = variantInfo.name ?? segmentInfo.name
+  const nameKey = variantInfo.nameKey ?? segmentInfo.nameKey
+  const key = `segments.${nameKey}`
+
+  return formatMessage(key, defaultName, { ns: 'segment-info' })
 }
 
 /**

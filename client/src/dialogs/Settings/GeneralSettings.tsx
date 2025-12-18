@@ -3,12 +3,12 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { setFeatureFlag } from '~/src/store/slices/flags'
-import Popover from '~/src/ui/Popover'
-import Switch from '~/src/ui/Switch'
+import { Popover } from '~/src/ui/Popover'
+import { Switch } from '~/src/ui/Switch'
 import AppearanceSettings from './AppearanceSettings'
 import UnitSettings from './UnitSettings'
 
-function GeneralSettings (): React.ReactElement {
+function GeneralSettings(): React.ReactElement {
   const flags = useSelector((state) => state.flags)
 
   return (
@@ -44,15 +44,15 @@ function GeneralSettings (): React.ReactElement {
 /**
  * Silly clowns is a feature flag that is also now user-editable.
  */
-function SillyClownSetting (): React.ReactElement {
+function SillyClownSetting(): React.ReactElement {
   const flag = useSelector((state) => state.flags.SILLY_CLOWNS)
   const dispatch = useDispatch()
 
-  function handleCheckedChange (checked: boolean): void {
+  function handleCheckedChange(checked: boolean): void {
     dispatch(
       setFeatureFlag({
         flag: 'SILLY_CLOWNS',
-        value: checked
+        value: checked,
       })
     )
   }

@@ -1,44 +1,37 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
+import { useSelector } from '~/src/store/hooks.js'
 import './TestSlope.css'
 
-import { calculateSlope } from './slope'
-import type { Segment } from '@streetmix/types'
+import type { SliceItem } from '@streetmix/types'
+import type { SlopeCalculation } from './slope.js'
 
 interface Props {
-  slice: Segment
+  slice: SliceItem
+  slopeData: SlopeCalculation
 }
 
-function TestSlope ({ slice }: Props): React.ReactNode | null {
-  const street = useSelector((state) => state.street)
+export function TestSlope({ slice, slopeData }: Props) {
   const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
-  const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
-  const slopeData = calculateSlope(street, sliceIndex)
-
-  // Bail if slice has been removed
-  if (slopeData === null) return null
 
   const { slope, ratio, warnings } = slopeData
 
   const styles = {
-    color: 'inherit'
+    color: 'green',
   }
-  // TODO: handle slope exceeded for paths
+  if (warnings.slopeExceededPath) {
+    styles.color = 'yellow'
+  }
   if (warnings.slopeExceededBerm) {
     styles.color = 'red'
   }
 
-  return (
+  return debug ? (
     <div className="test-slope-container">
-      {debug && street.segments[sliceIndex].slope && (
+      {slice.slope.on && (
         <div className="slope-debug">
           <p style={styles}>{slope} %</p>
-          <p style={styles}>{ratio}:1</p>
+          <p style={styles}>{ratio ?? 0}:1</p>
         </div>
       )}
     </div>
-  )
+  ) : null
 }
-
-export default TestSlope

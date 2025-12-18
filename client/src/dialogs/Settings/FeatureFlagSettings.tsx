@@ -2,13 +2,13 @@ import React from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { setFeatureFlag } from '~/src/store/slices/flags'
-import Switch from '~/src/ui/Switch'
+import { Switch } from '~/src/ui/Switch'
 
-function FeatureFlagSettings (): React.ReactElement {
+function FeatureFlagSettings(): React.ReactElement {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
 
-  function renderFlagList (): React.ReactElement[] {
+  function renderFlagList(): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
       // If the setting has changed, display it differently
       const isNotDefault = flag.defaultValue !== flag.value
@@ -21,7 +21,7 @@ function FeatureFlagSettings (): React.ReactElement {
               dispatch(
                 setFeatureFlag({
                   flag: key,
-                  value: checked
+                  value: checked,
                 })
               )
             }}

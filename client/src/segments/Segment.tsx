@@ -25,10 +25,11 @@ import {
   SLICE_WARNING_WIDTH_TOO_SMALL,
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
 } from './constants'
 import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
 import { RESIZE_TYPE_INCREMENT } from './resizing'
-import TestSlope from './TestSlope'
+import { TestSlope } from './TestSlope'
 import './Segment.css'
 
 import { calculateSlope } from './slope'
@@ -72,6 +73,14 @@ function Segment(props: SliceProps) {
   const [collected, drag, dragPreview] = useDrag(dragSpec)
   const { isDragging }: { isDragging: boolean } = collected
   drag(drop(dndRef))
+
+  // Slope calculations
+  const slopeData = calculateSlope(street, sliceIndex)
+  // TODO: slope values should be calced elsewhere and saved
+  const slopeTemp = { ...segment.slope }
+  if (slopeData !== null) {
+    slopeTemp.values = slopeData.values
+  }
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
@@ -195,13 +204,6 @@ function Segment(props: SliceProps) {
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
 
-    const slopeData = calculateSlope(street, sliceIndex)
-    // TODO: slope values should be calced elsewhere and saved
-    const slopeTemp = { ...segment.slope }
-    if (slopeData !== null) {
-      slopeTemp.values = slopeData.values
-    }
-
     return (
       <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
         <SegmentCanvas
@@ -214,7 +216,6 @@ function Segment(props: SliceProps) {
           elevation={segment.elevation}
           slope={slopeTemp}
         />
-        {coastmixMode && <TestSlope slice={segment} />}
       </div>
     )
   }
@@ -244,12 +245,12 @@ function Segment(props: SliceProps) {
   }
 
   // Warnings
-  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH
   if (
     segment.warnings[SLICE_WARNING_OUTSIDE] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
     segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
   ) {
     classNames.push('warning')
   }
@@ -304,6 +305,9 @@ function Segment(props: SliceProps) {
               {renderSegmentCanvas('new', newRef)}
             </CSSTransition>
           </div>
+          {coastmixMode && slopeData && (
+            <TestSlope slice={segment} slopeData={slopeData} />
+          )}
           <div className="active-bg" />
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>

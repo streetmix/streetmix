@@ -1,8 +1,9 @@
 .test-slope-container {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 100%;
+
+  /* Prevent this component from interfering with drag events */
+  pointer-events: none;
 }
 
 .slope-debug {

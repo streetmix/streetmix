@@ -151,6 +151,8 @@ export interface StreetState extends StreetJsonExtra {
   immediateRemoval: boolean
 }
 
+export type SlopeConstraints = 'off' | 'path' | 'berm'
+
 export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 
 export interface SliceDescription {
@@ -172,6 +174,7 @@ export interface SliceVariantDetails {
     minWidth?: MeasurementValues
     maxWidth?: MeasurementValues
     dangerous?: boolean
+    slope?: SlopeConstraints
   }
   defaultWidth?: MeasurementValues
   description?: SliceDescription
@@ -199,6 +202,7 @@ export interface SegmentLookup {
   rules?: {
     minWidth?: MeasurementValues
     maxWidth?: MeasurementValues
+    slope?: SlopeConstraints
   }
   variants: string[]
   details: Record<string, SliceVariantDetails>
@@ -221,6 +225,7 @@ export interface VariantInfo {
   minWidth?: MeasurementValues
   maxWidth?: MeasurementValues
   dangerous?: boolean
+  slope?: SlopeConstraints
   elevation: number | MeasurementValues
   graphics: Record<string, unknown> // TODO
 }

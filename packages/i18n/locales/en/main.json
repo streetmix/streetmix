@@ -416,7 +416,10 @@
     },
     "controls": {
       "elevation": "Elevation",
-      "slope": "Slope"
+      "slope": {
+        "label": "Slope",
+        "disabled-tooltip": "This element cannot be sloped."
+      }
     }
   },
   "section": {

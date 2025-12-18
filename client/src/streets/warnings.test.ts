@@ -1,5 +1,5 @@
-import { applyWarningsToSlices } from './warnings'
-import { recalculateWidth } from './width'
+import { applyWarningsToSlices } from './warnings.js'
+import { recalculateWidth } from './width.js'
 
 describe('applyWarningsToSlices', () => {
   it('applies no warnings', () => {
@@ -92,7 +92,12 @@ describe('applyWarningsToSlices', () => {
       boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
         { width: 3, elevation: 0 },
-        { width: 3, slope: { on: true, values: [0, 4] } },
+        {
+          width: 3,
+          type: 'divider',
+          variantString: 'planting-strip',
+          slope: { on: true, values: [0, 4] },
+        },
         { width: 3, elevation: 4 },
       ],
     }
@@ -105,6 +110,8 @@ describe('applyWarningsToSlices', () => {
       },
       {
         width: 3,
+        type: 'divider',
+        variantString: 'planting-strip',
         slope: { on: true, values: [0, 4] },
         warnings: [false, false, false, false, false, true, true],
       },

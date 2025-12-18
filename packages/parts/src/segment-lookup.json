@@ -12,7 +12,8 @@
       "minWidth": {
         "metric": 1.8,
         "imperial": 6
-      }
+      },
+      "slope": "path"
     },
     "defaultElevation": {
       "metric": 0.15,
@@ -104,6 +105,9 @@
       "metric": 1.2,
       "imperial": 4
     },
+    "rules": {
+      "slope": "path"
+    },
     "variants": ["tree-type"],
     "details": {
       "big": {
@@ -156,6 +160,9 @@
     "defaultWidth": {
       "metric": 1.5,
       "imperial": 5
+    },
+    "rules": {
+      "slope": "path"
     },
     "defaultVariant": "left|sidewalk",
     "variants": ["orientation", "bike-rack-elevation"],
@@ -291,6 +298,9 @@
       "metric": 1.2,
       "imperial": 4
     },
+    "rules": {
+      "slope": "path"
+    },
     "variants": ["bench-orientation"],
     "details": {
       "left": {
@@ -363,6 +373,9 @@
     "defaultWidth": {
       "metric": 2.4,
       "imperial": 8
+    },
+    "rules": {
+      "slope": "path"
     },
     "unlockCondition": "SIGN_IN",
     "variants": ["occupants", "elevation"],
@@ -478,6 +491,9 @@
       "key": "wayfinding-sign",
       "image": "wayfinding-02.jpg"
     },
+    "rules": {
+      "slope": "path"
+    },
     "variants": ["wayfinding-type"],
     "details": {
       "large": {
@@ -550,6 +566,9 @@
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
+    },
+    "rules": {
+      "slope": "path"
     },
     "defaultVariant": "both|traditional",
     "variants": ["lamp-orientation", "lamp-type"],
@@ -763,6 +782,9 @@
       "metric": 1.2,
       "imperial": 4
     },
+    "rules": {
+      "slope": "berm"
+    },
     "unlockCondition": "SIGN_IN",
     "variants": ["orientation"],
     "details": {
@@ -825,7 +847,8 @@
       "minWidth": {
         "metric": 2.4,
         "imperial": 8
-      }
+      },
+      "slope": "path"
     },
     "variants": ["orientation"],
     "details": {
@@ -884,7 +907,8 @@
       "minWidth": {
         "metric": 1.2,
         "imperial": 4
-      }
+      },
+      "slope": "path"
     },
     "defaultElevation": {
       "metric": 0.15,
@@ -1084,6 +1108,9 @@
       "planting-strip": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1139,6 +1166,9 @@
       "median": {
         "name": "Median",
         "nameKey": "median",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1178,6 +1208,9 @@
       "bush": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1206,6 +1239,9 @@
       "flowers": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1234,6 +1270,9 @@
       "big-tree": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1262,6 +1301,9 @@
       "palm-tree": {
         "name": "Planting strip",
         "nameKey": "planting-strip",
+        "rules": {
+          "slope": "berm"
+        },
         "components": {
           "lanes": [
             {
@@ -1575,7 +1617,8 @@
       "minWidth": {
         "metric": 1.2,
         "imperial": 4
-      }
+      },
+      "slope": "path"
     },
     "variants": ["direction", "bike-asphalt"],
     "details": {
@@ -2010,7 +2053,8 @@
       "minWidth": {
         "metric": 1.5,
         "imperial": 5
-      }
+      },
+      "slope": "path"
     },
     "variants": ["bike-direction", "bike-asphalt", "elevation"],
     "details": {
@@ -3411,7 +3455,8 @@
       "maxWidth": {
         "metric": 3,
         "imperial": 10
-      }
+      },
+      "slope": "path"
     },
     "variants": ["parking-lane-direction", "parking-lane-orientation"],
     "details": {
@@ -3858,7 +3903,8 @@
       "maxWidth": {
         "metric": 3.6,
         "imperial": 12
-      }
+      },
+      "slope": "path"
     },
     "variants": ["direction", "car-type"],
     "details": {
@@ -4510,7 +4556,8 @@
       "maxWidth": {
         "metric": 3.6,
         "imperial": 12
-      }
+      },
+      "slope": "path"
     },
     "variants": ["direction", "turn-lane-orientation"],
     "details": {
@@ -4951,7 +4998,8 @@
       "maxWidth": {
         "metric": 3.9,
         "imperial": 13
-      }
+      },
+      "slope": "path"
     },
     "variants": ["direction", "bus-asphalt", "bus-type"],
     "details": {
@@ -5598,7 +5646,8 @@
       "maxWidth": {
         "metric": 4.2,
         "imperial": 14
-      }
+      },
+      "slope": "path"
     },
     "variants": ["direction", "public-transit-asphalt"],
     "details": {
@@ -6131,7 +6180,8 @@
       "minWidth": {
         "metric": 4,
         "imperial": 13.5
-      }
+      },
+      "slope": "off"
     },
     "variants": ["brt-station-orientation"],
     "details": {
@@ -6384,6 +6434,9 @@
       "metric": 3,
       "imperial": 10
     },
+    "rules": {
+      "slope": "berm"
+    },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "jasmine-aladdin",
     "variants": ["magic-carpet-occupants"],
@@ -6477,6 +6530,9 @@
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
+    },
+    "rules": {
+      "slope": "berm"
     },
     "defaultVariant": "beach",
     "enableWithFlag": "COASTMIX_MODE",

@@ -1,6 +1,6 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
+// TODO: use <Icon />
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
 import {
@@ -8,8 +8,9 @@ import {
   SLICE_WARNING_WIDTH_TOO_SMALL,
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_DANGEROUS_EXISTING,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM
-} from '~/src/segments/constants'
+  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
+  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
+} from '~/src/segments/constants.js'
 import './Warnings.css'
 
 import type { Segment } from '@streetmix/types'
@@ -18,7 +19,7 @@ interface WarningsProps {
   segment?: Pick<Segment, 'warnings'>
 }
 
-export function Warnings (props: WarningsProps): React.ReactElement | null {
+export function Warnings(props: WarningsProps) {
   const { segment } = props
   const messages = []
 
@@ -32,7 +33,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
           id="segments.warnings.dangerous"
           defaultMessage="This is a dangerous existing condition."
         />
-      )
+      ),
     })
   }
   if (segment.warnings[SLICE_WARNING_OUTSIDE]) {
@@ -43,7 +44,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
           id="segments.warnings.does-not-fit"
           defaultMessage="This doesn’t fit within the street."
         />
-      )
+      ),
     })
   }
   if (segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
@@ -54,7 +55,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
           id="segments.warnings.not-wide"
           defaultMessage="This may not be wide enough."
         />
-      )
+      ),
     })
   }
   if (segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
@@ -65,11 +66,13 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
           id="segments.warnings.too-wide"
           defaultMessage="This may be too wide."
         />
-      )
+      ),
     })
   }
-  // TODO: implement SLICE_WARNING_SLOPE_EXCEEDED_PATH based on use case
-  if (segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM]) {
+  if (
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+  ) {
     messages.push({
       type: 'error',
       message: (
@@ -77,7 +80,7 @@ export function Warnings (props: WarningsProps): React.ReactElement | null {
           id="segments.warnings.slope-exceeded"
           defaultMessage="This may be too steep."
         />
-      )
+      ),
     })
   }
 
