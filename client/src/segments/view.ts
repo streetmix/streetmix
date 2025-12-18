@@ -355,7 +355,7 @@ export function drawSegmentContents(
   offsetLeft: number,
   groundBaseline: number,
   elevation: number,
-  slope: SlopeProperties,
+  slopeOrig: SlopeProperties,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -375,13 +375,15 @@ export function drawSegmentContents(
   let groundLevel =
     groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
 
-  // Catch if the variant doesn't allow sloping, so we turn it off
-  const canSlope = !(
-    variantInfo.slope === 'off' || variantInfo.slope === undefined
-  )
-  // Make sure this doesn't actually update the parent object! It's only
-  // meant to affect the render.
-  if (!canSlope) {
+  // Clone the slope object from the function argument so it can be
+  // overridden if slope is turned off by slice element/variant rules
+  const slope: SlopeProperties = {
+    on: slopeOrig.on,
+    values: [...slopeOrig.values],
+  }
+
+  // If the slice element/variant doesn't allow sloping, turn it off
+  if (variantInfo.slope === 'off' || variantInfo.slope === undefined) {
     slope.on = false
     slope.values = []
   }
