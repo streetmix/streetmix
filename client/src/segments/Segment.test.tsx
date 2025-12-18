@@ -1,15 +1,15 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 import { screen } from '@testing-library/dom'
 
-import { render } from '~/test/helpers/render'
-import { setLastStreet } from '~/src/streets/data_model'
-import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
-import Segment from './Segment'
+import { render } from '~/test/helpers/render.js'
+import { setLastStreet } from '~/src/streets/data_model.js'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
+import Segment from './Segment.js'
+
 import type { SliceItem } from '@streetmix/types'
 
-vi.mock('../info_bubble/info_bubble')
+vi.mock('../info_bubble/info_bubble.js')
 
 describe('Segment', () => {
   const increment = 0.1
@@ -28,26 +28,30 @@ describe('Segment', () => {
       variantString,
       variant: {
         direction: 'inbound',
-        'public-transit-asphalt': 'regular'
+        'public-transit-asphalt': 'regular',
       },
       id: '1',
       width: 5,
       elevation: 0,
-      warnings: []
+      slope: {
+        on: false,
+        values: [],
+      },
+      warnings: [],
     }
     initialState = {
       flags: {
         ANALYTICS: { value: true },
         COASTMIX_MODE: { value: false },
-        DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false }
+        DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
       },
       ui: { activeSegment: activeElement },
       street: {
         showAnalytics: true,
         boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
         segments: [segment],
-        width: 5
-      }
+        width: 5,
+      },
     }
   })
 
