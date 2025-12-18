@@ -1,5 +1,5 @@
 import L, { type Map } from 'leaflet'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useIntl } from 'react-intl'
 import {
   AttributionControl,
@@ -180,7 +180,7 @@ export function GeotagDialog() {
         if (locationRequested) return
 
         // Only set this if we're not already centered on an existing location
-        if (!street.location || !markerLocation) {
+        if (!street.location && !markerLocation) {
           map.fitBounds(event.bounds)
         }
 
