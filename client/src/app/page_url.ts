@@ -54,13 +54,8 @@ export function processUrl(): void {
       case STREET_TEMPLATES.COPY:
         setMode(MODES.NEW_STREET_COPY_LAST, { type })
         break
-      case STREET_TEMPLATES.EMPTY:
-      case STREET_TEMPLATES.HARBORWALK:
-      case STREET_TEMPLATES.COASTAL_ROAD:
-      case STREET_TEMPLATES.BEACH:
-      case STREET_TEMPLATES.DEFAULT:
       default:
-        setMode(MODES.NEW_STREET, { type: STREET_TEMPLATES.DEFAULT })
+        setMode(MODES.NEW_STREET, { type: type ?? STREET_TEMPLATES.DEFAULT })
         break
     }
 
