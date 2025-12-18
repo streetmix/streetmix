@@ -110,7 +110,7 @@ describe('SlopeControl', () => {
     expect(toggleSliceSlope).toBeCalled()
   })
 
-  it('disables control when rule is `off', () => {
+  it('disables control when rule is `off`', () => {
     ;(getSegmentVariantInfo as Mock).mockReturnValueOnce({
       rules: {
         slope: 'off',
