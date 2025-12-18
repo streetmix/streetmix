@@ -112,9 +112,7 @@ describe('SlopeControl', () => {
 
   it('disables control when rule is `off`', () => {
     ;(getSegmentVariantInfo as Mock).mockReturnValueOnce({
-      rules: {
-        slope: 'off',
-      },
+      slope: 'off',
     })
 
     const { getByRole } = render(<SlopeControl position={1} />, {
