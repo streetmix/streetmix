@@ -27,7 +27,7 @@ const WhatsNewDialog = (): React.ReactElement => {
     }
   }
 
-  async function getContent (): Promise<void> {
+  async function getContent(): Promise<void> {
     try {
       const response = await getChangelog()
       setContent(response.data)
@@ -68,6 +68,8 @@ const WhatsNewDialog = (): React.ReactElement => {
                     'p',
                     'em',
                     'strong',
+                    's',
+                    'kbd',
                     'ol',
                     'ul',
                     'li',
@@ -76,7 +78,7 @@ const WhatsNewDialog = (): React.ReactElement => {
                     'h2',
                     'h3',
                     'a',
-                    'img'
+                    'img',
                   ]}
                   unwrapDisallowed
                   urlTransform={(url) => {
@@ -85,8 +87,8 @@ const WhatsNewDialog = (): React.ReactElement => {
                   rehypePlugins={[
                     [
                       rehypeExternalLinks,
-                      { rel: 'noopener noreferrer', target: '_blank' }
-                    ]
+                      { rel: 'noopener noreferrer', target: '_blank' },
+                    ],
                   ]}
                 >
                   {content}
