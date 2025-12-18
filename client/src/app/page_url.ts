@@ -60,7 +60,7 @@ export function processUrl(): void {
       case STREET_TEMPLATES.BEACH:
       case STREET_TEMPLATES.DEFAULT:
       default:
-        setMode(MODES.NEW_STREET, { type })
+        setMode(MODES.NEW_STREET, { type: STREET_TEMPLATES.DEFAULT })
         break
     }
 
