@@ -227,10 +227,46 @@ export interface VariantInfo {
   dangerous?: boolean
   slope?: SlopeConstraints
   elevation: number | MeasurementValues
-  graphics: Record<string, unknown> // TODO
+  graphics: VariantGraphics
 }
 
-export interface UnknownVariantInfo extends Partial<VariantInfo> {
+// graphics definitions are allowed to be a string, a SpriteDefinition
+// object, or an array containing those. they should all eventually be
+// normalized to StringDefinition[]
+export type VariantGraphicsDefinition =
+  | string
+  | SpriteDefinition
+  | (string | SpriteDefinition)[]
+
+export interface VariantGraphics {
+  ground?: VariantGraphicsDefinition
+  left?: VariantGraphicsDefinition
+  right?: VariantGraphicsDefinition
+  center?: VariantGraphicsDefinition
+  repeat?: VariantGraphicsDefinition
+  // `pool` and `sprites` are mutually exclusive
+  scatter?:
+    | {
+        pool: string
+        minSpacing: number
+        maxSpacing: number
+        padding: number
+      }
+    | {
+        sprites: (string | SpriteDefinition)[]
+        minSpacing: number
+        maxSpacing: number
+        padding: number
+      }
+  quirks?: {
+    minWidth: number
+  }
+}
+
+export interface UnknownVariantInfo extends Pick<
+  VariantInfo,
+  'name' | 'graphics'
+> {
   unknown: true
 }
 
@@ -307,8 +343,8 @@ export interface SkyboxDefWithStyles extends SkyboxDefinition {
 
 export interface SpriteDefinition {
   id: string
-  offsetX?: number
-  offsetY?: number
+  offsetX?: number | `${string}%`
+  offsetY?: number | `${string}%`
   originY?: number
 }
 
