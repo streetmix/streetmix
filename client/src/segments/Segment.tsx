@@ -74,6 +74,14 @@ function Segment(props: SliceProps) {
   const { isDragging }: { isDragging: boolean } = collected
   drag(drop(dndRef))
 
+  // Slope calculations
+  const slopeData = calculateSlope(street, sliceIndex)
+  // TODO: slope values should be calced elsewhere and saved
+  const slopeTemp = { ...segment.slope }
+  if (slopeData !== null) {
+    slopeTemp.values = slopeData.values
+  }
+
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
     segment,
@@ -196,13 +204,6 @@ function Segment(props: SliceProps) {
   ): React.ReactNode {
     const isOldVariant = variantType === 'old'
 
-    const slopeData = calculateSlope(street, sliceIndex)
-    // TODO: slope values should be calced elsewhere and saved
-    const slopeTemp = { ...segment.slope }
-    if (slopeData !== null) {
-      slopeTemp.values = slopeData.values
-    }
-
     return (
       <div ref={nodeRef} style={{ width: '100%', height: '100%' }}>
         <SegmentCanvas
@@ -215,7 +216,6 @@ function Segment(props: SliceProps) {
           elevation={segment.elevation}
           slope={slopeTemp}
         />
-        {coastmixMode && <TestSlope slice={segment} />}
       </div>
     )
   }
@@ -305,6 +305,9 @@ function Segment(props: SliceProps) {
               {renderSegmentCanvas('new', newRef)}
             </CSSTransition>
           </div>
+          {coastmixMode && slopeData && (
+            <TestSlope slice={segment} slopeData={slopeData} />
+          )}
           <div className="active-bg" />
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>

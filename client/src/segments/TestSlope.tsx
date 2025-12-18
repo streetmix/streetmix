@@ -1,21 +1,16 @@
 import { useSelector } from '~/src/store/hooks.js'
-import { calculateSlope } from './slope.js'
 import './TestSlope.css'
 
-import type { Segment } from '@streetmix/types'
+import type { SliceItem } from '@streetmix/types'
+import type { SlopeCalculation } from './slope.js'
 
 interface Props {
-  slice: Segment
+  slice: SliceItem
+  slopeData: SlopeCalculation
 }
 
-export function TestSlope({ slice }: Props) {
-  const street = useSelector((state) => state.street)
+export function TestSlope({ slice, slopeData }: Props) {
   const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
-  const sliceIndex = street.segments.findIndex((s) => s.id === slice.id)
-  const slopeData = calculateSlope(street, sliceIndex)
-
-  // Bail if slice has been removed
-  if (slopeData === null) return null
 
   const { slope, ratio, warnings } = slopeData
 
@@ -29,14 +24,14 @@ export function TestSlope({ slice }: Props) {
     styles.color = 'red'
   }
 
-  return (
+  return debug ? (
     <div className="test-slope-container">
-      {debug && street.segments[sliceIndex].slope.on && (
+      {slice.slope.on && (
         <div className="slope-debug">
           <p style={styles}>{slope} %</p>
           <p style={styles}>{ratio ?? 0}:1</p>
         </div>
       )}
     </div>
-  )
+  ) : null
 }
