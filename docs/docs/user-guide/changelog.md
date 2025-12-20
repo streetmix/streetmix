@@ -7,7 +7,7 @@ sidebar_position: 5
 
 ## December 19, 2025
 
-Happy holidays! As 2025 draws to a close, we're cutting a release and pushing it out into the wild to let it <s>fend for itself</s> report feedback on how some big internal changes will function under a real-world situation. A lot of this work is remaining under the hood for now, but all I can say you can look forward to some _elevated_ experiences in 2026. Perhaps I should take it easy on the puns, let it become a slippery _slope_? Anyway, no _coast_-ing for Team Streetmix!
+Happy holidays! As 2025 draws to a close, we're finally publishing a new release in order to collect data on how well some big internal changes will work for our users. There have been a lot of under-the-hood work for many months and it's not ready to be revealed just yet, but all I can say is that you can look forward to some _elevated_ experiences in 2026. Perhaps I should take it easy on the puns, let it become a slippery _slope_? Anyway, no _coast_-ing for Team Streetmix!
 
 Meanwhile, here are the notable user-facing changes.
 
@@ -15,12 +15,14 @@ Meanwhile, here are the notable user-facing changes.
 
 **New starting templates for streets!** For a long time, "New example street" gave users a default starting street that showed off a variety of Streetmix features in a nicely designed street. But streets come in a variety of shapes, sizes, and qualities... so our first new template is a [stroad](https://www.strongtowns.org/journal/2018-3-1-whats-a-stroad-and-why-does-it-matter)! (ugh.)
 
+![New "stroad template"](/img/changelog/stroad.png)
+
 You can find that under the "New street" menu. There will be more to come! Templates is in beta testing now for signed-in users, and if you have feedback or ideas on what new templates should be added, please let us know in [Discord](https://strt.mx/discord).
 
 ### 🎮 UI improvements
 
 - Added tooltips to variant selection popup and width input.
-- UI precision for street elements in metric units returns to 0.1m. For more granular resolution of 0.05m, hold <kbd>Shift</kbd> when adjusting the width. This behavior was previously not well explained, but is now expressed in the UI tooltip.
+- UI precision for street elements in metric units returns to 0.1m. For more granular resolution of 0.05m, hold the `Shift` key when adjusting the width. This behavior was previously not well explained, but is now expressed in the UI tooltip.
 - If a street has not been previously geolocated, the map view will now center on the user's current position, if allowed on the user's device.
 - Descriptions for street elements (e.g. "learn more about bike lanes") now open in standalone popups.
 - Additional miscellaneous tweaks to improve map view behavior.
