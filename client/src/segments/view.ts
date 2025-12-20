@@ -286,10 +286,37 @@ function drawGroundPattern(
   multiplier: number = 1,
   dpi: number
 ): void {
-  const spriteDef = getSpriteDef(spriteId)
-  const spriteImage = images.get(spriteDef.id)
-  const pattern = ctx.createPattern(spriteImage.img, 'repeat')
-  if (!pattern) return
+  // const spriteDef = getSpriteDef(spriteId)
+  // const spriteImage = images.get(spriteDef.id)
+
+  // `createPattern` taints the canvas in Safari, making canvas images
+  // non-exportable. This doesn't affect Firefox or Chrome.
+  // Current workaround is just fill the shape with the color (hard-coded
+  // for now) because no ground pattern is more than a simple color right now.
+  // const pattern = ctx.createPattern(spriteImage.img, 'repeat')
+  // if (!pattern) return
+  let pattern
+  switch (spriteId) {
+    case 'ground--asphalt':
+      pattern = '#292B29'
+      break
+    case 'ground--asphalt-gray':
+      pattern = '#5C5E5F'
+      break
+    case 'ground--asphalt-red':
+      pattern = '#992025'
+      break
+    case 'ground--asphalt-green':
+      pattern = '#2E6550'
+      break
+    case 'sand':
+      pattern = '#ECDBB1'
+      break
+    case 'ground--concrete':
+    default:
+      pattern = '#d8d3cb'
+      break
+  }
 
   // TODO: scale the pattern according to image scale
   // This will only be important if we have patterns that aren't solid colors

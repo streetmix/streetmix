@@ -161,16 +161,17 @@ export function SaveAsImageDialog() {
       updatePreviewImage(scale)
 
       imageCanvas.current?.toBlob((blob) => {
-        // Also throw an error if blob is null, which is a possible input
-        // value of toBlob() according to typescript
-        if (blob === null) throw new Error()
-
-        // Save that file
-        const filename = makeFilename()
-        saveAs(blob, filename)
-        window.setTimeout(() => {
-          setIsSaving(false)
-        }, 0)
+        if (blob) {
+          // Save that file
+          const filename = makeFilename()
+          saveAs(blob, filename)
+          window.setTimeout(() => {
+            setIsSaving(false)
+          }, 0)
+        } else {
+          // Throw an error if .toBlob() returns `null`
+          throw new Error()
+        }
       })
     } catch (err) {
       setIsSaving(false)
