@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
 
-import { useSelector } from '~/src/store/hooks'
-import LoadingSpinner from '~/src/ui/LoadingSpinner'
-import { getChangelog } from '~/src/util/api'
-import Dialog from '../Dialog'
+import { useSelector } from '~/src/store/hooks.js'
+import LoadingSpinner from '~/src/ui/LoadingSpinner.js'
+import { getChangelog } from '~/src/util/api.js'
+import Dialog from '../Dialog.js'
 import './WhatsNewDialog.css'
 
-const WhatsNewDialog = (): React.ReactElement => {
+export const WhatsNewDialog = () => {
   const locale = useSelector((state) => state.locale.locale)
   const [state, setSubmitState] = useState('LOADING')
   const [content, setContent] = useState(null)
@@ -37,6 +37,8 @@ const WhatsNewDialog = (): React.ReactElement => {
       // as well as client side errors (e.g. user is offline). Both situations
       // will display the same generic error for now.
       setSubmitState('ERROR')
+      // But also log the error to console for investigation
+      console.error(error)
     }
   }
 
@@ -68,8 +70,6 @@ const WhatsNewDialog = (): React.ReactElement => {
                     'p',
                     'em',
                     'strong',
-                    's',
-                    'kbd',
                     'ol',
                     'ul',
                     'li',
@@ -122,5 +122,3 @@ const WhatsNewDialog = (): React.ReactElement => {
     </Dialog>
   )
 }
-
-export default WhatsNewDialog

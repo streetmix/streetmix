@@ -1,1 +1,1 @@
-export { default } from './WhatsNewDialog'
+export * from './WhatsNewDialog'
