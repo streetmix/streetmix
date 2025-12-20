@@ -373,7 +373,7 @@ export function drawSegmentContents(
 
   const groundLevelOffsetY = variantInfo.offsetY ?? 0
   const elevationValue = getElevation(elevation)
-  let groundLevel =
+  const groundLevel =
     groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
 
   // Clone the slope object from the function argument so it can be
@@ -387,11 +387,6 @@ export function drawSegmentContents(
   if (variantInfo.slope === 'off' || variantInfo.slope === undefined) {
     slope.on = false
     slope.values = []
-  }
-
-  // Slope proof of concept: ignore elevation value if slice is sloped
-  if (!slope.on) {
-    groundLevel -= multiplier * elevationValue
   }
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
@@ -417,7 +412,7 @@ export function drawSegmentContents(
         ctx,
         segmentWidth,
         offsetLeft + x,
-        groundBaseline,
+        groundLevel,
         elevation,
         slope,
         sprite.id,
@@ -567,6 +562,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(
@@ -635,6 +632,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(
@@ -695,6 +694,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(

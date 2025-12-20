@@ -228,6 +228,7 @@ export interface VariantInfo {
   slope?: SlopeConstraints
   elevation: number | MeasurementValues
   graphics: VariantGraphics
+  offsetY?: number
 }
 
 // graphics definitions are allowed to be a string, a SpriteDefinition
