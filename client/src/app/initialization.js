@@ -1,6 +1,5 @@
 import { initSystemCapabilities } from '../preinit/system_capabilities'
 import { initCoil } from '../integrations/coil'
-import { segmentsChanged } from '../segments/view'
 import { initLocale } from '../locales/locale'
 import { setLastStreet, setIgnoreStreetChanges } from '../streets/data_model'
 import { initStreetNameChangeListener } from '../streets/name'
@@ -15,6 +14,7 @@ import { updateSettingsFromCountryCode } from '../users/localization'
 import { initSettingsStoreObserver } from '../users/settings'
 import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
+import { segmentsChanged } from '../store/actions/street'
 import { everythingLoaded } from '../store/slices/app'
 import { detectGeolocation } from '../store/slices/user'
 import { showDialog } from '../store/slices/dialogs'
@@ -104,7 +104,7 @@ function onEverythingLoaded() {
     fetchLastStreet()
   }
 
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   setIgnoreStreetChanges(false)
   setLastStreet()

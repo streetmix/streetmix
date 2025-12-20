@@ -211,13 +211,20 @@ export function SaveAsImageDialog() {
     })
 
     // .toDataURL is not available on IE11 when SVGs are part of the canvas.
-    // The error in catch() should not appear on any of the newer evergreen browsers.
+    // The error in catch() is only likely to appear if a SecurityError is
+    // thrown from reading the canvas.
     try {
-      const dataUrl = imageCanvas.current?.toDataURL('image/png')
-      if (dataUrl === undefined) throw new Error()
-      setDownloadDataUrl(dataUrl)
-      setErrorMessage(undefined)
+      imageCanvas.current?.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob)
+          setDownloadDataUrl(url)
+          setErrorMessage(undefined)
+        } else {
+          throw new Error()
+        }
+      })
     } catch (e) {
+      console.error(e)
       setErrorMessage(
         intl.formatMessage({
           id: 'dialogs.save.error-unavailable',

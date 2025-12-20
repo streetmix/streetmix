@@ -86,11 +86,11 @@
   height: max(60px, 10%);
   top: 0;
   left: 0;
-  transition: opacity 300ms ease-in-out;
+  transition: opacity 150ms ease-in-out;
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    var(--color-turquoise-700) 0%,
+    var(--color-turquoise-500) 0%,
     transparent 100%
   );
   opacity: 0;

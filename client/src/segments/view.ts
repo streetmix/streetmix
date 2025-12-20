@@ -23,6 +23,7 @@ import type {
   SlopeProperties,
   SpriteDefinition,
   UnknownVariantInfo,
+  VariantGraphicsDefinition,
   VariantInfo,
   VariantInfoDimensions,
 } from '@streetmix/types'
@@ -247,14 +248,14 @@ export function getVariantInfoDimensions(
 
 // Convert single string or object values to single-item array
 function normalizeSpriteDefs(
-  def: string | SpriteDefinition | SpriteDefinition[]
+  defs: VariantGraphicsDefinition
 ): SpriteDefinition[] {
-  if (typeof def === 'string') {
-    return [{ id: def }]
-  } else if (Array.isArray(def)) {
-    return def
+  if (typeof defs === 'string') {
+    return [{ id: defs }]
+  } else if (Array.isArray(defs)) {
+    return defs.map((d) => (typeof d === 'string' ? { id: d } : d))
   } else {
-    return [def]
+    return [defs]
   }
 }
 
@@ -372,7 +373,7 @@ export function drawSegmentContents(
 
   const groundLevelOffsetY = variantInfo.offsetY ?? 0
   const elevationValue = getElevation(elevation)
-  let groundLevel =
+  const groundLevel =
     groundBaseline - multiplier * (groundLevelOffsetY / TILESET_POINT_PER_PIXEL)
 
   // Clone the slope object from the function argument so it can be
@@ -386,11 +387,6 @@ export function drawSegmentContents(
   if (variantInfo.slope === 'off' || variantInfo.slope === undefined) {
     slope.on = false
     slope.values = []
-  }
-
-  // Slope proof of concept: ignore elevation value if slice is sloped
-  if (!slope.on) {
-    groundLevel -= multiplier * elevationValue
   }
 
   const coastmixMode = store.getState().flags.COASTMIX_MODE.value
@@ -416,7 +412,7 @@ export function drawSegmentContents(
         ctx,
         segmentWidth,
         offsetLeft + x,
-        groundBaseline,
+        groundLevel,
         elevation,
         slope,
         sprite.id,
@@ -471,11 +467,15 @@ export function drawSegmentContents(
       // calculated by subtracting the height of the sprite with the # of
       // pixels to get to the point of the sprite which should align with
       // the ground.
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      if (!slope.on) {
+        distanceFromGround += multiplier * elevationValue
+      }
 
       // Right now only ground items repeat in the Y direction
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
@@ -566,6 +566,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(
@@ -634,6 +636,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(
@@ -694,6 +698,8 @@ export function drawSegmentContents(
           segmentWidth
         )
         distanceFromGround += adjustment
+      } else {
+        distanceFromGround += multiplier * elevationValue
       }
 
       drawSegmentImage(
@@ -742,6 +748,8 @@ export function drawSegmentContents(
         offsetLeft - left * TILE_SIZE * multiplier,
         offsetTop,
         groundLevel,
+        elevation,
+        slope,
         randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
@@ -758,8 +766,10 @@ export function drawSegmentContents(
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
-        null,
+        0,
         groundLevel,
+        elevation,
+        slope,
         randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,

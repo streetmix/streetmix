@@ -117,9 +117,14 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
               class="save-as-image-preview"
             >
               <div
-                class="save-as-image-preview-error"
+                class="save-as-image-preview-image"
               >
-                Saving to image is not available on this browser.
+                <div
+                  class="save-as-image-preview-loading"
+                  style="display: flex;"
+                >
+                  Loading…
+                </div>
               </div>
             </div>
             <div
@@ -209,7 +214,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
             >
               <button
                 class="btn btn-primary"
-                disabled=""
                 type="button"
               >
                 Save to your computer…
