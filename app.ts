@@ -89,12 +89,25 @@ const csp = {
       process.env.PELIAS_HOST_NAME,
       'checkout.stripe.com',
       'plausible.io',
+      'static.cloudflareinsights.com',
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
     frameAncestors: ["'self'", 'https:'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
-    imgSrc: ["'self'", 'data:', '*.basemaps.cartocdn.com', '*.stripe.com'],
+    imgSrc: [
+      "'self'",
+      // Save-as-image
+      'blob:',
+      'data:',
+      // Maps
+      '*.basemaps.cartocdn.com',
+      // Profile images
+      'abs.twimg.com',
+      'pbs.twimg.com',
+      // Other
+      '*.stripe.com',
+    ],
     objectSrc: [
       "'self'",
       // Profile images
@@ -118,6 +131,7 @@ const csp = {
       'plausible.io',
       'buttondown.com',
       'buttondown.email',
+      'cloudflareinsights.com',
     ],
     reportUri: '/services/csp-report/',
   },
