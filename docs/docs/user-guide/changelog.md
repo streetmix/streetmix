@@ -5,7 +5,7 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
-## December 19, 2025
+## December 20, 2025
 
 Happy holidays! As 2025 draws to a close, we're finally publishing a new release in order to collect data on how well some big internal changes will work for our users. There have been a lot of under-the-hood work for many months and it's not ready to be revealed just yet, but all I can say is that you can look forward to some _elevated_ experiences in 2026. Perhaps I should take it easy on the puns, let it become a slippery _slope_? Anyway, no _coast_-ing for Team Streetmix!
 
