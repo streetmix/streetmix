@@ -36,6 +36,9 @@
   text-align: left;
   touch-action: pan-x;
   border-bottom: 5px solid var(--background-earth-color);
+
+  /* make sure these elements are z-indexed above bounbaries */
+  z-index: 10;
 }
 
 #street-section-canvas {
