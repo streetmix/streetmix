@@ -29,7 +29,7 @@
   },
   "NEW_STREET_TEMPLATES": {
     "label": "UI — Additional street templates",
-    "defaultValue": false
+    "defaultValue": true
   },
   "SENTIMENT_SURVEY": {
     "label": "Sentiment surveys",

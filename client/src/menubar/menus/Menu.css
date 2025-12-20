@@ -90,6 +90,15 @@ body.safari .menu {
     inset-inline-start: 1em;
     color: var(--color-turquoise-500);
   }
+
+  &[disabled] {
+    color: var(--color-gray-400);
+
+    &:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+  }
 }
 
 .menu-item-icon {

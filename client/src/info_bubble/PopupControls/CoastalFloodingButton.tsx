@@ -1,16 +1,12 @@
-import React from 'react'
-
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { showCoastalFloodingPanel } from '~/src/store/slices/coastmix'
-import BetaTag from '~/src/menubar/menus/BetaTag'
-import { Button } from '~/src/ui/Button'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { showCoastalFloodingPanel } from '~/src/store/slices/coastmix.js'
+import { BetaTag } from '~/src/menubar/menus/BetaTag.js'
+import { Button } from '~/src/ui/Button.js'
 import './CoastalFloodingButton.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function CoastalFloodingButton(
-  props: SectionElementTypeAndPosition
-): React.ReactElement | null {
+export function CoastalFloodingButton(props: SectionElementTypeAndPosition) {
   const { type, position } = props
 
   // Get the appropriate variant information
