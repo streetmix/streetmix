@@ -3,8 +3,9 @@ import { getSpriteDef } from '@streetmix/parts'
 
 import { images } from '../app/load_resources'
 import { maxBy } from '../util/maxBy'
-import { drawSegmentImage } from './view'
+import { drawSegmentImage, getElevation } from './view'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
+import type { SlopeProperties } from '@streetmix/types'
 
 const DEFAULT_SELECTION_WEIGHT = 50
 const DEFAULT_SCATTER_SPACING_MIN = 0
@@ -54,7 +55,7 @@ type EntityPool = ScatterableEntity[]
  * Given a pool of entities, with defined widths, get the maximum width value
  * This number is used during rendering to adjust sprites for center alignment
  */
-function getSpriteMaxWidth (pool: EntityPool): number {
+function getSpriteMaxWidth(pool: EntityPool): number {
   return maxBy(pool, (s) => s.width).width
 }
 
@@ -62,7 +63,7 @@ function getSpriteMaxWidth (pool: EntityPool): number {
  * Using the random generator function, perform a weighted random selection
  * from a pool of entities, then clone and return the object for that entity.
  */
-function pickRandomEntityFromPool (
+function pickRandomEntityFromPool(
   pool: EntityPool,
   randomGenerator: seedrandom.PRNG
 ): ScatterableEntity {
@@ -96,7 +97,7 @@ function pickRandomEntityFromPool (
  *
  * This function is exported for unit testing only.
  */
-export function getRandomObjects (
+export function getRandomObjects(
   pool: EntityPool,
   maxWidth: number, // width of segment, in meters
   randSeed: string = '9123984', // default randSeed if one is not provided
@@ -191,13 +192,15 @@ export function getRandomObjects (
 /**
  * General use case of rendering scattered sprites
  */
-export function drawScatteredSprites (
+export function drawScatteredSprites(
   sprites: EntityPool,
   ctx: CanvasRenderingContext2D,
   width: number,
   offsetLeft: number,
   offsetTop: number = 0,
   groundLevel: number,
+  elevation: number,
+  slope: SlopeProperties,
   randSeed: string,
   minSpacing: number = DEFAULT_SCATTER_SPACING_MIN,
   maxSpacing: number = DEFAULT_SCATTER_SPACING_MAX,
@@ -214,7 +217,7 @@ export function drawScatteredSprites (
       const svg = images.get(sprite)
       return {
         id: sprite,
-        width: svg.width / TILE_SIZE_ACTUAL
+        width: svg.width / TILE_SIZE_ACTUAL,
       }
     }
 
@@ -252,11 +255,16 @@ export function drawScatteredSprites (
     const sprite = getSpriteDef(id)
     const svg = images.get(id)
 
-    const distanceFromGround =
+    let distanceFromGround =
       multiplier *
       TILE_SIZE *
       ((svg.height - offsetTop - (sprite.originY ?? object.originY ?? 0)) /
         TILE_SIZE_ACTUAL)
+
+    if (!slope.on) {
+      const elevationValue = getElevation(elevation)
+      distanceFromGround += multiplier * elevationValue
+    }
 
     drawSegmentImage(
       id,

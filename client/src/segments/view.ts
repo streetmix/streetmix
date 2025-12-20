@@ -467,11 +467,15 @@ export function drawSegmentContents(
       // calculated by subtracting the height of the sprite with the # of
       // pixels to get to the point of the sprite which should align with
       // the ground.
-      const distanceFromGround =
+      let distanceFromGround =
         multiplier *
         TILE_SIZE *
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
+
+      if (!slope.on) {
+        distanceFromGround += multiplier * elevationValue
+      }
 
       // Right now only ground items repeat in the Y direction
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
@@ -744,6 +748,8 @@ export function drawSegmentContents(
         offsetLeft - left * TILE_SIZE * multiplier,
         offsetTop,
         groundLevel,
+        elevation,
+        slope,
         randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
@@ -760,8 +766,10 @@ export function drawSegmentContents(
         ctx,
         actualWidth,
         offsetLeft - left * TILE_SIZE * multiplier,
-        null,
+        0,
         groundLevel,
+        elevation,
+        slope,
         randSeed,
         graphics.scatter.minSpacing,
         graphics.scatter.maxSpacing,
