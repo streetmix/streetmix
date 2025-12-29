@@ -1,4 +1,5 @@
 import {
+  IconBook2,
   IconChartBar,
   IconClipboard,
   IconClockHour4,
@@ -46,7 +47,6 @@ import {
   FiTrash2,
 } from 'react-icons/fi'
 import {
-  IoBookOutline,
   IoCartOutline,
   IoClose,
   IoHelpCircleOutline,
@@ -63,7 +63,7 @@ const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
   boat: [IconSailboat, 'tabler'],
-  book: [IoBookOutline, 'io5'],
+  book: [IconBook2, 'tabler'],
   cart: [IoCartOutline, 'io5'],
   chart: [IconChartBar, 'tabler'],
   check: [FaCheck, 'fa'],

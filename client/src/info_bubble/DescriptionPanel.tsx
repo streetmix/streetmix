@@ -1,15 +1,14 @@
-import React from 'react'
 import { IntlProvider, FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { hideDescription } from '~/src/store/slices/infoBubble'
-import { formatMessage } from '~/src/locales/locale'
-import { FloatingPanel } from '~/src/ui/FloatingPanel'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { hideDescription } from '~/src/store/slices/infoBubble.js'
+import { formatMessage } from '~/src/locales/locale.js'
+import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './DescriptionPanel.css'
 
-function DescriptionPanel(): React.ReactElement | null {
+export function DescriptionPanel() {
   const show = useSelector((state) => state.infoBubble.descriptionVisible)
   const description = useSelector((state) => state.infoBubble.descriptionData)
   const offline = useSelector((state) => state.system.offline)
@@ -102,5 +101,3 @@ function DescriptionPanel(): React.ReactElement | null {
     </FloatingPanel>
   )
 }
-
-export default DescriptionPanel
