@@ -1,4 +1,4 @@
-import { IconLayoutGridAdd } from '@tabler/icons-react'
+import { IconCopy, IconCubeSpark, IconLayoutGridAdd } from '@tabler/icons-react'
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -44,9 +44,8 @@ import {
   IoRocketOutline,
   IoTrailSignOutline,
 } from 'react-icons/io5'
-import { MdOutlineAddRoad, MdOutlineContentCopy } from 'react-icons/md'
+import { MdOutlineAddRoad } from 'react-icons/md'
 import {
-  RxCube,
   RxDownload,
   RxExit,
   RxKeyboard,
@@ -70,8 +69,8 @@ const ICONS = {
   'chevron-right': [FiChevronRight, 'feather'],
   clipboard: [FiClipboard, 'feather'],
   close: [IoClose, 'io5'],
-  copy: [MdOutlineContentCopy, 'md'],
-  cube: [RxCube, 'radix'],
+  copy: [IconCopy, 'tabler'],
+  cube: [IconCubeSpark, 'tabler'],
   download: [RxDownload, 'radix'],
   edit: [FiEdit3, 'feather'],
   'external-link': [FiExternalLink, 'feather'],
