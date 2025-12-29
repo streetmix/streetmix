@@ -1,17 +1,16 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import copy from 'copy-to-clipboard'
 
-import { render } from '~/test/helpers/render'
-import { showDialog } from '~/src/store/slices/dialogs'
-import ShareMenu from './ShareMenu'
+import { render } from '~/test/helpers/render.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import { ShareMenu } from './ShareMenu.js'
 
 vi.mock('copy-to-clipboard')
 vi.mock('../../../store/slices/dialogs', () => ({
   default: {},
-  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('ShareMenu', () => {
@@ -21,16 +20,16 @@ describe('ShareMenu', () => {
 
   it('renders (user not signed in, anonymous user’s street, no street name)', () => {
     const { asFragment } = render(<ShareMenu isActive />, {
-      initialState: { user: { signedIn: false } }
+      initialState: { user: { signedIn: false } },
     })
 
     // Check for proper sharing messages
     const message = 'Check out this street on Streetmix!'
     const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-      exact: false
+      exact: false,
     })
     const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-      exact: false
+      exact: false,
     })
     expect(twitterLink.href.replace(/%20/g, ' ')).toMatch(message)
     expect(facebookLink.href.replace(/%20/g, ' ')).toMatch(message)
@@ -44,23 +43,23 @@ describe('ShareMenu', () => {
         user: {
           signedIn: true,
           signInData: {
-            userId: 'foo'
-          }
+            userId: 'foo',
+          },
         },
         street: {
           creatorId: 'foo',
-          name: 'bar'
-        }
-      }
+          name: 'bar',
+        },
+      },
     })
 
     // Check for proper sharing messages
     const message = 'Check out my street, bar, on Streetmix!'
     const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-      exact: false
+      exact: false,
     })
     const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-      exact: false
+      exact: false,
     })
     expect(twitterLink.href.replace(/%20/g, ' ').replace(/%2C/g, ',')).toMatch(
       message
@@ -80,21 +79,21 @@ describe('ShareMenu', () => {
           user: {
             signedIn: true,
             signInData: {
-              userId: 'foo'
-            }
+              userId: 'foo',
+            },
           },
           street: {
-            creatorId: 'foo'
-          }
-        }
+            creatorId: 'foo',
+          },
+        },
       })
 
       const message = 'Check out my street on Streetmix!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-        exact: false
+        exact: false,
       })
       const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-        exact: false
+        exact: false,
       })
 
       expect(twitterLink.href.replace(/%20/g, ' ')).toMatch(message)
@@ -107,22 +106,22 @@ describe('ShareMenu', () => {
           user: {
             signedIn: true,
             signInData: {
-              userId: 'foo'
-            }
+              userId: 'foo',
+            },
           },
           street: {
             creatorId: 'qux',
-            name: 'bar'
-          }
-        }
+            name: 'bar',
+          },
+        },
       })
 
       const message = 'Check out bar by @qux on Streetmix!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-        exact: false
+        exact: false,
       })
       const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-        exact: false
+        exact: false,
       })
 
       expect(
@@ -139,21 +138,21 @@ describe('ShareMenu', () => {
           user: {
             signedIn: true,
             signInData: {
-              userId: 'foo'
-            }
+              userId: 'foo',
+            },
           },
           street: {
-            creatorId: 'qux'
-          }
-        }
+            creatorId: 'qux',
+          },
+        },
       })
 
       const message = 'Check out this street by @qux on Streetmix!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-        exact: false
+        exact: false,
       })
       const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-        exact: false
+        exact: false,
       })
 
       expect(
@@ -170,21 +169,21 @@ describe('ShareMenu', () => {
           user: {
             signedIn: true,
             signInData: {
-              userId: 'foo'
-            }
+              userId: 'foo',
+            },
           },
           street: {
-            name: 'bar'
-          }
-        }
+            name: 'bar',
+          },
+        },
       })
 
       const message = 'Check out bar on Streetmix!'
       const twitterLink: HTMLAnchorElement = screen.getByText('Twitter', {
-        exact: false
+        exact: false,
       })
       const facebookLink: HTMLAnchorElement = screen.getByText('Facebook', {
-        exact: false
+        exact: false,
       })
 
       expect(
@@ -198,7 +197,7 @@ describe('ShareMenu', () => {
 
   it('handles clicking sign in link', async () => {
     render(<ShareMenu isActive />, {
-      initialState: { user: { signedIn: false } }
+      initialState: { user: { signedIn: false } },
     })
     await userEvent.click(screen.getByText('Sign in'))
     expect(showDialog).toBeCalledTimes(1)
@@ -236,7 +235,7 @@ describe('ShareMenu', () => {
 
   it('does not render external share links in offline mode', () => {
     const { asFragment } = render(<ShareMenu isActive />, {
-      initialState: { system: { offline: true } }
+      initialState: { system: { offline: true } },
     })
 
     expect(asFragment()).toMatchSnapshot()

@@ -1,10 +1,9 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '~/src/ui/Icon'
-import MenuItem from '../MenuItem'
+import Icon from '~/src/ui/Icon.js'
+import MenuItem from '../MenuItem.js'
 
-function Export3DStreet (): React.ReactElement {
+export function Export3DStreet() {
   return (
     <MenuItem href={`https://3dstreet.app/#${window.location.href}`}>
       <Icon name="cube" className="menu-item-icon" />
@@ -15,5 +14,3 @@ function Export3DStreet (): React.ReactElement {
     </MenuItem>
   )
 }
-
-export default Export3DStreet
