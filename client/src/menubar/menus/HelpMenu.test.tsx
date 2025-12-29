@@ -1,15 +1,14 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { showDialog } from '~/src/store/slices/dialogs'
-import HelpMenu from './HelpMenu'
+import { render } from '~/test/helpers/render.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import { HelpMenu } from './HelpMenu.js'
 
-vi.mock('../../store/slices/dialogs', () => ({
+vi.mock('../../store/slices/dialogs.js', () => ({
   default: {},
-  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('HelpMenu', () => {

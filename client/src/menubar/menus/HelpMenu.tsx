@@ -10,7 +10,7 @@ import MenuItem from './MenuItem'
 import { MenuSeparator } from './MenuSeparator'
 import { KeyboardShortcuts } from './KeyboardShortcuts'
 
-function HelpMenu(props: MenuProps): React.ReactElement {
+export function HelpMenu(props: MenuProps) {
   const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
@@ -35,7 +35,7 @@ function HelpMenu(props: MenuProps): React.ReactElement {
         />
       </MenuItem>
       <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <Icon name="rocket" className="menu-item-icon" />
+        <Icon name="whats-new" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
@@ -62,5 +62,3 @@ function HelpMenu(props: MenuProps): React.ReactElement {
     </Menu>
   )
 }
-
-export default HelpMenu

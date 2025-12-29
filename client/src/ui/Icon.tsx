@@ -7,6 +7,7 @@ import {
   IconCubeSpark,
   IconDownload,
   IconFlag,
+  IconGift,
   IconKeyboard,
   IconLanguage,
   IconLayoutGridAdd,
@@ -52,7 +53,6 @@ import {
   IoHelpCircleOutline,
   IoInformationCircleOutline,
   IoMailOutline,
-  IoRocketOutline,
   IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
@@ -91,7 +91,6 @@ const ICONS = {
   plus: [FaPlus, 'fa'],
   print: [IconPrinter, 'tabler'],
   redo: [FiRotateCw, 'feather'],
-  rocket: [IoRocketOutline, 'io5'],
   ruler: [IconRulerMeasure, 'tabler'],
   settings: [IconSettings, 'tabler'],
   'sign-out': [IconLogout, 'tabler'],
@@ -103,6 +102,7 @@ const ICONS = {
   trash: [FiTrash2, 'feather'],
   undo: [FiRotateCcw, 'feather'],
   user: [IconUser, 'tabler'],
+  'whats-new': [IconGift, 'tabler'],
 
   // Social icons
   // Google is not defined here, see special case

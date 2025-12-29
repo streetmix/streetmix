@@ -23,7 +23,7 @@ exports[`HelpMenu > renders 1`] = `
     >
       <svg
         class="menu-item-icon"
-        data-icon="rocket"
+        data-icon="whats-new"
         data-icon-source="test"
       />
       What’s new?‎
