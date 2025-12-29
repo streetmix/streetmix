@@ -1,22 +1,21 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { openGallery } from '~/src/store/actions/gallery'
-import { useGetUserQuery } from '~/src/store/services/api'
-import Icon from '~/src/ui/Icon'
-import Avatar from '~/src/users/Avatar'
-import { isOwnedByCurrentUser } from '../owner'
-import StreetMetaItem from './StreetMetaItem'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { openGallery } from '~/src/store/actions/gallery.js'
+import { useGetUserQuery } from '~/src/store/services/api.js'
+import Icon from '~/src/ui/Icon.js'
+import Avatar from '~/src/users/Avatar.js'
+import { isOwnedByCurrentUser } from '../owner.js'
+import StreetMetaItem from './StreetMetaItem.js'
 
-function StreetMetaAuthor (): React.ReactElement | null {
+export function StreetMetaAuthor() {
   const creatorId = useSelector((state) => state.street.creatorId)
   const signedIn = useSelector((state) => state.user.signedIn)
   const userId = useSelector((state) => state.user.signInData?.userId ?? '')
   const { data: creatorProfile } = useGetUserQuery(creatorId)
   const dispatch = useDispatch()
 
-  function handleClickAuthor (event: React.MouseEvent): void {
+  function handleClickAuthor(event: React.MouseEvent): void {
     event.preventDefault()
     dispatch(openGallery({ userId: creatorId }))
   }
@@ -47,5 +46,3 @@ function StreetMetaAuthor (): React.ReactElement | null {
     </StreetMetaItem>
   )
 }
-
-export default StreetMetaAuthor

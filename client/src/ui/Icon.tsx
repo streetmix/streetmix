@@ -14,6 +14,7 @@ import {
   IconRulerMeasure,
   IconSettings,
   IconStar,
+  IconUser,
 } from '@tabler/icons-react'
 import {
   FaArrowLeft,
@@ -41,7 +42,6 @@ import {
   FiRotateCw,
   FiSun,
   FiTrash2,
-  FiUser,
 } from 'react-icons/fi'
 import {
   IoBoatOutline,
@@ -102,7 +102,7 @@ const ICONS = {
   'trail-sign': [IoTrailSignOutline, 'io5'],
   trash: [FiTrash2, 'feather'],
   undo: [FiRotateCcw, 'feather'],
-  user: [FiUser, 'feather'],
+  user: [IconUser, 'tabler'],
 
   // Social icons
   // Google is not defined here, see special case
