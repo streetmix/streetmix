@@ -1,14 +1,12 @@
-import React from 'react'
-
-import { useSelector } from '../../store/hooks'
-import StreetMetaWidth from './StreetMetaWidth'
-import StreetMetaAuthor from './StreetMetaAuthor'
-import StreetMetaDate from './StreetMetaDate'
-import StreetMetaGeotag from './StreetMetaGeotag'
-import { StreetMetaAnalytics } from './StreetMetaAnalytics'
+import { useSelector } from '../../store/hooks.js'
+import StreetMetaWidth from './StreetMetaWidth.js'
+import StreetMetaAuthor from './StreetMetaAuthor.js'
+import StreetMetaDate from './StreetMetaDate.js'
+import StreetMetaGeotag from './StreetMetaGeotag.js'
+import { StreetMetaAnalytics } from './StreetMetaAnalytics.js'
 import './StreetMeta.css'
 
-function StreetMeta(): React.ReactElement {
+export function StreetMeta() {
   const enableAnalytics = useSelector(
     (state) => state.flags.ANALYTICS?.value ?? false
   )
@@ -23,5 +21,3 @@ function StreetMeta(): React.ReactElement {
     </div>
   )
 }
-
-export default StreetMeta
