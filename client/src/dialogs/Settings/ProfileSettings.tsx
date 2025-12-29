@@ -1,18 +1,18 @@
-import React, { useState, useRef, useId } from 'react'
+import { useState, useRef, useId } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { updateDisplayName } from '~/src/store/slices/user'
-import { Button } from '~/src/ui/Button'
-import LoadingSpinner from '~/src/ui/LoadingSpinner'
-import { Popover } from '~/src/ui/Popover'
-import { patchUser } from '~/src/util/api'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { updateDisplayName } from '~/src/store/slices/user.js'
+import { Button } from '~/src/ui/Button.js'
+import LoadingSpinner from '~/src/ui/LoadingSpinner.js'
+import { Popover } from '~/src/ui/Popover.js'
+import { patchUser } from '~/src/util/api.js'
 import './ProfileSettings.css'
 
 const DISPLAY_NAME_MAX_CHARS = 30
 const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10
 
-function ProfileSettings() {
+export function ProfileSettings() {
   const user = useSelector((state) => state.user.signInData?.details)
   const [displayNameValue, setDisplayNameValue] = useState(
     user?.displayName ?? user?.id ?? ''
@@ -239,5 +239,3 @@ function ProfileSettings() {
     </section>
   )
 }
-
-export default ProfileSettings

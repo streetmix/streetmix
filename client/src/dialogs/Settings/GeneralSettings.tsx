@@ -1,14 +1,13 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setFeatureFlag } from '~/src/store/slices/flags'
-import { Popover } from '~/src/ui/Popover'
-import { Switch } from '~/src/ui/Switch'
-import AppearanceSettings from './AppearanceSettings'
-import UnitSettings from './UnitSettings'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setFeatureFlag } from '~/src/store/slices/flags.js'
+import { Popover } from '~/src/ui/Popover.js'
+import { Switch } from '~/src/ui/Switch.js'
+import { AppearanceSettings } from './AppearanceSettings.js'
+import { UnitSettings } from './UnitSettings.js'
 
-function GeneralSettings(): React.ReactElement {
+export function GeneralSettings() {
   const flags = useSelector((state) => state.flags)
 
   return (
@@ -74,5 +73,3 @@ function SillyClownSetting(): React.ReactElement {
     </div>
   )
 }
-
-export default GeneralSettings

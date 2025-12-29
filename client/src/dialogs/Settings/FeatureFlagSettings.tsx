@@ -1,10 +1,8 @@
-import React from 'react'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setFeatureFlag } from '~/src/store/slices/flags.js'
+import { Switch } from '~/src/ui/Switch.js'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setFeatureFlag } from '~/src/store/slices/flags'
-import { Switch } from '~/src/ui/Switch'
-
-function FeatureFlagSettings(): React.ReactElement {
+export function FeatureFlagSettings() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
 
@@ -48,5 +46,3 @@ function FeatureFlagSettings(): React.ReactElement {
     </>
   )
 }
-
-export default FeatureFlagSettings
