@@ -1,4 +1,4 @@
-export { default as ContactMenu } from './ContactMenu.js'
+export * from './ContactMenu.js'
 export * from './HelpMenu.js'
 export * from './IdentityMenu.js'
 export * from './LocaleMenu.js'

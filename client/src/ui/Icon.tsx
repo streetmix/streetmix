@@ -13,6 +13,7 @@ import {
   IconLayoutGridAdd,
   IconLink,
   IconLogout,
+  IconMail,
   IconMapPin,
   IconPrinter,
   IconRulerMeasure,
@@ -52,7 +53,6 @@ import {
   IoClose,
   IoHelpCircleOutline,
   IoInformationCircleOutline,
-  IoMailOutline,
   IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
@@ -85,7 +85,7 @@ const ICONS = {
   link: [IconLink, 'tabler'],
   location: [IconMapPin, 'tabler'],
   lock: [FaLock, 'fa'],
-  mail: [IoMailOutline, 'io5'],
+  mail: [IconMail, 'tabler'],
   minus: [FaMinus, 'fa'],
   'new-street': [MdOutlineAddRoad, 'md'],
   plus: [FaPlus, 'fa'],

@@ -1,13 +1,12 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useDispatch } from '~/src/store/hooks'
-import { showDialog } from '~/src/store/slices/dialogs'
-import Icon from '~/src/ui/Icon'
-import Menu, { type MenuProps } from './Menu'
-import MenuItem from './MenuItem'
+import { useDispatch } from '~/src/store/hooks.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import Icon from '~/src/ui/Icon.js'
+import Menu, { type MenuProps } from './Menu.js'
+import MenuItem from './MenuItem.js'
 
-function ContactMenu (props: MenuProps): React.ReactElement {
+export function ContactMenu(props: MenuProps) {
   const dispatch = useDispatch()
 
   return (
@@ -40,5 +39,3 @@ function ContactMenu (props: MenuProps): React.ReactElement {
     </Menu>
   )
 }
-
-export default ContactMenu
