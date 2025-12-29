@@ -1,5 +1,5 @@
 import { useSelector } from '../../store/hooks.js'
-import StreetMetaWidth from './StreetMetaWidth.js'
+import { StreetMetaWidth } from './StreetMetaWidth.js'
 import StreetMetaAuthor from './StreetMetaAuthor.js'
 import StreetMetaDate from './StreetMetaDate.js'
 import StreetMetaGeotag from './StreetMetaGeotag.js'
