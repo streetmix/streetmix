@@ -8,7 +8,7 @@ import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
 import MenuItem from './MenuItem'
 import { MenuSeparator } from './MenuSeparator'
-import KeyboardShortcuts from './KeyboardShortcuts'
+import { KeyboardShortcuts } from './KeyboardShortcuts'
 
 function HelpMenu(props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)

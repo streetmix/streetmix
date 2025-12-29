@@ -1,8 +1,7 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '~/src/ui/Icon'
-import KeyboardKey from '~/src/ui/KeyboardKey'
+import Icon from '~/src/ui/Icon.js'
+import { KeyboardKey } from '~/src/ui/KeyboardKey.js'
 import './KeyboardShortcuts.css'
 
 const shiftKey = (
@@ -11,7 +10,7 @@ const shiftKey = (
   </KeyboardKey>
 )
 
-function KeyboardShortcuts (): React.ReactElement {
+export function KeyboardShortcuts() {
   return (
     <div className="keyboard-shortcuts">
       <Icon name="keyboard" className="menu-item-icon" />
@@ -111,5 +110,3 @@ function KeyboardShortcuts (): React.ReactElement {
     </div>
   )
 }
-
-export default KeyboardShortcuts

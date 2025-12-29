@@ -4,6 +4,7 @@ import {
   IconCopy,
   IconCubeSpark,
   IconDownload,
+  IconKeyboard,
   IconLayoutGridAdd,
   IconLink,
   IconLogout,
@@ -54,7 +55,7 @@ import {
   IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
-import { RxKeyboard, RxRulerHorizontal } from 'react-icons/rx'
+import { RxRulerHorizontal } from 'react-icons/rx'
 
 import googleIcon from 'url:./icons/google.svg'
 
@@ -79,7 +80,7 @@ const ICONS = {
   flag: [FiFlag, 'feather'],
   help: [IoHelpCircleOutline, 'io5'],
   info: [IoInformationCircleOutline, 'io5'],
-  keyboard: [RxKeyboard, 'radix'],
+  keyboard: [IconKeyboard, 'tabler'],
   language: [IoLanguage, 'io5'],
   link: [IconLink, 'tabler'],
   location: [FiMapPin, 'feather'],
