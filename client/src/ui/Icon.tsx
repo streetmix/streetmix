@@ -1,8 +1,10 @@
 import {
+  IconClipboard,
   IconCopy,
   IconCubeSpark,
   IconDownload,
   IconLayoutGridAdd,
+  IconLink,
   IconPrinter,
 } from '@tabler/icons-react'
 import {
@@ -25,7 +27,6 @@ import {
   FiChevronDown,
   FiChevronLeft,
   FiChevronRight,
-  FiClipboard,
   FiClock,
   FiEdit3,
   FiExternalLink,
@@ -53,7 +54,6 @@ import { MdOutlineAddRoad } from 'react-icons/md'
 import {
   RxExit,
   RxKeyboard,
-  RxLink2,
   RxMixerHorizontal,
   RxRulerHorizontal,
   RxStar,
@@ -71,7 +71,7 @@ const ICONS = {
   'chevron-down': [FiChevronDown, 'feather'],
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
-  clipboard: [FiClipboard, 'feather'],
+  clipboard: [IconClipboard, 'tabler'],
   close: [IoClose, 'io5'],
   copy: [IconCopy, 'tabler'],
   cube: [IconCubeSpark, 'tabler'],
@@ -84,7 +84,7 @@ const ICONS = {
   info: [IoInformationCircleOutline, 'io5'],
   keyboard: [RxKeyboard, 'radix'],
   language: [IoLanguage, 'io5'],
-  link: [RxLink2, 'radix'],
+  link: [IconLink, 'tabler'],
   location: [FiMapPin, 'feather'],
   lock: [FaLock, 'fa'],
   mail: [IoMailOutline, 'io5'],
@@ -123,9 +123,11 @@ export type IconNames = BaseIconNames | ExtraIconNames
 
 interface IconProps {
   name: IconNames
+  size?: string
+  stroke?: string
 
   // All other props
-  [attr: string]: string
+  [attr: string]: string | undefined
 }
 
 function makeComponent(name: BaseIconNames, props?: Record<string, string>) {
@@ -134,7 +136,7 @@ function makeComponent(name: BaseIconNames, props?: Record<string, string>) {
   // Gradually replace react-icons with other sources because it doesn't
   // tree-shake. For 'tabler' icons return components this way
   if (source === 'tabler') {
-    const { size = 24, stroke = '1.75', ...restProps } = props ?? {}
+    const { size = '24', stroke = '1.75', ...restProps } = props ?? {}
     return (
       <Component
         data-icon={name}

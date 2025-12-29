@@ -1,16 +1,15 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import copy from 'copy-to-clipboard'
 
-import { Button } from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
+import { Button } from '~/src/ui/Button.js'
+import Icon from '~/src/ui/Icon.js'
 
 interface CopyShareLinkProps {
   shareUrl: string
   ref: React.ForwardedRef<HTMLInputElement>
 }
 
-function CopyShareLink({ shareUrl, ref }: CopyShareLinkProps) {
+export function CopyShareLink({ shareUrl, ref }: CopyShareLinkProps) {
   const intl = useIntl()
 
   return (
@@ -39,11 +38,9 @@ function CopyShareLink({ shareUrl, ref }: CopyShareLinkProps) {
             copy(shareUrl)
           }}
         >
-          <Icon name="clipboard" />
+          <Icon name="clipboard" size="16" />
         </Button>
       </div>
     </div>
   )
 }
-
-export default CopyShareLink
