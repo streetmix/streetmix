@@ -1,14 +1,13 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { showDialog } from '~/src/store/slices/dialogs'
-import StreetMetaGeotag from './StreetMetaGeotag'
+import { render } from '~/test/helpers/render.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import { StreetMetaGeotag } from './StreetMetaGeotag.js'
 
-vi.mock('~/src/store/slices/dialogs', () => ({
+vi.mock('~/src/store/slices/dialogs.js', () => ({
   default: {},
-  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('StreetMetaGeotag', () => {
@@ -21,9 +20,9 @@ describe('StreetMetaGeotag', () => {
     const { getByText } = render(<StreetMetaGeotag />, {
       initialState: {
         street: {
-          location: null
-        }
-      }
+          location: null,
+        },
+      },
     })
 
     await userEvent.click(getByText('Add location'))
@@ -35,8 +34,8 @@ describe('StreetMetaGeotag', () => {
       initialState: {
         street: {},
         app: { readOnly: true },
-        flags: { GEOTAG: { value: false } }
-      }
+        flags: { GEOTAG: { value: false } },
+      },
     })
 
     expect(queryByText('Add location')).toBe(null)
@@ -50,13 +49,13 @@ describe('StreetMetaGeotag', () => {
           location: {
             hierarchy: {
               locality: 'foo',
-              country: 'bar'
-            }
-          }
+              country: 'bar',
+            },
+          },
         },
         app: { readOnly: false },
-        flags: { GEOTAG: { value: true } }
-      }
+        flags: { GEOTAG: { value: true } },
+      },
     })
 
     await userEvent.click(getByText('foo, bar'))
@@ -70,13 +69,13 @@ describe('StreetMetaGeotag', () => {
           location: {
             hierarchy: {
               locality: 'foo',
-              country: 'bar'
-            }
-          }
+              country: 'bar',
+            },
+          },
         },
         app: { readOnly: true },
-        flags: { GEOTAG: { value: true } }
-      }
+        flags: { GEOTAG: { value: true } },
+      },
     })
 
     await userEvent.click(getByText('foo, bar'))
@@ -91,11 +90,11 @@ describe('StreetMetaGeotag', () => {
             hierarchy: {
               neighbourhood: 'baz',
               region: 'bar',
-              street: 'qux'
-            }
-          }
-        }
-      }
+              street: 'qux',
+            },
+          },
+        },
+      },
     })
 
     // No locality, but with region and neighbourhood,
