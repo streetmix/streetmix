@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
 import Menu, { type MenuProps } from '../Menu.js'
-import MenuSeparator from '../MenuSeparator.js'
+import { MenuSeparator } from '../MenuSeparator.js'
 import { CopyShareLink } from './CopyShareLink.js'
 import { Export3DStreet } from './Export3DStreet.js'
 import { ExportStreetmeter } from './ExportStreetmeter.js'

@@ -1,8 +1,6 @@
-import React from 'react'
-
 import './MenuSeparator.css'
 
-function MenuSeparator (): React.ReactElement {
+export function MenuSeparator() {
   return (
     <div
       className="menu-separator"
@@ -11,5 +9,3 @@ function MenuSeparator (): React.ReactElement {
     />
   )
 }
-
-export default MenuSeparator

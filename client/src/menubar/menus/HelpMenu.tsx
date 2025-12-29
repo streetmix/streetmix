@@ -7,10 +7,10 @@ import Icon from '~/src/ui/Icon'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
 import Menu, { type MenuProps } from './Menu'
 import MenuItem from './MenuItem'
-import MenuSeparator from './MenuSeparator'
+import { MenuSeparator } from './MenuSeparator'
 import KeyboardShortcuts from './KeyboardShortcuts'
 
-function HelpMenu (props: MenuProps): React.ReactElement {
+function HelpMenu(props: MenuProps): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
