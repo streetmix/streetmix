@@ -1,4 +1,9 @@
-import { IconCopy, IconCubeSpark, IconLayoutGridAdd } from '@tabler/icons-react'
+import {
+  IconCopy,
+  IconCubeSpark,
+  IconDownload,
+  IconLayoutGridAdd,
+} from '@tabler/icons-react'
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -46,7 +51,6 @@ import {
 } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
 import {
-  RxDownload,
   RxExit,
   RxKeyboard,
   RxLink2,
@@ -71,7 +75,7 @@ const ICONS = {
   close: [IoClose, 'io5'],
   copy: [IconCopy, 'tabler'],
   cube: [IconCubeSpark, 'tabler'],
-  download: [RxDownload, 'radix'],
+  download: [IconDownload, 'tabler'],
   edit: [FiEdit3, 'feather'],
   'external-link': [FiExternalLink, 'feather'],
   flag: [FiFlag, 'feather'],
