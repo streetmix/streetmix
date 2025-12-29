@@ -1,3 +1,4 @@
+import { IconLayoutGridAdd } from '@tabler/icons-react'
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -44,7 +45,6 @@ import {
   IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad, MdOutlineContentCopy } from 'react-icons/md'
-import { RiFunctionAddLine } from 'react-icons/ri'
 import {
   RxCube,
   RxDownload,
@@ -96,7 +96,7 @@ const ICONS = {
   'sign-out': [RxExit, 'radix'],
   star: [RxStar, 'radix'],
   sun: [FiSun, 'feather'],
-  template: [RiFunctionAddLine, 'ri'],
+  template: [IconLayoutGridAdd, 'tabler'],
   time: [FiClock, 'feather'],
   'trail-sign': [IoTrailSignOutline, 'io5'],
   trash: [FiTrash2, 'feather'],
@@ -125,9 +125,25 @@ interface IconProps {
   [attr: string]: string
 }
 
-function makeComponent(name: BaseIconNames, attrs?: Record<string, string>) {
+function makeComponent(name: BaseIconNames, props?: Record<string, string>) {
   const [Component, source] = ICONS[name]
 
+  // Gradually replace react-icons with other sources because it doesn't
+  // tree-shake. For 'tabler' icons return components this way
+  if (source === 'tabler') {
+    const { size = 24, stroke = '1.75', ...restProps } = props ?? {}
+    return (
+      <Component
+        data-icon={name}
+        data-icon-source={source}
+        size={size}
+        stroke={stroke}
+        {...restProps}
+      />
+    )
+  }
+
+  // Fall-through for react-icons
   return (
     <Component
       // Usually you want to target an icon by its name in CSS
@@ -138,20 +154,20 @@ function makeComponent(name: BaseIconNames, attrs?: Record<string, string>) {
       data-icon-source={source}
       // Pass through all other props. e.g. class name is the most obvious
       // use case, but also aria attributes when wrapped with <AccessibleIcon />
-      {...attrs}
+      {...props}
     />
   )
 }
 
-function Icon({ name, ...attrs }: IconProps) {
+function Icon({ name, ...restProps }: IconProps) {
   // The Google icon is a special case because it's the only multicolor one.
   // The colors are baked into the source image.
   // TODO: this can return an SVG also, if we want.
   if (name === 'google') {
-    return <img src={googleIcon} alt="" {...attrs} />
+    return <img src={googleIcon} alt="" {...restProps} />
   }
 
-  return makeComponent(name, attrs)
+  return makeComponent(name, restProps)
 }
 
 export default Icon
