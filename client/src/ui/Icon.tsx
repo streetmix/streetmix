@@ -8,6 +8,7 @@ import {
   IconDownload,
   IconFlag,
   IconGift,
+  IconInfoCircle,
   IconKeyboard,
   IconLanguage,
   IconLayoutGridAdd,
@@ -19,6 +20,8 @@ import {
   IconRulerMeasure,
   IconSailboat,
   IconSettings,
+  IconShoppingCart,
+  IconSignRight,
   IconStar,
   IconUser,
 } from '@tabler/icons-react'
@@ -48,13 +51,7 @@ import {
   FiSun,
   FiTrash2,
 } from 'react-icons/fi'
-import {
-  IoCartOutline,
-  IoClose,
-  IoHelpCircleOutline,
-  IoInformationCircleOutline,
-  IoTrailSignOutline,
-} from 'react-icons/io5'
+import { IoClose, IoHelpCircleOutline } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -64,7 +61,7 @@ const ICONS = {
   'arrow-right': [FaArrowRight, 'fa'],
   boat: [IconSailboat, 'tabler'],
   book: [IconBook2, 'tabler'],
-  cart: [IoCartOutline, 'io5'],
+  cart: [IconShoppingCart, 'tabler'],
   chart: [IconChartBar, 'tabler'],
   check: [FaCheck, 'fa'],
   'chevron-down': [FiChevronDown, 'feather'],
@@ -79,7 +76,7 @@ const ICONS = {
   'external-link': [FiExternalLink, 'feather'],
   flag: [IconFlag, 'tabler'],
   help: [IoHelpCircleOutline, 'io5'],
-  info: [IoInformationCircleOutline, 'io5'],
+  info: [IconInfoCircle, 'tabler'],
   keyboard: [IconKeyboard, 'tabler'],
   language: [IconLanguage, 'tabler'],
   link: [IconLink, 'tabler'],
@@ -98,7 +95,7 @@ const ICONS = {
   sun: [FiSun, 'feather'],
   template: [IconLayoutGridAdd, 'tabler'],
   time: [IconClockHour4, 'tabler'],
-  'trail-sign': [IoTrailSignOutline, 'io5'],
+  'trail-sign': [IconSignRight, 'tabler'],
   trash: [FiTrash2, 'feather'],
   undo: [FiRotateCcw, 'feather'],
   user: [IconUser, 'tabler'],
