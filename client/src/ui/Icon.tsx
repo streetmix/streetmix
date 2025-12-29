@@ -3,6 +3,7 @@ import {
   IconCubeSpark,
   IconDownload,
   IconLayoutGridAdd,
+  IconPrinter,
 } from '@tabler/icons-react'
 import {
   FaArrowLeft,
@@ -45,7 +46,6 @@ import {
   IoInformationCircleOutline,
   IoLanguage,
   IoMailOutline,
-  IoPrintOutline,
   IoRocketOutline,
   IoTrailSignOutline,
 } from 'react-icons/io5'
@@ -91,7 +91,7 @@ const ICONS = {
   minus: [FaMinus, 'fa'],
   'new-street': [MdOutlineAddRoad, 'md'],
   plus: [FaPlus, 'fa'],
-  print: [IoPrintOutline, 'io5'],
+  print: [IconPrinter, 'tabler'],
   redo: [FiRotateCw, 'feather'],
   rocket: [IoRocketOutline, 'io5'],
   ruler: [RxRulerHorizontal, 'radix'],
