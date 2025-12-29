@@ -1,6 +1,6 @@
 export { default as ContactMenu } from './ContactMenu.js'
 export { default as HelpMenu } from './HelpMenu.js'
-export { default as IdentityMenu } from './IdentityMenu.js'
+export * from './IdentityMenu.js'
 export { default as LocaleMenu } from './LocaleMenu.js'
 export { default as NewStreetMenu } from './NewStreetMenu.js'
 export * from './ShareMenu/index.js'

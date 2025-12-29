@@ -6,7 +6,10 @@ import {
   IconDownload,
   IconLayoutGridAdd,
   IconLink,
+  IconLogout,
   IconPrinter,
+  IconSettings,
+  IconStar,
 } from '@tabler/icons-react'
 import {
   FaArrowLeft,
@@ -51,13 +54,7 @@ import {
   IoTrailSignOutline,
 } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
-import {
-  RxExit,
-  RxKeyboard,
-  RxMixerHorizontal,
-  RxRulerHorizontal,
-  RxStar,
-} from 'react-icons/rx'
+import { RxKeyboard, RxRulerHorizontal } from 'react-icons/rx'
 
 import googleIcon from 'url:./icons/google.svg'
 
@@ -95,9 +92,9 @@ const ICONS = {
   redo: [FiRotateCw, 'feather'],
   rocket: [IoRocketOutline, 'io5'],
   ruler: [RxRulerHorizontal, 'radix'],
-  settings: [RxMixerHorizontal, 'radix'],
-  'sign-out': [RxExit, 'radix'],
-  star: [RxStar, 'radix'],
+  settings: [IconSettings, 'tabler'],
+  'sign-out': [IconLogout, 'tabler'],
+  star: [IconStar, 'tabler'],
   sun: [FiSun, 'feather'],
   template: [IconLayoutGridAdd, 'tabler'],
   time: [FiClock, 'feather'],

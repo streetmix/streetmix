@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
@@ -14,7 +14,7 @@ import MenuItem from './MenuItem'
 import { MenuSeparator } from './MenuSeparator'
 import './IdentityMenu.css'
 
-function IdentityMenu(props: MenuProps): React.ReactElement {
+export function IdentityMenu(props: MenuProps) {
   const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
@@ -95,5 +95,3 @@ function IdentityMenu(props: MenuProps): React.ReactElement {
     </Menu>
   )
 }
-
-export default IdentityMenu
