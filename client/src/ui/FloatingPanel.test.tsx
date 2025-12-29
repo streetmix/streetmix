@@ -1,10 +1,9 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import FloatingPanel from './FloatingPanel'
+import { render } from '~/test/helpers/render.js'
+import { FloatingPanel } from './FloatingPanel.js'
 
 describe('FloatingPanel', () => {
   const props = {

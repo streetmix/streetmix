@@ -5,23 +5,23 @@ import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { setSkybox } from '~/src/store/slices/street'
 import { toggleToolbox } from '~/src/store/slices/ui'
-import FloatingPanel from '~/src/ui/FloatingPanel'
+import { FloatingPanel } from '~/src/ui/FloatingPanel'
 import { DEFAULT_SKYBOX } from '../constants'
 import SkyOptions from './SkyOptions'
 import './SkyPicker.css'
 
-function SkyPicker (): React.ReactElement {
+function SkyPicker(): React.ReactElement {
   const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
   const show = useSelector((state) => state.ui.toolboxVisible ?? false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
-  function handleClose (): void {
+  function handleClose(): void {
     dispatch(toggleToolbox())
   }
 
-  function handleSelect (id: string): void {
+  function handleSelect(id: string): void {
     dispatch(setSkybox(id))
   }
 

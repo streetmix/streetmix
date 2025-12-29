@@ -6,17 +6,17 @@ import rehypeExternalLinks from 'rehype-external-links'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { hideDescription } from '~/src/store/slices/infoBubble'
 import { formatMessage } from '~/src/locales/locale'
-import FloatingPanel from '~/src/ui/FloatingPanel'
+import { FloatingPanel } from '~/src/ui/FloatingPanel'
 import './DescriptionPanel.css'
 
-function DescriptionPanel (): React.ReactElement | null {
+function DescriptionPanel(): React.ReactElement | null {
   const show = useSelector((state) => state.infoBubble.descriptionVisible)
   const description = useSelector((state) => state.infoBubble.descriptionData)
   const offline = useSelector((state) => state.system.offline)
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
-  function handleClose (): void {
+  function handleClose(): void {
     dispatch(hideDescription())
   }
 
@@ -27,7 +27,7 @@ function DescriptionPanel (): React.ReactElement | null {
     `descriptions.${description.key}.content`,
     undefined,
     {
-      ns: 'segment-info'
+      ns: 'segment-info',
     }
   )
 
@@ -45,7 +45,7 @@ function DescriptionPanel (): React.ReactElement | null {
     'ul',
     'li',
     'blockquote',
-    'h1'
+    'h1',
   ]
   if (!offline) {
     allowedElements.push('a')
@@ -80,8 +80,8 @@ function DescriptionPanel (): React.ReactElement | null {
               rehypePlugins={[
                 [
                   rehypeExternalLinks,
-                  { rel: 'noopener noreferrer', target: '_blank' }
-                ]
+                  { rel: 'noopener noreferrer', target: '_blank' },
+                ],
               ]}
             >
               {content}
