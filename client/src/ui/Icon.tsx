@@ -14,6 +14,7 @@ import {
   IconMapPin,
   IconPrinter,
   IconRulerMeasure,
+  IconSailboat,
   IconSettings,
   IconStar,
   IconUser,
@@ -45,7 +46,6 @@ import {
   FiTrash2,
 } from 'react-icons/fi'
 import {
-  IoBoatOutline,
   IoBookOutline,
   IoCartOutline,
   IoClose,
@@ -62,7 +62,7 @@ import googleIcon from 'url:./icons/google.svg'
 const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
-  boat: [IoBoatOutline, 'io5'],
+  boat: [IconSailboat, 'tabler'],
   book: [IoBookOutline, 'io5'],
   cart: [IoCartOutline, 'io5'],
   chart: [IconChartBar, 'tabler'],
