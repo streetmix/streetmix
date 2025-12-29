@@ -1,14 +1,13 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { showDialog } from '~/src/store/slices/dialogs'
-import StreetMetaAnalytics from './StreetMetaAnalytics'
+import { render } from '~/test/helpers/render.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import { StreetMetaAnalytics } from './StreetMetaAnalytics.js'
 
-vi.mock('~/src/store/slices/dialogs', () => ({
+vi.mock('~/src/store/slices/dialogs.js', () => ({
   default: {},
-  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  showDialog: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('StreetMetaAnalytics', () => {
@@ -25,19 +24,19 @@ describe('StreetMetaAnalytics', () => {
             {
               type: 'sidewalk',
               width: 6,
-              warnings: []
+              warnings: [],
             },
             {
               type: 'bus-lane',
               width: 12,
-              warnings: []
-            }
-          ]
+              warnings: [],
+            },
+          ],
         },
         locale: {
-          locale: 'en'
-        }
-      }
+          locale: 'en',
+        },
+      },
     })
 
     await userEvent.click(getByText('20,000 people/hr'))

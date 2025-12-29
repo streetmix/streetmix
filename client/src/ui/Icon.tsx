@@ -1,4 +1,5 @@
 import {
+  IconChartBar,
   IconClipboard,
   IconCopy,
   IconCubeSpark,
@@ -23,7 +24,6 @@ import {
   FaTwitter,
 } from 'react-icons/fa6'
 import {
-  FiBarChart2,
   FiChevronDown,
   FiChevronLeft,
   FiChevronRight,
@@ -67,6 +67,7 @@ const ICONS = {
   boat: [IoBoatOutline, 'io5'],
   book: [IoBookOutline, 'io5'],
   cart: [IoCartOutline, 'io5'],
+  chart: [IconChartBar, 'tabler'],
   check: [FaCheck, 'fa'],
   'chevron-down': [FiChevronDown, 'feather'],
   'chevron-left': [FiChevronLeft, 'feather'],
@@ -79,7 +80,6 @@ const ICONS = {
   edit: [FiEdit3, 'feather'],
   'external-link': [FiExternalLink, 'feather'],
   flag: [FiFlag, 'feather'],
-  graph: [FiBarChart2, 'feather'],
   help: [IoHelpCircleOutline, 'io5'],
   info: [IoInformationCircleOutline, 'io5'],
   keyboard: [RxKeyboard, 'radix'],
@@ -130,13 +130,16 @@ interface IconProps {
   [attr: string]: string | undefined
 }
 
-function makeComponent(name: BaseIconNames, props?: Record<string, string>) {
+function makeComponent(
+  name: BaseIconNames,
+  props?: Record<string, string | undefined>
+) {
   const [Component, source] = ICONS[name]
 
   // Gradually replace react-icons with other sources because it doesn't
   // tree-shake. For 'tabler' icons return components this way
   if (source === 'tabler') {
-    const { size = '24', stroke = '1.75', ...restProps } = props ?? {}
+    const { size = '16', stroke = '1.75', ...restProps } = props ?? {}
     return (
       <Component
         data-icon={name}

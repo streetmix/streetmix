@@ -5,10 +5,10 @@ import StreetMetaWidth from './StreetMetaWidth'
 import StreetMetaAuthor from './StreetMetaAuthor'
 import StreetMetaDate from './StreetMetaDate'
 import StreetMetaGeotag from './StreetMetaGeotag'
-import StreetMetaAnalytics from './StreetMetaAnalytics'
+import { StreetMetaAnalytics } from './StreetMetaAnalytics'
 import './StreetMeta.css'
 
-function StreetMeta (): React.ReactElement {
+function StreetMeta(): React.ReactElement {
   const enableAnalytics = useSelector(
     (state) => state.flags.ANALYTICS?.value ?? false
   )

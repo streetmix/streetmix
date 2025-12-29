@@ -78,6 +78,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
           <svg
             data-icon="clipboard"
             data-icon-source="test"
+            size="16"
           />
         </button>
       </div>
@@ -170,7 +171,7 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
     >
       <svg
         class="menu-item-icon"
-        data-icon="graph"
+        data-icon="chart"
         data-icon-source="test"
       />
       Open in Streetmeter 
@@ -253,6 +254,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
           <svg
             data-icon="clipboard"
             data-icon-source="test"
+            size="16"
           />
         </button>
       </div>
@@ -345,7 +347,7 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
     >
       <svg
         class="menu-item-icon"
-        data-icon="graph"
+        data-icon="chart"
         data-icon-source="test"
       />
       Open in Streetmeter 
