@@ -13,7 +13,7 @@ function openTemplate(template: string): void {
   window.open(url, '_blank')
 }
 
-function NewStreetMenu(props: MenuProps) {
+export function NewStreetMenu(props: MenuProps) {
   const templatesEnabled = useSelector(
     (state) => state.flags.NEW_STREET_TEMPLATES.value
   )
@@ -122,5 +122,3 @@ function NewStreetMenu(props: MenuProps) {
     </Menu>
   )
 }
-
-export default NewStreetMenu
