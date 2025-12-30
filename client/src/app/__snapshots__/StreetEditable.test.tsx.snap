@@ -51,7 +51,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
             >
               <svg
                 data-icon="chevron-left"
-                size="24"
+                size="30"
               />
             </div>
             <div
@@ -59,7 +59,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
             >
               <svg
                 data-icon="chevron-right"
-                size="24"
+                size="30"
               />
             </div>
             <div
