@@ -56,15 +56,11 @@
     align-items: center;
   }
 
-  [data-icon="sun"] {
-    width: 24px;
-    height: 24px;
-  }
-
+  [data-icon="sun"],
   [data-icon="undo"],
   [data-icon="redo"] {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
   }
 }
 

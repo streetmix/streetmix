@@ -1,4 +1,6 @@
 import {
+  IconArrowBackUp,
+  IconArrowForwardUp,
   IconBook2,
   IconChartBar,
   IconClipboard,
@@ -49,8 +51,6 @@ import {
   FiChevronRight,
   FiEdit3,
   FiExternalLink,
-  FiRotateCcw,
-  FiRotateCw,
   FiTrash2,
 } from 'react-icons/fi'
 import { MdOutlineAddRoad } from 'react-icons/md'
@@ -88,7 +88,7 @@ const ICONS = {
   'new-street': [MdOutlineAddRoad, 'md'],
   plus: [FaPlus, 'fa'],
   print: [IconPrinter, 'tabler'],
-  redo: [FiRotateCw, 'feather'],
+  redo: [IconArrowForwardUp, 'tabler'],
   ruler: [IconRulerMeasure, 'tabler'],
   settings: [IconSettings, 'tabler'],
   'sign-out': [IconLogout, 'tabler'],
@@ -98,7 +98,7 @@ const ICONS = {
   time: [IconClockHour4, 'tabler'],
   'trail-sign': [IconSignRight, 'tabler'],
   trash: [FiTrash2, 'feather'],
-  undo: [FiRotateCcw, 'feather'],
+  undo: [IconArrowBackUp, 'tabler'],
   user: [IconUser, 'tabler'],
   'whats-new': [IconGift, 'tabler'],
 

@@ -2,7 +2,7 @@ import { useSelector } from '../store/hooks.js'
 import PaletteItems from './PaletteItems.js'
 import PaletteTrashcan from './PaletteTrashcan.js'
 import { EnvironmentButton } from './EnvironmentButton.js'
-import UndoRedo from './UndoRedo.js'
+import { UndoRedo } from './UndoRedo.js'
 import './PaletteContainer.css'
 
 export function PaletteContainer() {
