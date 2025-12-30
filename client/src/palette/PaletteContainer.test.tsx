@@ -1,16 +1,15 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import PaletteContainer from './PaletteContainer'
+import { render } from '~/test/helpers/render.js'
+import { PaletteContainer } from './PaletteContainer.js'
 
-vi.mock('../segments/view', async (importOriginal) => {
+vi.mock('../segments/view.js', async (importOriginal) => {
   const actual: object = await importOriginal()
   return {
     ...actual,
-    drawSegmentContents: vi.fn()
+    drawSegmentContents: vi.fn(),
   }
 })
 // TODO: different way of mocking this...?
@@ -24,15 +23,15 @@ describe('PaletteContainer', () => {
     const { asFragment } = render(<PaletteContainer />, {
       initialState: {
         app: {
-          everythingLoaded: true
+          everythingLoaded: true,
         },
         flags: {
           // For SegmentForPalette
           DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
           // Tests flag filter + unlock condition
-          SEGMENT_CAFE_SEATING: { value: true }
-        }
-      }
+          SEGMENT_CAFE_SEATING: { value: true },
+        },
+      },
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -42,9 +41,9 @@ describe('PaletteContainer', () => {
     const { container } = render(<PaletteContainer />, {
       initialState: {
         app: {
-          readOnly: true
-        }
-      }
+          readOnly: true,
+        },
+      },
     })
 
     expect(container.firstChild).toBe(null)
@@ -54,9 +53,9 @@ describe('PaletteContainer', () => {
     render(<PaletteContainer />, {
       initialState: {
         app: {
-          everythingLoaded: false
-        }
-      }
+          everythingLoaded: false,
+        },
+      },
     })
 
     expect(screen.queryByRole('list')).toBe(null)
@@ -66,9 +65,9 @@ describe('PaletteContainer', () => {
     render(<PaletteContainer />, {
       initialState: {
         app: {
-          everythingLoaded: true
-        }
-      }
+          everythingLoaded: true,
+        },
+      },
     })
 
     // The tooltip is on the child (<button>) element of the list item

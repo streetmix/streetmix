@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { useSelector } from '~/src/store/hooks.js'
 import { Popover } from '~/src/ui/Popover.js'
 import Slider from '~/src/ui/Slider.js'
-import StreetmixPlusPrompt from '~/src/app/StreetmixPlusPrompt.js'
+import { StreetmixPlusPrompt } from '~/src/app/StreetmixPlusPrompt.js'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
 import './CustomScale.css'
 

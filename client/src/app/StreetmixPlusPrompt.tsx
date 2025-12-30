@@ -1,18 +1,15 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Button } from '../ui/Button'
-import Icon from '../ui/Icon'
+import { Button } from '../ui/Button.js'
+import Icon from '../ui/Icon.js'
 import './StreetmixPlusPrompt.css'
 
 interface StreetmixPlusPromptProps {
   children: React.ReactNode
 }
 
-function StreetmixPlusPrompt({
-  children,
-}: StreetmixPlusPromptProps): React.ReactElement {
-  function handleClickUpgrade(event: React.MouseEvent): void {
+export function StreetmixPlusPrompt({ children }: StreetmixPlusPromptProps) {
+  function handleClickUpgrade(event: React.MouseEvent) {
     event.preventDefault()
     // dispatch(showDialog('UPGRADE'))
     window.open(
@@ -39,5 +36,3 @@ function StreetmixPlusPrompt({
     </>
   )
 }
-
-export default StreetmixPlusPrompt

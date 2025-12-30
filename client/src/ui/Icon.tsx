@@ -23,6 +23,7 @@ import {
   IconShoppingCart,
   IconSignRight,
   IconStar,
+  IconSunset2,
   IconUser,
 } from '@tabler/icons-react'
 import {
@@ -48,7 +49,6 @@ import {
   FiExternalLink,
   FiRotateCcw,
   FiRotateCw,
-  FiSun,
   FiTrash2,
 } from 'react-icons/fi'
 import { IoClose, IoHelpCircleOutline } from 'react-icons/io5'
@@ -92,7 +92,7 @@ const ICONS = {
   settings: [IconSettings, 'tabler'],
   'sign-out': [IconLogout, 'tabler'],
   star: [IconStar, 'tabler'],
-  sun: [FiSun, 'feather'],
+  sun: [IconSunset2, 'tabler'],
   template: [IconLayoutGridAdd, 'tabler'],
   time: [IconClockHour4, 'tabler'],
   'trail-sign': [IconSignRight, 'tabler'],

@@ -1,35 +1,34 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import * as uiSlice from '~/src/store/slices/ui'
-import SkyPicker from './SkyPicker'
+import { render } from '~/test/helpers/render.js'
+import * as uiSlice from '~/src/store/slices/ui.js'
+import { SkyPicker } from './SkyPicker.js'
 
 vi.mock(
   '../skybox-defs.json',
   async () => await import('../__mocks__/skybox-defs.json')
 )
-vi.mock('../constants', () => ({ DEFAULT_SKYBOX: 'default' }))
+vi.mock('../constants.js', () => ({ DEFAULT_SKYBOX: 'default' }))
 
 describe('SkyPicker', () => {
   const initialState = {
     street: {
-      skybox: null
+      skybox: null,
     },
     ui: {
-      toolboxVisible: true
+      toolboxVisible: true,
     },
     user: {
       signedIn: true,
-      isSubscriber: true
-    }
+      isSubscriber: true,
+    },
   }
 
   it('renders for signed-in subscribers', () => {
     const { asFragment } = render(<SkyPicker />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -63,8 +62,8 @@ describe('SkyPicker', () => {
   it('shows Streetmix+ prompt', () => {
     render(<SkyPicker />, {
       initialState: {
-        ...initialState
-      }
+        ...initialState,
+      },
     })
     expect(screen.queryByText('Get Streetmix+')).not.toBeInTheDocument()
   })
@@ -75,9 +74,9 @@ describe('SkyPicker', () => {
         ...initialState,
         user: {
           signedIn: true,
-          isSubscriber: false
-        }
-      }
+          isSubscriber: false,
+        },
+      },
     })
 
     // Initial state

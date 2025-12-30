@@ -1,1 +1,1 @@
-export { default } from './SkyPicker'
+export * from './SkyPicker'

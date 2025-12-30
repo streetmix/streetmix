@@ -1,11 +1,10 @@
-import React from 'react'
 import { IntlProvider, useIntl } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import Icon from '~/src/ui/Icon'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
-import { images } from '~/src/app/load_resources'
-import { DEFAULT_SKYBOX } from '../constants'
+import { useSelector } from '~/src/store/hooks.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
+import { images } from '~/src/app/load_resources.js'
+import { DEFAULT_SKYBOX } from '../constants.js'
 import { getAllSkyboxDefs } from '..'
 import './SkyOptions.css'
 
@@ -17,15 +16,15 @@ interface SkyOptionsProps {
   handleSelect: (id: string) => void
 }
 
-function SkyOptions ({
+export function SkyOptions({
   enabled,
   selected,
-  handleSelect
-}: SkyOptionsProps): React.ReactElement {
+  handleSelect,
+}: SkyOptionsProps) {
   const locale = useSelector((state) => state.locale)
   const intl = useIntl()
 
-  function handleClick (
+  function handleClick(
     event: React.MouseEvent,
     env: SkyboxDefWithStyles
   ): void {
@@ -45,7 +44,7 @@ function SkyOptions ({
             const classNames = ['sky-option-item']
             const label = intl.formatMessage({
               id: `skybox.${id}`,
-              defaultMessage: name
+              defaultMessage: name,
             })
 
             if (selected === id) {
@@ -82,7 +81,7 @@ function SkyOptions ({
                         width: '100%',
                         height: '100%',
                         pointerEvents: 'none',
-                        userSelect: 'none'
+                        userSelect: 'none',
                       }}
                       draggable={false}
                     />
@@ -96,5 +95,3 @@ function SkyOptions ({
     </IntlProvider>
   )
 }
-
-export default SkyOptions

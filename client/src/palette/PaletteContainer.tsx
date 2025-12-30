@@ -1,13 +1,11 @@
-import React from 'react'
-
-import { useSelector } from '../store/hooks'
-import PaletteItems from './PaletteItems'
-import PaletteTrashcan from './PaletteTrashcan'
-import EnvironmentButton from './EnvironmentButton'
-import UndoRedo from './UndoRedo'
+import { useSelector } from '../store/hooks.js'
+import PaletteItems from './PaletteItems.js'
+import PaletteTrashcan from './PaletteTrashcan.js'
+import { EnvironmentButton } from './EnvironmentButton.js'
+import UndoRedo from './UndoRedo.js'
 import './PaletteContainer.css'
 
-function PaletteContainer (): React.ReactElement | null {
+export function PaletteContainer() {
   const readOnly = useSelector((state) => state.app.readOnly)
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
 
@@ -29,5 +27,3 @@ function PaletteContainer (): React.ReactElement | null {
     </div>
   )
 }
-
-export default PaletteContainer
