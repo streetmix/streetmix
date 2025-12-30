@@ -1,16 +1,12 @@
-import React from 'react'
-
-import { useSelector } from '../store/hooks'
-import Icon from '../ui/Icon'
+import { useSelector } from '../store/hooks.js'
+import Icon from '../ui/Icon.js'
 import './SegmentDragHandles.css'
 
 interface SegmentDragHandlesProps {
   width: number
 }
 
-function SegmentDragHandles({
-  width,
-}: SegmentDragHandlesProps): React.ReactElement {
+export function SegmentDragHandles({ width }: SegmentDragHandlesProps) {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
 
@@ -40,5 +36,3 @@ function SegmentDragHandles({
     </>
   )
 }
-
-export default SegmentDragHandles
