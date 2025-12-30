@@ -32,7 +32,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -46,7 +45,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -75,7 +73,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -89,7 +86,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -102,7 +98,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             aria-hidden="true"
             data-icon="language"
-            data-icon-source="test"
             focusable="false"
             size="18"
           />
@@ -114,7 +109,6 @@ exports[`MenusContainer > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>

@@ -21,7 +21,6 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -183,7 +182,6 @@ exports[`AnalyticsDialog > renders snapshot 1`] = `
                 </label>
                 <svg
                   data-icon="check"
-                  data-icon-source="test"
                 />
               </div>
               <br />

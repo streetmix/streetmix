@@ -136,13 +136,7 @@ function makeComponent(
   if (source === 'tabler') {
     const { size = '16', stroke = '1.75', ...restProps } = props ?? {}
     return (
-      <Component
-        data-icon={name}
-        data-icon-source={source}
-        size={size}
-        stroke={stroke}
-        {...restProps}
-      />
+      <Component data-icon={name} size={size} stroke={stroke} {...restProps} />
     )
   }
 
@@ -151,10 +145,6 @@ function makeComponent(
     <Component
       // Usually you want to target an icon by its name in CSS
       data-icon={name}
-      // Sometimes you can target an entire family of icons. For instance
-      // Radix UI is optimized at 15×15, most others use 16×16, so we also
-      // record the icon source on the element
-      data-icon-source={source}
       // Pass through all other props. e.g. class name is the most obvious
       // use case, but also aria attributes when wrapped with <AccessibleIcon />
       {...props}

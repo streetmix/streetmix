@@ -32,7 +32,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -46,7 +45,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -75,7 +73,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -89,7 +86,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -102,7 +98,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             aria-hidden="true"
             data-icon="language"
-            data-icon-source="test"
             focusable="false"
             size="18"
           />
@@ -114,7 +109,6 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -163,7 +157,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -177,7 +170,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -206,7 +198,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -220,7 +211,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -233,7 +223,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             aria-hidden="true"
             data-icon="language"
-            data-icon-source="test"
             focusable="false"
             size="18"
           />
@@ -245,7 +234,6 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -307,7 +295,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -325,7 +312,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -339,7 +325,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>
@@ -352,7 +337,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             aria-hidden="true"
             data-icon="language"
-            data-icon-source="test"
             focusable="false"
             size="18"
           />
@@ -364,7 +348,6 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </button>
       </li>

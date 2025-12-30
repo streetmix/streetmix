@@ -21,7 +21,6 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div

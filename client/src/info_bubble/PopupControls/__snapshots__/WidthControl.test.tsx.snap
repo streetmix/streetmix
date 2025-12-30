@@ -16,7 +16,6 @@ exports[`WidthControl > renders 1`] = `
       >
         <svg
           data-icon="minus"
-          data-icon-source="test"
         />
       </button>
       <input
@@ -33,7 +32,6 @@ exports[`WidthControl > renders 1`] = `
       >
         <svg
           data-icon="plus"
-          data-icon-source="test"
         />
       </button>
     </div>

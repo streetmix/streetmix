@@ -21,7 +21,6 @@ exports[`GeotagDialog > renders 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div

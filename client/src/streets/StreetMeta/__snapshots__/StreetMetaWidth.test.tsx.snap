@@ -10,7 +10,6 @@ exports[`StreetMetaWidth > does not render interactive elements when not editabl
     >
       <svg
         data-icon="ruler"
-        data-icon-source="test"
       />
     </div>
     <div
@@ -44,7 +43,6 @@ exports[`StreetMetaWidth > renders 1`] = `
       >
         <svg
           data-icon="ruler"
-          data-icon-source="test"
         />
       </div>
       <div
@@ -58,7 +56,6 @@ exports[`StreetMetaWidth > renders 1`] = `
         <svg
           class="menu-carat-down"
           data-icon="chevron-down"
-          data-icon-source="test"
         />
       </div>
     </button>

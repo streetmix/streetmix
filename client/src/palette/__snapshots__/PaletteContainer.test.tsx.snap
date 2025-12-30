@@ -17,7 +17,6 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="sun"
-            data-icon-source="test"
           />
         </button>
       </div>
@@ -33,7 +32,6 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="chevron-left"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -62,7 +60,6 @@ exports[`PaletteContainer > renders 1`] = `
               </button>
               <svg
                 data-icon="lock"
-                data-icon-source="test"
               />
             </li>
           </ul>
@@ -76,7 +73,6 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="chevron-right"
-            data-icon-source="test"
           />
         </button>
       </div>
@@ -91,7 +87,6 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="undo"
-            data-icon-source="test"
           />
         </button>
         <button
@@ -102,7 +97,6 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="redo"
-            data-icon-source="test"
           />
         </button>
       </div>

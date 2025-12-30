@@ -62,7 +62,6 @@ exports[`IdentityMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="star"
-        data-icon-source="test"
       />
       My streets
     </button>
@@ -73,7 +72,6 @@ exports[`IdentityMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="settings"
-        data-icon-source="test"
       />
       Settings
     </button>
@@ -89,7 +87,6 @@ exports[`IdentityMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="sign-out"
-        data-icon-source="test"
       />
       Sign out
     </button>

@@ -21,7 +21,6 @@ exports[`SignInDialog > renders 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -82,7 +81,6 @@ exports[`SignInDialog > renders 1`] = `
             >
               <svg
                 data-icon="twitter"
-                data-icon-source="test"
               />
               Continue with Twitter
             </button>
@@ -92,7 +90,6 @@ exports[`SignInDialog > renders 1`] = `
             >
               <svg
                 data-icon="google"
-                data-icon-source="test"
               />
               Continue with Google
             </button>
@@ -102,7 +99,6 @@ exports[`SignInDialog > renders 1`] = `
             >
               <svg
                 data-icon="facebook"
-                data-icon-source="test"
               />
               Continue with Facebook
             </button>
