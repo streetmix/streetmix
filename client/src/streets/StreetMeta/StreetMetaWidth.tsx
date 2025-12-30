@@ -1,28 +1,27 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { updateStreetWidthAction as updateStreetWidth } from '~/src/store/actions/street'
-import Icon from '~/src/ui/Icon'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { updateStreetWidthAction as updateStreetWidth } from '~/src/store/actions/street.js'
+import Icon from '~/src/ui/Icon.js'
 import {
   prettifyWidth,
   processWidthInput,
-  convertImperialMeasurementToMetric
-} from '~/src/util/width_units'
+  convertImperialMeasurementToMetric,
+} from '~/src/util/width_units.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '~/src/users/constants'
-import { updateUnits } from '~/src/users/localization'
+  SETTINGS_UNITS_METRIC,
+} from '~/src/users/constants.js'
+import { updateUnits } from '~/src/users/localization.js'
 import {
   MIN_CUSTOM_STREET_WIDTH,
   MAX_CUSTOM_STREET_WIDTH,
   MIN_CUSTOM_STREET_WIDTH_IMPERIAL,
-  MAX_CUSTOM_STREET_WIDTH_IMPERIAL
-} from '../constants'
-import { normalizeStreetWidth } from '../width'
-import StreetMetaItem from './StreetMetaItem'
+  MAX_CUSTOM_STREET_WIDTH_IMPERIAL,
+} from '../constants.js'
+import { normalizeStreetWidth } from '../width.js'
+import StreetMetaItem from './StreetMetaItem.js'
 
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidth.css'
@@ -32,7 +31,7 @@ const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
 )
 const DEFAULT_STREET_WIDTHS_METRIC = [12, 18, 24]
 
-function StreetMetaWidthNew (): React.ReactElement | null {
+export function StreetMetaWidth() {
   const street = useSelector((state) => state.street)
   const editable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_WIDTH.value
@@ -45,7 +44,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
   const intl = useIntl()
   const tooltip = intl.formatMessage({
     id: 'tooltip.street-width',
-    defaultMessage: 'Change width of the street'
+    defaultMessage: 'Change width of the street',
   })
 
   // Apply a class when street width is editable for styling
@@ -60,10 +59,10 @@ function StreetMetaWidthNew (): React.ReactElement | null {
       ? DEFAULT_STREET_WIDTHS_IMPERIAL
       : DEFAULT_STREET_WIDTHS_METRIC
 
-  function renderStreetWidthRemaining (
+  function renderStreetWidthRemaining(
     { remainingWidth, units }: StreetJsonExtra,
     locale: string
-  ): React.ReactElement | null {
+  ) {
     const width = prettifyWidth(Math.abs(remainingWidth), units, locale)
 
     if (remainingWidth > 0) {
@@ -91,7 +90,7 @@ function StreetMetaWidthNew (): React.ReactElement | null {
     return null
   }
 
-  function handleWidthChange (value: string): void {
+  function handleWidthChange(value: string): void {
     const newWidth = Number.parseFloat(value)
 
     // Do nothing if the selection is the original width
@@ -103,12 +102,12 @@ function StreetMetaWidthNew (): React.ReactElement | null {
     }
   }
 
-  function handleUnitChange (value: string): void {
+  function handleUnitChange(value: string): void {
     const selection = Number.parseFloat(value)
     updateUnits(selection)
   }
 
-  function handleWidthEntry (): void {
+  function handleWidthEntry(): void {
     const minValue =
       units === SETTINGS_UNITS_IMPERIAL
         ? MIN_CUSTOM_STREET_WIDTH_IMPERIAL
@@ -121,11 +120,11 @@ function StreetMetaWidthNew (): React.ReactElement | null {
     const promptString = intl.formatMessage(
       {
         id: 'prompt.new-width',
-        defaultMessage: 'New street width (from {minWidth} to {maxWidth}):'
+        defaultMessage: 'New street width (from {minWidth} to {maxWidth}):',
       },
       {
         minWidth: prettifyWidth(minValue, units, locale),
-        maxWidth: prettifyWidth(maxValue, units, locale)
+        maxWidth: prettifyWidth(maxValue, units, locale),
       }
     )
     const inputWidth = window.prompt(
@@ -277,5 +276,3 @@ function StreetMetaWidthNew (): React.ReactElement | null {
     </DropdownMenu.Root>
   )
 }
-
-export default StreetMetaWidthNew

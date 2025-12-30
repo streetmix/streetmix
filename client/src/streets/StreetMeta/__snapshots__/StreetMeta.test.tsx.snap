@@ -21,7 +21,6 @@ exports[`StreetMeta > renders without crashing 1`] = `
         >
           <svg
             data-icon="ruler"
-            data-icon-source="test"
           />
         </div>
         <div
@@ -35,7 +34,6 @@ exports[`StreetMeta > renders without crashing 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
-            data-icon-source="test"
           />
         </div>
       </button>
@@ -51,7 +49,6 @@ exports[`StreetMeta > renders without crashing 1`] = `
         >
           <svg
             data-icon="location"
-            data-icon-source="test"
           />
         </div>
         <div

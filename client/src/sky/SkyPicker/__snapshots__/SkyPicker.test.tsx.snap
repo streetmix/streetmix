@@ -14,7 +14,6 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
         <h3>
           <svg
             data-icon="sun"
-            data-icon-source="test"
           />
           Environment
         </h3>
@@ -24,7 +23,6 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
       </header>

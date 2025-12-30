@@ -1,14 +1,13 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import UndoRedo from './UndoRedo'
+import { render } from '~/test/helpers/render.js'
+import { UndoRedo } from './UndoRedo.js'
 
 // For the purposes of this test suite, assume user owns the street
-vi.mock('../streets/owner', () => ({
-  isOwnedByCurrentUser: () => true
+vi.mock('../streets/owner.js', () => ({
+  isOwnedByCurrentUser: () => true,
 }))
 
 // Note: "default" render snapshot is covered by a test on the parent
@@ -19,9 +18,9 @@ describe('UndoRedo', () => {
       initialState: {
         history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
-          position: 1
-        }
-      }
+          position: 1,
+        },
+      },
     })
 
     // Click the undo button
@@ -37,9 +36,9 @@ describe('UndoRedo', () => {
       initialState: {
         history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
-          position: 0
-        }
-      }
+          position: 0,
+        },
+      },
     })
 
     // Expect the undo position to increment when redo button is clicked

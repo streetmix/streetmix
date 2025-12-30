@@ -21,7 +21,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -57,7 +56,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </label>
                   <svg
                     data-icon="check"
-                    data-icon-source="test"
                   />
                 </div>
               </li>
@@ -80,7 +78,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </label>
                   <svg
                     data-icon="check"
-                    data-icon-source="test"
                   />
                 </div>
               </li>
@@ -104,7 +101,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </label>
                   <svg
                     data-icon="check"
-                    data-icon-source="test"
                   />
                 </div>
               </li>
@@ -128,7 +124,6 @@ exports[`FeatureFlagDialog > renders 1`] = `
                   </label>
                   <svg
                     data-icon="check"
-                    data-icon-source="test"
                   />
                 </div>
               </li>

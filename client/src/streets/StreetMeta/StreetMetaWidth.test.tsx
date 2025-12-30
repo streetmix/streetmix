@@ -1,22 +1,21 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { within } from '@testing-library/dom'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { updateUnits } from '~/src/users/localization'
-import StreetMetaWidth from './StreetMetaWidth'
+import { render } from '~/test/helpers/render.js'
+import { updateUnits } from '~/src/users/localization.js'
+import { StreetMetaWidth } from './StreetMetaWidth.js'
 
-vi.mock('~/src/users/localization', () => ({
-  updateUnits: vi.fn()
+vi.mock('~/src/users/localization.js', () => ({
+  updateUnits: vi.fn(),
 }))
 
 const dummyStreetObject = {
   units: 0,
   width: 10,
   occupiedWidth: 10,
-  remainingWidth: 0
+  remainingWidth: 0,
 }
 
 describe('StreetMetaWidth', () => {
@@ -29,9 +28,9 @@ describe('StreetMetaWidth', () => {
     const { asFragment } = render(<StreetMetaWidth />, {
       initialState: {
         app: {
-          readOnly: true
-        }
-      }
+          readOnly: true,
+        },
+      },
     })
 
     expect(screen.queryByRole('button')).toBe(null)
@@ -57,9 +56,9 @@ describe('StreetMetaWidth', () => {
         street: {
           ...dummyStreetObject,
           occupiedWidth: 9,
-          remainingWidth: 1
-        }
-      }
+          remainingWidth: 1,
+        },
+      },
     })
 
     expect(screen.getByText('1 m room', { exact: false })).toBeInTheDocument()
@@ -71,9 +70,9 @@ describe('StreetMetaWidth', () => {
         street: {
           ...dummyStreetObject,
           occupiedWidth: 11,
-          remainingWidth: -1
-        }
-      }
+          remainingWidth: -1,
+        },
+      },
     })
 
     expect(screen.getByText('1 m over', { exact: false })).toBeInTheDocument()
@@ -85,9 +84,9 @@ describe('StreetMetaWidth', () => {
         street: {
           ...dummyStreetObject,
           width: 18,
-          occupiedWidth: 3
-        }
-      }
+          occupiedWidth: 3,
+        },
+      },
     })
 
     await userEvent.click(screen.getByText('18 m width'))
@@ -103,9 +102,9 @@ describe('StreetMetaWidth', () => {
         street: {
           ...dummyStreetObject,
           width: 3,
-          occupiedWidth: 3
-        }
-      }
+          occupiedWidth: 3,
+        },
+      },
     })
 
     await userEvent.click(screen.getByText('3 m width'))
@@ -122,9 +121,9 @@ describe('StreetMetaWidth', () => {
           ...dummyStreetObject,
           units: 1,
           width: 18.288,
-          occupiedWidth: 3.048
-        }
-      }
+          occupiedWidth: 3.048,
+        },
+      },
     })
 
     await userEvent.click(screen.getByText('60′ width'))

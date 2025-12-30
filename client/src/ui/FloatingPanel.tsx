@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useTransition, animated } from '@react-spring/web'
 import Draggable from 'react-draggable'
 
@@ -15,7 +15,7 @@ interface FloatingPanelProps {
   children: React.ReactNode
 }
 
-function FloatingPanel({
+export function FloatingPanel({
   icon,
   title,
   show,
@@ -68,5 +68,3 @@ function FloatingPanel({
       )
   )
 }
-
-export default FloatingPanel

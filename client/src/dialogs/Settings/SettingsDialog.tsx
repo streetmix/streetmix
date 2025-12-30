@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import type { UserProfile } from '~/src/types'
-import { useSelector } from '~/src/store/hooks'
-import { ENV } from '~/src/app/config'
-import Icon from '~/src/ui/Icon'
+import type { UserProfile } from '~/src/types/index.js'
+import { useSelector } from '~/src/store/hooks.js'
+import { ENV } from '~/src/app/config.js'
+import Icon from '~/src/ui/Icon.js'
 import USER_ROLES from '../../../../app/data/user_roles.json'
-import Dialog from '../Dialog'
-import FeatureFlagSettings from './FeatureFlagSettings'
-import GeneralSettings from './GeneralSettings'
-import LanguageSettings from './LanguageSettings'
-import ProfileSettings from './ProfileSettings'
-import UnitSettings from './UnitSettings'
+import Dialog from '../Dialog.js'
+import { FeatureFlagSettings } from './FeatureFlagSettings.js'
+import { GeneralSettings } from './GeneralSettings.js'
+import { LanguageSettings } from './LanguageSettings.js'
+import { ProfileSettings } from './ProfileSettings.js'
+import { UnitSettings } from './UnitSettings.js'
 import './SettingsDialog.css'
 
 interface SettingsDialogProps {
@@ -23,9 +23,7 @@ interface SettingsDialogProps {
  * Users that are not signed in (anonymous) are applied for the browser
  * session. Don't use this for street-level settings.
  */
-function SettingsDialog ({
-  category = 'profile'
-}: SettingsDialogProps): React.ReactElement {
+export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
   const user: Partial<UserProfile> = useSelector(
     (state) => state.user?.signInData?.details ?? {}
   )
@@ -37,7 +35,7 @@ function SettingsDialog ({
   const showFlags: boolean =
     ENV !== 'production' || roles.includes(USER_ROLES.ADMIN.value)
 
-  function handleSelectCategory (category: string): void {
+  function handleSelectCategory(category: string): void {
     setActiveCategory(category)
   }
 
@@ -86,7 +84,11 @@ function SettingsDialog ({
                       activeCategory === 'profile' ? 'settings-menu-active' : ''
                     }
                   >
-                    <Icon name="user" className="settings-menu-icon" />
+                    <Icon
+                      name="user"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.profile.label"
                       defaultMessage="Profile"
@@ -101,7 +103,11 @@ function SettingsDialog ({
                       activeCategory === 'general' ? 'settings-menu-active' : ''
                     }
                   >
-                    <Icon name="settings" className="settings-menu-icon" />
+                    <Icon
+                      name="settings"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.general.label"
                       defaultMessage="General"
@@ -117,7 +123,11 @@ function SettingsDialog ({
                         : ''
                     }
                   >
-                    <Icon name="language" className="settings-menu-icon" />
+                    <Icon
+                      name="language"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.language.label"
                       defaultMessage="Language"
@@ -134,7 +144,11 @@ function SettingsDialog ({
                           : ''
                       }
                     >
-                      <Icon name="flag" className="settings-menu-icon" />
+                      <Icon
+                        name="flag"
+                        size="18"
+                        className="settings-menu-icon"
+                      />
                       {/* Not translated, on purpose */}
                       Feature flags
                     </li>
@@ -152,5 +166,3 @@ function SettingsDialog ({
     </Dialog>
   )
 }
-
-export default SettingsDialog

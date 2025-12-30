@@ -1,1 +1,1 @@
-export { default } from './ShareMenu'
+export * from './ShareMenu.js'

@@ -1,14 +1,13 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { handleUndo, handleRedo } from '../store/actions/history'
-import { Button } from '../ui/Button'
-import Icon from '../ui/Icon'
-import { Tooltip, TooltipGroup } from '../ui/Tooltip'
-import { isOwnedByCurrentUser } from '../streets/owner'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { handleUndo, handleRedo } from '../store/actions/history.js'
+import { Button } from '../ui/Button.js'
+import Icon from '../ui/Icon.js'
+import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
+import { isOwnedByCurrentUser } from '../streets/owner.js'
 
-function UndoRedo(): React.ReactElement {
+export function UndoRedo() {
   const undoPosition = useSelector((state) => state.history.position)
   const undoStack = useSelector((state) => state.history.stack)
   const dispatch = useDispatch()
@@ -58,5 +57,3 @@ function UndoRedo(): React.ReactElement {
     </TooltipGroup>
   )
 }
-
-export default UndoRedo

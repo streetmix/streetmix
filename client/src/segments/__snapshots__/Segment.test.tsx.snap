@@ -43,7 +43,7 @@ exports[`Segment > renders correctly 1`] = `
       >
         <svg
           data-icon="chevron-left"
-          data-icon-source="test"
+          size="30"
         />
       </div>
       <div
@@ -51,7 +51,7 @@ exports[`Segment > renders correctly 1`] = `
       >
         <svg
           data-icon="chevron-right"
-          data-icon-source="test"
+          size="30"
         />
       </div>
       <div

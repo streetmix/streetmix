@@ -1,13 +1,13 @@
-import React, { type MouseEvent } from 'react'
+import { type MouseEvent } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useDispatch } from '~/src/store/hooks'
+import { useDispatch } from '~/src/store/hooks.js'
 import {
   removeSegmentAction,
   clearSegmentsAction,
-} from '~/src/store/actions/street'
-import { Button } from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
+} from '~/src/store/actions/street.js'
+import { Button } from '~/src/ui/Button.js'
+import Icon from '~/src/ui/Icon.js'
 import './RemoveButton.css'
 
 interface RemoveButtonProps {
@@ -41,7 +41,7 @@ export function RemoveButton({ slice }: RemoveButtonProps) {
       })}
       onClick={handleClick}
     >
-      <Icon name="trash" className="remove-icon" />
+      <Icon name="trash" size="18" className="remove-icon" />
       <FormattedMessage id="btn.remove" defaultMessage="Remove" />
     </Button>
   )

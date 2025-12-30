@@ -1,18 +1,17 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { changeLocale } from '~/src/store/slices/locale'
-import RadioGroup, { type RadioItemProps } from '~/src/ui/RadioGroup'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { changeLocale } from '~/src/store/slices/locale.js'
+import RadioGroup, { type RadioItemProps } from '~/src/ui/RadioGroup.js'
 import {
   getAvailableLocales,
-  getActualLocaleFromRequested
-} from '~/src/locales/locale'
+  getActualLocaleFromRequested,
+} from '~/src/locales/locale.js'
 
 import type { LocaleDefinition } from '@streetmix/i18n'
 
-function LanguageSettings (): React.ReactElement {
+export function LanguageSettings() {
   const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -20,11 +19,11 @@ function LanguageSettings (): React.ReactElement {
   const availableLocales = getAvailableLocales()
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
 
-  function handleValueChange (newLocale: string): void {
+  function handleValueChange(newLocale: string): void {
     dispatch(changeLocale(newLocale))
   }
 
-  function makeLocaleValues (
+  function makeLocaleValues(
     availableLocales: LocaleDefinition[]
   ): RadioItemProps[] {
     return availableLocales.map((locale) => ({
@@ -32,8 +31,8 @@ function LanguageSettings (): React.ReactElement {
       label: locale.label,
       sublabel: intl.formatMessage({
         id: locale.key,
-        defaultMessage: locale.name
-      })
+        defaultMessage: locale.name,
+      }),
     }))
   }
 
@@ -56,5 +55,3 @@ function LanguageSettings (): React.ReactElement {
     </section>
   )
 }
-
-export default LanguageSettings

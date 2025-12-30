@@ -11,7 +11,7 @@ import {
   NewStreetMenu,
   ShareMenu,
 } from './menus/index.js'
-import MenuBar from './MenuBar.js'
+import { MenuBar } from './MenuBar.js'
 import './MenusContainer.css'
 
 function MenusContainer() {

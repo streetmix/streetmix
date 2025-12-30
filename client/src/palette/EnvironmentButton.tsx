@@ -1,13 +1,12 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 
-import { toggleToolbox } from '../store/slices/ui'
-import { Button } from '../ui/Button'
-import Icon from '../ui/Icon'
-import { Tooltip } from '../ui/Tooltip'
+import { toggleToolbox } from '../store/slices/ui.js'
+import { Button } from '../ui/Button.js'
+import Icon from '../ui/Icon.js'
+import { Tooltip } from '../ui/Tooltip.js'
 
-function EnvironmentButton(): React.ReactElement {
+export function EnvironmentButton() {
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -28,5 +27,3 @@ function EnvironmentButton(): React.ReactElement {
     </Tooltip>
   )
 }
-
-export default EnvironmentButton

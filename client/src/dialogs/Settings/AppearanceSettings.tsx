@@ -1,18 +1,17 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setUserColorMode } from '~/src/store/slices/settings'
-import { Popover } from '~/src/ui/Popover'
-import RadioGroup from '~/src/ui/RadioGroup'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setUserColorMode } from '~/src/store/slices/settings.js'
+import { Popover } from '~/src/ui/Popover.js'
+import RadioGroup from '~/src/ui/RadioGroup.js'
 import {
   COLOR_MODE_DARK,
   COLOR_MODE_LIGHT,
   COLOR_MODE_AUTO,
   type ColorModes,
-} from '~/src/app/constants'
+} from '~/src/app/constants.js'
 
-function AppearanceSettings(): React.ReactElement {
+export function AppearanceSettings() {
   return (
     <section>
       <h2>
@@ -27,7 +26,7 @@ function AppearanceSettings(): React.ReactElement {
   )
 }
 
-function ColorModeSettings(): React.ReactElement {
+function ColorModeSettings() {
   const colorMode = useSelector((state) => state.settings.colorMode)
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -80,5 +79,3 @@ function ColorModeSettings(): React.ReactElement {
     </>
   )
 }
-
-export default AppearanceSettings

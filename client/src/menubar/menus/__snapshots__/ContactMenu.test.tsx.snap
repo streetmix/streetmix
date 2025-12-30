@@ -16,12 +16,10 @@ exports[`ContactMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="discord"
-        data-icon-source="test"
       />
       Join Discord chat
       <svg
         data-icon="external-link"
-        data-icon-source="test"
       />
     </a>
     <a
@@ -34,12 +32,10 @@ exports[`ContactMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="github"
-        data-icon-source="test"
       />
       View source code on GitHub
       <svg
         data-icon="external-link"
-        data-icon-source="test"
       />
     </a>
     <button
@@ -49,7 +45,6 @@ exports[`ContactMenu > renders 1`] = `
       <svg
         class="menu-item-icon"
         data-icon="mail"
-        data-icon-source="test"
       />
       Subscribe to our newsletter
     </button>

@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { showDialog } from '~/src/store/slices/dialogs'
-import Icon from '~/src/ui/Icon'
-import { registerKeypress, deregisterKeypress } from '~/src/app/keypress'
-import Menu, { type MenuProps } from './Menu'
-import MenuItem from './MenuItem'
-import MenuSeparator from './MenuSeparator'
-import KeyboardShortcuts from './KeyboardShortcuts'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import Icon from '~/src/ui/Icon.js'
+import { registerKeypress, deregisterKeypress } from '~/src/app/keypress.js'
+import Menu, { type MenuProps } from './Menu.js'
+import MenuItem from './MenuItem.js'
+import { MenuSeparator } from './MenuSeparator.js'
+import { KeyboardShortcuts } from './KeyboardShortcuts.js'
 
-function HelpMenu (props: MenuProps): React.ReactElement {
+export function HelpMenu(props: MenuProps) {
   const offline = useSelector((state) => state.system.offline)
   const dispatch = useDispatch()
 
@@ -35,7 +35,7 @@ function HelpMenu (props: MenuProps): React.ReactElement {
         />
       </MenuItem>
       <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <Icon name="rocket" className="menu-item-icon" />
+        <Icon name="whats-new" className="menu-item-icon" />
         <FormattedMessage
           id="menu.item.whatsnew"
           defaultMessage="What’s new?&lrm;"
@@ -62,5 +62,3 @@ function HelpMenu (props: MenuProps): React.ReactElement {
     </Menu>
   )
 }
-
-export default HelpMenu

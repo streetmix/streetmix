@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { useSelector } from '../store/hooks'
-import ErrorBoundary from '../util/ErrorBoundary'
+import { useSelector } from '../store/hooks.js'
+import ErrorBoundary from '../util/ErrorBoundary.js'
 
 // Import all dialogs here
 import AboutDialog from './About'
@@ -9,7 +7,7 @@ import AnalyticsDialog from './Analytics'
 import FeatureFlagDialog from './FeatureFlag'
 import { GeotagDialog } from './Geotag'
 import { SaveAsImageDialog } from './SaveAsImage'
-import SettingsDialog from './Settings'
+import { SettingsDialog } from './Settings'
 import SignInDialog from './SignIn'
 import { WhatsNewDialog } from './WhatsNew'
 import { NewsletterDialog } from './Newsletter'

@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface IconProps {
   name: string
 
@@ -7,8 +5,8 @@ interface IconProps {
   [attr: string]: string
 }
 
-function Icon ({ name, ...attrs }: IconProps): React.ReactElement {
-  return <svg data-icon={name} data-icon-source="test" {...attrs} />
+function Icon({ name, ...props }: IconProps) {
+  return <svg data-icon={name} {...props} />
 }
 
 export default Icon

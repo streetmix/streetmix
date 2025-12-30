@@ -21,7 +21,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -62,7 +61,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       <svg
                         class="social-github"
                         data-icon="github"
-                        data-icon-source="test"
                       />
                     </a>
                   </li>
@@ -76,7 +74,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       <svg
                         class="social-discord"
                         data-icon="discord"
-                        data-icon-source="test"
                       />
                     </a>
                   </li>
@@ -90,7 +87,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       <svg
                         class="social-bluesky"
                         data-icon="bluesky"
-                        data-icon-source="test"
                       />
                     </a>
                   </li>
@@ -104,7 +100,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       <svg
                         class="social-mastodon"
                         data-icon="mastodon"
-                        data-icon-source="test"
                       />
                     </a>
                   </li>
@@ -520,29 +515,13 @@ exports[`AboutDialog > renders snapshot 1`] = `
                       <li>
                         Icons by 
                         <a
-                          href="https://feathericons.com/"
+                          href="https://tabler.io/icons"
                           rel="noopener noreferrer"
                           target="_blank"
                         >
-                          Feather
+                          Tabler
                         </a>
                         , 
-                        <a
-                          href="https://www.radix-ui.com/icons"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Radix UI
-                        </a>
-                        , 
-                        <a
-                          href="https://ionic.io/ionicons"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Ionicons
-                        </a>
-                        , & 
                         <a
                           href="https://fontawesome.com/"
                           rel="noopener noreferrer"

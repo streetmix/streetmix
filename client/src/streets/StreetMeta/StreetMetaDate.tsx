@@ -9,7 +9,7 @@ import StreetMetaItem from './StreetMetaItem'
 // Milliseconds that must have elapsed before recent edits display timestamp
 const TIME_LIMIT = 6000
 
-function StreetMetaDate (): React.ReactElement | null {
+export function StreetMetaDate() {
   const updatedAt = useSelector(
     (state) => state.street.updatedAt ?? state.street.clientUpdatedAt
   )
@@ -34,5 +34,3 @@ function StreetMetaDate (): React.ReactElement | null {
     </StreetMetaItem>
   )
 }
-
-export default StreetMetaDate

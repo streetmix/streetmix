@@ -30,6 +30,7 @@
     "@reduxjs/toolkit": "2.11.2",
     "@sentry/browser": "10.31.0",
     "@sentry/cli": "3.0.0",
+    "@tabler/icons-react": "3.36.0",
     "auth0": "5.2.0",
     "auth0-js": "9.29.0",
     "autoprefixer": "10.4.23",

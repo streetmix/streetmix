@@ -11,7 +11,7 @@ exports[`MenuBarItem > renders 1`] = `
       <svg
         class="menu-carat-down"
         data-icon="chevron-down"
-        data-icon-source="test"
+        size="14"
       />
     </button>
   </li>

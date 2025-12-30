@@ -1,4 +1,3 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import Icon from '~/src/ui/Icon.js'
@@ -34,7 +33,7 @@ export function EditableLabel({
         onClick={handleClickEdit}
       >
         {label}
-        <Icon name="edit" className="popup-label-editable-icon" />
+        <Icon name="edit" size="18" className="popup-label-editable-icon" />
       </h3>
     )
   }

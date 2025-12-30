@@ -21,7 +21,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
         >
           <svg
             data-icon="close"
-            data-icon-source="test"
           />
         </button>
         <div
@@ -52,7 +51,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 </label>
                 <svg
                   data-icon="check"
-                  data-icon-source="test"
                 />
               </div>
               <div
@@ -69,7 +67,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 </label>
                 <svg
                   data-icon="check"
-                  data-icon-source="test"
                 />
               </div>
               <div
@@ -86,7 +83,6 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                 </label>
                 <svg
                   data-icon="check"
-                  data-icon-source="test"
                 />
               </div>
               <div
@@ -104,12 +100,10 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                   Watermark 
                   <svg
                     data-icon="lock"
-                    data-icon-source="test"
                   />
                 </label>
                 <svg
                   data-icon="check"
-                  data-icon-source="test"
                 />
               </div>
             </div>
@@ -148,8 +142,8 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
                     <svg
                       aria-hidden="true"
                       data-icon="info"
-                      data-icon-source="test"
                       focusable="false"
+                      size="18"
                     />
                     <span
                       style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; word-wrap: normal;"

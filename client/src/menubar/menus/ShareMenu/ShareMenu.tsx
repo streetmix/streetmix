@@ -3,20 +3,20 @@ import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
 import Menu, { type MenuProps } from '../Menu.js'
-import MenuSeparator from '../MenuSeparator.js'
-import CopyShareLink from './CopyShareLink.js'
-import Export3DStreet from './Export3DStreet.js'
+import { MenuSeparator } from '../MenuSeparator.js'
+import { CopyShareLink } from './CopyShareLink.js'
+import { Export3DStreet } from './Export3DStreet.js'
 import { ExportStreetmeter } from './ExportStreetmeter.js'
 import PostOnFacebook from './PostOnFacebook.js'
 import PostOnMastodon from './PostOnMastodon.js'
 import PostOnTwitter from './PostOnTwitter.js'
-import PrintImage from './PrintImage.js'
-import SaveImage from './SaveImage.js'
+import { PrintImage } from './PrintImage.js'
+import { SaveImage } from './SaveImage.js'
 import SignInPromo from './SignInPromo.js'
 import { getSharingUrl, getSharingMessage } from './helpers.js'
 import './ShareMenu.css'
 
-function ShareMenu(props: MenuProps) {
+export function ShareMenu(props: MenuProps) {
   const offline = useSelector((state) => state.system.offline)
   const user = useSelector((state) => state.user)
   const street = useSelector((state) => state.street)
@@ -56,5 +56,3 @@ function ShareMenu(props: MenuProps) {
     </Menu>
   )
 }
-
-export default ShareMenu

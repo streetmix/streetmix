@@ -6,7 +6,7 @@ import { useSelector } from '../store/hooks'
 import { images } from '../app/load_resources'
 import Icon from '../ui/Icon'
 import { Tooltip } from '../ui/Tooltip'
-import EmptyDragPreview from '../ui/dnd/EmptyDragPreview'
+import { EmptyDragPreview } from '../ui/dnd/EmptyDragPreview'
 import { createPaletteItemDragSpec } from '../segments/drag_and_drop'
 
 import type { SegmentDefinition } from '@streetmix/types'
@@ -16,7 +16,7 @@ interface PaletteItemProps {
   segment: SegmentDefinition
 }
 
-function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null {
+function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
@@ -26,12 +26,12 @@ function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null 
   )
 
   // Get localized display names
-  function getLabel (segment: SegmentDefinition): string {
+  function getLabel(segment: SegmentDefinition): string {
     const defaultMessage = segment.name
 
     return intl.formatMessage({
       id: `segments.${segment.nameKey}`,
-      defaultMessage
+      defaultMessage,
     })
   }
 
@@ -57,7 +57,7 @@ function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null 
             // Default message ends with a Unicode-only left-right order mark
             // to allow for proper punctuation in `rtl` text direction
             // This character is hidden from editors by default!
-            defaultMessage: 'Upgrade to Streetmix+ to use!‎'
+            defaultMessage: 'Upgrade to Streetmix+ to use!‎',
           })
         }
         break
@@ -71,7 +71,7 @@ function PaletteItem ({ segment }: PaletteItemProps): React.ReactElement | null 
             // Default message ends with a Unicode-only left-right order mark
             // to allow for proper punctuation in `rtl` text direction
             // This character is hidden from editors by default!
-            defaultMessage: 'Sign in to use!‎'
+            defaultMessage: 'Sign in to use!‎',
           })
         }
         break

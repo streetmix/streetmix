@@ -1,24 +1,23 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { useDrag, useDrop } from 'react-dnd'
 import { getSegmentInfo } from '@streetmix/parts'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { PopupContainer } from '~/src/info_bubble/PopupContainer'
-import EmptyDragPreview from '~/src/ui/dnd/EmptyDragPreview'
-import { usePrevious } from '~/src/util/usePrevious'
-import { setActiveSegment } from '../store/slices/ui'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { PopupContainer } from '~/src/info_bubble/PopupContainer.js'
+import { EmptyDragPreview } from '~/src/ui/dnd/EmptyDragPreview.js'
+import { usePrevious } from '~/src/util/usePrevious.js'
+import { setActiveSegment } from '../store/slices/ui.js'
 import {
   incrementSegmentWidth,
   removeSegmentAction,
   clearSegmentsAction,
-} from '../store/actions/street'
-import { getSegmentCapacity } from './capacity'
-import { getLocaleSliceName } from './labels'
-import SegmentCanvas from './SegmentCanvas'
-import SegmentDragHandles from './SegmentDragHandles'
-import SegmentLabelContainer from './SegmentLabelContainer'
-
+} from '../store/actions/street.js'
+import { getSegmentCapacity } from './capacity.js'
+import { getLocaleSliceName } from './labels.js'
+import SegmentCanvas from './SegmentCanvas.js'
+import { SegmentDragHandles } from './SegmentDragHandles.js'
+import SegmentLabelContainer from './SegmentLabelContainer.js'
 import {
   TILE_SIZE,
   SLICE_WARNING_OUTSIDE,
@@ -26,13 +25,16 @@ import {
   SLICE_WARNING_WIDTH_TOO_LARGE,
   SLICE_WARNING_SLOPE_EXCEEDED_BERM,
   SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from './constants'
-import { createSliceDragSpec, createSliceDropTargetSpec } from './drag_and_drop'
-import { RESIZE_TYPE_INCREMENT } from './resizing'
-import { TestSlope } from './TestSlope'
+} from './constants.js'
+import {
+  createSliceDragSpec,
+  createSliceDropTargetSpec,
+} from './drag_and_drop.js'
+import { RESIZE_TYPE_INCREMENT } from './resizing.js'
+import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
-import { calculateSlope } from './slope'
+import { calculateSlope } from './slope.js'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
 
 interface SliceProps {
@@ -176,7 +178,7 @@ function Segment(props: SliceProps) {
 
   // When called by CSSTransition `onExited`, `oldVariant` is not passed to the
   // function (is undefined). `switchSegments` should be `true` when this happens.
-  function handleSwitchSegments(oldVariant?: string): void {
+  function handleSwitchSegments(oldVariant?: string) {
     setSwitchSegments(!switchSegments)
     if (switchSegments) {
       setOldVariant(segment.variantString)
@@ -188,12 +190,12 @@ function Segment(props: SliceProps) {
     }
   }
 
-  function handleSegmentMouseEnter(): void {
+  function handleSegmentMouseEnter() {
     dispatch(setActiveSegment(sliceIndex))
     document.addEventListener('keydown', handleKeyDown)
   }
 
-  function handleSegmentMouseLeave(): void {
+  function handleSegmentMouseLeave() {
     dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
   }
@@ -201,7 +203,7 @@ function Segment(props: SliceProps) {
   function renderSegmentCanvas(
     variantType: string,
     nodeRef: React.RefObject<HTMLDivElement | null>
-  ): React.ReactNode {
+  ) {
     const isOldVariant = variantType === 'old'
 
     return (

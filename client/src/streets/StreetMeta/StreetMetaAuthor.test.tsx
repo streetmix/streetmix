@@ -1,17 +1,16 @@
-import React from 'react'
 import { vi, type Mock } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { openGallery } from '~/src/store/actions/gallery'
-import { getRemixOnFirstEdit } from '../remix'
-import StreetMetaAuthor from './StreetMetaAuthor'
+import { render } from '~/test/helpers/render.js'
+import { openGallery } from '~/src/store/actions/gallery.js'
+import { getRemixOnFirstEdit } from '../remix.js'
+import { StreetMetaAuthor } from './StreetMetaAuthor.js'
 
 // Enable mocking of the return value of `getRemixOnFirstEdit`
-vi.mock('../remix')
+vi.mock('../remix.js')
 
-vi.mock('~/src/store/actions/gallery', () => ({
-  openGallery: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+vi.mock('~/src/store/actions/gallery.js', () => ({
+  openGallery: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 describe('StreetMetaAuthor', () => {
@@ -23,15 +22,15 @@ describe('StreetMetaAuthor', () => {
     const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creatorId: 'foo',
         },
         user: {
           signedIn: true,
           signInData: {
-            userId: 'foo'
-          }
-        }
-      }
+            userId: 'foo',
+          },
+        },
+      },
     })
 
     expect(container.firstChild).toBe(null)
@@ -41,15 +40,15 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creatorId: 'foo',
         },
         user: {
           signedIn: true,
           signInData: {
-            userId: 'bar'
-          }
-        }
-      }
+            userId: 'bar',
+          },
+        },
+      },
     })
 
     await userEvent.click(getByText('foo'))
@@ -61,15 +60,15 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: 'foo'
+          creatorId: 'foo',
         },
         user: {
           signedIn: false,
           signInData: {
-            userId: null
-          }
-        }
-      }
+            userId: null,
+          },
+        },
+      },
     })
 
     await userEvent.click(getByText('foo'))
@@ -81,55 +80,55 @@ describe('StreetMetaAuthor', () => {
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creatorId: null,
         },
         user: {
           signedIn: true,
           signInData: {
-            userId: 'bar'
-          }
-        }
-      }
+            userId: 'bar',
+          },
+        },
+      },
     })
 
     expect(getByText('by Anonymous')).toBeInTheDocument()
   })
 
   it('renders anonymous byline if you are not signed in and viewing an anonymous street', async () => {
-    (getRemixOnFirstEdit as Mock).mockReturnValue(true)
+    ;(getRemixOnFirstEdit as Mock).mockReturnValue(true)
 
     const { getByText } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creatorId: null,
         },
         user: {
           signedIn: false,
           signInData: {
-            userId: null
-          }
-        }
-      }
+            userId: null,
+          },
+        },
+      },
     })
 
     expect(getByText('by Anonymous')).toBeInTheDocument()
   })
 
   it('renders nothing if you are a not-signed in user still editing an anonymous street', async () => {
-    (getRemixOnFirstEdit as Mock).mockReturnValue(false)
+    ;(getRemixOnFirstEdit as Mock).mockReturnValue(false)
 
     const { container } = render(<StreetMetaAuthor />, {
       initialState: {
         street: {
-          creatorId: null
+          creatorId: null,
         },
         user: {
           signedIn: false,
           signInData: {
-            userId: null
-          }
-        }
-      }
+            userId: null,
+          },
+        },
+      },
     })
 
     expect(container.firstChild).toBe(null)

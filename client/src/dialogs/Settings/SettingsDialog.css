@@ -60,10 +60,9 @@
 }
 
 .settings-menu-icon {
-  vertical-align: text-top;
+  vertical-align: top;
   margin-inline-end: 0.5em;
   color: var(--color-turquoise-800);
-  font-size: 16px;
 }
 
 .settings-item {

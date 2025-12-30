@@ -1,8 +1,7 @@
-import React from 'react'
 import { screen } from '@testing-library/react'
 
-import { render } from '~/test/helpers/render'
-import KeyboardKey from './KeyboardKey'
+import { render } from '~/test/helpers/render.js'
+import { KeyboardKey } from './KeyboardKey.js'
 
 describe('KeyboardKey', () => {
   it('renders a <kbd> element with string child', () => {

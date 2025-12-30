@@ -51,7 +51,6 @@ exports[`GalleryStreetItem > renders 1`] = `
     >
       <svg
         data-icon="trash"
-        data-icon-source="test"
       />
     </button>
   </div>

@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
-import { useSelector } from '../store/hooks'
-import AccessibleIcon from '../ui/AccessibleIcon'
-import Icon from '../ui/Icon'
-import { doSignIn } from '../users/authentication'
-import InstanceBadge from './InstanceBadge'
-import MenuBarItem from './MenuBarItem'
-import SignInButton from './SignInButton'
-import UpgradeButton from './UpgradeButton'
-import AvatarMenu from './AvatarMenu'
+import { useSelector } from '../store/hooks.js'
+import AccessibleIcon from '../ui/AccessibleIcon.js'
+import Icon from '../ui/Icon.js'
+import { doSignIn } from '../users/authentication.js'
+import InstanceBadge from './InstanceBadge.js'
+import MenuBarItem from './MenuBarItem.js'
+import SignInButton from './SignInButton.js'
+import UpgradeButton from './UpgradeButton.js'
+import AvatarMenu from './AvatarMenu.js'
 
 import type { UserProfile } from '../types'
 import './MenuBar.css'
@@ -24,7 +24,7 @@ interface MenuBarProps {
   onMenuDropdownClick: (menu: string, node: HTMLElement) => void
 }
 
-function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
+export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
   const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
@@ -154,7 +154,7 @@ function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>
-              <Icon name="language" />
+              <Icon name="language" size="18" />
             </AccessibleIcon>
           </MenuBarItem>
         )}
@@ -164,5 +164,3 @@ function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
     </nav>
   )
 }
-
-export default MenuBar

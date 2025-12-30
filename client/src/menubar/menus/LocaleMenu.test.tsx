@@ -1,22 +1,21 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { clearMenus } from '~/src/store/slices/menus'
-import LocaleMenu from './LocaleMenu'
+import { render } from '~/test/helpers/render.js'
+import { clearMenus } from '~/src/store/slices/menus.js'
+import { LocaleMenu } from './LocaleMenu.js'
 
-vi.mock('../../store/slices/menus', () => ({
+vi.mock('../../store/slices/menus.js', () => ({
   default: {},
-  clearMenus: vi.fn(() => ({ type: 'MOCK_ACTION' }))
+  clearMenus: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
 const initialState = {
   locale: {
     locale: 'en',
-    requestedLocale: null
-  }
+    requestedLocale: null,
+  },
 }
 
 describe('LocaleMenu', () => {
@@ -28,7 +27,7 @@ describe('LocaleMenu', () => {
 
   it('handles locale selection', async () => {
     render(<LocaleMenu isActive />, {
-      initialState
+      initialState,
     })
 
     // Clicking this first should not trigger any selection handler

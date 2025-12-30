@@ -5,7 +5,7 @@ import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
 import Icon from '~/src/ui/Icon.js'
 import Menu, { type MenuProps } from './Menu.js'
 import MenuItem from './MenuItem.js'
-import MenuSeparator from './MenuSeparator.js'
+import { MenuSeparator } from './MenuSeparator.js'
 import { BetaTag } from './BetaTag.js'
 
 function openTemplate(template: string): void {
@@ -13,7 +13,7 @@ function openTemplate(template: string): void {
   window.open(url, '_blank')
 }
 
-function NewStreetMenu(props: MenuProps) {
+export function NewStreetMenu(props: MenuProps) {
   const templatesEnabled = useSelector(
     (state) => state.flags.NEW_STREET_TEMPLATES.value
   )
@@ -122,5 +122,3 @@ function NewStreetMenu(props: MenuProps) {
     </Menu>
   )
 }
-
-export default NewStreetMenu

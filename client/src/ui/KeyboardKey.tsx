@@ -1,7 +1,5 @@
 import Icon, { type IconNames } from './Icon.js'
 
-import type { ReactNode } from 'react'
-
 import './KeyboardKey.css'
 
 interface KeyboardKeyWithIconProps {
@@ -11,12 +9,12 @@ interface KeyboardKeyWithIconProps {
 
 interface KeyboardKeyWithoutIconProps {
   icon?: never
-  children: ReactNode
+  children: React.ReactNode
 }
 
 type KeyboardKeyProps = KeyboardKeyWithIconProps | KeyboardKeyWithoutIconProps
 
-function KeyboardKey({ icon, children }: KeyboardKeyProps) {
+export function KeyboardKey({ icon, children }: KeyboardKeyProps) {
   if (icon !== undefined) {
     // The `title` property on <kbd> is suggested to provide
     // accessible text for the icon being displayed. In this
@@ -34,5 +32,3 @@ function KeyboardKey({ icon, children }: KeyboardKeyProps) {
   // child elements provide their own text
   return <kbd className="key">{children}</kbd>
 }
-
-export default KeyboardKey

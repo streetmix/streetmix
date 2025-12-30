@@ -1,1 +1,1 @@
-export { default } from './StreetMeta'
+export * from './StreetMeta'

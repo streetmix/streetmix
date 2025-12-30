@@ -1,27 +1,26 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { changeLocale } from '~/src/store/slices/locale'
-import { clearMenus } from '~/src/store/slices/menus'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { changeLocale } from '~/src/store/slices/locale.js'
+import { clearMenus } from '~/src/store/slices/menus.js'
 import {
   getAvailableLocales,
-  getActualLocaleFromRequested
-} from '~/src/locales/locale'
-import Icon from '~/src/ui/Icon'
-import LoadingSpinner from '~/src/ui/LoadingSpinner'
-import Menu, { type MenuProps } from './Menu'
-import MenuItem from './MenuItem'
+  getActualLocaleFromRequested,
+} from '~/src/locales/locale.js'
+import Icon from '~/src/ui/Icon.js'
+import LoadingSpinner from '~/src/ui/LoadingSpinner.js'
+import Menu, { type MenuProps } from './Menu.js'
+import MenuItem from './MenuItem.js'
 
-function LocaleMenu (props: MenuProps): React.ReactElement {
+export function LocaleMenu(props: MenuProps) {
   const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)
   const requestedLocale = useSelector((state) => state.locale.requestedLocale)
   const dispatch = useDispatch()
   const filteredLocales = getAvailableLocales()
   const actuallySelectedLocale = getActualLocaleFromRequested(locale)
 
-  async function selectLocale (newLocale: string): Promise<void> {
+  async function selectLocale(newLocale: string): Promise<void> {
     if (locale === newLocale) return
 
     await dispatch(changeLocale(newLocale))
@@ -34,7 +33,7 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
     dispatch(clearMenus())
   }
 
-  function renderLocaleOptions (): React.ReactElement[] {
+  function renderLocaleOptions(): React.ReactElement[] {
     // Render each option
     return filteredLocales.map((locale) => {
       const selectedClassName =
@@ -69,5 +68,3 @@ function LocaleMenu (props: MenuProps): React.ReactElement {
 
   return <Menu {...props}>{renderLocaleOptions()}</Menu>
 }
-
-export default LocaleMenu

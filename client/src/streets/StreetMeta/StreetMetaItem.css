@@ -53,11 +53,8 @@
   margin-inline-end: 0.3em;
 
   svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  [data-icon-source="feather"] {
+    width: 18px;
+    height: 18px;
     stroke-width: 1.5;
   }
 }

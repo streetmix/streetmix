@@ -1,15 +1,14 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useDispatch } from '~/src/store/hooks'
-import { showDialog } from '~/src/store/slices/dialogs'
-import Icon from '~/src/ui/Icon'
-import MenuItem from '../MenuItem'
+import { useDispatch } from '~/src/store/hooks.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import Icon from '~/src/ui/Icon.js'
+import MenuItem from '../MenuItem.js'
 
-function SaveImage (): React.ReactElement {
+export function SaveImage() {
   const dispatch = useDispatch()
 
-  function handleClickSaveAsImage (event: React.MouseEvent): void {
+  function handleClickSaveAsImage(event: React.MouseEvent): void {
     event.preventDefault()
     dispatch(showDialog('SAVE_AS_IMAGE'))
   }
@@ -27,5 +26,3 @@ function SaveImage (): React.ReactElement {
     </MenuItem>
   )
 }
-
-export default SaveImage

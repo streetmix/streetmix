@@ -1,23 +1,22 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setUserUnits } from '~/src/store/slices/settings'
-import RadioGroup from '~/src/ui/RadioGroup'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setUserUnits } from '~/src/store/slices/settings.js'
+import RadioGroup from '~/src/ui/RadioGroup.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '~/src/users/constants'
+  SETTINGS_UNITS_METRIC,
+} from '~/src/users/constants.js'
 
 // This is user-level setting! It does not adjust street units, as
 // it did in the past. The main effect is that you only see this
 // for new streets.
-function UnitSettings (): React.ReactElement {
+export function UnitSettings() {
   const units = useSelector((state) => state.settings.units)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleValueChange (value: string): void {
+  function handleValueChange(value: string): void {
     if (value === 'metric') {
       dispatch(setUserUnits(SETTINGS_UNITS_METRIC))
     } else {
@@ -40,20 +39,18 @@ function UnitSettings (): React.ReactElement {
             value: 'metric',
             label: intl.formatMessage({
               id: 'settings.units.metric',
-              defaultMessage: 'Metric (meters)'
-            })
+              defaultMessage: 'Metric (meters)',
+            }),
           },
           {
             value: 'imperial',
             label: intl.formatMessage({
               id: 'settings.units.imperial',
-              defaultMessage: 'U.S. customary / imperial (feet and inches)'
-            })
-          }
+              defaultMessage: 'U.S. customary / imperial (feet and inches)',
+            }),
+          },
         ]}
       />
     </section>
   )
 }
-
-export default UnitSettings

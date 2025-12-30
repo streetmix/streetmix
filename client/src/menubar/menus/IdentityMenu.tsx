@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
-import { onSignOutClick } from '~/src/users/authentication'
-import Avatar from '~/src/users/Avatar'
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { openGallery } from '~/src/store/actions/gallery'
-import { showDialog } from '~/src/store/slices/dialogs'
-import Icon from '~/src/ui/Icon'
+import { onSignOutClick } from '~/src/users/authentication.js'
+import Avatar from '~/src/users/Avatar.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { openGallery } from '~/src/store/actions/gallery.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import Icon from '~/src/ui/Icon.js'
 import USER_ROLES from '../../../../app/data/user_roles.json'
-import Menu, { type MenuProps } from './Menu'
-import MenuItem from './MenuItem'
-import MenuSeparator from './MenuSeparator'
+import Menu, { type MenuProps } from './Menu.js'
+import MenuItem from './MenuItem.js'
+import { MenuSeparator } from './MenuSeparator.js'
 import './IdentityMenu.css'
 
-function IdentityMenu (props: MenuProps): React.ReactElement {
+export function IdentityMenu(props: MenuProps) {
   const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
@@ -95,5 +95,3 @@ function IdentityMenu (props: MenuProps): React.ReactElement {
     </Menu>
   )
 }
-
-export default IdentityMenu

@@ -1,14 +1,13 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { showDialog } from '~/src/store/slices/dialogs'
-import Icon from '~/src/ui/Icon'
-import StreetMetaItem from './StreetMetaItem'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
+import Icon from '~/src/ui/Icon.js'
+import StreetMetaItem from './StreetMetaItem.js'
 
 import type { StreetLocation } from '@streetmix/types'
 
-function StreetMetaGeotag (): React.ReactElement | null {
+export function StreetMetaGeotag() {
   const street = useSelector((state) => state.street)
   const editable = useSelector(
     (state) => !state.app.readOnly && state.flags.GEOTAG.value
@@ -19,11 +18,11 @@ function StreetMetaGeotag (): React.ReactElement | null {
   // Render nothing if there is no street location, and geolocation is not enabled
   if (!editable && !street.location) return null
 
-  function handleClickGeotag (_event: React.MouseEvent): void {
+  function handleClickGeotag(_event: React.MouseEvent): void {
     dispatch(showDialog('GEOTAG'))
   }
 
-  function getGeotagText (
+  function getGeotagText(
     location: StreetLocation
   ): string | React.ReactElement {
     const { hierarchy } = location
@@ -45,20 +44,18 @@ function StreetMetaGeotag (): React.ReactElement | null {
 
   // Determine what text label to render
   const geotagText =
-    street.location !== null
-      ? (
-          getGeotagText(street.location)
-        )
-      : (
-        <FormattedMessage
-          id="dialogs.geotag.add-location"
-          defaultMessage="Add location"
-        />
-        )
+    street.location !== null ? (
+      getGeotagText(street.location)
+    ) : (
+      <FormattedMessage
+        id="dialogs.geotag.add-location"
+        defaultMessage="Add location"
+      />
+    )
 
   const tooltip = intl.formatMessage({
     id: 'tooltip.geotag',
-    defaultMessage: 'Change location'
+    defaultMessage: 'Change location',
   })
 
   return (
@@ -72,5 +69,3 @@ function StreetMetaGeotag (): React.ReactElement | null {
     </StreetMetaItem>
   )
 }
-
-export default StreetMetaGeotag

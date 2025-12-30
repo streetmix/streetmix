@@ -3,17 +3,16 @@
  * available street segments. Users can drag and drop segments from the palette
  * onto the street.
  */
-import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { getAllSegmentInfo } from '@streetmix/parts'
 
 import { useSelector } from '../store/hooks'
-import Scrollable from '../ui/Scrollable'
+import { Scrollable } from '../ui/Scrollable'
 import { TooltipGroup } from '../ui/Tooltip'
 import PaletteItem from './PaletteItem'
 import './PaletteItems.css'
 
-function PaletteItems (): React.ReactElement {
+export function PaletteItems() {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
 
@@ -40,5 +39,3 @@ function PaletteItems (): React.ReactElement {
     </TooltipGroup>
   )
 }
-
-export default PaletteItems
