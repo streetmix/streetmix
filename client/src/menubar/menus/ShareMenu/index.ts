@@ -1,1 +1,1 @@
-export * from './ShareMenu'
+export * from './ShareMenu.js'
