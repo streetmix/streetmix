@@ -14,7 +14,6 @@ body.segment-resize-dragging * {
   border-top: 5px solid var(--color-turquoise-200);
   border-bottom: 5px solid var(--color-turquoise-200);
   border-radius: var(--border-radius-medium);
-  font-size: 2.5rem;
   color: var(--color-turquoise-700);
   z-index: var(--z-06-drag-handle);
   pointer-events: none;

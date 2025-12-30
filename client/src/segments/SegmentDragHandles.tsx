@@ -29,13 +29,13 @@ function SegmentDragHandles({
         className="drag-handle drag-handle-left"
         style={{ display, left: adjustX }}
       >
-        <Icon name="chevron-left" size="24" />
+        <Icon name="chevron-left" size="30" />
       </div>
       <div
         className="drag-handle drag-handle-right"
         style={{ display, right: adjustX }}
       >
-        <Icon name="chevron-right" size="24" />
+        <Icon name="chevron-right" size="30" />
       </div>
     </>
   )
