@@ -213,16 +213,12 @@ function AboutDialog(): React.ReactElement {
                           values={{
                             author: (
                               <>
-                                <ExternalLink href="https://feathericons.com/">
-                                  Feather
-                                </ExternalLink>
-                                ,{' '}
                                 <ExternalLink href="https://tabler.io/icons">
                                   Tabler
                                 </ExternalLink>
                                 ,{' '}
-                                <ExternalLink href="https://ionic.io/ionicons">
-                                  Ionicons
+                                <ExternalLink href="https://feathericons.com/">
+                                  Feather
                                 </ExternalLink>
                                 , &{' '}
                                 <ExternalLink href="https://fontawesome.com/">

@@ -26,6 +26,7 @@ import {
   IconStar,
   IconSunset2,
   IconUser,
+  IconX,
 } from '@tabler/icons-react'
 import {
   FaArrowLeft,
@@ -52,7 +53,6 @@ import {
   FiRotateCw,
   FiTrash2,
 } from 'react-icons/fi'
-import { IoClose } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -69,7 +69,7 @@ const ICONS = {
   'chevron-left': [FiChevronLeft, 'feather'],
   'chevron-right': [FiChevronRight, 'feather'],
   clipboard: [IconClipboard, 'tabler'],
-  close: [IoClose, 'io5'],
+  close: [IconX, 'tabler'],
   copy: [IconCopy, 'tabler'],
   cube: [IconCubeSpark, 'tabler'],
   download: [IconDownload, 'tabler'],
