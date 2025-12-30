@@ -9,6 +9,7 @@ import {
   IconCubeSpark,
   IconDownload,
   IconEdit,
+  IconExternalLink,
   IconFlag,
   IconGift,
   IconHelp,
@@ -47,12 +48,7 @@ import {
   FaSquareFacebook,
   FaTwitter,
 } from 'react-icons/fa6'
-import {
-  FiChevronDown,
-  FiChevronLeft,
-  FiChevronRight,
-  FiExternalLink,
-} from 'react-icons/fi'
+import { FiChevronDown, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -74,7 +70,7 @@ const ICONS = {
   cube: [IconCubeSpark, 'tabler'],
   download: [IconDownload, 'tabler'],
   edit: [IconEdit, 'tabler'],
-  'external-link': [FiExternalLink, 'feather'],
+  'external-link': [IconExternalLink, 'tabler'],
   flag: [IconFlag, 'tabler'],
   help: [IconHelp, 'tabler'],
   info: [IconInfoCircle, 'tabler'],
