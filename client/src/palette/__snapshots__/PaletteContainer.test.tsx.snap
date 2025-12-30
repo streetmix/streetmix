@@ -32,6 +32,7 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="chevron-left"
+            size="24"
           />
         </button>
         <div
@@ -73,6 +74,7 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="chevron-right"
+            size="24"
           />
         </button>
       </div>

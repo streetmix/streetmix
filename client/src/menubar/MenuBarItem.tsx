@@ -14,7 +14,7 @@ interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltip?: string
 }
 
-export default function MenuBarItem ({
+export default function MenuBarItem({
   translation = '',
   label = '',
   tooltip,
@@ -25,7 +25,7 @@ export default function MenuBarItem ({
     <li>
       <button className="menu-trigger" role="menuitem" {...restProps}>
         {children}
-        <Icon name="chevron-down" className="menu-carat-down" />
+        <Icon name="chevron-down" size="14" className="menu-carat-down" />
       </button>
     </li>
   )

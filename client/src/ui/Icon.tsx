@@ -3,6 +3,9 @@ import {
   IconArrowForwardUp,
   IconBook2,
   IconChartBar,
+  IconChevronDown,
+  IconChevronLeft,
+  IconChevronRight,
   IconClipboard,
   IconClockHour4,
   IconCopy,
@@ -48,7 +51,6 @@ import {
   FaSquareFacebook,
   FaTwitter,
 } from 'react-icons/fa6'
-import { FiChevronDown, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -61,9 +63,9 @@ const ICONS = {
   cart: [IconShoppingCart, 'tabler'],
   chart: [IconChartBar, 'tabler'],
   check: [FaCheck, 'fa'],
-  'chevron-down': [FiChevronDown, 'feather'],
-  'chevron-left': [FiChevronLeft, 'feather'],
-  'chevron-right': [FiChevronRight, 'feather'],
+  'chevron-down': [IconChevronDown, 'tabler'],
+  'chevron-left': [IconChevronLeft, 'tabler'],
+  'chevron-right': [IconChevronRight, 'tabler'],
   clipboard: [IconClipboard, 'tabler'],
   close: [IconX, 'tabler'],
   copy: [IconCopy, 'tabler'],

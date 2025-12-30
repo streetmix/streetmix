@@ -1,9 +1,9 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useSelector } from '../store/hooks'
+
+import { useSelector } from '../store/hooks.js'
 import './PaletteTrashcan.css'
 
-function PaletteTrashcan (): React.ReactElement {
+export function PaletteTrashcan() {
   // Display the trashcan when user is dragging an _existing_ segment on the street.
   // Don't display the trashcan when the user is dragging a _new_ segment from the palette.
   // `draggedSegment` is `null` when no drag action is being performed.
@@ -25,5 +25,3 @@ function PaletteTrashcan (): React.ReactElement {
     </div>
   )
 }
-
-export default PaletteTrashcan

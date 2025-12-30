@@ -32,6 +32,7 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -45,6 +46,7 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -73,6 +75,7 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -86,6 +89,7 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -109,6 +113,7 @@ exports[`MenuBar > renders 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -157,6 +162,7 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -170,6 +176,7 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -198,6 +205,7 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -211,6 +219,7 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -234,6 +243,7 @@ exports[`MenuBar > renders logged in user 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -295,6 +305,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -312,6 +323,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -325,6 +337,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>
@@ -348,6 +361,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
           <svg
             class="menu-carat-down"
             data-icon="chevron-down"
+            size="14"
           />
         </button>
       </li>

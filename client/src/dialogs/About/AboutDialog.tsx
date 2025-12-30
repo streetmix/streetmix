@@ -217,10 +217,6 @@ function AboutDialog(): React.ReactElement {
                                   Tabler
                                 </ExternalLink>
                                 ,{' '}
-                                <ExternalLink href="https://feathericons.com/">
-                                  Feather
-                                </ExternalLink>
-                                , &{' '}
                                 <ExternalLink href="https://fontawesome.com/">
                                   Font Awesome
                                 </ExternalLink>

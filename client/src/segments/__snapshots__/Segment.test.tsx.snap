@@ -43,6 +43,7 @@ exports[`Segment > renders correctly 1`] = `
       >
         <svg
           data-icon="chevron-left"
+          size="24"
         />
       </div>
       <div
@@ -50,6 +51,7 @@ exports[`Segment > renders correctly 1`] = `
       >
         <svg
           data-icon="chevron-right"
+          size="24"
         />
       </div>
       <div

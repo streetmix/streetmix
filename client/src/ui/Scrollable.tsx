@@ -1,7 +1,7 @@
 /**
  * Adds scroll buttons to UI elements.
  */
-import React, { useEffect, useRef, useLayoutEffect } from 'react'
+import { useEffect, useRef, useLayoutEffect } from 'react'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
 import { animate } from '../util/helpers.js'
@@ -19,7 +19,7 @@ interface ScrollableProps {
 
 const SCROLL_ANIMATE_DURATION = 300 // in ms
 
-function Scrollable(props: ScrollableProps) {
+export function Scrollable(props: ScrollableProps) {
   const {
     className,
     onScroll = () => undefined,
@@ -147,7 +147,7 @@ function Scrollable(props: ScrollableProps) {
         onClick={handleLeft}
         ref={leftButtonEl}
       >
-        <Icon name="chevron-left" />
+        <Icon name="chevron-left" size="24" />
       </Button>
       <div
         className={className}
@@ -166,10 +166,8 @@ function Scrollable(props: ScrollableProps) {
         onClick={handleRight}
         ref={rightButtonEl}
       >
-        <Icon name="chevron-right" />
+        <Icon name="chevron-right" size="24" />
       </Button>
     </div>
   )
 }
-
-export default Scrollable

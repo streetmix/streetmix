@@ -1,8 +1,7 @@
-import React from 'react'
 import { screen } from '@testing-library/react'
 
-import { render } from '~/test/helpers/render'
-import PaletteTrashcan from './PaletteTrashcan'
+import { render } from '~/test/helpers/render.js'
+import { PaletteTrashcan } from './PaletteTrashcan.js'
 
 describe('PaletteTrashcan', () => {
   it('renders when visible', () => {
@@ -10,10 +9,10 @@ describe('PaletteTrashcan', () => {
       initialState: {
         ui: {
           draggingState: {
-            draggedSegment: 0
-          }
-        }
-      }
+            draggedSegment: 0,
+          },
+        },
+      },
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -23,9 +22,9 @@ describe('PaletteTrashcan', () => {
     render(<PaletteTrashcan />, {
       initialState: {
         ui: {
-          draggingState: null
-        }
-      }
+          draggingState: null,
+        },
+      },
     })
 
     expect(screen.getByText('Drag here to remove').hidden).toEqual(true)

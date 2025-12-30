@@ -523,14 +523,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                         </a>
                         , 
                         <a
-                          href="https://feathericons.com/"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Feather
-                        </a>
-                        , & 
-                        <a
                           href="https://fontawesome.com/"
                           rel="noopener noreferrer"
                           target="_blank"

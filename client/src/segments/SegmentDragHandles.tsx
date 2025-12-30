@@ -8,8 +8,8 @@ interface SegmentDragHandlesProps {
   width: number
 }
 
-function SegmentDragHandles ({
-  width
+function SegmentDragHandles({
+  width,
 }: SegmentDragHandlesProps): React.ReactElement {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
@@ -29,13 +29,13 @@ function SegmentDragHandles ({
         className="drag-handle drag-handle-left"
         style={{ display, left: adjustX }}
       >
-        <Icon name="chevron-left" />
+        <Icon name="chevron-left" size="24" />
       </div>
       <div
         className="drag-handle drag-handle-right"
         style={{ display, right: adjustX }}
       >
-        <Icon name="chevron-right" />
+        <Icon name="chevron-right" size="24" />
       </div>
     </>
   )
