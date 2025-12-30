@@ -28,6 +28,7 @@ import {
   IconSignRight,
   IconStar,
   IconSunset2,
+  IconTrash,
   IconUser,
   IconX,
 } from '@tabler/icons-react'
@@ -51,7 +52,6 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiExternalLink,
-  FiTrash2,
 } from 'react-icons/fi'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
@@ -97,7 +97,7 @@ const ICONS = {
   template: [IconLayoutGridAdd, 'tabler'],
   time: [IconClockHour4, 'tabler'],
   'trail-sign': [IconSignRight, 'tabler'],
-  trash: [FiTrash2, 'feather'],
+  trash: [IconTrash, 'tabler'],
   undo: [IconArrowBackUp, 'tabler'],
   user: [IconUser, 'tabler'],
   'whats-new': [IconGift, 'tabler'],

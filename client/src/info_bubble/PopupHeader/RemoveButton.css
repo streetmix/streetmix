@@ -3,10 +3,9 @@
   font-size: 0.9rem;
   display: flex;
   align-items: center;
+  font-weight: normal;
 
   .remove-icon {
-    width: 16px;
-    height: 16px;
     margin-inline-end: 0.35em;
   }
 }
