@@ -41,7 +41,7 @@ export function Popover({ label, children }: PopoverProps) {
       <PopoverPrimitive.Trigger asChild>
         <button className="popover-trigger">
           <AccessibleIcon label={a11yLabel}>
-            <Icon name="info" />
+            <Icon name="info" size="18" />
           </AccessibleIcon>
         </button>
       </PopoverPrimitive.Trigger>

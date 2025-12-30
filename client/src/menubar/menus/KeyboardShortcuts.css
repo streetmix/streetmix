@@ -24,6 +24,6 @@
   }
 
   [data-icon="keyboard"] {
-    top: 0.9em;
+    inset-block-start: 10px;
   }
 }
