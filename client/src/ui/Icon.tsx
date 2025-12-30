@@ -8,6 +8,7 @@ import {
   IconDownload,
   IconFlag,
   IconGift,
+  IconHelp,
   IconInfoCircle,
   IconKeyboard,
   IconLanguage,
@@ -51,7 +52,7 @@ import {
   FiRotateCw,
   FiTrash2,
 } from 'react-icons/fi'
-import { IoClose, IoHelpCircleOutline } from 'react-icons/io5'
+import { IoClose } from 'react-icons/io5'
 import { MdOutlineAddRoad } from 'react-icons/md'
 
 import googleIcon from 'url:./icons/google.svg'
@@ -75,7 +76,7 @@ const ICONS = {
   edit: [FiEdit3, 'feather'],
   'external-link': [FiExternalLink, 'feather'],
   flag: [IconFlag, 'tabler'],
-  help: [IoHelpCircleOutline, 'io5'],
+  help: [IconHelp, 'tabler'],
   info: [IconInfoCircle, 'tabler'],
   keyboard: [IconKeyboard, 'tabler'],
   language: [IconLanguage, 'tabler'],
