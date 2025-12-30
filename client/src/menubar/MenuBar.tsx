@@ -154,7 +154,7 @@ function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
             tooltip={languageLabel}
           >
             <AccessibleIcon label={languageLabel}>
-              <Icon name="language" />
+              <Icon name="language" size="18" />
             </AccessibleIcon>
           </MenuBarItem>
         )}

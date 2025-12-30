@@ -12,7 +12,7 @@ import Credits from './Credits'
 import SocialLinks from './SocialLinks'
 import './AboutDialog.css'
 
-function AboutDialog (): React.ReactElement {
+function AboutDialog(): React.ReactElement {
   const offline = useSelector((state) => state.system.offline)
 
   return (
@@ -124,7 +124,7 @@ function AboutDialog (): React.ReactElement {
                               <ExternalLink href="https://gent.media/">
                                 Mikhail Shiranda
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />{' '}
                         <FormattedMessage
@@ -138,7 +138,7 @@ function AboutDialog (): React.ReactElement {
                               >
                                 {chunks}
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />
                       </li>
@@ -156,7 +156,7 @@ function AboutDialog (): React.ReactElement {
                               <ExternalLink href="https://hubertfischer.com/">
                                 Hubert & Fischer
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />{' '}
                         <FormattedMessage
@@ -170,7 +170,7 @@ function AboutDialog (): React.ReactElement {
                               >
                                 {chunks}
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />
                       </li>
@@ -188,7 +188,7 @@ function AboutDialog (): React.ReactElement {
                               <ExternalLink href="https://delvefonts.com/">
                                 Delve Fonts
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />{' '}
                         <FormattedMessage
@@ -202,7 +202,7 @@ function AboutDialog (): React.ReactElement {
                               >
                                 {chunks}
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />
                       </li>
@@ -217,8 +217,8 @@ function AboutDialog (): React.ReactElement {
                                   Feather
                                 </ExternalLink>
                                 ,{' '}
-                                <ExternalLink href="https://www.radix-ui.com/icons">
-                                  Radix UI
+                                <ExternalLink href="https://tabler.io/icons">
+                                  Tabler
                                 </ExternalLink>
                                 ,{' '}
                                 <ExternalLink href="https://ionic.io/ionicons">
@@ -229,7 +229,7 @@ function AboutDialog (): React.ReactElement {
                                   Font Awesome
                                 </ExternalLink>
                               </>
-                            )
+                            ),
                           }}
                         />{' '}
                         <FormattedMessage
@@ -243,7 +243,7 @@ function AboutDialog (): React.ReactElement {
                               >
                                 {chunks}
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />
                       </li>
@@ -256,7 +256,7 @@ function AboutDialog (): React.ReactElement {
                               <ExternalLink href="https://openmoji.org/">
                                 OpenMoji
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />{' '}
                         <FormattedMessage
@@ -270,7 +270,7 @@ function AboutDialog (): React.ReactElement {
                               >
                                 {chunks}
                               </ExternalLink>
-                            )
+                            ),
                           }}
                         />
                       </li>

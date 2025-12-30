@@ -84,7 +84,11 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
                       activeCategory === 'profile' ? 'settings-menu-active' : ''
                     }
                   >
-                    <Icon name="user" className="settings-menu-icon" />
+                    <Icon
+                      name="user"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.profile.label"
                       defaultMessage="Profile"
@@ -99,7 +103,11 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
                       activeCategory === 'general' ? 'settings-menu-active' : ''
                     }
                   >
-                    <Icon name="settings" className="settings-menu-icon" />
+                    <Icon
+                      name="settings"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.general.label"
                       defaultMessage="General"
@@ -115,7 +123,11 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
                         : ''
                     }
                   >
-                    <Icon name="language" className="settings-menu-icon" />
+                    <Icon
+                      name="language"
+                      size="18"
+                      className="settings-menu-icon"
+                    />
                     <FormattedMessage
                       id="settings.language.label"
                       defaultMessage="Language"
@@ -132,7 +144,11 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
                           : ''
                       }
                     >
-                      <Icon name="flag" className="settings-menu-icon" />
+                      <Icon
+                        name="flag"
+                        size="18"
+                        className="settings-menu-icon"
+                      />
                       {/* Not translated, on purpose */}
                       Feature flags
                     </li>

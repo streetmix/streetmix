@@ -528,11 +528,11 @@ exports[`AboutDialog > renders snapshot 1`] = `
                         </a>
                         , 
                         <a
-                          href="https://www.radix-ui.com/icons"
+                          href="https://tabler.io/icons"
                           rel="noopener noreferrer"
                           target="_blank"
                         >
-                          Radix UI
+                          Tabler
                         </a>
                         , 
                         <a

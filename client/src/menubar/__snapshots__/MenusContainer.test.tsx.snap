@@ -104,6 +104,7 @@ exports[`MenusContainer > renders 1`] = `
             data-icon="language"
             data-icon-source="test"
             focusable="false"
+            size="18"
           />
           <span
             style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; word-wrap: normal;"
