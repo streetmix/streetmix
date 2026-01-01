@@ -1,9 +1,8 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { EditableLabel } from './EditableLabel'
+import { render } from '~/test/helpers/render.js'
+import { EditableLabel } from './EditableLabel.js'
 
 describe('EditableLabel', () => {
   it('renders uninteractive label when type is boundary', async () => {

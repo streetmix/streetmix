@@ -277,6 +277,7 @@ export function Segment(props: SliceProps) {
         type="slice"
         position={sliceIndex}
         isDragging={isDragging}
+        disabled={readOnly}
       >
         <button data-slice-index={sliceIndex}>
           <SegmentLabelContainer
