@@ -8,13 +8,6 @@ interface SegmentDragHandlesProps {
 
 export function SegmentDragHandles({ width }: SegmentDragHandlesProps) {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
-  const readOnly = useSelector((state) => state.app.readOnly)
-
-  // Do not display in read-only mode
-  if (readOnly) {
-    return null
-  }
-
   const display = infoBubbleHovered ? 'none' : undefined
 
   // To prevent drag handles from overlapping each other when the segment
