@@ -1,4 +1,4 @@
-import { URL_NEW_STREET, URL_EXAMPLE_STREET } from './constants'
+import { URL_NEW_STREET } from './constants'
 import Authenticate from './auth0'
 
 const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
@@ -6,15 +6,15 @@ const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
   window.location.origin
 ).href
 
-export function goReload () {
+export function goReload() {
   window.location.reload()
 }
 
-export function goHome () {
+export function goHome() {
   window.location.href = '/'
 }
 
-export function goNewStreet (sameWindow) {
+export function goNewStreet(sameWindow) {
   if (sameWindow) {
     window.location.replace(URL_NEW_STREET)
   } else {
@@ -22,38 +22,34 @@ export function goNewStreet (sameWindow) {
   }
 }
 
-export function goExampleStreet () {
-  window.location.href = URL_EXAMPLE_STREET
-}
-
-export function goTwitterSignIn () {
+export function goTwitterSignIn() {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
     connection: 'twitter',
-    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL
+    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
   })
 }
 
-export function goFacebookSignIn () {
+export function goFacebookSignIn() {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
     connection: 'facebook',
-    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL
+    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
   })
 }
 
-export function goGoogleSignIn () {
+export function goGoogleSignIn() {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
     connection: 'google-oauth2',
-    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL
+    redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
   })
 }
 
-export function goEmailSignIn (email, callback) {
+export function goEmailSignIn(email, callback) {
   const auth0 = Authenticate()
   auth0.passwordlessStart(
     {
@@ -62,8 +58,8 @@ export function goEmailSignIn (email, callback) {
       connection: 'email',
       authParams: {
         redirectUri: AUTH0_SIGN_IN_CALLBACK_URL,
-        responseType: 'code'
-      }
+        responseType: 'code',
+      },
     },
     (err, res) => {
       callback(err, res)

@@ -46,11 +46,6 @@
   background-repeat: no-repeat;
 }
 
-body.phone #error,
-body.phone #loading {
-  font-size: 2rem;
-}
-
 #svg {
   display: none;
 }

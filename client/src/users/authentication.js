@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
 import USER_ROLES from '../../../app/data/user_roles.json'
-import { app } from '../preinit/app_settings'
 import { showError, ERRORS } from '../app/errors'
 import { MODES, processMode, getMode, setMode, getModeData } from '../app/mode'
 import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
@@ -374,19 +373,12 @@ function _signInLoaded() {
       fetchStreetFromServer()
       break
     case MODES.NEW_STREET_COPY_LAST:
-      if (app.readOnly) {
-        showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
-      } else {
-        createNewStreetOnServer()
-      }
+      createNewStreetOnServer()
       break
-    case MODES.NEW_STREET:
-      if (app.readOnly) {
-        showError(ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE, true)
-      } else {
-        const modeData = getModeData()
-        createNewStreetOnServer(modeData.type)
-      }
+    case MODES.NEW_STREET: {
+      const modeData = getModeData()
+      createNewStreetOnServer(modeData.type)
       break
+    }
   }
 }

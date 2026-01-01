@@ -9,11 +9,8 @@ import { setAppFlags } from '../store/slices/app'
 import store from '../store'
 import { debug } from './debug_settings'
 
-// Just set readOnly
-const system = store.getState().system
-
 export const app = {
-  readOnly: system.phone || debug.forceReadOnly
+  readOnly: debug.forceReadOnly,
 }
 
 store.dispatch(setAppFlags(app))

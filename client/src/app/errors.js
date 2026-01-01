@@ -6,7 +6,7 @@ import {
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_NO_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_ACCESS_DENIED
+  URL_ERROR_ACCESS_DENIED,
 } from './constants'
 
 export const ERRORS = {
@@ -26,23 +26,23 @@ export const ERRORS = {
   STREET_404: 15,
   STREET_404_BUT_LINK_TO_USER: 16,
   STREET_410_BUT_LINK_TO_USER: 17,
-  CANNOT_CREATE_NEW_STREET_ON_PHONE: 18,
+  // CANNOT_CREATE_NEW_STREET_ON_PHONE: 18, /* Deprecated. Do not use */
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
   AUTH_PROBLEM_NO_ACCESS_TOKEN: 23,
-  AUTH_EXPIRED: 24
+  AUTH_EXPIRED: 24,
 }
 
-export function showError (errorType, newAbortEverything) {
+export function showError(errorType, newAbortEverything) {
   // Dispatch everythingLoaded to hide the loading window
   // for cases where error appears immediately on load
   store.dispatch(everythingLoaded())
   store.dispatch(showErrorAction(errorType, newAbortEverything))
 }
 
-export function showErrorFromUrl (errorUrl) {
+export function showErrorFromUrl(errorUrl) {
   let errorType
 
   // TODO const
