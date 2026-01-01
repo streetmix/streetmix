@@ -36,7 +36,10 @@
   }
 
   &.active .active-bg {
-    opacity: 1;
+    /* Do not display if in read-only mode */
+    body:not(.read-only) & {
+      opacity: 1;
+    }
   }
 }
 

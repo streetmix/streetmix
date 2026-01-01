@@ -5,7 +5,7 @@ import { screen } from '@testing-library/dom'
 import { render } from '~/test/helpers/render.js'
 import { setLastStreet } from '~/src/streets/data_model.js'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
-import Segment from './Segment.js'
+import { Segment } from './Segment.js'
 
 import type { SliceItem } from '@streetmix/types'
 
