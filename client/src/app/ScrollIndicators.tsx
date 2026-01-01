@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { registerKeypress, deregisterKeypress } from './keypress.js'
 import './ScrollIndicators.css'
+import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface ScrollIndicatorsProps {
   left: number
@@ -57,24 +58,26 @@ export const ScrollIndicators = memo(function ScrollIndicators({
   return (
     <div className="street-scroll-indicators">
       {left > 0 && (
-        <button
-          className="street-scroll-indicator-left"
-          onClick={handleScrollLeft}
-          title={scrollLeftLabel}
-          aria-label={scrollLeftLabel}
-        >
-          {Array(left + 1).join('‹')}
-        </button>
+        <Tooltip label={scrollLeftLabel}>
+          <button
+            className="street-scroll-indicator-left"
+            onClick={handleScrollLeft}
+            aria-label={scrollLeftLabel}
+          >
+            {Array(left + 1).join('‹')}
+          </button>
+        </Tooltip>
       )}
       {right > 0 && (
-        <button
-          className="street-scroll-indicator-right"
-          onClick={handleScrollRight}
-          title={scrollRightLabel}
-          aria-label={scrollRightLabel}
-        >
-          {Array(right + 1).join('›')}
-        </button>
+        <Tooltip label={scrollRightLabel}>
+          <button
+            className="street-scroll-indicator-right"
+            onClick={handleScrollRight}
+            aria-label={scrollRightLabel}
+          >
+            {Array(right + 1).join('›')}
+          </button>
+        </Tooltip>
       )}
     </div>
   )
