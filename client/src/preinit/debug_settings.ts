@@ -9,8 +9,8 @@
  *
  */
 import store from '../store'
-import { setAppFlags } from '../store/slices/app'
-import { setDebugFlags } from '../store/slices/debug'
+import { setAppFlags } from '../store/slices/app.js'
+import { setDebugFlags } from '../store/slices/debug.js'
 
 export const debug = {
   forceLeftHandTraffic: false,
