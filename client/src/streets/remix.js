@@ -1,12 +1,11 @@
 import { formatMessage } from '../locales/locale'
-import { app } from '../preinit/app_settings'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import { newBlockingAjaxRequest } from '../util/fetch_blocking'
 import store from '../store'
 import {
   saveStreetName,
   updateEditCount,
-  saveOriginalStreetId
+  saveOriginalStreetId,
 } from '../store/slices/street'
 import { addToast } from '../store/slices/toasts'
 import { setStreetCreatorId } from './data_model'
@@ -16,11 +15,11 @@ import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
 
-export function getRemixOnFirstEdit () {
+export function getRemixOnFirstEdit() {
   return remixOnFirstEdit
 }
 
-export function setRemixOnFirstEdit (value) {
+export function setRemixOnFirstEdit(value) {
   remixOnFirstEdit = value
 }
 
@@ -28,17 +27,19 @@ export function setRemixOnFirstEdit (value) {
 // was anonymous
 let promoteStreet = false
 
-export function getPromoteStreet () {
+export function getPromoteStreet() {
   return promoteStreet
 }
 
-export function setPromoteStreet (value) {
+export function setPromoteStreet(value) {
   promoteStreet = value
 }
 
-export function remixStreet () {
+export function remixStreet() {
   let dontAddSuffix
-  if (app.readOnly) {
+
+  const { readOnly } = store.getState().app
+  if (readOnly) {
     return
   }
 
@@ -84,14 +85,14 @@ export function remixStreet () {
       body: transmission,
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     },
     receiveRemixedStreet
   )
 }
 
-function receiveRemixedStreet (data) {
+function receiveRemixedStreet(data) {
   if (!promoteStreet) {
     if (isSignedIn()) {
       store.dispatch(
@@ -99,7 +100,7 @@ function receiveRemixedStreet (data) {
           message: formatMessage(
             'toast.remixing',
             'Now editing a freshly-made duplicate of the original street. The duplicate has been put in your gallery.'
-          )
+          ),
         })
       )
     } else {
@@ -110,7 +111,7 @@ function receiveRemixedStreet (data) {
             'Now editing a freshly-made duplicate of the original street. Sign in to start your own gallery of streets.'
           ),
           component: 'TOAST_SIGN_IN',
-          duration: 12000
+          duration: 12000,
         })
       )
     }
@@ -121,7 +122,7 @@ function receiveRemixedStreet (data) {
   saveStreetToServer(false)
 }
 
-export function addRemixSuffixToName () {
+export function addRemixSuffixToName() {
   const street = store.getState().street
 
   // Bail if street is unnamed

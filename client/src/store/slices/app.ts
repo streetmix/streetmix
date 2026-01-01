@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { ContentDirection } from '~/src/types'
 
-import { changeLocale } from './locale'
+import { changeLocale } from './locale.js'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 
@@ -22,7 +22,7 @@ const initialState: AppState = {
   // Used to remember the "last street" ID when making a copy of a street
   // looked at in a previous tab. Its value is copied from the `lastStreetId`
   // value from the `settings` reducer, so that it can be remembered
-  priorLastStreetId: null
+  priorLastStreetId: null,
 }
 
 const appSlice = createSlice({
@@ -30,24 +30,24 @@ const appSlice = createSlice({
   initialState,
 
   reducers: {
-    setAppFlags (state, action: PayloadAction<Partial<AppState>>) {
+    setAppFlags(state, action: PayloadAction<Partial<AppState>>) {
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       }
     },
 
-    startPrinting (state) {
+    startPrinting(state) {
       state.printing = true
     },
 
-    stopPrinting (state) {
+    stopPrinting(state) {
       state.printing = false
     },
 
-    everythingLoaded (state) {
+    everythingLoaded(state) {
       state.everythingLoaded = true
-    }
+    },
   },
 
   extraReducers: (builder) => {
@@ -57,7 +57,7 @@ const appSlice = createSlice({
         : 'ltr'
       state.contentDirection = direction
     })
-  }
+  },
 })
 
 export const { setAppFlags, startPrinting, stopPrinting, everythingLoaded } =

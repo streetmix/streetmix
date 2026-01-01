@@ -15,9 +15,9 @@ import {
 } from '../store/actions/street.js'
 import { getSegmentCapacity } from './capacity.js'
 import { getLocaleSliceName } from './labels.js'
-import SegmentCanvas from './SegmentCanvas.js'
+import { SegmentCanvas } from './SegmentCanvas.js'
 import { SegmentDragHandles } from './SegmentDragHandles.js'
-import SegmentLabelContainer from './SegmentLabelContainer.js'
+import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 import {
   TILE_SIZE,
   SLICE_WARNING_OUTSIDE,
@@ -44,7 +44,7 @@ interface SliceProps {
   segmentLeft: number
 }
 
-function Segment(props: SliceProps) {
+export function Segment(props: SliceProps) {
   const { sliceIndex, segment, units, segmentLeft } = props
   const [switchSegments, setSwitchSegments] = useState(false)
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)
@@ -55,6 +55,7 @@ function Segment(props: SliceProps) {
   )
   const locale = useSelector((state) => state.locale.locale)
   const activeSegment = useSelector((state) => state.ui.activeSegment)
+  const readOnly = useSelector((state) => state.app.readOnly)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
@@ -132,7 +133,8 @@ function Segment(props: SliceProps) {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent): void => {
       // Bail if hovered over infobubble popup
-      if (infoBubbleHovered) return
+      // or in read-only mode
+      if (readOnly || infoBubbleHovered) return
 
       switch (event.key) {
         case '-':
@@ -164,7 +166,14 @@ function Segment(props: SliceProps) {
           break
       }
     },
-    [decrementWidth, incrementWidth, sliceIndex, infoBubbleHovered, dispatch]
+    [
+      decrementWidth,
+      incrementWidth,
+      sliceIndex,
+      infoBubbleHovered,
+      dispatch,
+      readOnly,
+    ]
   )
 
   // Cleanup effect
@@ -191,11 +200,13 @@ function Segment(props: SliceProps) {
   }
 
   function handleSegmentMouseEnter() {
+    if (readOnly) return
     dispatch(setActiveSegment(sliceIndex))
     document.addEventListener('keydown', handleKeyDown)
   }
 
   function handleSegmentMouseLeave() {
+    if (readOnly) return
     dispatch(setActiveSegment(null))
     document.removeEventListener('keydown', handleKeyDown)
   }
@@ -273,6 +284,7 @@ function Segment(props: SliceProps) {
         type="slice"
         position={sliceIndex}
         isDragging={isDragging}
+        disabled={readOnly}
       >
         <button data-slice-index={sliceIndex}>
           <SegmentLabelContainer
@@ -317,5 +329,3 @@ function Segment(props: SliceProps) {
     </div>
   )
 }
-
-export default Segment

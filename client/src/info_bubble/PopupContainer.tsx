@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useRef, useState, cloneElement } from 'react'
 import {
   useFloating,
   autoUpdate,
@@ -20,8 +20,8 @@ import {
   FloatingNode,
 } from '@floating-ui/react'
 
-import { useSelector } from '~/src/store/hooks'
-import { PopupContent } from './PopupContent'
+import { useSelector } from '~/src/store/hooks.js'
+import { PopupContent } from './PopupContent.js'
 import './PopupContainer.css'
 
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
@@ -44,6 +44,7 @@ const ARROW_HEIGHT = 16
 type PopupContainerProps = Prettify<
   SectionElementTypeAndPosition & {
     isDragging?: boolean
+    disabled?: boolean
     children: React.JSX.Element
   }
 >
@@ -52,6 +53,7 @@ type PopupContainerProps = Prettify<
 // do not destructure it or it will lose type safety!
 export function PopupContainer({
   isDragging,
+  disabled = false,
   children,
   ...props
 }: PopupContainerProps) {
@@ -64,11 +66,11 @@ export function PopupContainer({
   })
   const [isOpen, setIsOpen] = useState(false)
   const [isArrowHighlighted, setArrowHighlighted] = useState(false)
-  const arrowRef = React.useRef(null)
+  const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context, middlewareData } = useFloating({
     nodeId,
-    open: isOpen && !isDragging,
+    open: isOpen && !isDragging && !disabled,
     onOpenChange: setIsOpen,
     placement: 'top',
     whileElementsMounted: autoUpdate,
@@ -154,7 +156,7 @@ export function PopupContainer({
   // <button> also works just fine as is) but if this becomes too complex,
   // a future workaround is to use floating-ui's `asChild` pattern so that
   // some instances can be wrapped with its own element.
-  const tooltipTriggerElement = React.cloneElement(
+  const tooltipTriggerElement = cloneElement(
     children,
     getReferenceProps({
       // Refs are merged between useFloating and an existing child ref, if any.

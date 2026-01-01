@@ -1,8 +1,7 @@
-import React from 'react'
-import { useSelector } from '../store/hooks'
-import EmptySegment from './EmptySegment'
+import { useSelector } from '../store/hooks.js'
+import { EmptySegment } from './EmptySegment.js'
 
-function EmptySegmentContainer (): React.ReactElement[] {
+export function EmptySegmentContainer() {
   const remainingWidth = useSelector((state) => state.street.remainingWidth)
   const occupiedWidth = useSelector((state) => state.street.occupiedWidth)
   const emptySegments = []
@@ -29,5 +28,3 @@ function EmptySegmentContainer (): React.ReactElement[] {
     <EmptySegment key={i} width={width} left={left} />
   ))
 }
-
-export default EmptySegmentContainer

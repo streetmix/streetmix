@@ -6,7 +6,7 @@ import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
 import ResizeGuides from '../segments/ResizeGuides.js'
-import EmptySegmentContainer from '../segments/EmptySegmentContainer.js'
+import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
 import { animate, getElAbsolutePos } from '../util/helpers.js'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
 import {

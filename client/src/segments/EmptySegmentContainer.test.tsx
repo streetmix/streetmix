@@ -1,8 +1,6 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import EmptySegmentContainer from './EmptySegmentContainer'
-import { TILE_SIZE } from './constants'
+import { render } from '~/test/helpers/render.js'
+import { EmptySegmentContainer } from './EmptySegmentContainer.js'
+import { TILE_SIZE } from './constants.js'
 
 describe('EmptySegment', () => {
   it('renders two <EmptySegment /> components of equal width', () => {
@@ -10,9 +8,9 @@ describe('EmptySegment', () => {
       initialState: {
         street: {
           remainingWidth: 10,
-          occupiedWidth: 40
-        }
-      }
+          occupiedWidth: 40,
+        },
+      },
     })
 
     expect(getAllByText(/empty space/i).length).toEqual(2)
@@ -28,9 +26,9 @@ describe('EmptySegment', () => {
       initialState: {
         street: {
           remainingWidth: 50,
-          occupiedWidth: 0
-        }
-      }
+          occupiedWidth: 0,
+        },
+      },
     })
 
     expect(getAllByText(/empty space/i).length).toEqual(1)
@@ -44,9 +42,9 @@ describe('EmptySegment', () => {
       initialState: {
         street: {
           remainingWidth: 0,
-          occupiedWidth: 50
-        }
-      }
+          occupiedWidth: 50,
+        },
+      },
     })
 
     expect(container.children.length).toEqual(0)
@@ -57,9 +55,9 @@ describe('EmptySegment', () => {
       initialState: {
         street: {
           remainingWidth: -10,
-          occupiedWidth: 50
-        }
-      }
+          occupiedWidth: 50,
+        },
+      },
     })
 
     expect(container.children.length).toEqual(0)

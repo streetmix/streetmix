@@ -1,9 +1,7 @@
-import React from 'react'
-
-import { useDispatch } from '~/src/store/hooks'
-import { loseAnyFocus } from '~/src/util/focus'
-import { TooltipGroup } from '~/src/ui/Tooltip'
-import { setInfoBubbleMouseInside } from '../store/slices/infoBubble'
+import { useDispatch } from '~/src/store/hooks.js'
+import { loseAnyFocus } from '~/src/util/focus.js'
+import { TooltipGroup } from '~/src/ui/Tooltip.js'
+import { setInfoBubbleMouseInside } from '../store/slices/infoBubble.js'
 import { PopupControls } from './PopupControls'
 import { PopupHeader } from './PopupHeader'
 import { PopupLower } from './PopupLower'

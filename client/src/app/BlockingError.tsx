@@ -7,7 +7,7 @@ import { Button } from '../ui/Button.js'
 import ExternalLink from '../ui/ExternalLink.js'
 import Avatar from '../users/Avatar.js'
 import { doSignIn } from '../users/authentication.js'
-import { goReload, goHome, goNewStreet, goExampleStreet } from './routing.js'
+import { goReload, goHome, goNewStreet } from './routing.js'
 import { ERRORS } from './errors.js'
 
 import type { StreetState } from '@streetmix/types'
@@ -478,30 +478,6 @@ function BlockingError() {
             />
           </p>
         </>
-      )
-      break
-    case ERRORS.CANNOT_CREATE_NEW_STREET_ON_PHONE:
-      title = (
-        <FormattedMessage
-          id="error.cannot-create-new-street-on-phone-title"
-          defaultMessage="Streetmix works on tablets and desktops only."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.cannot-create-new-street-on-phone-description"
-            defaultMessage="If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets."
-          />
-        </p>
-      )
-      cta = (
-        <Button primary onClick={goExampleStreet}>
-          <FormattedMessage
-            id="error.button.view-example"
-            defaultMessage="View an example street"
-          />
-        </Button>
       )
       break
     default:

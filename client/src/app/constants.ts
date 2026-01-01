@@ -8,7 +8,7 @@ export const STREET_TEMPLATES = {
   HARBORWALK: 'harborwalk',
   COASTAL_ROAD: 'coastal_road',
   BEACH: 'beach',
-  STROAD: 'stroad'
+  STROAD: 'stroad',
 }
 
 // Path segments
@@ -25,8 +25,6 @@ export const URL_ERROR_NO_ACCESS_TOKEN = 'no-access-token'
 export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
 export const URL_ERROR_ACCESS_DENIED = 'access-denied'
 
-export const URL_EXAMPLE_STREET = '/streetmix/7'
-
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
 export const RESERVED_URLS = [
@@ -40,7 +38,7 @@ export const RESERVED_URLS = [
   '/terms-of-service',
   '/privacy-policy',
   '/map',
-  '/survey'
+  '/survey',
 ]
 
 export const URL_RESERVED_PREFIX = '~'
