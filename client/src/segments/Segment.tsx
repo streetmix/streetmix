@@ -15,9 +15,9 @@ import {
 } from '../store/actions/street.js'
 import { getSegmentCapacity } from './capacity.js'
 import { getLocaleSliceName } from './labels.js'
-import SegmentCanvas from './SegmentCanvas.js'
+import { SegmentCanvas } from './SegmentCanvas.js'
 import { SegmentDragHandles } from './SegmentDragHandles.js'
-import SegmentLabelContainer from './SegmentLabelContainer.js'
+import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 import {
   TILE_SIZE,
   SLICE_WARNING_OUTSIDE,

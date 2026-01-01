@@ -1,11 +1,9 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
+import { render } from '~/test/helpers/render.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC
-} from '~/src/users/constants'
-import SegmentLabelContainer from './SegmentLabelContainer'
+  SETTINGS_UNITS_METRIC,
+} from '~/src/users/constants.js'
+import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 
 import type { UnitsSetting } from '@streetmix/types'
 
@@ -13,7 +11,7 @@ const testProps = {
   label: 'foo',
   width: 1,
   units: SETTINGS_UNITS_METRIC as UnitsSetting,
-  locale: 'en'
+  locale: 'en',
 }
 
 describe('SegmentLabelContainer', () => {

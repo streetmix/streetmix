@@ -1,19 +1,17 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
-import EmptySegment from './EmptySegment'
-import { TILE_SIZE } from './constants'
+import { render } from '~/test/helpers/render.js'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
+import { EmptySegment } from './EmptySegment.js'
+import { TILE_SIZE } from './constants.js'
 
 describe('EmptySegment', () => {
   const initialState = {
     street: { units: SETTINGS_UNITS_METRIC },
-    locale: { locale: 'en' }
+    locale: { locale: 'en' },
   }
 
   it('renders nothing when the width is 0', () => {
     const { container } = render(<EmptySegment width={0} left={0} />, {
-      initialState
+      initialState,
     })
 
     expect(container.firstChild).toBeNull()
@@ -21,7 +19,7 @@ describe('EmptySegment', () => {
 
   it('renders a width, and at left position 0', () => {
     const { container } = render(<EmptySegment width={3.75} left={0} />, {
-      initialState
+      initialState,
     })
 
     const el = container.firstChild as HTMLElement
@@ -32,7 +30,7 @@ describe('EmptySegment', () => {
 
   it('renders at width and left position given', () => {
     const { container } = render(<EmptySegment width={4.5} left={10} />, {
-      initialState
+      initialState,
     })
 
     const el = container.firstChild as HTMLElement
@@ -43,7 +41,7 @@ describe('EmptySegment', () => {
 
   it('renders text content', () => {
     const { getByText } = render(<EmptySegment width={4.5} left={0} />, {
-      initialState
+      initialState,
     })
 
     expect(getByText('4.5 m')).toBeInTheDocument()
