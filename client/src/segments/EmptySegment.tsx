@@ -1,9 +1,8 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '../store/hooks'
-import { TILE_SIZE } from './constants'
-import SegmentLabelContainer from './SegmentLabelContainer'
+import { useSelector } from '../store/hooks.js'
+import { TILE_SIZE } from './constants.js'
+import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 import './EmptySegment.css'
 
 interface EmptySegmentProps {
@@ -11,10 +10,7 @@ interface EmptySegmentProps {
   left: number
 }
 
-function EmptySegment ({
-  width,
-  left
-}: EmptySegmentProps): React.ReactElement | null {
+export function EmptySegment({ width, left }: EmptySegmentProps) {
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
 
@@ -26,7 +22,7 @@ function EmptySegment ({
   // multiplied by TILE_SIZE to get the pixel dimension and offset.
   const style = {
     width: width * TILE_SIZE + 'px',
-    left: left * TILE_SIZE + 'px'
+    left: left * TILE_SIZE + 'px',
   }
 
   return (
@@ -42,5 +38,3 @@ function EmptySegment ({
     </div>
   )
 }
-
-export default EmptySegment

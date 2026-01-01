@@ -1,11 +1,11 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import MeasurementText from '../ui/MeasurementText'
-import { SETTINGS_UNITS_METRIC } from '../users/constants'
-import { formatNumber } from '../util/number_format'
-import type { UnitsSetting } from '@streetmix/types'
+import MeasurementText from '../ui/MeasurementText.js'
+import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
+import { formatNumber } from '../util/number_format.js'
 import './SegmentLabelContainer.css'
+
+import type { UnitsSetting } from '@streetmix/types'
 
 interface SegmentLabelContainerProps {
   label: string | React.ReactElement
@@ -16,9 +16,7 @@ interface SegmentLabelContainerProps {
   capacity?: number
 }
 
-function SegmentLabelContainer (
-  props: SegmentLabelContainerProps
-): React.ReactElement {
+export function SegmentLabelContainer(props: SegmentLabelContainerProps) {
   const { label, locale, width, units, showCapacity = false, capacity } = props
 
   const gridClassNames = ['segment-grid']
@@ -44,7 +42,7 @@ function SegmentLabelContainer (
               id="capacity.ppl-per-hour"
               defaultMessage="{capacity} people/hr"
               values={{
-                capacity: formatNumber(capacity, locale)
+                capacity: formatNumber(capacity, locale),
               }}
             />
           </p>
@@ -53,5 +51,3 @@ function SegmentLabelContainer (
     </div>
   )
 }
-
-export default SegmentLabelContainer

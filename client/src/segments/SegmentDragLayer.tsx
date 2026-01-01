@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDragLayer, type XYCoord } from 'react-dnd'
 
-import { usePrevious } from '~/src/util/usePrevious'
-import SegmentCanvas from './SegmentCanvas'
-import { DragTypes, type DragType, type DraggedItem } from './drag_and_drop'
+import { usePrevious } from '~/src/util/usePrevious.js'
+import { SegmentCanvas } from './SegmentCanvas.js'
+import { DragTypes, type DragType, type DraggedItem } from './drag_and_drop.js'
 import './SegmentDragLayer.css'
 
 const DRAG_OFFSET_Y_PALETTE = -340 - 150 // TODO: Document magic numbers
@@ -47,7 +47,7 @@ function applySegmentStyle(
   el.style.transform = `translate(${x}px, ${y}px) rotateZ(${deg}deg)`
 }
 
-function SegmentDragLayer() {
+export function SegmentDragLayer() {
   const floatingEl = useRef<HTMLDivElement>(null)
   const collectedProps = useDragLayer((monitor) => ({
     item: monitor.getItem(),
@@ -81,5 +81,3 @@ function SegmentDragLayer() {
     </div>
   )
 }
-
-export default SegmentDragLayer

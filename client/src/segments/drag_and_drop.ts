@@ -5,7 +5,6 @@ import {
   getSegmentVariantInfo,
 } from '@streetmix/parts'
 
-import { app } from '../preinit/app_settings'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
 import store, { observeStore } from '../store'
@@ -117,9 +116,6 @@ export function initDragTypeSubscriber() {
 
 function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   let x: number, y: number
-  if (app.readOnly) {
-    return
-  }
 
   if ('touches' in event && event.touches[0]) {
     x = event.touches[0].pageX
@@ -226,7 +222,9 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
 }
 
 export function onBodyMouseDown(event: MouseEvent | TouchEvent): void {
-  if (app.readOnly || ('touches' in event && event.touches.length !== 1)) {
+  const { readOnly } = store.getState().app
+
+  if (readOnly || ('touches' in event && event.touches.length !== 1)) {
     return
   }
 

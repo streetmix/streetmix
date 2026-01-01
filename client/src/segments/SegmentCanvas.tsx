@@ -1,10 +1,14 @@
-import React, { memo, useState, useRef, useEffect } from 'react'
+import { memo, useState, useRef, useEffect } from 'react'
 import { Decimal } from 'decimal.js'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { useSelector } from '../store/hooks'
-import { drawSegmentContents, getVariantInfoDimensions } from './view'
-import { CANVAS_HEIGHT, GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants'
+import { useSelector } from '../store/hooks.js'
+import { drawSegmentContents, getVariantInfoDimensions } from './view.js'
+import {
+  CANVAS_HEIGHT,
+  GROUND_BASELINE_HEIGHT,
+  TILE_SIZE,
+} from './constants.js'
 import './SegmentCanvas.css'
 
 import type { SlopeProperties } from '@streetmix/types'
@@ -20,7 +24,7 @@ interface SegmentCanvasProps {
   slope: SlopeProperties
 }
 
-function SegmentCanvas({
+export const SegmentCanvas = memo(function SegmentCanvas({
   actualWidth,
   type,
   variantString,
@@ -112,6 +116,4 @@ function SegmentCanvas({
       style={canvasStyle}
     />
   )
-}
-
-export default memo(SegmentCanvas)
+})

@@ -1,10 +1,7 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
-
-import { editSliceLabel, getLabel } from '~/src/segments/labels'
-import { EditableLabel } from './EditableLabel'
-import { RemoveButton } from './RemoveButton'
+import { useSelector } from '~/src/store/hooks.js'
+import { editSliceLabel, getLabel } from '~/src/segments/labels.js'
+import { EditableLabel } from './EditableLabel.js'
+import { RemoveButton } from './RemoveButton.js'
 import './PopupHeader.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'

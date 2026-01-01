@@ -131,8 +131,7 @@
       "sign-in": "Sign in again",
       "reload": "Reload the page",
       "return": "Return to Streetmix",
-      "try-again": "Try again",
-      "view-example": "View an example street"
+      "try-again": "Try again"
     },
     "page-not-found-title": "Page not found.",
     "page-not-found-description": "Oh, boy. There is no page with this address!",
@@ -161,8 +160,6 @@
     "unsupported-browser-description": "Sorry about that. You might want to try <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, or Safari.",
     "unsupported-browser-internet-explorer": "Are you on Internet Explorer? <a>Find out more.</a>",
     "unsupported-browser-contact-us": "If you think your browser should be supported, please <a>contact us</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix works on tablets and desktops only.",
-    "cannot-create-new-street-on-phone-description": "If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.",
     "generic-error-title": "Something went wrong.",
     "generic-error-description": "We’re sorry – something went wrong.",
     "error-code": "(Error {code}.)",

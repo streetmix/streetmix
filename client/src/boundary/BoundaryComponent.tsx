@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -95,9 +95,14 @@ interface BoundaryProps {
   updatePerspective: (el: HTMLElement | null) => void
 }
 
-function Boundary({ position, width, updatePerspective }: BoundaryProps) {
+export function Boundary({
+  position,
+  width,
+  updatePerspective,
+}: BoundaryProps) {
   const street = useSelector((state) => state.street)
   const activeSegment = useSelector((state) => state.ui.activeSegment)
+  const readOnly = useSelector((state) => state.app.readOnly)
   const leftBoundaryEditable = useSelector(
     (state) => state.flags.EDIT_BOUNDARY_LEFT.value
   )
@@ -120,10 +125,11 @@ function Boundary({ position, width, updatePerspective }: BoundaryProps) {
   const newRef = useRef(null)
   const oldRef = useRef(null)
 
-  const isEditable = !(
-    (!leftBoundaryEditable && position === 'left') ||
-    (!rightBoundaryEditable && position === 'right')
-  )
+  const isEditable =
+    !(
+      (!leftBoundaryEditable && position === 'left') ||
+      (!rightBoundaryEditable && position === 'right')
+    ) && !readOnly
   const variant = street.boundary[position].variant
   const floors = street.boundary[position].floors
   const elevation = street.boundary[position].elevation
@@ -275,7 +281,7 @@ function Boundary({ position, width, updatePerspective }: BoundaryProps) {
     // node switching functionality
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
-        <PopupContainer type="boundary" position={position}>
+        <PopupContainer type="boundary" position={position} disabled={readOnly}>
           <button>
             <section
               ref={(ref) => {
@@ -318,5 +324,3 @@ function Boundary({ position, width, updatePerspective }: BoundaryProps) {
     </>
   )
 }
-
-export default Boundary

@@ -286,38 +286,6 @@ exports[`BlockingError > renders AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN 1`] = `
 </DocumentFragment>
 `;
 
-exports[`BlockingError > renders CANNOT_CREATE_NEW_STREET_ON_PHONE 1`] = `
-<DocumentFragment>
-  <div
-    id="error"
-  >
-    <div
-      class="error-content"
-    >
-      <div
-        class="streetmix-logo"
-      />
-      <div
-        class="error-text"
-      >
-        <h1>
-          Streetmix works on tablets and desktops only.
-        </h1>
-        <p>
-          If you follow another link to a specific street, you can view it on your phone – but you cannot yet create new streets.
-        </p>
-      </div>
-      <button
-        class="btn btn-primary"
-        type="button"
-      >
-        View an example street
-      </button>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`BlockingError > renders FORCE_RELOAD_SIGN_IN 1`] = `
 <DocumentFragment>
   <div
