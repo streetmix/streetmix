@@ -1,7 +1,7 @@
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
-import { registerKeypress, deregisterKeypress } from './keypress'
+import { registerKeypress, deregisterKeypress } from './keypress.js'
 import './ScrollIndicators.css'
 
 interface ScrollIndicatorsProps {
@@ -10,11 +10,11 @@ interface ScrollIndicatorsProps {
   scrollStreet: (direction: boolean, shift: boolean) => void
 }
 
-function ScrollIndicators ({
+export const ScrollIndicators = memo(function ScrollIndicators({
   scrollStreet,
   left = 0,
-  right = 0
-}: ScrollIndicatorsProps): React.ReactElement {
+  right = 0,
+}: ScrollIndicatorsProps) {
   const intl = useIntl()
 
   /**
@@ -33,13 +33,13 @@ function ScrollIndicators ({
     }
   })
 
-  function handleScrollLeft (
+  function handleScrollLeft(
     event: React.KeyboardEvent | React.MouseEvent
   ): void {
     scrollStreet(true, event.shiftKey ?? false)
   }
 
-  function handleScrollRight (
+  function handleScrollRight(
     event: React.KeyboardEvent | React.MouseEvent
   ): void {
     scrollStreet(false, event.shiftKey ?? false)
@@ -47,11 +47,11 @@ function ScrollIndicators ({
 
   const scrollLeftLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-left',
-    defaultMessage: 'Scroll street left'
+    defaultMessage: 'Scroll street left',
   })
   const scrollRightLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-right',
-    defaultMessage: 'Scroll street right'
+    defaultMessage: 'Scroll street right',
   })
 
   return (
@@ -78,6 +78,4 @@ function ScrollIndicators ({
       )}
     </div>
   )
-}
-
-export default memo(ScrollIndicators)
+})
