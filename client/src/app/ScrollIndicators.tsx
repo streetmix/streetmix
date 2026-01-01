@@ -1,9 +1,9 @@
 import { memo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import { registerKeypress, deregisterKeypress } from './keypress.js'
 import './ScrollIndicators.css'
-import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface ScrollIndicatorsProps {
   left: number

@@ -24,11 +24,11 @@ describe('UndoRedo', () => {
     })
 
     // Click the undo button
-    await userEvent.click(screen.getByTestId('undo'))
+    await userEvent.click(screen.getByLabelText('Undo'))
 
     // Redo should now be available, but undo is not.
-    expect(screen.getByTestId('undo')).toBeDisabled()
-    expect(screen.getByTestId('redo')).toBeEnabled()
+    expect(screen.getByLabelText('Undo')).toBeDisabled()
+    expect(screen.getByLabelText('Redo')).toBeEnabled()
   })
 
   it('handles clicking redo button', async () => {
@@ -43,10 +43,10 @@ describe('UndoRedo', () => {
 
     // Expect the undo position to increment when redo button is clicked
     // Click the redo button
-    await userEvent.click(screen.getByTestId('redo'))
+    await userEvent.click(screen.getByLabelText('Redo'))
 
     // Undo should now be available, but redo is not.
-    expect(screen.getByTestId('undo')).toBeEnabled()
-    expect(screen.getByTestId('redo')).toBeDisabled()
+    expect(screen.getByLabelText('Undo')).toBeEnabled()
+    expect(screen.getByLabelText('Redo')).toBeDisabled()
   })
 })

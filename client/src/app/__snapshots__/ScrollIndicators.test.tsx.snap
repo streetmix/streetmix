@@ -8,14 +8,12 @@ exports[`ScrollIndicators > renders snapshot 1`] = `
     <button
       aria-label="Scroll street left"
       class="street-scroll-indicator-left"
-      title="Scroll street left"
     >
       ‹
     </button>
     <button
       aria-label="Scroll street right"
       class="street-scroll-indicator-right"
-      title="Scroll street right"
     >
       ›››
     </button>

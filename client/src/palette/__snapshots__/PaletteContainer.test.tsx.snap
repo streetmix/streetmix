@@ -12,6 +12,7 @@ exports[`PaletteContainer > renders 1`] = `
         class="palette-commands palette-commands-left"
       >
         <button
+          aria-label="Environment editor"
           class="btn"
           type="button"
         >
@@ -82,8 +83,8 @@ exports[`PaletteContainer > renders 1`] = `
         class="palette-commands palette-commands-right"
       >
         <button
+          aria-label="Undo"
           class="btn"
-          data-testid="undo"
           disabled=""
           type="button"
         >
@@ -92,8 +93,8 @@ exports[`PaletteContainer > renders 1`] = `
           />
         </button>
         <button
+          aria-label="Redo"
           class="btn"
-          data-testid="redo"
           disabled=""
           type="button"
         >

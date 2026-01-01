@@ -26,30 +26,35 @@ export function UndoRedo() {
     )
   }
 
+  const undoLabel = intl.formatMessage({
+    id: 'btn.undo',
+    defaultMessage: 'Undo',
+  })
+  const redoLabel = intl.formatMessage({
+    id: 'btn.redo',
+    defaultMessage: 'Redo',
+  })
+
   return (
     <TooltipGroup>
-      <Tooltip
-        label={intl.formatMessage({ id: 'btn.undo', defaultMessage: 'Undo' })}
-      >
+      <Tooltip label={undoLabel}>
         <Button
           onClick={() => {
             dispatch(handleUndo())
           }}
           disabled={!isUndoAvailable()}
-          data-testid="undo"
+          aria-label={undoLabel}
         >
           <Icon name="undo" />
         </Button>
       </Tooltip>
-      <Tooltip
-        label={intl.formatMessage({ id: 'btn.redo', defaultMessage: 'Redo' })}
-      >
+      <Tooltip label={redoLabel}>
         <Button
           onClick={() => {
             dispatch(handleRedo())
           }}
           disabled={!isRedoAvailable()}
-          data-testid="redo"
+          aria-label={redoLabel}
         >
           <Icon name="redo" />
         </Button>
