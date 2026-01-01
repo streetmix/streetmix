@@ -9,13 +9,14 @@
  *
  */
 import store from '../store'
+import { setAppFlags } from '../store/slices/app'
 import { setDebugFlags } from '../store/slices/debug'
 
 export const debug = {
   forceLeftHandTraffic: false,
   forceNonRetina: false,
   forceOfflineMode: false,
-  forceReadOnly: false
+  forceReadOnly: false,
 }
 
 const params = new URLSearchParams(window.location.search)
@@ -43,6 +44,15 @@ if (params.has('debug-force-read-only')) {
 
 store.dispatch(
   setDebugFlags({
-    ...debug
+    ...debug,
   })
 )
+
+// Also set app state to readOnly if debug forces it
+if (debug.forceReadOnly) {
+  store.dispatch(
+    setAppFlags({
+      readOnly: debug.forceReadOnly,
+    })
+  )
+}

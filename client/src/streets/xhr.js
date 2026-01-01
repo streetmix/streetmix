@@ -8,7 +8,6 @@ import { formatMessage } from '../locales/locale'
 import { MODES, processMode, getMode, setMode } from '../app/mode'
 import { STREET_TEMPLATES } from '../app/constants'
 import { goNewStreet } from '../app/routing'
-import { app } from '../preinit/app_settings'
 import { segmentsChanged } from '../segments/view'
 import { getSignInData, isSignedIn } from '../users/authentication'
 import {
@@ -137,7 +136,8 @@ function errorReceiveStreet(error) {
 }
 
 export function saveStreetToServer(initial) {
-  if (app.readOnly) {
+  const { readOnly } = store.getState().app
+  if (readOnly) {
     return
   }
 
