@@ -323,14 +323,14 @@ function StreetView() {
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>
-          <ScrollIndicators
-            left={scrollIndicators.left}
-            right={scrollIndicators.right}
-            scrollStreet={scrollStreet}
-          />
         </section>
       </section>
       <SkyBox scrollPos={scrollPos} />
+      <ScrollIndicators
+        left={scrollIndicators.left}
+        right={scrollIndicators.right}
+        scrollStreet={scrollStreet}
+      />
     </>
   )
 }
