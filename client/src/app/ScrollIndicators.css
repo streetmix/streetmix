@@ -16,6 +16,10 @@
     user-select: none;
     z-index: var(--z-07-street-scroll);
 
+    /* Ensure hitbox is targetable by pointer even when popup is active
+       (which applies pointer-events: none to body) */
+    pointer-events: initial;
+
     &:hover {
       opacity: 0.45;
       background-color: white;
