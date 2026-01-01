@@ -166,7 +166,14 @@ export function Segment(props: SliceProps) {
           break
       }
     },
-    [decrementWidth, incrementWidth, sliceIndex, infoBubbleHovered, dispatch]
+    [
+      decrementWidth,
+      incrementWidth,
+      sliceIndex,
+      infoBubbleHovered,
+      dispatch,
+      readOnly,
+    ]
   )
 
   // Cleanup effect
