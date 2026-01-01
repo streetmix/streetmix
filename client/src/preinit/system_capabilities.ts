@@ -5,16 +5,16 @@
  * browser, connection, etc).
  *
  */
-import { OFFLINE_MODE } from '../app/config'
+import { OFFLINE_MODE } from '../app/config.js'
 import store from '../store'
-import { setSystemFlags } from '../store/slices/system'
-import { debug } from './debug_settings'
+import { setSystemFlags, type SystemState } from '../store/slices/system.js'
+import { debug } from './debug_settings.js'
 
 // Default settings
 // TODO: move everything to Redux store, if possible.
 // The settings remaining here ones that read from other parts of the app
-export function initSystemCapabilities () {
-  const system = {}
+export function initSystemCapabilities() {
+  const system: Partial<SystemState> = {}
 
   if (debug.forceOfflineMode || OFFLINE_MODE === true) {
     system.offline = true

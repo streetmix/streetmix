@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-interface SystemState {
+export interface SystemState {
   safari: boolean
   windows: boolean
   offline: boolean
