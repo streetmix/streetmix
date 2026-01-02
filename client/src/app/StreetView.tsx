@@ -16,7 +16,7 @@ import {
 } from '../segments/constants.js'
 import { updateStreetMargin } from '../segments/resizing.js'
 import SkyBox from '../sky/SkyBox/index.js'
-import ScrollIndicators from './ScrollIndicators.js'
+import { ScrollIndicators } from './ScrollIndicators.js'
 import StreetEditable from './StreetEditable.js'
 import './StreetView.css'
 
@@ -323,14 +323,14 @@ function StreetView() {
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>
-          <ScrollIndicators
-            left={scrollIndicators.left}
-            right={scrollIndicators.right}
-            scrollStreet={scrollStreet}
-          />
         </section>
       </section>
       <SkyBox scrollPos={scrollPos} />
+      <ScrollIndicators
+        left={scrollIndicators.left}
+        right={scrollIndicators.right}
+        scrollStreet={scrollStreet}
+      />
     </>
   )
 }

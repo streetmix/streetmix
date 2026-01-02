@@ -1,15 +1,14 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import ScrollIndicators from './ScrollIndicators'
+import { render } from '~/test/helpers/render.js'
+import { ScrollIndicators } from './ScrollIndicators.js'
 
 const baseProps = {
   left: 1,
   right: 3,
-  scrollStreet: vi.fn()
+  scrollStreet: vi.fn(),
 }
 
 describe('ScrollIndicators', () => {

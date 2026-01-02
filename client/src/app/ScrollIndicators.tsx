@@ -1,7 +1,8 @@
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
-import { registerKeypress, deregisterKeypress } from './keypress'
+import { Tooltip } from '~/src/ui/Tooltip.js'
+import { registerKeypress, deregisterKeypress } from './keypress.js'
 import './ScrollIndicators.css'
 
 interface ScrollIndicatorsProps {
@@ -10,11 +11,11 @@ interface ScrollIndicatorsProps {
   scrollStreet: (direction: boolean, shift: boolean) => void
 }
 
-function ScrollIndicators ({
+export const ScrollIndicators = memo(function ScrollIndicators({
   scrollStreet,
   left = 0,
-  right = 0
-}: ScrollIndicatorsProps): React.ReactElement {
+  right = 0,
+}: ScrollIndicatorsProps) {
   const intl = useIntl()
 
   /**
@@ -33,13 +34,13 @@ function ScrollIndicators ({
     }
   })
 
-  function handleScrollLeft (
+  function handleScrollLeft(
     event: React.KeyboardEvent | React.MouseEvent
   ): void {
     scrollStreet(true, event.shiftKey ?? false)
   }
 
-  function handleScrollRight (
+  function handleScrollRight(
     event: React.KeyboardEvent | React.MouseEvent
   ): void {
     scrollStreet(false, event.shiftKey ?? false)
@@ -47,37 +48,37 @@ function ScrollIndicators ({
 
   const scrollLeftLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-left',
-    defaultMessage: 'Scroll street left'
+    defaultMessage: 'Scroll street left',
   })
   const scrollRightLabel = intl.formatMessage({
     id: 'tooltip.scroll-street-right',
-    defaultMessage: 'Scroll street right'
+    defaultMessage: 'Scroll street right',
   })
 
   return (
     <div className="street-scroll-indicators">
       {left > 0 && (
-        <button
-          className="street-scroll-indicator-left"
-          onClick={handleScrollLeft}
-          title={scrollLeftLabel}
-          aria-label={scrollLeftLabel}
-        >
-          {Array(left + 1).join('‹')}
-        </button>
+        <Tooltip label={scrollLeftLabel}>
+          <button
+            className="street-scroll-indicator-left"
+            onClick={handleScrollLeft}
+            aria-label={scrollLeftLabel}
+          >
+            {Array(left + 1).join('‹')}
+          </button>
+        </Tooltip>
       )}
       {right > 0 && (
-        <button
-          className="street-scroll-indicator-right"
-          onClick={handleScrollRight}
-          title={scrollRightLabel}
-          aria-label={scrollRightLabel}
-        >
-          {Array(right + 1).join('›')}
-        </button>
+        <Tooltip label={scrollRightLabel}>
+          <button
+            className="street-scroll-indicator-right"
+            onClick={handleScrollRight}
+            aria-label={scrollRightLabel}
+          >
+            {Array(right + 1).join('›')}
+          </button>
+        </Tooltip>
       )}
     </div>
   )
-}
-
-export default memo(ScrollIndicators)
+})
