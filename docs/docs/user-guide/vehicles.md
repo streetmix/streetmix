@@ -27,7 +27,6 @@ This section is a work in progress.
 - Light rail
 - Bus
 - Electric scooter
-- Freight train
 - Magic carpet
 
 :::note
