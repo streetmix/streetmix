@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
-import { Tooltip } from '~/src/ui/Tooltip.js'
+import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
 import { registerKeypress, deregisterKeypress } from './keypress.js'
 import './ScrollIndicators.css'
 
@@ -57,28 +57,30 @@ export const ScrollIndicators = memo(function ScrollIndicators({
 
   return (
     <div className="street-scroll-indicators">
-      {left > 0 && (
-        <Tooltip label={scrollLeftLabel}>
-          <button
-            className="street-scroll-indicator-left"
-            onClick={handleScrollLeft}
-            aria-label={scrollLeftLabel}
-          >
-            {Array(left + 1).join('‹')}
-          </button>
-        </Tooltip>
-      )}
-      {right > 0 && (
-        <Tooltip label={scrollRightLabel}>
-          <button
-            className="street-scroll-indicator-right"
-            onClick={handleScrollRight}
-            aria-label={scrollRightLabel}
-          >
-            {Array(right + 1).join('›')}
-          </button>
-        </Tooltip>
-      )}
+      <TooltipGroup>
+        {left > 0 && (
+          <Tooltip label={scrollLeftLabel}>
+            <button
+              className="street-scroll-indicator-left"
+              onClick={handleScrollLeft}
+              aria-label={scrollLeftLabel}
+            >
+              {Array(left + 1).join('‹')}
+            </button>
+          </Tooltip>
+        )}
+        {right > 0 && (
+          <Tooltip label={scrollRightLabel}>
+            <button
+              className="street-scroll-indicator-right"
+              onClick={handleScrollRight}
+              aria-label={scrollRightLabel}
+            >
+              {Array(right + 1).join('›')}
+            </button>
+          </Tooltip>
+        )}
+      </TooltipGroup>
     </div>
   )
 })
