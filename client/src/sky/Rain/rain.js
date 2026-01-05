@@ -56,10 +56,10 @@ export const demo = {
 }
 
 // demo initialization (should only run once)
-demo.init = function () {
+demo.init = function (el) {
   if (!demo.started) {
     demo.started = true
-    demo.canvas = document.getElementById('rain-canvas')
+    demo.canvas = el
     demo.ctx = demo.canvas.getContext('2d')
 
     // initalize some randomness on values
@@ -344,6 +344,7 @@ const Ticker = (function () {
     // make sure negative time isn't reported (first frame can be whacky)
     if (frame_time < 0) {
       // frame_time = 17 // 60fps
+      // use 30fps for better performance
       frame_time = 33 // 30fps
     }
     // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
