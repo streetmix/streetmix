@@ -5,12 +5,14 @@ interface CoastmixState {
   controlsVisible: boolean
   seaLevelRise: number
   stormSurge: boolean
+  isRaining: boolean
 }
 
 const initialState: CoastmixState = {
   controlsVisible: false,
   seaLevelRise: 0,
-  stormSurge: false
+  stormSurge: false,
+  isRaining: false,
 }
 
 const coastmixSlice = createSlice({
@@ -18,29 +20,33 @@ const coastmixSlice = createSlice({
   initialState,
 
   reducers: {
-    setCoastmixState (state, action: PayloadAction<CoastmixState>) {
+    setCoastmixState(state, action: PayloadAction<CoastmixState>) {
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       }
     },
 
-    showCoastalFloodingPanel (state) {
+    showCoastalFloodingPanel(state) {
       state.controlsVisible = true
     },
 
-    hideCoastalFloodingPanel (state) {
+    hideCoastalFloodingPanel(state) {
       state.controlsVisible = false
     },
 
-    setSeaLevelRise (state, action: PayloadAction<number>) {
+    setSeaLevelRise(state, action: PayloadAction<number>) {
       state.seaLevelRise = action.payload
     },
 
-    setStormSurge (state, action: PayloadAction<boolean>) {
+    setStormSurge(state, action: PayloadAction<boolean>) {
       state.stormSurge = action.payload
-    }
-  }
+    },
+
+    setRain(state, action: PayloadAction<boolean>) {
+      state.isRaining = action.payload
+    },
+  },
 })
 
 export const {
@@ -48,7 +54,8 @@ export const {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   setSeaLevelRise,
-  setStormSurge
+  setStormSurge,
+  setRain,
 } = coastmixSlice.actions
 
 export default coastmixSlice.reducer

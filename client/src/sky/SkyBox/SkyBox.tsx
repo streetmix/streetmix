@@ -16,10 +16,10 @@ interface SkyBoxProps {
 export function SkyBox(props: SkyBoxProps) {
   const { scrollPos = 0 } = props
   const skybox: string = useSelector(
-    (state) => state.street.skybox || DEFAULT_SKYBOX
+    (state) => state.street.skybox ?? DEFAULT_SKYBOX
   )
   const animations = useSelector(
-    (state) => state.flags.SKY_ANIMATED_CLOUDS?.value || false
+    (state) => state.flags.SKY_ANIMATED_CLOUDS?.value ?? false
   )
 
   const { cloudOpacity, foregroundGradient, backgroundObjects } =

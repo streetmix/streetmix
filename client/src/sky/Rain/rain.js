@@ -6,10 +6,11 @@
 // - falling rain particles are drawn as vector lines
 // - splash particles are lazily pre-rendered so gradients aren't computed each frame
 // - all particles make use of object pooling to further boost performance
+// original by Caleb Miller
+// https://codepen.io/MillerTime/pen/oXmgJe
 
 // initialize
 document.addEventListener('DOMContentLoaded', function () {
-  // demo.init();
   window.addEventListener('resize', demo.resize)
 })
 
@@ -19,12 +20,6 @@ export const demo = {
   // - physics speed multiplier: allows slowing down or speeding up simulation
   speed: 1,
   // - color of particles
-  // color: {
-  //   r: "224",
-  //   g: "224",
-  //   b: "224",
-  //   a: "0.33",
-  // },
   color: {
     r: '128',
     g: '128',
@@ -66,10 +61,18 @@ demo.init = function () {
     demo.started = true
     demo.canvas = document.getElementById('rain-canvas')
     demo.ctx = demo.canvas.getContext('2d')
+
+    // initalize some randomness on values
+    // TODO -- allow passing in start values as well
+    demo.speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
+    demo.wind = Math.random() * 20 - 10 // range -10 to 10
+    demo.drop_delay = Math.random() * 5 + 3 // range 3 - 8
+
     var c = demo.color
     demo.rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')'
     demo.rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)'
     demo.resize()
+
     Ticker.addListener(demo.step)
 
     // demo controls
@@ -211,6 +214,22 @@ demo.draw = function () {
   }
 }
 
+demo.stop = function () {
+  var width = demo.width
+  var height = demo.height
+  var dpr = demo.dpr
+  var ctx = demo.ctx
+
+  // clear canvas
+  if (ctx) {
+    ctx.clearRect(0, 0, width * dpr, height * dpr)
+  }
+
+  demo.started = false
+
+  Ticker.clearListeners()
+}
+
 // Rain definition
 function Rain() {
   this.x = 0
@@ -283,6 +302,7 @@ Drop.prototype.init = function (x) {
   this.speed_x = Math.sin(angle) * speed
   this.speed_y = -Math.cos(angle) * speed
 }
+
 Drop.prototype.recycle = function () {
   demo.drop_pool.push(this)
 }
@@ -306,22 +326,31 @@ var Ticker = (function () {
     }
   }
 
+  PUBLIC_API.clearListeners = function clearListeners() {
+    listeners = []
+    started = false
+    last_timestamp = 0
+  }
+
   // private
   var started = false
   var last_timestamp = 0
   var listeners = []
+
   // queue up a new frame (calls frameHandler)
   function queueFrame() {
     if (window.requestAnimationFrame) {
       requestAnimationFrame(frameHandler)
     }
   }
+
   function frameHandler(timestamp) {
     var frame_time = timestamp - last_timestamp
     last_timestamp = timestamp
     // make sure negative time isn't reported (first frame can be whacky)
     if (frame_time < 0) {
-      frame_time = 17
+      // frame_time = 17 // 60fps
+      frame_time = 33 // 30fps
     }
     // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
     else if (frame_time > 68) {
@@ -333,8 +362,10 @@ var Ticker = (function () {
       listeners[i].call(window, frame_time, frame_time / 16.67)
     }
 
-    // always queue another frame
-    queueFrame()
+    // always queue another frame (if started)
+    if (started) {
+      queueFrame()
+    }
   }
 
   return PUBLIC_API
