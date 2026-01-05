@@ -1,7 +1,7 @@
-import React, { createRef, useRef } from 'react'
+import { createRef, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import { images } from '../../app/load_resources'
+import { images } from '../../app/load_resources.js'
 import './SkyObjects.css'
 
 import type { SkyboxObject } from '@streetmix/types'
@@ -10,7 +10,7 @@ interface SkyObjectsProps {
   objects: SkyboxObject[]
 }
 
-function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
+export function SkyObjects({ objects = [] }: SkyObjectsProps) {
   // According to "rule of hooks", useRef() must not be called in a loop
   const refs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({})
 
@@ -28,7 +28,7 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
           height: object.height,
           position: 'absolute',
           left: `calc(${object.left * 100}% - ${object.width / 2}px)`,
-          top: `calc(${object.top * 100}% - ${object.height / 2}px)`
+          top: `calc(${object.top * 100}% - ${object.height / 2}px)`,
         }
 
         // Render only if asset is found
@@ -40,7 +40,7 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
               appear
               timeout={{
                 enter: 0,
-                exit: 500
+                exit: 500,
               }}
               classNames="sky-background-object"
             >
@@ -63,5 +63,3 @@ function SkyObjects ({ objects = [] }: SkyObjectsProps): React.ReactElement {
     </TransitionGroup>
   )
 }
-
-export default SkyObjects

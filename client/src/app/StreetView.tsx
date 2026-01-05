@@ -15,7 +15,7 @@ import {
   BUILDING_SPACE,
 } from '../segments/constants.js'
 import { updateStreetMargin } from '../segments/resizing.js'
-import SkyBox from '../sky/SkyBox/index.js'
+import { SkyBox } from '../sky/SkyBox/index.js'
 import { ScrollIndicators } from './ScrollIndicators.js'
 import StreetEditable from './StreetEditable.js'
 import './StreetView.css'

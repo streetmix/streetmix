@@ -2,18 +2,18 @@ import { useSelector } from '../../store/hooks.js'
 import { getSkyboxDef, makeCSSGradientDeclaration } from '../index.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { RainCanvas } from '../Rain/index.js'
-import SkyBackground from './SkyBackground.js'
-import SkyObjects from './SkyObjects.js'
+import { SkyBackground } from './SkyBackground.js'
+import { SkyObjects } from './SkyObjects.js'
 import './SkyBox.css'
 
 const REAR_CLOUD_PARALLAX_SPEED = 0.25
 const FRONT_CLOUD_PARALLAX_SPEED = 0.5
 
-interface SkyContainerProps {
+interface SkyBoxProps {
   scrollPos?: number
 }
 
-function SkyContainer(props: SkyContainerProps) {
+export function SkyBox(props: SkyBoxProps) {
   const { scrollPos = 0 } = props
   const skybox: string = useSelector(
     (state) => state.street.skybox || DEFAULT_SKYBOX
@@ -70,5 +70,3 @@ function getCloudPosition(
     backgroundPosition: `-${pos}px 0`,
   }
 }
-
-export default SkyContainer

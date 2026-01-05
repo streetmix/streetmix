@@ -21,6 +21,11 @@ exports[`SkyBox > renders 1`] = `
       class="front-clouds"
       style="background-position: 0px 0px; opacity: 0.85;"
     />
+    <canvas
+      height="0"
+      id="rain-canvas"
+      width="0"
+    />
     <div
       class="sky-foreground"
       style="opacity: 0;"
@@ -57,6 +62,9 @@ exports[`SkyBox > renders with objects 1`] = `
     <div
       class="front-clouds"
       style="background-position: 0px 0px; opacity: 0.85;"
+    />
+    <canvas
+      id="rain-canvas"
     />
     <div
       class="sky-foreground"
