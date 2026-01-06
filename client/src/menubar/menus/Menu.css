@@ -11,8 +11,8 @@
   transform-origin: 50% 0;
   transform: rotateX(-90deg);
   transition:
-    transform 100ms,
-    opacity 100ms;
+    transform 120ms,
+    opacity 120ms;
   pointer-events: none;
   border-radius: var(--menu-border-radius);
   box-shadow: var(--menu-box-shadow);
