@@ -1,0 +1,9 @@
+.rain-canvas {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 70px); /* 70px is a rough number */
+  pointer-events: none;
+
+  /* z-index above other sky elements, but below menu */
+  z-index: 150;
+}

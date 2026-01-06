@@ -3,6 +3,7 @@ import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
+  setRain,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -10,7 +11,7 @@ import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 
 export function CoastalFloodingPanel() {
-  const { controlsVisible, seaLevelRise, stormSurge } = useSelector(
+  const { controlsVisible, seaLevelRise, stormSurge, isRaining } = useSelector(
     (state) => state.coastmix
   )
 
@@ -78,6 +79,17 @@ export function CoastalFloodingPanel() {
                 dispatch(setStormSurge(checked))
               }}
               checked={stormSurge}
+            />
+          </div>
+        </div>
+        <div className="popup-control-row" style={{ marginTop: '0.75em' }}>
+          <div className="popup-control-label">Rain</div>
+          <div className="variants">
+            <Switch
+              onCheckedChange={(checked) => {
+                dispatch(setRain(checked))
+              }}
+              checked={isRaining}
             />
           </div>
         </div>

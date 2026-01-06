@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTransition, animated } from '@react-spring/web'
 
 import { getSkyboxDef } from '..'
@@ -8,7 +7,7 @@ interface SkyBackgroundProps {
   skybox: string
 }
 
-function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
+export function SkyBackground(props: SkyBackgroundProps) {
   const { skybox } = props
 
   const transitions = useTransition(skybox, {
@@ -16,8 +15,8 @@ function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
     enter: { opacity: 1 },
     leave: { opacity: 0 },
     config: {
-      duration: 500
-    }
+      duration: 500,
+    },
   })
 
   return (
@@ -31,5 +30,3 @@ function SkyBackground (props: SkyBackgroundProps): React.ReactElement {
     </div>
   )
 }
-
-export default SkyBackground
