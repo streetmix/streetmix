@@ -94,8 +94,6 @@ export function VariantButton(props: VariantButtonProps) {
     }
   }
 
-  console.log(icon)
-
   return (
     <Tooltip label={label} sublabel={sublabel} placement="bottom">
       <Button
