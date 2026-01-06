@@ -182,13 +182,16 @@ const streetSlice = createSlice({
         // elevation from the new variant information. Sometimes a
         // variant has different elevations, see "divider" type for example
         // NOTE: skip this if `enableElevation` is on
-        // TODO: also skip this if segment elevation has been manually set
+        // also skip this if segment elevation has been manually set
         const segmentInfo = getSegmentInfo(segment.type)
         const variantInfo = getSegmentVariantInfo(
           segment.type,
           segment.variantString
         )
-        if (segmentInfo.enableElevation !== true) {
+        if (
+          segmentInfo.enableElevation !== true &&
+          segment.elevationChanged !== true
+        ) {
           segment.elevation = getElevationValue(
             variantInfo.elevation,
             state.units
