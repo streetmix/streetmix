@@ -3,7 +3,11 @@ import { getSpriteDef } from '@streetmix/parts'
 
 import { images } from '../app/load_resources'
 import { maxBy } from '../util/maxBy'
-import { drawSegmentImage, getElevation } from './view'
+import {
+  calculateSlopeYAdjustment,
+  drawSegmentImage,
+  getElevation,
+} from './view'
 import { TILE_SIZE, TILE_SIZE_ACTUAL } from './constants'
 import type { SlopeProperties } from '@streetmix/types'
 
@@ -195,7 +199,7 @@ export function getRandomObjects(
 export function drawScatteredSprites(
   sprites: EntityPool,
   ctx: CanvasRenderingContext2D,
-  width: number,
+  actualWidth: number,
   offsetLeft: number,
   offsetTop: number = 0,
   groundLevel: number,
@@ -228,7 +232,7 @@ export function drawScatteredSprites(
   const maxSpriteWidth = getSpriteMaxWidth(pool)
   const [objects, startLeft] = getRandomObjects(
     pool,
-    width,
+    actualWidth,
     randSeed,
     minSpacing,
     maxSpacing,
@@ -244,7 +248,7 @@ export function drawScatteredSprites(
   for (const object of objects) {
     let id = object.id
 
-    // if object has alts, draw one. right not all alts + primary id has an
+    // if object has alts, draw one. right now all alts + primary id has an
     // equal chance of being chosen
     if (object.alts && object.alts.length > 0) {
       const pool = [id, ...object.alts]
@@ -255,13 +259,34 @@ export function drawScatteredSprites(
     const sprite = getSpriteDef(id)
     const svg = images.get(id)
 
+    const x =
+      ((object.left ?? 0) -
+        // Adjust offset according to the svg viewbox width
+        svg.width / TILE_SIZE_ACTUAL / 2 -
+        // Adjust according to sprite's defined "hitbox" width
+        (maxSpriteWidth - object.width) / 2 +
+        startLeft) *
+      TILE_SIZE *
+      multiplier
+
     let distanceFromGround =
       multiplier *
       TILE_SIZE *
       ((svg.height - offsetTop - (sprite.originY ?? object.originY ?? 0)) /
         TILE_SIZE_ACTUAL)
 
-    if (!slope.on) {
+    // Proof of concept ground adjustment for sloped items
+    if (slope.on) {
+      const adjustment = calculateSlopeYAdjustment(
+        slope,
+        actualWidth,
+        x,
+        svg.width,
+        multiplier,
+        actualWidth * TILE_SIZE // segmentWidth
+      )
+      distanceFromGround += adjustment
+    } else {
       const elevationValue = getElevation(elevation)
       distanceFromGround += multiplier * elevationValue
     }
@@ -273,15 +298,7 @@ export function drawScatteredSprites(
       undefined,
       undefined,
       undefined,
-      offsetLeft +
-        ((object.left ?? 0) -
-          // Adjust offset according to the svg viewbox width
-          svg.width / TILE_SIZE_ACTUAL / 2 -
-          // Adjust according to sprite's defined "hitbox" width
-          (maxSpriteWidth - object.width) / 2 +
-          startLeft) *
-          TILE_SIZE *
-          multiplier,
+      offsetLeft + x,
       groundLevel - distanceFromGround,
       undefined,
       undefined,
