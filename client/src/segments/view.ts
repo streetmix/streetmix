@@ -809,7 +809,7 @@ export function drawSegmentContents(
   }
 }
 
-function calculateSlopeYAdjustment(
+export function calculateSlopeYAdjustment(
   slope: SlopeProperties,
   actualWidth: number,
   x: number,

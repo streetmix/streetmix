@@ -250,19 +250,20 @@ export interface VariantGraphics {
   center?: VariantGraphicsDefinition
   repeat?: VariantGraphicsDefinition
   // `pool` and `sprites` are mutually exclusive
-  scatter?:
+  scatter?: (
     | {
         pool: string
-        minSpacing: number
-        maxSpacing: number
-        padding: number
+        sprites: never
       }
     | {
         sprites: (string | SpriteDefinition)[]
-        minSpacing: number
-        maxSpacing: number
-        padding: number
+        pool: never
       }
+  ) & {
+    minSpacing: number
+    maxSpacing: number
+    padding: number
+  }
   quirks?: {
     minWidth: number
   }
