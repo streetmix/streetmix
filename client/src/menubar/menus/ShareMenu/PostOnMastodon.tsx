@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
 import Icon from '~/src/ui/Icon.js'
-import MenuItem from '../MenuItem.js'
+import { MenuItem } from '../MenuItem.js'
 import type { SocialShareProps } from './helpers.js'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'

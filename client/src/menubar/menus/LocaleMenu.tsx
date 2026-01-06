@@ -11,7 +11,7 @@ import {
 import Icon from '~/src/ui/Icon.js'
 import LoadingSpinner from '~/src/ui/LoadingSpinner.js'
 import Menu, { type MenuProps } from './Menu.js'
-import MenuItem from './MenuItem.js'
+import { MenuItem } from './MenuItem.js'
 
 export function LocaleMenu(props: MenuProps) {
   const locale = useSelector((state) => state.locale.locale ?? DEFAULT_LOCALE)

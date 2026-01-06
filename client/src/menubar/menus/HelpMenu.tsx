@@ -6,7 +6,7 @@ import { showDialog } from '~/src/store/slices/dialogs.js'
 import Icon from '~/src/ui/Icon.js'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress.js'
 import Menu, { type MenuProps } from './Menu.js'
-import MenuItem from './MenuItem.js'
+import { MenuItem } from './MenuItem.js'
 import { MenuSeparator } from './MenuSeparator.js'
 import { KeyboardShortcuts } from './KeyboardShortcuts.js'
 
