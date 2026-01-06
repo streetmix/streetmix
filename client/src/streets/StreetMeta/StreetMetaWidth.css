@@ -23,6 +23,8 @@ body.dark-skybox-invert-ui {
 
 [data-radix-popper-content-wrapper] {
   z-index: 900 !important;
+  perspective: 500px;
+  transform-style: preserve-3d;
 }
 
 .dropdown-menu-content {
@@ -31,7 +33,7 @@ body.dark-skybox-invert-ui {
 
   padding: 5px;
   background-color: white;
-  transform-origin: 50% 0;
+  transform-origin: var(--radix-popper-transform-origin);
   border-radius: var(--menu-border-radius);
   box-shadow: var(--menu-box-shadow);
   line-height: 1.4;
