@@ -1,6 +1,8 @@
 import {
   IconArrowBackUp,
   IconArrowForwardUp,
+  IconBeach,
+  IconBeachOff,
   IconBook2,
   IconChartBar,
   IconChevronDown,
@@ -58,6 +60,8 @@ import googleIcon from 'url:./icons/google.svg'
 const ICONS = {
   'arrow-left': [FaArrowLeft, 'fa'],
   'arrow-right': [FaArrowRight, 'fa'],
+  beach: [IconBeach, 'tabler'],
+  'beach-off': [IconBeachOff, 'tabler'],
   boat: [IconSailboat, 'tabler'],
   book: [IconBook2, 'tabler'],
   cart: [IconShoppingCart, 'tabler'],
