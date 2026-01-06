@@ -135,4 +135,7 @@
   width: 1.25
   tags:
     - beach
-  weight: 500
+  # Temporarily make this rarer because it's very wide and can get cut off
+  # at the right edge. No good fix for now, but at least we wouldn't see it
+  # occur as frequently
+  weight: 100
