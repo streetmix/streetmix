@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { segmentsChanged } from '~/src/segments/view.js'
@@ -70,7 +69,12 @@ export function ElevationControl({ position }: ElevationControlProps) {
 
     return () => {
       if (typeof position === 'number') {
-        dispatch(changeSegmentProperties(position, { elevation }))
+        dispatch(
+          changeSegmentProperties(position, {
+            elevation,
+            elevationChanged: true,
+          })
+        )
         segmentsChanged()
       }
     }
