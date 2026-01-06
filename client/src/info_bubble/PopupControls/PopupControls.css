@@ -1,13 +1,17 @@
 .popup-controls {
   .icon {
     pointer-events: none;
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
     padding: 2px 3px;
     fill: #231f20;
+  }
+
+  .tabler-icon {
+    width: 100%;
+    height: 100%;
+    padding: 2px 3px;
+    color: #231f20;
   }
 
   button[disabled] .icon {
