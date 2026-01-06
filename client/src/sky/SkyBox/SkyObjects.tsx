@@ -1,4 +1,4 @@
-import { createRef, useRef } from 'react'
+import React, { createRef, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources.js'
