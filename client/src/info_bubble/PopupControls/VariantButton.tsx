@@ -103,12 +103,7 @@ export function VariantButton(props: VariantButtonProps) {
         onClick={onClick}
       >
         {icon.iconSet === 'tabler' ? (
-          <Icon
-            name={icon.id}
-            size="28"
-            stroke="1.25"
-            className="tabler-icon"
-          />
+          <Icon name={icon.id} size="30" stroke="1.5" className="tabler-icon" />
         ) : (
           <svg
             xmlns="http://www.w3.org/1999/svg"
