@@ -2,6 +2,10 @@
   position: absolute;
   bottom: calc(var(--street-section-baseline) - 20px);
 
+  body.read-only & {
+    bottom: calc(var(--street-section-baseline) - 100px);
+  }
+
   button {
     position: fixed;
     border: 0;
