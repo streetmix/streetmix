@@ -2,7 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
-import Avatar from '../users/Avatar.js'
+import { Avatar } from '../users/Avatar.js'
 
 import type { UserProfile } from '../types'
 import './AvatarMenu.css'

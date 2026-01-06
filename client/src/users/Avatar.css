@@ -7,8 +7,7 @@
   height: 20px;
   border-radius: 50%;
   vertical-align: middle;
-  margin-left: 3px;
-  margin-right: 5px;
+  margin-inline: 0.35em;
   overflow: hidden;
 
   /* Avatar images are loaded in an object element to allow for fallbacks

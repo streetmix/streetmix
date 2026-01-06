@@ -1,8 +1,7 @@
-import React from 'react'
 import { waitFor } from '@testing-library/react'
 
-import { render } from '~/test/helpers/render'
-import Avatar from './Avatar'
+import { render } from '~/test/helpers/render.js'
+import { Avatar } from './Avatar.js'
 
 describe('Avatar', () => {
   it('shows avatar image', async () => {

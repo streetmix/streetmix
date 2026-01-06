@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
 import { onSignOutClick } from '~/src/users/authentication.js'
-import Avatar from '~/src/users/Avatar.js'
+import { Avatar } from '~/src/users/Avatar.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
