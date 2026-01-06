@@ -1,16 +1,26 @@
-.share-sign-in-promo {
-  text-align: center;
+.sign-in-promo {
   background-color: var(--alert-background);
-  border-block-end: var(--alert-border);
-  border-block-end-width: 3px;
-  padding: 1em 2.5em;
+  border-block: var(--alert-border);
+  border-block-width: 3px;
 
   /* Override parent padding */
   margin-left: -5px;
   width: calc(100% + 10px);
-  margin-top: -5px;
 
   a {
+    font-weight: bold;
     text-decoration: underline;
   }
+}
+
+.share-sign-in-promo {
+  border-block-start: 0;
+  padding: 1em 2em 1em calc(2.5em + 5px);
+  margin-top: -5px;
+}
+
+.template-sign-in-promo {
+  border-block-end: 0;
+  padding: 1em 1em 1em calc(1em + 5px);
+  margin-bottom: -5px;
 }

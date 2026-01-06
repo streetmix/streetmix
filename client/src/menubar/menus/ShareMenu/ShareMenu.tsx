@@ -39,7 +39,7 @@ export function ShareMenu(props: MenuProps) {
     <Menu onShow={handleShow} className="share-menu" {...props}>
       {!offline && (
         <>
-          {!user.signedIn && <SignInPromo />}
+          {!user.signedIn && <SignInPromo type="share" />}
           <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
           <MenuSeparator />
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />

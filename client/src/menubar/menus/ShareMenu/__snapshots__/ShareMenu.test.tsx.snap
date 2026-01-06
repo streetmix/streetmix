@@ -42,12 +42,12 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
     role="menu"
   >
     <div
-      class="share-sign-in-promo"
+      class="share-sign-in-promo sign-in-promo"
     >
       <a>
         Sign in
       </a>
-       for nicer links to your streets and your personal street gallery
+       for nicer links to your streets and your personal street gallery.
     </div>
     <div
       class="share-via-link-container"
