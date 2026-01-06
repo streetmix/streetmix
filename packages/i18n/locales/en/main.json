@@ -28,7 +28,7 @@
     },
     "share": {
       "sign-in-twitter-link": "Sign in",
-      "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery",
+      "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery.",
       "link": "Copy and paste this link to share:",
       "copy-to-clipboard": "Copy to clipboard",
       "twitter": "Share using Twitter",
@@ -71,7 +71,8 @@
       "default": "New example street",
       "empty": "New empty street",
       "copy": "Make a copy",
-      "template": "New from template…"
+      "template": "New from template…",
+      "sign-in-link": "{signInLink} for access to templates."
     }
   },
   "settings": {

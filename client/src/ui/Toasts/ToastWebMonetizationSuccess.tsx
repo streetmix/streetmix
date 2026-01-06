@@ -2,15 +2,15 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import wmIcon from 'url:../../../images/wm-icon-animated.svg'
-import ExternalLink from '../ExternalLink'
+import { ExternalLink } from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-function ToastWebMonetizationSuccess (props: ToastProps): React.ReactElement {
+function ToastWebMonetizationSuccess(props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
-  function handleAction (event: React.MouseEvent): void {
+  function handleAction(event: React.MouseEvent): void {
     window.open(
       'https://docs.streetmix.net/user-guide/streetmix-plus',
       '_blank'
@@ -29,8 +29,8 @@ function ToastWebMonetizationSuccess (props: ToastProps): React.ReactElement {
         mode: 'success',
         action: intl.formatMessage({
           id: 'plus.web-monetization.learn-more',
-          defaultMessage: 'Learn more'
-        })
+          defaultMessage: 'Learn more',
+        }),
       }}
     >
       <div className="toast-icon-header">

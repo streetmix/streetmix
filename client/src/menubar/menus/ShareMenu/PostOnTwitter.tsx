@@ -1,14 +1,10 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '~/src/ui/Icon'
-import MenuItem from '../MenuItem'
-import type { SocialShareProps } from './helpers'
+import Icon from '~/src/ui/Icon.js'
+import { MenuItem } from '../MenuItem.js'
+import type { SocialShareProps } from './helpers.js'
 
-function PostOnTwitter ({
-  shareText,
-  shareUrl
-}: SocialShareProps): React.ReactElement {
+export function PostOnTwitter({ shareText, shareUrl }: SocialShareProps) {
   const twitterLink =
     'https://twitter.com/intent/tweet' +
     '?text=' +
@@ -26,5 +22,3 @@ function PostOnTwitter ({
     </MenuItem>
   )
 }
-
-export default PostOnTwitter

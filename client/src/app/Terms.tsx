@@ -1,16 +1,16 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import ExternalLink from '../ui/ExternalLink'
+import { ExternalLink } from '../ui/ExternalLink'
 
 interface TermsProps {
   locale: string
 }
 
-export default function Terms ({ locale }: TermsProps): React.ReactElement {
+export default function Terms({ locale }: TermsProps): React.ReactElement {
   const getCCLinkByLocale = (
     locale: string
-  ): { url: string, label: string } => {
+  ): { url: string; label: string } => {
     let url, label
     switch (locale) {
       case 'ar':
@@ -116,7 +116,7 @@ export default function Terms ({ locale }: TermsProps): React.ReactElement {
       defaultMessage="This Streetmix-created image may be reused anywhere, for any purpose, under the {licenseLink} license."
       values={{
         // Get locale-specific license links!
-        licenseLink: renderCCLink(locale)
+        licenseLink: renderCCLink(locale),
       }}
     />
   )

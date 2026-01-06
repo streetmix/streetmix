@@ -1,18 +1,18 @@
 import React from 'react'
 
 import { render } from '~/test/helpers/render'
-import ExternalLink from './ExternalLink'
+import { ExternalLink } from './ExternalLink'
 
 const initialStateForOnline = {
   system: {
-    offline: false
-  }
+    offline: false,
+  },
 }
 
 const initialStateForOffline = {
   system: {
-    offline: true
-  }
+    offline: true,
+  },
 }
 
 describe('ExternalLink', () => {
@@ -20,7 +20,7 @@ describe('ExternalLink', () => {
     const { asFragment } = render(
       <ExternalLink href="https://example.com">foo</ExternalLink>,
       {
-        initialState: initialStateForOnline
+        initialState: initialStateForOnline,
       }
     )
     expect(asFragment()).toMatchSnapshot()
@@ -40,7 +40,7 @@ describe('ExternalLink', () => {
     const { asFragment } = render(
       <ExternalLink href="https://example.com">foo</ExternalLink>,
       {
-        initialState: initialStateForOffline
+        initialState: initialStateForOffline,
       }
     )
     expect(asFragment()).toMatchSnapshot()

@@ -1,6 +1,4 @@
-import React from 'react'
-
-import ExternalLink from '~/src/ui/ExternalLink'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 
 // TODO: fix broken types, `href` means render `a`, otherwise render `button`
 type MenuItemProps<T extends 'button' | 'a'> = {
@@ -8,12 +6,12 @@ type MenuItemProps<T extends 'button' | 'a'> = {
   children: React.ReactNode
 } & React.JSX.IntrinsicElements[T]
 
-function MenuItem<T extends 'button' | 'a'> ({
+export function MenuItem<T extends 'button' | 'a'>({
   href,
   className,
   children,
   ...props
-}: MenuItemProps<T>): React.ReactElement {
+}: MenuItemProps<T>) {
   // Merge classnames
   const classNames = ['menu-item']
   if (typeof className === 'string') {
@@ -40,5 +38,3 @@ function MenuItem<T extends 'button' | 'a'> ({
     </button>
   )
 }
-
-export default MenuItem

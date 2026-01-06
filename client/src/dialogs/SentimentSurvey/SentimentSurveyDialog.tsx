@@ -1,11 +1,11 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import ExternalLink from '~/src/ui/ExternalLink'
+import { ExternalLink } from '~/src/ui/ExternalLink'
 import Dialog from '../Dialog'
 import './SentimentSurveyDialog.css'
 
-function SentimentSurveyDialog (): React.ReactElement {
+function SentimentSurveyDialog(): React.ReactElement {
   return (
     <Dialog>
       {(closeDialog) => (
@@ -26,7 +26,7 @@ function SentimentSurveyDialog (): React.ReactElement {
                     <ExternalLink href="https://www.numo.global/">
                       {chunks}
                     </ExternalLink>
-                  )
+                  ),
                 }}
               />
             </p>
@@ -49,7 +49,7 @@ function SentimentSurveyDialog (): React.ReactElement {
                     >
                       {chunks}
                     </a>
-                  )
+                  ),
                 }}
               />
             </p>

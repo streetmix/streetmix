@@ -10,7 +10,7 @@ import { showDialog } from '~/src/store/slices/dialogs.js'
 import Icon from '~/src/ui/Icon.js'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import Menu, { type MenuProps } from './Menu.js'
-import MenuItem from './MenuItem.js'
+import { MenuItem } from './MenuItem.js'
 import { MenuSeparator } from './MenuSeparator.js'
 import './IdentityMenu.css'
 

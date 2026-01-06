@@ -4,7 +4,7 @@ import { useDispatch } from '~/src/store/hooks.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import Icon from '~/src/ui/Icon.js'
 import Menu, { type MenuProps } from './Menu.js'
-import MenuItem from './MenuItem.js'
+import { MenuItem } from './MenuItem.js'
 
 export function ContactMenu(props: MenuProps) {
   const dispatch = useDispatch()

@@ -7,12 +7,12 @@ import { MenuSeparator } from '../MenuSeparator.js'
 import { CopyShareLink } from './CopyShareLink.js'
 import { Export3DStreet } from './Export3DStreet.js'
 import { ExportStreetmeter } from './ExportStreetmeter.js'
-import PostOnFacebook from './PostOnFacebook.js'
-import PostOnMastodon from './PostOnMastodon.js'
-import PostOnTwitter from './PostOnTwitter.js'
+import { PostOnFacebook } from './PostOnFacebook.js'
+import { PostOnMastodon } from './PostOnMastodon.js'
+import { PostOnTwitter } from './PostOnTwitter.js'
 import { PrintImage } from './PrintImage.js'
 import { SaveImage } from './SaveImage.js'
-import SignInPromo from './SignInPromo.js'
+import { SignInPromo } from './SignInPromo.js'
 import { getSharingUrl, getSharingMessage } from './helpers.js'
 import './ShareMenu.css'
 
@@ -39,7 +39,7 @@ export function ShareMenu(props: MenuProps) {
     <Menu onShow={handleShow} className="share-menu" {...props}>
       {!offline && (
         <>
-          {!user.signedIn && <SignInPromo />}
+          {!user.signedIn && <SignInPromo type="share" />}
           <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
           <MenuSeparator />
           <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />

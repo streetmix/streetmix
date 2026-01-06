@@ -4,12 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import wmIcon from 'url:../../../images/wm-icon-animated.svg'
 import { useSelector } from '../../store/hooks'
 import { doSignIn } from '../../users/authentication'
-import ExternalLink from '../ExternalLink'
+import { ExternalLink } from '../ExternalLink'
 import Toast, { type ToastProps } from './Toast'
 import './ToastWebMonetization.css'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-function ToastWebMonetization (props: ToastProps): React.ReactElement {
+function ToastWebMonetization(props: ToastProps): React.ReactElement {
   const { item, setRef, handleClose } = props
   const signedIn = useSelector((state) => state.user.signedIn)
   const intl = useIntl()
@@ -36,7 +36,7 @@ function ToastWebMonetization (props: ToastProps): React.ReactElement {
     }
   })
 
-  function handleAction (event: React.MouseEvent): void {
+  function handleAction(event: React.MouseEvent): void {
     doSignIn()
     handleClose(event)
   }
@@ -52,8 +52,8 @@ function ToastWebMonetization (props: ToastProps): React.ReactElement {
         mode: 'success',
         action: intl.formatMessage({
           id: 'menu.item.sign-in',
-          defaultMessage: 'Sign in'
-        })
+          defaultMessage: 'Sign in',
+        }),
       }}
     >
       <div className="toast-icon-header">
