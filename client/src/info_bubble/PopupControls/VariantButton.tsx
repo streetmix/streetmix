@@ -1,10 +1,9 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { Button } from '~/src/ui/Button.js'
-import Icon from '~/src/ui/Icon.js'
+import Icon, { type IconNames } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 
 interface VariantButtonProps {
@@ -14,6 +13,26 @@ interface VariantButtonProps {
   onClick: React.MouseEventHandler
 }
 
+type VariantIconDefinition = (
+  | {
+      id: string
+      iconSet?: never
+    }
+  | {
+      // Icons can also be defined from tabler
+      id: IconNames
+      iconSet: 'tabler'
+    }
+) & {
+  title: string
+  color?: string // CSS colors
+  unlockCondition?: string // todo enums
+  unlockWithFlag?: string // todo enums
+  enableWithFlag?: string // todo enums
+}
+
+type VariantIcons = Record<string, Record<string, VariantIconDefinition>>
+
 export function VariantButton(props: VariantButtonProps) {
   const { set, selection, isSelected, onClick } = props
   const flags = useSelector((state) => state.flags)
@@ -21,7 +40,7 @@ export function VariantButton(props: VariantButtonProps) {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
 
-  const icon = VARIANT_ICONS[set][selection]
+  const icon = (VARIANT_ICONS as VariantIcons)[set][selection]
 
   if (icon === undefined) return null
 
@@ -83,14 +102,18 @@ export function VariantButton(props: VariantButtonProps) {
         disabled={isSelected || isLocked}
         onClick={onClick}
       >
-        <svg
-          xmlns="http://www.w3.org/1999/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          className="icon"
-          style={icon.color !== undefined ? { fill: icon.color } : undefined}
-        >
-          <use href={`#icon-${icon.id}`} />
-        </svg>
+        {icon.iconSet === 'tabler' ? (
+          <Icon name={icon.id} size="30" stroke="1.5" className="tabler-icon" />
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/1999/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            className="icon"
+            style={icon.color !== undefined ? { fill: icon.color } : undefined}
+          >
+            <use href={`#icon-${icon.id}`} />
+          </svg>
+        )}
         {isLocked && <Icon name="lock" />}
       </Button>
     </Tooltip>

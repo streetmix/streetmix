@@ -441,8 +441,10 @@ vendor-type:
     title: Vendor at platform
 beach-type:
   beach:
-    id: beach
+    id: beach-off
+    iconSet: tabler
     title: Beach
   lounger:
-    id: lounger
+    id: beach
+    iconSet: tabler
     title: Beach lounger
