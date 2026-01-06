@@ -9,11 +9,6 @@
 // original by Caleb Miller
 // https://codepen.io/MillerTime/pen/oXmgJe
 
-// initialize
-document.addEventListener('DOMContentLoaded', function () {
-  window.addEventListener('resize', demo.resize)
-})
-
 // demo namespace
 export const demo = {
   // CUSTOMIZABLE PROPERTIES
@@ -74,7 +69,7 @@ demo.init = function (el) {
     demo.resize()
 
     Ticker.addListener(demo.step)
-
+    window.addEventListener('resize', demo.resize)
     // demo controls
     // lil-gui in global space
     // const gui = new lil.GUI();
@@ -97,8 +92,8 @@ demo.resize = function () {
   }
 
   // resize
-  demo.width = this.canvas.offsetWidth
-  demo.height = this.canvas.offsetHeight
+  demo.width = demo.canvas.offsetWidth
+  demo.height = demo.canvas.offsetHeight
   demo.canvas.width = demo.width * demo.dpr
   demo.canvas.height = demo.height * demo.dpr
 }
@@ -212,6 +207,7 @@ demo.stop = function () {
   demo.started = false
 
   Ticker.clearListeners()
+  window.removeEventListener('resize', demo.resize)
 }
 
 // Rain definition
