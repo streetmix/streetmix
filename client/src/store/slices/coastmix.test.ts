@@ -2,14 +2,16 @@ import coastmix, {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   setSeaLevelRise,
-  setStormSurge
+  setStormSurge,
+  setRain
 } from './coastmix'
 
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
     seaLevelRise: 0,
-    stormSurge: false
+    stormSurge: false,
+    isRaining: false
   }
 
   describe('toggle controls', () => {
@@ -51,6 +53,20 @@ describe('coastmix reducer', () => {
       const action = coastmix(initialState, setStormSurge(false))
 
       expect(action.stormSurge).toEqual(false)
+    })
+  })
+
+  describe('setRain()', () => {
+    it('should set rain to true', () => {
+      const action = coastmix(initialState, setRain(true))
+
+      expect(action.isRaining).toEqual(true)
+    })
+
+    it('should set rain to false', () => {
+      const action = coastmix(initialState, setRain(false))
+
+      expect(action.isRaining).toEqual(false)
     })
   })
 })
