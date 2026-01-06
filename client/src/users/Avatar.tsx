@@ -1,14 +1,12 @@
-import React from 'react'
-
 import avatar from 'url:~/images/avatar.svg'
-import { useGetUserQuery } from '../store/services/api'
+import { useGetUserQuery } from '../store/services/api.js'
 import './Avatar.css'
 
 interface AvatarProps {
   userId?: string
 }
 
-function Avatar ({ userId = '' }: AvatarProps): React.ReactElement {
+export function Avatar({ userId = '' }: AvatarProps) {
   const { data } = useGetUserQuery(userId)
   const mimeType = (data?.profileImageUrl ?? '').endsWith('.jpg')
     ? 'image/jpeg'
@@ -23,5 +21,3 @@ function Avatar ({ userId = '' }: AvatarProps): React.ReactElement {
     </span>
   )
 }
-
-export default Avatar

@@ -5,7 +5,7 @@ import { useSelector } from '~/src/store/hooks'
 import { useGetUserQuery } from '~/src/store/services/api'
 import { Button } from '~/src/ui/Button'
 import StreetName from '~/src/streets/StreetName'
-import Avatar from '~/src/users/Avatar'
+import { Avatar } from '~/src/users/Avatar'
 import { goNewStreet } from '../routing'
 import { setIsReturningUserInLocalStorage } from './WelcomePanel'
 

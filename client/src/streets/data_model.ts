@@ -30,7 +30,7 @@ export function addAltVariantObject(street: StreetState) {
   })
 }
 
-export function setStreetCreatorId(newId: string) {
+export function setStreetCreatorId(newId: string | null) {
   store.dispatch(saveCreatorId(newId))
 
   unifyUndoStack()
