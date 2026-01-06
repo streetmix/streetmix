@@ -128,13 +128,9 @@ export function addRemixSuffixToName() {
   // Bail if street is unnamed
   if (!street.name) return
 
-  if (
-    street.name.substr(
-      street.name.length - STREET_NAME_REMIX_SUFFIX.length,
-      STREET_NAME_REMIX_SUFFIX.length
-    ) !== STREET_NAME_REMIX_SUFFIX
-  ) {
-    const newStreetName = street.name + ' ' + STREET_NAME_REMIX_SUFFIX
+  // Only add `(remix)` suffix if it's not already there
+  if (!street.name.endsWith(STREET_NAME_REMIX_SUFFIX)) {
+    const newStreetName = `${street.name} ${STREET_NAME_REMIX_SUFFIX}`
     store.dispatch(saveStreetName(newStreetName, false))
   }
 }
