@@ -1,16 +1,15 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
   addBuildingFloor,
   removeBuildingFloor,
-  setBuildingFloorValue
+  setBuildingFloorValue,
 } from '~/src/store/slices/street'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
-  BUILDING_LEFT_POSITION
+  BUILDING_LEFT_POSITION,
 } from '~/src/segments/constants'
 import { UpDownInput } from './UpDownInput'
 import './BuildingHeightControl.css'
@@ -21,9 +20,9 @@ interface BuildingHeightControlProps {
   position: BoundaryPosition
 }
 
-export function BuildingHeightControl ({
-  position
-}: BuildingHeightControlProps): React.ReactElement {
+export function BuildingHeightControl({
+  position,
+}: BuildingHeightControlProps) {
   const units = useSelector((state) => state.street.units)
 
   // Get the appropriate building data based on which side of street it's on
@@ -74,15 +73,15 @@ export function BuildingHeightControl ({
         onUpdatedValue={updateModel}
         inputTooltip={intl.formatMessage({
           id: 'tooltip.building-height',
-          defaultMessage: 'Change the number of floors'
+          defaultMessage: 'Change the number of floors',
         })}
         upTooltip={intl.formatMessage({
           id: 'tooltip.add-floor',
-          defaultMessage: 'Add floor'
+          defaultMessage: 'Add floor',
         })}
         downTooltip={intl.formatMessage({
           id: 'tooltip.remove-floor',
-          defaultMessage: 'Remove floor'
+          defaultMessage: 'Remove floor',
         })}
         allowAutoUpdate
       />

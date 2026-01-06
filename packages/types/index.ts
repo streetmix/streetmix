@@ -26,6 +26,10 @@ export interface Segment {
   variantString: string
   width: number
   elevation: number
+  // Tracks whether the user has manually modified the elevation value.
+  // When true, elevation should not be automatically updated by
+  // slice variant presets. A missing property is equivalent to false
+  elevationChanged?: boolean
   slope: SlopeProperties
   variant: Record<string, string>
   warnings: boolean[]

@@ -1,25 +1,24 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 import { Decimal } from 'decimal.js'
 
 import {
   ELEVATION_INCREMENT,
-  ELEVATION_INCREMENT_IMPERIAL
-} from '~/src/segments/constants'
-import { segmentsChanged } from '~/src/segments/view'
-import { useDispatch, useSelector } from '~/src/store/hooks'
+  ELEVATION_INCREMENT_IMPERIAL,
+} from '~/src/segments/constants.js'
+import { segmentsChanged } from '~/src/segments/view.js'
+import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import {
   changeSegmentProperties,
-  setBoundaryElevation
-} from '~/src/store/slices/street'
-import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
+  setBoundaryElevation,
+} from '~/src/store/slices/street.js'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import {
   convertMetricMeasurementToImperial,
   prettifyWidth,
   processWidthInput,
-  stringifyMeasurementValue
-} from '~/src/util/width_units'
-import { UpDownInput } from './UpDownInput'
+  stringifyMeasurementValue,
+} from '~/src/util/width_units.js'
+import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition, UnitsSetting } from '@streetmix/types'
 
@@ -41,7 +40,7 @@ const MAX_ELEVATION = 5 // in meters
  * NOTE: This is actually using original prettifyWidth so we don't show
  * feet-inches in this^ format yet.
  */
-function prettifyElevationHeight (
+function prettifyElevationHeight(
   value: number,
   units: UnitsSetting,
   locale: string
@@ -49,16 +48,16 @@ function prettifyElevationHeight (
   return prettifyWidth(value, units, locale)
 }
 
-export function ElevationControlNew ({
+export function ElevationControlNew({
   position,
   elevation,
-  units
-}: ElevationControlProps): React.ReactElement {
+  units,
+}: ElevationControlProps) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleIncrement (): void {
+  function handleIncrement(): void {
     const increment =
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
@@ -69,14 +68,19 @@ export function ElevationControlNew ({
       .toDecimalPlaces(3)
       .toNumber()
     if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { elevation: newValue }))
+      dispatch(
+        changeSegmentProperties(position, {
+          elevation: newValue,
+          elevationChanged: true,
+        })
+      )
       segmentsChanged()
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
   }
 
-  function handleDecrement (): void {
+  function handleDecrement(): void {
     const increment =
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
@@ -87,7 +91,12 @@ export function ElevationControlNew ({
       .toDecimalPlaces(3)
       .toNumber()
     if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { elevation: newValue }))
+      dispatch(
+        changeSegmentProperties(position, {
+          elevation: newValue,
+          elevationChanged: true,
+        })
+      )
       segmentsChanged()
     } else {
       dispatch(setBoundaryElevation(position, newValue))
@@ -114,7 +123,12 @@ export function ElevationControlNew ({
     }
 
     if (typeof position === 'number') {
-      dispatch(changeSegmentProperties(position, { elevation: newValue }))
+      dispatch(
+        changeSegmentProperties(position, {
+          elevation: newValue,
+          elevationChanged: true,
+        })
+      )
       segmentsChanged()
     } else {
       dispatch(setBoundaryElevation(position, newValue))
@@ -151,15 +165,15 @@ export function ElevationControlNew ({
         onUpdatedValue={updateValue}
         inputTooltip={intl.formatMessage({
           id: 'tooltip.elevation-input',
-          defaultMessage: 'Change elevation'
+          defaultMessage: 'Change elevation',
         })}
         upTooltip={intl.formatMessage({
           id: 'tooltip.elevation-raise',
-          defaultMessage: 'Raise elevation'
+          defaultMessage: 'Raise elevation',
         })}
         downTooltip={intl.formatMessage({
           id: 'tooltip.elevation-lower',
-          defaultMessage: 'Lower elevation'
+          defaultMessage: 'Lower elevation',
         })}
       />
     </div>
