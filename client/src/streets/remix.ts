@@ -1,25 +1,25 @@
-import { formatMessage } from '../locales/locale'
-import { getSignInData, isSignedIn } from '../users/authentication'
-import { newBlockingAjaxRequest } from '../util/fetch_blocking'
+import { formatMessage } from '../locales/locale.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
+import { newBlockingAjaxRequest } from '../util/fetch_blocking.js'
 import store from '../store'
 import {
   saveStreetName,
   updateEditCount,
   saveOriginalStreetId,
-} from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { setStreetCreatorId } from './data_model'
-import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack'
-import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr'
+} from '../store/slices/street.js'
+import { addToast } from '../store/slices/toasts.js'
+import { setStreetCreatorId } from './data_model.js'
+import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack.js'
+import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr.js'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
 let remixOnFirstEdit = false
 
-export function getRemixOnFirstEdit() {
+export function getRemixOnFirstEdit(): boolean {
   return remixOnFirstEdit
 }
 
-export function setRemixOnFirstEdit(value) {
+export function setRemixOnFirstEdit(value: boolean): void {
   remixOnFirstEdit = value
 }
 
@@ -27,11 +27,11 @@ export function setRemixOnFirstEdit(value) {
 // was anonymous
 let promoteStreet = false
 
-export function getPromoteStreet() {
+export function getPromoteStreet(): boolean {
   return promoteStreet
 }
 
-export function setPromoteStreet(value) {
+export function setPromoteStreet(value: boolean): void {
   promoteStreet = value
 }
 
