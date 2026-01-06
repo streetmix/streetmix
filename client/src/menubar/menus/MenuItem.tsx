@@ -1,4 +1,4 @@
-import ExternalLink from '~/src/ui/ExternalLink.js'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 
 // TODO: fix broken types, `href` means render `a`, otherwise render `button`
 type MenuItemProps<T extends 'button' | 'a'> = {

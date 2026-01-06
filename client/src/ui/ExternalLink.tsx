@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
-import Icon from '~/src/ui/Icon'
+import { useSelector } from '~/src/store/hooks.js'
+import Icon from '~/src/ui/Icon.js'
 
 interface ExternalLinkProps extends Partial<
   React.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -12,7 +10,7 @@ interface ExternalLinkProps extends Partial<
   className?: string
 }
 
-function ExternalLink({
+export function ExternalLink({
   children,
   href,
   icon = false,
@@ -31,5 +29,3 @@ function ExternalLink({
     </a>
   )
 }
-
-export default ExternalLink

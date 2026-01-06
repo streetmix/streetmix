@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import ExternalLink from '../ui/ExternalLink'
+import { ExternalLink } from '../ui/ExternalLink'
 import Dialog from './Dialog'
 import './ErrorDialog.css'
 
@@ -11,7 +11,7 @@ import './ErrorDialog.css'
  *
  * If _this_ component throws an error, the universe blows up.
  */
-function ErrorDialog (): React.ReactElement {
+function ErrorDialog(): React.ReactElement {
   return (
     <Dialog>
       {(closeDialog) => (
@@ -34,7 +34,7 @@ function ErrorDialog (): React.ReactElement {
                     <ExternalLink href="https://github.com/streetmix/streetmix/issues/new">
                       {chunks}
                     </ExternalLink>
-                  )
+                  ),
                 }}
               />
             </p>
