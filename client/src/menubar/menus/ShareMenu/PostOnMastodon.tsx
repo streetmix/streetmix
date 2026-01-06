@@ -1,14 +1,13 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '~/src/ui/Icon'
-import MenuItem from '../MenuItem'
-import type { SocialShareProps } from './helpers'
+import Icon from '~/src/ui/Icon.js'
+import MenuItem from '../MenuItem.js'
+import type { SocialShareProps } from './helpers.js'
 
 const LS_SHARE_MASTODON = 'share:mastodon-domain'
 const MASTODON_DEFAULT_DOMAIN = 'mastodon.social'
 
-function handleShareToMastodon (shareText: string, shareUrl: string): void {
+function handleShareToMastodon(shareText: string, shareUrl: string): void {
   // Get the Mastodon domain. User might have specified one in localstorage,
   // so use it if specified, otherwise use the "main" Mastodon instance
   const domain = window.prompt(
@@ -45,10 +44,7 @@ function handleShareToMastodon (shareText: string, shareUrl: string): void {
   window.open(url, '_blank')
 }
 
-function PostOnMastodon ({
-  shareText,
-  shareUrl
-}: SocialShareProps): React.ReactElement {
+export function PostOnMastodon({ shareText, shareUrl }: SocialShareProps) {
   return (
     <MenuItem
       onClick={() => {
@@ -64,5 +60,3 @@ function PostOnMastodon ({
     </MenuItem>
   )
 }
-
-export default PostOnMastodon

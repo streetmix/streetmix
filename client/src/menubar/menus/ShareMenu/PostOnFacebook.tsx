@@ -1,17 +1,13 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import Icon from '~/src/ui/Icon'
-import { FACEBOOK_APP_ID } from '~/src/app/config'
-import { getPageTitle } from '~/src/app/page_title'
-import MenuItem from '../MenuItem'
-import type { SocialShareProps } from './helpers'
+import { useSelector } from '~/src/store/hooks.js'
+import Icon from '~/src/ui/Icon.js'
+import { FACEBOOK_APP_ID } from '~/src/app/config.js'
+import { getPageTitle } from '~/src/app/page_title.js'
+import MenuItem from '../MenuItem.js'
+import type { SocialShareProps } from './helpers.js'
 
-function PostOnFacebook ({
-  shareText,
-  shareUrl
-}: SocialShareProps): React.ReactElement {
+export function PostOnFacebook({ shareText, shareUrl }: SocialShareProps) {
   const street = useSelector((state) => state.street)
 
   const facebookLink =
@@ -37,5 +33,3 @@ function PostOnFacebook ({
     </MenuItem>
   )
 }
-
-export default PostOnFacebook
