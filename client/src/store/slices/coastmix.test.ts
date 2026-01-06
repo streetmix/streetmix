@@ -3,15 +3,15 @@ import coastmix, {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
-  setRain
-} from './coastmix'
+  setRain,
+} from './coastmix.js'
 
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
     seaLevelRise: 0,
     stormSurge: false,
-    isRaining: false
+    isRaining: false,
   }
 
   describe('toggle controls', () => {
