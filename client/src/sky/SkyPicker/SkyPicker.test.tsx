@@ -24,6 +24,12 @@ describe('SkyPicker', () => {
       signedIn: true,
       isSubscriber: true,
     },
+    // Simulate default feature flag state
+    flags: {
+      ENVIRONMENTS_UNLOCKED: {
+        value: false,
+      },
+    },
   }
 
   it('renders for signed-in subscribers', () => {
@@ -81,7 +87,7 @@ describe('SkyPicker', () => {
 
     // Initial state
     expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Foo')).toHaveClass('sky-disabled')
+    expect(screen.getByLabelText('Foo')).toBeDisabled()
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
@@ -92,6 +98,6 @@ describe('SkyPicker', () => {
     // State should not change!
     expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
     expect(screen.getByLabelText('Foo')).not.toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Foo')).toHaveClass('sky-disabled')
+    expect(screen.getByLabelText('Foo')).toBeDisabled()
   })
 })

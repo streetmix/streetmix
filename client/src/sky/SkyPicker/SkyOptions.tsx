@@ -53,9 +53,7 @@ export function SkyOptions({
               classNames.push('sky-selected')
             }
 
-            if (!enabled && selected !== id) {
-              classNames.push('sky-disabled')
-            }
+            const isDisabled = !enabled && selected !== id
 
             return (
               <Tooltip label={label} key={id} placement="bottom">
@@ -66,10 +64,11 @@ export function SkyOptions({
                   onClick={(event) => {
                     handleClick(event, env)
                   }}
+                  disabled={isDisabled}
                 >
-                  {!enabled && selected !== id && (
+                  {isDisabled && (
                     <>
-                      <div className="sky-disabled-overlay" />
+                      <div className="sky-option-disabled-overlay" />
                       <Icon name="lock" />
                     </>
                   )}

@@ -13,6 +13,9 @@ export function SkyPicker() {
   const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
   const show = useSelector((state) => state.ui.toolboxVisible ?? false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
+  const isUnlocked = useSelector(
+    (state) => state.flags.ENVIRONMENTS_UNLOCKED?.value ?? false
+  )
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
@@ -23,6 +26,8 @@ export function SkyPicker() {
   function handleSelect(id: string): void {
     dispatch(setSkybox(id))
   }
+
+  const isEnabled = isSubscriber || isUnlocked
 
   return (
     <FloatingPanel
@@ -39,13 +44,13 @@ export function SkyPicker() {
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
         <SkyOptions
-          enabled={isSubscriber}
+          enabled={isEnabled}
           selected={selected}
           handleSelect={handleSelect}
         />
       </IntlProvider>
 
-      {!isSubscriber && (
+      {!isEnabled && (
         <div className="sky-picker-upgrade">
           <StreetmixPlusPrompt>
             <FormattedMessage
