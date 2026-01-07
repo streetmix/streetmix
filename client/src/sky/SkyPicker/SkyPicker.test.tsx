@@ -24,6 +24,12 @@ describe('SkyPicker', () => {
       signedIn: true,
       isSubscriber: true,
     },
+    // Simulate default feature flag state
+    flags: {
+      ENVIRONMENTS_UNLOCKED: {
+        value: false,
+      },
+    },
   }
 
   it('renders for signed-in subscribers', () => {

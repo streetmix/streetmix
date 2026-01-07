@@ -39,6 +39,10 @@
     "label": "Sky — animated clouds",
     "defaultValue": false
   },
+  "ENVIRONMENTS_UNLOCKED": {
+    "label": "Environment — unlocked",
+    "defaultValue": false
+  },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
     "defaultValue": false,
