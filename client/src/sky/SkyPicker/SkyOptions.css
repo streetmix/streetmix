@@ -36,10 +36,10 @@
     inset 0 0 0 2px rgb(255 255 255 / 100%);
 }
 
-.sky-option-item.sky-disabled {
+.sky-option-item:disabled {
   cursor: default;
 
-  .sky-disabled-overlay {
+  .sky-option-disabled-overlay {
     position: absolute;
     inset: 0;
     border-radius: var(--border-radius-large);
