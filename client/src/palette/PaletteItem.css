@@ -28,6 +28,10 @@
     text-align: center;
   }
 
+  &:not(.palette-item-disabled) > button {
+    cursor: grab;
+  }
+
   &:not(.palette-item-disabled):hover,
   &:not(.palette-item-disabled) > div:focus {
     /* See note above re: mixing in srgb over oklch here. */
