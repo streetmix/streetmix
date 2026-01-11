@@ -48,6 +48,8 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
   variantSets = variantSets.filter((x) => x !== '')
 
   // If we are doing universal elevation or Coastmix, filter out elevation
+  // Note -- if these buttons are present, and a slice elevation has been
+  // marked as user-changed, then these buttons won't do anything
   if (universalElevation || coastmixMode) {
     variantSets = variantSets.filter((x) => x !== 'elevation')
   }
