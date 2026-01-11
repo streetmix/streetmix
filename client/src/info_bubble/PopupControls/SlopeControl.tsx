@@ -1,13 +1,12 @@
-import { useId } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { segmentsChanged } from '~/src/segments/view.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon'
-import { Popover } from '~/src/ui/Popover.js'
 import { Switch } from '~/src/ui/Switch.js'
+import { Tooltip } from '~src/ui/Tooltip'
 
 interface SlopeControlProps {
   position: number
@@ -20,7 +19,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
     return state.street.segments[position]
   })
   const dispatch = useDispatch()
-  const labelId = useId()
+  const intl = useIntl()
 
   // Allow sloping when slope rule is `path` or `berm`. Defaults to false.
   const { slope } = getSegmentVariantInfo(slice.type, slice.variantString)
@@ -34,36 +33,41 @@ export function SlopeControl({ position }: SlopeControlProps) {
 
   if (!allowSlope) return null
 
+  const label = intl.formatMessage({
+    id: 'segments.controls.slope.label',
+    defaultMessage: 'Slope',
+  })
+  const tooltip = intl.formatMessage({
+    id: 'segments.controls.slope.switch-tooltip',
+    defaultMessage: 'Toggle slope',
+  })
+
   return (
     <div className="popup-control-button-group">
-      <div className="popup-control-label" id={labelId}>
-        {/* <FormattedMessage
-          id="segments.controls.slope.label"
-          defaultMessage="Slope"
-        /> */}
-        <Icon name="slope" size="30" stroke="1.5" className="temp-elev-icon" />
-        {!allowSlope && (
-          // TODO: use a different icon
-          <Popover>
-            <FormattedMessage
-              id="segments.controls.slope.disabled-tooltip"
-              defaultMessage="This element cannot be sloped."
+      <div className="popup-control-label">
+        <Tooltip label={label} placement="left">
+          <span style={{ lineHeight: 0 }}>
+            <Icon
+              name="slope"
+              size="30"
+              stroke="1.5"
+              className="temp-elev-icon"
             />
-          </Popover>
-        )}
+          </span>
+        </Tooltip>
       </div>
-      <div>
+      <Tooltip label={tooltip} placement="bottom">
         <Switch
           onCheckedChange={handleSlopeChange}
           checked={isSloped}
           disabled={!allowSlope}
-          aria-labelledby={labelId}
+          aria-label={label}
           style={{
             width: '39px',
             height: '21px',
           }}
         />
-      </div>
+      </Tooltip>
     </div>
   )
 }

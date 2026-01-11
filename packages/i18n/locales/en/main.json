@@ -416,6 +416,7 @@
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",
+        "switch-tooltip": "Toggle slope",
         "disabled-tooltip": "This element cannot be sloped."
       }
     }
