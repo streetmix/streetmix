@@ -30,6 +30,10 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
 
     return null
   })
+  const universalElevation = useSelector(
+    (state) => state.flags.UNIVERSAL_ELEVATION_CONTROLS.value
+  )
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
   let variantSets: string[] = []
@@ -41,9 +45,12 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
   }
 
   // Remove any empty entries
-  variantSets = variantSets
-    .filter((x) => x !== '')
-    .filter((x) => x !== 'elevation')
+  variantSets = variantSets.filter((x) => x !== '')
+
+  // If we are doing universal elevation or Coastmix, filter out elevation
+  if (universalElevation || coastmixMode) {
+    variantSets = variantSets.filter((x) => x !== 'elevation')
+  }
 
   function isVariantCurrentlySelected(set: string, selection: string): boolean {
     let bool = false

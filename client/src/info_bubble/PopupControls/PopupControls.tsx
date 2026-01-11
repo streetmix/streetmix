@@ -45,11 +45,7 @@ export function PopupControls(props: SectionElementTypeAndPosition) {
           {/* Universal elevation control for slices only, if not in Coastmix mode */}
           {typeof position === 'number' &&
             universalElevation &&
-            !coastmixMode && (
-              <div className="popup-control-group">
-                <ElevationControl position={position} />
-              </div>
-            )}
+            !coastmixMode && <ElevationControl position={position} />}
           {coastmixMode && (
             <>
               <ElevationControl position={position} />
