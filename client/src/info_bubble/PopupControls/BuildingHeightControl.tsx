@@ -7,6 +7,7 @@ import {
   setBuildingFloorValue,
 } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
@@ -15,7 +16,6 @@ import {
 import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
-import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface BuildingHeightControlProps {
   position: BoundaryPosition

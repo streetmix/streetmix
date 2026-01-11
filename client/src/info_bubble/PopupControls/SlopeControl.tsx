@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon'
 import { Switch } from '~/src/ui/Switch.js'
-import { Tooltip } from '~src/ui/Tooltip'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 
 interface SlopeControlProps {
   position: number
@@ -47,12 +47,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <div className="popup-control-label">
         <Tooltip label={label} placement="left">
           <span className="popup-control-icon">
-            <Icon
-              name="slope"
-              size="30"
-              stroke="1.5"
-              className="temp-elev-icon"
-            />
+            <Icon name="slope" size="30" stroke="1.5" />
           </span>
         </Tooltip>
       </div>

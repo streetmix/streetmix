@@ -8,6 +8,7 @@ import {
 } from '~/src/segments/constants.js'
 import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing.js'
 import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
@@ -73,12 +74,18 @@ export function WidthControl({ position }: WidthControlProps) {
 
   return (
     <div className="popup-control-button-group">
-      <Icon
-        name="slice-width"
-        size="30"
-        stroke="1.5"
-        className="temp-elev-icon"
-      />
+      <Tooltip
+        label={intl.formatMessage({
+          id: 'segments.controls.width',
+          defaultMessage: 'Width',
+        })}
+        placement="left"
+      >
+        <span className="popup-control-icon">
+          <Icon name="slice-width" size="30" stroke="1.5" />
+        </span>
+      </Tooltip>
+
       <UpDownInput
         value={value}
         minValue={MIN_SEGMENT_WIDTH}

@@ -5,12 +5,15 @@ exports[`WidthControl > renders 1`] = `
   <div
     class="popup-control-button-group"
   >
-    <svg
-      class="temp-elev-icon"
-      data-icon="slice-width"
-      size="30"
-      stroke="1.5"
-    />
+    <span
+      class="popup-control-icon"
+    >
+      <svg
+        data-icon="slice-width"
+        size="30"
+        stroke="1.5"
+      />
+    </span>
     <div
       class="up-down-input"
     >

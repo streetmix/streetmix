@@ -10,12 +10,12 @@ import {
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
 import { VariantButton } from './VariantButton.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
-import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface ElevationControlProps {
   position: number | BoundaryPosition
