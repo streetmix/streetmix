@@ -1,4 +1,4 @@
-// import { FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import { segmentsChanged } from '~/src/segments/view.js'
 import {
@@ -15,6 +15,7 @@ import { ElevationControlNew } from './ElevationControlNew.js'
 import { VariantButton } from './VariantButton.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
+import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface ElevationControlProps {
   position: number | BoundaryPosition
@@ -34,6 +35,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
   })
 
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   function isVariantCurrentlySelected(selection: string): boolean {
     let bool
@@ -110,19 +112,24 @@ export function ElevationControl({ position }: ElevationControlProps) {
     )
   }
 
+  const label = intl.formatMessage({
+    id: 'segments.controls.elevation',
+    defaultMessage: 'Elevation',
+  })
+
   return (
     <div className="popup-control-button-group">
       <div className="popup-control-label">
-        {/* <FormattedMessage
-          id="segments.controls.elevation"
-          defaultMessage="Elevation"
-        /> */}
-        <Icon
-          name="elevation"
-          size="30"
-          stroke="1.5"
-          className="temp-elev-icon"
-        />
+        <Tooltip label={label} placement="left">
+          <span style={{ lineHeight: 0 }}>
+            <Icon
+              name="elevation"
+              size="30"
+              stroke="1.5"
+              className="temp-elev-icon"
+            />
+          </span>
+        </Tooltip>
       </div>
       {controls}
     </div>
