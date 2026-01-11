@@ -6,13 +6,13 @@ import {
   removeBuildingFloor,
   setBuildingFloorValue,
 } from '~/src/store/slices/street'
+import Icon from '~/src/ui/Icon'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
 } from '~/src/segments/constants'
 import { UpDownInput } from './UpDownInput'
-import './BuildingHeightControl.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -61,7 +61,13 @@ export function BuildingHeightControl({
   const hasFloors = getBoundaryItem(variant).hasFloors
 
   return (
-    <div className="non-variant building-height">
+    <div className="popup-control-button-group">
+      <Icon
+        name="building-height"
+        size="30"
+        stroke="1.5"
+        className="temp-elev-icon"
+      />
       <UpDownInput
         disabled={!hasFloors}
         value={hasFloors ? value : null}

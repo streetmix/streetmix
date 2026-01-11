@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl'
+// import { FormattedMessage } from 'react-intl'
 
 import { segmentsChanged } from '~/src/segments/view.js'
 import {
@@ -9,6 +9,7 @@ import {
 } from '~/src/segments/constants.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
+import Icon from '~/src/ui/Icon.js'
 import { TooltipGroup } from '~/src/ui/Tooltip.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
@@ -113,11 +114,17 @@ export function ElevationControl({ position }: ElevationControlProps) {
   }
 
   return (
-    <div className="popup-control-row">
+    <div className="popup-control-button-group">
       <div className="popup-control-label">
-        <FormattedMessage
+        {/* <FormattedMessage
           id="segments.controls.elevation"
           defaultMessage="Elevation"
+        /> */}
+        <Icon
+          name="elevation"
+          size="30"
+          stroke="1.5"
+          className="temp-elev-icon"
         />
       </div>
       {controls}

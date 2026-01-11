@@ -3,8 +3,14 @@
 exports[`WidthControl > renders 1`] = `
 <DocumentFragment>
   <div
-    class="non-variant"
+    class="popup-control-button-group"
   >
+    <svg
+      class="temp-elev-icon"
+      data-icon="slice-width"
+      size="30"
+      stroke="1.5"
+    />
     <div
       class="up-down-input"
     >

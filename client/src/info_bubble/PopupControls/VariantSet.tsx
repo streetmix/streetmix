@@ -4,7 +4,7 @@ import { getSegmentInfo } from '@streetmix/parts'
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import {
   setBuildingVariant,
-  changeSegmentVariant
+  changeSegmentVariant,
 } from '~/src/store/slices/street'
 import { segmentsChanged } from '~/src/segments/view'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
@@ -13,7 +13,7 @@ import { VariantButton } from './VariantButton'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function VariantSet (
+export function VariantSet(
   props: SectionElementTypeAndPosition
 ): React.ReactElement | null {
   const { type, position } = props
@@ -44,9 +44,11 @@ export function VariantSet (
   }
 
   // Remove any empty entries
-  variantSets = variantSets.filter((x) => x !== '')
+  variantSets = variantSets
+    .filter((x) => x !== '')
+    .filter((x) => x !== 'elevation')
 
-  function isVariantCurrentlySelected (set: string, selection: string): boolean {
+  function isVariantCurrentlySelected(set: string, selection: string): boolean {
     let bool = false
 
     if (type === 'boundary') {
@@ -61,7 +63,7 @@ export function VariantSet (
     return bool
   }
 
-  function getButtonOnClickHandler (set: string, selection: string): () => void {
+  function getButtonOnClickHandler(set: string, selection: string): () => void {
     let handler
 
     if (type === 'boundary') {
@@ -78,7 +80,7 @@ export function VariantSet (
     return handler
   }
 
-  function renderButtonGroup (set: string, items: string[]): React.ReactElement {
+  function renderButtonGroup(set: string, items: string[]): React.ReactElement {
     return (
       <div className="popup-control-button-group" key={set}>
         {items.map((selection) => (
@@ -94,7 +96,7 @@ export function VariantSet (
     )
   }
 
-  function renderVariantsSelection ():
+  function renderVariantsSelection():
     | Array<React.ReactElement>
     | React.ReactElement
     | null {

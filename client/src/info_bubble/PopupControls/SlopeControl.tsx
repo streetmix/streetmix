@@ -5,6 +5,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 import { segmentsChanged } from '~/src/segments/view.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
+import Icon from '~/src/ui/Icon'
 import { Popover } from '~/src/ui/Popover.js'
 import { Switch } from '~/src/ui/Switch.js'
 
@@ -31,13 +32,16 @@ export function SlopeControl({ position }: SlopeControlProps) {
     segmentsChanged()
   }
 
+  if (!allowSlope) return null
+
   return (
-    <div className="popup-control-row">
+    <div className="popup-control-button-group">
       <div className="popup-control-label" id={labelId}>
-        <FormattedMessage
+        {/* <FormattedMessage
           id="segments.controls.slope.label"
           defaultMessage="Slope"
-        />
+        /> */}
+        <Icon name="slope" size="30" stroke="1.5" className="temp-elev-icon" />
         {!allowSlope && (
           // TODO: use a different icon
           <Popover>
@@ -54,6 +58,10 @@ export function SlopeControl({ position }: SlopeControlProps) {
           checked={isSloped}
           disabled={!allowSlope}
           aria-labelledby={labelId}
+          style={{
+            width: '39px',
+            height: '21px',
+          }}
         />
       </div>
     </div>

@@ -153,29 +153,27 @@ export function ElevationControlNew({
   }
 
   return (
-    <div className="non-variant">
-      <UpDownInput
-        value={elevation}
-        minValue={MIN_ELEVATION}
-        maxValue={MAX_ELEVATION}
-        inputValueFormatter={inputValueFormatter}
-        displayValueFormatter={displayValueFormatter}
-        onClickUp={handleIncrement}
-        onClickDown={handleDecrement}
-        onUpdatedValue={updateValue}
-        inputTooltip={intl.formatMessage({
-          id: 'tooltip.elevation-input',
-          defaultMessage: 'Change elevation',
-        })}
-        upTooltip={intl.formatMessage({
-          id: 'tooltip.elevation-raise',
-          defaultMessage: 'Raise elevation',
-        })}
-        downTooltip={intl.formatMessage({
-          id: 'tooltip.elevation-lower',
-          defaultMessage: 'Lower elevation',
-        })}
-      />
-    </div>
+    <UpDownInput
+      value={elevation}
+      minValue={MIN_ELEVATION}
+      maxValue={MAX_ELEVATION}
+      inputValueFormatter={inputValueFormatter}
+      displayValueFormatter={displayValueFormatter}
+      onClickUp={handleIncrement}
+      onClickDown={handleDecrement}
+      onUpdatedValue={updateValue}
+      inputTooltip={intl.formatMessage({
+        id: 'tooltip.elevation-input',
+        defaultMessage: 'Change elevation',
+      })}
+      upTooltip={intl.formatMessage({
+        id: 'tooltip.elevation-raise',
+        defaultMessage: 'Raise elevation',
+      })}
+      downTooltip={intl.formatMessage({
+        id: 'tooltip.elevation-lower',
+        defaultMessage: 'Lower elevation',
+      })}
+    />
   )
 }

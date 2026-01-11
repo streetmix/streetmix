@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from '~/src/store/hooks'
 import { incrementSegmentWidth } from '~/src/store/actions/street'
 import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '~/src/segments/constants'
 import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing'
+import Icon from '~/src/ui/Icon'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
   processWidthInput,
-  convertMetricMeasurementToImperial
+  convertMetricMeasurementToImperial,
 } from '~/src/util/width_units'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
 import { UpDownInput } from './UpDownInput'
@@ -18,8 +19,8 @@ interface WidthControlProps {
   position: number
 }
 
-export function WidthControl ({
-  position
+export function WidthControl({
+  position,
 }: WidthControlProps): React.ReactElement {
   const value = useSelector((state) => state.street.segments[position].width)
   const units = useSelector((state) => state.street.units)
@@ -71,7 +72,13 @@ export function WidthControl ({
   }
 
   return (
-    <div className="non-variant">
+    <div className="popup-control-button-group">
+      <Icon
+        name="slice-width"
+        size="30"
+        stroke="1.5"
+        className="temp-elev-icon"
+      />
       <UpDownInput
         value={value}
         minValue={MIN_SEGMENT_WIDTH}
@@ -83,23 +90,23 @@ export function WidthControl ({
         onUpdatedValue={updateModel}
         inputTooltip={intl.formatMessage({
           id: 'tooltip.segment-width',
-          defaultMessage: 'Change width of the segment'
+          defaultMessage: 'Change width of the segment',
         })}
         upTooltip={intl.formatMessage({
           id: 'tooltip.increase-width',
-          defaultMessage: 'Increase width'
+          defaultMessage: 'Increase width',
         })}
         downTooltip={intl.formatMessage({
           id: 'tooltip.decrease-width',
-          defaultMessage: 'Decrease width'
+          defaultMessage: 'Decrease width',
         })}
         upTooltipSublabel={intl.formatMessage({
           id: 'tooltip.width-tooltip-sublabel',
-          defaultMessage: '(hold Shift for more precision)'
+          defaultMessage: '(hold Shift for more precision)',
         })}
         downTooltipSublabel={intl.formatMessage({
           id: 'tooltip.width-tooltip-sublabel',
-          defaultMessage: '(hold Shift for more precision)'
+          defaultMessage: '(hold Shift for more precision)',
         })}
       />
     </div>
