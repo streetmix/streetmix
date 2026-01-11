@@ -121,13 +121,8 @@ export function ElevationControl({ position }: ElevationControlProps) {
     <div className="popup-control-button-group">
       <div className="popup-control-label">
         <Tooltip label={label} placement="left">
-          <span style={{ lineHeight: 0 }}>
-            <Icon
-              name="elevation"
-              size="30"
-              stroke="1.5"
-              className="temp-elev-icon"
-            />
+          <span className="popup-control-icon">
+            <Icon name="elevation" size="30" stroke="1.5" />
           </span>
         </Tooltip>
       </div>

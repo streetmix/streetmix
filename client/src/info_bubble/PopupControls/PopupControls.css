@@ -127,17 +127,15 @@
   }
 }
 
-.temp-elev-icon {
-  position: relative !important;
-  width: 30px !important;
-  height: 30px !important;
-  margin-inline-end: 0.25em;
-}
+.popup-control-icon {
+  line-height: 0;
 
-.temp-row {
-  position: relative;
-  display: flex;
-  align-items: center;
+  > svg {
+    position: relative !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-inline-end: 0.25em;
+  }
 }
 
 .up-down-input-decrement,

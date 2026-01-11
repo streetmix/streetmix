@@ -15,6 +15,7 @@ import {
 import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
+import { Tooltip } from '~src/ui/Tooltip.js'
 
 interface BuildingHeightControlProps {
   position: BoundaryPosition
@@ -62,12 +63,17 @@ export function BuildingHeightControl({
 
   return (
     <div className="popup-control-button-group">
-      <Icon
-        name="building-height"
-        size="30"
-        stroke="1.5"
-        className="temp-elev-icon"
-      />
+      <Tooltip
+        label={intl.formatMessage({
+          id: 'building.label',
+          defaultMessage: 'Building height',
+        })}
+        placement="left"
+      >
+        <span className="popup-control-icon">
+          <Icon name="building-height" size="30" stroke="1.5" />
+        </span>
+      </Tooltip>
       <UpDownInput
         disabled={!hasFloors}
         value={hasFloors ? value : null}

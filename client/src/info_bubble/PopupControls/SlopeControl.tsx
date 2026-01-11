@@ -46,7 +46,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
     <div className="popup-control-button-group">
       <div className="popup-control-label">
         <Tooltip label={label} placement="left">
-          <span style={{ lineHeight: 0 }}>
+          <span className="popup-control-icon">
             <Icon
               name="slope"
               size="30"
