@@ -1,4 +1,3 @@
-import React from 'react'
 import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
@@ -13,9 +12,7 @@ import { VariantButton } from './VariantButton'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function VariantSet(
-  props: SectionElementTypeAndPosition
-): React.ReactElement | null {
+export function VariantSet(props: SectionElementTypeAndPosition) {
   const { type, position } = props
 
   // Get the appropriate variant information

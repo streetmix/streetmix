@@ -1,20 +1,17 @@
-import React from 'react'
 import { IntlProvider } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import { VariantSet } from './VariantSet'
-import { WidthControl } from './WidthControl'
-import { BuildingHeightControl } from './BuildingHeightControl'
-import { ElevationControl } from './ElevationControl'
-import { CoastalFloodingButton } from './CoastalFloodingButton'
+import { useSelector } from '~/src/store/hooks.js'
+import { VariantSet } from './VariantSet.js'
+import { WidthControl } from './WidthControl.js'
+import { BuildingHeightControl } from './BuildingHeightControl.js'
+import { ElevationControl } from './ElevationControl.js'
+import { CoastalFloodingButton } from './CoastalFloodingButton.js'
+import { SlopeControl } from './SlopeControl.js'
 import './PopupControls.css'
 
-import { SlopeControl } from './SlopeControl'
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function PopupControls(
-  props: SectionElementTypeAndPosition
-): React.ReactElement {
+export function PopupControls(props: SectionElementTypeAndPosition) {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
   const universalElevation = useSelector(

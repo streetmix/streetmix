@@ -1,9 +1,8 @@
-import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import { WidthControl } from './WidthControl'
+import { render } from '~/test/helpers/render.js'
+import { WidthControl } from './WidthControl.js'
 
 describe('WidthControl', () => {
   const activeElement = 0
@@ -15,17 +14,17 @@ describe('WidthControl', () => {
           type: 'streetcar',
           variantString: 'inbound|regular',
           id: '1',
-          width: 3
-        }
+          width: 3,
+        },
       ],
       width: 3,
-      units: 0
-    }
+      units: 0,
+    },
   }
 
   it('renders', () => {
     const { asFragment } = render(<WidthControl position={activeElement} />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })
@@ -33,7 +32,7 @@ describe('WidthControl', () => {
   describe('increase width', () => {
     it('increases store width', async () => {
       const { store } = render(<WidthControl position={activeElement} />, {
-        initialState
+        initialState,
       })
 
       await userEvent.click(screen.getByTestId('up'))
@@ -44,7 +43,7 @@ describe('WidthControl', () => {
   describe('decrease width', () => {
     it('decreases store width', async () => {
       const { store } = render(<WidthControl position={activeElement} />, {
-        initialState
+        initialState,
       })
 
       await userEvent.click(screen.getByTestId('down'))

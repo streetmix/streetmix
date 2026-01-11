@@ -1,18 +1,18 @@
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue,
-} from '~/src/store/slices/street'
-import Icon from '~/src/ui/Icon'
+} from '~/src/store/slices/street.js'
+import Icon from '~/src/ui/Icon.js'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
-} from '~/src/segments/constants'
-import { UpDownInput } from './UpDownInput'
+} from '~/src/segments/constants.js'
+import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 

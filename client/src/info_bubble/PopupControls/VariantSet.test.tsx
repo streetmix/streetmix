@@ -1,11 +1,10 @@
-import React from 'react'
 import { vi, type Mock } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { getSegmentInfo } from '@streetmix/parts'
 
-import { render } from '~/test/helpers/render'
-import { VariantSet } from './VariantSet'
+import { render } from '~/test/helpers/render.js'
+import { VariantSet } from './VariantSet.js'
 
 import type { SegmentDefinition } from '@streetmix/types'
 
@@ -14,8 +13,8 @@ vi.mock('@streetmix/parts', () => {
   return {
     getSegmentInfo: vi.fn(),
     getSegmentVariantInfo: vi.fn().mockReturnValue({
-      elevation: 0
-    })
+      elevation: 0,
+    }),
   }
 })
 
@@ -30,23 +29,23 @@ describe('VariantSet', () => {
     street: {
       boundary: {
         left: {
-          variant: 'residential'
+          variant: 'residential',
         },
         right: {
-          variant: 'residential'
-        }
+          variant: 'residential',
+        },
       },
       segments: [
         {
           variant: {
             direction: 'inbound',
-            'public-transit-asphalt': 'regular'
+            'public-transit-asphalt': 'regular',
           },
           variantString: 'inbound|regular',
-          type: 'streetcar'
-        }
-      ]
-    }
+          type: 'streetcar',
+        },
+      ],
+    },
   }
 
   describe('segment variants', () => {
@@ -59,7 +58,7 @@ describe('VariantSet', () => {
 
     it('renders segment buttons', () => {
       const { asFragment } = render(<VariantSet type="slice" position={0} />, {
-        initialState
+        initialState,
       })
 
       expect(asFragment()).toMatchSnapshot()
@@ -67,7 +66,7 @@ describe('VariantSet', () => {
 
     it('handles switching segment variant', async () => {
       const { store } = render(<VariantSet type="slice" position={0} />, {
-        initialState
+        initialState,
       })
 
       await userEvent.click(screen.getByTestId('Outbound'))
@@ -83,7 +82,7 @@ describe('VariantSet', () => {
   describe('building variants', () => {
     it('handles switching left building', async () => {
       const { store } = render(<VariantSet type="boundary" position="left" />, {
-        initialState
+        initialState,
       })
 
       await userEvent.click(screen.getByTestId('Waterfront'))
@@ -94,7 +93,7 @@ describe('VariantSet', () => {
       const { store } = render(
         <VariantSet type="boundary" position="right" />,
         {
-          initialState
+          initialState,
         }
       )
 
@@ -117,10 +116,10 @@ describe('VariantSet', () => {
           ...initialState,
           flags: {
             FLAGGED_VARIANT: {
-              value: true
-            }
-          }
-        }
+              value: true,
+            },
+          },
+        },
       })
 
       expect(screen.getByTestId('Flagged variant')).toBeInTheDocument()
@@ -132,10 +131,10 @@ describe('VariantSet', () => {
           ...initialState,
           flags: {
             FLAGGED_VARIANT: {
-              value: false
-            }
-          }
-        }
+              value: false,
+            },
+          },
+        },
       })
 
       expect(screen.queryByTestId('Flagged variant')).not.toBeInTheDocument()
