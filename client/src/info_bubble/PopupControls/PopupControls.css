@@ -78,29 +78,14 @@
   }
 }
 
-.popup-control-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-}
-
 .popup-control-group {
   display: flex;
   flex-direction: row;
-  gap: 1em;
   justify-content: end;
+  gap: 1em;
 }
 
-.popup-control-label {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--color-turquoise-700);
-}
-
-.popup-control-button-group {
+.popup-control-row {
   display: flex;
   align-items: center;
   position: relative;
@@ -110,6 +95,15 @@
   button:not(:last-child) {
     margin-right: 0.25em;
   }
+}
+
+.popup-control-label {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-turquoise-700);
 }
 
 .popup-control-icon {

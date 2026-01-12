@@ -62,7 +62,7 @@ export function BuildingHeightControl({
   const hasFloors = getBoundaryItem(variant).hasFloors
 
   return (
-    <div className="popup-control-button-group">
+    <div className="popup-control-row">
       <Tooltip
         label={intl.formatMessage({
           id: 'building.label',

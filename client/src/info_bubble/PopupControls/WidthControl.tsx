@@ -73,7 +73,7 @@ export function WidthControl({ position }: WidthControlProps) {
   }
 
   return (
-    <div className="popup-control-button-group">
+    <div className="popup-control-row">
       <Tooltip
         label={intl.formatMessage({
           id: 'segments.controls.width',
