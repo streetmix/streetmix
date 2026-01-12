@@ -31,9 +31,11 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     return null
   })
   const universalElevation = useSelector(
-    (state) => state.flags.UNIVERSAL_ELEVATION_CONTROLS.value
+    (state) => state.flags.UNIVERSAL_ELEVATION_CONTROLS?.value ?? false
   )
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
   const dispatch = useDispatch()
 
   let variantSets: string[] = []
