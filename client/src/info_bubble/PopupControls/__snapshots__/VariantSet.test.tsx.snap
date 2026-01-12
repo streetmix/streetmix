@@ -6,7 +6,7 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
     class="variants"
   >
     <div
-      class="popup-control-row"
+      class="popup-control-row popup-control-button-group"
     >
       <button
         class="btn variant-selected"
@@ -56,7 +56,7 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
       </button>
     </div>
     <div
-      class="popup-control-row"
+      class="popup-control-row popup-control-button-group"
     >
       <button
         class="btn variant-selected"

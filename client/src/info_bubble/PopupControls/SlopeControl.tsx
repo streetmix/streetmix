@@ -4,7 +4,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 import { segmentsChanged } from '~/src/segments/view.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import Icon from '~/src/ui/Icon'
+import Icon from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 
@@ -57,10 +57,6 @@ export function SlopeControl({ position }: SlopeControlProps) {
           checked={isSloped}
           disabled={!allowSlope}
           aria-label={label}
-          style={{
-            width: '39px',
-            height: '21px',
-          }}
         />
       </Tooltip>
     </div>

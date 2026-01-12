@@ -105,7 +105,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
     )
   } else {
     controls = (
-      <div style={{ display: 'flex' }}>
+      <div className="popup-control-button-group">
         {renderButton('universal-elevation', 'sidewalk')}
         {renderButton('universal-elevation', 'road')}
       </div>

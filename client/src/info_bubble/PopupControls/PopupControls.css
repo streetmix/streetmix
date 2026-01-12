@@ -41,7 +41,7 @@
     gap: 0.5em;
     display: flex;
 
-    button {
+    button:not([role="switch"]) {
       white-space: nowrap;
       position: relative;
       padding: 0;
@@ -91,10 +91,6 @@
   position: relative;
   white-space: nowrap;
   user-select: none;
-
-  button:not(:last-child) {
-    margin-right: 0.25em;
-  }
 }
 
 .popup-control-label {
@@ -115,4 +111,9 @@
     height: 30px !important;
     margin-inline-end: 0.25em;
   }
+}
+
+.popup-control-button-group {
+  display: flex;
+  gap: 0.25em;
 }

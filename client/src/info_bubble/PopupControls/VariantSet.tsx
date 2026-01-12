@@ -90,7 +90,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
 
   function renderButtonGroup(set: string, items: string[]): React.ReactElement {
     return (
-      <div className="popup-control-row" key={set}>
+      <div className="popup-control-row popup-control-button-group" key={set}>
         {items.map((selection) => (
           <VariantButton
             set={set}
