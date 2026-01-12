@@ -73,25 +73,21 @@ export function CoastalFloodingPanel() {
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
-          <div>
-            <Switch
-              onCheckedChange={(checked) => {
-                dispatch(setStormSurge(checked))
-              }}
-              checked={stormSurge}
-            />
-          </div>
+          <Switch
+            onCheckedChange={(checked) => {
+              dispatch(setStormSurge(checked))
+            }}
+            checked={stormSurge}
+          />
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Rain</div>
-          <div>
-            <Switch
-              onCheckedChange={(checked) => {
-                dispatch(setRain(checked))
-              }}
-              checked={isRaining}
-            />
-          </div>
+          <Switch
+            onCheckedChange={(checked) => {
+              dispatch(setRain(checked))
+            }}
+            checked={isRaining}
+          />
         </div>
       </div>
     </FloatingPanel>
