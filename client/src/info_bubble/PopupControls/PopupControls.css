@@ -66,22 +66,6 @@
     flex-grow: 1;
   }
 
-  .non-variant {
-    /* Takes up the entire width of popup if it is by itself */
-    &:only-child {
-      width: 100%;
-      text-align: center;
-    }
-
-    &.building-height {
-      margin-top: -36px;
-      height: auto;
-      white-space: normal;
-      width: 115px;
-      text-align: center;
-    }
-  }
-
   .variant-selected,
   .variant-selected:hover {
     background: var(--color-copper-400) !important;
@@ -104,6 +88,7 @@
   display: flex;
   flex-direction: row;
   gap: 1em;
+  justify-content: end;
 }
 
 .popup-control-label {
