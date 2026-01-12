@@ -116,13 +116,3 @@
     margin-inline-end: 0.25em;
   }
 }
-
-.up-down-input-decrement,
-.up-down-input-increment {
-  margin-right: 0 !important;
-}
-
-.popup-control-group .popover-trigger {
-  width: 23px !important;
-  height: 23px !important;
-}
