@@ -75,6 +75,7 @@
   --color-citrine-500: rgb(255 131 0);
 
   /* TODO: Color scales for gray/white, black/dark, and red */
+  --color-gray-50: #f7f7f7; /* manual extrapolation */
   --color-gray-100: #eee; /* ported from old color */
   --color-gray-200: #dcdcdc; /* ported from old color */
   --color-gray-400: #999; /* ported from actual usage */

@@ -78,8 +78,8 @@ textarea {
   padding: 3px;
 
   &[disabled] {
-    background: var(--color-gray-100) !important;
-    border-color: var(--color-gray-200) !important;
+    background: var(--color-gray-50);
+    border-color: var(--color-gray-100);
   }
 }
 
