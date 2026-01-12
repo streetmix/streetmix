@@ -1,21 +1,18 @@
-import React from 'react'
 import { getSegmentInfo } from '@streetmix/parts'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   setBuildingVariant,
-  changeSegmentVariant
-} from '~/src/store/slices/street'
-import { segmentsChanged } from '~/src/segments/view'
+  changeSegmentVariant,
+} from '~/src/store/slices/street.js'
+import { segmentsChanged } from '~/src/segments/view.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
-import { getVariantInfo } from '~/src/segments/variant_utils'
-import { VariantButton } from './VariantButton'
+import { getVariantInfo } from '~/src/segments/variant_utils.js'
+import { VariantButton } from './VariantButton.js'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function VariantSet (
-  props: SectionElementTypeAndPosition
-): React.ReactElement | null {
+export function VariantSet(props: SectionElementTypeAndPosition) {
   const { type, position } = props
 
   // Get the appropriate variant information
@@ -33,6 +30,12 @@ export function VariantSet (
 
     return null
   })
+  const universalElevation = useSelector(
+    (state) => state.flags.UNIVERSAL_ELEVATION_CONTROLS?.value ?? false
+  )
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
   const dispatch = useDispatch()
 
   let variantSets: string[] = []
@@ -46,7 +49,14 @@ export function VariantSet (
   // Remove any empty entries
   variantSets = variantSets.filter((x) => x !== '')
 
-  function isVariantCurrentlySelected (set: string, selection: string): boolean {
+  // If we are doing universal elevation or Coastmix, filter out elevation
+  // Note -- if these buttons are present, and a slice elevation has been
+  // marked as user-changed, then these buttons won't do anything
+  if (universalElevation || coastmixMode) {
+    variantSets = variantSets.filter((x) => x !== 'elevation')
+  }
+
+  function isVariantCurrentlySelected(set: string, selection: string): boolean {
     let bool = false
 
     if (type === 'boundary') {
@@ -61,7 +71,7 @@ export function VariantSet (
     return bool
   }
 
-  function getButtonOnClickHandler (set: string, selection: string): () => void {
+  function getButtonOnClickHandler(set: string, selection: string): () => void {
     let handler
 
     if (type === 'boundary') {
@@ -78,9 +88,9 @@ export function VariantSet (
     return handler
   }
 
-  function renderButtonGroup (set: string, items: string[]): React.ReactElement {
+  function renderButtonGroup(set: string, items: string[]): React.ReactElement {
     return (
-      <div className="popup-control-button-group" key={set}>
+      <div className="popup-control-row popup-control-button-group" key={set}>
         {items.map((selection) => (
           <VariantButton
             set={set}
@@ -94,7 +104,7 @@ export function VariantSet (
     )
   }
 
-  function renderVariantsSelection ():
+  function renderVariantsSelection():
     | Array<React.ReactElement>
     | React.ReactElement
     | null {

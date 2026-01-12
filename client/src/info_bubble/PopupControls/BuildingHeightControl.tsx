@@ -1,18 +1,19 @@
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue,
-} from '~/src/store/slices/street'
+} from '~/src/store/slices/street.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
-} from '~/src/segments/constants'
-import { UpDownInput } from './UpDownInput'
-import './BuildingHeightControl.css'
+} from '~/src/segments/constants.js'
+import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -61,7 +62,18 @@ export function BuildingHeightControl({
   const hasFloors = getBoundaryItem(variant).hasFloors
 
   return (
-    <div className="non-variant building-height">
+    <div className="popup-control-row">
+      <Tooltip
+        label={intl.formatMessage({
+          id: 'building.label',
+          defaultMessage: 'Building height',
+        })}
+        placement="left"
+      >
+        <span className="popup-control-icon">
+          <Icon name="building-height" size="30" stroke="1.5" />
+        </span>
+      </Tooltip>
       <UpDownInput
         disabled={!hasFloors}
         value={hasFloors ? value : null}

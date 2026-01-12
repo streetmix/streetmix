@@ -33,10 +33,10 @@ export function CoastalFloodingPanel() {
       className="coastmix-controls"
       handleClose={handleClose}
     >
-      <div className="flood-controls-content">
-        <div className="popup-control-row">
+      <div className="popup-controls flood-controls-content">
+        <div className="popup-control-group">
           <div className="popup-control-label">Sea level rise</div>
-          <div className="variants">
+          <div>
             <Button
               className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
               onClick={() => {
@@ -71,27 +71,23 @@ export function CoastalFloodingPanel() {
             </Button>
           </div>
         </div>
-        <div className="popup-control-row" style={{ marginTop: '0.75em' }}>
+        <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
-          <div className="variants">
-            <Switch
-              onCheckedChange={(checked) => {
-                dispatch(setStormSurge(checked))
-              }}
-              checked={stormSurge}
-            />
-          </div>
+          <Switch
+            onCheckedChange={(checked) => {
+              dispatch(setStormSurge(checked))
+            }}
+            checked={stormSurge}
+          />
         </div>
-        <div className="popup-control-row" style={{ marginTop: '0.75em' }}>
+        <div className="popup-control-group">
           <div className="popup-control-label">Rain</div>
-          <div className="variants">
-            <Switch
-              onCheckedChange={(checked) => {
-                dispatch(setRain(checked))
-              }}
-              checked={isRaining}
-            />
-          </div>
+          <Switch
+            onCheckedChange={(checked) => {
+              dispatch(setRain(checked))
+            }}
+            checked={isRaining}
+          />
         </div>
       </div>
     </FloatingPanel>

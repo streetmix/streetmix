@@ -391,6 +391,7 @@
     "rename": "Click to rename"
   },
   "building": {
+    "label": "Building height",
     "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
   "segments": {
@@ -413,9 +414,11 @@
       "max": "Max"
     },
     "controls": {
+      "width": "Width",
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",
+        "switch-tooltip": "Toggle slope",
         "disabled-tooltip": "This element cannot be sloped."
       }
     }

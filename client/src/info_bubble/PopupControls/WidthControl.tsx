@@ -1,26 +1,28 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { incrementSegmentWidth } from '~/src/store/actions/street'
-import { MIN_SEGMENT_WIDTH, MAX_SEGMENT_WIDTH } from '~/src/segments/constants'
-import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { incrementSegmentWidth } from '~/src/store/actions/street.js'
+import {
+  MIN_SEGMENT_WIDTH,
+  MAX_SEGMENT_WIDTH,
+} from '~/src/segments/constants.js'
+import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import {
   prettifyWidth,
   stringifyMeasurementValue,
   processWidthInput,
-  convertMetricMeasurementToImperial
-} from '~/src/util/width_units'
-import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import { UpDownInput } from './UpDownInput'
+  convertMetricMeasurementToImperial,
+} from '~/src/util/width_units.js'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
+import { UpDownInput } from './UpDownInput.js'
 
 interface WidthControlProps {
   position: number
 }
 
-export function WidthControl ({
-  position
-}: WidthControlProps): React.ReactElement {
+export function WidthControl({ position }: WidthControlProps) {
   const value = useSelector((state) => state.street.segments[position].width)
   const units = useSelector((state) => state.street.units)
   const locale = useSelector((state) => state.locale.locale)
@@ -71,7 +73,19 @@ export function WidthControl ({
   }
 
   return (
-    <div className="non-variant">
+    <div className="popup-control-row">
+      <Tooltip
+        label={intl.formatMessage({
+          id: 'segments.controls.width',
+          defaultMessage: 'Width',
+        })}
+        placement="left"
+      >
+        <span className="popup-control-icon">
+          <Icon name="slice-width" size="30" stroke="1.5" />
+        </span>
+      </Tooltip>
+
       <UpDownInput
         value={value}
         minValue={MIN_SEGMENT_WIDTH}
@@ -83,23 +97,23 @@ export function WidthControl ({
         onUpdatedValue={updateModel}
         inputTooltip={intl.formatMessage({
           id: 'tooltip.segment-width',
-          defaultMessage: 'Change width of the segment'
+          defaultMessage: 'Change width of the segment',
         })}
         upTooltip={intl.formatMessage({
           id: 'tooltip.increase-width',
-          defaultMessage: 'Increase width'
+          defaultMessage: 'Increase width',
         })}
         downTooltip={intl.formatMessage({
           id: 'tooltip.decrease-width',
-          defaultMessage: 'Decrease width'
+          defaultMessage: 'Decrease width',
         })}
         upTooltipSublabel={intl.formatMessage({
           id: 'tooltip.width-tooltip-sublabel',
-          defaultMessage: '(hold Shift for more precision)'
+          defaultMessage: '(hold Shift for more precision)',
         })}
         downTooltipSublabel={intl.formatMessage({
           id: 'tooltip.width-tooltip-sublabel',
-          defaultMessage: '(hold Shift for more precision)'
+          defaultMessage: '(hold Shift for more precision)',
         })}
       />
     </div>

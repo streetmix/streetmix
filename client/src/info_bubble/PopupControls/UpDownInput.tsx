@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
 
 import { Button } from '~/src/ui/Button.js'

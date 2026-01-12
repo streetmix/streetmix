@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import { segmentsChanged } from '~/src/segments/view.js'
 import {
@@ -9,7 +9,8 @@ import {
 } from '~/src/segments/constants.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
-import { TooltipGroup } from '~/src/ui/Tooltip.js'
+import Icon from '~/src/ui/Icon.js'
+import { Tooltip } from '~/src/ui/Tooltip.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
 import { VariantButton } from './VariantButton.js'
@@ -34,6 +35,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
   })
 
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   function isVariantCurrentlySelected(selection: string): boolean {
     let bool
@@ -103,22 +105,26 @@ export function ElevationControl({ position }: ElevationControlProps) {
     )
   } else {
     controls = (
-      <div className="variants popup-control-button-group">
-        <TooltipGroup>
-          {renderButton('universal-elevation', 'sidewalk')}
-          {renderButton('universal-elevation', 'road')}
-        </TooltipGroup>
+      <div className="popup-control-button-group">
+        {renderButton('universal-elevation', 'sidewalk')}
+        {renderButton('universal-elevation', 'road')}
       </div>
     )
   }
 
+  const label = intl.formatMessage({
+    id: 'segments.controls.elevation',
+    defaultMessage: 'Elevation',
+  })
+
   return (
     <div className="popup-control-row">
       <div className="popup-control-label">
-        <FormattedMessage
-          id="segments.controls.elevation"
-          defaultMessage="Elevation"
-        />
+        <Tooltip label={label} placement="left">
+          <span className="popup-control-icon">
+            <Icon name="elevation" size="30" stroke="1.5" />
+          </span>
+        </Tooltip>
       </div>
       {controls}
     </div>

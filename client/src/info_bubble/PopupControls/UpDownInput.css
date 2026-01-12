@@ -4,12 +4,15 @@
   text-align: center;
   background: var(--form-element-background);
   border: 1px solid var(--form-element-border);
-  border-left: 0;
-  border-right: 0;
   vertical-align: bottom;
   height: 30px;
   line-height: 22px;
   outline: none;
+
+  &:not(:disabled) {
+    border-left: 0;
+    border-right: 0;
+  }
 }
 
 .up-down-input-decrement {

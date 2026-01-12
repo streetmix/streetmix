@@ -1,20 +1,17 @@
-import React from 'react'
 import { IntlProvider } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import { VariantSet } from './VariantSet'
-import { WidthControl } from './WidthControl'
-import { BuildingHeightControl } from './BuildingHeightControl'
-import { ElevationControl } from './ElevationControl'
-import { CoastalFloodingButton } from './CoastalFloodingButton'
+import { useSelector } from '~/src/store/hooks.js'
+import { VariantSet } from './VariantSet.js'
+import { WidthControl } from './WidthControl.js'
+import { BuildingHeightControl } from './BuildingHeightControl.js'
+import { ElevationControl } from './ElevationControl.js'
+import { CoastalFloodingButton } from './CoastalFloodingButton.js'
+import { SlopeControl } from './SlopeControl.js'
 import './PopupControls.css'
 
-import { SlopeControl } from './SlopeControl'
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
 
-export function PopupControls(
-  props: SectionElementTypeAndPosition
-): React.ReactElement {
+export function PopupControls(props: SectionElementTypeAndPosition) {
   const { type, position } = props
   const { locale, segmentInfo } = useSelector((state) => state.locale)
   const universalElevation = useSelector(
@@ -39,26 +36,27 @@ export function PopupControls(
   return (
     <div className="popup-controls">
       <div className="popup-control-group">
-        <div className="popup-control-row">
-          <IntlProvider locale={locale} messages={segmentInfo}>
-            <VariantSet type={type} position={position} />
-          </IntlProvider>
+        <IntlProvider locale={locale} messages={segmentInfo}>
+          <VariantSet type={type} position={position} />
+        </IntlProvider>
+        <div className="non-variant">
           {widthOrHeightControl}
+
+          {/* Universal elevation control for slices only, if not in Coastmix mode */}
+          {typeof position === 'number' &&
+            universalElevation &&
+            !coastmixMode && <ElevationControl position={position} />}
+          {coastmixMode && (
+            <>
+              <ElevationControl position={position} />
+              {/* No slope control for boundaries */}
+              {typeof position === 'number' && (
+                <SlopeControl position={position} />
+              )}
+            </>
+          )}
         </div>
       </div>
-      {/* Universal elevation control for slices only, if not in Coastmix mode */}
-      {typeof position === 'number' && universalElevation && !coastmixMode && (
-        <div className="popup-control-group">
-          <ElevationControl position={position} />
-        </div>
-      )}
-      {coastmixMode && (
-        <div className="popup-control-group">
-          <ElevationControl position={position} />
-          {/* No slope control for boundaries */}
-          {typeof position === 'number' && <SlopeControl position={position} />}
-        </div>
-      )}
       {coastmixMode && (
         <CoastalFloodingButton type={type} position={position} />
       )}

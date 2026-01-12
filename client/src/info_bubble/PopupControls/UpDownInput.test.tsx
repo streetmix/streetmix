@@ -1,15 +1,14 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { UpDownInput } from './UpDownInput'
+import { UpDownInput } from './UpDownInput.js'
 
 // Mock the `debounce` method so that the debounced `onUpdatedValue` callback
 // will be executed immediately when called (we are not implementing the
 // debounce in this test)
 vi.mock('just-debounce-it', () => ({
-  default: vi.fn((fn) => fn)
+  default: vi.fn((fn) => fn),
 }))
 
 const handleUp = vi.fn()
@@ -22,7 +21,7 @@ const defaultProps = {
   maxValue: 10,
   onClickUp: handleUp,
   onClickDown: handleDown,
-  onUpdatedValue: handleUpdate
+  onUpdatedValue: handleUpdate,
 }
 
 describe('UpDownInput', () => {
