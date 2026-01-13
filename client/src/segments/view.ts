@@ -518,10 +518,8 @@ export function drawSegmentContents(
       if (!slope.on) {
         distanceFromGround += multiplier * elevationValue
       } else {
-        const x = calculateSlopePercentage(slope.values, actualWidth)
-        // For some reason the rotate number needs to be changed in the other
-        // direction (hence multiply by -1)
-        rotate = Number((x * 100).toFixed(2)) * -1
+        // For some reason the slope is reversed so we flip it by multiplying by -1
+        rotate = calculateSlopeAngle(slope.values, actualWidth) * -1
       }
 
       // Right now only ground items repeat in the Y direction
@@ -879,6 +877,17 @@ export function calculateSlopePercentage(
   const m = (y2 - y1) / (x2 - x1) // Slope calculation
 
   return m
+}
+
+/* Slope in degrees is the inverse tangent of rise-over-run (percentage) */
+export function calculateSlopeAngle(
+  rise: SlopeProperties['values'],
+  run: number
+) {
+  const slope = calculateSlopePercentage(rise, run)
+
+  // Inverse tangent of rise/run in radians, converted to degrees
+  return Math.atan(slope) * (180 / Math.PI)
 }
 
 export function getLocaleSegmentName(
