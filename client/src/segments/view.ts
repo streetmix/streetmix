@@ -554,7 +554,10 @@ export function drawSegmentContents(
           )
           // TEMP: workaround with magic numbers
           // TODO refactor this
-          distanceFromGround = adjustment + 8
+          let hack = 8
+          if (sprite.id === 'plants--grass') hack = 10
+          if (sprite.id === 'beach--surface') hack = 6
+          distanceFromGround = adjustment + hack
 
           // For some reason the slope is reversed so we flip it by multiplying by -1
           rotate = calculateSlopeAngle(slope.values, actualWidth) * -1
