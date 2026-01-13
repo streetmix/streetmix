@@ -69,7 +69,8 @@ export function NewStreetMenu(props: MenuProps) {
         />
         <BetaTag />
       </MenuItem> */}
-      {templatesEnabled && (
+      {/* Temporarily disable this in Coastmix mode */}
+      {templatesEnabled && !coastmixEnabled && (
         <>
           <MenuSeparator />
           <div className="dropdown-menu-label">
