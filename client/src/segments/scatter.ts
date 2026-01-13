@@ -302,6 +302,7 @@ export function drawScatteredSprites(
       groundLevel - distanceFromGround,
       undefined,
       undefined,
+      undefined,
       multiplier,
       dpi
     )
