@@ -514,12 +514,8 @@ export function drawSegmentContents(
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
 
-      let rotate = 0
       if (!slope.on) {
         distanceFromGround += multiplier * elevationValue
-      } else {
-        // For some reason the slope is reversed so we flip it by multiplying by -1
-        rotate = calculateSlopeAngle(slope.values, actualWidth) * -1
       }
 
       // Right now only ground items repeat in the Y direction
@@ -541,6 +537,29 @@ export function drawSegmentContents(
           width = drawWidth - (countX - 1) * width
         }
 
+        const x =
+          padding * TILE_SIZE * multiplier +
+          (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
+            multiplier
+
+        let rotate = 0
+        if (slope.on) {
+          const adjustment = calculateSlopeYAdjustment(
+            slope,
+            actualWidth,
+            x,
+            svg.width,
+            multiplier,
+            actualWidth * TILE_SIZE // segmentWidth
+          )
+          // TEMP: workaround with magic numbers
+          // TODO refactor this
+          distanceFromGround = adjustment + 8
+
+          // For some reason the slope is reversed so we flip it by multiplying by -1
+          rotate = calculateSlopeAngle(slope.values, actualWidth) * -1
+        }
+
         for (let j = 0; j < countY; j++) {
           // If the sprite being rendered is the ground, dy is equal to the
           // groundLevel. If not, dy is equal to the groundLevel minus the
@@ -552,10 +571,7 @@ export function drawSegmentContents(
             undefined,
             width,
             undefined,
-            offsetLeft +
-              padding * TILE_SIZE * multiplier +
-              (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
-                multiplier,
+            offsetLeft + x,
             sprite.id.startsWith('ground--')
               ? groundLevel + height * j
               : groundLevel - distanceFromGround,
@@ -847,7 +863,7 @@ export function calculateSlopeYAdjustment(
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
   const midpoint =
-    x > 0
+    x >= 0
       ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
       : // If x is less than 0, midpoint is 1/2 of segment width
         // This only works if the object is in the center.
