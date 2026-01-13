@@ -323,7 +323,7 @@ function drawGroundPattern(
     case 'ground--asphalt-green':
       pattern = '#2E6550'
       break
-    case 'sand':
+    case 'ground--sand':
       pattern = '#ECDBB1'
       break
     case 'ground--concrete':
