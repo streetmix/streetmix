@@ -100,12 +100,6 @@ export function drawSegmentImage(
   // Save (then later restore) the context so that rotate is reset on each pass
   ctx.save()
 
-  // These rectangles are telling us that we're drawing at the right places.
-  if (debugRect === true) {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
-    ctx.fillRect(dx, dy, dw, dh)
-  }
-
   // Temporarily translate the destination canvas so that the center is at the
   // origin point (0, 0), perform the rotation (which always rotates around the
   // origin), then translate the canvas back to the intended location
@@ -115,6 +109,12 @@ export function drawSegmentImage(
   // `rotate()` requires radians, this is how we transform angles to radians
   ctx.rotate((rotate * Math.PI) / 180)
   ctx.translate(-translateX, -translateY)
+
+  // These rectangles are telling us that we're drawing at the right places.
+  if (debugRect === true) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
+    ctx.fillRect(dx, dy, dw, dh)
+  }
 
   // Round all values to whole numbers when we render. Decimal values can
   // introduce tiny "seams" at tiled assets, for example.
@@ -537,10 +537,15 @@ export function drawSegmentContents(
           width = drawWidth - (countX - 1) * width
         }
 
-        const x =
+        let x =
           padding * TILE_SIZE * multiplier +
           (repeatStartX + i * (svg.width / TILE_SIZE_ACTUAL) * TILE_SIZE) *
             multiplier
+
+        // hack for positioning the first sloped item
+        if (x === 0) {
+          x = 0.01
+        }
 
         let rotate = 0
         if (slope.on) {
@@ -560,6 +565,11 @@ export function drawSegmentContents(
           distanceFromGround = adjustment + hack
 
           // For some reason the slope is reversed so we flip it by multiplying by -1
+          // Copilot suggests this is why:
+          // Negate the slope angle because calculateSlopeAngle() uses a
+          // mathematical coordinate system (y increases upward), while our
+          // rendering context uses screen coordinates (y increases downward),
+          // so the visual slope would appear reversed without this flip
           rotate = calculateSlopeAngle(slope.values, actualWidth) * -1
         }
 
@@ -866,7 +876,7 @@ export function calculateSlopeYAdjustment(
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
   const midpoint =
-    x >= 0
+    x > 0
       ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
       : // If x is less than 0, midpoint is 1/2 of segment width
         // This only works if the object is in the center.
@@ -886,24 +896,30 @@ export function calculateSlopeYAdjustment(
 }
 
 export function calculateSlopePercentage(
-  rise: SlopeProperties['values'],
-  run: number
+  slopeValues: SlopeProperties['values'],
+  width: number
 ) {
-  const y1 = rise[0]
-  const y2 = rise[1]
+  const y1 = slopeValues[0]
+  const y2 = slopeValues[1]
   const x1 = 0
-  const x2 = run
-  const m = (y2 - y1) / (x2 - x1) // Slope calculation
+  const x2 = width
+
+  // Handle division by 0
+  if (x2 - x1 === 0) {
+    return Infinity
+  }
+
+  const m = (y2 - y1) / (x2 - x1) // Slope calculation (rise over run)
 
   return m
 }
 
 /* Slope in degrees is the inverse tangent of rise-over-run (percentage) */
 export function calculateSlopeAngle(
-  rise: SlopeProperties['values'],
-  run: number
+  slopeValues: SlopeProperties['values'],
+  width: number
 ) {
-  const slope = calculateSlopePercentage(rise, run)
+  const slope = calculateSlopePercentage(slopeValues, width)
 
   // Inverse tangent of rise/run in radians, converted to degrees
   return Math.atan(slope) * (180 / Math.PI)
