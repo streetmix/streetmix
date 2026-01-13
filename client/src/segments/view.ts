@@ -59,6 +59,7 @@ export function drawSegmentImage(
   dy: number,
   dw: number | undefined,
   dh: number | undefined,
+  rotate: number = 0,
   multiplier: number = 1,
   dpi?: number
 ): void {
@@ -71,7 +72,7 @@ export function drawSegmentImage(
 
   // Settings
   const state = store.getState()
-  dpi = dpi || state.system.devicePixelRatio || 1
+  dpi = dpi ?? state.system.devicePixelRatio ?? 1
   const debugRect = state.flags.DEBUG_SEGMENT_CANVAS_RECTANGLES.value || false
 
   // Get image definition
@@ -85,8 +86,6 @@ export function drawSegmentImage(
   // We can't read `.naturalWidth` and `.naturalHeight` properties from
   // the image in IE11, which returns 0. This is why width and height are
   // stored as properties from when the image is first cached
-  // All images are drawn at 2x pixel dimensions so divide in half to get
-  // actual width / height value then multiply by system pixel density
   //
   // dw/dh (and later sw/sh) can be 0, so don't use falsy checks
   dw = dw === undefined ? (svg.width as number) / TILESET_POINT_PER_PIXEL : dw
@@ -98,11 +97,24 @@ export function drawSegmentImage(
   dx *= dpi
   dy *= dpi
 
+  // Save (then later restore) the context so that rotate is reset on each pass
+  ctx.save()
+
   // These rectangles are telling us that we're drawing at the right places.
   if (debugRect === true) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.fillRect(dx, dy, dw, dh)
   }
+
+  // Temporarily translate the destination canvas so that the center is at the
+  // origin point (0, 0), perform the rotation (which always rotates around the
+  // origin), then translate the canvas back to the intended location
+  const translateX = dx + dw / 2
+  const translateY = dy + dh / 2
+  ctx.translate(translateX, translateY)
+  // `rotate()` requires radians, this is how we transform angles to radians
+  ctx.rotate((rotate * Math.PI) / 180)
+  ctx.translate(-translateX, -translateY)
 
   // Round all values to whole numbers when we render. Decimal values can
   // introduce tiny "seams" at tiled assets, for example.
@@ -118,6 +130,8 @@ export function drawSegmentImage(
     Math.ceil(dw),
     Math.ceil(dh)
   )
+
+  ctx.restore()
 }
 
 /**
@@ -500,11 +514,19 @@ export function drawSegmentContents(
         ((svg.height - (sprite.originY ?? 0) + (sprite.offsetY ?? 0)) /
           TILE_SIZE_ACTUAL)
 
+      let rotate = 0
       if (!slope.on) {
         distanceFromGround += multiplier * elevationValue
+      } else {
+        const x = calculateSlopePercentage(slope.values, actualWidth)
+        // For some reason the rotate number needs to be changed in the other
+        // direction (hence multiply by -1)
+        rotate = Number((x * 100).toFixed(2)) * -1
       }
 
       // Right now only ground items repeat in the Y direction
+      // TODO: specify a way to indicate something should be repeated in
+      // the Y direction without relying on the `ground--` sprite id prefix
       const height = (svg.height / TILE_SIZE_ACTUAL) * TILE_SIZE
 
       // countY should always be at minimum 1.
@@ -541,6 +563,7 @@ export function drawSegmentContents(
               : groundLevel - distanceFromGround,
             width,
             undefined,
+            rotate,
             multiplier,
             dpi
           )
@@ -606,6 +629,7 @@ export function drawSegmentContents(
         undefined,
         offsetLeft + x,
         groundLevel - distanceFromGround,
+        undefined,
         undefined,
         undefined,
         multiplier,
@@ -678,6 +702,7 @@ export function drawSegmentContents(
         groundLevel - distanceFromGround,
         undefined,
         undefined,
+        undefined,
         multiplier,
         dpi
       )
@@ -738,6 +763,7 @@ export function drawSegmentContents(
         undefined,
         offsetLeft + x,
         groundLevel - distanceFromGround,
+        undefined,
         undefined,
         undefined,
         multiplier,
@@ -817,11 +843,8 @@ export function calculateSlopeYAdjustment(
   multiplier: number,
   segmentWidth: number
 ) {
-  const y1 = slope.values[0]
-  const y2 = slope.values[1]
-  const x1 = 0
-  const x2 = actualWidth
-  const m = (y2 - y1) / (x2 - x1) // Slope
+  // Get slope
+  const m = calculateSlopePercentage(slope.values, actualWidth)
 
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
@@ -832,13 +855,30 @@ export function calculateSlopeYAdjustment(
         // This only works if the object is in the center.
         segmentWidth / 2
   const midpointPercentage = midpoint / segmentWidth
-  const x3 = midpointPercentage * (x2 - x1)
+  const x3 = midpointPercentage * actualWidth
+
+  // Initial values
+  const y1 = slope.values[0]
+  const x1 = 0
 
   // Solve for y3
   const y3 = m * (x3 - x1) + y1
 
   const adjustment = y3 * TILE_SIZE * multiplier
   return adjustment
+}
+
+export function calculateSlopePercentage(
+  rise: SlopeProperties['values'],
+  run: number
+) {
+  const y1 = rise[0]
+  const y2 = rise[1]
+  const x1 = 0
+  const x2 = run
+  const m = (y2 - y1) / (x2 - x1) // Slope calculation
+
+  return m
 }
 
 export function getLocaleSegmentName(

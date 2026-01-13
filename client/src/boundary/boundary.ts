@@ -201,6 +201,7 @@ export function drawBoundary(
         (buildingHeight - item.mainFloorHeight * TILE_SIZE) * multiplier,
       undefined,
       item.mainFloorHeight * TILE_SIZE,
+      undefined,
       multiplier,
       dpi
     )
@@ -230,6 +231,7 @@ export function drawBoundary(
             multiplier,
         undefined,
         item.floorHeight * TILE_SIZE,
+        undefined,
         multiplier,
         dpi
       )
@@ -259,6 +261,7 @@ export function drawBoundary(
           multiplier,
       undefined,
       item.roofHeight * TILE_SIZE,
+      undefined,
       multiplier,
       dpi
     )
@@ -287,6 +290,7 @@ export function drawBoundary(
         offsetLeft + (leftPosShift + i * width) * multiplier,
         offsetTop,
         width,
+        undefined,
         undefined,
         multiplier,
         dpi
