@@ -16,6 +16,7 @@ exports[`MenusContainer > renders 1`] = `
         <img
           alt="Streemix"
           class="menu-bar-logo"
+          draggable="false"
           src="test-file-stub"
         />
         <h1>
