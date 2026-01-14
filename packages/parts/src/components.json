@@ -948,7 +948,7 @@
                   "plants--marsh-grass-05"
                 ],
                 "minSpacing": -0.75,
-                "maxSpacing": 0.5,
+                "maxSpacing": 0.35,
                 "padding": 0.25
               }
             }
