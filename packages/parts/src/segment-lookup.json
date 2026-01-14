@@ -6534,7 +6534,6 @@
     "rules": {
       "slope": "berm"
     },
-    "defaultVariant": "beach",
     "enableWithFlag": "COASTMIX_MODE",
     "variants": ["beach-type"],
     "details": {
@@ -6567,6 +6566,43 @@
                 "type": "default"
               },
               "offsetX": 50
+            }
+          ]
+        }
+      }
+    }
+  },
+  "marsh": {
+    "name": "Marsh",
+    "nameKey": "marsh",
+    "owner": "NATURE",
+    "defaultWidth": {
+      "metric": 1.2,
+      "imperial": 4
+    },
+    "rules": {
+      "slope": "berm"
+    },
+    "defaultVariant": "marsh",
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["marsh-type"],
+    "details": {
+      "marsh": {
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "marsh-grass",
+              "variants": {
+                "type": "default"
+              }
             }
           ]
         }

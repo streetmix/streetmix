@@ -452,3 +452,7 @@ beach-type:
     id: beach
     iconSet: tabler
     title: Beach lounger
+marsh-type:
+  marsh:
+    id: marsh
+    title: Marsh
