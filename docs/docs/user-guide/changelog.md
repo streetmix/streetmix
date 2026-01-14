@@ -5,6 +5,18 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## January 14, 2026
+
+### 🎮 UI improvements
+
+- There is now an icon and tooltip for element width and building height controls.
+- Additional tweaks and fixes to improve UI cohesion.
+
+### 🐛 Bug fixes
+
+- Fixed "grab" cursor incorrectly appearing over non-draggable areas.
+- Fixed a bug that could cause new streets to temporarily be assigned to a creator with an incorrect value.
+
 ## January 2, 2026
 
 🎉 **Happy new year!** Just a handful of improvements to ring in the start of 2026.

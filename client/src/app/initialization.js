@@ -150,7 +150,7 @@ function onEverythingLoaded() {
     const LSKEY_WELCOME_DISMISSED = 'settings-welcome-dismissed'
     const LSKEY_WHATSNEW_LAST_TIMESTAMP = 'whatsnew-last-timestamp'
 
-    const whatsNewTimestamp = 1537222458620 // Hard-coded value
+    const whatsNewTimestamp = 1768411201398 // Hard-coded value
 
     const state = store.getState()
     const whatsNewFlag = state.flags.ALWAYS_DISPLAY_WHATS_NEW.value
