@@ -137,3 +137,16 @@
 .menu-carat-down {
   margin-inline: 0.25em -0.25em;
 }
+
+.coastmix-tape {
+  position: absolute;
+  z-index: 999;
+  width: 160px;
+  top: 7px;
+  left: -33px;
+  transform: rotate(-6deg);
+  filter: drop-shadow(2px 3px 2px #7772);
+  opacity: 0.95;
+  user-select: none;
+  pointer-events: none;
+}
