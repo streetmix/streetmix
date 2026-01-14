@@ -40,7 +40,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
 
   let variantSets: string[] = []
   if (type === 'boundary') {
-    variantSets = Object.keys(VARIANT_ICONS.building)
+    variantSets = Object.keys(VARIANT_ICONS.boundary)
   } else {
     const { variants } = getSegmentInfo(segment.type)
     variantSets = variants
@@ -109,7 +109,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     | React.ReactElement
     | null {
     if (type === 'boundary') {
-      return renderButtonGroup('building', variantSets)
+      return renderButtonGroup('boundary', variantSets)
     } else {
       return variantSets.map((set) =>
         renderButtonGroup(set, Object.keys(VARIANT_ICONS[set]))
