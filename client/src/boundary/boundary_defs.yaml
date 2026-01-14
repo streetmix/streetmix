@@ -104,3 +104,10 @@ marsh:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+water:
+  id: water
+  label: Water
+  spriteId: boundaries--water
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true
