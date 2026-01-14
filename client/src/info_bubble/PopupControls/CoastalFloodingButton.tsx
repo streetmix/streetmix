@@ -19,7 +19,13 @@ export function CoastalFloodingButton(props: SectionElementTypeAndPosition) {
   })
   const dispatch = useDispatch()
 
-  if (type === 'slice' || variant !== 'waterfront') return null
+  const isCoastalBoundary =
+    variant === 'waterfront' ||
+    variant === 'water' ||
+    variant === 'beach' ||
+    variant === 'marsh'
+
+  if (type === 'slice' || !isCoastalBoundary) return null
 
   function handleClick() {
     dispatch(showCoastalFloodingPanel())
