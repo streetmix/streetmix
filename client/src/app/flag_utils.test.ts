@@ -1,48 +1,48 @@
 import type { FeatureFlagSettings } from '~/src/types'
-import { generateFlagOverrides, applyFlagOverrides } from './flag_utils'
+import { generateFlagOverrides, applyFlagOverrides } from './flag_utils.js'
 
 const initialFlags: FeatureFlagSettings = {
   FOO_BAR: { source: 'initial', value: true, label: 'a', defaultValue: true },
   BAZ_QUX: { source: 'initial', value: false, label: 'b', defaultValue: false },
   FOO_BAZ: { source: 'initial', value: true, label: 'c', defaultValue: true },
-  BAZ_BAR: { source: 'initial', value: false, label: 'd', defaultValue: false }
+  BAZ_BAR: { source: 'initial', value: false, label: 'd', defaultValue: false },
 }
 
 const roleOverrides = {
   source: 'role:USER',
   flags: {
-    BAZ_QUX: true
-  }
+    BAZ_QUX: true,
+  },
 }
 
 const userOverrides = {
   source: 'user',
   flags: {
     FOO_BAR: false,
-    BAZ_BAR: true
-  }
+    BAZ_BAR: true,
+  },
 }
 
 const sessionOverrides = {
   source: 'session',
   flags: {
     BAZ_QUX: false,
-    FOO_BAR: true
-  }
+    FOO_BAR: true,
+  },
 }
 
 describe('generateFlagOverrides', () => {
   it('creates an object with source, flags, and priority as keys', () => {
     const userFlags = {
-      FOO_BAR: false
+      FOO_BAR: false,
     }
 
     const result = generateFlagOverrides(userFlags, 'user')
     expect(result).toEqual({
       source: 'user',
       flags: {
-        FOO_BAR: false
-      }
+        FOO_BAR: false,
+      },
     })
   })
 })
@@ -60,15 +60,15 @@ describe('applyFlagOverrides', () => {
         source: 'role:USER',
         value: true,
         label: 'b',
-        defaultValue: false
+        defaultValue: false,
       },
       FOO_BAZ: {
         source: 'initial',
         value: true,
         label: 'c',
-        defaultValue: true
+        defaultValue: true,
       },
-      BAZ_BAR: { source: 'user', value: true, label: 'd', defaultValue: false }
+      BAZ_BAR: { source: 'user', value: true, label: 'd', defaultValue: false },
     })
   })
 
@@ -84,21 +84,21 @@ describe('applyFlagOverrides', () => {
         source: 'session',
         value: true,
         label: 'a',
-        defaultValue: true
+        defaultValue: true,
       },
       BAZ_QUX: {
         source: 'session',
         value: false,
         label: 'b',
-        defaultValue: false
+        defaultValue: false,
       },
       FOO_BAZ: {
         source: 'initial',
         value: true,
         label: 'c',
-        defaultValue: true
+        defaultValue: true,
       },
-      BAZ_BAR: { source: 'user', value: true, label: 'd', defaultValue: false }
+      BAZ_BAR: { source: 'user', value: true, label: 'd', defaultValue: false },
     })
   })
 
@@ -109,26 +109,26 @@ describe('applyFlagOverrides', () => {
         source: 'initial',
         value: true,
         label: 'a',
-        defaultValue: true
+        defaultValue: true,
       },
       BAZ_QUX: {
         source: 'role:USER',
         value: true,
         label: 'b',
-        defaultValue: false
+        defaultValue: false,
       },
       FOO_BAZ: {
         source: 'initial',
         value: true,
         label: 'c',
-        defaultValue: true
+        defaultValue: true,
       },
       BAZ_BAR: {
         source: 'initial',
         value: false,
         label: 'd',
-        defaultValue: false
-      }
+        defaultValue: false,
+      },
     })
   })
 
@@ -139,8 +139,8 @@ describe('applyFlagOverrides', () => {
     const userOverrides = {
       source: 'user',
       flags: {
-        FOO_FOO: false
-      }
+        FOO_FOO: false,
+      },
     }
 
     const result = applyFlagOverrides(initialFlags, userOverrides)
