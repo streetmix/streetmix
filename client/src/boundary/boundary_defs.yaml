@@ -97,3 +97,10 @@ beach:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+marsh:
+  id: marsh
+  label: Marsh
+  spriteId: boundaries--marsh
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true

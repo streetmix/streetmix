@@ -31,6 +31,10 @@ building:
     id: beach
     title: Beach
     enabledWithFlag: COASTMIX_MODE
+  marsh:
+    id: marsh
+    title: Marsh
+    enabledWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
