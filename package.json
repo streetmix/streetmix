@@ -85,7 +85,7 @@
     "js-yaml": "4.1.1",
     "jwks-rsa": "3.2.0",
     "nanoid": "5.1.6",
-    "newrelic": "13.8.1",
+    "newrelic": "13.9.1",
     "nodemon": "3.1.11",
     "papaparse": "5.5.3",
     "passport": "0.7.0",
@@ -102,22 +102,22 @@
     "zod": "4.3.5"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.3.0",
-    "@commitlint/config-conventional": "20.3.0",
+    "@commitlint/cli": "20.3.1",
+    "@commitlint/config-conventional": "20.3.1",
     "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "9.39.2",
     "@faker-js/faker": "10.2.0",
     "@parcel/transformer-yaml": "2.16.3",
     "@types/js-yaml": "4.0.9",
     "@types/papaparse": "5.5.2",
-    "@vitest/coverage-v8": "4.0.16",
+    "@vitest/coverage-v8": "4.0.17",
     "axios-mock-adapter": "2.1.0",
     "concurrently": "9.2.1",
-    "cypress": "15.8.2",
+    "cypress": "15.9.0",
     "eslint": "9.39.2",
     "eslint-plugin-cypress": "5.2.1",
     "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-n": "17.23.1",
+    "eslint-plugin-n": "17.23.2",
     "eslint-plugin-promise": "7.2.1",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
@@ -128,7 +128,7 @@
     "supertest": "7.2.2",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.52.0",
-    "vitest": "4.0.16"
+    "typescript-eslint": "8.53.0",
+    "vitest": "4.0.17"
   }
 }
