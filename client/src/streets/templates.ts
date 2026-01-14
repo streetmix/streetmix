@@ -276,8 +276,6 @@ export async function prepareStreet(type: string, testUnits?: UnitsSetting) {
   // -- types and variants don't exist
   const street = createStreetData(streetTemplate, units)
 
-  console.log('new street', street)
-
   store.dispatch(updateStreetData(street))
 
   if (isSignedIn()) {
