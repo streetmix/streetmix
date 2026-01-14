@@ -146,7 +146,7 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
   const currentDate = new Date().toISOString()
   const slices = processTemplateSlices(data.slices, units)
   const boundary = processTemplateBoundaries(data.boundary, units)
-  const creatorId = (isSignedIn() && getSignInData().userId) ?? null
+  const creatorId = (isSignedIn() && getSignInData().userId) || null
 
   // Remove `slices` from the existing data because it is being stored
   // as `segments` for backwards compatibility
@@ -275,6 +275,8 @@ export async function prepareStreet(type: string, testUnits?: UnitsSetting) {
   // -- transforms to street data go wrong
   // -- types and variants don't exist
   const street = createStreetData(streetTemplate, units)
+
+  console.log('new street', street)
 
   store.dispatch(updateStreetData(street))
 
