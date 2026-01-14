@@ -27,6 +27,14 @@ building:
     id: compound-wall
     title: Compound wall
     unlockCondition: SIGN_IN
+  beach:
+    id: beach
+    title: Beach
+    enableWithFlag: COASTMIX_MODE
+  marsh:
+    id: marsh
+    title: Marsh
+    enableWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
@@ -448,3 +456,7 @@ beach-type:
     id: beach
     iconSet: tabler
     title: Beach lounger
+marsh-type:
+  marsh:
+    id: marsh
+    title: Marsh

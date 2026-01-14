@@ -36,6 +36,9 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
       state.flags.LOCALES_LEVEL_2.value ||
       state.flags.LOCALES_LEVEL_3.value
   )
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
   const menuBarRightEl = useRef<HTMLUListElement>(null)
   const menuBarLeftEl = useRef<HTMLUListElement>(null)
   const intl = useIntl()
@@ -112,8 +115,21 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
   return (
     <nav className="menu-bar" role="menubar" aria-orientation="horizontal">
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
+        {coastmixMode && (
+          <img
+            src="/images/coastmix.png"
+            className="coastmix-tape"
+            draggable={false}
+            alt="Coastmix"
+          />
+        )}
         <li className="menu-bar-title">
-          <img src={logo} alt="Streemix" className="menu-bar-logo" />
+          <img
+            src={logo}
+            alt="Streemix"
+            className="menu-bar-logo"
+            draggable={false}
+          />
           <h1>Streetmix</h1>
         </li>
         <MenuBarItem

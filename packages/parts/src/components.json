@@ -929,6 +929,32 @@
           }
         }
       }
+    },
+    "marsh-grass": {
+      "name": "Marsh",
+      "nameKey": "marsh",
+      "owner": "NATURE",
+      "zIndex": 10,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "scatter": {
+                "sprites": [
+                  "plants--marsh-grass-01",
+                  "plants--marsh-grass-02",
+                  "plants--marsh-grass-03",
+                  "plants--marsh-grass-04",
+                  "plants--marsh-grass-05"
+                ],
+                "minSpacing": -0.75,
+                "maxSpacing": 0.5,
+                "padding": 0.25
+              }
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {
