@@ -34,7 +34,6 @@ export function RemoveButton({ slice }: RemoveButtonProps) {
   return (
     <Button
       className="popup-slice-remove"
-      tabIndex={-1}
       title={intl.formatMessage({
         id: 'tooltip.remove-segment',
         defaultMessage: 'Remove segment',

@@ -25,13 +25,6 @@
       border-color 0.15s ease-in-out,
       box-shadow 0.15s;
 
-    &:focus {
-      outline: 0;
-      box-shadow:
-        inset 0 1px 1px rgb(0 0 0 / 7%),
-        0 0 10px color-mix(in srgb, var(--color-turquoise-600), transparent 25%);
-    }
-
     &.subscribe-input-error {
       border: 1px solid red !important;
     }

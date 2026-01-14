@@ -1,7 +1,6 @@
 .btn,
 a.btn {
   display: inline-block;
-  outline: none;
   border: 0;
   border-radius: var(--border-radius-medium);
   padding: 0.75em 2em;

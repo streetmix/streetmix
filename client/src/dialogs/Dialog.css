@@ -138,6 +138,7 @@ button.dialog-primary-action {
   color: var(--interactive-text-color);
   min-height: 46px;
   cursor: pointer;
+  outline-offset: -3px;
 
   /* override .dialog-box button */
   margin-top: 0 !important;

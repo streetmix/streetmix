@@ -140,7 +140,7 @@
 
   /* Label, when input is focused */
   input:focus ~ label {
-    outline: 1px dotted var(--label-outline-color);
+    outline: 2px solid blue;
   }
 
   /* Label, when input is disabled */

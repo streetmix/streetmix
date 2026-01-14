@@ -304,7 +304,6 @@ export function UpDownInput(props: UpDownInputProps) {
         <Button
           className="up-down-input-decrement"
           data-testid="down"
-          tabIndex={-1}
           onClick={handleClickDecrement}
           disabled={
             disabled ||
@@ -339,7 +338,6 @@ export function UpDownInput(props: UpDownInputProps) {
         <Button
           className="up-down-input-increment"
           data-testid="up"
-          tabIndex={-1}
           onClick={handleClickIncrement}
           disabled={
             disabled ||
