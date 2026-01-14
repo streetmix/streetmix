@@ -1,5 +1,4 @@
 import {
-  IconAngle,
   IconArrowAutofitContent,
   IconArrowAutofitHeight,
   IconArrowBackUp,
@@ -7,6 +6,7 @@ import {
   IconBeach,
   IconBeachOff,
   IconBook2,
+  IconCellSignal1,
   IconChartBar,
   IconChevronDown,
   IconChevronLeft,
@@ -101,7 +101,7 @@ const ICONS = {
   settings: [IconSettings, 'tabler'],
   'sign-out': [IconLogout, 'tabler'],
   'slice-width': [IconArrowAutofitContent, 'tabler'],
-  slope: [IconAngle, 'tabler'],
+  slope: [IconCellSignal1, 'tabler'],
   star: [IconStar, 'tabler'],
   sun: [IconSunset2, 'tabler'],
   template: [IconLayoutGridAdd, 'tabler'],
