@@ -6534,6 +6534,7 @@
     "rules": {
       "slope": "berm"
     },
+    "defaultVariant": "lounger",
     "enableWithFlag": "COASTMIX_MODE",
     "variants": ["beach-type"],
     "details": {
