@@ -24,25 +24,25 @@
 grass:
   id: grass
   label: Grass
-  spriteId: buildings--grass
+  spriteId: boundaries--grass
   hasFloors: false
   sameOnBothSides: true
 fence:
   id: fence
   label: Empty lot
-  spriteId: buildings--fenced-lot
+  spriteId: boundaries--fenced-lot
   hasFloors: false
 parking-lot:
   id: parking-lot
   label: Parking lot
-  spriteId: buildings--parking-lot
+  spriteId: boundaries--parking-lot
   hasFloors: false
   repeatHalf: true
   offsetY: 0.15 # meters
 waterfront:
   id: waterfront
   label: Waterfront
-  spriteId: buildings--waterfront
+  spriteId: boundaries--waterfront
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -88,7 +88,7 @@ arcade:
 compound-wall:
   id: compound-wall
   label: Compound wall
-  spriteId: buildings--compound-wall
+  spriteId: boundaries--compound-wall
   hasFloors: false
 beach:
   id: beach
