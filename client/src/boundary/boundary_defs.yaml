@@ -90,3 +90,10 @@ compound-wall:
   label: Compound wall
   spriteId: buildings--compound-wall
   hasFloors: false
+beach:
+  id: beach
+  label: Beach
+  spriteId: boundaries--beach
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true

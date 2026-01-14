@@ -27,6 +27,10 @@ building:
     id: compound-wall
     title: Compound wall
     unlockCondition: SIGN_IN
+  beach:
+    id: beach
+    title: Beach
+    enabledWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
