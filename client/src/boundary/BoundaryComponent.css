@@ -57,4 +57,5 @@
   width: 100%;
   height: calc(var(--earth-height));
   background-color: var(--background-earth-color);
+  transition: 150ms background-color;
 }
