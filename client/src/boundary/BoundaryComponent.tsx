@@ -91,7 +91,7 @@ function createBoundaryCanvas(
 
 interface BoundaryProps {
   position: BoundaryPosition
-  width: number | undefined
+  width: number
   updatePerspective: (el: HTMLElement | null) => void
 }
 
