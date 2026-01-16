@@ -134,6 +134,7 @@ export function Boundary({
   const floors = street.boundary[position].floors
   const elevation = street.boundary[position].elevation
   const isOverflowed = street.remainingWidth < 0
+  const { hasFloors, earthColor } = getBoundaryItem(variant)
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevState = usePrevious({
@@ -143,27 +144,26 @@ export function Boundary({
 
   // `event` type is not a React event because listener is attached through DOM
   // We need to define a callback so React can properly clean up event handlers
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (!isEditable) return
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (!isEditable) return
 
-    const negative = event.key === '-'
+      const negative = event.key === '-'
 
-    // Plus (+) may only triggered with shift key, so also check if
-    // the same physical key (Equal) is pressed
-    const positive = event.key === '+' || event.code === 'Equal'
+      // Plus (+) may only triggered with shift key, so also check if
+      // the same physical key (Equal) is pressed
+      const positive = event.key === '+' || event.code === 'Equal'
 
-    const variant = street.boundary[position].variant
-    const hasFloors = getBoundaryItem(variant).hasFloors
-
-    if (hasFloors) {
-      if (positive) {
-        dispatch(addBuildingFloor(position))
-      } else if (negative) {
-        dispatch(removeBuildingFloor(position))
+      if (hasFloors) {
+        if (positive) {
+          dispatch(addBuildingFloor(position))
+        } else if (negative) {
+          dispatch(removeBuildingFloor(position))
+        }
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    },
+    [dispatch, isEditable, position, hasFloors]
+  )
 
   // For certain changes, redraw canvas
   useEffect(() => {
@@ -253,8 +253,9 @@ export function Boundary({
     boundary: string,
     nodeRef: React.RefObject<null>,
     elevation: number,
-    width: number
-  ): React.ReactElement {
+    width: number,
+    color?: string // should be a valid CSS color string
+  ) {
     const isPreviousElement = boundary === 'old'
 
     const widthStyle = {
@@ -262,8 +263,12 @@ export function Boundary({
       width: width + 'px',
     }
     // NOTE - this still renders "higher" because of the "ground plane" on sprites
-    const elevationStyle = {
+    const elevationStyle: React.CSSProperties = {
       height: `${GROUND_BASELINE_HEIGHT + getElevation(elevation)}px`,
+    }
+
+    if (color) {
+      elevationStyle.backgroundColor = color
     }
 
     const classNames = ['street-section-boundary']
@@ -308,7 +313,7 @@ export function Boundary({
         unmountOnExit
         nodeRef={oldRef}
       >
-        {renderBoundary('old', oldRef, elevation, width)}
+        {renderBoundary('old', oldRef, elevation, width, earthColor)}
       </CSSTransition>
       <CSSTransition
         key="new-boundary"
@@ -319,7 +324,7 @@ export function Boundary({
         unmountOnExit
         nodeRef={newRef}
       >
-        {renderBoundary('new', newRef, elevation, width)}
+        {renderBoundary('new', newRef, elevation, width, earthColor)}
       </CSSTransition>
     </>
   )
