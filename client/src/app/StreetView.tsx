@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
@@ -72,7 +72,7 @@ function StreetView() {
   })
   const [scrollPos, setScrollPos] = useState(0)
   const [resizeType, setResizeType] = useState<number>()
-  const [boundaryWidth, setBoundaryWidth] = useState<number>()
+  const [boundaryWidth, setBoundaryWidth] = useState(BUILDING_SPACE)
 
   const sectionEl = useRef<HTMLDivElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -147,7 +147,7 @@ function StreetView() {
         scrollLeft += deltaX
       } else {
         const streetWidth = street.width * TILE_SIZE
-        const currBuildingSpace = boundaryWidth ?? BUILDING_SPACE
+        const currBuildingSpace = boundaryWidth
         scrollLeft =
           (streetWidth + currBuildingSpace * 2 - window.innerWidth) / 2
       }
@@ -167,7 +167,7 @@ function StreetView() {
       prevState?.boundaryWidth !== boundaryWidth ||
       (prevState?.resizeType === STREETVIEW_RESIZED && resizeType !== undefined)
     ) {
-      const deltaX = (boundaryWidth ?? 0) - (prevState?.boundaryWidth ?? 0)
+      const deltaX = boundaryWidth - (prevState?.boundaryWidth ?? 0)
 
       // If segment was resized (either dragged or incremented), update
       // scrollLeft to make up for margin change.

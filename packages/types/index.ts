@@ -374,6 +374,7 @@ interface BoundaryDefinitionBase {
   offsetY?: number
   variantsCount?: number
   overhangWidth?: number
+  earthColor?: string // should be a valid CSS color string
 }
 
 // If boundary definition has floors, the following properties are

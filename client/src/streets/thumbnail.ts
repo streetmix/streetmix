@@ -283,27 +283,46 @@ function drawEarth(
   // in the wild, so don't bother handling this case
   let leftElevation = 0
   let rightElevation = 0
-  if (street.boundary?.left.elevation > 0) {
-    leftElevation = street.boundary.left.elevation * TILE_SIZE
+
+  const leftBoundary = street.boundary?.left
+  const rightBoundary = street.boundary?.right
+  const leftBoundaryDefinition = getBoundaryItem(leftBoundary.variant)
+  const rightBoundaryDefinition = getBoundaryItem(rightBoundary.variant)
+
+  if (leftBoundary.elevation > 0) {
+    leftElevation = leftBoundary.elevation * TILE_SIZE
   }
   if (street.boundary?.right.elevation > 0) {
     rightElevation = street.boundary.right.elevation * TILE_SIZE
   }
 
+  if (leftBoundaryDefinition.earthColor) {
+    ctx.fillStyle = leftBoundaryDefinition.earthColor
+  }
+
   // Left boundary
+  // Add additional 25 pixels to extend to bottom of image
+  // TODO: document these magic numbers
   ctx.fillRect(
     0,
     (groundLevel - leftElevation * multiplier) * dpi,
     (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    (20 + leftElevation) * multiplier * dpi
+    (20 + 25 + leftElevation) * multiplier * dpi
   )
 
-  // RightElevation
+  if (rightBoundaryDefinition.earthColor) {
+    ctx.fillStyle = rightBoundaryDefinition.earthColor
+  } else {
+    // Reset to default background color
+    ctx.fillStyle = BACKGROUND_EARTH_COLOUR
+  }
+
+  // Right boundary
   ctx.fillRect(
     (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
     (groundLevel - rightElevation * multiplier) * dpi,
     width * dpi,
-    (20 + rightElevation) * multiplier * dpi
+    (20 + 25 + rightElevation) * multiplier * dpi
   )
 }
 
@@ -754,6 +773,8 @@ export function drawStreetThumbnail(
   }
 
   // Earth
+  // TODO: consider moving ground below boundaries to drawBoundaries
+  // since it needs to read from those data now
   drawEarth(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
 
   // Buildings

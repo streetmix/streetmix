@@ -97,6 +97,7 @@ beach:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+  earthColor: "#ecdbb1"
 marsh:
   id: marsh
   label: Marsh
@@ -104,6 +105,7 @@ marsh:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+  earthColor: "#ecdbb1"
 water:
   id: water
   label: Water
@@ -111,3 +113,4 @@ water:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+  earthColor: "#366387"
