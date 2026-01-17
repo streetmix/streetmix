@@ -24,3 +24,10 @@
 .up-down-input button svg {
   color: var(--color-midnight-900) !important;
 }
+
+/* When focused, raise z-index so the outline is fully visible */
+.up-down-input > button:focus,
+.up-down-input > input:focus {
+  position: relative;
+  z-index: 1;
+}
