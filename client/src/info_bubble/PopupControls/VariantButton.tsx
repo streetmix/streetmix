@@ -99,7 +99,7 @@ export function VariantButton(props: VariantButtonProps) {
       <Button
         data-testid={icon.title}
         className={isSelected ? 'variant-selected' : undefined}
-        disabled={isSelected || isLocked}
+        disabled={isLocked}
         onClick={onClick}
       >
         {icon.iconSet === 'tabler' ? (
