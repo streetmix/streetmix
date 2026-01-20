@@ -6175,7 +6175,6 @@
     },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "center",
-    "paletteDefaultWidth": 10,
     "rules": {
       "minWidth": {
         "metric": 4,
