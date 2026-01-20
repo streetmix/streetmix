@@ -108,6 +108,18 @@
           }
         }
       }
+    },
+    "wall": {
+      "elevation": 0,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "ground": "ground--wall"
+            }
+          }
+        }
+      }
     }
   },
   "markings": {

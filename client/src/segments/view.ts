@@ -326,6 +326,9 @@ function drawGroundPattern(
     case 'ground--sand':
       pattern = '#ecdbb1'
       break
+    case 'ground--wall':
+      pattern = '#cead80'
+      break
     case 'ground--concrete':
     default:
       pattern = '#d8d3cb'

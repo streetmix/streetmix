@@ -6619,11 +6619,6 @@
       "metric": 0.75,
       "imperial": 2.5
     },
-    "rules": {
-      "quirks": {
-        "minWidth": 0.5
-      }
-    },
     "defaultVariant": "wall",
     "enableWithFlag": "COASTMIX_MODE",
     "variants": ["wall-type"],
@@ -6632,9 +6627,9 @@
         "components": {
           "lanes": [
             {
-              "id": "sidewalk",
+              "id": "wall",
               "variants": {
-                "color": "regular"
+                "type": "default"
               }
             }
           ],
