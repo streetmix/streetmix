@@ -955,6 +955,34 @@
           }
         }
       }
+    },
+    "wall": {
+      "name": "Wall",
+      "nameKey": "wall",
+      "owner": "NONE",
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 0.5
+              },
+              "repeat": {
+                "id": "wall--wall-piece-center",
+                "padding": 0.2
+              },
+              "left": {
+                "id": "wall--wall-piece-left",
+                "offsetX": 0
+              },
+              "right": {
+                "id": "wall--wall-piece-right",
+                "offsetX": 0
+              }
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {

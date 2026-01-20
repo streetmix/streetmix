@@ -464,3 +464,7 @@ marsh-type:
   marsh:
     id: marsh
     title: Marsh
+wall-type:
+  wall:
+    id: wall
+    title: Wall
