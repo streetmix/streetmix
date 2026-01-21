@@ -221,7 +221,7 @@ exports[`GeotagDialog > renders 1`] = `
                   >
                     |
                   </span>
-                   &copy; 
+                   © 
                   <a
                     href="https://www.openstreetmap.org/copyright"
                     rel="noopener noreferrer"
@@ -229,7 +229,7 @@ exports[`GeotagDialog > renders 1`] = `
                   >
                     OpenStreetMap
                   </a>
-                  , &copy; 
+                  , © 
                   <a
                     href="https://carto.com/attribution"
                     rel="noopener noreferrer"
