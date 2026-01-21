@@ -973,8 +973,8 @@
       "nameKey": "wall",
       "owner": "NONE",
       "variants": {
-        "type": {
-          "default": {
+        "wall-height": {
+          "low": {
             "graphics": {
               "quirks": {
                 "minWidth": 0.5
@@ -989,6 +989,25 @@
               },
               "right": {
                 "id": "wall--wall-low-right-sloped",
+                "offsetX": 0
+              }
+            }
+          },
+          "high": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 0.5
+              },
+              "repeat": {
+                "id": "wall--wall-high-center",
+                "padding": 0.2
+              },
+              "left": {
+                "id": "wall--wall-high-left-sloped",
+                "offsetX": 0
+              },
+              "right": {
+                "id": "wall--wall-high-right-sloped",
                 "offsetX": 0
               }
             }

@@ -6618,11 +6618,11 @@
       "metric": 0.75,
       "imperial": 2.5
     },
-    "defaultVariant": "wall",
+    "defaultVariant": "low",
     "enableWithFlag": "COASTMIX_MODE",
-    "variants": ["wall-type"],
+    "variants": ["wall-height"],
     "details": {
-      "wall": {
+      "low": {
         "components": {
           "lanes": [
             {
@@ -6636,7 +6636,27 @@
             {
               "id": "wall",
               "variants": {
+                "wall-height": "low"
+              }
+            }
+          ]
+        }
+      },
+      "high": {
+        "components": {
+          "lanes": [
+            {
+              "id": "wall",
+              "variants": {
                 "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wall",
+              "variants": {
+                "wall-height": "high"
               }
             }
           ]

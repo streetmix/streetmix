@@ -464,7 +464,10 @@ marsh-type:
   marsh:
     id: marsh
     title: Marsh
-wall-type:
-  wall:
-    id: wall
-    title: Wall
+wall-height:
+  low:
+    id: elevation-lower
+    title: Low wall
+  high:
+    id: elevation-higher
+    title: High wall
