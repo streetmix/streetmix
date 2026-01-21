@@ -39,6 +39,10 @@ boundary:
     id: water
     title: Water
     enableWithFlag: COASTMIX_MODE
+  dock:
+    id: dock
+    title: Dock
+    enableWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
@@ -471,3 +475,7 @@ wall-height:
   high:
     id: elevation-higher
     title: High wall
+guardrail-type:
+  guardrail:
+    id: guardrail
+    title: Guard rail

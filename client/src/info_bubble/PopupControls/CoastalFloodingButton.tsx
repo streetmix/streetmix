@@ -23,7 +23,8 @@ export function CoastalFloodingButton(props: SectionElementTypeAndPosition) {
     variant === 'waterfront' ||
     variant === 'water' ||
     variant === 'beach' ||
-    variant === 'marsh'
+    variant === 'marsh' ||
+    variant === 'dock'
 
   if (type === 'slice' || !isCoastalBoundary) return null
 

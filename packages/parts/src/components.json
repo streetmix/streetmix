@@ -1014,6 +1014,19 @@
           }
         }
       }
+    },
+    "guardrail": {
+      "name": "Guard rail",
+      "nameKey": "guardrail",
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "center": "dividers--guardrail"
+            }
+          }
+        }
+      }
     }
   },
   "vehicles": {
