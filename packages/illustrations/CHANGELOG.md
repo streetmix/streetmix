@@ -5,11 +5,12 @@
 - **Breaking:** Reclassify compound wall, fenced lot, parking lot, and waterfront as boundaries
 - **Breaking:** Resize cloud backgrounds to match the scale of other artwork
 - Add sand and wall ground textures
+- Add guardrail
 - Add marsh plants
 - Add wall item
 - Add beach lounger
 - Add beach people
-- Add beach, water, and marsh boundaries
+- Add beach, water, marsh, and dock boundaries
 - Slightly increase the depth of "narrow" buildings.
 - Tweak pavement dimensions on parking lot
 - Fix: 1px offset in the transit shelter thumbnail
