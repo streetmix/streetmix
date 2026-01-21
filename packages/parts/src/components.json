@@ -980,15 +980,15 @@
                 "minWidth": 0.5
               },
               "repeat": {
-                "id": "wall--wall-piece-center",
+                "id": "wall--wall-low-center",
                 "padding": 0.2
               },
               "left": {
-                "id": "wall--wall-piece-left",
+                "id": "wall--wall-low-left-sloped",
                 "offsetX": 0
               },
               "right": {
-                "id": "wall--wall-piece-right",
+                "id": "wall--wall-low-right-sloped",
                 "offsetX": 0
               }
             }
