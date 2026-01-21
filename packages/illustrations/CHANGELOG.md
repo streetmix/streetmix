@@ -1,11 +1,18 @@
-# v2.3.0 (in progress)
+# v3.0.0 (in progress)
 
-- Add sand ground texture
+- **Breaking:** Optimize buildings for metric units
+- **Breaking:** Remove ground plane from grass, fenced lot, compound wall, apartment buildings, arcade building, and residential building
+- **Breaking:** Reclassify compound wall, fenced lot, parking lot, and waterfront as boundaries
+- **Breaking:** Resize cloud backgrounds to match the scale of other artwork
+- Add sand and wall ground textures
+- Add marsh plants
+- Add wall item
 - Add beach lounger
-- Optimize buildings for metric units
+- Add beach people
+- Add beach, water, and marsh boundaries
 - Slightly increase the depth of "narrow" buildings.
-- Remove ground plane from grass, fenced lot, compound wall, apartment buildings, arcade building, and residential building
 - Tweak pavement dimensions on parking lot
+- Fix: 1px offset in the transit shelter thumbnail
 
 # v2.2.0
 
