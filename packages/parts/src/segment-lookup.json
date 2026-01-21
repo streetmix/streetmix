@@ -6663,5 +6663,42 @@
         }
       }
     }
+  },
+  "guardrail": {
+    "name": "Guard rail",
+    "nameKey": "guardrail",
+    "defaultWidth": {
+      "metric": 0.25,
+      "imperial": 1
+    },
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["guardrail-type"],
+    "details": {
+      "default": {
+        "name": "Guard rail",
+        "nameKey": "guardrail",
+        "rules": {
+          "slope": "berm"
+        },
+        "components": {
+          "lanes": [
+            {
+              "id": "sidewalk",
+              "variants": {
+                "color": "regular"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "guardrail",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

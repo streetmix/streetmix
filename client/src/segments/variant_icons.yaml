@@ -475,3 +475,7 @@ wall-height:
   high:
     id: elevation-higher
     title: High wall
+guardrail-type:
+  guardrail:
+    id: guardrail
+    title: Guard rail
