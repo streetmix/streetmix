@@ -39,6 +39,10 @@ boundary:
     id: water
     title: Water
     enableWithFlag: COASTMIX_MODE
+  dock:
+    id: dock
+    title: Dock
+    enableWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
