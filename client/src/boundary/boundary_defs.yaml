@@ -120,9 +120,9 @@ dock:
   spriteId: boundaries--dock
   hasFloors: true
   variantsCount: 1 # need this to be 1 to do a thing right
-  floorHeight: 0.5 # meters (match illustration)
+  floorHeight: 0.25 # meters (match illustration)
   roofHeight: 3 # meters (match illustration)
-  mainFloorHeight: 1.5 # meters (match illustration)
+  mainFloorHeight: 1.75 # meters (match illustration)
   alignAtBaseline: true
   repeatHalf: true
   earthColor: "#366387"
