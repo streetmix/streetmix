@@ -48,7 +48,8 @@
     "brt-lane": "Bus rapid transit lane",
     "temporary-barrier": "Temporary barrier",
     "inception-train": "“Inception” train",
-    "magic-carpet": "Magic carpet"
+    "magic-carpet": "Magic carpet",
+    "wall": "Wall"
   },
   "descriptions": {
     "wayfinding-sign": {

@@ -6175,7 +6175,6 @@
     },
     "unlockCondition": "SIGN_IN",
     "defaultVariant": "center",
-    "paletteDefaultWidth": 10,
     "rules": {
       "minWidth": {
         "metric": 4,
@@ -6603,6 +6602,61 @@
               "id": "marsh-grass",
               "variants": {
                 "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "wall": {
+    "name": "Wall",
+    "nameKey": "wall",
+    "owner": "NONE",
+    "zIndex": 35,
+    "defaultWidth": {
+      "metric": 0.75,
+      "imperial": 2.5
+    },
+    "defaultVariant": "low",
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["wall-height"],
+    "details": {
+      "low": {
+        "components": {
+          "lanes": [
+            {
+              "id": "wall",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wall",
+              "variants": {
+                "wall-height": "low"
+              }
+            }
+          ]
+        }
+      },
+      "high": {
+        "components": {
+          "lanes": [
+            {
+              "id": "wall",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "wall",
+              "variants": {
+                "wall-height": "high"
               }
             }
           ]

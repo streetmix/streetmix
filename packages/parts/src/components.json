@@ -108,6 +108,18 @@
           }
         }
       }
+    },
+    "wall": {
+      "elevation": 0,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "ground": "ground--wall"
+            }
+          }
+        }
+      }
     }
   },
   "markings": {
@@ -950,6 +962,53 @@
                 "minSpacing": -0.75,
                 "maxSpacing": 0.35,
                 "padding": 0.25
+              }
+            }
+          }
+        }
+      }
+    },
+    "wall": {
+      "name": "Wall",
+      "nameKey": "wall",
+      "owner": "NONE",
+      "variants": {
+        "wall-height": {
+          "low": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 0.5
+              },
+              "repeat": {
+                "id": "wall--wall-low-center",
+                "padding": 0.2
+              },
+              "left": {
+                "id": "wall--wall-low-left-sloped",
+                "offsetX": 0
+              },
+              "right": {
+                "id": "wall--wall-low-right-sloped",
+                "offsetX": 0
+              }
+            }
+          },
+          "high": {
+            "graphics": {
+              "quirks": {
+                "minWidth": 0.5
+              },
+              "repeat": {
+                "id": "wall--wall-high-center",
+                "padding": 0.2
+              },
+              "left": {
+                "id": "wall--wall-high-left-sloped",
+                "offsetX": 0
+              },
+              "right": {
+                "id": "wall--wall-high-right-sloped",
+                "offsetX": 0
               }
             }
           }
