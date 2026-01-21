@@ -16,7 +16,7 @@ boundary:
       metric: 0.15
       imperial: 0.5
   right:
-    variant: waterfront
+    variant: water
     elevation: 0
 slices:
   - type: divider
@@ -95,8 +95,8 @@ slices:
     variant:
       sidewalk-density: normal
     width:
-      metric: 3.5
-      imperial: 12
+      metric: 3
+      imperial: 10
     elevation:
       metric: 0.15
       imperial: 0.5
@@ -111,3 +111,9 @@ slices:
     elevation:
       metric: 0.15
       imperial: 0.5
+  - type: wall
+    variant:
+      wall-height: low
+    width:
+      metric: 0.5
+      imperial: 2

@@ -19,7 +19,7 @@ boundary:
       metric: 0.15
       imperial: 0.5
   right:
-    variant: waterfront
+    variant: water
     floors: 1
     elevation: 0
 slices:
@@ -35,7 +35,9 @@ slices:
   - type: sidewalk-tree
     variant:
       tree-type: big
-    width: 0.6
+    width:
+      metric: 0.3
+      imperial: 1
   - type: sidewalk-lamp
     variant:
       lamp-orientation: right
@@ -83,10 +85,16 @@ slices:
   - type: sidewalk-tree
     variant:
       tree-type: big
-    width: 0.6
+    width:
+      metric: 0.3
+      imperial: 1
   - type: sidewalk
     variant:
       sidewalk-density: dense
     width:
       metric: 1.9
       imperial: 6
+  - type: wall
+    variant:
+      wall-height: low
+    width: 0.6
