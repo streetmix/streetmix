@@ -67,6 +67,7 @@ export interface DraggedItem {
   label?: string
   actualWidth: number
   elevation: number
+  elevationChanged?: boolean
   slope: SlopeProperties
 }
 
@@ -319,9 +320,14 @@ function doDropHeuristics(
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  const left = segmentAfterEl !== null ? street.segments[segmentAfterEl] : null
+  // Gets either the left or right slice, or `null`
+  // When reading street.segments[0] this will return `undefined` for an empty
+  // street (because the segments array is empty, make sure it still coalesces
+  // to `null`)
+  const left =
+    segmentAfterEl !== null ? (street.segments[segmentAfterEl] ?? null) : null
   const right =
-    segmentBeforeEl !== null ? street.segments[segmentBeforeEl] : null
+    segmentBeforeEl !== null ? (street.segments[segmentBeforeEl] ?? null) : null
 
   const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
@@ -487,6 +493,7 @@ function doDropHeuristics(
   // This is only working with drags from palette (maybe that's okay?)
   if (!draggedItem.slope.on) {
     draggedItem.elevation = highestElevation
+    draggedItem.elevationChanged = true
   }
 }
 
@@ -581,6 +588,7 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     elevation: draggedItem.elevation,
+    elevationChanged: draggedItem.elevationChanged,
     label: draggedItem.label,
     slope: {
       on: false,
@@ -649,6 +657,7 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
         label: slice.label,
         actualWidth: slice.width,
         elevation: slice.elevation,
+        elevationChanged: slice.elevationChanged,
         // TODO: show actual slope in preview
         // For now the slope preview is just regular elevation value
         slope: {
