@@ -1,15 +1,19 @@
-import { getVariantInfo } from '../segments/variant_utils'
-import { segmentsChanged } from '../segments/view'
+import { getVariantInfo } from '../segments/variant_utils.js'
+import { segmentsChanged } from '../segments/view.js'
 import store from '../store'
 import {
   saveCreatorId,
   setUpdateTime,
   updateEditCount,
-} from '../store/slices/street'
-import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack'
-import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr'
+} from '../store/slices/street.js'
+import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack.js'
+import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr.js'
 
-import type { StreetJson, StreetState } from '@streetmix/types'
+import type {
+  SliceItemForServerTransmission,
+  StreetJson,
+  StreetState,
+} from '@streetmix/types'
 
 let _lastStreet: StreetJson
 
@@ -92,15 +96,24 @@ export function trimStreetData(street: StreetState): StreetJson {
     userUpdated: street.userUpdated,
     skybox: street.skybox,
     boundary: street.boundary,
-    segments: street.segments.map((s) => ({
-      id: s.id,
-      type: s.type,
-      variantString: s.variantString,
-      width: s.width,
-      elevation: s.elevation,
-      slope: s.slope,
-      label: s.label,
-    })),
+    segments: street.segments.map((s) => {
+      // TODO: don't manually copy, just delete the properties that don't exist?
+      const slice: SliceItemForServerTransmission = {
+        id: s.id,
+        type: s.type,
+        variantString: s.variantString,
+        width: s.width,
+        elevation: s.elevation,
+        slope: s.slope,
+        label: s.label,
+      }
+
+      if (s.elevationChanged === true) {
+        slice.elevationChanged = true
+      }
+
+      return slice
+    }),
   }
 
   if (street.editCount !== null) {
