@@ -6,34 +6,33 @@
 import { IntlProvider } from 'react-intl'
 import { getAllSegmentInfo } from '@streetmix/parts'
 
-import { useSelector } from '../store/hooks'
-import { Scrollable } from '../ui/Scrollable'
-import { TooltipGroup } from '../ui/Tooltip'
-import PaletteItem from './PaletteItem'
+import { useSelector } from '../store/hooks.js'
+import { Scrollable } from '../ui/Scrollable.js'
+import { TooltipGroup } from '../ui/Tooltip.js'
+import { PaletteItem } from './PaletteItem.js'
 import './PaletteItems.css'
 
 export function PaletteItems() {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
 
-  const segments = getAllSegmentInfo()
+  const elements = getAllSegmentInfo()
 
   // For each segment, filter out the ones that have been disabled
   // by feature flag
-  const displayedSegments = segments
+  const displayedElements = elements
     .filter(
-      (segment) =>
-        segment.enableWithFlag === undefined ||
-        (segment.enableWithFlag !== undefined &&
-          flags[segment.enableWithFlag]?.value)
+      (e) =>
+        e.enableWithFlag === undefined ||
+        (e.enableWithFlag !== undefined && flags[e.enableWithFlag]?.value)
     )
-    .map((segment) => <PaletteItem key={segment.id} segment={segment} />)
+    .map((e) => <PaletteItem key={e.id} element={e} />)
 
   return (
     <TooltipGroup>
       <Scrollable className="palette-items">
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-          <ul>{displayedSegments}</ul>
+          <ul>{displayedElements}</ul>
         </IntlProvider>
       </Scrollable>
     </TooltipGroup>

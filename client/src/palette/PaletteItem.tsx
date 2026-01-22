@@ -1,41 +1,40 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 import { useDrag } from 'react-dnd'
 
-import { useSelector } from '../store/hooks'
-import { images } from '../app/load_resources'
-import Icon from '../ui/Icon'
-import { Tooltip } from '../ui/Tooltip'
-import { EmptyDragPreview } from '../ui/dnd/EmptyDragPreview'
-import { createPaletteItemDragSpec } from '../segments/drag_and_drop'
+import { useSelector } from '../store/hooks.js'
+import { images } from '../app/load_resources.js'
+import Icon from '../ui/Icon.js'
+import { Tooltip } from '../ui/Tooltip.js'
+import { EmptyDragPreview } from '../ui/dnd/EmptyDragPreview.js'
+import { createPaletteItemDragSpec } from '../segments/drag_and_drop.js'
 
 import type { SegmentDefinition } from '@streetmix/types'
 import './PaletteItem.css'
 
 interface PaletteItemProps {
-  segment: SegmentDefinition
+  element: SegmentDefinition
 }
 
-function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
+export function PaletteItem({ element }: PaletteItemProps) {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const [, drag, dragPreview] = useDrag(() =>
-    createPaletteItemDragSpec(segment)
+    createPaletteItemDragSpec(element)
   )
 
   // Get localized display names
-  function getLabel(segment: SegmentDefinition): string {
-    const defaultMessage = segment.name
+  function getLabel(element: SegmentDefinition): string {
+    const defaultMessage = element.name
 
     return intl.formatMessage({
-      id: `segments.${segment.nameKey}`,
+      id: `segments.${element.nameKey}`,
       defaultMessage,
     })
   }
 
-  const { unlockCondition } = segment
+  const { unlockCondition } = element
   const classNames = ['palette-item']
   let isLocked = false
   let sublabel
@@ -43,8 +42,8 @@ function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
   if (
     unlockCondition &&
     !(
-      segment.unlockWithFlag !== undefined &&
-      flags[segment.unlockWithFlag]?.value
+      element.unlockWithFlag !== undefined &&
+      flags[element.unlockWithFlag]?.value
     )
   ) {
     switch (unlockCondition) {
@@ -79,12 +78,12 @@ function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
   }
 
   const thumbnail =
-    images.get(`thumbnails--${segment.id}`)?.src ??
+    images.get(`thumbnails--${element.id}`)?.src ??
     images.get('thumbnails--missing')?.src
 
   return (
     <li className={classNames.join(' ')} ref={isLocked ? null : drag}>
-      <Tooltip label={getLabel(segment)} sublabel={sublabel}>
+      <Tooltip label={getLabel(element)} sublabel={sublabel}>
         <button>
           <img
             className="palette-item-image"
@@ -98,5 +97,3 @@ function PaletteItem({ segment }: PaletteItemProps): React.ReactElement | null {
     </li>
   )
 }
-
-export default PaletteItem
