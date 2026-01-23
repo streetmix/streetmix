@@ -590,10 +590,7 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     elevation: draggedItem.elevation,
     elevationChanged: draggedItem.elevationChanged,
     label: draggedItem.label,
-    slope: {
-      on: false,
-      values: [],
-    },
+    // TODO: preview slope here
   }
 
   newSegment.variant =
@@ -606,6 +603,11 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
     store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
+    // If we're dropping a new slice make sure it has the basic slope property
+    newSegment.slope = {
+      on: false,
+      values: [],
+    }
     store.dispatch(addSegment(newIndex, newSegment))
   }
 
