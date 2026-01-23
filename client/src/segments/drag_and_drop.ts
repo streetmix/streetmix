@@ -604,7 +604,7 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
 
   if (type === DragTypes.SLICE) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
-    store.dispatch(moveSegment(draggedSegment, newIndex))
+    store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
     store.dispatch(addSegment(newIndex, newSegment))
   }

@@ -93,16 +93,29 @@ const streetSlice = createSlice({
     moveSegment: {
       reducer(
         state,
-        action: PayloadAction<{ fromIndex: number; toIndex: number }>
+        action: PayloadAction<{
+          fromIndex: number
+          toIndex: number
+          update: Partial<Segment>
+        }>
       ) {
-        const { fromIndex, toIndex } = action.payload
-        const segment = state.segments[fromIndex]
+        const { fromIndex, toIndex, update } = action.payload
+        // `update` is an optional partial SliceItem / Segment object
+        // so while moving, we can apply any changes to the slice
+        const segment = {
+          ...state.segments[fromIndex],
+          ...update,
+        }
         state.segments.splice(fromIndex, 1)
         state.segments.splice(toIndex, 0, segment)
       },
-      prepare(fromIndex: number, toIndex: number) {
+      prepare(
+        fromIndex: number,
+        toIndex: number,
+        update: Partial<Segment> = {}
+      ) {
         return {
-          payload: { fromIndex, toIndex },
+          payload: { fromIndex, toIndex, update },
         }
       },
     },
