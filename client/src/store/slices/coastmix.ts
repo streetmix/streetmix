@@ -6,6 +6,7 @@ interface CoastmixState {
   seaLevelRise: number
   stormSurge: boolean
   isRaining: boolean
+  floodDirection: 'left' | 'right' | 'both' | 'none'
 }
 
 const initialState: CoastmixState = {
@@ -13,6 +14,7 @@ const initialState: CoastmixState = {
   seaLevelRise: 0,
   stormSurge: false,
   isRaining: false,
+  floodDirection: 'none',
 }
 
 const coastmixSlice = createSlice({
@@ -43,6 +45,13 @@ const coastmixSlice = createSlice({
       state.seaLevelRise = action.payload
     },
 
+    setFloodDirection(
+      state,
+      action: PayloadAction<CoastmixState['floodDirection'] | undefined>
+    ) {
+      state.floodDirection = action.payload ?? 'none'
+    },
+
     setStormSurge(state, action: PayloadAction<boolean>) {
       state.stormSurge = action.payload
     },
@@ -59,6 +68,7 @@ export const {
   hideCoastalFloodingPanel,
   toggleCoastalFloodingPanel,
   setSeaLevelRise,
+  setFloodDirection,
   setStormSurge,
   setRain,
 } = coastmixSlice.actions

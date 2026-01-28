@@ -11,9 +11,13 @@ import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 
 export function CoastalFloodingPanel() {
-  const { controlsVisible, seaLevelRise, stormSurge, isRaining } = useSelector(
-    (state) => state.coastmix
-  )
+  const {
+    controlsVisible,
+    seaLevelRise,
+    floodDirection,
+    stormSurge,
+    isRaining,
+  } = useSelector((state) => state.coastmix)
 
   const dispatch = useDispatch()
 
@@ -70,6 +74,10 @@ export function CoastalFloodingPanel() {
               2070
             </Button>
           </div>
+        </div>
+        <div className="popup-control-group">
+          <div className="popup-control-label">Flood direction (TODO)</div>
+          <div>{floodDirection}</div>
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
