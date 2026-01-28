@@ -68,14 +68,14 @@
     "packageExports": true
   },
   "dependencies": {
-    "axios": "1.13.2",
+    "axios": "1.13.4",
     "axios-retry": "4.5.0",
     "chalk": "5.6.2",
     "cloudinary": "2.9.0",
     "compression": "1.8.1",
     "cookie-parser": "1.4.7",
     "cookie-session": "2.1.1",
-    "cors": "2.8.5",
+    "cors": "2.8.6",
     "dotenv": "17.2.3",
     "express": "5.2.1",
     "express-jwt": "8.5.1",
@@ -83,7 +83,7 @@
     "hbs": "4.2.0",
     "helmet": "8.1.0",
     "js-yaml": "4.1.1",
-    "jwks-rsa": "3.2.1",
+    "jwks-rsa": "3.2.2",
     "nanoid": "5.1.6",
     "newrelic": "13.10.0",
     "nodemon": "3.1.11",
@@ -99,7 +99,7 @@
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.1",
     "winston": "3.19.0",
-    "zod": "4.3.5"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@commitlint/cli": "20.3.1",
@@ -110,7 +110,7 @@
     "@parcel/transformer-yaml": "2.16.3",
     "@types/js-yaml": "4.0.9",
     "@types/papaparse": "5.5.2",
-    "@vitest/coverage-v8": "4.0.17",
+    "@vitest/coverage-v8": "4.0.18",
     "axios-mock-adapter": "2.1.0",
     "concurrently": "9.2.1",
     "cypress": "15.9.0",
@@ -121,14 +121,14 @@
     "eslint-plugin-promise": "7.2.1",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
-    "globals": "17.0.0",
+    "globals": "17.2.0",
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
     "prettier": "3.8.1",
     "supertest": "7.2.2",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.53.1",
-    "vitest": "4.0.17"
+    "typescript-eslint": "8.54.0",
+    "vitest": "4.0.18"
   }
 }
