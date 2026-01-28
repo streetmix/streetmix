@@ -151,12 +151,22 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         )}
       </ul>
       <ul className="menu-bar-right" ref={menuBarRightEl}>
-        <MenuBarItem
-          label="New street"
-          translation="menu.item.new-street"
-          id="menubar-new"
-          onClick={handleClick('new')}
-        />
+        {/* Tweak this menu label in Coastmix */}
+        {coastmixMode ? (
+          <MenuBarItem
+            label="New waterfront"
+            translation="menu.item.new-waterfront"
+            id="menubar-new"
+            onClick={handleClick('new')}
+          />
+        ) : (
+          <MenuBarItem
+            label="New street"
+            translation="menu.item.new-street"
+            id="menubar-new"
+            onClick={handleClick('new')}
+          />
+        )}
         <MenuBarItem
           label="Share"
           translation="menu.item.share"

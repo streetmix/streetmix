@@ -16,38 +16,44 @@ function openTemplate(template: string): void {
 
 export function NewStreetMenu(props: MenuProps) {
   const templatesEnabled = useSelector(
-    (state) => state.flags.NEW_STREET_TEMPLATES.value
+    (state) => state.flags.NEW_STREET_TEMPLATES.value ?? false
   )
   const coastmixEnabled = useSelector(
-    (state) => state.flags.COASTMIX_MODE.value
+    (state) => state.flags.COASTMIX_MODE.value ?? false
   )
   const user = useSelector((state) => state.user)
 
   return (
     <Menu {...props}>
-      <MenuItem
-        onClick={() => {
-          openTemplate(STREET_TEMPLATES.DEFAULT)
-        }}
-      >
-        <Icon name="new-street" className="menu-item-icon" />
-        <FormattedMessage
-          id="menu.new-street.default"
-          defaultMessage="New example street"
-        />
-        <Icon name="external-link" />
-      </MenuItem>
-      <MenuItem
-        onClick={() => {
-          openTemplate(STREET_TEMPLATES.EMPTY)
-        }}
-      >
-        <FormattedMessage
-          id="menu.new-street.empty"
-          defaultMessage="New empty street"
-        />
-        <Icon name="external-link" />
-      </MenuItem>
+      {/* Temporarily disable this in Coastmix mode */}
+      {!coastmixEnabled && (
+        <>
+          {' '}
+          <MenuItem
+            onClick={() => {
+              openTemplate(STREET_TEMPLATES.DEFAULT)
+            }}
+          >
+            <Icon name="new-street" className="menu-item-icon" />
+            <FormattedMessage
+              id="menu.new-street.default"
+              defaultMessage="New example street"
+            />
+            <Icon name="external-link" />
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              openTemplate(STREET_TEMPLATES.EMPTY)
+            }}
+          >
+            <FormattedMessage
+              id="menu.new-street.empty"
+              defaultMessage="New empty street"
+            />
+            <Icon name="external-link" />
+          </MenuItem>
+        </>
+      )}
       <MenuItem
         onClick={() => {
           openTemplate(STREET_TEMPLATES.COPY)

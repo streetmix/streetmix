@@ -7,6 +7,7 @@
   padding: 2px;
   border-radius: var(--border-radius-large);
   box-shadow: var(--light-box-shadow);
+  pointer-events: initial;
 }
 
 .coastmix-controls-button {
