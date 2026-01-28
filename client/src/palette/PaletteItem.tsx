@@ -12,39 +12,34 @@ import type { SegmentDefinition } from '@streetmix/types'
 import './PaletteItem.css'
 
 interface PaletteItemProps {
-  element: SegmentDefinition
+  item: SegmentDefinition
 }
 
-export function PaletteItem({ element }: PaletteItemProps) {
+export function PaletteItem({ item }: PaletteItemProps) {
   const flags = useSelector((state) => state.flags)
   const isSignedIn = useSelector((state) => state.user.signedIn)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
-  const [, drag, dragPreview] = useDrag(() =>
-    createPaletteItemDragSpec(element)
-  )
+  const [, drag, dragPreview] = useDrag(() => createPaletteItemDragSpec(item))
 
   // Get localized display names
-  function getLabel(element: SegmentDefinition): string {
-    const defaultMessage = element.name
+  function getLabel(item: SegmentDefinition): string {
+    const defaultMessage = item.name
 
     return intl.formatMessage({
-      id: `segments.${element.nameKey}`,
+      id: `segments.${item.nameKey}`,
       defaultMessage,
     })
   }
 
-  const { unlockCondition } = element
+  const { unlockCondition } = item
   const classNames = ['palette-item']
   let isLocked = false
   let sublabel
 
   if (
     unlockCondition &&
-    !(
-      element.unlockWithFlag !== undefined &&
-      flags[element.unlockWithFlag]?.value
-    )
+    !(item.unlockWithFlag !== undefined && flags[item.unlockWithFlag]?.value)
   ) {
     switch (unlockCondition) {
       case 'SUBSCRIBE':
@@ -78,12 +73,12 @@ export function PaletteItem({ element }: PaletteItemProps) {
   }
 
   const thumbnail =
-    images.get(`thumbnails--${element.id}`)?.src ??
+    images.get(`thumbnails--${item.id}`)?.src ??
     images.get('thumbnails--missing')?.src
 
   return (
     <li className={classNames.join(' ')} ref={isLocked ? null : drag}>
-      <Tooltip label={getLabel(element)} sublabel={sublabel}>
+      <Tooltip label={getLabel(item)} sublabel={sublabel}>
         <button>
           <img
             className="palette-item-image"

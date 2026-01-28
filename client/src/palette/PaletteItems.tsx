@@ -16,23 +16,23 @@ export function PaletteItems() {
   const flags = useSelector((state) => state.flags)
   const locale = useSelector((state) => state.locale)
 
-  const elements = getAllSegmentInfo()
+  const items = getAllSegmentInfo()
 
-  // For each element, filter out the ones that have been disabled
+  // For each palette item, filter out the ones that have been disabled
   // by feature flag
-  const displayedElements = elements
+  const displayedItems = items
     .filter(
-      (e) =>
-        e.enableWithFlag === undefined ||
-        (e.enableWithFlag !== undefined && flags[e.enableWithFlag]?.value)
+      (i) =>
+        i.enableWithFlag === undefined ||
+        (i.enableWithFlag !== undefined && flags[i.enableWithFlag]?.value)
     )
-    .map((e) => <PaletteItem key={e.id} element={e} />)
+    .map((i) => <PaletteItem key={i.id} item={i} />)
 
   return (
     <TooltipGroup>
       <Scrollable className="palette-items">
         <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-          <ul>{displayedElements}</ul>
+          <ul>{displayedItems}</ul>
         </IntlProvider>
       </Scrollable>
     </TooltipGroup>
