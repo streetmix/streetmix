@@ -35,6 +35,10 @@ const coastmixSlice = createSlice({
       state.controlsVisible = false
     },
 
+    toggleCoastalFloodingPanel(state) {
+      state.controlsVisible = !state.controlsVisible
+    },
+
     setSeaLevelRise(state, action: PayloadAction<number>) {
       state.seaLevelRise = action.payload
     },
@@ -53,6 +57,7 @@ export const {
   setCoastmixState,
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
+  toggleCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
   setRain,

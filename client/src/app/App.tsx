@@ -5,7 +5,10 @@ import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
-import { CoastalFloodingPanel } from '~/src/plugins/coastmix'
+import {
+  CoastalFloodingButton,
+  CoastalFloodingPanel,
+} from '~/src/plugins/coastmix'
 import MenusContainer from '../menubar/MenusContainer'
 import StreetNameplateContainer from '../streets/StreetNameplateContainer'
 import { DescriptionPanel } from '../info_bubble/DescriptionPanel'
@@ -35,6 +38,7 @@ function App(): React.ReactElement {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -78,7 +82,6 @@ function App(): React.ReactElement {
                   <MenusContainer />
                   <StreetNameplateContainer />
                   <DescriptionPanel />
-                  <CoastalFloodingPanel />
                   <WelcomePanel />
                   <PaletteContainer />
                   <SkyPicker />
@@ -86,6 +89,12 @@ function App(): React.ReactElement {
                   <StreetView />
                   <ToastContainer />
                   <SentimentSurveyContainer />
+                  {coastmixMode && (
+                    <>
+                      <CoastalFloodingButton />
+                      <CoastalFloodingPanel />
+                    </>
+                  )}
                 </div>
                 <SponsorBanner />
               </DndProvider>
