@@ -171,6 +171,7 @@ describe('street reducer', () => {
     })
 
     // optionally updates a moved segment's properties during a move
+    // TODO: test that this preserves non-updated properties
     expect(street(existingStreet, moveSegment(0, 1, { elevation: 2 }))).toEqual(
       {
         segments: [
