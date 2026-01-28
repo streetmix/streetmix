@@ -1,6 +1,0 @@
-.coastmix-controls-button {
-  width: 100%;
-
-  /* todo: refactor styles to avoid this override */
-  height: auto !important;
-}

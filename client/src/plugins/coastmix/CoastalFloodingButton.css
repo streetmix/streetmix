@@ -1,0 +1,17 @@
+.coastmix-controls-container {
+  position: absolute;
+  top: 65px;
+  left: 30px;
+  z-index: 700;
+  background-color: white;
+  padding: 2px;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--light-box-shadow);
+}
+
+.coastmix-controls-button {
+  width: 100%;
+
+  /* todo: refactor styles to avoid this override */
+  height: auto !important;
+}

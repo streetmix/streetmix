@@ -4,6 +4,8 @@ import {
   setSeaLevelRise,
   setStormSurge,
   setRain,
+  setFloodDirection,
+  type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -11,9 +13,13 @@ import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 
 export function CoastalFloodingPanel() {
-  const { controlsVisible, seaLevelRise, stormSurge, isRaining } = useSelector(
-    (state) => state.coastmix
-  )
+  const {
+    controlsVisible,
+    seaLevelRise,
+    floodDirection,
+    stormSurge,
+    isRaining,
+  } = useSelector((state) => state.coastmix)
 
   const dispatch = useDispatch()
 
@@ -23,6 +29,12 @@ export function CoastalFloodingPanel() {
 
   function changeSeaLevelRise(x: number): void {
     dispatch(setSeaLevelRise(x))
+  }
+
+  const changeFloodDirection = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    dispatch(setFloodDirection(event.target.value as FloodDirection))
   }
 
   return (
@@ -69,6 +81,17 @@ export function CoastalFloodingPanel() {
             >
               2070
             </Button>
+          </div>
+        </div>
+        <div className="popup-control-group">
+          <div className="popup-control-label">Flood direction</div>
+          <div>
+            <select value={floodDirection} onChange={changeFloodDirection}>
+              <option value="none">None</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+              <option value="both">Both</option>
+            </select>
           </div>
         </div>
         <div className="popup-control-group">

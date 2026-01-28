@@ -2,7 +2,6 @@
  * Streetmix
  *
  */
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import * as Sentry from '@sentry/browser'
@@ -21,8 +20,8 @@ import '~/styles/styles.css'
 import store from '~/src/store'
 
 // Main object
-import { initialize } from '~/src/app/initialization'
-import App from '~/src/app/App'
+import { initialize } from '~/src/app/initialization.js'
+import { App } from '~/src/app/App.js'
 
 // Error tracking
 // Load this before all other modules. Only load when run in production.
@@ -32,7 +31,7 @@ if (
 ) {
   Sentry.init({
     dsn: 'https://fac2c23600414d2fb78c128cdbdeaf6f@sentry.io/82756',
-    allowUrls: [/streetmix\.net/, /www\.streetmix\.net/]
+    allowUrls: [/streetmix\.net/, /www\.streetmix\.net/],
   })
 }
 
