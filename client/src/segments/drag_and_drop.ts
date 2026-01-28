@@ -455,45 +455,44 @@ function doDropHeuristics(
 
   // First attempt at automatically assigning an elevation value
   // if adjacent slices' elevations have been raised
-  let leftElevation: number
-  // Get the boundary elevation if at left end of section
-  if (left === null) {
-    leftElevation = street.boundary.left.elevation ?? 0.15
-    // Make sure there are values
-    // Look into the implementation, apparently slope can be `on` but
-    // values are an empty array, which returns `-Infinity` from `Math.max()`
-  } else if (left.slope.on && left.slope.values.length > 1) {
-    leftElevation = Math.max(...left.slope.values)
-  } else {
-    leftElevation = left.elevation
-  }
+  // See Linear issue SMX-242 for a better algorith that needs to be
+  // applied. For now, gate this behind the Coastmix feature flag.
+  const isCoastmixMode = store.getState().flags.COASTMIX_MODE.value ?? false
+  if (isCoastmixMode) {
+    let leftElevation: number
+    // Get the boundary elevation if at left end of section
+    if (left === null) {
+      leftElevation = street.boundary.left.elevation ?? 0.15
+      // Make sure there are values
+      // Look into the implementation, apparently slope can be `on` but
+      // values are an empty array, which returns `-Infinity` from `Math.max()`
+    } else if (left.slope.on && left.slope.values.length > 1) {
+      leftElevation = Math.max(...left.slope.values)
+    } else {
+      leftElevation = left.elevation
+    }
 
-  let rightElevation: number
-  // Get the boundary elevation if at right end of section
-  if (right === null) {
-    rightElevation = street.boundary.right.elevation ?? 0.15
-    // Make sure there are values
-    // Look into the implementation, apparently slope can be `on` but
-    // values are an empty array, which returns `-Infinity` from `Math.max()`
-  } else if (right.slope.on && right.slope.values.length > 1) {
-    rightElevation = Math.max(...right.slope.values)
-  } else {
-    rightElevation = right.elevation
-  }
+    let rightElevation: number
+    // Get the boundary elevation if at right end of section
+    if (right === null) {
+      rightElevation = street.boundary.right.elevation ?? 0.15
+      // Make sure there are values
+      // Look into the implementation, apparently slope can be `on` but
+      // values are an empty array, which returns `-Infinity` from `Math.max()`
+    } else if (right.slope.on && right.slope.values.length > 1) {
+      rightElevation = Math.max(...right.slope.values)
+    } else {
+      rightElevation = right.elevation
+    }
 
-  // Use the highest elevation as the target drop elevation
-  // There might be other strategies here (and we can fine tune)
-  // TODO: Handle differences with "curb height" or "asphalt height"
-  // Consider maybe using the elevation of the most dominant adjacent
-  // slice? (e.g. the widest one)
-  const highestElevation = Math.max(leftElevation, rightElevation)
-  // Only apply highestElevation if ...
-  // - it's higher than default value? (this differs by segment...)
-  // - if slope is not on?
-  // This is only working with drags from palette (maybe that's okay?)
-  if (!draggedItem.slope.on) {
-    draggedItem.elevation = highestElevation
-    draggedItem.elevationChanged = true
+    // Use the highest elevation as the target drop elevation
+    const highestElevation = Math.max(leftElevation, rightElevation)
+
+    // Only apply highestElevation if not sloped
+    if (!draggedItem.slope.on) {
+      draggedItem.elevation = highestElevation
+      draggedItem.elevationChanged = true
+    }
   }
 }
 
