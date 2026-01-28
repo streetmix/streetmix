@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+export type FloodDirection = 'left' | 'right' | 'both' | 'none'
+
 interface CoastmixState {
   controlsVisible: boolean
   seaLevelRise: number
   stormSurge: boolean
   isRaining: boolean
-  floodDirection: 'left' | 'right' | 'both' | 'none'
+  floodDirection: FloodDirection
 }
 
 const initialState: CoastmixState = {
@@ -47,7 +49,7 @@ const coastmixSlice = createSlice({
 
     setFloodDirection(
       state,
-      action: PayloadAction<CoastmixState['floodDirection'] | undefined>
+      action: PayloadAction<FloodDirection | undefined>
     ) {
       state.floodDirection = action.payload ?? 'none'
     },

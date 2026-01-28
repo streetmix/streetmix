@@ -5,6 +5,7 @@ import {
   setStormSurge,
   setRain,
   setFloodDirection,
+  type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -32,8 +33,8 @@ export function CoastalFloodingPanel() {
 
   const changeFloodDirection = (
     event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    dispatch(setFloodDirection(event.target.value))
+  ): void => {
+    dispatch(setFloodDirection(event.target.value as FloodDirection))
   }
 
   return (
