@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
-import {
-  CoastalFloodingButton,
-  CoastalFloodingPanel,
-} from '~/src/plugins/coastmix'
-import MenusContainer from '../menubar/MenusContainer'
-import StreetNameplateContainer from '../streets/StreetNameplateContainer'
-import { DescriptionPanel } from '../info_bubble/DescriptionPanel'
-import { PaletteContainer } from '../palette/PaletteContainer'
-import DialogRoot from '../dialogs/DialogRoot'
+import { CoastmixUI } from '~/src/plugins/coastmix'
+import MenusContainer from '../menubar/MenusContainer.js'
+import StreetNameplateContainer from '../streets/StreetNameplateContainer.js'
+import { DescriptionPanel } from '../info_bubble/DescriptionPanel.js'
+import { PaletteContainer } from '../palette/PaletteContainer.js'
+import DialogRoot from '../dialogs/DialogRoot.js'
 import { SkyPicker } from '../sky/SkyPicker'
-import { Gallery } from '../gallery/Gallery'
-import { SegmentDragLayer } from '../segments/SegmentDragLayer'
+import { Gallery } from '../gallery/Gallery.js'
+import { SegmentDragLayer } from '../segments/SegmentDragLayer.js'
 import ToastContainer from '../ui/Toasts'
-import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer'
-import { useSelector } from '../store/hooks'
-import DebugInfo from './DebugInfo'
-import BlockingShield from './BlockingShield'
-import BlockingError from './BlockingError'
-import StreetView from './StreetView'
-import PrintContainer from './PrintContainer'
+import SentimentSurveyContainer from '../sentiment/SentimentSurveyContainer.js'
+import { useSelector } from '../store/hooks.js'
+import DebugInfo from './DebugInfo.js'
+import BlockingShield from './BlockingShield.js'
+import BlockingError from './BlockingError.js'
+import StreetView from './StreetView.js'
+import PrintContainer from './PrintContainer.js'
 import WelcomePanel from './WelcomePanel'
 import NotificationBar from './NotificationBar'
-import Loading from './Loading'
-import SponsorBanner from './SponsorBanner'
+import Loading from './Loading.js'
+import SponsorBanner from './SponsorBanner.js'
 
-function App(): React.ReactElement {
+export function App() {
   const [isLoading, setLoading] = useState(true)
   const locale = useSelector((state) => state.locale)
   const dir: Direction = useSelector(
@@ -38,7 +35,6 @@ function App(): React.ReactElement {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -89,12 +85,7 @@ function App(): React.ReactElement {
                   <StreetView />
                   <ToastContainer />
                   <SentimentSurveyContainer />
-                  {coastmixMode && (
-                    <>
-                      <CoastalFloodingButton />
-                      <CoastalFloodingPanel />
-                    </>
-                  )}
+                  <CoastmixUI />
                 </div>
                 <SponsorBanner />
               </DndProvider>
@@ -105,5 +96,3 @@ function App(): React.ReactElement {
     </>
   )
 }
-
-export default App
