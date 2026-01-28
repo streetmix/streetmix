@@ -8,8 +8,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: UserState = {
   signInData: null,
-  signedIn: false,
-  isSubscriber: false,
+  signedIn: true,
+  isSubscriber: true,
   isCoilPluginSubscriber: false,
   geolocation: {
     attempted: false,
@@ -44,8 +44,8 @@ const userSlice = createSlice({
 
     clearSignInData(state) {
       state.signInData = null
-      state.signedIn = false
-      state.isSubscriber = false
+      // state.signedIn = false
+      // state.isSubscriber = false
       state.isCoilPluginSubscriber = false
     },
 
