@@ -18,7 +18,7 @@ export function PaletteItems() {
 
   const elements = getAllSegmentInfo()
 
-  // For each segment, filter out the ones that have been disabled
+  // For each element, filter out the ones that have been disabled
   // by feature flag
   const displayedElements = elements
     .filter(
