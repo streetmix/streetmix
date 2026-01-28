@@ -37,6 +37,7 @@ import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
+  CURB_HEIGHT,
 } from './constants'
 import { segmentsChanged } from './view'
 
@@ -455,14 +456,14 @@ function doDropHeuristics(
 
   // First attempt at automatically assigning an elevation value
   // if adjacent slices' elevations have been raised
-  // See Linear issue SMX-242 for a better algorith that needs to be
+  // See Linear issue SMX-242 for a better algorithm that needs to be
   // applied. For now, gate this behind the Coastmix feature flag.
   const isCoastmixMode = store.getState().flags.COASTMIX_MODE.value ?? false
   if (isCoastmixMode) {
     let leftElevation: number
     // Get the boundary elevation if at left end of section
     if (left === null) {
-      leftElevation = street.boundary.left.elevation ?? 0.15
+      leftElevation = street.boundary.left.elevation ?? CURB_HEIGHT
       // Make sure there are values
       // Look into the implementation, apparently slope can be `on` but
       // values are an empty array, which returns `-Infinity` from `Math.max()`
@@ -475,7 +476,7 @@ function doDropHeuristics(
     let rightElevation: number
     // Get the boundary elevation if at right end of section
     if (right === null) {
-      rightElevation = street.boundary.right.elevation ?? 0.15
+      rightElevation = street.boundary.right.elevation ?? CURB_HEIGHT
       // Make sure there are values
       // Look into the implementation, apparently slope can be `on` but
       // values are an empty array, which returns `-Infinity` from `Math.max()`
