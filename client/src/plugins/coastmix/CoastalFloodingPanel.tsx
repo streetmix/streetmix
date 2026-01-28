@@ -4,6 +4,7 @@ import {
   setSeaLevelRise,
   setStormSurge,
   setRain,
+  setFloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -27,6 +28,12 @@ export function CoastalFloodingPanel() {
 
   function changeSeaLevelRise(x: number): void {
     dispatch(setSeaLevelRise(x))
+  }
+
+  const changeFloodDirection = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    dispatch(setFloodDirection(event.target.value))
   }
 
   return (
@@ -76,8 +83,15 @@ export function CoastalFloodingPanel() {
           </div>
         </div>
         <div className="popup-control-group">
-          <div className="popup-control-label">Flood direction (TODO)</div>
-          <div>{floodDirection}</div>
+          <div className="popup-control-label">Flood direction</div>
+          <div>
+            <select value={floodDirection} onChange={changeFloodDirection}>
+              <option value="none">None</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
