@@ -24,8 +24,8 @@ import street, {
   removeBuildingFloor,
   setBuildingFloorValue,
   setBuildingVariant,
-  setSkybox
-} from './street'
+  setSkybox,
+} from './street.js'
 
 describe('street reducer', () => {
   const initialState = {
@@ -41,14 +41,14 @@ describe('street reducer', () => {
         id: '',
         variant: '',
         floors: 0,
-        elevation: 0
+        elevation: 0,
       },
       right: {
         id: '',
         variant: '',
         floors: 0,
-        elevation: 0
-      }
+        elevation: 0,
+      },
     },
     skybox: 'day',
     location: null,
@@ -58,7 +58,7 @@ describe('street reducer', () => {
     creatorId: null,
     userUpdated: false,
     immediateRemoval: true,
-    editCount: 0
+    editCount: 0,
   }
 
   it('should handle updateStreetData()', () => {
@@ -68,14 +68,14 @@ describe('street reducer', () => {
         updateStreetData({
           segments: [1, 2, 3],
           name: 'foo',
-          userUpdated: true
+          userUpdated: true,
         })
       )
     ).toEqual({
       ...initialState,
       segments: [1, 2, 3],
       name: 'foo',
-      userUpdated: true
+      userUpdated: true,
     })
   })
 
@@ -83,43 +83,43 @@ describe('street reducer', () => {
     // Add a segment at index 0 from initial state
     expect(street(initialState, addSegment(0, { type: 'foo' }))).toEqual({
       ...initialState,
-      segments: [{ type: 'foo' }]
+      segments: [{ type: 'foo' }],
     })
 
     // Insert a segment at index 0 for an existing street
     expect(
       street(
         {
-          segments: [{ type: 'foo' }]
+          segments: [{ type: 'foo' }],
         },
         addSegment(0, { type: 'bar' })
       )
     ).toEqual({
-      segments: [{ type: 'bar' }, { type: 'foo' }]
+      segments: [{ type: 'bar' }, { type: 'foo' }],
     })
 
     // Insert a segment at index 1 for an existing street
     expect(
       street(
         {
-          segments: [{ type: 'foo' }]
+          segments: [{ type: 'foo' }],
         },
         addSegment(1, { type: 'bar' })
       )
     ).toEqual({
-      segments: [{ type: 'foo' }, { type: 'bar' }]
+      segments: [{ type: 'foo' }, { type: 'bar' }],
     })
 
     // Insert a segment at index 1 for an existing street
     expect(
       street(
         {
-          segments: [{ type: 'foo' }, { type: 'baz' }]
+          segments: [{ type: 'foo' }, { type: 'baz' }],
         },
         addSegment(1, { type: 'bar' })
       )
     ).toEqual({
-      segments: [{ type: 'foo' }, { type: 'bar' }, { type: 'baz' }]
+      segments: [{ type: 'foo' }, { type: 'bar' }, { type: 'baz' }],
     })
   })
 
@@ -130,20 +130,20 @@ describe('street reducer', () => {
         { type: 'foo' },
         { type: 'bar' },
         { type: 'baz' },
-        { type: 'qux' }
-      ]
+        { type: 'qux' },
+      ],
     }
 
     // Removes a segment at index 1 from an existing street
     expect(street(existingStreet, removeSegment(1))).toEqual({
       immediateRemoval: true,
-      segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'qux' }]
+      segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'qux' }],
     })
 
     // Removes a segment at index 0 from an existing street
     expect(street(existingStreet, removeSegment(0))).toEqual({
       immediateRemoval: true,
-      segments: [{ type: 'bar' }, { type: 'baz' }, { type: 'qux' }]
+      segments: [{ type: 'bar' }, { type: 'baz' }, { type: 'qux' }],
     })
 
     // Returns existing street if a removed segment is out of bounds
@@ -152,23 +152,35 @@ describe('street reducer', () => {
 
   it('should handle moveSegment()', () => {
     const existingStreet = {
-      segments: [{ type: 'foo' }, { type: 'bar' }, { type: 'baz' }]
+      segments: [{ type: 'foo' }, { type: 'bar' }, { type: 'baz' }],
     }
 
     // Moves a segment at index 0 to index 1 on an existing street
     expect(street(existingStreet, moveSegment(0, 1))).toEqual({
-      segments: [{ type: 'bar' }, { type: 'foo' }, { type: 'baz' }]
+      segments: [{ type: 'bar' }, { type: 'foo' }, { type: 'baz' }],
     })
 
     // Moves a segment at index 2 to index 0 on an existing street
     expect(street(existingStreet, moveSegment(2, 0))).toEqual({
-      segments: [{ type: 'baz' }, { type: 'foo' }, { type: 'bar' }]
+      segments: [{ type: 'baz' }, { type: 'foo' }, { type: 'bar' }],
     })
 
     // moves a segment to the end if desired index is out of bounds
     expect(street(existingStreet, moveSegment(1, 8))).toEqual({
-      segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'bar' }]
+      segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'bar' }],
     })
+
+    // optionally updates a moved segment's properties during a move
+    // TODO: test that this preserves non-updated properties
+    expect(street(existingStreet, moveSegment(0, 1, { elevation: 2 }))).toEqual(
+      {
+        segments: [
+          { type: 'bar' },
+          { type: 'foo', elevation: 2 },
+          { type: 'baz' },
+        ],
+      }
+    )
   })
 
   it('should handle updateSegments()', () => {
@@ -176,7 +188,7 @@ describe('street reducer', () => {
       ...initialState,
       segments: [1, 2, 3],
       occupiedWidth: 10,
-      remainingWidth: 20
+      remainingWidth: 20,
     })
   })
 
@@ -185,13 +197,13 @@ describe('street reducer', () => {
       street(
         {
           segments: [1, 2, 3],
-          immediateRemoval: false
+          immediateRemoval: false,
         },
         clearSegments()
       )
     ).toEqual({
       segments: [],
-      immediateRemoval: true
+      immediateRemoval: true,
     })
   })
 
@@ -202,8 +214,8 @@ describe('street reducer', () => {
           segments: [
             { type: 'foo', width: 1 },
             { type: 'bar', width: 2 },
-            { type: 'baz', width: 3 }
-          ]
+            { type: 'baz', width: 3 },
+          ],
         },
         changeSegmentWidth(0, 20)
       )
@@ -211,8 +223,8 @@ describe('street reducer', () => {
       segments: [
         { type: 'foo', width: 20 },
         { type: 'bar', width: 2 },
-        { type: 'baz', width: 3 }
-      ]
+        { type: 'baz', width: 3 },
+      ],
     })
   })
 
@@ -229,10 +241,10 @@ describe('street reducer', () => {
               variantString: 'inbound|car',
               variant: {
                 direction: 'inbound',
-                'car-type': 'car'
-              }
-            }
-          ]
+                'car-type': 'car',
+              },
+            },
+          ],
         },
         changeSegmentVariant(2, 'direction', 'outbound')
       )
@@ -246,10 +258,10 @@ describe('street reducer', () => {
           variantString: 'outbound|car',
           variant: {
             direction: 'outbound',
-            'car-type': 'car'
-          }
-        }
-      ]
+            'car-type': 'car',
+          },
+        },
+      ],
     })
   })
 
@@ -257,12 +269,12 @@ describe('street reducer', () => {
     expect(
       street(
         {
-          segments: [{ x: 1 }, { x: 2 }]
+          segments: [{ x: 1 }, { x: 2 }],
         },
         changeSegmentProperties(1, { x: 3, y: 4 })
       )
     ).toEqual({
-      segments: [{ x: 1 }, { x: 3, y: 4 }]
+      segments: [{ x: 1 }, { x: 3, y: 4 }],
     })
   })
 
@@ -270,73 +282,73 @@ describe('street reducer', () => {
     it('should update a street name when set by user', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: false
+        userUpdated: false,
       }
 
       expect(
         street(existingStreet, saveStreetName('new street name', true))
       ).toEqual({
         name: 'new street name',
-        userUpdated: true
+        userUpdated: true,
       })
     })
 
     it('should not update a street name set by a user, when set by automation', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: true
+        userUpdated: true,
       }
 
       expect(
         street(existingStreet, saveStreetName('new street name', false))
       ).toEqual({
         name: 'street name',
-        userUpdated: true
+        userUpdated: true,
       })
     })
 
     it('should update a street name previously set only by automation, when set by automation', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: false
+        userUpdated: false,
       }
 
       expect(
         street(existingStreet, saveStreetName('new street name', false))
       ).toEqual({
         name: 'new street name',
-        userUpdated: false
+        userUpdated: false,
       })
     })
 
     it('should clear a street name set by automation, when cleared by automation', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: false
+        userUpdated: false,
       }
 
       expect(street(existingStreet, saveStreetName(undefined, false))).toEqual({
         name: null,
-        userUpdated: false
+        userUpdated: false,
       })
     })
 
     it('should not clear a street name set by a user, when cleared by automation', () => {
       const existingStreet = {
         name: 'street name',
-        userUpdated: true
+        userUpdated: true,
       }
 
       expect(street(existingStreet, saveStreetName(null, false))).toEqual({
         name: 'street name',
-        userUpdated: true
+        userUpdated: true,
       })
     })
   })
 
   it('should handle saveCreatorId()', () => {
     expect(street({ creatorId: 'bar' }, saveCreatorId('foo'))).toEqual({
-      creatorId: 'foo'
+      creatorId: 'foo',
     })
   })
 
@@ -345,13 +357,13 @@ describe('street reducer', () => {
       street(
         {
           id: 'baz',
-          namespacedId: 123
+          namespacedId: 123,
         },
         saveStreetId('foo', 456)
       )
     ).toEqual({
       id: 'foo',
-      namespacedId: 456
+      namespacedId: 456,
     })
   })
 
@@ -362,14 +374,14 @@ describe('street reducer', () => {
         updateStreetIdMetadata({
           creatorId: 'foo',
           id: 'bar',
-          namespacedId: 123
+          namespacedId: 123,
         })
       )
     ).toEqual({
       ...initialState,
       creatorId: 'foo',
       id: 'bar',
-      namespacedId: 123
+      namespacedId: 123,
     })
   })
 
@@ -378,13 +390,13 @@ describe('street reducer', () => {
       street(
         {
           updatedAt: '2020-04-20T00:00:00.000Z',
-          clientUpdatedAt: '2020-04-20T00:00:00.000Z'
+          clientUpdatedAt: '2020-04-20T00:00:00.000Z',
         },
         setUpdateTime('2020-04-27T18:30:00.000Z')
       )
     ).toEqual({
       updatedAt: '2020-04-27T18:30:00.000Z',
-      clientUpdatedAt: '2020-04-27T18:30:00.000Z'
+      clientUpdatedAt: '2020-04-27T18:30:00.000Z',
     })
   })
 
@@ -392,31 +404,31 @@ describe('street reducer', () => {
     expect(
       street({ originalStreetId: 'bar' }, saveOriginalStreetId('foo'))
     ).toEqual({
-      originalStreetId: 'foo'
+      originalStreetId: 'foo',
     })
   })
 
   it('should handle updateEditCount()', () => {
     expect(street({ editCount: 2 }, updateEditCount(3))).toEqual({
-      editCount: 3
+      editCount: 3,
     })
   })
 
   it('should handle setUnits()', () => {
     expect(street({ units: 0 }, setUnits(1))).toEqual({
-      units: 1
+      units: 1,
     })
   })
 
   it('should handle updateStreetWidth()', () => {
     expect(street({ width: 10 }, updateStreetWidth(11))).toEqual({
-      width: 11
+      width: 11,
     })
   })
 
   it('should handle updateSchemaVersion()', () => {
     expect(street({ schemaVersion: 20 }, updateSchemaVersion(21))).toEqual({
-      schemaVersion: 21
+      schemaVersion: 21,
     })
   })
 
@@ -428,15 +440,15 @@ describe('street reducer', () => {
         country: 'country',
         locality: 'locality',
         neighbourhood: 'neighbourhood',
-        street: 'street'
+        street: 'street',
       },
       geometryId: null,
-      intersectionId: null
+      intersectionId: null,
     }
 
     it('should handle addLocation()', () => {
       expect(street({ location: null }, addLocation(location))).toEqual({
-        location
+        location,
       })
     })
 
@@ -446,14 +458,14 @@ describe('street reducer', () => {
           {
             location,
             userUpdated: false,
-            name: 'test street'
+            name: 'test street',
           },
           clearLocation()
         )
       ).toEqual({
         location: null,
         userUpdated: false,
-        name: null
+        name: null,
       })
     })
 
@@ -463,14 +475,14 @@ describe('street reducer', () => {
           {
             location,
             userUpdated: true,
-            name: 'test street'
+            name: 'test street',
           },
           clearLocation()
         )
       ).toEqual({
         location: null,
         userUpdated: true,
-        name: 'test street'
+        name: 'test street',
       })
     })
   })
@@ -481,9 +493,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 1
-            }
-          }
+              floors: 1,
+            },
+          },
         }
 
         const result = street(existingStreet, addBuildingFloor('left'))
@@ -494,9 +506,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 19
-            }
-          }
+              floors: 19,
+            },
+          },
         }
 
         const result = street(existingStreet, addBuildingFloor('right'))
@@ -507,9 +519,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 20
-            }
-          }
+              floors: 20,
+            },
+          },
         }
 
         const result = street(existingStreet, addBuildingFloor('right'))
@@ -522,9 +534,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 2
-            }
-          }
+              floors: 2,
+            },
+          },
         }
 
         const result = street(existingStreet, removeBuildingFloor('left'))
@@ -535,9 +547,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 19
-            }
-          }
+              floors: 19,
+            },
+          },
         }
 
         const result = street(existingStreet, removeBuildingFloor('right'))
@@ -548,9 +560,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 1
-            }
-          }
+              floors: 1,
+            },
+          },
         }
 
         const result = street(existingStreet, removeBuildingFloor('left'))
@@ -563,9 +575,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 1
-            }
-          }
+              floors: 1,
+            },
+          },
         }
 
         const result = street(existingStreet, setBuildingFloorValue('left', 3))
@@ -576,9 +588,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 1
-            }
-          }
+              floors: 1,
+            },
+          },
         }
 
         const result = street(existingStreet, setBuildingFloorValue('right', 1))
@@ -589,9 +601,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 20
-            }
-          }
+              floors: 20,
+            },
+          },
         }
 
         const result = street(existingStreet, setBuildingFloorValue('left', 0))
@@ -602,9 +614,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 1
-            }
-          }
+              floors: 1,
+            },
+          },
         }
 
         const result = street(
@@ -618,9 +630,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 5
-            }
-          }
+              floors: 5,
+            },
+          },
         }
 
         const result = street(
@@ -634,9 +646,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 5
-            }
-          }
+              floors: 5,
+            },
+          },
         }
 
         // Only cover the empty string case because all other falsy values are
@@ -650,9 +662,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              floors: 5
-            }
-          }
+              floors: 5,
+            },
+          },
         }
 
         const result1 = street(
@@ -678,9 +690,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              floors: 5
-            }
-          }
+              floors: 5,
+            },
+          },
         }
 
         const result = street(
@@ -696,9 +708,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              variant: 'wide'
-            }
-          }
+              variant: 'wide',
+            },
+          },
         }
 
         const result = street(
@@ -712,9 +724,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             right: {
-              variant: 'narrow'
-            }
-          }
+              variant: 'narrow',
+            },
+          },
         }
 
         const result = street(
@@ -728,9 +740,9 @@ describe('street reducer', () => {
         const existingStreet = {
           boundary: {
             left: {
-              variant: 'waterfront'
-            }
-          }
+              variant: 'waterfront',
+            },
+          },
         }
 
         // Only cover the empty string case because all other falsy values
@@ -744,7 +756,7 @@ describe('street reducer', () => {
   it('should handle setSkybox()', () => {
     expect(street(initialState, setSkybox('foo'))).toEqual({
       ...initialState,
-      skybox: 'foo'
+      skybox: 'foo',
     })
   })
 })

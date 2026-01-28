@@ -2,11 +2,11 @@ import { vi, type Mock } from 'vitest'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import store from '../store'
-import { changeSegmentProperties } from '../store/slices/street'
-import { formatMessage } from '../locales/locale'
+import { changeSegmentProperties } from '../store/slices/street.js'
+import { formatMessage } from '../locales/locale.js'
 import { getBoundaryItem } from '../boundary'
-import { getLocaleSliceName, editSliceLabel, getLabel } from './labels'
-import { segmentsChanged } from './view'
+import { getLocaleSliceName, editSliceLabel, getLabel } from './labels.js'
+import { segmentsChanged } from './view.js'
 
 import type { BoundaryPosition, SliceItem, StreetJson } from '@streetmix/types'
 
@@ -202,12 +202,12 @@ describe('labels', () => {
           type: 'slice1',
           variantString: 'variant1',
           label: 'Custom label',
-        } as SliceItem,
+        },
         {
           type: 'slice2',
           variantString: 'variant2',
           label: undefined,
-        } as SliceItem,
+        },
       ],
       boundary: {
         left: {
@@ -217,7 +217,7 @@ describe('labels', () => {
           variant: 'commercial',
         },
       },
-    } as StreetJson
+    }
 
     describe('for slices', () => {
       it('returns custom label when slice has label', () => {

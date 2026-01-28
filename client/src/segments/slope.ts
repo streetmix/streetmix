@@ -1,3 +1,5 @@
+import { CURB_HEIGHT } from './constants.js'
+
 import type { StreetJson } from '@streetmix/types'
 
 export interface SlopeCalculation {
@@ -29,10 +31,10 @@ export function calculateSlope(
   // taken from boundary. We need a fallback for older street data
   // that don't have boundary data
   if (index === 0) {
-    leftElevation = street.boundary?.left.elevation ?? 0.15
+    leftElevation = street.boundary?.left.elevation ?? CURB_HEIGHT
   }
   if (index === street.segments.length - 1) {
-    rightElevation = street.boundary?.right.elevation ?? 0.15
+    rightElevation = street.boundary?.right.elevation ?? CURB_HEIGHT
   }
 
   // New elevation change format

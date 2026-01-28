@@ -36,6 +36,10 @@ export interface Segment {
   label?: string
 }
 export type SliceItem = Segment // Alias for future use
+export type SliceItemForServerTransmission = Omit<
+  SliceItem,
+  'variant' | 'warnings'
+>
 
 export interface SlopeProperties {
   on: boolean
@@ -85,7 +89,7 @@ export interface StreetJson {
   schemaVersion: number
   units: UnitsSetting
   width: number
-  segments: Segment[]
+  segments: SliceItemForServerTransmission[]
   leftBuildingHeight?: number // Deprecated
   rightBuildingHeight?: number // Deprecated
   leftBuildingVariant?: string // Deprecated
@@ -97,6 +101,7 @@ export interface StreetJson {
   skybox: string
   location: StreetLocation | null
   showAnalytics: boolean
+  capacitySource?: string
   userUpdated: boolean
   editCount: number
 }

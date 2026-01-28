@@ -37,6 +37,7 @@ import {
   DRAGGING_TYPE_NONE,
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
+  CURB_HEIGHT,
 } from './constants'
 import { segmentsChanged } from './view'
 
@@ -67,6 +68,7 @@ export interface DraggedItem {
   label?: string
   actualWidth: number
   elevation: number
+  elevationChanged?: boolean
   slope: SlopeProperties
 }
 
@@ -319,9 +321,14 @@ function doDropHeuristics(
   // Automatically figure out variants
   const { segmentBeforeEl, segmentAfterEl } = store.getState().ui.draggingState
 
-  const left = segmentAfterEl !== null ? street.segments[segmentAfterEl] : null
+  // Gets either the left or right slice, or `null`
+  // When reading street.segments[0] this will return `undefined` for an empty
+  // street (because the segments array is empty, make sure it still coalesces
+  // to `null`)
+  const left =
+    segmentAfterEl !== null ? (street.segments[segmentAfterEl] ?? null) : null
   const right =
-    segmentBeforeEl !== null ? street.segments[segmentBeforeEl] : null
+    segmentBeforeEl !== null ? (street.segments[segmentBeforeEl] ?? null) : null
 
   const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
   const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
@@ -446,6 +453,48 @@ function doDropHeuristics(
   }
 
   draggedItem.variantString = getVariantString(variant)
+
+  // First attempt at automatically assigning an elevation value
+  // if adjacent slices' elevations have been raised
+  // See Linear issue SMX-242 for a better algorithm that needs to be
+  // applied. For now, gate this behind the Coastmix feature flag.
+  const isCoastmixMode = store.getState().flags.COASTMIX_MODE.value ?? false
+  if (isCoastmixMode) {
+    let leftElevation: number
+    // Get the boundary elevation if at left end of section
+    if (left === null) {
+      leftElevation = street.boundary.left.elevation ?? CURB_HEIGHT
+      // Make sure there are values
+      // Look into the implementation, apparently slope can be `on` but
+      // values are an empty array, which returns `-Infinity` from `Math.max()`
+    } else if (left.slope.on && left.slope.values.length > 1) {
+      leftElevation = Math.max(...left.slope.values)
+    } else {
+      leftElevation = left.elevation
+    }
+
+    let rightElevation: number
+    // Get the boundary elevation if at right end of section
+    if (right === null) {
+      rightElevation = street.boundary.right.elevation ?? CURB_HEIGHT
+      // Make sure there are values
+      // Look into the implementation, apparently slope can be `on` but
+      // values are an empty array, which returns `-Infinity` from `Math.max()`
+    } else if (right.slope.on && right.slope.values.length > 1) {
+      rightElevation = Math.max(...right.slope.values)
+    } else {
+      rightElevation = right.elevation
+    }
+
+    // Use the highest elevation as the target drop elevation
+    const highestElevation = Math.max(leftElevation, rightElevation)
+
+    // Only apply highestElevation if not sloped
+    if (!draggedItem.slope.on) {
+      draggedItem.elevation = highestElevation
+      draggedItem.elevationChanged = true
+    }
+  }
 }
 
 export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
@@ -539,11 +588,9 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     variantString: draggedItem.variantString,
     width: draggedItem.actualWidth,
     elevation: draggedItem.elevation,
+    elevationChanged: draggedItem.elevationChanged,
     label: draggedItem.label,
-    slope: {
-      on: false,
-      values: [],
-    },
+    // TODO: preview slope here
   }
 
   newSegment.variant =
@@ -554,8 +601,13 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
 
   if (type === DragTypes.SLICE) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
-    store.dispatch(moveSegment(draggedSegment, newIndex))
+    store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
+    // If we're dropping a new slice make sure it has the basic slope property
+    newSegment.slope = {
+      on: false,
+      values: [],
+    }
     store.dispatch(addSegment(newIndex, newSegment))
   }
 
@@ -607,6 +659,7 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
         label: slice.label,
         actualWidth: slice.width,
         elevation: slice.elevation,
+        elevationChanged: slice.elevationChanged,
         // TODO: show actual slope in preview
         // For now the slope preview is just regular elevation value
         slope: {
