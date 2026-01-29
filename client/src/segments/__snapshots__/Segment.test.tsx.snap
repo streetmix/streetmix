@@ -9,6 +9,7 @@ exports[`Segment > renders correctly 1`] = `
   >
     <button
       data-slice-index="0"
+      data-slice-left="0"
     >
       <div
         class="segment-label-container"

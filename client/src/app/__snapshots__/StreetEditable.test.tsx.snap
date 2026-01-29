@@ -17,6 +17,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
         >
           <button
             data-slice-index="0"
+            data-slice-left="0"
           >
             <div
               class="segment-label-container"
