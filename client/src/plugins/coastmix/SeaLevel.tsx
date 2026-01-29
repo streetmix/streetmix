@@ -43,11 +43,11 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   // If flood direction comes from the left
-  if (floodDirection === 'left' && floodDistance) {
+  if (floodDirection === 'left' && floodDistance !== null) {
     styles.width = `${boundaryWidth + floodDistance}px`
     styles.right = 'auto'
   }
-  if (floodDirection === 'right' && floodDistance) {
+  if (floodDirection === 'right' && floodDistance !== null) {
     styles.left = 'auto'
     styles.width = `${boundaryWidth + floodDistance}px`
   }

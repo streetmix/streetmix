@@ -138,9 +138,7 @@ export function CoastalFloodingPanel() {
             checked={isRaining}
           />
         </div>
-        {message && (
-          <div className={messageClassNames.join(' ')}>{message}</div>
-        )}
+        <div className={messageClassNames.join(' ')}>{message}</div>
       </div>
     </FloatingPanel>
   )

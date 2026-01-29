@@ -1,8 +1,8 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
+import type { CoastmixState } from '~/src/store/slices/coastmix.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { StreetState } from '@streetmix/types'
-import type { CoastmixState } from '~src/store/slices/coastmix.js'
 
 export function checkSeaLevel(
   street: StreetState,
@@ -39,6 +39,7 @@ export function checkSeaLevel(
       return null
     }
 
+    // TODO: don't read from DOM for these values.
     const sliceEl = document
       .getElementById('street-section-editable')!
       .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
