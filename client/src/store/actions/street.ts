@@ -1,5 +1,6 @@
 import clone from 'just-clone'
 
+import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
 import { ERRORS } from '../../app/errors'
 import { formatMessage } from '../../locales/locale'
 import {
@@ -36,11 +37,10 @@ import {
 } from '../slices/street'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble'
 import { setActiveSegment } from '../slices/ui'
-
 import { setFloodDistance } from '../slices/coastmix'
+
 import type { Dispatch, RootState } from '../index'
 import type { StreetState } from '@streetmix/types'
-import { checkSeaLevel } from '~src/plugins/coastmix/sea_level'
 
 /**
  * updateStreetWidth as a thunk action that automatically
