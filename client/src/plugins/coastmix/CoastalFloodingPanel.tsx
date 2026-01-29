@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
@@ -6,13 +7,19 @@ import {
   setRain,
   setFloodDirection,
   type FloodDirection,
+  setFloodDistance,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
+import { checkSeaLevel } from './sea_level.js'
 import './CoastalFloodingPanel.css'
 
 export function CoastalFloodingPanel() {
+  const coastmix = useSelector((state) => state.coastmix)
+  const street = useSelector((state) => state.street)
+  const dispatch = useDispatch()
+
   const {
     controlsVisible,
     seaLevelRise,
@@ -20,8 +27,7 @@ export function CoastalFloodingPanel() {
     floodDistance,
     stormSurge,
     isRaining,
-  } = useSelector((state) => state.coastmix)
-  const dispatch = useDispatch()
+  } = coastmix
 
   function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
@@ -36,6 +42,10 @@ export function CoastalFloodingPanel() {
   ): void => {
     dispatch(setFloodDirection(event.target.value as FloodDirection))
   }
+
+  useEffect(() => {
+    dispatch(setFloodDistance(checkSeaLevel(street, coastmix)))
+  }, [floodDirection, seaLevelRise, stormSurge, dispatch, street, coastmix])
 
   let message
   if (seaLevelRise === 0) {
