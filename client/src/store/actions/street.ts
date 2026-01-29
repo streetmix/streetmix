@@ -1,5 +1,6 @@
 import clone from 'just-clone'
 
+import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
 import { ERRORS } from '../../app/errors'
 import { formatMessage } from '../../locales/locale'
 import {
@@ -36,6 +37,7 @@ import {
 } from '../slices/street'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble'
 import { setActiveSegment } from '../slices/ui'
+import { setFloodDistance } from '../slices/coastmix'
 
 import type { Dispatch, RootState } from '../index'
 import type { StreetState } from '@streetmix/types'
@@ -55,9 +57,11 @@ export function updateStreetWidthAction(width: number) {
 
 export const segmentsChanged = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const street = getState().street
+    const { street, coastmix } = getState()
+
     const calculatedWidths = recalculateWidth(street)
     const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
+    const floodDistance = checkSeaLevel(street, coastmix) ?? null
 
     await dispatch(
       updateSegments(
@@ -66,6 +70,8 @@ export const segmentsChanged = () => {
         calculatedWidths.remainingWidth.toNumber()
       )
     )
+    await dispatch(setFloodDistance(floodDistance))
+
     // ToDo: Refactor this out to be dispatched as well
     saveStreetToServerIfNecessary()
   }

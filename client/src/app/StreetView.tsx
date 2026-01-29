@@ -23,6 +23,9 @@ import './StreetView.css'
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2
 
+const INDICATOR_ARROWS_MIN = 2
+const INDICATOR_ARROWS_MAX = 6
+
 /**
  * Based on street width and scroll position, determine how many
  * left and right "scroll indicator" arrows to display. This number
@@ -34,34 +37,44 @@ function calculateScrollIndicators(
 ): { left: number; right: number } | undefined {
   if (el === null) return
 
-  let scrollIndicatorsLeft
-  let scrollIndicatorsRight
+  let arrowsLeft
+  let arrowsRight
 
-  if (el.scrollWidth <= el.offsetWidth) {
-    scrollIndicatorsLeft = 0
-    scrollIndicatorsRight = 0
+  // 1px buffer on the offsetWidth to handle some rounding issues
+  // where scrollWidth is consistently 1px wider
+  if (el.scrollWidth <= el.offsetWidth + 1) {
+    arrowsLeft = 0
+    arrowsRight = 0
   } else {
+    // A percentage (between 0 - 1) of how far scrolled
+    // 0 = all the way to the left,
+    // 1 = all the way to the right
+    // It is possible to scroll close to 1, but not actually hit it
+    // (not sure why that happens...)
     const left = el.scrollLeft / (el.scrollWidth - el.offsetWidth)
 
-    // TODO const off max width street
-    let posMax = Math.round((streetWidth / MAX_CUSTOM_STREET_WIDTH) * 6)
-    if (posMax < 2) {
-      posMax = 2
-    }
+    // The wider the street, the more arrows will be displayed
+    // There will be at minimum 2 arrows and a maximum of 6
+    const totalArrows = Math.max(
+      Math.round(
+        (streetWidth / MAX_CUSTOM_STREET_WIDTH) * INDICATOR_ARROWS_MAX
+      ),
+      INDICATOR_ARROWS_MIN
+    )
 
-    scrollIndicatorsLeft = Math.round(posMax * left)
-    if (left > 0 && scrollIndicatorsLeft === 0) {
-      scrollIndicatorsLeft = 1
+    // Split the arrows between left and right sides, based on the percentage
+    // distance scrolled. As long as we haven't scrolled fully to the left,
+    // there will always be 1 arrow on the left side.
+    arrowsLeft = Math.round(totalArrows * left)
+    if (left > 0 && arrowsLeft === 0) {
+      arrowsLeft = 1
     }
-    if (left < 1.0 && scrollIndicatorsLeft === posMax) {
-      scrollIndicatorsLeft = posMax - 1
-    }
-    scrollIndicatorsRight = posMax - scrollIndicatorsLeft
+    arrowsRight = totalArrows - arrowsLeft
   }
 
   return {
-    left: scrollIndicatorsLeft,
-    right: scrollIndicatorsRight,
+    left: arrowsLeft,
+    right: arrowsRight,
   }
 }
 
@@ -319,7 +332,7 @@ function StreetView() {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel scrollPos={scrollPos} />
+              <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>
