@@ -6,8 +6,8 @@ import {
   setStormSurge,
   setRain,
   setFloodDirection,
-  type FloodDirection,
   setFloodDistance,
+  type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
