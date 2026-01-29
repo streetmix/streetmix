@@ -18,3 +18,11 @@
     background: var(--color-copper-400) !important;
   }
 }
+
+.flood-controls-message {
+  font-weight: 500;
+  color: var(--color-midnight-900);
+  background-color: var(--color-citrine-100);
+  padding: 0.5em 0.75em;
+  border-radius: var(--border-radius-large);
+}

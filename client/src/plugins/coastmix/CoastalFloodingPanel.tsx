@@ -36,6 +36,16 @@ export function CoastalFloodingPanel() {
     dispatch(setFloodDirection(event.target.value as FloodDirection))
   }
 
+  let message
+  if (seaLevelRise === 0) {
+    message = '👉 Select a sea level rise target to visualize flooding.'
+  } else if (floodDirection === 'none') {
+    message = '👉 Select a flooding direction.'
+  } else {
+    message = '✅ This scenario is addressing sea level rise!'
+    message = '❌ This scenario does not address sea level rise!'
+  }
+
   return (
     <FloatingPanel
       icon="boat"
@@ -111,6 +121,7 @@ export function CoastalFloodingPanel() {
             checked={isRaining}
           />
         </div>
+        {message && <div className="flood-controls-message">{message}</div>}
       </div>
     </FloatingPanel>
   )
