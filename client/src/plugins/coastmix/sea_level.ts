@@ -1,10 +1,14 @@
-import store from '~/src/store'
-import { convertImperialMeasurementToMetric } from '~/src/util/width_units'
-import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants'
+import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
+import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-export function checkSeaLevel() {
-  const { seaLevelRise, floodDirection, stormSurge } = store.getState().coastmix
-  const street = store.getState().street
+import type { StreetState } from '@streetmix/types'
+import type { CoastmixState } from '~src/store/slices/coastmix.js'
+
+export function checkSeaLevel(
+  street: StreetState,
+  coastmix: CoastmixState
+): number | null {
+  const { seaLevelRise, floodDirection, stormSurge } = coastmix
 
   const slices = street.segments
 
@@ -38,8 +42,10 @@ export function checkSeaLevel() {
       sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
     const offsetLeftPlusWidth =
       Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
-    const offsetRight = parentWidth - offsetLeftPlusWidth
-    return offsetRight
+    const distance = parentWidth - offsetLeftPlusWidth
+
+    if (Number.isNaN(distance)) return null
+    return distance
   } else if (floodDirection === 'left') {
     for (let i = 0; i < slices.length; i++) {
       const slice = slices[i]
@@ -54,6 +60,11 @@ export function checkSeaLevel() {
       .getElementById('street-section-editable')!
       .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
 
-    return Number(sliceEl?.dataset.sliceLeft)
+    const distance = Number(sliceEl?.dataset.sliceLeft)
+
+    if (Number.isNaN(distance)) return null
+    return distance
   }
+
+  return null
 }

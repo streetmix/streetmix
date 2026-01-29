@@ -1,13 +1,15 @@
 import { getSegmentVariantInfo, getSpriteDef } from '@streetmix/parts'
 import { percentToNumber } from '@streetmix/utils'
 
-import { images } from '../app/load_resources'
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
-import { applyWarningsToSlices } from '../streets/warnings'
-import { recalculateWidth } from '../streets/width'
+import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
+import { setFloodDistance } from '~/src/store/slices/coastmix.js'
+import { images } from '../app/load_resources.js'
+import { saveStreetToServerIfNecessary } from '../streets/data_model.js'
+import { applyWarningsToSlices } from '../streets/warnings.js'
+import { recalculateWidth } from '../streets/width.js'
 import store from '../store'
-import { updateSegments } from '../store/slices/street'
-import { drawScatteredSprites } from './scatter'
+import { updateSegments } from '../store/slices/street.js'
+import { drawScatteredSprites } from './scatter.js'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
@@ -15,7 +17,7 @@ import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
   GROUND_BASELINE_HEIGHT,
-} from './constants'
+} from './constants.js'
 import PEOPLE from './people.yaml'
 
 import type {
@@ -945,9 +947,11 @@ export function getLocaleSegmentName(
  * TODO: remove this
  */
 export function segmentsChanged(): void {
-  const street = store.getState().street
+  const { street, coastmix } = store.getState()
+
   const calculatedWidths = recalculateWidth(street)
   const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
+  const floodDistance = checkSeaLevel(street, coastmix) ?? null
 
   store.dispatch(
     updateSegments(
@@ -956,6 +960,7 @@ export function segmentsChanged(): void {
       calculatedWidths.remainingWidth.toNumber()
     )
   )
+  store.dispatch(setFloodDistance(floodDistance))
 
   saveStreetToServerIfNecessary()
 }

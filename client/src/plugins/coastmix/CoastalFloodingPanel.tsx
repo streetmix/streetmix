@@ -17,6 +17,7 @@ export function CoastalFloodingPanel() {
     controlsVisible,
     seaLevelRise,
     floodDirection,
+    floodDistance,
     stormSurge,
     isRaining,
   } = useSelector((state) => state.coastmix)
@@ -42,8 +43,11 @@ export function CoastalFloodingPanel() {
   } else if (floodDirection === 'none') {
     message = '👉 Select a flooding direction.'
   } else {
-    message = '✅ This scenario is addressing sea level rise!'
-    message = '❌ This scenario does not address sea level rise!'
+    if (floodDistance === null) {
+      message = '❌ This scenario does not address sea level rise!'
+    } else {
+      message = '✅ This scenario is addressing sea level rise!'
+    }
   }
 
   return (

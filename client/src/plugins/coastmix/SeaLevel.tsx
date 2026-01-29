@@ -2,7 +2,6 @@ import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
-import { checkSeaLevel } from './sea_level.js'
 import './SeaLevel.css'
 
 interface SeaLevelProps {
@@ -16,9 +15,8 @@ const HALF_OF_WAVE_HEIGHT = 8 / 2
 const WAVE_OPACITY = 0.4
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
-  const { seaLevelRise, floodDirection, stormSurge } = useSelector(
-    (state) => state.coastmix
-  )
+  const { seaLevelRise, floodDirection, floodDistance, stormSurge } =
+    useSelector((state) => state.coastmix)
 
   let height =
     GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
@@ -36,8 +34,6 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     ? convertImperialMeasurementToMetric(SURGE_HEIGHT_FEET) * TILE_SIZE
     : 0
 
-  const floodWidth = checkSeaLevel()
-
   // Default style -- floods entire section
   const styles: React.CSSProperties = {
     height: `${height + surge}px`,
@@ -47,13 +43,13 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   // If flood direction comes from the left
-  if (floodDirection === 'left' && floodWidth) {
-    styles.width = `${boundaryWidth + floodWidth}px`
+  if (floodDirection === 'left' && floodDistance) {
+    styles.width = `${boundaryWidth + floodDistance}px`
     styles.right = 'auto'
   }
-  if (floodDirection === 'right' && floodWidth) {
+  if (floodDirection === 'right' && floodDistance) {
     styles.left = 'auto'
-    styles.width = `${boundaryWidth + floodWidth}px`
+    styles.width = `${boundaryWidth + floodDistance}px`
   }
 
   const classNames = ['sea-level-waves']

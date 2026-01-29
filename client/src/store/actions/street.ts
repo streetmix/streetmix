@@ -37,8 +37,10 @@ import {
 import { setInfoBubbleMouseInside } from '../slices/infoBubble'
 import { setActiveSegment } from '../slices/ui'
 
+import { setFloodDistance } from '../slices/coastmix'
 import type { Dispatch, RootState } from '../index'
 import type { StreetState } from '@streetmix/types'
+import { checkSeaLevel } from '~src/plugins/coastmix/sea_level'
 
 /**
  * updateStreetWidth as a thunk action that automatically
@@ -55,9 +57,11 @@ export function updateStreetWidthAction(width: number) {
 
 export const segmentsChanged = () => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const street = getState().street
+    const { street, coastmix } = getState()
+
     const calculatedWidths = recalculateWidth(street)
     const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
+    const floodDistance = checkSeaLevel(street, coastmix) ?? null
 
     await dispatch(
       updateSegments(
@@ -66,6 +70,8 @@ export const segmentsChanged = () => {
         calculatedWidths.remainingWidth.toNumber()
       )
     )
+    await dispatch(setFloodDistance(floodDistance))
+
     // ToDo: Refactor this out to be dispatched as well
     saveStreetToServerIfNecessary()
   }
