@@ -45,9 +45,10 @@ export function CoastalFloodingPanel() {
 
   useEffect(() => {
     dispatch(setFloodDistance(checkSeaLevel(street, coastmix)))
-  }, [floodDirection, seaLevelRise, stormSurge, dispatch, street, coastmix])
+  }, [floodDirection, seaLevelRise, stormSurge, dispatch, street])
 
   let message
+  const messageClassNames = ['flood-controls-message']
   if (seaLevelRise === 0) {
     message = '👉 Select a sea level rise target to visualize flooding.'
   } else if (floodDirection === 'none') {
@@ -55,8 +56,10 @@ export function CoastalFloodingPanel() {
   } else {
     if (floodDistance === null) {
       message = '❌ This scenario does not address sea level rise!'
+      messageClassNames.push('flood-controls-warning')
     } else {
       message = '✅ This scenario is addressing sea level rise!'
+      messageClassNames.push('flood-controls-success')
     }
   }
 
@@ -135,7 +138,9 @@ export function CoastalFloodingPanel() {
             checked={isRaining}
           />
         </div>
-        {message && <div className="flood-controls-message">{message}</div>}
+        {message && (
+          <div className={messageClassNames.join(' ')}>{message}</div>
+        )}
       </div>
     </FloatingPanel>
   )

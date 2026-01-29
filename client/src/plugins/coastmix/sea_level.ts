@@ -24,29 +24,7 @@ export function checkSeaLevel(
   const height = convertImperialMeasurementToMetric(heightFeet)
 
   let slicePosition
-  if (floodDirection === 'right') {
-    for (let i = slices.length - 1; i >= 0; i--) {
-      const slice = slices[i]
-      // TODO: handle wall.
-      if (slice.elevation >= height) {
-        slicePosition = i
-        break
-      }
-    }
-
-    const sliceEl = document
-      .getElementById('street-section-editable')!
-      .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
-
-    const parentWidth =
-      sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
-    const offsetLeftPlusWidth =
-      Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
-    const distance = parentWidth - offsetLeftPlusWidth
-
-    if (Number.isNaN(distance)) return null
-    return distance
-  } else if (floodDirection === 'left') {
+  if (floodDirection === 'left') {
     for (let i = 0; i < slices.length; i++) {
       const slice = slices[i]
       // TODO: handle wall.
@@ -56,13 +34,43 @@ export function checkSeaLevel(
       }
     }
 
+    // Bail early if no slice meets or exceeds flood height.
+    if (typeof slicePosition !== 'number') {
+      return null
+    }
+
     const sliceEl = document
       .getElementById('street-section-editable')!
       .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
 
     const distance = Number(sliceEl?.dataset.sliceLeft)
+    return distance
+  } else if (floodDirection === 'right') {
+    for (let i = slices.length - 1; i >= 0; i--) {
+      const slice = slices[i]
+      // TODO: handle wall.
+      if (slice.elevation >= height) {
+        slicePosition = i
+        break
+      }
+    }
 
-    if (Number.isNaN(distance)) return null
+    // Bail early if no slice meets or exceeds flood height.
+    if (typeof slicePosition !== 'number') {
+      return null
+    }
+
+    const sliceEl = document
+      .getElementById('street-section-editable')!
+      .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
+
+    // There are some extra steps for calculating the right-hand distance
+    const parentWidth =
+      sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
+    const offsetLeftPlusWidth =
+      Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
+
+    const distance = parentWidth - offsetLeftPlusWidth
     return distance
   }
 
