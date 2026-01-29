@@ -319,7 +319,7 @@ function StreetView() {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel scrollPos={scrollPos} />
+              <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>

@@ -20,7 +20,6 @@ export function CoastalFloodingPanel() {
     stormSurge,
     isRaining,
   } = useSelector((state) => state.coastmix)
-
   const dispatch = useDispatch()
 
   function handleClose(): void {
@@ -90,7 +89,7 @@ export function CoastalFloodingPanel() {
               <option value="none">None</option>
               <option value="left">Left</option>
               <option value="right">Right</option>
-              <option value="both">Both</option>
+              {/* <option value="both">Both</option> */}
             </select>
           </div>
         </div>
