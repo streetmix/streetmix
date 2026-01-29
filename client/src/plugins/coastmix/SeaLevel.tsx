@@ -62,10 +62,9 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
 
   return (
     <div className="sea-level-rise" style={styles}>
-      <div
-        className={classNames.join(' ')}
-        style={getWavePosition(scrollPos)}
-      />
+      <div className={classNames.join(' ')}>
+        <div style={getWavePosition(scrollPos)} />
+      </div>
     </div>
   )
 }

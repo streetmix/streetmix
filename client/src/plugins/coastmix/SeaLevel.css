@@ -13,16 +13,23 @@
 }
 
 .sea-level-waves {
-  width: calc(100% + 100px);
   width: 100%;
-  height: 8px;
+  height: 16px;
   position: absolute;
-  top: -8px;
-  background-image: url("../../../images/waves-right.svg");
-  background-repeat: repeat-x;
-  transition: transform 500ms ease-in-out;
+  top: -16px;
+  overflow: hidden;
 
-  &.sea-level-surge {
-    transform: scaleY(200%) scaleX(105%) translateY(-2px);
+  > div {
+    width: 100%;
+    height: 8px;
+    position: absolute;
+    bottom: 0;
+    background-image: url("../../../images/waves-right.svg");
+    background-repeat: repeat-x;
+    transition: transform 500ms ease-in-out;
+  }
+
+  &.sea-level-surge > div {
+    transform: scaleY(200%) scaleX(105%) translateY(-1px);
   }
 }
