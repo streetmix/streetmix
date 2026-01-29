@@ -1,6 +1,6 @@
 .sea-level-rise {
   position: absolute;
-  width: 100%;
+  width: auto;
   bottom: 0;
   background-color: rgb(54 99 135); /* match wave color */
   mix-blend-mode: multiply;

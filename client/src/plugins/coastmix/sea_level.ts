@@ -34,7 +34,12 @@ export function checkSeaLevel() {
       .getElementById('street-section-editable')!
       .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
 
-    return Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
+    const parentWidth =
+      sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
+    const offsetLeftPlusWidth =
+      Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
+    const offsetRight = parentWidth - offsetLeftPlusWidth
+    return offsetRight
   } else if (floodDirection === 'left') {
     for (let i = 0; i < slices.length; i++) {
       const slice = slices[i]

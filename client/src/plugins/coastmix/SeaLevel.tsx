@@ -36,23 +36,24 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     ? convertImperialMeasurementToMetric(SURGE_HEIGHT_FEET) * TILE_SIZE
     : 0
 
-  const dims = checkSeaLevel()
+  const floodWidth = checkSeaLevel()
 
   // Default style -- floods entire section
-  const styles = {
+  const styles: React.CSSProperties = {
     height: `${height + surge}px`,
     opacity,
     left: `-${boundaryWidth}px`,
-    width: `calc(100% + ${boundaryWidth}px + ${boundaryWidth}px)`,
+    right: `-${boundaryWidth}px`,
   }
 
   // If flood direction comes from the left
-  if (floodDirection === 'left' && dims) {
-    styles.width = `${boundaryWidth + dims}px`
+  if (floodDirection === 'left' && floodWidth) {
+    styles.width = `${boundaryWidth + floodWidth}px`
+    styles.right = 'auto'
   }
-  if (floodDirection === 'right' && dims) {
-    styles.left = `${dims}px`
-    styles.width = `${boundaryWidth + dims}px`
+  if (floodDirection === 'right' && floodWidth) {
+    styles.left = 'auto'
+    styles.width = `${boundaryWidth + floodWidth}px`
   }
 
   const classNames = ['sea-level-waves']
@@ -69,7 +70,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   )
 }
 
-function getWavePosition(scrollPos: number): CSSProperties {
+function getWavePosition(scrollPos: number): React.CSSProperties {
   const speed = 0.5
   const pos = scrollPos * speed
 
