@@ -3,6 +3,7 @@ import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 import './SeaLevel.css'
+import { useEffect } from 'react'
 
 interface SeaLevelProps {
   boundaryWidth: number
@@ -41,6 +42,18 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     left: `-${boundaryWidth}px`,
     right: `-${boundaryWidth}px`,
   }
+
+  // Affect the rain canvas
+  // TODO: don't do DOM manip
+  useEffect(() => {
+    const el = document.querySelector<HTMLElement>('.rain-canvas')
+    if (!el) return
+    if (stormSurge) {
+      el.style.top = `-${height + surge - 45}px`
+    } else {
+      el.style.top = 'auto'
+    }
+  }, [stormSurge, height, surge])
 
   // If flood direction comes from the left
   if (floodDirection === 'left' && floodDistance !== null) {
