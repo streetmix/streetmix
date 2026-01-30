@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
-import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
-import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
+import { SEA_LEVEL_RISE_FEET } from './constants.js'
+import { calculateSeaLevelRise } from './sea_level.js'
 import './SeaLevel.css'
 
 interface SeaLevelProps {
@@ -20,41 +20,38 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const { seaLevelRise, floodDirection, floodDistance, stormSurge } =
     useSelector((state) => state.coastmix)
 
+  // Baseline height
   let height =
     GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
-  let opacity = 0
-  if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
-    height +=
-      convertImperialMeasurementToMetric(
-        SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
-      ) * TILE_SIZE
-    opacity = WAVE_OPACITY
-  }
 
-  // Verify this math with the waves and stuff
-  const surge = stormSurge
-    ? convertImperialMeasurementToMetric(SURGE_HEIGHT_FEET) * TILE_SIZE
-    : 0
+  // Calculate how much sea level rises
+  const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
-  // Default style -- floods entire section
+  // Total height added together
+  height += rise * TILE_SIZE
+
+  // Show visually when sea level rises
+  const opacity = seaLevelRise in SEA_LEVEL_RISE_FEET ? WAVE_OPACITY : 0
+
+  // Default style -- floods full width of section
   const styles: React.CSSProperties = {
-    height: `${height + surge}px`,
+    height: `${height}px`,
     opacity,
     left: `-${boundaryWidth}px`,
     right: `-${boundaryWidth}px`,
   }
 
-  // Affect the rain canvas
+  // Affect the rain canvas when storm surging
   // TODO: don't do DOM manip
   useEffect(() => {
     const el = document.querySelector<HTMLElement>('.rain-canvas')
     if (!el) return
     if (stormSurge) {
-      el.style.top = `-${height + surge - 45}px`
+      el.style.top = `-${height - 45}px`
     } else {
       el.style.top = 'auto'
     }
-  }, [stormSurge, height, surge])
+  }, [stormSurge, height])
 
   // If flood direction comes from the left
   if (floodDirection === 'left' && floodDistance !== null) {
@@ -67,7 +64,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   const classNames = ['sea-level-waves']
-  if (surge) {
+  if (stormSurge) {
     classNames.push('sea-level-surge')
   }
 
@@ -80,6 +77,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   )
 }
 
+// Wave position for parallax scrolling
 function getWavePosition(scrollPos: number): React.CSSProperties {
   const speed = 0.5
   const pos = scrollPos * speed

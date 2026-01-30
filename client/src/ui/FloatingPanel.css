@@ -7,11 +7,6 @@
 
   z-index: var(--z-07-floating-panel);
   position: absolute;
-
-  /* TODO: use button trigger to set initial position,
-     and remember position on a per-session basis */
-  inset-block-start: 100px;
-  inset-inline-start: 100px;
 }
 
 .floating-panel-container-inner {

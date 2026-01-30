@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   setWelcomePanelVisible,
-  setWelcomePanelDismissed
-} from '~/src/store/slices/ui'
-import { isSignedIn } from '~/src/users/authentication'
-import CloseButton from '~/src/ui/CloseButton'
-import { registerKeypress, deregisterKeypress } from '../keypress'
-import { MODES, getMode } from '../mode'
-import WelcomeNewStreet from './NewStreet'
-import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet'
-import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet'
+  setWelcomePanelDismissed,
+} from '~/src/store/slices/ui.js'
+import { isSignedIn } from '~/src/users/authentication.js'
+import { CloseButton } from '~/src/ui/CloseButton.js'
+import { registerKeypress, deregisterKeypress } from '../keypress.js'
+import { MODES, getMode } from '../mode.js'
+import WelcomeNewStreet from './NewStreet.js'
+import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet.js'
+import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet.js'
 import './WelcomePanel.css'
 
 const WELCOME_NONE = 0
@@ -43,7 +43,7 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 // compatibility
 const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
-function WelcomePanel (): React.ReactElement | null {
+function WelcomePanel() {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
@@ -91,7 +91,7 @@ function WelcomePanel (): React.ReactElement | null {
 
   // When everything is loaded, determine what type of welcome panel to show
   useEffect(() => {
-    function determineWelcomeType (): number {
+    function determineWelcomeType(): number {
       let welcomeType = WELCOME_NONE
 
       if (
@@ -183,14 +183,14 @@ export default WelcomePanel
  * as a "returning user" so that the message is not geared toward first-time
  * users the next time they visit the site.
  */
-export function setIsReturningUserInLocalStorage (): void {
+export function setIsReturningUserInLocalStorage(): void {
   window.localStorage.setItem(LOCAL_STORAGE_RETURNING_USER, 'true')
 }
 
 /**
  * Retrieves LocalStorage state for whether whether user is a returning user
  */
-function getIsReturningUserFromLocalStorage (): boolean {
+function getIsReturningUserFromLocalStorage(): boolean {
   const localSetting = window.localStorage.getItem(LOCAL_STORAGE_RETURNING_USER)
 
   if (localSetting !== null) {

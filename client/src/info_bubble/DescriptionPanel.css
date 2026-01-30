@@ -1,5 +1,9 @@
 .description-panel {
   max-width: 350px;
+
+  /* Starting location */
+  inset-block-start: 100px;
+  inset-inline-start: 100px;
 }
 
 .description-content {
