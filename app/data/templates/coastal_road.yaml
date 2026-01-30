@@ -94,7 +94,7 @@ slices:
     width:
       metric: 1.9
       imperial: 6
-  - type: wall
+  - type: guardrail
     variant:
-      wall-height: low
+      guardrail-type: default
     width: 0.6

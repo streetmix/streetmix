@@ -112,9 +112,9 @@ slices:
     elevation:
       metric: 0.15
       imperial: 0.5
-  - type: wall
+  - type: guardrail
     variant:
-      wall-height: low
+      guardrail-type: default
     width:
       metric: 0.5
       imperial: 2
