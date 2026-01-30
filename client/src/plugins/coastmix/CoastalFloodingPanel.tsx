@@ -69,6 +69,7 @@ export function CoastalFloodingPanel() {
       show={controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
+      position={{ x: 30, y: 65 }}
     >
       <div className="popup-controls flood-controls-content">
         <div className="popup-control-group">

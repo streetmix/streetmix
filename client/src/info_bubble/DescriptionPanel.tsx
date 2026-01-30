@@ -62,6 +62,7 @@ export function DescriptionPanel() {
       show={show}
       className="description-panel"
       handleClose={handleClose}
+      position={{ x: 100, y: 100 }}
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
         <div className="description-content">
