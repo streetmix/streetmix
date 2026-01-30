@@ -27,8 +27,22 @@ export function checkSeaLevel(
   if (floodDirection === 'left') {
     for (let i = 0; i < slices.length; i++) {
       const slice = slices[i]
-      // TODO: handle wall.
-      if (slice.elevation >= height) {
+
+      // Slices can block a flood based on its elevation. Walls are a special
+      // case that is capable of blocking a flood (like a seawall, etc)
+      // TODO: Don't hardcode these height numbers
+      let compareElevation = slice.elevation
+      if (slice.type === 'wall') {
+        if (slice.variant['wall-height'] === 'low') {
+          compareElevation += 1
+        } else {
+          // High wall variant
+          compareElevation += 2.15
+        }
+      }
+
+      // If this slice blocks a flood, record its position and exit loop
+      if (compareElevation >= height) {
         slicePosition = i
         break
       }
@@ -49,8 +63,22 @@ export function checkSeaLevel(
   } else if (floodDirection === 'right') {
     for (let i = slices.length - 1; i >= 0; i--) {
       const slice = slices[i]
-      // TODO: handle wall.
-      if (slice.elevation >= height) {
+
+      // Slices can block a flood based on its elevation. Walls are a special
+      // case that is capable of blocking a flood (like a seawall, etc)
+      // TODO: Don't hardcode these height numbers
+      let compareElevation = slice.elevation
+      if (slice.type === 'wall') {
+        if (slice.variant['wall-height'] === 'low') {
+          compareElevation += 1
+        } else {
+          // High wall variant
+          compareElevation += 2.15
+        }
+      }
+
+      // If this slice blocks a flood, record its position and exit loop
+      if (compareElevation >= height) {
         slicePosition = i
         break
       }
