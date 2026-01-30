@@ -32,6 +32,8 @@ export function FloatingPanel({
 
   // NOTE: this automatically remembers position state when closed
   // (unless this or its parent component is unmounted)
+  // Panels can be placed initially via CSS or otherwise, and if you don't
+  // set the `position` prop, then the 0, 0 origin is relative to that
   // TODO: handle the case where a window resizes smaller and a panel appears
   // off-screen. This does not automatically check for on-screen visibility.
   // TODO: consider remembering state between sessions (via localStorage)

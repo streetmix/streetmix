@@ -1,4 +1,7 @@
 .sky-picker.floating-panel-container-outer {
+  /* TODO: use button trigger to set initial position */
+  inset-block: auto 90px;
+  inset-inline-start: 50px;
   max-width: 216px; /* prevent upgrade text from expanding width */
 }
 

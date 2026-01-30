@@ -41,8 +41,6 @@ export function SkyPicker() {
       show={show}
       className="sky-picker"
       handleClose={handleClose}
-      // TODO: use button trigger to set initial position
-      position={{ x: 50, y: window.innerHeight - 240 }}
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
         <SkyOptions
