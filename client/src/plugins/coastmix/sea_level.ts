@@ -4,6 +4,28 @@ import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { StreetState } from '@streetmix/types'
 
+// Returns total sea level rise in metric values
+// Takes into account storm surge levels
+export function calculateSeaLevelRise(
+  seaLevelRise: number,
+  stormSurge: boolean
+) {
+  let heightFeet = 0
+
+  if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
+    heightFeet +=
+      SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
+  }
+
+  if (stormSurge) {
+    heightFeet += SURGE_HEIGHT_FEET
+  }
+
+  const height = convertImperialMeasurementToMetric(heightFeet)
+
+  return height
+}
+
 export function checkSeaLevel(
   street: StreetState,
   coastmix: CoastmixState
@@ -12,16 +34,7 @@ export function checkSeaLevel(
 
   const slices = street.segments
 
-  let heightFeet = 0
-  if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
-    heightFeet +=
-      SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
-  }
-  if (stormSurge) {
-    heightFeet += SURGE_HEIGHT_FEET
-  }
-
-  const height = convertImperialMeasurementToMetric(heightFeet)
+  const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
   let slicePosition
   if (floodDirection === 'left') {
