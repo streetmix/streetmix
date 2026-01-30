@@ -26,7 +26,7 @@ export function CoastalFloodingPanel() {
     floodDirection,
     floodDistance,
     stormSurge,
-    isRaining,
+    // isRaining,
   } = coastmix
 
   function handleClose(): void {
@@ -125,11 +125,12 @@ export function CoastalFloodingPanel() {
           <Switch
             onCheckedChange={(checked) => {
               dispatch(setStormSurge(checked))
+              dispatch(setRain(checked))
             }}
             checked={stormSurge}
           />
         </div>
-        <div className="popup-control-group">
+        {/* <div className="popup-control-group">
           <div className="popup-control-label">Rain</div>
           <Switch
             onCheckedChange={(checked) => {
@@ -137,7 +138,7 @@ export function CoastalFloodingPanel() {
             }}
             checked={isRaining}
           />
-        </div>
+        </div> */}
         <div className={messageClassNames.join(' ')}>{message}</div>
       </div>
     </FloatingPanel>
