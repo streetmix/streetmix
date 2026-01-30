@@ -1,9 +1,10 @@
+import { useEffect } from 'react'
+
 import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 import './SeaLevel.css'
-import { useEffect } from 'react'
 
 interface SeaLevelProps {
   boundaryWidth: number
