@@ -33,7 +33,6 @@ export function checkSeaLevel(
   const { seaLevelRise, floodDirection, stormSurge } = coastmix
 
   const slices = street.segments
-
   const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
   let slicePosition
