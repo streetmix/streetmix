@@ -4,7 +4,7 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
 <DocumentFragment>
   <div
     class="floating-panel floating-panel-container-outer sky-picker react-draggable"
-    style="transform: translate(0px,0px);"
+    style="transform: translate(50px,528px);"
   >
     <div
       class="floating-panel-container-inner"

@@ -10,7 +10,7 @@ interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   onClick: React.MouseEventHandler
 }
 
-function CloseButton({
+export const CloseButton = memo(function CloseButton({
   title,
   className = 'close',
   onClick,
@@ -31,6 +31,4 @@ function CloseButton({
       <Icon name="close" />
     </button>
   )
-}
-
-export default memo(CloseButton)
+})

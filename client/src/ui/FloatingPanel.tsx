@@ -5,7 +5,7 @@ import Draggable, {
   type DraggableEventHandler,
 } from 'react-draggable'
 
-import CloseButton from '~/src/ui/CloseButton.js'
+import { CloseButton } from '~/src/ui/CloseButton.js'
 import Icon, { type IconNames } from '~/src/ui/Icon.js'
 import './FloatingPanel.css'
 

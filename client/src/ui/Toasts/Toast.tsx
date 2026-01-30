@@ -1,6 +1,4 @@
-import React from 'react'
-
-import CloseButton from '../CloseButton.js'
+import { CloseButton } from '../CloseButton.js'
 import './Toast.css'
 
 import { type ToastItem } from '../../types'

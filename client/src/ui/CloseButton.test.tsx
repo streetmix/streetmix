@@ -1,9 +1,8 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import CloseButton from './CloseButton'
+import { render } from '~/test/helpers/render.js'
+import { CloseButton } from './CloseButton.js'
 
 describe('CloseButton', () => {
   it('renders snapshot', () => {

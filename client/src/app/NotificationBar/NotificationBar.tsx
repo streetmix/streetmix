@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import CloseButton from '~/src/ui/CloseButton'
-import { ExternalLink } from '~/src/ui/ExternalLink'
+import { useSelector } from '~/src/store/hooks.js'
+import { CloseButton } from '~/src/ui/CloseButton.js'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './NotificationBar.css'
 
 const TRANSITION_DURATION = 250
@@ -31,9 +31,7 @@ interface NotificationBarProps {
 
 // NOTE: Notification is passed in as a prop, rather than directly imported
 // from notification.json in this file, in order to make it easier to test.
-function NotificationBar({
-  notification = {},
-}: NotificationBarProps): React.ReactElement | null {
+function NotificationBar({ notification = {} }: NotificationBarProps) {
   const locale = useSelector((state) => state.locale)
   const {
     display = false,
