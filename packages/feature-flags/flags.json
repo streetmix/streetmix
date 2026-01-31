@@ -43,6 +43,10 @@
     "label": "Environment — unlocked",
     "defaultValue": false
   },
+  "WEATHER_EFFECTS": {
+    "label": "Environment — weather effects",
+    "defaultValue": false
+  },
   "SAVE_UNDO": {
     "label": "Save undo data to server",
     "defaultValue": false,

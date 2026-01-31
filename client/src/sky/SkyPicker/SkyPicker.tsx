@@ -17,6 +17,9 @@ export function SkyPicker() {
   const isUnlocked = useSelector(
     (state) => state.flags.ENVIRONMENTS_UNLOCKED?.value ?? false
   )
+  const weatherEnabled = useSelector(
+    (state) => state.flags.WEATHER_EFFECTS?.value ?? false
+  )
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
@@ -49,7 +52,7 @@ export function SkyPicker() {
           selected={selected}
           handleSelect={handleSelect}
         />
-        <WeatherOptions />
+        {weatherEnabled && <WeatherOptions />}
       </IntlProvider>
       {!isEnabled && (
         <div className="sky-picker-upgrade">
