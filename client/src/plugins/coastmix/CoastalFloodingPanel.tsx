@@ -36,10 +36,15 @@ export function CoastalFloodingPanel() {
     dispatch(setSeaLevelRise(x))
   }
 
-  const changeFloodDirection = (
+  function changeFloodDirection(
     event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
+  ): void {
     dispatch(setFloodDirection(event.target.value as FloodDirection))
+  }
+
+  function toggleStormSurge(checked: boolean): void {
+    dispatch(setStormSurge(checked))
+    dispatch(setRain(checked))
   }
 
   useEffect(() => {
@@ -122,13 +127,7 @@ export function CoastalFloodingPanel() {
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
-          <Switch
-            onCheckedChange={(checked) => {
-              dispatch(setStormSurge(checked))
-              dispatch(setRain(checked))
-            }}
-            checked={stormSurge}
-          />
+          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
         <div className={messageClassNames.join(' ')}>{message}</div>
       </div>
