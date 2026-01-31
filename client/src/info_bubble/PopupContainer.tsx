@@ -93,13 +93,17 @@ export function PopupContainer({
   const hover = useHover(context, {
     delay,
     mouseOnly: true,
-    // ISN'T WORKING? HOW DO DEUBG?
     handleClose: safePolygon({
+      // This needs to be on or the `safePolygon` doesn't work
       blockPointerEvents: true,
-      buffer: -Infinity,
-      // requireIntent: false
+      // This can be tweaked to a comfortable buffer. If it's too high, then
+      // moving the mouse to an adjacent reference element would block new
+      // popups from appearing, because `requireIntent` is false (below)
+      buffer: 25,
+      // Allows for some slower moving mouse cursors
+      requireIntent: false,
     }),
-  }) // TODO: disable hover from closing
+  })
   const click = useClick(context)
   const focus = useFocus(context)
   const dismiss = useDismiss(context)
@@ -126,7 +130,6 @@ export function PopupContainer({
       : POPUP_TRANSITION_DURATION,
     initial: ({ side }) => ({
       opacity: 0,
-      // TODO: confirm that rotate values are correct for bottom/left/right
       transform: {
         top: 'rotateX(-80deg)',
         bottom: 'rotateX(80deg)',

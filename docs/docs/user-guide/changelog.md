@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## January 31, 2026
+
+### 🐛 Bug fixes
+
+- Fixed a bug (a big one!) that would cause the popups over section slices to aggressively switch to adjacent slices during mouse movement, particularly when interacting with very narrow slices, when you were just trying to reach interactive content inside the popup.
+
 ## January 14, 2026
 
 ### 🎮 UI improvements
