@@ -7,6 +7,7 @@ import { toggleToolbox } from '~/src/store/slices/ui.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { SkyOptions } from './SkyOptions.js'
+import { WeatherOptions } from './WeatherOptions.js'
 import './SkyPicker.css'
 
 export function SkyPicker() {
@@ -48,8 +49,8 @@ export function SkyPicker() {
           selected={selected}
           handleSelect={handleSelect}
         />
+        <WeatherOptions />
       </IntlProvider>
-
       {!isEnabled && (
         <div className="sky-picker-upgrade">
           <StreetmixPlusPrompt>

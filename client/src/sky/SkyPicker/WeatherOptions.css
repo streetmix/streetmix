@@ -1,0 +1,11 @@
+.weather-options {
+  padding: 1em;
+  padding-top: 0;
+
+  h4 {
+    margin: 0;
+    padding: 0.25em 0;
+    color: var(--color-turquoise-900);
+    border-top: 1px solid var(--color-turquoise-200);
+  }
+}
