@@ -26,8 +26,8 @@ export const demo = {
   // whether demo is running
   started: false,
   // canvas and associated context references
-  canvas: null,
-  ctx: null,
+  canvas: null, // TODO: type
+  ctx: null, // TODO: type
   // viewport dimensions (DIPs)
   width: 0,
   height: 0,
@@ -40,18 +40,18 @@ export const demo = {
   // wind applied to rain
   wind: 6,
   // color of rain (set in init)
-  rain_color: null,
-  rain_color_clear: null,
+  rain_color: null, // TODO: type `string`
+  rain_color_clear: null, // TODO: type `string`
   // rain particles
-  rain: [],
-  rain_pool: [],
+  rain: [] as Rain[],
+  rain_pool: [] as Rain[],
   // rain droplet (splash) particles
-  drops: [],
-  drop_pool: [],
+  drops: [] as Drop[],
+  drop_pool: [] as Drop[],
 }
 
 // demo initialization (should only run once)
-demo.init = function (el) {
+demo.init = function (el: HTMLCanvasElement) {
   if (!demo.started) {
     demo.started = true
     demo.canvas = el
@@ -98,7 +98,7 @@ demo.resize = function () {
   demo.canvas.height = demo.height * demo.dpr
 }
 
-demo.step = function (time, lag) {
+demo.step = function (time: number, lag: number) {
   const { speed, width, height, wind, rain, rain_pool, drops } = demo
 
   // multiplier for physics
@@ -215,13 +215,11 @@ class Rain {
   static width = 2
   static height = 40
 
-  constructor() {
-    this.x = 0
-    this.y = 0
-    this.z = 0
-    this.speed = 25
-    this.splashed = false
-  }
+  x = 0
+  y = 0
+  z = 0
+  speed = 25
+  splashed = false
 
   init() {
     this.y = Math.random() * -100
@@ -253,14 +251,18 @@ class Rain {
 class Drop {
   static max_speed = 5
 
+  x = 0
+  y = 0
+  radius = Math.round(Math.random() * 2 + 1) * demo.dpr
+  speed_x = 0
+  speed_y = 0
+  canvas = document.createElement('canvas')
+  ctx = this.canvas.getContext('2d')
+
   constructor() {
-    this.x = 0
-    this.y = 0
-    this.radius = Math.round(Math.random() * 2 + 1) * demo.dpr
-    this.speed_x = 0
-    this.speed_y = 0
-    this.canvas = document.createElement('canvas')
-    this.ctx = this.canvas.getContext('2d')
+    if (this.ctx === null) {
+      throw new Error('Rain canvas could not be created')
+    }
 
     // render once and cache
     const diameter = this.radius * 2
@@ -281,7 +283,7 @@ class Drop {
     this.ctx.fillRect(0, 0, diameter, diameter)
   }
 
-  init(x) {
+  init(x: number) {
     this.x = x
     this.y = demo.height
 
@@ -297,44 +299,46 @@ class Drop {
   }
 }
 
+type FrameTickerListener = (frameTime: number, frameDuration: number) => void
+
 // Frame ticker helper module
 const Ticker = (function () {
-  const PUBLIC_API = {}
+  const PUBLIC_API = {
+    // public
+    // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
+    addListener: (fn: FrameTickerListener) => {
+      if (typeof fn !== 'function')
+        throw 'Ticker.addListener() requires a function reference passed in.'
 
-  // public
-  // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
-  PUBLIC_API.addListener = function addListener(fn) {
-    if (typeof fn !== 'function')
-      throw 'Ticker.addListener() requires a function reference passed in.'
+      listeners.push(fn)
 
-    listeners.push(fn)
+      // start frame-loop lazily
+      if (!started) {
+        started = true
+        queueFrame()
+      }
+    },
 
-    // start frame-loop lazily
-    if (!started) {
-      started = true
-      queueFrame()
-    }
-  }
-
-  PUBLIC_API.clearListeners = function clearListeners() {
-    listeners = []
-    started = false
-    last_timestamp = 0
+    clearListeners: () => {
+      listeners = []
+      started = false
+      last_timestamp = 0
+    },
   }
 
   // private
   let started = false
   let last_timestamp = 0
-  let listeners = []
+  let listeners: FrameTickerListener[] = []
 
   // queue up a new frame (calls frameHandler)
   function queueFrame() {
-    if (window.requestAnimationFrame) {
+    if (typeof window.requestAnimationFrame !== 'undefined') {
       requestAnimationFrame(frameHandler)
     }
   }
 
-  function frameHandler(timestamp) {
+  function frameHandler(timestamp: number) {
     let frame_time = timestamp - last_timestamp
     last_timestamp = timestamp
     // make sure negative time isn't reported (first frame can be whacky)
