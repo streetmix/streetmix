@@ -1,3 +1,4 @@
+import { FrameTicker } from '~/src/util/animation.js'
 // Falling rain simulation using 2D canvas
 // - vanilla JS, no frameworks
 // - framerate independent physics
@@ -8,6 +9,9 @@
 // - all particles make use of object pooling to further boost performance
 // original by Caleb Miller
 // https://codepen.io/MillerTime/pen/oXmgJe
+
+// frame ticker -- this is only instantiated for use here but could be global
+const Ticker = new FrameTicker()
 
 // demo namespace
 export const demo = {
@@ -298,70 +302,3 @@ class Drop {
     demo.drop_pool.push(this)
   }
 }
-
-type FrameTickerListener = (frameTime: number, frameDuration: number) => void
-
-// Frame ticker helper module
-const Ticker = (function () {
-  const PUBLIC_API = {
-    // public
-    // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
-    addListener: (fn: FrameTickerListener) => {
-      if (typeof fn !== 'function')
-        throw 'Ticker.addListener() requires a function reference passed in.'
-
-      listeners.push(fn)
-
-      // start frame-loop lazily
-      if (!started) {
-        started = true
-        queueFrame()
-      }
-    },
-
-    clearListeners: () => {
-      listeners = []
-      started = false
-      last_timestamp = 0
-    },
-  }
-
-  // private
-  let started = false
-  let last_timestamp = 0
-  let listeners: FrameTickerListener[] = []
-
-  // queue up a new frame (calls frameHandler)
-  function queueFrame() {
-    if (typeof window.requestAnimationFrame !== 'undefined') {
-      requestAnimationFrame(frameHandler)
-    }
-  }
-
-  function frameHandler(timestamp: number) {
-    let frame_time = timestamp - last_timestamp
-    last_timestamp = timestamp
-    // make sure negative time isn't reported (first frame can be whacky)
-    if (frame_time < 0) {
-      // frame_time = 17 // 60fps
-      // use 30fps for better performance
-      frame_time = 33 // 30fps
-    }
-    // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
-    else if (frame_time > 68) {
-      frame_time = 68
-    }
-
-    // fire custom listeners
-    for (let i = 0, len = listeners.length; i < len; i++) {
-      listeners[i].call(window, frame_time, frame_time / 16.67)
-    }
-
-    // always queue another frame (if started)
-    if (started) {
-      queueFrame()
-    }
-  }
-
-  return PUBLIC_API
-})()
