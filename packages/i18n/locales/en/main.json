@@ -254,7 +254,8 @@
       "error-too-large": "This image is too big and we were not able to create it. Please try a smaller custom size.",
       "preview-image-alt": "Preview",
       "print-size": "Print size",
-      "digital-size": "Digital size"
+      "digital-size": "Digital size",
+      "weather-not-exported": "Weather effects will not be exported."
     },
     "geotag": {
       "search": "Search for a location",
