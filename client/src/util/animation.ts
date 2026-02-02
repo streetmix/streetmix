@@ -12,8 +12,11 @@ export class FrameTicker {
 
   // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
   addListener(fn: FrameTickerListener) {
-    if (typeof fn !== 'function')
-      throw 'FrameTicker.addListener() requires a function reference passed in.'
+    if (typeof fn !== 'function') {
+      throw new Error(
+        'FrameTicker.addListener() requires a function reference passed in.'
+      )
+    }
 
     this.#listeners.push(fn)
 

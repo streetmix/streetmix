@@ -19,7 +19,7 @@ const Ticker = new FrameTicker()
 
 // CUSTOMIZABLE PROPERTIES
 // - physics speed multiplier: allows slowing down or speeding up simulation
-let speed = 0.25
+let speed = 1
 
 // - color of particles
 const color = {
