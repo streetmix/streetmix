@@ -6,10 +6,10 @@ import './RainCanvas.css'
 
 export function RainCanvas() {
   const ref = useRef<HTMLCanvasElement | null>(null)
-  const { isRaining } = useSelector((state) => state.coastmix)
+  const { weather } = useSelector((state) => state.street)
 
   useEffect(() => {
-    if (isRaining && ref.current) {
+    if (weather === 'rain' && ref.current) {
       init(ref.current)
     } else {
       stop()
@@ -18,7 +18,7 @@ export function RainCanvas() {
     return () => {
       stop()
     }
-  }, [isRaining])
+  }, [weather])
 
   return <canvas className="rain-canvas" ref={ref} />
 }

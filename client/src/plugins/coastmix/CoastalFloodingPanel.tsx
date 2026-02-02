@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
+
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
-  setRain,
   setFloodDirection,
   setFloodDistance,
   type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
+import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
@@ -44,7 +45,11 @@ export function CoastalFloodingPanel() {
 
   function toggleStormSurge(checked: boolean): void {
     dispatch(setStormSurge(checked))
-    dispatch(setRain(checked))
+    if (checked) {
+      dispatch(setWeather('rain'))
+    } else {
+      dispatch(setWeather(null))
+    }
   }
 
   useEffect(() => {

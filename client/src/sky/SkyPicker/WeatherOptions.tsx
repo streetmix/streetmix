@@ -1,20 +1,24 @@
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { setRain } from '~/src/store/slices/coastmix.js'
+import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 
 import './WeatherOptions.css'
 
 export function WeatherOptions() {
-  const { isRaining } = useSelector((state) => state.coastmix)
+  const { weather } = useSelector((state) => state.street)
   const dispatch = useDispatch()
 
   function handleSetClear() {
-    dispatch(setRain(false))
+    dispatch(setWeather(null))
   }
 
   function handleSetRain() {
-    // maybe this should just be true
-    dispatch(setRain(!isRaining))
+    // This is a toggle but maybe it shouldn't be
+    if (weather === 'rain') {
+      dispatch(setWeather(null))
+    } else {
+      dispatch(setWeather('rain'))
+    }
   }
 
   return (

@@ -99,6 +99,7 @@ export interface StreetJson {
     right: StreetBoundary
   }
   skybox: string
+  weather: WeatherEffect | null
   location: StreetLocation | null
   showAnalytics: boolean
   capacitySource?: string
@@ -147,6 +148,7 @@ export interface StreetState extends StreetJsonExtra {
     right: StreetBoundary
   }
   skybox: string
+  weather: WeatherEffect | null
   location: StreetLocation | null
   showAnalytics: boolean
   capacitySource?: string
@@ -159,6 +161,8 @@ export interface StreetState extends StreetJsonExtra {
   editCount: number
   immediateRemoval: boolean
 }
+
+export type WeatherEffect = 'rain' | 'snow'
 
 export type SlopeConstraints = 'off' | 'path' | 'berm'
 

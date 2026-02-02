@@ -25,6 +25,7 @@ import street, {
   setBuildingFloorValue,
   setBuildingVariant,
   setSkybox,
+  setWeather,
 } from './street.js'
 
 describe('street reducer', () => {
@@ -51,6 +52,7 @@ describe('street reducer', () => {
       },
     },
     skybox: 'day',
+    weather: null,
     location: null,
     showAnalytics: false,
     occupiedWidth: 0,
@@ -757,6 +759,18 @@ describe('street reducer', () => {
     expect(street(initialState, setSkybox('foo'))).toEqual({
       ...initialState,
       skybox: 'foo',
+    })
+  })
+
+  it('should handle setWeather()', () => {
+    expect(street(initialState, setWeather('rain'))).toEqual({
+      ...initialState,
+      weather: 'rain',
+    })
+
+    expect(street(initialState, setWeather(null))).toEqual({
+      ...initialState,
+      weather: null,
     })
   })
 })
