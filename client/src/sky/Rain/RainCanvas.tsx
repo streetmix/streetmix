@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 import { useSelector } from '../../store/hooks.js'
-import { demo } from './rain.js'
+import { init, stop } from './rain.js'
 import './RainCanvas.css'
 
 export function RainCanvas() {
@@ -10,13 +10,13 @@ export function RainCanvas() {
 
   useEffect(() => {
     if (isRaining && ref.current) {
-      demo.init(ref.current)
+      init(ref.current)
     } else {
-      demo.stop()
+      stop()
     }
 
     return () => {
-      demo.stop()
+      stop()
     }
   }, [isRaining])
 

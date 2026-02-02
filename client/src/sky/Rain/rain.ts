@@ -9,71 +9,74 @@ import { FrameTicker } from '~/src/util/animation.js'
 // - all particles make use of object pooling to further boost performance
 // original by Caleb Miller
 // https://codepen.io/MillerTime/pen/oXmgJe
+// and ported to Typescript + modern class syntax
+// the original `demo` object is destructured for easier typing
+// and this module is effectively a singleton anyway
 
-// frame ticker -- this is only instantiated for use here but could be global
+// frame ticker -- extracted to separate standalone helper module.
+// this is only instantiated here but could be a global animation manager
 const Ticker = new FrameTicker()
 
-// demo namespace
-export const demo = {
-  // CUSTOMIZABLE PROPERTIES
-  // - physics speed multiplier: allows slowing down or speeding up simulation
-  speed: 1,
-  // - color of particles
-  color: {
-    r: '128',
-    g: '128',
-    b: '128',
-    a: '0.33',
-  },
+// CUSTOMIZABLE PROPERTIES
+// - physics speed multiplier: allows slowing down or speeding up simulation
+let speed = 0.25
 
-  // END CUSTOMIZATION
-  // whether demo is running
-  started: false,
-  // canvas and associated context references
-  canvas: null, // TODO: type
-  ctx: null, // TODO: type
-  // viewport dimensions (DIPs)
-  width: 0,
-  height: 0,
-  // devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
-  dpr: window.devicePixelRatio ?? 1,
-  // time since last drop
-  drop_time: 0,
-  // ideal time between drops
-  drop_delay: 6,
-  // wind applied to rain
-  wind: 6,
-  // color of rain (set in init)
-  rain_color: null, // TODO: type `string`
-  rain_color_clear: null, // TODO: type `string`
-  // rain particles
-  rain: [] as Rain[],
-  rain_pool: [] as Rain[],
-  // rain droplet (splash) particles
-  drops: [] as Drop[],
-  drop_pool: [] as Drop[],
+// - color of particles
+const color = {
+  r: '128',
+  g: '128',
+  b: '128',
+  a: '0.33',
 }
+// END CUSTOMIZATION
+
+// whether demo is running
+let started = false
+// canvas and associated context references
+let canvas: HTMLCanvasElement | null = null
+let ctx: CanvasRenderingContext2D | null = null
+// viewport dimensions (DIPs)
+let width = 0
+let height = 0
+// devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
+const dpr = window.devicePixelRatio ?? 1
+// time since last drop
+let drop_time = 0
+// ideal time between drops
+let drop_delay = 6
+// wind applied to rain
+let wind = 6
+// color of rain (set in init, begin with default color)
+let rain_color: string = '#000000'
+let rain_color_clear: string = '#000000'
+// rain particles
+const rain: Rain[] = []
+const rain_pool: Rain[] = []
+// rain droplet (splash) particles
+const drops: Drop[] = []
+const drop_pool: Drop[] = []
 
 // demo initialization (should only run once)
-demo.init = function (el: HTMLCanvasElement) {
-  if (!demo.started) {
-    demo.started = true
-    demo.canvas = el
-    demo.ctx = demo.canvas.getContext('2d')
+export function init(el: HTMLCanvasElement): void {
+  if (!started) {
+    started = true
+    canvas = el
+    ctx = canvas.getContext('2d')
 
     // initalize some randomness on values
     // TODO -- allow passing in start values as well
-    demo.speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
-    demo.wind = Math.random() * 20 - 10 // range -10 to 10
-    demo.drop_delay = Math.random() * 5 + 3 // range 3 - 8
+    speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
+    wind = Math.random() * 20 - 10 // range -10 to 10
+    drop_delay = Math.random() * 5 + 3 // range 3 - 8
 
-    const c = demo.color
-    demo.rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')'
-    demo.rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)'
-    demo.resize()
+    const c = color
+    rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')'
+    rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)'
+    resize()
 
-    Ticker.addListener(demo.step)
-    window.addEventListener('resize', demo.resize)
+    Ticker.addListener(step)
+    window.addEventListener('resize', resize)
+
     // demo controls
     // lil-gui in global space
     // const gui = new lil.GUI();
@@ -84,34 +87,32 @@ demo.init = function (el: HTMLCanvasElement) {
 }
 
 // (re)size canvas (clears all particles)
-demo.resize = function () {
-  const { rain, drops } = demo
-
+function resize(): void {
   // recycle particles
   for (let i = rain.length - 1; i >= 0; i--) {
-    rain.pop().recycle()
+    rain.pop()?.recycle()
   }
   for (let i = drops.length - 1; i >= 0; i--) {
-    drops.pop().recycle()
+    drops.pop()?.recycle()
   }
 
+  if (canvas === null) return
+
   // resize
-  demo.width = demo.canvas.offsetWidth
-  demo.height = demo.canvas.offsetHeight
-  demo.canvas.width = demo.width * demo.dpr
-  demo.canvas.height = demo.height * demo.dpr
+  width = canvas.offsetWidth
+  height = canvas.offsetHeight
+  canvas.width = width * dpr
+  canvas.height = height * dpr
 }
 
-demo.step = function (time: number, lag: number) {
-  const { speed, width, height, wind, rain, rain_pool, drops } = demo
-
+function step(time: number, lag: number): void {
   // multiplier for physics
   const multiplier = speed * lag
 
   // spawn drops
-  demo.drop_time += time * speed
-  while (demo.drop_time > demo.drop_delay) {
-    demo.drop_time -= demo.drop_delay
+  drop_time += time * speed
+  while (drop_time > drop_delay) {
+    drop_time -= drop_delay
     const new_rain = rain_pool.pop() || new Rain()
     new_rain.init()
     const wind_expand = Math.abs((height / new_rain.speed) * wind) // expand spawn width as wind increases
@@ -167,11 +168,11 @@ demo.step = function (time: number, lag: number) {
     }
   }
 
-  demo.draw()
+  draw()
 }
 
-demo.draw = function () {
-  const { width, height, dpr, rain, drops, ctx } = demo
+function draw(): void {
+  if (ctx === null) return
 
   // start fresh
   ctx.clearRect(0, 0, width * dpr, height * dpr)
@@ -185,10 +186,10 @@ demo.draw = function () {
     const real_y = r.y * dpr
     ctx.moveTo(real_x, real_y)
     // magic number 1.5 compensates for lack of trig in drawing angled rain
-    ctx.lineTo(real_x - demo.wind * r.z * dpr * 1.5, real_y - rain_height * r.z)
+    ctx.lineTo(real_x - wind * r.z * dpr * 1.5, real_y - rain_height * r.z)
   }
   ctx.lineWidth = Rain.width * dpr
-  ctx.strokeStyle = demo.rain_color
+  ctx.strokeStyle = rain_color
   ctx.stroke()
 
   // draw splash drops (just copy pre-rendered canvas)
@@ -200,18 +201,16 @@ demo.draw = function () {
   }
 }
 
-demo.stop = function () {
-  const { width, height, dpr, ctx } = demo
-
+export function stop(): void {
   // clear canvas
   if (ctx) {
     ctx.clearRect(0, 0, width * dpr, height * dpr)
   }
 
-  demo.started = false
+  started = false
 
   Ticker.clearListeners()
-  window.removeEventListener('resize', demo.resize)
+  window.removeEventListener('resize', resize)
 }
 
 // Rain definition
@@ -232,15 +231,13 @@ class Rain {
   }
 
   recycle() {
-    demo.rain_pool.push(this)
+    rain_pool.push(this)
   }
 
   // recycle rain particle and create a burst of droplets
   splash() {
     if (!this.splashed) {
       this.splashed = true
-      const drops = demo.drops
-      const drop_pool = demo.drop_pool
 
       for (let i = 0; i < 16; i++) {
         const drop = drop_pool.pop() ?? new Drop()
@@ -257,7 +254,7 @@ class Drop {
 
   x = 0
   y = 0
-  radius = Math.round(Math.random() * 2 + 1) * demo.dpr
+  radius = Math.round(Math.random() * 2 + 1) * dpr
   speed_x = 0
   speed_y = 0
   canvas = document.createElement('canvas')
@@ -281,15 +278,15 @@ class Drop {
       this.radius,
       this.radius
     )
-    gradient.addColorStop(0, demo.rain_color)
-    gradient.addColorStop(1, demo.rain_color_clear)
+    gradient.addColorStop(0, rain_color)
+    gradient.addColorStop(1, rain_color_clear)
     this.ctx.fillStyle = gradient
     this.ctx.fillRect(0, 0, diameter, diameter)
   }
 
   init(x: number) {
     this.x = x
-    this.y = demo.height
+    this.y = height
 
     const angle = Math.random() * Math.PI - Math.PI * 0.5
     const speed = Math.random() * Drop.max_speed
@@ -299,6 +296,6 @@ class Drop {
   }
 
   recycle() {
-    demo.drop_pool.push(this)
+    drop_pool.push(this)
   }
 }
