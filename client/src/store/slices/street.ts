@@ -7,7 +7,12 @@ import { DEFAULT_SKYBOX } from '~/src/sky/constants'
 import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
 import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 
-import type { BoundaryPosition, Segment, StreetState } from '@streetmix/types'
+import type {
+  BoundaryPosition,
+  Segment,
+  StreetState,
+  WeatherEffect,
+} from '@streetmix/types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StreetState = {
@@ -33,6 +38,7 @@ const initialState: StreetState = {
     },
   },
   skybox: DEFAULT_SKYBOX,
+  weather: null,
   location: null,
   showAnalytics: false,
   occupiedWidth: 0,
@@ -486,6 +492,10 @@ const streetSlice = createSlice({
     setSkybox(state, action) {
       state.skybox = action.payload
     },
+
+    setWeather(state, action: PayloadAction<WeatherEffect | null>) {
+      state.weather = action.payload
+    },
   },
 })
 
@@ -520,6 +530,7 @@ export const {
   setBuildingFloorValue,
   setBuildingVariant,
   setSkybox,
+  setWeather,
 } = streetSlice.actions
 
 export default streetSlice.reducer

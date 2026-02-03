@@ -7,6 +7,7 @@ import { toggleToolbox } from '~/src/store/slices/ui.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { SkyOptions } from './SkyOptions.js'
+import { WeatherOptions } from './WeatherOptions.js'
 import './SkyPicker.css'
 
 export function SkyPicker() {
@@ -15,6 +16,9 @@ export function SkyPicker() {
   const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
   const isUnlocked = useSelector(
     (state) => state.flags.ENVIRONMENTS_UNLOCKED?.value ?? false
+  )
+  const weatherEnabled = useSelector(
+    (state) => state.flags.WEATHER_EFFECTS?.value ?? false
   )
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
@@ -48,8 +52,8 @@ export function SkyPicker() {
           selected={selected}
           handleSelect={handleSelect}
         />
+        {weatherEnabled && <WeatherOptions />}
       </IntlProvider>
-
       {!isEnabled && (
         <div className="sky-picker-upgrade">
           <StreetmixPlusPrompt>

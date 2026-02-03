@@ -95,6 +95,7 @@ export function trimStreetData(street: StreetState): StreetJson {
     location: street.location,
     userUpdated: street.userUpdated,
     skybox: street.skybox,
+    weather: street.weather,
     boundary: street.boundary,
     segments: street.segments.map((s) => {
       // TODO: don't manually copy, just delete the properties that don't exist?

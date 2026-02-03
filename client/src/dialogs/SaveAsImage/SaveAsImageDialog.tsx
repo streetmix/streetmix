@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 
+import alertIcon from 'url:~/images/warning_alert.svg'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateSettings } from '~/src/store/slices/settings.js'
 import { Button } from '~/src/ui/Button.js'
@@ -312,6 +313,15 @@ export function SaveAsImageDialog() {
                 </Tooltip>
               )}
             </div>
+            {street.weather !== null && (
+              <div className="save-as-image-weather-alert">
+                <img src={alertIcon} alt="" draggable={false} />
+                <FormattedMessage
+                  id="dialogs.save.weather-not-exported"
+                  defaultMessage="Weather effects will not be exported.&lrm;"
+                />
+              </div>
+            )}
             <div className="save-as-image-preview">
               {errorMessage === undefined && (
                 <div className="save-as-image-preview-image">

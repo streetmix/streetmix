@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
+
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
-  setRain,
   setFloodDirection,
   setFloodDistance,
   type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
+import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
@@ -36,10 +37,19 @@ export function CoastalFloodingPanel() {
     dispatch(setSeaLevelRise(x))
   }
 
-  const changeFloodDirection = (
+  function changeFloodDirection(
     event: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
+  ): void {
     dispatch(setFloodDirection(event.target.value as FloodDirection))
+  }
+
+  function toggleStormSurge(checked: boolean): void {
+    dispatch(setStormSurge(checked))
+    if (checked) {
+      dispatch(setWeather('rain'))
+    } else {
+      dispatch(setWeather(null))
+    }
   }
 
   useEffect(() => {
@@ -122,13 +132,7 @@ export function CoastalFloodingPanel() {
         </div>
         <div className="popup-control-group">
           <div className="popup-control-label">Storm surge</div>
-          <Switch
-            onCheckedChange={(checked) => {
-              dispatch(setStormSurge(checked))
-              dispatch(setRain(checked))
-            }}
-            checked={stormSurge}
-          />
+          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
         <div className={messageClassNames.join(' ')}>{message}</div>
       </div>

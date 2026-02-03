@@ -1,3 +1,4 @@
+import { FrameTicker } from '~/src/util/animation.js'
 // Falling rain simulation using 2D canvas
 // - vanilla JS, no frameworks
 // - framerate independent physics
@@ -8,68 +9,74 @@
 // - all particles make use of object pooling to further boost performance
 // original by Caleb Miller
 // https://codepen.io/MillerTime/pen/oXmgJe
+// and ported to Typescript + modern class syntax
+// the original `demo` object is destructured for easier typing
+// and this module is effectively a singleton anyway
 
-// demo namespace
-export const demo = {
-  // CUSTOMIZABLE PROPERTIES
-  // - physics speed multiplier: allows slowing down or speeding up simulation
-  speed: 1,
-  // - color of particles
-  color: {
-    r: '128',
-    g: '128',
-    b: '128',
-    a: '0.33',
-  },
+// frame ticker -- extracted to separate standalone helper module.
+// this is only instantiated here but could be a global animation manager
+const Ticker = new FrameTicker()
 
-  // END CUSTOMIZATION
-  // whether demo is running
-  started: false,
-  // canvas and associated context references
-  canvas: null,
-  ctx: null,
-  // viewport dimensions (DIPs)
-  width: 0,
-  height: 0,
-  // devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
-  dpr: window.devicePixelRatio ?? 1,
-  // time since last drop
-  drop_time: 0,
-  // ideal time between drops
-  drop_delay: 6,
-  // wind applied to rain
-  wind: 6,
-  // color of rain (set in init)
-  rain_color: null,
-  rain_color_clear: null,
-  // rain particles
-  rain: [],
-  rain_pool: [],
-  // rain droplet (splash) particles
-  drops: [],
-  drop_pool: [],
+// CUSTOMIZABLE PROPERTIES
+// - physics speed multiplier: allows slowing down or speeding up simulation
+let speed = 1
+
+// - color of particles
+const color = {
+  r: '128',
+  g: '128',
+  b: '128',
+  a: '0.33',
 }
+// END CUSTOMIZATION
+
+// whether demo is running
+let started = false
+// canvas and associated context references
+let canvas: HTMLCanvasElement | null = null
+let ctx: CanvasRenderingContext2D | null = null
+// viewport dimensions (DIPs)
+let width = 0
+let height = 0
+// devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
+const dpr = window.devicePixelRatio ?? 1
+// time since last drop
+let drop_time = 0
+// ideal time between drops
+let drop_delay = 6
+// wind applied to rain
+let wind = 6
+// color of rain (set in init, begin with default color)
+let rain_color: string = '#000000'
+let rain_color_clear: string = '#000000'
+// rain particles
+const rain: Rain[] = []
+const rain_pool: Rain[] = []
+// rain droplet (splash) particles
+const drops: Drop[] = []
+const drop_pool: Drop[] = []
 
 // demo initialization (should only run once)
-demo.init = function (el) {
-  if (!demo.started) {
-    demo.started = true
-    demo.canvas = el
-    demo.ctx = demo.canvas.getContext('2d')
+export function init(el: HTMLCanvasElement): void {
+  if (!started) {
+    started = true
+    canvas = el
+    ctx = canvas.getContext('2d')
 
     // initalize some randomness on values
     // TODO -- allow passing in start values as well
-    demo.speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
-    demo.wind = Math.random() * 20 - 10 // range -10 to 10
-    demo.drop_delay = Math.random() * 5 + 3 // range 3 - 8
+    speed = Math.random() * 0.4 + 0.8 // range 0.8 - 1.2
+    wind = Math.random() * 20 - 10 // range -10 to 10
+    drop_delay = Math.random() * 5 + 3 // range 3 - 8
 
-    const c = demo.color
-    demo.rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')'
-    demo.rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)'
-    demo.resize()
+    const c = color
+    rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')'
+    rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)'
+    resize()
 
-    Ticker.addListener(demo.step)
-    window.addEventListener('resize', demo.resize)
+    Ticker.addListener(step)
+    window.addEventListener('resize', resize)
+
     // demo controls
     // lil-gui in global space
     // const gui = new lil.GUI();
@@ -80,34 +87,32 @@ demo.init = function (el) {
 }
 
 // (re)size canvas (clears all particles)
-demo.resize = function () {
-  const { rain, drops } = demo
-
+function resize(): void {
   // recycle particles
   for (let i = rain.length - 1; i >= 0; i--) {
-    rain.pop().recycle()
+    rain.pop()?.recycle()
   }
   for (let i = drops.length - 1; i >= 0; i--) {
-    drops.pop().recycle()
+    drops.pop()?.recycle()
   }
 
+  if (canvas === null) return
+
   // resize
-  demo.width = demo.canvas.offsetWidth
-  demo.height = demo.canvas.offsetHeight
-  demo.canvas.width = demo.width * demo.dpr
-  demo.canvas.height = demo.height * demo.dpr
+  width = canvas.offsetWidth
+  height = canvas.offsetHeight
+  canvas.width = width * dpr
+  canvas.height = height * dpr
 }
 
-demo.step = function (time, lag) {
-  const { speed, width, height, wind, rain, rain_pool, drops } = demo
-
+function step(time: number, lag: number): void {
   // multiplier for physics
   const multiplier = speed * lag
 
   // spawn drops
-  demo.drop_time += time * speed
-  while (demo.drop_time > demo.drop_delay) {
-    demo.drop_time -= demo.drop_delay
+  drop_time += time * speed
+  while (drop_time > drop_delay) {
+    drop_time -= drop_delay
     const new_rain = rain_pool.pop() || new Rain()
     new_rain.init()
     const wind_expand = Math.abs((height / new_rain.speed) * wind) // expand spawn width as wind increases
@@ -163,11 +168,11 @@ demo.step = function (time, lag) {
     }
   }
 
-  demo.draw()
+  draw()
 }
 
-demo.draw = function () {
-  const { width, height, dpr, rain, drops, ctx } = demo
+function draw(): void {
+  if (ctx === null) return
 
   // start fresh
   ctx.clearRect(0, 0, width * dpr, height * dpr)
@@ -181,10 +186,10 @@ demo.draw = function () {
     const real_y = r.y * dpr
     ctx.moveTo(real_x, real_y)
     // magic number 1.5 compensates for lack of trig in drawing angled rain
-    ctx.lineTo(real_x - demo.wind * r.z * dpr * 1.5, real_y - rain_height * r.z)
+    ctx.lineTo(real_x - wind * r.z * dpr * 1.5, real_y - rain_height * r.z)
   }
   ctx.lineWidth = Rain.width * dpr
-  ctx.strokeStyle = demo.rain_color
+  ctx.strokeStyle = rain_color
   ctx.stroke()
 
   // draw splash drops (just copy pre-rendered canvas)
@@ -196,18 +201,16 @@ demo.draw = function () {
   }
 }
 
-demo.stop = function () {
-  const { width, height, dpr, ctx } = demo
-
+export function stop(): void {
   // clear canvas
   if (ctx) {
     ctx.clearRect(0, 0, width * dpr, height * dpr)
   }
 
-  demo.started = false
+  started = false
 
   Ticker.clearListeners()
-  window.removeEventListener('resize', demo.resize)
+  window.removeEventListener('resize', resize)
 }
 
 // Rain definition
@@ -215,13 +218,11 @@ class Rain {
   static width = 2
   static height = 40
 
-  constructor() {
-    this.x = 0
-    this.y = 0
-    this.z = 0
-    this.speed = 25
-    this.splashed = false
-  }
+  x = 0
+  y = 0
+  z = 0
+  speed = 25
+  splashed = false
 
   init() {
     this.y = Math.random() * -100
@@ -230,15 +231,13 @@ class Rain {
   }
 
   recycle() {
-    demo.rain_pool.push(this)
+    rain_pool.push(this)
   }
 
   // recycle rain particle and create a burst of droplets
   splash() {
     if (!this.splashed) {
       this.splashed = true
-      const drops = demo.drops
-      const drop_pool = demo.drop_pool
 
       for (let i = 0; i < 16; i++) {
         const drop = drop_pool.pop() ?? new Drop()
@@ -253,14 +252,18 @@ class Rain {
 class Drop {
   static max_speed = 5
 
+  x = 0
+  y = 0
+  radius = Math.round(Math.random() * 2 + 1) * dpr
+  speed_x = 0
+  speed_y = 0
+  canvas = document.createElement('canvas')
+  ctx = this.canvas.getContext('2d')
+
   constructor() {
-    this.x = 0
-    this.y = 0
-    this.radius = Math.round(Math.random() * 2 + 1) * demo.dpr
-    this.speed_x = 0
-    this.speed_y = 0
-    this.canvas = document.createElement('canvas')
-    this.ctx = this.canvas.getContext('2d')
+    if (this.ctx === null) {
+      throw new Error('Rain canvas could not be created')
+    }
 
     // render once and cache
     const diameter = this.radius * 2
@@ -275,15 +278,15 @@ class Drop {
       this.radius,
       this.radius
     )
-    gradient.addColorStop(0, demo.rain_color)
-    gradient.addColorStop(1, demo.rain_color_clear)
+    gradient.addColorStop(0, rain_color)
+    gradient.addColorStop(1, rain_color_clear)
     this.ctx.fillStyle = gradient
     this.ctx.fillRect(0, 0, diameter, diameter)
   }
 
-  init(x) {
+  init(x: number) {
     this.x = x
-    this.y = demo.height
+    this.y = height
 
     const angle = Math.random() * Math.PI - Math.PI * 0.5
     const speed = Math.random() * Drop.max_speed
@@ -293,71 +296,6 @@ class Drop {
   }
 
   recycle() {
-    demo.drop_pool.push(this)
+    drop_pool.push(this)
   }
 }
-
-// Frame ticker helper module
-const Ticker = (function () {
-  const PUBLIC_API = {}
-
-  // public
-  // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
-  PUBLIC_API.addListener = function addListener(fn) {
-    if (typeof fn !== 'function')
-      throw 'Ticker.addListener() requires a function reference passed in.'
-
-    listeners.push(fn)
-
-    // start frame-loop lazily
-    if (!started) {
-      started = true
-      queueFrame()
-    }
-  }
-
-  PUBLIC_API.clearListeners = function clearListeners() {
-    listeners = []
-    started = false
-    last_timestamp = 0
-  }
-
-  // private
-  let started = false
-  let last_timestamp = 0
-  let listeners = []
-
-  // queue up a new frame (calls frameHandler)
-  function queueFrame() {
-    if (window.requestAnimationFrame) {
-      requestAnimationFrame(frameHandler)
-    }
-  }
-
-  function frameHandler(timestamp) {
-    let frame_time = timestamp - last_timestamp
-    last_timestamp = timestamp
-    // make sure negative time isn't reported (first frame can be whacky)
-    if (frame_time < 0) {
-      // frame_time = 17 // 60fps
-      // use 30fps for better performance
-      frame_time = 33 // 30fps
-    }
-    // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
-    else if (frame_time > 68) {
-      frame_time = 68
-    }
-
-    // fire custom listeners
-    for (let i = 0, len = listeners.length; i < len; i++) {
-      listeners[i].call(window, frame_time, frame_time / 16.67)
-    }
-
-    // always queue another frame (if started)
-    if (started) {
-      queueFrame()
-    }
-  }
-
-  return PUBLIC_API
-})()

@@ -1,4 +1,5 @@
 import { vi } from 'vitest'
+import { screen } from '@testing-library/react'
 
 import { render } from '~/test/helpers/render.js'
 import { SaveAsImageDialog } from './SaveAsImageDialog.js'
@@ -22,6 +23,7 @@ const initialState = {
   },
   street: {
     name: 'foo',
+    weather: null,
   },
   user: {
     isSubscriber: false,
@@ -38,5 +40,23 @@ describe('SaveAsImageDialog', () => {
       initialState,
     })
     expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('renders weather effect warning', () => {
+    const testState = {
+      ...initialState,
+      street: {
+        name: 'foo',
+        weather: 'rain',
+      },
+    }
+
+    render(<SaveAsImageDialog />, {
+      initialState: testState,
+    })
+
+    expect(
+      screen.getByText('Weather effects will not be exported', { exact: false })
+    ).toBeInTheDocument()
   })
 })

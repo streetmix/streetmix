@@ -114,3 +114,19 @@
     line-height: inherit;
   }
 }
+
+.save-as-image-weather-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2em;
+  font-weight: 500;
+  color: var(--color-copper-800);
+  background-color: var(--color-citrine-100);
+  border-radius: var(--border-radius);
+  padding: 0.25em;
+
+  img {
+    height: 22px;
+  }
+}

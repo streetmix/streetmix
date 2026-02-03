@@ -1,24 +1,24 @@
 import { useEffect, useRef } from 'react'
 
 import { useSelector } from '../../store/hooks.js'
-import { demo } from './rain.js'
+import { init, stop } from './rain.js'
 import './RainCanvas.css'
 
 export function RainCanvas() {
   const ref = useRef<HTMLCanvasElement | null>(null)
-  const { isRaining } = useSelector((state) => state.coastmix)
+  const { weather } = useSelector((state) => state.street)
 
   useEffect(() => {
-    if (isRaining && ref.current) {
-      demo.init(ref.current)
+    if (weather === 'rain' && ref.current) {
+      init(ref.current)
     } else {
-      demo.stop()
+      stop()
     }
 
     return () => {
-      demo.stop()
+      stop()
     }
-  }, [isRaining])
+  }, [weather])
 
   return <canvas className="rain-canvas" ref={ref} />
 }

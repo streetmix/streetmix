@@ -122,6 +122,8 @@ const router = Router()
  *             type: boolean
  *           skybox:
  *             type: string
+ *           weather:
+ *             type: string | null
  *           leftBuildingHeight:
  *             type: string
  *           rightBuildingHeight:

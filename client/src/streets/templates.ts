@@ -166,6 +166,7 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
     userUpdated: false,
     editCount: 0,
     skybox: DEFAULT_SKYBOX,
+    weather: null,
     schemaVersion: LATEST_SCHEMA_VERSION,
     segments: slices,
     updatedAt: currentDate,
