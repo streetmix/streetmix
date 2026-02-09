@@ -83,6 +83,26 @@ export interface StreetLocation {
   }
 }
 
+// This should match the object returned by /api/v1/streets
+export interface StreetAPIResponse {
+  id: string
+  namespacedId: number
+  name: string | null
+  clientUpdatedAt: string // ISO date string
+  data: {
+    // Or StreetData ?
+    street: StreetJson
+  }
+  createdAt: string // ISO date string
+  updatedAt: string // ISO date string
+  originalStreetId: string
+  creatorId: string | null
+  // This is injected by the server in addition to creatorId
+  creator: {
+    id: string | null
+  }
+}
+
 export interface StreetJson {
   id: string
   namespacedId: number
@@ -115,18 +135,6 @@ export interface StreetJsonExtra extends StreetJson {
 
 export interface StreetData {
   street: StreetJson
-}
-
-export interface Street {
-  id: string
-  namespacedId: number
-  name: string | null
-  clientUpdatedAt: string // ISO date string
-  data: StreetData
-  createdAt: string // ISO date string
-  updatedAt: string // ISO date string
-  originalStreetId: string
-  creatorId: string | null
 }
 
 // TODO: many of these values were "optional" but it might be worthwhile to
