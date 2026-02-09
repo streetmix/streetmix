@@ -27,6 +27,7 @@ vi.mock(
 describe('VariantSet', () => {
   const initialState = {
     street: {
+      width: 10,
       boundary: {
         left: {
           variant: 'residential',
@@ -37,6 +38,7 @@ describe('VariantSet', () => {
       },
       segments: [
         {
+          width: 3,
           variant: {
             direction: 'inbound',
             'public-transit-asphalt': 'regular',
