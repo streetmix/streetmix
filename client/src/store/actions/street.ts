@@ -40,7 +40,7 @@ import { setActiveSegment } from '../slices/ui'
 import { setFloodDistance } from '../slices/coastmix'
 
 import type { Dispatch, RootState } from '../index'
-import type { StreetState } from '@streetmix/types'
+import type { StreetAPIResponse, StreetState } from '@streetmix/types'
 
 /**
  * updateStreetWidth as a thunk action that automatically
@@ -181,14 +181,10 @@ export const incrementSegmentWidth = (
   }
 }
 
-const createStreetFromResponse = (response: {
-  data: { street: StreetState }
-  creatorId?: string
-  originalStreetId: string
-  updatedAt?: string
-  name?: string
-}): StreetState => {
-  const street = clone(response.data.street)
+const createStreetFromResponse = (response: StreetAPIResponse): StreetState => {
+  // This is where the response format gets flattened for Redux state
+  // Not sure if we have to do all this, tbh...
+  const street = clone(response.data.street) as StreetState
   street.creatorId = response.creatorId || null
   street.originalStreetId = response.originalStreetId || null
   street.updatedAt = response.updatedAt || undefined
