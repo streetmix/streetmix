@@ -11,11 +11,10 @@ import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr.js'
 
 import type {
   SliceItemForServerTransmission,
-  StreetJson,
   StreetState,
 } from '@streetmix/types'
 
-let _lastStreet: StreetJson
+let _lastStreet: Partial<StreetState>
 
 export function setLastStreet() {
   _lastStreet = trimStreetData(store.getState().street)
@@ -80,8 +79,8 @@ export function saveStreetToServerIfNecessary() {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData(street: StreetState): StreetJson {
-  const newData: StreetJson = {
+export function trimStreetData(street: StreetState): Partial<StreetState> {
+  const newData: Partial<StreetState> = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
     capacitySource: street.capacitySource,

@@ -1,10 +1,12 @@
 import clone from 'just-clone'
 
-import { cancelSegmentResizeTransitions } from '../segments/resizing'
+import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
-import { updateStreetData } from '../store/slices/street'
-import { createNewUndo, unifyStack } from '../store/slices/history'
-import { setUpdateTimeToNow, updateEverything } from './data_model'
+import { updateStreetData } from '../store/slices/street.js'
+import { createNewUndo, unifyStack } from '../store/slices/history.js'
+import { setUpdateTimeToNow, updateEverything } from './data_model.js'
+
+import type { StreetState } from '@streetmix/types'
 
 export function getUndoStack() {
   return clone(store.getState().history.stack)
@@ -25,7 +27,10 @@ export function finishUndoOrRedo() {
   updateEverything(true)
 }
 
-export function createNewUndoIfNecessary(lastStreet = {}, currentStreet) {
+export function createNewUndoIfNecessary(
+  lastStreet: Partial<StreetState> = {},
+  currentStreet: Partial<StreetState>
+) {
   // If just the street name has changed, don't make a new undo step for it.
   if (lastStreet.name !== currentStreet.name) {
     return

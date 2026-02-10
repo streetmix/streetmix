@@ -18,6 +18,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 const initialState: StreetState = {
   id: '',
   namespacedId: 0,
+  originalStreetId: null,
   schemaVersion: 0,
   units: SETTINGS_UNITS_METRIC,
   width: 0,
@@ -57,7 +58,7 @@ const streetSlice = createSlice({
     // This completely replaces arbitrary street data. The other actions below
     // are much more surgical and should be used instead of this one for small
     // updates. Use this one if you need to batch multiple actions into one.
-    updateStreetData(state, action: PayloadAction<StreetState>) {
+    updateStreetData(state, action: PayloadAction<Partial<StreetState>>) {
       return {
         ...state,
         ...action.payload,

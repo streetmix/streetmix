@@ -35,7 +35,7 @@ function trimUndoStack(
  */
 function unifyUndoStack(
   undoStack: HistoryState['stack'],
-  street: StreetState
+  street: Partial<StreetState>
 ): HistoryState['stack'] {
   return undoStack.map((item) => {
     item.id = street.id
@@ -52,7 +52,7 @@ const undoSlice = createSlice({
   initialState,
 
   reducers: {
-    undo(state, action: PayloadAction<StreetState>) {
+    undo(state, action: PayloadAction<Partial<StreetState>>) {
       const newPosition = state.position - 1
 
       state.stack[state.position] = action.payload
@@ -81,7 +81,7 @@ const undoSlice = createSlice({
       )
     },
 
-    createNewUndo(state, action: PayloadAction<StreetState>) {
+    createNewUndo(state, action: PayloadAction<Partial<StreetState>>) {
       const position = state.position
 
       // Create a shallow copy of the original undo stack up to the current
@@ -113,7 +113,7 @@ const undoSlice = createSlice({
      * don't need to maintain consistent metadata at each level of the stack.
      * (This is our preferred option.)
      */
-    unifyStack(state, action: PayloadAction<StreetState>) {
+    unifyStack(state, action: PayloadAction<Partial<StreetState>>) {
       state.stack = unifyUndoStack(state.stack, action.payload)
     },
   },

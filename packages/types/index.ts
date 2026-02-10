@@ -180,7 +180,7 @@ export interface StreetState extends StreetJsonExtra {
 }
 
 export interface HistoryState {
-  stack: StreetState[]
+  stack: Partial<StreetState>[]
   position: number
 }
 
