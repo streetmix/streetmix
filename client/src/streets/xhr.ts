@@ -1,37 +1,39 @@
 import clone from 'just-clone'
-import { showError, ERRORS } from '../app/errors'
+
+import { showError, ERRORS } from '../app/errors.js'
 import {
   checkIfEverythingIsLoaded,
   setServerContacted,
-} from '../app/initialization'
-import { formatMessage } from '../locales/locale'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { STREET_TEMPLATES } from '../app/constants'
-import { goNewStreet } from '../app/routing'
-import { segmentsChanged } from '../segments/view'
-import { getSignInData, isSignedIn } from '../users/authentication'
+} from '../app/initialization.js'
+import { formatMessage } from '../locales/locale.js'
+import { MODES, processMode, getMode, setMode } from '../app/mode.js'
+import { STREET_TEMPLATES } from '../app/constants.js'
+import { goNewStreet } from '../app/routing.js'
+import { segmentsChanged } from '../segments/view.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
 import {
   deleteStreet,
   getStreet,
   getStreetWithParams,
   postStreet,
   putStreet,
-} from '../util/api'
+} from '../util/api.js'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest,
-} from '../util/fetch_blocking'
+} from '../util/fetch_blocking.js'
 import store from '../store'
-import { updateSettings } from '../store/slices/settings'
+import { setCoastmixState } from '../store/slices/coastmix.js'
+import { updateSettings } from '../store/slices/settings.js'
 import {
   saveStreetId,
   saveOriginalStreetId,
   updateEditCount,
   updateStreetData,
-} from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { resetUndoStack } from '../store/slices/history'
-import { makeDefaultStreet } from './creation'
+} from '../store/slices/street.js'
+import { addToast } from '../store/slices/toasts.js'
+import { resetUndoStack } from '../store/slices/history.js'
+import { makeDefaultStreet } from './creation.js'
 import {
   trimStreetData,
   updateEverything,
@@ -40,16 +42,17 @@ import {
   setUpdateTimeToNow,
   setLastStreet,
   setIgnoreStreetChanges,
-} from './data_model'
-import { prepareStreet } from './templates'
+} from './data_model.js'
+import { prepareStreet } from './templates.js'
 import {
   getRemixOnFirstEdit,
   setRemixOnFirstEdit,
   remixStreet,
   addRemixSuffixToName,
-} from './remix'
-import { unifyUndoStack } from './undo_stack'
-import { deleteStreetThumbnail } from './image'
+} from './remix.js'
+import { unifyUndoStack } from './undo_stack.js'
+import { deleteStreetThumbnail } from './image.js'
+
 import type {
   StreetAPIPayload,
   StreetAPIResponse,
@@ -292,6 +295,14 @@ export function unpackServerStreetData(
 
   store.dispatch(updateStreetData(street))
   store.dispatch(resetUndoStack())
+
+  // Set Coastmix plugin state if the mode is on, and we have data
+  if (
+    store.getState().flags.COASTMIX_MODE.value === true &&
+    transmission.data.plugins.coastmix !== undefined
+  ) {
+    store.dispatch(setCoastmixState(transmission.data.plugins.coastmix))
+  }
 
   if (id) {
     setStreetId(id, namespacedId)
