@@ -1,8 +1,7 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
-import type { CoastmixState } from '~/src/store/slices/coastmix.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { StreetState } from '@streetmix/types'
+import type { CoastmixState, StreetState } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels

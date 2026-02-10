@@ -7,7 +7,6 @@ import {
   setStormSurge,
   setFloodDirection,
   setFloodDistance,
-  type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
@@ -15,6 +14,8 @@ import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import { checkSeaLevel } from './sea_level.js'
 import './CoastalFloodingPanel.css'
+
+import type { FloodDirection } from '@streetmix/types'
 
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
