@@ -95,7 +95,7 @@ export interface StreetAPIResponse {
   }
   createdAt: string // ISO date string
   updatedAt: string // ISO date string
-  originalStreetId: string
+  originalStreetId: string | null
   creatorId: string | null
   // This is injected by the server in addition to creatorId
   creator: {
@@ -103,6 +103,14 @@ export interface StreetAPIResponse {
   }
 }
 
+// Used in POST or PUT to /api/v1/streets
+export type StreetAPIPayload = Pick<
+  StreetAPIResponse,
+  'name' | 'originalStreetId' | 'data' | 'clientUpdatedAt'
+>
+
+// StreetJson is not a great name, it's just that this is the part that's
+// stored as a JSON blob in the database.
 export interface StreetJson {
   id: string
   namespacedId: number
@@ -135,6 +143,7 @@ export interface StreetJsonExtra extends StreetJson {
 
 export interface StreetData {
   street: StreetJson
+  history?: HistoryState // Experimental / unused
 }
 
 // TODO: many of these values were "optional" but it might be worthwhile to
@@ -162,12 +171,17 @@ export interface StreetState extends StreetJsonExtra {
   capacitySource?: string
   remainingWidth: number
   creatorId: string | null
-  originalStreetId?: string | null // UUID, if set
+  originalStreetId: string | null // UUID, if set
   updatedAt?: string // Datetime string
   clientUpdatedAt?: string // Datetime string
   userUpdated: boolean
   editCount: number
   immediateRemoval: boolean
+}
+
+export interface HistoryState {
+  stack: StreetState[]
+  position: number
 }
 
 export type WeatherEffect = 'rain' | 'snow'

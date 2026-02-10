@@ -184,7 +184,7 @@ export const incrementSegmentWidth = (
 const createStreetFromResponse = (response: {
   data: { street: StreetState }
   creatorId?: string
-  originalStreetId?: string
+  originalStreetId: string
   updatedAt?: string
   name?: string
 }): StreetState => {

@@ -50,7 +50,11 @@ import {
 } from './remix'
 import { unifyUndoStack } from './undo_stack'
 import { deleteStreetThumbnail } from './image'
-import type { StreetAPIResponse } from '@streetmix/types'
+import type {
+  StreetAPIPayload,
+  StreetAPIResponse,
+  StreetData,
+} from '@streetmix/types'
 
 const SAVE_STREET_DELAY = 500
 
@@ -308,8 +312,8 @@ export function unpackServerStreetData(
   }
 }
 
-export function packServerStreetDataRaw() {
-  const data = {}
+export function packServerStreetDataRaw(): StreetAPIPayload {
+  const data: Partial<StreetData> = {}
   data.street = trimStreetData(store.getState().street)
 
   // Those go above data in the structure, so they need to be cleared here
@@ -322,8 +326,7 @@ export function packServerStreetDataRaw() {
   delete data.street.creatorId
 
   if (store.getState().flags.SAVE_UNDO.value === true) {
-    data.undoStack = clone(store.getState().undo.stack)
-    data.undoPosition = store.getState().undo.position
+    data.history = clone(store.getState().history)
   }
 
   const street = store.getState().street
