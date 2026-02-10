@@ -89,10 +89,7 @@ export interface StreetAPIResponse {
   namespacedId: number
   name: string | null
   clientUpdatedAt: string // ISO date string
-  data: {
-    // Or StreetData ?
-    street: StreetJson
-  }
+  data: StreetData
   createdAt: string // ISO date string
   updatedAt: string // ISO date string
   originalStreetId: string | null
@@ -144,6 +141,7 @@ export interface StreetJsonExtra extends StreetJson {
 export interface StreetData {
   street: StreetJson
   history?: HistoryState // Experimental / unused
+  plugins: StreetPluginData
 }
 
 // TODO: many of these values were "optional" but it might be worthwhile to
@@ -178,6 +176,20 @@ export interface StreetState extends StreetJsonExtra {
   editCount: number
   immediateRemoval: boolean
 }
+
+export interface StreetPluginData {
+  coastmix?: CoastmixState
+}
+
+export interface CoastmixState {
+  controlsVisible: boolean
+  seaLevelRise: number
+  stormSurge: boolean
+  floodDirection: FloodDirection
+  floodDistance: number | null
+}
+
+export type FloodDirection = 'left' | 'right' | 'both' | 'none'
 
 export interface HistoryState {
   stack: Partial<StreetState>[]

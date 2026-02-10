@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { formatMessage } from '../../locales/locale'
-import { trimStreetData } from '../../streets/data_model'
-import { isOwnedByCurrentUser } from '../../streets/owner'
-import { finishUndoOrRedo } from '../../streets/undo_stack'
-import { redo, undo } from '../slices/history'
-import { addToast } from '../slices/toasts'
+import { formatMessage } from '../../locales/locale.js'
+import { trimStreetData } from '../../streets/data_model.js'
+import { isOwnedByCurrentUser } from '../../streets/owner.js'
+import { finishUndoOrRedo } from '../../streets/undo_stack.js'
+import { redo, undo } from '../slices/history.js'
+import { addToast } from '../slices/toasts.js'
 
-import type { Dispatch, RootState } from '../index'
+import type { Dispatch, RootState } from '../index.js'
 
 // These async thunks remain in a separate module because they import other
 // modules with deeply nested dependencies ... some of which will throw

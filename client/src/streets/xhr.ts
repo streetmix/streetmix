@@ -313,8 +313,10 @@ export function unpackServerStreetData(
 }
 
 export function packServerStreetDataRaw(): StreetAPIPayload {
-  const data: Partial<StreetData> = {}
-  data.street = trimStreetData(store.getState().street)
+  const data: StreetData = {
+    street: trimStreetData(store.getState().street),
+    plugins: {},
+  }
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name
@@ -327,6 +329,12 @@ export function packServerStreetDataRaw(): StreetAPIPayload {
 
   if (store.getState().flags.SAVE_UNDO.value === true) {
     data.history = clone(store.getState().history)
+  }
+
+  // Only save this data if we need to. Note that this deletes Coastmix plugin
+  // data if the flag is turned off. This wouldn't happen in production
+  if (store.getState().flags.COASTMIX_MODE.value === true) {
+    data.plugins.coastmix = clone(store.getState().coastmix)
   }
 
   const street = store.getState().street

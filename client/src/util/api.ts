@@ -8,11 +8,7 @@ import {
   type UserSettingsData,
 } from '../types'
 
-import type {
-  StreetAPIPayload,
-  StreetAPIResponse,
-  StreetData,
-} from '@streetmix/types'
+import type { StreetAPIPayload, StreetAPIResponse } from '@streetmix/types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
@@ -124,14 +120,16 @@ class APIClient {
     )
   }
 
-  postStreet = async (payload: StreetData): APIResponse<StreetAPIPayload> => {
+  postStreet = async (
+    payload: StreetAPIPayload
+  ): APIResponse<StreetAPIResponse> => {
     return await this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
 
   putStreet = async (
     streetId: string,
-    payload: StreetData
-  ): APIResponse<StreetAPIPayload> => {
+    payload: StreetAPIPayload
+  ): APIResponse<void> => {
     return await this.client.put(
       `${BASE_URL_API_V1}/streets/${streetId}`,
       payload
