@@ -133,7 +133,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['cypress/**/*.cy.js'],
+    files: ['cypress/**/*.cy.ts'],
     extends: [cypress.configs.recommended],
   },
 ])

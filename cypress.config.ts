@@ -1,11 +1,11 @@
-const { defineConfig } = require('cypress')
-const dotenv = require('dotenv')
+import { defineConfig } from 'cypress'
+import dotenv from 'dotenv'
 
 dotenv.config({
   quiet: true,
 })
 
-module.exports = defineConfig({
+export default defineConfig({
   projectId: '2bmjk3',
   viewportWidth: 1280,
   viewportHeight: 720,
