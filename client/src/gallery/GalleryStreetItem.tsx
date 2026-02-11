@@ -9,7 +9,7 @@ import StreetName from '../streets/StreetName.js'
 import { drawStreetThumbnail } from '../streets/thumbnail.js'
 import Icon from '../ui/Icon.js'
 
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 import './GalleryStreetItem.css'
 
 const THUMBNAIL_WIDTH = 180
@@ -17,7 +17,7 @@ const THUMBNAIL_HEIGHT = 110
 const THUMBNAIL_MULTIPLIER = 0.1 * 2
 
 interface GalleryStreetItemProps {
-  street: Street
+  street: StreetAPIResponse
   showStreetOwner: boolean
   selected: boolean
   allowDelete: boolean

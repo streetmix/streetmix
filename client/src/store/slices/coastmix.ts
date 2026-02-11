@@ -1,15 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-export type FloodDirection = 'left' | 'right' | 'both' | 'none'
-
-export interface CoastmixState {
-  controlsVisible: boolean
-  seaLevelRise: number
-  stormSurge: boolean
-  floodDirection: FloodDirection
-  floodDistance: number | null
-}
+import type { CoastmixState, FloodDirection } from '@streetmix/types'
 
 const initialState: CoastmixState = {
   controlsVisible: false,

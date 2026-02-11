@@ -11,11 +11,10 @@ import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr.js'
 
 import type {
   SliceItemForServerTransmission,
-  StreetJson,
   StreetState,
 } from '@streetmix/types'
 
-let _lastStreet: StreetJson
+let _lastStreet: Partial<StreetState>
 
 export function setLastStreet() {
   _lastStreet = trimStreetData(store.getState().street)
@@ -29,6 +28,10 @@ export function addAltVariantObject(street: StreetState) {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
     segment.variant = getVariantInfo(segment.type, segment.variantString)
+
+    // Also use this loop to add empty warnings array
+    // Prevents bugs where things expect the array to be there
+    segment.warnings = [false]
 
     return segment
   })
@@ -53,7 +56,7 @@ export function setIgnoreStreetChanges(value: boolean) {
   ignoreStreetChanges = value
 }
 
-export function saveStreetToServerIfNecessary() {
+export function saveStreetToServerIfNecessary(force = false) {
   if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
@@ -61,7 +64,10 @@ export function saveStreetToServerIfNecessary() {
   const street = store.getState().street
   const currentData = trimStreetData(street)
 
-  if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
+  if (
+    JSON.stringify(currentData) !== JSON.stringify(_lastStreet) ||
+    force === true
+  ) {
     if (street.editCount !== null) {
       store.dispatch(updateEditCount(street.editCount + 1))
     }
@@ -80,8 +86,8 @@ export function saveStreetToServerIfNecessary() {
 }
 
 // Copies only the data necessary for save/undo.
-export function trimStreetData(street: StreetState): StreetJson {
-  const newData: StreetJson = {
+export function trimStreetData(street: StreetState): Partial<StreetState> {
+  const newData: Partial<StreetState> = {
     schemaVersion: street.schemaVersion,
     showAnalytics: street.showAnalytics,
     capacitySource: street.capacitySource,

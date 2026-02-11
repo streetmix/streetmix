@@ -1,4 +1,4 @@
-export function asStreetJson (street) {
+export function asStreetJson(street) {
   const json = {
     id: street.id,
     namespacedId: street.namespacedId,
@@ -8,12 +8,7 @@ export function asStreetJson (street) {
     createdAt: street.createdAt,
     updatedAt: street.updatedAt,
     originalStreetId: street.originalStreetId,
-    creatorId: street.creatorId
-  }
-
-  // Deprecated creator id, do not use.
-  if (street.creatorId) {
-    json.creator = { id: street.creatorId }
+    creatorId: street.creatorId,
   }
 
   // Add back deprecated building properties for compatibility
@@ -28,17 +23,22 @@ export function asStreetJson (street) {
       street.data.street.boundary.right.floors
   }
 
+  // Add plugins data object, if not present
+  if (typeof json.data.plugins === 'undefined') {
+    json.data.plugins = {}
+  }
+
   return json
 }
 
-export function asUserJson (user) {
+export function asUserJson(user) {
   const userJson = {
     id: user.id,
     displayName: user.displayName || null,
     profileImageUrl: user.profileImageUrl,
     flags: user.flags || {},
     roles: user.roles || [],
-    data: user.data || {}
+    data: user.data || {},
   }
 
   userJson.roles = userJson.roles || []
@@ -50,11 +50,11 @@ export function asUserJson (user) {
   return userJson
 }
 
-export function asUserJsonBasic (user) {
+export function asUserJsonBasic(user) {
   const userJson = {
     id: user.id,
     displayName: user.displayName || null,
-    profileImageUrl: user.profileImageUrl
+    profileImageUrl: user.profileImageUrl,
   }
 
   return userJson
@@ -71,7 +71,7 @@ export const ERRORS = {
   CANNOT_UPDATE_STREET: 'CANNOT_UPDATE_STREET',
   CANNOT_GET_STREET: 'CANNOT_GET_STREET',
   CANNOT_GET_USER: 'CANNOT_GET_USER',
-  CANNOT_CREATE_USER: 'CANNOT_CREATE_USER'
+  CANNOT_CREATE_USER: 'CANNOT_CREATE_USER',
 }
 
 export const SAVE_THUMBNAIL_EVENTS = {
@@ -80,10 +80,10 @@ export const SAVE_THUMBNAIL_EVENTS = {
   TIMER: 'TIMER',
   BEFOREUNLOAD: 'BEFOREUNLOAD',
   PREVIOUS_STREET: 'PREVIOUS_STREET',
-  TEST: 'TEST'
+  TEST: 'TEST',
 }
 
-export function requestIp (req) {
+export function requestIp(req) {
   if (req.headers['x-forwarded-for'] !== undefined) {
     return req.headers['x-forwarded-for'].split(', ')[0]
   } else {

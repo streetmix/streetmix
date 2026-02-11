@@ -1,37 +1,39 @@
 import clone from 'just-clone'
-import { showError, ERRORS } from '../app/errors'
+
+import { showError, ERRORS } from '../app/errors.js'
 import {
   checkIfEverythingIsLoaded,
   setServerContacted,
-} from '../app/initialization'
-import { formatMessage } from '../locales/locale'
-import { MODES, processMode, getMode, setMode } from '../app/mode'
-import { STREET_TEMPLATES } from '../app/constants'
-import { goNewStreet } from '../app/routing'
-import { segmentsChanged } from '../segments/view'
-import { getSignInData, isSignedIn } from '../users/authentication'
+} from '../app/initialization.js'
+import { formatMessage } from '../locales/locale.js'
+import { MODES, processMode, getMode, setMode } from '../app/mode.js'
+import { STREET_TEMPLATES } from '../app/constants.js'
+import { goNewStreet } from '../app/routing.js'
+import { segmentsChanged } from '../segments/view.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
 import {
   deleteStreet,
   getStreet,
   getStreetWithParams,
   postStreet,
   putStreet,
-} from '../util/api'
+} from '../util/api.js'
 import {
   isblockingAjaxRequestInProgress,
   newBlockingAjaxRequest,
-} from '../util/fetch_blocking'
+} from '../util/fetch_blocking.js'
 import store from '../store'
-import { updateSettings } from '../store/slices/settings'
+import { setCoastmixState } from '../store/slices/coastmix.js'
+import { updateSettings } from '../store/slices/settings.js'
 import {
   saveStreetId,
   saveOriginalStreetId,
   updateEditCount,
   updateStreetData,
-} from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { resetUndoStack } from '../store/slices/history'
-import { makeDefaultStreet } from './creation'
+} from '../store/slices/street.js'
+import { addToast } from '../store/slices/toasts.js'
+import { resetUndoStack } from '../store/slices/history.js'
+import { makeDefaultStreet } from './creation.js'
 import {
   trimStreetData,
   updateEverything,
@@ -40,16 +42,22 @@ import {
   setUpdateTimeToNow,
   setLastStreet,
   setIgnoreStreetChanges,
-} from './data_model'
-import { prepareStreet } from './templates'
+} from './data_model.js'
+import { prepareStreet } from './templates.js'
 import {
   getRemixOnFirstEdit,
   setRemixOnFirstEdit,
   remixStreet,
   addRemixSuffixToName,
-} from './remix'
-import { unifyUndoStack } from './undo_stack'
-import { deleteStreetThumbnail } from './image'
+} from './remix.js'
+import { unifyUndoStack } from './undo_stack.js'
+import { deleteStreetThumbnail } from './image.js'
+
+import type {
+  StreetAPIPayload,
+  StreetAPIResponse,
+  StreetData,
+} from '@streetmix/types'
 
 const SAVE_STREET_DELAY = 500
 
@@ -58,10 +66,6 @@ let saveStreetIncomplete = false
 
 export function getSaveStreetIncomplete() {
   return saveStreetIncomplete
-}
-
-export function setSaveStreetIncomplete(value) {
-  saveStreetIncomplete = value
 }
 
 let latestRequestId
@@ -80,7 +84,7 @@ export async function createNewStreetOnServer(type = STREET_TEMPLATES.DEFAULT) {
   postStreet(transmission).then(receiveNewStreet).catch(errorReceiveNewStreet)
 }
 
-function receiveNewStreet({ data }) {
+function receiveNewStreet({ data }: { data: StreetAPIResponse }) {
   setStreetId(data.id, data.namespacedId)
   saveStreetToServer(true)
 }
@@ -135,7 +139,7 @@ function errorReceiveStreet(error) {
   }
 }
 
-export function saveStreetToServer(initial) {
+export function saveStreetToServer(initial: boolean = false) {
   const { readOnly } = store.getState().app
   if (readOnly) {
     return
@@ -145,7 +149,7 @@ export function saveStreetToServer(initial) {
   const street = store.getState().street
 
   putStreet(street.id, transmission).then(() => {
-    setSaveStreetIncomplete(false)
+    saveStreetIncomplete = false
 
     if (initial) {
       confirmSaveStreetToServerInitial()
@@ -211,7 +215,7 @@ export async function fetchStreetForVerification() {
  *
  * @param {Object} transmission - server data
  */
-function receiveStreetForVerification(transmission) {
+function receiveStreetForVerification(transmission: StreetAPIResponse) {
   const localUpdatedAt = new Date(store.getState().street.clientUpdatedAt)
   const serverUpdatedAt = new Date(transmission.clientUpdatedAt)
 
@@ -243,7 +247,7 @@ function errorReceiveStreetForVerification(data) {
   }
 }
 
-function receiveStreet(transmission) {
+function receiveStreet(transmission: StreetAPIResponse) {
   unpackServerStreetData(transmission, null, null, true)
 
   setServerContacted(true)
@@ -252,7 +256,9 @@ function receiveStreet(transmission) {
   checkIfEverythingIsLoaded()
 }
 
-function unpackStreetDataFromServerTransmission(transmission) {
+function unpackStreetDataFromServerTransmission(
+  transmission: StreetAPIResponse
+) {
   // Catch a data error where a user's street might be retrieved
   // without any data in it (so-called error 9B)
   if (!transmission.data) {
@@ -261,13 +267,13 @@ function unpackStreetDataFromServerTransmission(transmission) {
   }
 
   const street = clone(transmission.data.street)
-  street.creatorId = transmission.creatorId ?? null
-  street.originalStreetId = transmission.originalStreetId ?? null
-  street.updatedAt = transmission.updatedAt ?? null
-  street.clientUpdatedAt = transmission.clientUpdatedAt ?? null
-  street.name = transmission.name ?? null
-  street.location = transmission.data.street.location ?? null
-  street.editCount = transmission.data.street.editCount ?? 0
+  street.creatorId = transmission.creatorId
+  street.originalStreetId = transmission.originalStreetId
+  street.updatedAt = transmission.updatedAt
+  street.clientUpdatedAt = transmission.clientUpdatedAt
+  street.name = transmission.name
+  street.location = transmission.data.street.location
+  street.editCount = transmission.data.street.editCount
 
   // Delete deprecated properties, if present
   delete street.leftBuildingVariant
@@ -279,16 +285,24 @@ function unpackStreetDataFromServerTransmission(transmission) {
 }
 
 export function unpackServerStreetData(
-  transmission,
-  id,
-  namespacedId,
-  checkIfNeedsToBeRemixed
+  transmission: StreetAPIResponse,
+  id: string | null,
+  namespacedId: number | null,
+  checkIfNeedsToBeRemixed: boolean
 ) {
   const street = unpackStreetDataFromServerTransmission(transmission)
   addAltVariantObject(street)
 
   store.dispatch(updateStreetData(street))
   store.dispatch(resetUndoStack())
+
+  // Set Coastmix plugin state, if enabled and data is present
+  if (
+    store.getState().flags.COASTMIX_MODE.value === true &&
+    transmission.data.plugins.coastmix !== undefined
+  ) {
+    store.dispatch(setCoastmixState(transmission.data.plugins.coastmix))
+  }
 
   if (id) {
     setStreetId(id, namespacedId)
@@ -309,9 +323,11 @@ export function unpackServerStreetData(
   }
 }
 
-export function packServerStreetDataRaw() {
-  const data = {}
-  data.street = trimStreetData(store.getState().street)
+export function packServerStreetDataRaw(): StreetAPIPayload {
+  const data: StreetData = {
+    street: trimStreetData(store.getState().street),
+    plugins: {},
+  }
 
   // Those go above data in the structure, so they need to be cleared here
   delete data.street.name
@@ -323,8 +339,13 @@ export function packServerStreetDataRaw() {
   delete data.street.creatorId
 
   if (store.getState().flags.SAVE_UNDO.value === true) {
-    data.undoStack = clone(store.getState().undo.stack)
-    data.undoPosition = store.getState().undo.position
+    data.history = clone(store.getState().history)
+  }
+
+  // Only save this data if we need to. Note that this deletes Coastmix plugin
+  // data if the flag is turned off. This wouldn't happen in production
+  if (store.getState().flags.COASTMIX_MODE.value === true) {
+    data.plugins.coastmix = clone(store.getState().coastmix)
   }
 
   const street = store.getState().street
@@ -345,7 +366,7 @@ export function packServerStreetData() {
   return JSON.stringify(transmission)
 }
 
-export function setStreetId(newId, newNamespacedId) {
+export function setStreetId(newId: string, newNamespacedId: number) {
   store.dispatch(saveStreetId(newId, newNamespacedId))
 
   unifyUndoStack()
@@ -398,7 +419,7 @@ async function cancelReceiveLastStreet() {
   await makeDefaultStreet()
 }
 
-function receiveLastStreet(transmission) {
+function receiveLastStreet(transmission: StreetAPIResponse) {
   setIgnoreStreetChanges(true)
   const street = store.getState().street
   unpackServerStreetData(transmission, street.id, street.namespacedId, false)
@@ -427,7 +448,7 @@ function receiveLastStreet(transmission) {
   saveStreetToServer(false)
 }
 
-export function sendDeleteStreetToServer(id) {
+export function sendDeleteStreetToServer(id: string) {
   deleteStreet(id)
 
   // Delete street thumbnail from Cloudinary.

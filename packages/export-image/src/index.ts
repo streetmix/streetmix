@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { makeStreetImage } from './image.js'
 
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 const DEFAULT_IMAGE_SCALE = 1.0 // previous default is 2.0
 const MIN_IMAGE_SCALE = 0.5
@@ -47,7 +47,7 @@ export const StreetImageExportSchema = z.object({
 export type StreetImageExportOptions = z.infer<typeof StreetImageExportSchema>
 
 export async function runTestCanvas(
-  street: Street,
+  street: StreetAPIResponse,
   options: StreetImageExportOptions
 ): Promise<Buffer> {
   console.log('making image with options', options)

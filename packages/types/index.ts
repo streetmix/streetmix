@@ -83,6 +83,27 @@ export interface StreetLocation {
   }
 }
 
+// This should match the object returned by /api/v1/streets
+export interface StreetAPIResponse {
+  id: string
+  namespacedId: number
+  name: string | null
+  clientUpdatedAt: string // ISO date string
+  data: StreetData
+  createdAt: string // ISO date string
+  updatedAt: string // ISO date string
+  originalStreetId: string | null
+  creatorId: string | null
+}
+
+// Used in POST or PUT to /api/v1/streets
+export type StreetAPIPayload = Pick<
+  StreetAPIResponse,
+  'name' | 'originalStreetId' | 'data' | 'clientUpdatedAt'
+>
+
+// StreetJson is not a great name, it's just that this is the part that's
+// stored as a JSON blob in the database.
 export interface StreetJson {
   id: string
   namespacedId: number
@@ -115,18 +136,8 @@ export interface StreetJsonExtra extends StreetJson {
 
 export interface StreetData {
   street: StreetJson
-}
-
-export interface Street {
-  id: string
-  namespacedId: number
-  name: string | null
-  clientUpdatedAt: string // ISO date string
-  data: StreetData
-  createdAt: string // ISO date string
-  updatedAt: string // ISO date string
-  originalStreetId: string
-  creatorId: string | null
+  history?: HistoryState // Experimental / unused
+  plugins: StreetPluginData
 }
 
 // TODO: many of these values were "optional" but it might be worthwhile to
@@ -154,12 +165,31 @@ export interface StreetState extends StreetJsonExtra {
   capacitySource?: string
   remainingWidth: number
   creatorId: string | null
-  originalStreetId?: string | null // UUID, if set
+  originalStreetId: string | null // UUID, if set
   updatedAt?: string // Datetime string
   clientUpdatedAt?: string // Datetime string
   userUpdated: boolean
   editCount: number
   immediateRemoval: boolean
+}
+
+export interface StreetPluginData {
+  coastmix?: CoastmixState
+}
+
+export interface CoastmixState {
+  controlsVisible: boolean
+  seaLevelRise: number
+  stormSurge: boolean
+  floodDirection: FloodDirection
+  floodDistance: number | null
+}
+
+export type FloodDirection = 'left' | 'right' | 'both' | 'none'
+
+export interface HistoryState {
+  stack: Partial<StreetState>[]
+  position: number
 }
 
 export type WeatherEffect = 'rain' | 'snow'

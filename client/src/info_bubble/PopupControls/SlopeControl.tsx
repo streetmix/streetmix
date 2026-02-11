@@ -1,8 +1,8 @@
 import { useIntl } from 'react-intl'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { segmentsChanged } from '~/src/segments/view.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { segmentsChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -28,7 +28,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
 
   function handleSlopeChange(checked: boolean): void {
     dispatch(toggleSliceSlope(position, checked))
-    segmentsChanged()
+    dispatch(segmentsChanged())
   }
 
   if (!allowSlope) return null

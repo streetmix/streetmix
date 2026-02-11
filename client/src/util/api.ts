@@ -5,23 +5,23 @@ import {
   type SentimentComment,
   type SentimentVote,
   type UserProfile,
-  type UserSettingsData
+  type UserSettingsData,
 } from '../types'
 
-import type { StreetData } from '@streetmix/types'
+import type { StreetAPIPayload, StreetAPIResponse } from '@streetmix/types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
 const BASE_URL_SERVICES = '/services'
 
-type APIResponse = Promise<AxiosResponse>
+type APIResponse<T> = Promise<AxiosResponse<T>>
 
 class APIClient {
   client: AxiosInstance
 
-  constructor () {
+  constructor() {
     this.client = axios.create({
-      responseType: 'json'
+      responseType: 'json',
     })
 
     // Adds exponential backoff to requests
@@ -38,7 +38,7 @@ class APIClient {
             new window.CustomEvent('stmx:api_max_connection')
           )
         }
-      }
+      },
     })
   }
 
@@ -88,7 +88,10 @@ class APIClient {
 
   // Optional config is allowed for situations where we need to send a
   // custom header
-  getStreet = async (streetId: string, config = {}): APIResponse => {
+  getStreet = async (
+    streetId: string,
+    config = {}
+  ): APIResponse<StreetAPIResponse> => {
     return await this.client.get(
       `${BASE_URL_API_V1}/streets/${streetId}`,
       config
@@ -99,25 +102,34 @@ class APIClient {
   // public URLs provide only creator ID and namespaced ID for cleaner URLs.
   // Use this method if all we have are those
   getStreetWithParams = async (
-    creatorId: string,
-    namespacedId: string
-  ): APIResponse => {
-    const params = new URLSearchParams({ namespacedId })
-    // creatorId can be undefined (e.g. anonymous streets)
+    creatorId: string | null,
+    namespacedId: number
+  ): APIResponse<StreetAPIResponse> => {
+    const params = new URLSearchParams({
+      namespacedId: namespacedId.toString(),
+    })
+
+    // creatorId can be null (e.g. anonymous streets)
     if (creatorId) {
       params.append('creatorId', creatorId)
     }
+
     // URLSearchParams.toString() automatically encodes URI strings for us.
     return await this.client.get(
       `${BASE_URL_API_V1}/streets/?${params.toString()}`
     )
   }
 
-  postStreet = async (payload: StreetData): APIResponse => {
+  postStreet = async (
+    payload: StreetAPIPayload
+  ): APIResponse<StreetAPIResponse> => {
     return await this.client.post(`${BASE_URL_API_V1}/streets`, payload)
   }
 
-  putStreet = async (streetId: string, payload: StreetData): APIResponse => {
+  putStreet = async (
+    streetId: string,
+    payload: StreetAPIPayload
+  ): APIResponse<void> => {
     return await this.client.put(
       `${BASE_URL_API_V1}/streets/${streetId}`,
       payload
@@ -182,7 +194,7 @@ export const {
   postSentimentSurveyVote,
   putSentimentSurveyComment,
   getChangelog,
-  getGeoIp
+  getGeoIp,
 } = client
 
 export default client

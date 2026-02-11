@@ -29,10 +29,10 @@ export function isblockingAjaxRequestInProgress(): boolean {
   return blockingAjaxRequestInProgress
 }
 
-export function newBlockingAjaxRequest(
+export function newBlockingAjaxRequest<T>(
   mode: string,
   request: BlockingAjaxRequest,
-  doneFunc: (data: unknown) => void,
+  doneFunc: (data: T) => void,
   cancelFunc: () => Promise<void> | void
 ): void {
   showBlockingShield(mode)
@@ -40,7 +40,7 @@ export function newBlockingAjaxRequest(
   blockingAjaxRequestInProgress = true
 
   blockingAjaxRequest = request
-  blockingAjaxRequestDoneFunc = doneFunc
+  blockingAjaxRequestDoneFunc = doneFunc as (data: unknown) => void
   blockingAjaxRequestCancelFunc = cancelFunc
 
   makeBlockingAjaxRequest()

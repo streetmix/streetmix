@@ -19,9 +19,11 @@ vi.mock('~/src/store/slices/street.js', async (importOriginal) => {
 
 const initialState = {
   street: {
+    width: 10,
     segments: [
       // Slice `0` is not sloped
       {
+        width: 5,
         type: 'foo',
         slope: {
           on: false,
@@ -29,6 +31,7 @@ const initialState = {
       },
       // Slice `1` is sloped
       {
+        width: 5,
         type: 'bar',
         slope: {
           on: true,

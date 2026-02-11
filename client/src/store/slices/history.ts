@@ -1,24 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Street } from '@streetmix/types'
-
-interface HistoryState {
-  stack: Street[]
-  position: number
-}
+import type { HistoryState, StreetState } from '@streetmix/types'
 
 export const MAX_UNDO_LIMIT = 100
 
 const initialState: HistoryState = {
   stack: [],
-  position: 0
+  position: 0,
 }
 
 /**
  * If undoStack is higher than limit, trim earliest entries so that stack is
  * within the undo limit.
  */
-function trimUndoStack (
+function trimUndoStack(
   undoStack: HistoryState['stack']
 ): HistoryState['stack'] {
   const diff = undoStack.length - MAX_UNDO_LIMIT
@@ -38,9 +33,9 @@ function trimUndoStack (
  * @param {Object} street - the street containing properties that should be
  *          copied to all other streets in the stack
  */
-function unifyUndoStack (
+function unifyUndoStack(
   undoStack: HistoryState['stack'],
-  street: Street
+  street: Partial<StreetState>
 ): HistoryState['stack'] {
   return undoStack.map((item) => {
     item.id = street.id
@@ -57,26 +52,26 @@ const undoSlice = createSlice({
   initialState,
 
   reducers: {
-    undo (state, action: PayloadAction<Street>) {
+    undo(state, action: PayloadAction<Partial<StreetState>>) {
       const newPosition = state.position - 1
 
       state.stack[state.position] = action.payload
       state.position = newPosition < 0 ? 0 : newPosition
     },
 
-    redo (state) {
+    redo(state) {
       const newPosition = state.position + 1
       const stackSize = state.stack.length - 1
 
       state.position = newPosition > stackSize ? stackSize : newPosition
     },
 
-    resetUndoStack (state) {
+    resetUndoStack(state) {
       state.stack = []
       state.position = 0
     },
 
-    replaceUndoStack (state, action: PayloadAction<HistoryState>) {
+    replaceUndoStack(state, action: PayloadAction<HistoryState>) {
       state.stack = action.payload.stack
 
       // Make sure given position is set to a value within stack length
@@ -86,7 +81,7 @@ const undoSlice = createSlice({
       )
     },
 
-    createNewUndo (state, action: PayloadAction<Street>) {
+    createNewUndo(state, action: PayloadAction<Partial<StreetState>>) {
       const position = state.position
 
       // Create a shallow copy of the original undo stack up to the current
@@ -118,10 +113,10 @@ const undoSlice = createSlice({
      * don't need to maintain consistent metadata at each level of the stack.
      * (This is our preferred option.)
      */
-    unifyStack (state, action: PayloadAction<Street>) {
+    unifyStack(state, action: PayloadAction<Partial<StreetState>>) {
       state.stack = unifyUndoStack(state.stack, action.payload)
-    }
-  }
+    },
+  },
 })
 
 export const {
@@ -130,7 +125,7 @@ export const {
   resetUndoStack,
   replaceUndoStack,
   createNewUndo,
-  unifyStack
+  unifyStack,
 } = undoSlice.actions
 
 export default undoSlice.reducer

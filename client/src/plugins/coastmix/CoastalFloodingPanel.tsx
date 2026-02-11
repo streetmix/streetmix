@@ -6,19 +6,18 @@ import {
   setSeaLevelRise,
   setStormSurge,
   setFloodDirection,
-  setFloodDistance,
-  type FloodDirection,
 } from '~/src/store/slices/coastmix.js'
+import { segmentsChanged } from '~/src/store/actions/street.js'
 import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
-import { checkSeaLevel } from './sea_level.js'
 import './CoastalFloodingPanel.css'
+
+import type { FloodDirection } from '@streetmix/types'
 
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
-  const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
 
   const {
@@ -52,9 +51,10 @@ export function CoastalFloodingPanel() {
     }
   }
 
+  // Updates state and saves to server
   useEffect(() => {
-    dispatch(setFloodDistance(checkSeaLevel(street, coastmix)))
-  }, [floodDirection, seaLevelRise, stormSurge, dispatch, street])
+    dispatch(segmentsChanged(true))
+  }, [floodDirection, seaLevelRise, stormSurge, dispatch])
 
   let message
   const messageClassNames = ['flood-controls-message']

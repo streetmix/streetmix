@@ -1,11 +1,11 @@
 import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { segmentsChanged } from '~/src/store/actions/street.js'
 import {
   setBuildingVariant,
   changeSegmentVariant,
 } from '~/src/store/slices/street.js'
-import { segmentsChanged } from '~/src/segments/view.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import { VariantButton } from './VariantButton.js'
@@ -81,7 +81,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     } else {
       handler = () => {
         dispatch(changeSegmentVariant(position, set, selection))
-        segmentsChanged()
+        dispatch(segmentsChanged())
       }
     }
 

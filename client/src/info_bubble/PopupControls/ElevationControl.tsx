@@ -1,6 +1,5 @@
 import { useIntl } from 'react-intl'
 
-import { segmentsChanged } from '~/src/segments/view.js'
 import {
   BUILDING_LEFT_POSITION,
   BUILDING_RIGHT_POSITION,
@@ -8,6 +7,7 @@ import {
   CURB_HEIGHT_IMPERIAL,
 } from '~/src/segments/constants.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { segmentsChanged } from '~/src/store/actions/street.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
@@ -77,7 +77,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
             elevationChanged: true,
           })
         )
-        segmentsChanged()
+        dispatch(segmentsChanged())
       }
     }
   }
