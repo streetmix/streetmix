@@ -267,13 +267,13 @@ function unpackStreetDataFromServerTransmission(
   }
 
   const street = clone(transmission.data.street)
-  street.creatorId = transmission.creatorId ?? null
-  street.originalStreetId = transmission.originalStreetId ?? null
-  street.updatedAt = transmission.updatedAt ?? null
-  street.clientUpdatedAt = transmission.clientUpdatedAt ?? null
-  street.name = transmission.name ?? null
-  street.location = transmission.data.street.location ?? null
-  street.editCount = transmission.data.street.editCount ?? 0
+  street.creatorId = transmission.creatorId
+  street.originalStreetId = transmission.originalStreetId
+  street.updatedAt = transmission.updatedAt
+  street.clientUpdatedAt = transmission.clientUpdatedAt
+  street.name = transmission.name
+  street.location = transmission.data.street.location
+  street.editCount = transmission.data.street.editCount
 
   // Delete deprecated properties, if present
   delete street.leftBuildingVariant

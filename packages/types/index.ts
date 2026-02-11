@@ -94,10 +94,6 @@ export interface StreetAPIResponse {
   updatedAt: string // ISO date string
   originalStreetId: string | null
   creatorId: string | null
-  // This is injected by the server in addition to creatorId
-  creator: {
-    id: string | null
-  }
 }
 
 // Used in POST or PUT to /api/v1/streets
