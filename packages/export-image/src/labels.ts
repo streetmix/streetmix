@@ -5,7 +5,7 @@ import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
 const LABEL_FONT = 'Geist Sans'
@@ -17,7 +17,7 @@ const LABEL_FONT_WEIGHT = '400'
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export function drawLabelBackground (
+export function drawLabelBackground(
   ctx: Canvas.SKRSContext2D,
   width: number,
   height: number,
@@ -42,9 +42,9 @@ export function drawLabelBackground (
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export function drawLabels (
+export function drawLabels(
   ctx: Canvas.SKRSContext2D,
-  streetData: Street,
+  streetData: StreetAPIResponse,
   groundLevel: number,
   offsetLeft: number,
   scale: number
@@ -111,7 +111,7 @@ export function drawLabels (
   ctx.restore()
 }
 
-export function drawLine (
+export function drawLine(
   ctx: Canvas.SKRSContext2D,
   x1: number,
   y1: number,
@@ -135,7 +135,7 @@ export function drawLine (
 /**
  * Ported from client, but this has never been used
  */
-export function drawArrowLine (
+export function drawArrowLine(
   ctx: Canvas.SKRSContext2D,
   x1: number,
   y1: number,
@@ -164,38 +164,38 @@ const SLICE_UNKNOWN = {
   owner: 'NONE',
   zIndex: 1,
   variants: [],
-  details: {}
+  details: {},
 }
 
 export const SLICE_UNKNOWN_VARIANT = {
   unknown: true,
   name: 'Unknown',
   graphics: {
-    center: 'missing'
-  }
+    center: 'missing',
+  },
 }
 
-function getSliceName (type: string, variant: string): string {
+function getSliceName(type: string, variant: string): string {
   const sliceInfo = getSliceInfo(type)
   const variantInfo = getSliceVariantInfo(type, variant)
   const defaultName = variantInfo.name ?? sliceInfo.name
   return defaultName
 }
 
-function getSliceInfo (type: string): unknown {
+function getSliceInfo(type: string): unknown {
   return SLICE_LOOKUP[type] ?? SLICE_UNKNOWN
 }
 
-function getSliceVariant (type: string, variant: string): unknown {
+function getSliceVariant(type: string, variant: string): unknown {
   return SLICE_LOOKUP[type]?.details?.[variant]
 }
 
-function applySliceInfoOverridesAndRules (details, sliceRules): unknown {
+function applySliceInfoOverridesAndRules(details, sliceRules): unknown {
   const { rules, ...overrides } = details
   return Object.assign({}, sliceRules, rules, overrides)
 }
 
-function getSliceVariantInfo (type: string, variant: string): unknown {
+function getSliceVariantInfo(type: string, variant: string): unknown {
   const sliceVariant = getSliceVariant(type, variant)
   const { rules } = getSliceInfo(type)
 

@@ -11,7 +11,7 @@ import { drawSky } from './sky.js'
 import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
 
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 import type { StreetImageExportOptions } from './index.js'
 
 // Register fonts
@@ -60,7 +60,7 @@ const IMAGE_NAMES_WIDTHS_PADDING = 65
 const BUILDING_SPACE = 360
 
 export async function makeStreetImage(
-  street: Street,
+  street: StreetAPIResponse,
   options: StreetImageExportOptions
 ): Promise<Buffer> {
   // Easier to work in base width/height numbers first,
@@ -189,7 +189,7 @@ export async function makeStreetImage(
 }
 
 function calculateImageWidth(
-  street: Street,
+  street: StreetAPIResponse,
   // Don't need options, but this is keeping function signature the same
   // as `calculateImageHeight`
   _options: StreetImageExportOptions
@@ -202,7 +202,7 @@ function calculateImageWidth(
 }
 
 function calculateImageHeight(
-  street: Street,
+  street: StreetAPIResponse,
   options: StreetImageExportOptions
 ): number {
   // const streetData = street.data.street

@@ -1,5 +1,5 @@
 import type * as Canvas from '@napi-rs/canvas'
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 const STREET_NAME_FONT = 'Overpass'
 const STREET_NAME_FONT_SIZE = 70
@@ -13,7 +13,7 @@ const STREET_NAME_LETTER_SPACING = -0.125
  */
 export function drawNameplate(
   ctx: Canvas.SKRSContext2D,
-  street: Street,
+  street: StreetAPIResponse,
   width: number,
   scale: number
 ): void {
