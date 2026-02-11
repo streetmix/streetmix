@@ -60,7 +60,7 @@ export interface StreetBoundary {
 }
 
 export interface GeolocationData {
-  countryCode: string
+  countryCode: string | null
 }
 
 // Subset of @types/leaflet's `LatLngExpression` type, which is not
@@ -428,3 +428,25 @@ interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
 export type BoundaryDefinition =
   | BoundaryDefinitionBase
   | BoundaryDefinitionWithFloors
+
+export interface GalleryAPIResponse {
+  streets: StreetAPIResponse[]
+}
+
+export interface GalleryPaginatedAPIResponse extends GalleryAPIResponse {
+  meta: {
+    links: {
+      self: string
+      prev?: string
+      next?: string
+    }
+  }
+}
+
+export type TranslationRecord = {
+  [k: string]: string | TranslationRecord
+}
+
+export type TranslationAPIResponse = TranslationRecord
+
+export type GeoIpAPIResponse = GeolocationData

@@ -12,7 +12,7 @@ import './WhatsNewDialog.css'
 export const WhatsNewDialog = () => {
   const locale = useSelector((state) => state.locale.locale)
   const [state, setSubmitState] = useState('LOADING')
-  const [content, setContent] = useState(null)
+  const [content, setContent] = useState('')
   const [scrollShade, setScrollShade] = useState(false)
 
   useEffect(() => {
