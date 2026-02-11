@@ -29,6 +29,10 @@ export function addAltVariantObject(street: StreetState) {
     // instead of a string. We might gradually migrate toward this.
     segment.variant = getVariantInfo(segment.type, segment.variantString)
 
+    // Also use this loop to add empty warnings array
+    // Prevents bugs where things expect the array to be there
+    segment.warnings = [false]
+
     return segment
   })
 }
@@ -52,7 +56,7 @@ export function setIgnoreStreetChanges(value: boolean) {
   ignoreStreetChanges = value
 }
 
-export function saveStreetToServerIfNecessary() {
+export function saveStreetToServerIfNecessary(force = false) {
   if (ignoreStreetChanges || store.getState().errors.abortEverything) {
     return
   }
@@ -60,7 +64,10 @@ export function saveStreetToServerIfNecessary() {
   const street = store.getState().street
   const currentData = trimStreetData(street)
 
-  if (JSON.stringify(currentData) !== JSON.stringify(_lastStreet)) {
+  if (
+    JSON.stringify(currentData) !== JSON.stringify(_lastStreet) ||
+    force === true
+  ) {
     if (street.editCount !== null) {
       store.dispatch(updateEditCount(street.editCount + 1))
     }

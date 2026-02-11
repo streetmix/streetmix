@@ -296,7 +296,7 @@ export function unpackServerStreetData(
   store.dispatch(updateStreetData(street))
   store.dispatch(resetUndoStack())
 
-  // Set Coastmix plugin state if the mode is on, and we have data
+  // Set Coastmix plugin state, if enabled and data is present
   if (
     store.getState().flags.COASTMIX_MODE.value === true &&
     transmission.data.plugins.coastmix !== undefined

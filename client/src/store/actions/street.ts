@@ -55,7 +55,7 @@ export function updateStreetWidthAction(width: number) {
   }
 }
 
-export const segmentsChanged = () => {
+export const segmentsChanged = (force = false) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { street, coastmix } = getState()
 
@@ -73,7 +73,9 @@ export const segmentsChanged = () => {
     await dispatch(setFloodDistance(floodDistance))
 
     // ToDo: Refactor this out to be dispatched as well
-    saveStreetToServerIfNecessary()
+    // Forcing a save is necessary when the data to be saved is not in the
+    // street data blob (e.g. plugins data)
+    saveStreetToServerIfNecessary(force)
   }
 }
 
