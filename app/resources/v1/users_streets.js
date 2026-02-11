@@ -1,5 +1,5 @@
 import models from '../../db/models/index.js'
-import { ERRORS } from '../../lib/util.js'
+import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
 import logger from '../../lib/logger.js'
 
 const { User, Street } = models
@@ -62,8 +62,11 @@ export async function get(req, res) {
     return streets
   } // END function - handleFindUserstreets
 
-  const handleFindUserStreets = function (streets) {
-    const json = { streets }
+  const handleFindUserStreets = function (data) {
+    const json = {
+      // Remove properties that should not be sent to client
+      streets: data.map(asStreetJsonBasic),
+    }
     res.status(200).json(json).end()
   } // END function - handleFindUserStreets
 
