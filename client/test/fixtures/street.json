@@ -33,11 +33,11 @@
       },
       "segments": ["Object", "Object"],
       "editCount": 33
-    }
+    },
+    "plugins": {}
   },
   "createdAt": "2018-04-27T03:32:48.377Z",
   "updatedAt": "2018-04-27T20:47:03.477Z",
   "originalStreetId": "33138040-df29-11e9-8f01-c72511055ed4",
-  "creator": { "id": "foo" },
   "creatorId": "foo"
 }

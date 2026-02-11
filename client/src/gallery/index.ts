@@ -14,7 +14,7 @@ import {
   getStreet,
 } from '../util/api'
 
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 let lastRequestedStreetId: string | null = null
 
@@ -34,7 +34,7 @@ function fetchGalleryStreet(streetId: string) {
   lastRequestedStreetId = streetId
 
   getStreet(streetId)
-    .then((response): Street => {
+    .then((response): StreetAPIResponse => {
       hideBlockingShield()
       return response.data
     })
@@ -43,7 +43,7 @@ function fetchGalleryStreet(streetId: string) {
 }
 
 // TODO similar to receiveLastStreet
-function receiveGalleryStreet(transmission: Street) {
+function receiveGalleryStreet(transmission: StreetAPIResponse) {
   // Reject stale transmissions
   if (transmission.id !== lastRequestedStreetId) {
     return
@@ -71,7 +71,6 @@ function receiveGalleryStreet(transmission: Street) {
 function errorReceiveGalleryStreet(err: unknown) {
   console.log(err)
   showError(ERRORS.GALLERY_STREET_FAILURE, false)
-  // updateGallerySelection()
 }
 
 export async function fetchGalleryData(userId: string) {
@@ -99,7 +98,7 @@ export async function fetchGalleryData(userId: string) {
   }
 }
 
-function receiveGalleryData(transmission: { streets: Street[] }) {
+function receiveGalleryData(transmission: { streets: StreetAPIResponse[] }) {
   // There is a bug where sometimes street data is non-existent for an
   // unknown reason. Skip over so that the rest of gallery will display
   const streets = transmission.streets.filter(

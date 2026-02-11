@@ -34,7 +34,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
     doSelect,
     doDelete,
   } = props
-  const dpi = useSelector((state) => state.system.devicePixelRatio || 1)
+  const dpi = useSelector((state) => state.system.devicePixelRatio)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
   const [isError, setError] = useState<boolean>(false)
   const thumbnailEl = useRef<HTMLCanvasElement>(null)
@@ -59,6 +59,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
         labels: false,
         streetName: false,
         watermark: false,
+        locale: null,
       })
     } catch (error) {
       console.error(error)
