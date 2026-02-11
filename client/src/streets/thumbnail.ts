@@ -17,7 +17,7 @@ import type {
   SkyboxDefWithStyles,
   SkyboxObject,
   SlopeProperties,
-  StreetState,
+  StreetJson,
 } from '@streetmix/types'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
@@ -49,7 +49,7 @@ const SKY_GAP = 120 // pixels
  */
 function drawSky(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState, // street data
+  street: StreetJson, // street data
   width: number, // width of area to draw
   height: number, // height of area to draw
   dpi: number, // pixel density of canvas
@@ -265,7 +265,7 @@ function drawClouds(
  */
 function drawEarth(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState, // street data
+  street: StreetJson, // street data
   width: number, // width of area to draw
   dpi: number, // pixel density of canvas
   multiplier: number, // scale factor of image
@@ -335,7 +335,7 @@ function drawEarth(
  */
 function drawBoundaries(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState, // street data
+  street: StreetJson, // street data
   width: number, // width of area to draw
   dpi: number, // pixel density of canvas
   multiplier: number, // scale factor of image
@@ -403,7 +403,7 @@ function drawBoundaries(
  */
 function drawSlices(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState, // street data
+  street: StreetJson, // street data
   dpi: number, // pixel density of canvas
   multiplier: number, // scale factor of image
   groundLevel: number, // vertical height of ground
@@ -492,7 +492,7 @@ function drawLabelBackground(
  */
 function drawLabels(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState,
+  street: StreetJson,
   dpi: number, // pixel density of canvas
   multiplier: number, // scale factor of image
   groundLevel: number, // vertical height of ground
@@ -582,7 +582,7 @@ function drawSilhouette(
  */
 function drawStreetNameplate(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetState, // street data
+  street: StreetJson, // street data
   width: number, // width of area to draw
   dpi: number // pixel density of canvas
 ): void {
@@ -720,7 +720,7 @@ interface ThumbnailOptions {
   labels: boolean
   streetName: boolean
   watermark: boolean
-  locale: string
+  locale: string | null
 }
 
 /**
@@ -728,7 +728,7 @@ interface ThumbnailOptions {
  */
 export function drawStreetThumbnail(
   ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
-  street: StreetState, // Street data
+  street: StreetJson, // Street data
   {
     width, // Width of resulting image
     height, // Height of resulting image
@@ -801,7 +801,8 @@ export function drawStreetThumbnail(
   }
 
   // Labels (slice names and widths)
-  if (labels) {
+  // Skip if we don't need locale, either.
+  if (labels && locale) {
     drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
   }
 

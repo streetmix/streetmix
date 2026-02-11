@@ -8,7 +8,14 @@ import {
   type UserSettingsData,
 } from '../types'
 
-import type { StreetAPIPayload, StreetAPIResponse } from '@streetmix/types'
+import type {
+  GalleryAPIResponse,
+  GalleryPaginatedAPIResponse,
+  GeoIpAPIResponse,
+  StreetAPIPayload,
+  StreetAPIResponse,
+  TranslationAPIResponse,
+} from '@streetmix/types'
 
 const MAX_API_RETRY = 3
 const BASE_URL_API_V1 = '/api/v1'
@@ -42,11 +49,15 @@ class APIClient {
     })
   }
 
-  getAppTranslations = async (locale: string): APIResponse => {
+  getAppTranslations = async (
+    locale: string
+  ): APIResponse<TranslationAPIResponse> => {
     return await this.client.get(`${BASE_URL_API_V1}/translate/${locale}/main`)
   }
 
-  getSegmentTranslations = async (locale: string): APIResponse => {
+  getSegmentTranslations = async (
+    locale: string
+  ): APIResponse<TranslationAPIResponse> => {
     return await this.client.get(
       `${BASE_URL_API_V1}/translate/${locale}/segment-info`
     )
@@ -82,7 +93,9 @@ class APIClient {
     )
   }
 
-  getGalleryForUser = async (userId: string): APIResponse => {
+  getGalleryForUser = async (
+    userId: string
+  ): APIResponse<GalleryAPIResponse> => {
     return await this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
   }
 
@@ -136,19 +149,20 @@ class APIClient {
     )
   }
 
-  deleteStreet = async (streetId: string): APIResponse => {
+  deleteStreet = async (streetId: string): APIResponse<void> => {
     return await this.client.delete(`${BASE_URL_API_V1}/streets/${streetId}`)
   }
 
-  deleteStreetImage = async (streetId: string): APIResponse => {
+  deleteStreetImage = async (streetId: string): APIResponse<void> => {
     return await this.client.delete(
       `${BASE_URL_API_V1}/streets/${streetId}/image`
     )
   }
 
-  getGalleryForAllStreets = async (): APIResponse => {
-    return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
-  }
+  getGalleryForAllStreets =
+    async (): APIResponse<GalleryPaginatedAPIResponse> => {
+      return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
+    }
 
   getSentimentSurveyStreet = async (): APIResponse => {
     return await this.client.get(`${BASE_URL_API_V1}/votes`)
@@ -164,11 +178,11 @@ class APIClient {
     return await this.client.put(`${BASE_URL_API_V1}/votes`, payload)
   }
 
-  getChangelog = async (): APIResponse => {
+  getChangelog = async (): APIResponse<string> => {
     return await this.client.get(`${BASE_URL_SERVICES}/changelog`)
   }
 
-  getGeoIp = async (): APIResponse => {
+  getGeoIp = async (): APIResponse<GeoIpAPIResponse> => {
     return await this.client.get(`${BASE_URL_SERVICES}/geoip`)
   }
 }

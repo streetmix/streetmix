@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { DEFAULT_LOCALE } from '@streetmix/i18n'
 
-import { getAppTranslations, getSegmentTranslations } from '../../util/api'
+import { getAppTranslations, getSegmentTranslations } from '../../util/api.js'
+
+import type { TranslationRecord } from '@streetmix/types'
 
 type LocaleMessages = Record<string, string>
 
@@ -18,7 +20,7 @@ const initialState: LocaleState = {
   messages: {},
   segmentInfo: {},
   isLoading: false,
-  requestedLocale: null
+  requestedLocale: null,
 }
 
 // Flattens a nested object from translation response, e.g.
@@ -27,7 +29,7 @@ const initialState: LocaleState = {
 // ES6-ported function from https://gist.github.com/penguinboy/762197
 // Ignores arrays and passes them through unchanged.
 // Does not address null values, since the responses from the server will not be containing those.
-function flattenObject (obj): LocaleMessages {
+function flattenObject(obj: TranslationRecord): LocaleMessages {
   const toReturn: LocaleMessages = {}
   let flatObject: LocaleMessages
   Object.keys(obj).forEach((i: string) => {
@@ -53,8 +55,8 @@ export const changeLocale = createAsyncThunk(
       locale,
       translation: {
         messages: messages.data,
-        segmentInfo: segmentInfo.data
-      }
+        segmentInfo: segmentInfo.data,
+      },
     }
   }
 )
@@ -92,7 +94,7 @@ const localeSlice = createSlice({
         state.isLoading = false
         state.requestedLocale = null
       })
-  }
+  },
 })
 
 export default localeSlice.reducer

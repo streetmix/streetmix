@@ -31,6 +31,27 @@ export function asStreetJson(street) {
   return json
 }
 
+export function asStreetJsonBasic(street) {
+  const json = {
+    id: street.id,
+    namespacedId: street.namespacedId,
+    name: street.name,
+    clientUpdatedAt: street.clientUpdatedAt,
+    data: street.data,
+    createdAt: street.createdAt,
+    updatedAt: street.updatedAt,
+    originalStreetId: street.originalStreetId,
+    creatorId: street.creatorId,
+  }
+
+  // Add plugins data object, if not present
+  if (typeof json.data.plugins === 'undefined') {
+    json.data.plugins = {}
+  }
+
+  return json
+}
+
 export function asUserJson(user) {
   const userJson = {
     id: user.id,

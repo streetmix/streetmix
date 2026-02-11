@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Street } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 interface GalleryState {
   visible: boolean
   instant: boolean
   userId: string | null
   mode: 'none' | 'loading' | 'gallery' | 'error'
-  streets: Street[]
+  streets: StreetAPIResponse[]
 }
 
 const initialState: GalleryState = {
@@ -15,7 +15,7 @@ const initialState: GalleryState = {
   instant: false,
   userId: null,
   mode: 'none',
-  streets: []
+  streets: [],
 }
 
 export const gallerySlice = createSlice({
@@ -23,25 +23,25 @@ export const gallerySlice = createSlice({
   initialState,
 
   reducers: {
-    showGallery (state, action: PayloadAction<GalleryState['userId']>) {
+    showGallery(state, action: PayloadAction<GalleryState['userId']>) {
       state.visible = true
       state.userId = action.payload
       state.mode = 'none'
     },
 
-    hideGallery (state) {
+    hideGallery(state) {
       state.visible = false
     },
 
-    deleteGalleryStreet (state, action: PayloadAction<Street['id']>) {
+    deleteGalleryStreet(state, action: PayloadAction<StreetAPIResponse['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })
     },
 
-    setGalleryUserId (state, action: PayloadAction<GalleryState['userId']>) {
+    setGalleryUserId(state, action: PayloadAction<GalleryState['userId']>) {
       state.userId = action.payload
-    }
+    },
   },
 
   extraReducers: (builder) => {
@@ -88,14 +88,14 @@ export const gallerySlice = createSlice({
         // Log this error because otherwise it's swallowed
         console.error('gallery/closeGallery/rejected', action.error.stack)
       })
-  }
+  },
 })
 
 export const {
   showGallery,
   hideGallery,
   deleteGalleryStreet,
-  setGalleryUserId
+  setGalleryUserId,
 } = gallerySlice.actions
 
 export default gallerySlice.reducer
