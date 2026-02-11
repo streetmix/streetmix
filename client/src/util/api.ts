@@ -64,7 +64,7 @@ class APIClient {
   }
 
   // DEPRECATED: Use RTK Query's api, which caches user data
-  getUser = async (userId: string): APIResponse => {
+  getUser = async (userId: string): APIResponse<UserProfile> => {
     return await this.client.get(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
@@ -72,7 +72,7 @@ class APIClient {
   putUserSettings = async (
     userId: string,
     payload: UserSettingsData
-  ): APIResponse => {
+  ): APIResponse<void> => {
     return await this.client.put(`${BASE_URL_API_V1}/users/${userId}`, payload)
   }
 
@@ -80,14 +80,14 @@ class APIClient {
   patchUser = async (
     userId: string,
     payload: Partial<UserProfile>
-  ): APIResponse => {
+  ): APIResponse<void> => {
     return await this.client.patch(
       `${BASE_URL_API_V1}/users/${userId}`,
       payload
     )
   }
 
-  deleteUserLoginToken = async (userId: string): APIResponse => {
+  deleteUserLoginToken = async (userId: string): APIResponse<void> => {
     return await this.client.delete(
       `${BASE_URL_API_V1}/users/${userId}/login-token`
     )
@@ -164,17 +164,22 @@ class APIClient {
       return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
     }
 
-  getSentimentSurveyStreet = async (): APIResponse => {
+  // TODO: API response type
+  getSentimentSurveyStreet = async (): APIResponse<unknown> => {
     return await this.client.get(`${BASE_URL_API_V1}/votes`)
   }
 
-  postSentimentSurveyVote = async (payload: SentimentVote): APIResponse => {
+  // TODO: API response type
+  postSentimentSurveyVote = async (
+    payload: SentimentVote
+  ): APIResponse<unknown> => {
     return await this.client.post(`${BASE_URL_API_V1}/votes`, payload)
   }
 
+  // TODO: API response type
   putSentimentSurveyComment = async (
     payload: SentimentComment
-  ): APIResponse => {
+  ): APIResponse<unknown> => {
     return await this.client.put(`${BASE_URL_API_V1}/votes`, payload)
   }
 
