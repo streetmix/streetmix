@@ -65,9 +65,17 @@ export function checkSeaLevel(
     }
 
     // TODO: don't read from DOM for these values.
-    const sliceEl = document
-      .getElementById('street-section-editable')!
-      .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
+    // They are not guaranteed to be present and have the right dimensions
+    // -- a better solution is to do this analysis in StreetEditable
+    const streetEl = document.getElementById('street-section-editable')
+
+    // Bail if this function is called before the DOM is ready
+    // (which can happen on page load)
+    if (!streetEl) return null
+
+    const sliceEl = streetEl.querySelector<HTMLElement>(
+      `[data-slice-index="${slicePosition}"]`
+    )
 
     const distance = Number(sliceEl?.dataset.sliceLeft)
     return distance
@@ -100,11 +108,21 @@ export function checkSeaLevel(
       return null
     }
 
-    const sliceEl = document
-      .getElementById('street-section-editable')!
-      .querySelector<HTMLElement>(`[data-slice-index="${slicePosition}"]`)
+    // TODO: don't read from DOM for these values.
+    // They are not guaranteed to be present and have the right dimensions
+    // -- a better solution is to do this analysis in StreetEditable
+    const streetEl = document.getElementById('street-section-editable')
+
+    // Bail if this function is called before the DOM is ready
+    // (which can happen on page load)
+    if (!streetEl) return null
+
+    const sliceEl = streetEl.querySelector<HTMLElement>(
+      `[data-slice-index="${slicePosition}"]`
+    )
 
     // There are some extra steps for calculating the right-hand distance
+    // NOTE: this is 0 on page load, which causes sea level rendering to fail
     const parentWidth =
       sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
     const offsetLeftPlusWidth =
