@@ -286,13 +286,17 @@ function drawEarth(
 
   const leftBoundary = street.boundary?.left
   const rightBoundary = street.boundary?.right
-  const leftBoundaryDefinition = getBoundaryItem(leftBoundary.variant)
-  const rightBoundaryDefinition = getBoundaryItem(rightBoundary.variant)
+  const leftBoundaryDefinition = getBoundaryItem(
+    leftBoundary?.variant ?? street.leftBuildingVariant
+  )
+  const rightBoundaryDefinition = getBoundaryItem(
+    rightBoundary?.variant ?? street.rightBuildingVariant
+  )
 
-  if (leftBoundary.elevation > 0) {
+  if (leftBoundary?.elevation > 0) {
     leftElevation = leftBoundary.elevation * TILE_SIZE
   }
-  if (street.boundary?.right.elevation > 0) {
+  if (rightBoundary?.elevation > 0) {
     rightElevation = street.boundary.right.elevation * TILE_SIZE
   }
 
