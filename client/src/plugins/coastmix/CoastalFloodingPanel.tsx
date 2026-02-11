@@ -120,6 +120,10 @@ export function CoastalFloodingPanel() {
           </div>
         </div>
         <div className="popup-control-group">
+          <div className="popup-control-label">Storm surge</div>
+          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
+        </div>
+        <div className="popup-control-group">
           <div className="popup-control-label">Flood direction</div>
           <div>
             <select value={floodDirection} onChange={changeFloodDirection}>
@@ -129,10 +133,6 @@ export function CoastalFloodingPanel() {
               {/* <option value="both">Both</option> */}
             </select>
           </div>
-        </div>
-        <div className="popup-control-group">
-          <div className="popup-control-label">Storm surge</div>
-          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
         <div className={messageClassNames.join(' ')}>{message}</div>
       </div>
