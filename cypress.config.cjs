@@ -2,7 +2,7 @@ const { defineConfig } = require('cypress')
 const dotenv = require('dotenv')
 
 dotenv.config({
-  quiet: true
+  quiet: true,
 })
 
 module.exports = defineConfig({
@@ -11,11 +11,15 @@ module.exports = defineConfig({
   viewportHeight: 720,
   video: false,
   e2e: {
-    setupNodeEvents (on, config) {
+    setupNodeEvents(on, config) {
       config.env.PELIAS_HOST_NAME = process.env.PELIAS_HOST_NAME
 
       return config
     },
-    baseUrl: 'http://localhost:8000'
-  }
+    baseUrl: 'http://localhost:8000',
+  },
+  allowCypressEnv: false,
+  expose: {
+    peliasHostName: process.env.PELIAS_HOST_NAME,
+  },
 })
