@@ -3,19 +3,19 @@ const PROMPT_MESSAGE = 'my custom message'
 context('User saves a new street', () => {
   beforeEach(() => {
     cy.intercept('POST', '/api/v1/streets*', {
-      fixture: 'street-post-response'
+      fixture: 'street-post-response',
     }).as('streetPost')
     cy.intercept('PUT', '/api/v1/streets/*', {
-      statusCode: 204
+      statusCode: 204,
     }).as('streetPut')
-    cy.intercept(`https://${Cypress.env('PELIAS_HOST_NAME')}/v1/reverse*`, {
-      fixture: 'reverse-location'
+    cy.intercept(`https://${Cypress.expose('peliasHostName')}/v1/reverse*`, {
+      fixture: 'reverse-location',
     }).as('locationService')
 
     cy.visit('', {
-      onBeforeLoad (win) {
+      onBeforeLoad(win) {
         cy.stub(win, 'prompt').returns(PROMPT_MESSAGE)
-      }
+      },
     })
   })
 
