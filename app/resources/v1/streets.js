@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto'
 
 import models from '../../db/models/index.js'
 import logger from '../../lib/logger.js'
-import { ERRORS, asStreetJson } from '../../lib/util.js'
+import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 const { User, Street, Sequence } = models
@@ -406,7 +406,7 @@ export async function find(req, res) {
           self: selfUri,
         },
       },
-      streets,
+      streets: streets.map(asStreetJsonBasic),
     }
 
     if (start > 0) {
