@@ -11,8 +11,6 @@ describe('calculateSlope', () => {
     }
     expect(calculateSlope(street, 1)).toEqual({
       values: [0, 0.125],
-      leftElevation: 0,
-      rightElevation: 0.125,
       slope: '3.13',
       ratio: 32,
       warnings: {
@@ -33,8 +31,6 @@ describe('calculateSlope', () => {
     }
     expect(calculateSlope(street, 1)).toEqual({
       values: [0, 1],
-      leftElevation: 0,
-      rightElevation: 1,
       slope: '25.00',
       ratio: 4,
       warnings: {
@@ -54,8 +50,6 @@ describe('calculateSlope', () => {
     }
     expect(calculateSlope(street, 1)).toEqual({
       values: [0, 2],
-      leftElevation: 0,
-      rightElevation: 2,
       slope: '50.00',
       ratio: 2,
       warnings: {
@@ -78,8 +72,6 @@ describe('calculateSlope', () => {
     }
     expect(calculateSlope(street, 1)).toEqual({
       values: [0, 2],
-      leftElevation: 0,
-      rightElevation: 2,
       slope: '0.00',
       ratio: undefined,
       warnings: {
