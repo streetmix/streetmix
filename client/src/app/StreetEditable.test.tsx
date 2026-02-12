@@ -14,7 +14,14 @@ describe('StreetEditable', () => {
   const updatePerspective = (): void => {}
   const type = 'streetcar'
   const variantString = 'inbound|regular'
-  const segment = { variantString, id: '1', width: 400, type, warnings: [] }
+  const segment = {
+    variantString,
+    id: '1',
+    width: 400,
+    type,
+    slope: { on: false, values: [] },
+    warnings: [],
+  }
 
   describe('segment warnings', () => {
     describe('too large', () => {

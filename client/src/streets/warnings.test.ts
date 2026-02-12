@@ -10,9 +10,21 @@ describe('applyWarningsToSlices', () => {
     }
     const widths = recalculateWidth(street)
     expect(applyWarningsToSlices(street, widths)).toEqual([
-      { width: 4, warnings: [false, false, false, false, false, false, false] },
-      { width: 8, warnings: [false, false, false, false, false, false, false] },
-      { width: 8, warnings: [false, false, false, false, false, false, false] },
+      {
+        width: 4,
+        slope: {},
+        warnings: [false, false, false, false, false, false, false],
+      },
+      {
+        width: 8,
+        slope: {},
+        warnings: [false, false, false, false, false, false, false],
+      },
+      {
+        width: 8,
+        slope: {},
+        warnings: [false, false, false, false, false, false, false],
+      },
     ])
   })
 
@@ -24,9 +36,21 @@ describe('applyWarningsToSlices', () => {
     }
     const widths = recalculateWidth(street)
     expect(applyWarningsToSlices(street, widths)).toEqual([
-      { width: 8, warnings: [false, true, false, false, false, false, false] },
-      { width: 6, warnings: [false, false, false, false, false, false, false] },
-      { width: 8, warnings: [false, true, false, false, false, false, false] },
+      {
+        width: 8,
+        slope: {},
+        warnings: [false, true, false, false, false, false, false],
+      },
+      {
+        width: 6,
+        slope: {},
+        warnings: [false, false, false, false, false, false, false],
+      },
+      {
+        width: 8,
+        slope: {},
+        warnings: [false, true, false, false, false, false, false],
+      },
     ])
   })
 
@@ -46,18 +70,21 @@ describe('applyWarningsToSlices', () => {
         width: 0.6,
         type: 'sidewalk',
         variantString: 'normal',
+        slope: {},
         warnings: [false, false, true, false, false, false, false],
       },
       {
         width: 3,
         type: 'divider',
         variantString: 'bush',
+        slope: {},
         warnings: [false, false, false, false, false, false, false],
       },
       {
         width: 5.4,
         type: 'parking-lane',
         variantString: 'inbound|left',
+        slope: {},
         warnings: [false, false, false, true, false, false, false],
       },
     ])
@@ -81,6 +108,7 @@ describe('applyWarningsToSlices', () => {
         width: 3,
         type: 'drive-lane',
         variantString: 'inbound|car-with-bike',
+        slope: {},
         warnings: [false, false, false, false, true, false, false],
       },
     ])
@@ -91,14 +119,14 @@ describe('applyWarningsToSlices', () => {
       width: 20,
       boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
       segments: [
-        { width: 3, elevation: 0 },
+        { width: 3, elevation: 0, slope: {} },
         {
           width: 3,
           type: 'divider',
           variantString: 'planting-strip',
           slope: { on: true, values: [0, 4] },
         },
-        { width: 3, elevation: 4 },
+        { width: 3, elevation: 4, slope: {} },
       ],
     }
     const widths = recalculateWidth(street)
@@ -106,6 +134,7 @@ describe('applyWarningsToSlices', () => {
       {
         width: 3,
         elevation: 0,
+        slope: {},
         warnings: [false, false, false, false, false, false, false],
       },
       {
@@ -118,6 +147,7 @@ describe('applyWarningsToSlices', () => {
       {
         width: 3,
         elevation: 4,
+        slope: {},
         warnings: [false, false, false, false, false, false, false],
       },
     ])
