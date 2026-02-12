@@ -10,6 +10,7 @@ import { recalculateWidth } from '../streets/width.js'
 import store from '../store'
 import { updateSegments } from '../store/slices/street.js'
 import { drawScatteredSprites } from './scatter.js'
+import { calculateSlope } from './slope.js'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
@@ -951,11 +952,29 @@ export function segmentsChanged(): void {
 
   const calculatedWidths = recalculateWidth(street)
   const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
-  const floodDistance = checkSeaLevel(street, coastmix) ?? null
+  const updatedSlices2 = updatedSlices.map((slice, index) => {
+    if (slice.slope.on) {
+      // TODO: this also does warning calculations which means this
+      // is running twice. refactor to be more efficient
+      const slopeData = calculateSlope(street, index)
+      if (slopeData !== null) {
+        slice.slope.values = slopeData.values
+      }
+    }
+
+    return slice
+  })
+
+  // Update for flood calc
+  const street2 = {
+    ...street,
+    segments: updatedSlices2,
+  }
+  const floodDistance = checkSeaLevel(street2, coastmix) ?? null
 
   store.dispatch(
     updateSegments(
-      updatedSlices,
+      updatedSlices2,
       calculatedWidths.occupiedWidth.toNumber(),
       calculatedWidths.remainingWidth.toNumber()
     )

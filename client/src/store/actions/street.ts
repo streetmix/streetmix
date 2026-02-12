@@ -1,28 +1,29 @@
 import clone from 'just-clone'
 
 import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
-import { ERRORS } from '../../app/errors'
-import { formatMessage } from '../../locales/locale'
+import { ERRORS } from '~/src/app/errors.js'
+import { formatMessage } from '~/src/locales/locale.js'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
   resolutionForResizeType,
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions,
-} from '../../segments/resizing'
-import { getVariantInfo } from '../../segments/variant_utils'
+} from '~/src/segments/resizing.js'
+import { calculateSlope } from '~/src/segments/slope.js'
+import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import {
   setIgnoreStreetChanges,
   setLastStreet,
   saveStreetToServerIfNecessary,
-} from '../../streets/data_model'
-import { applyWarningsToSlices } from '../../streets/warnings'
-import { recalculateWidth } from '../../streets/width'
-import { saveStreetToServer } from '../../streets/xhr'
-import apiClient from '../../util/api'
-import { showError } from '../slices/errors'
-import { updateSettings } from '../slices/settings'
-import { addToast } from '../slices/toasts'
+} from '~/src/streets/data_model.js'
+import { applyWarningsToSlices } from '~/src/streets/warnings.js'
+import { recalculateWidth } from '~/src/streets/width.js'
+import { saveStreetToServer } from '~/src/streets/xhr.js'
+import apiClient from '~/src/util/api.js'
+import { showError } from '../slices/errors.js'
+import { updateSettings } from '../slices/settings.js'
+import { addToast } from '../slices/toasts.js'
 import {
   updateStreetWidth,
   updateSegments,
@@ -34,12 +35,12 @@ import {
   updateCapacitySource,
   saveStreetId,
   saveOriginalStreetId,
-} from '../slices/street'
-import { setInfoBubbleMouseInside } from '../slices/infoBubble'
-import { setActiveSegment } from '../slices/ui'
-import { setFloodDistance } from '../slices/coastmix'
+} from '../slices/street.js'
+import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
+import { setActiveSegment } from '../slices/ui.js'
+import { setFloodDistance } from '../slices/coastmix.js'
 
-import type { Dispatch, RootState } from '../index'
+import type { Dispatch, RootState } from '../index.js'
 import type { StreetAPIResponse, StreetState } from '@streetmix/types'
 
 /**
@@ -61,11 +62,29 @@ export const segmentsChanged = (force = false) => {
 
     const calculatedWidths = recalculateWidth(street)
     const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
-    const floodDistance = checkSeaLevel(street, coastmix) ?? null
+    const updatedSlices2 = updatedSlices.map((slice, index) => {
+      if (slice.slope.on) {
+        // TODO: this also does warning calculations which means this
+        // is running twice. refactor to be more efficient
+        const slopeData = calculateSlope(street, index)
+        if (slopeData !== null) {
+          slice.slope.values = slopeData.values
+        }
+      }
+
+      return slice
+    })
+
+    // Update for flood calc
+    const street2 = {
+      ...street,
+      segments: updatedSlices2,
+    }
+    const floodDistance = checkSeaLevel(street2, coastmix) ?? null
 
     await dispatch(
       updateSegments(
-        updatedSlices,
+        updatedSlices2,
         calculatedWidths.occupiedWidth.toNumber(),
         calculatedWidths.remainingWidth.toNumber()
       )

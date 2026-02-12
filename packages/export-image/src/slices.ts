@@ -45,17 +45,6 @@ export function drawSlices(
       //   }
       //   const randSeed = slice.id
 
-      //   // Slope
-      //   const slopeData = calculateSlope(street, i)
-      //   const elevationChange = {
-      //     left: slice.elevation,
-      //     right: slice.elevation
-      //   }
-      //   if (slice.slope && slopeData !== null) {
-      //     elevationChange.left = slopeData.leftElevation
-      //     elevationChange.right = slopeData.rightElevation
-      //   }
-
       //   drawSegmentContents(
       //     ctx,
       //     slice.type,
@@ -64,7 +53,7 @@ export function drawSlices(
       //     currentOffsetLeft + dimensions.left * TILE_SIZE * scale,
       //     groundLevel,
       //     slice.elevation,
-      //     elevationChange,
+      //     slice.slope,
       //     randSeed,
       //     scale
       //   )

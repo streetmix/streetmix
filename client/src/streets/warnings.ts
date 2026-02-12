@@ -104,6 +104,10 @@ export function applyWarningsToSlices(
     segments.push({
       ...segment,
       warnings,
+      // This is just to make it not read-only for later
+      slope: {
+        ...segment.slope,
+      },
     })
   })
 
