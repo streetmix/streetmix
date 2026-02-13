@@ -67,3 +67,26 @@
     height: calc(var(--street-section-baseline) - 80px);
   }
 }
+
+#street-section-popup-boundary {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--street-section-baseline);
+
+  /* The height of the boundary area is set to prevent the tops of
+     popups from intersecting with the street nameplate on short viewports
+     but also don't have it too tall on tall viewports in order to prevent
+     the popups from shifting vertical position if its content changes */
+  height: min(
+    calc(100vh - var(--street-section-baseline) - 100px),
+    calc(var(--canvas-height) + 100px)
+  );
+
+  /* For debugging the floating popup boundary area */
+  &.debugger {
+    background-color: #f005;
+    z-index: 20;
+  }
+}

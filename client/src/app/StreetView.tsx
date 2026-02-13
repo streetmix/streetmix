@@ -337,6 +337,7 @@ function StreetView() {
             </section>
           </PopupContainerGroup>
         </section>
+        <div id="street-section-popup-boundary" />
       </section>
       <SkyBox scrollPos={scrollPos} />
       <ScrollIndicators
