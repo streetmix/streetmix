@@ -68,35 +68,3 @@ export function getSlopeWarnings(ratio: number | undefined) {
     slopeExceededPath: ratio !== undefined && ratio < 20,
   }
 }
-
-export function calculateSlope(
-  street: StreetJson,
-  index: number
-): SlopeCalculation {
-  const slice = street.segments[index]
-
-  // For now, our slope values are either empty or 2 numbers
-  // There's a future where slopes might have a series of anchor points
-  let values: [number, number] | [] = []
-  let slope = '0'
-  let ratio
-
-  // Only calculate values if slope is on
-  // `slope` property may not be present on older streets
-  if (slice.slope?.on) {
-    values = getSlopeValues(street, index)
-    const slopeData = getRiseRunValues(values, slice.width)
-
-    slope = slopeData.slope
-    ratio = slopeData.ratio
-  }
-
-  const warnings = getSlopeWarnings(ratio)
-
-  return {
-    values,
-    slope,
-    ratio,
-    warnings,
-  }
-}
