@@ -86,6 +86,8 @@
   );
 
   /* For debugging the floating popup boundary area */
-  /* background-color: #f005;
-  z-index: 20; */
+  &.debugger {
+    background-color: #f005;
+    z-index: 20;
+  }
 }
