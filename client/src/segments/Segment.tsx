@@ -34,7 +34,6 @@ import { RESIZE_TYPE_INCREMENT } from './resizing.js'
 import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
-import { calculateSlope } from './slope.js'
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
 
 interface SliceProps {
@@ -57,7 +56,6 @@ export function Segment(props: SliceProps) {
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const readOnly = useSelector((state) => state.app.readOnly)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
   const elementRef = useRef<HTMLDivElement>(null)
@@ -76,14 +74,6 @@ export function Segment(props: SliceProps) {
   const [collected, drag, dragPreview] = useDrag(dragSpec)
   const { isDragging }: { isDragging: boolean } = collected
   drag(drop(dndRef))
-
-  // Slope calculations
-  const slopeData = calculateSlope(street, sliceIndex)
-  // TODO: slope values should be calced elsewhere and saved
-  const slopeTemp = { ...segment.slope }
-  if (slopeData !== null) {
-    slopeTemp.values = slopeData.values
-  }
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevProps = usePrevious({
@@ -227,7 +217,7 @@ export function Segment(props: SliceProps) {
           // and can be used as a consistent and reliable seed for a PRNG
           randSeed={segment.id}
           elevation={segment.elevation}
-          slope={slopeTemp}
+          slope={segment.slope}
         />
       </div>
     )
@@ -319,9 +309,7 @@ export function Segment(props: SliceProps) {
               {renderSegmentCanvas('new', newRef)}
             </CSSTransition>
           </div>
-          {coastmixMode && slopeData && (
-            <TestSlope slice={segment} slopeData={slopeData} />
-          )}
+          <TestSlope slice={segment} />
           <div className="active-bg" />
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>

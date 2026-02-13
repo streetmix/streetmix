@@ -2,33 +2,16 @@ import { CURB_HEIGHT } from './constants.js'
 
 import type { StreetJson } from '@streetmix/types'
 
-export interface SlopeCalculation {
-  values: number[]
-  leftElevation: number
-  rightElevation: number
-  slope: string
-  ratio: number | undefined
-  warnings: {
-    slopeExceededBerm: boolean
-    slopeExceededPath: boolean
-  }
-}
-
-export function calculateSlope(
+export function getSlopeValues(
   street: StreetJson,
   index: number
-): SlopeCalculation | null {
-  const slice = street.segments[index]
-
-  // If slice does not exist (e.g. index out of bounds) return null
-  if (!slice) return null
-
+): [number, number] {
   // Get elevation of slices adjacent to current slice
   let leftElevation = street.segments[index - 1]?.elevation
   let rightElevation = street.segments[index + 1]?.elevation
 
   // If slice is first or last in the list, adjacent elevation is
-  // taken from boundary. We need a fallback for older street data
+  // taken from boundary. A fallback value is used for older streets
   // that don't have boundary data
   if (index === 0) {
     leftElevation = street.boundary?.left.elevation ?? CURB_HEIGHT
@@ -37,21 +20,30 @@ export function calculateSlope(
     rightElevation = street.boundary?.right.elevation ?? CURB_HEIGHT
   }
 
-  // New elevation change format
-  const values = [leftElevation, rightElevation]
+  return [leftElevation, rightElevation]
+}
 
-  // If slope is off, don't calculate the change in elevation, even if
-  // neighboring elevation differs
-  // `slope` property may not be present on older streets
-  const rise = slice.slope?.on ? Math.abs(leftElevation - rightElevation) : 0
+export function getRiseRunValues(values: [number, number], width: number) {
+  // Calculate the rise of the slope
+  const rise = Math.abs(values[0] - values[1])
 
   // Get slope in percentage
-  const slope = ((rise / slice.width) * 100).toFixed(2)
+  const slope = ((rise / width) * 100).toFixed(2)
 
   // Get slope as ratio (horizontal:vertical)
-  // If rise is 0, return undefined to prevent divide by zero error
-  const ratio = rise !== 0 ? Number((slice.width / rise).toFixed(2)) : undefined
+  // Do not calculate if rise is 0, because that's a divide by zero error
+  let ratio
+  if (rise !== 0) {
+    ratio = Number((width / rise).toFixed(2))
+  }
 
+  return {
+    slope,
+    ratio,
+  }
+}
+
+export function getSlopeWarnings(ratio: number | undefined) {
   // Warnings for exceeded slope
   // There are two thresholds:
   // (1) for berms:
@@ -61,17 +53,8 @@ export function calculateSlope(
   //    "ADA accessibility and connection to inland area and waterfront is
   //    required. Accessible routes shall not exceed 5% (1V:20H
   //    (vertical:horizontal)) slope"
-  const warnings = {
+  return {
     slopeExceededBerm: ratio !== undefined && ratio < 3,
     slopeExceededPath: ratio !== undefined && ratio < 20,
-  }
-
-  return {
-    values,
-    leftElevation,
-    rightElevation,
-    slope,
-    ratio,
-    warnings,
   }
 }

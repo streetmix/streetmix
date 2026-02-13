@@ -1,22 +1,23 @@
 import { drawLine } from '@streetmix/export-image/src/labels'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
-import { images } from '../app/load_resources'
-import { prettifyWidth } from '../util/width_units'
+import { images } from '../app/load_resources.js'
+import { prettifyWidth } from '../util/width_units.js'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
 import { getBoundaryItem, drawBoundary } from '../boundary'
-import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants'
-import { getLocaleSliceName } from '../segments/labels'
-import { calculateSlope } from '../segments/slope'
-import { getVariantInfoDimensions, drawSegmentContents } from '../segments/view'
-import { formatMessage } from '../locales/locale'
-import { SAVE_AS_IMAGE_LABEL_PADDING } from './image'
+import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants.js'
+import { getLocaleSliceName } from '../segments/labels.js'
+import {
+  getVariantInfoDimensions,
+  drawSegmentContents,
+} from '../segments/view.js'
+import { formatMessage } from '../locales/locale.js'
+import { SAVE_AS_IMAGE_LABEL_PADDING } from './image.js'
 
 import type {
   CSSGradientDeclaration,
   SkyboxDefWithStyles,
   SkyboxObject,
-  SlopeProperties,
   StreetJson,
 } from '@streetmix/types'
 
@@ -435,18 +436,6 @@ function drawSlices(
         const dimensions = getVariantInfoDimensions(variantInfo, slice.width)
         const randSeed = slice.id
 
-        // Slope
-        // TODO: slope values should be calced elsewhere and saved
-        const slopeData = calculateSlope(street, i)
-        const slopeTemp: SlopeProperties = {
-          // Also handle old schema versions without slope property
-          on: slice.slope?.on ?? false,
-          values: [],
-        }
-        if (slopeData !== null) {
-          slopeTemp.values = slopeData.values
-        }
-
         drawSegmentContents(
           ctx,
           slice.type,
@@ -455,7 +444,7 @@ function drawSlices(
           currentOffsetLeft + dimensions.left * TILE_SIZE * multiplier,
           groundLevel,
           slice.elevation,
-          slopeTemp,
+          slice.slope,
           randSeed,
           multiplier,
           dpi

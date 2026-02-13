@@ -1,7 +1,7 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { CoastmixState, StreetState } from '@streetmix/types'
+import type { CoastmixState, SliceItem } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
@@ -26,12 +26,11 @@ export function calculateSeaLevelRise(
 }
 
 export function checkSeaLevel(
-  street: StreetState,
+  slices: SliceItem[],
   coastmix: CoastmixState
 ): number | null {
   const { seaLevelRise, floodDirection, stormSurge } = coastmix
 
-  const slices = street.segments
   const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
   let slicePosition

@@ -1,91 +1,83 @@
-import { calculateSlope } from './slope'
+import { getSlopeValues, getRiseRunValues, getSlopeWarnings } from './slope'
 
-describe('calculateSlope', () => {
+describe('getSlopeValues', () => {
   it('calculates slope', () => {
     const street = {
       segments: [
         { width: 4, elevation: 0 },
-        { width: 4, slope: { on: true, values: [0, 0.125] } },
+        { width: 4, slope: { on: true, values: [] } },
         { width: 4, elevation: 0.125 },
       ],
     }
-    expect(calculateSlope(street, 1)).toEqual({
-      values: [0, 0.125],
-      leftElevation: 0,
-      rightElevation: 0.125,
-      slope: '3.13',
+    expect(getSlopeValues(street, 1)).toEqual([0, 0.125])
+  })
+
+  it('calculates slopes against left boundary', () => {
+    const street = {
+      boundary: {
+        left: {
+          elevation: 1,
+        },
+      },
+      segments: [
+        { width: 4, slope: { on: true, values: [] } },
+        { width: 4, elevation: 0.125 },
+      ],
+    }
+    expect(getSlopeValues(street, 0)).toEqual([1, 0.125])
+  })
+
+  it('calculates slopes against right boundary', () => {
+    const street = {
+      boundary: {
+        right: {
+          elevation: 0.5,
+        },
+      },
+      segments: [
+        { width: 4, elevation: 0 },
+        { width: 4, slope: { on: true, values: [] } },
+      ],
+    }
+    expect(getSlopeValues(street, 1)).toEqual([0, 0.5])
+  })
+})
+
+describe('getRiseRunValues', () => {
+  it('calculates rise/run values', () => {
+    expect(getRiseRunValues([0, 0.125], 4)).toEqual({
       ratio: 32,
-      warnings: {
-        slopeExceededBerm: false,
-        slopeExceededPath: false,
-      },
+      slope: '3.13',
     })
   })
 
-  it('calculates slope exceeding path slope', () => {
-    const street = {
-      width: 20,
-      segments: [
-        { width: 4, elevation: 0 },
-        { width: 4, slope: { on: true, values: [0, 1] } },
-        { width: 4, elevation: 1 },
-      ],
-    }
-    expect(calculateSlope(street, 1)).toEqual({
-      values: [0, 1],
-      leftElevation: 0,
-      rightElevation: 1,
-      slope: '25.00',
-      ratio: 4,
-      warnings: {
-        slopeExceededBerm: false,
-        slopeExceededPath: true,
-      },
-    })
-  })
-
-  it('calculates slope exceeding berm slope', () => {
-    const street = {
-      segments: [
-        { width: 4, elevation: 0 },
-        { width: 4, slope: { on: true, values: [0, 2] } },
-        { width: 4, elevation: 2 },
-      ],
-    }
-    expect(calculateSlope(street, 1)).toEqual({
-      values: [0, 2],
-      leftElevation: 0,
-      rightElevation: 2,
-      slope: '50.00',
-      ratio: 2,
-      warnings: {
-        slopeExceededBerm: true,
-        slopeExceededPath: true,
-      },
-    })
-  })
-
-  it.todo('calculates slopes against left boundary')
-  it.todo('calculates slopes against right boundary')
-
-  it('handles flat slices', () => {
-    const street = {
-      segments: [
-        { width: 4, elevation: 0 },
-        { width: 4, elevation: 0 },
-        { width: 4, elevation: 2 },
-      ],
-    }
-    expect(calculateSlope(street, 1)).toEqual({
-      values: [0, 2],
-      leftElevation: 0,
-      rightElevation: 2,
-      slope: '0.00',
+  it('handles a flat value', () => {
+    expect(getRiseRunValues([1, 1], 4)).toEqual({
       ratio: undefined,
-      warnings: {
-        slopeExceededBerm: false,
-        slopeExceededPath: false,
-      },
+      slope: '0.00',
+    })
+  })
+})
+
+describe('getSlopeWarnings', () => {
+  it('returns no warnings', () => {
+    expect(getSlopeWarnings(25)).toEqual({
+      slopeExceededBerm: false,
+      slopeExceededPath: false,
+    })
+  })
+
+  it('returns a warning for exceeding path slope', () => {
+    expect(getSlopeWarnings(5)).toEqual({
+      slopeExceededBerm: false,
+      slopeExceededPath: true,
+    })
+  })
+
+  it('returns a warning for exceeding berm slope', () => {
+    expect(getSlopeWarnings(1)).toEqual({
+      slopeExceededBerm: true,
+      slopeExceededPath: true,
     })
   })
 })
