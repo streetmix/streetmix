@@ -31,7 +31,7 @@ import {
   createSliceDropTargetSpec,
 } from './drag_and_drop.js'
 import { RESIZE_TYPE_INCREMENT } from './resizing.js'
-// import { TestSlope } from './TestSlope.js'
+import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
@@ -56,7 +56,6 @@ export function Segment(props: SliceProps) {
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const readOnly = useSelector((state) => state.app.readOnly)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
-  // const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const dispatch = useDispatch()
 
   const elementRef = useRef<HTMLDivElement>(null)
@@ -310,9 +309,7 @@ export function Segment(props: SliceProps) {
               {renderSegmentCanvas('new', newRef)}
             </CSSTransition>
           </div>
-          {/* {coastmixMode && slopeData && (
-            <TestSlope slice={segment} slopeData={slopeData} />
-          )} */}
+          <TestSlope slice={segment} />
           <div className="active-bg" />
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>

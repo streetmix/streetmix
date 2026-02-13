@@ -59,6 +59,7 @@ describe('StreetEditable', () => {
                 ANALYTICS: { value: true },
                 COASTMIX_MODE: { value: false },
                 DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
+                DEBUG_SLICE_SLOPE: { value: false },
               },
               street,
             },

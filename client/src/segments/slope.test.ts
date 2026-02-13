@@ -71,8 +71,8 @@ describe('calculateSlope', () => {
       ],
     }
     expect(calculateSlope(street, 1)).toEqual({
-      values: [0, 2],
-      slope: '0.00',
+      values: [],
+      slope: '0',
       ratio: undefined,
       warnings: {
         slopeExceededBerm: false,

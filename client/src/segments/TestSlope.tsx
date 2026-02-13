@@ -1,18 +1,18 @@
 import { useSelector } from '~/src/store/hooks.js'
+import { getRiseRunValues, getSlopeWarnings } from './slope.js'
 import './TestSlope.css'
 
 import type { SliceItem } from '@streetmix/types'
-import type { SlopeCalculation } from './slope.js'
 
 interface Props {
   slice: SliceItem
-  slopeData: SlopeCalculation
 }
 
-export function TestSlope({ slice, slopeData }: Props) {
+export function TestSlope({ slice }: Props) {
   const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
 
-  const { slope, ratio, warnings } = slopeData
+  const { slope, ratio } = getRiseRunValues(slice.slope.values, slice.width)
+  const warnings = getSlopeWarnings(ratio)
 
   const styles = {
     color: 'green',

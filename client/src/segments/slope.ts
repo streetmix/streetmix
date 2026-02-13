@@ -30,34 +30,27 @@ export function getSlopeValues(street: StreetJson, index: number): number[] {
   return [leftElevation, rightElevation]
 }
 
-export function calculateSlope(
-  street: StreetJson,
-  index: number
-): SlopeCalculation | null {
-  const slice = street.segments[index]
+export function getRiseRunValues(values: number[], width: number) {
+  // Calculate the rise of the slope
+  const rise = Math.abs(values[0] - values[1])
 
-  let values: number[] = []
-  let slope = '0%'
+  // Get slope in percentage
+  const slope = ((rise / width) * 100).toFixed(2)
+
+  // Get slope as ratio (horizontal:vertical)
+  // Do not calculate if rise is 0, because that's a divide by zero error
   let ratio
-
-  // Only calculate values if slope is on
-  // `slope` property may not be present on older streets
-  if (slice.slope?.on) {
-    values = getSlopeValues(street, index)
-
-    // Calculate the rise of the slope
-    const rise = Math.abs(values[0] - values[1])
-
-    // Get slope in percentage
-    slope = ((rise / slice.width) * 100).toFixed(2)
-
-    // Get slope as ratio (horizontal:vertical)
-    // Do not calculate if rise is 0, because that's a divide by zero error
-    if (rise !== 0) {
-      ratio = Number((slice.width / rise).toFixed(2))
-    }
+  if (rise !== 0) {
+    ratio = Number((width / rise).toFixed(2))
   }
 
+  return {
+    slope,
+    ratio,
+  }
+}
+
+export function getSlopeWarnings(ratio: number | undefined) {
   // Warnings for exceeded slope
   // There are two thresholds:
   // (1) for berms:
@@ -67,10 +60,33 @@ export function calculateSlope(
   //    "ADA accessibility and connection to inland area and waterfront is
   //    required. Accessible routes shall not exceed 5% (1V:20H
   //    (vertical:horizontal)) slope"
-  const warnings = {
+  return {
     slopeExceededBerm: ratio !== undefined && ratio < 3,
     slopeExceededPath: ratio !== undefined && ratio < 20,
   }
+}
+
+export function calculateSlope(
+  street: StreetJson,
+  index: number
+): SlopeCalculation | null {
+  const slice = street.segments[index]
+
+  let values: number[] = []
+  let slope = '0'
+  let ratio
+
+  // Only calculate values if slope is on
+  // `slope` property may not be present on older streets
+  if (slice.slope?.on) {
+    values = getSlopeValues(street, index)
+    const slopeData = getRiseRunValues(values, slice.width)
+
+    slope = slopeData.slope
+    ratio = slopeData.ratio
+  }
+
+  const warnings = getSlopeWarnings(ratio)
 
   return {
     values,
