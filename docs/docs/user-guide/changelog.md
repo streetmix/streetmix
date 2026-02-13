@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## February 13, 2026
+
+### 🐛 Bug fixes
+
+- Fixed a bug that could cause popup contents to suddenly shift its position on taller screens, which can result in, for example, the "Remove" button being something you unintentionally clicked on when you meant to click on the "Increase width" button.
+
 ## January 31, 2026
 
 ### 🐛 Bug fixes
