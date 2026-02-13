@@ -80,7 +80,7 @@
      but also don't have it too tall on tall viewports in order to prevent
      the popups from shifting vertical position if its content changes */
   height: min(
-    calc(100vh - var(--street-section-baseline) - 100px),
+    calc(100vh - var(--street-section-baseline) - 130px),
     calc(var(--canvas-height) + 100px)
   );
 
