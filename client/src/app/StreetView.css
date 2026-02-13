@@ -74,7 +74,6 @@
   left: 0;
   right: 0;
   bottom: var(--street-section-baseline);
-  width: 100%;
 
   /* The height of the boundary area is set to prevent the tops of
      popups from intersecting with the street nameplate on short viewports
