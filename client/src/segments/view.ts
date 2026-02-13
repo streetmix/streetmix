@@ -1,16 +1,10 @@
 import { getSegmentVariantInfo, getSpriteDef } from '@streetmix/parts'
 import { percentToNumber } from '@streetmix/utils'
 
-import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
-import { setFloodDistance } from '~/src/store/slices/coastmix.js'
 import { images } from '../app/load_resources.js'
-import { saveStreetToServerIfNecessary } from '../streets/data_model.js'
-import { applyWarningsToSlices } from '../streets/warnings.js'
-import { recalculateWidth } from '../streets/width.js'
 import store from '../store'
-import { updateSegments } from '../store/slices/street.js'
+import { segmentsChanged as segmentsChangedActual } from '../store/actions/street.js'
 import { drawScatteredSprites } from './scatter.js'
-import { calculateSlope } from './slope.js'
 import {
   TILE_SIZE,
   TILESET_POINT_PER_PIXEL,
@@ -948,40 +942,7 @@ export function getLocaleSegmentName(
  * TODO: remove this
  */
 export function segmentsChanged(): void {
-  const { street, coastmix } = store.getState()
-
-  const calculatedWidths = recalculateWidth(street)
-  const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
-  const updatedSlices2 = updatedSlices.map((slice, index) => {
-    if (slice.slope.on) {
-      // TODO: this also does warning calculations which means this
-      // is running twice. refactor to be more efficient
-      const slopeData = calculateSlope(street, index)
-      if (slopeData !== null) {
-        slice.slope.values = slopeData.values
-      }
-    }
-
-    return slice
-  })
-
-  // Update for flood calc
-  const street2 = {
-    ...street,
-    segments: updatedSlices2,
-  }
-  const floodDistance = checkSeaLevel(street2, coastmix) ?? null
-
-  store.dispatch(
-    updateSegments(
-      updatedSlices2,
-      calculatedWidths.occupiedWidth.toNumber(),
-      calculatedWidths.remainingWidth.toNumber()
-    )
-  )
-  store.dispatch(setFloodDistance(floodDistance))
-
-  saveStreetToServerIfNecessary()
+  store.dispatch(segmentsChangedActual())
 }
 
 /**
