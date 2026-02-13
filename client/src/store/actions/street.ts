@@ -10,7 +10,7 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions,
 } from '~/src/segments/resizing.js'
-import { calculateSlope } from '~/src/segments/slope.js'
+import { getSlopeValues } from '~/src/segments/slope.js'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import {
   setIgnoreStreetChanges,
@@ -41,7 +41,11 @@ import { setActiveSegment } from '../slices/ui.js'
 import { setFloodDistance } from '../slices/coastmix.js'
 
 import type { Dispatch, RootState } from '../index.js'
-import type { StreetAPIResponse, StreetState } from '@streetmix/types'
+import type {
+  SliceItem,
+  StreetAPIResponse,
+  StreetState,
+} from '@streetmix/types'
 
 /**
  * updateStreetWidth as a thunk action that automatically
@@ -61,30 +65,40 @@ export const segmentsChanged = (force = false) => {
     const { street, coastmix } = getState()
 
     const calculatedWidths = recalculateWidth(street)
-    const updatedSlices = applyWarningsToSlices(street, calculatedWidths)
-    const updatedSlices2 = updatedSlices.map((slice, index) => {
-      if (slice.slope.on) {
-        // TODO: this also does warning calculations which means this
-        // is running twice. refactor to be more efficient
-        const slopeData = calculateSlope(street, index)
-        if (slopeData !== null) {
-          slice.slope.values = slopeData.values
-        }
+
+    // Original slices state is read-only, so we need to clone it to modify
+    // and update its properties.
+    const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
+      // Calculate slope values, if needed
+      let slopeValues: number[] = []
+      if (slice.slope?.on) {
+        slopeValues = getSlopeValues(street, index)
       }
 
-      return slice
+      return {
+        // This shallow-copies the original data, which is generally fine
+        // for everything but two properties
+        ...slice,
+        // This will be appended to by `applyWarningsToSlices`
+        warnings: [false],
+        // This will be modified by slope calculation
+        slope: {
+          on: slice.slope?.on ?? false,
+          values: slopeValues,
+        },
+      }
     })
 
-    // Update for flood calc
-    const street2 = {
-      ...street,
-      segments: updatedSlices2,
-    }
-    const floodDistance = checkSeaLevel(street2, coastmix) ?? null
+    const updatedSlices = applyWarningsToSlices(
+      clonedSlices,
+      street,
+      calculatedWidths
+    )
+    const floodDistance = checkSeaLevel(updatedSlices, coastmix) ?? null
 
     await dispatch(
       updateSegments(
-        updatedSlices2,
+        updatedSlices,
         calculatedWidths.occupiedWidth.toNumber(),
         calculatedWidths.remainingWidth.toNumber()
       )
