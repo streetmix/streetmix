@@ -12,7 +12,10 @@ export interface SlopeCalculation {
   }
 }
 
-export function getSlopeValues(street: StreetJson, index: number): number[] {
+export function getSlopeValues(
+  street: StreetJson,
+  index: number
+): [number, number] {
   // Get elevation of slices adjacent to current slice
   let leftElevation = street.segments[index - 1]?.elevation
   let rightElevation = street.segments[index + 1]?.elevation
@@ -30,7 +33,7 @@ export function getSlopeValues(street: StreetJson, index: number): number[] {
   return [leftElevation, rightElevation]
 }
 
-export function getRiseRunValues(values: number[], width: number) {
+export function getRiseRunValues(values: [number, number], width: number) {
   // Calculate the rise of the slope
   const rise = Math.abs(values[0] - values[1])
 
@@ -72,7 +75,9 @@ export function calculateSlope(
 ): SlopeCalculation {
   const slice = street.segments[index]
 
-  let values: number[] = []
+  // For now, our slope values are either empty or 2 numbers
+  // There's a future where slopes might have a series of anchor points
+  let values: [number, number] | [] = []
   let slope = '0'
   let ratio
 
