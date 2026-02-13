@@ -93,6 +93,9 @@ export function applyWarningsToSlices(
         slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
         slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
       }
+    } else {
+      slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
+      slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
     }
 
     // Increment the position counter
