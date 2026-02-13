@@ -11,6 +11,9 @@ interface Props {
 export function TestSlope({ slice }: Props) {
   const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
 
+  // Bail early if debug flag is not on
+  if (!debug) return null
+
   const { slope, ratio } = getRiseRunValues(slice.slope.values, slice.width)
   const warnings = getSlopeWarnings(ratio)
 
@@ -24,7 +27,7 @@ export function TestSlope({ slice }: Props) {
     styles.color = 'red'
   }
 
-  return debug ? (
+  return (
     <div className="test-slope-container">
       {slice.slope.on && (
         <div className="slope-debug">
@@ -33,5 +36,5 @@ export function TestSlope({ slice }: Props) {
         </div>
       )}
     </div>
-  ) : null
+  )
 }
