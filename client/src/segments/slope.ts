@@ -2,16 +2,6 @@ import { CURB_HEIGHT } from './constants.js'
 
 import type { StreetJson } from '@streetmix/types'
 
-export interface SlopeCalculation {
-  values: number[]
-  slope: string
-  ratio: number | undefined
-  warnings: {
-    slopeExceededBerm: boolean
-    slopeExceededPath: boolean
-  }
-}
-
 export function getSlopeValues(
   street: StreetJson,
   index: number
