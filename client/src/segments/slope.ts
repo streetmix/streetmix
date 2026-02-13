@@ -69,7 +69,7 @@ export function getSlopeWarnings(ratio: number | undefined) {
 export function calculateSlope(
   street: StreetJson,
   index: number
-): SlopeCalculation | null {
+): SlopeCalculation {
   const slice = street.segments[index]
 
   let values: number[] = []
