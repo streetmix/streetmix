@@ -9,7 +9,7 @@ sidebar_position: 5
 
 ### 🐛 Bug fixes
 
-- Fixed a bug that could cause popup contents to suddenly shift its position on taller screens, which can result in, for example, the "Remove" button being something you unintentionally clicked on when you meant to click on the "Increase width" button.
+- Fixed a bug that could cause popup contents to suddenly shift their position on taller screens, which can result in, for example, the "Remove" button being something you unintentionally clicked on when you meant to click on the "Increase width" button.
 
 ## January 31, 2026
 
