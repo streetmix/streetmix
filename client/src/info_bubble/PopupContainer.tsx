@@ -77,10 +77,12 @@ export function PopupContainer({
     middleware: [
       shift({
         crossAxis: true,
+        // Set boundary area for where the popup can appear.
+        // CSS controls the top position of this boundary.
+        boundary: document.querySelector('#street-section-popup-boundary'),
         padding: {
           right: 20,
           left: 20,
-          top: 130, // minimum distance from top of viewport
         },
       }),
       arrow({
