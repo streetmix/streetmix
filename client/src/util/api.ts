@@ -93,6 +93,10 @@ class APIClient {
     )
   }
 
+  deleteUser = async (userId: string): APIResponse<void> => {
+    return await this.client.delete(`${BASE_URL_API_V1}/users/${userId}`)
+  }
+
   getGalleryForUser = async (
     userId: string
   ): APIResponse<GalleryAPIResponse> => {
