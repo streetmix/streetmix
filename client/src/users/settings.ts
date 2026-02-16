@@ -1,15 +1,16 @@
 import debounce from 'just-debounce-it'
-import { MODES, getMode } from '../app/mode'
+
+import { MODES, getMode } from '../app/mode.js'
 import store, { observeStore } from '../store'
-import { updateSettings } from '../store/slices/settings'
-import { setAppFlags } from '../store/slices/app'
-import { putUserSettings } from '../util/api'
-import { getSignInData, isSignedIn } from './authentication'
+import { updateSettings } from '../store/slices/settings.js'
+import { setAppFlags } from '../store/slices/app.js'
+import { putUserSettings } from '../util/api.js'
+import { getSignInData, isSignedIn } from './authentication.js'
 
 const LOCAL_STORAGE_SETTINGS_ID = 'settings'
 const SAVE_SETTINGS_DELAY = 500
 
-export function loadSettings () {
+export function loadSettings() {
   // Get server settings.
   let serverSettings = {}
   const signInData = getSignInData()
@@ -53,7 +54,7 @@ export function loadSettings () {
 
   store.dispatch(
     setAppFlags({
-      priorLastStreetId: settings.lastStreetId
+      priorLastStreetId: settings.lastStreetId,
     })
   )
 
@@ -68,7 +69,7 @@ export function loadSettings () {
  *
  * @param {Object} settings
  */
-function saveSettingsLocally (settings) {
+function saveSettingsLocally(settings) {
   try {
     window.localStorage.setItem(
       LOCAL_STORAGE_SETTINGS_ID,
@@ -79,7 +80,7 @@ function saveSettingsLocally (settings) {
   }
 }
 
-function saveSettingsToServer (settings) {
+function saveSettingsToServer(settings) {
   if (!isSignedIn() || store.getState().errors.abortEverything) {
     return
   }
@@ -88,7 +89,7 @@ function saveSettingsToServer (settings) {
   putUserSettings(userId, { data: settings })
 }
 
-function persistSettingsToBackends (settings) {
+function persistSettingsToBackends(settings) {
   // Mirror the settings to local storage (so they persist across browser
   // sessions) and also to the server (to a user account, if the user is
   // signed in).
@@ -107,7 +108,7 @@ function persistSettingsToBackends (settings) {
  * updated. Debounced so updates are only made after rapid changes have
  * completed.
  */
-export function initSettingsStoreObserver () {
+export function initSettingsStoreObserver() {
   const select = (state) => state.settings
   const onChange = debounce(persistSettingsToBackends, SAVE_SETTINGS_DELAY)
 

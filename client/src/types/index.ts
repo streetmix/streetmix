@@ -1,6 +1,10 @@
 import type { ColorModes } from '~/src/app/constants'
 import type { SerializedError } from '@reduxjs/toolkit'
-import type { StreetState, GeolocationData } from '@streetmix/types'
+import type {
+  StreetState,
+  GeolocationData,
+  UnitsSetting,
+} from '@streetmix/types'
 
 // TODO: Only use this for client-side types
 // Shared types should move to @streetmix/types
@@ -16,7 +20,7 @@ export interface UserSettings {
   saveAsImageStreetName: boolean
   saveAsImageTransparentSky: boolean
   saveAsImageWatermark: boolean
-  units: number
+  units: UnitsSetting
 }
 
 export interface UserSettingsData {
@@ -36,7 +40,7 @@ export interface UserSignInDetails {
   token: string
   refreshToken: string
   userId: string
-  details: UserProfile
+  details: UserProfile | null // Set when available from server
 }
 
 export interface UserState {

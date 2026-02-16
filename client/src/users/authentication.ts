@@ -3,20 +3,29 @@ import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
 import USER_ROLES from '../../../app/data/user_roles.json'
-import { showError, ERRORS } from '../app/errors'
-import { MODES, processMode, getMode, setMode, getModeData } from '../app/mode'
-import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
-import { formatMessage } from '../locales/locale'
-import { setPromoteStreet } from '../streets/remix'
-import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
+import { showError, ERRORS } from '../app/errors.js'
+import {
+  MODES,
+  processMode,
+  getMode,
+  setMode,
+  getModeData,
+} from '../app/mode.js'
+import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils.js'
+import { formatMessage } from '../locales/locale.js'
+import { setPromoteStreet } from '../streets/remix.js'
+import {
+  fetchStreetFromServer,
+  createNewStreetOnServer,
+} from '../streets/xhr.js'
 import store from '../store'
-import { updateSettings } from '../store/slices/settings'
-import { setSignInData, clearSignInData } from '../store/slices/user'
-import { showDialog } from '../store/slices/dialogs'
-import { updateStreetIdMetadata } from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { getUser, deleteUserLoginToken } from '../util/api'
-import { loadSettings } from './settings'
+import { updateSettings } from '../store/slices/settings.js'
+import { setSignInData, clearSignInData } from '../store/slices/user.js'
+import { showDialog } from '../store/slices/dialogs.js'
+import { updateStreetIdMetadata } from '../store/slices/street.js'
+import { addToast } from '../store/slices/toasts.js'
+import { getUser, deleteUserLoginToken } from '../util/api.js'
+import { loadSettings } from './settings.js'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -86,6 +95,7 @@ export async function loadSignIn() {
         token: signInCookie,
         refreshToken: refreshCookie,
         userId: userIdCookie,
+        details: null,
       })
     )
 
