@@ -34,7 +34,7 @@ export function IdentityMenu(props: MenuProps) {
     user?.roles?.includes(USER_ROLES.ADMIN.value) ?? false
 
   function handleSignOut() {
-    signOut()
+    signOut(false)
   }
 
   return (
