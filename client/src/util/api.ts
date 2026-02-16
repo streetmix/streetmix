@@ -87,14 +87,14 @@ class APIClient {
     )
   }
 
+  deleteUser = async (userId: string): APIResponse<void> => {
+    return await this.client.delete(`${BASE_URL_API_V1}/users/${userId}`)
+  }
+
   deleteUserLoginToken = async (userId: string): APIResponse<void> => {
     return await this.client.delete(
       `${BASE_URL_API_V1}/users/${userId}/login-token`
     )
-  }
-
-  deleteUser = async (userId: string): APIResponse<void> => {
-    return await this.client.delete(`${BASE_URL_API_V1}/users/${userId}`)
   }
 
   getGalleryForUser = async (
@@ -204,8 +204,9 @@ export const {
   getUser,
   putUserSettings,
   patchUser,
-  getGalleryForUser,
+  deleteUser,
   deleteUserLoginToken,
+  getGalleryForUser,
   getStreet,
   getStreetWithParams,
   postStreet,
