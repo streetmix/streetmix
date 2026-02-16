@@ -1,8 +1,9 @@
 import debounce from 'just-debounce-it'
 
+import type { UserSettings } from '~/src/types/index.js'
 import { MODES, getMode } from '../app/mode.js'
-import store, { observeStore } from '../store'
-import { updateSettings } from '../store/slices/settings.js'
+import store, { observeStore, type RootState } from '../store'
+import { updateSettings, type SettingsState } from '../store/slices/settings.js'
 import { setAppFlags } from '../store/slices/app.js'
 import { putUserSettings } from '../util/api.js'
 import { getSignInData, isSignedIn } from './authentication.js'
@@ -12,15 +13,15 @@ const SAVE_SETTINGS_DELAY = 500
 
 export function loadSettings() {
   // Get server settings.
-  let serverSettings = {}
+  let serverSettings: Partial<UserSettings> = {}
   const signInData = getSignInData()
-  if (isSignedIn() && signInData.details) {
+  if (isSignedIn() && signInData?.details) {
     serverSettings = signInData.details.data
   }
 
   // Get local settings.
   // Skip this if localStorage is corrupted
-  let localSettings = {}
+  let localSettings: Partial<UserSettings> = {}
   try {
     const parsed = JSON.parse(
       window.localStorage.getItem(LOCAL_STORAGE_SETTINGS_ID)
@@ -34,7 +35,8 @@ export function loadSettings() {
   // overwrite local settings.
   const settings = Object.assign({}, localSettings, serverSettings)
 
-  // If `units` setting uses the legacy value of `2`, change it to `0`
+  // If `units` setting uses a legacy value, change it to `0`
+  // @ts-expect-error `units` value of 2 is deprecated.
   if (settings.units === 2) {
     settings.units = 0
   }
@@ -69,7 +71,7 @@ export function loadSettings() {
  *
  * @param {Object} settings
  */
-function saveSettingsLocally(settings) {
+function saveSettingsLocally(settings: UserSettings) {
   try {
     window.localStorage.setItem(
       LOCAL_STORAGE_SETTINGS_ID,
@@ -80,16 +82,16 @@ function saveSettingsLocally(settings) {
   }
 }
 
-function saveSettingsToServer(settings) {
+function saveSettingsToServer(settings: UserSettings) {
   if (!isSignedIn() || store.getState().errors.abortEverything) {
     return
   }
 
-  const userId = getSignInData().userId
+  const userId = getSignInData()?.userId
   putUserSettings(userId, { data: settings })
 }
 
-function persistSettingsToBackends(settings) {
+function persistSettingsToBackends(settings: UserSettings) {
   // Mirror the settings to local storage (so they persist across browser
   // sessions) and also to the server (to a user account, if the user is
   // signed in).
@@ -109,8 +111,8 @@ function persistSettingsToBackends(settings) {
  * completed.
  */
 export function initSettingsStoreObserver() {
-  const select = (state) => state.settings
+  const select = (state: RootState) => state.settings
   const onChange = debounce(persistSettingsToBackends, SAVE_SETTINGS_DELAY)
 
-  return observeStore(select, onChange)
+  return observeStore<SettingsState>(select, onChange)
 }

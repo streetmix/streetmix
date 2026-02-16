@@ -36,7 +36,7 @@ export interface UserProfile {
   data: UserSettings
 }
 
-export interface UserSignInDetails {
+export interface UserSignInData {
   token: string
   refreshToken: string
   userId: string
@@ -44,7 +44,7 @@ export interface UserSignInDetails {
 }
 
 export interface UserState {
-  signInData: UserSignInDetails | null
+  signInData: UserSignInData | null
   signedIn: boolean
   isSubscriber: boolean
   isCoilPluginSubscriber: boolean
