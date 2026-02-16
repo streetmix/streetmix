@@ -2,21 +2,39 @@ import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
+import type { UserProfile } from '~/src/types'
 import USER_ROLES from '../../../app/data/user_roles.json'
-import { showError, ERRORS } from '../app/errors'
-import { MODES, processMode, getMode, setMode, getModeData } from '../app/mode'
-import { generateFlagOverrides, applyFlagOverrides } from '../app/flag_utils'
-import { formatMessage } from '../locales/locale'
-import { setPromoteStreet } from '../streets/remix'
-import { fetchStreetFromServer, createNewStreetOnServer } from '../streets/xhr'
+import { showError, ERRORS } from '../app/errors.js'
+import {
+  MODES,
+  processMode,
+  getMode,
+  setMode,
+  getModeData,
+} from '../app/mode.js'
+import {
+  generateFlagOverrides,
+  applyFlagOverrides,
+  type FeatureFlagOverrides,
+} from '../app/flag_utils.js'
+import { formatMessage } from '../locales/locale.js'
+import { setPromoteStreet } from '../streets/remix.js'
+import {
+  fetchStreetFromServer,
+  createNewStreetOnServer,
+} from '../streets/xhr.js'
 import store from '../store'
-import { updateSettings } from '../store/slices/settings'
-import { setSignInData, clearSignInData } from '../store/slices/user'
-import { showDialog } from '../store/slices/dialogs'
-import { updateStreetIdMetadata } from '../store/slices/street'
-import { addToast } from '../store/slices/toasts'
-import { getUser, deleteUserLoginToken } from '../util/api'
-import { loadSettings } from './settings'
+import { updateSettings } from '../store/slices/settings.js'
+import {
+  setSignInData,
+  clearSignInData,
+  setUserProfile,
+} from '../store/slices/user.js'
+import { showDialog } from '../store/slices/dialogs.js'
+import { updateStreetIdMetadata } from '../store/slices/street.js'
+import { addToast } from '../store/slices/toasts.js'
+import { getUser, deleteUserLoginToken } from '../util/api.js'
+import { loadSettings } from './settings.js'
 
 const USER_ID_COOKIE = 'user_id'
 const SIGN_IN_TOKEN_COOKIE = 'login_token'
@@ -28,7 +46,7 @@ export function doSignIn() {
 }
 
 export function getSignInData() {
-  return store.getState().user.signInData ?? {}
+  return store.getState().user.signInData
 }
 
 export function isSignedIn() {
@@ -86,6 +104,7 @@ export async function loadSignIn() {
         token: signInCookie,
         refreshToken: refreshCookie,
         userId: userIdCookie,
+        details: null,
       })
     )
 
@@ -107,11 +126,13 @@ export async function loadSignIn() {
   // why tokens are invalid, then we force clearing all data so that user
   // can reset and start over.
   try {
-    if (signInData.token) {
+    if (signInData?.token) {
       jwtDecode(signInData.token)
     }
   } catch (error) {
-    Sentry.captureMessage('Error parsing jwt token ', signInData?.token)
+    if (signInData?.token) {
+      Sentry.captureMessage(`Error parsing jwt token: ${signInData.token}`)
+    }
     clearAllClientSignInData()
     setMode(MODES.AUTH_EXPIRED)
     processMode()
@@ -121,7 +142,7 @@ export async function loadSignIn() {
   const storage = JSON.parse(window.localStorage.getItem('flags'))
   const sessionOverrides = generateFlagOverrides(storage, 'session')
 
-  let flagOverrides = []
+  let flagOverrides: FeatureFlagOverrides[] = []
 
   if (signInData && signInData.token && signInData.userId) {
     const decoded = jwtDecode(signInData.token)
@@ -142,9 +163,6 @@ export async function loadSignIn() {
     store.dispatch(clearSignInData())
   }
 
-  if (!flagOverrides) {
-    flagOverrides = []
-  }
   applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
 
   _signInLoaded()
@@ -152,12 +170,7 @@ export async function loadSignIn() {
   return true
 }
 
-/**
- *
- * @param {String} refreshToken
- * @returns {Object}
- */
-async function refreshLoginToken(refreshToken) {
+async function refreshLoginToken(refreshToken: string) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
     const response = await window.fetch('/services/auth/refresh-login-token', {
@@ -191,12 +204,7 @@ function errorRefreshLoginToken(data) {
   store.dispatch(clearSignInData())
 }
 
-/**
- *
- * @param {String} userId
- * @returns {Array}
- */
-async function fetchSignInDetails(userId) {
+async function fetchSignInDetails(userId: string) {
   try {
     // TODO: See if it's possible to use RTK Query's implementation of getUser
     // because that will cache user details.
@@ -222,14 +230,13 @@ async function fetchSignInDetails(userId) {
   } catch (error) {
     errorReceiveSignInDetails(error)
   }
+
+  // Catch-all return
+  return []
 }
 
-function receiveSignInDetails(details) {
-  const signInData = {
-    ...getSignInData(),
-    details,
-  }
-  store.dispatch(setSignInData(signInData))
+function receiveSignInDetails(details: UserProfile) {
+  store.dispatch(setUserProfile(details))
   saveSignInDataLocally()
 }
 
@@ -262,16 +269,7 @@ function errorReceiveSignInDetails(data) {
   store.dispatch(clearSignInData())
 }
 
-export function onSignOutClick(event) {
-  signOut(false)
-
-  if (event) {
-    event.preventDefault()
-  }
-}
-
-function signOut(quiet) {
-  const signInData = getSignInData()
+export async function signOut(quiet = false) {
   store.dispatch(
     updateSettings({
       lastStreetId: null,
@@ -280,29 +278,28 @@ function signOut(quiet) {
     })
   )
 
-  sendSignOutToServer(signInData.userId, quiet)
+  try {
+    const signInData = getSignInData()
+
+    if (!signInData) {
+      throw new Error('Attempted sign out but user data already cleared')
+    }
+
+    await deleteUserLoginToken(signInData.userId)
+
+    if (!quiet) {
+      showSignOutScreen()
+    }
+  } catch (err) {
+    console.error(err)
+    showSignOutScreen()
+  }
+
+  removeSignInCookies()
+  window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
 }
 
-function sendSignOutToServer(userId, quiet) {
-  return deleteUserLoginToken(userId)
-    .then((_response) => {
-      if (!quiet) {
-        receiveSignOutConfirmationFromServer()
-      }
-    })
-    .catch(errorReceiveSignOutConfirmationFromServer)
-    .finally(() => {
-      removeSignInCookies()
-      window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
-    })
-}
-
-function receiveSignOutConfirmationFromServer() {
-  setMode(MODES.SIGN_OUT)
-  processMode()
-}
-
-function errorReceiveSignOutConfirmationFromServer() {
+function showSignOutScreen() {
   setMode(MODES.SIGN_OUT)
   processMode()
 }

@@ -8,7 +8,7 @@ import {
 import type { Unsubscribe } from '@reduxjs/toolkit'
 
 type FeatureFlagsSimplified = Record<string, boolean>
-interface FeatureFlagOverrides {
+export interface FeatureFlagOverrides {
   source: string
   flags: FeatureFlagsSimplified
 }

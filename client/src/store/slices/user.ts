@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import USER_ROLES from '../../../../app/data/user_roles.json'
 import { getGeoIp } from '../../util/api'
 
-import type { UserState, UserProfile, UserSignInDetails } from '../../types'
+import type { UserState, UserProfile, UserSignInData } from '../../types'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: UserState = {
@@ -14,8 +14,8 @@ const initialState: UserState = {
   geolocation: {
     attempted: false,
     data: null,
-    error: null
-  }
+    error: null,
+  },
 }
 
 export const detectGeolocation = createAsyncThunk(
@@ -31,7 +31,7 @@ const userSlice = createSlice({
   initialState,
 
   reducers: {
-    setSignInData (state, action: PayloadAction<UserSignInDetails>) {
+    setSignInData(state, action: PayloadAction<UserSignInData>) {
       state.signInData = action.payload
       state.signedIn = true
 
@@ -42,14 +42,14 @@ const userSlice = createSlice({
       }
     },
 
-    clearSignInData (state) {
+    clearSignInData(state) {
       state.signInData = null
       state.signedIn = false
       state.isSubscriber = false
       state.isCoilPluginSubscriber = false
     },
 
-    setCoilPluginSubscriber (
+    setCoilPluginSubscriber(
       state,
       action: PayloadAction<UserState['isCoilPluginSubscriber']>
     ) {
@@ -70,14 +70,20 @@ const userSlice = createSlice({
       }
     },
 
-    updateDisplayName (
+    setUserProfile(state, action: PayloadAction<UserProfile>) {
+      if (state.signInData) {
+        state.signInData.details = action.payload
+      }
+    },
+
+    updateDisplayName(
       state,
       action: PayloadAction<UserProfile['displayName']>
     ) {
       if (state.signInData?.details) {
         state.signInData.details.displayName = action.payload
       }
-    }
+    },
   },
 
   extraReducers: (builder) => {
@@ -100,14 +106,15 @@ const userSlice = createSlice({
         state.geolocation.data = null
         state.geolocation.error = action.error.message ?? action.error
       })
-  }
+  },
 })
 
 export const {
   setSignInData,
   clearSignInData,
   setCoilPluginSubscriber,
-  updateDisplayName
+  setUserProfile,
+  updateDisplayName,
 } = userSlice.actions
 
 export default userSlice.reducer

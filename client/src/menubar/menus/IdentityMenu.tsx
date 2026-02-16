@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:~/src/ui/icons/streetmix-plus.svg'
-import { onSignOutClick } from '~/src/users/authentication.js'
+import { signOut } from '~/src/users/authentication.js'
 import { Avatar } from '~/src/users/Avatar.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
@@ -32,6 +32,10 @@ export function IdentityMenu(props: MenuProps) {
 
   const isAdmin: boolean =
     user?.roles?.includes(USER_ROLES.ADMIN.value) ?? false
+
+  function handleSignOut() {
+    signOut(false)
+  }
 
   return (
     <Menu {...props} className="identity-menu">
@@ -88,7 +92,7 @@ export function IdentityMenu(props: MenuProps) {
         <FormattedMessage id="menu.item.settings" defaultMessage="Settings" />
       </MenuItem>
       <MenuSeparator />
-      <MenuItem className="menu-item menu-sign-out" onClick={onSignOutClick}>
+      <MenuItem className="menu-item menu-sign-out" onClick={handleSignOut}>
         <Icon name="sign-out" className="menu-item-icon" />
         <FormattedMessage id="menu.item.sign-out" defaultMessage="Sign out" />
       </MenuItem>
