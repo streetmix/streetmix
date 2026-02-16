@@ -269,8 +269,7 @@ function errorReceiveSignInDetails(data) {
   store.dispatch(clearSignInData())
 }
 
-export function signOut(quiet = false) {
-  const signInData = getSignInData()
+export async function signOut(quiet = false) {
   store.dispatch(
     updateSettings({
       lastStreetId: null,
@@ -279,29 +278,28 @@ export function signOut(quiet = false) {
     })
   )
 
-  sendSignOutToServer(signInData.userId, quiet)
+  try {
+    const signInData = getSignInData()
+
+    if (!signInData) {
+      throw new Error('Attempted sign out but user data already cleared')
+    }
+
+    await deleteUserLoginToken(signInData.userId)
+
+    if (!quiet) {
+      showSignOutScreen()
+    }
+  } catch (err) {
+    console.error(err)
+    showSignOutScreen()
+  }
+
+  removeSignInCookies()
+  window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
 }
 
-function sendSignOutToServer(userId: string, quiet: boolean) {
-  return deleteUserLoginToken(userId)
-    .then((_response) => {
-      if (!quiet) {
-        receiveSignOutConfirmationFromServer()
-      }
-    })
-    .catch(errorReceiveSignOutConfirmationFromServer)
-    .finally(() => {
-      removeSignInCookies()
-      window.localStorage.removeItem(LOCAL_STORAGE_SIGN_IN_ID)
-    })
-}
-
-function receiveSignOutConfirmationFromServer() {
-  setMode(MODES.SIGN_OUT)
-  processMode()
-}
-
-function errorReceiveSignOutConfirmationFromServer() {
+function showSignOutScreen() {
   setMode(MODES.SIGN_OUT)
   processMode()
 }
