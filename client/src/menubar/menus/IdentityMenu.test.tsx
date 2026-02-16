@@ -4,14 +4,14 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
-import { onSignOutClick } from '~/src/users/authentication.js'
+import { signOut } from '~/src/users/authentication.js'
 import { IdentityMenu } from './IdentityMenu.js'
 
 vi.mock('../../store/actions/gallery.js', () => ({
   openGallery: vi.fn((_id) => ({ type: 'MOCK_ACTION' })),
 }))
 vi.mock('../../users/authentication.js', () => ({
-  onSignOutClick: vi.fn(),
+  signOut: vi.fn(),
 }))
 
 describe('IdentityMenu', () => {
@@ -47,6 +47,6 @@ describe('IdentityMenu', () => {
 
     await userEvent.click(screen.getByText('Sign out'))
 
-    expect(onSignOutClick).toBeCalledTimes(1)
+    expect(signOut).toBeCalledTimes(1)
   })
 })

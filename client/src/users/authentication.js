@@ -262,15 +262,7 @@ function errorReceiveSignInDetails(data) {
   store.dispatch(clearSignInData())
 }
 
-export function onSignOutClick(event) {
-  signOut(false)
-
-  if (event) {
-    event.preventDefault()
-  }
-}
-
-function signOut(quiet) {
+export function signOut(quiet = false) {
   const signInData = getSignInData()
   store.dispatch(
     updateSettings({
