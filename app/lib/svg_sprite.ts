@@ -6,6 +6,7 @@ import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
 
 import { logger } from './logger.ts'
+import { isNodeError } from './errors.ts'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
@@ -105,7 +106,7 @@ export async function compileSVGSprites(
               )
             }
           } catch (err) {
-            if (err instanceof Error) {
+            if (isNodeError(err)) {
               logger.error(
                 '[svg-sprite] ' +
                   styleText(['red', 'bold'], '✗ ') +

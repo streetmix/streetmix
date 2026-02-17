@@ -1,15 +1,18 @@
 import * as fs from 'node:fs/promises'
 import { logger } from '../../lib/logger.ts'
+import { isNodeError } from '../../lib/errors.ts'
+
+import type { Request, Response } from 'express'
 
 const flagFile = `${process.cwd()}/docs/docs/user-guide/changelog.md`
 
-async function getFileContent(res) {
+async function getFileContent(res: Response) {
   try {
     return await fs.readFile(flagFile, 'utf8')
   } catch (err) {
     logger.error(err)
 
-    if (err.code === 'ENOENT') {
+    if (isNodeError(err) && err.code === 'ENOENT') {
       res.status(404).json({ status: 404, msg: 'Changelog not found.' })
     } else {
       res
@@ -19,7 +22,7 @@ async function getFileContent(res) {
   }
 }
 
-function sendSuccessResponse(res, content) {
+function sendSuccessResponse(res: Response, content: string) {
   res.set({
     'Content-Type': 'text/plain; charset=utf-8',
     Location: '/services/changelog',
@@ -35,7 +38,7 @@ function sendSuccessResponse(res, content) {
   res.status(200).send(mdContent.trim())
 }
 
-export async function get(req, res) {
+export async function get(req: Request, res: Response) {
   const content = await getFileContent(res)
 
   if (content) {
