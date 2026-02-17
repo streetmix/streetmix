@@ -4,6 +4,7 @@ import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
 import tseslint from 'typescript-eslint'
 import importPlugin from 'eslint-plugin-import'
+import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import cypress from 'eslint-plugin-cypress/flat'
@@ -12,6 +13,7 @@ export default defineConfig([
   globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
   eslint.configs.recommended,
   importPlugin.flatConfigs.recommended,
+  pluginPromise.configs['flat/recommended'],
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
@@ -86,6 +88,9 @@ export default defineConfig([
           ignoreRestSiblings: true,
         },
       ],
+      // Temporarily issue warnings for promise errors for future refactoring
+      'promise/always-return': 'warn',
+      'promise/catch-or-return': 'warn',
     },
   },
   {

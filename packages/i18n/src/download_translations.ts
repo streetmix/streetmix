@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import chalk from 'chalk'
+import { styleText } from 'node:util'
 
 import { LOCALES, LOCALE_LEVELS, type LocaleDefinition } from './locales.js'
 import { getFromTransifex } from './transifex.js'
@@ -37,7 +37,7 @@ const downloadSuccess = async function (
 
     // `createdDir` is undefined if the folder already exists.
     if (createdDir !== undefined) {
-      console.info('Created folder:', chalk.magentaBright(createdDir))
+      console.info('Created folder:', styleText('magenta', createdDir))
     }
   } catch (err) {
     // @ts-expect-error no type for `err`
@@ -48,23 +48,33 @@ const downloadSuccess = async function (
   try {
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
+    let message = ''
+    if (err instanceof Error) {
+      message = err.message
+    } else if (typeof err === 'string') {
+      message = err
+    }
+
     console.error(
-      chalk.redBright('Error:'),
-      chalk.yellowBright(`${label} (${locale})`),
+      styleText(['red', 'bold'], 'Error:'),
+      styleText('yellow', `${label} (${locale})`),
       '·',
-      chalk.magentaBright(resource),
+      styleText('magenta', resource),
       '→',
-      chalk.gray(err)
+      styleText('gray', message)
     )
   }
 
   console.log(
     'Downloaded:',
-    chalk.yellowBright(`${label} (${locale})`),
+    styleText('yellow', `${label} (${locale})`),
     '·',
-    chalk.magentaBright(resource),
+    styleText('magenta', resource),
     '→',
-    chalk.gray(translationFile.href.replace(`file://${process.cwd()}`, '.'))
+    styleText(
+      'gray',
+      translationFile.href.replace(`file://${process.cwd()}`, '.')
+    )
   )
 }
 
@@ -72,15 +82,15 @@ const downloadError = function (
   locale: string,
   resource: string,
   label: string,
-  error: unknown
+  error: string
 ): void {
   console.error(
-    chalk.redBright('Error:'),
-    chalk.yellowBright(`${label} (${locale})}`),
+    styleText(['red', 'bold'], 'Error:'),
+    styleText('yellow', `${label} (${locale})`),
     '·',
-    chalk.magentaBright(resource),
+    styleText('magenta', resource),
     '→',
-    chalk.gray(error)
+    styleText('gray', error)
   )
 }
 
@@ -92,20 +102,30 @@ LOCALES.forEach((language: LocaleDefinition) => {
     return
   }
 
-  resources.forEach((resource) => {
+  resources.forEach(async (resource) => {
     console.log(
       'Queued:',
-      chalk.yellowBright(`${label} (${value})`),
+      styleText('yellow', `${label} (${value})`),
       '·',
-      chalk.magentaBright(resource)
+      styleText('magenta', resource)
     )
 
-    getFromTransifex(value, resource, process.env.TRANSIFEX_API_TOKEN)
-      .then(async (data) => {
-        await downloadSuccess(value, resource, label, data)
-      })
-      .catch((error) => {
-        downloadError(value, resource, label, error)
-      })
+    try {
+      const data = await getFromTransifex(
+        value,
+        resource,
+        process.env.TRANSIFEX_API_TOKEN
+      )
+      downloadSuccess(value, resource, label, data)
+    } catch (error) {
+      let message = ''
+      if (error instanceof Error) {
+        message = error.message
+      } else if (typeof error === 'string') {
+        message = error
+      }
+
+      downloadError(value, resource, label, message)
+    }
   })
 })

@@ -1,12 +1,12 @@
 import Street from '../../db/models/street.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
-export async function get (req, res) {
+export async function get(req, res) {
   let results
 
   try {
     results = await Street.findOne({
-      where: { 'data.street.location': { $ne: null }, status: 'ACTIVE' }
+      where: { 'data.street.location': { $ne: null }, status: 'ACTIVE' },
     })
   } catch (err) {
     logger.error(err)
@@ -32,15 +32,15 @@ export async function get (req, res) {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates
+        coordinates,
       },
-      properties: result
+      properties: result,
     }
   })
 
   const geojson = {
     type: 'FeatureCollection',
-    features
+    features,
   }
 
   res.status(200).json(geojson)

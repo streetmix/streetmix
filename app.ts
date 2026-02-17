@@ -1,5 +1,6 @@
 import './app/globals.js'
 import path from 'node:path'
+import { styleText } from 'node:util'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cookieSession from 'cookie-session'
@@ -7,17 +8,16 @@ import express from 'express'
 import helmet from 'helmet'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
-import chalk from 'chalk'
 import passport from 'passport'
 
 import * as controllers from './app/controllers/index.js'
 import * as requestHandlers from './app/lib/request_handlers/index.js'
-import { initCloudinary } from './app/lib/cloudinary.js'
-import { compileSVGSprites } from './app/lib/svg_sprite.js'
+import { initCloudinary } from './app/lib/cloudinary.ts'
+import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.js'
 import serviceRoutes from './app/service_routes.js'
-import logger from './app/lib/logger.js'
+import { logger } from './app/lib/logger.ts'
 import jwtCheck from './app/authentication.js'
 
 initCloudinary()
@@ -25,7 +25,7 @@ initCloudinary()
 // Build SVG sprites before starting Express server
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
-  compileSVGSprites('assets/images/illustrations', 'illustrations', 'image'),
+  compileSVGSprites('client/images/illustrations', 'illustrations', 'image'),
   compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
@@ -38,7 +38,7 @@ app.locals.cacheTimestamp = cacheTimestamp
 
 process.on('uncaughtException', function (error) {
   logger.error(
-    '[process] ' + chalk.redBright.bold('Uncaught exception: ') + error
+    '[process] ' + styleText(['red', 'bold'], 'Uncaught exception: ') + error
   )
 
   console.trace()
@@ -49,7 +49,9 @@ process.on('uncaughtException', function (error) {
 // Note: various sources tell us that this does not work on Windows
 process.on('SIGINT', function () {
   if (process.env.NODE_ENV === 'development') {
-    logger.info('[express] ' + chalk.yellowBright.bold('Stopping Streetmix!'))
+    logger.info(
+      '[express] ' + styleText(['yellow', 'bold'], 'Stopping Streetmix!')
+    )
   }
   process.exit()
 })

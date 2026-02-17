@@ -44,6 +44,4 @@ const createLogger = function () {
   return logger
 }
 
-const logger = createLogger()
-
-export default logger
+export const logger = createLogger()
