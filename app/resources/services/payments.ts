@@ -1,6 +1,9 @@
 import * as fs from 'node:fs/promises'
+
 import User from '../../db/models/user.js'
 import { logger } from '../../lib/logger.ts'
+
+import type { Request, Response } from 'express'
 
 const roles = JSON.parse(
   await fs.readFile(new URL('../../data/user_roles.json', import.meta.url))
@@ -12,7 +15,7 @@ const planMap = {
   [tier1PlanId]: roles.SUBSCRIBER_1,
 }
 
-export async function post(req, res) {
+export async function post(req: Request, res: Response) {
   let userId
   let subscription
   let customer
