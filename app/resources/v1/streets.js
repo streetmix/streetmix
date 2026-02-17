@@ -506,7 +506,17 @@ export async function put(req, res) {
   } // END function - handleErrors
 
   async function updateStreetData(street) {
-    street.name = body.name || street.name
+    // This function seems to allow for partial updates (e.g. if client doesn't
+    // provide `data`, keep the original.) The previous logic (using OR, for
+    // `data` and `clientUpdatedAt`, breaks `name` because this value allows
+    // `null` as a valid update -- this meant unnaming streets would be
+    // ignored, and the previous street name would be retained incorrectly.
+    // We can preserve the existing/desired behavior (even if the client
+    // doesn't take advantage of it) by updating `street.name` only if the
+    // `name` property is actually defined in the payload.
+    if (typeof body.name !== 'undefined') {
+      street.name = body.name
+    }
     street.data = body.data || street.data
     street.clientUpdatedAt =
       body.clientUpdatedAt || street.clientUpdatedAt || ''

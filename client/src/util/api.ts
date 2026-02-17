@@ -145,7 +145,8 @@ class APIClient {
 
   putStreet = async (
     streetId: string,
-    payload: StreetAPIPayload
+    // Theoretically, a street update only needs to send updated values.
+    payload: Partial<StreetAPIPayload>
   ): APIResponse<void> => {
     return await this.client.put(
       `${BASE_URL_API_V1}/streets/${streetId}`,
