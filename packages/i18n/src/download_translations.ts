@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import chalk from 'chalk'
+import { styleText } from 'node:util'
 
 import { LOCALES, LOCALE_LEVELS, type LocaleDefinition } from './locales.js'
 import { getFromTransifex } from './transifex.js'
@@ -37,7 +37,7 @@ const downloadSuccess = async function (
 
     // `createdDir` is undefined if the folder already exists.
     if (createdDir !== undefined) {
-      console.info('Created folder:', chalk.magentaBright(createdDir))
+      console.info('Created folder:', styleText('magenta', createdDir))
     }
   } catch (err) {
     // @ts-expect-error no type for `err`
@@ -49,22 +49,25 @@ const downloadSuccess = async function (
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
     console.error(
-      chalk.redBright('Error:'),
-      chalk.yellowBright(`${label} (${locale})`),
+      styleText(['red', 'bold'], 'Error:'),
+      styleText('yellow', `${label} (${locale})`),
       '·',
-      chalk.magentaBright(resource),
+      styleText('magenta', resource),
       '→',
-      chalk.gray(err)
+      styleText('gray', err)
     )
   }
 
   console.log(
     'Downloaded:',
-    chalk.yellowBright(`${label} (${locale})`),
+    styleText('yellow', `${label} (${locale})`),
     '·',
-    chalk.magentaBright(resource),
+    styleText('magenta', resource),
     '→',
-    chalk.gray(translationFile.href.replace(`file://${process.cwd()}`, '.'))
+    styleText(
+      'gray',
+      translationFile.href.replace(`file://${process.cwd()}`, '.')
+    )
   )
 }
 
@@ -75,12 +78,12 @@ const downloadError = function (
   error: unknown
 ): void {
   console.error(
-    chalk.redBright('Error:'),
-    chalk.yellowBright(`${label} (${locale})}`),
+    styleText(['red', 'bold'], 'Error:'),
+    styleText('yellow', `${label} (${locale})`),
     '·',
-    chalk.magentaBright(resource),
+    styleText('magenta', resource),
     '→',
-    chalk.gray(error)
+    styleText('gray', error)
   )
 }
 
@@ -95,9 +98,9 @@ LOCALES.forEach((language: LocaleDefinition) => {
   resources.forEach(async (resource) => {
     console.log(
       'Queued:',
-      chalk.yellowBright(`${label} (${value})`),
+      styleText('yellow', `${label} (${value})`),
       '·',
-      chalk.magentaBright(resource)
+      styleText('magenta', resource)
     )
 
     try {
