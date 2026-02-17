@@ -1,7 +1,10 @@
-import chalk from 'chalk'
+import { styleText } from 'node:util'
+
 import { logger } from '../../lib/logger.ts'
 
-export function post(req, res) {
+import type { Request, Response } from 'express'
+
+export function post(req: Request, res: Response) {
   const cspReport = req.body['csp-report']
 
   // Early exit if a POST did not contain the report body
@@ -25,17 +28,21 @@ export function post(req, res) {
 
   logger.warn(
     '[csp-report] 🚨 ' +
-      chalk.yellowBright.bold(
+      styleText(
+        ['yellow', 'bold'],
         'A Content Security Policy (CSP) directive violation has been reported:\n'
       ) +
-      chalk.green(JSON.stringify(req.body, null, 2)) +
+      styleText('green', JSON.stringify(req.body, null, 2)) +
       '\n' +
-      chalk.yellowBright.bold(
+      styleText(
+        ['yellow', 'bold'],
         'If this is unexpected, please add this resource to the CSP directive. See '
       ) +
-      chalk.yellowBright.underline(
+      styleText(
+        ['yellow', 'underline'],
         'https://docs.streetmix.net/contributing/code/reference/csp'
       )
   )
+
   res.status(204).end()
 }
