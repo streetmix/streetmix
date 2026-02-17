@@ -44,7 +44,7 @@ export async function compileSVGSprites(
     },
   }
 
-  // Inititalize svg-sprite
+  // Initialize svg-sprite
   const spriter = new SVGSpriter(config)
 
   // Read all individual SVG files, using `glob` to make it easier to grab
