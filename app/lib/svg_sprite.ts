@@ -1,20 +1,25 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
+import { styleText } from 'node:util'
 import { glob } from 'glob'
 import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
-import chalk from 'chalk'
+
 import { logger } from './logger.ts'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
  * build folder.
  *
- * @param {String} source - source path to find svgs in
- * @param {String} filename - destination filename, without .svg extension
- * @param {String} namespace - prefix to be used to namespace ids
+ * @param source - source path to find svgs in
+ * @param filename - destination filename, without .svg extension
+ * @param namespace - prefix to be used to namespace ids
  */
-export async function compileSVGSprites(source, filename, namespace) {
+export async function compileSVGSprites(
+  source: string,
+  filename: string,
+  namespace: string
+) {
   // glob pattern to be matched (see `glob` syntax)
   const pattern = path.join(source, '/**/*.svg')
 
@@ -53,25 +58,29 @@ export async function compileSVGSprites(source, filename, namespace) {
 
     logger.info(
       '[svg-sprite] ' +
-        chalk.cyan('Compiling SVG sprites from ') +
-        chalk.gray(source) +
-        chalk.cyan('...')
+        styleText('cyan', 'Compiling SVG sprites from ') +
+        styleText('gray', source) +
+        styleText('cyan', '...')
     )
 
-    files.forEach(function (file) {
-      // When adding SVG to the spriter, use a Vinyl file object to preserve
-      // subdirectory paths in the symbol `id`. This mimics the behavior of
-      // the @streetmix/illustrations package. (Without Vinyl, `svg-sprite`
-      // will complain if the symbol name does not match a part of the relative
-      // file path, which happens when the `/` is converted to `--`.)
-      const svg = new Vinyl({
-        base: path.join(process.cwd(), source),
-        path: path.join(process.cwd(), file),
-        contents: fs.readFileSync(path.join(process.cwd(), file)),
-      })
+    await Promise.all(
+      files.map(async (file) => {
+        const contents = await fs.readFile(path.join(process.cwd(), file))
 
-      spriter.add(svg)
-    })
+        // When adding SVG to the spriter, use a Vinyl file object to preserve
+        // subdirectory paths in the symbol `id`. This mimics the behavior of
+        // the @streetmix/illustrations package. (Without Vinyl, `svg-sprite`
+        // will complain if the symbol name does not match a part of the relative
+        // file path, which happens when the `/` is converted to `--`.)
+        const svg = new Vinyl({
+          base: path.join(process.cwd(), source),
+          path: path.join(process.cwd(), file),
+          contents,
+        })
+
+        spriter.add(svg)
+      })
+    )
 
     try {
       const { result } = await spriter.compileAsync()
@@ -86,49 +95,54 @@ export async function compileSVGSprites(source, filename, namespace) {
 
             // Create the directory if it doesn't exist
             const buildPath = new URL(spriteDest, import.meta.url)
-            const createDir = fs.mkdirSync(buildPath, { recursive: true })
+            const createDir = await fs.mkdir(buildPath, { recursive: true })
 
             if (createDir) {
               logger.info(
                 '[svg-sprite] ' +
-                  chalk.yellowBright.bold('! ') +
-                  chalk.yellow(`Created directory: ${createDir}`)
+                  styleText(['yellow', 'bold'], '! ') +
+                  styleText('yellow', `Created directory: ${createDir}`)
               )
             }
           } catch (err) {
-            logger.error(
-              '[svg-sprite] ' +
-                chalk.redBright.bold('✗ ') +
-                chalk.red(err.message)
-            )
+            if (err instanceof Error) {
+              logger.error(
+                '[svg-sprite] ' +
+                  styleText(['red', 'bold'], '✗ ') +
+                  styleText('red', err.message)
+              )
+            } else {
+              // Unknown error type
+              console.error(err)
+            }
           }
 
           // Write sprites content
-          fs.writeFileSync(sprites.path, sprites.contents)
+          await fs.writeFile(sprites.path, sprites.contents)
 
           // Create shortened version of the path for logging
           const dest = sprites.path.replace(process.cwd(), '.')
           logger.info(
             '[svg-sprite] ' +
-              chalk.greenBright.bold('✓ ') +
-              chalk.green('SVG sprites written ') +
+              styleText(['green', 'bold'], '✓ ') +
+              styleText('green', 'SVG sprites written ') +
               '→ ' +
-              chalk.gray(dest)
+              styleText('gray', dest)
           )
         }
       }
     } catch (error) {
       logger.error(
         '[svg-sprite] ' +
-          chalk.redBright.bold('✗ ') +
-          chalk.red(`Error compiling SVG sprites: ${error}`)
+          styleText(['red', 'bold'], '✗ ') +
+          styleText('red', `Error compiling SVG sprites: ${error}`)
       )
     }
   } catch (error) {
     logger.error(
       '[svg-sprite] ' +
-        chalk.redBright.bold('✗ ') +
-        chalk.red(`Error reading SVG files: ${error}`)
+        styleText(['red', 'bold'], '✗ ') +
+        styleText('red', `Error reading SVG files: ${error}`)
     )
   }
 }

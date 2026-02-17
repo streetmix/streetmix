@@ -13,7 +13,7 @@ import passport from 'passport'
 import * as controllers from './app/controllers/index.js'
 import * as requestHandlers from './app/lib/request_handlers/index.js'
 import { initCloudinary } from './app/lib/cloudinary.ts'
-import { compileSVGSprites } from './app/lib/svg_sprite.js'
+import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.js'
 import serviceRoutes from './app/service_routes.js'
@@ -25,7 +25,7 @@ initCloudinary()
 // Build SVG sprites before starting Express server
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
-  compileSVGSprites('assets/images/illustrations', 'illustrations', 'image'),
+  compileSVGSprites('client/images/illustrations', 'illustrations', 'image'),
   compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
