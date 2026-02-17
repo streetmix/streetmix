@@ -8,7 +8,7 @@ const { User, UserConnections, sequelize } = models
 // might be better to do something besides return null
 // we can actually probably get rid of this function if we want, but it might help
 // keep some of the other code clean
-export async function findUser (userId) {
+export async function findUser(userId: string) {
   const user = await User.findOne({ where: { auth0Id: userId } })
   if (user === null) {
     return null
@@ -18,7 +18,7 @@ export async function findUser (userId) {
 
 // if the provider we're trying to find exists
 // return its index value or -1 if not found
-export function addOrUpdateByProviderName (array, item) {
+export function addOrUpdateByProviderName(array, item) {
   const indexValue = array.findIndex(
     (_item) => _item.provider === item.provider
   )
@@ -36,7 +36,7 @@ export function addOrUpdateByProviderName (array, item) {
  TODO: make this less permissive(maybe add a status field or have logic depending on the provider), tested,
  and remove the role if we're confident we should (probably shouldn't worry about this for MVP)
  */
-export async function syncAccountStatus (userId) {
+export async function syncAccountStatus(userId: string) {
   const databaseUser = await User.findOne({ where: { auth0Id: userId } })
   if (databaseUser.identities.some((identity) => 'user_id' in identity)) {
     databaseUser.addRole('SUBSCRIBER_1')
@@ -54,13 +54,13 @@ export async function syncAccountStatus (userId) {
  * @param {Object} profile - User's connected identity information
  * @returns {Promise}
  */
-export function addUserConnection (account, profile) {
+export function addUserConnection(account, profile) {
   const identities = account.identities
   const identity = {
     provider: profile.provider,
     user_id: profile.id,
     access_token: profile.access_token || undefined, // Coil
-    refresh_token: profile.refresh_token || undefined // Coil
+    refresh_token: profile.refresh_token || undefined, // Coil
   }
 
   // if provider exists, should update that item
@@ -76,7 +76,7 @@ export function addUserConnection (account, profile) {
     // be removed.
     await User.update(
       {
-        identities
+        identities,
       },
       { where: { auth0Id: account.auth0Id }, returning: true, transaction: t }
     )
@@ -84,22 +84,22 @@ export function addUserConnection (account, profile) {
     await UserConnections.findOrCreate({
       where: {
         user_id: account.id,
-        provider: profile.provider
+        provider: profile.provider,
       },
-      transaction: t
+      transaction: t,
     })
     return await UserConnections.update(
       {
         provider_user_id: profile.id,
-        metadata: profile
+        metadata: profile,
       },
       {
         where: {
           user_id: account.id,
-          provider: profile.provider
+          provider: profile.provider,
         },
         returning: true,
-        transaction: t
+        transaction: t,
       }
     )
   })

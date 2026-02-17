@@ -5,7 +5,9 @@ import { Strategy as PatreonStrategy } from 'passport-patreon'
 import { logger } from '../../../lib/logger.ts'
 import { appURL } from '../../../lib/url.ts'
 import models from '../../../db/models/index.js'
-import { findUser, addUserConnection } from './helpers.js'
+import { findUser, addUserConnection } from './helpers.ts'
+
+import type { Request, Response, NextFunction } from 'express'
 
 const { User } = models
 
@@ -70,7 +72,7 @@ if (process.env.PATREON_CLIENT_ID && process.env.PATREON_CLIENT_SECRET) {
   initPatreon()
 }
 
-export function get(req, res, next) {
+export function get(req: Request, res: Response, next: NextFunction) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -92,7 +94,7 @@ export function get(req, res, next) {
   })(req, res, next)
 }
 
-export function callback(req, res, next) {
+export function callback(req: Request, res: Response, next: NextFunction) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
@@ -109,7 +111,7 @@ export function callback(req, res, next) {
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-export async function connectUser(req, res) {
+export async function connectUser(req: Request, res: Response) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account
@@ -124,7 +126,7 @@ export async function connectUser(req, res) {
   }
 }
 
-export function webhook(req, res, _next) {
+export function webhook(req: Request, res: Response, _next: NextFunction) {
   // Check for the existence of headers specified by Patreon Webhooks docs
   // https://docs.patreon.com/#webhooks
   // While the docs specify headers with capitalization, the actual headers
