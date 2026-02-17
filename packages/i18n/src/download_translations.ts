@@ -48,13 +48,20 @@ const downloadSuccess = async function (
   try {
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
+    let message = ''
+    if (err instanceof Error) {
+      message = err.message
+    } else if (typeof err === 'string') {
+      message = err
+    }
+
     console.error(
       styleText(['red', 'bold'], 'Error:'),
       styleText('yellow', `${label} (${locale})`),
       '·',
       styleText('magenta', resource),
       '→',
-      styleText('gray', err)
+      styleText('gray', message)
     )
   }
 
@@ -75,7 +82,7 @@ const downloadError = function (
   locale: string,
   resource: string,
   label: string,
-  error: unknown
+  error: string
 ): void {
   console.error(
     styleText(['red', 'bold'], 'Error:'),
@@ -111,7 +118,14 @@ LOCALES.forEach((language: LocaleDefinition) => {
       )
       downloadSuccess(value, resource, label, data)
     } catch (error) {
-      downloadError(value, resource, label, error)
+      let message = ''
+      if (error instanceof Error) {
+        message = error.message
+      } else if (typeof error === 'string') {
+        message = error
+      }
+
+      downloadError(value, resource, label, message)
     }
   })
 })
