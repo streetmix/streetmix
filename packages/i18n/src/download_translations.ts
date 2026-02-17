@@ -92,7 +92,7 @@ LOCALES.forEach((language: LocaleDefinition) => {
     return
   }
 
-  resources.forEach((resource) => {
+  resources.forEach(async (resource) => {
     console.log(
       'Queued:',
       chalk.yellowBright(`${label} (${value})`),
@@ -100,12 +100,15 @@ LOCALES.forEach((language: LocaleDefinition) => {
       chalk.magentaBright(resource)
     )
 
-    getFromTransifex(value, resource, process.env.TRANSIFEX_API_TOKEN)
-      .then(async (data) => {
-        await downloadSuccess(value, resource, label, data)
-      })
-      .catch((error) => {
-        downloadError(value, resource, label, error)
-      })
+    try {
+      const data = await getFromTransifex(
+        value,
+        resource,
+        process.env.TRANSIFEX_API_TOKEN
+      )
+      downloadSuccess(value, resource, label, data)
+    } catch (error) {
+      downloadError(value, resource, label, error)
+    }
   })
 })
