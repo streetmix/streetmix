@@ -1,11 +1,11 @@
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
 import { ERRORS } from '../../lib/util.js'
 
 const { Street } = models
 
-export async function get (req, res) {
+export async function get(req, res) {
   // Flag error if user ID is not provided
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
@@ -17,7 +17,7 @@ export async function get (req, res) {
     try {
       streets = await Street.findAll({
         where: { originalStreetId: streetId, status: 'ACTIVE' },
-        order: [['updatedAt', 'DESC']]
+        order: [['updatedAt', 'DESC']],
       })
     } catch (err) {
       logger.error(err)
@@ -40,7 +40,7 @@ export async function get (req, res) {
     res.status(200).send(csv).end()
   } // END function - handleFindUserStreets
 
-  function handleErrors (error) {
+  function handleErrors(error) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -60,7 +60,7 @@ export async function get (req, res) {
       case ERRORS.FORBIDDEN_REQUEST:
         res.status(403).json({
           status: 403,
-          msg: 'Signed-in user cannot delete this street.'
+          msg: 'Signed-in user cannot delete this street.',
         })
         return
       default:

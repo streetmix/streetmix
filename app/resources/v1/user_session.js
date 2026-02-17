@@ -1,6 +1,6 @@
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
-export async function del (req, res) {
+export async function del(req, res) {
   // In order to sign out, make sure the user's session cookies
   // are part of the request.
   if (!req.auth) {

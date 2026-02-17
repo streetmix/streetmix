@@ -1,4 +1,4 @@
-import logger from '../logger.js'
+import { logger } from '../logger.ts'
 
 export default function (req, res, next) {
   const contentType = req.headers['content-type'] || ''
@@ -7,7 +7,7 @@ export default function (req, res, next) {
     method: req.method,
     url: req.url,
     content_type: contentType,
-    user_id: req.cookies.user_id
+    user_id: req.cookies.user_id,
   })
 
   next()

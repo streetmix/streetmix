@@ -12,12 +12,12 @@ import passport from 'passport'
 
 import * as controllers from './app/controllers/index.js'
 import * as requestHandlers from './app/lib/request_handlers/index.js'
-import { initCloudinary } from './app/lib/cloudinary.js'
+import { initCloudinary } from './app/lib/cloudinary.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.js'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.js'
 import serviceRoutes from './app/service_routes.js'
-import logger from './app/lib/logger.js'
+import { logger } from './app/lib/logger.ts'
 import jwtCheck from './app/authentication.js'
 
 initCloudinary()

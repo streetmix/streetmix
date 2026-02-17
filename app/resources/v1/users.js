@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
 
 const { User } = models

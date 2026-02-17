@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import app from './app.ts'
-import logger from './app/lib/logger.js'
+import { logger } from './app/lib/logger.ts'
 
 app.listen(process.env.PORT, () => {
   if (process.env.NODE_ENV === 'development') {

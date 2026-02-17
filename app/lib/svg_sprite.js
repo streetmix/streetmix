@@ -4,7 +4,7 @@ import { glob } from 'glob'
 import Vinyl from 'vinyl'
 import SVGSpriter from 'svg-sprite'
 import chalk from 'chalk'
-import logger from './logger.js'
+import { logger } from './logger.ts'
 
 /**
  * Compile SVG sprites into a single .svg file with <symbol>s in the project
@@ -14,7 +14,7 @@ import logger from './logger.js'
  * @param {String} filename - destination filename, without .svg extension
  * @param {String} namespace - prefix to be used to namespace ids
  */
-export async function compileSVGSprites (source, filename, namespace) {
+export async function compileSVGSprites(source, filename, namespace) {
   // glob pattern to be matched (see `glob` syntax)
   const pattern = path.join(source, '/**/*.svg')
 
@@ -26,17 +26,17 @@ export async function compileSVGSprites (source, filename, namespace) {
       id: {
         // SVGs are created with an `id` attribute so that it can
         // be accessed in HTML with `xlinkHref`
-        generator: `${namespace}-%s`
-      }
+        generator: `${namespace}-%s`,
+      },
     },
     mode: {
       // Create a single SVG with symbols
       symbol: {
         dest: '.',
         sprite: filename,
-        inline: true
-      }
-    }
+        inline: true,
+      },
+    },
   }
 
   // Inititalize svg-sprite
@@ -67,7 +67,7 @@ export async function compileSVGSprites (source, filename, namespace) {
       const svg = new Vinyl({
         base: path.join(process.cwd(), source),
         path: path.join(process.cwd(), file),
-        contents: fs.readFileSync(path.join(process.cwd(), file))
+        contents: fs.readFileSync(path.join(process.cwd(), file)),
       })
 
       spriter.add(svg)

@@ -1,7 +1,7 @@
 import request from 'request'
 
 import models from '../../db/models/index.js'
-import logger from '../logger.js'
+import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 const ANON_CREATOR = '-'

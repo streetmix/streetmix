@@ -1,9 +1,9 @@
 import * as fs from 'node:fs/promises'
 import { getFromTransifex } from '@streetmix/i18n'
 
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
-async function getLocalTranslation (res, locale, resource) {
+async function getLocalTranslation(res, locale, resource) {
   const translationFile =
     process.cwd() +
     '/packages/i18n/locales/' +
@@ -20,28 +20,28 @@ async function getLocalTranslation (res, locale, resource) {
     if (err.code === 'ENOENT') {
       res.status(404).json({
         status: 404,
-        msg: 'No translation found with locale code: ' + locale
+        msg: 'No translation found with locale code: ' + locale,
       })
     } else {
       res.status(500).json({
         status: 500,
-        msg: 'Could not retrieve translation for locale: ' + locale
+        msg: 'Could not retrieve translation for locale: ' + locale,
       })
     }
   }
 }
 
-function sendSuccessResponse (res, locale, resource, translation) {
+function sendSuccessResponse(res, locale, resource, translation) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
     Location: '/api/v1/translate/' + locale + '/' + resource,
-    'Cache-Control': 'max-age=86400'
+    'Cache-Control': 'max-age=86400',
   })
 
   res.status(200).send(translation)
 }
 
-export async function get (req, res) {
+export async function get(req, res) {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 
@@ -73,7 +73,7 @@ export async function get (req, res) {
 
     res.status(500).json({
       status: 500,
-      msg: 'Could not retrieve translation for locale: ' + locale
+      msg: 'Could not retrieve translation for locale: ' + locale,
     })
     return
   }

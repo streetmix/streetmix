@@ -5,7 +5,7 @@
 import { nanoid } from 'nanoid'
 import { round } from '@streetmix/utils'
 
-import logger from './logger.js'
+import { logger } from './logger.ts'
 
 const LATEST_SCHEMA_VERSION = 34
 // 1: starting point

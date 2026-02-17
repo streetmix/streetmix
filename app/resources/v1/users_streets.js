@@ -1,6 +1,6 @@
 import models from '../../db/models/index.js'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
 const { User, Street } = models
 

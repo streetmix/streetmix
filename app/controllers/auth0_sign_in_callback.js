@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { userClient } from '../lib/auth0.ts'
-import logger from '../lib/logger.js'
+import { logger } from '../lib/logger.ts'
 import { appURL } from '../lib/url.ts'
 
 const AccessTokenHandler = function (req, res) {

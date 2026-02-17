@@ -2,14 +2,14 @@ import { randomUUID } from 'node:crypto'
 import Sequelize from 'sequelize'
 
 import models from '../../db/models/index.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
 const { User, Vote, Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
 
-export function generateRandomBallotFetch ({ redirect = false }) {
+export function generateRandomBallotFetch({ redirect = false }) {
   return async function (req, res) {
     let ballots
     const authUser = req.auth || {}
@@ -31,11 +31,11 @@ export function generateRandomBallotFetch ({ redirect = false }) {
           ballots = await Vote.findAll({
             where: {
               voterId: {
-                [Sequelize.Op.is]: null
-              }
+                [Sequelize.Op.is]: null,
+              },
             },
             order: Sequelize.literal('random()'),
-            limit: 1
+            limit: 1,
           })
         } else {
           ballots = await Vote.findAll({
@@ -47,26 +47,26 @@ export function generateRandomBallotFetch ({ redirect = false }) {
                     {
                       [Sequelize.Op.not]: {
                         submitted: {
-                          [Sequelize.Op.contains]: [user.id]
-                        }
-                      }
+                          [Sequelize.Op.contains]: [user.id],
+                        },
+                      },
                     },
                     {
                       submitted: {
-                        [Sequelize.Op.is]: null
-                      }
-                    }
-                  ]
+                        [Sequelize.Op.is]: null,
+                      },
+                    },
+                  ],
                 },
                 {
                   voterId: {
-                    [Sequelize.Op.is]: null
-                  }
-                }
-              ]
+                    [Sequelize.Op.is]: null,
+                  },
+                },
+              ],
             },
             order: Sequelize.literal('random()'),
-            limit: 1
+            limit: 1,
           })
         }
         if (ballots && ballots.length > 0) {
@@ -74,7 +74,7 @@ export function generateRandomBallotFetch ({ redirect = false }) {
           const { streetId } = myBallot
           if (streetId) {
             const streetForBallot = await Street.findOne({
-              where: { id: streetId }
+              where: { id: streetId },
             })
 
             // do not return a vote to the same user
@@ -95,15 +95,15 @@ export function generateRandomBallotFetch ({ redirect = false }) {
                     'array_append',
                     Sequelize.col('submitted'),
                     user.id
-                  )
+                  ),
                 },
                 {
                   where: {
                     streetId: streetForBallot.id,
                     voterId: {
-                      [Sequelize.Op.is]: null
-                    }
-                  }
+                      [Sequelize.Op.is]: null,
+                    },
+                  },
                 }
               )
             } else {
@@ -125,7 +125,7 @@ export function generateRandomBallotFetch ({ redirect = false }) {
           } else {
             return res.status(204).json({
               status: 204,
-              msg: 'All eligible streets have been voted on.'
+              msg: 'All eligible streets have been voted on.',
             })
           }
         }
@@ -143,7 +143,7 @@ export function generateRandomBallotFetch ({ redirect = false }) {
         if (!(ballots[0] && ballots[0].data && ballots[0].streetId)) {
           res.status(503).json({
             status: 503,
-            msg: 'Server found no candidate streets for voting.'
+            msg: 'Server found no candidate streets for voting.',
           })
           return
         }
@@ -178,7 +178,7 @@ export function generateRandomBallotFetch ({ redirect = false }) {
 
 export const get = generateRandomBallotFetch({ redirect: false })
 
-export async function put (req, res) {
+export async function put(req, res) {
   const authUser = req.auth || {}
   const { id, comment } = req.body
 
@@ -202,7 +202,7 @@ export async function put (req, res) {
     return
   }
   const ballot = await Vote.findOne({
-    where: { id, voter_id: user.id }
+    where: { id, voter_id: user.id },
   })
 
   if (!ballot) {
@@ -230,7 +230,7 @@ export async function put (req, res) {
   res.status(200).json(ballot)
 }
 
-export async function post (req, res) {
+export async function post(req, res) {
   const authUser = req.auth || {}
 
   if (!authUser.sub) {
@@ -261,7 +261,7 @@ export async function post (req, res) {
 
   // If requesting user is logged in, create a new vote
   const ballot = {
-    id: randomUUID()
+    id: randomUUID(),
   }
 
   let savedBallot = {}
@@ -280,15 +280,15 @@ export async function post (req, res) {
           'array_append',
           Sequelize.col('submitted'),
           user.id
-        )
+        ),
       },
       {
         where: {
           streetId: ballot.streetId,
           voterId: {
-            [Sequelize.Op.is]: null
-          }
-        }
+            [Sequelize.Op.is]: null,
+          },
+        },
       }
     )
   } catch (error) {

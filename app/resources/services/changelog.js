@@ -1,9 +1,9 @@
 import * as fs from 'node:fs/promises'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
 const flagFile = `${process.cwd()}/docs/docs/user-guide/changelog.md`
 
-async function getFileContent (res) {
+async function getFileContent(res) {
   try {
     return await fs.readFile(flagFile, 'utf8')
   } catch (err) {
@@ -19,10 +19,10 @@ async function getFileContent (res) {
   }
 }
 
-function sendSuccessResponse (res, content) {
+function sendSuccessResponse(res, content) {
   res.set({
     'Content-Type': 'text/plain; charset=utf-8',
-    Location: '/services/changelog'
+    Location: '/services/changelog',
   })
 
   const mdContent = content.split('---\n')[2]
@@ -35,7 +35,7 @@ function sendSuccessResponse (res, content) {
   res.status(200).send(mdContent.trim())
 }
 
-export async function get (req, res) {
+export async function get(req, res) {
   const content = await getFileContent(res)
 
   if (content) {

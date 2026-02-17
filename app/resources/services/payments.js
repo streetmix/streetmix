@@ -1,6 +1,6 @@
 import * as fs from 'node:fs/promises'
 import User from '../../db/models/user.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
 const roles = JSON.parse(
   await fs.readFile(new URL('../../data/user_roles.json', import.meta.url))
@@ -9,10 +9,10 @@ const roles = JSON.parse(
 const tier1PlanId = process.env.STRIPE_TIER1_PLAN_ID
 
 const planMap = {
-  [tier1PlanId]: roles.SUBSCRIBER_1
+  [tier1PlanId]: roles.SUBSCRIBER_1,
 }
 
-export async function post (req, res) {
+export async function post(req, res) {
   let userId
   let subscription
   let customer
@@ -76,7 +76,7 @@ export async function post (req, res) {
       subscribed: now,
       subscriptionId: subscription.id,
       customerId: customer.id,
-      planId: tier1PlanId
+      planId: tier1PlanId,
     }
     user.data = newData
     user.save().then((upgradedUser) => {

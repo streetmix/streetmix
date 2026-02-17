@@ -1,7 +1,7 @@
 import chalk from 'chalk'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
-export function post (req, res) {
+export function post(req, res) {
   const cspReport = req.body['csp-report']
 
   // Early exit if a POST did not contain the report body

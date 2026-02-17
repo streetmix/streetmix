@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import models from '../../../db/models/index.js'
 import { appURL } from '../../../lib/url.ts'
-import logger from '../../../lib/logger.js'
+import { logger } from '../../../lib/logger.ts'
 import {
   findUser,
   addUserConnection,

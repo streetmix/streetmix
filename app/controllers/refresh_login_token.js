@@ -1,8 +1,8 @@
 import axios from 'axios'
-import logger from '../lib/logger.js'
+import { logger } from '../lib/logger.ts'
 
 // Refreshes auth0 token so user doesn't need to sign in every 30 days
-export function post (req, res) {
+export function post(req, res) {
   if (!req.body || !req.body.token) {
     res.status(401).json({ status: 401, msg: 'Refresh token is required.' })
     return
@@ -13,7 +13,7 @@ export function post (req, res) {
     grant_type: 'refresh_token',
     refresh_token: req.body.token,
     client_id: process.env.AUTH0_CLIENT_ID,
-    client_secret: process.env.AUTH0_CLIENT_SECRET
+    client_secret: process.env.AUTH0_CLIENT_SECRET,
   }
 
   axios

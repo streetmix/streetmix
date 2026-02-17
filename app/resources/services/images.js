@@ -1,8 +1,8 @@
 import cloudinary from 'cloudinary'
 import User from '../../db/models/user.js'
-import logger from '../../lib/logger.js'
+import { logger } from '../../lib/logger.ts'
 
-export async function get (req, res) {
+export async function get(req, res) {
   const query = req.query
 
   if (!req.auth?.sub) {
@@ -50,7 +50,7 @@ export async function get (req, res) {
   const payload = {
     signature,
     timestamp: query.timestamp,
-    api_key: process.env.CLOUDINARY_API_KEY
+    api_key: process.env.CLOUDINARY_API_KEY,
   }
 
   res.status(200).json(payload)
