@@ -433,7 +433,7 @@ function incrementSchemaVersion(street) {
       // monkey-patch that forces it to be there.
       // If unknown, value is 0
       if (street.editCount === undefined) {
-        street.editcount = 0
+        street.editCount = 0
       }
       break
     case 28:
@@ -587,6 +587,11 @@ function incrementSchemaVersion(street) {
       // no-op
       break
   }
+
+  // NOTE (TODO):
+  // Schema update 27 had a typo!! Where instead of adding `editCount`, it
+  // added `editcount` instead (lower-case `c`).
+  // Currently doesn't seem to be a problem, but might need to be addressed
 
   street.schemaVersion++
   return street
