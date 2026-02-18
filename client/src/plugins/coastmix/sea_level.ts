@@ -38,74 +38,51 @@ export function checkSeaLevel(
   if (streetEl === null || canvasEl === null) return null
 
   let slicePosition
-  if (floodDirection === 'left') {
-    for (let i = 0; i < slices.length; i++) {
-      const slice = slices[i]
 
-      // Slices can block a flood based on its elevation. Walls are a special
-      // case that is capable of blocking a flood (like a seawall, etc)
-      // TODO: Don't hardcode these height numbers
-      let compareElevation = slice.elevation
-      if (slice.type === 'wall') {
-        if (slice.variant['wall-height'] === 'low') {
-          compareElevation += 1
-        } else {
-          // High wall variant
-          compareElevation += 2.15
-        }
-      }
+  // Depending on whether the flood comes from the left or right, set up
+  // a compare loop that counts up or down
+  const fromLeft = floodDirection === 'left'
+  const start = fromLeft ? 0 : slices.length - 1
+  const end = fromLeft ? slices.length : -1
+  const step = fromLeft ? 1 : -1
 
-      // If this slice blocks a flood, record its position and exit loop
-      if (compareElevation >= height) {
-        slicePosition = i
-        break
+  for (let i = start; fromLeft ? i < end : i > end; i += step) {
+    const slice = slices[i]
+
+    // Slices can block a flood based on its elevation. Walls are a special
+    // case that is capable of blocking a flood (like a seawall, etc)
+    // TODO: Don't hardcode these height numbers
+    let compareElevation = slice.elevation
+    if (slice.type === 'wall') {
+      if (slice.variant['wall-height'] === 'low') {
+        compareElevation += 1
+      } else {
+        // High wall variant
+        compareElevation += 2.15
       }
     }
 
-    // Bail early if no slice meets or exceeds flood height.
-    if (typeof slicePosition !== 'number') {
-      return null
+    // If this slice blocks a flood, record its position and exit loop
+    if (compareElevation >= height) {
+      slicePosition = i
+      break
     }
+  }
 
-    const sliceEl = streetEl.querySelector<HTMLElement>(
-      `[data-slice-index="${slicePosition}"]`
-    )
+  // Bail if no slice meets or exceeds flood height.
+  if (typeof slicePosition !== 'number') {
+    return null
+  }
 
+  // Get the pixel position of the blocking element
+  const sliceEl = streetEl.querySelector<HTMLElement>(
+    `[data-slice-index="${slicePosition}"]`
+  )
+
+  if (fromLeft) {
     const distance = Number(sliceEl?.dataset.sliceLeft)
     return distance
-  } else if (floodDirection === 'right') {
-    for (let i = slices.length - 1; i >= 0; i--) {
-      const slice = slices[i]
-
-      // Slices can block a flood based on its elevation. Walls are a special
-      // case that is capable of blocking a flood (like a seawall, etc)
-      // TODO: Don't hardcode these height numbers
-      let compareElevation = slice.elevation
-      if (slice.type === 'wall') {
-        if (slice.variant['wall-height'] === 'low') {
-          compareElevation += 1
-        } else {
-          // High wall variant
-          compareElevation += 2.15
-        }
-      }
-
-      // If this slice blocks a flood, record its position and exit loop
-      if (compareElevation >= height) {
-        slicePosition = i
-        break
-      }
-    }
-
-    // Bail early if no slice meets or exceeds flood height.
-    if (typeof slicePosition !== 'number') {
-      return null
-    }
-
-    const sliceEl = streetEl.querySelector<HTMLElement>(
-      `[data-slice-index="${slicePosition}"]`
-    )
-
+  } else {
     // There are some extra steps for calculating the right-hand distance
     // which is based on the width of the on-screen canvasEl element.
     // The timing of when this function is called is important because
@@ -120,6 +97,4 @@ export function checkSeaLevel(
     const distance = parentWidth - offsetLeftPlusWidth
     return distance
   }
-
-  return null
 }
