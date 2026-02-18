@@ -107,7 +107,12 @@ export function checkSeaLevel(
     )
 
     // There are some extra steps for calculating the right-hand distance
-    // NOTE: this is 0 on page load, which causes sea level rendering to fail
+    // which is based on the width of the on-screen canvasEl element.
+    // The timing of when this function is called is important because
+    // putting it in the wrong place could cause the element to not be
+    // present, or not yet have an `offsetWidth` value. We can remove this
+    // by switching to calculating flood distance in real world values
+    // rather than on-screen pixel values.
     const parentWidth = canvasEl.offsetWidth ?? 0
     const offsetLeftPlusWidth =
       Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
