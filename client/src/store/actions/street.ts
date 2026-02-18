@@ -1,6 +1,5 @@
 import clone from 'just-clone'
 
-import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
 import { ERRORS } from '~/src/app/errors.js'
 import { formatMessage } from '~/src/locales/locale.js'
 import {
@@ -38,7 +37,6 @@ import {
 } from '../slices/street.js'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
 import { setActiveSegment } from '../slices/ui.js'
-import { setFloodDistance } from '../slices/coastmix.js'
 
 import type { Dispatch, RootState } from '../index.js'
 import type {
@@ -62,7 +60,7 @@ export function updateStreetWidthAction(width: number) {
 
 export const segmentsChanged = (force = false) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { street, coastmix } = getState()
+    const { street } = getState()
 
     const calculatedWidths = recalculateWidth(street)
 
@@ -94,7 +92,6 @@ export const segmentsChanged = (force = false) => {
       street,
       calculatedWidths
     )
-    const floodDistance = checkSeaLevel(updatedSlices, coastmix) ?? null
 
     await dispatch(
       updateSegments(
@@ -103,7 +100,6 @@ export const segmentsChanged = (force = false) => {
         calculatedWidths.remainingWidth.toNumber()
       )
     )
-    await dispatch(setFloodDistance(floodDistance))
 
     // ToDo: Refactor this out to be dispatched as well
     // Forcing a save is necessary when the data to be saved is not in the

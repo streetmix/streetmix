@@ -1,9 +1,10 @@
+import { createRef } from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
 import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
-import StreetEditable from './StreetEditable.js'
+import { StreetEditable } from './StreetEditable.js'
 
 describe('StreetEditable', () => {
   beforeEach(() => {
@@ -52,6 +53,7 @@ describe('StreetEditable', () => {
             setBoundaryWidth={setBoundaryWidth}
             updatePerspective={updatePerspective}
             resizeType={undefined}
+            ref={createRef()}
           />,
           {
             initialState: {

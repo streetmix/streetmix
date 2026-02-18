@@ -1,7 +1,7 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { CoastmixState, SliceItem } from '@streetmix/types'
+import type { FloodDirection, SliceItem } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
@@ -27,10 +27,11 @@ export function calculateSeaLevelRise(
 
 export function checkSeaLevel(
   slices: SliceItem[],
-  coastmix: CoastmixState
+  streetEl: HTMLDivElement,
+  seaLevelRise: number,
+  stormSurge: boolean,
+  floodDirection: FloodDirection
 ): number | null {
-  const { seaLevelRise, floodDirection, stormSurge } = coastmix
-
   const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
   let slicePosition
@@ -62,15 +63,6 @@ export function checkSeaLevel(
     if (typeof slicePosition !== 'number') {
       return null
     }
-
-    // TODO: don't read from DOM for these values.
-    // They are not guaranteed to be present and have the right dimensions
-    // -- a better solution is to do this analysis in StreetEditable
-    const streetEl = document.getElementById('street-section-editable')
-
-    // Bail if this function is called before the DOM is ready
-    // (which can happen on page load)
-    if (!streetEl) return null
 
     const sliceEl = streetEl.querySelector<HTMLElement>(
       `[data-slice-index="${slicePosition}"]`
@@ -106,15 +98,6 @@ export function checkSeaLevel(
     if (typeof slicePosition !== 'number') {
       return null
     }
-
-    // TODO: don't read from DOM for these values.
-    // They are not guaranteed to be present and have the right dimensions
-    // -- a better solution is to do this analysis in StreetEditable
-    const streetEl = document.getElementById('street-section-editable')
-
-    // Bail if this function is called before the DOM is ready
-    // (which can happen on page load)
-    if (!streetEl) return null
 
     const sliceEl = streetEl.querySelector<HTMLElement>(
       `[data-slice-index="${slicePosition}"]`

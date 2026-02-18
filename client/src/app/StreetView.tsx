@@ -17,7 +17,7 @@ import {
 import { updateStreetMargin } from '../segments/resizing.js'
 import { SkyBox } from '../sky/SkyBox/index.js'
 import { ScrollIndicators } from './ScrollIndicators.js'
-import StreetEditable from './StreetEditable.js'
+import { StreetEditable } from './StreetEditable.js'
 import './StreetView.css'
 
 const SEGMENT_RESIZED = 1
@@ -32,7 +32,7 @@ const INDICATOR_ARROWS_MAX = 6
  * is calculated as the street scrolls and stored in state.
  */
 function calculateScrollIndicators(
-  el: HTMLDivElement | null,
+  el: HTMLElement | null,
   streetWidth: number
 ): { left: number; right: number } | undefined {
   if (el === null) return
@@ -87,8 +87,9 @@ function StreetView() {
   const [resizeType, setResizeType] = useState<number>()
   const [boundaryWidth, setBoundaryWidth] = useState(BUILDING_SPACE)
 
-  const sectionEl = useRef<HTMLDivElement>(null)
+  const sectionEl = useRef<HTMLElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
+  const slicesEl = useRef<HTMLDivElement>(null)
 
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
@@ -231,7 +232,7 @@ function StreetView() {
   /**
    * Event handler for street scrolling.
    */
-  function handleStreetScroll(_event: React.UIEvent<HTMLDivElement>): void {
+  function handleStreetScroll(_event: React.UIEvent<HTMLElement>): void {
     // Place all scroll-based positioning effects inside of a "raf"
     // callback for better performance.
     window.requestAnimationFrame(() => {
@@ -270,7 +271,7 @@ function StreetView() {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
-  function getBoundaryWidth(el: HTMLDivElement | null): void {
+  function getBoundaryWidth(el: HTMLElement | null): void {
     if (el === null) return
     const pos = getElAbsolutePos(el)
 
@@ -324,6 +325,7 @@ function StreetView() {
                 setBoundaryWidth={getBoundaryWidth}
                 updatePerspective={updatePerspective}
                 draggingType={draggingType}
+                ref={slicesEl}
               />
               <Boundary
                 position="right"
@@ -332,7 +334,11 @@ function StreetView() {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
+              <SeaLevel
+                boundaryWidth={boundaryWidth}
+                scrollPos={scrollPos}
+                slicesRef={slicesEl}
+              />
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>
