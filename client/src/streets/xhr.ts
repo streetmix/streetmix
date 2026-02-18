@@ -107,6 +107,7 @@ export async function fetchStreetFromServer() {
     )
     receiveStreet(response.data)
   } catch (error) {
+    console.error(error)
     errorReceiveStreet(error)
   }
 }
@@ -311,7 +312,7 @@ export function unpackServerStreetData(
   }
 
   if (checkIfNeedsToBeRemixed) {
-    if (!isSignedIn() || street.creatorId !== getSignInData().userId) {
+    if (!isSignedIn() || street.creatorId !== getSignInData()?.userId) {
       setRemixOnFirstEdit(true)
     } else {
       setRemixOnFirstEdit(false)
