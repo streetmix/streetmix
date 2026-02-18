@@ -66,7 +66,7 @@ export function checkSeaLevel(
     }
 
     // Walls are a special case that is capable of blocking a flood (like a
-    // a seawall, etc). So its compare elevation will be higher
+    // seawall, etc). So its compare elevation will be higher
     // TODO: Don't hardcode these height numbers
     if (slice.type === 'wall') {
       if (slice.variant['wall-height'] === 'low') {
