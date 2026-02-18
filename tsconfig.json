@@ -1,4 +1,33 @@
 {
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Language and Environment */
+    "target": "esnext",
+
+    /* Modules */
+    "module": "nodenext",
+    "resolveJsonModule": true,
+    "rewriteRelativeImportExtensions": true,
+
+    /* Emit */
+    "noEmit": true, // Processed by Node
+
+    /* JavaScript Support */
+    "allowJs": true,
+
+    /* Interop Constraints */
+    "erasableSyntaxOnly": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
   "references": [
     {
       "path": "./packages/types/tsconfig.json"
@@ -16,5 +45,12 @@
       "path": "./packages/i18n/tsconfig.json"
     }
   ],
-  "files": []
+  "files": [
+    "index.ts",
+    "app.ts",
+    "cypress.config.ts",
+    "eslint.config.ts",
+    "vitest.config.ts"
+  ],
+  "include": ["app/**/*.ts"]
 }
