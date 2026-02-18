@@ -27,7 +27,8 @@ export function calculateSeaLevelRise(
 
 export function checkSeaLevel(
   slices: SliceItem[],
-  coastmix: CoastmixState
+  coastmix: CoastmixState,
+  streetEl: HTMLDivElement
 ): number | null {
   const { seaLevelRise, floodDirection, stormSurge } = coastmix
 
@@ -63,15 +64,6 @@ export function checkSeaLevel(
       return null
     }
 
-    // TODO: don't read from DOM for these values.
-    // They are not guaranteed to be present and have the right dimensions
-    // -- a better solution is to do this analysis in StreetEditable
-    const streetEl = document.getElementById('street-section-editable')
-
-    // Bail if this function is called before the DOM is ready
-    // (which can happen on page load)
-    if (!streetEl) return null
-
     const sliceEl = streetEl.querySelector<HTMLElement>(
       `[data-slice-index="${slicePosition}"]`
     )
@@ -106,15 +98,6 @@ export function checkSeaLevel(
     if (typeof slicePosition !== 'number') {
       return null
     }
-
-    // TODO: don't read from DOM for these values.
-    // They are not guaranteed to be present and have the right dimensions
-    // -- a better solution is to do this analysis in StreetEditable
-    const streetEl = document.getElementById('street-section-editable')
-
-    // Bail if this function is called before the DOM is ready
-    // (which can happen on page load)
-    if (!streetEl) return null
 
     const sliceEl = streetEl.querySelector<HTMLElement>(
       `[data-slice-index="${slicePosition}"]`

@@ -49,20 +49,20 @@ function makeSpaceBetweenSlices(
 
 interface StreetEditableProps {
   resizeType: number | undefined
-  setBoundaryWidth: (node: HTMLDivElement | null) => void
+  setBoundaryWidth: (node: HTMLElement | null) => void
   updatePerspective: (el: HTMLElement | null) => void
   draggingType?: number
+  ref: React.RefObject<HTMLDivElement | null>
 }
 
 function StreetEditable(props: StreetEditableProps) {
-  const { resizeType, setBoundaryWidth, updatePerspective, draggingType } =
+  const { resizeType, setBoundaryWidth, updatePerspective, draggingType, ref } =
     props
   const street = useSelector((state) => state.street)
   const draggingState = useSelector((state) => state.ui.draggingState)
 
   // Internal "state", but does not affect renders, so it is not React state
   const withinCanvas = useRef<boolean>(false)
-  const ref = useRef<HTMLDivElement>(null)
 
   // According to "rule of hooks", useRef() must not be called in a loop
   // This is a top-level container to manage a list of refs as a workaround
@@ -100,7 +100,7 @@ function StreetEditable(props: StreetEditableProps) {
     ) {
       setBoundaryWidth(ref.current)
     }
-  }, [resizeType, draggingType, setBoundaryWidth, prevProps])
+  }, [resizeType, draggingType, setBoundaryWidth, prevProps, ref])
 
   useEffect(() => {
     if (
