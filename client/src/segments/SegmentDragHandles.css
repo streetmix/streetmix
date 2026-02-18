@@ -1,5 +1,5 @@
-body.segment-resize-dragging,
-body.segment-resize-dragging * {
+.main-screen.segment-resize-dragging,
+.main-screen.segment-resize-dragging * {
   cursor: col-resize !important;
 }
 
@@ -51,7 +51,7 @@ body.segment-resize-dragging * {
   background-color: var(--color-turquoise-700);
 }
 
-body.segment-resize-dragging .drag-handle.floating,
+.main-screen.segment-resize-dragging .drag-handle.floating,
 .segment.show-drag-handles .drag-handle {
   pointer-events: auto;
   opacity: 1;
