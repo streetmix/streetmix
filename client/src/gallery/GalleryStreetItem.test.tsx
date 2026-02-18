@@ -10,9 +10,6 @@ import { GalleryStreetItem } from './GalleryStreetItem.js'
 vi.mock('../streets/thumbnail.js', () => ({
   drawStreetThumbnail: vi.fn(),
 }))
-vi.mock('../app/page_url.js', () => ({
-  getStreetUrl: vi.fn(),
-}))
 
 const baseProps = {
   street: MOCK_STREET,

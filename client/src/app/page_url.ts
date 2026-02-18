@@ -1,8 +1,8 @@
-import { debug } from '../preinit/debug_settings'
-import { normalizeSlug } from '../util/helpers'
+import { debug } from '../preinit/debug_settings.js'
+import { normalizeSlug } from '../util/helpers.js'
 import store from '../store'
-import { setGalleryUserId } from '../store/slices/gallery'
-import { saveCreatorId, saveStreetId } from '../store/slices/street'
+import { setGalleryUserId } from '../store/slices/gallery.js'
+import { saveCreatorId, saveStreetId } from '../store/slices/street.js'
 import {
   URL_NEW_STREET,
   JUST_SIGNED_IN_PATH,
@@ -12,9 +12,10 @@ import {
   URL_SURVEY_FINISHED,
   RESERVED_URLS,
   STREET_TEMPLATES,
-} from './constants'
-import { setMode, MODES } from './mode'
-import type { StreetState } from '@streetmix/types'
+} from './constants.js'
+import { setMode, MODES } from './mode.js'
+
+import type { StreetAPIResponse } from '@streetmix/types'
 
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'
@@ -132,7 +133,7 @@ export function processUrl(): void {
   }
 }
 
-export function getStreetUrl(street: StreetState): string {
+export function getStreetUrl(street: StreetAPIResponse): string {
   let url = '/'
   if (street.creatorId) {
     // Add a initial slash to the creator check to match reserved paths
