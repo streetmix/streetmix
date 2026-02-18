@@ -397,7 +397,7 @@ export function drawSegmentContents(
   offsetLeft: number,
   groundBaseline: number,
   elevation: number,
-  slopeOrig: SlopeProperties,
+  slopeOrig: SlopeProperties | undefined,
   randSeed: string,
   multiplier: number,
   dpi: number
@@ -419,10 +419,18 @@ export function drawSegmentContents(
 
   // Clone the slope object from the function argument so it can be
   // overridden if slope is turned off by slice element/variant rules
-  const slope: SlopeProperties = {
-    on: slopeOrig.on,
-    values: [...slopeOrig.values],
-  }
+  // Older streets (e.g. rendered in gallery thumbnails) will not have slope
+  // properties, so we also supply a placeholder object in that case
+  const slope: SlopeProperties = slopeOrig
+    ? {
+        on: slopeOrig.on,
+        // This is also catching some instances where values is undefined
+        values: [...(slopeOrig.values ?? [])],
+      }
+    : {
+        on: false,
+        values: [],
+      }
 
   // If the slice element/variant doesn't allow sloping, turn it off
   if (variantInfo.slope === 'off' || variantInfo.slope === undefined) {
