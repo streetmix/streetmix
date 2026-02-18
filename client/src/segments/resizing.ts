@@ -1,11 +1,11 @@
 import { round } from '@streetmix/utils'
 
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
+import { setIgnoreStreetChanges } from '../streets/data_model.js'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants.js'
 import store from '../store'
 import { segmentsChanged } from '../store/actions/street.js'
-import { changeSegmentWidth } from '../store/slices/street'
-import { setDraggingType } from '../store/slices/ui'
+import { changeSegmentWidth } from '../store/slices/street.js'
+import { setDraggingType } from '../store/slices/ui.js'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -18,12 +18,10 @@ import {
   SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
   BUILDING_SPACE,
-} from './constants'
-import { draggingResize } from './drag_and_drop'
+} from './constants.js'
+import { draggingResize } from './drag_and_drop.js'
 
 import type { Segment, UnitsSetting } from '@streetmix/types'
-
-const SHORT_DELAY = 100
 
 export const RESIZE_TYPE_INITIAL = 0
 export const RESIZE_TYPE_INCREMENT = 1
@@ -45,7 +43,6 @@ export function resizeSegment(
     units ?? store.getState().street.units
   )
   width = normalizeSegmentWidth(width, resolution)
-  cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(segmentIndex, width))
   store.dispatch(segmentsChanged())
   return width
@@ -238,11 +235,4 @@ export function normalizeAllSegmentWidths(
       resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
     ),
   }))
-}
-
-export function cancelSegmentResizeTransitions(): void {
-  document.body.classList.add('immediate-segment-resize')
-  window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
-  }, SHORT_DELAY)
 }
