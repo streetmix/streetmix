@@ -1,3 +1,4 @@
+import { createRef } from 'react'
 import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
@@ -52,6 +53,7 @@ describe('StreetEditable', () => {
             setBoundaryWidth={setBoundaryWidth}
             updatePerspective={updatePerspective}
             resizeType={undefined}
+            ref={createRef()}
           />,
           {
             initialState: {
