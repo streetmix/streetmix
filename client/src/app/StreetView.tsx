@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { useSelector } from '~/src/store/hooks.js'
+import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
@@ -19,6 +19,8 @@ import { SkyBox } from '../sky/SkyBox/index.js'
 import { ScrollIndicators } from './ScrollIndicators.js'
 import { StreetEditable } from './StreetEditable.js'
 import './StreetView.css'
+import { checkSeaLevel } from '~src/plugins/coastmix/sea_level.js'
+import { setFloodDistance } from '~src/store/slices/coastmix.js'
 
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2
@@ -93,6 +95,10 @@ function StreetView() {
 
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
+  const { seaLevelRise, stormSurge, floodDirection } = useSelector(
+    (state) => state.coastmix
+  )
+  const dispatch = useDispatch()
 
   // Keep previous state for comparisons (ported from legacy behavior)
   const prevState = usePrevious({
@@ -116,8 +122,28 @@ function StreetView() {
     sectionCanvasEl.current.style.width = streetWidth + 'px'
     sectionCanvasEl.current.style.left = streetSectionCanvasLeft + 'px'
 
+    // Since flooding relies on sectionCanvasEl width being set, calculate
+    // flood distance here. This can change if we start calculating
+    // distance in actual distance values rather than on screen pixel values.
+    const floodDistance = checkSeaLevel(
+      street.segments,
+      slicesEl.current,
+      sectionCanvasEl.current,
+      seaLevelRise,
+      stormSurge,
+      floodDirection
+    )
+    dispatch(setFloodDistance(floodDistance))
+
     return STREETVIEW_RESIZED
-  }, [street.width])
+  }, [
+    street.width,
+    street.segments,
+    dispatch,
+    seaLevelRise,
+    stormSurge,
+    floodDirection,
+  ])
 
   const handleStreetResize = useCallback(() => {
     // Place all scroll-based positioning effects inside of a "raf"
@@ -334,11 +360,7 @@ function StreetView() {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel
-                boundaryWidth={boundaryWidth}
-                scrollPos={scrollPos}
-                slicesRef={slicesEl}
-              />
+              <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>

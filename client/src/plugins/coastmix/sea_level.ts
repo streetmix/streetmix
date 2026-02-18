@@ -27,12 +27,15 @@ export function calculateSeaLevelRise(
 
 export function checkSeaLevel(
   slices: SliceItem[],
-  streetEl: HTMLDivElement,
+  streetEl: HTMLDivElement | null,
+  canvasEl: HTMLElement | null,
   seaLevelRise: number,
   stormSurge: boolean,
   floodDirection: FloodDirection
 ): number | null {
   const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
+
+  if (streetEl === null || canvasEl === null) return null
 
   let slicePosition
   if (floodDirection === 'left') {
@@ -105,8 +108,7 @@ export function checkSeaLevel(
 
     // There are some extra steps for calculating the right-hand distance
     // NOTE: this is 0 on page load, which causes sea level rendering to fail
-    const parentWidth =
-      sliceEl?.closest<HTMLElement>('#street-section-canvas')?.offsetWidth ?? 0
+    const parentWidth = canvasEl.offsetWidth ?? 0
     const offsetLeftPlusWidth =
       Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
 
