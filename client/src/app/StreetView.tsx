@@ -5,6 +5,8 @@ import { usePrevious } from '~/src/util/usePrevious.js'
 import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
+import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
+import { setFloodDistance } from '~/src/store/slices/coastmix.js'
 import ResizeGuides from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
 import { animate, getElAbsolutePos } from '../util/helpers.js'
@@ -19,8 +21,6 @@ import { SkyBox } from '../sky/SkyBox/index.js'
 import { ScrollIndicators } from './ScrollIndicators.js'
 import { StreetEditable } from './StreetEditable.js'
 import './StreetView.css'
-import { checkSeaLevel } from '~src/plugins/coastmix/sea_level.js'
-import { setFloodDistance } from '~src/store/slices/coastmix.js'
 
 const SEGMENT_RESIZED = 1
 const STREETVIEW_RESIZED = 2
