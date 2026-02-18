@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 
-import { useSelector } from '../store/hooks'
-import { loseAnyFocus } from '../util/focus'
-import { useOnClickOutside } from '../ui/useOnClickOutside'
+import { useSelector } from '../store/hooks.js'
+import { loseAnyFocus } from '../util/focus.js'
+import { useOnClickOutside } from '../ui/useOnClickOutside.js'
 import './DebugInfo.css'
 
-function DebugInfo (): React.ReactElement | null {
+export function DebugInfo() {
   const panelEl = useRef<HTMLDivElement>(null)
   const textareaEl = useRef<HTMLTextAreaElement>(null)
   const [isVisible, setVisible] = useState(false)
@@ -79,7 +79,7 @@ function DebugInfo (): React.ReactElement | null {
     setVisible(false)
   })
 
-  function showDebugInfo (event: KeyboardEvent): void {
+  function showDebugInfo(event: KeyboardEvent): void {
     const el = event.target as HTMLElement
 
     // Do not display debug info when the key combo is pressed inside of an input element
@@ -88,7 +88,7 @@ function DebugInfo (): React.ReactElement | null {
     }
   }
 
-  function hideDebugInfo (event: KeyboardEvent): void {
+  function hideDebugInfo(event: KeyboardEvent): void {
     if (event.key === 'Esc' || event.key === 'Escape') {
       setVisible(false)
     }
@@ -108,5 +108,3 @@ function DebugInfo (): React.ReactElement | null {
   // Don't render any DOM if invisible
   return null
 }
-
-export default DebugInfo

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { useSelector } from '../store/hooks'
-import { postSentimentSurveyVote } from '../util/api'
-import SentimentSurvey from './SentimentSurvey'
+import { useSelector } from '../store/hooks.js'
+import { postSentimentSurveyVote } from '../util/api.js'
+import { SentimentSurvey } from './SentimentSurvey.js'
 
 const SURVEY_DELAY_BEFORE_APPEAR = 5000 // in ms
 
-function SentimentSurveyContainer (): React.ReactElement | null {
+export function SentimentSurveyContainer() {
   const [isVisible, setVisible] = useState(false)
   const [isDismissed, setDismissed] = useState(false)
   const [streetId, setStreetId] = useState<string>()
@@ -40,12 +40,12 @@ function SentimentSurveyContainer (): React.ReactElement | null {
     // previously, the useEffect hook was getting called several times
   }, [isDismissed])
 
-  function handleClose (): void {
+  function handleClose(): void {
     setDismissed(true)
     setVisible(false)
   }
 
-  async function handleVote (score: number): Promise<void> {
+  async function handleVote(score: number): Promise<void> {
     // Post the vote information immediately
     // Let's allow this to fail silently (if there is a problem, the user
     // doesn't need to know, but we still log the error internally)
@@ -53,7 +53,7 @@ function SentimentSurveyContainer (): React.ReactElement | null {
       const response = await postSentimentSurveyVote({
         score,
         data: street,
-        streetId: street.id
+        streetId: street.id,
       })
       if (response.status === 200) {
         setStreetId(response.data.savedBallot.id as string)
@@ -76,5 +76,3 @@ function SentimentSurveyContainer (): React.ReactElement | null {
 
   return null
 }
-
-export default SentimentSurveyContainer

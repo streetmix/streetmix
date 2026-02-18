@@ -1,4 +1,3 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import './SentimentIcon.css'
@@ -12,15 +11,15 @@ interface SentimentIconProps {
   className: string
 }
 
-function SentimentIcon ({
+export function SentimentIcon({
   label,
   imgSrc,
-  className
-}: SentimentIconProps): React.ReactElement {
+  className,
+}: SentimentIconProps) {
   const intl = useIntl()
   const text = intl.formatMessage({
     id: label.localizationKey,
-    defaultMessage: label.defaultMessage
+    defaultMessage: label.defaultMessage,
   })
 
   return (
@@ -29,5 +28,3 @@ function SentimentIcon ({
     </div>
   )
 }
-
-export default SentimentIcon

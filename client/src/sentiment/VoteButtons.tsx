@@ -1,19 +1,15 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { Tooltip, TooltipGroup } from '../ui/Tooltip'
-import SentimentIcon from './SentimentIcon'
-import { getAllScoreData } from './scores'
+import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
+import { SentimentIcon } from './SentimentIcon.js'
+import { getAllScoreData } from './scores.js'
 
 interface VoteButtonsProps {
   handleVote: (score: number) => void
   selectedScore?: number
 }
 
-function VoteButtons ({
-  handleVote,
-  selectedScore
-}: VoteButtonsProps): React.ReactElement {
+export function VoteButtons({ handleVote, selectedScore }: VoteButtonsProps) {
   const intl = useIntl()
 
   return (
@@ -21,7 +17,7 @@ function VoteButtons ({
       {getAllScoreData().map((vote) => {
         const label = intl.formatMessage({
           id: vote.label.localizationKey,
-          defaultMessage: vote.label.defaultMessage
+          defaultMessage: vote.label.defaultMessage,
         })
 
         return (
@@ -29,7 +25,7 @@ function VoteButtons ({
             <button
               className={[
                 'sentiment-button',
-                selectedScore === vote.score ? 'sentiment-selected' : ''
+                selectedScore === vote.score ? 'sentiment-selected' : '',
               ]
                 .join(' ')
                 .trim()}
@@ -46,5 +42,3 @@ function VoteButtons ({
     </TooltipGroup>
   )
 }
-
-export default VoteButtons
