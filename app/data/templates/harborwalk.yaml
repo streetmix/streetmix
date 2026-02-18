@@ -92,29 +92,13 @@ slices:
       metric: 0.15
       imperial: 0.5
     label: Future berm
-  - type: sidewalk-lamp
-    variant:
-      lamp-orientation: both
-      lamp-type: traditional
-    width:
-      metric: 0.5
-      imperial: 2
-    elevation:
-      metric: 0.15
-      imperial: 0.5
   - type: sidewalk
     variant:
       sidewalk-density: normal
     width:
-      metric: 3
-      imperial: 10
+      metric: 4
+      imperial: 14
     elevation:
       metric: 0.15
       imperial: 0.5
     label: Harborwalk
-  - type: guardrail
-    variant:
-      guardrail-type: default
-    width:
-      metric: 0.5
-      imperial: 2
