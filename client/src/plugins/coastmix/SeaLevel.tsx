@@ -26,7 +26,7 @@ export function SeaLevel({
   const street = useSelector((state) => state.street)
   const coastmixState = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
-  const { seaLevelRise, floodDirection, floodDistance, stormSurge } =
+  const { seaLevelRise, stormSurge, floodDirection, floodDistance } =
     coastmixState
 
   // Baseline height
@@ -56,11 +56,20 @@ export function SeaLevel({
 
     const floodDistance = checkSeaLevel(
       street.segments,
-      coastmixState,
-      slicesRef.current
+      slicesRef.current,
+      seaLevelRise,
+      stormSurge,
+      floodDirection
     )
     dispatch(setFloodDistance(floodDistance))
-  }, [street.segments, coastmixState, dispatch, slicesRef])
+  }, [
+    street.segments,
+    seaLevelRise,
+    stormSurge,
+    floodDirection,
+    dispatch,
+    slicesRef,
+  ])
 
   // Affect the rain canvas when storm surging
   // TODO: don't do DOM manip
