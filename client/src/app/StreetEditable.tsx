@@ -55,7 +55,7 @@ interface StreetEditableProps {
   ref: React.RefObject<HTMLDivElement | null>
 }
 
-function StreetEditable(props: StreetEditableProps) {
+export function StreetEditable(props: StreetEditableProps) {
   const { resizeType, setBoundaryWidth, updatePerspective, draggingType, ref } =
     props
   const street = useSelector((state) => state.street)
@@ -237,5 +237,3 @@ function StreetEditable(props: StreetEditableProps) {
     </div>
   )
 }
-
-export default StreetEditable

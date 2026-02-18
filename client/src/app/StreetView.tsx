@@ -17,7 +17,7 @@ import {
 import { updateStreetMargin } from '../segments/resizing.js'
 import { SkyBox } from '../sky/SkyBox/index.js'
 import { ScrollIndicators } from './ScrollIndicators.js'
-import StreetEditable from './StreetEditable.js'
+import { StreetEditable } from './StreetEditable.js'
 import './StreetView.css'
 
 const SEGMENT_RESIZED = 1

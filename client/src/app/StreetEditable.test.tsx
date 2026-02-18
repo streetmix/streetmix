@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
 import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
-import StreetEditable from './StreetEditable.js'
+import { StreetEditable } from './StreetEditable.js'
 
 describe('StreetEditable', () => {
   beforeEach(() => {
