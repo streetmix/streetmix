@@ -56,9 +56,9 @@ export function checkSeaLevel(
     // Compare the flood height with the slope value facing the flood direction
     if (slice.slope.on) {
       if (fromLeft) {
-        compareElevation = slice.slope.values[0]
+        compareElevation = slice.slope.values[0] ?? slice.elevation
       } else {
-        compareElevation = slice.slope.values[1]
+        compareElevation = slice.slope.values[1] ?? slice.elevation
       }
     } else {
       // If not sloped, we look at the slice's flat elevation.
