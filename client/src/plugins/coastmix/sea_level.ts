@@ -49,10 +49,25 @@ export function checkSeaLevel(
   for (let i = start; fromLeft ? i < end : i > end; i += step) {
     const slice = slices[i]
 
-    // Slices can block a flood based on its elevation. Walls are a special
-    // case that is capable of blocking a flood (like a seawall, etc)
+    let compareElevation = 0
+
+    // Slices can block a flood based on its elevation.
+    // First, see if this slice is sloped.
+    // Compare the flood height with the slope value facing the flood direction
+    if (slice.slope.on) {
+      if (fromLeft) {
+        compareElevation = slice.slope.values[0] ?? slice.elevation
+      } else {
+        compareElevation = slice.slope.values[1] ?? slice.elevation
+      }
+    } else {
+      // If not sloped, we look at the slice's flat elevation.
+      compareElevation = slice.elevation
+    }
+
+    // Walls are a special case that is capable of blocking a flood (like a
+    // seawall, etc). So its compare elevation will be higher
     // TODO: Don't hardcode these height numbers
-    let compareElevation = slice.elevation
     if (slice.type === 'wall') {
       if (slice.variant['wall-height'] === 'low') {
         compareElevation += 1
