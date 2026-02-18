@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { setFloodDistance } from '~/src/store/slices/coastmix.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
+import { usePrevious } from '~/src/util/usePrevious.js'
 import { SEA_LEVEL_RISE_FEET } from './constants.js'
 import { calculateSeaLevelRise, checkSeaLevel } from './sea_level.js'
 import './SeaLevel.css'
@@ -29,6 +30,10 @@ export function SeaLevel({
   const { seaLevelRise, stormSurge, floodDirection, floodDistance } =
     coastmixState
 
+  // When switching streets, don't transition sea level height
+  const prevStreetId = usePrevious(street.id)
+  const animationOff = prevStreetId !== street.id
+
   // Baseline height
   let height =
     GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
@@ -50,7 +55,11 @@ export function SeaLevel({
     right: `-${boundaryWidth}px`,
   }
 
-  // Get and set flood distance
+  if (animationOff) {
+    styles.transition = 'none'
+  }
+
+  // Calculate and set flood distance
   useEffect(() => {
     if (slicesRef.current === null) return
 
@@ -96,6 +105,9 @@ export function SeaLevel({
   const classNames = ['sea-level-waves']
   if (stormSurge) {
     classNames.push('sea-level-surge')
+  }
+  if (animationOff) {
+    classNames.push('sea-level-animation-off')
   }
 
   return (

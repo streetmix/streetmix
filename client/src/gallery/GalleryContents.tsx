@@ -38,8 +38,8 @@ export function GalleryContents({ user }: GalleryContentsProps) {
       const selectedEl = document.querySelector('.gallery-selected')
       // Make sure the element exists -- sometimes it hasn't rendered yet
       if (selectedEl) {
-        // Note: smooth scroll is not supported in all browsers
         selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
+
         // We need this to prevent scrollIntoView from moving things
         // upward and trying to reveal the hidden scrollbar area
         if (galleryEl.current?.parentElement) {

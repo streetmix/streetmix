@@ -29,6 +29,10 @@
     transition: transform 500ms ease-in-out;
   }
 
+  &.sea-level-animation-off > div {
+    transition: none;
+  }
+
   &.sea-level-surge > div {
     transform: scaleY(200%) scaleX(105%) translateY(-1px);
   }
