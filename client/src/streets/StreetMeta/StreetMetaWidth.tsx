@@ -21,7 +21,7 @@ import {
   MAX_CUSTOM_STREET_WIDTH_IMPERIAL,
 } from '../constants.js'
 import { normalizeStreetWidth } from '../width.js'
-import StreetMetaItem from './StreetMetaItem.js'
+import { StreetMetaItem } from './StreetMetaItem.js'
 
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidth.css'

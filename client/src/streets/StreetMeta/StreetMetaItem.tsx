@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Tooltip } from '../../ui/Tooltip.js'
 import './StreetMetaItem.css'
 
@@ -16,7 +14,7 @@ interface StreetMetaItemProps {
   'data-state'?: string
 }
 
-function StreetMetaItem({
+export function StreetMetaItem({
   className = '',
   isEditable = false,
   tooltip,
@@ -61,5 +59,3 @@ function StreetMetaItem({
 
   return <div className={classNames.join(' ')}>{content}</div>
 }
-
-export default StreetMetaItem

@@ -6,7 +6,7 @@ import { useGetUserQuery } from '~/src/store/services/api.js'
 import Icon from '~/src/ui/Icon.js'
 import { Avatar } from '~/src/users/Avatar.js'
 import { isOwnedByCurrentUser } from '../owner.js'
-import StreetMetaItem from './StreetMetaItem.js'
+import { StreetMetaItem } from './StreetMetaItem.js'
 
 export function StreetMetaAuthor() {
   const creatorId = useSelector((state) => state.street.creatorId)
