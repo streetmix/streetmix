@@ -14,6 +14,10 @@ if (TRANSIFEX_API_TOKEN === undefined || TRANSIFEX_API_TOKEN === '') {
   process.exit()
 }
 
+function isNodeError(error: unknown): error is NodeJS.ErrnoException {
+  return typeof error === 'object' && error !== null && 'message' in error
+}
+
 const downloadSuccess = async function (
   locale: string,
   resource: string,
@@ -49,10 +53,10 @@ const downloadSuccess = async function (
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
     let message = ''
-    if (err instanceof Error) {
+    if (isNodeError(err)) {
       message = err.message
-    } else if (typeof err === 'string') {
-      message = err
+    } else {
+      message = err as string
     }
 
     console.error(
@@ -119,10 +123,10 @@ LOCALES.forEach((language: LocaleDefinition) => {
       downloadSuccess(value, resource, label, data)
     } catch (error) {
       let message = ''
-      if (error instanceof Error) {
+      if (isNodeError(error)) {
         message = error.message
-      } else if (typeof error === 'string') {
-        message = error
+      } else {
+        message = error as string
       }
 
       downloadError(value, resource, label, message)

@@ -2,7 +2,7 @@ import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as v1 from './resources/v1/index.js'
-import { BTPTokenCheck } from './resources/services/integrations/coil.js'
+import { BTPTokenCheck } from './resources/services/integrations/coil.ts'
 import jwtCheck from './authentication.js'
 
 // Base path of router is `/api` (see app.js)

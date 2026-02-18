@@ -12,7 +12,7 @@ import {
   addUserConnection,
   syncAccountStatus,
   addOrUpdateByProviderName,
-} from './helpers.js'
+} from './helpers.ts'
 
 const { User } = models
 
@@ -22,10 +22,8 @@ const { User } = models
  * and means we don't need to import a specific `btoa` package to
  * cover this. If needed, we can either extract this to a separate utility
  * module or look into importing it from core-js.
- *
- * @param {String} str
  */
-function btoa(str) {
+function btoa(str: string) {
   Buffer.from(str.toString(), 'binary').toString('base64')
 }
 

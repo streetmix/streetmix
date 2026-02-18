@@ -95,7 +95,7 @@ export default defineConfig([
   },
   {
     // Only run TypeScript linting on TypeScript files
-    files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts'],
+    files: ['client/**/*.{ts,tsx}', 'packages/**/*.ts', 'app/**/*.ts'],
     extends: [tseslint.configs.recommended],
     languageOptions: {
       parserOptions: {

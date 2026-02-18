@@ -1,8 +1,11 @@
 import cloudinary from 'cloudinary'
+
 import User from '../../db/models/user.js'
 import { logger } from '../../lib/logger.ts'
 
-export async function get(req, res) {
+import type { Request, Response } from 'express'
+
+export async function get(req: Request, res: Response) {
   const query = req.query
 
   if (!req.auth?.sub) {

@@ -1,6 +1,8 @@
 import { appURL } from '../../lib/url.ts'
 
-export function get(req, res) {
+import type { Request, Response } from 'express'
+
+export function get(req: Request, res: Response) {
   // Prevent this service from being accessed by third parties
   if (
     req.headers.referer === undefined ||
@@ -24,7 +26,6 @@ export function get(req, res) {
       countryCode = req.headers['cf-ipcountry']
     }
 
-    res.set('CF-IPCountry', countryCode)
     res.status(200).json({
       countryCode,
     })

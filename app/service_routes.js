@@ -2,7 +2,7 @@ import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import * as controllers from './controllers/index.js'
-import * as services from './resources/services/index.js'
+import * as services from './resources/services/index.ts'
 import jwtCheck from './authentication.js'
 
 // Base path of router is `/services` (see app.js)
