@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Button } from '../ui/Button'
@@ -11,7 +11,7 @@ interface VoteCommentProps {
   streetId: string
 }
 
-function VoteComment({ streetId }: VoteCommentProps): React.ReactElement {
+export function VoteComment({ streetId }: VoteCommentProps) {
   const [comment, setComment] = useState('')
   const [isPending, setPending] = useState(false)
   const [isComplete, setComplete] = useState(false)
@@ -64,5 +64,3 @@ function VoteComment({ streetId }: VoteCommentProps): React.ReactElement {
     </div>
   )
 }
-
-export default VoteComment

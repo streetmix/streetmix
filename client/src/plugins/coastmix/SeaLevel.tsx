@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 
-import { useDispatch, useSelector } from '~/src/store/hooks.js'
-import { setFloodDistance } from '~/src/store/slices/coastmix.js'
+import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import { SEA_LEVEL_RISE_FEET } from './constants.js'
-import { calculateSeaLevelRise, checkSeaLevel } from './sea_level.js'
+import { calculateSeaLevelRise } from './sea_level.js'
 import './SeaLevel.css'
 
 interface SeaLevelProps {
   boundaryWidth: number
   scrollPos: number
-  slicesRef: React.RefObject<HTMLDivElement | null>
 }
 
 // Wave image is rendered at 8px tall, so we half it to render an "average".
@@ -19,16 +17,10 @@ interface SeaLevelProps {
 const HALF_OF_WAVE_HEIGHT = 8 / 2
 const WAVE_OPACITY = 0.4
 
-export function SeaLevel({
-  boundaryWidth,
-  scrollPos,
-  slicesRef,
-}: SeaLevelProps) {
+export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
-  const coastmixState = useSelector((state) => state.coastmix)
-  const dispatch = useDispatch()
   const { seaLevelRise, stormSurge, floodDirection, floodDistance } =
-    coastmixState
+    useSelector((state) => state.coastmix)
 
   // When switching streets, don't transition sea level height
   const prevStreetId = usePrevious(street.id)
@@ -58,27 +50,6 @@ export function SeaLevel({
   if (animationOff) {
     styles.transition = 'none'
   }
-
-  // Calculate and set flood distance
-  useEffect(() => {
-    if (slicesRef.current === null) return
-
-    const floodDistance = checkSeaLevel(
-      street.segments,
-      slicesRef.current,
-      seaLevelRise,
-      stormSurge,
-      floodDirection
-    )
-    dispatch(setFloodDistance(floodDistance))
-  }, [
-    street.segments,
-    seaLevelRise,
-    stormSurge,
-    floodDirection,
-    dispatch,
-    slicesRef,
-  ])
 
   // Affect the rain canvas when storm surging
   // TODO: don't do DOM manip

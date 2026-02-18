@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage, FormattedDate, FormattedTime } from 'react-intl'
 import { isThisYear, isToday, isYesterday } from 'date-fns'
 
@@ -10,10 +9,7 @@ interface DateTimeRelativeProps {
   timezone?: string
 }
 
-export default function DateTimeRelative ({
-  value,
-  timezone
-}: DateTimeRelativeProps): React.ReactElement {
+export function DateTimeRelative({ value, timezone }: DateTimeRelativeProps) {
   const now = new Date()
   const date = new Date(value)
   const diff = now.getTime() - date.getTime()
@@ -57,7 +53,7 @@ export default function DateTimeRelative ({
                 minute="numeric"
               />
             </time>
-          )
+          ),
         }}
       />
     )
@@ -78,7 +74,7 @@ export default function DateTimeRelative ({
                 minute="numeric"
               />
             </time>
-          )
+          ),
         }}
       />
     )

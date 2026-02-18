@@ -1,8 +1,7 @@
-import React from 'react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import DebugInfo from './DebugInfo'
+import { render } from '~/test/helpers/render.js'
+import { DebugInfo } from './DebugInfo.js'
 
 describe('DebugInfo', () => {
   const initialState = {
@@ -10,7 +9,7 @@ describe('DebugInfo', () => {
     street: {},
     flags: {},
     history: {},
-    user: {}
+    user: {},
   }
 
   it('renders nothing by default', () => {
@@ -20,7 +19,7 @@ describe('DebugInfo', () => {
 
   it('is visible when opened with keyboard shortcut', async () => {
     const { container, asFragment } = render(<DebugInfo />, {
-      initialState
+      initialState,
     })
 
     await userEvent.type(container, '{shift}D')

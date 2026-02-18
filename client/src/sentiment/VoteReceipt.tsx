@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from '../ui/Button.js'
-import VoteComment from './VoteComment.js'
-import SentimentIcon from './SentimentIcon.js'
+import { VoteComment } from './VoteComment.js'
+import { SentimentIcon } from './SentimentIcon.js'
 import { getDataForScore } from './scores.js'
 import './VoteReceipt.css'
 
@@ -13,7 +13,11 @@ interface VoteReceiptProps {
   streetId: string
 }
 
-function VoteReceipt({ score, handleClose, streetId }: VoteReceiptProps) {
+export function VoteReceipt({
+  score,
+  handleClose,
+  streetId,
+}: VoteReceiptProps) {
   const doneEl = useRef<HTMLDivElement>(null)
 
   // When a score is received, we animate the background container
@@ -102,5 +106,3 @@ function VoteReceipt({ score, handleClose, streetId }: VoteReceiptProps) {
     </div>
   )
 }
-
-export default VoteReceipt

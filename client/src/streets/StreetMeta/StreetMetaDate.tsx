@@ -1,10 +1,8 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
-import DateTimeRelative from '~/src/app/DateTimeRelative'
-import Icon from '~/src/ui/Icon'
-import { isOwnedByCurrentUser } from '../owner'
-import StreetMetaItem from './StreetMetaItem'
+import { useSelector } from '~/src/store/hooks.js'
+import { DateTimeRelative } from '~/src/app/DateTimeRelative.js'
+import Icon from '~/src/ui/Icon.js'
+import { isOwnedByCurrentUser } from '../owner.js'
+import { StreetMetaItem } from './StreetMetaItem.js'
 
 // Milliseconds that must have elapsed before recent edits display timestamp
 const TIME_LIMIT = 6000

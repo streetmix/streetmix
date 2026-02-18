@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import Icon from '~/src/ui/Icon.js'
-import StreetMetaItem from './StreetMetaItem.js'
+import { StreetMetaItem } from './StreetMetaItem.js'
 
 import type { StreetLocation } from '@streetmix/types'
 
