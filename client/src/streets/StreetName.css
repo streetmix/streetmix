@@ -27,7 +27,7 @@
   letter-spacing: -0.025em;
 }
 
-body.segment-move-dragging .street-nameplate-container .street-name {
+.main-screen.segment-move-dragging .street-nameplate-container .street-name {
   pointer-events: none;
 }
 
