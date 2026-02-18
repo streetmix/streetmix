@@ -27,7 +27,6 @@ import {
   handleSegmentResizeEnd,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelSegmentResizeTransitions,
 } from './resizing'
 import { getVariantInfo, getVariantString } from './variant_utils'
 import {
@@ -518,7 +517,6 @@ function handleSegmentDragEnd(): void {
     draggedSegment: null,
     withinCanvas: false,
   }
-  cancelSegmentResizeTransitions()
   segmentsChanged()
 
   document.body.classList.remove('not-within-canvas')

@@ -23,19 +23,15 @@
   }
 }
 
-body.segment-move-dragging .segment-empty {
-  display: none;
-}
-
-body:not(.segment-resize-dragging) .segment {
+body.segment-move-dragging .segment {
   transition:
     width 150ms,
     left 150ms,
     transform 150ms;
 }
 
-body.immediate-segment-resize .segment {
-  transition: none !important;
+body.segment-move-dragging .segment-empty {
+  display: none;
 }
 
 .segment.active {
