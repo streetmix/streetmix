@@ -7,7 +7,7 @@ import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
 import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
 import { setFloodDistance } from '~/src/store/slices/coastmix.js'
-import ResizeGuides from '../segments/ResizeGuides.js'
+import { ResizeGuides } from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
 import { animate, getElAbsolutePos } from '../util/helpers.js'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
@@ -80,7 +80,7 @@ function calculateScrollIndicators(
   }
 }
 
-function StreetView() {
+export function StreetView() {
   const [scrollIndicators, setScrollIndicators] = useState({
     left: 0,
     right: 0,
@@ -376,5 +376,3 @@ function StreetView() {
     </>
   )
 }
-
-export default StreetView

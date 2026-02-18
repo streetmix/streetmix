@@ -1,40 +1,39 @@
-import React from 'react'
 import { vi, type Mock } from 'vitest'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { render } from '~/test/helpers/render'
-import ResizeGuides from './ResizeGuides'
-import { TILE_SIZE } from './constants'
+import { render } from '~/test/helpers/render.js'
+import { ResizeGuides } from './ResizeGuides.js'
+import { TILE_SIZE } from './constants.js'
 
 vi.mock('./view', () => ({
   // Function returns a mock element with properties we need to read
   getSegmentEl: () => ({
     offsetLeft: 50,
-    offsetWidth: 50
-  })
+    offsetWidth: 50,
+  }),
 }))
 
 vi.mock('../util/helpers', () => ({
   // Returns mock position information
-  getElRelativePos: () => [50, 0]
+  getElRelativePos: () => [50, 0],
 }))
 
 vi.mock('@streetmix/parts', () => ({
   // Function returns mock segment variant info of nothing
   // Specific tests can use `mockImplementation` to make it return other info
-  getSegmentVariantInfo: vi.fn(() => ({}))
+  getSegmentVariantInfo: vi.fn(() => ({})),
 }))
 
 const initialState = {
   ui: {
     resizeGuidesVisible: true,
-    activeSegment: 0
+    activeSegment: 0,
   },
   street: {
     segments: [{}],
     remainingWidth: 0,
-    units: 0
-  }
+    units: 0,
+  },
 }
 
 describe('ResizeGuides', () => {
@@ -42,9 +41,9 @@ describe('ResizeGuides', () => {
     const { container } = render(<ResizeGuides />, {
       initialState: {
         ui: {
-          resizeGuidesVisible: false
-        }
-      }
+          resizeGuidesVisible: false,
+        },
+      },
     })
 
     expect(container.firstChild).toBeNull()
@@ -52,18 +51,18 @@ describe('ResizeGuides', () => {
 
   it('renders while segment is resizing', () => {
     const { asFragment } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('renders only min guide', () => {
     ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
-      minWidth: { metric: 3 }
+      minWidth: { metric: 3 },
     }))
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
     expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
     expect(
@@ -83,11 +82,11 @@ describe('ResizeGuides', () => {
 
   it('renders only max guide', () => {
     ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
-      maxWidth: { metric: 4 }
+      maxWidth: { metric: 4 },
     }))
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
     expect(container.querySelector('.resize-guide-min')).not.toBeInTheDocument()
     expect(
@@ -108,11 +107,11 @@ describe('ResizeGuides', () => {
   it('renders max and min guides', () => {
     ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
       minWidth: { metric: 3 },
-      maxWidth: { metric: 4 }
+      maxWidth: { metric: 4 },
     }))
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
     expect(container.querySelector('.resize-guide-min')).toBeInTheDocument()
     expect(
@@ -132,24 +131,24 @@ describe('ResizeGuides', () => {
 
   it('renders max guide when remaining width is large', () => {
     ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
-      maxWidth: { metric: 4 }
+      maxWidth: { metric: 4 },
     }))
 
     const initialState = {
       ui: {
         resizeGuidesVisible: true,
-        activeSegment: 0
+        activeSegment: 0,
       },
       street: {
         segments: [{ width: 1 }],
         // `remainingWidth` should be larger than `maxWidth`
         remainingWidth: 12,
-        units: 0
-      }
+        units: 0,
+      },
     }
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
 
     // But width should be based on `maxWidth`, not `remainingWidth`
@@ -169,7 +168,7 @@ describe('ResizeGuides', () => {
 
   it('renders max guide when remaining width is small', () => {
     ;(getSegmentVariantInfo as Mock).mockImplementationOnce(() => ({
-      maxWidth: { metric: 4 }
+      maxWidth: { metric: 4 },
     }))
 
     // `remainingWidth` should be smaller than `maxWidth`
@@ -179,17 +178,17 @@ describe('ResizeGuides', () => {
     const initialState = {
       ui: {
         resizeGuidesVisible: true,
-        activeSegment: 0
+        activeSegment: 0,
       },
       street: {
         segments: [{ width: segmentWidth }],
         remainingWidth,
-        units: 0
-      }
+        units: 0,
+      },
     }
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
 
     // Width should be based on `remainingWidth` + `segmentWidth`, not `maxWidth`
@@ -205,17 +204,17 @@ describe('ResizeGuides', () => {
     const initialState = {
       ui: {
         resizeGuidesVisible: true,
-        activeSegment: 0
+        activeSegment: 0,
       },
       street: {
         segments: [{ width: segmentWidth }],
         remainingWidth,
-        units: 0
-      }
+        units: 0,
+      },
     }
 
     const { container } = render(<ResizeGuides />, {
-      initialState
+      initialState,
     })
 
     // Width should be based on `remainingWidth` + `segmentWidth`

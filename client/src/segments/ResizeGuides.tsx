@@ -1,16 +1,17 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { useSelector } from '../store/hooks'
-import { getElRelativePos } from '../util/helpers'
-import { getWidthInMetric } from '../util/width_units'
-import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants'
-import { getSegmentEl } from './view'
-import type { Segment, UnitsSetting } from '@streetmix/types'
+import { useSelector } from '../store/hooks.js'
+import { getElRelativePos } from '../util/helpers.js'
+import { getWidthInMetric } from '../util/width_units.js'
+import { TILE_SIZE, MIN_SEGMENT_WIDTH } from './constants.js'
+import { getSegmentEl } from './view.js'
 import './ResizeGuides.css'
 
-function ResizeGuides (): React.ReactElement | null {
+import type { Segment, UnitsSetting } from '@streetmix/types'
+
+export function ResizeGuides() {
   const isVisible = useSelector(({ ui }) => ui.resizeGuidesVisible)
   const segmentId = useSelector(({ ui }) => ui.activeSegment)
   const segment: Segment | null = useSelector(({ street }) =>
@@ -65,7 +66,7 @@ function ResizeGuides (): React.ReactElement | null {
   )
 }
 
-function calculateStyles (
+function calculateStyles(
   isVisible: boolean,
   segmentId: number | null,
   segment: Segment | null,
@@ -117,19 +118,17 @@ function calculateStyles (
     minGuideStyle: getStyle(minWidth),
     maxGuideStyle: shouldUseRemainingWidth
       ? getStyle(actualRemainingWidth)
-      : getStyle(maxWidth)
+      : getStyle(maxWidth),
   }
 }
 
-function getStyle (width: number | undefined): React.CSSProperties | undefined {
+function getStyle(width: number | undefined): React.CSSProperties | undefined {
   if (typeof width !== 'number') return undefined
 
   const pixelWidth = width * TILE_SIZE
 
   return {
     width: `${pixelWidth}px`,
-    marginLeft: -pixelWidth / 2 + 'px'
+    marginLeft: -pixelWidth / 2 + 'px',
   }
 }
-
-export default ResizeGuides
