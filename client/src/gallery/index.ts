@@ -1,8 +1,8 @@
 import { hideBlockingShield, showBlockingShield } from '../app/blocking_shield'
 import { ERRORS, showError } from '../app/errors'
 import { getMode, MODES, processMode, setMode } from '../app/mode'
-import { segmentsChanged } from '../segments/view'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street.js'
 import { hideError } from '../store/slices/errors'
 import { resetMapState } from '../store/slices/map'
 import { setIgnoreStreetChanges, setLastStreet } from '../streets/data_model'
@@ -57,7 +57,7 @@ function receiveGalleryStreet(transmission: StreetAPIResponse) {
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   setIgnoreStreetChanges(false)
   setLastStreet()

@@ -3,6 +3,7 @@ import { round } from '@streetmix/utils'
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street.js'
 import { changeSegmentWidth } from '../store/slices/street'
 import { setDraggingType } from '../store/slices/ui'
 import {
@@ -16,9 +17,8 @@ import {
   SEGMENT_WIDTH_RESOLUTION_METRIC,
   SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
-  BUILDING_SPACE
+  BUILDING_SPACE,
 } from './constants'
-import { segmentsChanged } from './view'
 import { draggingResize } from './drag_and_drop'
 
 import type { Segment, UnitsSetting } from '@streetmix/types'
@@ -31,7 +31,7 @@ export const RESIZE_TYPE_DRAGGING = 2
 export const RESIZE_TYPE_PRECISE_DRAGGING = 3
 export const RESIZE_TYPE_TYPING = 4
 
-export function resizeSegment (
+export function resizeSegment(
   segmentIndex: number,
   resizeType: number,
   width: number,
@@ -47,11 +47,11 @@ export function resizeSegment (
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(segmentIndex, width))
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
   return width
 }
 
-export function handleSegmentResizeCancel (): void {
+export function handleSegmentResizeCancel(): void {
   resizeSegment(
     Number(draggingResize.segmentEl.dataset.sliceIndex),
     RESIZE_TYPE_INITIAL,
@@ -75,7 +75,7 @@ export function handleSegmentResizeCancel (): void {
  * street-section-canvas' margins accordingly (except in specific situations described within the function)
  *
  */
-export function updateStreetMargin (
+export function updateStreetMargin(
   canvasRef: HTMLElement | null,
   streetOuterRef: HTMLElement | null,
   dontDelay: boolean = false
@@ -124,25 +124,27 @@ export function updateStreetMargin (
   return !delayUpdate
 }
 
-export function handleSegmentResizeEnd (): void {
+export function handleSegmentResizeEnd(): void {
   setIgnoreStreetChanges(false)
 
   updateStreetMargin(null, null, false)
-  segmentsChanged()
+  store.dispatch(segmentsChanged())
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
-  const el = draggingResize.floatingEl
-  el.remove()
-
-  draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
+  if (draggingResize.floatingEl) {
+    draggingResize.floatingEl.remove()
+  }
+  if (draggingResize.segmentEl) {
+    draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
+  }
 }
 
 /**
  * Returns the minimum resolution for segment / street widths.
  * Default return value is in metric units.
  */
-export function getSegmentWidthResolution (units: UnitsSetting): number {
+export function getSegmentWidthResolution(units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return SEGMENT_WIDTH_RESOLUTION_IMPERIAL
   }
@@ -154,7 +156,7 @@ export function getSegmentWidthResolution (units: UnitsSetting): number {
  * Returns the minimum resolution when click-resizing segments
  * Default return value is in metric units.
  */
-export function getSegmentClickResizeResolution (units: UnitsSetting): number {
+export function getSegmentClickResizeResolution(units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL
   }
@@ -166,7 +168,7 @@ export function getSegmentClickResizeResolution (units: UnitsSetting): number {
  * Returns the minimum resolution when drag-resizing segments
  * Default return value is in metric units.
  */
-export function getSegmentDragResizeResolution (units: UnitsSetting): number {
+export function getSegmentDragResizeResolution(units: UnitsSetting): number {
   if (units === SETTINGS_UNITS_IMPERIAL) {
     return SEGMENT_WIDTH_DRAGGING_RESOLUTION_IMPERIAL
   }
@@ -182,7 +184,7 @@ export function getSegmentDragResizeResolution (units: UnitsSetting): number {
  * metric or imperial units. This function returns the minimum resolution
  * depending on the type of resize action and the measurement units.
  */
-export function resolutionForResizeType (
+export function resolutionForResizeType(
   resizeType: number,
   units: UnitsSetting
 ): number {
@@ -206,7 +208,7 @@ export function resolutionForResizeType (
  * Given an input width value, constrains the value to the
  * minimum or maximum value, then rounds it to nearest precision
  */
-export function normalizeSegmentWidth (
+export function normalizeSegmentWidth(
   width: number,
   resolution: number
 ): number {
@@ -225,7 +227,7 @@ export function normalizeSegmentWidth (
  * Performs `normalizeSegmentWidth` on an array of segments and
  * returns the new array.
  */
-export function normalizeAllSegmentWidths (
+export function normalizeAllSegmentWidths(
   segments: Segment[],
   units: UnitsSetting
 ): Segment[] {
@@ -234,11 +236,11 @@ export function normalizeAllSegmentWidths (
     width: normalizeSegmentWidth(
       segment.width,
       resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
-    )
+    ),
   }))
 }
 
-export function cancelSegmentResizeTransitions (): void {
+export function cancelSegmentResizeTransitions(): void {
   document.body.classList.add('immediate-segment-resize')
   window.setTimeout(function () {
     document.body.classList.remove('immediate-segment-resize')

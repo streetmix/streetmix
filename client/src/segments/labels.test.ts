@@ -2,11 +2,11 @@ import { vi, type Mock } from 'vitest'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street.js'
 import { formatMessage } from '../locales/locale.js'
 import { getBoundaryItem } from '../boundary'
 import { getLocaleSliceName, editSliceLabel, getLabel } from './labels.js'
-import { segmentsChanged } from './view.js'
 
 import type { BoundaryPosition, SliceItem, StreetJson } from '@streetmix/types'
 
@@ -33,14 +33,14 @@ vi.mock('../store', () => ({
   },
 }))
 
+vi.mock('../store/actions/street.js', () => ({
+  segmentsChanged: vi.fn(),
+}))
+
 vi.mock('../boundary', () => ({
   getBoundaryItem: vi.fn((_type: string) => ({
     label: 'Boundary name',
   })),
-}))
-
-vi.mock('./view', () => ({
-  segmentsChanged: vi.fn(),
 }))
 
 describe('labels', () => {

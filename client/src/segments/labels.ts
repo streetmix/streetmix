@@ -2,9 +2,9 @@ import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import { formatMessage } from '../locales/locale'
 import store from '../store'
+import { segmentsChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street'
 import { getBoundaryItem } from '../boundary'
-import { segmentsChanged } from './view'
 
 import type {
   BoundaryPosition,
@@ -81,7 +81,7 @@ export function editSliceLabel(position: number, slice: SliceItem) {
 
   if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
-    segmentsChanged()
+    store.dispatch(segmentsChanged())
   }
 }
 
