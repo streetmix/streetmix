@@ -46,7 +46,7 @@ export function remixStreet() {
   remixOnFirstEdit = false
 
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    setStreetCreatorId(getSignInData()?.userId ?? null)
   } else {
     setStreetCreatorId(null)
   }
