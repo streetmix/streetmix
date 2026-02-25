@@ -88,7 +88,9 @@ function saveSettingsToServer(settings: UserSettings) {
   }
 
   const userId = getSignInData()?.userId
-  putUserSettings(userId, { data: settings })
+  if (userId !== undefined) {
+    putUserSettings(userId, { data: settings })
+  }
 }
 
 function persistSettingsToBackends(settings: UserSettings) {
