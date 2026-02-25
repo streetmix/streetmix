@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@fontsource/geist-sans": "5.2.5",
-    "@napi-rs/canvas": "0.1.91"
+    "@napi-rs/canvas": "0.1.95"
   }
 }

@@ -7,7 +7,7 @@ import importPlugin from 'eslint-plugin-import'
 import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
-import cypress from 'eslint-plugin-cypress/flat'
+import cypress from 'eslint-plugin-cypress'
 
 export default defineConfig([
   globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
