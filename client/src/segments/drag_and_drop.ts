@@ -5,20 +5,20 @@ import {
   getSegmentVariantInfo,
 } from '@streetmix/parts'
 
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
-import store, { observeStore } from '../store'
-import { addSegment, moveSegment } from '../store/slices/street'
-import { removeSegmentAction } from '../store/actions/street'
+import { setIgnoreStreetChanges } from '../streets/data_model.js'
+import { getElAbsolutePos } from '../util/helpers.js'
+import store from '../store'
+import { addSegment, moveSegment } from '../store/slices/street.js'
+import { removeSegmentAction } from '../store/actions/street.js'
 import {
   initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
   setDraggingType,
-} from '../store/slices/ui'
-import { generateRandSeed } from '../util/random'
-import { getWidthInMetric } from '../util/width_units'
+} from '../store/slices/ui.js'
+import { generateRandSeed } from '../util/random.js'
+import { getWidthInMetric } from '../util/width_units.js'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,
@@ -27,9 +27,8 @@ import {
   handleSegmentResizeEnd,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelSegmentResizeTransitions,
-} from './resizing'
-import { getVariantInfo, getVariantString } from './variant_utils'
+} from './resizing.js'
+import { getVariantInfo, getVariantString } from './variant_utils.js'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -38,8 +37,8 @@ import {
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
   CURB_HEIGHT,
-} from './constants'
-import { segmentsChanged } from './view'
+} from './constants.js'
+import { segmentsChanged } from './view.js'
 
 import type {
   SliceItem,
@@ -48,7 +47,6 @@ import type {
   StreetJson,
 } from '@streetmix/types'
 import type { DragSourceMonitor, DropTargetMonitor } from 'react-dnd'
-import type { RootState } from '../store'
 import type { DraggingState } from '../types'
 
 /* react-dnd specs */
@@ -94,26 +92,6 @@ export const draggingResize: {
   originalX: null,
   originalWidth: null,
   right: false,
-}
-
-export function initDragTypeSubscriber() {
-  const select = (state: RootState) => state.ui.draggingType
-
-  const onChange = (draggingType: number) => {
-    document.body.classList.remove('segment-move-dragging')
-    document.body.classList.remove('segment-resize-dragging')
-
-    switch (draggingType) {
-      case DRAGGING_TYPE_RESIZE:
-        document.body.classList.add('segment-resize-dragging')
-        break
-      case DRAGGING_TYPE_MOVE:
-        document.body.classList.add('segment-move-dragging')
-        break
-    }
-  }
-
-  return observeStore(select, onChange)
 }
 
 function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
@@ -519,7 +497,6 @@ function handleSegmentDragEnd(): void {
     draggedSegment: null,
     withinCanvas: false,
   }
-  cancelSegmentResizeTransitions()
   segmentsChanged()
 
   document.body.classList.remove('not-within-canvas')

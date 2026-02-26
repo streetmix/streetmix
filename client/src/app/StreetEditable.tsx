@@ -11,7 +11,6 @@ import {
   DRAGGING_MOVE_HOLE_WIDTH,
   DRAGGING_TYPE_RESIZE,
 } from '../segments/constants.js'
-import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import {
   isSegmentWithinCanvas,
   createStreetDropTargetSpec,
@@ -70,12 +69,7 @@ export function StreetEditable(props: StreetEditableProps) {
   const childRefs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({})
 
   // Keep previous state for comparisons (ported from legacy behavior)
-  const prevProps = usePrevious({
-    resizeType,
-    draggingType,
-    street,
-    draggingState,
-  })
+  const prevDraggingType = usePrevious(draggingType)
 
   // Set up drop target
   const dropTargetSpec = createStreetDropTargetSpec(street, ref)
@@ -92,24 +86,14 @@ export function StreetEditable(props: StreetEditableProps) {
   }, [])
 
   useEffect(() => {
-    if (prevProps === null) return
+    if (prevDraggingType === null) return
     if (
       resizeType !== undefined ||
-      (prevProps.draggingType === DRAGGING_TYPE_RESIZE &&
-        draggingType !== undefined)
+      (prevDraggingType === DRAGGING_TYPE_RESIZE && draggingType !== undefined)
     ) {
       setBoundaryWidth(ref.current)
     }
-  }, [resizeType, draggingType, setBoundaryWidth, prevProps, ref])
-
-  useEffect(() => {
-    if (
-      prevProps?.street.id !== street.id ||
-      prevProps?.street.width !== street.width
-    ) {
-      cancelSegmentResizeTransitions()
-    }
-  }, [street.id, street.width, prevProps])
+  }, [resizeType, draggingType, setBoundaryWidth, prevDraggingType, ref])
 
   function updateWithinCanvas(event: MouseEvent | TouchEvent): void {
     if (ref.current === null) return
