@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -26,22 +26,56 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 const WELCOME_NEW_STREET_COASTMIX = 4
 const WELCOME_FIRST_TIME_COASTMIX = 5
 
+function determineWelcomeType(
+  isReturningUser: boolean,
+  coastmixMode: boolean
+): number {
+  let welcomeType = WELCOME_NONE
+
+  // Custom welcome type for Coastmix mode.
+  // TODO: any messaging changes for new streets?
+  if (coastmixMode) {
+    if (
+      getMode() === MODES.NEW_STREET ||
+      getMode() === MODES.NEW_STREET_COPY_LAST
+    ) {
+      welcomeType = WELCOME_NEW_STREET_COASTMIX
+    } else {
+      welcomeType = WELCOME_FIRST_TIME_COASTMIX
+    }
+  } else if (
+    getMode() === MODES.NEW_STREET ||
+    getMode() === MODES.NEW_STREET_COPY_LAST
+  ) {
+    if (isSignedIn() || isReturningUser) {
+      welcomeType = WELCOME_NEW_STREET
+    } else {
+      welcomeType = WELCOME_FIRST_TIME_NEW_STREET
+    }
+  } else {
+    if (!isReturningUser) {
+      welcomeType = WELCOME_FIRST_TIME_EXISTING_STREET
+    }
+  }
+
+  return welcomeType
+}
+
 export function WelcomePanel() {
-  const { readOnly, everythingLoaded } = useSelector((state) => state.app)
+  const { readOnly } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
   const coastmixMode = useSelector(
     (state) => state.flags.COASTMIX_MODE?.value ?? false
   )
   const dispatch = useDispatch()
-  const [welcomeType, setWelcomeType] = useState(WELCOME_NONE)
-  const [isReturningUser, setIsReturningUser] = useState(
-    getIsReturningUserFromLocalStorage()
-  )
+
+  // Determine what type of welcome panel to show
+  const isReturningUser = getIsReturningUserFromLocalStorage()
+  const welcomeType = determineWelcomeType(isReturningUser, coastmixMode)
 
   // Do not show under the following conditions:
   // If app is read-only
-  // If app has not fully loaded yet
   // If user has dismissed the panel this session
   // If the welcome type is WELCOME_NONE
   //
@@ -52,15 +86,10 @@ export function WelcomePanel() {
   // after the render is done. For more information see the discussion at
   // https://github.com/streetmix/streetmix/issues/2324
   useEffect(() => {
-    if (
-      !readOnly &&
-      everythingLoaded &&
-      !isDismissed &&
-      welcomeType !== WELCOME_NONE
-    ) {
+    if (!readOnly && !isDismissed && welcomeType !== WELCOME_NONE) {
       dispatch(setWelcomePanelVisible())
     }
-  })
+  }, [readOnly, isDismissed, welcomeType])
 
   const handleWelcomeDismissed = useCallback(() => {
     // Certain events will dismiss the welcome panel. If already
@@ -69,50 +98,9 @@ export function WelcomePanel() {
       return
     }
 
-    setWelcomeType(WELCOME_NONE)
-    setIsReturningUser(true)
     setIsReturningUserInLocalStorage()
     dispatch(setWelcomePanelDismissed())
   }, [welcomeType, dispatch])
-
-  // When everything is loaded, determine what type of welcome panel to show
-  useEffect(() => {
-    function determineWelcomeType(): number {
-      let welcomeType = WELCOME_NONE
-
-      // Custom welcome type for Coastmix mode.
-      // TODO: any messaging changes for new streets?
-      if (coastmixMode) {
-        if (
-          getMode() === MODES.NEW_STREET ||
-          getMode() === MODES.NEW_STREET_COPY_LAST
-        ) {
-          welcomeType = WELCOME_NEW_STREET_COASTMIX
-        } else {
-          welcomeType = WELCOME_FIRST_TIME_COASTMIX
-        }
-      } else if (
-        getMode() === MODES.NEW_STREET ||
-        getMode() === MODES.NEW_STREET_COPY_LAST
-      ) {
-        if (isSignedIn() || isReturningUser) {
-          welcomeType = WELCOME_NEW_STREET
-        } else {
-          welcomeType = WELCOME_FIRST_TIME_NEW_STREET
-        }
-      } else {
-        if (!isReturningUser) {
-          welcomeType = WELCOME_FIRST_TIME_EXISTING_STREET
-        }
-      }
-
-      return welcomeType
-    }
-
-    if (everythingLoaded) {
-      setWelcomeType(determineWelcomeType())
-    }
-  }, [everythingLoaded, isReturningUser])
 
   // Set up and tear down when a welcome panel is shown
   useEffect(() => {
