@@ -1,12 +1,12 @@
 import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 
-import { render } from '~/test/helpers/render'
-import apiClient from '~/src/util/api'
-import { WelcomePanel } from './WelcomePanel'
+import { render } from '~/test/helpers/render.js'
+import apiClient from '~/src/util/api.js'
+import { WelcomePanel } from './WelcomePanel.js'
 
-vi.mock('../../users/authentication')
-vi.mock('../mode')
+vi.mock('../../users/authentication.js')
+vi.mock('../mode.js')
 
 describe('WelcomePanel', () => {
   let apiMock: MockAdapter

@@ -1,11 +1,11 @@
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '~/src/store/hooks'
-import { useGetUserQuery } from '~/src/store/services/api'
-import { Button } from '~/src/ui/Button'
-import StreetName from '~/src/streets/StreetName'
-import { Avatar } from '~/src/users/Avatar'
-import { goNewStreet } from '../routing'
+import { useSelector } from '~/src/store/hooks.js'
+import { useGetUserQuery } from '~/src/store/services/api.js'
+import { Button } from '~/src/ui/Button.js'
+import StreetName from '~/src/streets/StreetName.js'
+import { Avatar } from '~/src/users/Avatar.js'
+import { goNewStreet } from '../routing.js'
 import { setIsReturningUserInLocalStorage } from './localstorage.js'
 
 export function FirstTimeExistingStreet() {
