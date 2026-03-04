@@ -54,7 +54,7 @@ export function FirstTimeExistingStreet() {
           />
         )}
       </div>
-      <p className="important">
+      <p>
         <FormattedMessage
           id="dialogs.welcome.existing.instruct"
           defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."

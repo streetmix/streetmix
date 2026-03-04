@@ -17,7 +17,7 @@ export function FirstTimeNewStreet() {
             how your decisions can impact your community."
         />
       </p>
-      <p className="important">
+      <p>
         <FormattedMessage
           id="dialogs.welcome.new.instruction"
           defaultMessage="Start by moving some segments around."
