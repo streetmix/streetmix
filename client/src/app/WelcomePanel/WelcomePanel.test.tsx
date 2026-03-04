@@ -1,10 +1,9 @@
-import React from 'react'
 import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 
 import { render } from '~/test/helpers/render'
 import apiClient from '~/src/util/api'
-import WelcomePanel from './WelcomePanel'
+import { WelcomePanel } from './WelcomePanel'
 
 vi.mock('../../users/authentication')
 vi.mock('../mode')
@@ -24,9 +23,9 @@ describe('WelcomePanel', () => {
     const { container } = render(<WelcomePanel />, {
       initialState: {
         app: {
-          readOnly: true
-        }
-      }
+          readOnly: true,
+        },
+      },
     })
 
     expect(container).toBeEmptyDOMElement()

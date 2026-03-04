@@ -1,13 +1,12 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from '~/src/ui/Button.js'
 
-interface NewStreetProps {
+interface WelcomeNewStreetProps {
   handleDismiss: React.MouseEventHandler
 }
 
-function NewStreet({ handleDismiss }: NewStreetProps) {
+export function WelcomeNewStreet({ handleDismiss }: WelcomeNewStreetProps) {
   return (
     <div className="welcome-panel-content new-street">
       <h1>
@@ -25,5 +24,3 @@ function NewStreet({ handleDismiss }: NewStreetProps) {
     </div>
   )
 }
-
-export default NewStreet

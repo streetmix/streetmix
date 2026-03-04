@@ -9,9 +9,9 @@ import { isSignedIn } from '~/src/users/authentication.js'
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { registerKeypress, deregisterKeypress } from '../keypress.js'
 import { MODES, getMode } from '../mode.js'
-import WelcomeNewStreet from './NewStreet.js'
-import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet.js'
-import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet.js'
+import { FirstTimeExistingStreet } from './FirstTimeExistingStreet.js'
+import { FirstTimeNewStreet } from './FirstTimeNewStreet.js'
+import { WelcomeNewStreet } from './WelcomeNewStreet.js'
 import './WelcomePanel.css'
 
 const WELCOME_NONE = 0
@@ -43,7 +43,7 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 // compatibility
 const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
 
-function WelcomePanel() {
+export function WelcomePanel() {
   const { readOnly, everythingLoaded } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
@@ -147,10 +147,10 @@ function WelcomePanel() {
   let welcomeContent
   switch (welcomeType) {
     case WELCOME_FIRST_TIME_NEW_STREET:
-      welcomeContent = <WelcomeFirstTimeNewStreet />
+      welcomeContent = <FirstTimeNewStreet />
       break
     case WELCOME_FIRST_TIME_EXISTING_STREET:
-      welcomeContent = <WelcomeFirstTimeExistingStreet />
+      welcomeContent = <FirstTimeExistingStreet />
       break
     case WELCOME_NEW_STREET:
       welcomeContent = (
@@ -175,8 +175,6 @@ function WelcomePanel() {
     </div>
   )
 }
-
-export default WelcomePanel
 
 /**
  * When the Welcome Panel is dismissed for the first time we mark this browser

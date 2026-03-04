@@ -1,7 +1,6 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-function FirstTimeNewStreet (): React.ReactElement {
+export function FirstTimeNewStreet() {
   return (
     <div className="welcome-panel-content first-time-new-street">
       <h1>
@@ -27,5 +26,3 @@ function FirstTimeNewStreet (): React.ReactElement {
     </div>
   )
 }
-
-export default FirstTimeNewStreet

@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks'
@@ -9,7 +8,7 @@ import { Avatar } from '~/src/users/Avatar'
 import { goNewStreet } from '../routing'
 import { setIsReturningUserInLocalStorage } from './WelcomePanel'
 
-function FirstTimeExistingStreet(): React.ReactElement {
+export function FirstTimeExistingStreet() {
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
@@ -74,5 +73,3 @@ function FirstTimeExistingStreet(): React.ReactElement {
     </div>
   )
 }
-
-export default FirstTimeExistingStreet

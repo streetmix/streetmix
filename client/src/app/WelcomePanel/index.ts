@@ -1,1 +1,1 @@
-export { default } from './WelcomePanel'
+export { WelcomePanel } from './WelcomePanel'
