@@ -13,17 +13,18 @@ export function WelcomeCoastmix() {
     <div className="welcome-panel-content first-time-existing-street">
       <h1>Welcome to Coastmix!</h1>
 
-      <p style={{ textAlign: 'left' }}>
-        This interactive tool lets you design coastal waterfronts and explore
-        ways to prevent flooding. Climate change and global warming are causing
-        sea level rise and more intense and frequent coastal storms. Cities
-        around the world must adapt their waterfronts to prevent flooding to
-        protect communities, infrastructure, buildings, and more. With Coastmix,
-        learn about coastal resilience planning and design your own adaptation
-        strategies.
+      <p style={{ textAlign: 'left', marginBlock: '1em', maxWidth: '600px' }}>
+        Climate change can lead to sea level rise and cause more intense and
+        frequent storms along coastal waterfronts. Cities must adapt to prevent
+        flooding, protecting communities and infrastructure such as buildings
+        and roads.
       </p>
-      <p style={{ textAlign: 'left' }}>Let’s get started!</p>
-      <p style={{ textAlign: 'left' }}>
+      <p style={{ textAlign: 'left', marginBlock: '1em', maxWidth: '600px' }}>
+        Learn about coastal resilience planning, explore ways to prevent
+        flooding, and design your own adaptation strategies.{' '}
+        <strong>Let’s get started!</strong>
+      </p>
+      <p style={{ textAlign: 'left', marginBlock: '1em', maxWidth: '600px' }}>
         <Button onClick={handleQuickTour} primary>
           Take a quick tour
         </Button>
