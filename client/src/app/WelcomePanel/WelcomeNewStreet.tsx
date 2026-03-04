@@ -8,7 +8,7 @@ interface WelcomeNewStreetProps {
 
 export function WelcomeNewStreet({ handleDismiss }: WelcomeNewStreetProps) {
   return (
-    <div className="welcome-panel-content new-street">
+    <div className="welcome-panel-content">
       <h1>
         <FormattedMessage
           id="dialogs.new-street.heading"

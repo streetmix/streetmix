@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl'
 
 export function FirstTimeNewStreet() {
   return (
-    <div className="welcome-panel-content first-time-new-street">
+    <div className="welcome-panel-content">
       <h1>
         <FormattedMessage
           id="dialogs.welcome.heading"
