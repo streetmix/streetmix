@@ -16,6 +16,7 @@ import {
 import { FirstTimeExistingStreet } from './FirstTimeExistingStreet.js'
 import { FirstTimeNewStreet } from './FirstTimeNewStreet.js'
 import { WelcomeNewStreet } from './WelcomeNewStreet.js'
+import { WelcomeCoastmix } from './WelcomeCoastmix.js'
 import './WelcomePanel.css'
 
 const WELCOME_NONE = 0
@@ -155,7 +156,7 @@ export function WelcomePanel() {
       break
     case WELCOME_NEW_STREET_COASTMIX:
     case WELCOME_FIRST_TIME_COASTMIX:
-      welcomeContent = 'this is coastmix welcome content'
+      welcomeContent = <WelcomeCoastmix />
       break
     case WELCOME_NONE:
     default:
