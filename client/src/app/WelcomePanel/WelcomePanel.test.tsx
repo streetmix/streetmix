@@ -31,6 +31,12 @@ describe('WelcomePanel', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
+  it('shows for first-time user', () => {
+    const { queryByText } = render(<WelcomePanel />)
+
+    expect(queryByText('Welcome to Streetmix.')).toBeInTheDocument()
+  })
+
   it('shows in Coastmix mode', () => {
     const { queryByText } = render(<WelcomePanel />, {
       initialState: {
