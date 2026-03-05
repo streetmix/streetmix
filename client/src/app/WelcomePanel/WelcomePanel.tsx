@@ -66,48 +66,11 @@ export function WelcomePanel() {
   // Determine what type of welcome panel to show
   const type = determineWelcomeType(coastmixMode)
 
-  // Do not show under the following conditions:
-  // If app is read-only
-  // If user has dismissed the panel this session
-  // If the welcome type is `WELCOME_NONE`
-  //
-  // When rendering, the dispatch call below affects the state of another
-  // component (`StreetNameplateContainer`), which throws an error in React.
-  // This is considered a bug, despite the functionality behaving as expected.
-  // The fix is to wrap this in `useEffect` so that the dispatch call occurs
-  // after the render is done. For more information see the discussion at
-  // https://github.com/streetmix/streetmix/issues/2324
-  useEffect(() => {
-    if (!readOnly && !isDismissed && type !== WELCOME_NONE) {
-      dispatch(setWelcomePanelVisible(true))
-    }
-  }, [readOnly, type])
-
   // Handler function is a callback to prevent re-running effects
   const handleDismissed = useCallback(() => {
     setIsReturningUser()
     dispatch(setWelcomePanelDismissed())
   }, [dispatch])
-
-  // Set up and tear down when a welcome panel is shown
-  useEffect(() => {
-    if (!isVisible) return
-
-    // Hide welcome panel on certain events
-    // TODO: Consider dispatching from elsewhere, and not via event listeners
-    window.addEventListener('stmx:receive_gallery_street', handleDismissed)
-    window.addEventListener('stmx:save_street', handleDismissed)
-
-    // Hide welcome panel when someone presses Escape
-    registerKeypress('esc', handleDismissed)
-
-    return () => {
-      // Clean up event listeners
-      window.removeEventListener('stmx:receive_gallery_street', handleDismissed)
-      window.removeEventListener('stmx:save_street', handleDismissed)
-      deregisterKeypress('esc', handleDismissed)
-    }
-  }, [isVisible, dispatch, handleDismissed])
 
   // Figure out what to display inside the panel
   let content
@@ -131,9 +94,50 @@ export function WelcomePanel() {
       break
   }
 
-  // Don't display if not visible, has already been dismissed this session,
-  // or when there is no content to show
-  if (!isVisible || isDismissed || content === null) {
+  // Do not show under the following conditions:
+  // If app is read-only
+  // If user has dismissed the panel this session
+  // If the welcome type is `WELCOME_NONE`
+  // If there is no content to show
+  //
+  // When rendering, the dispatch call below affects the state of another
+  // component (`StreetNameplateContainer`), which throws an error in React.
+  // This is considered a bug, despite the functionality behaving as expected.
+  // The fix is to wrap this in `useEffect` so that the dispatch call occurs
+  // after the render is done. For more information see the discussion at
+  // https://github.com/streetmix/streetmix/issues/2324
+  useEffect(() => {
+    if (!readOnly && !isDismissed && type !== WELCOME_NONE) {
+      dispatch(setWelcomePanelVisible(true))
+    } else if (readOnly || isDismissed || content === null) {
+      dispatch(setWelcomePanelVisible(false))
+    }
+  }, [readOnly, isDismissed, type, content, dispatch])
+
+  // Set up and tear down when a welcome panel is shown
+  useEffect(() => {
+    // In Coastmix mode, don't set up these event listeners to hide the welcome
+    // panel, because the `save_street` event fires right away on page load,
+    // and I think we want to depend on some other events anyway.
+    if (!isVisible || coastmixMode) return
+
+    // Hide welcome panel on certain events
+    // TODO: Consider dispatching from elsewhere, and not via event listeners
+    window.addEventListener('stmx:receive_gallery_street', handleDismissed)
+    window.addEventListener('stmx:save_street', handleDismissed)
+
+    // Hide welcome panel when someone presses Escape
+    registerKeypress('esc', handleDismissed)
+
+    return () => {
+      // Clean up event listeners
+      window.removeEventListener('stmx:receive_gallery_street', handleDismissed)
+      window.removeEventListener('stmx:save_street', handleDismissed)
+      deregisterKeypress('esc', handleDismissed)
+    }
+  }, [isVisible, handleDismissed])
+
+  if (!isVisible) {
     return null
   }
 
