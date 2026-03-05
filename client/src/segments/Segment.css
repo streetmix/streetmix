@@ -23,21 +23,6 @@
   }
 }
 
-body.segment-move-dragging .segment-empty {
-  display: none;
-}
-
-body:not(.segment-resize-dragging) .segment {
-  transition:
-    width 150ms,
-    left 150ms,
-    transform 150ms;
-}
-
-body.immediate-segment-resize .segment {
-  transition: none !important;
-}
-
 .segment.active {
   z-index: var(--z-02-segment-focused) !important;
 }
@@ -57,8 +42,21 @@ body.immediate-segment-resize .segment {
   opacity: 0;
 }
 
-body.segment-move-dragging,
-body.segment-move-dragging * {
+.main-screen.segment-move-dragging {
+  .segment {
+    transition:
+      width 150ms,
+      left 150ms,
+      transform 150ms;
+  }
+
+  .segment-empty {
+    display: none;
+  }
+}
+
+.main-screen.segment-move-dragging,
+.main-screen.segment-move-dragging * {
   cursor: grabbing !important;
 }
 

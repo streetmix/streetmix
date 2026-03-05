@@ -5,6 +5,6 @@
   pointer-events: none;
 }
 
-body:not(.segment-resize-dragging) .segment.outside .segment-image {
+.main-screen:not(.segment-resize-dragging) .segment.outside .segment-image {
   transition: none;
 }

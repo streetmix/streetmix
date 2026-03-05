@@ -13,6 +13,10 @@ import { PaletteContainer } from '../palette/PaletteContainer.js'
 import DialogRoot from '../dialogs/DialogRoot.js'
 import { SkyPicker } from '../sky/SkyPicker'
 import { Gallery } from '../gallery/Gallery.js'
+import {
+  DRAGGING_TYPE_MOVE,
+  DRAGGING_TYPE_RESIZE,
+} from '../segments/constants.js'
 import { SegmentDragLayer } from '../segments/SegmentDragLayer.js'
 import ToastContainer from '../ui/Toasts'
 import { SentimentSurveyContainer } from '../sentiment/SentimentSurveyContainer.js'
@@ -35,6 +39,7 @@ export function App() {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
+  const draggingType = useSelector((state) => state.ui.draggingType)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -52,6 +57,14 @@ export function App() {
   useEffect(() => {
     document.querySelector('html')!.dataset.colorMode = colorMode
   }, [colorMode])
+
+  // Apply class names during certain UI interaction
+  const mainScreenClassNames = ['main-screen']
+  if (draggingType === DRAGGING_TYPE_RESIZE) {
+    mainScreenClassNames.push('segment-resize-dragging')
+  } else if (draggingType === DRAGGING_TYPE_MOVE) {
+    mainScreenClassNames.push('segment-move-dragging')
+  }
 
   return (
     <>
@@ -74,7 +87,7 @@ export function App() {
                 <DialogRoot />
                 <DebugInfo />
                 <PrintContainer />
-                <div className="main-screen">
+                <div className={mainScreenClassNames.join(' ')}>
                   <MenusContainer />
                   <StreetNameplateContainer />
                   <DescriptionPanel />
