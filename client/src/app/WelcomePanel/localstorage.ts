@@ -6,7 +6,7 @@
 // This naming convention caused confusion during the conversion to a
 // React function component, because in reality there are two states we care
 // about:
-// - the welcome panel is dismissed _for the session_ (and will not re-apppear
+// - the welcome panel is dismissed _for the session_ (and will not re-appear
 //   _this session_)
 // - the user is a first-time user, and dismissing the welcome panel changes
 //   its content _in the future_
