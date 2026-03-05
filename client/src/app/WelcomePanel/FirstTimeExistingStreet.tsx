@@ -6,14 +6,14 @@ import { Button } from '~/src/ui/Button.js'
 import StreetName from '~/src/streets/StreetName.js'
 import { Avatar } from '~/src/users/Avatar.js'
 import { goNewStreet } from '../routing.js'
-import { setIsReturningUserInLocalStorage } from './localstorage.js'
+import { setIsReturningUser } from './localstorage.js'
 
 export function FirstTimeExistingStreet() {
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   function handleGoNewStreet(): void {
-    setIsReturningUserInLocalStorage()
+    setIsReturningUser()
     goNewStreet(true)
   }
 

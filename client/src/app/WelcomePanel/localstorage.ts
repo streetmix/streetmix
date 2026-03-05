@@ -29,14 +29,14 @@ export const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
  * as a "returning user" so that the message is not geared toward first-time
  * users the next time they visit the site.
  */
-export function setIsReturningUserInLocalStorage(): void {
+export function setIsReturningUser(): void {
   window.localStorage.setItem(LOCAL_STORAGE_RETURNING_USER, 'true')
 }
 
 /**
- * Retrieves LocalStorage state for whether whether user is a returning user
+ * Retrieves LocalStorage state for whether user is a returning user
  */
-export function getIsReturningUserFromLocalStorage(): boolean {
+export function getIsReturningUser(): boolean {
   const localSetting = window.localStorage.getItem(LOCAL_STORAGE_RETURNING_USER)
 
   if (localSetting !== null) {

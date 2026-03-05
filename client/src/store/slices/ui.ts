@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { DraggingState } from '~/src/types'
 import {
   DRAGGING_TYPE_NONE,
-  DRAGGING_TYPE_RESIZE
+  DRAGGING_TYPE_RESIZE,
 } from '../../segments/constants'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
@@ -11,7 +11,6 @@ import type { BoundaryPosition } from '@streetmix/types'
 
 interface UiState {
   welcomePanelVisible: boolean
-  welcomePanelDismissed: boolean
   toolboxVisible: boolean
   activeSegment: number | BoundaryPosition | null
   draggingState: DraggingState
@@ -21,7 +20,6 @@ interface UiState {
 
 const initialState: UiState = {
   welcomePanelVisible: false,
-  welcomePanelDismissed: false,
   toolboxVisible: false,
   activeSegment: null,
   draggingState: {
@@ -29,10 +27,10 @@ const initialState: UiState = {
     segmentBeforeEl: null,
     segmentAfterEl: null,
     draggedSegment: null,
-    withinCanvas: false
+    withinCanvas: false,
   },
   draggingType: DRAGGING_TYPE_NONE,
-  resizeGuidesVisible: false
+  resizeGuidesVisible: false,
 }
 
 const uiSlice = createSlice({
@@ -40,16 +38,14 @@ const uiSlice = createSlice({
   initialState,
 
   reducers: {
-    setWelcomePanelVisible (state) {
-      state.welcomePanelVisible = true
+    setWelcomePanelVisible(
+      state,
+      action: PayloadAction<UiState['welcomePanelVisible']>
+    ) {
+      state.welcomePanelVisible = action.payload
     },
 
-    setWelcomePanelDismissed (state) {
-      state.welcomePanelDismissed = true
-      state.welcomePanelVisible = false
-    },
-
-    setActiveSegment (state, action: PayloadAction<UiState['activeSegment']>) {
+    setActiveSegment(state, action: PayloadAction<UiState['activeSegment']>) {
       // If we're in the middle of a resize drag state, do not set a new
       // active segment.
       if (!state.resizeGuidesVisible) {
@@ -57,7 +53,7 @@ const uiSlice = createSlice({
       }
     },
 
-    initDraggingState (
+    initDraggingState(
       state,
       action: PayloadAction<{
         type: UiState['draggingType']
@@ -71,44 +67,43 @@ const uiSlice = createSlice({
       state.draggingType = action.payload.type
     },
 
-    updateDraggingState (state, action: PayloadAction<Partial<DraggingState>>) {
+    updateDraggingState(state, action: PayloadAction<Partial<DraggingState>>) {
       state.draggingState = {
         ...state.draggingState,
-        ...action.payload
+        ...action.payload,
       }
     },
 
-    clearDraggingState (state) {
+    clearDraggingState(state) {
       state.draggingState = {
         isDragging: false,
         segmentBeforeEl: null,
         segmentAfterEl: null,
         draggedSegment: null,
-        withinCanvas: false
+        withinCanvas: false,
       }
       state.draggingType = DRAGGING_TYPE_NONE
     },
 
-    setDraggingType (state, action: PayloadAction<UiState['draggingType']>) {
+    setDraggingType(state, action: PayloadAction<UiState['draggingType']>) {
       state.draggingType = action.payload
       state.resizeGuidesVisible = action.payload === DRAGGING_TYPE_RESIZE
     },
 
-    toggleToolbox (state) {
+    toggleToolbox(state) {
       state.toolboxVisible = !state.toolboxVisible
-    }
-  }
+    },
+  },
 })
 
 export const {
   setWelcomePanelVisible,
-  setWelcomePanelDismissed,
   setActiveSegment,
   initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setDraggingType,
-  toggleToolbox
+  toggleToolbox,
 } = uiSlice.actions
 
 export default uiSlice.reducer

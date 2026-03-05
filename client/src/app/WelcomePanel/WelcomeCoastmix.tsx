@@ -1,12 +1,16 @@
 import { Button } from '~/src/ui/Button'
 
-export function WelcomeCoastmix() {
+interface WelcomeCoastmixProps {
+  handleDismiss: React.MouseEventHandler
+}
+
+export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   function handleQuickTour(): void {
     // TODO
   }
 
-  function handleSkip(): void {
-    // TODO
+  function handleSkip(event: React.MouseEvent): void {
+    handleDismiss(event)
   }
 
   return (

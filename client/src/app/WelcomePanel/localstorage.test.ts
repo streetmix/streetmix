@@ -1,6 +1,6 @@
 import {
-  setIsReturningUserInLocalStorage,
-  getIsReturningUserFromLocalStorage,
+  setIsReturningUser,
+  getIsReturningUser,
   LOCAL_STORAGE_RETURNING_USER,
 } from './localstorage.js'
 
@@ -16,28 +16,28 @@ describe('returning user memory for WelcomePanel', () => {
     getItemSpy.mockClear()
   })
 
-  describe('setIsReturningUserInLocalStorage', () => {
+  describe('setIsReturningUser', () => {
     it('sets value in localStorage', () => {
-      setIsReturningUserInLocalStorage()
+      setIsReturningUser()
 
       expect(setItemSpy).toHaveBeenCalledWith(
         LOCAL_STORAGE_RETURNING_USER,
         'true'
       )
-      expect(getIsReturningUserFromLocalStorage()).toStrictEqual(true)
+      expect(getIsReturningUser()).toStrictEqual(true)
     })
   })
 
-  describe('getIsReturningUserFromLocalStorage', () => {
+  describe('getIsReturningUser', () => {
     it('returns true for a returning user', () => {
       localStorage.setItem(LOCAL_STORAGE_RETURNING_USER, 'true')
 
-      expect(getIsReturningUserFromLocalStorage()).toStrictEqual(true)
+      expect(getIsReturningUser()).toStrictEqual(true)
       expect(getItemSpy).toHaveBeenCalledWith(LOCAL_STORAGE_RETURNING_USER)
     })
 
     it('returns false for a new user', () => {
-      expect(getIsReturningUserFromLocalStorage()).toStrictEqual(false)
+      expect(getIsReturningUser()).toStrictEqual(false)
       expect(getItemSpy).toHaveBeenCalledWith(LOCAL_STORAGE_RETURNING_USER)
     })
   })
