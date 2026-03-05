@@ -1,13 +1,12 @@
-import React from 'react'
 import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
 
-import { render } from '~/test/helpers/render'
-import apiClient from '~/src/util/api'
-import WelcomePanel from './WelcomePanel'
+import { render } from '~/test/helpers/render.js'
+import apiClient from '~/src/util/api.js'
+import { WelcomePanel } from './WelcomePanel.js'
 
-vi.mock('../../users/authentication')
-vi.mock('../mode')
+vi.mock('../../users/authentication.js')
+vi.mock('../mode.js')
 
 describe('WelcomePanel', () => {
   let apiMock: MockAdapter
@@ -24,11 +23,31 @@ describe('WelcomePanel', () => {
     const { container } = render(<WelcomePanel />, {
       initialState: {
         app: {
-          readOnly: true
-        }
-      }
+          readOnly: true,
+        },
+      },
     })
 
     expect(container).toBeEmptyDOMElement()
+  })
+
+  it('shows for first-time user', () => {
+    const { queryByText } = render(<WelcomePanel />)
+
+    expect(queryByText('Welcome to Streetmix.')).toBeInTheDocument()
+  })
+
+  it('shows in Coastmix mode', () => {
+    const { queryByText } = render(<WelcomePanel />, {
+      initialState: {
+        flags: {
+          COASTMIX_MODE: {
+            value: true,
+          },
+        },
+      },
+    })
+
+    expect(queryByText('Welcome to Coastmix!')).toBeInTheDocument()
   })
 })

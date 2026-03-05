@@ -1,9 +1,8 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-function FirstTimeNewStreet (): React.ReactElement {
+export function FirstTimeNewStreet() {
   return (
-    <div className="welcome-panel-content first-time-new-street">
+    <div className="welcome-panel-content">
       <h1>
         <FormattedMessage
           id="dialogs.welcome.heading"
@@ -18,7 +17,7 @@ function FirstTimeNewStreet (): React.ReactElement {
             how your decisions can impact your community."
         />
       </p>
-      <p className="important">
+      <p>
         <FormattedMessage
           id="dialogs.welcome.new.instruction"
           defaultMessage="Start by moving some segments around."
@@ -27,5 +26,3 @@ function FirstTimeNewStreet (): React.ReactElement {
     </div>
   )
 }
-
-export default FirstTimeNewStreet
