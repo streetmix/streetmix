@@ -5,6 +5,7 @@ import {
 } from '../../segments/constants'
 import ui, {
   setWelcomePanelVisible,
+  setWelcomePanelDismissed,
   setActiveSegment,
   initDraggingState,
   updateDraggingState,
@@ -16,6 +17,7 @@ import ui, {
 describe('ui reducer', () => {
   const initialState = {
     welcomePanelVisible: false,
+    welcomePanelDismissed: false,
     toolboxVisible: false,
     activeSegment: null,
     draggingState: {
@@ -37,6 +39,14 @@ describe('ui reducer', () => {
 
     expect(ui(initialState, setWelcomePanelVisible(false))).toEqual({
       ...initialState,
+      welcomePanelVisible: false,
+    })
+  })
+
+  it('should handle setWelcomePanelDismissed()', () => {
+    expect(ui(initialState, setWelcomePanelDismissed())).toEqual({
+      ...initialState,
+      welcomePanelDismissed: true,
       welcomePanelVisible: false,
     })
   })

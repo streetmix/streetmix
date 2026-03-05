@@ -11,6 +11,7 @@ import type { BoundaryPosition } from '@streetmix/types'
 
 interface UiState {
   welcomePanelVisible: boolean
+  welcomePanelDismissed: boolean
   toolboxVisible: boolean
   activeSegment: number | BoundaryPosition | null
   draggingState: DraggingState
@@ -20,6 +21,7 @@ interface UiState {
 
 const initialState: UiState = {
   welcomePanelVisible: false,
+  welcomePanelDismissed: false,
   toolboxVisible: false,
   activeSegment: null,
   draggingState: {
@@ -43,6 +45,11 @@ const uiSlice = createSlice({
       action: PayloadAction<UiState['welcomePanelVisible']>
     ) {
       state.welcomePanelVisible = action.payload
+    },
+
+    setWelcomePanelDismissed(state) {
+      state.welcomePanelDismissed = true
+      state.welcomePanelVisible = false
     },
 
     setActiveSegment(state, action: PayloadAction<UiState['activeSegment']>) {
@@ -98,6 +105,7 @@ const uiSlice = createSlice({
 
 export const {
   setWelcomePanelVisible,
+  setWelcomePanelDismissed,
   setActiveSegment,
   initDraggingState,
   updateDraggingState,

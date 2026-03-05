@@ -1,7 +1,10 @@
 import { useEffect, useCallback } from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { setWelcomePanelVisible } from '~/src/store/slices/ui.js'
+import {
+  setWelcomePanelVisible,
+  setWelcomePanelDismissed,
+} from '~/src/store/slices/ui.js'
 import { isSignedIn } from '~/src/users/authentication.js'
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { registerKeypress, deregisterKeypress } from '../keypress.js'
@@ -53,7 +56,8 @@ function determineWelcomeType(coastmixMode: boolean): number {
 
 export function WelcomePanel() {
   const { readOnly } = useSelector((state) => state.app)
-  const { welcomePanelVisible: isVisible } = useSelector((state) => state.ui)
+  const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
+    useSelector((state) => state.ui)
   const coastmixMode = useSelector(
     (state) => state.flags.COASTMIX_MODE?.value ?? false
   )
@@ -62,7 +66,10 @@ export function WelcomePanel() {
   // Determine what type of welcome panel to show
   const type = determineWelcomeType(coastmixMode)
 
-  // Do not show if app is read-only or if welcome type is `WELCOME_NONE`
+  // Do not show under the following conditions:
+  // If app is read-only
+  // If user has dismissed the panel this session
+  // If the welcome type is `WELCOME_NONE`
   //
   // When rendering, the dispatch call below affects the state of another
   // component (`StreetNameplateContainer`), which throws an error in React.
@@ -71,7 +78,7 @@ export function WelcomePanel() {
   // after the render is done. For more information see the discussion at
   // https://github.com/streetmix/streetmix/issues/2324
   useEffect(() => {
-    if (!readOnly && type !== WELCOME_NONE) {
+    if (!readOnly && !isDismissed && type !== WELCOME_NONE) {
       dispatch(setWelcomePanelVisible(true))
     }
   }, [readOnly, type])
@@ -79,7 +86,7 @@ export function WelcomePanel() {
   // Handler function is a callback to prevent re-running effects
   const handleDismissed = useCallback(() => {
     setIsReturningUser()
-    dispatch(setWelcomePanelVisible(false))
+    dispatch(setWelcomePanelDismissed())
   }, [dispatch])
 
   // Set up and tear down when a welcome panel is shown
@@ -124,8 +131,9 @@ export function WelcomePanel() {
       break
   }
 
-  // Don't display if not visible, also catch when there is no content to show
-  if (!isVisible || content === null) {
+  // Don't display if not visible, has already been dismissed this session,
+  // or when there is no content to show
+  if (!isVisible || isDismissed || content === null) {
     return null
   }
 
