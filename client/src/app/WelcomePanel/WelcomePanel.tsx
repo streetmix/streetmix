@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -9,55 +9,96 @@ import { isSignedIn } from '~/src/users/authentication.js'
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { registerKeypress, deregisterKeypress } from '../keypress.js'
 import { MODES, getMode } from '../mode.js'
-import WelcomeNewStreet from './NewStreet.js'
-import WelcomeFirstTimeExistingStreet from './FirstTimeExistingStreet.js'
-import WelcomeFirstTimeNewStreet from './FirstTimeNewStreet.js'
+import { getIsReturningUser, setIsReturningUser } from './localstorage.js'
+import { FirstTimeExistingStreet } from './FirstTimeExistingStreet.js'
+import { FirstTimeNewStreet } from './FirstTimeNewStreet.js'
+import { WelcomeNewStreet } from './WelcomeNewStreet.js'
+import { WelcomeCoastmix } from './WelcomeCoastmix.js'
 import './WelcomePanel.css'
 
 const WELCOME_NONE = 0
 const WELCOME_NEW_STREET = 1
 const WELCOME_FIRST_TIME_NEW_STREET = 2
 const WELCOME_FIRST_TIME_EXISTING_STREET = 3
+const WELCOME_NEW_STREET_COASTMIX = 4
+const WELCOME_FIRST_TIME_COASTMIX = 5
 
-// In the past, dismissing the welcome panel would set this flag in
-// LocalStorage, and the next time a welcome panel would be shown for a
-// returning user, the presence of this flag would show different content (or
-// not display the welcome panel at all).
-//
-// This naming convention caused confusion during the conversion to a
-// React function component, because in reality there are two states we care
-// about:
-// - the welcome panel is dismissed _for the session_ (and will not re-apppear
-//   _this session_)
-// - the user is a first-time user, and dismissing the welcome panel changes
-//   its content _in the future_
-//
-// The first value is ephemeral state, ao it is set only for the duration of
-// the session and is discarded if the tab is closed. We want to keep using
-// `dismissed` to label this state.
-//
-// The second value is persistent state. This is the one that's saved to
-// LocalStorage and is retrieved when the app is loaded to determine what
-// type of welcome message will be displayed. The LocalStorage key name
-// is now no longer what it means, but for now we keep it for backwards
-// compatibility
-const LOCAL_STORAGE_RETURNING_USER = 'settings-welcome-dismissed'
+function determineWelcomeType(coastmixMode: boolean): number {
+  let type = WELCOME_NONE
+  const mode = getMode()
+  const isReturningUser = getIsReturningUser()
 
-function WelcomePanel() {
-  const { readOnly, everythingLoaded } = useSelector((state) => state.app)
+  // Custom welcome type for Coastmix mode.
+  // TODO: any messaging changes for new streets?
+  if (coastmixMode) {
+    if (!isReturningUser) {
+      type = WELCOME_FIRST_TIME_COASTMIX
+    } else if (
+      mode === MODES.NEW_STREET ||
+      mode === MODES.NEW_STREET_COPY_LAST
+    ) {
+      type = WELCOME_NEW_STREET_COASTMIX
+    }
+  } else if (mode === MODES.NEW_STREET || mode === MODES.NEW_STREET_COPY_LAST) {
+    if (isSignedIn() || isReturningUser) {
+      type = WELCOME_NEW_STREET
+    } else {
+      type = WELCOME_FIRST_TIME_NEW_STREET
+    }
+  } else {
+    if (!isReturningUser) {
+      type = WELCOME_FIRST_TIME_EXISTING_STREET
+    }
+  }
+
+  return type
+}
+
+export function WelcomePanel() {
+  const { readOnly } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
-  const dispatch = useDispatch()
-  const [welcomeType, setWelcomeType] = useState(WELCOME_NONE)
-  const [isReturningUser, setIsReturningUser] = useState(
-    getIsReturningUserFromLocalStorage()
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
   )
+  const dispatch = useDispatch()
+
+  // Determine what type of welcome panel to show
+  const type = determineWelcomeType(coastmixMode)
+
+  // Handler function is a callback to prevent re-running effects
+  const handleDismissed = useCallback(() => {
+    setIsReturningUser()
+    dispatch(setWelcomePanelDismissed())
+  }, [dispatch])
+
+  // Figure out what to display inside the panel
+  let content
+  switch (type) {
+    case WELCOME_FIRST_TIME_NEW_STREET:
+      content = <FirstTimeNewStreet />
+      break
+    case WELCOME_FIRST_TIME_EXISTING_STREET:
+      content = <FirstTimeExistingStreet />
+      break
+    case WELCOME_NEW_STREET:
+    case WELCOME_NEW_STREET_COASTMIX:
+      content = <WelcomeNewStreet handleDismiss={handleDismissed} />
+      break
+    case WELCOME_FIRST_TIME_COASTMIX:
+      content = <WelcomeCoastmix handleDismiss={handleDismissed} />
+      break
+    case WELCOME_NONE:
+    default:
+      content = null
+      break
+  }
 
   // Do not show under the following conditions:
   // If app is read-only
-  // If app has not fully loaded yet
   // If user has dismissed the panel this session
-  // If the welcome type is WELCOME_NONE
+  // If the welcome type is `WELCOME_NONE`
+  // If there is no content to show
   //
   // When rendering, the dispatch call below affects the state of another
   // component (`StreetNameplateContainer`), which throws an error in React.
@@ -66,136 +107,46 @@ function WelcomePanel() {
   // after the render is done. For more information see the discussion at
   // https://github.com/streetmix/streetmix/issues/2324
   useEffect(() => {
-    if (
-      !readOnly &&
-      everythingLoaded &&
-      !isDismissed &&
-      welcomeType !== WELCOME_NONE
-    ) {
-      dispatch(setWelcomePanelVisible())
+    if (!readOnly && !isDismissed && type !== WELCOME_NONE) {
+      dispatch(setWelcomePanelVisible(true))
+    } else if (readOnly || isDismissed || content === null) {
+      dispatch(setWelcomePanelVisible(false))
     }
-  })
-
-  const handleWelcomeDismissed = useCallback(() => {
-    // Certain events will dismiss the welcome panel. If already
-    // invisible, do nothing.
-    if (welcomeType === WELCOME_NONE) {
-      return
-    }
-
-    setWelcomeType(WELCOME_NONE)
-    setIsReturningUser(true)
-    setIsReturningUserInLocalStorage()
-    dispatch(setWelcomePanelDismissed())
-  }, [welcomeType, dispatch])
-
-  // When everything is loaded, determine what type of welcome panel to show
-  useEffect(() => {
-    function determineWelcomeType(): number {
-      let welcomeType = WELCOME_NONE
-
-      if (
-        getMode() === MODES.NEW_STREET ||
-        getMode() === MODES.NEW_STREET_COPY_LAST
-      ) {
-        if (isSignedIn() || isReturningUser) {
-          welcomeType = WELCOME_NEW_STREET
-        } else {
-          welcomeType = WELCOME_FIRST_TIME_NEW_STREET
-        }
-      } else {
-        if (!isReturningUser) {
-          welcomeType = WELCOME_FIRST_TIME_EXISTING_STREET
-        }
-      }
-
-      return welcomeType
-    }
-
-    if (everythingLoaded) {
-      setWelcomeType(determineWelcomeType())
-    }
-  }, [everythingLoaded, isReturningUser])
+  }, [readOnly, isDismissed, type, content, dispatch])
 
   // Set up and tear down when a welcome panel is shown
   useEffect(() => {
-    // Do nothing with this hook if the panel is not visible
-    if (!isVisible) return
+    // In Coastmix mode, don't set up these event listeners to hide the welcome
+    // panel, because the `save_street` event fires right away on page load,
+    // and I think we want to depend on some other events anyway.
+    if (!isVisible || coastmixMode) return
 
     // Hide welcome panel on certain events
-    window.addEventListener(
-      'stmx:receive_gallery_street',
-      handleWelcomeDismissed
-    )
-    window.addEventListener('stmx:save_street', handleWelcomeDismissed)
+    // TODO: Consider dispatching from elsewhere, and not via event listeners
+    window.addEventListener('stmx:receive_gallery_street', handleDismissed)
+    window.addEventListener('stmx:save_street', handleDismissed)
 
     // Hide welcome panel when someone presses Escape
-    registerKeypress('esc', handleWelcomeDismissed)
+    registerKeypress('esc', handleDismissed)
 
     return () => {
       // Clean up event listeners
-      window.removeEventListener(
-        'stmx:receive_gallery_street',
-        handleWelcomeDismissed
-      )
-      window.removeEventListener('stmx:save_street', handleWelcomeDismissed)
-      deregisterKeypress('esc', handleWelcomeDismissed)
+      window.removeEventListener('stmx:receive_gallery_street', handleDismissed)
+      window.removeEventListener('stmx:save_street', handleDismissed)
+      deregisterKeypress('esc', handleDismissed)
     }
-  }, [isVisible, dispatch, handleWelcomeDismissed])
+  }, [isVisible, coastmixMode, handleDismissed])
 
-  // Figure out what to display inside the panel
-  let welcomeContent
-  switch (welcomeType) {
-    case WELCOME_FIRST_TIME_NEW_STREET:
-      welcomeContent = <WelcomeFirstTimeNewStreet />
-      break
-    case WELCOME_FIRST_TIME_EXISTING_STREET:
-      welcomeContent = <WelcomeFirstTimeExistingStreet />
-      break
-    case WELCOME_NEW_STREET:
-      welcomeContent = (
-        <WelcomeNewStreet handleDismiss={handleWelcomeDismissed} />
-      )
-      break
-    case WELCOME_NONE:
-    default:
-      welcomeContent = null
-      break
+  if (!isVisible) {
+    return null
   }
-
-  // Do not render if the panel is not visible
-  if (!isVisible) return null
 
   return (
     <div className="welcome-panel-container">
       <div className="welcome-panel">
-        <CloseButton onClick={handleWelcomeDismissed} />
-        {welcomeContent}
+        <CloseButton onClick={handleDismissed} />
+        {content}
       </div>
     </div>
   )
-}
-
-export default WelcomePanel
-
-/**
- * When the Welcome Panel is dismissed for the first time we mark this browser
- * as a "returning user" so that the message is not geared toward first-time
- * users the next time they visit the site.
- */
-export function setIsReturningUserInLocalStorage(): void {
-  window.localStorage.setItem(LOCAL_STORAGE_RETURNING_USER, 'true')
-}
-
-/**
- * Retrieves LocalStorage state for whether whether user is a returning user
- */
-function getIsReturningUserFromLocalStorage(): boolean {
-  const localSetting = window.localStorage.getItem(LOCAL_STORAGE_RETURNING_USER)
-
-  if (localSetting !== null) {
-    return JSON.parse(localSetting)
-  }
-
-  return false
 }

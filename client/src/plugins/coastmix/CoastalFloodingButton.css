@@ -2,7 +2,7 @@
   position: absolute;
   top: 65px;
   left: 30px;
-  z-index: 700;
+  z-index: 450; /* Place below welcome panel */
   background-color: white;
   padding: 2px;
   border-radius: var(--border-radius-large);
