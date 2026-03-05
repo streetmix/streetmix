@@ -135,7 +135,7 @@ export function WelcomePanel() {
       window.removeEventListener('stmx:save_street', handleDismissed)
       deregisterKeypress('esc', handleDismissed)
     }
-  }, [isVisible, handleDismissed])
+  }, [isVisible, coastmixMode, handleDismissed])
 
   if (!isVisible) {
     return null

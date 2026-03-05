@@ -30,4 +30,18 @@ describe('WelcomePanel', () => {
 
     expect(container).toBeEmptyDOMElement()
   })
+
+  it('shows in Coastmix mode', () => {
+    const { queryByText } = render(<WelcomePanel />, {
+      initialState: {
+        flags: {
+          COASTMIX_MODE: {
+            value: true,
+          },
+        },
+      },
+    })
+
+    expect(queryByText('Welcome to Coastmix!')).toBeInTheDocument()
+  })
 })
