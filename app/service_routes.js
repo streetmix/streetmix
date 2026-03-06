@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import * as controllers from './controllers/index.js'
+import * as controllers from './controllers/index.ts'
 import * as services from './resources/services/index.ts'
 import jwtCheck from './authentication.js'
 
