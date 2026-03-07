@@ -17,7 +17,7 @@ function BlockingError() {
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
-  let title: React.ReactElement | string = ''
+  let title: React.ReactElement | string
   let description: React.ReactElement | string = ''
   let cta: React.ReactElement | string = ''
 

@@ -539,7 +539,7 @@ function updateIfDraggingStateChanged(
   draggedItem: DraggedItem,
   draggedItemType: DragType
 ) {
-  let changed = false
+  let changed: boolean
 
   if (oldDraggingState) {
     changed =
@@ -723,7 +723,7 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
         segment.defaultVariant ?? Object.keys(segment.details).shift()
 
       // This allows dropped segment to be created with the correct elevation value
-      let elevation = 0
+      let elevation: number
       if (segment.defaultElevation !== undefined) {
         if (typeof segment.defaultElevation !== 'number') {
           elevation = getWidthInMetric(segment.defaultElevation, units)

@@ -9,7 +9,7 @@ import type { StreetState } from '@streetmix/types'
  * the document title.
  */
 export function updatePageTitle(street: StreetState): void {
-  let title = ''
+  let title: string
 
   if (
     street.creatorId !== null &&

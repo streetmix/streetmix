@@ -49,7 +49,7 @@ export function checkSeaLevel(
   for (let i = start; fromLeft ? i < end : i > end; i += step) {
     const slice = slices[i]
 
-    let compareElevation = 0
+    let compareElevation: number
 
     // Slices can block a flood based on its elevation.
     // First, see if this slice is sloped.
