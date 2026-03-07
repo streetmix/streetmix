@@ -52,7 +52,8 @@ const downloadSuccess = async function (
   try {
     await fs.writeFile(translationFile, translationText)
   } catch (err) {
-    let message = ''
+    let message: string
+
     if (isNodeError(err)) {
       message = err.message
     } else {
@@ -122,7 +123,8 @@ LOCALES.forEach((language: LocaleDefinition) => {
       )
       downloadSuccess(value, resource, label, data)
     } catch (error) {
-      let message = ''
+      let message: string
+
       if (isNodeError(error)) {
         message = error.message
       } else {

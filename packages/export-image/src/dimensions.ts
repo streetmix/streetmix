@@ -18,11 +18,11 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   '.5': '½',
   '.625': '⅝',
   '.75': '¾',
-  '.875': '⅞'
+  '.875': '⅞',
 }
 
-export function prettifyWidth (width: number, units: UnitsSetting): string {
-  let widthText = ''
+export function prettifyWidth(width: number, units: UnitsSetting): string {
+  let widthText: string
 
   if (units === SETTINGS_UNITS_IMPERIAL) {
     // Convert metric value to imperial measurement
@@ -48,7 +48,7 @@ export function prettifyWidth (width: number, units: UnitsSetting): string {
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-function convertMetricMeasurementToImperial (value: number): number {
+function convertMetricMeasurementToImperial(value: number): number {
   const converted = round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
 
   // Return a value rounded to the nearest eighth
@@ -59,7 +59,7 @@ function convertMetricMeasurementToImperial (value: number): number {
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  */
-function stringifyImperialValueWithFractions (value: number): string {
+function stringifyImperialValueWithFractions(value: number): string {
   // Determine if there is a vulgar fraction to display
   const floor = Math.floor(value)
   const decimal = value - floor

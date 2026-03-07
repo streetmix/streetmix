@@ -78,19 +78,23 @@ export default defineConfig([
       // `react-hooks` plugin really wants us to define rules explicitly
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      // Disable this rule bc something has made it start reporting, keep
-      // warning for visibility. Options match @typescript-eslint rule
+      // Relax `no-unused-vars` in certain legitimate use cases.
+      // Options generally match corresponding @typescript-eslint rule
       'no-unused-vars': [
         'warn',
         {
           argsIgnorePattern: '^_',
-          caughtErrors: 'none',
           ignoreRestSiblings: true,
         },
       ],
-      // Temporarily issue warnings for promise errors for future refactoring
+      // Temporarily warns on promise errors -- TODO: refactor then turn off
       'promise/always-return': 'warn',
       'promise/catch-or-return': 'warn',
+      // Temporarily warns on new errors introduced to eslint:recommended in
+      // eslint v10 -- TODO: refactor then turn off warnings
+      'no-unassigned-vars': 'warn',
+      'no-useless-assignment': 'warn',
+      'preserve-caught-error': 'warn',
     },
   },
   {

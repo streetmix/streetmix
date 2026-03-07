@@ -1,17 +1,18 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { ExternalLink } from '../ui/ExternalLink'
+import { ExternalLink } from '../ui/ExternalLink.js'
 
 interface TermsProps {
   locale: string
 }
 
-export default function Terms({ locale }: TermsProps): React.ReactElement {
+export function Terms({ locale }: TermsProps): React.ReactElement {
   const getCCLinkByLocale = (
     locale: string
   ): { url: string; label: string } => {
     let url, label
+
     switch (locale) {
       case 'ar':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.ar'
@@ -88,7 +89,7 @@ export default function Terms({ locale }: TermsProps): React.ReactElement {
       case 'zh':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh'
         label = 'Creative Commons 署名-相同方式共享 4.0 国际 (CC BY-SA 4.0)'
-      // eslint-disable-next-line no-fallthrough
+        break
       case 'zh-Hant':
       case 'zh-TW':
         url = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW'

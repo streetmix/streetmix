@@ -1,28 +1,28 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setShowAnalytics } from '~/src/store/actions/street'
-import Terms from '~/src/app/Terms'
-import { Button } from '~/src/ui/Button'
-import Checkbox from '~/src/ui/Checkbox'
-import { ExternalLink } from '~/src/ui/ExternalLink'
-import Icon from '~/src/ui/Icon'
-import { isOwnedByCurrentUser } from '~/src/streets/owner'
-import { formatNumber } from '~/src/util/number_format'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setShowAnalytics } from '~/src/store/actions/street.js'
+import { Terms } from '~/src/app/Terms.js'
+import { Button } from '~/src/ui/Button.js'
+import Checkbox from '~/src/ui/Checkbox.js'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
+import Icon from '~/src/ui/Icon.js'
+import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
+import { formatNumber } from '~/src/util/number_format.js'
 import {
   getCapacityData,
   getStreetCapacity,
   getRolledUpSegmentCapacities,
   saveCsv,
-} from '~/src/segments/capacity'
-import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants'
-import Dialog from '../Dialog'
-import CapacitySources from './CapacitySources'
-import SliceAnalytics from './SliceAnalytics'
+} from '~/src/segments/capacity.js'
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
+import Dialog from '../Dialog.js'
+import { CapacitySources } from './CapacitySources.js'
+import { SliceAnalytics } from './SliceAnalytics.js'
 import './AnalyticsDialog.css'
 
-function AnalyticsDialog() {
+export function AnalyticsDialog() {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
@@ -187,5 +187,3 @@ function AnalyticsDialog() {
     </Dialog>
   )
 }
-
-export default AnalyticsDialog

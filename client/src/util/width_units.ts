@@ -107,7 +107,7 @@ export function prettifyWidth(
   units: UnitsSetting,
   locale: string
 ): string {
-  let widthText = ''
+  let widthText: string
 
   switch (units) {
     case SETTINGS_UNITS_IMPERIAL: {
@@ -160,7 +160,7 @@ export function stringifyMeasurementValue(
   units: UnitsSetting,
   locale: string
 ): string {
-  let string = ''
+  let string: string
 
   if (!value) return '0'
 

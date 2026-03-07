@@ -1,5 +1,5 @@
 import { render } from '~/test/helpers/render.js'
-import BlockingError from './BlockingError.js'
+import { BlockingError } from './BlockingError.js'
 import { ERRORS } from './errors.js'
 
 function getInitialState(errorType: number | null): object {

@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setCapacitySource } from '~/src/store/actions/street'
-import { DEFAULT_CAPACITY_SOURCE } from '~/src/streets/constants'
-import { isOwnedByCurrentUser } from '~/src/streets/owner'
-import { getAllCapacityDataSources } from '~/src/segments/capacity'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setCapacitySource } from '~/src/store/actions/street.js'
+import { DEFAULT_CAPACITY_SOURCE } from '~/src/streets/constants.js'
+import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
+import { getAllCapacityDataSources } from '~/src/segments/capacity.js'
 import './CapacitySources.css'
 
-function CapacitySources (): React.ReactElement {
+export function CapacitySources() {
   const source = useSelector(
     (state) => state.street?.capacitySource ?? DEFAULT_CAPACITY_SOURCE
   )
@@ -16,7 +16,7 @@ function CapacitySources (): React.ReactElement {
 
   const [selectedSource, setSelectedSource] = useState(source)
 
-  function handleChangeSource (
+  function handleChangeSource(
     event: React.ChangeEvent<HTMLSelectElement>
   ): void {
     setSelectedSource(event.target.value)
@@ -52,5 +52,3 @@ function CapacitySources (): React.ReactElement {
     </p>
   )
 }
-
-export default CapacitySources

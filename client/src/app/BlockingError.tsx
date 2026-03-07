@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
@@ -12,12 +11,12 @@ import { ERRORS } from './errors.js'
 
 import type { StreetState } from '@streetmix/types'
 
-function BlockingError() {
+export function BlockingError() {
   const errorType = useSelector((state) => state.errors.errorType)
   const street = useSelector((state) => state.street)
   const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
-  let title: React.ReactElement | string = ''
+  let title: React.ReactElement | string
   let description: React.ReactElement | string = ''
   let cta: React.ReactElement | string = ''
 
@@ -29,7 +28,7 @@ function BlockingError() {
       />
     </Button>
   )
-  const linkToUser = (street: StreetState): React.ReactElement | null => {
+  const linkToUser = (street: StreetState) => {
     return street?.creatorId !== null ? (
       <a href={'/' + street.creatorId}>
         <Avatar userId={street.creatorId} />
@@ -518,5 +517,3 @@ function BlockingError() {
 
   return null
 }
-
-export default BlockingError

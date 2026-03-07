@@ -6,7 +6,7 @@
  * take priority (e.g. gallery). At other times it can be "darkened" (creating
  * a translucent overlay) showing messages or errors.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from '../ui/Button.js'
@@ -18,7 +18,7 @@ import './BlockingShield.css'
 const BLOCKING_SHIELD_DARKEN_DELAY = 800
 const BLOCKING_SHIELD_TOO_SLOW_DELAY = 10000
 
-export default function BlockingShield() {
+export function BlockingShield() {
   const el = useRef(null)
   const blockingShieldTimerIdRef = useRef(-1)
   const blockingShieldTooSlowTimerIdRef = useRef(-1)

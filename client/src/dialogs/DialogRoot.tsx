@@ -3,7 +3,7 @@ import ErrorBoundary from '../util/ErrorBoundary.js'
 
 // Import all dialogs here
 import AboutDialog from './About'
-import AnalyticsDialog from './Analytics'
+import { AnalyticsDialog } from './Analytics'
 import FeatureFlagDialog from './FeatureFlag'
 import { GeotagDialog } from './Geotag'
 import { SaveAsImageDialog } from './SaveAsImage'
@@ -29,7 +29,7 @@ const DIALOG_COMPONENTS = {
   SENTIMENT_SURVEY: SentimentSurveyDialog,
 }
 
-function DialogRoot() {
+export function DialogRoot() {
   const name = useSelector((state) => state.dialogs.name)
 
   // Bail if no dialog name is provided
@@ -45,5 +45,3 @@ function DialogRoot() {
     </ErrorBoundary>
   )
 }
-
-export default DialogRoot

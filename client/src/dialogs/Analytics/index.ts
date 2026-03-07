@@ -1,1 +1,1 @@
-export { default } from './AnalyticsDialog'
+export * from './AnalyticsDialog'

@@ -1,10 +1,8 @@
-import React from 'react'
-
-import { images } from '~/src/app/load_resources'
-import { getLocaleSliceName } from '~/src/segments/labels'
-import { useSelector } from '~/src/store/hooks'
-import CapacityBar from './CapacityBar'
-import CapacityMessage from './CapacityMessage'
+import { images } from '~/src/app/load_resources.js'
+import { getLocaleSliceName } from '~/src/segments/labels.js'
+import { useSelector } from '~/src/store/hooks.js'
+import { CapacityBar } from './CapacityBar.js'
+import { CapacityMessage } from './CapacityMessage.js'
 import './SliceAnalytics.css'
 
 import type { CapacityForDisplay } from '@streetmix/types'
@@ -18,7 +16,12 @@ interface SliceAnalyticsProps {
   readonly capacity: CapacityForDisplay
 }
 
-function SliceAnalytics({ index, type, max, capacity }: SliceAnalyticsProps) {
+export function SliceAnalytics({
+  index,
+  type,
+  max,
+  capacity,
+}: SliceAnalyticsProps) {
   const locale = useSelector((state) => state.locale.locale)
 
   const { average, potential } = capacity
@@ -125,5 +128,3 @@ function SliceAnalytics({ index, type, max, capacity }: SliceAnalyticsProps) {
     </div>
   )
 }
-
-export default SliceAnalytics
