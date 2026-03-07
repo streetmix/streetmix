@@ -3,7 +3,7 @@ import ErrorBoundary from '../util/ErrorBoundary.js'
 
 // Import all dialogs here
 import AboutDialog from './About'
-import AnalyticsDialog from './Analytics'
+import { AnalyticsDialog } from './Analytics'
 import FeatureFlagDialog from './FeatureFlag'
 import { GeotagDialog } from './Geotag'
 import { SaveAsImageDialog } from './SaveAsImage'

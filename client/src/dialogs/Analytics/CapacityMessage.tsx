@@ -1,7 +1,6 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { formatNumber } from '../../util/number_format'
+import { formatNumber } from '../../util/number_format.js'
 
 interface CapacityMessageProps {
   locale: string
@@ -9,11 +8,11 @@ interface CapacityMessageProps {
   potential: number
 }
 
-function CapacityMessage ({
+export function CapacityMessage({
   locale,
   average,
-  potential
-}: CapacityMessageProps): React.ReactElement {
+  potential,
+}: CapacityMessageProps) {
   const isSingleAmount = average === potential
   const defaultMessage = isSingleAmount
     ? '{amount} people/hour'
@@ -22,7 +21,7 @@ function CapacityMessage ({
     ? 'dialogs.analytics.segment-summary-single'
     : 'dialogs.analytics.segment-summary'
   const options = {
-    maximumSignificantDigits: 3
+    maximumSignificantDigits: 3,
   }
 
   return (
@@ -32,10 +31,8 @@ function CapacityMessage ({
       values={{
         amount: formatNumber(average, locale, options),
         average: formatNumber(average, locale, options),
-        potential: formatNumber(potential, locale, options)
+        potential: formatNumber(potential, locale, options),
       }}
     />
   )
 }
-
-export default CapacityMessage

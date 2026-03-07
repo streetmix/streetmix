@@ -1,8 +1,7 @@
-import React from 'react'
 import { vi } from 'vitest'
 
-import { render } from '~/test/helpers/render'
-import AnalyticsDialog from './AnalyticsDialog'
+import { render } from '~/test/helpers/render.js'
+import { AnalyticsDialog } from './AnalyticsDialog.js'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
@@ -13,41 +12,41 @@ vi.mock(
 
 const initialState = {
   locale: {
-    locale: 'en'
+    locale: 'en',
   },
   street: {
     segments: [
       {
         type: 'baz',
-        warnings: []
+        warnings: [],
       },
       // Include two segments (both should be added)
       {
         type: 'foo',
-        warnings: []
+        warnings: [],
       },
       {
         type: 'foo',
-        warnings: []
+        warnings: [],
       },
       // Include a segment without capacity (adds zero)
       {
         type: 'bar',
-        warnings: []
+        warnings: [],
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [false, true, false, false]
-      }
-    ]
-  }
+        warnings: [false, true, false, false],
+      },
+    ],
+  },
 }
 
 describe('AnalyticsDialog', () => {
   it('renders snapshot', () => {
     const wrapper = render(<AnalyticsDialog />, {
-      initialState
+      initialState,
     })
     expect(wrapper.asFragment()).toMatchSnapshot()
   })
