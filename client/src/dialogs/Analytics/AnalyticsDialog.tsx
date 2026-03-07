@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks'
 import { setShowAnalytics } from '~/src/store/actions/street'
-import Terms from '~/src/app/Terms'
+import { Terms } from '~/src/app/Terms'
 import { Button } from '~/src/ui/Button'
 import Checkbox from '~/src/ui/Checkbox'
 import { ExternalLink } from '~/src/ui/ExternalLink'
