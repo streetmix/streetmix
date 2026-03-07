@@ -29,7 +29,7 @@ const DIALOG_COMPONENTS = {
   SENTIMENT_SURVEY: SentimentSurveyDialog,
 }
 
-function DialogRoot() {
+export function DialogRoot() {
   const name = useSelector((state) => state.dialogs.name)
 
   // Bail if no dialog name is provided
@@ -45,5 +45,3 @@ function DialogRoot() {
     </ErrorBoundary>
   )
 }
-
-export default DialogRoot
