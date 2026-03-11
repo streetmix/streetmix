@@ -1,6 +1,6 @@
 import { Button } from '~/src/ui/Button.js'
 import { useDispatch } from '~/src/store/hooks.js'
-import { nextTutorialStep, skipTutorial } from '~src/store/slices/app.js'
+import { nextTutorialStep, skipTutorial } from '~/src/store/slices/app.js'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
