@@ -3,9 +3,10 @@ import {
   useFloating,
   autoUpdate,
   offset,
-  flip,
+  // flip,
   shift,
   arrow,
+  autoPlacement,
   useFloatingNodeId,
   useHover,
   useFocus,
@@ -29,7 +30,7 @@ import './TutorialPopover.css'
 
 // Default settings
 const TOOLTIP_PLACEMENT = 'top'
-const TOOLTIP_TRANSITION_DURATION = 150
+const TOOLTIP_TRANSITION_DURATION = 250
 const TOOLTIP_TRANSITION_DISTANCE = 8
 
 interface TutorialPopoverOptions {
@@ -59,13 +60,18 @@ export function TutorialPopover({
     placement,
     whileElementsMounted: autoUpdate,
     middleware: [
-      offset(10),
-      flip({
-        crossAxis: placement.includes('-'),
-        fallbackAxisSideDirection: 'start',
-        padding: 5,
+      offset(16),
+
+      // flip({
+      //   crossAxis: placement.includes('-'),
+      //   fallbackAxisSideDirection: 'start',
+      //   padding: 5,
+      // }),
+      autoPlacement({
+        alignment: 'start',
+        // autoAlignment: true,
       }),
-      shift({ padding: 5 }),
+      shift({ padding: 10 }),
       arrow({
         element: arrowRef,
       }),

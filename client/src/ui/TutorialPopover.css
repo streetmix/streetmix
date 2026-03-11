@@ -8,10 +8,8 @@
   max-width: 250px;
   padding: 0.8em 1.2em;
   border-radius: var(--border-radius-large);
-  box-shadow: var(--medium-box-shadow);
   background-color: var(--tutorial-popover-background-color);
   color: var(--tutorial-popover-font-color);
-
   box-shadow:
     hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
     hsl(206deg 22% 7% / 20%) 0 10px 20px -15px,
