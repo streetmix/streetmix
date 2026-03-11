@@ -1,4 +1,4 @@
-import { useRef, useState, cloneElement } from 'react'
+import { useRef, cloneElement } from 'react'
 import {
   useFloating,
   autoUpdate,
@@ -6,7 +6,6 @@ import {
   flip,
   shift,
   arrow,
-  useDelayGroup,
   useFloatingNodeId,
   useHover,
   useFocus,
@@ -15,50 +14,43 @@ import {
   useInteractions,
   useTransitionStyles,
   useMergeRefs,
-  FloatingDelayGroup,
   FloatingPortal,
   FloatingArrow,
   FloatingNode,
 } from '@floating-ui/react'
 
-import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
-import type { Optional } from '@streetmix/types'
+import { Button } from './Button.js'
 
-import './Tooltip.css'
+import type { Placement } from '@floating-ui/react'
+
+import './TutorialPopover.css'
 
 // Default settings
 const TOOLTIP_PLACEMENT = 'top'
-const TOOLTIP_DELAY = {
-  open: 150,
-  close: 0,
-}
-const TOOLTIP_DELAY_TIMEOUT = 200
 const TOOLTIP_TRANSITION_DURATION = 150
 const TOOLTIP_TRANSITION_DISTANCE = 8
 
-interface TooltipOptions {
+interface TutorialPopoverOptions {
   placement?: Placement
 }
 
-interface TooltipProps extends TooltipOptions {
+interface TutorialPopoverProps extends TutorialPopoverOptions {
+  isOpen: boolean
   label?: string
-  sublabel?: string
   children: React.JSX.Element
 }
 
-export function Tooltip({
+export function TutorialPopover({
+  isOpen,
   label,
-  sublabel,
   placement = TOOLTIP_PLACEMENT,
   children,
-}: TooltipProps) {
-  const [isOpen, setIsOpen] = useState(false)
+}: TutorialPopoverProps) {
   const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context } = useFloating({
     nodeId,
     open: isOpen,
-    onOpenChange: setIsOpen,
     placement,
     whileElementsMounted: autoUpdate,
     middleware: [
@@ -74,8 +66,7 @@ export function Tooltip({
       }),
     ],
   })
-  const { delay, currentId, isInstantPhase } = useDelayGroup(context)
-  const hover = useHover(context, { delay })
+  const hover = useHover(context)
   const focus = useFocus(context)
   const dismiss = useDismiss(context)
   const role = useRole(context, { role: 'tooltip' })
@@ -88,13 +79,7 @@ export function Tooltip({
 
   // Define animation
   const { isMounted, styles } = useTransitionStyles(context, {
-    duration: isInstantPhase
-      ? {
-          open: 0,
-          close:
-            currentId === context.floatingId ? TOOLTIP_TRANSITION_DURATION : 0,
-        }
-      : TOOLTIP_TRANSITION_DURATION,
+    duration: TOOLTIP_TRANSITION_DURATION,
     initial: ({ side }) => ({
       opacity: 0,
       transform: {
@@ -114,7 +99,7 @@ export function Tooltip({
   // - If child element is a React component, the component definition
   //   must also spread its props to whichever element needs to take
   //   floating-ui's props
-  // In general <Tooltip> wraps a <Button> which does that (a normal HTML
+  // In general <TutorialPopover> wraps a <Button> which does that (a normal HTML
   // <button> also works just fine as is) but if this becomes too complex,
   // a future workaround is to use floating-ui's `asChild` pattern so that
   // some instances can be wrapped with its own element.
@@ -127,9 +112,13 @@ export function Tooltip({
     })
   )
 
-  // Pass thru if <Tooltip> is rendered without a label
+  // Pass thru if <TutorialPopover> is rendered without a label
   if (label === undefined) {
     return children
+  }
+
+  function handleNext() {
+    console.log('heyo')
   }
 
   return (
@@ -145,13 +134,14 @@ export function Tooltip({
               {...getFloatingProps()}
             >
               {/* Inner div is for styling and additional transforms */}
-              <div className="tooltip" style={styles}>
-                <p className="tooltip-label">{label}</p>
-                {sublabel !== undefined && (
-                  <p className="tooltip-sublabel">{sublabel}</p>
-                )}
+              <div className="tutorial-popover" style={styles}>
+                <p className="tutorial-popover-label">{label}</p>
+                <Button onClick={handleNext} primary>
+                  Next
+                </Button>
+
                 <FloatingArrow
-                  className="tooltip-arrow"
+                  className="tutorial-popover-arrow"
                   ref={arrowRef}
                   context={context}
                 />
@@ -161,23 +151,5 @@ export function Tooltip({
         )}
       </FloatingNode>
     </>
-  )
-}
-
-// TooltipGroupProps takes all of FloatingDelayGroupProps except that
-// `delay` is now optional because we provide our own default value
-type TooltipGroupProps = Optional<FloatingDelayGroupProps, 'delay'>
-
-// Re-exports <FloatingDelayGroup> with our own default values. It can be
-// overridden by props.
-export function TooltipGroup({ children, ...props }: TooltipGroupProps) {
-  return (
-    <FloatingDelayGroup
-      delay={TOOLTIP_DELAY}
-      timeoutMs={TOOLTIP_DELAY_TIMEOUT}
-      {...props}
-    >
-      {children}
-    </FloatingDelayGroup>
   )
 }
