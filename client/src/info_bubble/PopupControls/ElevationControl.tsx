@@ -11,6 +11,7 @@ import { segmentsChanged } from '~/src/store/actions/street.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
+import { TutorialPopover } from '~/src/ui/TutorialPopover.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
 import { VariantButton } from './VariantButton.js'
@@ -33,6 +34,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
       return state.street.segments[position].elevation
     }
   })
+  const tutorialStep = useSelector((state) => state.app.tutorialStep)
 
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -96,12 +98,23 @@ export function ElevationControl({ position }: ElevationControlProps) {
   let controls
   if (coastmixMode) {
     controls = (
-      <ElevationControlNew
-        key={position}
-        position={position}
-        elevation={elevation}
-        units={units}
-      />
+      <TutorialPopover
+        isOpen={tutorialStep === 7}
+        label={`Building off of Streetmix, Coastmix introduces a new vertical elevation
+function. Design your waterfront to prevent flooding under different
+sea level rise time horizons, with or without storm surge, by increasing
+the vertical elevation of an element in your waterfront. Use the arrows
+to adjust the elevation or type an amount. If sea level rise is enabled, you
+can address flooding by elevating a feature sufficiently.`}
+        placement="right"
+      >
+        <ElevationControlNew
+          key={position}
+          position={position}
+          elevation={elevation}
+          units={units}
+        />
+      </TutorialPopover>
     )
   } else {
     controls = (
