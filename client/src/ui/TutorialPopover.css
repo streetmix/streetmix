@@ -1,0 +1,33 @@
+.tutorial-popover {
+  --tutorial-popover-background-color: white;
+  --tutorial-popover-font-color: rgb(65 65 65);
+  --tutorial-popover-font-weight: 500;
+
+  width: max-content;
+  max-width: calc(100vw * 0.5);
+  max-width: 250px;
+  padding: 0.8em 1.2em;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--medium-box-shadow);
+  background-color: var(--tutorial-popover-background-color);
+  color: var(--tutorial-popover-font-color);
+
+  box-shadow:
+    hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
+    hsl(206deg 22% 7% / 20%) 0 10px 20px -15px,
+    0 0 0 3px rgb(82 162 175 / 20%);
+
+  p {
+    margin: 0;
+  }
+
+  /* Match welcome panel padding -- TODO: compare with rest of app */
+  button {
+    margin-top: 0.75em;
+    padding: 0.5em 1em;
+  }
+}
+
+.tutorial-popover-arrow {
+  fill: var(--tutorial-popover-background-color);
+}
