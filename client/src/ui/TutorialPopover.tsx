@@ -38,12 +38,14 @@ interface TutorialPopoverOptions {
 
 interface TutorialPopoverProps extends TutorialPopoverOptions {
   isOpen: boolean
+  showNext?: boolean
   label?: string
   children: React.JSX.Element
 }
 
 export function TutorialPopover({
   isOpen,
+  showNext = true,
   label,
   placement = TOOLTIP_PLACEMENT,
   children,
@@ -139,9 +141,11 @@ export function TutorialPopover({
               {/* Inner div is for styling and additional transforms */}
               <div className="tutorial-popover" style={styles}>
                 <p className="tutorial-popover-label">{label}</p>
-                <Button onClick={handleNext} primary>
-                  Next
-                </Button>
+                {showNext && (
+                  <Button onClick={handleNext} primary>
+                    Next
+                  </Button>
+                )}
 
                 <FloatingArrow
                   className="tutorial-popover-arrow"

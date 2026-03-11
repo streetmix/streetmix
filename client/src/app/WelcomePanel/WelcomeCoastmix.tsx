@@ -1,15 +1,20 @@
-import { Button } from '~/src/ui/Button'
+import { Button } from '~/src/ui/Button.js'
+import { useDispatch } from '~/src/store/hooks.js'
+import { nextTutorialStep, skipTutorial } from '~src/store/slices/app.js'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
 }
 
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
+  const dispatch = useDispatch()
+
   function handleQuickTour(): void {
-    // TODO
+    dispatch(nextTutorialStep())
   }
 
   function handleSkip(event: React.MouseEvent): void {
+    dispatch(skipTutorial())
     handleDismiss(event)
   }
 
