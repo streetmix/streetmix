@@ -51,7 +51,7 @@ export function FirstTimeExistingStreet() {
           />
         )}
       </p>
-      <p>
+      <div className="welcome-panel-buttons">
         <FormattedMessage
           id="dialogs.welcome.existing.instruct"
           defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
@@ -66,7 +66,7 @@ export function FirstTimeExistingStreet() {
             ),
           }}
         />
-      </p>
+      </div>
     </div>
   )
 }

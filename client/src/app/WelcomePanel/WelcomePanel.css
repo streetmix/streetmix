@@ -19,7 +19,6 @@
   margin: 0;
   background: white;
   text-align: center;
-  font-size: 1.2rem;
   color: rgb(64 64 64);
   pointer-events: auto;
   border-bottom-left-radius: var(--welcome-panel-border-radius);
@@ -35,10 +34,16 @@
     margin-bottom: 0.5em;
   }
 
-  button {
-    margin: 0 0.25em;
-    padding: 0.5em 1em;
+  p {
+    font-size: 1.2rem;
   }
+}
+
+.welcome-panel-buttons {
+  margin: 1em 0 0.5em;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 /* Component specific tweaks to <StreetName /> */

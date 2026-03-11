@@ -15,12 +15,14 @@ export function WelcomeNewStreet({ handleDismiss }: WelcomeNewStreetProps) {
           defaultMessage="Here’s your new street."
         />
       </h1>
-      <Button primary onClick={handleDismiss}>
-        <FormattedMessage
-          id="dialogs.new-street.dismiss"
-          defaultMessage="Let’s go!&lrm;"
-        />
-      </Button>
+      <div className="welcome-panel-buttons">
+        <Button primary onClick={handleDismiss}>
+          <FormattedMessage
+            id="dialogs.new-street.dismiss"
+            defaultMessage="Let’s go!&lrm;"
+          />
+        </Button>
+      </div>
     </div>
   )
 }
