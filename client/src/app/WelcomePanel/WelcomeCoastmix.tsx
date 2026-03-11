@@ -33,14 +33,14 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
         flooding, and design your own adaptation strategies.{' '}
         <strong>Let’s get started!</strong>
       </p>
-      <p style={{ display: 'flex', justifyContent: 'center', gap: '0.5em' }}>
+      <div className="welcome-panel-buttons">
         <Button onClick={handleQuickTour} primary>
           Take a quick tour
         </Button>
         <Button onClick={handleSkip} tertiary>
           Skip
         </Button>
-      </p>
+      </div>
     </div>
   )
 }
