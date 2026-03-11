@@ -13,7 +13,8 @@ import { WhatsNewDialog } from './WhatsNew'
 import { NewsletterDialog } from './Newsletter'
 import UpgradeDialog from './Upgrade'
 import SentimentSurveyDialog from './SentimentSurvey'
-import ErrorDialog from './ErrorDialog'
+import ErrorDialog from './ErrorDialog.js'
+import { CoastmixTutorialComplete } from './CoastmixTutorial.js'
 
 const DIALOG_COMPONENTS = {
   ABOUT: AboutDialog,
@@ -27,15 +28,20 @@ const DIALOG_COMPONENTS = {
   NEWSLETTER: NewsletterDialog,
   UPGRADE: UpgradeDialog,
   SENTIMENT_SURVEY: SentimentSurveyDialog,
+  COASTMIX_TUTORIAL_COMPLETE: CoastmixTutorialComplete,
 }
 
 export function DialogRoot() {
-  const name = useSelector((state) => state.dialogs.name)
+  let name = useSelector((state) => state.dialogs.name)
+  const tutorialStep = useSelector((state) => state.app.tutorialStep)
 
   // Bail if no dialog name is provided
-  if (name === null) return null
+  if (name === null && tutorialStep !== 9) return null
 
   // Get the dialog we want, then render it
+  if (tutorialStep === 9) {
+    name = 'COASTMIX_TUTORIAL_COMPLETE'
+  }
   const Dialog = DIALOG_COMPONENTS[name as keyof typeof DIALOG_COMPONENTS]
 
   // Wrap Dialog with an ErrorBoundary wrapper to catch errors
