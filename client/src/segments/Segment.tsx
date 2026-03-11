@@ -6,6 +6,7 @@ import { getSegmentInfo } from '@streetmix/parts'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { PopupContainer } from '~/src/info_bubble/PopupContainer.js'
 import { EmptyDragPreview } from '~/src/ui/dnd/EmptyDragPreview.js'
+import { TutorialPopover } from '~/src/ui/TutorialPopover.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import { setActiveSegment } from '../store/slices/ui.js'
 import {
@@ -35,7 +36,6 @@ import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import { TutorialPopover } from '~src/ui/TutorialPopover.js'
 
 interface SliceProps {
   sliceIndex: number
