@@ -58,7 +58,11 @@ const appSlice = createSlice({
       state.tutorialStep += 1
     },
 
-    resetTutorialStep(state) {
+    setTutorialStep(state, action: PayloadAction<number>) {
+      state.tutorialStep = action.payload
+    },
+
+    resetTutorial(state) {
       state.tutorialStep = 1
     },
 
@@ -83,7 +87,8 @@ export const {
   stopPrinting,
   everythingLoaded,
   nextTutorialStep,
-  resetTutorialStep,
+  setTutorialStep,
+  resetTutorial,
   skipTutorial,
 } = appSlice.actions
 
