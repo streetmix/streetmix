@@ -3,10 +3,10 @@ import {
   useFloating,
   autoUpdate,
   offset,
-  // flip,
+  flip,
   shift,
   arrow,
-  autoPlacement,
+  // autoPlacement,
   useFloatingNodeId,
   useHover,
   useFocus,
@@ -61,16 +61,15 @@ export function TutorialPopover({
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(16),
-
-      // flip({
-      //   crossAxis: placement.includes('-'),
-      //   fallbackAxisSideDirection: 'start',
-      //   padding: 5,
-      // }),
-      autoPlacement({
-        alignment: 'start',
-        // autoAlignment: true,
+      flip({
+        crossAxis: placement.includes('-'),
+        fallbackAxisSideDirection: 'start',
+        padding: 5,
       }),
+      // autoPlacement({
+      //   alignment: 'start',
+      //   // autoAlignment: true,
+      // }),
       shift({ padding: 10 }),
       arrow({
         element: arrowRef,
