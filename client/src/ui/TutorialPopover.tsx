@@ -19,6 +19,8 @@ import {
   FloatingNode,
 } from '@floating-ui/react'
 
+import { useDispatch } from '~/src/store/hooks.js'
+import { nextTutorialStep } from '~/src/store/slices/app.js'
 import { Button } from './Button.js'
 
 import type { Placement } from '@floating-ui/react'
@@ -46,6 +48,7 @@ export function TutorialPopover({
   placement = TOOLTIP_PLACEMENT,
   children,
 }: TutorialPopoverProps) {
+  const dispatch = useDispatch()
   const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context } = useFloating({
@@ -118,7 +121,7 @@ export function TutorialPopover({
   }
 
   function handleNext() {
-    console.log('heyo')
+    dispatch(nextTutorialStep())
   }
 
   return (
