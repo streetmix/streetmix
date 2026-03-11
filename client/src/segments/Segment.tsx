@@ -35,6 +35,7 @@ import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
+import { TutorialPopover } from '~src/ui/TutorialPopover.js'
 
 interface SliceProps {
   sliceIndex: number
@@ -56,6 +57,7 @@ export function Segment(props: SliceProps) {
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const readOnly = useSelector((state) => state.app.readOnly)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
+  const tutorialStep = useSelector((state) => state.app.tutorialStep)
   const dispatch = useDispatch()
 
   const elementRef = useRef<HTMLDivElement>(null)
@@ -261,6 +263,9 @@ export function Segment(props: SliceProps) {
     classNames.push('outside')
   }
 
+  // Popup disabled during several tutorial steps
+  const duringTutorial = tutorialStep > 1 && tutorialStep <= 5
+
   return (
     <div
       style={segmentStyle}
@@ -274,17 +279,23 @@ export function Segment(props: SliceProps) {
         type="slice"
         position={sliceIndex}
         isDragging={isDragging}
-        disabled={readOnly}
+        disabled={readOnly || duringTutorial}
       >
         <button data-slice-index={sliceIndex} data-slice-left={segmentLeft}>
-          <SegmentLabelContainer
-            label={displayName}
-            width={segment.width}
-            units={units}
-            locale={locale}
-            capacity={average}
-            showCapacity={enableAnalytics}
-          />
+          <TutorialPopover
+            isOpen={sliceIndex === 0 && tutorialStep === 6}
+            label={`Click or hover over an element in your waterfront to access and adjust its elevation.`}
+            placement="right"
+          >
+            <SegmentLabelContainer
+              label={displayName}
+              width={segment.width}
+              units={units}
+              locale={locale}
+              capacity={average}
+              showCapacity={enableAnalytics}
+            />
+          </TutorialPopover>
           <SegmentDragHandles width={elementWidth} />
           <div ref={dndRef} className="segment-canvas-container">
             <CSSTransition
