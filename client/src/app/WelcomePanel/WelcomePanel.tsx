@@ -23,7 +23,10 @@ const WELCOME_FIRST_TIME_EXISTING_STREET = 3
 const WELCOME_NEW_STREET_COASTMIX = 4
 const WELCOME_FIRST_TIME_COASTMIX = 5
 
-function determineWelcomeType(coastmixMode: boolean): number {
+function determineWelcomeType(
+  coastmixMode: boolean,
+  tutorialStep: number
+): number {
   let type = WELCOME_NONE
   const mode = getMode()
   const isReturningUser = getIsReturningUser()
@@ -31,7 +34,7 @@ function determineWelcomeType(coastmixMode: boolean): number {
   // Custom welcome type for Coastmix mode.
   // TODO: any messaging changes for new streets?
   if (coastmixMode) {
-    if (!isReturningUser) {
+    if (!isReturningUser || tutorialStep === 1) {
       type = WELCOME_FIRST_TIME_COASTMIX
     } else if (
       mode === MODES.NEW_STREET ||
@@ -55,7 +58,7 @@ function determineWelcomeType(coastmixMode: boolean): number {
 }
 
 export function WelcomePanel() {
-  const { readOnly } = useSelector((state) => state.app)
+  const { readOnly, tutorialStep } = useSelector((state) => state.app)
   const { welcomePanelVisible: isVisible, welcomePanelDismissed: isDismissed } =
     useSelector((state) => state.ui)
   const coastmixMode = useSelector(
@@ -64,7 +67,7 @@ export function WelcomePanel() {
   const dispatch = useDispatch()
 
   // Determine what type of welcome panel to show
-  const type = determineWelcomeType(coastmixMode)
+  const type = determineWelcomeType(coastmixMode, tutorialStep)
 
   // Handler function is a callback to prevent re-running effects
   const handleDismissed = useCallback(() => {

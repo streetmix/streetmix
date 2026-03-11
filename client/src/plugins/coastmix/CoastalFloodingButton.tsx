@@ -16,8 +16,9 @@ export function CoastalFloodingButton() {
   return (
     <div className="coastmix-controls-container">
       <TutorialPopover
-        isOpen={tutorialStep === 1}
+        isOpen={tutorialStep === 2}
         label={`Click on "Coastal flooding" to access and adjust flood features.`}
+        showNext={false}
         placement="right"
       >
         <Button onClick={handleClick} className="coastmix-controls-button">
