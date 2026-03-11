@@ -7,6 +7,7 @@ import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import Icon from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
+import { TutorialPopover } from '~/src/ui/TutorialPopover.js'
 
 interface SlopeControlProps {
   position: number
@@ -18,6 +19,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
   const slice = useSelector((state) => {
     return state.street.segments[position]
   })
+  const tutorialStep = useSelector((state) => state.app.tutorialStep)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -51,14 +53,23 @@ export function SlopeControl({ position }: SlopeControlProps) {
           </span>
         </Tooltip>
       </div>
-      <Tooltip label={tooltip} placement="bottom">
-        <Switch
-          onCheckedChange={handleSlopeChange}
-          checked={isSloped}
-          disabled={!allowSlope}
-          aria-label={label}
-        />
-      </Tooltip>
+      <TutorialPopover
+        isOpen={tutorialStep === 8}
+        label={`While some coastal resilience strategies may be vertical, such as a
+seawall, others may be sloped to reach a target Design Flood Elevation
+more gradually. After you elevate a feature, you can enable a slope to the
+adjacent feature(s). But watch out for features with very steep slopes: they might not be accessible!`}
+        placement="right"
+      >
+        <Tooltip label={tooltip} placement="bottom">
+          <Switch
+            onCheckedChange={handleSlopeChange}
+            checked={isSloped}
+            disabled={!allowSlope}
+            aria-label={label}
+          />
+        </Tooltip>
+      </TutorialPopover>
     </div>
   )
 }
