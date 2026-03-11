@@ -10,6 +10,7 @@ interface AppState {
   printing: boolean
   everythingLoaded: boolean
   contentDirection: ContentDirection
+  tutorialStep: number
   priorLastStreetId: string | null
 }
 
@@ -18,6 +19,10 @@ const initialState: AppState = {
   printing: false,
   everythingLoaded: false,
   contentDirection: 'ltr',
+
+  // Tutorial state is tied to device/browser. Other settings (like user prefs)
+  // should be able to reset this value (e.g. set to 0 to turn off entirely)
+  tutorialStep: 1,
 
   // Used to remember the "last street" ID when making a copy of a street
   // looked at in a previous tab. Its value is copied from the `lastStreetId`
@@ -48,6 +53,18 @@ const appSlice = createSlice({
     everythingLoaded(state) {
       state.everythingLoaded = true
     },
+
+    nextTutorialStep(state) {
+      state.tutorialStep += 1
+    },
+
+    resetTutorialStep(state) {
+      state.tutorialStep = 1
+    },
+
+    skipTutorial(state) {
+      state.tutorialStep = 0
+    },
   },
 
   extraReducers: (builder) => {
@@ -60,7 +77,14 @@ const appSlice = createSlice({
   },
 })
 
-export const { setAppFlags, startPrinting, stopPrinting, everythingLoaded } =
-  appSlice.actions
+export const {
+  setAppFlags,
+  startPrinting,
+  stopPrinting,
+  everythingLoaded,
+  nextTutorialStep,
+  resetTutorialStep,
+  skipTutorial,
+} = appSlice.actions
 
 export default appSlice.reducer
