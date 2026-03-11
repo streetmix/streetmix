@@ -91,7 +91,7 @@
     "passport-oauth": "1.0.0",
     "passport-patreon": "1.0.1",
     "pg": "8.20.0",
-    "sequelize": "6.37.7",
+    "sequelize": "6.37.8",
     "sequelize-cli": "6.6.5",
     "sequelize-mock": "0.10.2",
     "svg-sprite": "2.0.4",
