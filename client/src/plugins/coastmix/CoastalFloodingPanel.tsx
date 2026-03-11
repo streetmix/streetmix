@@ -78,7 +78,7 @@ export function CoastalFloodingPanel() {
     <FloatingPanel
       icon="boat"
       title="Coastal flooding"
-      show={controlsVisible}
+      show={tutorialStep !== 1 && controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
       position={{ x: 30, y: 65 }}
