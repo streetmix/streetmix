@@ -12,7 +12,7 @@ export function CoastmixTutorialComplete() {
       {(closeDialog) => (
         <div className="dialog-coastmix-tutorial-complete">
           <header>
-            <h1>Tutorial complete!</h1>
+            <h2>Tutorial complete!</h2>
           </header>
 
           <div className="dialog-content">
@@ -27,8 +27,6 @@ export function CoastmixTutorialComplete() {
             <p
               style={{
                 display: 'flex',
-                justifyContent: 'center',
-                gap: '0.5em',
                 margin: '0',
               }}
             >
