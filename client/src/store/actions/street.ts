@@ -7,7 +7,6 @@ import {
   RESIZE_TYPE_PRECISE_DRAGGING,
   resolutionForResizeType,
   normalizeSegmentWidth,
-  cancelSegmentResizeTransitions,
 } from '~/src/segments/resizing.js'
 import { getSlopeValues } from '~/src/segments/slope.js'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
@@ -206,7 +205,6 @@ export const incrementSegmentWidth = (
       width = normalizeSegmentWidth(origWidth + increment, resolution)
     }
 
-    cancelSegmentResizeTransitions()
     await dispatch(changeSegmentWidth(sliceIndex, width))
     await dispatch(segmentsChanged())
   }
