@@ -78,7 +78,10 @@ export default async function (req, res, next) {
         }
       }
     } catch (error) {
-      logger.error(error)
+      // 404 is expected — most streets don't have thumbnails yet
+      if (error.response?.status !== 404) {
+        logger.error(error)
+      }
     }
 
     next()
