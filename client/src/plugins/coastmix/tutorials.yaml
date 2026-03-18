@@ -1,0 +1,9 @@
+- id: "coastmix.onboarding"
+  version: 1
+  steps:
+    - step: 1
+      id: "welcome"
+      type: "welcome-panel"
+      content:
+        title:
+        body:
