@@ -27,7 +27,6 @@ import { WelcomePanel } from './WelcomePanel'
 import NotificationBar from './NotificationBar'
 import Loading from './Loading.js'
 import SponsorBanner from './SponsorBanner.js'
-import { ShepherdTest } from '../ui/tours/ShepherdTest.js'
 
 export function App() {
   const [isLoading, setLoading] = useState(true)
@@ -89,7 +88,6 @@ export function App() {
                     <ToastContainer />
                     <SentimentSurveyContainer />
                     <CoastmixUI />
-                    <ShepherdTest />
                   </div>
                   <SponsorBanner />
                 </DndProvider>

@@ -1,11 +1,29 @@
+import { useShepherd } from 'react-shepherd'
+
 import { useDispatch } from '~/src/store/hooks.js'
-import { stopTour } from '~/src/store/slices/app.js'
+import { startTour, stopTour } from '~/src/store/slices/app.js'
 import { Button } from '~/src/ui/Button.js'
+import { steps } from '~/src/ui/tours/coastmix-practice.js'
 import Dialog from './Dialog.js'
 import './CoastmixTutorial.css'
 
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: false,
+    },
+  },
+  useModalOverlay: true,
+}
+
 export function CoastmixTutorialComplete() {
   const dispatch = useDispatch()
+
+  const Shepherd = useShepherd()
+  const tour = new Shepherd.Tour({
+    ...tourOptions,
+    steps: steps,
+  })
 
   return (
     <Dialog>
@@ -32,7 +50,8 @@ export function CoastmixTutorialComplete() {
             >
               <Button
                 onClick={() => {
-                  dispatch(stopTour())
+                  tour.start()
+                  dispatch(startTour())
                   closeDialog()
                 }}
                 primary

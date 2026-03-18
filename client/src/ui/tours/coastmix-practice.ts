@@ -20,7 +20,7 @@ const nextButton = {
 
 export const steps: StepOptions[] = [
   {
-    id: 'coastmix-onboarding-01',
+    id: 'coastmix-practice-01',
     text: 'Click on "Coastal flooding" to access and adjust flood features.',
     attachTo: {
       element: '.coastmix-controls-button',
@@ -34,7 +34,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-onboarding-02',
+    id: 'coastmix-practice-02',
     text: `Sea level rise is a permanent rise in ocean height relative to land due to
       melting glaciers and thermal expansion. As sea levels rise over time, we
       must design for near- and long-term flood risk. We can block flooding
@@ -54,7 +54,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-onboarding-03',
+    id: 'coastmix-practice-03',
     text: `When a coastal storm occurs, strong winds push water onto land near
       the coast. This temporarily raises sea levels above normal and can cause
       significant flood damage. It is important to factor in storm surge on top
@@ -73,7 +73,7 @@ export const steps: StepOptions[] = [
     modalOverlayOpeningYOffset: -1,
   },
   {
-    id: 'coastmix-onboarding-04',
+    id: 'coastmix-practice-04',
     text: `In Coastmix, you can choose which direction the flooding comes from
       based on how you design your waterfront and where the coast is located.
       This feature will react when you build something high enough to block
@@ -86,7 +86,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-onboarding-05',
+    id: 'coastmix-practice-05',
     text: `Click or hover over an element in your waterfront to access and adjust its elevation.`,
     attachTo: {
       element: '[data-testid="segment"]',
@@ -100,7 +100,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-onboarding-06',
+    id: 'coastmix-practice-06',
     text: `Building off of Streetmix, Coastmix introduces a new vertical elevation
       function. Design your waterfront to prevent flooding under different
       sea level rise time horizons, with or without storm surge, by increasing
@@ -119,7 +119,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-onboarding-07',
+    id: 'coastmix-practice-07',
     text: `While some coastal resilience strategies may be vertical, such as a
       seawall, others may be sloped to reach a target Design Flood Elevation
       more gradually. After you elevate a feature, you can enable a slope to the
