@@ -1,10 +1,10 @@
 import store from '~/src/store'
 import { stopTour } from '~/src/store/slices/app.js'
+import { hideCoastalFloodingPanel } from '~/src/store/slices/coastmix.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
-import { hideCoastalFloodingPanel } from '~src/store/slices/coastmix.js'
 
 const modalOverlayOptions = {
   modalOverlayOpeningPadding: 5,
@@ -74,8 +74,8 @@ export const steps: StepOptions[] = [
     },
     buttons: [nextButton],
     ...modalOverlayOptions,
-    /* Make the position of this a lil prettier, because the control is not
-       vertically centered */
+    // Make the position of this a lil prettier, because the control is not
+    // vertically centered
     modalOverlayOpeningYOffset: -1,
   },
   {

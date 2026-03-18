@@ -1,9 +1,10 @@
 import store from '~/src/store'
 import { stopTour } from '~/src/store/slices/app.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
-// import { waitFor, waitForElement } from './waitForElement.js'
+import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
+import { resetCoastmixState } from '~src/store/slices/coastmix.js'
 
 const modalOverlayOptions = {
   modalOverlayOpeningPadding: 5,
@@ -18,12 +19,20 @@ const nextButton = {
   },
 }
 
+let cleanup: (() => void) | null = null
+
 export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-01',
     text: 'In this practice scenario, you will address 2030 sea level rise with storm surge.',
     classes: 'tour-medium-width',
     buttons: [nextButton],
+    when: {
+      show() {
+        // Reset Coastmix state for the tutorial.
+        store.dispatch(resetCoastmixState())
+      },
+    },
     ...modalOverlayOptions,
   },
   {
@@ -62,11 +71,6 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '.coastmix-controls-button',
     },
-    // Only show this step if the coastal flooding panel isn't already open
-    showOn() {
-      const coastmix = store.getState().coastmix
-      return !coastmix.controlsVisible
-    },
   },
   {
     // assuming not already selected
@@ -80,17 +84,28 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="2030-sea-level-rise"]',
     },
+    beforeShowPromise: async () => {
+      await waitForElement('.coastmix-controls')
+      await waitFor(500)
+    },
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-05',
     text: `For an extra challenge, you can turn on storm surge.`,
     attachTo: {
-      element: '[data-tour-id="storm-surge-control"]',
+      element: '[data-tour-id="storm-surge-control"] button',
       on: 'bottom',
     },
+    extraHighlights: [
+      '[data-tour-id="storm-surge-control"]',
+      '[data-tour-id="storm-surge-control"] button',
+    ],
     buttons: [nextButton],
     ...modalOverlayOptions,
+    // Make the position of this a lil prettier, because the control is not
+    // vertically centered
+    modalOverlayOpeningYOffset: -1,
   },
   {
     id: 'coastmix-practice-06',
@@ -101,13 +116,65 @@ export const steps: StepOptions[] = [
       on: 'right',
     },
     // TODO: advance on selection
+    // buttons: [
+    //   {
+    //     ...nextButton,
+    //     disabled() {
+    //       const coastmix = store.getState().coastmix
+    //       console.log('disable?', coastmix.floodDirection, coastmix.floodDirection !== 'right')
+    //       return coastmix.floodDirection !== 'right'
+    //       // return false
+    //     },
+    //   }
+    // ],
+    when: {
+      show() {
+        const el = document.querySelector<HTMLSelectElement>(
+          '[data-tour-id="flood-direction-control"] select'
+        )
+        if (!el) return
+
+        const tour = this as unknown as Tour
+
+        function handler() {
+          if (!el) return
+          if (el.value === 'right') {
+            // why parent object with tour inside of it?
+            tour.tour.next()
+          }
+        }
+
+        el.addEventListener('change', handler)
+        cleanup = () => el.removeEventListener('change', handler)
+
+        // If it’s already correct (e.g., persisted setting), advance immediately
+        // hmmmm
+        if (el.value === 'right') tour.tour.next()
+      },
+      hide() {
+        cleanup?.()
+        cleanup = null
+      },
+    },
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-practice-06b',
+    text: `Oh no! You can see that our harborwalk environment is flooded.
+      There are many ways to protect against future sea level rise, but for
+      this scenario, we’ll be building an elevated harborwalk with a sloped
+      berm.`,
+    attachTo: {
+      element: '[data-tour-id="flooding-message"]',
+      on: 'bottom',
+    },
     buttons: [nextButton],
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-07',
-    text: `Now, let’s build an elevated Harborwalk with a sloped berm. First, click
-      on the feature next to the water called “Harborwalk.”`,
+    text: `First, click or hover on the “Harborwalk” feature next to the
+      water.`,
     buttons: [nextButton],
     ...modalOverlayOptions,
   },

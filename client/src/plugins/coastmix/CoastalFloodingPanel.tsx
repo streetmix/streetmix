@@ -138,7 +138,12 @@ export function CoastalFloodingPanel() {
             </select>
           </div>
         </div>
-        <div className={messageClassNames.join(' ')}>{message}</div>
+        <div
+          className={messageClassNames.join(' ')}
+          data-tour-id="flooding-message"
+        >
+          {message}
+        </div>
       </div>
     </FloatingPanel>
   )

@@ -23,6 +23,12 @@ const coastmixSlice = createSlice({
       }
     },
 
+    resetCoastmixState() {
+      return {
+        ...initialState,
+      }
+    },
+
     showCoastalFloodingPanel(state) {
       state.controlsVisible = true
     },
@@ -58,6 +64,7 @@ const coastmixSlice = createSlice({
 
 export const {
   setCoastmixState,
+  resetCoastmixState,
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   toggleCoastalFloodingPanel,
