@@ -1,15 +1,34 @@
+import { useShepherd } from 'react-shepherd'
+
 import { Button } from '~/src/ui/Button.js'
 import { useDispatch } from '~/src/store/hooks.js'
 import { nextTutorialStep, skipTutorial } from '~/src/store/slices/app.js'
+import { steps } from '~/src/ui/tours/coastmix-onboarding.js'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
 }
 
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: false,
+    },
+  },
+  useModalOverlay: true,
+}
+
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   const dispatch = useDispatch()
 
+  const Shepherd = useShepherd()
+  const tour = new Shepherd.Tour({
+    ...tourOptions,
+    steps: steps,
+  })
+
   function handleQuickTour(): void {
+    tour.start()
     dispatch(nextTutorialStep())
   }
 
