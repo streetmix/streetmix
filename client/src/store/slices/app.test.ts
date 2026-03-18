@@ -2,9 +2,9 @@ import app, {
   setAppFlags,
   startPrinting,
   stopPrinting,
-  everythingLoaded
-} from './app'
-import { changeLocale } from './locale'
+  everythingLoaded,
+} from './app.js'
+import { changeLocale } from './locale.js'
 
 describe('app reducer', () => {
   const initialState = {
@@ -12,7 +12,8 @@ describe('app reducer', () => {
     printing: false,
     everythingLoaded: false,
     contentDirection: 'ltr' as const,
-    priorLastStreetId: null
+    priorLastStreetId: null,
+    activeTour: false,
   }
 
   it('should handle setAppFlags()', () => {
@@ -21,7 +22,7 @@ describe('app reducer', () => {
         initialState,
         setAppFlags({
           readOnly: true,
-          priorLastStreetId: '1'
+          priorLastStreetId: '1',
         })
       )
     ).toEqual({
@@ -29,7 +30,8 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: '1'
+      priorLastStreetId: '1',
+      activeTour: false,
     })
   })
 
@@ -39,7 +41,8 @@ describe('app reducer', () => {
       printing: true,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
+      activeTour: false,
     })
   })
 
@@ -51,7 +54,8 @@ describe('app reducer', () => {
           printing: true,
           everythingLoaded: false,
           contentDirection: 'ltr',
-          priorLastStreetId: null
+          priorLastStreetId: null,
+          activeTour: false,
         },
         stopPrinting()
       )
@@ -60,7 +64,8 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
+      activeTour: false,
     })
   })
 
@@ -70,7 +75,8 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: true,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
+      activeTour: false,
     })
   })
 
@@ -80,7 +86,7 @@ describe('app reducer', () => {
         app(
           initialState,
           changeLocale.fulfilled({
-            locale: 'ar'
+            locale: 'ar',
           })
         )
       ).toEqual({
@@ -88,7 +94,8 @@ describe('app reducer', () => {
         printing: false,
         everythingLoaded: false,
         contentDirection: 'rtl',
-        priorLastStreetId: null
+        priorLastStreetId: null,
+        activeTour: false,
       })
     })
 
@@ -100,10 +107,11 @@ describe('app reducer', () => {
             printing: false,
             everythingLoaded: true,
             contentDirection: 'rtl',
-            priorLastStreetId: null
+            priorLastStreetId: null,
+            activeTour: false,
           },
           changeLocale.fulfilled({
-            locale: 'en'
+            locale: 'en',
           })
         )
       ).toEqual({
@@ -111,7 +119,8 @@ describe('app reducer', () => {
         printing: false,
         everythingLoaded: true,
         contentDirection: 'ltr',
-        priorLastStreetId: null
+        priorLastStreetId: null,
+        activeTour: false,
       })
     })
   })

@@ -2,7 +2,7 @@ import { useShepherd } from 'react-shepherd'
 
 import { Button } from '~/src/ui/Button.js'
 import { useDispatch } from '~/src/store/hooks.js'
-import { nextTutorialStep, skipTutorial } from '~/src/store/slices/app.js'
+import { startTour, stopTour } from '~/src/store/slices/app.js'
 import { steps } from '~/src/ui/tours/coastmix-onboarding.js'
 
 interface WelcomeCoastmixProps {
@@ -27,13 +27,14 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
     steps: steps,
   })
 
-  function handleQuickTour(): void {
+  function handleQuickTour(event: React.MouseEvent): void {
     tour.start()
-    dispatch(nextTutorialStep())
+    dispatch(startTour())
+    handleDismiss(event)
   }
 
   function handleSkip(event: React.MouseEvent): void {
-    dispatch(skipTutorial())
+    dispatch(stopTour())
     handleDismiss(event)
   }
 

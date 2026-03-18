@@ -10,8 +10,8 @@ interface AppState {
   printing: boolean
   everythingLoaded: boolean
   contentDirection: ContentDirection
-  tutorialStep: number
   priorLastStreetId: string | null
+  activeTour: boolean
 }
 
 const initialState: AppState = {
@@ -20,14 +20,14 @@ const initialState: AppState = {
   everythingLoaded: false,
   contentDirection: 'ltr',
 
-  // Tutorial state is tied to device/browser. Other settings (like user prefs)
-  // should be able to reset this value (e.g. set to 0 to turn off entirely)
-  tutorialStep: 1,
-
   // Used to remember the "last street" ID when making a copy of a street
   // looked at in a previous tab. Its value is copied from the `lastStreetId`
   // value from the `settings` reducer, so that it can be remembered
   priorLastStreetId: null,
+
+  // Tour state is tied to device/browser. Tour state internally handled by
+  // react-shepherd, this value only tracks if one is currently active.
+  activeTour: false,
 }
 
 const appSlice = createSlice({
@@ -54,20 +54,12 @@ const appSlice = createSlice({
       state.everythingLoaded = true
     },
 
-    nextTutorialStep(state) {
-      state.tutorialStep += 1
+    startTour(state) {
+      state.activeTour = true
     },
 
-    setTutorialStep(state, action: PayloadAction<number>) {
-      state.tutorialStep = action.payload
-    },
-
-    resetTutorial(state) {
-      state.tutorialStep = 1
-    },
-
-    skipTutorial(state) {
-      state.tutorialStep = 0
+    stopTour(state) {
+      state.activeTour = false
     },
   },
 
@@ -86,10 +78,8 @@ export const {
   startPrinting,
   stopPrinting,
   everythingLoaded,
-  nextTutorialStep,
-  setTutorialStep,
-  resetTutorial,
-  skipTutorial,
+  startTour,
+  stopTour,
 } = appSlice.actions
 
 export default appSlice.reducer

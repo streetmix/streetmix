@@ -1,5 +1,5 @@
 import { useDispatch } from '~/src/store/hooks.js'
-import { skipTutorial } from '~/src/store/slices/app.js'
+import { stopTour } from '~/src/store/slices/app.js'
 import { Button } from '~/src/ui/Button.js'
 import Dialog from './Dialog.js'
 import './CoastmixTutorial.css'
@@ -32,7 +32,7 @@ export function CoastmixTutorialComplete() {
             >
               <Button
                 onClick={() => {
-                  dispatch(skipTutorial())
+                  dispatch(stopTour())
                   closeDialog()
                 }}
                 primary
@@ -41,7 +41,7 @@ export function CoastmixTutorialComplete() {
               </Button>
               <Button
                 onClick={() => {
-                  dispatch(skipTutorial())
+                  dispatch(stopTour())
                   closeDialog()
                 }}
                 tertiary
