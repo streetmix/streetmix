@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
+import { ShepherdJourneyProvider } from 'react-shepherd'
 import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
@@ -65,32 +66,34 @@ export function App() {
               key={locale.locale}
               messages={locale.messages}
             >
-              {/* The prop context={window} prevents crash errors with hot-module reloading */}
-              <DndProvider options={HTML5toTouch} context={window}>
-                {/* DndProvider allows multiple children; IntlProvider does not */}
-                <NotificationBar />
-                <BlockingShield />
-                <BlockingError />
-                <Gallery />
-                <DialogRoot />
-                <DebugInfo />
-                <PrintContainer />
-                <div className="main-screen">
-                  <MenusContainer />
-                  <StreetNameplateContainer />
-                  <DescriptionPanel />
-                  <WelcomePanel />
-                  <PaletteContainer />
-                  <SkyPicker />
-                  <SegmentDragLayer />
-                  <StreetView />
-                  <ToastContainer />
-                  <SentimentSurveyContainer />
-                  <CoastmixUI />
-                  <ShepherdTest />
-                </div>
-                <SponsorBanner />
-              </DndProvider>
+              <ShepherdJourneyProvider>
+                {/* The prop context={window} prevents crash errors with hot-module reloading */}
+                <DndProvider options={HTML5toTouch} context={window}>
+                  {/* DndProvider allows multiple children; IntlProvider does not */}
+                  <NotificationBar />
+                  <BlockingShield />
+                  <BlockingError />
+                  <Gallery />
+                  <DialogRoot />
+                  <DebugInfo />
+                  <PrintContainer />
+                  <div className="main-screen">
+                    <MenusContainer />
+                    <StreetNameplateContainer />
+                    <DescriptionPanel />
+                    <WelcomePanel />
+                    <PaletteContainer />
+                    <SkyPicker />
+                    <SegmentDragLayer />
+                    <StreetView />
+                    <ToastContainer />
+                    <SentimentSurveyContainer />
+                    <CoastmixUI />
+                    <ShepherdTest />
+                  </div>
+                  <SponsorBanner />
+                </DndProvider>
+              </ShepherdJourneyProvider>
             </IntlProvider>
           </DirectionProvider>
         </FloatingTree>

@@ -1,4 +1,4 @@
-import { ShepherdJourneyProvider, useShepherd } from 'react-shepherd'
+import { useShepherd } from 'react-shepherd'
 
 import { steps } from './coastmix-onboarding.js'
 import './shepherd.css'
@@ -24,10 +24,8 @@ function Button() {
 
 export function ShepherdTest() {
   return (
-    <ShepherdJourneyProvider>
-      <div className="tour-test">
-        <Button />
-      </div>
-    </ShepherdJourneyProvider>
+    <div className="tour-test">
+      <Button />
+    </div>
   )
 }
