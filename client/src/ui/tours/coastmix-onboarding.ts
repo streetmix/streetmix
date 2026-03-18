@@ -1,3 +1,6 @@
+import store from '~/src/store'
+import { stopTour } from '~/src/store/slices/app.js'
+import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { Tour } from 'shepherd.js'
@@ -125,7 +128,16 @@ export const steps = [
       element: '[data-tour-id="slope-control"]',
       on: 'right',
     },
-    buttons: [nextButton],
+    buttons: [
+      {
+        ...nextButton,
+        action() {
+          store.dispatch(showDialog('COASTMIX_TUTORIAL_COMPLETE'))
+          store.dispatch(stopTour())
+          ;(this as unknown as Tour).complete()
+        },
+      },
+    ],
     ...modalOverlayOptions,
   },
 ]

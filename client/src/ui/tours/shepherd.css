@@ -226,6 +226,7 @@
     opacity 0.3s 0s;
   width: 100vw;
   z-index: 9997;
+  fill: var(--color-turquoise-200);
 }
 
 .shepherd-modal-overlay-container.shepherd-modal-is-visible {

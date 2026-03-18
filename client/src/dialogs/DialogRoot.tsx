@@ -32,16 +32,12 @@ const DIALOG_COMPONENTS = {
 }
 
 export function DialogRoot() {
-  let name = useSelector((state) => state.dialogs.name)
-  const tutorialStep = useSelector((state) => state.app.tutorialStep)
+  const name = useSelector((state) => state.dialogs.name)
 
   // Bail if no dialog name is provided
-  if (name === null && tutorialStep !== 9) return null
+  if (name === null) return null
 
   // Get the dialog we want, then render it
-  if (tutorialStep === 9) {
-    name = 'COASTMIX_TUTORIAL_COMPLETE'
-  }
   const Dialog = DIALOG_COMPONENTS[name as keyof typeof DIALOG_COMPONENTS]
 
   // Wrap Dialog with an ErrorBoundary wrapper to catch errors
