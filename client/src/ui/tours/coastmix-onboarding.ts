@@ -4,6 +4,7 @@ import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
+import { hideCoastalFloodingPanel } from '~src/store/slices/coastmix.js'
 
 const modalOverlayOptions = {
   modalOverlayOpeningPadding: 5,
@@ -87,7 +88,16 @@ export const steps: StepOptions[] = [
       element: '[data-tour-id="flood-direction-control"]',
       on: 'right',
     },
-    buttons: [nextButton],
+    buttons: [
+      {
+        ...nextButton,
+        action() {
+          // Hide this panel when we go to the next step to keep the UI clean
+          store.dispatch(hideCoastalFloodingPanel())
+          ;(this as unknown as Tour).next()
+        },
+      },
+    ],
     ...modalOverlayOptions,
   },
   {
