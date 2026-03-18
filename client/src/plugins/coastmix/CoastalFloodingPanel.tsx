@@ -95,6 +95,7 @@ export function CoastalFloodingPanel() {
             </Button>
             <Button
               className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
+              data-tour-id="2030-sea-level-rise"
               onClick={() => {
                 changeSeaLevelRise(2030)
               }}
