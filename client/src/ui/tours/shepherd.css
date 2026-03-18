@@ -36,13 +36,15 @@
   justify-content: flex-end;
   padding: 0 0.75rem 0.75rem;
 }
+
 .shepherd-footer .shepherd-button:last-child {
   margin-right: 0;
 }
+
 .shepherd-cancel-icon {
   background: transparent;
   border: none;
-  color: hsla(0, 0%, 50%, 0.75);
+  color: hsl(0deg 0% 50% / 75%);
   cursor: pointer;
   font-size: 2em;
   font-weight: 400;
@@ -50,17 +52,21 @@
   padding: 0;
   transition: color 0.5s ease;
 }
+
 .shepherd-cancel-icon:hover {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(0 0 0 / 75%);
 }
+
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
-  color: hsla(0, 0%, 50%, 0.75);
+  color: hsl(0deg 0% 50% / 75%);
 }
+
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon:hover {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(0 0 0 / 75%);
 }
+
 .shepherd-title {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(0 0 0 / 75%);
   display: flex;
   flex: 1 0 auto;
   font-size: 1rem;
@@ -83,30 +89,41 @@
   background: #e6e6e6;
   padding: 1em;
 }
+
 .shepherd-text {
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(65 65 65);
   font-size: 1rem;
   line-height: 1.3em;
-  padding: 0.75em;
+  padding: 0.75em 1em;
 }
+
 .shepherd-text p {
   margin-top: 0;
 }
+
 .shepherd-text p:last-child {
   margin-bottom: 0;
 }
+
 .shepherd-content {
-  border-radius: 5px;
+  border-radius: var(--border-radius-large);
   outline: none;
   padding: 0;
 }
+
 .shepherd-element {
   background: #fff;
   border: none;
-  border-radius: 5px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius-large);
+  box-shadow:
+    hsl(206deg 22% 7% / 35%) 0 10px 38px -10px,
+    hsl(206deg 22% 7% / 20%) 0 10px 20px -15px,
+    0 0 0 3px rgb(82 162 175 / 20%);
   margin: 0;
-  max-width: 300px;
+  width: max-content; /* see how this feels */
+
+  /* max-width: calc(100vw * 0.5); */
+  max-width: 350px;
   opacity: 0;
   outline: none;
   padding: 0;
@@ -114,32 +131,36 @@
     opacity 0.3s,
     visibility 0.3s;
   visibility: hidden;
-  width: 100%;
   z-index: 9999;
 }
+
 .shepherd-enabled.shepherd-element {
   opacity: 1;
   visibility: visible;
 }
+
 .shepherd-element[data-popper-reference-hidden]:not(.shepherd-centered) {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
 }
+
 .shepherd-element,
 .shepherd-element *,
-.shepherd-element :after,
-.shepherd-element :before {
+.shepherd-element ::after,
+.shepherd-element ::before {
   box-sizing: border-box;
 }
+
 .shepherd-arrow,
-.shepherd-arrow:before {
+.shepherd-arrow::before {
   height: 16px;
   position: absolute;
   width: 16px;
   z-index: -1;
 }
-.shepherd-arrow:before {
+
+.shepherd-arrow::before {
   background: #fff;
   content: "";
   transform: rotate(45deg);
@@ -182,13 +203,15 @@
 }
 
 .shepherd-element.shepherd-has-title[data-popper-placement^="bottom"]
-  > .shepherd-arrow:before {
+  > .shepherd-arrow::before {
   background-color: #e6e6e6;
 }
+
 .shepherd-target-click-disabled.shepherd-enabled.shepherd-target,
 .shepherd-target-click-disabled.shepherd-enabled.shepherd-target * {
   pointer-events: none;
 }
+
 .shepherd-modal-overlay-container {
   height: 0;
   left: 0;
@@ -204,6 +227,7 @@
   width: 100vw;
   z-index: 9997;
 }
+
 .shepherd-modal-overlay-container.shepherd-modal-is-visible {
   height: 100vh;
   opacity: 0.5;
@@ -211,12 +235,31 @@
   transition:
     all 0.3s ease-out,
     height 0s 0s,
+    width 0s 0s,
     opacity 0.3s 0s;
 }
+
 .shepherd-modal-overlay-container.shepherd-modal-is-visible path {
   pointer-events: all;
 }
 
 .tour-medium-width {
   max-width: 250px;
+}
+
+.tour-test {
+  position: absolute;
+  z-index: 1000;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: white;
+
+  button {
+    background-color: white;
+    padding: 5px 10px;
+    border: 1px solid blue;
+    border-radius: 4px;
+  }
 }

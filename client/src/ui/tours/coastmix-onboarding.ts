@@ -2,6 +2,11 @@ import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { Tour } from 'shepherd.js'
 
+const modalOverlayOptions = {
+  modalOverlayOpeningPadding: 5,
+  modalOverlayOpeningRadius: 5,
+}
+
 const nextButton = {
   classes: 'btn btn-primary',
   text: 'Next',
@@ -23,6 +28,7 @@ export const steps = [
       event: 'click',
       selector: '.coastmix-controls-button',
     },
+    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-onboarding-02',
@@ -42,6 +48,7 @@ export const steps = [
       await waitFor(500)
     },
     buttons: [nextButton],
+    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-onboarding-03',
@@ -57,6 +64,10 @@ export const steps = [
       on: 'right',
     },
     buttons: [nextButton],
+    ...modalOverlayOptions,
+    /* Make the position of this a lil prettier, because the control is not
+       vertically centered */
+    modalOverlayOpeningYOffset: -1,
   },
   {
     id: 'coastmix-onboarding-04',
@@ -69,5 +80,52 @@ export const steps = [
       on: 'right',
     },
     buttons: [nextButton],
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-onboarding-05',
+    text: `Click or hover over an element in your waterfront to access and adjust its elevation.`,
+    attachTo: {
+      element: '[data-testid="segment"]',
+      on: 'bottom',
+    },
+    advanceOn: {
+      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
+      event: 'click',
+      selector: '[data-testid="segment"]',
+    },
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-onboarding-06',
+    text: `Building off of Streetmix, Coastmix introduces a new vertical elevation
+      function. Design your waterfront to prevent flooding under different
+      sea level rise time horizons, with or without storm surge, by increasing
+      the vertical elevation of an element in your waterfront. Use the arrows
+      to adjust the elevation or type an amount. If sea level rise is enabled, you
+      can address flooding by elevating a feature sufficiently.`,
+    attachTo: {
+      element: '[data-tour-id="elevation-control"]',
+      on: 'right',
+    },
+    beforeShowPromise: async () => {
+      await waitForElement('.popup-container')
+      await waitFor(500)
+    },
+    buttons: [nextButton],
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-onboarding-07',
+    text: `While some coastal resilience strategies may be vertical, such as a
+      seawall, others may be sloped to reach a target Design Flood Elevation
+      more gradually. After you elevate a feature, you can enable a slope to the
+      adjacent feature(s). But watch out for features with very steep slopes: they might not be accessible!`,
+    attachTo: {
+      element: '[data-tour-id="slope-control"]',
+      on: 'right',
+    },
+    buttons: [nextButton],
+    ...modalOverlayOptions,
   },
 ]

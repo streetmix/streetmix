@@ -19,26 +19,15 @@ function Button() {
     steps: steps,
   })
 
-  return (
-    <button
-      className="test-shepherd-button"
-      onClick={tour.start}
-      style={{
-        zIndex: 1000,
-        position: 'absolute',
-        backgroundColor: '#fff',
-        padding: '10px',
-      }}
-    >
-      Start Tour
-    </button>
-  )
+  return <button onClick={tour.start}>tutorial 1</button>
 }
 
 export function ShepherdTest() {
   return (
     <ShepherdJourneyProvider>
-      <Button />
+      <div className="tour-test">
+        <Button />
+      </div>
     </ShepherdJourneyProvider>
   )
 }

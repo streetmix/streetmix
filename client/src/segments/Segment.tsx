@@ -6,7 +6,6 @@ import { getSegmentInfo } from '@streetmix/parts'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { PopupContainer } from '~/src/info_bubble/PopupContainer.js'
 import { EmptyDragPreview } from '~/src/ui/dnd/EmptyDragPreview.js'
-import { TutorialPopover } from '~/src/ui/TutorialPopover.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import { setActiveSegment } from '../store/slices/ui.js'
 import {
@@ -57,7 +56,6 @@ export function Segment(props: SliceProps) {
   const activeSegment = useSelector((state) => state.ui.activeSegment)
   const readOnly = useSelector((state) => state.app.readOnly)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
-  const tutorialStep = useSelector((state) => state.app.tutorialStep)
   const dispatch = useDispatch()
 
   const elementRef = useRef<HTMLDivElement>(null)
@@ -263,9 +261,6 @@ export function Segment(props: SliceProps) {
     classNames.push('outside')
   }
 
-  // Popup disabled during several tutorial steps
-  const duringTutorial = tutorialStep > 1 && tutorialStep <= 5
-
   return (
     <div
       style={segmentStyle}
@@ -279,23 +274,17 @@ export function Segment(props: SliceProps) {
         type="slice"
         position={sliceIndex}
         isDragging={isDragging}
-        disabled={readOnly || duringTutorial}
+        disabled={readOnly}
       >
         <button data-slice-index={sliceIndex} data-slice-left={segmentLeft}>
-          <TutorialPopover
-            isOpen={sliceIndex === 0 && tutorialStep === 6}
-            label={`Click or hover over an element in your waterfront to access and adjust its elevation.`}
-            placement="right"
-          >
-            <SegmentLabelContainer
-              label={displayName}
-              width={segment.width}
-              units={units}
-              locale={locale}
-              capacity={average}
-              showCapacity={enableAnalytics}
-            />
-          </TutorialPopover>
+          <SegmentLabelContainer
+            label={displayName}
+            width={segment.width}
+            units={units}
+            locale={locale}
+            capacity={average}
+            showCapacity={enableAnalytics}
+          />
           <SegmentDragHandles width={elementWidth} />
           <div ref={dndRef} className="segment-canvas-container">
             <CSSTransition
