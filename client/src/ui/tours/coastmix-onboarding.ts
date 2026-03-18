@@ -31,6 +31,11 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '.coastmix-controls-button',
     },
+    // Only show this step if the coastal flooding panel isn't already open
+    showOn() {
+      const coastmix = store.getState().coastmix
+      return !coastmix.controlsVisible
+    },
     ...modalOverlayOptions,
   },
   {
