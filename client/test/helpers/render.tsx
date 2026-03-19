@@ -1,12 +1,13 @@
 import React, { type ReactElement } from 'react'
 import {
   render as originalRender,
-  type RenderOptions
+  type RenderOptions,
 } from '@testing-library/react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
 import { TestBackend } from 'react-dnd-test-backend'
+import { ShepherdJourneyProvider } from 'react-shepherd'
 import { createStore } from './store'
 
 // Turn off some very strict typescript lint rules for this file
@@ -31,7 +32,9 @@ const AllTheProviders = ({ store = {}, children }: AllTheProvidersProps) => {
   return (
     <Provider store={store}>
       <IntlProvider locale="en">
-        <DndProvider backend={TestBackend}>{children}</DndProvider>
+        <ShepherdJourneyProvider>
+          <DndProvider backend={TestBackend}>{children}</DndProvider>
+        </ShepherdJourneyProvider>
       </IntlProvider>
     </Provider>
   )
@@ -59,7 +62,7 @@ export const render = (ui: ReactElement, options: CustomRenderOptions = {}) => {
 
   return {
     ...originalRender(ui, { wrapper, ...restOpts }),
-    store
+    store,
   }
 }
 

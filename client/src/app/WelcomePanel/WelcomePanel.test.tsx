@@ -1,6 +1,5 @@
 import { vi } from 'vitest'
 import MockAdapter from 'axios-mock-adapter'
-import { ShepherdJourneyProvider } from 'react-shepherd'
 
 import { render } from '~/test/helpers/render.js'
 import apiClient from '~/src/util/api.js'
@@ -39,20 +38,15 @@ describe('WelcomePanel', () => {
   })
 
   it('shows in Coastmix mode', () => {
-    const { queryByText } = render(
-      <ShepherdJourneyProvider>
-        <WelcomePanel />
-      </ShepherdJourneyProvider>,
-      {
-        initialState: {
-          flags: {
-            COASTMIX_MODE: {
-              value: true,
-            },
+    const { queryByText } = render(<WelcomePanel />, {
+      initialState: {
+        flags: {
+          COASTMIX_MODE: {
+            value: true,
           },
         },
-      }
-    )
+      },
+    })
 
     expect(queryByText('Welcome to Coastmix!')).toBeInTheDocument()
   })
