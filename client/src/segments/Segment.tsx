@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { useDrag, useDrop } from 'react-dnd'
+import { useShepherd } from 'react-shepherd'
 import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -35,7 +36,6 @@ import { TestSlope } from './TestSlope.js'
 import './Segment.css'
 
 import type { SliceItem, UnitsSetting } from '@streetmix/types'
-import { useShepherd } from 'react-shepherd'
 
 interface SliceProps {
   sliceIndex: number

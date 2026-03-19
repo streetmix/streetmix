@@ -19,6 +19,7 @@ import {
   FloatingArrow,
   FloatingNode,
 } from '@floating-ui/react'
+import { useShepherd } from 'react-shepherd'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { PopupContent } from './PopupContent.js'
@@ -30,7 +31,6 @@ import type {
   Prettify,
   SectionElementTypeAndPosition,
 } from '@streetmix/types'
-import { useShepherd } from 'react-shepherd'
 
 // Default settings
 const POPUP_DELAY = {
