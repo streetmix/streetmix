@@ -1,4 +1,4 @@
-import request from 'request'
+import axios from 'axios'
 
 import models from '../../db/models/index.js'
 import { logger } from '../logger.ts'
@@ -45,27 +45,6 @@ export default async function (req, res, next) {
     })
   }
 
-  const handleFindStreetThumbnail = function (error, response, body) {
-    if (error) {
-      logger.error(error)
-    } else {
-      try {
-        const results = JSON.parse(body)
-        if (results && results.secure_url) {
-          res.locals.STREETMIX_IMAGE = {
-            image: results.secure_url,
-            width: results.width,
-            height: results.height,
-          }
-        }
-      } catch (error) {
-        logger.error(error)
-      }
-    }
-
-    next()
-  }
-
   const handleFindStreet = async function (street) {
     if (!street) {
       throw new Error('Street not found.')
@@ -88,7 +67,24 @@ export default async function (req, res, next) {
 
     const endpoint = `${appURL.origin}/api/v1/streets/${streetId}/image/`
 
-    request.get(endpoint, handleFindStreetThumbnail)
+    try {
+      const response = await axios.get(endpoint)
+      const results = response.data
+      if (results && results.secure_url) {
+        res.locals.STREETMIX_IMAGE = {
+          image: results.secure_url,
+          width: results.width,
+          height: results.height,
+        }
+      }
+    } catch (error) {
+      // 404 is expected — most streets don't have thumbnails yet
+      if (error.response?.status !== 404) {
+        logger.error(error)
+      }
+    }
+
+    next()
   }
 
   const handleError = function (error) {
