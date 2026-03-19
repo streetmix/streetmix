@@ -31,14 +31,17 @@ interface TourTriggerProps {
  */
 export function TourTrigger({ children, steps }: TourTriggerProps) {
   const dispatch = useDispatch()
-
   const Shepherd = useShepherd()
-  const tour = new Shepherd.Tour({
-    ...tourOptions,
-    steps: steps,
-  })
 
   function handleClick(event: React.MouseEvent): void {
+    const tour = new Shepherd.Tour({
+      ...tourOptions,
+    })
+
+    // This is so we could theoretically dynamically generate the steps
+    // based on state, etc.
+    tour.addSteps(steps)
+
     dispatch(resetCoastmixState())
     dispatch(startTour())
     tour.start()
