@@ -1,6 +1,11 @@
+import { offset } from '@floating-ui/react'
+
 import store from '~/src/store'
 import { stopTour } from '~/src/store/slices/app.js'
-import { hideCoastalFloodingPanel } from '~/src/store/slices/coastmix.js'
+import {
+  hideCoastalFloodingPanel,
+  resetCoastmixState,
+} from '~/src/store/slices/coastmix.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
@@ -32,6 +37,12 @@ const steps: StepOptions[] = [
       event: 'click',
       selector: '.coastmix-controls-button',
     },
+    when: {
+      show() {
+        // Reset Coastmix state for the tutorial.
+        store.dispatch(resetCoastmixState())
+      },
+    },
     ...modalOverlayOptions,
   },
   {
@@ -47,6 +58,9 @@ const steps: StepOptions[] = [
     attachTo: {
       element: '[data-tour-id="sea-level-control"]',
       on: 'right',
+    },
+    floatingUIOptions: {
+      middleware: [offset({ mainAxis: 0, crossAxis: 10 })],
     },
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
@@ -98,7 +112,7 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-05',
-    text: `Click or hover over an element, like this one, to access and adjust its elevation.`,
+    text: `Click on an element, like this one, to access and adjust its elevation.`,
     attachTo: {
       // Assuming we are on the coastal road element
       element: '[data-slice-index="5"]',

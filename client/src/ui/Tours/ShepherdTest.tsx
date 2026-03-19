@@ -9,6 +9,8 @@ export function ShepherdTest() {
   const dispatch = useDispatch()
 
   function reset() {
+    // Normally we want to reset coastmix state in the steps itself
+    // but this is a force-reset for debugging purposes
     dispatch(resetCoastmixState())
     dispatch(startTour())
   }

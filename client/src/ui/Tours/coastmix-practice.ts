@@ -1,6 +1,5 @@
 import store from '~/src/store'
 import { stopTour } from '~/src/store/slices/app.js'
-import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
@@ -24,15 +23,9 @@ let cleanup: (() => void) | null = null
 export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-01',
-    text: 'In this practice scenario, you will address 2030 sea level rise with storm surge.',
-    classes: 'tour-medium-width',
+    text: `In this practice scenario, you will address 2030 sea level rise
+      with an optional storm surge.`,
     buttons: [nextButton],
-    when: {
-      show() {
-        // Reset Coastmix state for the tutorial.
-        store.dispatch(resetCoastmixState())
-      },
-    },
     ...modalOverlayOptions,
   },
   {
@@ -50,6 +43,7 @@ export const steps: StepOptions[] = [
   },
   // TODO: broken step
   // Also -- how to recover to this state when we open in a new window?
+  // Current thought -- it's a new tour actually -- activated via the URL
   // {
   //   id: 'coastmix-practice-02b',
   //   extraHighlights: ['[data-tour-id="new-street-harborwalk"]'],
