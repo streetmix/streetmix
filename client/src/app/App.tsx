@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
-import { ShepherdJourneyProvider } from 'react-shepherd'
 import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
@@ -16,6 +15,7 @@ import { SkyPicker } from '../sky/SkyPicker'
 import { Gallery } from '../gallery/Gallery.js'
 import { SegmentDragLayer } from '../segments/SegmentDragLayer.js'
 import ToastContainer from '../ui/Toasts'
+import { TourProvider } from '../ui/Tours'
 import { SentimentSurveyContainer } from '../sentiment/SentimentSurveyContainer.js'
 import { useSelector } from '../store/hooks.js'
 import { DebugInfo } from './DebugInfo.js'
@@ -65,7 +65,7 @@ export function App() {
               key={locale.locale}
               messages={locale.messages}
             >
-              <ShepherdJourneyProvider>
+              <TourProvider>
                 {/* The prop context={window} prevents crash errors with hot-module reloading */}
                 <DndProvider options={HTML5toTouch} context={window}>
                   {/* DndProvider allows multiple children; IntlProvider does not */}
@@ -91,7 +91,7 @@ export function App() {
                   </div>
                   <SponsorBanner />
                 </DndProvider>
-              </ShepherdJourneyProvider>
+              </TourProvider>
             </IntlProvider>
           </DirectionProvider>
         </FloatingTree>

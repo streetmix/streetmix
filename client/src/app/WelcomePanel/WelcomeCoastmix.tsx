@@ -1,37 +1,16 @@
-import { useShepherd } from 'react-shepherd'
-
-import { Button } from '~/src/ui/Button.js'
 import { useDispatch } from '~/src/store/hooks.js'
-import { startTour, stopTour } from '~/src/store/slices/app.js'
-import { resetCoastmixState } from '~/src/store/slices/coastmix'
-import { steps } from '~/src/ui/tours/coastmix-onboarding.js'
+import { stopTour } from '~/src/store/slices/app.js'
+import { Button } from '~/src/ui/Button.js'
+import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
 }
 
-const tourOptions = {
-  defaultStepOptions: {
-    cancelIcon: {
-      enabled: false,
-    },
-  },
-  useModalOverlay: true,
-}
-
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   const dispatch = useDispatch()
 
-  const Shepherd = useShepherd()
-  const tour = new Shepherd.Tour({
-    ...tourOptions,
-    steps: steps,
-  })
-
   function handleQuickTour(event: React.MouseEvent): void {
-    dispatch(resetCoastmixState())
-    tour.start()
-    dispatch(startTour())
     handleDismiss(event)
   }
 
@@ -56,9 +35,11 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
         <strong>Let’s get started!</strong>
       </p>
       <div className="welcome-panel-buttons">
-        <Button onClick={handleQuickTour} primary>
-          Take a quick tour
-        </Button>
+        <CoastmixOnboardingTour>
+          <Button onClick={handleQuickTour} primary>
+            Take a quick tour
+          </Button>
+        </CoastmixOnboardingTour>
         <Button onClick={handleSkip} tertiary>
           Skip
         </Button>
