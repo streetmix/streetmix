@@ -118,7 +118,6 @@ const steps: StepOptions[] = [
       on: 'bottom',
     },
     advanceOn: {
-      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
       event: 'click',
       selector: '[data-slice-index="5"]',
     },

@@ -29,7 +29,7 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-02',
-    text: `To start, click “New waterfront” and select the “Harborwalk” template.`,
+    text: `To start, click “New waterfront” menu.`,
     attachTo: {
       element: '#menubar-new',
       on: 'bottom',
@@ -43,15 +43,23 @@ export const steps: StepOptions[] = [
   // TODO: broken step
   // Also -- how to recover to this state when we open in a new window?
   // Current thought -- it's a new tour actually -- activated via the URL
-  // {
-  //   id: 'coastmix-practice-02b',
-  //   extraHighlights: ['[data-tour-id="new-street-harborwalk"]'],
-  //   advanceOn: {
-  //     event: 'click',
-  //     selector: '[data-tour-id="new-street-harborwalk"]',
-  //   },
-  //   ...modalOverlayOptions,
-  // },
+  {
+    id: 'coastmix-practice-02b',
+    text: `Select the “Harborwalk” template.`,
+    attachTo: {
+      element: '[data-tour-id="new-street-harborwalk"]',
+      on: 'left',
+    },
+    advanceOn: {
+      event: 'click',
+      selector: '[data-tour-id="new-street-harborwalk"]',
+    },
+    buttons: [nextButton],
+    beforeShowPromise: async () => {
+      await waitFor(500)
+    },
+    ...modalOverlayOptions,
+  },
   {
     id: 'coastmix-practice-03',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
@@ -85,7 +93,7 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-05',
-    text: `For an extra challenge, you can turn on storm surge.`,
+    text: `For an extra challenge, you can turn on storm surge. This is totally optional, though!`,
     attachTo: {
       element: '[data-tour-id="storm-surge-control"] button',
       on: 'bottom',
@@ -154,14 +162,13 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-07',
-    text: `First, click or hover on the “Harborwalk” feature next to the
+    text: `First, click on the “Harborwalk” feature next to the
       water.`,
     attachTo: {
       element: '[data-slice-label="Harborwalk"]',
       on: 'bottom',
     },
     advanceOn: {
-      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
       event: 'click',
       selector: '[data-slice-label="Harborwalk"]',
     },
@@ -169,8 +176,7 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-08a',
-    text: `Elevate the Harborwalk feature to 2 feet. If you turned on storm surge,
-      you may need to elevate it a little more.`,
+    text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
       on: 'right',
@@ -182,41 +188,15 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    // TODO: actiate on successful scenario addrressing.
     id: 'coastmix-practice-08b',
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
       behind it needs to be integrated into this new condition.`,
-    when: {
-      show() {
-        const el = document.querySelector<HTMLSelectElement>(
-          '[data-tour-id="flood-direction-control"] select'
-        )
-        if (!el) return
-
-        const tour = this as unknown as Tour
-
-        function handler() {
-          if (!el) return
-          if (el.value === 'right') {
-            // why parent object with tour inside of it?
-            tour.tour.next()
-          }
-        }
-
-        el.addEventListener('change', handler)
-        cleanup = () => el.removeEventListener('change', handler)
-
-        // If it’s already correct (e.g., persisted setting), advance immediately
-        // hmmmm
-        if (el.value === 'right') tour.tour.next()
-      },
-      hide() {
-        cleanup?.()
-        cleanup = null
-      },
-    },
     buttons: [nextButton],
+    attachTo: {
+      element: '[data-tour-id="flooding-message"]',
+      on: 'bottom',
+    },
     ...modalOverlayOptions,
   },
   {
@@ -227,7 +207,6 @@ export const steps: StepOptions[] = [
       on: 'bottom',
     },
     advanceOn: {
-      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
       event: 'click',
       selector: '[data-slice-label="Future berm"]',
     },
@@ -236,12 +215,34 @@ export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-10',
     text: `Toggle the slope function “On.”`,
-    buttons: [nextButton],
+    attachTo: {
+      element: '[data-tour-id="slope-control"]',
+      on: 'right',
+    },
+    advanceOn: {
+      event: 'click',
+      selector: '[data-tour-id="slope-control"]',
+    },
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-11',
-    text: `Rename “Future berm” to “Berm” by typing into the feature box’s title.`,
+    text: `Now our “Future berm” is a current berm! You can rename
+      an element by clicking on the name here, and then type “Berm”
+      in the subsequent popup window.`,
+    attachTo: {
+      element: '[data-tour-id="editable-label"]',
+      on: 'top',
+    },
+    advanceOn: {
+      event: 'click',
+      selector: '[data-tour-id="editable-label"]',
+    },
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-practice-12',
+    text: `And that is it!`,
     buttons: [
       {
         ...nextButton,

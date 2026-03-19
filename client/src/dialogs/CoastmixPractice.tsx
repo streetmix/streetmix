@@ -15,8 +15,9 @@ export function CoastmixPracticeComplete() {
             <p>Congratulations &mdash; you did it!</p>
             <p>
               You've prepared for 2030 sea level rise, but can you prepare for
-              2050 and beyond? Try changing the sea level rise target year, or a
-              different starting environment, and see what you can come up with!
+              2050 and beyond? Now that you've learned the basics of Coastmix,
+              try changing the sea level rise projection year, or a start with a
+              different coastal environment, and see what you can come up with!
             </p>
             <p
               style={{

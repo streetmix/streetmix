@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useShepherd } from 'react-shepherd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -19,6 +20,7 @@ import type { FloodDirection } from '@streetmix/types'
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
+  const Shepherd = useShepherd()
 
   const {
     controlsVisible,
@@ -64,11 +66,19 @@ export function CoastalFloodingPanel() {
     message = '👉 Select a flooding direction.'
   } else {
     if (floodDistance === null) {
-      message = '❌ This scenario does not address sea level rise!'
+      message = '❌ This configuration does not address sea level rise!'
       messageClassNames.push('flood-controls-warning')
     } else {
-      message = '✅ This scenario is addressing sea level rise!'
+      message = '✅ This configuration is addressing sea level rise!'
       messageClassNames.push('flood-controls-success')
+
+      // Manually control the tour here
+      if (
+        Shepherd.activeTour &&
+        Shepherd.activeTour.currentStep.id === 'coastmix-practice-08a'
+      ) {
+        Shepherd.activeTour.next()
+      }
     }
   }
 
