@@ -1,12 +1,8 @@
-import { useDispatch } from '~/src/store/hooks.js'
-import { stopTour } from '~/src/store/slices/app.js'
 import { Button } from '~/src/ui/Button.js'
 import Dialog from './Dialog.js'
 import './CoastmixTutorial.css'
 
 export function CoastmixPracticeComplete() {
-  const dispatch = useDispatch()
-
   return (
     <Dialog>
       {(closeDialog) => (
@@ -30,7 +26,6 @@ export function CoastmixPracticeComplete() {
             >
               <Button
                 onClick={() => {
-                  dispatch(stopTour())
                   closeDialog()
                 }}
                 primary

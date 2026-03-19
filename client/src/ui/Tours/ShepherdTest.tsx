@@ -1,6 +1,5 @@
 import { useDispatch } from '~src/store/hooks.js'
 import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
-import { startTour } from '~/src/store/slices/app.js'
 
 import { CoastmixOnboardingTour } from './CoastmixOnboarding.js'
 import { CoastmixPracticeTour } from './CoastmixPractice.js'
@@ -12,7 +11,6 @@ export function ShepherdTest() {
     // Normally we want to reset coastmix state in the steps itself
     // but this is a force-reset for debugging purposes
     dispatch(resetCoastmixState())
-    dispatch(startTour())
   }
 
   return (

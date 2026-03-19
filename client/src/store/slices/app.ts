@@ -11,7 +11,6 @@ interface AppState {
   everythingLoaded: boolean
   contentDirection: ContentDirection
   priorLastStreetId: string | null
-  activeTour: boolean
 }
 
 const initialState: AppState = {
@@ -24,10 +23,6 @@ const initialState: AppState = {
   // looked at in a previous tab. Its value is copied from the `lastStreetId`
   // value from the `settings` reducer, so that it can be remembered
   priorLastStreetId: null,
-
-  // Tour state is tied to device/browser. Tour state internally handled by
-  // react-shepherd, this value only tracks if one is currently active.
-  activeTour: false,
 }
 
 const appSlice = createSlice({
@@ -53,14 +48,6 @@ const appSlice = createSlice({
     everythingLoaded(state) {
       state.everythingLoaded = true
     },
-
-    startTour(state) {
-      state.activeTour = true
-    },
-
-    stopTour(state) {
-      state.activeTour = false
-    },
   },
 
   extraReducers: (builder) => {
@@ -73,13 +60,7 @@ const appSlice = createSlice({
   },
 })
 
-export const {
-  setAppFlags,
-  startPrinting,
-  stopPrinting,
-  everythingLoaded,
-  startTour,
-  stopTour,
-} = appSlice.actions
+export const { setAppFlags, startPrinting, stopPrinting, everythingLoaded } =
+  appSlice.actions
 
 export default appSlice.reducer

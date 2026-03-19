@@ -13,7 +13,6 @@ describe('app reducer', () => {
     everythingLoaded: false,
     contentDirection: 'ltr' as const,
     priorLastStreetId: null,
-    activeTour: false,
   }
 
   it('should handle setAppFlags()', () => {
@@ -31,7 +30,6 @@ describe('app reducer', () => {
       everythingLoaded: false,
       contentDirection: 'ltr',
       priorLastStreetId: '1',
-      activeTour: false,
     })
   })
 
@@ -42,7 +40,6 @@ describe('app reducer', () => {
       everythingLoaded: false,
       contentDirection: 'ltr',
       priorLastStreetId: null,
-      activeTour: false,
     })
   })
 
@@ -55,7 +52,6 @@ describe('app reducer', () => {
           everythingLoaded: false,
           contentDirection: 'ltr',
           priorLastStreetId: null,
-          activeTour: false,
         },
         stopPrinting()
       )
@@ -65,7 +61,6 @@ describe('app reducer', () => {
       everythingLoaded: false,
       contentDirection: 'ltr',
       priorLastStreetId: null,
-      activeTour: false,
     })
   })
 
@@ -76,7 +71,6 @@ describe('app reducer', () => {
       everythingLoaded: true,
       contentDirection: 'ltr',
       priorLastStreetId: null,
-      activeTour: false,
     })
   })
 
@@ -95,7 +89,6 @@ describe('app reducer', () => {
         everythingLoaded: false,
         contentDirection: 'rtl',
         priorLastStreetId: null,
-        activeTour: false,
       })
     })
 
@@ -108,7 +101,6 @@ describe('app reducer', () => {
             everythingLoaded: true,
             contentDirection: 'rtl',
             priorLastStreetId: null,
-            activeTour: false,
           },
           changeLocale.fulfilled({
             locale: 'en',
@@ -120,7 +112,6 @@ describe('app reducer', () => {
         everythingLoaded: true,
         contentDirection: 'ltr',
         priorLastStreetId: null,
-        activeTour: false,
       })
     })
   })

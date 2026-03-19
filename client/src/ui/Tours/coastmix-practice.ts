@@ -1,5 +1,4 @@
 import store from '~/src/store'
-import { stopTour } from '~/src/store/slices/app.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
@@ -248,7 +247,6 @@ export const steps: StepOptions[] = [
         ...nextButton,
         action() {
           store.dispatch(showDialog('COASTMIX_PRACTICE_COMPLETE'))
-          store.dispatch(stopTour())
           ;(this as unknown as Tour).complete()
         },
       },

@@ -1,5 +1,3 @@
-import { useDispatch } from '~/src/store/hooks.js'
-import { startTour, stopTour } from '~/src/store/slices/app.js'
 import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding.js'
 import { Button } from '~/src/ui/Button.js'
 
@@ -8,15 +6,11 @@ interface WelcomeCoastmixProps {
 }
 
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
-  const dispatch = useDispatch()
-
   function handleQuickTour(event: React.MouseEvent): void {
-    dispatch(startTour())
     handleDismiss(event)
   }
 
   function handleSkip(event: React.MouseEvent): void {
-    dispatch(stopTour())
     handleDismiss(event)
   }
 

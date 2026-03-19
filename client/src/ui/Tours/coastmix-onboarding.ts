@@ -1,7 +1,6 @@
 import { offset } from '@floating-ui/react'
 
 import store from '~/src/store'
-import { stopTour } from '~/src/store/slices/app.js'
 import {
   hideCoastalFloodingPanel,
   resetCoastmixState,
@@ -159,7 +158,6 @@ const steps: StepOptions[] = [
         ...nextButton,
         action() {
           store.dispatch(showDialog('COASTMIX_TUTORIAL_COMPLETE'))
-          store.dispatch(stopTour())
           ;(this as unknown as Tour).complete()
         },
       },
