@@ -4,6 +4,7 @@ import * as Sentry from '@sentry/browser'
 
 import type { UserProfile } from '~/src/types'
 import USER_ROLES from '../../../app/data/user_roles.json'
+import { STREET_TEMPLATES } from '../app/constants.js'
 import { showError, ERRORS } from '../app/errors.js'
 import {
   MODES,
@@ -357,7 +358,15 @@ function _signInLoaded() {
         setMode(MODES.CONTINUE)
       }
     } else {
-      setMode(MODES.NEW_STREET)
+      // We have a different default street in Coastmix
+      const isCoastmixMode = store.getState().flags.COASTMIX_MODE.value ?? false
+
+      if (isCoastmixMode) {
+        setMode(MODES.NEW_STREET, { type: STREET_TEMPLATES.COASTAL_ROAD })
+      } else {
+        // New street created using default values
+        setMode(MODES.NEW_STREET)
+      }
     }
   }
   mode = getMode()
