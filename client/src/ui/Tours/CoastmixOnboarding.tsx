@@ -1,5 +1,5 @@
 import { TourTrigger } from './TourTrigger.js'
-import { steps } from './coastmix-onboarding.js'
+import { getSteps } from './coastmix-onboarding.js'
 
 interface CoastmixOnboardingTourProps {
   children: React.ReactElement<{
@@ -10,5 +10,5 @@ interface CoastmixOnboardingTourProps {
 export function CoastmixOnboardingTour({
   children,
 }: CoastmixOnboardingTourProps) {
-  return <TourTrigger steps={steps}>{children}</TourTrigger>
+  return <TourTrigger steps={getSteps}>{children}</TourTrigger>
 }

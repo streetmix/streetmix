@@ -19,7 +19,7 @@ const nextButton = {
   },
 }
 
-export const steps: StepOptions[] = [
+const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
     text: 'Click on "Coastal flooding" to access and adjust flood features.',
@@ -32,22 +32,18 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '.coastmix-controls-button',
     },
-    // Only show this step if the coastal flooding panel isn't already open
-    showOn() {
-      const coastmix = store.getState().coastmix
-      return !coastmix.controlsVisible
-    },
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-onboarding-02',
-    text: `Sea level rise is a permanent rise in ocean height relative to land due to
-      melting glaciers and thermal expansion. As sea levels rise over time, we
-      must design for near- and long-term flood risk. We can block flooding
-      by strategically elevating parts of a coastal area to reach a target Design
-      Flood Elevation (DFE) based on sea level rise projections. In Coastmix,
-      you can design for the current sea level or the future sea level expected in
-      2030, 2050, and 2070.`,
+    text: `<p><strong>Sea level rise</strong> is a permanent raising of the
+      ocean over time, due to melting glaciers and thermal expansion. As this
+      happens, we must design for both near- and long-term flood risk by
+      strategically elevating parts of a coastal area above sea level rise
+      projections. This target elevation is called the <strong>Design Flood
+      Elevation (DFE)</strong>.</p>
+      <p>In Coastmix, you can design for the current sea level or a future sea
+      level rise expected in 2030, 2050, and 2070.</p>`,
     attachTo: {
       element: '[data-tour-id="sea-level-control"]',
       on: 'right',
@@ -61,13 +57,13 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-03',
-    text: `When a coastal storm occurs, strong winds push water onto land near
-      the coast. This temporarily raises sea levels above normal and can cause
-      significant flood damage. It is important to factor in storm surge on top
-      of higher average sea levels when we design ways to adapt to coastal
-      flooding. In Coastmix, you can toggle on the Storm Surge feature to add
-      additional water height on top of the current and future sea level rise
-      time horizons.`,
+    text: `<p>A <strong>storm surge</strong> occurs during storms when strong
+      winds push water onto land along the coast, temporarily raising sea
+      levels above normal. This can cause significant flood damage, so it’s
+      important to consider storm surges when we design ways to adapt to coastal
+      flooding.</p>
+      <p>In Coastmix, you can turn on storm surges to add more water height
+      on top of sea level rise projections.</p>`,
     attachTo: {
       element: '[data-tour-id="storm-surge-control"]',
       on: 'right',
@@ -102,15 +98,16 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-05',
-    text: `Click or hover over an element in your waterfront to access and adjust its elevation.`,
+    text: `Click or hover over an element, like this one, to access and adjust its elevation.`,
     attachTo: {
-      element: '[data-testid="segment"]',
+      // Assuming we are on the coastal road element
+      element: '[data-slice-index="5"]',
       on: 'bottom',
     },
     advanceOn: {
       // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
       event: 'click',
-      selector: '[data-testid="segment"]',
+      selector: '[data-slice-index="5"]',
     },
     ...modalOverlayOptions,
   },
@@ -156,3 +153,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
 ]
+
+export function getSteps() {
+  return steps
+}

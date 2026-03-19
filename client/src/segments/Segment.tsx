@@ -276,7 +276,11 @@ export function Segment(props: SliceProps) {
         isDragging={isDragging}
         disabled={readOnly}
       >
-        <button data-slice-index={sliceIndex} data-slice-left={segmentLeft}>
+        <button
+          data-slice-index={sliceIndex}
+          data-slice-left={segmentLeft}
+          data-slice-label={displayName}
+        >
           <SegmentLabelContainer
             label={displayName}
             width={segment.width}

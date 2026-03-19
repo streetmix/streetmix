@@ -115,18 +115,6 @@ export const steps: StepOptions[] = [
       element: '[data-tour-id="flood-direction-control"]',
       on: 'right',
     },
-    // TODO: advance on selection
-    // buttons: [
-    //   {
-    //     ...nextButton,
-    //     disabled() {
-    //       const coastmix = store.getState().coastmix
-    //       console.log('disable?', coastmix.floodDirection, coastmix.floodDirection !== 'right')
-    //       return coastmix.floodDirection !== 'right'
-    //       // return false
-    //     },
-    //   }
-    // ],
     when: {
       show() {
         const el = document.querySelector<HTMLSelectElement>(
@@ -175,14 +163,29 @@ export const steps: StepOptions[] = [
     id: 'coastmix-practice-07',
     text: `First, click or hover on the “Harborwalk” feature next to the
       water.`,
-    buttons: [nextButton],
+    attachTo: {
+      element: '[data-slice-label="Harborwalk"]',
+      on: 'bottom',
+    },
+    advanceOn: {
+      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
+      event: 'click',
+      selector: '[data-slice-label="Harborwalk"]',
+    },
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-08a',
     text: `Elevate the Harborwalk feature to 2 feet. If you turned on storm surge,
       you may need to elevate it a little more.`,
-    buttons: [nextButton],
+    attachTo: {
+      element: '[data-tour-id="elevation-control"]',
+      on: 'right',
+    },
+    beforeShowPromise: async () => {
+      await waitForElement('.popup-container')
+      await waitFor(500)
+    },
     ...modalOverlayOptions,
   },
   {
@@ -191,13 +194,50 @@ export const steps: StepOptions[] = [
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
       behind it needs to be integrated into this new condition.`,
+    when: {
+      show() {
+        const el = document.querySelector<HTMLSelectElement>(
+          '[data-tour-id="flood-direction-control"] select'
+        )
+        if (!el) return
+
+        const tour = this as unknown as Tour
+
+        function handler() {
+          if (!el) return
+          if (el.value === 'right') {
+            // why parent object with tour inside of it?
+            tour.tour.next()
+          }
+        }
+
+        el.addEventListener('change', handler)
+        cleanup = () => el.removeEventListener('change', handler)
+
+        // If it’s already correct (e.g., persisted setting), advance immediately
+        // hmmmm
+        if (el.value === 'right') tour.tour.next()
+      },
+      hide() {
+        cleanup?.()
+        cleanup = null
+      },
+    },
     buttons: [nextButton],
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-9',
     text: `Click on the feature called “Future berm.”`,
-    buttons: [nextButton],
+    attachTo: {
+      element: '[data-slice-label="Future berm"]',
+      on: 'bottom',
+    },
+    advanceOn: {
+      // TODO: hover is broken; but opening a popup closes the infobubble (tour steals focus?)
+      event: 'click',
+      selector: '[data-slice-label="Future berm"]',
+    },
     ...modalOverlayOptions,
   },
   {

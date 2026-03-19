@@ -1,7 +1,8 @@
 import { useDispatch } from '~/src/store/hooks.js'
-import { stopTour } from '~/src/store/slices/app.js'
+import { startTour, stopTour } from '~/src/store/slices/app.js'
+import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
+import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding.js'
 import { Button } from '~/src/ui/Button.js'
-import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
@@ -11,6 +12,8 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   const dispatch = useDispatch()
 
   function handleQuickTour(event: React.MouseEvent): void {
+    dispatch(resetCoastmixState())
+    dispatch(startTour())
     handleDismiss(event)
   }
 

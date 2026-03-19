@@ -1,10 +1,6 @@
 import { cloneElement } from 'react'
 import { useShepherd } from 'react-shepherd'
 
-import { useDispatch } from '~src/store/hooks.js'
-import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
-import { startTour } from '~/src/store/slices/app.js'
-
 import type { StepOptions } from 'shepherd.js'
 
 export const tourOptions = {
@@ -20,7 +16,7 @@ interface TourTriggerProps {
   children: React.ReactElement<{
     onClick?: React.MouseEventHandler
   }>
-  steps: StepOptions[]
+  steps: StepOptions[] | (() => StepOptions[])
 }
 
 /**
@@ -30,7 +26,6 @@ interface TourTriggerProps {
  * own onClick handler.
  */
 export function TourTrigger({ children, steps }: TourTriggerProps) {
-  const dispatch = useDispatch()
   const Shepherd = useShepherd()
 
   function handleClick(event: React.MouseEvent): void {
@@ -38,17 +33,19 @@ export function TourTrigger({ children, steps }: TourTriggerProps) {
       ...tourOptions,
     })
 
-    // This is so we could theoretically dynamically generate the steps
-    // based on state, etc.
-    tour.addSteps(steps)
-
-    dispatch(resetCoastmixState())
-    dispatch(startTour())
-    tour.start()
+    // Steps may be dynamically generated based on state, etc. when
+    // called as a function
+    if (typeof steps === 'function') {
+      tour.addSteps(steps())
+    } else {
+      tour.addSteps(steps)
+    }
 
     if (typeof children.props.onClick === 'function') {
       children.props.onClick(event)
     }
+
+    tour.start()
   }
 
   return cloneElement(children, {
