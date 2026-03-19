@@ -24,12 +24,7 @@ export function CoastmixPracticeComplete() {
                 margin: '0',
               }}
             >
-              <Button
-                onClick={() => {
-                  closeDialog()
-                }}
-                primary
-              >
+              <Button onClick={closeDialog} primary>
                 Explore Coastmix
               </Button>
             </p>

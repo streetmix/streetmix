@@ -28,21 +28,11 @@ export function CoastmixTutorialComplete() {
               }}
             >
               <CoastmixPracticeTour>
-                <Button
-                  onClick={() => {
-                    closeDialog()
-                  }}
-                  primary
-                >
+                <Button onClick={closeDialog} primary>
                   Practice scenario
                 </Button>
               </CoastmixPracticeTour>
-              <Button
-                onClick={() => {
-                  closeDialog()
-                }}
-                tertiary
-              >
+              <Button onClick={closeDialog} tertiary>
                 Explore on my own
               </Button>
             </p>
