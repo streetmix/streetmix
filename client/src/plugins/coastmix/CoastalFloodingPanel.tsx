@@ -82,7 +82,7 @@ export function CoastalFloodingPanel() {
       position={{ x: 30, y: 65 }}
     >
       <div className="popup-controls flood-controls-content">
-        <div className="popup-control-group">
+        <div className="popup-control-group" data-tour-id="sea-level-control">
           <div className="popup-control-label">Sea level rise</div>
           <div>
             <Button
@@ -95,6 +95,7 @@ export function CoastalFloodingPanel() {
             </Button>
             <Button
               className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
+              data-tour-id="2030-sea-level-rise"
               onClick={() => {
                 changeSeaLevelRise(2030)
               }}
@@ -119,11 +120,14 @@ export function CoastalFloodingPanel() {
             </Button>
           </div>
         </div>
-        <div className="popup-control-group">
+        <div className="popup-control-group" data-tour-id="storm-surge-control">
           <div className="popup-control-label">Storm surge</div>
           <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
-        <div className="popup-control-group">
+        <div
+          className="popup-control-group"
+          data-tour-id="flood-direction-control"
+        >
           <div className="popup-control-label">Flood direction</div>
           <div>
             <select value={floodDirection} onChange={changeFloodDirection}>
@@ -134,7 +138,12 @@ export function CoastalFloodingPanel() {
             </select>
           </div>
         </div>
-        <div className={messageClassNames.join(' ')}>{message}</div>
+        <div
+          className={messageClassNames.join(' ')}
+          data-tour-id="flooding-message"
+        >
+          {message}
+        </div>
       </div>
     </FloatingPanel>
   )

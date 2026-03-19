@@ -57,10 +57,22 @@
   }
 
   header {
-    padding: 2.5rem 1em;
+    padding: 2em 1em;
     text-align: center;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
+
+    h1 {
+      margin: 0.5rem 0;
+    }
+
+    /* We can have a smaller header here too */
+    h2 {
+      margin: 0;
+      line-height: 1;
+      font-size: 180%;
+      font-weight: 300;
+    }
   }
 
   footer {

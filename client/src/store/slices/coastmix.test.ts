@@ -1,4 +1,5 @@
 import coastmix, {
+  resetCoastmixState,
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   setSeaLevelRise,
@@ -16,6 +17,23 @@ describe('coastmix reducer', () => {
     floodDirection: 'none' as const,
     floodDistance: null,
   }
+
+  describe('reset state', () => {
+    it('should reset state', () => {
+      const action = coastmix(
+        {
+          controlsVisible: true,
+          seaLevelRise: 2030,
+          stormSurge: true,
+          floodDirection: 'left',
+          floodDistance: 1,
+        },
+        resetCoastmixState()
+      )
+
+      expect(action).toEqual(initialState)
+    })
+  })
 
   describe('toggle controls', () => {
     it('should show controls', () => {

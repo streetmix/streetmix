@@ -15,6 +15,7 @@ import { SkyPicker } from '../sky/SkyPicker'
 import { Gallery } from '../gallery/Gallery.js'
 import { SegmentDragLayer } from '../segments/SegmentDragLayer.js'
 import ToastContainer from '../ui/Toasts'
+import { TourProvider } from '../ui/Tours'
 import { SentimentSurveyContainer } from '../sentiment/SentimentSurveyContainer.js'
 import { useSelector } from '../store/hooks.js'
 import { DebugInfo } from './DebugInfo.js'
@@ -64,31 +65,33 @@ export function App() {
               key={locale.locale}
               messages={locale.messages}
             >
-              {/* The prop context={window} prevents crash errors with hot-module reloading */}
-              <DndProvider options={HTML5toTouch} context={window}>
-                {/* DndProvider allows multiple children; IntlProvider does not */}
-                <NotificationBar />
-                <BlockingShield />
-                <BlockingError />
-                <Gallery />
-                <DialogRoot />
-                <DebugInfo />
-                <PrintContainer />
-                <div className="main-screen">
-                  <MenusContainer />
-                  <StreetNameplateContainer />
-                  <DescriptionPanel />
-                  <WelcomePanel />
-                  <PaletteContainer />
-                  <SkyPicker />
-                  <SegmentDragLayer />
-                  <StreetView />
-                  <ToastContainer />
-                  <SentimentSurveyContainer />
-                  <CoastmixUI />
-                </div>
-                <SponsorBanner />
-              </DndProvider>
+              <TourProvider>
+                {/* The prop context={window} prevents crash errors with hot-module reloading */}
+                <DndProvider options={HTML5toTouch} context={window}>
+                  {/* DndProvider allows multiple children; IntlProvider does not */}
+                  <NotificationBar />
+                  <BlockingShield />
+                  <BlockingError />
+                  <Gallery />
+                  <DialogRoot />
+                  <DebugInfo />
+                  <PrintContainer />
+                  <div className="main-screen">
+                    <MenusContainer />
+                    <StreetNameplateContainer />
+                    <DescriptionPanel />
+                    <WelcomePanel />
+                    <PaletteContainer />
+                    <SkyPicker />
+                    <SegmentDragLayer />
+                    <StreetView />
+                    <ToastContainer />
+                    <SentimentSurveyContainer />
+                    <CoastmixUI />
+                  </div>
+                  <SponsorBanner />
+                </DndProvider>
+              </TourProvider>
             </IntlProvider>
           </DirectionProvider>
         </FloatingTree>

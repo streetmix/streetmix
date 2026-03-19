@@ -1,12 +1,13 @@
-import { Button } from '~/src/ui/Button'
+import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding.js'
+import { Button } from '~/src/ui/Button.js'
 
 interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
 }
 
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
-  function handleQuickTour(): void {
-    // TODO
+  function handleQuickTour(event: React.MouseEvent): void {
+    handleDismiss(event)
   }
 
   function handleSkip(event: React.MouseEvent): void {
@@ -28,14 +29,16 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
         flooding, and design your own adaptation strategies.{' '}
         <strong>Let’s get started!</strong>
       </p>
-      <p style={{ display: 'flex', justifyContent: 'center', gap: '0.5em' }}>
-        <Button onClick={handleQuickTour} primary>
-          Take a quick tour
-        </Button>
+      <div className="welcome-panel-buttons">
+        <CoastmixOnboardingTour>
+          <Button onClick={handleQuickTour} primary>
+            Take a quick tour
+          </Button>
+        </CoastmixOnboardingTour>
         <Button onClick={handleSkip} tertiary>
           Skip
         </Button>
-      </p>
+      </div>
     </div>
   )
 }

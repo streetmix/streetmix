@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useRef, useState, cloneElement } from 'react'
 import {
   useFloating,
   autoUpdate,
@@ -53,7 +53,7 @@ export function Tooltip({
   children,
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const arrowRef = React.useRef(null)
+  const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
   const { refs, floatingStyles, context } = useFloating({
     nodeId,
@@ -118,7 +118,7 @@ export function Tooltip({
   // <button> also works just fine as is) but if this becomes too complex,
   // a future workaround is to use floating-ui's `asChild` pattern so that
   // some instances can be wrapped with its own element.
-  const tooltipTriggerElement = React.cloneElement(
+  const tooltipTriggerElement = cloneElement(
     children,
     getReferenceProps({
       // Refs are merged between useFloating and an existing child ref, if any.

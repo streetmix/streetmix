@@ -2,9 +2,9 @@ import app, {
   setAppFlags,
   startPrinting,
   stopPrinting,
-  everythingLoaded
-} from './app'
-import { changeLocale } from './locale'
+  everythingLoaded,
+} from './app.js'
+import { changeLocale } from './locale.js'
 
 describe('app reducer', () => {
   const initialState = {
@@ -12,7 +12,7 @@ describe('app reducer', () => {
     printing: false,
     everythingLoaded: false,
     contentDirection: 'ltr' as const,
-    priorLastStreetId: null
+    priorLastStreetId: null,
   }
 
   it('should handle setAppFlags()', () => {
@@ -21,7 +21,7 @@ describe('app reducer', () => {
         initialState,
         setAppFlags({
           readOnly: true,
-          priorLastStreetId: '1'
+          priorLastStreetId: '1',
         })
       )
     ).toEqual({
@@ -29,7 +29,7 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: '1'
+      priorLastStreetId: '1',
     })
   })
 
@@ -39,7 +39,7 @@ describe('app reducer', () => {
       printing: true,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
     })
   })
 
@@ -51,7 +51,7 @@ describe('app reducer', () => {
           printing: true,
           everythingLoaded: false,
           contentDirection: 'ltr',
-          priorLastStreetId: null
+          priorLastStreetId: null,
         },
         stopPrinting()
       )
@@ -60,7 +60,7 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: false,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
     })
   })
 
@@ -70,7 +70,7 @@ describe('app reducer', () => {
       printing: false,
       everythingLoaded: true,
       contentDirection: 'ltr',
-      priorLastStreetId: null
+      priorLastStreetId: null,
     })
   })
 
@@ -80,7 +80,7 @@ describe('app reducer', () => {
         app(
           initialState,
           changeLocale.fulfilled({
-            locale: 'ar'
+            locale: 'ar',
           })
         )
       ).toEqual({
@@ -88,7 +88,7 @@ describe('app reducer', () => {
         printing: false,
         everythingLoaded: false,
         contentDirection: 'rtl',
-        priorLastStreetId: null
+        priorLastStreetId: null,
       })
     })
 
@@ -100,10 +100,10 @@ describe('app reducer', () => {
             printing: false,
             everythingLoaded: true,
             contentDirection: 'rtl',
-            priorLastStreetId: null
+            priorLastStreetId: null,
           },
           changeLocale.fulfilled({
-            locale: 'en'
+            locale: 'en',
           })
         )
       ).toEqual({
@@ -111,7 +111,7 @@ describe('app reducer', () => {
         printing: false,
         everythingLoaded: true,
         contentDirection: 'ltr',
-        priorLastStreetId: null
+        priorLastStreetId: null,
       })
     })
   })

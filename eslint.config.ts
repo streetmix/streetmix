@@ -3,7 +3,7 @@ import eslint from '@eslint/js'
 import globals from 'globals'
 import babelParser from '@babel/eslint-parser'
 import tseslint from 'typescript-eslint'
-import importPlugin from 'eslint-plugin-import'
+// import importPlugin from 'eslint-plugin-import'
 import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -12,7 +12,7 @@ import cypress from 'eslint-plugin-cypress'
 export default defineConfig([
   globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
   eslint.configs.recommended,
-  importPlugin.flatConfigs.recommended,
+  // importPlugin.flatConfigs.recommended,
   pluginPromise.configs['flat/recommended'],
   {
     ...react.configs.flat.recommended,
@@ -32,28 +32,28 @@ export default defineConfig([
       },
     },
     rules: {
-      'import/no-unresolved': 0,
-      'import/order': [
-        'warn',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'object',
-            'type',
-          ],
-          pathGroups: [
-            {
-              pattern: '~/**',
-              group: 'internal',
-            },
-          ],
-        },
-      ],
+      // 'import/no-unresolved': 0,
+      // 'import/order': [
+      //   'warn',
+      //   {
+      //     groups: [
+      //       'builtin',
+      //       'external',
+      //       'internal',
+      //       'parent',
+      //       'sibling',
+      //       'index',
+      //       'object',
+      //       'type',
+      //     ],
+      //     pathGroups: [
+      //       {
+      //         pattern: '~/**',
+      //         group: 'internal',
+      //       },
+      //     ],
+      //   },
+      // ],
       'react/jsx-no-bind': 0,
       'no-restricted-globals': [
         'error',

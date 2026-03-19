@@ -106,6 +106,7 @@ export function NewStreetMenu(props: MenuProps) {
             onClick={() => {
               openTemplate(STREET_TEMPLATES.HARBORWALK)
             }}
+            data-tour-id="new-street-harborwalk"
           >
             Harborwalk
             <Icon name="external-link" />

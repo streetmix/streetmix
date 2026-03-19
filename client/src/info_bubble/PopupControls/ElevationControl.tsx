@@ -118,7 +118,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
   })
 
   return (
-    <div className="popup-control-row">
+    <div className="popup-control-row" data-tour-id="elevation-control">
       <div className="popup-control-label">
         <Tooltip label={label} placement="left">
           <span className="popup-control-icon">

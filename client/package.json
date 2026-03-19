@@ -62,6 +62,7 @@
     "react-leaflet": "5.0.0",
     "react-markdown": "10.1.0",
     "react-redux": "9.2.0",
+    "react-shepherd": "7.0.4",
     "react-spring": "10.0.3",
     "react-transition-group": "4.4.5",
     "rehype-external-links": "3.0.0",
