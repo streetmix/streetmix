@@ -1,4 +1,4 @@
-import { useDispatch } from '~src/store/hooks.js'
+import { useDispatch } from '~/src/store/hooks.js'
 import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
 
 // import { CoastmixOnboardingTour } from './CoastmixOnboarding.js'

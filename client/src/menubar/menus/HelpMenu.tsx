@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { clearMenus } from '~/src/store/slices/menus.js'
 import Icon from '~/src/ui/Icon.js'
+import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding.js'
+import { CoastmixPracticeTour } from '~/src/ui/Tours/CoastmixPractice.js'
 import { registerKeypress, deregisterKeypress } from '~/src/app/keypress.js'
 import Menu, { type MenuProps } from './Menu.js'
 import { MenuItem } from './MenuItem.js'
 import { MenuSeparator } from './MenuSeparator.js'
 import { KeyboardShortcuts } from './KeyboardShortcuts.js'
-import { CoastmixOnboardingTour } from '~src/ui/Tours/CoastmixOnboarding.js'
-import { CoastmixPracticeTour } from '~src/ui/Tours/CoastmixPractice.js'
 
 export function HelpMenu(props: MenuProps) {
   const offline = useSelector((state) => state.system.offline)
