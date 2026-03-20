@@ -128,8 +128,8 @@ const steps: StepOptions[] = [
     text: `Building off of Streetmix, Coastmix introduces a new vertical elevation
       function. Design your waterfront to prevent flooding under different
       sea level rise time horizons, with or without storm surge, by increasing
-      the vertical elevation of an element in your waterfront. Use the arrows
-      to adjust the elevation or type an amount. If sea level rise is enabled, you
+      the vertical elevation of an element in your waterfront. Use the plus/minus
+      buttons to adjust the elevation or type an amount. If sea level rise is enabled, you
       can address flooding by elevating a feature sufficiently.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
