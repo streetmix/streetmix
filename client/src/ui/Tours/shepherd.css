@@ -65,14 +65,15 @@
   color: rgb(0 0 0 / 75%);
 }
 
+/* Matches <Dialog /><h2> */
 .shepherd-title {
-  color: rgb(0 0 0 / 75%);
-  display: flex;
-  flex: 1 0 auto;
-  font-size: 1rem;
-  font-weight: 400;
+  color: var(--color-turquoise-900);
   margin: 0;
-  padding: 0;
+  line-height: 1;
+  font-size: 180%;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
 }
 
 .shepherd-header {
@@ -85,9 +86,10 @@
   padding: 0.75rem 0.75rem 0;
 }
 
+/* Matches <Dialog /> */
 .shepherd-has-title .shepherd-content .shepherd-header {
-  background: #e6e6e6;
-  padding: 1em;
+  padding: 2em 1em;
+  background-color: var(--color-turquoise-200);
 }
 
 .shepherd-text {
@@ -262,5 +264,21 @@
     padding: 5px 10px;
     border: 1px solid blue;
     border-radius: 4px;
+  }
+}
+
+.shepherd-btn-center {
+  margin: 0 auto !important; /* Overrides .shepherd-button:last-child */
+}
+
+.tour-dialog {
+  max-width: 500px;
+
+  .shepherd-text {
+    padding: 1rem 2rem 1.5rem;
+  }
+
+  .shepherd-footer {
+    padding: 0 2rem 1.5rem;
   }
 }
