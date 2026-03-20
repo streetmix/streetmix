@@ -40,9 +40,6 @@ export const steps: StepOptions[] = [
     },
     ...modalOverlayOptions,
   },
-  // TODO: broken step
-  // Also -- how to recover to this state when we open in a new window?
-  // Current thought -- it's a new tour actually -- activated via the URL
   {
     id: 'coastmix-practice-02b',
     text: `Select the “Harborwalk” template.`,
@@ -54,14 +51,30 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="new-street-harborwalk"]',
     },
-    buttons: [nextButton],
     beforeShowPromise: async () => {
-      await waitFor(500)
+      await waitFor(300)
     },
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-03',
+    text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenerio.`,
+    buttons: [
+      {
+        classes: 'btn',
+        text: 'Dismiss',
+        action() {
+          ;(this as unknown as Tour).complete()
+        },
+      },
+    ],
+    ...modalOverlayOptions,
+  },
+]
+
+export const steps2: StepOptions[] = [
+  {
+    id: 'coastmix-practice-04',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
     attachTo: {
       element: '.coastmix-controls-button',
@@ -75,7 +88,7 @@ export const steps: StepOptions[] = [
   },
   {
     // assuming not already selected
-    id: 'coastmix-practice-04',
+    id: 'coastmix-practice-05',
     text: `Next, select 2030 sea level rise.`,
     attachTo: {
       element: '[data-tour-id="2030-sea-level-rise"]',
@@ -87,12 +100,12 @@ export const steps: StepOptions[] = [
     },
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
-      await waitFor(500)
+      await waitFor(300)
     },
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-05',
+    id: 'coastmix-practice-06',
     text: `For an extra challenge, you can turn on storm surge. This is totally optional, though!`,
     attachTo: {
       element: '[data-tour-id="storm-surge-control"] button',
@@ -109,7 +122,7 @@ export const steps: StepOptions[] = [
     modalOverlayOpeningYOffset: -1,
   },
   {
-    id: 'coastmix-practice-06',
+    id: 'coastmix-practice-07',
     text: `Set the flood direction to “Right,” which is the location of the waterfront
       in this environment.`,
     attachTo: {
@@ -148,7 +161,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-06b',
+    id: 'coastmix-practice-08',
     text: `Oh no! You can see that our harborwalk environment is flooded.
       There are many ways to protect against future sea level rise, but for
       this scenario, we’ll be building an elevated harborwalk with a sloped
@@ -161,7 +174,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-07',
+    id: 'coastmix-practice-09',
     text: `First, click on the “Harborwalk” feature next to the
       water.`,
     attachTo: {
@@ -175,7 +188,10 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-08a',
+    // NOTE -- this step is manually controlled through the CoastalFloodingPanel
+    // component instead of detecting changes here (and we probably don't want to
+    // do this, long term. But it works for now)
+    id: 'coastmix-practice-10',
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
@@ -183,12 +199,12 @@ export const steps: StepOptions[] = [
     },
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
-      await waitFor(500)
+      await waitFor(300)
     },
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-08b',
+    id: 'coastmix-practice-11',
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
       behind it needs to be integrated into this new condition.`,
@@ -200,7 +216,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-9',
+    id: 'coastmix-practice-12',
     text: `Click on the feature called “Future berm.”`,
     attachTo: {
       element: '[data-slice-label="Future berm"]',
@@ -213,7 +229,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-10',
+    id: 'coastmix-practice-13',
     text: `Toggle the slope function “On.”`,
     attachTo: {
       element: '[data-tour-id="slope-control"]',
@@ -226,7 +242,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-11',
+    id: 'coastmix-practice-14',
     text: `Now our “Future berm” is a current berm! You can rename
       an element by clicking on the name here, and then type “Berm”
       in the subsequent popup window.`,
@@ -241,7 +257,7 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-12',
+    id: 'coastmix-practice-15',
     text: `And that is it!`,
     buttons: [
       {

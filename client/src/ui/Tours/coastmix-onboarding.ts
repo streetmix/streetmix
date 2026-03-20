@@ -63,7 +63,7 @@ const steps: StepOptions[] = [
     },
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
-      await waitFor(500)
+      await waitFor(300)
     },
     buttons: [nextButton],
     ...modalOverlayOptions,
@@ -137,7 +137,7 @@ const steps: StepOptions[] = [
     },
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
-      await waitFor(500)
+      await waitFor(300)
     },
     buttons: [nextButton],
     ...modalOverlayOptions,

@@ -75,7 +75,7 @@ export function CoastalFloodingPanel() {
       // Manually control the tour here
       if (
         Shepherd.activeTour &&
-        Shepherd.activeTour.currentStep.id === 'coastmix-practice-08a'
+        Shepherd.activeTour.currentStep.id === 'coastmix-practice-10'
       ) {
         Shepherd.activeTour.next()
       }

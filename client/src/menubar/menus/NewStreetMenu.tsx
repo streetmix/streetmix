@@ -1,4 +1,5 @@
 import { FormattedMessage } from 'react-intl'
+import { useShepherd } from 'react-shepherd'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
@@ -9,8 +10,9 @@ import { MenuSeparator } from './MenuSeparator.js'
 import { BetaTag } from './BetaTag.js'
 import { SignInPromo } from './ShareMenu/SignInPromo.js'
 
-function openTemplate(template: string): void {
-  const url = `${URL_NEW_STREET}?type=${template}`
+function openTemplate(template: string, tour: boolean = false): void {
+  const url =
+    `${URL_NEW_STREET}?type=${template}` + (tour ? `&tour=${true}` : '')
   window.open(url, '_blank')
 }
 
@@ -22,6 +24,7 @@ export function NewStreetMenu(props: MenuProps) {
     (state) => state.flags.COASTMIX_MODE.value ?? false
   )
   const user = useSelector((state) => state.user)
+  const Shepherd = useShepherd()
 
   return (
     <Menu {...props}>
@@ -104,7 +107,13 @@ export function NewStreetMenu(props: MenuProps) {
           </div>
           <MenuItem
             onClick={() => {
-              openTemplate(STREET_TEMPLATES.HARBORWALK)
+              // If this menu item is clicked as part of the Coastmix tutorial
+              // it will be on step `coastmix-practice-03` and we need to
+              // activate the remainder of the steps in the next window
+              openTemplate(
+                STREET_TEMPLATES.HARBORWALK,
+                Shepherd.activeTour?.currentStep.id === 'coastmix-practice-03'
+              )
             }}
             data-tour-id="new-street-harborwalk"
           >
