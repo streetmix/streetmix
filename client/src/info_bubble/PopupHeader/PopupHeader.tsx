@@ -10,6 +10,9 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
   const { type, position } = props
   const street = useSelector((state) => state.street)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
 
   const label = getLabel(street, type, position)
 
@@ -26,7 +29,7 @@ export function PopupHeader(props: SectionElementTypeAndPosition) {
         label={label}
         type={type}
         handleClickEdit={handleClickEdit}
-        isEditUnlocked={isSubscriber}
+        isEditUnlocked={isSubscriber || coastmixMode}
       />
       {type === 'slice' && <RemoveButton slice={position} />}
     </header>
