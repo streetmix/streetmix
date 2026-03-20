@@ -1,9 +1,9 @@
 import { useDispatch } from '~src/store/hooks.js'
 import { resetCoastmixState } from '~/src/store/slices/coastmix.js'
 
-import { CoastmixOnboardingTour } from './CoastmixOnboarding.js'
+// import { CoastmixOnboardingTour } from './CoastmixOnboarding.js'
 import {
-  CoastmixPracticeTour,
+  // CoastmixPracticeTour,
   CoastmixPracticeTour2,
 } from './CoastmixPractice.js'
 
@@ -18,12 +18,12 @@ export function ShepherdTest() {
 
   return (
     <div className="tour-test">
-      <CoastmixOnboardingTour>
+      {/* <CoastmixOnboardingTour>
         <button onClick={reset}>tutorial 1</button>
       </CoastmixOnboardingTour>
       <CoastmixPracticeTour>
         <button onClick={reset}>tutorial 2a</button>
-      </CoastmixPracticeTour>
+      </CoastmixPracticeTour> */}
       <CoastmixPracticeTour2>
         <button onClick={reset}>tutorial 2b</button>
       </CoastmixPracticeTour2>

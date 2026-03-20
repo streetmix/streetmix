@@ -20,8 +20,10 @@ let cleanup: (() => void) | null = null
 export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-01',
+    title: 'Coastmix practice scenario',
     text: `In this practice scenario, you will address 2030 sea level rise
       with an optional storm surge.`,
+    classes: 'tour-dialog',
     buttons: [nextButton],
     ...modalOverlayOptions,
   },
