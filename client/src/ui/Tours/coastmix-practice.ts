@@ -57,7 +57,7 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-03',
-    text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenerio.`,
+    text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenario.`,
     buttons: [
       {
         classes: 'btn',
