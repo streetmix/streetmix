@@ -6591,7 +6591,7 @@
         "components": {
           "lanes": [
             {
-              "id": "beach",
+              "id": "earth",
               "variants": {
                 "type": "default"
               }

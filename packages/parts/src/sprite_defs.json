@@ -173,6 +173,10 @@
     "id": "beach--surface",
     "offsetY": -12
   },
+  "earth--surface": {
+    "id": "earth--surface",
+    "offsetY": -12
+  },
   "missing": {
     "id": "missing"
   }
