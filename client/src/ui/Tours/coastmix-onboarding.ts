@@ -117,6 +117,11 @@ const steps: StepOptions[] = [
       element: '[data-slice-index="5"]',
       on: 'bottom',
     },
+    scrollTo: {
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'end',
+    },
     advanceOn: {
       event: 'click',
       selector: '[data-slice-index="5"]',

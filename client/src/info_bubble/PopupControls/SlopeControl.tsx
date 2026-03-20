@@ -57,6 +57,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
           checked={isSloped}
           disabled={!allowSlope}
           aria-label={label}
+          data-tour-id="slope-control-switch"
         />
       </Tooltip>
     </div>

@@ -194,6 +194,11 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-slice-label="Harborwalk"]',
     },
+    scrollTo: {
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'end',
+    },
     ...modalOverlayOptions,
   },
   {
@@ -230,6 +235,11 @@ export const steps2: StepOptions[] = [
       element: '[data-slice-label="Future berm"]',
       on: 'bottom',
     },
+    scrollTo: {
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'end',
+    },
     advanceOn: {
       event: 'click',
       selector: '[data-slice-label="Future berm"]',
@@ -245,7 +255,7 @@ export const steps2: StepOptions[] = [
     },
     advanceOn: {
       event: 'click',
-      selector: '[data-tour-id="slope-control"]',
+      selector: '[data-tour-id="slope-control-switch"]',
     },
     ...modalOverlayOptions,
   },
