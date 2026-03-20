@@ -1,5 +1,3 @@
-import store from '~/src/store'
-import { showDialog } from '~/src/store/slices/dialogs.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
@@ -256,14 +254,24 @@ export const steps2: StepOptions[] = [
     },
     ...modalOverlayOptions,
   },
+  // Conclusion dialog is integrated into tour steps because it can be
+  // picked up from after the rename prompt
   {
     id: 'coastmix-practice-15',
-    text: `And that is it!`,
+    title: 'Scenario complete!',
+    text: `<p>Congratulations &mdash; you did it!</p>
+      <p>
+        You've prepared for 2030 sea level rise, but can you prepare for
+        2050 and beyond? Now that you've learned the basics of Coastmix,
+        try changing the sea level rise projection year, or a start with a
+        different coastal environment, and see what you can come up with!
+      </p>`,
+    classes: 'tour-dialog',
     buttons: [
       {
-        ...nextButton,
+        classes: 'btn btn-primary shepherd-btn-center',
+        text: 'Explore Coastmix',
         action() {
-          store.dispatch(showDialog('COASTMIX_PRACTICE_COMPLETE'))
           ;(this as unknown as Tour).complete()
         },
       },
