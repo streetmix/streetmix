@@ -54,7 +54,6 @@ export const steps: StepOptions[] = [
     beforeShowPromise: async () => {
       await waitFor(300)
     },
-    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-03',
@@ -68,11 +67,22 @@ export const steps: StepOptions[] = [
         },
       },
     ],
-    ...modalOverlayOptions,
   },
 ]
 
+// Triggered by the "new street" welcome panel, kind of a hack though.
 export const steps2: StepOptions[] = [
+  {
+    id: 'coastmix-practice-04a',
+    title: 'Coastmix practice scenario',
+    text: `<p>This is a typical cross-section of a harborwalk at sea level.</p>
+      <p>
+        Next, we'll use Coastmix to raise the sea level to 2030 projected
+        height, and see how that affects our waterfront.
+      </p>`,
+    classes: 'tour-dialog',
+    buttons: [nextButton],
+  },
   {
     id: 'coastmix-practice-04',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
@@ -171,7 +181,6 @@ export const steps2: StepOptions[] = [
       on: 'bottom',
     },
     buttons: [nextButton],
-    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-09',
@@ -213,7 +222,6 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flooding-message"]',
       on: 'bottom',
     },
-    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-12',
@@ -278,6 +286,5 @@ export const steps2: StepOptions[] = [
         },
       },
     ],
-    ...modalOverlayOptions,
   },
 ]
