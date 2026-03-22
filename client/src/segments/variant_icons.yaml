@@ -29,6 +29,7 @@ boundary:
     unlockCondition: SIGN_IN
   beach:
     id: beach
+    iconSet: tabler
     title: Beach
     enableWithFlag: COASTMIX_MODE
   marsh:
@@ -476,6 +477,7 @@ wall-height:
     id: elevation-higher
     title: High wall
 guardrail-type:
-  guardrail:
-    id: guardrail
+  default:
+    # Reusing an icon just because it looks similar
+    id: bollard
     title: Guard rail
