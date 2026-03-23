@@ -20,13 +20,24 @@ export function PaletteItems() {
 
   // For each palette item, filter out the ones that have been disabled
   // by feature flag
-  const displayedItems = items
-    .filter(
-      (i) =>
-        i.enableWithFlag === undefined ||
-        (i.enableWithFlag !== undefined && flags[i.enableWithFlag]?.value)
-    )
-    .map((i) => <PaletteItem key={i.id} item={i} />)
+  const filteredItems = items.filter(
+    (i) =>
+      i.enableWithFlag === undefined ||
+      (i.enableWithFlag !== undefined && flags[i.enableWithFlag]?.value)
+  )
+
+  // Move all Coastmix items to the front
+  const coastmixItems = filteredItems.filter(
+    (i) => i?.enableWithFlag === 'COASTMIX_MODE'
+  )
+  const regularItems = filteredItems.filter(
+    (i) => i?.enableWithFlag !== 'COASTMIX_MODE'
+  )
+  const reorderedItems = [...coastmixItems, ...regularItems]
+
+  const displayedItems = reorderedItems.map((i) => (
+    <PaletteItem key={i.id} item={i} />
+  ))
 
   return (
     <TooltipGroup>
