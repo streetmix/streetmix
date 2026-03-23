@@ -326,6 +326,9 @@ function drawGroundPattern(
     case 'ground--wall':
       pattern = '#cead80'
       break
+    case 'ground--earth':
+      pattern = '#352d27'
+      break
     case 'ground--concrete':
     default:
       pattern = '#d8d3cb'
@@ -570,6 +573,7 @@ export function drawSegmentContents(
           let hack = 8
           if (sprite.id === 'plants--grass') hack = 10
           if (sprite.id === 'beach--surface') hack = 6
+          if (sprite.id === 'earth--surface') hack = 6
           distanceFromGround = adjustment + hack
 
           // For some reason the slope is reversed so we flip it by multiplying by -1

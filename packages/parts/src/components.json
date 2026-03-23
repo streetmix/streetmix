@@ -109,6 +109,19 @@
         }
       }
     },
+    "earth": {
+      "elevation": 0,
+      "variants": {
+        "type": {
+          "default": {
+            "graphics": {
+              "repeat": "earth--surface",
+              "ground": "ground--earth"
+            }
+          }
+        }
+      }
+    },
     "wall": {
       "elevation": 0,
       "variants": {
