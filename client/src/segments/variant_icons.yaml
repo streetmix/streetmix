@@ -1,4 +1,21 @@
 boundary:
+  beach:
+    id: beach
+    iconSet: tabler
+    title: Beach
+    enableWithFlag: COASTMIX_MODE
+  marsh:
+    id: marsh
+    title: Marsh
+    enableWithFlag: COASTMIX_MODE
+  water:
+    id: water
+    title: Water
+    enableWithFlag: COASTMIX_MODE
+  dock:
+    id: dock
+    title: Dock
+    enableWithFlag: COASTMIX_MODE
   waterfront:
     id: waterfront
     title: Waterfront
@@ -27,23 +44,6 @@ boundary:
     id: compound-wall
     title: Compound wall
     unlockCondition: SIGN_IN
-  beach:
-    id: beach
-    iconSet: tabler
-    title: Beach
-    enableWithFlag: COASTMIX_MODE
-  marsh:
-    id: marsh
-    title: Marsh
-    enableWithFlag: COASTMIX_MODE
-  water:
-    id: water
-    title: Water
-    enableWithFlag: COASTMIX_MODE
-  dock:
-    id: dock
-    title: Dock
-    enableWithFlag: COASTMIX_MODE
 ground:
   concrete:
     id: concrete
