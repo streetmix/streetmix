@@ -30,7 +30,7 @@ const returnTrue = function () {
  *
  * @public
  */
-export function startListening () {
+export function startListening() {
   window.addEventListener('keydown', onGlobalKeyDown)
 }
 
@@ -48,13 +48,15 @@ export function startListening () {
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
  *    same action, pass in an array of strings, e.g. `['a', 'b', 'meta d']`
- * @param {object} [options]
+ * @param {(object|function)} [options | callback]
  *    Options that fine tune the behavior of the keypress. If you are unhappy
  *    with a default setting, they can be overridden here. Note that it is
  *    possible for overrides to conflict with other parameters, for instance,
  *    if you set `commands` to "shift p" but `options.shiftKey` to `false`.
  *    Don't do this. This is confusing and I won't guarantee preserving how
  *    this conflict is addressed.
+ *    If you don't need to set options, this object can be omitted and the
+ *    callback function passed as the second argument.
  * @param {(boolean|string)} [options.shiftKey=false]
  *    If `true`, the `Shift` key should be pressed in a key combination. This
  *    is automatically set to `true` if `shift` is specified in the `commands`
@@ -100,7 +102,7 @@ export function startListening () {
  *    (and you might prefer to set it on `options` instead). If there is no
  *    callback function the keypress simply does nothing.
  */
-export function registerKeypress (commands, options, callback) {
+export function registerKeypress(commands, options, callback) {
   // Defaults
   // For shiftKey, metaKey, and altKey, specifies what it should
   // match on the event object reported by the browser. For instance,
@@ -118,7 +120,7 @@ export function registerKeypress (commands, options, callback) {
     preventDefault: true,
     stopPropagation: false,
     requireFocusOnBody: true,
-    fireOnce: false
+    fireOnce: false,
   }
 
   // Check if the second argument is the options object or the callback function
@@ -198,7 +200,7 @@ export function registerKeypress (commands, options, callback) {
  * @todo Because of how function equality works, not all functions passed
  *    in this way result in a true test of equality.
  */
-export function deregisterKeypress (commands, callback) {
+export function deregisterKeypress(commands, callback) {
   const commandObj = processCommands(commands)
 
   // Process each command input
@@ -244,7 +246,7 @@ export function deregisterKeypress (commands, callback) {
  *    same action, pass in an array of strings, e.g. `['a', 'b', 'meta d']`
  * @returns object
  */
-function processCommands (commands) {
+function processCommands(commands) {
   // If a string, force to one-element array, otherwise expect an array of strings
   if (typeof commands === 'string') {
     commands = new Array(commands)
@@ -266,7 +268,7 @@ function processCommands (commands) {
     const settings = {
       shiftKey: false,
       altKey: false,
-      metaKey: false
+      metaKey: false,
     }
 
     // Check for existence of modifier keys
@@ -335,7 +337,7 @@ function processCommands (commands) {
   return commandsObj
 }
 
-function onGlobalKeyDown (event) {
+function onGlobalKeyDown(event) {
   const toExecute = []
   const key = event.key
 
@@ -375,7 +377,7 @@ function onGlobalKeyDown (event) {
  * @param {object} input - The input object to execute
  * @param {Event} [event] - The browser's `Event` object created when `keydown` is fired
  */
-function execute (input, event) {
+function execute(input, event) {
   // Check if condition is satisfied
   if (!input.condition()) return
 
