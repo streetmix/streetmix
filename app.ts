@@ -120,7 +120,8 @@ const csp = {
       's.gravatar.com',
       '*.googleusercontent.com',
       'res.cloudinary.com',
-      '*.wp.com/cdn.auth0.com', // Auth0 default profile images
+      '*.wp.com',
+      'cdn.auth0.com', // Auth0 default profile images
     ],
     fontSrc: ["'self'"],
     connectSrc: [
