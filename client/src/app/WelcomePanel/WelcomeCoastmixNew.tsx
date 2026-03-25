@@ -7,7 +7,7 @@ import { steps2 as steps } from '~/src/ui/Tours/coastmix-practice.js'
 import { Button } from '~/src/ui/Button.js'
 
 interface WelcomeCoastmixNewProps {
-  handleDismiss: React.MouseEventHandler
+  handleDismiss: () => void
 }
 
 export function WelcomeCoastmixNew({ handleDismiss }: WelcomeCoastmixNewProps) {
@@ -26,7 +26,7 @@ export function WelcomeCoastmixNew({ handleDismiss }: WelcomeCoastmixNewProps) {
       tour.start()
       handleDismiss()
     }
-  }, [])
+  }, [Shepherd.Tour, Shepherd.activeTour, handleDismiss])
 
   return (
     <div className="welcome-panel-content">
