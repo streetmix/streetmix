@@ -1,16 +1,9 @@
 import { cloneElement } from 'react'
 import { useShepherd } from 'react-shepherd'
 
-import type { StepOptions } from 'shepherd.js'
+import { tourOptions } from './config'
 
-export const tourOptions = {
-  defaultStepOptions: {
-    cancelIcon: {
-      enabled: false,
-    },
-  },
-  useModalOverlay: true,
-}
+import type { StepOptions } from 'shepherd.js'
 
 interface TourTriggerProps {
   children: React.ReactElement<{

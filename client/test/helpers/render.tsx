@@ -14,6 +14,7 @@ import { createStore } from './store'
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 /* eslint @typescript-eslint/explicit-function-return-type: 0 */
 /* eslint @typescript-eslint/no-unsafe-argument: 0 */
+/* eslint react-refresh/only-export-components: 0 */
 
 // Define a wrapper component that includes all of our global context
 // providers from Redux, react-intl, react-dnd. The nesting order of these

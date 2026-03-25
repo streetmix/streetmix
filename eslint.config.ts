@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
+import { reactRefresh } from 'eslint-plugin-react-refresh'
 import cypress from 'eslint-plugin-cypress'
 
 export default defineConfig([
@@ -13,6 +14,7 @@ export default defineConfig([
   eslint.configs.recommended,
   // importPlugin.flatConfigs.recommended,
   pluginPromise.configs['flat/recommended'],
+  reactRefresh.configs.recommended(),
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
