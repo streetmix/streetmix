@@ -153,9 +153,9 @@ export function generateRandomBallotFetch({ redirect = false }) {
         street = await Street.findOne({ where: { id: streetId } })
 
         if (!street.creatorId) {
-          candidateStreetUrl = `/-/${street.namespacedId}`
+          candidateStreetUrl += `-/${street.namespacedId}`
         } else {
-          candidateStreetUrl = `/${street.creatorId}/${street.namespacedId}`
+          candidateStreetUrl += `${street.creatorId}/${street.namespacedId}`
         }
       } catch (error) {
         logger.error(error)
@@ -264,8 +264,9 @@ export async function post(req, res) {
     id: randomUUID(),
   }
 
-  let savedBallot = {}
-  let updates = []
+  let savedBallot
+  let updates
+
   try {
     ballot.data = req.body.data
     ballot.score = req.body.score

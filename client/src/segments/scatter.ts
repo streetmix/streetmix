@@ -118,7 +118,7 @@ export function getRandomObjects(
   const objects = []
   let runningWidth = 0
   let previousEntityId = null
-  let currentEntityId = null
+  let currentEntityId: string
   let lastWidth = 0
 
   // Pick (draw) objects from the pool until we have at least one object, and
