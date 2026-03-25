@@ -22,7 +22,6 @@
     "allowJs": true,
 
     /* Interop Constraints */
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
 
