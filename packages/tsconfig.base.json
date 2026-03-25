@@ -2,9 +2,6 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
-    /* Language and Environment */
-    "target": "es2023",
-
     /* Modules */
     "module": "nodenext",
     "moduleResolution": "nodenext",
@@ -32,9 +29,6 @@
 
     /* Projects */
     "composite": true,
-
-    /* Type Checking */
-    "strict": true,
 
     /* Completeness */
     "skipLibCheck": true
