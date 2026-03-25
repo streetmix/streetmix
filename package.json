@@ -29,7 +29,7 @@
     "dev-client": "npm run -w @streetmix/client dev",
     "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec node index.ts",
     "dev-tsc": "tsc -b --watch --preserveWatchOutput",
-    "clean": "rm -rf ./.parcel-cache && rm -rf ./build",
+    "clean": "rm -rf ./.parcel-cache && rm -rf ./build && find ./packages -type d -name build -prune -exec rm -rf {} + && find ./packages -type f -name tsconfig.tsbuildinfo -delete",
     "test": "npm run lint && npm run vitest",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint \"./client/**/*.css\"",
