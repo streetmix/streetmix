@@ -6,6 +6,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
+    "rootDir": "${configDir}/src",
     "types": [
       "node",
       /* Recognize test globals in test suites */
