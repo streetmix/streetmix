@@ -23,9 +23,6 @@ updates:
           - "eslint"
           - "eslint-*"
           - "@typescript-eslint/*"
-      babel:
-        patterns:
-          - "@babel/*"
       radix-ui:
         patterns:
           - "@radix-ui/*"

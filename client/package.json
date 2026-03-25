@@ -71,11 +71,6 @@
     "slugify": "1.6.8"
   },
   "devDependencies": {
-    "@babel/core": "7.29.0",
-    "@babel/eslint-parser": "8.0.0-rc.3",
-    "@babel/preset-env": "7.29.2",
-    "@babel/preset-react": "7.28.5",
-    "@babel/preset-typescript": "7.28.5",
     "@modyfi/vite-plugin-yaml": "1.1.1",
     "@parcel/transformer-yaml": "2.16.4",
     "@testing-library/dom": "10.4.1",

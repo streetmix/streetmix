@@ -1,9 +1,0 @@
-{
-  // Note: Parcel config no longer reads from Babel config.
-  // This is used for eslint parser
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react",
-    "@babel/preset-typescript"
-  ]
-}

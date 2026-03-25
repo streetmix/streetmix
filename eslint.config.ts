@@ -1,7 +1,6 @@
 import { defineConfig, globalIgnores } from 'eslint/config'
 import eslint from '@eslint/js'
 import globals from 'globals'
-import babelParser from '@babel/eslint-parser'
 import tseslint from 'typescript-eslint'
 // import importPlugin from 'eslint-plugin-import'
 import pluginPromise from 'eslint-plugin-promise'
@@ -23,12 +22,6 @@ export default defineConfig([
       globals: {
         ...globals.browser,
         ...globals.node,
-      },
-      parser: babelParser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
       },
     },
     rules: {
