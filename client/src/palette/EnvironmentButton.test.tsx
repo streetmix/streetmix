@@ -20,6 +20,6 @@ describe('EnvironmentButton', () => {
 
     await userEvent.click(screen.getByRole('button'))
 
-    expect(toggleToolbox).toBeCalled()
+    expect(toggleToolbox).toHaveBeenCalled()
   })
 })

@@ -24,6 +24,6 @@ describe('ContactMenu', () => {
     await userEvent.click(screen.getByText('GitHub', { exact: false }))
     await userEvent.click(screen.getByText('newsletter', { exact: false }))
 
-    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledTimes(1)
   })
 })

@@ -26,7 +26,7 @@ describe('StreetMetaGeotag', () => {
     })
 
     await userEvent.click(getByText('Add location'))
-    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledTimes(1)
   })
 
   it('renders nothing if location is not set and is not editable', () => {
@@ -39,7 +39,7 @@ describe('StreetMetaGeotag', () => {
     })
 
     expect(queryByText('Add location')).toBe(null)
-    expect(showDialog).toBeCalledTimes(0)
+    expect(showDialog).toHaveBeenCalledTimes(0)
   })
 
   it('renders location label and opens dialog if location is editable', async () => {
@@ -59,7 +59,7 @@ describe('StreetMetaGeotag', () => {
     })
 
     await userEvent.click(getByText('foo, bar'))
-    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledTimes(1)
   })
 
   it('renders location label but does nothing on click if location is not editable', async () => {
@@ -79,7 +79,7 @@ describe('StreetMetaGeotag', () => {
     })
 
     await userEvent.click(getByText('foo, bar'))
-    expect(showDialog).toBeCalledTimes(0)
+    expect(showDialog).toHaveBeenCalledTimes(0)
   })
 
   it('displays the correct label for a given location hierarchy', () => {

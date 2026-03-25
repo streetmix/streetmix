@@ -20,6 +20,6 @@ describe('FloatingPanel', () => {
 
     await userEvent.click(screen.getByTitle('Dismiss'))
 
-    expect(props.handleClose).toBeCalled()
+    expect(props.handleClose).toHaveBeenCalled()
   })
 })

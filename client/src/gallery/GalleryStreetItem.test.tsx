@@ -68,7 +68,7 @@ describe('GalleryStreetItem', () => {
     render(<GalleryStreetItem {...baseProps} doSelect={doSelect} />)
 
     await userEvent.click(screen.getByText(MOCK_STREET.name!))
-    expect(doSelect).toBeCalled()
+    expect(doSelect).toHaveBeenCalled()
   })
 
   it('handles delete when confirmed', async () => {
@@ -78,7 +78,7 @@ describe('GalleryStreetItem', () => {
     render(<GalleryStreetItem {...baseProps} doDelete={doDelete} />)
 
     await userEvent.click(screen.getByTitle('Delete street'))
-    expect(doDelete).toBeCalled()
+    expect(doDelete).toHaveBeenCalled()
   })
 
   it('does not delete when confirmation is cancelled', async () => {
@@ -88,6 +88,6 @@ describe('GalleryStreetItem', () => {
     render(<GalleryStreetItem {...baseProps} doDelete={doDelete} />)
 
     await userEvent.click(screen.getByTitle('Delete street'))
-    expect(doDelete).not.toBeCalled()
+    expect(doDelete).not.toHaveBeenCalled()
   })
 })

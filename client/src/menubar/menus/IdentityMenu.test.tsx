@@ -38,8 +38,8 @@ describe('IdentityMenu', () => {
 
     await userEvent.click(screen.getByText('My streets'))
 
-    expect(openGallery).toBeCalledTimes(1)
-    expect(openGallery).toBeCalledWith({ userId: 'foo' })
+    expect(openGallery).toHaveBeenCalledTimes(1)
+    expect(openGallery).toHaveBeenCalledWith({ userId: 'foo' })
   })
 
   it('signs the user out when its link is clicked', async () => {
@@ -47,6 +47,6 @@ describe('IdentityMenu', () => {
 
     await userEvent.click(screen.getByText('Sign out'))
 
-    expect(signOut).toBeCalledTimes(1)
+    expect(signOut).toHaveBeenCalledTimes(1)
   })
 })

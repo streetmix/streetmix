@@ -200,8 +200,8 @@ describe('ShareMenu', () => {
       initialState: { user: { signedIn: false } },
     })
     await userEvent.click(screen.getByText('Sign in'))
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('SIGN_IN')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('SIGN_IN')
   })
 
   it('handles clicking Twitter', async () => {
@@ -217,8 +217,8 @@ describe('ShareMenu', () => {
   it('handles clicking save as image', async () => {
     render(<ShareMenu isActive />)
     await userEvent.click(screen.getByText('Save as image', { exact: false }))
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('SAVE_AS_IMAGE')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('SAVE_AS_IMAGE')
   })
 
   it('handles clicking print', async () => {
@@ -230,7 +230,7 @@ describe('ShareMenu', () => {
   it('handles clicking copy to clipboard', async () => {
     render(<ShareMenu isActive />)
     await userEvent.click(screen.getByTitle('Copy to clipboard'))
-    expect(copy).toBeCalledTimes(1)
+    expect(copy).toHaveBeenCalledTimes(1)
   })
 
   it('does not render external share links in offline mode', () => {

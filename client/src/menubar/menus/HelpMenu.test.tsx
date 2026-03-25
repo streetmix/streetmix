@@ -27,8 +27,8 @@ describe('HelpMenu', () => {
 
     await userEvent.click(screen.getByText('About Streetmix…'))
 
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('ABOUT')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('ABOUT')
   })
 
   it('shows the What’s New dialog when its link is clicked', async () => {
@@ -36,8 +36,8 @@ describe('HelpMenu', () => {
 
     await userEvent.click(screen.getByText('What’s new', { exact: false }))
 
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('WHATS_NEW')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('WHATS_NEW')
   })
 
   // To implement this test, we need to test that the `keydown`
@@ -49,7 +49,7 @@ describe('HelpMenu', () => {
 
     await userEvent.keyboard('?')
 
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('ABOUT')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('ABOUT')
   })
 })
