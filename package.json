@@ -114,6 +114,8 @@
     "@types/js-yaml": "4.0.9",
     "@types/papaparse": "5.5.2",
     "@types/passport": "1.0.17",
+    "@types/svg-sprite": "0.0.39",
+    "@types/vinyl": "2.0.12",
     "@vitest/coverage-v8": "4.1.1",
     "axios-mock-adapter": "2.1.0",
     "concurrently": "9.2.1",
