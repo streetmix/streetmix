@@ -2,7 +2,9 @@
   "compilerOptions": {
     "lib": ["es6", "dom"],
     "sourceMap": true,
-    "types": ["cypress", "node"]
+    "types": ["cypress", "node"],
+    // Temporarily silence deprecation notices until Cypress updates its usage of `downlevelIteration`
+    "ignoreDeprecations": "6.0"
   },
   "include": ["**/*.ts"]
 }
