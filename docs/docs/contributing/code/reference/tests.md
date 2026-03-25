@@ -21,7 +21,7 @@ npm test
 Full integration tests happen in our continuous integration infrastructure. You're not required to run this locally, but if you'd like, you can do so with this command.
 
 ```shell-session
-npm cypress:run
+npm run cypress:run
 ```
 
 ## Unit and integration tests {#unit-tests}
@@ -30,7 +30,7 @@ Our primary test framework is the [Vitest](https://vitest.dev/) test runner with
 
 Our goal is to be as close as possible to "industry best practice" in order to simplify our understanding and comprehension of tests. _Please do not do anything exotic in these tests._
 
-Front-end unit and integration tests are placed in a `__tests__` folder in the same directory as the module being tested. Test modules should be named `filename.test.js`.
+Front-end unit and integration tests are in the same directory as the module being tested. Test modules should be named `filename.test.ts` (or `.tsx`).
 
 ### Integration tests are preferred over unit tests.
 
@@ -46,11 +46,11 @@ Many of our React components use Redux and react-intl, which are required in the
 
 Snapshots should be used with caution. They tend to break, and developers tend to update them without examining why a snapshot might have changed unexpectedly. Please be careful when snapshots fail and when to add new ones.
 
-Snapshots are good when you test different results, like error messages. Take a look at `./assets/scripts/app/__tests__/StreetEditable.test.js` for an example how snapshots can be used with error messages.
+Snapshots are good when you test different results, like error messages. Take a look at `client/src/app/StreetEditable.test.tsx` for an example how snapshots can be used with error messages.
 
 ### Mocks
 
-Be aware of mocks. A few files and functions are mocked globally. For example `load_resources` is mocked globally and if you need to use that file in your tests/components be sure to check the mock. Otherwise use `jest.mock` to mock modules, classes, etc.
+Be aware of mocks. A few files and functions are mocked globally. For example `load_resources` is mocked globally and if you need to use that file in your tests/components be sure to check the mock. Otherwise use `vi.mock` to mock modules, classes, etc.
 
 **Resources**
 
