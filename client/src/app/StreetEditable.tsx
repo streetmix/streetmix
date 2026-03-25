@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, createRef, cloneElement } from 'react'
+import React, {
+  useEffect,
+  useRef,
+  createRef,
+  cloneElement,
+  useCallback,
+} from 'react'
 import { useDrop } from 'react-dnd'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
@@ -81,6 +87,25 @@ export function StreetEditable(props: StreetEditableProps) {
   const dropTargetSpec = createStreetDropTargetSpec(street, ref)
   const [, drop] = useDrop(dropTargetSpec)
 
+  const updateWithinCanvas = useCallback(
+    (event: MouseEvent | TouchEvent): void => {
+      if (ref.current === null) return
+
+      const newValue = isSegmentWithinCanvas(event, ref.current)
+
+      if (newValue) {
+        document.body.classList.remove('not-within-canvas')
+      } else {
+        document.body.classList.add('not-within-canvas')
+      }
+
+      if (withinCanvas.current !== newValue) {
+        withinCanvas.current = newValue
+      }
+    },
+    [ref]
+  )
+
   useEffect(() => {
     window.addEventListener('dragover', updateWithinCanvas)
     window.addEventListener('touchmove', updateWithinCanvas)
@@ -89,7 +114,7 @@ export function StreetEditable(props: StreetEditableProps) {
       window.removeEventListener('dragover', updateWithinCanvas)
       window.removeEventListener('touchmove', updateWithinCanvas)
     }
-  }, [])
+  }, [updateWithinCanvas])
 
   useEffect(() => {
     if (prevProps === null) return
@@ -110,22 +135,6 @@ export function StreetEditable(props: StreetEditableProps) {
       cancelSegmentResizeTransitions()
     }
   }, [street.id, street.width, prevProps])
-
-  function updateWithinCanvas(event: MouseEvent | TouchEvent): void {
-    if (ref.current === null) return
-
-    const newValue = isSegmentWithinCanvas(event, ref.current)
-
-    if (newValue) {
-      document.body.classList.remove('not-within-canvas')
-    } else {
-      document.body.classList.add('not-within-canvas')
-    }
-
-    if (withinCanvas.current !== newValue) {
-      withinCanvas.current = newValue
-    }
-  }
 
   function handleSwitchSliceAway(el: HTMLDivElement, sliceIndex: number): void {
     // Targeting first child node instead of el because of wrapper div workaround
