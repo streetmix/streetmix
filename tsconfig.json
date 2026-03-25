@@ -9,6 +9,7 @@
     "module": "nodenext",
     "resolveJsonModule": true,
     "rewriteRelativeImportExtensions": true,
+    "types": ["node"],
 
     /* Emit */
     "noEmit": true, // Processed by Node
