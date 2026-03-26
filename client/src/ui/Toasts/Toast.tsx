@@ -12,7 +12,7 @@ export interface ToastProps {
   children?: React.ReactNode
 }
 
-function Toast(props: ToastProps) {
+export function Toast(props: ToastProps) {
   const {
     item,
     setRef,
@@ -51,5 +51,3 @@ function Toast(props: ToastProps) {
     </div>
   )
 }
-
-export default Toast
