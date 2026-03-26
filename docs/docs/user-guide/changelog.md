@@ -5,11 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
-## Unreleased
+## March 26, 2026
 
 ### 🐛 Bug fixes
 
 - Fixed a bug where unsetting a street name would not be saved to the server.
+- Fixed a bug that prevented avatar images from displaying properly for many users.
 
 ## February 13, 2026
 
