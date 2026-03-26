@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import SignInDialog from './SignInDialog'
+import { render } from '~/test/helpers/render.js'
+import { SignInDialog } from './SignInDialog.js'
 
 describe('SignInDialog', () => {
   it('renders', () => {

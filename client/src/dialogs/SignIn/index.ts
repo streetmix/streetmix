@@ -1,1 +1,1 @@
-export { default } from './SignInDialog'
+export * from './SignInDialog.js'
