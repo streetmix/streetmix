@@ -13,7 +13,7 @@ import { WhatsNewDialog } from './WhatsNew'
 import { NewsletterDialog } from './Newsletter'
 import { UpgradeDialog } from './Upgrade'
 import { SentimentSurveyDialog } from './SentimentSurvey'
-import ErrorDialog from './ErrorDialog.js'
+import { ErrorDialog } from './ErrorDialog.js'
 import { CoastmixTutorialComplete } from './CoastmixTutorial.js'
 
 const DIALOG_COMPONENTS = {

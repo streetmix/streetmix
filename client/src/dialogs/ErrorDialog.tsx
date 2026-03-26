@@ -1,8 +1,7 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { ExternalLink } from '../ui/ExternalLink'
-import Dialog from './Dialog'
+import { ExternalLink } from '../ui/ExternalLink.js'
+import Dialog from './Dialog.js'
 import './ErrorDialog.css'
 
 /**
@@ -11,7 +10,7 @@ import './ErrorDialog.css'
  *
  * If _this_ component throws an error, the universe blows up.
  */
-function ErrorDialog(): React.ReactElement {
+export function ErrorDialog() {
   return (
     <Dialog>
       {(closeDialog) => (
@@ -47,5 +46,3 @@ function ErrorDialog(): React.ReactElement {
     </Dialog>
   )
 }
-
-export default ErrorDialog
