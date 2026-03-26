@@ -48,14 +48,14 @@ export function startListening() {
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
  *    same action, pass in an array of strings, e.g. `['a', 'b', 'meta d']`
- * @param {(object|function)} [options | callback]
+ * @param {(object|function)} [options]
  *    Options that fine tune the behavior of the keypress. If you are unhappy
  *    with a default setting, they can be overridden here. Note that it is
  *    possible for overrides to conflict with other parameters, for instance,
  *    if you set `commands` to "shift p" but `options.shiftKey` to `false`.
  *    Don't do this. This is confusing and I won't guarantee preserving how
  *    this conflict is addressed.
- *    If you don't need to set options, this object can be omitted and the
+ *    If you don't need to set options, this argument can instead be the
  *    callback function passed as the second argument.
  * @param {(boolean|string)} [options.shiftKey=false]
  *    If `true`, the `Shift` key should be pressed in a key combination. This
