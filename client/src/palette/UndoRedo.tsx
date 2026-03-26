@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { handleUndo, handleRedo } from '../store/actions/history.js'
 import { Button } from '../ui/Button.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
 import { isOwnedByCurrentUser } from '../streets/owner.js'
 

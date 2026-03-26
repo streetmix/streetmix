@@ -1,4 +1,4 @@
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { MenuItem } from '../MenuItem.js'
 import { BetaTag } from '../BetaTag.js'
 

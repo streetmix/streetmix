@@ -8,7 +8,7 @@ import {
   goGoogleSignIn,
 } from '~/src/app/routing.js'
 import { Button } from '~/src/ui/Button.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { Dialog } from '../Dialog.js'
 import './SignInDialog.css'

@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl'
 
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import './EditableLabel.css'
 

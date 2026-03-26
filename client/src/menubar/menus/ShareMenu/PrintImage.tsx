@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { useDispatch } from '~/src/store/hooks.js'
 import { startPrinting } from '~/src/store/slices/app.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { MenuItem } from '../MenuItem.js'
 
 export function PrintImage() {

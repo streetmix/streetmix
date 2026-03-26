@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { ElevationControlNew } from './ElevationControlNew.js'

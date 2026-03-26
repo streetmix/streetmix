@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from '../ui/Button.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 import './StreetmixPlusPrompt.css'
 
 interface StreetmixPlusPromptProps {

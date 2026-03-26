@@ -2,7 +2,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import copy from 'copy-to-clipboard'
 
 import { Button } from '~/src/ui/Button.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 
 interface CopyShareLinkProps {
   shareUrl: string

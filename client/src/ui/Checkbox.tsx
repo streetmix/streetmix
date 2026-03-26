@@ -4,7 +4,7 @@
  */
 import { useState, useId, type ChangeEvent } from 'react'
 
-import Icon from './Icon.js'
+import { Icon } from './Icon.js'
 import './Checkbox.css'
 
 interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {

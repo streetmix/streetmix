@@ -7,7 +7,7 @@ import { getStreetUrl } from '../app/page_url.js'
 import { DateTimeRelative } from '../app/DateTimeRelative.js'
 import StreetName from '../streets/StreetName.js'
 import { drawStreetThumbnail } from '../streets/thumbnail.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import './GalleryStreetItem.css'

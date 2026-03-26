@@ -6,7 +6,7 @@ import {
   removeBuildingFloor,
   setBuildingFloorValue,
 } from '~/src/store/slices/street.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
 import {

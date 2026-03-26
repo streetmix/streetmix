@@ -1,4 +1,4 @@
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import './SocialLinks.css'
 
 export function SocialLinks() {

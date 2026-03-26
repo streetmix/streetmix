@@ -1,5 +1,5 @@
 import { useSelector } from '../store/hooks.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 import './SegmentDragHandles.css'
 
 interface SegmentDragHandlesProps {

@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { MenuItem } from '../MenuItem.js'
 
 export function Export3DStreet() {

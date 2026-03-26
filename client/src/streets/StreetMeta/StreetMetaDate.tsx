@@ -1,6 +1,6 @@
 import { useSelector } from '~/src/store/hooks.js'
 import { DateTimeRelative } from '~/src/app/DateTimeRelative.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { isOwnedByCurrentUser } from '../owner.js'
 import { StreetMetaItem } from './StreetMetaItem.js'
 

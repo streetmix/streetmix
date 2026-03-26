@@ -7,7 +7,7 @@ import { Terms } from '~/src/app/Terms.js'
 import { Button } from '~/src/ui/Button.js'
 import { Checkbox } from '~/src/ui/Checkbox.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
 import { formatNumber } from '~/src/util/number_format.js'
 import {
