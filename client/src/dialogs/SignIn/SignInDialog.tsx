@@ -10,7 +10,7 @@ import {
 import { Button } from '~/src/ui/Button.js'
 import Icon from '~/src/ui/Icon.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './SignInDialog.css'
 
 export function SignInDialog() {

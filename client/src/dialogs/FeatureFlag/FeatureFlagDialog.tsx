@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setFeatureFlag } from '~/src/store/slices/flags.js'
 import { Checkbox } from '~/src/ui/Checkbox.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './FeatureFlagDialog.css'
 
 export function FeatureFlagDialog() {

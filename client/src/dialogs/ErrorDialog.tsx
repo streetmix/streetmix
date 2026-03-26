@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '../ui/ExternalLink.js'
-import Dialog from './Dialog.js'
+import { Dialog } from './Dialog.js'
 import './ErrorDialog.css'
 
 /**

@@ -12,7 +12,7 @@ import { Tooltip } from '~/src/ui/Tooltip.js'
 import { Terms } from '~/src/app/Terms.js'
 import { getStreetImage } from '~/src/streets/image.js'
 import { normalizeSlug } from '~/src/util/helpers.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import { CustomScale } from './CustomScale.js'
 import './SaveAsImageDialog.css'
 

@@ -17,7 +17,7 @@ import {
   saveCsv,
 } from '~/src/segments/capacity.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import { CapacitySources } from './CapacitySources.js'
 import { SliceAnalytics } from './SliceAnalytics.js'
 import './AnalyticsDialog.css'

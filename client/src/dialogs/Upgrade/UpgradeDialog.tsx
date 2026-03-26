@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { useSelector } from '~/src/store/hooks.js'
 import userRoles from '../../../../app/data/user_roles.json'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './UpgradeDialog.css'
 
 const DEFAULT_BODY =

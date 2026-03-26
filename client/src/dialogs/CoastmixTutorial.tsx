@@ -1,6 +1,6 @@
 import { CoastmixPracticeTour } from '~/src/ui/Tours/CoastmixPractice.js'
 import { Button } from '~/src/ui/Button.js'
-import Dialog from './Dialog.js'
+import { Dialog } from './Dialog.js'
 import './CoastmixTutorial.css'
 
 export function CoastmixTutorialComplete() {

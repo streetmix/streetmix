@@ -28,7 +28,7 @@ interface DialogProps {
   children: (arg: CloseFunction) => React.ReactElement
 }
 
-function Dialog({ children }: DialogProps) {
+export function Dialog({ children }: DialogProps) {
   // Appear state controls transition in/out
   const dialogEl = useRef<HTMLDivElement>(null)
   const nodeRef = useRef(null)
@@ -78,5 +78,3 @@ function Dialog({ children }: DialogProps) {
     </CSSTransition>
   )
 }
-
-export default Dialog

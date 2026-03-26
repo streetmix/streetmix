@@ -6,7 +6,7 @@ import rehypeExternalLinks from 'rehype-external-links'
 import { useSelector } from '~/src/store/hooks.js'
 import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { getChangelog } from '~/src/util/api.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './WhatsNewDialog.css'
 
 export const WhatsNewDialog = () => {
