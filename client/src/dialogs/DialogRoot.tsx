@@ -12,7 +12,7 @@ import { SignInDialog } from './SignIn'
 import { WhatsNewDialog } from './WhatsNew'
 import { NewsletterDialog } from './Newsletter'
 import { UpgradeDialog } from './Upgrade'
-import SentimentSurveyDialog from './SentimentSurvey'
+import { SentimentSurveyDialog } from './SentimentSurvey'
 import ErrorDialog from './ErrorDialog.js'
 import { CoastmixTutorialComplete } from './CoastmixTutorial.js'
 

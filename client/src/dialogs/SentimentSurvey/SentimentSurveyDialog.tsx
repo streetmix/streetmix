@@ -1,11 +1,10 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { ExternalLink } from '~/src/ui/ExternalLink'
-import Dialog from '../Dialog'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
+import Dialog from '../Dialog.js'
 import './SentimentSurveyDialog.css'
 
-function SentimentSurveyDialog(): React.ReactElement {
+export function SentimentSurveyDialog() {
   return (
     <Dialog>
       {(closeDialog) => (
@@ -62,5 +61,3 @@ function SentimentSurveyDialog(): React.ReactElement {
     </Dialog>
   )
 }
-
-export default SentimentSurveyDialog
