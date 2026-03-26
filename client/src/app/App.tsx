@@ -26,7 +26,7 @@ import { PrintContainer } from './PrintContainer.js'
 import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
 import { Loading } from './Loading.js'
-import SponsorBanner from './SponsorBanner.js'
+import { SponsorBanner } from './SponsorBanner.js'
 
 export function App() {
   const [isLoading, setLoading] = useState(true)

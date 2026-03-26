@@ -1,9 +1,8 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useSelector } from '../store/hooks'
-import { ExternalLink } from '../ui/ExternalLink'
-import { SPONSOR_BANNER } from './config'
+import { useSelector } from '../store/hooks.js'
+import { ExternalLink } from '../ui/ExternalLink.js'
+import { SPONSOR_BANNER } from './config.js'
 import './SponsorBanner.css'
 
 interface SponsorBannerProps {
@@ -13,7 +12,7 @@ interface SponsorBannerProps {
   linkText?: string
 }
 
-function SponsorBanner(): React.ReactElement | null {
+export function SponsorBanner() {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
   // Subscribers don't see sponsor banners
@@ -67,5 +66,3 @@ function SponsorBanner(): React.ReactElement | null {
     </div>
   )
 }
-
-export default SponsorBanner
