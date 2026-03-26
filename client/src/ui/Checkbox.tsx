@@ -2,9 +2,9 @@
  * Custom stylized checkbox component, so we control the look and
  * feel instead of relying on browser's default styles.
  */
-import React, { useState, useId, type ChangeEvent } from 'react'
+import { useState, useId, type ChangeEvent } from 'react'
 
-import Icon from './Icon'
+import Icon from './Icon.js'
 import './Checkbox.css'
 
 interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -29,7 +29,7 @@ interface CheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
 }
 
-function Checkbox(props: CheckboxProps) {
+export function Checkbox(props: CheckboxProps) {
   const {
     children,
     checked = false,
@@ -78,5 +78,3 @@ function Checkbox(props: CheckboxProps) {
     </div>
   )
 }
-
-export default Checkbox

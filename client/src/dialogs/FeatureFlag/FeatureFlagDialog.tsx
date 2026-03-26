@@ -1,16 +1,14 @@
-import React from 'react'
-
-import { useSelector, useDispatch } from '~/src/store/hooks'
-import { setFeatureFlag } from '~/src/store/slices/flags'
-import Checkbox from '~/src/ui/Checkbox'
-import Dialog from '../Dialog'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setFeatureFlag } from '~/src/store/slices/flags.js'
+import { Checkbox } from '~/src/ui/Checkbox.js'
+import Dialog from '../Dialog.js'
 import './FeatureFlagDialog.css'
 
-function FeatureFlagDialog (): React.ReactElement {
+function FeatureFlagDialog() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
 
-  function renderFlagList (): React.ReactElement[] {
+  function renderFlagList(): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
       // If the setting has changed, display it differently
       const isNotDefault = flag.defaultValue !== flag.value
@@ -23,7 +21,7 @@ function FeatureFlagDialog (): React.ReactElement {
               dispatch(
                 setFeatureFlag({
                   flag: key,
-                  value: event.target.checked
+                  value: event.target.checked,
                 })
               )
             }}
