@@ -13,7 +13,7 @@ interface LoadingSpinnerProps {
  * The `size` prop allows you to create a smaller spinner ideal for inline
  * UI situations, but the size can also be overriden via CSS (see stylesheet).
  */
-function LoadingSpinner({ size = 'normal' }: LoadingSpinnerProps) {
+export function LoadingSpinner({ size = 'normal' }: LoadingSpinnerProps) {
   const classNames = ['loading-spinner']
 
   if (size === 'small') {
@@ -22,5 +22,3 @@ function LoadingSpinner({ size = 'normal' }: LoadingSpinnerProps) {
 
   return <div className={classNames.join(' ')} />
 }
-
-export default LoadingSpinner

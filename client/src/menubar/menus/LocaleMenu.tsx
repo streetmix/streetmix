@@ -9,7 +9,7 @@ import {
   getActualLocaleFromRequested,
 } from '~/src/locales/locale.js'
 import Icon from '~/src/ui/Icon.js'
-import LoadingSpinner from '~/src/ui/LoadingSpinner.js'
+import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import Menu, { type MenuProps } from './Menu.js'
 import { MenuItem } from './MenuItem.js'
 

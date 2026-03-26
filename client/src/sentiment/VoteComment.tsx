@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Button } from '../ui/Button'
-import LoadingSpinner from '../ui/LoadingSpinner'
-import { putSentimentSurveyComment } from '../util/api'
+import { Button } from '../ui/Button.js'
+import { LoadingSpinner } from '../ui/LoadingSpinner.js'
+import { putSentimentSurveyComment } from '../util/api.js'
 
 const MAX_COMMENT_LENGTH = 280
 
