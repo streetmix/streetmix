@@ -1,1 +1,1 @@
-export { default } from './UpgradeDialog'
+export * from './UpgradeDialog.js'
