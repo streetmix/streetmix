@@ -6,7 +6,7 @@ import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
 import { CoastmixUI } from '~/src/plugins/coastmix'
-import MenusContainer from '../menubar/MenusContainer.js'
+import { MenusContainer } from '../menubar/MenusContainer.js'
 import { StreetNameplateContainer } from '../streets/StreetNameplateContainer.js'
 import { DescriptionPanel } from '../info_bubble/DescriptionPanel.js'
 import { PaletteContainer } from '../palette/PaletteContainer.js'
