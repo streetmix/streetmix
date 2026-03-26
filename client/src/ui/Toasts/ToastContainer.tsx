@@ -78,8 +78,10 @@ export function ToastContainer() {
         height: 0,
       },
     ],
-    onRest: (result, ctrl, item: ToastItem) => {
-      dispatch(destroyToast(item.timestamp))
+    onRest: (result, ctrl, item) => {
+      if (item) {
+        dispatch(destroyToast(item.timestamp))
+      }
     },
     config: (item, index, phase) => (key) =>
       phase === 'enter' && key === 'life'
@@ -89,7 +91,7 @@ export function ToastContainer() {
 
   return (
     <div className="toast-container">
-      {transitions(({ life, ...style }, item) => {
+      {transitions(({ life, ...style }, item: ToastItem) => {
         function setRef<T>(ref: T | null): void {
           if (ref !== null) {
             refMap.set(item, ref)
