@@ -1,5 +1,5 @@
 import { useSelector } from '../store/hooks.js'
-import ErrorBoundary from '../util/ErrorBoundary.js'
+import { ErrorBoundary } from '../util/ErrorBoundary.js'
 
 // Import all dialogs here
 import AboutDialog from './About'
