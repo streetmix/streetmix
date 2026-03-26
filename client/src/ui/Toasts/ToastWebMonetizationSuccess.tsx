@@ -25,7 +25,7 @@ export function ToastWebMonetizationSuccess(props: ToastProps) {
       className="toast-web-monetization"
       item={{
         ...item,
-        mode: 'success',
+        method: 'success',
         action: intl.formatMessage({
           id: 'plus.web-monetization.learn-more',
           defaultMessage: 'Learn more',

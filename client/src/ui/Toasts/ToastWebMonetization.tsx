@@ -49,7 +49,7 @@ export function ToastWebMonetization(props: ToastProps) {
       className="toast-web-monetization"
       item={{
         ...item,
-        mode: 'success',
+        method: 'success',
         action: intl.formatMessage({
           id: 'menu.item.sign-in',
           defaultMessage: 'Sign in',
