@@ -24,7 +24,7 @@ import { BlockingError } from './BlockingError.js'
 import { StreetView } from './StreetView.js'
 import PrintContainer from './PrintContainer.js'
 import { WelcomePanel } from './WelcomePanel'
-import NotificationBar from './NotificationBar'
+import { NotificationBar } from './NotificationBar'
 import Loading from './Loading.js'
 import SponsorBanner from './SponsorBanner.js'
 
