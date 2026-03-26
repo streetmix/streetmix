@@ -58,8 +58,8 @@ describe('MenuBar', () => {
     expect(asFragment()).toMatchSnapshot()
     await userEvent.click(screen.getByText('Get Streetmix+', { exact: false }))
 
-    expect(showDialog).toBeCalledTimes(1)
-    expect(showDialog).toBeCalledWith('UPGRADE')
+    expect(showDialog).toHaveBeenCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledWith('UPGRADE')
   })
 
   it('handles a menu item click', async () => {
@@ -68,7 +68,7 @@ describe('MenuBar', () => {
 
     await userEvent.click(screen.getByText('Share'))
 
-    expect(handler).toBeCalledTimes(1)
+    expect(handler).toHaveBeenCalledTimes(1)
   })
 
   it.todo('handles window resize')

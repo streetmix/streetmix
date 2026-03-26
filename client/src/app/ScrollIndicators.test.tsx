@@ -30,7 +30,7 @@ describe('ScrollIndicators', () => {
 
     await userEvent.click(screen.getByText('‹'))
 
-    expect(scrollStreet).toBeCalled()
+    expect(scrollStreet).toHaveBeenCalled()
   })
 
   it('handles scroll right on click', async () => {
@@ -39,7 +39,7 @@ describe('ScrollIndicators', () => {
 
     await userEvent.click(screen.getByText('›››'))
 
-    expect(scrollStreet).toBeCalled()
+    expect(scrollStreet).toHaveBeenCalled()
   })
 
   // TODO: figure out how to make keypress tests work
@@ -49,7 +49,7 @@ describe('ScrollIndicators', () => {
 
     await userEvent.keyboard('{arrowleft}')
 
-    expect(scrollStreet).toBeCalled()
+    expect(scrollStreet).toHaveBeenCalled()
   })
 
   it.todo('handles scroll right on keypress')

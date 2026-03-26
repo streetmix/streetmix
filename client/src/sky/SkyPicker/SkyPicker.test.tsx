@@ -62,7 +62,7 @@ describe('SkyPicker', () => {
 
     await userEvent.click(screen.getByTitle('Dismiss'))
 
-    expect(uiSlice.toggleToolbox).toBeCalled()
+    expect(uiSlice.toggleToolbox).toHaveBeenCalled()
   })
 
   it('shows Streetmix+ prompt', () => {

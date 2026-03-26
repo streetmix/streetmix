@@ -110,7 +110,7 @@ describe('SlopeControl', () => {
     const control = getByRole('switch')
 
     await userEvent.click(control)
-    expect(toggleSliceSlope).toBeCalled()
+    expect(toggleSliceSlope).toHaveBeenCalled()
   })
 
   // Currently control is not rendered in this case

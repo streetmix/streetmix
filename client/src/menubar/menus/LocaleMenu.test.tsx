@@ -42,6 +42,6 @@ describe('LocaleMenu', () => {
     expect(selected.parentElement?.getAttribute('aria-checked')).toBe('false')
     expect(selected2.parentElement?.getAttribute('aria-checked')).toBe('true')
 
-    expect(clearMenus).toBeCalledTimes(1)
+    expect(clearMenus).toHaveBeenCalledTimes(1)
   })
 })

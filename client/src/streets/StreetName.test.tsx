@@ -33,7 +33,7 @@ describe('StreetName', () => {
     render(<StreetName name="foo" onClick={handleClick} />)
 
     await userEvent.click(screen.getByText('foo'))
-    expect(handleClick).toBeCalledTimes(1)
+    expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
   // Editable state is tested at the StreetNameplateContainer component level.

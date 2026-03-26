@@ -52,8 +52,8 @@ describe('StreetMetaAuthor', () => {
     })
 
     await userEvent.click(getByText('foo'))
-    expect(openGallery).toBeCalledTimes(1)
-    expect(openGallery).toBeCalledWith({ userId: 'foo' })
+    expect(openGallery).toHaveBeenCalledTimes(1)
+    expect(openGallery).toHaveBeenCalledWith({ userId: 'foo' })
   })
 
   it('renders street creator byline if you are not signed in', async () => {
@@ -72,8 +72,8 @@ describe('StreetMetaAuthor', () => {
     })
 
     await userEvent.click(getByText('foo'))
-    expect(openGallery).toBeCalledTimes(1)
-    expect(openGallery).toBeCalledWith({ userId: 'foo' })
+    expect(openGallery).toHaveBeenCalledTimes(1)
+    expect(openGallery).toHaveBeenCalledWith({ userId: 'foo' })
   })
 
   it('renders anonymous byline if you are signed in', async () => {

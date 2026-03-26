@@ -40,6 +40,6 @@ describe('StreetMetaAnalytics', () => {
     })
 
     await userEvent.click(getByText('20,000 people/hr'))
-    expect(showDialog).toBeCalledTimes(1)
+    expect(showDialog).toHaveBeenCalledTimes(1)
   })
 })

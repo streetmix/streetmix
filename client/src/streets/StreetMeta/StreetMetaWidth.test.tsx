@@ -47,7 +47,7 @@ describe('StreetMetaWidth', () => {
     await userEvent.click(screen.getByText('U.S. customary / imperial'))
 
     // The change is made
-    expect(updateUnits).toBeCalledWith(1)
+    expect(updateUnits).toHaveBeenCalledWith(1)
   })
 
   it('renders label with remaining width', () => {

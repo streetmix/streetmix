@@ -20,7 +20,7 @@ describe('MenuBarItem', () => {
     // A button is rendered with the role `menuitem`
     await userEvent.click(screen.getByRole('menuitem'))
 
-    expect(handleClick).toBeCalled()
+    expect(handleClick).toHaveBeenCalled()
   })
 
   it('handles the click on a link', async () => {
@@ -34,7 +34,7 @@ describe('MenuBarItem', () => {
     // An anchor tag is rendered with the role `menuitem`
     await userEvent.click(screen.getByRole('menuitem'))
 
-    expect(handleClick).toBeCalled()
+    expect(handleClick).toHaveBeenCalled()
   })
 
   it('renders children instead of default label if provided', () => {
