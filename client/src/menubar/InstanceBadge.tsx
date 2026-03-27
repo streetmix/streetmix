@@ -2,7 +2,7 @@ import { useSelector } from '../store/hooks.js'
 import { ENV, STREETMIX_INSTANCE } from '../app/config.js'
 import './InstanceBadge.css'
 
-function InstanceBadge({ label }: { label?: string }) {
+export function InstanceBadge({ label }: { label?: string }) {
   const offline = useSelector((state) => state.system.offline)
 
   const classNames = ['instance-badge']
@@ -63,5 +63,3 @@ function getDetails(
     label,
   }
 }
-
-export default InstanceBadge
