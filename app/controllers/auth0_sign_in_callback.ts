@@ -4,7 +4,10 @@ import { userClient } from '../lib/auth0.ts'
 import { logger } from '../lib/logger.ts'
 import { appURL } from '../lib/url.ts'
 
-const AccessTokenHandler = function (req, res) {
+import type { Request, Response } from 'express'
+import type { UserInfoResponse } from 'auth0'
+
+const AccessTokenHandler = function (req: Request, res: Response) {
   return async (response) => {
     const body = response.data
 
@@ -30,12 +33,13 @@ const AccessTokenHandler = function (req, res) {
         .post(endpoint, apiRequestBody, apiRequestOptions)
         .then((response) => {
           const user = response.data
-          const userAuthData = apiRequestBody.auth0_twitter
-            ? apiRequestBody.auth0_twitter.screenName
-            : apiRequestBody.auth0.nickname
+          const userAuthData =
+            'auth0_twitter' in apiRequestBody
+              ? apiRequestBody.auth0_twitter.screenName
+              : apiRequestBody.auth0.nickname
           const cookieOptions = {
             maxAge: 9000000000,
-            sameSite: 'strict',
+            sameSite: 'strict' as const,
           }
 
           res.cookie('user_id', user.id || userAuthData, cookieOptions)
@@ -54,7 +58,7 @@ const AccessTokenHandler = function (req, res) {
   }
 }
 
-const getUserInfo = function (user) {
+const getUserInfo = function (user: UserInfoResponse) {
   // Get the platform the user is authenticating from
   // e.g user.sub = facebook|das3fa
   // get 'facebook' out from the user.sub
@@ -67,7 +71,7 @@ const getUserInfo = function (user) {
   return getUserAuth0Info(user)
 }
 
-const getUserAuth0Info = function (user) {
+const getUserAuth0Info = function (user: UserInfoResponse) {
   return {
     auth0: {
       nickname: user.nickname,
@@ -78,7 +82,7 @@ const getUserAuth0Info = function (user) {
   }
 }
 
-const getUserTwitterAuth0Info = function (user) {
+const getUserTwitterAuth0Info = function (user: UserInfoResponse) {
   return {
     auth0_twitter: {
       screenName: user['https://twitter.com/screen_name'],
@@ -88,7 +92,7 @@ const getUserTwitterAuth0Info = function (user) {
   }
 }
 
-export function get(req, res) {
+export function get(req: Request, res: Response) {
   logger.info('[auth0] Logging in user with data:', req.query)
 
   if (req.query.error) {
