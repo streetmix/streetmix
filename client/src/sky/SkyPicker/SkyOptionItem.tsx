@@ -10,6 +10,7 @@ interface SkyOptionItemProps {
   isSelected: boolean
   isUnlocked: boolean
   onClick: React.MouseEventHandler
+  children?: React.ReactNode
 }
 
 export function SkyOptionItem({
@@ -19,6 +20,7 @@ export function SkyOptionItem({
   isSelected = false,
   isUnlocked = false,
   onClick = () => {},
+  children,
 }: SkyOptionItemProps) {
   const classNames = ['sky-option-item']
 
@@ -47,6 +49,7 @@ export function SkyOptionItem({
             <Icon name="lock" />
           </>
         )}
+        {children}
         {iconImage !== undefined && (
           <img
             src={images.get(iconImage)?.src}

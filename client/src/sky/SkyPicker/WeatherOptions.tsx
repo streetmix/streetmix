@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setWeather } from '~/src/store/slices/street.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { SkyOptionItem } from './SkyOptionItem.js'
 
 import './WeatherOptions.css'
@@ -22,11 +23,11 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
     }
   }
 
-  function handleSetSnow() {
-    if (enabled) {
-      dispatch(setWeather('snow'))
-    }
-  }
+  // function handleSetSnow() {
+  //   if (enabled) {
+  //     dispatch(setWeather('snow'))
+  //   }
+  // }
 
   return (
     <div className="weather-options">
@@ -37,19 +38,25 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
           isSelected={weather === null}
           isUnlocked={true}
           onClick={handleSetClear}
-        />
+        >
+          <Icon name="clear-day" size="24" />
+        </SkyOptionItem>
         <SkyOptionItem
           label="Rain"
           isSelected={weather === 'rain'}
           isUnlocked={enabled}
           onClick={handleSetRain}
-        />
-        <SkyOptionItem
+        >
+          <Icon name="rain" size="24" />
+        </SkyOptionItem>
+        {/* <SkyOptionItem
           label="Snow"
           isSelected={weather === 'snow'}
           isUnlocked={enabled}
           onClick={handleSetSnow}
-        />
+        >
+          <Icon name="snow" size="24" />
+        </SkyOptionItem> */}
       </div>
     </div>
   )

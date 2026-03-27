@@ -6,6 +6,9 @@
   border-radius: var(--border-radius-large);
   cursor: pointer;
   transition: 120ms box-shadow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   /* These are functionally buttons, reset appearance */
   appearance: none;
