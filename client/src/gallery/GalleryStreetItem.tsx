@@ -5,7 +5,7 @@ import { useSelector } from '../store/hooks.js'
 import { useGetUserQuery } from '../store/services/api.js'
 import { getStreetUrl } from '../app/page_url.js'
 import { DateTimeRelative } from '../app/DateTimeRelative.js'
-import StreetName from '../streets/StreetName.js'
+import { StreetName } from '../streets/StreetName.js'
 import { drawStreetThumbnail } from '../streets/thumbnail.js'
 import { Icon } from '../ui/Icon.js'
 

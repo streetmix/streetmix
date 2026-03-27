@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { saveStreetName } from '../store/slices/street.js'
 import { StreetMeta } from './StreetMeta/index.js'
-import StreetName from './StreetName.js'
+import { StreetName } from './StreetName.js'
 
 import type { MenuCoords } from '../menubar/MenuBar.js'
 

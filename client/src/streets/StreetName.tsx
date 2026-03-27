@@ -26,7 +26,7 @@ interface StreetNameProps {
   editable?: boolean
 }
 
-function StreetName({
+export const StreetName = memo(function StreetName({
   name,
   ref,
   onClick = () => {},
@@ -68,6 +68,4 @@ function StreetName({
       </div>
     </div>
   )
-}
-
-export default memo(StreetName)
+})

@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
-import StreetName from './StreetName.js'
+import { StreetName } from './StreetName.js'
 
 describe('StreetName', () => {
   it('renders a name', () => {
