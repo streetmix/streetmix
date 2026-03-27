@@ -18,7 +18,7 @@ import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.js'
 import serviceRoutes from './app/service_routes.js'
 import { logger } from './app/lib/logger.ts'
-import jwtCheck from './app/authentication.js'
+import { jwtCheck } from './app/authentication.ts'
 
 initCloudinary()
 
