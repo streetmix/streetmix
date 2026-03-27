@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import './StreetName.css'

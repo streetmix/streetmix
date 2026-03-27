@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from 'react'
+import { createRef, useRef, Fragment } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { images } from '../../app/load_resources.js'
@@ -58,7 +58,7 @@ export function SkyObjects({ objects = [] }: SkyObjectsProps) {
         // TODO: Render placeholder ("dev") asset? That way it will be more
         // obvious that something is missing, and work on placement/size can
         // be done even if an actual asset isn't ready yet.
-        return <React.Fragment key={object.image} />
+        return <Fragment key={object.image} />
       })}
     </TransitionGroup>
   )

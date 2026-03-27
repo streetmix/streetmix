@@ -1,4 +1,3 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 

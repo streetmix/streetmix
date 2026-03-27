@@ -1,8 +1,7 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
-import { Button } from '../ui/Button'
+import { Button } from '../ui/Button.js'
 import './UpgradeButton.css'
 
 function UpgradeButton(): React.ReactElement {

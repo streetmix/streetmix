@@ -1,4 +1,4 @@
-import React, { type ButtonHTMLAttributes } from 'react'
+import { type ButtonHTMLAttributes } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Icon } from '../ui/Icon'
@@ -20,7 +20,7 @@ export default function MenuBarItem({
   tooltip,
   children = <FormattedMessage id={translation} defaultMessage={label} />,
   ...restProps
-}: MenuBarItemProps): React.ReactElement {
+}: MenuBarItemProps) {
   const component = (
     <li>
       <button className="menu-trigger" role="menuitem" {...restProps}>
