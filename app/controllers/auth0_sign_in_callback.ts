@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { type AxiosResponse } from 'axios'
 
 import { userClient } from '../lib/auth0.ts'
 import { logger } from '../lib/logger.ts'
@@ -8,7 +8,8 @@ import type { Request, Response } from 'express'
 import type { UserInfoResponse } from 'auth0'
 
 const AccessTokenHandler = function (req: Request, res: Response) {
-  return async (response) => {
+  // TODO: find the type definition (if any) of response shape from Auth0
+  return async (response: AxiosResponse) => {
     const body = response.data
 
     if (body.error && body.error === 'access_denied') {
