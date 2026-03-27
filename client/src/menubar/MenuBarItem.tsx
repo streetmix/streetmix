@@ -14,7 +14,7 @@ interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltip?: string
 }
 
-export default function MenuBarItem({
+export function MenuBarItem({
   translation = '',
   label = '',
   tooltip,

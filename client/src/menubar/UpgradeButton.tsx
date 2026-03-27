@@ -4,7 +4,7 @@ import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
 import { Button } from '../ui/Button.js'
 import './UpgradeButton.css'
 
-function UpgradeButton(): React.ReactElement {
+export function UpgradeButton() {
   function handleClickUpgrade(): void {
     // dispatch(showDialog('UPGRADE'))
     window.open(
@@ -27,5 +27,3 @@ function UpgradeButton(): React.ReactElement {
     </Button>
   )
 }
-
-export default UpgradeButton
