@@ -1,4 +1,4 @@
-import './app/globals.js'
+import './app/globals.ts'
 import path from 'node:path'
 import { styleText } from 'node:util'
 import compression from 'compression'
