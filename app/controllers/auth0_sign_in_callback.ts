@@ -17,44 +17,50 @@ const AccessTokenHandler = function (req: Request, res: Response) {
       return
     }
 
+    const refreshToken = body.refresh_token
+    const idToken = body.id_token
+
+    let apiRequestBody
     try {
-      const refreshToken = body.refresh_token
-      const idToken = body.id_token
       const accessToken = body.access_token
       const { data: user } = await userClient.getUserInfo(accessToken)
-      const apiRequestBody = getUserInfo(user)
-      const endpoint = `${appURL.origin}/api/v1/users`
-      const apiRequestOptions = {
-        headers: {
-          Cookie: `login_token=${idToken};`,
-        },
-      }
-
-      axios
-        .post(endpoint, apiRequestBody, apiRequestOptions)
-        .then((response) => {
-          const user = response.data
-          const userAuthData =
-            'auth0_twitter' in apiRequestBody
-              ? apiRequestBody.auth0_twitter.screenName
-              : apiRequestBody.auth0.nickname
-          const cookieOptions = {
-            maxAge: 9000000000,
-            sameSite: 'strict' as const,
-          }
-
-          res.cookie('user_id', user.id || userAuthData, cookieOptions)
-          res.cookie('refresh_token', refreshToken, cookieOptions)
-          res.cookie('login_token', idToken, cookieOptions)
-          res.redirect('/services/auth/just-signed-in')
-        })
-        .catch((error) => {
-          logger.error('[auth0] Error from auth0 API when signing in: ' + error)
-          res.redirect('/error/authentication-api-problem')
-        })
+      apiRequestBody = getUserInfo(user)
     } catch (error) {
       logger.error('[auth0] Error obtaining user info from Auth0: ' + error)
       res.redirect('/error/no-access-token')
+      return
+    }
+
+    const endpoint = `${appURL.origin}/api/v1/users`
+    const apiRequestOptions = {
+      headers: {
+        Cookie: `login_token=${idToken};`,
+      },
+    }
+
+    try {
+      const apiResponse = await axios.post(
+        endpoint,
+        apiRequestBody,
+        apiRequestOptions
+      )
+      const user = apiResponse.data
+      const userAuthData =
+        'auth0_twitter' in apiRequestBody
+          ? apiRequestBody.auth0_twitter.screenName
+          : apiRequestBody.auth0.nickname
+      const cookieOptions = {
+        maxAge: 9000000000,
+        sameSite: 'strict' as const,
+      }
+
+      res.cookie('user_id', user.id || userAuthData, cookieOptions)
+      res.cookie('refresh_token', refreshToken, cookieOptions)
+      res.cookie('login_token', idToken, cookieOptions)
+      res.redirect('/services/auth/just-signed-in')
+    } catch (error) {
+      logger.error('[auth0] Error from auth0 API when signing in: ' + error)
+      res.redirect('/error/authentication-api-problem')
     }
   }
 }
