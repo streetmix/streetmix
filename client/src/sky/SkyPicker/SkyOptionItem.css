@@ -1,0 +1,55 @@
+.sky-option-item {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-turquoise-300); /* Default color */
+  border-radius: var(--border-radius-large);
+  cursor: pointer;
+  transition: 120ms box-shadow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* These are functionally buttons, reset appearance */
+  appearance: none;
+  border: 0;
+  padding: 0;
+
+  &:focus {
+    box-shadow:
+      0 0 0 2px var(--selection-focus-color),
+      inset 0 0 0 2px rgb(255 255 255 / 100%);
+  }
+}
+
+.sky-option-item.sky-option-selected {
+  box-shadow:
+    0 0 0 2px var(--selection-highlight-color),
+    inset 0 0 0 2px rgb(255 255 255 / 100%);
+}
+
+.sky-option-item:disabled {
+  cursor: default;
+
+  .sky-option-disabled-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--border-radius-large);
+    background-color: rgb(221 221 221 / 65%);
+  }
+
+  [data-icon="lock"] {
+    position: absolute;
+    inset-inline-end: -3px;
+    inset-block-start: -3px;
+    z-index: 2;
+    color: var(--color-copper-800);
+  }
+}
+
+.sky-option-icon {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}

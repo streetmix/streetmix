@@ -9,7 +9,6 @@ import {
   setFloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
-import { setWeather } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
@@ -46,11 +45,6 @@ export function CoastalFloodingPanel() {
 
   function toggleStormSurge(checked: boolean): void {
     dispatch(setStormSurge(checked))
-    if (checked) {
-      dispatch(setWeather('rain'))
-    } else {
-      dispatch(setWeather(null))
-    }
   }
 
   // Updates state and saves to server

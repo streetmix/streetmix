@@ -27,14 +27,14 @@ export function CoastmixTutorialComplete() {
                 margin: '0',
               }}
             >
+              <Button onClick={closeDialog} tertiary>
+                Explore on my own
+              </Button>
               <CoastmixPracticeTour>
                 <Button onClick={closeDialog} primary>
                   Practice scenario
                 </Button>
               </CoastmixPracticeTour>
-              <Button onClick={closeDialog} tertiary>
-                Explore on my own
-              </Button>
             </p>
           </div>
         </div>

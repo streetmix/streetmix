@@ -1,92 +1,57 @@
-import { useIntl } from 'react-intl'
+import { IntlProvider, useIntl } from 'react-intl'
 
-import { Icon } from '~/src/ui/Icon.js'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
-import { images } from '~/src/app/load_resources.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setSkybox } from '~/src/store/slices/street.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { getAllSkyboxDefs } from '..'
+import { SkyOptionItem } from './SkyOptionItem.js'
 import './SkyOptions.css'
-
-import type { SkyboxDefWithStyles } from '@streetmix/types'
 
 interface SkyOptionsProps {
   enabled: boolean
-  selected: string
-  handleSelect: (id: string) => void
 }
 
-export function SkyOptions({
-  enabled,
-  selected,
-  handleSelect,
-}: SkyOptionsProps) {
+export function SkyOptions({ enabled }: SkyOptionsProps) {
+  const locale = useSelector((state) => state.locale)
+  const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
+  const dispatch = useDispatch()
   const intl = useIntl()
+  const envs = getAllSkyboxDefs()
 
-  function handleClick(
-    event: React.MouseEvent,
-    env: SkyboxDefWithStyles
-  ): void {
+  function handleSelect(id: string): void {
     if (enabled) {
-      handleSelect(env.id)
+      dispatch(setSkybox(id))
     }
   }
 
-  const envs = getAllSkyboxDefs()
-
   return (
-    <div className="sky-options">
-      <TooltipGroup>
+    <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
+      <div className="sky-options">
         {envs.map((env) => {
-          const { id, name, iconStyle } = env
-          const classNames = ['sky-option-item']
+          const { id, name, iconImage, iconStyle } = env
           const label = intl.formatMessage({
             id: `skybox.${id}`,
             defaultMessage: name,
           })
 
-          if (selected === id) {
-            classNames.push('sky-selected')
-          } else if (!selected && id === DEFAULT_SKYBOX) {
-            classNames.push('sky-selected')
-          }
-
-          const isDisabled = !enabled && selected !== id
+          const isSelected =
+            selected === id || (!selected && id === DEFAULT_SKYBOX)
 
           return (
-            <Tooltip label={label} key={id} placement="bottom">
-              <button
-                aria-label={label}
-                className={classNames.join(' ')}
-                style={iconStyle}
-                onClick={(event) => {
-                  handleClick(event, env)
-                }}
-                disabled={isDisabled}
-              >
-                {isDisabled && (
-                  <>
-                    <div className="sky-option-disabled-overlay" />
-                    <Icon name="lock" />
-                  </>
-                )}
-                {env.iconImage !== undefined && (
-                  <img
-                    src={images.get(env.iconImage)?.src}
-                    alt=""
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      pointerEvents: 'none',
-                      userSelect: 'none',
-                    }}
-                    draggable={false}
-                  />
-                )}
-              </button>
-            </Tooltip>
+            <SkyOptionItem
+              key={id}
+              label={label}
+              iconImage={iconImage}
+              iconStyle={iconStyle}
+              isSelected={isSelected}
+              isUnlocked={enabled}
+              onClick={(_event) => {
+                handleSelect(id)
+              }}
+            />
           )
         })}
-      </TooltipGroup>
-    </div>
+      </div>
+    </IntlProvider>
   )
 }

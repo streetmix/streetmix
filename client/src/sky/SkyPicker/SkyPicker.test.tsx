@@ -43,7 +43,7 @@ describe('SkyPicker', () => {
     render(<SkyPicker />, { initialState })
 
     // Initial state
-    expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Day')).toHaveClass('sky-option-selected')
 
     // waitFor animation to remove `pointer-events: none` from parent element
     // This test is flaky if we don't wait.
@@ -52,7 +52,7 @@ describe('SkyPicker', () => {
     })
 
     // New state
-    expect(screen.getByLabelText('Foo')).toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Foo')).toHaveClass('sky-option-selected')
   })
 
   it('closes when close button is clicked', async () => {
@@ -86,7 +86,7 @@ describe('SkyPicker', () => {
     })
 
     // Initial state
-    expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Day')).toHaveClass('sky-option-selected')
     expect(screen.getByLabelText('Foo')).toBeDisabled()
 
     // waitFor animation to remove `pointer-events: none` from parent element
@@ -96,8 +96,8 @@ describe('SkyPicker', () => {
     })
 
     // State should not change!
-    expect(screen.getByLabelText('Day')).toHaveClass('sky-selected')
-    expect(screen.getByLabelText('Foo')).not.toHaveClass('sky-selected')
+    expect(screen.getByLabelText('Day')).toHaveClass('sky-option-selected')
+    expect(screen.getByLabelText('Foo')).not.toHaveClass('sky-option-selected')
     expect(screen.getByLabelText('Foo')).toBeDisabled()
   })
 })
