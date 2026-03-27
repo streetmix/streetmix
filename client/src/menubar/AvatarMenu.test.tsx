@@ -4,7 +4,7 @@ import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
 import { MOCK_USER } from '~/test/fixtures'
-import AvatarMenu from './AvatarMenu.js'
+import { AvatarMenu } from './AvatarMenu.js'
 
 describe('AvatarMenu', () => {
   it('renders user avatar', () => {

@@ -12,7 +12,11 @@ interface AvatarMenuProps {
   onClick: React.MouseEventHandler
 }
 
-function AvatarMenu({ user, isSubscriber = false, onClick }: AvatarMenuProps) {
+export function AvatarMenu({
+  user,
+  isSubscriber = false,
+  onClick,
+}: AvatarMenuProps) {
   const { formatMessage } = useIntl()
 
   const subscriberLabel = isSubscriber
@@ -41,5 +45,3 @@ function AvatarMenu({ user, isSubscriber = false, onClick }: AvatarMenuProps) {
     </button>
   )
 }
-
-export default AvatarMenu

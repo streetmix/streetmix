@@ -10,7 +10,7 @@ import InstanceBadge from './InstanceBadge.js'
 import MenuBarItem from './MenuBarItem.js'
 import SignInButton from './SignInButton.js'
 import UpgradeButton from './UpgradeButton.js'
-import AvatarMenu from './AvatarMenu.js'
+import { AvatarMenu } from './AvatarMenu.js'
 
 import type { UserProfile } from '../types'
 import './MenuBar.css'
