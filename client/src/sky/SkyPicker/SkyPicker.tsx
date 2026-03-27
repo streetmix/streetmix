@@ -2,16 +2,13 @@ import { IntlProvider, FormattedMessage } from 'react-intl'
 
 import { StreetmixPlusPrompt } from '~/src/app/StreetmixPlusPrompt.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { setSkybox } from '~/src/store/slices/street.js'
 import { toggleToolbox } from '~/src/store/slices/ui.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
-import { DEFAULT_SKYBOX } from '../constants.js'
 import { SkyOptions } from './SkyOptions.js'
 import { WeatherOptions } from './WeatherOptions.js'
 import './SkyPicker.css'
 
 export function SkyPicker() {
-  const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
   const show = useSelector((state) => state.ui.toolboxVisible ?? false)
   const isSubscriber = useSelector((state) => state.user.isSubscriber ?? false)
   const isUnlocked = useSelector(
@@ -20,15 +17,14 @@ export function SkyPicker() {
   const weatherEnabled = useSelector(
     (state) => state.flags.WEATHER_EFFECTS?.value ?? false
   )
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
   const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
   function handleClose(): void {
     dispatch(toggleToolbox())
-  }
-
-  function handleSelect(id: string): void {
-    dispatch(setSkybox(id))
   }
 
   const isEnabled = isSubscriber || isUnlocked
@@ -47,12 +43,8 @@ export function SkyPicker() {
       handleClose={handleClose}
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-        <SkyOptions
-          enabled={isEnabled}
-          selected={selected}
-          handleSelect={handleSelect}
-        />
-        {weatherEnabled && <WeatherOptions />}
+        <SkyOptions enabled={isEnabled} />
+        {(weatherEnabled || coastmixMode) && <WeatherOptions />}
       </IntlProvider>
       {!isEnabled && (
         <div className="sky-picker-upgrade">

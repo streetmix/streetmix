@@ -1,5 +1,7 @@
 import { useIntl } from 'react-intl'
 
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { setSkybox } from '~/src/store/slices/street.js'
 import { TooltipGroup } from '~/src/ui/Tooltip.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { getAllSkyboxDefs } from '..'
@@ -8,21 +10,17 @@ import './SkyOptions.css'
 
 interface SkyOptionsProps {
   enabled: boolean
-  selected: string
-  handleSelect: (id: string) => void
 }
 
-export function SkyOptions({
-  enabled,
-  selected,
-  handleSelect,
-}: SkyOptionsProps) {
+export function SkyOptions({ enabled }: SkyOptionsProps) {
+  const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
+  const dispatch = useDispatch()
   const intl = useIntl()
   const envs = getAllSkyboxDefs()
 
-  function handleClick(id: string): void {
+  function handleSelect(id: string): void {
     if (enabled) {
-      handleSelect(id)
+      dispatch(setSkybox(id))
     }
   }
 
@@ -48,7 +46,7 @@ export function SkyOptions({
               isSelected={isSelected}
               isUnlocked={enabled}
               onClick={(_event) => {
-                handleClick(id)
+                handleSelect(id)
               }}
             />
           )
