@@ -2,7 +2,6 @@ import { useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setSkybox } from '~/src/store/slices/street.js'
-import { TooltipGroup } from '~/src/ui/Tooltip.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { getAllSkyboxDefs } from '..'
 import { SkyOptionItem } from './SkyOptionItem.js'
@@ -26,32 +25,30 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
 
   return (
     <div className="sky-options">
-      <TooltipGroup>
-        {envs.map((env) => {
-          const { id, name, iconImage, iconStyle } = env
-          const label = intl.formatMessage({
-            id: `skybox.${id}`,
-            defaultMessage: name,
-          })
+      {envs.map((env) => {
+        const { id, name, iconImage, iconStyle } = env
+        const label = intl.formatMessage({
+          id: `skybox.${id}`,
+          defaultMessage: name,
+        })
 
-          const isSelected =
-            selected === id || (!selected && id === DEFAULT_SKYBOX)
+        const isSelected =
+          selected === id || (!selected && id === DEFAULT_SKYBOX)
 
-          return (
-            <SkyOptionItem
-              key={id}
-              label={label}
-              iconImage={iconImage}
-              iconStyle={iconStyle}
-              isSelected={isSelected}
-              isUnlocked={enabled}
-              onClick={(_event) => {
-                handleSelect(id)
-              }}
-            />
-          )
-        })}
-      </TooltipGroup>
+        return (
+          <SkyOptionItem
+            key={id}
+            label={label}
+            iconImage={iconImage}
+            iconStyle={iconStyle}
+            isSelected={isSelected}
+            isUnlocked={enabled}
+            onClick={(_event) => {
+              handleSelect(id)
+            }}
+          />
+        )
+      })}
     </div>
   )
 }

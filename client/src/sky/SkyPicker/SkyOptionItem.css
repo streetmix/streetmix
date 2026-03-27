@@ -2,6 +2,7 @@
   position: relative;
   width: 40px;
   height: 40px;
+  background-color: var(--color-turquoise-300); /* Default color */
   border-radius: var(--border-radius-large);
   cursor: pointer;
   transition: 120ms box-shadow;

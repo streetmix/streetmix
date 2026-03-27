@@ -4,6 +4,7 @@ import { StreetmixPlusPrompt } from '~/src/app/StreetmixPlusPrompt.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { toggleToolbox } from '~/src/store/slices/ui.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
+import { TooltipGroup } from '~/src/ui/Tooltip.js'
 import { SkyOptions } from './SkyOptions.js'
 import { WeatherOptions } from './WeatherOptions.js'
 import './SkyPicker.css'
@@ -27,7 +28,7 @@ export function SkyPicker() {
     dispatch(toggleToolbox())
   }
 
-  const isEnabled = isSubscriber || isUnlocked
+  const isEnabled = isSubscriber || isUnlocked || coastmixMode
 
   return (
     <FloatingPanel
@@ -43,8 +44,12 @@ export function SkyPicker() {
       handleClose={handleClose}
     >
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-        <SkyOptions enabled={isEnabled} />
-        {(weatherEnabled || coastmixMode) && <WeatherOptions />}
+        <TooltipGroup>
+          <SkyOptions enabled={isEnabled} />
+          {(weatherEnabled || coastmixMode) && (
+            <WeatherOptions enabled={isEnabled} />
+          )}
+        </TooltipGroup>
       </IntlProvider>
       {!isEnabled && (
         <div className="sky-picker-upgrade">
