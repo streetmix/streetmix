@@ -1,3 +1,5 @@
+import { FormattedMessage, useIntl } from 'react-intl'
+
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setWeather } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
@@ -12,6 +14,7 @@ interface WeatherOptionsProps {
 export function WeatherOptions({ enabled }: WeatherOptionsProps) {
   const { weather } = useSelector((state) => state.street)
   const dispatch = useDispatch()
+  const intl = useIntl()
 
   function handleSetClear() {
     dispatch(setWeather(null))
@@ -31,10 +34,18 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
 
   return (
     <div className="weather-options">
-      <h4>Weather</h4>
+      <h4>
+        <FormattedMessage
+          id="tools.skybox.weather.heading"
+          defaultMessage="Weather"
+        />
+      </h4>
       <div className="sky-options" style={{ padding: '0' }}>
         <SkyOptionItem
-          label="Clear"
+          label={intl.formatMessage({
+            id: `tools.skybox.weather.clear`,
+            defaultMessage: 'Clear',
+          })}
           isSelected={weather === null}
           isUnlocked={true}
           onClick={handleSetClear}
@@ -42,7 +53,10 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
           <Icon name="clear-day" size="24" />
         </SkyOptionItem>
         <SkyOptionItem
-          label="Rain"
+          label={intl.formatMessage({
+            id: `tools.skybox.weather.rain`,
+            defaultMessage: 'Rain',
+          })}
           isSelected={weather === 'rain'}
           isUnlocked={enabled}
           onClick={handleSetRain}
@@ -50,7 +64,10 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
           <Icon name="rain" size="24" />
         </SkyOptionItem>
         {/* <SkyOptionItem
-          label="Snow"
+          label={intl.formatMessage({
+            id: `tools.skybox.weather.snow`,
+            defaultMessage: 'Snow',
+          })}
           isSelected={weather === 'snow'}
           isUnlocked={enabled}
           onClick={handleSetSnow}

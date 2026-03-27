@@ -1,4 +1,4 @@
-import { IntlProvider, FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { StreetmixPlusPrompt } from '~/src/app/StreetmixPlusPrompt.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -21,7 +21,6 @@ export function SkyPicker() {
   const coastmixMode = useSelector(
     (state) => state.flags.COASTMIX_MODE?.value ?? false
   )
-  const locale = useSelector((state) => state.locale)
   const dispatch = useDispatch()
 
   function handleClose(): void {
@@ -43,14 +42,12 @@ export function SkyPicker() {
       className="sky-picker"
       handleClose={handleClose}
     >
-      <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-        <TooltipGroup>
-          <SkyOptions enabled={isEnabled} />
-          {(weatherEnabled || coastmixMode) && (
-            <WeatherOptions enabled={isEnabled} />
-          )}
-        </TooltipGroup>
-      </IntlProvider>
+      <TooltipGroup>
+        <SkyOptions enabled={isEnabled} />
+        {(weatherEnabled || coastmixMode) && (
+          <WeatherOptions enabled={isEnabled} />
+        )}
+      </TooltipGroup>
       {!isEnabled && (
         <div className="sky-picker-upgrade">
           <StreetmixPlusPrompt>

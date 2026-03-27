@@ -315,7 +315,13 @@
     "tooltip": "Toggle tools",
     "skybox": {
       "tooltip": "Environment editor",
-      "heading": "Environment"
+      "heading": "Environment",
+      "weather": {
+        "heading": "Weather",
+        "clear": "Clear",
+        "rain": "Rain",
+        "snow": "Snow"
+      }
     }
   },
   "prompt": {

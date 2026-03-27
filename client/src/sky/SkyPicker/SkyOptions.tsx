@@ -1,4 +1,4 @@
-import { useIntl } from 'react-intl'
+import { IntlProvider, useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setSkybox } from '~/src/store/slices/street.js'
@@ -12,6 +12,7 @@ interface SkyOptionsProps {
 }
 
 export function SkyOptions({ enabled }: SkyOptionsProps) {
+  const locale = useSelector((state) => state.locale)
   const selected = useSelector((state) => state.street.skybox ?? DEFAULT_SKYBOX)
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -24,31 +25,33 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
   }
 
   return (
-    <div className="sky-options">
-      {envs.map((env) => {
-        const { id, name, iconImage, iconStyle } = env
-        const label = intl.formatMessage({
-          id: `skybox.${id}`,
-          defaultMessage: name,
-        })
+    <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
+      <div className="sky-options">
+        {envs.map((env) => {
+          const { id, name, iconImage, iconStyle } = env
+          const label = intl.formatMessage({
+            id: `skybox.${id}`,
+            defaultMessage: name,
+          })
 
-        const isSelected =
-          selected === id || (!selected && id === DEFAULT_SKYBOX)
+          const isSelected =
+            selected === id || (!selected && id === DEFAULT_SKYBOX)
 
-        return (
-          <SkyOptionItem
-            key={id}
-            label={label}
-            iconImage={iconImage}
-            iconStyle={iconStyle}
-            isSelected={isSelected}
-            isUnlocked={enabled}
-            onClick={(_event) => {
-              handleSelect(id)
-            }}
-          />
-        )
-      })}
-    </div>
+          return (
+            <SkyOptionItem
+              key={id}
+              label={label}
+              iconImage={iconImage}
+              iconStyle={iconStyle}
+              isSelected={isSelected}
+              isUnlocked={enabled}
+              onClick={(_event) => {
+                handleSelect(id)
+              }}
+            />
+          )
+        })}
+      </div>
+    </IntlProvider>
   )
 }
