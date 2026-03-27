@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import './StreetName.css'
@@ -26,7 +26,7 @@ interface StreetNameProps {
   editable?: boolean
 }
 
-function StreetName({
+export const StreetName = memo(function StreetName({
   name,
   ref,
   onClick = () => {},
@@ -68,6 +68,4 @@ function StreetName({
       </div>
     </div>
   )
-}
-
-export default memo(StreetName)
+})

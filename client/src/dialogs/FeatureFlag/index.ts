@@ -1,1 +1,1 @@
-export { default } from './FeatureFlagDialog'
+export * from './FeatureFlagDialog.js'

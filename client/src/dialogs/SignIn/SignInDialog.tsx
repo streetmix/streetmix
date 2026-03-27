@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useId } from 'react'
+import { useState, useRef, useEffect, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import {
@@ -6,14 +6,14 @@ import {
   goTwitterSignIn,
   goFacebookSignIn,
   goGoogleSignIn,
-} from '~/src/app/routing'
-import { Button } from '~/src/ui/Button'
-import Icon from '~/src/ui/Icon'
-import LoadingSpinner from '~/src/ui/LoadingSpinner'
-import Dialog from '../Dialog'
+} from '~/src/app/routing.js'
+import { Button } from '~/src/ui/Button.js'
+import { Icon } from '~/src/ui/Icon.js'
+import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
+import { Dialog } from '../Dialog.js'
 import './SignInDialog.css'
 
-function SignInDialog(): React.ReactElement {
+export function SignInDialog() {
   const [email, setEmail] = useState('')
   const [emailSent, setEmailSent] = useState(false)
   const [sendingEmail, setSendingEmail] = useState(false)
@@ -69,7 +69,7 @@ function SignInDialog(): React.ReactElement {
     setEmailSent(false)
   }
 
-  function handleSubmit(event: React.FormEvent): void {
+  function handleSubmit(event: React.SubmitEvent): void {
     event.preventDefault()
 
     // Note: we don't validate the input here;
@@ -309,5 +309,3 @@ function SignInDialog(): React.ReactElement {
     </Dialog>
   )
 }
-
-export default SignInDialog

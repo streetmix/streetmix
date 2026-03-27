@@ -19,7 +19,7 @@ import {
   saveStreetName,
 } from '~/src/store/slices/street.js'
 import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import { ErrorBanner } from './ErrorBanner.js'
 import { GeoSearch } from './GeoSearch.js'
 import { LocationMarker } from './LocationMarker.js'

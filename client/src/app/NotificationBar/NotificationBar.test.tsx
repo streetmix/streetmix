@@ -1,22 +1,21 @@
-import React from 'react'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import NotificationBar from './NotificationBar'
+import { render } from '~/test/helpers/render.js'
+import { NotificationBar } from './NotificationBar.js'
 
 const TEST_NOTIFICATION = {
   display: true,
   lede: 'Heads up!',
   text: 'Streetmix will be offline for maintainance on January 1, 2025 at 19:00 GMT.',
   link: 'https://twitter.com/streetmix/',
-  linkText: 'Follow us on Twitter for updates.'
+  linkText: 'Follow us on Twitter for updates.',
 }
 
 const initialState = {
   locale: {
-    locale: 'en'
-  }
+    locale: 'en',
+  },
 }
 
 describe('NotificationBar', () => {
@@ -32,10 +31,10 @@ describe('NotificationBar', () => {
     it('renders default link text if no link text is provided', () => {
       const notification = {
         display: true,
-        link: TEST_NOTIFICATION.link
+        link: TEST_NOTIFICATION.link,
       }
       render(<NotificationBar notification={notification} />, {
-        initialState
+        initialState,
       })
       expect(screen.getByRole('link')).toHaveTextContent('More info')
     })
@@ -44,7 +43,7 @@ describe('NotificationBar', () => {
   describe('conditions that render nothing', () => {
     it('renders nothing if notification is not provided', () => {
       const { container } = render(<NotificationBar />, {
-        initialState
+        initialState,
       })
       expect(container).toBeEmptyDOMElement()
     })
@@ -78,8 +77,8 @@ describe('NotificationBar', () => {
         <NotificationBar notification={notification} />,
         {
           locale: {
-            locale: 'de'
-          }
+            locale: 'de',
+          },
         }
       )
       expect(container).toBeEmptyDOMElement()
@@ -89,7 +88,7 @@ describe('NotificationBar', () => {
   describe('dismiss', () => {
     it('is no longer rendered after clicking the close button', async () => {
       render(<NotificationBar notification={TEST_NOTIFICATION} />, {
-        initialState
+        initialState,
       })
 
       await userEvent.click(screen.getByTitle('Dismiss'))

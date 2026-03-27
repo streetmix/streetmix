@@ -1,11 +1,15 @@
-import axios from 'axios'
+import axios, { type AxiosResponse } from 'axios'
 
 import { userClient } from '../lib/auth0.ts'
 import { logger } from '../lib/logger.ts'
 import { appURL } from '../lib/url.ts'
 
-const AccessTokenHandler = function (req, res) {
-  return async (response) => {
+import type { Request, Response } from 'express'
+import type { UserInfoResponse } from 'auth0'
+
+const AccessTokenHandler = function (req: Request, res: Response) {
+  // TODO: find the type definition (if any) of response shape from Auth0
+  return async (response: AxiosResponse) => {
     const body = response.data
 
     if (body.error && body.error === 'access_denied') {
@@ -13,48 +17,55 @@ const AccessTokenHandler = function (req, res) {
       return
     }
 
+    const refreshToken = body.refresh_token
+    const idToken = body.id_token
+
+    let apiRequestBody
     try {
-      const refreshToken = body.refresh_token
-      const idToken = body.id_token
       const accessToken = body.access_token
       const { data: user } = await userClient.getUserInfo(accessToken)
-      const apiRequestBody = getUserInfo(user)
-      const endpoint = `${appURL.origin}/api/v1/users`
-      const apiRequestOptions = {
-        headers: {
-          Cookie: `login_token=${idToken};`,
-        },
-      }
-
-      axios
-        .post(endpoint, apiRequestBody, apiRequestOptions)
-        .then((response) => {
-          const user = response.data
-          const userAuthData = apiRequestBody.auth0_twitter
-            ? apiRequestBody.auth0_twitter.screenName
-            : apiRequestBody.auth0.nickname
-          const cookieOptions = {
-            maxAge: 9000000000,
-            sameSite: 'strict',
-          }
-
-          res.cookie('user_id', user.id || userAuthData, cookieOptions)
-          res.cookie('refresh_token', refreshToken, cookieOptions)
-          res.cookie('login_token', idToken, cookieOptions)
-          res.redirect('/services/auth/just-signed-in')
-        })
-        .catch((error) => {
-          logger.error('[auth0] Error from auth0 API when signing in: ' + error)
-          res.redirect('/error/authentication-api-problem')
-        })
+      apiRequestBody = getUserInfo(user)
     } catch (error) {
       logger.error('[auth0] Error obtaining user info from Auth0: ' + error)
       res.redirect('/error/no-access-token')
+      return
+    }
+
+    const endpoint = `${appURL.origin}/api/v1/users`
+    const apiRequestOptions = {
+      headers: {
+        Cookie: `login_token=${idToken};`,
+      },
+    }
+
+    try {
+      const apiResponse = await axios.post(
+        endpoint,
+        apiRequestBody,
+        apiRequestOptions
+      )
+      const user = apiResponse.data
+      const userAuthData =
+        'auth0_twitter' in apiRequestBody
+          ? apiRequestBody.auth0_twitter.screenName
+          : apiRequestBody.auth0.nickname
+      const cookieOptions = {
+        maxAge: 9000000000,
+        sameSite: 'strict' as const,
+      }
+
+      res.cookie('user_id', user.id || userAuthData, cookieOptions)
+      res.cookie('refresh_token', refreshToken, cookieOptions)
+      res.cookie('login_token', idToken, cookieOptions)
+      res.redirect('/services/auth/just-signed-in')
+    } catch (error) {
+      logger.error('[auth0] Error from auth0 API when signing in: ' + error)
+      res.redirect('/error/authentication-api-problem')
     }
   }
 }
 
-const getUserInfo = function (user) {
+const getUserInfo = function (user: UserInfoResponse) {
   // Get the platform the user is authenticating from
   // e.g user.sub = facebook|das3fa
   // get 'facebook' out from the user.sub
@@ -67,7 +78,7 @@ const getUserInfo = function (user) {
   return getUserAuth0Info(user)
 }
 
-const getUserAuth0Info = function (user) {
+const getUserAuth0Info = function (user: UserInfoResponse) {
   return {
     auth0: {
       nickname: user.nickname,
@@ -78,7 +89,7 @@ const getUserAuth0Info = function (user) {
   }
 }
 
-const getUserTwitterAuth0Info = function (user) {
+const getUserTwitterAuth0Info = function (user: UserInfoResponse) {
   return {
     auth0_twitter: {
       screenName: user['https://twitter.com/screen_name'],
@@ -88,7 +99,7 @@ const getUserTwitterAuth0Info = function (user) {
   }
 }
 
-export function get(req, res) {
+export function get(req: Request, res: Response) {
   logger.info('[auth0] Logging in user with data:', req.query)
 
   if (req.query.error) {

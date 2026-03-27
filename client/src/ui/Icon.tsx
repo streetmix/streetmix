@@ -163,7 +163,7 @@ function makeComponent(
   )
 }
 
-function Icon({ name, ...restProps }: IconProps) {
+export function Icon({ name, ...restProps }: IconProps) {
   // The Google icon is a special case because it's the only multicolor one.
   // The colors are baked into the source image.
   // TODO: this can return an SVG also, if we want.
@@ -173,5 +173,3 @@ function Icon({ name, ...restProps }: IconProps) {
 
   return makeComponent(name, restProps)
 }
-
-export default Icon

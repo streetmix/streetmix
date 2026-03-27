@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import MenusContainer from './MenusContainer'
+import { render } from '~/test/helpers/render.js'
+import { MenusContainer } from './MenusContainer.js'
 
 describe('MenusContainer', () => {
   // Menu container should be empty at mount

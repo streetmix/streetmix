@@ -1,4 +1,3 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
 import streetmixPlusIcon from 'url:../ui/icons/streetmix-plus.svg'
@@ -13,7 +12,11 @@ interface AvatarMenuProps {
   onClick: React.MouseEventHandler
 }
 
-function AvatarMenu({ user, isSubscriber = false, onClick }: AvatarMenuProps) {
+export function AvatarMenu({
+  user,
+  isSubscriber = false,
+  onClick,
+}: AvatarMenuProps) {
   const { formatMessage } = useIntl()
 
   const subscriberLabel = isSubscriber
@@ -42,5 +45,3 @@ function AvatarMenu({ user, isSubscriber = false, onClick }: AvatarMenuProps) {
     </button>
   )
 }
-
-export default AvatarMenu

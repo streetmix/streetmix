@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import InstanceBadge from './InstanceBadge'
+import { render } from '~/test/helpers/render.js'
+import { InstanceBadge } from './InstanceBadge.js'
 
 describe('InstanceBadge', () => {
   it('renders nothing in standard conditions', () => {

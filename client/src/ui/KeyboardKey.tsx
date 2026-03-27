@@ -1,4 +1,4 @@
-import Icon, { type IconNames } from './Icon.js'
+import { Icon, type IconNames } from './Icon.js'
 
 import './KeyboardKey.css'
 

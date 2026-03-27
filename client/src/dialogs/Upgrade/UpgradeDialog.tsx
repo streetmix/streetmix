@@ -4,13 +4,13 @@ import axios from 'axios'
 
 import { useSelector } from '~/src/store/hooks.js'
 import userRoles from '../../../../app/data/user_roles.json'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './UpgradeDialog.css'
 
 const DEFAULT_BODY =
   'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
 
-function UpgradeDialog() {
+export function UpgradeDialog() {
   const userId = useSelector((state) => state.user.signInData?.userId)
   const roles: string[] = useSelector(
     (state) => state.user.signInData?.details?.roles ?? []
@@ -97,5 +97,3 @@ function UpgradeDialog() {
     </Dialog>
   )
 }
-
-export default UpgradeDialog

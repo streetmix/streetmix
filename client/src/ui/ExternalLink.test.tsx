@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import { ExternalLink } from './ExternalLink'
+import { render } from '~/test/helpers/render.js'
+import { ExternalLink } from './ExternalLink.js'
 
 const initialStateForOnline = {
   system: {

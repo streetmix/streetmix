@@ -1,12 +1,11 @@
-import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import wmIcon from 'url:../../../images/wm-icon-animated.svg'
-import { ExternalLink } from '../ExternalLink'
-import Toast, { type ToastProps } from './Toast'
+import { ExternalLink } from '../ExternalLink.js'
+import { Toast, type ToastProps } from './Toast.js'
 
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
-function ToastWebMonetizationSuccess(props: ToastProps): React.ReactElement {
+export function ToastWebMonetizationSuccess(props: ToastProps) {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
@@ -26,7 +25,7 @@ function ToastWebMonetizationSuccess(props: ToastProps): React.ReactElement {
       className="toast-web-monetization"
       item={{
         ...item,
-        mode: 'success',
+        method: 'success',
         action: intl.formatMessage({
           id: 'plus.web-monetization.learn-more',
           defaultMessage: 'Learn more',
@@ -59,5 +58,3 @@ function ToastWebMonetizationSuccess(props: ToastProps): React.ReactElement {
     </Toast>
   )
 }
-
-export default ToastWebMonetizationSuccess

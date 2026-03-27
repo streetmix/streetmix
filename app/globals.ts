@@ -8,5 +8,5 @@ process.env.APP_PROTOCOL =
   process.env.PROTOCOL || process.env.APP_DOMAIN === 'localhost'
     ? 'http'
     : 'https'
-process.env.PORT = process.env.PORT || 8000
+process.env.PORT = process.env.PORT || '8000'
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'

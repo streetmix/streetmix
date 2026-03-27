@@ -1,4 +1,3 @@
-import React from 'react'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
 import { useDispatch } from '~/src/store/hooks.js'

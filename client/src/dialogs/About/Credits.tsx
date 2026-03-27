@@ -1,7 +1,7 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import TeamMember from './TeamMember'
+import { TeamMember } from './TeamMember.js'
 import CREDITS from './credits.json'
 import './Credits.css'
 
@@ -14,7 +14,7 @@ interface TeamMemberData {
   original?: boolean
 }
 
-function alphabetizeNames (a: TeamMemberData, b: TeamMemberData): number {
+function alphabetizeNames(a: TeamMemberData, b: TeamMemberData): number {
   // Ignore case
   const nameA = a.name.toLowerCase()
   const nameB = b.name.toLowerCase()
@@ -57,10 +57,10 @@ const UNTRANSLATED_LABELS = {
   'pt-br': 'Portuguese (Brazil)',
   ru: 'Russian',
   sv: 'Swedish',
-  zh: 'Chinese'
+  zh: 'Chinese',
 }
 
-function Credits (): React.ReactElement {
+export function Credits() {
   return (
     <>
       <h2>
@@ -98,7 +98,7 @@ function Credits (): React.ReactElement {
       <div className="credits-container">
         <div className="credits-credits-left">
           {Object.entries(CREDITS.contributors).map(([key, value]) => (
-            <React.Fragment key={key}>
+            <Fragment key={key}>
               <h3>
                 <FormattedMessage
                   id={`credits.${key}`}
@@ -109,29 +109,25 @@ function Credits (): React.ReactElement {
               </h3>
               <ul>
                 {value.sort().map((name) =>
-                  Array.isArray(name)
-                    ? (
-                      <li key={name[0]}>
-                        {name[0]}, <i>{name[1]}</i>
-                      </li>
-                      )
-                    : typeof name === 'string'
-                      ? (
-                        <li key={name}>{name}</li>
-                        )
-                      : (
-                        <li key={name.label}>
-                          <h4>{name.label}</h4>
-                          <ul>
-                            {name.people.map((person) => (
-                              <li key={person}>{person}</li>
-                            ))}
-                          </ul>
-                        </li>
-                        )
+                  Array.isArray(name) ? (
+                    <li key={name[0]}>
+                      {name[0]}, <i>{name[1]}</i>
+                    </li>
+                  ) : typeof name === 'string' ? (
+                    <li key={name}>{name}</li>
+                  ) : (
+                    <li key={name.label}>
+                      <h4>{name.label}</h4>
+                      <ul>
+                        {name.people.map((person) => (
+                          <li key={person}>{person}</li>
+                        ))}
+                      </ul>
+                    </li>
+                  )
                 )}
               </ul>
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
         <div className="credits-credits-right">
@@ -158,15 +154,13 @@ function Credits (): React.ReactElement {
                 </h4>
                 <ul>
                   {value.sort().map((name) =>
-                    Array.isArray(name)
-                      ? (
-                        <li key={name[0]}>
-                          {name[0]}, <i>{name[1]}</i>
-                        </li>
-                        )
-                      : (
-                        <li key={name}>{name}</li>
-                        )
+                    Array.isArray(name) ? (
+                      <li key={name[0]}>
+                        {name[0]}, <i>{name[1]}</i>
+                      </li>
+                    ) : (
+                      <li key={name}>{name}</li>
+                    )
                   )}
                 </ul>
               </li>
@@ -177,5 +171,3 @@ function Credits (): React.ReactElement {
     </>
   )
 }
-
-export default Credits

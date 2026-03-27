@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
 import { getStreetCapacity } from '~/src/segments/capacity.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { formatNumber } from '~/src/util/number_format.js'
 import { StreetMetaItem } from './StreetMetaItem.js'
 

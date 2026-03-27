@@ -14,7 +14,7 @@ import {
 import { MenuBar } from './MenuBar.js'
 import './MenusContainer.css'
 
-function MenusContainer() {
+export function MenusContainer() {
   const activeMenu = useSelector((state): string | null => state.menus.id)
   const [activeMenuItemNode, setActiveMenuItemNode] = useState<HTMLElement>()
   const dispatch = useDispatch()
@@ -131,5 +131,3 @@ function MenusContainer() {
     </>
   )
 }
-
-export default MenusContainer

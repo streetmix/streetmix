@@ -1,9 +1,7 @@
-import React from 'react'
-
-import Icon from '~/src/ui/Icon'
+import { Icon } from '~/src/ui/Icon.js'
 import './SocialLinks.css'
 
-function SocialLinks (): React.ReactElement {
+export function SocialLinks() {
   return (
     <ul className="social-links">
       <li>
@@ -53,5 +51,3 @@ function SocialLinks (): React.ReactElement {
     </ul>
   )
 }
-
-export default SocialLinks

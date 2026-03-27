@@ -1,9 +1,6 @@
-import React from 'react'
-import NotificationBar from './NotificationBar'
+import { NotificationBar as OriginalNotificationBar } from './NotificationBar.js'
 import NOTIFICATION from './notification.json'
 
-function AppNotificationBar (): React.ReactElement {
-  return <NotificationBar notification={NOTIFICATION} />
+export function NotificationBar() {
+  return <OriginalNotificationBar notification={NOTIFICATION} />
 }
-
-export default AppNotificationBar

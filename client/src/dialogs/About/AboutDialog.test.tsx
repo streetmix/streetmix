@@ -1,8 +1,7 @@
-import React from 'react'
 import { vi } from 'vitest'
 
-import { render } from '~/test/helpers/render'
-import AboutDialog from './AboutDialog'
+import { render } from '~/test/helpers/render.js'
+import { AboutDialog } from './AboutDialog.js'
 
 vi.mock('./credits.json', async () => await import('./__mocks__/credits.json'))
 

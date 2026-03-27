@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import Toast, { type ToastProps } from './Toast'
+import { Toast, type ToastProps } from './Toast.js'
 
 // Renders a specific type of Toast for no-connection message.
-function ToastNoConnection (props: ToastProps): React.ReactElement {
+export function ToastNoConnection(props: ToastProps) {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
@@ -32,8 +32,8 @@ function ToastNoConnection (props: ToastProps): React.ReactElement {
           item.action ??
           intl.formatMessage({
             id: 'btn.dismiss',
-            defaultMessage: 'Dismiss'
-          })
+            defaultMessage: 'Dismiss',
+          }),
       }}
     >
       {/* Handle the message here so it doesn't need to be passed by caller. */}
@@ -44,5 +44,3 @@ function ToastNoConnection (props: ToastProps): React.ReactElement {
     </Toast>
   )
 }
-
-export default ToastNoConnection

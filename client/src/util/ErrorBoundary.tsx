@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 interface ErrorBoundaryProps {
   children: React.ReactNode
@@ -13,28 +13,31 @@ interface ErrorBoundaryState {
  * This is a stock error boundary component.
  * https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
  */
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor (props: ErrorBoundaryProps) {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props)
 
     this.state = {
-      hasError: false
+      hasError: false,
     }
   }
 
-  static getDerivedStateFromError (_error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(_error: Error): ErrorBoundaryState {
     // Update state so the next render will show the fallback UI.
     return {
-      hasError: true
+      hasError: true,
     }
   }
 
-  componentDidCatch (error: Error, errorInfo: React.ErrorInfo): void {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     // Log out a message
     console.error(error, errorInfo)
   }
 
-  render (): React.ReactNode {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       if (this.props.fallbackComponent !== undefined) {
         return this.props.fallbackComponent
@@ -47,5 +50,3 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return this.props.children
   }
 }
-
-export default ErrorBoundary

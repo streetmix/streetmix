@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { ExternalLink } from '~/src/ui/ExternalLink'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './TeamMember.css'
 
 interface TeamMemberProps {
@@ -10,7 +8,7 @@ interface TeamMemberProps {
   url?: string
 }
 
-function TeamMember(props: TeamMemberProps): React.ReactElement {
+export function TeamMember(props: TeamMemberProps) {
   const { name, title, mugshotFile, url } = props
   const style: React.CSSProperties = {}
 
@@ -29,5 +27,3 @@ function TeamMember(props: TeamMemberProps): React.ReactElement {
     </div>
   )
 }
-
-export default TeamMember

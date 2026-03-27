@@ -1,6 +1,9 @@
 import { expressjwt } from 'express-jwt'
 import jwksRsa from 'jwks-rsa'
+
 import { logger } from './lib/logger.ts'
+
+import type { NextFunction, Request, Response } from 'express'
 
 const secret = jwksRsa.expressJwtSecret({
   cache: true,
@@ -9,7 +12,7 @@ const secret = jwksRsa.expressJwtSecret({
   jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
 })
 
-const jwtCheck = expressjwt({
+const origJwtCheck = expressjwt({
   algorithms: ['RS256'],
   secret,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
@@ -23,8 +26,8 @@ const jwtCheck = expressjwt({
   },
 })
 
-export default function wrappedCheck(req, res, next) {
-  const handleErrorNext = (err) => {
+export function jwtCheck(req: Request, res: Response, next: NextFunction) {
+  const handleErrorNext = (err?: unknown) => {
     if (
       err?.name === 'UnauthorizedError' &&
       err?.inner.name === 'TokenExpiredError' &&
@@ -38,5 +41,5 @@ export default function wrappedCheck(req, res, next) {
     next(err)
   }
 
-  return jwtCheck(req, res, handleErrorNext)
+  return origJwtCheck(req, res, handleErrorNext)
 }

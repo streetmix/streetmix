@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd'
 
 import { useSelector } from '../store/hooks.js'
 import { images } from '../app/load_resources.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 import { Tooltip } from '../ui/Tooltip.js'
 import { EmptyDragPreview } from '../ui/dnd/EmptyDragPreview.js'
 import { createPaletteItemDragSpec } from '../segments/drag_and_drop.js'

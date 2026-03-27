@@ -1,14 +1,8 @@
-import React from 'react'
-
-import { useSelector } from '../store/hooks'
-import { ENV, STREETMIX_INSTANCE } from '../app/config'
+import { useSelector } from '../store/hooks.js'
+import { ENV, STREETMIX_INSTANCE } from '../app/config.js'
 import './InstanceBadge.css'
 
-function InstanceBadge ({
-  label
-}: {
-  label?: string
-}): React.ReactElement | null {
+export function InstanceBadge({ label }: { label?: string }) {
   const offline = useSelector((state) => state.system.offline)
 
   const classNames = ['instance-badge']
@@ -26,7 +20,7 @@ function InstanceBadge ({
   }
 }
 
-function getDetails (
+function getDetails(
   offline: boolean,
   label?: string
 ): { label?: string; className?: string } {
@@ -35,29 +29,29 @@ function getDetails (
     if (offline) {
       return {
         label: 'Demo',
-        className: 'instance-label-demo'
+        className: 'instance-label-demo',
       }
     } else {
       switch (STREETMIX_INSTANCE ?? ENV) {
         case 'development':
           return {
             label: 'Dev',
-            className: 'instance-label-development'
+            className: 'instance-label-development',
           }
         case 'staging':
           return {
             label: 'Staging',
-            className: 'instance-label-staging'
+            className: 'instance-label-staging',
           }
         case 'sandbox':
           return {
             label: 'Sandbox',
-            className: 'instance-label-sandbox'
+            className: 'instance-label-sandbox',
           }
         case 'coastmix':
           return {
             label: 'Coastmix',
-            className: 'instance-label-demo'
+            className: 'instance-label-demo',
           }
         default:
           return {}
@@ -66,8 +60,6 @@ function getDetails (
   }
 
   return {
-    label
+    label,
   }
 }
-
-export default InstanceBadge

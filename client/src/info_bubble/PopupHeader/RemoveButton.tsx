@@ -7,7 +7,7 @@ import {
   clearSegmentsAction,
 } from '~/src/store/actions/street.js'
 import { Button } from '~/src/ui/Button.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import './RemoveButton.css'
 
 interface RemoveButtonProps {

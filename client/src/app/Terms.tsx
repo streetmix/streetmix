@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '../ui/ExternalLink.js'
@@ -7,7 +6,7 @@ interface TermsProps {
   locale: string
 }
 
-export function Terms({ locale }: TermsProps): React.ReactElement {
+export function Terms({ locale }: TermsProps) {
   const getCCLinkByLocale = (
     locale: string
   ): { url: string; label: string } => {

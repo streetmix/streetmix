@@ -7,7 +7,7 @@ import {
   MAX_SEGMENT_WIDTH,
 } from '~/src/segments/constants.js'
 import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import {
   prettifyWidth,

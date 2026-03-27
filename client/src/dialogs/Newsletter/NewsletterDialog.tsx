@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from '~/src/ui/Button.js'
-import Dialog from '../Dialog.js'
+import { Dialog } from '../Dialog.js'
 import './NewsletterDialog.css'
 
 /**

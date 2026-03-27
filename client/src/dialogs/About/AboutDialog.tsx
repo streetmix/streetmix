@@ -1,18 +1,17 @@
-import React, { memo } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import logo from 'url:~/images/logo_horizontal.svg'
 import numoLogo from 'url:~/images/sponsors/numo.svg'
 import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
 import mozlogo from 'url:~/images/sponsors/mozilla.svg'
-import { useSelector } from '~/src/store/hooks'
-import { ExternalLink } from '~/src/ui/ExternalLink'
-import Dialog from '../Dialog'
-import Credits from './Credits'
-import SocialLinks from './SocialLinks'
+import { useSelector } from '~/src/store/hooks.js'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
+import { Dialog } from '../Dialog.js'
+import { Credits } from './Credits.js'
+import { SocialLinks } from './SocialLinks.js'
 import './AboutDialog.css'
 
-function AboutDialog(): React.ReactElement {
+export function AboutDialog() {
   const offline = useSelector((state) => state.system.offline)
 
   return (
@@ -280,5 +279,3 @@ function AboutDialog(): React.ReactElement {
     </Dialog>
   )
 }
-
-export default memo(AboutDialog)

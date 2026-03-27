@@ -10,8 +10,6 @@
  * focusability, events handling, etc. but they should not look like stylized
  * UI buttons.
  */
-import React from 'react'
-
 import './Button.css'
 
 interface ButtonBaseProps {

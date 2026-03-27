@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { saveStreetName } from '../store/slices/street.js'
 import { StreetMeta } from './StreetMeta/index.js'
-import StreetName from './StreetName.js'
+import { StreetName } from './StreetName.js'
 
 import type { MenuCoords } from '../menubar/MenuBar.js'
 
@@ -15,7 +15,7 @@ interface StreetNameCoords {
   width: number
 }
 
-function StreetNameplateContainer() {
+export function StreetNameplateContainer() {
   const isVisible = useSelector((state) => !state.ui.welcomePanelVisible)
   const isEditable = useSelector(
     (state) => !state.app.readOnly && state.flags.EDIT_STREET_NAME.value
@@ -148,5 +148,3 @@ function StreetNameplateContainer() {
     </div>
   )
 }
-
-export default StreetNameplateContainer

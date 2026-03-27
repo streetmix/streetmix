@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { toggleToolbox } from '../store/slices/ui.js'
 import { Button } from '../ui/Button.js'
-import Icon from '../ui/Icon.js'
+import { Icon } from '../ui/Icon.js'
 import { Tooltip } from '../ui/Tooltip.js'
 
 export function EnvironmentButton() {

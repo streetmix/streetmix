@@ -1,1 +1,1 @@
-export { default } from './SentimentSurveyDialog'
+export * from './SentimentSurveyDialog.js'

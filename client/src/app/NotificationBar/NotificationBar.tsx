@@ -31,7 +31,7 @@ interface NotificationBarProps {
 
 // NOTE: Notification is passed in as a prop, rather than directly imported
 // from notification.json in this file, in order to make it easier to test.
-function NotificationBar({ notification = {} }: NotificationBarProps) {
+export function NotificationBar({ notification = {} }: NotificationBarProps) {
   const locale = useSelector((state) => state.locale)
   const {
     display = false,
@@ -124,5 +124,3 @@ function NotificationBar({ notification = {} }: NotificationBarProps) {
     </Transition>
   )
 }
-
-export default NotificationBar

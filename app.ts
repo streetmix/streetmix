@@ -1,11 +1,11 @@
-import './app/globals.js'
+import './app/globals.ts'
 import path from 'node:path'
 import { styleText } from 'node:util'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cookieSession from 'cookie-session'
 import express from 'express'
-import helmet from 'helmet'
+import helmet, { type HelmetOptions } from 'helmet'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
 import passport from 'passport'
@@ -18,7 +18,7 @@ import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.js'
 import serviceRoutes from './app/service_routes.js'
 import { logger } from './app/lib/logger.ts'
-import jwtCheck from './app/authentication.js'
+import { jwtCheck } from './app/authentication.ts'
 
 initCloudinary()
 
@@ -74,11 +74,23 @@ const helmetConfig = {
     includeSubDomains: false, // we don't have a wildcard ssl cert
   },
   referrerPolicy: {
-    policy: 'strict-origin-when-cross-origin',
+    policy: 'strict-origin-when-cross-origin' as const,
   },
 }
 
 // CSP directives are defined separately so we can generate nonces
+
+// Extract the type of the `csp` object shape from Helmet, but we will not
+// yet attach the type until we are ready to pass it to Helmet. This allows us
+// to do additional transformations on the object before it's type checked.
+type ContentSecurityPolicyOptions = Exclude<
+  HelmetOptions['contentSecurityPolicy'],
+  boolean | undefined
+>
+
+// This object cannot have undefined values, so `process.env` values which
+// can be undefined must be nullish-coalesced to an empty string, which will
+// be ignored by Helmet.
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
@@ -86,9 +98,9 @@ const csp = {
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
-      process.env.AUTH0_DOMAIN,
+      process.env.AUTH0_DOMAIN ?? '',
       '*.basemaps.cartocdn.com',
-      process.env.PELIAS_HOST_NAME,
+      process.env.PELIAS_HOST_NAME ?? '',
       'checkout.stripe.com',
       'plausible.io',
       'static.cloudflareinsights.com',
@@ -126,10 +138,11 @@ const csp = {
     fontSrc: ["'self'"],
     connectSrc: [
       "'self'",
-      process.env.PELIAS_HOST_NAME,
+      process.env.PELIAS_HOST_NAME ?? '',
       'syndication.twitter.com',
       'sentry.io',
-      process.env.AUTH0_DOMAIN,
+      process.env.AUTH0_DOMAIN ?? '',
+      process.env.DOES_NOT_EXIST ?? '',
       'checkout.stripe.com',
       'plausible.io',
       'buttondown.com',
@@ -193,7 +206,9 @@ app.use((req, res, next) => {
 })
 
 // Set CSP directives
-app.use(helmet.contentSecurityPolicy(csp))
+app.use(
+  helmet.contentSecurityPolicy(csp satisfies ContentSecurityPolicyOptions)
+)
 
 // Rewrite requests with timestamp
 app.use((req, res, next) => {

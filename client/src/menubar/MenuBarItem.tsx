@@ -1,7 +1,7 @@
-import React, { type ButtonHTMLAttributes } from 'react'
+import { type ButtonHTMLAttributes } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import Icon from '../ui/Icon'
+import { Icon } from '../ui/Icon'
 import { Tooltip } from '../ui/Tooltip'
 
 interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,13 +14,13 @@ interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   tooltip?: string
 }
 
-export default function MenuBarItem({
+export function MenuBarItem({
   translation = '',
   label = '',
   tooltip,
   children = <FormattedMessage id={translation} defaultMessage={label} />,
   ...restProps
-}: MenuBarItemProps): React.ReactElement {
+}: MenuBarItemProps) {
   const component = (
     <li>
       <button className="menu-trigger" role="menuitem" {...restProps}>

@@ -1,13 +1,7 @@
-import React, {
-  useRef,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  memo
-} from 'react'
+import { useRef, useCallback, useEffect, useLayoutEffect, memo } from 'react'
 import { CSSTransition } from 'react-transition-group'
 
-import { useSelector } from '../../store/hooks'
+import { useSelector } from '../../store/hooks.js'
 import './Menu.css'
 
 export interface MenuProps {
@@ -25,7 +19,7 @@ interface MenuPosition {
   top: number
 }
 
-function Menu ({
+function Menu({
   className = '',
   isActive = false,
   menuItemNode,
@@ -34,7 +28,7 @@ function Menu ({
   onHide = () => undefined,
   children,
   ...props
-}: MenuProps): React.ReactElement {
+}: MenuProps) {
   const ref = useRef<HTMLDivElement>(null)
   const contentDirection = useSelector((state) => state.app.contentDirection)
   const handleResize = useCallback(() => {
@@ -104,7 +98,7 @@ function Menu ({
  * passed in by <MenuBar />, and returns an object with left and top values for
  * absolute positioning.
  */
-function getMenuPosition (
+function getMenuPosition(
   el: HTMLElement | null, // menu container element
   menuItemNode?: HTMLElement, // menu content element
   contentDirection: 'ltr' | 'rtl' = 'ltr',
@@ -148,11 +142,11 @@ function getMenuPosition (
 
   return {
     left,
-    top
+    top,
   }
 }
 
-function updateMenuPosition (
+function updateMenuPosition(
   el: HTMLElement | null, // menu container element
   menuItemNode?: HTMLElement, // menu content element
   contentDirection: 'ltr' | 'rtl' = 'ltr',

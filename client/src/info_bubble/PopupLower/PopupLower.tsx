@@ -1,8 +1,6 @@
-import React from 'react'
-
-import { useSelector } from '~/src/store/hooks'
-import { DescriptionPrompt } from './DescriptionPrompt'
-import { Warnings } from './Warnings'
+import { useSelector } from '~/src/store/hooks.js'
+import { DescriptionPrompt } from './DescriptionPrompt.js'
+import { Warnings } from './Warnings.js'
 
 import type { BoundaryPosition, Segment } from '@streetmix/types'
 
@@ -11,10 +9,7 @@ interface PopupLowerProps {
   setArrowHighlighted: (v: boolean) => void
 }
 
-export function PopupLower ({
-  position,
-  setArrowHighlighted
-}: PopupLowerProps): React.ReactElement {
+export function PopupLower({ position, setArrowHighlighted }: PopupLowerProps) {
   const street = useSelector((state) => state.street)
 
   // Segment is undefined when position refers to a building
@@ -23,11 +18,11 @@ export function PopupLower ({
     segment = street.segments[position]
   }
 
-  function handleDescriptionOver (): void {
+  function handleDescriptionOver(): void {
     setArrowHighlighted(true)
   }
 
-  function handleDescriptionOut (): void {
+  function handleDescriptionOut(): void {
     setArrowHighlighted(false)
   }
 

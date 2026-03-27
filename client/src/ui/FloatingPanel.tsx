@@ -6,7 +6,7 @@ import Draggable, {
 } from 'react-draggable'
 
 import { CloseButton } from '~/src/ui/CloseButton.js'
-import Icon, { type IconNames } from '~/src/ui/Icon.js'
+import { Icon, type IconNames } from '~/src/ui/Icon.js'
 import './FloatingPanel.css'
 
 // Allow <Draggable> props to be passed in, but do not require any

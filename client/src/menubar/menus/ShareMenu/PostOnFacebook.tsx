@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { FACEBOOK_APP_ID } from '~/src/app/config.js'
 import { getPageTitle } from '~/src/app/page_title.js'
 import { MenuItem } from '../MenuItem.js'

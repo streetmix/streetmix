@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl'
 
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
 import { images } from '~/src/app/load_resources.js'
 import { DEFAULT_SKYBOX } from '../constants.js'

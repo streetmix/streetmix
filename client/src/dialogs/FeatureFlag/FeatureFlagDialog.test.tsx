@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import FeatureFlagDialog from './FeatureFlagDialog'
+import { render } from '~/test/helpers/render.js'
+import { FeatureFlagDialog } from './FeatureFlagDialog.js'
 
 const initialState = {
   flags: {
@@ -9,34 +7,34 @@ const initialState = {
       label: 'FOO_BAR',
       defaultValue: true,
       value: true,
-      source: 'initial'
+      source: 'initial',
     },
     BAZ_QUX: {
       label: 'BAZ_QUX',
       defaultValue: true,
       value: false,
-      source: 'initial'
+      source: 'initial',
     },
     FOO_BAZ: {
       label: 'FOO_BAZ',
       defaultValue: true,
       value: true,
-      source: 'initial'
+      source: 'initial',
     },
     BAZ_BAR: {
       label: 'BAZ_BAR',
       defaultValue: true,
       enabled: false,
       value: false,
-      source: 'initial'
-    }
-  }
+      source: 'initial',
+    },
+  },
 }
 
 describe('FeatureFlagDialog', () => {
   it('renders', () => {
     const { asFragment } = render(<FeatureFlagDialog />, {
-      initialState
+      initialState,
     })
     expect(asFragment()).toMatchSnapshot()
   })

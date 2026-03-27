@@ -1,15 +1,14 @@
-import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { doSignIn } from '../../users/authentication'
-import Toast, { type ToastProps } from './Toast'
+import { doSignIn } from '../../users/authentication.js'
+import { Toast, type ToastProps } from './Toast.js'
 
 // Renders a specific type of Toast with Sign in button.
-function ToastSignIn (props: ToastProps): React.ReactElement {
+export function ToastSignIn(props: ToastProps) {
   const { item, setRef, handleClose } = props
   const intl = useIntl()
 
-  function handleAction (event: React.MouseEvent): void {
+  function handleAction(event: React.MouseEvent): void {
     doSignIn()
     handleClose(event)
   }
@@ -25,11 +24,9 @@ function ToastSignIn (props: ToastProps): React.ReactElement {
           item.action ??
           intl.formatMessage({
             id: 'menu.item.sign-in',
-            defaultMessage: 'Sign in'
-          })
+            defaultMessage: 'Sign in',
+          }),
       }}
     />
   )
 }
-
-export default ToastSignIn

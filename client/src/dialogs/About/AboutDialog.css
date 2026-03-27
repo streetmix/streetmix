@@ -12,10 +12,11 @@
     margin: 0;
   }
 
+  /* Override .dialog-box header (not sure why specificity has changed) */
   header {
-    background-color: white;
-    padding: 0;
-    text-align: start;
+    background-color: white !important;
+    padding: 0 !important;
+    text-align: start !important;
   }
 
   header h1 {

@@ -1,4 +1,4 @@
-import LoadingSpinner from '../ui/LoadingSpinner.js'
+import { LoadingSpinner } from '../ui/LoadingSpinner.js'
 
 export function GalleryLoading() {
   return (

@@ -1,9 +1,7 @@
-import React from 'react'
+import { render } from '~/test/helpers/render.js'
+import { Dialog } from './Dialog.js'
 
-import { render } from '~/test/helpers/render'
-import Dialog from './Dialog'
-
-const Contents = (): React.ReactElement => <>foo</>
+const Contents = () => <>foo</>
 
 describe('Dialog', () => {
   it('renders', () => {

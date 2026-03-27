@@ -1,12 +1,10 @@
-import React, { useLayoutEffect, useRef } from 'react'
-
-// note: see _chrome.css for styles
+import { useLayoutEffect, useRef } from 'react'
 
 interface LoadingProps {
   isLoading: boolean
 }
 
-function Loading ({ isLoading = true }: LoadingProps): React.ReactElement {
+export function Loading({ isLoading = true }: LoadingProps) {
   const loadingStuckNotice = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
@@ -46,5 +44,3 @@ function Loading ({ isLoading = true }: LoadingProps): React.ReactElement {
     </div>
   )
 }
-
-export default Loading

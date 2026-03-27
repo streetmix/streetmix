@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 
 import AccessibleIcon from './AccessibleIcon.js'
-import Icon from './Icon.js'
+import { Icon } from './Icon.js'
 
 import type { PopoverContentProps } from '@radix-ui/react-popover'
 import './Popover.css'

@@ -3,7 +3,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateStreetWidthAction as updateStreetWidth } from '~/src/store/actions/street.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import {
   prettifyWidth,
   processWidthInput,

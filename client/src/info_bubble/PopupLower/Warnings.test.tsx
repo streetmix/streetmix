@@ -1,13 +1,11 @@
-import React from 'react'
-
-import { render } from '~/test/helpers/render'
-import { Warnings } from './Warnings'
+import { render } from '~/test/helpers/render.js'
+import { Warnings } from './Warnings.js'
 
 describe('Warnings', () => {
   // Note: warnings start indexing at 1!
   it('renders warning 1', () => {
     const segment = {
-      warnings: [null, true]
+      warnings: [null, true],
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
@@ -15,7 +13,7 @@ describe('Warnings', () => {
 
   it('renders warning 2', () => {
     const segment = {
-      warnings: [null, false, true, false]
+      warnings: [null, false, true, false],
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may not be wide enough.')
@@ -23,7 +21,7 @@ describe('Warnings', () => {
 
   it('renders warning 3', () => {
     const segment = {
-      warnings: [null, false, false, true]
+      warnings: [null, false, false, true],
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may be too wide.')
@@ -31,7 +29,7 @@ describe('Warnings', () => {
 
   it('renders two warnings', () => {
     const segment = {
-      warnings: [null, true, false, true]
+      warnings: [null, true, false, true],
     }
     const { container } = render(<Warnings segment={segment} />)
 
@@ -42,7 +40,7 @@ describe('Warnings', () => {
 
   it('renders three warnings', () => {
     const segment = {
-      warnings: [null, true, true, true]
+      warnings: [null, true, true, true],
     }
     const { container } = render(<Warnings segment={segment} />)
 
@@ -53,7 +51,7 @@ describe('Warnings', () => {
 
   it('renders no warnings', () => {
     const segment = {
-      warnings: [null, false, false, false]
+      warnings: [null, false, false, false],
     }
     const { container } = render(<Warnings segment={segment} />)
 

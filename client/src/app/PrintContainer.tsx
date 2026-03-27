@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { flushSync } from 'react-dom'
 
-import { useSelector, useDispatch } from '../store/hooks'
-import { startPrinting, stopPrinting } from '../store/slices/app'
-import { getStreetImage } from '../streets/image'
+import { useSelector, useDispatch } from '../store/hooks.js'
+import { startPrinting, stopPrinting } from '../store/slices/app.js'
+import { getStreetImage } from '../streets/image.js'
 import './PrintContainer.css'
 
-function PrintContainer (): React.ReactElement {
+export function PrintContainer() {
   const isPrinting = useSelector((state) => state.app.printing)
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
@@ -53,5 +53,3 @@ function PrintContainer (): React.ReactElement {
     </div>
   )
 }
-
-export default PrintContainer

@@ -4,7 +4,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import Icon from '~/src/ui/Icon.js'
+import { Icon } from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 

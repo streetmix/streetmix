@@ -1,10 +1,9 @@
-import React from 'react'
 import { vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
-import { render } from '~/test/helpers/render'
-import MenuBarItem from './MenuBarItem'
+import { render } from '~/test/helpers/render.js'
+import { MenuBarItem } from './MenuBarItem.js'
 
 describe('MenuBarItem', () => {
   it('renders', () => {
