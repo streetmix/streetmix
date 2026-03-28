@@ -7,7 +7,7 @@ jobs:
   # it does not need to be run in multiple environments.
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
       HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
@@ -24,7 +24,7 @@ jobs:
 
   test:
     name: Unit and integration tests
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     container: node:24-bookworm # EOL 2026-06-10
     strategy:
       # Use current active LTS and later versions of Node.js if present
@@ -76,7 +76,7 @@ jobs:
 
   cypress:
     name: End-to-end (E2E) tests
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     container:
       image: cypress/browsers:node-24.12.0-chrome-143.0.7499.40-1-ff-146.0-edge-143.0.3650.66-1
     env:
