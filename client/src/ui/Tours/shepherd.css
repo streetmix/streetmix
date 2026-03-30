@@ -251,6 +251,11 @@
   max-width: 250px;
 }
 
+.tour-highlight {
+  outline: 3px solid var(--color-citrine-500);
+  outline-offset: 3px;
+}
+
 .tour-test {
   position: absolute;
   z-index: 1000;

@@ -16,7 +16,7 @@ const nextButton = {
 }
 
 const backButton = {
-  classes: 'btn btn-primary',
+  classes: 'btn btn-tertiary',
   text: 'Back',
   action() {
     ;(this as unknown as Tour).back()
@@ -42,6 +42,7 @@ export const steps: StepOptions[] = [
       element: '#menubar-new',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '#menubar-new',
@@ -56,6 +57,7 @@ export const steps: StepOptions[] = [
       element: '[data-tour-id="new-street-harborwalk"]',
       on: 'left',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '[data-tour-id="new-street-harborwalk"]',
@@ -100,6 +102,7 @@ export const steps2: StepOptions[] = [
       element: '.coastmix-controls-button',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
     advanceOn: {
       event: 'click',
@@ -114,6 +117,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="2030-sea-level-rise"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '[data-tour-id="2030-sea-level-rise"]',
@@ -132,6 +136,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="storm-surge-control"] button',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     extraHighlights: [
       '[data-tour-id="storm-surge-control"]',
       '[data-tour-id="storm-surge-control"] button',
@@ -150,6 +155,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flood-direction-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     buttons: [backButton],
     when: {
       show() {
@@ -192,6 +198,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flooding-message"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     buttons: [backButton, nextButton],
   },
   {
@@ -202,6 +209,7 @@ export const steps2: StepOptions[] = [
       element: '[data-slice-label="Harborwalk"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '[data-slice-label="Harborwalk"]',
@@ -224,6 +232,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="elevation-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     buttons: [backButton],
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
@@ -241,6 +250,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flooding-message"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
   },
   {
     id: 'coastmix-practice-12',
@@ -249,6 +259,7 @@ export const steps2: StepOptions[] = [
       element: '[data-slice-label="Future berm"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     scrollTo: {
       behavior: 'smooth',
       inline: 'center',
@@ -268,6 +279,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="slope-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '[data-tour-id="slope-control-switch"]',
@@ -284,6 +296,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="editable-label"]',
       on: 'top',
     },
+    highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
       selector: '[data-tour-id="editable-label"]',
