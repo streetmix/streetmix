@@ -15,6 +15,14 @@ const nextButton = {
   },
 }
 
+const backButton = {
+  classes: 'btn btn-primary',
+  text: 'Back',
+  action() {
+    ;(this as unknown as Tour).back()
+  },
+}
+
 let cleanup: (() => void) | null = null
 
 export const steps: StepOptions[] = [
@@ -38,6 +46,7 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '#menubar-new',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
@@ -51,6 +60,7 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="new-street-harborwalk"]',
     },
+    buttons: [backButton],
     beforeShowPromise: async () => {
       await waitFor(300)
     },
@@ -108,6 +118,7 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="2030-sea-level-rise"]',
     },
+    buttons: [backButton],
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
       await waitFor(300)
@@ -125,7 +136,7 @@ export const steps2: StepOptions[] = [
       '[data-tour-id="storm-surge-control"]',
       '[data-tour-id="storm-surge-control"] button',
     ],
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
     // Make the position of this a lil prettier, because the control is not
     // vertically centered
@@ -139,6 +150,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flood-direction-control"]',
       on: 'right',
     },
+    buttons: [backButton],
     when: {
       show() {
         const el = document.querySelector<HTMLSelectElement>(
@@ -180,7 +192,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="flooding-message"]',
       on: 'bottom',
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
   },
   {
     id: 'coastmix-practice-09',
@@ -194,6 +206,7 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-slice-label="Harborwalk"]',
     },
+    buttons: [backButton],
     scrollTo: {
       behavior: 'smooth',
       inline: 'center',
@@ -211,6 +224,7 @@ export const steps2: StepOptions[] = [
       element: '[data-tour-id="elevation-control"]',
       on: 'right',
     },
+    buttons: [backButton],
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
       await waitFor(300)
@@ -222,7 +236,7 @@ export const steps2: StepOptions[] = [
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
       behind it needs to be integrated into this new condition.`,
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     attachTo: {
       element: '[data-tour-id="flooding-message"]',
       on: 'bottom',
@@ -244,6 +258,7 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-slice-label="Future berm"]',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
@@ -257,6 +272,7 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="slope-control-switch"]',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
@@ -272,6 +288,7 @@ export const steps2: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="editable-label"]',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   // Conclusion dialog is integrated into tour steps because it can be

@@ -23,6 +23,14 @@ const nextButton = {
   },
 }
 
+const backButton = {
+  classes: 'btn btn-tertiary',
+  text: 'Back',
+  action() {
+    ;(this as unknown as Tour).back()
+  },
+}
+
 const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
@@ -65,7 +73,7 @@ const steps: StepOptions[] = [
       await waitForElement('.coastmix-controls')
       await waitFor(300)
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
   },
   {
@@ -81,7 +89,7 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="storm-surge-control"]',
       on: 'right',
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
     // Make the position of this a lil prettier, because the control is not
     // vertically centered
@@ -98,6 +106,7 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     buttons: [
+      backButton,
       {
         ...nextButton,
         action() {
@@ -126,6 +135,7 @@ const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-slice-index="5"]',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
@@ -144,7 +154,7 @@ const steps: StepOptions[] = [
       await waitForElement('.popup-container')
       await waitFor(300)
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
   },
   {
@@ -158,6 +168,7 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     buttons: [
+      backButton,
       {
         ...nextButton,
         action() {
