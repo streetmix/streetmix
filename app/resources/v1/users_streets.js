@@ -96,7 +96,11 @@ export async function get(req, res) {
         })
         return
       default:
-        res.status(500).end()
+        // Default message for unknown errors.
+        res.status(500).json({
+          status: 500,
+          msg: 'Server failure.',
+        })
     }
   } // END function - handleErrors
 
@@ -117,7 +121,7 @@ export async function get(req, res) {
     const streets = await findUserStreets(user.id)
     handleFindUserStreets(streets)
   } catch (err) {
-    console.error(err)
+    logger.error(err)
     handleErrors(err)
   }
 }
