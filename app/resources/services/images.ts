@@ -35,13 +35,19 @@ export async function get(req: AuthedRequest, res: Response) {
     return
   }
 
-  // If requesting user is logged in, permission granted to receive cloudinary signature.
+  // If requesting user is logged in, permission granted to receive cloudinary
+  // signature.
+  const apiSecret = process.env.CLOUDINARY_API_SECRET
+
+  if (!apiSecret) {
+    logger.error('CLOUDINARY_API_SECRET is not configured.')
+    res.status(500).json({ status: 500, msg: 'Server misconfiguration.' })
+    return
+  }
+
   let signature
   try {
-    signature = await cloudinary.v2.utils.api_sign_request(
-      query,
-      process.env.CLOUDINARY_API_SECRET ?? ''
-    )
+    signature = await cloudinary.v2.utils.api_sign_request(query, apiSecret)
   } catch (error) {
     logger.error(error)
   }
