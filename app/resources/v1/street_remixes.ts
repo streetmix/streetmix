@@ -3,16 +3,18 @@ import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
 import { ERRORS } from '../../lib/util.js'
 
+import type { Request, Response } from 'express'
+
 const { Street } = models
 
-export async function get(req, res) {
+export async function get(req: Request, res: Response) {
   // Flag error if user ID is not provided
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return
   }
 
-  const findRemixedStreets = async function (streetId) {
+  const findRemixedStreets = async function (streetId: string) {
     let streets
     try {
       streets = await Street.findAll({

@@ -1,11 +1,15 @@
 import cloudinary from 'cloudinary'
+
 import models from '../../db/models/index.js'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User } = models
 
-export async function post(req, res) {
+export async function post(req: AuthedRequest, res: Response) {
   const handleCreateUser = function (user) {
     if (!user) {
       res.status(500).json({
@@ -107,7 +111,7 @@ export async function post(req, res) {
       .toString()
       .padStart(4, '0')
 
-  const generateId = function (nickname) {
+  const generateId = function (nickname: string) {
     // TODO - Check if the Id generated is not existing
     const id = generateRandomId()
     return nickname + '-' + id
@@ -226,7 +230,7 @@ export async function post(req, res) {
   }
 } // END function - post
 
-export async function get(req, res) {
+export async function get(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
   const userId = req.params.user_id
 
@@ -247,7 +251,7 @@ export async function get(req, res) {
   }
 
   // this function seems like it could be replaced by sequelize findByPK
-  const findUserById = async function (userId) {
+  const findUserById = async function (userId: string) {
     let user
 
     try {
@@ -303,7 +307,7 @@ export async function get(req, res) {
   }
 } // END function - get
 
-export async function del(req, res) {
+export async function del(req: AuthedRequest, res: Response) {
   const userId = req.params.user_id
   let user
   try {
@@ -319,7 +323,7 @@ export async function del(req, res) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth.sub },
+    where: { auth0_id: req.auth?.sub },
   })
 
   const isAdmin =
@@ -342,7 +346,7 @@ export async function del(req, res) {
     })
 } // END function - delete
 
-export async function put(req, res) {
+export async function put(req: AuthedRequest, res: Response) {
   let body
   try {
     body = req.body
@@ -403,7 +407,7 @@ export async function put(req, res) {
     })
 } // END function - put
 
-export async function patch(req, res) {
+export async function patch(req: AuthedRequest, res: Response) {
   let body
   try {
     body = req.body

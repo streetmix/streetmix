@@ -3,7 +3,13 @@ import { getFromTransifex } from '@streetmix/i18n'
 
 import { logger } from '../../lib/logger.ts'
 
-async function getLocalTranslation(res, locale, resource) {
+import type { Request, Response } from 'express'
+
+async function getLocalTranslation(
+  res: Response,
+  locale: string,
+  resource: string
+) {
   const translationFile =
     process.cwd() +
     '/packages/i18n/locales/' +
@@ -31,7 +37,12 @@ async function getLocalTranslation(res, locale, resource) {
   }
 }
 
-function sendSuccessResponse(res, locale, resource, translation) {
+function sendSuccessResponse(
+  res: Response,
+  locale: string,
+  resource: string,
+  translation: string
+) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
     Location: '/api/v1/translate/' + locale + '/' + resource,
@@ -41,7 +52,7 @@ function sendSuccessResponse(res, locale, resource, translation) {
   res.status(200).send(translation)
 }
 
-export async function get(req, res) {
+export async function get(req: Request, res: Response) {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 

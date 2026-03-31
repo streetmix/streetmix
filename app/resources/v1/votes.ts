@@ -4,13 +4,16 @@ import Sequelize from 'sequelize'
 import models from '../../db/models/index.js'
 import { logger } from '../../lib/logger.ts'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User, Vote, Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
 
 export function generateRandomBallotFetch({ redirect = false }) {
-  return async function (req, res) {
+  return async function (req: AuthedRequest, res: Response) {
     let ballots
     const authUser = req.auth || {}
     let user
@@ -178,7 +181,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
 
 export const get = generateRandomBallotFetch({ redirect: false })
 
-export async function put(req, res) {
+export async function put(req: AuthedRequest, res: Response) {
   const authUser = req.auth || {}
   const { id, comment } = req.body
 
@@ -230,7 +233,7 @@ export async function put(req, res) {
   res.status(200).json(ballot)
 }
 
-export async function post(req, res) {
+export async function post(req: AuthedRequest, res: Response) {
   const authUser = req.auth || {}
 
   if (!authUser.sub) {

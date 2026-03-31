@@ -1,7 +1,9 @@
 import Street from '../../db/models/street.js'
 import { logger } from '../../lib/logger.ts'
 
-export async function get(req, res) {
+import type { Request, Response } from 'express'
+
+export async function get(req: Request, res: Response) {
   let results
 
   try {
