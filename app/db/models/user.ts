@@ -42,10 +42,6 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     this.roles = newRoles
     await this.update({ roles: newRoles })
   }
-
-  static associate(_models: unknown) {
-    // associations can be defined here
-  }
 }
 
 export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {

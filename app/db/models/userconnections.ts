@@ -1,40 +1,49 @@
-import { Model } from 'sequelize'
+import {
+  DataTypes,
+  Model,
+  Sequelize,
+  type InferAttributes,
+  type InferCreationAttributes,
+  type CreationOptional,
+} from 'sequelize'
 
-export default (sequelize, DataTypes) => {
-  class UserConnections extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(_models) {
-      // define association here
-    }
-  }
+class UserConnections extends Model<
+  InferAttributes<UserConnections>,
+  InferCreationAttributes<UserConnections>
+> {
+  declare id: CreationOptional<number>
+  declare user_id: string
+  declare provider: string
+  declare provider_user_id: CreationOptional<string>
+  declare deleted: CreationOptional<boolean>
+  declare monetized: CreationOptional<boolean>
+  declare metadata: CreationOptional<unknown>
+}
 
+export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
   UserConnections.init(
     {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        type: dataTypes.INTEGER,
       },
       user_id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: dataTypes.STRING,
       },
       provider: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: dataTypes.STRING,
       },
-      provider_user_id: DataTypes.STRING,
+      provider_user_id: dataTypes.STRING,
       deleted: {
-        type: DataTypes.BOOLEAN,
+        type: dataTypes.BOOLEAN,
         defaultValue: false,
       },
-      monetized: DataTypes.BOOLEAN,
-      metadata: DataTypes.JSON,
+      monetized: dataTypes.BOOLEAN,
+      metadata: dataTypes.JSON,
     },
     {
       sequelize,

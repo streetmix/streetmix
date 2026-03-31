@@ -1,24 +1,38 @@
-export default (sequelize, DataTypes) => {
-  const Sequence = sequelize.define(
-    'Sequence',
+import {
+  DataTypes,
+  Model,
+  Sequelize,
+  type InferAttributes,
+  type InferCreationAttributes,
+  type CreationOptional,
+} from 'sequelize'
+
+class Sequence extends Model<
+  InferAttributes<Sequence>,
+  InferCreationAttributes<Sequence>
+> {
+  declare id: string
+  declare seq: CreationOptional<number>
+}
+
+export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+  Sequence.init(
     {
       id: {
-        type: DataTypes.STRING,
+        type: dataTypes.STRING,
         primaryKey: true,
       },
       seq: {
-        type: DataTypes.INTEGER,
+        type: dataTypes.INTEGER,
         defaultValue: 1,
       },
     },
     {
+      sequelize,
+      modelName: 'Sequence',
       timestamps: false,
     }
   )
-
-  Sequence.associate = function (_models) {
-    // associations can be defined here
-  }
 
   return Sequence
 }

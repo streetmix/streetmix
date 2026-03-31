@@ -1,4 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize'
+
 import config from '../config/config.js'
 import Sequence from './sequence.ts'
 import Street from './street.ts'
