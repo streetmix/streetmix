@@ -1,6 +1,7 @@
 import request from 'supertest'
-import { setupMockServer } from '../../../test/setup-mock-server'
-import * as translate from '../translate'
+
+import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import * as translate from '../translate.ts'
 
 // TODO: The test can fail if Transifex is unreachable. May need to rewrite
 // api controller to fallback to local translation strings if a connection cannot
@@ -16,12 +17,13 @@ describe('get api/v1/translate', function () {
       .get('/api/v1/translate/en/main')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
-        expect(response.get('Content-Type').toLowerCase()).toEqual(
+        expect(response.get('Content-Type')?.toLowerCase()).toEqual(
           'application/json; charset=utf-8'
         )
         expect(response.body.dialogs.welcome.heading).toEqual(
           'Welcome to Streetmix.'
         )
+        return
       })
   })
 

@@ -1,22 +1,30 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import { setupMockServer } from '../../../test/setup-mock-server'
-import * as user from '../users'
 
-vi.mock('../../../db/models')
-vi.mock('../../../lib/logger')
+import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import * as user from '../users.ts'
+
+import type { Response, NextFunction } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
+vi.mock('../../../db/models.js')
+vi.mock('../../../lib/logger.ts')
 
 // mockUser is setting a mock 'sub' (which is oAuth shorthand for 'subject'),
 // so that the below tests are mock authenticated. Don't confuse this with actual user data
 
 const mockUser = {
-  sub: 'foo|123'
+  sub: 'foo|123',
 }
 const mockAdminUser = {
-  sub: 'admin|789'
+  sub: 'admin|789',
 }
 const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (req, res, next) => {
+const mockUserMiddleware = (
+  req: AuthedRequest,
+  res: Response,
+  next: NextFunction
+) => {
   req.auth = jwtMock()
   next()
 }
@@ -34,6 +42,7 @@ describe('PUT api/v1/users/:user_id', () => {
       .send(JSON.stringify({}))
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 
@@ -45,6 +54,7 @@ describe('PUT api/v1/users/:user_id', () => {
       .send(JSON.stringify({}))
       .then((response) => {
         expect(response.statusCode).toEqual(401)
+        return
       })
   })
 
@@ -56,6 +66,7 @@ describe('PUT api/v1/users/:user_id', () => {
       .send(JSON.stringify({}))
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 })
@@ -70,6 +81,7 @@ describe('GET api/v1/users/:user_id', function () {
       .get('/api/v1/users/user1')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+        return
       })
   })
 })
@@ -85,6 +97,7 @@ describe('DELETE api/v1/users/:user_id', () => {
       .delete('/api/v1/users/user1')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 
@@ -94,6 +107,7 @@ describe('DELETE api/v1/users/:user_id', () => {
       .delete('/api/v1/users/user2')
       .then((response) => {
         expect(response.statusCode).toEqual(401)
+        return
       })
   })
 
@@ -103,6 +117,7 @@ describe('DELETE api/v1/users/:user_id', () => {
       .delete('/api/v1/users/user1')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 })

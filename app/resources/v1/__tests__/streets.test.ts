@@ -1,10 +1,14 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import { setupMockServer } from '../../../test/setup-mock-server'
-import * as streets from '../streets'
 
-vi.mock('../../../db/models')
-vi.mock('../../../lib/logger')
+import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import * as streets from '../streets.ts'
+
+import type { Response, NextFunction } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
+vi.mock('../../../db/models.js')
+vi.mock('../../../lib/logger.ts')
 
 const street = {
   status: 'ACTIVE',
@@ -12,15 +16,19 @@ const street = {
   namespacedId: 65,
   updatedAt: '2018-05-24T11:47:33.041Z',
   createdAt: '2018-05-24T11:47:32.721Z',
-  data: {}
+  data: {},
 }
 
 const mockUser = {
-  sub: 'foo|123'
+  sub: 'foo|123',
 }
 
 const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (req, res, next) => {
+const mockUserMiddleware = (
+  req: AuthedRequest,
+  res: Response,
+  next: NextFunction
+) => {
   req.auth = jwtMock()
   next()
 }
@@ -38,6 +46,7 @@ describe('POST api/v1/streets', function () {
       .send(JSON.stringify(street))
       .then((response) => {
         expect(response.statusCode).toEqual(201)
+        return
       })
   })
 })
@@ -52,6 +61,7 @@ describe('GET api/v1/streets', function () {
       .get('/api/v1/streets/')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+        return
       })
   })
 })
@@ -69,6 +79,7 @@ describe('PUT api/v1/streets/:street_id', function () {
       .send(JSON.stringify(street))
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 })
@@ -84,6 +95,7 @@ describe('DELETE api/v1/streets/:street_id', function () {
       .delete(`/api/v1/streets/${street.id}`)
       .then((response) => {
         expect(response.statusCode).toEqual(204)
+        return
       })
   })
 })
@@ -98,6 +110,7 @@ describe('GET api/v1/streets/:street_id', function () {
       .get(`/api/v1/streets/${street.id}`)
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+        return
       })
   })
 })
