@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize'
 import config from '../config/config.js'
 import Sequence from './sequence.js'
 import Street from './street.js'
-import User from './user.js'
+import User from './user.ts'
 import UserConnections from './userconnections.js'
 import Vote from './vote.js'
 

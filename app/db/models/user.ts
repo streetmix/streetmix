@@ -38,7 +38,7 @@ export default (sequelize, DataTypes) => {
           for every value in the array, check if its valid against the set of valid roles
           to do this we have a custom validator
           */
-          arrayIsValid(userRoles) {
+          arrayIsValid(userRoles: string[]) {
             if (!userRoles.every((value) => validUserRoles.includes(value))) {
               throw new Error('Role does not match list of valid roles')
             }
@@ -109,14 +109,14 @@ export default (sequelize, DataTypes) => {
   Model.prototype.someMethod = function () {..}
 */
 
-  User.prototype.addRole = function (newRole) {
+  User.prototype.addRole = function (newRole: string) {
     if (!this.roles.includes(newRole)) {
       this.update(this.roles.push(newRole))
     }
   }
 
-  User.prototype.removeRole = function (roleToRemove) {
-    const newRoles = this.roles.filter((item) => item !== roleToRemove)
+  User.prototype.removeRole = function (roleToRemove: string) {
+    const newRoles = this.roles.filter((item: string) => item !== roleToRemove)
     this.update((this.roles = newRoles))
   }
 

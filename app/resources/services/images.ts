@@ -1,6 +1,6 @@
 import cloudinary from 'cloudinary'
 
-import User from '../../db/models/user.js'
+import User from '../../db/models/user.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
