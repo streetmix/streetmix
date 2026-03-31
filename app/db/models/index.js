@@ -1,10 +1,10 @@
 import { Sequelize, DataTypes } from 'sequelize'
 import config from '../config/config.js'
-import Sequence from './sequence.js'
-import Street from './street.js'
+import Sequence from './sequence.ts'
+import Street from './street.ts'
 import User from './user.ts'
-import UserConnections from './userconnections.js'
-import Vote from './vote.js'
+import UserConnections from './userconnections.ts'
+import Vote from './vote.ts'
 
 const configEnv = config[process.env.NODE_ENV]
 const db = {}
