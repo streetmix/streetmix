@@ -86,7 +86,7 @@
     "@types/react-transition-group": "4.4.12",
     "@types/seedrandom": "3.0.8",
     "@types/webpack-env": "1.18.8",
-    "happy-dom": "20.8.8",
+    "happy-dom": "20.8.9",
     "msw": "2.12.14",
     "postcss": "8.5.8",
     "postcss-nesting": "14.0.0",
