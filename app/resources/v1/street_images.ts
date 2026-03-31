@@ -7,10 +7,13 @@ import models from '../../db/models/index.js'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
-export async function post(req, res) {
+export async function post(req: AuthedRequest, res: Response) {
   let json
 
   // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
@@ -111,7 +114,7 @@ export async function post(req, res) {
     res.status(201).json(thumbnail)
   }
 
-  const handleUploadStreetThumbnail = async function (publicId) {
+  const handleUploadStreetThumbnail = async function (publicId: string) {
     if (!publicId) {
       res
         .status(400)
@@ -203,7 +206,7 @@ export async function post(req, res) {
   }
 }
 
-export async function del(req, res) {
+export async function del(req: AuthedRequest, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -280,7 +283,7 @@ export async function del(req, res) {
   })
 }
 
-export async function get(req, res) {
+export async function get(req: AuthedRequest, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return

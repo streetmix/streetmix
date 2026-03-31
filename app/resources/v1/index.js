@@ -1,5 +1,5 @@
 export * as geo from './geo.js'
-export * as streetImages from './street_images.js'
+export * as streetImages from './street_images.ts'
 export * as streetRemixes from './street_remixes.js'
 export * as streets from './streets.js'
 export * as translate from './translate.js'
