@@ -38,9 +38,9 @@ export async function get(req: AuthedRequest, res: Response) {
   // If requesting user is logged in, permission granted to receive cloudinary signature.
   let signature
   try {
-    signature = await cloudinary.utils.api_sign_request(
+    signature = await cloudinary.v2.utils.api_sign_request(
       query,
-      process.env.CLOUDINARY_API_SECRET
+      process.env.CLOUDINARY_API_SECRET ?? ''
     )
   } catch (error) {
     logger.error(error)
