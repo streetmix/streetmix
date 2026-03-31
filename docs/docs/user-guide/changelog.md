@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## March 31, 2026
+
+### 🚧 Known issues
+
+- We identified an issue that prevented the "My streets" gallery from loading for users with very many hundreds of streets. As a temporary workaround, the "My streets" gallery will only display the most recent 100 streets. A more long-term solution is in progress.
+
 ## March 26, 2026
 
 ### 🐛 Bug fixes
