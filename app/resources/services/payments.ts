@@ -1,9 +1,11 @@
 import * as fs from 'node:fs/promises'
 
-import User from '../../db/models/user.ts'
+import models from '../../db/models/index.js'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
+
+const { User } = models
 
 const roles = JSON.parse(
   await fs.readFile(new URL('../../data/user_roles.json', import.meta.url))
