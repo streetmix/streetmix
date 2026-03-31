@@ -16,7 +16,7 @@ import { initCloudinary } from './app/lib/cloudinary.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.ts'
-import serviceRoutes from './app/service_routes.js'
+import serviceRoutes from './app/service_routes.ts'
 import { logger } from './app/lib/logger.ts'
 import { jwtCheck } from './app/authentication.ts'
 
@@ -242,7 +242,7 @@ if (process.env.NODE_ENV !== 'production') {
         version: process.env.npm_package_version,
       },
     },
-    apis: ['app/api_routes.ts', 'app/service_routes.js'],
+    apis: ['app/api_routes.ts', 'app/service_routes.ts'],
   }
   const displayOptions = {
     customCss: '.swagger-ui .topbar { display: none }',
