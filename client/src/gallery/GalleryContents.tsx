@@ -85,6 +85,11 @@ export function GalleryContents({ user }: GalleryContentsProps) {
               defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
               values={{ count: streets.length }}
             />
+            {streets.length >= 100 && (
+              <p style={{ margin: 0, fontSize: '0.5em' }}>
+                Showing most recent streets only
+              </p>
+            )}
           </div>
         )}
       </div>
