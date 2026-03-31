@@ -3,9 +3,10 @@ import cloudinary from 'cloudinary'
 import User from '../../db/models/user.js'
 import { logger } from '../../lib/logger.ts'
 
-import type { Request, Response } from 'express'
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
 
-export async function get(req: Request, res: Response) {
+export async function get(req: AuthedRequest, res: Response) {
   const query = req.query
 
   if (!req.auth?.sub) {
@@ -34,13 +35,19 @@ export async function get(req: Request, res: Response) {
     return
   }
 
-  // If requesting user is logged in, permission granted to receive cloudinary signature.
+  // If requesting user is logged in, permission granted to receive cloudinary
+  // signature.
+  const apiSecret = process.env.CLOUDINARY_API_SECRET
+
+  if (!apiSecret) {
+    logger.error('CLOUDINARY_API_SECRET is not configured.')
+    res.status(500).json({ status: 500, msg: 'Server misconfiguration.' })
+    return
+  }
+
   let signature
   try {
-    signature = await cloudinary.utils.api_sign_request(
-      query,
-      process.env.CLOUDINARY_API_SECRET
-    )
+    signature = await cloudinary.v2.utils.api_sign_request(query, apiSecret)
   } catch (error) {
     logger.error(error)
   }

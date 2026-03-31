@@ -7,10 +7,13 @@ import models from '../../db/models/index.js'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
-export async function post(req, res) {
+export async function post(req: AuthedRequest, res: Response) {
   let json
 
   // The request payload is a stringified JSON due to the data URL for the street thumbnail being too large.
@@ -111,7 +114,9 @@ export async function post(req, res) {
     res.status(201).json(thumbnail)
   }
 
-  const handleUploadStreetThumbnail = async function (publicId) {
+  const handleUploadStreetThumbnail = async function (
+    publicId: string | undefined
+  ) {
     if (!publicId) {
       res
         .status(400)
@@ -203,7 +208,7 @@ export async function post(req, res) {
   }
 }
 
-export async function del(req, res) {
+export async function del(req: AuthedRequest, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -239,6 +244,14 @@ export async function del(req, res) {
   // 3) Verify that street is owned by logged in user.
   let street
 
+  if (
+    req.params.street_id === 'DEFAULT_STREET' ||
+    req.params.street_id === 'EMPTY_STREET'
+  ) {
+    res.status(400).json({ status: 400, msg: 'Cannot delete stock thumbnail.' })
+    return
+  }
+
   try {
     street = await Street.findOne({ where: { id: req.params.street_id } })
   } catch (error) {
@@ -272,7 +285,7 @@ export async function del(req, res) {
   })
 }
 
-export async function get(req, res) {
+export async function get(req: AuthedRequest, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return
@@ -282,11 +295,21 @@ export async function get(req, res) {
   const streetId = req.params.street_id
   let street
 
+  // Temporarily return 404 because we don't have stock images prepared.
+  if (
+    req.params.street_id === 'DEFAULT_STREET' ||
+    req.params.street_id === 'EMPTY_STREET'
+  ) {
+    res.status(404).json({ status: 404, msg: 'Could not find street image.' })
+    return
+  }
+
   try {
     street = await Street.findOne({ where: { id: streetId } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding street.' })
+    return
   }
 
   let resource
@@ -345,15 +368,18 @@ export async function get(req, res) {
   // Fetch image from cloudinary and send to client
   try {
     res.set('Content-Type', 'image/png')
-    axios({
+
+    const response = await axios({
       method: 'get',
       url: resource.url,
       responseType: 'stream',
-    }).then((response) => {
-      response.data.pipe(res)
     })
+
+    response.data.pipe(res)
   } catch (err) {
     logger.error(err)
     res.status(500).json({ status: 500, msg: 'Could not fetch street image.' })
   }
+
+  return
 }
