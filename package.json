@@ -69,7 +69,7 @@
     "packageExports": true
   },
   "dependencies": {
-    "axios": "1.13.6",
+    "axios": "1.14.0",
     "axios-retry": "4.5.0",
     "cloudinary": "2.9.0",
     "compression": "1.8.1",
@@ -85,7 +85,7 @@
     "js-yaml": "4.1.1",
     "jwks-rsa": "4.0.1",
     "nanoid": "5.1.7",
-    "newrelic": "13.17.0",
+    "newrelic": "13.18.0",
     "nodemon": "3.1.14",
     "papaparse": "5.5.3",
     "passport": "0.7.0",
@@ -116,7 +116,7 @@
     "@types/passport": "1.0.17",
     "@types/svg-sprite": "0.0.39",
     "@types/vinyl": "2.0.12",
-    "@vitest/coverage-v8": "4.1.1",
+    "@vitest/coverage-v8": "4.1.2",
     "axios-mock-adapter": "2.1.0",
     "concurrently": "9.2.1",
     "cypress": "15.13.0",
@@ -135,7 +135,7 @@
     "supertest": "7.2.2",
     "tsx": "4.21.0",
     "typescript": "6.0.2",
-    "typescript-eslint": "8.57.2",
-    "vitest": "4.1.1"
+    "typescript-eslint": "8.58.0",
+    "vitest": "4.1.2"
   }
 }
