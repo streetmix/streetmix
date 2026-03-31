@@ -114,7 +114,9 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(201).json(thumbnail)
   }
 
-  const handleUploadStreetThumbnail = async function (publicId: string) {
+  const handleUploadStreetThumbnail = async function (
+    publicId: string | undefined
+  ) {
     if (!publicId) {
       res
         .status(400)
@@ -366,15 +368,18 @@ export async function get(req: AuthedRequest, res: Response) {
   // Fetch image from cloudinary and send to client
   try {
     res.set('Content-Type', 'image/png')
-    axios({
+
+    const response = await axios({
       method: 'get',
       url: resource.url,
       responseType: 'stream',
-    }).then((response) => {
-      response.data.pipe(res)
     })
+
+    response.data.pipe(res)
   } catch (err) {
     logger.error(err)
     res.status(500).json({ status: 500, msg: 'Could not fetch street image.' })
   }
+
+  return
 }
