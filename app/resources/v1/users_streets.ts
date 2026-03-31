@@ -2,9 +2,12 @@ import models from '../../db/models/index.js'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
 import { logger } from '../../lib/logger.ts'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User, Street } = models
 
-function handleErrors(error, res) {
+function handleErrors(error, res: Response) {
   switch (error) {
     case ERRORS.USER_NOT_FOUND:
       res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -36,14 +39,14 @@ function handleErrors(error, res) {
   }
 } // END function - handleErrors
 
-export async function get(req, res) {
+export async function get(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
 
-  const findUserStreets = async function (userId) {
+  const findUserStreets = async function (userId: string) {
     let streets
     try {
       streets = await Street.findAll({
@@ -127,7 +130,7 @@ export async function get(req, res) {
   }
 }
 
-export async function del(req, res) {
+export async function del(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
