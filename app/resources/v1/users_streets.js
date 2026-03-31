@@ -49,7 +49,7 @@ export async function get(req, res) {
       streets = await Street.findAll({
         where: { creatorId: userId, status: 'ACTIVE' },
         order: [['updatedAt', 'DESC']],
-        limit: 100,
+        limit: 250,
       })
     } catch (err) {
       logger.error(err)
