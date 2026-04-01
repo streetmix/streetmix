@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from 'sequelize'
+import { Sequelize, DataTypes, type Model, type ModelStatic } from 'sequelize'
 
 import config from '../config/config.js'
 import Sequence from './sequence.ts'
@@ -7,10 +7,18 @@ import User from './user.ts'
 import UserConnections from './userconnections.ts'
 import Vote from './vote.ts'
 
-const configEnv = config[process.env.NODE_ENV]
-const db = {}
+type DbModel = ModelStatic<Model> & {
+  associate?: (models: Db) => void
+}
+export type Db = Record<string, DbModel>
+type ModelDefiner = (
+  sequelize: Sequelize,
+  dataTypes: typeof DataTypes
+) => DbModel
 
-let sequelize
+const db: Db = {}
+const configEnv = config[process.env.NODE_ENV ?? 'development']
+let sequelize: Sequelize
 
 // When we have a database connection URL string, it must
 // be passed in as the first argument to the Sequelize constructor.
@@ -31,7 +39,7 @@ const models = {
   User,
   UserConnections,
   Vote,
-}
+} satisfies Record<string, ModelDefiner>
 
 Object.values(models).forEach((modelDefiner) => {
   const model = modelDefiner(sequelize, DataTypes)
@@ -49,7 +57,5 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db)
   }
 })
-
-db.sequelize = sequelize
 
 export default db

@@ -7,6 +7,8 @@ import {
   type CreationOptional,
 } from 'sequelize'
 
+import type { Db } from './index.ts'
+
 const MAX_COMMENT_LENGTH = 280
 
 class Vote extends Model<InferAttributes<Vote>, InferCreationAttributes<Vote>> {
@@ -20,7 +22,7 @@ class Vote extends Model<InferAttributes<Vote>, InferCreationAttributes<Vote>> {
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
-  static associate(models: unknown) {
+  static associate(models: Db) {
     models.Vote.belongsTo(models.User, {
       foreignKey: 'voterId',
       targetKey: 'id',

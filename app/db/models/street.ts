@@ -7,6 +7,8 @@ import {
   type CreationOptional,
 } from 'sequelize'
 
+import type { Db } from './index.ts'
+
 class Street extends Model<
   InferAttributes<Street>,
   InferCreationAttributes<Street>
@@ -23,7 +25,7 @@ class Street extends Model<
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
-  static associate(models: unknown) {
+  static associate(models: Db) {
     models.Street.belongsTo(models.User, {
       foreignKey: 'creatorId',
       targetKey: 'id',
