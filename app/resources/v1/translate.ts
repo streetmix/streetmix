@@ -1,6 +1,7 @@
 import * as fs from 'node:fs/promises'
 import { getFromTransifex } from '@streetmix/i18n'
 
+import { isNodeError } from '../../lib/errors.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
@@ -26,7 +27,7 @@ async function getLocalTranslation(
   } catch (err) {
     logger.error(err)
 
-    if (err.code === 'ENOENT') {
+    if (isNodeError(err) && err.code === 'ENOENT') {
       res.status(404).json({
         status: 404,
         msg: 'No translation found with locale code: ' + locale,
