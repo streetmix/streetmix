@@ -12,7 +12,7 @@ const TEST_USER_AUTH0_ONE = 'foo|123'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-vi.mock('../../../db/models.js')
+vi.mock('../../../db/models.ts')
 vi.mock('../../../lib/logger.ts')
 
 const TEST_COMMENT = 'some nice comment goes here :)'

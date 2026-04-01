@@ -7,7 +7,7 @@ import * as users from '../users.ts'
 import type { Response, NextFunction } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-vi.mock('../../../db/models.js')
+vi.mock('../../../db/models.ts')
 vi.mock('../../../lib/logger.ts')
 
 // Fake user info to test the API

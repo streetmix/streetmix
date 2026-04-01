@@ -7,7 +7,7 @@ import * as session from '../user_session.ts'
 import type { Response, NextFunction } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-vi.mock('../../../db/models.js')
+vi.mock('../../../db/models.ts')
 vi.mock('../../../lib/logger.ts')
 vi.mock('../../../lib/auth0.ts', () => {
   return {
