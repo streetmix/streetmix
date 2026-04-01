@@ -44,6 +44,7 @@ describe('StreetEditable', () => {
           },
           segments: [segment],
           width: 120,
+          remainingWidth: 120,
           units: SETTINGS_UNITS_METRIC,
           showAnalytics: true,
         }

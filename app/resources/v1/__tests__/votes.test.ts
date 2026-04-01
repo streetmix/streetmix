@@ -1,34 +1,42 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import { setupMockServer } from '../../../test/setup-mock-server'
-import * as votes from '../votes'
+
+import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import * as votes from '../votes.ts'
+
+import type { Response, NextFunction } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
 
 const TEST_USER_ONE = 'user1'
 const TEST_USER_AUTH0_ONE = 'foo|123'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-vi.mock('../../../db/models')
-vi.mock('../../../lib/logger')
+vi.mock('../../../db/models.ts')
+vi.mock('../../../lib/logger.ts')
 
 const TEST_COMMENT = 'some nice comment goes here :)'
 const TEST_COMMENT_MAX_LEN =
   'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mass'
 
 const mockUser = {
-  sub: TEST_USER_AUTH0_ONE
+  sub: TEST_USER_AUTH0_ONE,
 }
 
 const MOCK_VOTE_TWO = {
   streetId: TEST_STREET_TWO,
-  score: 0
+  score: 0,
 }
 
 const voteByUser = 'vote1'
 const voteByOtherUser = 'vote2'
 
 const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (req, res, next) => {
+const mockUserMiddleware = (
+  req: AuthedRequest,
+  res: Response,
+  next: NextFunction
+) => {
   req.auth = jwtMock()
   next()
 }
@@ -50,6 +58,7 @@ describe('api/v1/votes', function () {
         expect(ballots.length).toEqual(1)
         const { id } = ballots[0]
         expect(id).toEqual(TEST_VOTE_ONE)
+        return
       })
   })
 
@@ -72,12 +81,15 @@ describe('api/v1/votes', function () {
           .send(
             JSON.stringify({
               id: ballot.id,
-              comment: TEST_COMMENT
+              comment: TEST_COMMENT,
             })
           )
           .then((commentResponse) => {
             expect(commentResponse.statusCode).toEqual(200)
+            return
           })
+
+        return
       })
   })
 
@@ -89,11 +101,12 @@ describe('api/v1/votes', function () {
       .send(
         JSON.stringify({
           id: voteByUser,
-          comment: TEST_COMMENT_MAX_LEN
+          comment: TEST_COMMENT_MAX_LEN,
         })
       )
       .then((response) => {
         expect(response.statusCode).toEqual(413)
+        return
       })
   })
 
@@ -105,11 +118,12 @@ describe('api/v1/votes', function () {
       .send(
         JSON.stringify({
           id: voteByOtherUser,
-          comment: TEST_COMMENT
+          comment: TEST_COMMENT,
         })
       )
       .then((response) => {
         expect(response.statusCode).toEqual(403)
+        return
       })
   })
 

@@ -4,7 +4,7 @@ import { Strategy as PatreonStrategy } from 'passport-patreon'
 
 import { logger } from '../../../lib/logger.ts'
 import { appURL } from '../../../lib/url.ts'
-import models from '../../../db/models/index.js'
+import models from '../../../db/models/index.ts'
 import { findUser, addUserConnection } from './helpers.ts'
 
 import type { Request, Response, NextFunction } from 'express'
