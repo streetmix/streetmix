@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes, type Model, type ModelStatic } from 'sequelize'
 
-import config from '../config/config.js'
+import config from '../config/config.ts'
 import Sequence from './sequence.ts'
 import Street from './street.ts'
 import User from './user.ts'
@@ -17,15 +17,14 @@ type ModelDefiner = (
 ) => DbModel
 
 const db: Db = {}
-const configEnv = config[process.env.NODE_ENV ?? 'development']
+const configEnv = config[process.env.NODE_ENV || 'development']
 let sequelize: Sequelize
 
-// When we have a database connection URL string, it must
-// be passed in as the first argument to the Sequelize constructor.
-// Although sequelize-cli documents the `url` property as a valid
-// option, Sequelize core does not use it.
-if (configEnv.url) {
-  sequelize = new Sequelize(configEnv.url, configEnv)
+// If there is a `DATABASE_URL` environment variable present, that will be used
+// to connect to PostgreSQL, otherwise, use the `database`, `host`, and `port`
+// properties in configuration.
+if (process.env.DATABASE_URL) {
+  sequelize = new Sequelize(process.env.DATABASE_URL, configEnv)
 } else {
   sequelize = new Sequelize(configEnv)
 }
