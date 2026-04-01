@@ -23,6 +23,14 @@ const nextButton = {
   },
 }
 
+const backButton = {
+  classes: 'btn btn-tertiary',
+  text: 'Back',
+  action() {
+    ;(this as unknown as Tour).back()
+  },
+}
+
 const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
@@ -31,6 +39,7 @@ const steps: StepOptions[] = [
       element: '.coastmix-controls-button',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
     advanceOn: {
       event: 'click',
@@ -58,6 +67,7 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="sea-level-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     floatingUIOptions: {
       middleware: [offset({ mainAxis: 0, crossAxis: 10 })],
     },
@@ -65,7 +75,7 @@ const steps: StepOptions[] = [
       await waitForElement('.coastmix-controls')
       await waitFor(300)
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
   },
   {
@@ -81,7 +91,8 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="storm-surge-control"]',
       on: 'right',
     },
-    buttons: [nextButton],
+    highlightClass: 'tour-highlight',
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
     // Make the position of this a lil prettier, because the control is not
     // vertically centered
@@ -97,7 +108,9 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="flood-direction-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     buttons: [
+      backButton,
       {
         ...nextButton,
         action() {
@@ -117,6 +130,7 @@ const steps: StepOptions[] = [
       element: '[data-slice-index="5"]',
       on: 'bottom',
     },
+    highlightClass: 'tour-highlight',
     scrollTo: {
       behavior: 'smooth',
       inline: 'center',
@@ -126,6 +140,7 @@ const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-slice-index="5"]',
     },
+    buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
@@ -140,11 +155,12 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="elevation-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
       await waitFor(300)
     },
-    buttons: [nextButton],
+    buttons: [backButton, nextButton],
     ...modalOverlayOptions,
   },
   {
@@ -157,7 +173,9 @@ const steps: StepOptions[] = [
       element: '[data-tour-id="slope-control"]',
       on: 'right',
     },
+    highlightClass: 'tour-highlight',
     buttons: [
+      backButton,
       {
         ...nextButton,
         action() {
