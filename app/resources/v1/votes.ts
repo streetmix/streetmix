@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import Sequelize from 'sequelize'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'

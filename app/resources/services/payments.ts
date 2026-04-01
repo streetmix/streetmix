@@ -1,6 +1,6 @@
 import * as fs from 'node:fs/promises'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'

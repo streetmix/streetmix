@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'

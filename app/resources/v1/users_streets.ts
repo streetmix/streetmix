@@ -1,4 +1,4 @@
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
 import { logger } from '../../lib/logger.ts'
 

@@ -1,4 +1,4 @@
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
 import { ERRORS } from '../../lib/util.js'

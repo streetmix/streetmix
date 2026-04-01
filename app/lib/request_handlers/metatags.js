@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
