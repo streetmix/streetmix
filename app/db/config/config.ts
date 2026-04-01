@@ -41,7 +41,9 @@ const dbConfig: Options = {
 // properties in configuration. These will be set using the `PG*` environment
 // variables. All three must be present or a default value will be assigned.
 // These values are only set if `DATABASE_URL` is undefined.
-if (process.env.DATABASE_URL === undefined) {
+if (process.env.DATABASE_URL) {
+  dbConfig.url = process.env.DATABASE_URL
+} else {
   dbConfig.database = process.env.PGDATABASE || 'streetmix_dev'
   dbConfig.host = process.env.PGHOST || '127.0.0.1'
   dbConfig.port = Number(process.env.PGPORT) || 5432
