@@ -4,12 +4,13 @@ import { getFromTransifex } from '@streetmix/i18n'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
+import type { TranslationRecord } from '@streetmix/types'
 
 async function getLocalTranslation(
   res: Response,
   locale: string,
   resource: string
-) {
+): Promise<TranslationRecord> {
   const translationFile =
     process.cwd() +
     '/packages/i18n/locales/' +
@@ -18,8 +19,10 @@ async function getLocalTranslation(
     resource +
     '.json'
 
+  let contents
   try {
-    return await fs.readFile(translationFile, 'utf8')
+    const file = await fs.readFile(translationFile, 'utf8')
+    contents = JSON.parse(file)
   } catch (err) {
     logger.error(err)
 
@@ -35,13 +38,15 @@ async function getLocalTranslation(
       })
     }
   }
+
+  return contents
 }
 
 function sendSuccessResponse(
   res: Response,
   locale: string,
   resource: string,
-  translation: string
+  translation: TranslationRecord
 ) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
@@ -49,7 +54,7 @@ function sendSuccessResponse(
     'Cache-Control': 'max-age=86400',
   })
 
-  res.status(200).send(translation)
+  res.status(200).json(translation)
 }
 
 export async function get(req: Request, res: Response) {

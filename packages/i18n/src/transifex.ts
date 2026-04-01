@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { transifexApi } from '@transifex/api'
 
+import type { TranslationRecord } from '@streetmix/types'
+
 const ORGANIZATION_SLUG = 'streetmix'
 const PROJECT_SLUG = 'streetmix'
 const ERROR_MESSAGE =
@@ -10,7 +12,7 @@ export async function getFromTransifex(
   locale: string,
   resourceSlug: string,
   token?: string
-): Promise<string> {
+): Promise<TranslationRecord> {
   if (token === undefined || token === '') {
     // Formerly used logger, but that's not available here
     console.error(ERROR_MESSAGE)
