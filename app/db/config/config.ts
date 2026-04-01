@@ -42,6 +42,8 @@ const dbConfig: Options = {
 // variables. All three must be present or a default value will be assigned.
 // These values are only set if `DATABASE_URL` is undefined.
 if (process.env.DATABASE_URL) {
+  // @ts-expect-error This `url` property is used by sequelize-cli, but is not
+  // in Sequelize core
   dbConfig.url = process.env.DATABASE_URL
 } else {
   dbConfig.database = process.env.PGDATABASE || 'streetmix_dev'
