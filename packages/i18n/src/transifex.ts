@@ -1,16 +1,18 @@
 import axios from 'axios'
 import { transifexApi } from '@transifex/api'
 
+import type { TranslationRecord } from '@streetmix/types'
+
 const ORGANIZATION_SLUG = 'streetmix'
 const PROJECT_SLUG = 'streetmix'
 const ERROR_MESSAGE =
   'Please provide a Transifex API token to use translation feature.'
 
-export async function getFromTransifex (
+export async function getFromTransifex(
   locale: string,
   resourceSlug: string,
   token?: string
-): Promise<unknown> {
+): Promise<TranslationRecord> {
   if (token === undefined || token === '') {
     // Formerly used logger, but that's not available here
     console.error(ERROR_MESSAGE)
@@ -28,7 +30,7 @@ export async function getFromTransifex (
 
   // Get organization
   const organization = await transifexApi.Organization.get({
-    slug: ORGANIZATION_SLUG
+    slug: ORGANIZATION_SLUG,
   })
 
   // Get projects for the organization
@@ -54,7 +56,7 @@ export async function getFromTransifex (
     await transifexApi.ResourceTranslationsAsyncDownload.download({
       mode: 'onlytranslated',
       resource,
-      language
+      language,
     })
   const response = await axios.get(url)
 

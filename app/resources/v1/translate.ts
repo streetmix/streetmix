@@ -1,9 +1,17 @@
 import * as fs from 'node:fs/promises'
 import { getFromTransifex } from '@streetmix/i18n'
 
+import { isNodeError } from '../../lib/errors.ts'
 import { logger } from '../../lib/logger.ts'
 
-async function getLocalTranslation(res, locale, resource) {
+import type { Request, Response } from 'express'
+import type { TranslationRecord } from '@streetmix/types'
+
+async function getLocalTranslation(
+  res: Response,
+  locale: string,
+  resource: string
+): Promise<TranslationRecord> {
   const translationFile =
     process.cwd() +
     '/packages/i18n/locales/' +
@@ -12,12 +20,14 @@ async function getLocalTranslation(res, locale, resource) {
     resource +
     '.json'
 
+  let contents
   try {
-    return await fs.readFile(translationFile, 'utf8')
+    const file = await fs.readFile(translationFile, 'utf8')
+    contents = JSON.parse(file)
   } catch (err) {
     logger.error(err)
 
-    if (err.code === 'ENOENT') {
+    if (isNodeError(err) && err.code === 'ENOENT') {
       res.status(404).json({
         status: 404,
         msg: 'No translation found with locale code: ' + locale,
@@ -29,19 +39,26 @@ async function getLocalTranslation(res, locale, resource) {
       })
     }
   }
+
+  return contents
 }
 
-function sendSuccessResponse(res, locale, resource, translation) {
+function sendSuccessResponse(
+  res: Response,
+  locale: string,
+  resource: string,
+  translation: TranslationRecord
+) {
   res.set({
     'Content-Type': 'application/json; charset=utf-8',
     Location: '/api/v1/translate/' + locale + '/' + resource,
     'Cache-Control': 'max-age=86400',
   })
 
-  res.status(200).send(translation)
+  res.status(200).json(translation)
 }
 
-export async function get(req, res) {
+export async function get(req: Request, res: Response) {
   const locale = req.params.locale_code
   const resource = req.params.resource_name
 

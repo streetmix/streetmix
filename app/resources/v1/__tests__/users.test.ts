@@ -1,10 +1,14 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import { setupMockServer } from '../../../test/setup-mock-server'
-import * as users from '../users'
 
-vi.mock('../../../db/models')
-vi.mock('../../../lib/logger')
+import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import * as users from '../users.ts'
+
+import type { Response, NextFunction } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
+vi.mock('../../../db/models.ts')
+vi.mock('../../../lib/logger.ts')
 
 // Fake user info to test the API
 const emailUser = {
@@ -12,20 +16,24 @@ const emailUser = {
     nickname: 'user2',
     auth0Id: 'email|1111',
     email: 'test@test.com',
-    profileImageUrl: 'https://avatar.com/picture.png'
-  }
+    profileImageUrl: 'https://avatar.com/picture.png',
+  },
 }
 
 const mockUser = {
-  sub: 'foo|123'
+  sub: 'foo|123',
 }
 
 const mockAdminUser = {
-  sub: 'admin|789'
+  sub: 'admin|789',
 }
 
 const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (req, res, next) => {
+const mockUserMiddleware = (
+  req: AuthedRequest,
+  res: Response,
+  next: NextFunction
+) => {
   req.auth = jwtMock()
   next()
 }
@@ -42,6 +50,7 @@ describe('POST api/v1/users', function () {
       .send(JSON.stringify(emailUser))
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+        return
       })
   })
 
@@ -52,6 +61,7 @@ describe('POST api/v1/users', function () {
       .send('')
       .then((response) => {
         expect(response.statusCode).toEqual(400)
+        return
       })
   })
 })
@@ -67,6 +77,7 @@ describe('GET api/v1/users', () => {
       .get('/api/v1/users')
       .then((response) => {
         expect(response.statusCode).toEqual(200)
+        return
       })
   })
 
@@ -76,6 +87,7 @@ describe('GET api/v1/users', () => {
       .get('/api/v1/users')
       .then((response) => {
         expect(response.statusCode).toEqual(401)
+        return
       })
   })
 })

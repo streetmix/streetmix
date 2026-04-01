@@ -3,7 +3,7 @@ import cloudinary from 'cloudinary'
 import { runTestCanvas, StreetImageExportSchema } from '@streetmix/export-image'
 import { z } from 'zod'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 

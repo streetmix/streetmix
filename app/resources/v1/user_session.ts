@@ -1,6 +1,9 @@
 import { logger } from '../../lib/logger.ts'
 
-export async function del(req, res) {
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
+export async function del(req: AuthedRequest, res: Response) {
   // In order to sign out, make sure the user's session cookies
   // are part of the request.
   if (!req.auth) {
@@ -9,7 +12,7 @@ export async function del(req, res) {
   }
 
   try {
-    const cookieOptions = { maxAge: 0, sameSite: 'Strict' }
+    const cookieOptions = { maxAge: 0, sameSite: 'strict' as const }
     res.cookie('refresh_token', '', cookieOptions)
     res.cookie('login_token', '', cookieOptions)
     res.cookie('access_token', '', cookieOptions)

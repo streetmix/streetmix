@@ -163,18 +163,20 @@ export function GeotagDialog() {
     }
 
     useMapEvents({
-      click(event: L.LeafletMouseEvent) {
+      async click(event: L.LeafletMouseEvent) {
         if (!geocodeAvailable) return
 
         const latlng = event.latlng
         map.flyTo(latlng)
-        reverseGeocode(latlng).then((res) => {
-          const latlng = {
-            lat: res.features[0].geometry.coordinates[1],
-            lng: res.features[0].geometry.coordinates[0],
-          }
-          updateMap(latlng, res.features[0].properties)
-        })
+
+        const response = await reverseGeocode(latlng)
+        updateMap(
+          {
+            lat: response.features[0].geometry.coordinates[1],
+            lng: response.features[0].geometry.coordinates[0],
+          },
+          response.features[0].properties
+        )
       },
       locationfound(event: L.LocationEvent) {
         if (locationRequested) return
@@ -195,11 +197,11 @@ export function GeotagDialog() {
     setRenderPopup(false)
   }
 
-  const handleMarkerDragEnd = (event: L.LeafletEvent) => {
+  const handleMarkerDragEnd = async (event: L.LeafletEvent) => {
     const latlng = event.target.getLatLng()
-    reverseGeocode(latlng).then((res) => {
-      updateMap(latlng, res.features[0].properties)
-    })
+    const response = await reverseGeocode(latlng)
+
+    updateMap(latlng, response.features[0].properties)
   }
 
   const handleConfirmLocation = (_event: React.MouseEvent) => {

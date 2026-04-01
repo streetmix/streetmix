@@ -1,13 +1,16 @@
 import { randomUUID } from 'node:crypto'
 
-import models from '../../db/models/index.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
+import type { Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
+
 const { User, Street, Sequence } = models
 
-export async function post(req, res) {
+export async function post(req: AuthedRequest, res: Response) {
   let body
   const street = {}
   street.id = randomUUID()
@@ -167,7 +170,7 @@ export async function post(req, res) {
   }
 }
 
-export async function del(req, res) {
+export async function del(req: AuthedRequest, res: Response) {
   if (!req.auth) {
     res.status(401).end()
     return
@@ -255,7 +258,7 @@ export async function del(req, res) {
     .catch(handleErrors)
 } // END function - export delete
 
-export async function get(req, res) {
+export async function get(req: AuthedRequest, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -313,7 +316,7 @@ export async function get(req, res) {
   res.status(200).json(streetJson)
 } // END function - export get
 
-export async function find(req, res) {
+export async function find(req: AuthedRequest, res: Response) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
   const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
@@ -453,7 +456,7 @@ export async function find(req, res) {
   }
 }
 
-export async function put(req, res) {
+export async function put(req: AuthedRequest, res: Response) {
   let body
 
   if (req.body) {

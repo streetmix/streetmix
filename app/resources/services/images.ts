@@ -1,10 +1,12 @@
 import cloudinary from 'cloudinary'
 
-import User from '../../db/models/user.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
+
+const { User } = models
 
 export async function get(req: AuthedRequest, res: Response) {
   const query = req.query

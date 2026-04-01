@@ -1,4 +1,4 @@
-import models from '../../../db/models/index.js'
+import models from '../../../db/models/index.ts'
 
 const { User, UserConnections, sequelize } = models
 

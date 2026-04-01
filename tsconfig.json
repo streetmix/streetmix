@@ -6,7 +6,7 @@
     "module": "nodenext",
     "resolveJsonModule": true,
     "rewriteRelativeImportExtensions": true,
-    "types": ["node"],
+    "types": ["node", "vitest/globals"],
 
     /* Emit */
     "noEmit": true, // Processed by Node

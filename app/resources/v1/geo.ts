@@ -1,7 +1,11 @@
-import Street from '../../db/models/street.js'
+import models from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
-export async function get(req, res) {
+import type { Request, Response } from 'express'
+
+const { Street } = models
+
+export async function get(req: Request, res: Response) {
   let results
 
   try {
