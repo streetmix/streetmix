@@ -40,11 +40,11 @@ const models = {
   Vote,
 } satisfies Record<string, ModelDefiner>
 
-Object.values(models).forEach((modelDefiner) => {
+Object.entries(models).forEach(([name, modelDefiner]) => {
   const model = modelDefiner(sequelize, DataTypes)
 
   if (!model) {
-    throw new Error(`missing model for file: ${modelDefiner}`)
+    throw new Error(`missing model for file: ${name}`)
   }
 
   db[model.name] = model
