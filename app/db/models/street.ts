@@ -7,9 +7,10 @@ import {
   type CreationOptional,
 } from 'sequelize'
 
+import type { StreetData } from '@streetmix/types'
 import type { Db } from './index.ts'
 
-class Street extends Model<
+export class Street extends Model<
   InferAttributes<Street>,
   InferCreationAttributes<Street>
 > {
@@ -18,7 +19,7 @@ class Street extends Model<
   declare status: CreationOptional<'ACTIVE' | 'DELETED'>
   declare name: CreationOptional<string>
   declare creatorId: CreationOptional<string>
-  declare data: CreationOptional<unknown>
+  declare data: CreationOptional<StreetData>
   declare creatorIp: CreationOptional<string>
   declare originalStreetId: CreationOptional<string>
   declare clientUpdatedAt: CreationOptional<Date>
