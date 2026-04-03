@@ -73,6 +73,11 @@ const userSlice = createSlice({
     setUserProfile(state, action: PayloadAction<UserProfile>) {
       if (state.signInData) {
         state.signInData.details = action.payload
+
+        // QUICK FIX. A race condition is clobbering subscriber status elsewhere.
+        if (action.payload.roles?.includes(USER_ROLES.SUBSCRIBER_1.value)) {
+          state.isSubscriber = true
+        }
       }
     },
 
