@@ -34,8 +34,9 @@
     margin-bottom: 0.5em;
   }
 
-  p {
+  > div {
     font-size: 1.2rem;
+    margin: 1em 0;
   }
 }
 
