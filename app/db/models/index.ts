@@ -7,15 +7,13 @@ import User from './user.ts'
 import UserConnections from './userconnections.ts'
 import Vote from './vote.ts'
 
-type DbModel<T extends Model = Model> = ModelStatic<T> & {
+type ModelAssociate = {
   associate?: (models: Db) => void
 }
 
-export type Db = Record<string, DbModel>
+type DbModel<T extends Model = Model> = ModelStatic<T> & ModelAssociate
 
-type ModelDefiner<T extends Model = Model> = (
-  sequelize: Sequelize
-) => DbModel<T>
+export type Db = Record<string, DbModel>
 
 const db: Db = {}
 const configEnv = config[process.env.NODE_ENV || 'development']
@@ -39,7 +37,7 @@ const models = {
   User,
   UserConnections,
   Vote,
-} satisfies Record<string, ModelDefiner>
+}
 
 Object.entries(models).forEach(([name, modelDefiner]) => {
   const model = modelDefiner(sequelize)
@@ -48,7 +46,7 @@ Object.entries(models).forEach(([name, modelDefiner]) => {
     throw new Error(`missing model for file: ${name}`)
   }
 
-  db[model.name] = model
+  db[name] = model
 })
 
 // Set up associations
