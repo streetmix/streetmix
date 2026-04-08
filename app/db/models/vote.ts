@@ -34,28 +34,28 @@ class Vote extends Model<InferAttributes<Vote>, InferCreationAttributes<Vote>> {
   }
 }
 
-export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export default (sequelize: Sequelize) => {
   Vote.init(
     {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
       },
-      data: dataTypes.JSON,
+      data: DataTypes.JSON,
       streetId: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'street_id',
       },
       voterId: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'voter_id',
       },
-      comment: dataTypes.STRING(MAX_COMMENT_LENGTH),
-      submitted: dataTypes.ARRAY(dataTypes.TEXT),
-      score: dataTypes.DOUBLE,
-      createdAt: { type: dataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: dataTypes.DATE, field: 'updated_at' },
+      comment: DataTypes.STRING(MAX_COMMENT_LENGTH),
+      submitted: DataTypes.ARRAY(DataTypes.TEXT),
+      score: DataTypes.DOUBLE,
+      createdAt: { type: DataTypes.DATE, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     },
     {
       sequelize,

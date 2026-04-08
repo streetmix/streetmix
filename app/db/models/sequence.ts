@@ -15,15 +15,15 @@ class Sequence extends Model<
   declare seq: CreationOptional<number>
 }
 
-export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export default (sequelize: Sequelize) => {
   Sequence.init(
     {
       id: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         primaryKey: true,
       },
       seq: {
-        type: dataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         defaultValue: 1,
       },
     },

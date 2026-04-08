@@ -20,30 +20,30 @@ class UserConnections extends Model<
   declare metadata: CreationOptional<unknown>
 }
 
-export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export default (sequelize: Sequelize) => {
   UserConnections.init(
     {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: dataTypes.INTEGER,
+        type: DataTypes.INTEGER,
       },
       user_id: {
         allowNull: false,
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
       },
       provider: {
         allowNull: false,
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
       },
-      provider_user_id: dataTypes.STRING,
+      provider_user_id: DataTypes.STRING,
       deleted: {
-        type: dataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      monetized: dataTypes.BOOLEAN,
-      metadata: dataTypes.JSON,
+      monetized: DataTypes.BOOLEAN,
+      metadata: DataTypes.JSON,
     },
     {
       sequelize,

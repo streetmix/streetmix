@@ -39,42 +39,42 @@ export class Street extends Model<
   }
 }
 
-export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export default (sequelize: Sequelize) => {
   Street.init(
     {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: dataTypes.UUID,
+        type: DataTypes.UUID,
       },
       namespacedId: {
-        type: dataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         field: 'namespaced_id',
       },
       status: {
-        type: dataTypes.ENUM('ACTIVE', 'DELETED'),
+        type: DataTypes.ENUM('ACTIVE', 'DELETED'),
         defaultValue: 'ACTIVE',
       },
-      name: dataTypes.STRING,
+      name: DataTypes.STRING,
       creatorId: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'creator_id',
       },
-      data: dataTypes.JSON,
+      data: DataTypes.JSON,
       creatorIp: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'creator_ip',
       },
       originalStreetId: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'original_street_id',
       },
       clientUpdatedAt: {
-        type: dataTypes.DATE,
+        type: DataTypes.DATE,
         field: 'client_updated_at',
       },
-      createdAt: { type: dataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: dataTypes.DATE, field: 'updated_at' },
+      createdAt: { type: DataTypes.DATE, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     },
     {
       sequelize,

@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, type Model, type ModelStatic } from 'sequelize'
+import { Sequelize, type Model, type ModelStatic } from 'sequelize'
 
 import config from '../config/config.ts'
 import Sequence from './sequence.ts'
@@ -7,14 +7,15 @@ import User from './user.ts'
 import UserConnections from './userconnections.ts'
 import Vote from './vote.ts'
 
-type DbModel = ModelStatic<Model> & {
+type DbModel<T extends Model = Model> = ModelStatic<T> & {
   associate?: (models: Db) => void
 }
+
 export type Db = Record<string, DbModel>
-type ModelDefiner = (
-  sequelize: Sequelize,
-  dataTypes: typeof DataTypes
-) => DbModel
+
+type ModelDefiner<T extends Model = Model> = (
+  sequelize: Sequelize
+) => DbModel<T>
 
 const db: Db = {}
 const configEnv = config[process.env.NODE_ENV || 'development']
@@ -41,7 +42,7 @@ const models = {
 } satisfies Record<string, ModelDefiner>
 
 Object.entries(models).forEach(([name, modelDefiner]) => {
-  const model = modelDefiner(sequelize, DataTypes)
+  const model = modelDefiner(sequelize)
 
   if (!model) {
     throw new Error(`missing model for file: ${name}`)
