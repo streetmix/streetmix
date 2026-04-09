@@ -49,9 +49,11 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
   let isSloped = false
   let allowSlope = false
   if (slice) {
-    const { slope } = getSegmentVariantInfo(slice.type, slice.variantString)
-    allowSlope = slope === 'path' || slope === 'berm'
-    isSloped = allowSlope && slice.slope.on
+    const info = getSegmentVariantInfo(slice.type, slice.variantString)
+    if (!('unknown' in info)) {
+      allowSlope = info.slope === 'path' || info.slope === 'berm'
+      isSloped = allowSlope && slice.slope.on
+    }
   }
 
   return (
