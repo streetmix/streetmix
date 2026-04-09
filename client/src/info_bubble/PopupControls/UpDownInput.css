@@ -11,11 +11,12 @@
   line-height: 22px;
 
   &:hover:not(:focus, :disabled) {
-    border: 2px solid var(--color-turquoise-500);
+    outline: 2px solid var(--color-turquoise-400);
+    outline-offset: -2px;
   }
 
   &:focus {
-    outline-offset: -0;
+    outline-offset: 0;
   }
 }
 
