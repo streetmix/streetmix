@@ -6,12 +6,6 @@
  *    - Mousetrap.js (https://craig.is/killing/mice)
  *    - Keypress.js (http://dmauro.github.io/Keypress/)
  *    - keymaster.js (https://github.com/madrobby/keymaster)
- *
- * @module keypress
- * @requires event-tracking
- * @exports startListening
- * @exports registerKeypress
- * @exports deregisterKeypress
  */
 import { isFocusOnBody } from '../util/focus'
 
@@ -55,8 +49,6 @@ const returnTrue = function () {
 /**
  * Initiates keypress manager. Sets a global event listener on the window.
  * This should only have to be called once, when the application bootstraps.
- *
- * @public
  */
 export function startListening(): void {
   window.addEventListener('keydown', onGlobalKeyDown)
@@ -65,7 +57,6 @@ export function startListening(): void {
 /**
  * Registers a key command listener with the Keypress Manager
  *
- * @public
  * @example
  *    registerKeypress('esc', hide)
  * @example
@@ -224,7 +215,6 @@ export function registerKeypress(
  * Deregisters a key command listener, given matching `commands` and
  * `callback` parameters.
  *
- * @public
  * @example Deregisters all triggers for `shift d`
  *    deregisterKeypress('shift d')
  * @example Deregisters triggers matching callback function `hide` and key `esc`
@@ -282,7 +272,6 @@ export function deregisterKeypress(
 /**
  * Processes commands
  *
- * @private
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
@@ -419,7 +408,6 @@ function onGlobalKeyDown(event: KeyboardEvent): void {
 /**
  * Executes an input's callback function
  *
- * @private
  * @param {object} input - The input object to execute
  * @param {Event} [event] - The browser's `Event` object created when `keydown` is fired
  */
