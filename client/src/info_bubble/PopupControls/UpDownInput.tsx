@@ -166,15 +166,6 @@ export function UpDownInput(props: UpDownInputProps) {
     onClickDown(event)
   }
 
-  function handleInputClick(_event: React.MouseEvent): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    // When we begin editing, set the initial user input value to current
-    setUserInputValue(value === null ? '' : inputValueFormatter(value))
-    setIsEditing(true)
-  }
-
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.target.value
 
@@ -188,75 +179,23 @@ export function UpDownInput(props: UpDownInputProps) {
     }
   }
 
+  function handleInputFocus(event: React.ChangeEvent<HTMLInputElement>): void {
+    // When we begin editing, set the initial user input value to current
+    setUserInputValue(value === null ? '' : inputValueFormatter(value))
+    setIsEditing(true)
+
+    const target = event.target as HTMLInputElement
+    window.setTimeout(() => {
+      target.select()
+    }, 10)
+  }
+
   function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
     setIsHovered(false)
     setIsEditing(false)
 
     if (!allowAutoUpdate) {
       onUpdatedValue(event.target.value)
-    }
-  }
-
-  /**
-   * Necessary to prevent blur event from being called on a mousedown(?)
-   * The observed effect is that if a user is editing/focused on the input,
-   * and they click on it again, the blur event handler is called and the
-   * input value momentarily changes to the unblurred (prettified) value.
-   * Not sure what causes this, but this handler fixes that issue.
-   */
-  function handleInputMouseDown(
-    _event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    setIsEditing(true)
-  }
-
-  /**
-   * On mouse over, UI assumes user is ready to edit.
-   */
-  function handleInputMouseOver(
-    event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    setIsHovered(true)
-
-    // Automatically select the value on hover so that it's easy to start
-    // typing new values. In React, this only works if the .select() is called
-    // at the end of the execution stack, so we put it inside a setTimeout()
-    // with a timeout of zero. We also must store the reference to the event
-    // target because the React synthetic event will not persist into the
-    // `setTimeout` function.
-    const target = event.target as HTMLInputElement
-    window.setTimeout(() => {
-      target.focus()
-      target.select()
-    }, 0)
-  }
-
-  /**
-   * On mouse out, if user is not editing, UI returns to default view.
-   */
-  function handleInputMouseOut(
-    event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    // On mouse out, we want to blur but the onBlur handler is not
-    // called in a test environment. Just in case, we also reset the
-    // the isHovered and isEditing state here.
-    setIsHovered(false)
-    setIsEditing(false)
-
-    const target = event.target as HTMLInputElement
-    target.blur()
-
-    if (!allowAutoUpdate) {
-      onUpdatedValue(target.value)
     }
   }
 
@@ -322,11 +261,8 @@ export function UpDownInput(props: UpDownInputProps) {
         disabled={disabled}
         value={displayValue}
         onChange={handleInputChange}
-        onClick={handleInputClick}
+        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        onMouseDown={handleInputMouseDown}
-        onMouseOver={handleInputMouseOver}
-        onMouseOut={handleInputMouseOut}
         onKeyDown={handleInputKeyDown}
         ref={inputEl}
       />

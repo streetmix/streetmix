@@ -79,40 +79,13 @@ describe('UpDownInput', () => {
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     expect(inputEl.value).toBe('5 bar')
 
-    // User hovers over the input, so the input formatter is called
-    await user.hover(inputEl)
+    // User focuses the input, so the input formatter is called
+    await user.click(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User clicks outside the input, setting active element elsewhere.
     // The display formatter should now be called again
     await user.click(inputEl.parentNode as Element)
-    expect(inputEl.value).toBe('5 bar')
-  })
-
-  // Same as above, but with mouse interaction
-  it('formats values when hovering over or out on the input element', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <UpDownInput
-        {...defaultProps}
-        inputValueFormatter={(value) => value.toString()}
-        displayValueFormatter={(value) => `${value} bar`}
-      />
-    )
-
-    // When first rendered, the display formatter is called
-    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    expect(inputEl.value).toBe('5 bar')
-
-    // User hovers over the input, so the input formatter is called
-    // Note: the input content is also selected, but we are not testing for that
-    await user.hover(inputEl)
-    expect(inputEl.value).toBe('5')
-
-    // User unhovers over the input
-    // The display formatter should now be called again
-    await user.unhover(inputEl)
     expect(inputEl.value).toBe('5 bar')
   })
 
