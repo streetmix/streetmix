@@ -83,14 +83,25 @@ export function DateTimeRelative({ value, timezone }: DateTimeRelativeProps) {
   if (isThisYear(date)) {
     return (
       <time dateTime={value} title={value}>
-        <FormattedDate value={value} month="long" day="numeric" />
+        <FormattedDate
+          value={value}
+          timeZone={timezone}
+          month="long"
+          day="numeric"
+        />
       </time>
     )
   }
 
   return (
     <time dateTime={value} title={value}>
-      <FormattedDate value={value} year="numeric" month="long" day="numeric" />
+      <FormattedDate
+        value={value}
+        timeZone={timezone}
+        year="numeric"
+        month="long"
+        day="numeric"
+      />
     </time>
   )
 }
