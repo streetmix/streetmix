@@ -44,30 +44,30 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
+export default (sequelize: Sequelize) => {
   User.init(
     {
       id: {
         allowNull: false,
         primaryKey: true,
         unique: true,
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
       },
       auth0Id: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'auth0_id',
       },
       displayName: {
-        type: dataTypes.STRING,
+        type: DataTypes.STRING,
         field: 'display_name',
         validate: {
           len: [0, 30],
         },
       },
-      email: { type: dataTypes.STRING, unique: true },
-      identities: dataTypes.JSON,
+      email: { type: DataTypes.STRING, unique: true },
+      identities: DataTypes.JSON,
       roles: {
-        type: dataTypes.ARRAY(dataTypes.TEXT),
+        type: DataTypes.ARRAY(DataTypes.TEXT),
         defaultValue: ['USER'],
         validate: {
           // Check if user role is a valid one against a list of defined roles
@@ -85,17 +85,17 @@ export default (sequelize: Sequelize, dataTypes: typeof DataTypes) => {
         // characters, but a rare handful of googleusercontent.com URLs are
         // just slightly longer. Bumping to 2048 characters should prevent
         // SQL insert errors that block people from signing in.
-        type: dataTypes.STRING(2048),
+        type: DataTypes.STRING(2048),
         field: 'profile_image_url',
       },
-      flags: dataTypes.JSON,
-      data: dataTypes.JSON,
+      flags: DataTypes.JSON,
+      data: DataTypes.JSON,
       lastStreetId: {
-        type: dataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         field: 'last_street_id',
       },
-      createdAt: { type: dataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: dataTypes.DATE, field: 'updated_at' },
+      createdAt: { type: DataTypes.DATE, field: 'created_at' },
+      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     },
     {
       sequelize,
