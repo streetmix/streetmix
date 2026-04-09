@@ -77,7 +77,6 @@ export function UpDownInput(props: UpDownInputProps) {
   const inputEl = useRef<HTMLInputElement>(null)
 
   const [isEditing, setIsEditing] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
 
   // If the initial `value` prop is `null`, displayValue must be initiated
   // as an empty string, otherwise React throws a warning about uncontrolled
@@ -117,13 +116,6 @@ export function UpDownInput(props: UpDownInputProps) {
       return
     }
 
-    // If input is being hovered, display the value without units, using
-    // `inputValueFormatter`, which accounts for the user's preferred units.
-    if (isHovered) {
-      setDisplayValue((inputValueFormatter(value) ?? '').toString())
-      return
-    }
-
     // In all other cases, display the "prettified" value inside the input,
     // which is the "raw" value formatted using the correct unit conversion
     // and unit label.
@@ -133,7 +125,6 @@ export function UpDownInput(props: UpDownInputProps) {
     userInputValue,
     disabled,
     isEditing,
-    isHovered,
     inputValueFormatter,
     displayValueFormatter,
   ])
@@ -188,9 +179,7 @@ export function UpDownInput(props: UpDownInputProps) {
   }
 
   function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
-    setIsHovered(false)
     setIsEditing(false)
-
     onUpdatedValue(event.target.value)
   }
 
@@ -215,10 +204,8 @@ export function UpDownInput(props: UpDownInputProps) {
         inputEl.current?.blur()
         document.body.focus()
 
-        // Reset editing or hover state
+        // Reset state and use old value
         setIsEditing(false)
-        setIsHovered(false)
-
         onUpdatedValue(oldValue.current ?? '', true)
         break
       default:
