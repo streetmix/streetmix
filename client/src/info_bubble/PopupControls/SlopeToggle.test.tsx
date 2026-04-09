@@ -4,7 +4,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { render } from '~/test/helpers/render.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import { SlopeControl } from './SlopeControl.js'
+import { SlopeControl } from './SlopeToggle.js'
 
 vi.mock('@streetmix/parts', () => ({
   getSegmentVariantInfo: vi.fn((_type) => ({})),

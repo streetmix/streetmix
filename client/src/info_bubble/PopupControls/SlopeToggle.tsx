@@ -7,17 +7,13 @@ import { Icon } from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 
-interface SlopeControlProps {
+interface SlopeToggleProps {
   position: number
   checked: boolean
   disabled: boolean
 }
 
-export function SlopeControl({
-  position,
-  checked,
-  disabled,
-}: SlopeControlProps) {
+export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
   const dispatch = useDispatch()
   const intl = useIntl()
 

@@ -9,7 +9,7 @@ import { useSelector } from '~/src/store/hooks.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
-import { SlopeControl } from './SlopeControl.js'
+import { SlopeToggle } from './SlopeToggle.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -60,27 +60,33 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
     <>
       {/* No slope control for boundaries */}
       {typeof position === 'number' && (
-        <SlopeControl
+        <SlopeToggle
           position={position}
           checked={isSloped}
           disabled={!allowSlope}
         />
       )}
-      <div className="popup-control-row" data-tour-id="elevation-control">
-        <div className="popup-control-label">
-          <Tooltip label={label} placement="left">
-            <span className="popup-control-icon">
-              <Icon name="elevation" size="30" stroke="1.5" />
-            </span>
-          </Tooltip>
+      {isSloped ? (
+        <div className="popup-control-row" data-tour-id="elevation-control">
+          <div className="popup-control-label">slope placeholder</div>
         </div>
-        <ElevationControlNew
-          key={position}
-          position={position}
-          elevation={elevation}
-          units={units}
-        />
-      </div>
+      ) : (
+        <div className="popup-control-row" data-tour-id="elevation-control">
+          <div className="popup-control-label">
+            <Tooltip label={label} placement="left">
+              <span className="popup-control-icon">
+                <Icon name="elevation" size="30" stroke="1.5" />
+              </span>
+            </Tooltip>
+          </div>
+          <ElevationControlNew
+            key={position}
+            position={position}
+            elevation={elevation}
+            units={units}
+          />
+        </div>
+      )}
     </>
   )
 }
