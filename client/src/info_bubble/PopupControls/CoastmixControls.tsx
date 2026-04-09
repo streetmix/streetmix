@@ -1,4 +1,5 @@
 import { useIntl } from 'react-intl'
+import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import {
   BUILDING_LEFT_POSITION,
@@ -28,11 +29,30 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
     }
   })
 
+  // TODO: consider passing slice and slice info into this component, one
+  // level up -- because other sibling components may need it too
+  const slice = useSelector((state) => {
+    if (typeof position === 'number') {
+      return state.street.segments[position]
+    } else {
+      return null
+    }
+  })
+
   const intl = useIntl()
   const label = intl.formatMessage({
     id: 'segments.controls.elevation',
     defaultMessage: 'Elevation',
   })
+
+  // Allow sloping when slope rule is `path` or `berm`. Defaults to false.
+  let isSloped = false
+  let allowSlope = false
+  if (slice) {
+    const { slope } = getSegmentVariantInfo(slice.type, slice.variantString)
+    allowSlope = slope === 'path' || slope === 'berm'
+    isSloped = allowSlope && slice.slope.on
+  }
 
   return (
     <>
@@ -52,7 +72,13 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
         />
       </div>
       {/* No slope control for boundaries */}
-      {typeof position === 'number' && <SlopeControl position={position} />}
+      {typeof position === 'number' && (
+        <SlopeControl
+          position={position}
+          checked={isSloped}
+          disabled={!allowSlope}
+        />
+      )}
     </>
   )
 }

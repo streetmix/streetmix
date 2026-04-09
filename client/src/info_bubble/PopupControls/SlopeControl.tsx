@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl'
-import { getSegmentVariantInfo } from '@streetmix/parts'
 
-import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
@@ -10,28 +9,22 @@ import { Tooltip } from '~/src/ui/Tooltip.js'
 
 interface SlopeControlProps {
   position: number
+  checked: boolean
+  disabled: boolean
 }
 
-export function SlopeControl({ position }: SlopeControlProps) {
-  // TODO: consider passing slice and slice info into this component, one
-  // level up -- because other sibling components may need it too
-  const slice = useSelector((state) => {
-    return state.street.segments[position]
-  })
+export function SlopeControl({
+  position,
+  checked,
+  disabled,
+}: SlopeControlProps) {
   const dispatch = useDispatch()
   const intl = useIntl()
-
-  // Allow sloping when slope rule is `path` or `berm`. Defaults to false.
-  const { slope } = getSegmentVariantInfo(slice.type, slice.variantString)
-  const allowSlope = slope === 'path' || slope === 'berm'
-  const isSloped = allowSlope && slice.slope.on
 
   function handleSlopeChange(checked: boolean): void {
     dispatch(toggleSliceSlope(position, checked))
     dispatch(segmentsChanged())
   }
-
-  if (!allowSlope) return null
 
   const label = intl.formatMessage({
     id: 'segments.controls.slope.label',
@@ -54,8 +47,8 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <Tooltip label={tooltip} placement="bottom" role="label">
         <Switch
           onCheckedChange={handleSlopeChange}
-          checked={isSloped}
-          disabled={!allowSlope}
+          checked={checked}
+          disabled={disabled}
           aria-label={label}
           data-tour-id="slope-control-switch"
         />
