@@ -6,17 +6,39 @@
  *    - Mousetrap.js (https://craig.is/killing/mice)
  *    - Keypress.js (http://dmauro.github.io/Keypress/)
  *    - keymaster.js (https://github.com/madrobby/keymaster)
- *
- * @module keypress
- * @requires event-tracking
- * @exports startListening
- * @exports registerKeypress
- * @exports deregisterKeypress
  */
-import { isFocusOnBody } from '../util/focus'
+import { isFocusOnBody } from '../util/focus.js'
+
+// Types
+export type KeypressCommands = string | string[]
+
+export interface KeypressOptions {
+  shiftKey?: boolean | 'optional'
+  metaKey?: boolean | 'optional'
+  altKey?: boolean | 'optional'
+  preventDefault?: boolean
+  stopPropagation?: boolean
+  requireFocusOnBody?: boolean
+  onKeypress?: KeypressCallback
+  condition?: () => unknown
+  fireOnce?: boolean
+}
+
+export type KeypressCallback = {
+  bivarianceHack(event?: unknown): unknown
+}['bivarianceHack']
+
+interface ProcessedCommand extends KeypressOptions {
+  key: string
+  originalCommands: KeypressCommands
+}
+
+interface CommandsByKey {
+  [key: string]: ProcessedCommand[]
+}
 
 // Keep track of all registered commands here
-const inputs = {}
+const inputs: CommandsByKey = {}
 
 // Utility functions
 const noop = function () {}
@@ -27,17 +49,14 @@ const returnTrue = function () {
 /**
  * Initiates keypress manager. Sets a global event listener on the window.
  * This should only have to be called once, when the application bootstraps.
- *
- * @public
  */
-export function startListening() {
+export function startListening(): void {
   window.addEventListener('keydown', onGlobalKeyDown)
 }
 
 /**
  * Registers a key command listener with the Keypress Manager
  *
- * @public
  * @example
  *    registerKeypress('esc', hide)
  * @example
@@ -102,7 +121,20 @@ export function startListening() {
  *    (and you might prefer to set it on `options` instead). If there is no
  *    callback function the keypress simply does nothing.
  */
-export function registerKeypress(commands, options, callback) {
+export function registerKeypress(
+  commands: KeypressCommands,
+  callback: KeypressCallback
+): void
+export function registerKeypress(
+  commands: KeypressCommands,
+  options: KeypressOptions,
+  callback?: KeypressCallback
+): void
+export function registerKeypress(
+  commands: KeypressCommands,
+  optionsOrCallback?: KeypressOptions | KeypressCallback,
+  callback?: KeypressCallback
+): void {
   // Defaults
   // For shiftKey, metaKey, and altKey, specifies what it should
   // match on the event object reported by the browser. For instance,
@@ -111,7 +143,7 @@ export function registerKeypress(commands, options, callback) {
   // pressed. (Note that ctrlKey will be internally mapped to behave
   // the same as metaKey here.) The distinction is strict, pass the
   // value 'optional' to make the system ignore whether a key is pressed.
-  const defaults = {
+  const defaults: Required<KeypressOptions> = {
     shiftKey: false,
     metaKey: false,
     altKey: false,
@@ -124,13 +156,19 @@ export function registerKeypress(commands, options, callback) {
   }
 
   // Check if the second argument is the options object or the callback function
-  if (typeof arguments[1] === 'object') {
-    options = arguments[1]
-  } else if (typeof arguments[1] === 'function') {
+  let resolvedOptions: KeypressOptions = {}
+  let resolvedCallback: KeypressCallback | undefined
+
+  if (typeof optionsOrCallback === 'object' && optionsOrCallback !== null) {
+    resolvedOptions = optionsOrCallback as KeypressOptions
+  } else if (typeof optionsOrCallback === 'function') {
     // The second argument is the callback function
-    // You cannot pass two callback functions
-    options = {}
-    callback = arguments[1]
+    resolvedOptions = {}
+    resolvedCallback = optionsOrCallback as KeypressCallback
+  }
+
+  if (callback !== undefined) {
+    resolvedCallback = callback
   }
 
   const originalCommands = commands
@@ -138,44 +176,37 @@ export function registerKeypress(commands, options, callback) {
 
   // Process each command input
   for (const key in commandObj) {
-    const commands = commandObj[key]
+    const keyCommands = commandObj[key]
 
-    for (const command of commands) {
-      // Get default settings
-      for (const keyDefault in defaults) {
-        if (typeof command[keyDefault] === 'undefined') {
-          command[keyDefault] = defaults[keyDefault]
-        }
+    for (const command of keyCommands) {
+      const mergedCommand: ProcessedCommand = {
+        ...defaults,
+        ...command,
+        originalCommands,
       }
-
-      // Store the original commands entry
-      // This helps with deregistering later
-      command.originalCommands = originalCommands
 
       // Special case for 'ESC' key; it defaults to global (window) focus
       if (key === 'Esc' || key === 'Escape') {
-        command.requireFocusOnBody = false
-        command.stopPropagation = true
+        mergedCommand.requireFocusOnBody = false
+        mergedCommand.stopPropagation = true
       }
 
       // Attach callback function to execute
-      if (typeof callback === 'function') {
-        command.onKeypress = callback
+      if (typeof resolvedCallback === 'function') {
+        mergedCommand.onKeypress = resolvedCallback
       }
 
-      // If options are specified, replace defaults
-      // This basically allows other code to override settings via the
-      // options object - it's dumb, but there's no protection against it,
-      // and who knows, could be useful in edge cases
-      for (const k in options) {
-        command[k] = options[k]
+      // If options are specified, replace previous settings
+      const finalCommand: ProcessedCommand = {
+        ...mergedCommand,
+        ...resolvedOptions,
       }
 
       // Add processed commands to module's inputs holder
       if (typeof inputs[key] === 'undefined') {
         inputs[key] = []
       }
-      inputs[key].push(command)
+      inputs[key].push(finalCommand)
     }
   }
 }
@@ -184,7 +215,6 @@ export function registerKeypress(commands, options, callback) {
  * Deregisters a key command listener, given matching `commands` and
  * `callback` parameters.
  *
- * @public
  * @example Deregisters all triggers for `shift d`
  *    deregisterKeypress('shift d')
  * @example Deregisters triggers matching callback function `hide` and key `esc`
@@ -200,14 +230,17 @@ export function registerKeypress(commands, options, callback) {
  * @todo Because of how function equality works, not all functions passed
  *    in this way result in a true test of equality.
  */
-export function deregisterKeypress(commands, callback) {
+export function deregisterKeypress(
+  commands: KeypressCommands,
+  callback?: KeypressCallback
+): void {
   const commandObj = processCommands(commands)
 
   // Process each command input
   for (const key in commandObj) {
-    const commands = commandObj[key]
+    const keyCommands = commandObj[key]
 
-    for (const command of commands) {
+    for (const command of keyCommands) {
       const items = inputs[key]
       let x = (items && items.length) || 0
 
@@ -239,33 +272,35 @@ export function deregisterKeypress(commands, callback) {
 /**
  * Processes commands
  *
- * @private
  * @param {(string|string[])} commands
  *    Human readable key or key combination to listen for, in the form of "a"
  *    or "shift a" or "control alt a". If multiple keys should perform the
  *    same action, pass in an array of strings, e.g. `['a', 'b', 'meta d']`
  * @returns object
  */
-function processCommands(commands) {
+function processCommands(commands: KeypressCommands): CommandsByKey {
   // If a string, force to one-element array, otherwise expect an array of strings
+  let commandsArray: string[]
   if (typeof commands === 'string') {
-    commands = new Array(commands)
+    commandsArray = [commands]
+  } else {
+    commandsArray = commands
   }
 
-  const commandsObj = {}
+  const commandsObj: CommandsByKey = {}
 
   // Process each command input
-  for (let command of commands) {
+  for (const command of commandsArray) {
     // Normalize command
     //  - adjust to lower case
     //  - normalize 'esc' to 'escape'
     //  - replace command/cmd/control/ctrl to meta (this does not remove dupes)
-    command = command
+    const commandParts = command
       .toLowerCase()
       .replace(/(command|cmd|control|ctrl)/g, 'meta')
       .split(' ')
 
-    const settings = {
+    const settings: Partial<ProcessedCommand> = {
       shiftKey: false,
       altKey: false,
       metaKey: false,
@@ -273,31 +308,31 @@ function processCommands(commands) {
 
     // Check for existence of modifier keys
     // Modifier keys are removed from input array
-    const isShift = command.indexOf('shift')
+    const isShift = commandParts.indexOf('shift')
     if (isShift > -1) {
       settings.shiftKey = true
-      command.splice(isShift, 1)
+      commandParts.splice(isShift, 1)
     }
 
-    const isAlt = command.indexOf('alt')
+    const isAlt = commandParts.indexOf('alt')
     if (isAlt > -1) {
       settings.altKey = true
-      command.splice(isAlt, 1)
+      commandParts.splice(isAlt, 1)
     }
 
-    const isMeta = command.indexOf('meta')
+    const isMeta = commandParts.indexOf('meta')
     if (isMeta > -1) {
       settings.metaKey = true
-      command.splice(isMeta, 1)
+      commandParts.splice(isMeta, 1)
     }
 
     // First remaining item in the input array is the key to test for.
     // Does not support multi-keys, so rest of input (if provided) is ignored.
-    const key = command[0]
+    const key = commandParts[0]
 
     // key might be a single string or an array
     if (key) {
-      let keys = []
+      let keys: string[] = []
       // If key is a string, convert to single-element array
       // Can't do a shortcut version of these with string :-/
       if (typeof key === 'string') {
@@ -306,9 +341,9 @@ function processCommands(commands) {
         keys = key
       }
 
-      for (const key of keys) {
-        let processedKey
-        switch (key) {
+      for (const k of keys) {
+        let processedKey: string
+        switch (k) {
           case 'esc':
             processedKey = 'escape'
             break
@@ -319,7 +354,7 @@ function processCommands(commands) {
             processedKey = 'arrowright'
             break
           default:
-            processedKey = key
+            processedKey = k
             break
         }
 
@@ -329,7 +364,7 @@ function processCommands(commands) {
           commandsObj[processedKey] = []
         }
 
-        commandsObj[processedKey].push(settings)
+        commandsObj[processedKey].push(settings as ProcessedCommand)
       }
     }
   }
@@ -337,8 +372,8 @@ function processCommands(commands) {
   return commandsObj
 }
 
-function onGlobalKeyDown(event) {
-  const toExecute = []
+function onGlobalKeyDown(event: KeyboardEvent): void {
+  const toExecute: ProcessedCommand[] = []
   const key = event.key
 
   // There is a bug in Chrome where events can be fired with an
@@ -373,13 +408,12 @@ function onGlobalKeyDown(event) {
 /**
  * Executes an input's callback function
  *
- * @private
  * @param {object} input - The input object to execute
  * @param {Event} [event] - The browser's `Event` object created when `keydown` is fired
  */
-function execute(input, event) {
+function execute(input: ProcessedCommand, event: KeyboardEvent): void {
   // Check if condition is satisfied
-  if (!input.condition()) return
+  if (input.condition?.() === false) return
 
   // Check if focus is on the correct place
   if (input.requireFocusOnBody === true && isFocusOnBody() === false) return
@@ -393,7 +427,9 @@ function execute(input, event) {
 
   // Execute callback
   // Pass event through to callback function
-  input.onKeypress(event)
+  if (input.onKeypress) {
+    input.onKeypress(event)
+  }
 
   // Deregisters the input immediately if it is only supposed to be executed once
   if (input.fireOnce === true) {
