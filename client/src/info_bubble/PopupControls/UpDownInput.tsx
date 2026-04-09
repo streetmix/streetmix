@@ -35,7 +35,7 @@ interface UpDownInputProps {
   // updating street data.
   onClickUp?: React.MouseEventHandler
   onClickDown?: React.MouseEventHandler
-  onUpdatedValue?: (value: string) => void
+  onUpdatedValue?: (value: string, cancel?: boolean) => void
 
   // When `true`, the input box and buttons are disabled
   disabled?: boolean
@@ -94,10 +94,7 @@ export function UpDownInput(props: UpDownInputProps) {
   const [userInputValue, setUserInputValue] = useState<string>('')
 
   // If `allowAutoUpdate` is true, input updates call onUpdatedValue handler
-  // after a debounced amount of time. This can cause unexpected and buggy
-  // behavior right now because it seems that updating the value can reset the
-  // `isEditing` state internally, which makes it really hard for the user to
-  // use the text input element. TODO: look into what causes this!
+  // after a debounced amount of time.
   const debounceUpdateValue = debounce(onUpdatedValue, EDIT_INPUT_DELAY)
 
   // Depending on what happens, set the display value of the <input> element.
@@ -194,9 +191,7 @@ export function UpDownInput(props: UpDownInputProps) {
     setIsHovered(false)
     setIsEditing(false)
 
-    if (!allowAutoUpdate) {
-      onUpdatedValue(event.target.value)
-    }
+    onUpdatedValue(event.target.value)
   }
 
   function handleInputKeyDown(
@@ -224,8 +219,7 @@ export function UpDownInput(props: UpDownInputProps) {
         setIsEditing(false)
         setIsHovered(false)
 
-        // TODO: Fix old value saved in metric, when in imperial mode
-        onUpdatedValue(oldValue.current ?? '')
+        onUpdatedValue(oldValue.current ?? '', true)
         break
       default:
         setIsEditing(true)
