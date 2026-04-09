@@ -41,8 +41,8 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
 
   const intl = useIntl()
   const label = intl.formatMessage({
-    id: 'segments.controls.elevation',
-    defaultMessage: 'Elevation',
+    id: 'segments.controls.height',
+    defaultMessage: 'Height',
   })
 
   // Allow sloping when slope rule is `path` or `berm`. Defaults to false.

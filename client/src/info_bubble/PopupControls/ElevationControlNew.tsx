@@ -166,16 +166,16 @@ export function ElevationControlNew({
       onClickDown={handleDecrement}
       onUpdatedValue={updateValue}
       inputTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-input',
-        defaultMessage: 'Change elevation',
+        id: 'tooltip.height-input',
+        defaultMessage: 'Change height',
       })}
       upTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-raise',
-        defaultMessage: 'Raise elevation',
+        id: 'tooltip.height-raise',
+        defaultMessage: 'Raise height',
       })}
       downTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-lower',
-        defaultMessage: 'Lower elevation',
+        id: 'tooltip.height-lower',
+        defaultMessage: 'Lower height',
       })}
     />
   )

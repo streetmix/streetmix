@@ -409,7 +409,10 @@
     "elevation-road": "Street level",
     "elevation-input": "Change elevation",
     "elevation-lower": "Lower elevation",
-    "elevation-raise": "Raise elevation"
+    "elevation-raise": "Raise elevation",
+    "height-input": "Change height",
+    "height-lower": "Lower height",
+    "height-raise": "Raise height"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -440,6 +443,7 @@
     },
     "controls": {
       "width": "Width",
+      "height": "Height",
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",
