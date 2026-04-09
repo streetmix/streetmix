@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { UpDownInput } from './UpDownInput.js'
@@ -79,8 +79,8 @@ describe('UpDownInput', () => {
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
     expect(inputEl.value).toBe('5 bar')
 
-    // User hovers over the input, so the input formatter is called
-    await user.hover(inputEl)
+    // User focuses the input, so the input formatter is called
+    await user.click(inputEl)
     expect(inputEl.value).toBe('5')
 
     // User clicks outside the input, setting active element elsewhere.
@@ -89,38 +89,7 @@ describe('UpDownInput', () => {
     expect(inputEl.value).toBe('5 bar')
   })
 
-  // Same as above, but with mouse interaction
-  it('formats values when hovering over or out on the input element', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <UpDownInput
-        {...defaultProps}
-        inputValueFormatter={(value) => value.toString()}
-        displayValueFormatter={(value) => `${value} bar`}
-      />
-    )
-
-    // When first rendered, the display formatter is called
-    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    expect(inputEl.value).toBe('5 bar')
-
-    // User hovers over the input, so the input formatter is called
-    // Note: the input content is also selected, but we are not testing for that
-    await user.hover(inputEl)
-    expect(inputEl.value).toBe('5')
-
-    // User unhovers over the input
-    // The display formatter should now be called again
-    await user.unhover(inputEl)
-    expect(inputEl.value).toBe('5 bar')
-  })
-
-  // Test fails (is only ever called with '5'), likely because there needs to
-  // be a parent component controlling the input value state, not rendered
-  // in this test right now.
-  // However, this is working in practice.
-  it.skip('handles "Enter" key as confirm action', async () => {
+  it('handles "Enter" key as confirm action', async () => {
     const user = userEvent.setup()
 
     render(<UpDownInput {...defaultProps} />)
@@ -130,9 +99,7 @@ describe('UpDownInput', () => {
     await user.clear(inputEl)
     await user.type(inputEl, '3{enter}')
 
-    await waitFor(() => {
-      expect(handleUpdate).toHaveBeenLastCalledWith('3')
-    })
+    expect(handleUpdate).toHaveBeenLastCalledWith('3')
   })
 
   it('handles "Escape" key to revert input', async () => {
@@ -148,7 +115,7 @@ describe('UpDownInput', () => {
     // When this is reverted, the `handleUpdate` callback is called
     // with the original value (which has been cast to string, to match
     // the type of the value of the input element)
-    expect(handleUpdate).toHaveBeenLastCalledWith('5')
+    expect(handleUpdate).toHaveBeenLastCalledWith('5', true)
   })
 
   it('renders inputs as disabled', () => {
@@ -181,34 +148,5 @@ describe('UpDownInput', () => {
 
     expect(upButton).toBeDisabled()
     expect(downButton).not.toBeDisabled()
-  })
-
-  // Fixes a bug where dirty input could be remembered between different
-  // types of UI interactions. This test is currently skipped, because
-  // the input value is not being confirmed (see above test)
-  it.skip('resets "dirty" input if user switches to +/- buttons', async () => {
-    const user = userEvent.setup()
-
-    render(<UpDownInput {...defaultProps} />)
-
-    const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    const upButton = screen.getByTestId('up')
-
-    await user.clear(inputEl)
-    await user.type(inputEl, '6{enter}')
-    // NOTE: Test fails here
-    expect(inputEl.value).toBe('6')
-
-    await user.click(upButton)
-    expect(inputEl.value).toBe('7')
-
-    // Expect value on hover to reflect new value (7), not previous "dirty"
-    // value (6)
-    await user.hover(inputEl)
-    expect(inputEl.value).toBe('7')
-
-    // User unhovers over the input
-    await user.unhover(inputEl)
-    expect(inputEl.value).toBe('7')
   })
 })

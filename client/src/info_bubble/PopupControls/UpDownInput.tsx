@@ -35,7 +35,7 @@ interface UpDownInputProps {
   // updating street data.
   onClickUp?: React.MouseEventHandler
   onClickDown?: React.MouseEventHandler
-  onUpdatedValue?: (value: string) => void
+  onUpdatedValue?: (value: string, cancel?: boolean) => void
 
   // When `true`, the input box and buttons are disabled
   disabled?: boolean
@@ -77,7 +77,6 @@ export function UpDownInput(props: UpDownInputProps) {
   const inputEl = useRef<HTMLInputElement>(null)
 
   const [isEditing, setIsEditing] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
 
   // If the initial `value` prop is `null`, displayValue must be initiated
   // as an empty string, otherwise React throws a warning about uncontrolled
@@ -94,10 +93,7 @@ export function UpDownInput(props: UpDownInputProps) {
   const [userInputValue, setUserInputValue] = useState<string>('')
 
   // If `allowAutoUpdate` is true, input updates call onUpdatedValue handler
-  // after a debounced amount of time. This can cause unexpected and buggy
-  // behavior right now because it seems that updating the value can reset the
-  // `isEditing` state internally, which makes it really hard for the user to
-  // use the text input element. TODO: look into what causes this!
+  // after a debounced amount of time.
   const debounceUpdateValue = debounce(onUpdatedValue, EDIT_INPUT_DELAY)
 
   // Depending on what happens, set the display value of the <input> element.
@@ -120,13 +116,6 @@ export function UpDownInput(props: UpDownInputProps) {
       return
     }
 
-    // If input is being hovered, display the value without units, using
-    // `inputValueFormatter`, which accounts for the user's preferred units.
-    if (isHovered) {
-      setDisplayValue((inputValueFormatter(value) ?? '').toString())
-      return
-    }
-
     // In all other cases, display the "prettified" value inside the input,
     // which is the "raw" value formatted using the correct unit conversion
     // and unit label.
@@ -136,43 +125,16 @@ export function UpDownInput(props: UpDownInputProps) {
     userInputValue,
     disabled,
     isEditing,
-    isHovered,
     inputValueFormatter,
     displayValueFormatter,
   ])
 
-  /**
-   * If UI is going to enter user-editing mode, immediately
-   * save the previous value in case editing is cancelled
-   */
-  useEffect(() => {
-    if (isEditing) {
-      oldValue.current = (value ?? '').toString()
-    } else {
-      // Reset dirty `userInputValue`
-      setUserInputValue('')
-    }
-    // We only want to save the old value once, not every time it changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEditing])
-
   function handleClickIncrement(event: React.MouseEvent): void {
-    setIsEditing(false)
     onClickUp(event)
   }
 
   function handleClickDecrement(event: React.MouseEvent): void {
-    setIsEditing(false)
     onClickDown(event)
-  }
-
-  function handleInputClick(_event: React.MouseEvent): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    // When we begin editing, set the initial user input value to current
-    setUserInputValue(value === null ? '' : inputValueFormatter(value))
-    setIsEditing(true)
   }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -188,76 +150,31 @@ export function UpDownInput(props: UpDownInputProps) {
     }
   }
 
-  function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
-    setIsHovered(false)
-    setIsEditing(false)
+  function handleInputFocus(event: React.FocusEvent<HTMLInputElement>): void {
+    // Save the previous value in case editing is cancelled
+    oldValue.current = (value ?? '').toString()
 
-    if (!allowAutoUpdate) {
-      onUpdatedValue(event.target.value)
-    }
-  }
-
-  /**
-   * Necessary to prevent blur event from being called on a mousedown(?)
-   * The observed effect is that if a user is editing/focused on the input,
-   * and they click on it again, the blur event handler is called and the
-   * input value momentarily changes to the unblurred (prettified) value.
-   * Not sure what causes this, but this handler fixes that issue.
-   */
-  function handleInputMouseDown(
-    _event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
+    // When we begin editing, set the initial user input value to current
+    setUserInputValue(value === null ? '' : inputValueFormatter(value))
     setIsEditing(true)
-  }
 
-  /**
-   * On mouse over, UI assumes user is ready to edit.
-   */
-  function handleInputMouseOver(
-    event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    setIsHovered(true)
-
-    // Automatically select the value on hover so that it's easy to start
-    // typing new values. In React, this only works if the .select() is called
-    // at the end of the execution stack, so we put it inside a setTimeout()
-    // with a timeout of zero. We also must store the reference to the event
-    // target because the React synthetic event will not persist into the
-    // `setTimeout` function.
+    // Select the entire input contents on focus.
+    // This is a state change so we call window.select() after a brief delay.
+    // Admittedly this is a magic number amount of time and not deterministic.
     const target = event.target as HTMLInputElement
     window.setTimeout(() => {
-      target.focus()
       target.select()
-    }, 0)
+    }, 10)
   }
 
-  /**
-   * On mouse out, if user is not editing, UI returns to default view.
-   */
-  function handleInputMouseOut(
-    event: React.MouseEvent<HTMLInputElement>
-  ): void {
-    // Bail if already in editing mode.
-    if (isEditing) return
-
-    // On mouse out, we want to blur but the onBlur handler is not
-    // called in a test environment. Just in case, we also reset the
-    // the isHovered and isEditing state here.
-    setIsHovered(false)
+  function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
     setIsEditing(false)
 
-    const target = event.target as HTMLInputElement
-    target.blur()
+    // Reset dirty `userInputValue`
+    setUserInputValue('')
 
-    if (!allowAutoUpdate) {
-      onUpdatedValue(target.value)
-    }
+    // Update input value
+    onUpdatedValue(event.target.value)
   }
 
   function handleInputKeyDown(
@@ -267,8 +184,6 @@ export function UpDownInput(props: UpDownInputProps) {
       case 'Enter': {
         const target = event.target as HTMLInputElement
         onUpdatedValue(target.value)
-
-        setIsEditing(false)
 
         inputEl.current?.focus()
         inputEl.current?.select()
@@ -281,15 +196,10 @@ export function UpDownInput(props: UpDownInputProps) {
         inputEl.current?.blur()
         document.body.focus()
 
-        // Reset editing or hover state
-        setIsEditing(false)
-        setIsHovered(false)
-
-        // TODO: Fix old value saved in metric, when in imperial mode
-        onUpdatedValue(oldValue.current ?? '')
+        // Reset to previous value
+        onUpdatedValue(oldValue.current ?? '', true)
         break
       default:
-        setIsEditing(true)
         break
     }
   }
@@ -322,11 +232,8 @@ export function UpDownInput(props: UpDownInputProps) {
         disabled={disabled}
         value={displayValue}
         onChange={handleInputChange}
-        onClick={handleInputClick}
+        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        onMouseDown={handleInputMouseDown}
-        onMouseOver={handleInputMouseOver}
-        onMouseOut={handleInputMouseOut}
         onKeyDown={handleInputKeyDown}
         ref={inputEl}
       />

@@ -44,7 +44,13 @@ export function WidthControl({ position }: WidthControlProps) {
   /**
    * When given a new value from input, process it, then update the model.
    */
-  const updateModel = (value: string): void => {
+  const updateModel = (value: string, cancel = false): void => {
+    // When cancelled in imperial units mode, use old value saved in metric
+    if (cancel && units === SETTINGS_UNITS_IMPERIAL) {
+      resizeSegment(position, RESIZE_TYPE_TYPING, Number(value), units)
+      return
+    }
+
     const processedValue = processWidthInput(value, units)
     if (processedValue) {
       resizeSegment(position, RESIZE_TYPE_TYPING, processedValue, units)
