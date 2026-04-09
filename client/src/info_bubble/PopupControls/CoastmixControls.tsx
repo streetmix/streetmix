@@ -58,6 +58,14 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
 
   return (
     <>
+      {/* No slope control for boundaries */}
+      {typeof position === 'number' && (
+        <SlopeControl
+          position={position}
+          checked={isSloped}
+          disabled={!allowSlope}
+        />
+      )}
       <div className="popup-control-row" data-tour-id="elevation-control">
         <div className="popup-control-label">
           <Tooltip label={label} placement="left">
@@ -73,14 +81,6 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
           units={units}
         />
       </div>
-      {/* No slope control for boundaries */}
-      {typeof position === 'number' && (
-        <SlopeControl
-          position={position}
-          checked={isSloped}
-          disabled={!allowSlope}
-        />
-      )}
     </>
   )
 }

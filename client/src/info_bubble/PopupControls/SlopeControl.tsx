@@ -37,7 +37,7 @@ export function SlopeControl({
 
   return (
     <div className="popup-control-row" data-tour-id="slope-control">
-      <div className="popup-control-label">
+      <div className="popup-control-label" style={{ flexGrow: '0' }}>
         <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
             <Icon name="slope" size="30" stroke="1.5" />
@@ -53,6 +53,9 @@ export function SlopeControl({
           data-tour-id="slope-control-switch"
         />
       </Tooltip>
+      <div style={{ marginLeft: '0.5em', flexGrow: '1' }}>
+        {checked ? 'Sloped' : 'Flat'}
+      </div>
     </div>
   )
 }
