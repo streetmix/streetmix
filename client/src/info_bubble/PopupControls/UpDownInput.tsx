@@ -129,28 +129,11 @@ export function UpDownInput(props: UpDownInputProps) {
     displayValueFormatter,
   ])
 
-  /**
-   * If UI is going to enter user-editing mode, immediately
-   * save the previous value in case editing is cancelled
-   */
-  useEffect(() => {
-    if (isEditing) {
-      oldValue.current = (value ?? '').toString()
-    } else {
-      // Reset dirty `userInputValue`
-      setUserInputValue('')
-    }
-    // We only want to save the old value once, not every time it changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEditing])
-
   function handleClickIncrement(event: React.MouseEvent): void {
-    setIsEditing(false)
     onClickUp(event)
   }
 
   function handleClickDecrement(event: React.MouseEvent): void {
-    setIsEditing(false)
     onClickDown(event)
   }
 
@@ -167,11 +150,17 @@ export function UpDownInput(props: UpDownInputProps) {
     }
   }
 
-  function handleInputFocus(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleInputFocus(event: React.FocusEvent<HTMLInputElement>): void {
+    // Save the previous value in case editing is cancelled
+    oldValue.current = (value ?? '').toString()
+
     // When we begin editing, set the initial user input value to current
     setUserInputValue(value === null ? '' : inputValueFormatter(value))
     setIsEditing(true)
 
+    // Select the entire input contents on focus.
+    // This is a state change so we call window.select() after a brief delay.
+    // Admittedly this is a magic number amount of time and not deterministic.
     const target = event.target as HTMLInputElement
     window.setTimeout(() => {
       target.select()
@@ -180,6 +169,11 @@ export function UpDownInput(props: UpDownInputProps) {
 
   function handleInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
     setIsEditing(false)
+
+    // Reset dirty `userInputValue`
+    setUserInputValue('')
+
+    // Update input value
     onUpdatedValue(event.target.value)
   }
 
@@ -190,8 +184,6 @@ export function UpDownInput(props: UpDownInputProps) {
       case 'Enter': {
         const target = event.target as HTMLInputElement
         onUpdatedValue(target.value)
-
-        setIsEditing(false)
 
         inputEl.current?.focus()
         inputEl.current?.select()
@@ -204,12 +196,10 @@ export function UpDownInput(props: UpDownInputProps) {
         inputEl.current?.blur()
         document.body.focus()
 
-        // Reset state and use old value
-        setIsEditing(false)
+        // Reset to previous value
         onUpdatedValue(oldValue.current ?? '', true)
         break
       default:
-        setIsEditing(true)
         break
     }
   }
