@@ -152,7 +152,7 @@ export function registerKeypress(
   // pressed. (Note that ctrlKey will be internally mapped to behave
   // the same as metaKey here.) The distinction is strict, pass the
   // value 'optional' to make the system ignore whether a key is pressed.
-  const defaults = {
+  const defaults: Required<KeypressOptions> = {
     shiftKey: false,
     metaKey: false,
     altKey: false,
@@ -188,48 +188,34 @@ export function registerKeypress(
     const keyCommands = commandObj[key]
 
     for (const command of keyCommands) {
-      // Get default settings
-      for (const keyDefault in defaults) {
-        if (
-          typeof (command as unknown as Record<string, unknown>)[keyDefault] ===
-          'undefined'
-        ) {
-          ;(command as unknown as Record<string, unknown>)[keyDefault] = (
-            defaults as Record<string, unknown>
-          )[keyDefault]
-        }
+      const mergedCommand: ProcessedCommand = {
+        ...defaults,
+        ...command,
+        originalCommands,
       }
-
-      // Store the original commands entry
-      // This helps with deregistering later
-      command.originalCommands = originalCommands
 
       // Special case for 'ESC' key; it defaults to global (window) focus
       if (key === 'Esc' || key === 'Escape') {
-        command.requireFocusOnBody = false
-        command.stopPropagation = true
+        mergedCommand.requireFocusOnBody = false
+        mergedCommand.stopPropagation = true
       }
 
       // Attach callback function to execute
       if (typeof resolvedCallback === 'function') {
-        command.onKeypress = resolvedCallback
+        mergedCommand.onKeypress = resolvedCallback
       }
 
-      // If options are specified, replace defaults
-      // This basically allows other code to override settings via the
-      // options object - it's dumb, but there's no protection against it,
-      // and who knows, could be useful in edge cases
-      for (const k in resolvedOptions) {
-        ;(command as unknown as Record<string, unknown>)[k] = (
-          resolvedOptions as Record<string, unknown>
-        )[k]
+      // If options are specified, replace previous settings
+      const finalCommand: ProcessedCommand = {
+        ...mergedCommand,
+        ...resolvedOptions,
       }
 
       // Add processed commands to module's inputs holder
       if (typeof inputs[key] === 'undefined') {
         inputs[key] = []
       }
-      inputs[key].push(command)
+      inputs[key].push(finalCommand)
     }
   }
 }
