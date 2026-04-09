@@ -7,7 +7,7 @@
  *    - Keypress.js (http://dmauro.github.io/Keypress/)
  *    - keymaster.js (https://github.com/madrobby/keymaster)
  */
-import { isFocusOnBody } from '../util/focus'
+import { isFocusOnBody } from '../util/focus.js'
 
 // Types
 export type KeypressCommands = string | string[]
