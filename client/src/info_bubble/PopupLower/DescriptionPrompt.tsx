@@ -14,7 +14,9 @@ function getDescriptionData(
   const segmentInfo = getSegmentInfo(type)
   const variantInfo = getSegmentVariantInfo(type, variantString)
 
-  return variantInfo?.description ?? segmentInfo?.description
+  if ('unknown' in variantInfo) return
+
+  return variantInfo.description ?? segmentInfo.description
 }
 
 interface DescriptionProps {

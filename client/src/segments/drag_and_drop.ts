@@ -62,7 +62,7 @@ export type DragType = (typeof DragTypes)[keyof typeof DragTypes]
 // NOTE: is similar to SliceItem / Segment type
 export interface DraggedItem {
   id: string
-  sliceIndex: number
+  sliceIndex?: number
   variantString: string
   type: string
   label?: string
@@ -297,10 +297,11 @@ function doDropHeuristics(
 
   if (draggedItemType === DragTypes.PALETTE) {
     if (street.remainingWidth > 0 && actualWidth > street.remainingWidth) {
-      const variantMinWidth = getSegmentVariantInfo(
-        type,
-        variantString
-      ).minWidth
+      const variantInfo = getSegmentVariantInfo(type, variantString)
+
+      const variantMinWidth = !('unknown' in variantInfo)
+        ? variantInfo.minWidth
+        : undefined
       let segmentMinWidth = 0
       if (variantMinWidth !== undefined) {
         segmentMinWidth = getWidthInMetric(variantMinWidth, street.units)
@@ -722,6 +723,11 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
       const variantString =
         segment.defaultVariant ?? Object.keys(segment.details).shift()
 
+      // If palette items are missing information, that's a fatal error
+      if (!variantString) {
+        throw new Error('variant string not found')
+      }
+
       // This allows dropped segment to be created with the correct elevation value
       let elevation: number
       if (segment.defaultElevation !== undefined) {
@@ -732,7 +738,10 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
         }
       } else {
         const variantInfo = getSegmentVariantInfo(type, variantString)
-        if (typeof variantInfo.elevation !== 'number') {
+
+        if ('unknown' in variantInfo) {
+          throw new Error('unknown variant')
+        } else if (typeof variantInfo.elevation !== 'number') {
           elevation = getWidthInMetric(variantInfo.elevation, units)
         } else {
           elevation = variantInfo.elevation
