@@ -19,23 +19,23 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.9.2",
-    "@docusaurus/preset-classic": "^3.9.2",
+    "@docusaurus/core": "^3.10.0",
+    "@docusaurus/preset-classic": "^3.10.0",
     "@fontsource-variable/manrope": "^5.2.8",
     "@mdx-js/react": "^3.1.1",
     "@svgr/webpack": "^8.1.0",
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "remark-smartypants": "^3.0.2",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@argos-ci/cli": "^4.1.4",
     "@argos-ci/playwright": "^6.6.1",
-    "@playwright/test": "^1.58.2",
+    "@playwright/test": "^1.59.1",
     "cheerio": "^1.2.0"
   },
   "browserslist": {
