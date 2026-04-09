@@ -10,6 +10,7 @@ import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { ElevationControlNew } from './ElevationControlNew.js'
 import { SlopeToggle } from './SlopeToggle.js'
+import { SlopeControl } from './SlopeControl.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -29,8 +30,6 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
     }
   })
 
-  // TODO: consider passing slice and slice info into this component, one
-  // level up -- because other sibling components may need it too
   const slice = useSelector((state) => {
     if (typeof position === 'number') {
       return state.street.segments[position]
@@ -67,9 +66,7 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
         />
       )}
       {isSloped ? (
-        <div className="popup-control-row" data-tour-id="elevation-control">
-          <div className="popup-control-label">slope placeholder</div>
-        </div>
+        <SlopeControl position={position} />
       ) : (
         <div className="popup-control-row" data-tour-id="elevation-control">
           <div className="popup-control-label">
@@ -80,7 +77,6 @@ export function CoastmixControls({ position }: CoastmixControlProps) {
             </Tooltip>
           </div>
           <ElevationControlNew
-            key={position}
             position={position}
             elevation={elevation}
             units={units}
