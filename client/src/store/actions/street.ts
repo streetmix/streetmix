@@ -9,7 +9,6 @@ import {
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions,
 } from '~/src/segments/resizing.js'
-import { getSlopeValues } from '~/src/segments/slope.js'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import {
   setIgnoreStreetChanges,
@@ -66,11 +65,12 @@ export const segmentsChanged = (force = false) => {
 
     // Original slices state is read-only, so we need to clone it to modify
     // and update its properties.
-    const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
+    const clonedSlices: SliceItem[] = street.segments.map((slice) => {
       // Calculate slope values, if needed
       let slopeValues: number[]
       if (slice.slope?.on && slice.slope.values.length === 0) {
-        slopeValues = getSlopeValues(street, index)
+        // If we don't have slope values, create it using current elevation
+        slopeValues = [slice.elevation, slice.elevation]
       } else {
         slopeValues = slice.slope.values
       }
