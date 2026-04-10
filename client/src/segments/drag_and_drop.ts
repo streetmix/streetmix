@@ -466,8 +466,6 @@ function doDropHeuristics(
     if (left === null) {
       leftElevation = street.boundary.left.elevation ?? CURB_HEIGHT
       // Make sure there are values
-      // Look into the implementation, apparently slope can be `on` but
-      // values are an empty array, which returns `-Infinity` from `Math.max()`
     } else if (left.slope.on && left.slope.values.length > 1) {
       leftElevation = Math.max(...left.slope.values)
     } else {
@@ -479,8 +477,6 @@ function doDropHeuristics(
     if (right === null) {
       rightElevation = street.boundary.right.elevation ?? CURB_HEIGHT
       // Make sure there are values
-      // Look into the implementation, apparently slope can be `on` but
-      // values are an empty array, which returns `-Infinity` from `Math.max()`
     } else if (right.slope.on && right.slope.values.length > 1) {
       rightElevation = Math.max(...right.slope.values)
     } else {
@@ -493,6 +489,8 @@ function doDropHeuristics(
     // Only apply highestElevation if not sloped
     if (!draggedItem.slope.on) {
       draggedItem.elevation = highestElevation
+      // We need to set this to make sure that variants don't override
+      // the elevation
       draggedItem.elevationChanged = true
     }
   }
