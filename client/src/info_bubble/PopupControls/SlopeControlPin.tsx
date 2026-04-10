@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { setSlopeValue } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
+import { Icon } from '~/src/ui/Icon.js'
 
 interface SlopeControlPinProps {
   position: number
@@ -22,7 +23,7 @@ export function SlopeControlPin({ position, anchor }: SlopeControlPinProps) {
 
   return (
     <Button onClick={onClick} style={{ marginLeft: '0.25em' }}>
-      pin
+      <Icon name="pin" size="24" stroke="1.5" className="tabler-icon" />
     </Button>
   )
 }
