@@ -6,17 +6,37 @@ export function getSlopeValues(
   street: StreetJson,
   index: number
 ): [number, number] {
-  // Get elevation of slices adjacent to current slice
-  let leftElevation = street.segments[index - 1]?.elevation
-  let rightElevation = street.segments[index + 1]?.elevation
+  const leftSlice = street.segments[index - 1]
+  const rightSlice = street.segments[index + 1]
 
-  // If slice is first or last in the list, adjacent elevation is
-  // taken from boundary. A fallback value is used for older streets
-  // that don't have boundary data
-  if (index === 0) {
+  let leftElevation
+  let rightElevation
+
+  // Get the elevation of adjacent left slice.
+  if (leftSlice) {
+    // Use the adjacent slope anchor value, or flat elevation
+    if (leftSlice.slope.on) {
+      leftElevation = leftSlice.slope.values[1]
+    } else {
+      leftElevation = leftSlice.elevation
+    }
+    // If there is not an adjacent slice, take elevation from boundary.
+    // A fallback value is used for older street that don't have boundary data
+  } else {
     leftElevation = street.boundary?.left.elevation ?? CURB_HEIGHT
   }
-  if (index === street.segments.length - 1) {
+
+  // Get the elevation of adjacent right slice.
+  if (rightSlice) {
+    // Use the adjacent slope anchor value, or flat elevation
+    if (rightSlice.slope.on) {
+      rightElevation = rightSlice.slope.values[0]
+    } else {
+      rightElevation = rightSlice.elevation
+    }
+    // If there is not an adjacent slice, take elevation from boundary.
+    // A fallback value is used for older street that don't have boundary data
+  } else {
     rightElevation = street.boundary?.right.elevation ?? CURB_HEIGHT
   }
 
