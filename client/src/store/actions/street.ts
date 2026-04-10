@@ -68,9 +68,11 @@ export const segmentsChanged = (force = false) => {
     // and update its properties.
     const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
       // Calculate slope values, if needed
-      let slopeValues: number[] = []
-      if (slice.slope?.on) {
+      let slopeValues: number[]
+      if (slice.slope?.on && slice.slope.values.length === 0) {
         slopeValues = getSlopeValues(street, index)
+      } else {
+        slopeValues = slice.slope.values
       }
 
       return {
