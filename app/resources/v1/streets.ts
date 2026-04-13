@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import models from '../../db/models/index.ts'
+import models, { Sequence } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
@@ -8,7 +8,7 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User, Street, Sequence } = models
+const { User, Street } = models
 
 export async function post(req: AuthedRequest, res: Response) {
   let body
@@ -47,20 +47,28 @@ export async function post(req: AuthedRequest, res: Response) {
     })
   }
 
+  // Keeps track of anonymous streets' "namespaced id", which is just a number
+  // that counts up. The `Sequence` table is a fast lookup of that number.
   async function updateSequence() {
-    let sequence
+    let sequence: Sequence | null
+
+    // Gets the last number in the sequence.
     try {
       sequence = await Sequence.findByPk('streets')
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_CREATE_STREET)
+      throw new Error(ERRORS.CANNOT_CREATE_STREET, { cause: err })
     }
+
+    // If present, increments it by 1
     if (sequence) {
       return Sequence.update(
         { seq: sequence.seq + 1 },
         { where: { id: 'streets' }, returning: true }
       )
     }
+
+    // If not present, begin the count
     return Sequence.create({
       id: 'streets',
       seq: 1,
