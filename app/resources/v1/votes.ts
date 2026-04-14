@@ -268,18 +268,19 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   // If requesting user is logged in, create a new vote
-  const ballot = {
-    id: randomUUID(),
-  }
-
-  let savedBallot
+  let ballot: Vote
+  let savedBallot: Vote
   let updates
 
   try {
-    ballot.data = req.body.data
-    ballot.score = req.body.score
-    ballot.streetId = req.body.streetId
-    ballot.voterId = user.id
+    ballot = {
+      id: randomUUID(),
+      data: req.body.data,
+      score: req.body.score,
+      streetId: req.body.streetId,
+      voterId: user.id,
+    }
+
     savedBallot = await Vote.create(ballot)
 
     // update existing ballot
