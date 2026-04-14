@@ -7,7 +7,6 @@ import {
 } from 'sequelize'
 
 import { sequelize } from '../db.ts'
-import { User } from './index.ts'
 
 import type { StreetData } from '@streetmix/types'
 
@@ -26,18 +25,6 @@ export class Street extends Model<
   declare clientUpdatedAt: CreationOptional<Date>
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
-
-  static associate() {
-    Street.belongsTo(User, {
-      foreignKey: 'creatorId',
-      targetKey: 'id',
-    })
-
-    Street.belongsTo(Street, {
-      foreignKey: 'originalStreetId',
-      targetKey: 'id',
-    })
-  }
 }
 
 Street.init(

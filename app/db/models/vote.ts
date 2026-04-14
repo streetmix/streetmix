@@ -7,7 +7,6 @@ import {
 } from 'sequelize'
 
 import { sequelize } from '../db.ts'
-import { User } from './index.ts'
 
 const MAX_COMMENT_LENGTH = 280
 
@@ -24,17 +23,6 @@ export class Vote extends Model<
   declare score: CreationOptional<number>
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
-
-  static associate() {
-    Vote.belongsTo(User, {
-      foreignKey: 'voterId',
-      targetKey: 'id',
-    })
-    Vote.belongsTo(Vote, {
-      foreignKey: 'streetId',
-      targetKey: 'id',
-    })
-  }
 }
 
 Vote.init(
