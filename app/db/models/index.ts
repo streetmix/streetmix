@@ -5,7 +5,7 @@ export { Sequence } from './sequence.ts'
 import Street from './street.ts'
 export { User } from './user.ts'
 export { UserConnections } from './userconnections.ts'
-import Vote from './vote.ts'
+export { Vote } from './vote.ts'
 
 type ModelAssociate = {
   associate?: (models: Db) => void
@@ -22,7 +22,6 @@ const db: Db = {}
 // need a refactor.
 const models = {
   Street,
-  Vote,
 }
 
 Object.entries(models).forEach(([name, modelDefiner]) => {

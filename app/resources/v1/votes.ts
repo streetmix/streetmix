@@ -1,20 +1,20 @@
 import { randomUUID } from 'node:crypto'
 import Sequelize from 'sequelize'
 
-import models, { User } from '../../db/models/index.ts'
+import models, { User, Vote } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { Vote, Street } = models
+const { Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
 
 export function generateRandomBallotFetch({ redirect = false }) {
   return async function (req: AuthedRequest, res: Response) {
-    let ballots
+    let ballots: Vote[]
     const authUser = req.auth || {}
     let user: User | null
     if (authUser.sub) {

@@ -1,19 +1,20 @@
 import {
   DataTypes,
   Model,
-  Sequelize,
   type InferAttributes,
   type InferCreationAttributes,
   type CreationOptional,
 } from 'sequelize'
 
+import { sequelize } from '../db.ts'
 import { User } from './index.ts'
-
-import type { Db } from './index.ts'
 
 const MAX_COMMENT_LENGTH = 280
 
-class Vote extends Model<InferAttributes<Vote>, InferCreationAttributes<Vote>> {
+export class Vote extends Model<
+  InferAttributes<Vote>,
+  InferCreationAttributes<Vote>
+> {
   declare id: string
   declare data: CreationOptional<unknown>
   declare streetId: CreationOptional<string>
@@ -24,52 +25,48 @@ class Vote extends Model<InferAttributes<Vote>, InferCreationAttributes<Vote>> {
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
-  static associate(models: Db) {
-    models.Vote.belongsTo(User, {
+  static associate() {
+    Vote.belongsTo(User, {
       foreignKey: 'voterId',
       targetKey: 'id',
     })
-    models.Vote.belongsTo(models.Vote, {
+    Vote.belongsTo(Vote, {
       foreignKey: 'streetId',
       targetKey: 'id',
     })
   }
 }
 
-export default (sequelize: Sequelize) => {
-  Vote.init(
-    {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        type: DataTypes.STRING,
-      },
-      data: DataTypes.JSON,
-      streetId: {
-        type: DataTypes.STRING,
-        field: 'street_id',
-      },
-      voterId: {
-        type: DataTypes.STRING,
-        field: 'voter_id',
-      },
-      comment: DataTypes.STRING(MAX_COMMENT_LENGTH),
-      submitted: DataTypes.ARRAY(DataTypes.TEXT),
-      score: DataTypes.DOUBLE,
-      createdAt: { type: DataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
+Vote.init(
+  {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.STRING,
     },
-    {
-      sequelize,
-      modelName: 'Vote',
-      timestamps: true,
-      indexes: [
-        {
-          fields: ['created_at', 'updated_at', 'voter_id'],
-        },
-      ],
-    }
-  )
-
-  return Vote
-}
+    data: DataTypes.JSON,
+    streetId: {
+      type: DataTypes.STRING,
+      field: 'street_id',
+    },
+    voterId: {
+      type: DataTypes.STRING,
+      field: 'voter_id',
+    },
+    comment: DataTypes.STRING(MAX_COMMENT_LENGTH),
+    submitted: DataTypes.ARRAY(DataTypes.TEXT),
+    score: DataTypes.DOUBLE,
+    createdAt: { type: DataTypes.DATE, field: 'created_at' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
+  },
+  {
+    sequelize,
+    modelName: 'Vote',
+    timestamps: true,
+    indexes: [
+      {
+        fields: ['created_at', 'updated_at', 'voter_id'],
+      },
+    ],
+  }
+)
