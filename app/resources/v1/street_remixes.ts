@@ -22,6 +22,10 @@ export async function get(req: Request, res: Response) {
       })
     } catch (err) {
       logger.error(err)
+      // This error is thrown from here because calling `handleErrors`
+      // directly and then returning will cause this function to return
+      // `undefined` -- which is a type error further downstream.
+      // We don't usually throw the ERRORS values directly though
       throw new Error(ERRORS.CANNOT_GET_STREET, { cause: err })
     }
 
@@ -37,7 +41,7 @@ export async function get(req: Request, res: Response) {
     res.status(200).send(csv).end()
   } // END function - handleFindUserStreets
 
-  function handleErrors(error) {
+  function handleErrors(error: string) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -86,8 +90,13 @@ export async function get(req: Request, res: Response) {
   try {
     const streets = await findRemixedStreets(req.params.street_id)
     handleFindRemixedStreets(streets)
-  } catch (err) {
-    console.error(err)
-    handleErrors(err)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message)
+      handleErrors(err.message)
+    } else {
+      console.error(err)
+      handleErrors(err)
+    }
   }
 }
