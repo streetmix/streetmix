@@ -39,7 +39,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   function updateUserLastStreetId(userId: string) {
-    return User.findOne({ where: { auth0_id: userId } }).then((user) => {
+    return User.findOne({ where: { auth0Id: userId } }).then((user) => {
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
       }
@@ -157,10 +157,10 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   if (req.auth) {
-    let user: User
+    let user: User | null
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
@@ -190,18 +190,18 @@ export async function del(req: AuthedRequest, res: Response) {
   }
 
   async function deleteStreet(street) {
-    let user
+    let user: User | null
     if (!req.auth) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.USER_NOT_FOUND)
+      throw new Error(ERRORS.USER_NOT_FOUND, { cause: err })
     }
 
     if (!user) {
@@ -599,7 +599,7 @@ export async function put(req: AuthedRequest, res: Response) {
     }
 
     const user = await User.findOne({
-      where: { auth0_id: req.auth.sub },
+      where: { auth0Id: req.auth.sub },
     })
 
     const isOwner = user && user.id === street.creatorId

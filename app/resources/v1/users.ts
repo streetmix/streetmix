@@ -256,7 +256,7 @@ export async function get(req: AuthedRequest, res: Response) {
       user = await User.findOne({ where: { id: userId } })
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_GET_USER)
+      throw new Error(ERRORS.CANNOT_GET_USER, { cause: err })
     }
 
     if (!user) {
@@ -287,7 +287,7 @@ export async function get(req: AuthedRequest, res: Response) {
       }
 
       const callingUser = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
 
       const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
@@ -321,7 +321,7 @@ export async function del(req: AuthedRequest, res: Response) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth?.sub },
+    where: { auth0Id: req.auth?.sub },
   })
 
   const isAdmin =
@@ -329,7 +329,7 @@ export async function del(req: AuthedRequest, res: Response) {
     callingUser.roles &&
     callingUser.roles.indexOf('ADMIN') !== -1
 
-  const isSameUser = user.id === callingUser.id
+  const isSameUser = user.id === callingUser?.id
   if (!isSameUser && !isAdmin) {
     res.status(401).end()
     return
@@ -375,7 +375,7 @@ export async function put(req: AuthedRequest, res: Response) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth.sub },
+    where: { auth0Id: req.auth.sub },
   })
 
   const isAdmin =
@@ -383,7 +383,7 @@ export async function put(req: AuthedRequest, res: Response) {
     callingUser.roles &&
     callingUser.roles.indexOf('ADMIN') !== -1
 
-  if (!isAdmin && callingUser.id !== userId) {
+  if (!isAdmin && callingUser?.id !== userId) {
     res.status(401).end()
     return
   }

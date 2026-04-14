@@ -154,10 +154,10 @@ export async function post(req: AuthedRequest, res: Response) {
       return
     }
 
-    let user: User
+    let user: User | null
 
     try {
-      user = await User.findOne({ where: { auth0_id: req.auth.sub } })
+      user = await User.findOne({ where: { auth0Id: req.auth.sub } })
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -220,9 +220,9 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
   try {
-    user = await User.findOne({ where: { auth0_id: req.auth.sub } })
+    user = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })

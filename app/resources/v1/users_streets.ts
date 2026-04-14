@@ -142,10 +142,10 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  let requestUser
+  let requestUser: User | null
 
   try {
-    requestUser = await User.findOne({ where: { auth0_id: req.auth.sub } })
+    requestUser = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })
