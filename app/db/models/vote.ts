@@ -1,12 +1,15 @@
 import {
   DataTypes,
   Model,
+  type Association,
   type InferAttributes,
   type InferCreationAttributes,
   type CreationOptional,
 } from 'sequelize'
 
 import { sequelize } from '../db.ts'
+import type { Street } from './street.ts'
+import type { User } from './user.ts'
 
 const MAX_COMMENT_LENGTH = 280
 
@@ -23,6 +26,11 @@ export class Vote extends Model<
   declare score: CreationOptional<number>
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
+
+  declare static associations: {
+    User: Association<Vote, User>
+    Street: Association<Vote, Street>
+  }
 }
 
 Vote.init(

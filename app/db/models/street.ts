@@ -1,12 +1,14 @@
 import {
   DataTypes,
   Model,
+  type Association,
   type InferAttributes,
   type InferCreationAttributes,
   type CreationOptional,
 } from 'sequelize'
 
 import { sequelize } from '../db.ts'
+import type { User } from './user.ts'
 
 import type { StreetData } from '@streetmix/types'
 
@@ -25,6 +27,11 @@ export class Street extends Model<
   declare clientUpdatedAt: CreationOptional<Date>
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
+
+  declare static associations: {
+    User: Association<Street, User>
+    Street: Association<Street, Street>
+  }
 }
 
 Street.init(
