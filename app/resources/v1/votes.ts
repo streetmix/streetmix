@@ -267,19 +267,16 @@ export async function post(req: AuthedRequest, res: Response) {
 
   // If requesting user is logged in, create a new vote
   let ballot: Vote
-  let savedBallot: Vote
   let updates
 
   try {
-    ballot = {
+    ballot = await Vote.create({
       id: randomUUID(),
       data: req.body.data,
       score: req.body.score,
       streetId: req.body.streetId,
       voterId: user.id,
-    }
-
-    savedBallot = await Vote.create(ballot)
+    })
 
     // update existing ballot
     updates = await Vote.update(
@@ -304,7 +301,7 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(500).json({ status: 500, msg: 'Error filling ballot.' })
     return
   }
-  const payload = { ballot, savedBallot, updates }
+  const payload = { ballot, updates }
 
   res.status(200).json(payload)
 }
