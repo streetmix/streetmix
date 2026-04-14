@@ -4,7 +4,7 @@ import { logger } from '../../lib/logger.ts'
 import type { Request, Response } from 'express'
 
 export async function get(req: Request, res: Response) {
-  let results: Street[] | null
+  let results: Street[]
 
   try {
     results = await Street.findAll({
@@ -18,18 +18,13 @@ export async function get(req: Request, res: Response) {
     return
   }
 
-  if (!results) {
-    res
-      .status(404)
-      .json({ status: 404, msg: 'Could not find streets with locations.' })
-    return
-  }
-
   const features = results.map((result) => {
-    const { latlng } = result.data.street.location
+    // Assuming this property must exist; the `.finaAll` query specifies it.
+    const { latlng } = result.data.street.location!
     const coordinates = Array.isArray(latlng)
       ? [latlng[1], latlng[0]]
       : [latlng.lng, latlng.lat]
+
     return {
       type: 'Feature',
       geometry: {
