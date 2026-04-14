@@ -1,11 +1,9 @@
-import models from '../../db/models/index.ts'
+import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
 import { ERRORS } from '../../lib/util.js'
 
 import type { Request, Response } from 'express'
-
-const { Street } = models
 
 export async function get(req: Request, res: Response) {
   // Flag error if user ID is not provided
@@ -15,7 +13,8 @@ export async function get(req: Request, res: Response) {
   }
 
   const findRemixedStreets = async function (streetId: string) {
-    let streets
+    let streets: Street[]
+
     try {
       streets = await Street.findAll({
         where: { originalStreetId: streetId, status: 'ACTIVE' },
@@ -24,16 +23,17 @@ export async function get(req: Request, res: Response) {
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.CANNOT_GET_STREET)
+      return
     }
 
-    if (!streets) {
+    if (streets.length === 0) {
       throw new Error(ERRORS.STREET_NOT_FOUND)
     }
 
     return streets
   } // END function - handleFindUserstreets
 
-  const handleFindRemixedStreets = function (streets) {
+  const handleFindRemixedStreets = function (streets: Street[]) {
     const json = { streets }
     const csv = streetsToCSV(json)
     // For now, this sends CSV directly for export.

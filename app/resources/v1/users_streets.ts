@@ -1,11 +1,9 @@
-import models, { User } from '../../db/models/index.ts'
+import { Street, User } from '../../db/models/index.ts'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
-
-const { Street } = models
 
 function handleErrors(error, res: Response) {
   switch (error) {

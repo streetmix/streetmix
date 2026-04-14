@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import models, { Sequence, User } from '../../db/models/index.ts'
+import { Sequence, Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
@@ -8,11 +8,9 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { Street } = models
-
 export async function post(req: AuthedRequest, res: Response) {
   let body
-  const street = {}
+  const street: Street = {}
   street.id = randomUUID()
   const requestIp = function (req) {
     if (req.headers['x-forwarded-for'] !== undefined) {
@@ -92,7 +90,7 @@ export async function post(req: AuthedRequest, res: Response) {
       }
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_CREATE_STREET)
+      throw new Error(ERRORS.CANNOT_CREATE_STREET, { cause: err })
     }
 
     if (!namespacedId) {
@@ -110,7 +108,7 @@ export async function post(req: AuthedRequest, res: Response) {
         })
       } catch (err) {
         logger.error(err)
-        throw new Error(ERRORS.STREET_NOT_FOUND)
+        throw new Error(ERRORS.STREET_NOT_FOUND, { cause: err })
       }
 
       if (!origStreet || origStreet.status === 'DELETED') {
@@ -189,7 +187,7 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  async function deleteStreet(street) {
+  async function deleteStreet(street: Street) {
     let user: User | null
     if (!req.auth) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
@@ -329,7 +327,7 @@ export async function find(req: AuthedRequest, res: Response) {
   const namespacedId = req.query.namespacedId
   const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
   const count = (req.query.count && Number.parseInt(req.query.count, 10)) || 20
-  const findStreetWithCreatorId = async function (creatorId) {
+  const findStreetWithCreatorId = async function (creatorId: string) {
     let user
     try {
       user = await User.findOne({ where: { id: creatorId } })
@@ -353,7 +351,7 @@ export async function find(req: AuthedRequest, res: Response) {
     })
   }
 
-  const findStreets = async function (start, count) {
+  const findStreets = async function (start: number, count: number) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
@@ -533,7 +531,7 @@ export async function put(req: AuthedRequest, res: Response) {
       body.clientUpdatedAt || street.clientUpdatedAt || ''
 
     if (body.originalStreetId) {
-      let origStreet
+      let origStreet: Street | null
       try {
         origStreet = await Street.findOne({
           where: { id: body.originalStreetId },

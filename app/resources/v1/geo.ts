@@ -1,15 +1,13 @@
-import models from '../../db/models/index.ts'
+import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
 
-const { Street } = models
-
 export async function get(req: Request, res: Response) {
-  let results
+  let results: Street[] | null
 
   try {
-    results = await Street.findOne({
+    results = await Street.findAll({
       where: { 'data.street.location': { $ne: null }, status: 'ACTIVE' },
     })
   } catch (err) {

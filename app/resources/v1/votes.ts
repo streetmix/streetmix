@@ -1,13 +1,11 @@
 import { randomUUID } from 'node:crypto'
 import Sequelize from 'sequelize'
 
-import models, { User, Vote } from '../../db/models/index.ts'
+import { Street, User, Vote } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
-
-const { Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
@@ -210,7 +208,7 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
   const ballot = await Vote.findOne({
-    where: { id, voter_id: user.id },
+    where: { id, voterId: user.id },
   })
 
   if (!ballot) {

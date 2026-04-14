@@ -3,14 +3,13 @@ import cloudinary from 'cloudinary'
 import { runTestCanvas, StreetImageExportSchema } from '@streetmix/export-image'
 import { z } from 'zod'
 
-import models, { User } from '../../db/models/index.ts'
+import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
 export async function post(req: AuthedRequest, res: Response) {

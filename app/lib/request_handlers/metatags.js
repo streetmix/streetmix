@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-import models, { User } from '../../db/models/index.ts'
+import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 const ANON_CREATOR = '-'
-const { Street } = models
 
 export default async function (req, res, next) {
   const userId = req.params.user_id
