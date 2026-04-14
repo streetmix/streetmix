@@ -8,7 +8,7 @@ import {
 
 import { sequelize } from '../db.ts'
 
-class Sequence extends Model<
+export class Sequence extends Model<
   InferAttributes<Sequence>,
   InferCreationAttributes<Sequence>
 > {
@@ -33,5 +33,3 @@ Sequence.init(
     timestamps: false,
   }
 )
-
-export default Sequence

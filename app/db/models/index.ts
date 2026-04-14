@@ -1,9 +1,9 @@
 import { type Model, type ModelStatic } from 'sequelize'
 
 import { sequelize } from '../db.ts'
-export { default as Sequence } from './sequence.ts'
+export { Sequence } from './sequence.ts'
 import Street from './street.ts'
-export { default as User } from './user.ts'
+export { User } from './user.ts'
 export { UserConnections } from './userconnections.ts'
 import Vote from './vote.ts'
 

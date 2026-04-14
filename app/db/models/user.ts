@@ -15,7 +15,10 @@ const validUserRoles = Object.keys(roles)
 a little atypical setup here...'id' is usually a unique primary key value
 but in this app it is actually the username of the user
 */
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+export class User extends Model<
+  InferAttributes<User>,
+  InferCreationAttributes<User>
+> {
   declare id: string
   declare auth0Id: CreationOptional<string>
   declare displayName: CreationOptional<string>
@@ -115,5 +118,3 @@ User.init(
     ],
   }
 )
-
-export default User
