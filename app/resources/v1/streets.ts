@@ -169,10 +169,12 @@ export async function post(req: AuthedRequest, res: Response) {
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
+      return
     }
 
     if (!user) {
       handleErrors(ERRORS.UNAUTHORISED_ACCESS)
+      return
     }
     street.creatorId = user ? user.id : ''
 
