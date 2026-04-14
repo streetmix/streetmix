@@ -42,6 +42,9 @@ export async function post(req: AuthedRequest, res: Response) {
 
   function updateUserLastStreetId(userId: string) {
     return User.findOne({ where: { auth0Id: userId } }).then((user) => {
+      if (!user) {
+        throw new Error(ERRORS.USER_NOT_FOUND)
+      }
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
       }
