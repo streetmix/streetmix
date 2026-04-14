@@ -9,36 +9,31 @@ import type { Request as AuthedRequest } from 'express-jwt'
 
 export async function post(req: AuthedRequest, res: Response) {
   const handleCreateUser = function (user: User) {
-    if (!user) {
-      res.status(500).json({
-        status: 500,
-        msg: 'Could not create user, user not found after creation.',
-      })
-      return
-    }
     const userJson = { id: user.id }
-    logger.info({ user: userJson }, 'New user created.')
+    logger.info(`New user '${user.id}' created.`)
+
     res.header('Location', '/api/v1/users/' + user.id)
     res.status(201).send(userJson)
   } // END function - handleCreateUser
 
-  const handleCreateUserError = function (err) {
+  const handleCreateUserError = function (err: unknown) {
     if (err) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not create user.' })
     }
   }
 
-  const handleUpdateUserError = function (err) {
+  const handleUpdateUserError = function (err: unknown) {
     if (err) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not update user.' })
     }
   }
 
-  const handleUpdateUser = function (user) {
+  const handleUpdateUser = function (users: User[]) {
+    const user = users[0]
     const userJson = { id: user.id }
-    logger.info({ user: userJson }, 'Existing user logged in.')
+    logger.info(`Existing user '${user.id}' logged in.`)
 
     res.header('Location', '/api/v1/users/' + user.id)
     res.status(200).send(userJson)
@@ -57,14 +52,13 @@ export async function post(req: AuthedRequest, res: Response) {
       })
 
       if (!user) {
-        const newUserData = {
-          id: credentials.screenName,
-          auth0Id: credentials.auth0Id,
-          profileImageUrl: credentials.profileImageUrl,
-        }
-
         try {
-          await User.create(newUserData).then(handleCreateUser)
+          const newUser = await User.create({
+            id: credentials.screenName,
+            auth0Id: credentials.auth0Id,
+            profileImageUrl: credentials.profileImageUrl,
+          })
+          handleCreateUser(newUser)
         } catch (err) {
           handleCreateUserError(err)
         }
@@ -115,7 +109,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return nickname + '-' + id
   }
 
-  const handleUserProfileImage = async function (user, credentials) {
+  const handleUserProfileImage = async function (user: User, credentials) {
     const publicId = `${process.env.NODE_ENV}/profile_image/${user.id}`
     let profileImageUrl
 
