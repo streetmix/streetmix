@@ -1,3 +1,5 @@
+import { Op } from 'sequelize'
+
 import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
@@ -8,7 +10,7 @@ export async function get(req: Request, res: Response) {
 
   try {
     results = await Street.findAll({
-      where: { 'data.street.location': { $ne: null }, status: 'ACTIVE' },
+      where: { 'data.street.location': { [Op.not]: null }, status: 'ACTIVE' },
     })
   } catch (err) {
     logger.error(err)
@@ -19,7 +21,7 @@ export async function get(req: Request, res: Response) {
   }
 
   const features = results.map((result) => {
-    // Assuming this property must exist; the `.finaAll` query specifies it.
+    // Assuming this property must exist; the `.findAll` query specifies it.
     const { latlng } = result.data.street.location!
     const coordinates = Array.isArray(latlng)
       ? [latlng[1], latlng[0]]
