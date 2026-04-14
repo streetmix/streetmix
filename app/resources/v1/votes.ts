@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import Sequelize from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 
 import { Street, User, Vote } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
@@ -13,8 +13,9 @@ const SURVEY_FINISHED_PATH = '/survey-finished'
 export function generateRandomBallotFetch({ redirect = false }) {
   return async function (req: AuthedRequest, res: Response) {
     let ballots: Vote[]
-    const authUser = req.auth || {}
-    let user: User | null
+    let user: User | null = null
+    const authUser = req.auth ?? {}
+
     if (authUser.sub) {
       try {
         user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -33,11 +34,11 @@ export function generateRandomBallotFetch({ redirect = false }) {
     try {
       let hasValidStreet = false
       while (!hasValidStreet) {
-        if (!req.auth) {
+        if (!user) {
           ballots = await Vote.findAll({
             where: {
               voterId: {
-                [Sequelize.Op.is]: null,
+                [Op.is]: null,
               },
             },
             order: Sequelize.literal('random()'),
@@ -47,26 +48,26 @@ export function generateRandomBallotFetch({ redirect = false }) {
           ballots = await Vote.findAll({
             // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
             where: {
-              [Sequelize.Op.and]: [
+              [Op.and]: [
                 {
-                  [Sequelize.Op.or]: [
+                  [Op.or]: [
                     {
-                      [Sequelize.Op.not]: {
+                      [Op.not]: {
                         submitted: {
-                          [Sequelize.Op.contains]: [user.id],
+                          [Op.contains]: [user.id],
                         },
                       },
                     },
                     {
                       submitted: {
-                        [Sequelize.Op.is]: null,
+                        [Op.is]: null,
                       },
                     },
                   ],
                 },
                 {
                   voterId: {
-                    [Sequelize.Op.is]: null,
+                    [Op.is]: null,
                   },
                 },
               ],
@@ -75,7 +76,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
             limit: 1,
           })
         }
-        if (ballots && ballots.length > 0) {
+        if (user && ballots && ballots.length > 0) {
           const myBallot = ballots[0]
           const { streetId } = myBallot
           if (streetId) {
@@ -107,7 +108,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
                   where: {
                     streetId: streetForBallot.id,
                     voterId: {
-                      [Sequelize.Op.is]: null,
+                      [Op.is]: null,
                     },
                   },
                 }
@@ -291,7 +292,7 @@ export async function post(req: AuthedRequest, res: Response) {
         where: {
           streetId: ballot.streetId,
           voterId: {
-            [Sequelize.Op.is]: null,
+            [Op.is]: null,
           },
         },
       }
