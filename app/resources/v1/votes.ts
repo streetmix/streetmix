@@ -84,6 +84,12 @@ export function generateRandomBallotFetch({ redirect = false }) {
               where: { id: streetId },
             })
 
+            if (!streetForBallot) {
+              return res
+                .status(500)
+                .json({ status: 500, msg: 'Error fetching street for ballot.' })
+            }
+
             // do not return a vote to the same user
             const isCreator = user && user.id === streetForBallot.creatorId
 
@@ -158,6 +164,10 @@ export function generateRandomBallotFetch({ redirect = false }) {
         const streetId = ballots[0].streetId
         if (!streetId) throw new Error('no street ID found for ballots!')
         street = await Street.findOne({ where: { id: streetId } })
+
+        if (!street) {
+          throw new Error('No street found.')
+        }
 
         if (!street.creatorId) {
           candidateStreetUrl += `-/${street.namespacedId}`

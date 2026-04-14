@@ -9,6 +9,7 @@ export async function get(req: Request, res: Response) {
   let results: Street[]
 
   try {
+    // TODO: limit / paginate this query
     results = await Street.findAll({
       where: { 'data.street.location': { [Op.not]: null }, status: 'ACTIVE' },
     })
