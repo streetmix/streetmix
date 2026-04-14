@@ -22,12 +22,7 @@ export async function get(req: Request, res: Response) {
       })
     } catch (err) {
       logger.error(err)
-      handleErrors(ERRORS.CANNOT_GET_STREET)
-      return
-    }
-
-    if (streets.length === 0) {
-      throw new Error(ERRORS.STREET_NOT_FOUND)
+      throw new Error(ERRORS.CANNOT_GET_STREET, { cause: err })
     }
 
     return streets
@@ -86,6 +81,7 @@ export async function get(req: Request, res: Response) {
 
   // TODO: Check for author of street?
   // TODO: Recursively look for the remixes of remixes
+  // TODO: Confirm that no remixed streets is an empty array
 
   try {
     const streets = await findRemixedStreets(req.params.street_id)
