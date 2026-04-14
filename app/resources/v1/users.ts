@@ -31,6 +31,10 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   const handleUpdateUser = function (users: User[]) {
+    // Check here that only 1 user is updated
+    if (users.length !== 1) {
+      throw new Error('incorrect number of updated users from query')
+    }
     const user = users[0]
     const userJson = { id: user.id }
     logger.info(`Existing user '${user.id}' logged in.`)
@@ -68,7 +72,7 @@ export async function post(req: AuthedRequest, res: Response) {
         userUpdates.profileImageUrl = credentials.profileImageUrl
 
         try {
-          const [numUsersUpdated, updatedUser] = await User.update(
+          const [numUsersUpdated, updatedUsers] = await User.update(
             userUpdates,
             {
               where: { id: credentials.screenName },
@@ -79,7 +83,7 @@ export async function post(req: AuthedRequest, res: Response) {
           logger.info(
             `Updated data for ${numUsersUpdated} users based on auth0 credentials`
           )
-          handleUpdateUser(updatedUser)
+          handleUpdateUser(updatedUsers)
         } catch (err) {
           handleUpdateUserError(err)
         }
@@ -177,7 +181,7 @@ export async function post(req: AuthedRequest, res: Response) {
         userUpdates.email = credentials.email
 
         try {
-          const [numUsersUpdated, updatedUser] = await User.update(
+          const [numUsersUpdated, updatedUsers] = await User.update(
             userUpdates,
             {
               where: { auth0Id: credentials.auth0Id },
@@ -190,8 +194,7 @@ export async function post(req: AuthedRequest, res: Response) {
               `Updated data for ${numUsersUpdated} users based on auth0 credentials`
             )
           }
-          // TODO check here that only 1 user is updated
-          handleUpdateUser(updatedUser[0])
+          handleUpdateUser(updatedUsers)
         } catch (err) {
           handleUpdateUserError(err)
         }
