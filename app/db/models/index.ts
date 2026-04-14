@@ -4,7 +4,7 @@ import { sequelize } from '../db.ts'
 export { default as Sequence } from './sequence.ts'
 import Street from './street.ts'
 export { default as User } from './user.ts'
-import UserConnections from './userconnections.ts'
+export { UserConnections } from './userconnections.ts'
 import Vote from './vote.ts'
 
 type ModelAssociate = {
@@ -22,7 +22,6 @@ const db: Db = {}
 // need a refactor.
 const models = {
   Street,
-  UserConnections,
   Vote,
 }
 
