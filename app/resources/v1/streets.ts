@@ -9,14 +9,16 @@ import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
 export async function post(req: AuthedRequest, res: Response) {
-  let body
-  const street: Street = {}
-  street.id = randomUUID()
-  const requestIp = function (req) {
+  let body: AuthedRequest['body']
+  const street = Street.build({
+    id: randomUUID(),
+  })
+
+  const requestIp = function (req: AuthedRequest) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
     } else {
-      return req.connection.remoteAddress
+      return req.socket.remoteAddress
     }
   }
 
@@ -30,10 +32,12 @@ export async function post(req: AuthedRequest, res: Response) {
       return
     }
     // TODO: Validation
-    street.name = body.name
-    street.clientUpdatedAt = body.clientUpdatedAt
-    street.data = body.data
-    street.creatorIp = requestIp(req)
+    street.set({
+      name: body.name,
+      clientUpdatedAt: body.clientUpdatedAt,
+      data: body.data,
+      creatorIp: requestIp(req),
+    })
   }
 
   function updateUserLastStreetId(userId: string) {
@@ -74,7 +78,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   const makeNamespacedId = async function () {
-    let namespacedId
+    let namespacedId: number
     try {
       if (req.auth?.sub) {
         const user = await updateUserLastStreetId(req.auth.sub)
@@ -101,7 +105,8 @@ export async function post(req: AuthedRequest, res: Response) {
 
   const saveStreet = async function () {
     if (body && body.originalStreetId) {
-      let origStreet
+      let origStreet: Street | null
+
       try {
         origStreet = await Street.findOne({
           where: { id: body.originalStreetId },
@@ -117,12 +122,12 @@ export async function post(req: AuthedRequest, res: Response) {
       const namespacedId = await makeNamespacedId()
       street.namespacedId = namespacedId
 
-      return Street.create(street)
+      return street.save()
     }
 
     const namespacedId = await makeNamespacedId()
     street.namespacedId = namespacedId
-    return Street.create(street)
+    return street.save()
   }
 
   const handleCreatedStreet = (s) => {
@@ -150,6 +155,7 @@ export async function post(req: AuthedRequest, res: Response) {
           .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
+        console.error(error)
         res.status(500).end()
     }
   }
@@ -345,7 +351,7 @@ export async function find(req: AuthedRequest, res: Response) {
     })
   } // END function - findStreetWithCreatorId
 
-  const findStreetWithNamespacedId = async function (namespacedId) {
+  const findStreetWithNamespacedId = async function (namespacedId: number) {
     return Street.findOne({
       where: { namespacedId, creatorId: null },
     })
@@ -388,7 +394,7 @@ export async function find(req: AuthedRequest, res: Response) {
     }
   } // END function - handleErrors
 
-  const handleFindStreet = function (street) {
+  const handleFindStreet = function (street: Street | null) {
     street = asStreetJson(street)
     if (!street) {
       handleErrors(ERRORS.STREET_NOT_FOUND)
