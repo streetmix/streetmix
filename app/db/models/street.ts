@@ -7,6 +7,8 @@ import {
   type CreationOptional,
 } from 'sequelize'
 
+import { User } from './index.ts'
+
 import type { StreetData } from '@streetmix/types'
 import type { Db } from './index.ts'
 
@@ -27,7 +29,7 @@ export class Street extends Model<
   declare updatedAt: CreationOptional<Date>
 
   static associate(models: Db) {
-    models.Street.belongsTo(models.User, {
+    models.Street.belongsTo(User, {
       foreignKey: 'creatorId',
       targetKey: 'id',
     })

@@ -3,7 +3,7 @@ import { type Model, type ModelStatic } from 'sequelize'
 import { sequelize } from '../db.ts'
 export { default as Sequence } from './sequence.ts'
 import Street from './street.ts'
-import User from './user.ts'
+export { default as User } from './user.ts'
 import UserConnections from './userconnections.ts'
 import Vote from './vote.ts'
 
@@ -22,7 +22,6 @@ const db: Db = {}
 // need a refactor.
 const models = {
   Street,
-  User,
   UserConnections,
   Vote,
 }

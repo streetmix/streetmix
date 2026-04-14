@@ -4,7 +4,7 @@ import { OAuth2Strategy } from 'passport-oauth'
 import { InternalOAuthError } from 'passport-oauth2'
 import axios from 'axios'
 
-import models from '../../../db/models/index.ts'
+import { User } from '../../../db/models/index.ts'
 import { appURL } from '../../../lib/url.ts'
 import { logger } from '../../../lib/logger.ts'
 import {
@@ -13,8 +13,6 @@ import {
   syncAccountStatus,
   addOrUpdateByProviderName,
 } from './helpers.ts'
-
-const { User } = models
 
 /**
  * One-liner implementation of `btoa()` (which is available globally)
@@ -208,7 +206,7 @@ export async function refreshAccessToken(refreshToken) {
   }
 }
 
-export async function getBTPToken(accessToken) {
+export async function getBTPToken(accessToken: string) {
   try {
     const requestConfig = {
       method: 'post',

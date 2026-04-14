@@ -1,16 +1,14 @@
 import cloudinary from 'cloudinary'
 
-import models from '../../db/models/index.ts'
+import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User } = models
-
 export async function post(req: AuthedRequest, res: Response) {
-  const handleCreateUser = function (user) {
+  const handleCreateUser = function (user: User) {
     if (!user) {
       res.status(500).json({
         status: 500,

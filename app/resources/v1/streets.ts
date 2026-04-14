@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import models, { Sequence } from '../../db/models/index.ts'
+import models, { Sequence, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
@@ -8,7 +8,7 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User, Street } = models
+const { Street } = models
 
 export async function post(req: AuthedRequest, res: Response) {
   let body
@@ -38,7 +38,7 @@ export async function post(req: AuthedRequest, res: Response) {
     street.creatorIp = requestIp(req)
   }
 
-  function updateUserLastStreetId(userId) {
+  function updateUserLastStreetId(userId: string) {
     return User.findOne({ where: { auth0_id: userId } }).then((user) => {
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
@@ -157,7 +157,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   if (req.auth) {
-    let user
+    let user: User
     try {
       user = await User.findOne({
         where: { auth0_id: req.auth.sub },

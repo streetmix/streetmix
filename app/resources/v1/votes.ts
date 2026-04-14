@@ -1,13 +1,13 @@
 import { randomUUID } from 'node:crypto'
 import Sequelize from 'sequelize'
 
-import models from '../../db/models/index.ts'
+import models, { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User, Vote, Street } = models
+const { Vote, Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
@@ -16,13 +16,18 @@ export function generateRandomBallotFetch({ redirect = false }) {
   return async function (req: AuthedRequest, res: Response) {
     let ballots
     const authUser = req.auth || {}
-    let user
+    let user: User | null
     if (authUser.sub) {
       try {
         user = await User.findOne({ where: { auth0Id: authUser.sub } })
       } catch (error) {
         logger.error(error)
         res.status(500).json({ status: 500, msg: 'Error finding user.' })
+        return
+      }
+
+      if (!user) {
+        res.status(403).json({ status: 403, msg: 'User not found.' })
         return
       }
     }
@@ -190,7 +195,7 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
 
   try {
     user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -241,7 +246,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
 
   try {
     user = await User.findOne({ where: { auth0Id: authUser.sub } })

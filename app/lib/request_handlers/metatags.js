@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-import models from '../../db/models/index.ts'
+import models, { User } from '../../db/models/index.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 const ANON_CREATOR = '-'
-const { User, Street } = models
+const { Street } = models
 
 export default async function (req, res, next) {
   const userId = req.params.user_id
@@ -27,7 +27,7 @@ export default async function (req, res, next) {
     try {
       user = await User.findOne({ where: { id: userId } })
     } catch (error) {
-      throw new Error('Error finding user.')
+      throw new Error('Error finding user.', { cause: error })
     }
 
     if (!user) {
