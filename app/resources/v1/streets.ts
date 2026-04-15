@@ -2,7 +2,12 @@ import { randomUUID } from 'node:crypto'
 
 import { Sequence, Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
-import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
+import {
+  ERRORS,
+  asStreetJson,
+  asStreetJsonBasic,
+  requestIp,
+} from '../../lib/util.ts'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Response } from 'express'
@@ -13,14 +18,6 @@ export async function post(req: AuthedRequest, res: Response) {
   const street = Street.build({
     id: randomUUID(),
   })
-
-  const requestIp = function (req: AuthedRequest) {
-    if (req.headers['x-forwarded-for'] !== undefined) {
-      return req.headers['x-forwarded-for'].split(', ')[0]
-    } else {
-      return req.socket.remoteAddress
-    }
-  }
 
   if (req.body) {
     try {
@@ -139,7 +136,7 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(201).json(s)
   }
 
-  function handleErrors(error) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -230,7 +227,7 @@ export async function del(req: AuthedRequest, res: Response) {
     return street.save({ returning: true })
   }
 
-  function handleErrors(error) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'User not found.' })
@@ -374,7 +371,7 @@ export async function find(req: AuthedRequest, res: Response) {
   // TODO: There is a bug here where errors thrown by `new Error` will have
   // its value in `error.message`, not error! We should figure out how to
   // make this be consistent
-  function handleErrors(error) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -399,18 +396,20 @@ export async function find(req: AuthedRequest, res: Response) {
     }
   } // END function - handleErrors
 
-  const handleFindStreet = function (street: Street | null) {
-    street = asStreetJson(street)
-    if (!street) {
+  const handleFindStreet = function (street: Street | undefined) {
+    if (street === undefined) {
       handleErrors(ERRORS.STREET_NOT_FOUND)
+      return
     }
 
     if (street.status === 'DELETED') {
       handleErrors(ERRORS.STREET_DELETED)
+      return
     }
+
     res.set('Access-Control-Allow-Origin', '*')
     res.set('Location', '/api/v1/streets/' + street.id)
-    res.set('Content-Length', 0)
+    res.set('Content-Length', '0')
     res.status(307).end()
   } // END function - handleFindStreet
 
@@ -459,6 +458,7 @@ export async function find(req: AuthedRequest, res: Response) {
       const street = await findStreetWithCreatorId(creatorId)
       if (!street) {
         handleErrors(ERRORS.STREET_NOT_FOUND)
+        return
       }
       handleFindStreet(street)
     } catch (err) {
@@ -497,7 +497,7 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
 
-  function handleErrors(error) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })

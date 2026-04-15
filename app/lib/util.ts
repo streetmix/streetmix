@@ -1,4 +1,7 @@
-export function asStreetJson(street) {
+import { Street, User } from '../db/models/index.ts'
+import type { Request } from 'express'
+
+export function asStreetJson(street: Street) {
   const json = {
     id: street.id,
     namespacedId: street.namespacedId,
@@ -31,7 +34,7 @@ export function asStreetJson(street) {
   return json
 }
 
-export function asStreetJsonBasic(street) {
+export function asStreetJsonBasic(street: Street) {
   const json = {
     id: street.id,
     namespacedId: street.namespacedId,
@@ -52,7 +55,7 @@ export function asStreetJsonBasic(street) {
   return json
 }
 
-export function asUserJson(user) {
+export function asUserJson(user: User) {
   const userJson = {
     id: user.id,
     displayName: user.displayName || null,
@@ -71,7 +74,7 @@ export function asUserJson(user) {
   return userJson
 }
 
-export function asUserJsonBasic(user) {
+export function asUserJsonBasic(user: User) {
   const userJson = {
     id: user.id,
     displayName: user.displayName || null,
@@ -93,7 +96,7 @@ export const ERRORS = {
   CANNOT_GET_STREET: 'CANNOT_GET_STREET',
   CANNOT_GET_USER: 'CANNOT_GET_USER',
   CANNOT_CREATE_USER: 'CANNOT_CREATE_USER',
-}
+} as const
 
 export const SAVE_THUMBNAIL_EVENTS = {
   INITIAL: 'INITIAL',
@@ -102,12 +105,12 @@ export const SAVE_THUMBNAIL_EVENTS = {
   BEFOREUNLOAD: 'BEFOREUNLOAD',
   PREVIOUS_STREET: 'PREVIOUS_STREET',
   TEST: 'TEST',
-}
+} as const
 
-export function requestIp(req) {
+export function requestIp(req: Request) {
   if (req.headers['x-forwarded-for'] !== undefined) {
     return req.headers['x-forwarded-for'].split(', ')[0]
   } else {
-    return req.connection.remoteAddress
+    return req.socket.remoteAddress
   }
 }

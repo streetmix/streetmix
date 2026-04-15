@@ -1,11 +1,11 @@
 import { Street, User } from '../../db/models/index.ts'
-import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
+import { asStreetJsonBasic, ERRORS } from '../../lib/util.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-function handleErrors(error, res: Response) {
+function handleErrors(error: keyof typeof ERRORS, res: Response) {
   switch (error) {
     case ERRORS.USER_NOT_FOUND:
       res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -72,7 +72,7 @@ export async function get(req: AuthedRequest, res: Response) {
     res.status(200).json(json).end()
   } // END function - handleFindUserStreets
 
-  function handleErrors(error) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })

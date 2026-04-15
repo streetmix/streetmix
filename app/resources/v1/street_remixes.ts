@@ -1,7 +1,7 @@
 import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
-import { ERRORS } from '../../lib/util.js'
+import { ERRORS } from '../../lib/util.ts'
 
 import type { Request, Response } from 'express'
 
@@ -41,7 +41,7 @@ export async function get(req: Request, res: Response) {
     res.status(200).send(csv).end()
   } // END function - handleFindUserStreets
 
-  function handleErrors(error: string) {
+  function handleErrors(error: keyof typeof ERRORS) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
