@@ -2,7 +2,7 @@ import cloudinary from 'cloudinary'
 
 import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
-import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
+import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'

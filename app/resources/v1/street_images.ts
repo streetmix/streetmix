@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
-import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
+import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
