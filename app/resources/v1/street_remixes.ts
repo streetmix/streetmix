@@ -96,7 +96,7 @@ export async function get(req: Request, res: Response) {
       handleErrors(err.message)
     } else {
       console.error(err)
-      handleErrors(err)
+      handleErrors(String(err))
     }
   }
 }

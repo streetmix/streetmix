@@ -76,7 +76,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
             limit: 1,
           })
         }
-        if (user && ballots && ballots.length > 0) {
+        if (ballots && ballots.length > 0) {
           const myBallot = ballots[0]
           const { streetId } = myBallot
           if (streetId) {
