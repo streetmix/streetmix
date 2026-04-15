@@ -396,17 +396,17 @@ export async function find(req: AuthedRequest, res: Response) {
     }
   } // END function - handleErrors
 
-  const handleFindStreet = function (street: Street | null) {
-    street = asStreetJson(street)
-
-    // TODO -- do these errors fall through and try to send 307 again?
-    if (!street) {
+  const handleFindStreet = function (street: Street | undefined) {
+    if (street === undefined) {
       handleErrors(ERRORS.STREET_NOT_FOUND)
+      return
     }
 
     if (street.status === 'DELETED') {
       handleErrors(ERRORS.STREET_DELETED)
+      return
     }
+
     res.set('Access-Control-Allow-Origin', '*')
     res.set('Location', '/api/v1/streets/' + street.id)
     res.set('Content-Length', '0')
@@ -458,6 +458,7 @@ export async function find(req: AuthedRequest, res: Response) {
       const street = await findStreetWithCreatorId(creatorId)
       if (!street) {
         handleErrors(ERRORS.STREET_NOT_FOUND)
+        return
       }
       handleFindStreet(street)
     } catch (err) {
