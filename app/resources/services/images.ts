@@ -1,12 +1,10 @@
 import cloudinary from 'cloudinary'
 
-import models from '../../db/models/index.ts'
+import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
-
-const { User } = models
 
 export async function get(req: AuthedRequest, res: Response) {
   const query = req.query
@@ -16,10 +14,10 @@ export async function get(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
 
   try {
-    user = await User.findOne({ where: { auth0_id: req.auth.sub } })
+    user = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })

@@ -1,11 +1,9 @@
-import models from '../../db/models/index.ts'
+import { Street, User } from '../../db/models/index.ts'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.js'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
-
-const { User, Street } = models
 
 function handleErrors(error, res: Response) {
   switch (error) {
@@ -142,10 +140,10 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  let requestUser
+  let requestUser: User | null
 
   try {
-    requestUser = await User.findOne({ where: { auth0_id: req.auth.sub } })
+    requestUser = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })

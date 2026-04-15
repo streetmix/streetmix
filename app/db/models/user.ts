@@ -1,13 +1,13 @@
 import {
   DataTypes,
   Model,
-  Sequelize,
   type InferAttributes,
   type InferCreationAttributes,
   type CreationOptional,
 } from 'sequelize'
 
 import roles from '../../data/user_roles.json' with { type: 'json' }
+import { sequelize } from '../db.ts'
 
 const validUserRoles = Object.keys(roles)
 
@@ -15,7 +15,10 @@ const validUserRoles = Object.keys(roles)
 a little atypical setup here...'id' is usually a unique primary key value
 but in this app it is actually the username of the user
 */
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+export class User extends Model<
+  InferAttributes<User>,
+  InferCreationAttributes<User>
+> {
   declare id: string
   declare auth0Id: CreationOptional<string>
   declare displayName: CreationOptional<string>
@@ -44,78 +47,74 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   }
 }
 
-export default (sequelize: Sequelize) => {
-  User.init(
-    {
-      id: {
-        allowNull: false,
-        primaryKey: true,
-        unique: true,
-        type: DataTypes.STRING,
-      },
-      auth0Id: {
-        type: DataTypes.STRING,
-        field: 'auth0_id',
-      },
-      displayName: {
-        type: DataTypes.STRING,
-        field: 'display_name',
-        validate: {
-          len: [0, 30],
-        },
-      },
-      email: { type: DataTypes.STRING, unique: true },
-      identities: DataTypes.JSON,
-      roles: {
-        type: DataTypes.ARRAY(DataTypes.TEXT),
-        defaultValue: ['USER'],
-        validate: {
-          // Check if user role is a valid one against a list of defined roles
-          arrayIsValid(userRoles: string[]) {
-            if (!userRoles.every((value) => validUserRoles.includes(value))) {
-              throw new Error('Role does not match list of valid roles')
-            }
-          },
-        },
-      },
-      profileImageUrl: {
-        // The maximum URL length should be "under 2000 characters"
-        // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-        // In practice, URLs from various login methods are under 1024
-        // characters, but a rare handful of googleusercontent.com URLs are
-        // just slightly longer. Bumping to 2048 characters should prevent
-        // SQL insert errors that block people from signing in.
-        type: DataTypes.STRING(2048),
-        field: 'profile_image_url',
-      },
-      flags: DataTypes.JSON,
-      data: DataTypes.JSON,
-      lastStreetId: {
-        type: DataTypes.INTEGER,
-        field: 'last_street_id',
-      },
-      createdAt: { type: DataTypes.DATE, field: 'created_at' },
-      updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
+User.init(
+  {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      unique: true,
+      type: DataTypes.STRING,
     },
-    {
-      sequelize,
-      modelName: 'User',
-      timestamps: true,
-      indexes: [
-        {
-          unique: true,
-          fields: ['email'],
+    auth0Id: {
+      type: DataTypes.STRING,
+      field: 'auth0_id',
+    },
+    displayName: {
+      type: DataTypes.STRING,
+      field: 'display_name',
+      validate: {
+        len: [0, 30],
+      },
+    },
+    email: { type: DataTypes.STRING, unique: true },
+    identities: DataTypes.JSON,
+    roles: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
+      defaultValue: ['USER'],
+      validate: {
+        // Check if user role is a valid one against a list of defined roles
+        arrayIsValid(userRoles: string[]) {
+          if (!userRoles.every((value) => validUserRoles.includes(value))) {
+            throw new Error('Role does not match list of valid roles')
+          }
         },
-        {
-          fields: ['auth0_id'],
-        },
-        {
-          unique: true,
-          fields: ['id'],
-        },
-      ],
-    }
-  )
-
-  return User
-}
+      },
+    },
+    profileImageUrl: {
+      // The maximum URL length should be "under 2000 characters"
+      // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+      // In practice, URLs from various login methods are under 1024
+      // characters, but a rare handful of googleusercontent.com URLs are
+      // just slightly longer. Bumping to 2048 characters should prevent
+      // SQL insert errors that block people from signing in.
+      type: DataTypes.STRING(2048),
+      field: 'profile_image_url',
+    },
+    flags: DataTypes.JSON,
+    data: DataTypes.JSON,
+    lastStreetId: {
+      type: DataTypes.INTEGER,
+      field: 'last_street_id',
+    },
+    createdAt: { type: DataTypes.DATE, field: 'created_at' },
+    updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
+  },
+  {
+    sequelize,
+    modelName: 'User',
+    timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['email'],
+      },
+      {
+        fields: ['auth0_id'],
+      },
+      {
+        unique: true,
+        fields: ['id'],
+      },
+    ],
+  }
+)

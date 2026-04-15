@@ -1,16 +1,17 @@
-import models from '../../db/models/index.ts'
+import { Op } from 'sequelize'
+
+import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
 
-const { Street } = models
-
 export async function get(req: Request, res: Response) {
-  let results
+  let results: Street[]
 
   try {
-    results = await Street.findOne({
-      where: { 'data.street.location': { $ne: null }, status: 'ACTIVE' },
+    // TODO: limit / paginate this query
+    results = await Street.findAll({
+      where: { 'data.street.location': { [Op.not]: null }, status: 'ACTIVE' },
     })
   } catch (err) {
     logger.error(err)
@@ -20,18 +21,13 @@ export async function get(req: Request, res: Response) {
     return
   }
 
-  if (!results) {
-    res
-      .status(404)
-      .json({ status: 404, msg: 'Could not find streets with locations.' })
-    return
-  }
-
   const features = results.map((result) => {
-    const { latlng } = result.data.street.location
+    // Assuming this property must exist; the `.findAll` query specifies it.
+    const { latlng } = result.data.street.location!
     const coordinates = Array.isArray(latlng)
       ? [latlng[1], latlng[0]]
       : [latlng.lng, latlng.lat]
+
     return {
       type: 'Feature',
       geometry: {

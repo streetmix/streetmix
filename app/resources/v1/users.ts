@@ -1,46 +1,43 @@
 import cloudinary from 'cloudinary'
 
-import models from '../../db/models/index.ts'
+import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User } = models
-
 export async function post(req: AuthedRequest, res: Response) {
-  const handleCreateUser = function (user) {
-    if (!user) {
-      res.status(500).json({
-        status: 500,
-        msg: 'Could not create user, user not found after creation.',
-      })
-      return
-    }
+  const handleCreateUser = function (user: User) {
     const userJson = { id: user.id }
-    logger.info({ user: userJson }, 'New user created.')
+    logger.info(`New user '${user.id}' created.`)
+
     res.header('Location', '/api/v1/users/' + user.id)
     res.status(201).send(userJson)
   } // END function - handleCreateUser
 
-  const handleCreateUserError = function (err) {
+  const handleCreateUserError = function (err: unknown) {
     if (err) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not create user.' })
     }
   }
 
-  const handleUpdateUserError = function (err) {
+  const handleUpdateUserError = function (err: unknown) {
     if (err) {
       logger.error(err)
       res.status(500).json({ status: 500, msg: 'Could not update user.' })
     }
   }
 
-  const handleUpdateUser = function (user) {
+  const handleUpdateUser = function (users: User[]) {
+    // Check here that only 1 user is updated
+    if (users.length !== 1) {
+      throw new Error('incorrect number of updated users from query')
+    }
+    const user = users[0]
     const userJson = { id: user.id }
-    logger.info({ user: userJson }, 'Existing user logged in.')
+    logger.info(`Existing user '${user.id}' logged in.`)
 
     res.header('Location', '/api/v1/users/' + user.id)
     res.status(200).send(userJson)
@@ -59,14 +56,13 @@ export async function post(req: AuthedRequest, res: Response) {
       })
 
       if (!user) {
-        const newUserData = {
-          id: credentials.screenName,
-          auth0Id: credentials.auth0Id,
-          profileImageUrl: credentials.profileImageUrl,
-        }
-
         try {
-          await User.create(newUserData).then(handleCreateUser)
+          const newUser = await User.create({
+            id: credentials.screenName,
+            auth0Id: credentials.auth0Id,
+            profileImageUrl: credentials.profileImageUrl,
+          })
+          handleCreateUser(newUser)
         } catch (err) {
           handleCreateUserError(err)
         }
@@ -76,7 +72,7 @@ export async function post(req: AuthedRequest, res: Response) {
         userUpdates.profileImageUrl = credentials.profileImageUrl
 
         try {
-          const [numUsersUpdated, updatedUser] = await User.update(
+          const [numUsersUpdated, updatedUsers] = await User.update(
             userUpdates,
             {
               where: { id: credentials.screenName },
@@ -87,7 +83,7 @@ export async function post(req: AuthedRequest, res: Response) {
           logger.info(
             `Updated data for ${numUsersUpdated} users based on auth0 credentials`
           )
-          handleUpdateUser(updatedUser)
+          handleUpdateUser(updatedUsers)
         } catch (err) {
           handleUpdateUserError(err)
         }
@@ -117,7 +113,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return nickname + '-' + id
   }
 
-  const handleUserProfileImage = async function (user, credentials) {
+  const handleUserProfileImage = async function (user: User, credentials) {
     const publicId = `${process.env.NODE_ENV}/profile_image/${user.id}`
     let profileImageUrl
 
@@ -185,7 +181,7 @@ export async function post(req: AuthedRequest, res: Response) {
         userUpdates.email = credentials.email
 
         try {
-          const [numUsersUpdated, updatedUser] = await User.update(
+          const [numUsersUpdated, updatedUsers] = await User.update(
             userUpdates,
             {
               where: { auth0Id: credentials.auth0Id },
@@ -198,8 +194,7 @@ export async function post(req: AuthedRequest, res: Response) {
               `Updated data for ${numUsersUpdated} users based on auth0 credentials`
             )
           }
-          // TODO check here that only 1 user is updated
-          handleUpdateUser(updatedUser[0])
+          handleUpdateUser(updatedUsers)
         } catch (err) {
           handleUpdateUserError(err)
         }
@@ -258,7 +253,7 @@ export async function get(req: AuthedRequest, res: Response) {
       user = await User.findOne({ where: { id: userId } })
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_GET_USER)
+      throw new Error(ERRORS.CANNOT_GET_USER, { cause: err })
     }
 
     if (!user) {
@@ -289,7 +284,7 @@ export async function get(req: AuthedRequest, res: Response) {
       }
 
       const callingUser = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
 
       const isAdmin = callingUser?.roles?.indexOf('ADMIN') !== -1
@@ -323,7 +318,7 @@ export async function del(req: AuthedRequest, res: Response) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth?.sub },
+    where: { auth0Id: req.auth?.sub },
   })
 
   const isAdmin =
@@ -331,7 +326,7 @@ export async function del(req: AuthedRequest, res: Response) {
     callingUser.roles &&
     callingUser.roles.indexOf('ADMIN') !== -1
 
-  const isSameUser = user.id === callingUser.id
+  const isSameUser = user.id === callingUser?.id
   if (!isSameUser && !isAdmin) {
     res.status(401).end()
     return
@@ -377,7 +372,7 @@ export async function put(req: AuthedRequest, res: Response) {
   }
 
   const callingUser = await User.findOne({
-    where: { auth0_id: req.auth.sub },
+    where: { auth0Id: req.auth.sub },
   })
 
   const isAdmin =
@@ -385,7 +380,7 @@ export async function put(req: AuthedRequest, res: Response) {
     callingUser.roles &&
     callingUser.roles.indexOf('ADMIN') !== -1
 
-  if (!isAdmin && callingUser.id !== userId) {
+  if (!isAdmin && callingUser?.id !== userId) {
     res.status(401).end()
     return
   }

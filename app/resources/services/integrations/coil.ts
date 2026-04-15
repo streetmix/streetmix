@@ -4,7 +4,7 @@ import { OAuth2Strategy } from 'passport-oauth'
 import { InternalOAuthError } from 'passport-oauth2'
 import axios from 'axios'
 
-import models from '../../../db/models/index.ts'
+import { User } from '../../../db/models/index.ts'
 import { appURL } from '../../../lib/url.ts'
 import { logger } from '../../../lib/logger.ts'
 import {
@@ -14,7 +14,8 @@ import {
   addOrUpdateByProviderName,
 } from './helpers.ts'
 
-const { User } = models
+import type { NextFunction, Request, Response } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
 
 /**
  * One-liner implementation of `btoa()` (which is available globally)
@@ -31,7 +32,7 @@ const initCoil = () => {
   const authToken = btoa(
     process.env.COIL_CLIENT_ID +
       ':' +
-      encodeURIComponent(process.env.COIL_CLIENT_SECRET)
+      encodeURIComponent(process.env.COIL_CLIENT_SECRET ?? '')
   )
 
   const coilStrategy = new OAuth2Strategy(
@@ -59,7 +60,7 @@ const initCoil = () => {
     }
   )
 
-  const getUserInfo = async (accessToken, done) => {
+  const getUserInfo = async (accessToken: string, done) => {
     try {
       const requestConfig = {
         method: 'post',
@@ -81,7 +82,7 @@ const initCoil = () => {
   }
 
   // make a custom function get userProfile data (passport oauth default is nothing)
-  coilStrategy.userProfile = function (accessToken, done) {
+  coilStrategy.userProfile = function (accessToken: string, done) {
     getUserInfo(accessToken, done)
   }
   passport.use('coil', coilStrategy)
@@ -90,7 +91,7 @@ const initCoil = () => {
     done(null, user)
   })
 
-  passport.deserializeUser(function (id, done) {
+  passport.deserializeUser(function (id: string, done) {
     const user = async () => {
       await User.findByPk(id)
     }
@@ -103,7 +104,7 @@ if (process.env.COIL_CLIENT_ID && process.env.COIL_CLIENT_SECRET) {
   initCoil()
 }
 
-export function get(req, res, next) {
+export function get(req: Request, res: Response, next: NextFunction) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
@@ -123,7 +124,7 @@ export function get(req, res, next) {
   })(req, res, next)
 }
 
-export function callback(req, res, next) {
+export function callback(req: Request, res: Response, next: NextFunction) {
   if (!process.env.COIL_CLIENT_ID || !process.env.COIL_CLIENT_SECRET) {
     res.status(500).json({ status: 500, msg: 'Coil integration unavailable.' })
     return
@@ -135,11 +136,15 @@ export function callback(req, res, next) {
 }
 
 // Check for coil provider to set access token to stream payments
-export async function BTPTokenCheck(req, res, next) {
+export async function BTPTokenCheck(
+  req: AuthedRequest,
+  res: Response,
+  next: NextFunction
+) {
   if (!req.auth?.sub) {
     return next()
   }
-  const userData = await User.findOne({ where: { auth0_id: req.auth.sub } })
+  const userData = await User.findOne({ where: { auth0Id: req.auth.sub } })
 
   // Move on if no identities
   // User data may be null on a fresh install.
@@ -181,12 +186,12 @@ export async function BTPTokenCheck(req, res, next) {
 }
 
 // passportjs dosen't handle refresh tokens as a strategy so we have to handle that ourselves
-export async function refreshAccessToken(refreshToken) {
+export async function refreshAccessToken(refreshToken: string) {
   try {
     const encodedAuth = btoa(
       process.env.COIL_CLIENT_ID +
         ':' +
-        encodeURIComponent(process.env.COIL_CLIENT_SECRET)
+        encodeURIComponent(process.env.COIL_CLIENT_SECRET ?? '')
     )
     const data = new URLSearchParams({
       grant_type: 'refresh_token',
@@ -208,7 +213,7 @@ export async function refreshAccessToken(refreshToken) {
   }
 }
 
-export async function getBTPToken(accessToken) {
+export async function getBTPToken(accessToken: string) {
   try {
     const requestConfig = {
       method: 'post',
@@ -230,7 +235,11 @@ export async function getBTPToken(accessToken) {
  * connects the third party profile with the database user record
  * pass third party profile data here, construct an object to save to user DB
  */
-export async function connectUser(req, res, _next) {
+export async function connectUser(
+  req: Request,
+  res: Response,
+  _next: NextFunction
+) {
   // in passport, using 'authorize' attaches user data to 'account'
   // instead of overriding the user session data
   const account = req.account

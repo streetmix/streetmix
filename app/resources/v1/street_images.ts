@@ -3,14 +3,13 @@ import cloudinary from 'cloudinary'
 import { runTestCanvas, StreetImageExportSchema } from '@streetmix/export-image'
 import { z } from 'zod'
 
-import models from '../../db/models/index.ts'
+import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User, Street } = models
 const ALLOW_ANON_STREET_THUMBNAILS = false
 
 export async function post(req: AuthedRequest, res: Response) {
@@ -154,10 +153,10 @@ export async function post(req: AuthedRequest, res: Response) {
       return
     }
 
-    let user
+    let user: User | null
 
     try {
-      user = await User.findOne({ where: { auth0_id: req.auth.sub } })
+      user = await User.findOne({ where: { auth0Id: req.auth.sub } })
     } catch (error) {
       logger.error(error)
       res.status(500).json({ status: 500, msg: 'Error finding user.' })
@@ -220,9 +219,9 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
   try {
-    user = await User.findOne({ where: { auth0_id: req.auth.sub } })
+    user = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
     res.status(500).json({ status: 500, msg: 'Error finding user.' })

@@ -1,11 +1,9 @@
-import models from '../../db/models/index.ts'
+import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { streetsToCSV } from '../../lib/streets_export.js'
 import { ERRORS } from '../../lib/util.js'
 
 import type { Request, Response } from 'express'
-
-const { Street } = models
 
 export async function get(req: Request, res: Response) {
   // Flag error if user ID is not provided
@@ -15,7 +13,8 @@ export async function get(req: Request, res: Response) {
   }
 
   const findRemixedStreets = async function (streetId: string) {
-    let streets
+    let streets: Street[]
+
     try {
       streets = await Street.findAll({
         where: { originalStreetId: streetId, status: 'ACTIVE' },
@@ -23,17 +22,17 @@ export async function get(req: Request, res: Response) {
       })
     } catch (err) {
       logger.error(err)
-      handleErrors(ERRORS.CANNOT_GET_STREET)
-    }
-
-    if (!streets) {
-      throw new Error(ERRORS.STREET_NOT_FOUND)
+      // This error is thrown from here because calling `handleErrors`
+      // directly and then returning will cause this function to return
+      // `undefined` -- which is a type error further downstream.
+      // We don't usually throw the ERRORS values directly though
+      throw new Error(ERRORS.CANNOT_GET_STREET, { cause: err })
     }
 
     return streets
   } // END function - handleFindUserstreets
 
-  const handleFindRemixedStreets = function (streets) {
+  const handleFindRemixedStreets = function (streets: Street[]) {
     const json = { streets }
     const csv = streetsToCSV(json)
     // For now, this sends CSV directly for export.
@@ -42,7 +41,7 @@ export async function get(req: Request, res: Response) {
     res.status(200).send(csv).end()
   } // END function - handleFindUserStreets
 
-  function handleErrors(error) {
+  function handleErrors(error: string) {
     switch (error) {
       case ERRORS.USER_NOT_FOUND:
         res.status(404).json({ status: 404, msg: 'Creator not found.' })
@@ -86,12 +85,18 @@ export async function get(req: Request, res: Response) {
 
   // TODO: Check for author of street?
   // TODO: Recursively look for the remixes of remixes
+  // TODO: Confirm that no remixed streets is an empty array
 
   try {
     const streets = await findRemixedStreets(req.params.street_id)
     handleFindRemixedStreets(streets)
-  } catch (err) {
-    console.error(err)
-    handleErrors(err)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err.message)
+      handleErrors(err.message)
+    } else {
+      console.error(err)
+      handleErrors(String(err))
+    }
   }
 }

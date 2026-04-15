@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-import models from '../../db/models/index.ts'
+import { Sequence, Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asStreetJson, asStreetJsonBasic } from '../../lib/util.js'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
@@ -8,17 +8,17 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-const { User, Street, Sequence } = models
-
 export async function post(req: AuthedRequest, res: Response) {
-  let body
-  const street = {}
-  street.id = randomUUID()
-  const requestIp = function (req) {
+  let body: AuthedRequest['body']
+  const street = Street.build({
+    id: randomUUID(),
+  })
+
+  const requestIp = function (req: AuthedRequest) {
     if (req.headers['x-forwarded-for'] !== undefined) {
       return req.headers['x-forwarded-for'].split(', ')[0]
     } else {
-      return req.connection.remoteAddress
+      return req.socket.remoteAddress
     }
   }
 
@@ -32,14 +32,19 @@ export async function post(req: AuthedRequest, res: Response) {
       return
     }
     // TODO: Validation
-    street.name = body.name
-    street.clientUpdatedAt = body.clientUpdatedAt
-    street.data = body.data
-    street.creatorIp = requestIp(req)
+    street.set({
+      name: body.name,
+      clientUpdatedAt: body.clientUpdatedAt,
+      data: body.data,
+      creatorIp: requestIp(req),
+    })
   }
 
-  function updateUserLastStreetId(userId) {
-    return User.findOne({ where: { auth0_id: userId } }).then((user) => {
+  function updateUserLastStreetId(userId: string) {
+    return User.findOne({ where: { auth0Id: userId } }).then((user) => {
+      if (!user) {
+        throw new Error(ERRORS.USER_NOT_FOUND)
+      }
       if (!user.lastStreetId) {
         return user.update({ lastStreetId: 1 })
       }
@@ -47,20 +52,28 @@ export async function post(req: AuthedRequest, res: Response) {
     })
   }
 
+  // Keeps track of anonymous streets' "namespaced id", which is just a number
+  // that counts up. The `Sequence` table is a fast lookup of that number.
   async function updateSequence() {
-    let sequence
+    let sequence: Sequence | null
+
+    // Gets the last number in the sequence.
     try {
       sequence = await Sequence.findByPk('streets')
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_CREATE_STREET)
+      throw new Error(ERRORS.CANNOT_CREATE_STREET, { cause: err })
     }
+
+    // If present, increments it by 1
     if (sequence) {
       return Sequence.update(
         { seq: sequence.seq + 1 },
         { where: { id: 'streets' }, returning: true }
       )
     }
+
+    // If not present, begin the count
     return Sequence.create({
       id: 'streets',
       seq: 1,
@@ -68,7 +81,7 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   const makeNamespacedId = async function () {
-    let namespacedId
+    let namespacedId: number
     try {
       if (req.auth?.sub) {
         const user = await updateUserLastStreetId(req.auth.sub)
@@ -84,7 +97,7 @@ export async function post(req: AuthedRequest, res: Response) {
       }
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.CANNOT_CREATE_STREET)
+      throw new Error(ERRORS.CANNOT_CREATE_STREET, { cause: err })
     }
 
     if (!namespacedId) {
@@ -95,14 +108,15 @@ export async function post(req: AuthedRequest, res: Response) {
 
   const saveStreet = async function () {
     if (body && body.originalStreetId) {
-      let origStreet
+      let origStreet: Street | null
+
       try {
         origStreet = await Street.findOne({
           where: { id: body.originalStreetId },
         })
       } catch (err) {
         logger.error(err)
-        throw new Error(ERRORS.STREET_NOT_FOUND)
+        throw new Error(ERRORS.STREET_NOT_FOUND, { cause: err })
       }
 
       if (!origStreet || origStreet.status === 'DELETED') {
@@ -111,12 +125,12 @@ export async function post(req: AuthedRequest, res: Response) {
       const namespacedId = await makeNamespacedId()
       street.namespacedId = namespacedId
 
-      return Street.create(street)
+      return street.save()
     }
 
     const namespacedId = await makeNamespacedId()
     street.namespacedId = namespacedId
-    return Street.create(street)
+    return street.save()
   }
 
   const handleCreatedStreet = (s) => {
@@ -144,23 +158,26 @@ export async function post(req: AuthedRequest, res: Response) {
           .json({ status: 401, msg: 'User with that login token not found.' })
         return
       default:
+        console.error(error)
         res.status(500).end()
     }
   }
 
   if (req.auth) {
-    let user
+    let user: User | null
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
+      return
     }
 
     if (!user) {
       handleErrors(ERRORS.UNAUTHORISED_ACCESS)
+      return
     }
     street.creatorId = user ? user.id : ''
 
@@ -181,19 +198,19 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  async function deleteStreet(street) {
-    let user
+  async function deleteStreet(street: Street) {
+    let user: User | null
     if (!req.auth) {
       throw new Error(ERRORS.UNAUTHORISED_ACCESS)
     }
 
     try {
       user = await User.findOne({
-        where: { auth0_id: req.auth.sub },
+        where: { auth0Id: req.auth.sub },
       })
     } catch (err) {
       logger.error(err)
-      throw new Error(ERRORS.USER_NOT_FOUND)
+      throw new Error(ERRORS.USER_NOT_FOUND, { cause: err })
     }
 
     if (!user) {
@@ -321,7 +338,7 @@ export async function find(req: AuthedRequest, res: Response) {
   const namespacedId = req.query.namespacedId
   const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
   const count = (req.query.count && Number.parseInt(req.query.count, 10)) || 20
-  const findStreetWithCreatorId = async function (creatorId) {
+  const findStreetWithCreatorId = async function (creatorId: string) {
     let user
     try {
       user = await User.findOne({ where: { id: creatorId } })
@@ -339,13 +356,13 @@ export async function find(req: AuthedRequest, res: Response) {
     })
   } // END function - findStreetWithCreatorId
 
-  const findStreetWithNamespacedId = async function (namespacedId) {
+  const findStreetWithNamespacedId = async function (namespacedId: number) {
     return Street.findOne({
       where: { namespacedId, creatorId: null },
     })
   }
 
-  const findStreets = async function (start, count) {
+  const findStreets = async function (start: number, count: number) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
@@ -382,7 +399,7 @@ export async function find(req: AuthedRequest, res: Response) {
     }
   } // END function - handleErrors
 
-  const handleFindStreet = function (street) {
+  const handleFindStreet = function (street: Street | null) {
     street = asStreetJson(street)
     if (!street) {
       handleErrors(ERRORS.STREET_NOT_FOUND)
@@ -525,7 +542,7 @@ export async function put(req: AuthedRequest, res: Response) {
       body.clientUpdatedAt || street.clientUpdatedAt || ''
 
     if (body.originalStreetId) {
-      let origStreet
+      let origStreet: Street | null
       try {
         origStreet = await Street.findOne({
           where: { id: body.originalStreetId },
@@ -591,7 +608,7 @@ export async function put(req: AuthedRequest, res: Response) {
     }
 
     const user = await User.findOne({
-      where: { auth0_id: req.auth.sub },
+      where: { auth0Id: req.auth.sub },
     })
 
     const isOwner = user && user.id === street.creatorId

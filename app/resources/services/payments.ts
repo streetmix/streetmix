@@ -1,15 +1,8 @@
-import * as fs from 'node:fs/promises'
-
-import models from '../../db/models/index.ts'
+import roles from '../../data/user_roles.json' with { type: 'json' }
+import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Request, Response } from 'express'
-
-const { User } = models
-
-const roles = JSON.parse(
-  await fs.readFile(new URL('../../data/user_roles.json', import.meta.url))
-)
 
 const tier1PlanId = process.env.STRIPE_TIER1_PLAN_ID
 

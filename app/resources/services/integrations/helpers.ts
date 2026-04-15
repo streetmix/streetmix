@@ -1,6 +1,5 @@
-import models from '../../../db/models/index.ts'
-
-const { User, UserConnections, sequelize } = models
+import { sequelize } from '../../../db/db.ts'
+import { User, UserConnections } from '../../../db/models/index.ts'
 
 /**
  finds the database record for the given user

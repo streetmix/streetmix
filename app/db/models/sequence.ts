@@ -1,13 +1,14 @@
 import {
   DataTypes,
   Model,
-  Sequelize,
   type InferAttributes,
   type InferCreationAttributes,
   type CreationOptional,
 } from 'sequelize'
 
-class Sequence extends Model<
+import { sequelize } from '../db.ts'
+
+export class Sequence extends Model<
   InferAttributes<Sequence>,
   InferCreationAttributes<Sequence>
 > {
@@ -15,24 +16,20 @@ class Sequence extends Model<
   declare seq: CreationOptional<number>
 }
 
-export default (sequelize: Sequelize) => {
-  Sequence.init(
-    {
-      id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
-      seq: {
-        type: DataTypes.INTEGER,
-        defaultValue: 1,
-      },
+Sequence.init(
+  {
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
     },
-    {
-      sequelize,
-      modelName: 'Sequence',
-      timestamps: false,
-    }
-  )
-
-  return Sequence
-}
+    seq: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Sequence',
+    timestamps: false,
+  }
+)

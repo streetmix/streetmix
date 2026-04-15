@@ -1,22 +1,21 @@
 import { randomUUID } from 'node:crypto'
-import Sequelize from 'sequelize'
+import Sequelize, { Op } from 'sequelize'
 
-import models from '../../db/models/index.ts'
+import { Street, User, Vote } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
-
-const { User, Vote, Street } = models
 
 const MAX_COMMENT_LENGTH = 280
 const SURVEY_FINISHED_PATH = '/survey-finished'
 
 export function generateRandomBallotFetch({ redirect = false }) {
   return async function (req: AuthedRequest, res: Response) {
-    let ballots
-    const authUser = req.auth || {}
-    let user
+    let ballots: Vote[]
+    let user: User | null = null
+    const authUser = req.auth ?? {}
+
     if (authUser.sub) {
       try {
         user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -25,16 +24,21 @@ export function generateRandomBallotFetch({ redirect = false }) {
         res.status(500).json({ status: 500, msg: 'Error finding user.' })
         return
       }
+
+      if (!user) {
+        res.status(403).json({ status: 403, msg: 'User not found.' })
+        return
+      }
     }
 
     try {
       let hasValidStreet = false
       while (!hasValidStreet) {
-        if (!req.auth) {
+        if (!user) {
           ballots = await Vote.findAll({
             where: {
               voterId: {
-                [Sequelize.Op.is]: null,
+                [Op.is]: null,
               },
             },
             order: Sequelize.literal('random()'),
@@ -44,26 +48,26 @@ export function generateRandomBallotFetch({ redirect = false }) {
           ballots = await Vote.findAll({
             // where (submitted does not contain the user's auth0 ID, or is empty) AND (voterId is null)
             where: {
-              [Sequelize.Op.and]: [
+              [Op.and]: [
                 {
-                  [Sequelize.Op.or]: [
+                  [Op.or]: [
                     {
-                      [Sequelize.Op.not]: {
+                      [Op.not]: {
                         submitted: {
-                          [Sequelize.Op.contains]: [user.id],
+                          [Op.contains]: [user.id],
                         },
                       },
                     },
                     {
                       submitted: {
-                        [Sequelize.Op.is]: null,
+                        [Op.is]: null,
                       },
                     },
                   ],
                 },
                 {
                   voterId: {
-                    [Sequelize.Op.is]: null,
+                    [Op.is]: null,
                   },
                 },
               ],
@@ -79,6 +83,12 @@ export function generateRandomBallotFetch({ redirect = false }) {
             const streetForBallot = await Street.findOne({
               where: { id: streetId },
             })
+
+            if (!streetForBallot) {
+              return res
+                .status(500)
+                .json({ status: 500, msg: 'Error fetching street for ballot.' })
+            }
 
             // do not return a vote to the same user
             const isCreator = user && user.id === streetForBallot.creatorId
@@ -104,7 +114,7 @@ export function generateRandomBallotFetch({ redirect = false }) {
                   where: {
                     streetId: streetForBallot.id,
                     voterId: {
-                      [Sequelize.Op.is]: null,
+                      [Op.is]: null,
                     },
                   },
                 }
@@ -155,6 +165,10 @@ export function generateRandomBallotFetch({ redirect = false }) {
         if (!streetId) throw new Error('no street ID found for ballots!')
         street = await Street.findOne({ where: { id: streetId } })
 
+        if (!street) {
+          throw new Error('No street found.')
+        }
+
         if (!street.creatorId) {
           candidateStreetUrl += `-/${street.namespacedId}`
         } else {
@@ -190,7 +204,7 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
 
   try {
     user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -205,7 +219,7 @@ export async function put(req: AuthedRequest, res: Response) {
     return
   }
   const ballot = await Vote.findOne({
-    where: { id, voter_id: user.id },
+    where: { id, voterId: user.id },
   })
 
   if (!ballot) {
@@ -241,7 +255,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return
   }
 
-  let user
+  let user: User | null
 
   try {
     user = await User.findOne({ where: { auth0Id: authUser.sub } })
@@ -263,19 +277,17 @@ export async function post(req: AuthedRequest, res: Response) {
   }
 
   // If requesting user is logged in, create a new vote
-  const ballot = {
-    id: randomUUID(),
-  }
-
-  let savedBallot
+  let ballot: Vote
   let updates
 
   try {
-    ballot.data = req.body.data
-    ballot.score = req.body.score
-    ballot.streetId = req.body.streetId
-    ballot.voterId = user.id
-    savedBallot = await Vote.create(ballot)
+    ballot = await Vote.create({
+      id: randomUUID(),
+      data: req.body.data,
+      score: req.body.score,
+      streetId: req.body.streetId,
+      voterId: user.id,
+    })
 
     // update existing ballot
     updates = await Vote.update(
@@ -290,7 +302,7 @@ export async function post(req: AuthedRequest, res: Response) {
         where: {
           streetId: ballot.streetId,
           voterId: {
-            [Sequelize.Op.is]: null,
+            [Op.is]: null,
           },
         },
       }
@@ -300,7 +312,7 @@ export async function post(req: AuthedRequest, res: Response) {
     res.status(500).json({ status: 500, msg: 'Error filling ballot.' })
     return
   }
-  const payload = { ballot, savedBallot, updates }
+  const payload = { ballot, updates }
 
   res.status(200).json(payload)
 }

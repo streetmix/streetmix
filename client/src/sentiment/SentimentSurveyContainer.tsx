@@ -56,7 +56,7 @@ export function SentimentSurveyContainer() {
         streetId: street.id,
       })
       if (response.status === 200) {
-        setStreetId(response.data.savedBallot.id as string)
+        setStreetId(response.data.ballot.id as string)
       }
     } catch (error) {
       console.error(error)
