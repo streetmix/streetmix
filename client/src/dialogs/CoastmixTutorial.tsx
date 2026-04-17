@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 import { CoastmixPracticeTour } from '~/src/ui/Tours/CoastmixPractice.js'
 import { Button } from '~/src/ui/Button.js'
 import { Dialog } from './Dialog.js'
@@ -6,13 +6,16 @@ import './CoastmixTutorial.css'
 
 export function CoastmixTutorialComplete() {
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="dialog-coastmix-tutorial-complete">
           <header>
-            <h2 id={dialogTitleId}>Tutorial complete!</h2>
+            <h2 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
+              Tutorial complete!
+            </h2>
           </header>
 
           <div className="dialog-content">

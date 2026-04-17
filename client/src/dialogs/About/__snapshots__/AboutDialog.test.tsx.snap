@@ -37,6 +37,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
             />
             <h1
               id="_r_0_"
+              tabindex="-1"
             >
               About Streetmix.
             </h1>

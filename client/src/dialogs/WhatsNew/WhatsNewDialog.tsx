@@ -1,4 +1,4 @@
-import { useState, useEffect, useId } from 'react'
+import { useState, useEffect, useId, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 import ReactMarkdown from 'react-markdown'
 import rehypeExternalLinks from 'rehype-external-links'
@@ -15,6 +15,7 @@ export const WhatsNewDialog = () => {
   const [content, setContent] = useState('')
   const [scrollShade, setScrollShade] = useState(false)
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
     getContent()
@@ -44,11 +45,11 @@ export const WhatsNewDialog = () => {
   }
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="whats-new-dialog">
           <header>
-            <h1 id={dialogTitleId}>
+            <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
               <FormattedMessage
                 id="dialogs.whatsnew.heading"
                 defaultMessage="What’s new in Streetmix?&lrm;"

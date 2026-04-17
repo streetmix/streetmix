@@ -33,6 +33,7 @@ exports[`FeatureFlagDialog > renders 1`] = `
           <header>
             <h1
               id="_r_0_"
+              tabindex="-1"
             >
               Feature flags
             </h1>

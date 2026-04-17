@@ -1,4 +1,4 @@
-import { useState, useId } from 'react'
+import { useState, useId, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 import axios from 'axios'
 
@@ -19,6 +19,7 @@ export function UpgradeDialog() {
   const [error, setError] = useState<unknown>()
   const [data, setData] = useState<unknown>()
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   const hasTier1 = roles.includes(userRoles.SUBSCRIBER_1.value)
 
@@ -82,12 +83,12 @@ export function UpgradeDialog() {
   }
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {
         (/* closeDialog */) => (
           <div className="upgrade-dialog" dir="ltr">
             <header>
-              <h1 id={dialogTitleId}>
+              <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
                 <FormattedMessage id="upgrade.title" defaultMessage="Upgrade" />
               </h1>
             </header>

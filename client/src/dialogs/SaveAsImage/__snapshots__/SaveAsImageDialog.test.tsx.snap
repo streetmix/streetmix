@@ -32,6 +32,7 @@ exports[`SaveAsImageDialog > renders snapshot 1`] = `
           <header>
             <h1
               id="_r_0_"
+              tabindex="-1"
             >
               Save as image
             </h1>

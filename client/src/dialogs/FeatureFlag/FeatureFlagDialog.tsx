@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setFeatureFlag } from '~/src/store/slices/flags.js'
@@ -10,6 +10,7 @@ export function FeatureFlagDialog() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   function renderFlagList(): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
@@ -39,11 +40,13 @@ export function FeatureFlagDialog() {
   }
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="feature-flag-dialog" dir="ltr">
           <header>
-            <h1 id={dialogTitleId}>Feature flags</h1>
+            <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
+              Feature flags
+            </h1>
           </header>
           <div className="dialog-content">
             <ul>{renderFlagList()}</ul>

@@ -21,6 +21,8 @@ export function SignInDialog() {
   const [signingIn, setSigningIng] = useState(false)
 
   const emailInputEl = useRef<HTMLInputElement>(null)
+  const waitingDialogTitleRef = useRef<HTMLHeadingElement>(null)
+  const emailSentDialogTitleRef = useRef<HTMLHeadingElement>(null)
   const id = useId()
   const emailInputId = `${id}-email`
   const dialogTitleId = `${id}-title`
@@ -95,11 +97,18 @@ export function SignInDialog() {
 
   function SignInWaiting(): React.ReactElement {
     return (
-      <Dialog ariaLabelledBy={waitingDialogTitleId}>
+      <Dialog
+        ariaLabelledBy={waitingDialogTitleId}
+        initialFocusRef={waitingDialogTitleRef}
+      >
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1 id={waitingDialogTitleId}>
+              <h1
+                id={waitingDialogTitleId}
+                ref={waitingDialogTitleRef}
+                tabIndex={-1}
+              >
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"
@@ -121,11 +130,18 @@ export function SignInDialog() {
 
   function EmailSent(): React.ReactElement {
     return (
-      <Dialog ariaLabelledBy={emailSentDialogTitleId}>
+      <Dialog
+        ariaLabelledBy={emailSentDialogTitleId}
+        initialFocusRef={emailSentDialogTitleRef}
+      >
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1 id={emailSentDialogTitleId}>
+              <h1
+                id={emailSentDialogTitleId}
+                ref={emailSentDialogTitleRef}
+                tabIndex={-1}
+              >
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"

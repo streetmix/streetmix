@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
@@ -7,13 +7,14 @@ import './SentimentSurveyDialog.css'
 
 export function SentimentSurveyDialog() {
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="sentiment-survey-about-dialog">
           <div className="dialog-content">
-            <h3 id={dialogTitleId}>
+            <h3 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
               <FormattedMessage
                 id="sentiment.about-header"
                 defaultMessage="We want to understand how people feel about streets"

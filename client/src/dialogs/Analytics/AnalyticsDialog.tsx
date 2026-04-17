@@ -28,6 +28,7 @@ export function AnalyticsDialog() {
   const dispatch = useDispatch()
   const intl = useIntl()
   const max = useRef(0)
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
   const dialogTitleId = useId()
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
@@ -103,11 +104,11 @@ export function AnalyticsDialog() {
   }
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="analytics-dialog">
           <header>
-            <h1 id={dialogTitleId}>
+            <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
               <FormattedMessage
                 id="dialogs.analytics.heading"
                 defaultMessage="Analytics"

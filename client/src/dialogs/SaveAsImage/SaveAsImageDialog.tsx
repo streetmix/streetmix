@@ -20,6 +20,7 @@ const DEFAULT_IMAGE_DPI = 2
 
 export function SaveAsImageDialog() {
   const imageCanvas = useRef<HTMLCanvasElement>(null)
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
   const [scale, setScale] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -238,11 +239,11 @@ export function SaveAsImageDialog() {
   }
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {() => (
         <div className="save-as-image-dialog">
           <header>
-            <h1 id={dialogTitleId}>
+            <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
               <FormattedMessage
                 id="dialogs.save.heading"
                 defaultMessage="Save as image"

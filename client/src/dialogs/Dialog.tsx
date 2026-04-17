@@ -28,6 +28,7 @@ interface DialogProps {
   children: (arg: CloseFunction) => React.ReactElement
   ariaLabelledBy?: string
   ariaLabel?: string
+  initialFocusRef?: React.RefObject<HTMLElement | null>
 }
 
 const FOCUSABLE_SELECTORS = [
@@ -39,7 +40,12 @@ const FOCUSABLE_SELECTORS = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ')
 
-export function Dialog({ children, ariaLabelledBy, ariaLabel }: DialogProps) {
+export function Dialog({
+  children,
+  ariaLabelledBy,
+  ariaLabel,
+  initialFocusRef,
+}: DialogProps) {
   // Appear state controls transition in/out
   const dialogEl = useRef<HTMLDivElement>(null)
   const nodeRef = useRef(null)
@@ -97,17 +103,16 @@ export function Dialog({ children, ariaLabelledBy, ariaLabel }: DialogProps) {
       })
     }
 
-    const focusFirstElement = () => {
-      const focusableElements = getFocusableElements()
-      const firstElement = focusableElements[0] ?? dialogEl.current
-      firstElement?.focus()
+    const focusDialog = () => {
+      const initialFocusElement = initialFocusRef?.current ?? dialogEl.current
+      initialFocusElement?.focus()
     }
 
     previousActiveElementRef.current =
       document.activeElement instanceof HTMLElement
         ? document.activeElement
         : null
-    focusFirstElement()
+    focusDialog()
 
     const handleDialogTab = (event: KeyboardEvent) => {
       if (event.key !== 'Tab' || !dialogEl.current) return
@@ -124,7 +129,17 @@ export function Dialog({ children, ariaLabelledBy, ariaLabel }: DialogProps) {
       const lastElement = focusableElements[focusableElements.length - 1]
       const activeElement = document.activeElement
 
-      if (!event.shiftKey && activeElement === lastElement) {
+      if (
+        activeElement instanceof HTMLElement &&
+        !focusableElements.includes(activeElement)
+      ) {
+        event.preventDefault()
+        if (event.shiftKey) {
+          lastElement.focus()
+        } else {
+          firstElement.focus()
+        }
+      } else if (!event.shiftKey && activeElement === lastElement) {
         event.preventDefault()
         firstElement.focus()
       } else if (event.shiftKey && activeElement === firstElement) {

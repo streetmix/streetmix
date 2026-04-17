@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '../ui/ExternalLink.js'
@@ -13,13 +13,14 @@ import './ErrorDialog.css'
  */
 export function ErrorDialog() {
   const dialogTitleId = useId()
+  const dialogTitleRef = useRef<HTMLHeadingElement>(null)
 
   return (
-    <Dialog ariaLabelledBy={dialogTitleId}>
+    <Dialog ariaLabelledBy={dialogTitleId} initialFocusRef={dialogTitleRef}>
       {(closeDialog) => (
         <div className="dialog-error">
           <header>
-            <h1 id={dialogTitleId}>
+            <h1 id={dialogTitleId} ref={dialogTitleRef} tabIndex={-1}>
               <FormattedMessage
                 id="dialogs.error.heading"
                 defaultMessage="Oops!"

@@ -1,3 +1,4 @@
+import { createRef } from 'react'
 import { fireEvent, within } from '@testing-library/react'
 import { render } from '~/test/helpers/render.js'
 import { Dialog } from './Dialog.js'
@@ -24,6 +25,7 @@ describe('Dialog', () => {
 
     expect(dialog).toHaveAttribute('aria-modal', 'true')
     expect(dialog).toHaveAttribute('tabindex', '-1')
+    expect(dialog).toHaveFocus()
   })
 
   it('accepts accessible name props', () => {
@@ -38,13 +40,39 @@ describe('Dialog', () => {
     expect(dialog).toHaveAttribute('aria-label', 'Fallback label')
   })
 
+  it('focuses the provided initial focus element on open', () => {
+    const titleRef = createRef<HTMLHeadingElement>()
+    const { getByRole, getByText } = render(
+      <Dialog initialFocusRef={titleRef}>
+        {() => (
+          <>
+            <h1 ref={titleRef} tabIndex={-1}>
+              Dialog heading
+            </h1>
+            <button>First</button>
+          </>
+        )}
+      </Dialog>
+    )
+
+    const dialog = getByRole('dialog')
+    const [closeButton] = within(dialog).getAllByRole('button')
+
+    expect(dialog).not.toHaveFocus()
+    expect(getByText('Dialog heading')).toHaveFocus()
+
+    fireEvent.keyDown(document, { key: 'Tab' })
+
+    expect(closeButton).toHaveFocus()
+  })
+
   it('traps focus when tabbing from the last focusable element', () => {
     const { getByRole } = render(<Dialog>{() => <FocusableContents />}</Dialog>)
     const dialog = getByRole('dialog')
     const [closeButton, firstButton, lastButton] =
       within(dialog).getAllByRole('button')
 
-    expect(closeButton).toHaveFocus()
+    expect(dialog).toHaveFocus()
     firstButton.focus()
     expect(firstButton).toHaveFocus()
 
@@ -61,6 +89,7 @@ describe('Dialog', () => {
     const closeButton = buttons[0]
     const lastButton = buttons[2]
 
+    closeButton.focus()
     expect(closeButton).toHaveFocus()
 
     fireEvent.keyDown(document, { key: 'Tab', shiftKey: true })
