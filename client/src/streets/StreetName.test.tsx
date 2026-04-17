@@ -27,6 +27,12 @@ describe('StreetName', () => {
     expect(screen.getByText('Unnamed St')).toBeInTheDocument()
   })
 
+  it('uses span elements when as="span" (valid inside phrasing content)', () => {
+    const { container } = render(<StreetName as="span" name="foo" />)
+    expect(container.querySelector('.street-name')?.tagName).toBe('SPAN')
+    expect(container.querySelector('.street-name-text')?.tagName).toBe('SPAN')
+  })
+
   it('responds to an onClick handler', async () => {
     const handleClick = vi.fn()
     render(<StreetName name="foo" onClick={handleClick} />)

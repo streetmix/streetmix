@@ -25,14 +25,14 @@ export function FirstTimeExistingStreet() {
           defaultMessage="Welcome to Streetmix."
         />
       </h1>
-      <p>
+      <div className="welcome-panel-intro">
         {/* Display street creator if creatorId is available. */}
         {typeof street.creatorId === 'string' ? (
           <FormattedMessage
             id="dialogs.welcome.existing.intro"
             defaultMessage="This is {streetName} made by {creator}."
             values={{
-              streetName: <StreetName name={street.name} />,
+              streetName: <StreetName as="span" name={street.name} />,
               creator: (
                 <>
                   <Avatar userId={street.creatorId} />{' '}
@@ -46,11 +46,11 @@ export function FirstTimeExistingStreet() {
             id="dialogs.welcome.existing.intro-without-creator"
             defaultMessage="This is {streetName}."
             values={{
-              streetName: <StreetName name={street.name} />,
+              streetName: <StreetName as="span" name={street.name} />,
             }}
           />
         )}
-      </p>
+      </div>
       <div className="welcome-panel-buttons">
         <FormattedMessage
           id="dialogs.welcome.existing.instruct"

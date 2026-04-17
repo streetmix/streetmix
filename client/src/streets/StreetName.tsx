@@ -21,18 +21,21 @@ function normalizeStreetName(name: string | null): string | null {
 
 interface StreetNameProps {
   name: string | null
-  ref?: React.RefObject<HTMLDivElement | null>
+  as?: 'div' | 'span'
+  ref?: React.RefObject<HTMLDivElement | HTMLSpanElement | null>
   onClick?: React.MouseEventHandler
   editable?: boolean
 }
 
 export const StreetName = memo(function StreetName({
   name,
+  as = 'div',
   ref,
   onClick = () => {},
   editable = false,
 }: StreetNameProps) {
   const [isHovered, setHovered] = useState(false)
+  const InnerTag = as === 'span' ? 'span' : 'div'
 
   function handleMouseEnter(): void {
     setHovered(true)
@@ -42,30 +45,50 @@ export const StreetName = memo(function StreetName({
     setHovered(false)
   }
 
-  return (
-    <div
-      className="street-name"
-      ref={ref}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-    >
+  const content = (
+    <>
       {editable && isHovered && (
-        <div className="street-name-hover-prompt">
+        <InnerTag className="street-name-hover-prompt">
           <FormattedMessage
             id="street.rename"
             defaultMessage="Click to rename"
           />
-        </div>
+        </InnerTag>
       )}
-      <div className="street-name-text">
+      <InnerTag className="street-name-text">
         {normalizeStreetName(name) ?? (
           <FormattedMessage
             id="street.default-name"
             defaultMessage="Unnamed St"
           />
         )}
-      </div>
+      </InnerTag>
+    </>
+  )
+
+  if (as === 'span') {
+    return (
+      <span
+        className="street-name"
+        ref={ref as React.Ref<HTMLSpanElement>}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={onClick}
+      >
+        {content}
+      </span>
+    )
+  }
+
+  return (
+    <div
+      className="street-name"
+      ref={ref as React.Ref<HTMLDivElement>}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+    >
+      {content}
     </div>
   )
 })
