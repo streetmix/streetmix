@@ -141,6 +141,10 @@ export function GeotagDialog() {
 
   const dispatch = useDispatch()
   const intl = useIntl()
+  const geotagDialogLabel = intl.formatMessage({
+    id: 'dialogs.geotag.dialog-title',
+    defaultMessage: 'Location',
+  })
 
   const geocodeAvailable = !!PELIAS_API_KEY && !!PELIAS_HOST_NAME && !offline
 
@@ -299,7 +303,7 @@ export function GeotagDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabel={geotagDialogLabel}>
       {(closeDialog) => (
         <div className="geotag-dialog">
           {geocodeAvailable ? (

@@ -12,8 +12,11 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
       class="dialog-box-display-area"
     >
       <div
+        aria-labelledby="_r_1_"
+        aria-modal="true"
         class="dialog-box"
         role="dialog"
+        tabindex="-1"
       >
         <button
           class="close"
@@ -27,7 +30,9 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
           class="newsletter-dialog"
         >
           <header>
-            <h1>
+            <h1
+              id="_r_1_"
+            >
               Subscribe to our newsletter
             </h1>
           </header>

@@ -1,15 +1,18 @@
+import { useId } from 'react'
 import { CoastmixPracticeTour } from '~/src/ui/Tours/CoastmixPractice.js'
 import { Button } from '~/src/ui/Button.js'
 import { Dialog } from './Dialog.js'
 import './CoastmixTutorial.css'
 
 export function CoastmixTutorialComplete() {
+  const dialogTitleId = useId()
+
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="dialog-coastmix-tutorial-complete">
           <header>
-            <h2>Tutorial complete!</h2>
+            <h2 id={dialogTitleId}>Tutorial complete!</h2>
           </header>
 
           <div className="dialog-content">

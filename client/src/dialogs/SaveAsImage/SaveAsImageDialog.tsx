@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useId } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { saveAs } from 'file-saver'
 
@@ -26,6 +26,7 @@ export function SaveAsImageDialog() {
   const [errorMessage, setErrorMessage] = useState<string>()
   const [errorMessage2, setErrorMessage2] = useState<boolean>(false)
   const [downloadDataUrl, setDownloadDataUrl] = useState<string>()
+  const dialogTitleId = useId()
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
   const {
@@ -237,11 +238,11 @@ export function SaveAsImageDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {() => (
         <div className="save-as-image-dialog">
           <header>
-            <h1>
+            <h1 id={dialogTitleId}>
               <FormattedMessage
                 id="dialogs.save.heading"
                 defaultMessage="Save as image"

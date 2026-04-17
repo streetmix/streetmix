@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '../ui/ExternalLink.js'
@@ -11,12 +12,14 @@ import './ErrorDialog.css'
  * If _this_ component throws an error, the universe blows up.
  */
 export function ErrorDialog() {
+  const dialogTitleId = useId()
+
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="dialog-error">
           <header>
-            <h1>
+            <h1 id={dialogTitleId}>
               <FormattedMessage
                 id="dialogs.error.heading"
                 defaultMessage="Oops!"

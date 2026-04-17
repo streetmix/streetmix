@@ -12,8 +12,11 @@ exports[`SignInDialog > renders 1`] = `
       class="dialog-box-display-area"
     >
       <div
+        aria-labelledby="_r_0_-title"
+        aria-modal="true"
         class="dialog-box"
         role="dialog"
+        tabindex="-1"
       >
         <button
           class="close"
@@ -27,7 +30,9 @@ exports[`SignInDialog > renders 1`] = `
           class="sign-in-dialog"
         >
           <header>
-            <h1>
+            <h1
+              id="_r_0_-title"
+            >
               Sign in / Sign up
             </h1>
           </header>
@@ -40,13 +45,13 @@ exports[`SignInDialog > renders 1`] = `
             <form>
               <label
                 class="sign-in-email-label"
-                for="_r_0_"
+                for="_r_0_-email"
               >
                 Email
               </label>
               <input
                 class="sign-in-input "
-                id="_r_0_"
+                id="_r_0_-email"
                 name="email"
                 placeholder="test@test.com"
                 required=""

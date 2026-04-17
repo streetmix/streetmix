@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import type { UserProfile } from '~/src/types/index.js'
@@ -28,6 +28,7 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
     (state) => state.user?.signInData?.details ?? {}
   )
   const [activeCategory, setActiveCategory] = useState(category)
+  const dialogTitleId = useId()
 
   // `user` is allowed to initialize as an empty object, and in that case
   // make `roles` initialize as an empty array.
@@ -61,11 +62,11 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="settings-dialog">
           <header>
-            <h1>
+            <h1 id={dialogTitleId}>
               <FormattedMessage
                 id="settings.heading"
                 defaultMessage="Settings"

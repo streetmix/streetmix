@@ -12,8 +12,11 @@ exports[`AboutDialog > renders snapshot 1`] = `
       class="dialog-box-display-area"
     >
       <div
+        aria-labelledby="_r_0_"
+        aria-modal="true"
         class="dialog-box"
         role="dialog"
+        tabindex="-1"
       >
         <button
           class="close"
@@ -32,7 +35,9 @@ exports[`AboutDialog > renders snapshot 1`] = `
               class="about-dialog-logo"
               src="test-file-stub"
             />
-            <h1>
+            <h1
+              id="_r_0_"
+            >
               About Streetmix.
             </h1>
           </header>

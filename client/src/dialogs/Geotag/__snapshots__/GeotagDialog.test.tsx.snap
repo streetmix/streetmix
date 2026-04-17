@@ -12,8 +12,11 @@ exports[`GeotagDialog > renders 1`] = `
       class="dialog-box-display-area"
     >
       <div
+        aria-label="Location"
+        aria-modal="true"
         class="dialog-box"
         role="dialog"
+        tabindex="-1"
       >
         <button
           class="close"

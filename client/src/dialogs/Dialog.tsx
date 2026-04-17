@@ -26,12 +26,24 @@ import './Dialog.css'
 type CloseFunction = () => void
 interface DialogProps {
   children: (arg: CloseFunction) => React.ReactElement
+  ariaLabelledBy?: string
+  ariaLabel?: string
 }
 
-export function Dialog({ children }: DialogProps) {
+const FOCUSABLE_SELECTORS = [
+  'a[href]',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ')
+
+export function Dialog({ children, ariaLabelledBy, ariaLabel }: DialogProps) {
   // Appear state controls transition in/out
   const dialogEl = useRef<HTMLDivElement>(null)
   const nodeRef = useRef(null)
+  const previousActiveElementRef = useRef<HTMLElement | null>(null)
   const [appear, setAppear] = useState(true)
   const dispatch = useDispatch()
 
@@ -57,6 +69,92 @@ export function Dialog({ children }: DialogProps) {
     dispatch(clearDialogs())
   }
 
+  useEffect(() => {
+    const getFocusableElements = (): HTMLElement[] => {
+      if (!dialogEl.current) return []
+
+      return Array.from(
+        dialogEl.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)
+      ).filter((element) => {
+        if (element.hasAttribute('disabled')) return false
+        if (element.hasAttribute('hidden')) return false
+        if (element.getAttribute('aria-hidden') === 'true') return false
+        if (element.getAttribute('aria-disabled') === 'true') return false
+        if (
+          element instanceof HTMLInputElement &&
+          element.getAttribute('type') === 'hidden'
+        ) {
+          return false
+        }
+        const computedStyles = window.getComputedStyle(element)
+        if (
+          computedStyles.display === 'none' ||
+          computedStyles.visibility === 'hidden'
+        ) {
+          return false
+        }
+        return true
+      })
+    }
+
+    const focusFirstElement = () => {
+      const focusableElements = getFocusableElements()
+      const firstElement = focusableElements[0] ?? dialogEl.current
+      firstElement?.focus()
+    }
+
+    previousActiveElementRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null
+    focusFirstElement()
+
+    const handleDialogTab = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || !dialogEl.current) return
+
+      const focusableElements = getFocusableElements()
+
+      if (focusableElements.length === 0) {
+        event.preventDefault()
+        dialogEl.current.focus()
+        return
+      }
+
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
+      const activeElement = document.activeElement
+
+      if (!event.shiftKey && activeElement === lastElement) {
+        event.preventDefault()
+        firstElement.focus()
+      } else if (event.shiftKey && activeElement === firstElement) {
+        event.preventDefault()
+        lastElement.focus()
+      } else if (
+        activeElement instanceof Node &&
+        !dialogEl.current.contains(activeElement)
+      ) {
+        event.preventDefault()
+        firstElement.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleDialogTab)
+
+    return () => {
+      document.removeEventListener('keydown', handleDialogTab)
+
+      if (
+        previousActiveElementRef.current &&
+        document.contains(previousActiveElementRef.current)
+      ) {
+        previousActiveElementRef.current.focus()
+      } else {
+        document.body.focus()
+      }
+    }
+  }, [])
+
   return (
     <CSSTransition
       appear
@@ -69,7 +167,15 @@ export function Dialog({ children }: DialogProps) {
       <div className="dialog-box-container" ref={nodeRef}>
         <div className="dialog-box-backdrop" />
         <div className="dialog-box-display-area">
-          <div className="dialog-box" role="dialog" ref={dialogEl}>
+          <div
+            className="dialog-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={ariaLabelledBy}
+            aria-label={ariaLabel}
+            tabIndex={-1}
+            ref={dialogEl}
+          >
             <CloseButton onClick={handleClose} />
             {children(handleClose)}
           </div>

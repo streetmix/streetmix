@@ -21,7 +21,11 @@ export function SignInDialog() {
   const [signingIn, setSigningIng] = useState(false)
 
   const emailInputEl = useRef<HTMLInputElement>(null)
-  const emailInputId = useId()
+  const id = useId()
+  const emailInputId = `${id}-email`
+  const dialogTitleId = `${id}-title`
+  const waitingDialogTitleId = `${id}-waiting-title`
+  const emailSentDialogTitleId = `${id}-email-sent-title`
 
   useEffect(() => {
     emailInputEl.current?.focus()
@@ -91,11 +95,11 @@ export function SignInDialog() {
 
   function SignInWaiting(): React.ReactElement {
     return (
-      <Dialog>
+      <Dialog ariaLabelledBy={waitingDialogTitleId}>
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1>
+              <h1 id={waitingDialogTitleId}>
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"
@@ -117,11 +121,11 @@ export function SignInDialog() {
 
   function EmailSent(): React.ReactElement {
     return (
-      <Dialog>
+      <Dialog ariaLabelledBy={emailSentDialogTitleId}>
         {() => (
           <div className="sign-in-dialog">
             <header>
-              <h1>
+              <h1 id={emailSentDialogTitleId}>
                 <FormattedMessage
                   id="dialogs.sign-in.loading-message"
                   defaultMessage="Signing you in…"
@@ -165,12 +169,12 @@ export function SignInDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {
         (/* closeDialog */) => (
           <div className="sign-in-dialog">
             <header>
-              <h1>
+              <h1 id={dialogTitleId}>
                 <FormattedMessage
                   id="dialogs.sign-in.heading"
                   defaultMessage="Sign in / Sign up"

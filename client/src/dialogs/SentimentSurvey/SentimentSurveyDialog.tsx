@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
@@ -5,12 +6,14 @@ import { Dialog } from '../Dialog.js'
 import './SentimentSurveyDialog.css'
 
 export function SentimentSurveyDialog() {
+  const dialogTitleId = useId()
+
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="sentiment-survey-about-dialog">
           <div className="dialog-content">
-            <h3>
+            <h3 id={dialogTitleId}>
               <FormattedMessage
                 id="sentiment.about-header"
                 defaultMessage="We want to understand how people feel about streets"

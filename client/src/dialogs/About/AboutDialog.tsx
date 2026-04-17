@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import logo from 'url:~/images/logo_horizontal.svg'
@@ -13,9 +14,10 @@ import './AboutDialog.css'
 
 export function AboutDialog() {
   const offline = useSelector((state) => state.system.offline)
+  const dialogTitleId = useId()
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="about-dialog">
           <header>
@@ -24,7 +26,7 @@ export function AboutDialog() {
               alt="Streetmix (logo)"
               className="about-dialog-logo"
             />
-            <h1>
+            <h1 id={dialogTitleId}>
               <FormattedMessage
                 id="dialogs.about.heading"
                 defaultMessage="About Streetmix."

@@ -1,3 +1,5 @@
+import { useId } from 'react'
+
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setFeatureFlag } from '~/src/store/slices/flags.js'
 import { Checkbox } from '~/src/ui/Checkbox.js'
@@ -7,6 +9,7 @@ import './FeatureFlagDialog.css'
 export function FeatureFlagDialog() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()
+  const dialogTitleId = useId()
 
   function renderFlagList(): React.ReactElement[] {
     return Object.entries(flags).map(([key, flag]) => {
@@ -36,11 +39,11 @@ export function FeatureFlagDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="feature-flag-dialog" dir="ltr">
           <header>
-            <h1>Feature flags</h1>
+            <h1 id={dialogTitleId}>Feature flags</h1>
           </header>
           <div className="dialog-content">
             <ul>{renderFlagList()}</ul>

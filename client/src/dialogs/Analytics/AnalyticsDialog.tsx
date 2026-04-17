@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useId } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -28,6 +28,7 @@ export function AnalyticsDialog() {
   const dispatch = useDispatch()
   const intl = useIntl()
   const max = useRef(0)
+  const dialogTitleId = useId()
 
   const [isVisible, setVisible] = useState(street.showAnalytics)
   const toggleVisible = () => {
@@ -102,11 +103,11 @@ export function AnalyticsDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => (
         <div className="analytics-dialog">
           <header>
-            <h1>
+            <h1 id={dialogTitleId}>
               <FormattedMessage
                 id="dialogs.analytics.heading"
                 defaultMessage="Analytics"

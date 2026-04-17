@@ -38,6 +38,7 @@ export function NewsletterDialog() {
   })
   const [submitState, setSubmitState] = useState('DEFAULT')
   const emailInputId = useId()
+  const dialogTitleId = useId()
 
   useEffect(() => {
     // Wrapping `setFocus()` in a `setTimeout` of 0 allows it to find the
@@ -79,12 +80,12 @@ export function NewsletterDialog() {
   }
 
   return (
-    <Dialog>
+    <Dialog ariaLabelledBy={dialogTitleId}>
       {(closeDialog) => {
         return (
           <div className="newsletter-dialog">
             <header>
-              <h1>
+              <h1 id={dialogTitleId}>
                 <FormattedMessage
                   id="dialogs.newsletter.heading"
                   defaultMessage="Subscribe to our newsletter"
