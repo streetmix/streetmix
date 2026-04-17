@@ -116,7 +116,15 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
   const logoSrc = coastmixMode ? logoCoastmix : logo
 
   return (
-    <nav className="menu-bar" role="menubar" aria-orientation="horizontal">
+    <nav className="menu-bar">
+      {coastmixMode && (
+        <img
+          src="/images/coastmix.png"
+          className="coastmix-tape"
+          draggable={false}
+          alt="Coastmix"
+        />
+      )}
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img
@@ -141,7 +149,11 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
               id="menubar-contact"
               onClick={handleClick('contact')}
             />
-            {!isSubscriber && <UpgradeButton />}
+            {!isSubscriber && (
+              <li>
+                <UpgradeButton />
+              </li>
+            )}
           </>
         )}
       </ul>

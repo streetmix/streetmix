@@ -47,9 +47,9 @@ export function StreetMetaItem({
 
   if (isEditable) {
     return (
-      <div className={classNames.join(' ')} {...restProps}>
+      <div className={classNames.join(' ')}>
         <Tooltip label={tooltip} sublabel={sublabel} placement="bottom">
-          <button onClick={handleClick} aria-label={tooltip}>
+          <button onClick={handleClick} aria-label={tooltip} {...restProps}>
             {content}
           </button>
         </Tooltip>
