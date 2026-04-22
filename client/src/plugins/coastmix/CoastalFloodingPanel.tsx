@@ -9,10 +9,10 @@ import {
   setFloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
+import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
-import { BetaTag } from '~/src/menubar/menus/BetaTag.js'
 import './CoastalFloodingPanel.css'
 
 import type { FloodDirection } from '@streetmix/types'
