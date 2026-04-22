@@ -37,7 +37,7 @@ export function UndoRedo() {
 
   return (
     <TooltipGroup>
-      <Tooltip label={undoLabel}>
+      <Tooltip label={undoLabel} role="label">
         <Button
           onClick={() => {
             dispatch(handleUndo())
@@ -48,7 +48,7 @@ export function UndoRedo() {
           <Icon name="undo" />
         </Button>
       </Tooltip>
-      <Tooltip label={redoLabel}>
+      <Tooltip label={redoLabel} role="label">
         <Button
           onClick={() => {
             dispatch(handleRedo())

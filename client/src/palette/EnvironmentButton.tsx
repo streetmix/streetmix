@@ -20,7 +20,7 @@ export function EnvironmentButton() {
   })
 
   return (
-    <Tooltip label={label}>
+    <Tooltip label={label} role="label">
       <Button onClick={handleClickTools} aria-label={label}>
         <Icon name="sun" />
       </Button>

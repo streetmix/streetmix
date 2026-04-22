@@ -95,7 +95,7 @@ export function VariantButton(props: VariantButtonProps) {
   }
 
   return (
-    <Tooltip label={label} sublabel={sublabel} placement="bottom">
+    <Tooltip label={label} sublabel={sublabel} placement="bottom" role="label">
       <Button
         data-testid={icon.title}
         className={isSelected ? 'variant-selected' : undefined}

@@ -69,6 +69,7 @@ export function BuildingHeightControl({
           defaultMessage: 'Building height',
         })}
         placement="left"
+        role="label"
       >
         <span className="popup-control-icon">
           <Icon name="building-height" size="30" stroke="1.5" />

@@ -45,13 +45,13 @@ export function SlopeControl({ position }: SlopeControlProps) {
   return (
     <div className="popup-control-row" data-tour-id="slope-control">
       <div className="popup-control-label">
-        <Tooltip label={label} placement="left">
+        <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
             <Icon name="slope" size="30" stroke="1.5" />
           </span>
         </Tooltip>
       </div>
-      <Tooltip label={tooltip} placement="bottom">
+      <Tooltip label={tooltip} placement="bottom" role="label">
         <Switch
           onCheckedChange={handleSlopeChange}
           checked={isSloped}

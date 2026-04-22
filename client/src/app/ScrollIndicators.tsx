@@ -59,7 +59,7 @@ export const ScrollIndicators = memo(function ScrollIndicators({
     <div className="street-scroll-indicators">
       <TooltipGroup>
         {left > 0 && (
-          <Tooltip label={scrollLeftLabel}>
+          <Tooltip label={scrollLeftLabel} role="label">
             <button
               className="street-scroll-indicator-left"
               onClick={handleScrollLeft}
@@ -70,7 +70,7 @@ export const ScrollIndicators = memo(function ScrollIndicators({
           </Tooltip>
         )}
         {right > 0 && (
-          <Tooltip label={scrollRightLabel}>
+          <Tooltip label={scrollRightLabel} role="label">
             <button
               className="street-scroll-indicator-right"
               onClick={handleScrollRight}
