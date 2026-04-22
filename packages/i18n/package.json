@@ -12,6 +12,6 @@
   "author": "",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@transifex/api": "7.1.5"
+    "@transifex/api": "7.1.6"
   }
 }
