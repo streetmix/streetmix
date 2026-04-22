@@ -76,6 +76,11 @@
       opacity: 1 !important;
     }
   }
+
+  h4 {
+    margin: 0;
+    color: var(--color-turquoise-900);
+  }
 }
 
 .popup-control-group {
