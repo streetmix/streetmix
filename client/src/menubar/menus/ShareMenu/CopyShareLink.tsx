@@ -61,7 +61,7 @@ export function CopyShareLink({ shareUrl, ref }: CopyShareLinkProps) {
           ref={ref}
           readOnly
         />
-        <Tooltip label={label}>
+        <Tooltip label={label} role="label">
           <Button
             onClick={handleClick}
             onBlur={resetState}
