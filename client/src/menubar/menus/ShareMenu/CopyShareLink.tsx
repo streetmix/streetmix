@@ -33,9 +33,9 @@ export function CopyShareLink({ shareUrl, ref }: CopyShareLinkProps) {
             id: 'menu.share.copy-to-clipboard',
             defaultMessage: 'Copy to clipboard',
           })}
-          onClick={(event) => {
+          onClick={async (event) => {
             event.preventDefault()
-            copy(shareUrl)
+            await copy(shareUrl)
           }}
         >
           <Icon name="clipboard" size="16" />
