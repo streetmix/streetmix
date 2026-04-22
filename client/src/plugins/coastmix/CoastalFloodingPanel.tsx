@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { useShepherd } from 'react-shepherd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -82,7 +83,11 @@ export function CoastalFloodingPanel() {
       icon="boat"
       title={
         <>
-          Coastal flooding <BetaTag />
+          <FormattedMessage
+            id="tools.flooding.heading"
+            defaultMessage="Coastal flooding"
+          />
+          <BetaTag />
         </>
       }
       show={controlsVisible}
@@ -91,7 +96,12 @@ export function CoastalFloodingPanel() {
     >
       <div className="popup-controls flood-controls-content">
         <div className="popup-control-group" data-tour-id="sea-level-control">
-          <div className="popup-control-label">Sea level rise</div>
+          <div className="popup-control-label">
+            <FormattedMessage
+              id="tools.sea-level.label"
+              defaultMessage="Sea level rise"
+            />
+          </div>
           <div>
             <Button
               className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
@@ -99,7 +109,10 @@ export function CoastalFloodingPanel() {
                 changeSeaLevelRise(0)
               }}
             >
-              Current
+              <FormattedMessage
+                id="tools.sea-level.current"
+                defaultMessage="Current"
+              />
             </Button>
             <Button
               className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
@@ -129,7 +142,12 @@ export function CoastalFloodingPanel() {
           </div>
         </div>
         <div className="popup-control-group" data-tour-id="storm-surge-control">
-          <div className="popup-control-label">Storm surge</div>
+          <div className="popup-control-label">
+            <FormattedMessage
+              id="tools.storm-surge.label"
+              defaultMessage="Storm surge"
+            />
+          </div>
           <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
         <div
