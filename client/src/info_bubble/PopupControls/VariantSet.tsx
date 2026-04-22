@@ -77,6 +77,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     if (type === 'boundary') {
       handler = () => {
         dispatch(setBuildingVariant(position, selection))
+        dispatch(segmentsChanged())
       }
     } else {
       handler = () => {
