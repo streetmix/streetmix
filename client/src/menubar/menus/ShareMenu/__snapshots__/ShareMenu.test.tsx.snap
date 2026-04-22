@@ -69,7 +69,6 @@ exports[`ShareMenu > renders (user not signed in, anonymous user’s street, no 
         />
         <button
           class="btn"
-          title="Copy to clipboard"
           type="button"
         >
           <svg
@@ -231,7 +230,6 @@ exports[`ShareMenu > renders (user signed in, own street, with name) 1`] = `
         />
         <button
           class="btn"
-          title="Copy to clipboard"
           type="button"
         >
           <svg
