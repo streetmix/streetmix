@@ -20,6 +20,7 @@ import { applyWarningsToSlices } from '~/src/streets/warnings.js'
 import { recalculateWidth } from '~/src/streets/width.js'
 import { saveStreetToServer } from '~/src/streets/xhr.js'
 import apiClient from '~/src/util/api.js'
+import { setFloodDirection } from '../slices/coastmix.js'
 import { showError } from '../slices/errors.js'
 import { updateSettings } from '../slices/settings.js'
 import { addToast } from '../slices/toasts.js'
@@ -92,6 +93,32 @@ export const segmentsChanged = (force = false) => {
       street,
       calculatedWidths
     )
+
+    // Calculate flooding direction
+    // TODO: refactor
+    let floodDirectionValue = 0
+    const floodVariants = ['beach', 'marsh', 'water', 'dock', 'waterfront']
+    if (floodVariants.includes(street.boundary.left.variant)) {
+      floodDirectionValue += 1
+    }
+    if (floodVariants.includes(street.boundary.right.variant)) {
+      floodDirectionValue += 2
+    }
+    let floodDirection
+    switch (floodDirectionValue) {
+      case 1:
+        floodDirection = 'left' as const
+        break
+      case 2:
+        floodDirection = 'right' as const
+        break
+      case 3:
+        floodDirection = 'both' as const
+        break
+      default:
+        floodDirection = 'none' as const
+    }
+    dispatch(setFloodDirection(floodDirection))
 
     await dispatch(
       updateSegments(
