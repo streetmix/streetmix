@@ -210,6 +210,7 @@ export function UpDownInput(props: UpDownInputProps) {
         label={downTooltip}
         sublabel={downTooltipSublabel}
         placement="bottom"
+        role="label"
       >
         <Button
           className="up-down-input-decrement"
@@ -241,6 +242,7 @@ export function UpDownInput(props: UpDownInputProps) {
         label={upTooltip}
         sublabel={upTooltipSublabel}
         placement="bottom"
+        role="label"
       >
         <Button
           className="up-down-input-increment"

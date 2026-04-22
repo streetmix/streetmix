@@ -21,7 +21,11 @@ import {
   FloatingNode,
 } from '@floating-ui/react'
 
-import type { FloatingDelayGroupProps, Placement } from '@floating-ui/react'
+import type {
+  FloatingDelayGroupProps,
+  Placement,
+  UseRoleProps,
+} from '@floating-ui/react'
 import type { Optional } from '@streetmix/types'
 
 import './Tooltip.css'
@@ -38,6 +42,7 @@ const TOOLTIP_TRANSITION_DISTANCE = 8
 
 interface TooltipOptions {
   placement?: Placement
+  role?: UseRoleProps['role']
 }
 
 interface TooltipProps extends TooltipOptions {
@@ -50,6 +55,7 @@ export function Tooltip({
   label,
   sublabel,
   placement = TOOLTIP_PLACEMENT,
+  role = 'tooltip',
   children,
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -78,12 +84,12 @@ export function Tooltip({
   const hover = useHover(context, { delay })
   const focus = useFocus(context)
   const dismiss = useDismiss(context)
-  const role = useRole(context, { role: 'tooltip' })
+  const roleInteractionHook = useRole(context, { role })
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
     focus,
     dismiss,
-    role,
+    roleInteractionHook,
   ])
 
   // Define animation
