@@ -1,5 +1,9 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
-import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
+import {
+  FLOOD_DIRECTION_LEFT,
+  SEA_LEVEL_RISE_FEET,
+  SURGE_HEIGHT_FEET,
+} from './constants.js'
 
 import type { FloodDirection, SliceItem } from '@streetmix/types'
 
@@ -41,7 +45,7 @@ export function checkSeaLevel(
 
   // Depending on whether the flood comes from the left or right, set up
   // a compare loop that counts up or down
-  const fromLeft = floodDirection === 'left'
+  const fromLeft = floodDirection === FLOOD_DIRECTION_LEFT
   const start = fromLeft ? 0 : slices.length - 1
   const end = fromLeft ? slices.length : -1
   const step = fromLeft ? 1 : -1

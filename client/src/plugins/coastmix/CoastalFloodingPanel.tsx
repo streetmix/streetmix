@@ -7,7 +7,6 @@ import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
-  setFloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { BetaTag } from '~/src/ui/BetaTag.js'
@@ -15,8 +14,7 @@ import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
-
-import type { FloodDirection } from '@streetmix/types'
+import { FLOOD_DIRECTION_NONE } from './constants'
 
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
@@ -39,12 +37,6 @@ export function CoastalFloodingPanel() {
     dispatch(setSeaLevelRise(x))
   }
 
-  function changeFloodDirection(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    dispatch(setFloodDirection(event.target.value as FloodDirection))
-  }
-
   function toggleStormSurge(checked: boolean): void {
     dispatch(setStormSurge(checked))
   }
@@ -58,8 +50,8 @@ export function CoastalFloodingPanel() {
   const messageClassNames = ['flood-controls-message']
   if (seaLevelRise === 0) {
     message = '👉 Select a sea level rise target to visualize flooding.'
-  } else if (floodDirection === 'none') {
-    message = '👉 Select a flooding direction.'
+  } else if (floodDirection === FLOOD_DIRECTION_NONE) {
+    message = '👉 Change a boundary to a waterfront to visualize flooding.'
   } else {
     if (floodDistance === null) {
       message = '❌ This configuration does not address sea level rise!'
@@ -150,20 +142,13 @@ export function CoastalFloodingPanel() {
           </div>
           <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
-        <div
+        {/* <div
           className="popup-control-group"
           data-tour-id="flood-direction-control"
         >
           <div className="popup-control-label">Flood direction</div>
-          <div>
-            <select value={floodDirection} onChange={changeFloodDirection}>
-              <option value="none">None</option>
-              <option value="left">Left</option>
-              <option value="right">Right</option>
-              {/* <option value="both">Both</option> */}
-            </select>
-          </div>
-        </div>
+          <div>{floodDirection}</div>
+        </div> */}
         <div
           className={messageClassNames.join(' ')}
           data-tour-id="flooding-message"

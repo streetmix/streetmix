@@ -7,7 +7,7 @@ const initialState: CoastmixState = {
   controlsVisible: false,
   seaLevelRise: 0,
   stormSurge: false,
-  floodDirection: 'none',
+  floodDirection: 0 as const,
   floodDistance: null,
 }
 
@@ -49,7 +49,7 @@ const coastmixSlice = createSlice({
       state,
       action: PayloadAction<FloodDirection | undefined>
     ) {
-      state.floodDirection = action.payload ?? 'none'
+      state.floodDirection = action.payload ?? 0
     },
 
     setFloodDistance(state, action: PayloadAction<number | null>) {

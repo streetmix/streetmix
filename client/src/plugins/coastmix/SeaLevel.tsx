@@ -3,7 +3,11 @@ import { useEffect } from 'react'
 import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
-import { SEA_LEVEL_RISE_FEET } from './constants.js'
+import {
+  FLOOD_DIRECTION_LEFT,
+  FLOOD_DIRECTION_RIGHT,
+  SEA_LEVEL_RISE_FEET,
+} from './constants.js'
 import { calculateSeaLevelRise } from './sea_level.js'
 import './SeaLevel.css'
 
@@ -64,11 +68,11 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }, [stormSurge, height])
 
   // If flood direction comes from the left
-  if (floodDirection === 'left' && floodDistance !== null) {
+  if (floodDirection === FLOOD_DIRECTION_LEFT && floodDistance !== null) {
     styles.width = `${boundaryWidth + floodDistance}px`
     styles.right = 'auto'
   }
-  if (floodDirection === 'right' && floodDistance !== null) {
+  if (floodDirection === FLOOD_DIRECTION_RIGHT && floodDistance !== null) {
     styles.left = 'auto'
     styles.width = `${boundaryWidth + floodDistance}px`
   }

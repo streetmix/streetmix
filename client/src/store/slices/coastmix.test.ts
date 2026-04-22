@@ -14,7 +14,7 @@ describe('coastmix reducer', () => {
     controlsVisible: false,
     seaLevelRise: 0,
     stormSurge: false,
-    floodDirection: 'none' as const,
+    floodDirection: 0 as const,
     floodDistance: null,
   }
 
@@ -25,7 +25,7 @@ describe('coastmix reducer', () => {
           controlsVisible: true,
           seaLevelRise: 2030,
           stormSurge: true,
-          floodDirection: 'left',
+          floodDirection: 0,
           floodDistance: 1,
         },
         resetCoastmixState()

@@ -2,6 +2,12 @@ import clone from 'just-clone'
 
 import { ERRORS } from '~/src/app/errors.js'
 import { formatMessage } from '~/src/locales/locale.js'
+import { getBoundaryItem } from '~/src/boundary/boundary.js'
+import {
+  FLOOD_DIRECTION_LEFT,
+  FLOOD_DIRECTION_NONE,
+  FLOOD_DIRECTION_RIGHT,
+} from '~/src/plugins/coastmix/constants.js'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
@@ -95,28 +101,14 @@ export const segmentsChanged = (force = false) => {
     )
 
     // Calculate flooding direction
-    // TODO: refactor
-    let floodDirectionValue = 0
-    const floodVariants = ['beach', 'marsh', 'water', 'dock', 'waterfront']
-    if (floodVariants.includes(street.boundary.left.variant)) {
-      floodDirectionValue += 1
+    // Using numeric constants is a meant to be a clever way of easily
+    // determining if flooding comes from both sides.
+    let floodDirection = FLOOD_DIRECTION_NONE
+    if (getBoundaryItem(street.boundary.left.variant).waterfront) {
+      floodDirection += FLOOD_DIRECTION_LEFT
     }
-    if (floodVariants.includes(street.boundary.right.variant)) {
-      floodDirectionValue += 2
-    }
-    let floodDirection
-    switch (floodDirectionValue) {
-      case 1:
-        floodDirection = 'left' as const
-        break
-      case 2:
-        floodDirection = 'right' as const
-        break
-      case 3:
-        floodDirection = 'both' as const
-        break
-      default:
-        floodDirection = 'none' as const
+    if (getBoundaryItem(street.boundary.right.variant).waterfront) {
+      floodDirection += FLOOD_DIRECTION_RIGHT
     }
     dispatch(setFloodDirection(floodDirection))
 

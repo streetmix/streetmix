@@ -2,6 +2,12 @@ import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
 } from '@streetmix/client/src/users/constants.js'
+import {
+  FLOOD_DIRECTION_NONE,
+  FLOOD_DIRECTION_LEFT,
+  FLOOD_DIRECTION_RIGHT,
+  FLOOD_DIRECTION_BOTH,
+} from '@streetmix/client/src/plugins/coastmix/constants.js'
 
 import type React from 'react'
 
@@ -185,7 +191,11 @@ export interface CoastmixState {
   floodDistance: number | null
 }
 
-export type FloodDirection = 'left' | 'right' | 'both' | 'none'
+export type FloodDirection =
+  | typeof FLOOD_DIRECTION_NONE
+  | typeof FLOOD_DIRECTION_LEFT
+  | typeof FLOOD_DIRECTION_RIGHT
+  | typeof FLOOD_DIRECTION_BOTH
 
 export interface HistoryState {
   stack: Partial<StreetState>[]
@@ -406,6 +416,7 @@ interface BoundaryDefinitionBase {
   id: string
   label: string
   spriteId: string
+  waterfront?: boolean
   hasFloors: boolean
   sameOnBothSides?: boolean
   repeatHalf?: boolean
