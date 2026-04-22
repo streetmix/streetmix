@@ -12,6 +12,7 @@ import { segmentsChanged } from '~/src/store/actions/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
+import { BetaTag } from '~/src/menubar/menus/BetaTag.js'
 import './CoastalFloodingPanel.css'
 
 import type { FloodDirection } from '@streetmix/types'
@@ -79,11 +80,14 @@ export function CoastalFloodingPanel() {
   return (
     <FloatingPanel
       icon="boat"
-      title="Coastal flooding"
+      title={
+        <>
+          Coastal flooding <BetaTag />
+        </>
+      }
       show={controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
-      position={{ x: 30, y: 65 }}
     >
       <div className="popup-controls flood-controls-content">
         <div className="popup-control-group" data-tour-id="sea-level-control">
