@@ -103,14 +103,17 @@ export const segmentsChanged = (force = false) => {
     // Calculate flooding direction
     // Using numeric constants is a meant to be a clever way of easily
     // determining if flooding comes from both sides.
-    let floodDirection = FLOOD_DIRECTION_NONE
-    if (getBoundaryItem(street.boundary.left.variant).waterfront) {
-      floodDirection += FLOOD_DIRECTION_LEFT
+    // Bail if there is no boundary variants, which happens in minimal tests
+    if (street.boundary?.left?.variant && street.boundary?.right?.variant) {
+      let floodDirection = FLOOD_DIRECTION_NONE
+      if (getBoundaryItem(street.boundary.left.variant).waterfront) {
+        floodDirection += FLOOD_DIRECTION_LEFT
+      }
+      if (getBoundaryItem(street.boundary.right.variant).waterfront) {
+        floodDirection += FLOOD_DIRECTION_RIGHT
+      }
+      dispatch(setFloodDirection(floodDirection))
     }
-    if (getBoundaryItem(street.boundary.right.variant).waterfront) {
-      floodDirection += FLOOD_DIRECTION_RIGHT
-    }
-    dispatch(setFloodDirection(floodDirection))
 
     await dispatch(
       updateSegments(

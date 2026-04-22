@@ -75,15 +75,15 @@ describe('coastmix reducer', () => {
 
   describe('setFloodDirection()', () => {
     it('should set flood direction', () => {
-      const action = coastmix(initialState, setFloodDirection('left'))
+      const action = coastmix(initialState, setFloodDirection(1))
 
-      expect(action.floodDirection).toEqual('left')
+      expect(action.floodDirection).toEqual(1)
     })
 
     it('should clear flood direction', () => {
       const action = coastmix(initialState, setFloodDirection())
 
-      expect(action.floodDirection).toEqual('none')
+      expect(action.floodDirection).toEqual(0)
     })
   })
 
