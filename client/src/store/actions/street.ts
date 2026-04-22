@@ -47,6 +47,7 @@ import { setActiveSegment } from '../slices/ui.js'
 
 import type { Dispatch, RootState } from '../index.js'
 import type {
+  FloodDirection,
   SliceItem,
   StreetAPIResponse,
   StreetState,
@@ -112,7 +113,7 @@ export const segmentsChanged = (force = false) => {
       if (getBoundaryItem(street.boundary.right.variant).waterfront) {
         floodDirection += FLOOD_DIRECTION_RIGHT
       }
-      dispatch(setFloodDirection(floodDirection))
+      dispatch(setFloodDirection(floodDirection as FloodDirection))
     }
 
     await dispatch(
