@@ -129,9 +129,9 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
         })
         return (
           <>
-            <h4>Land boundaries</h4>
+            <h4>Land</h4>
             {renderButtonGroup('boundary', landItems, 'boundary1')}
-            <h4>Water boundaries</h4>
+            <h4>Waterfront</h4>
             {renderButtonGroup('boundary', waterItems, 'boundary2')}
           </>
         )
