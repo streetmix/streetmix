@@ -5,6 +5,7 @@ import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
 import {
   FLOOD_DIRECTION_LEFT,
+  FLOOD_DIRECTION_NONE,
   FLOOD_DIRECTION_RIGHT,
   SEA_LEVEL_RISE_FEET,
 } from './constants.js'
@@ -30,18 +31,26 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const prevStreetId = usePrevious(street.id)
   const animationOff = prevStreetId !== street.id
 
-  // Baseline height
-  let height =
-    GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
+  let height = 0
+  let opacity = 0
 
-  // Calculate how much sea level rises
-  const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
+  // Only set visual parameters when there is a flood direction
+  if (floodDirection !== FLOOD_DIRECTION_NONE) {
+    // Baseline height
+    // TODO: include sea level elevation with baseline
+    height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 
-  // Total height added together
-  height += rise * TILE_SIZE
+    // Calculate how much sea level rises
+    const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
-  // Show visually when sea level rises
-  const opacity = seaLevelRise in SEA_LEVEL_RISE_FEET ? WAVE_OPACITY : 0
+    // Total height added together
+    height += rise * TILE_SIZE
+
+    // Show visually when sea level rises
+    if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
+      opacity = WAVE_OPACITY
+    }
+  }
 
   // Default style -- floods full width of section
   const styles: React.CSSProperties = {
