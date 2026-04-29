@@ -55,13 +55,6 @@
     justify-content: center;
     align-items: center;
   }
-
-  [data-icon="sun"],
-  [data-icon="undo"],
-  [data-icon="redo"] {
-    width: 24px;
-    height: 24px;
-  }
 }
 
 .palette-commands-right {

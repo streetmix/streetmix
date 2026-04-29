@@ -110,6 +110,12 @@
       "name": "Compound wall"
     }
   },
+  "boundary": {
+    "group": {
+      "land": "Land",
+      "waterfront": "Waterfront"
+    }
+  },
   "variant-icons": {
     "orientation|left": "Left",
     "orientation|right": "Right",

@@ -3,11 +3,11 @@ import { useShepherd } from 'react-shepherd'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
+import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Icon } from '~/src/ui/Icon.js'
 import Menu, { type MenuProps } from './Menu.js'
 import { MenuItem } from './MenuItem.js'
 import { MenuSeparator } from './MenuSeparator.js'
-import { BetaTag } from './BetaTag.js'
 import { SignInPromo } from './ShareMenu/SignInPromo.js'
 
 function openTemplate(template: string, tour: boolean = false): void {

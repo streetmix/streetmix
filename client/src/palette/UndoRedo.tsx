@@ -45,7 +45,7 @@ export function UndoRedo() {
           disabled={!isUndoAvailable()}
           aria-label={undoLabel}
         >
-          <Icon name="undo" />
+          <Icon name="undo" size="24" />
         </Button>
       </Tooltip>
       <Tooltip label={redoLabel} role="label">
@@ -56,7 +56,7 @@ export function UndoRedo() {
           disabled={!isRedoAvailable()}
           aria-label={redoLabel}
         >
-          <Icon name="redo" />
+          <Icon name="redo" size="24" />
         </Button>
       </Tooltip>
     </TooltipGroup>

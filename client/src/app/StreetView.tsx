@@ -95,9 +95,7 @@ export function StreetView() {
 
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
-  const { seaLevelRise, stormSurge, floodDirection } = useSelector(
-    (state) => state.coastmix
-  )
+  const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
 
   // Keep previous state for comparisons (ported from legacy behavior)
@@ -126,24 +124,16 @@ export function StreetView() {
     // flood distance here. This can change if we start calculating
     // distance in actual distance values rather than on screen pixel values.
     const floodDistance = checkSeaLevel(
-      street.segments,
+      street,
       slicesEl.current,
       sectionCanvasEl.current,
       seaLevelRise,
-      stormSurge,
-      floodDirection
+      stormSurge
     )
     dispatch(setFloodDistance(floodDistance))
 
     return STREETVIEW_RESIZED
-  }, [
-    street.width,
-    street.segments,
-    dispatch,
-    seaLevelRise,
-    stormSurge,
-    floodDirection,
-  ])
+  }, [street, dispatch, seaLevelRise, stormSurge])
 
   const handleStreetResize = useCallback(() => {
     // Place all scroll-based positioning effects inside of a "raf"
