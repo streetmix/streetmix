@@ -3,19 +3,18 @@ import coastmix, {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   setSeaLevelRise,
-  setFloodDirection,
   setFloodDistance,
   setStormSurge,
   toggleCoastalFloodingPanel,
 } from './coastmix.js'
+import type { FloodDistance } from '@streetmix/types'
 
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
     seaLevelRise: 0,
     stormSurge: false,
-    floodDirection: 'none' as const,
-    floodDistance: null,
+    floodDistance: [null, null] as [FloodDistance, FloodDistance],
   }
 
   describe('reset state', () => {
@@ -25,8 +24,7 @@ describe('coastmix reducer', () => {
           controlsVisible: true,
           seaLevelRise: 2030,
           stormSurge: true,
-          floodDirection: 'left',
-          floodDistance: 1,
+          floodDistance: [1, null],
         },
         resetCoastmixState()
       )
@@ -73,20 +71,6 @@ describe('coastmix reducer', () => {
     })
   })
 
-  describe('setFloodDirection()', () => {
-    it('should set flood direction', () => {
-      const action = coastmix(initialState, setFloodDirection('left'))
-
-      expect(action.floodDirection).toEqual('left')
-    })
-
-    it('should clear flood direction', () => {
-      const action = coastmix(initialState, setFloodDirection())
-
-      expect(action.floodDirection).toEqual('none')
-    })
-  })
-
   describe('setStormSurge()', () => {
     it('should set storm surge to true', () => {
       const action = coastmix(initialState, setStormSurge(true))
@@ -102,22 +86,46 @@ describe('coastmix reducer', () => {
   })
 
   describe('setFloodDistance()', () => {
-    it('should set flood distance to a value', () => {
-      const action = coastmix(initialState, setFloodDistance(1))
+    it('should set left flood distance to a value', () => {
+      const action = coastmix(initialState, setFloodDistance([1, null]))
 
-      expect(action.floodDistance).toEqual(1)
+      expect(action.floodDistance).toEqual([1, null])
     })
 
-    it('should set flood distance to a zero value', () => {
-      const action = coastmix(initialState, setFloodDistance(0))
+    it('should set left flood distance to a zero value', () => {
+      const action = coastmix(initialState, setFloodDistance([0, null]))
 
-      expect(action.floodDistance).toEqual(0)
+      expect(action.floodDistance).toEqual([0, null])
     })
 
-    it('should reset flood distance to null', () => {
-      const action = coastmix(initialState, setFloodDistance(null))
+    it('should set right flood distance to a value', () => {
+      const action = coastmix(initialState, setFloodDistance([null, 1]))
 
-      expect(action.floodDistance).toEqual(null)
+      expect(action.floodDistance).toEqual([null, 1])
+    })
+
+    it('should set right flood distance to a zero value', () => {
+      const action = coastmix(initialState, setFloodDistance([null, 0]))
+
+      expect(action.floodDistance).toEqual([null, 0])
+    })
+
+    it('should set both flood distance to a value', () => {
+      const action = coastmix(initialState, setFloodDistance([3, 2]))
+
+      expect(action.floodDistance).toEqual([3, 2])
+    })
+
+    it('should set both flood distance to a zero value', () => {
+      const action = coastmix(initialState, setFloodDistance([0, 0]))
+
+      expect(action.floodDistance).toEqual([0, 0])
+    })
+
+    it('should reset both flood distance to null', () => {
+      const action = coastmix(initialState, setFloodDistance([null, null]))
+
+      expect(action.floodDistance).toEqual([null, null])
     })
   })
 })

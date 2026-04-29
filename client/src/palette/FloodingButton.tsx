@@ -1,28 +1,32 @@
 import { useDispatch } from 'react-redux'
 import { useIntl } from 'react-intl'
 
-import { toggleToolbox } from '../store/slices/ui.js'
+import { toggleCoastalFloodingPanel } from '~/src/store/slices/coastmix.js'
 import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 import { Tooltip } from '../ui/Tooltip.js'
 
-export function EnvironmentButton() {
+export function FloodingButton() {
   const dispatch = useDispatch()
   const intl = useIntl()
 
   function handleClickTools(): void {
-    dispatch(toggleToolbox())
+    dispatch(toggleCoastalFloodingPanel())
   }
 
   const label = intl.formatMessage({
-    id: 'tools.skybox.tooltip',
-    defaultMessage: 'Environment editor',
+    id: 'tools.flooding.tooltip',
+    defaultMessage: 'Coastal flooding controls',
   })
 
   return (
     <Tooltip label={label} role="label">
-      <Button onClick={handleClickTools} aria-label={label}>
-        <Icon name="sun" size="24" />
+      <Button
+        onClick={handleClickTools}
+        aria-label={label}
+        data-tour-id="flooding-controls-button"
+      >
+        <Icon name="boat" size="24" />
       </Button>
     </Tooltip>
   )

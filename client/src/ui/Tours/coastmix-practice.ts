@@ -23,8 +23,6 @@ const backButton = {
   },
 }
 
-let cleanup: (() => void) | null = null
-
 export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-01',
@@ -99,14 +97,14 @@ export const steps2: StepOptions[] = [
     id: 'coastmix-practice-04',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
     attachTo: {
-      element: '.coastmix-controls-button',
+      element: '[data-tour-id="flooding-controls-button"]',
       on: 'right',
     },
     highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
     advanceOn: {
       event: 'click',
-      selector: '.coastmix-controls-button',
+      selector: '[data-tour-id="flooding-controls-button"]',
     },
   },
   {
@@ -146,47 +144,6 @@ export const steps2: StepOptions[] = [
     // Make the position of this a lil prettier, because the control is not
     // vertically centered
     modalOverlayOpeningYOffset: -1,
-  },
-  {
-    id: 'coastmix-practice-07',
-    text: `Set the flood direction to “Right,” which is the location of the waterfront
-      in this environment.`,
-    attachTo: {
-      element: '[data-tour-id="flood-direction-control"]',
-      on: 'right',
-    },
-    highlightClass: 'tour-highlight',
-    buttons: [backButton],
-    when: {
-      show() {
-        const el = document.querySelector<HTMLSelectElement>(
-          '[data-tour-id="flood-direction-control"] select'
-        )
-        if (!el) return
-
-        const tour = this as unknown as Tour
-
-        function handler() {
-          if (!el) return
-          if (el.value === 'right') {
-            // why parent object with tour inside of it?
-            tour.tour.next()
-          }
-        }
-
-        el.addEventListener('change', handler)
-        cleanup = () => el.removeEventListener('change', handler)
-
-        // If it’s already correct (e.g., persisted setting), advance immediately
-        // hmmmm
-        if (el.value === 'right') tour.tour.next()
-      },
-      hide() {
-        cleanup?.()
-        cleanup = null
-      },
-    },
-    ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-08',

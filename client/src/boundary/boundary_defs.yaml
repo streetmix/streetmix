@@ -7,6 +7,7 @@
 #            `sameOnBothSides` is true
 #
 # -- CHARACTERISTICS --
+# waterfront       (boolean) true if boundary can be a waterfront
 # hasFloors        (boolean) true if building can have multiple floors
 # sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
 # repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
@@ -43,6 +44,7 @@ waterfront:
   id: waterfront
   label: Waterfront
   spriteId: boundaries--waterfront
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -94,6 +96,7 @@ beach:
   id: beach
   label: Beach
   spriteId: boundaries--beach
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -102,6 +105,7 @@ marsh:
   id: marsh
   label: Marsh
   spriteId: boundaries--marsh
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -110,6 +114,7 @@ water:
   id: water
   label: Water
   spriteId: boundaries--water
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -118,6 +123,7 @@ dock:
   id: dock
   label: Dock
   spriteId: boundaries--dock
+  waterfront: true
   hasFloors: true
   variantsCount: 1 # need this to be 1 to do a thing right
   floorHeight: 0.25 # meters (match illustration)

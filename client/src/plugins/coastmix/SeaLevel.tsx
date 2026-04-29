@@ -19,25 +19,34 @@ const WAVE_OPACITY = 0.4
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
-  const { seaLevelRise, stormSurge, floodDirection, floodDistance } =
-    useSelector((state) => state.coastmix)
+  const { seaLevelRise, stormSurge, floodDistance } = useSelector(
+    (state) => state.coastmix
+  )
 
   // When switching streets, don't transition sea level height
   const prevStreetId = usePrevious(street.id)
   const animationOff = prevStreetId !== street.id
 
-  // Baseline height
-  let height =
-    GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
+  let height = 0
+  let opacity = 0
 
-  // Calculate how much sea level rises
-  const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
+  // Only set visual parameters when there is a flood direction
+  if (floodDistance[0] !== null || floodDistance[1] !== null) {
+    // Baseline height
+    // TODO: include sea level elevation with baseline
+    height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 
-  // Total height added together
-  height += rise * TILE_SIZE
+    // Calculate how much sea level rises
+    const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
 
-  // Show visually when sea level rises
-  const opacity = seaLevelRise in SEA_LEVEL_RISE_FEET ? WAVE_OPACITY : 0
+    // Total height added together
+    height += rise * TILE_SIZE
+
+    // Show visually when sea level rises
+    if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
+      opacity = WAVE_OPACITY
+    }
+  }
 
   // Default style -- floods full width of section
   const styles: React.CSSProperties = {
@@ -63,16 +72,6 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     }
   }, [stormSurge, height])
 
-  // If flood direction comes from the left
-  if (floodDirection === 'left' && floodDistance !== null) {
-    styles.width = `${boundaryWidth + floodDistance}px`
-    styles.right = 'auto'
-  }
-  if (floodDirection === 'right' && floodDistance !== null) {
-    styles.left = 'auto'
-    styles.width = `${boundaryWidth + floodDistance}px`
-  }
-
   const classNames = ['sea-level-waves']
   if (stormSurge) {
     classNames.push('sea-level-surge')
@@ -81,12 +80,49 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     classNames.push('sea-level-animation-off')
   }
 
-  return (
-    <div className="sea-level-rise" style={styles}>
-      <div className={classNames.join(' ')}>
-        <div style={getWavePosition(scrollPos)} />
+  // Special case if either distance is `max` (flooding across the entire
+  // section). Note this doesn't animate the right side
+  if (floodDistance[0] === 'max' || floodDistance[1] === 'max') {
+    return (
+      <div className="sea-level-rise" style={styles}>
+        <div className={classNames.join(' ')}>
+          <div style={getWavePosition(scrollPos)} />
+        </div>
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <>
+      {floodDistance[0] !== null && (
+        <div
+          className="sea-level-rise"
+          style={{
+            ...styles,
+            width: `${boundaryWidth + floodDistance[0]}px`,
+            right: 'auto',
+          }}
+        >
+          <div className={classNames.join(' ')}>
+            <div style={getWavePosition(scrollPos)} />
+          </div>
+        </div>
+      )}
+      {floodDistance[1] !== null && (
+        <div
+          className="sea-level-rise"
+          style={{
+            ...styles,
+            width: `${boundaryWidth + floodDistance[1]}px`,
+            left: 'auto',
+          }}
+        >
+          <div className={classNames.join(' ')}>
+            <div style={getWavePosition(scrollPos)} />
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

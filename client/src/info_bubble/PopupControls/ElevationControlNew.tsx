@@ -74,10 +74,11 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
+
+    dispatch(segmentsChanged())
   }
 
   function handleDecrement(): void {
@@ -97,10 +98,11 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
+
+    dispatch(segmentsChanged())
   }
 
   const updateValue = (value: string): void => {
@@ -129,10 +131,11 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
       dispatch(setBoundaryElevation(position, newValue))
     }
+
+    dispatch(segmentsChanged())
   }
 
   /**

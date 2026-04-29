@@ -36,14 +36,14 @@ const steps: StepOptions[] = [
     id: 'coastmix-onboarding-01',
     text: 'Click on "Coastal flooding" to access and adjust flood features.',
     attachTo: {
-      element: '.coastmix-controls-button',
+      element: '[data-tour-id="flooding-controls-button"]',
       on: 'right',
     },
     highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
     advanceOn: {
       event: 'click',
-      selector: '.coastmix-controls-button',
+      selector: '[data-tour-id="flooding-controls-button"]',
     },
     when: {
       show() {
@@ -92,23 +92,6 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     highlightClass: 'tour-highlight',
-    buttons: [backButton, nextButton],
-    ...modalOverlayOptions,
-    // Make the position of this a lil prettier, because the control is not
-    // vertically centered
-    modalOverlayOpeningYOffset: -1,
-  },
-  {
-    id: 'coastmix-onboarding-04',
-    text: `In Coastmix, you can choose which direction the flooding comes from
-      based on how you design your waterfront and where the coast is located.
-      This feature will react when you build something high enough to block
-      flood waters.`,
-    attachTo: {
-      element: '[data-tour-id="flood-direction-control"]',
-      on: 'right',
-    },
-    highlightClass: 'tour-highlight',
     buttons: [
       backButton,
       {
@@ -121,6 +104,9 @@ const steps: StepOptions[] = [
       },
     ],
     ...modalOverlayOptions,
+    // Make the position of this a lil prettier, because the control is not
+    // vertically centered
+    modalOverlayOpeningYOffset: -1,
   },
   {
     id: 'coastmix-onboarding-05',
