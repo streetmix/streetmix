@@ -71,7 +71,7 @@
   "dependencies": {
     "axios": "1.15.2",
     "axios-retry": "4.5.0",
-    "cloudinary": "2.9.0",
+    "cloudinary": "2.10.0",
     "compression": "1.8.1",
     "cookie-parser": "1.4.7",
     "cookie-session": "2.1.1",
@@ -102,7 +102,7 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.5.0",
+    "@commitlint/cli": "20.5.2",
     "@commitlint/config-conventional": "20.5.0",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
@@ -123,10 +123,10 @@
     "concurrently": "9.2.1",
     "cypress": "15.14.1",
     "eslint": "10.2.1",
-    "eslint-plugin-cypress": "6.3.1",
+    "eslint-plugin-cypress": "6.4.0",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-n": "17.24.0",
-    "eslint-plugin-promise": "7.2.1",
+    "eslint-plugin-promise": "7.3.0",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "0.5.2",
@@ -137,7 +137,7 @@
     "supertest": "7.2.2",
     "tsx": "4.21.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.59.0",
+    "typescript-eslint": "8.59.1",
     "vitest": "4.1.5"
   }
 }
