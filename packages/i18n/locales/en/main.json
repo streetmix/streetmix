@@ -336,6 +336,7 @@
       },
       "messages": {
         "start": "Select a sea level rise target to visualize flooding.",
+        "need-waterfront": "Change a boundary to a waterfront to visualize flooding.",
         "success": "This configuration is addressing sea level rise!",
         "fail": "This configuration does not address sea level rise!"
       }
