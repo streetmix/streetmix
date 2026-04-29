@@ -12,8 +12,3 @@ export const SEA_LEVEL_RISE_FEET = {
 // This was originally specc'd at 2 feet (but it was a rough guess anyway)
 // Currently at 1.25 to account for visual effect (scaleY) of waves.
 export const SURGE_HEIGHT_FEET = 1.25
-
-export const FLOOD_DIRECTION_NONE = 0
-export const FLOOD_DIRECTION_LEFT = 1
-export const FLOOD_DIRECTION_RIGHT = 2
-export const FLOOD_DIRECTION_BOTH = 3

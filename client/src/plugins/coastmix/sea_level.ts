@@ -1,11 +1,8 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
-import {
-  FLOOD_DIRECTION_LEFT,
-  SEA_LEVEL_RISE_FEET,
-  SURGE_HEIGHT_FEET,
-} from './constants.js'
+import { getBoundaryItem } from '~/src/boundary/boundary.js'
+import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { FloodDirection, SliceItem } from '@streetmix/types'
+import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
@@ -29,26 +26,25 @@ export function calculateSeaLevelRise(
   return height
 }
 
-export function checkSeaLevel(
+function calculateFloodDistance(
   slices: SliceItem[],
+  height: number,
+  direction: 'left' | 'right',
   streetEl: HTMLDivElement | null,
-  canvasEl: HTMLElement | null,
-  seaLevelRise: number,
-  stormSurge: boolean,
-  floodDirection: FloodDirection
+  canvasEl: HTMLElement | null
 ): number | null {
-  const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
-
-  if (streetEl === null || canvasEl === null) return null
-
-  let slicePosition
+  if (streetEl === null || canvasEl === null) {
+    return null
+  }
 
   // Depending on whether the flood comes from the left or right, set up
   // a compare loop that counts up or down
-  const fromLeft = floodDirection === FLOOD_DIRECTION_LEFT
+  const fromLeft = direction === 'left'
   const start = fromLeft ? 0 : slices.length - 1
   const end = fromLeft ? slices.length : -1
   const step = fromLeft ? 1 : -1
+
+  let slicePosition
 
   for (let i = start; fromLeft ? i < end : i > end; i += step) {
     const slice = slices[i]
@@ -116,4 +112,40 @@ export function checkSeaLevel(
     const distance = parentWidth - offsetLeftPlusWidth
     return distance
   }
+}
+
+export function checkSeaLevel(
+  street: StreetState,
+  streetEl: HTMLDivElement | null,
+  canvasEl: HTMLElement | null,
+  seaLevelRise: number,
+  stormSurge: boolean
+): [FloodDistance, FloodDistance] {
+  const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
+
+  const { boundary, segments: slices } = street
+  const floodDistance = [null, null] as [FloodDistance, FloodDistance]
+
+  if (boundary.left.variant && boundary.right.variant) {
+    if (getBoundaryItem(boundary.left.variant).waterfront) {
+      floodDistance[0] = calculateFloodDistance(
+        slices,
+        height,
+        'left',
+        streetEl,
+        canvasEl
+      )
+    }
+    if (getBoundaryItem(boundary.right.variant).waterfront) {
+      floodDistance[1] = calculateFloodDistance(
+        slices,
+        height,
+        'right',
+        streetEl,
+        canvasEl
+      )
+    }
+  }
+
+  return floodDistance
 }

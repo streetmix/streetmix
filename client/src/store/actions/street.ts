@@ -2,12 +2,6 @@ import clone from 'just-clone'
 
 import { ERRORS } from '~/src/app/errors.js'
 import { formatMessage } from '~/src/locales/locale.js'
-import { getBoundaryItem } from '~/src/boundary/boundary.js'
-import {
-  FLOOD_DIRECTION_LEFT,
-  FLOOD_DIRECTION_NONE,
-  FLOOD_DIRECTION_RIGHT,
-} from '~/src/plugins/coastmix/constants.js'
 import {
   RESIZE_TYPE_INCREMENT,
   RESIZE_TYPE_PRECISE_DRAGGING,
@@ -26,7 +20,6 @@ import { applyWarningsToSlices } from '~/src/streets/warnings.js'
 import { recalculateWidth } from '~/src/streets/width.js'
 import { saveStreetToServer } from '~/src/streets/xhr.js'
 import apiClient from '~/src/util/api.js'
-import { setFloodDirection } from '../slices/coastmix.js'
 import { showError } from '../slices/errors.js'
 import { updateSettings } from '../slices/settings.js'
 import { addToast } from '../slices/toasts.js'
@@ -47,7 +40,6 @@ import { setActiveSegment } from '../slices/ui.js'
 
 import type { Dispatch, RootState } from '../index.js'
 import type {
-  FloodDirection,
   SliceItem,
   StreetAPIResponse,
   StreetState,
@@ -100,21 +92,6 @@ export const segmentsChanged = (force = false) => {
       street,
       calculatedWidths
     )
-
-    // Calculate flooding direction
-    // Using numeric constants is a meant to be a clever way of easily
-    // determining if flooding comes from both sides.
-    // Bail if there is no boundary variants, which happens in minimal tests
-    if (street.boundary?.left?.variant && street.boundary?.right?.variant) {
-      let floodDirection = FLOOD_DIRECTION_NONE
-      if (getBoundaryItem(street.boundary.left.variant).waterfront) {
-        floodDirection += FLOOD_DIRECTION_LEFT
-      }
-      if (getBoundaryItem(street.boundary.right.variant).waterfront) {
-        floodDirection += FLOOD_DIRECTION_RIGHT
-      }
-      dispatch(setFloodDirection(floodDirection as FloodDirection))
-    }
 
     await dispatch(
       updateSegments(

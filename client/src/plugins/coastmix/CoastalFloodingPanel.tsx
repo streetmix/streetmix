@@ -14,20 +14,13 @@ import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
-import { FLOOD_DIRECTION_NONE } from './constants'
 
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
   const Shepherd = useShepherd()
 
-  const {
-    controlsVisible,
-    seaLevelRise,
-    floodDirection,
-    floodDistance,
-    stormSurge,
-  } = coastmix
+  const { controlsVisible, seaLevelRise, floodDistance, stormSurge } = coastmix
 
   function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
@@ -44,13 +37,13 @@ export function CoastalFloodingPanel() {
   // Updates state and saves to server
   useEffect(() => {
     dispatch(segmentsChanged(true))
-  }, [floodDirection, seaLevelRise, stormSurge, dispatch])
+  }, [seaLevelRise, stormSurge, dispatch])
 
   let message
   const messageClassNames = ['flood-controls-message']
   if (seaLevelRise === 0) {
     message = '👉 Select a sea level rise target to visualize flooding.'
-  } else if (floodDirection === FLOOD_DIRECTION_NONE) {
+  } else if (floodDistance[0] === null && floodDistance[1] === null) {
     message = '👉 Change a boundary to a waterfront to visualize flooding.'
   } else {
     if (floodDistance === null) {
@@ -142,13 +135,6 @@ export function CoastalFloodingPanel() {
           </div>
           <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
-        {/* <div
-          className="popup-control-group"
-          data-tour-id="flood-direction-control"
-        >
-          <div className="popup-control-label">Flood direction</div>
-          <div>{floodDirection}</div>
-        </div> */}
         <div
           className={messageClassNames.join(' ')}
           data-tour-id="flooding-message"

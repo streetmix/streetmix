@@ -3,12 +3,7 @@ import { useEffect } from 'react'
 import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
-import {
-  FLOOD_DIRECTION_LEFT,
-  FLOOD_DIRECTION_NONE,
-  FLOOD_DIRECTION_RIGHT,
-  SEA_LEVEL_RISE_FEET,
-} from './constants.js'
+import { SEA_LEVEL_RISE_FEET } from './constants.js'
 import { calculateSeaLevelRise } from './sea_level.js'
 import './SeaLevel.css'
 
@@ -24,8 +19,9 @@ const WAVE_OPACITY = 0.4
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
-  const { seaLevelRise, stormSurge, floodDirection, floodDistance } =
-    useSelector((state) => state.coastmix)
+  const { seaLevelRise, stormSurge, floodDistance } = useSelector(
+    (state) => state.coastmix
+  )
 
   // When switching streets, don't transition sea level height
   const prevStreetId = usePrevious(street.id)
@@ -35,7 +31,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   let opacity = 0
 
   // Only set visual parameters when there is a flood direction
-  if (floodDirection !== FLOOD_DIRECTION_NONE) {
+  if (floodDistance[0] !== null || floodDistance[1] !== null) {
     // Baseline height
     // TODO: include sea level elevation with baseline
     height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
@@ -76,16 +72,6 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     }
   }, [stormSurge, height])
 
-  // If flood direction comes from the left
-  if (floodDirection === FLOOD_DIRECTION_LEFT && floodDistance !== null) {
-    styles.width = `${boundaryWidth + floodDistance}px`
-    styles.right = 'auto'
-  }
-  if (floodDirection === FLOOD_DIRECTION_RIGHT && floodDistance !== null) {
-    styles.left = 'auto'
-    styles.width = `${boundaryWidth + floodDistance}px`
-  }
-
   const classNames = ['sea-level-waves']
   if (stormSurge) {
     classNames.push('sea-level-surge')
@@ -95,11 +81,36 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   return (
-    <div className="sea-level-rise" style={styles}>
-      <div className={classNames.join(' ')}>
-        <div style={getWavePosition(scrollPos)} />
-      </div>
-    </div>
+    <>
+      {floodDistance[0] !== null && (
+        <div
+          className="sea-level-rise"
+          style={{
+            ...styles,
+            width: `${boundaryWidth + floodDistance[0]}px`,
+            right: 'auto',
+          }}
+        >
+          <div className={classNames.join(' ')}>
+            <div style={getWavePosition(scrollPos)} />
+          </div>
+        </div>
+      )}
+      {floodDistance[1] !== null && (
+        <div
+          className="sea-level-rise"
+          style={{
+            ...styles,
+            width: `${boundaryWidth + floodDistance[1]}px`,
+            left: 'auto',
+          }}
+        >
+          <div className={classNames.join(' ')}>
+            <div style={getWavePosition(scrollPos)} />
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
