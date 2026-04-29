@@ -410,9 +410,9 @@
     "elevation-input": "Change elevation",
     "elevation-lower": "Lower elevation",
     "elevation-raise": "Raise elevation",
-    "height-input": "Change height",
-    "height-lower": "Lower height",
-    "height-raise": "Raise height"
+    "ground-height-input": "Change ground height",
+    "ground-height-lower": "Lower ground height",
+    "ground-height-raise": "Raise ground height"
   },
   "street": {
     "default-name": "Unnamed St",
