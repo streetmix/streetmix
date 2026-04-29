@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl'
 import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -129,9 +130,19 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
         })
         return (
           <>
-            <h4>Land</h4>
+            <h4>
+              <FormattedMessage
+                id="boundary.group.land"
+                defaultMessage="Land"
+              />
+            </h4>
             {renderButtonGroup('boundary', landItems, 'boundary1')}
-            <h4>Waterfront</h4>
+            <h4>
+              <FormattedMessage
+                id="boundary.group.waterfront"
+                defaultMessage="Waterfront"
+              />
+            </h4>
             {renderButtonGroup('boundary', waterItems, 'boundary2')}
           </>
         )
