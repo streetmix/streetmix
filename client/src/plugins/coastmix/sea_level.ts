@@ -84,9 +84,10 @@ function calculateFloodDistance(
     }
   }
 
-  // Bail if no slice meets or exceeds flood height.
+  // If no slice meets or exceeds flood height, use the value Infinity to
+  // stand in for "we will flood the whole thing like this"
   if (typeof slicePosition !== 'number') {
-    return null
+    return Infinity
   }
 
   // Get the pixel position of the blocking element
