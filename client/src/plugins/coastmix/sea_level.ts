@@ -32,7 +32,7 @@ function calculateFloodDistance(
   direction: 'left' | 'right',
   streetEl: HTMLDivElement | null,
   canvasEl: HTMLElement | null
-): number | null {
+): FloodDistance {
   if (streetEl === null || canvasEl === null) {
     return null
   }
@@ -84,10 +84,11 @@ function calculateFloodDistance(
     }
   }
 
-  // If no slice meets or exceeds flood height, use the value Infinity to
-  // stand in for "we will flood the whole thing like this"
+  // If no slice meets or exceeds flood height, use the value 'max' to stand in
+  // for "we will flood all of it." We don't want to return `Infinity` because
+  // that value is not serializable to JSON!
   if (typeof slicePosition !== 'number') {
-    return Infinity
+    return 'max'
   }
 
   // Get the pixel position of the blocking element

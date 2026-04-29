@@ -80,9 +80,9 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     classNames.push('sea-level-animation-off')
   }
 
-  // Special case if either distance is Infinity (single flood across the
-  // whole section). Note this doesn't animate the right side
-  if (floodDistance[0] === Infinity || floodDistance[1] === Infinity) {
+  // Special case if either distance is `max` (flooding across the entire
+  // section). Note this doesn't animate the right side
+  if (floodDistance[0] === 'max' || floodDistance[1] === 'max') {
     return (
       <div className="sea-level-rise" style={styles}>
         <div className={classNames.join(' ')}>
