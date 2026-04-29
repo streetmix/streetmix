@@ -21,7 +21,11 @@ export function FloodingButton() {
 
   return (
     <Tooltip label={label} role="label">
-      <Button onClick={handleClickTools} aria-label={label}>
+      <Button
+        onClick={handleClickTools}
+        aria-label={label}
+        data-tour-id="flooding-controls-button"
+      >
         <Icon name="boat" size="24" />
       </Button>
     </Tooltip>

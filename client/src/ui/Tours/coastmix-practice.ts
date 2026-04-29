@@ -97,14 +97,14 @@ export const steps2: StepOptions[] = [
     id: 'coastmix-practice-04',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
     attachTo: {
-      element: '.coastmix-controls-button',
+      element: '[data-tour-id="flooding-controls-button"]',
       on: 'right',
     },
     highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
     advanceOn: {
       event: 'click',
-      selector: '.coastmix-controls-button',
+      selector: '[data-tour-id="flooding-controls-button"]',
     },
   },
   {
