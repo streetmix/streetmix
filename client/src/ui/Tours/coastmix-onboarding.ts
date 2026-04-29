@@ -92,23 +92,6 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     highlightClass: 'tour-highlight',
-    buttons: [backButton, nextButton],
-    ...modalOverlayOptions,
-    // Make the position of this a lil prettier, because the control is not
-    // vertically centered
-    modalOverlayOpeningYOffset: -1,
-  },
-  {
-    id: 'coastmix-onboarding-04',
-    text: `In Coastmix, you can choose which direction the flooding comes from
-      based on how you design your waterfront and where the coast is located.
-      This feature will react when you build something high enough to block
-      flood waters.`,
-    attachTo: {
-      element: '[data-tour-id="flood-direction-control"]',
-      on: 'right',
-    },
-    highlightClass: 'tour-highlight',
     buttons: [
       backButton,
       {
@@ -121,6 +104,9 @@ const steps: StepOptions[] = [
       },
     ],
     ...modalOverlayOptions,
+    // Make the position of this a lil prettier, because the control is not
+    // vertically centered
+    modalOverlayOpeningYOffset: -1,
   },
   {
     id: 'coastmix-onboarding-05',
