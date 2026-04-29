@@ -443,7 +443,8 @@
     },
     "controls": {
       "width": "Width",
-      "height": "Height",
+      "ground-height": "Ground height",
+      "sea-level": "Sea level",
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",
