@@ -39,6 +39,7 @@ describe('VariantSet', () => {
       segments: [
         {
           width: 3,
+          slope: { on: false, values: [] },
           variant: {
             direction: 'inbound',
             'public-transit-asphalt': 'regular',
