@@ -26,6 +26,7 @@ interface ElevationControlProps {
   position: number | BoundaryPosition
   elevation: number
   units: UnitsSetting
+  seaLevel: boolean
 }
 
 const MIN_ELEVATION = 0
@@ -52,6 +53,7 @@ export function ElevationControlNew({
   position,
   elevation,
   units,
+  seaLevel = false,
 }: ElevationControlProps) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
@@ -155,6 +157,36 @@ export function ElevationControlNew({
     return prettifyElevationHeight(value, units, locale)
   }
 
+  const inputTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-input',
+        defaultMessage: 'Change sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-input',
+        defaultMessage: 'Change ground height',
+      })
+
+  const upTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-raise',
+        defaultMessage: 'Raise sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-raise',
+        defaultMessage: 'Raise ground height',
+      })
+
+  const downTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-lower',
+        defaultMessage: 'Lower sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-lower',
+        defaultMessage: 'Lower ground height',
+      })
+
   return (
     <UpDownInput
       value={elevation}
@@ -165,18 +197,9 @@ export function ElevationControlNew({
       onClickUp={handleIncrement}
       onClickDown={handleDecrement}
       onUpdatedValue={updateValue}
-      inputTooltip={intl.formatMessage({
-        id: 'tooltip.ground-height-input',
-        defaultMessage: 'Change ground height',
-      })}
-      upTooltip={intl.formatMessage({
-        id: 'tooltip.ground-height-raise',
-        defaultMessage: 'Raise ground height',
-      })}
-      downTooltip={intl.formatMessage({
-        id: 'tooltip.ground-height-lower',
-        defaultMessage: 'Lower ground height',
-      })}
+      inputTooltip={inputTooltip}
+      upTooltip={upTooltip}
+      downTooltip={downTooltip}
     />
   )
 }
