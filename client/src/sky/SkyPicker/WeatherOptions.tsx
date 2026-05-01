@@ -26,11 +26,11 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
     }
   }
 
-  // function handleSetSnow() {
-  //   if (enabled) {
-  //     dispatch(setWeather('snow'))
-  //   }
-  // }
+  function handleSetSnow() {
+    if (enabled) {
+      dispatch(setWeather('snow'))
+    }
+  }
 
   return (
     <div className="weather-options">
@@ -63,7 +63,7 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
         >
           <Icon name="rain" size="24" />
         </SkyOptionItem>
-        {/* <SkyOptionItem
+        <SkyOptionItem
           label={intl.formatMessage({
             id: `tools.skybox.weather.snow`,
             defaultMessage: 'Snow',
@@ -73,7 +73,7 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
           onClick={handleSetSnow}
         >
           <Icon name="snow" size="24" />
-        </SkyOptionItem> */}
+        </SkyOptionItem>
       </div>
     </div>
   )

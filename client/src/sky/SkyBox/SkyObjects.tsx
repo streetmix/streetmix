@@ -7,9 +7,12 @@ import './SkyObjects.css'
 import type { SkyboxObject } from '@streetmix/types'
 
 interface SkyObjectsProps {
-  objects: SkyboxObject[]
+  objects?: SkyboxObject[]
 }
 
+// Skybox objects are an optional property of skybox configuration, so
+// `undefined` may be passed to this component. In that case, set `objects`
+// to an empty array.
 export function SkyObjects({ objects = [] }: SkyObjectsProps) {
   // According to "rule of hooks", useRef() must not be called in a loop
   const refs = useRef<Record<string, React.RefObject<HTMLDivElement>>>({})

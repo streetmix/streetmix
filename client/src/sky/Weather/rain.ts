@@ -57,7 +57,7 @@ const drops: Drop[] = []
 const drop_pool: Drop[] = []
 
 // demo initialization (should only run once)
-export function init(el: HTMLCanvasElement): void {
+export function initRain(el: HTMLCanvasElement): void {
   if (!started) {
     started = true
     canvas = el
@@ -201,7 +201,7 @@ function draw(): void {
   }
 }
 
-export function stop(): void {
+export function stopRain(): void {
   // clear canvas
   if (ctx) {
     ctx.clearRect(0, 0, width * dpr, height * dpr)
