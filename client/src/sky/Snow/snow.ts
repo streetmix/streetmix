@@ -1,7 +1,7 @@
 // Constants
 const NUMBER_OF_SNOWFLAKES = 300
-const MAX_SNOWFLAKE_SIZE = 4
-const MAX_SNOWFLAKE_SPEED = 2
+const MAX_SNOWFLAKE_SIZE = 2
+const MAX_SNOWFLAKE_SPEED = 1
 const SNOWFLAKE_COLOR = '#d9d9d9'
 
 // Keep track of snowflakes
@@ -50,8 +50,8 @@ function createSnowflake(): Snowflake {
     y: Math.random() * height,
     radius: Math.ceil(Math.random() * MAX_SNOWFLAKE_SIZE),
     color: SNOWFLAKE_COLOR,
-    speed: Math.random() * MAX_SNOWFLAKE_SPEED + 1,
-    sway: Math.random() - 0.5,
+    speed: Math.random() * MAX_SNOWFLAKE_SPEED + 0.5,
+    sway: Math.random() - 0.25,
   }
 }
 
@@ -59,7 +59,13 @@ function drawSnowflake(snowflake: Snowflake): void {
   if (!ctx) return
 
   ctx.beginPath()
-  ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2)
+  ctx.arc(
+    snowflake.x * dpr,
+    snowflake.y * dpr,
+    snowflake.radius * dpr,
+    0,
+    Math.PI * 2
+  )
   ctx.fillStyle = snowflake.color
   ctx.fill()
   ctx.closePath()
@@ -77,7 +83,7 @@ function animate(): void {
   if (!started) return
 
   if (ctx) {
-    ctx.clearRect(0, 0, width, height)
+    ctx.clearRect(0, 0, width * dpr, height * dpr)
   }
 
   snowflakes.forEach((snowflake) => {
@@ -94,7 +100,7 @@ export function stop(): void {
     raf = null
   }
   if (ctx) {
-    ctx.clearRect(0, 0, width, height)
+    ctx.clearRect(0, 0, width * dpr, height * dpr)
   }
 
   started = false
@@ -106,8 +112,8 @@ function resize(): void {
   if (canvas === null) return
 
   // resize
-  width = canvas.offsetWidth * dpr
-  height = canvas.offsetHeight * dpr
-  canvas.width = width
-  canvas.height = height
+  width = canvas.offsetWidth
+  height = canvas.offsetHeight
+  canvas.width = width * dpr
+  canvas.height = height * dpr
 }
