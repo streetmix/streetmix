@@ -4,7 +4,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import { render } from '~/test/helpers/render.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import { SlopeControl } from './SlopeControl.js'
+import { CoastmixControls } from './CoastmixControls.js'
 
 vi.mock('@streetmix/parts', () => ({
   getSegmentVariantInfo: vi.fn((_type) => ({})),
@@ -35,6 +35,7 @@ const initialState = {
         type: 'bar',
         slope: {
           on: true,
+          values: [0, 1],
         },
       },
     ],
@@ -47,7 +48,7 @@ describe('SlopeControl', () => {
       slope: 'path',
     })
 
-    const { getByRole } = render(<SlopeControl position={0} />, {
+    const { getByRole } = render(<CoastmixControls position={0} />, {
       initialState,
     })
 
@@ -61,7 +62,7 @@ describe('SlopeControl', () => {
       slope: 'berm',
     })
 
-    const { getByRole } = render(<SlopeControl position={0} />, {
+    const { getByRole } = render(<CoastmixControls position={0} />, {
       initialState,
     })
 
@@ -75,7 +76,7 @@ describe('SlopeControl', () => {
       slope: 'path',
     })
 
-    const { getByRole } = render(<SlopeControl position={1} />, {
+    const { getByRole } = render(<CoastmixControls position={1} />, {
       initialState,
     })
 
@@ -89,7 +90,7 @@ describe('SlopeControl', () => {
       slope: 'berm',
     })
 
-    const { getByRole } = render(<SlopeControl position={1} />, {
+    const { getByRole } = render(<CoastmixControls position={1} />, {
       initialState,
     })
 
@@ -103,7 +104,7 @@ describe('SlopeControl', () => {
       slope: 'path',
     })
 
-    const { getByRole } = render(<SlopeControl position={0} />, {
+    const { getByRole } = render(<CoastmixControls position={0} />, {
       initialState,
     })
 
@@ -119,7 +120,7 @@ describe('SlopeControl', () => {
       slope: 'off',
     })
 
-    const { getByRole } = render(<SlopeControl position={1} />, {
+    const { getByRole } = render(<CoastmixControls position={1} />, {
       initialState,
     })
 
@@ -133,7 +134,7 @@ describe('SlopeControl', () => {
 
   // Currently control is not rendered in this case
   it.skip('disables control when rule is not defined', () => {
-    const { getByRole } = render(<SlopeControl position={1} />, {
+    const { getByRole } = render(<CoastmixControls position={1} />, {
       initialState,
     })
 

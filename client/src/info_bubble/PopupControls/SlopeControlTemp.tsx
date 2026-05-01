@@ -7,10 +7,7 @@ import {
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
-import {
-  changeSegmentProperties,
-  setBoundaryElevation,
-} from '~/src/store/slices/street.js'
+import { setSlopeValue } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import {
   convertMetricMeasurementToImperial,
@@ -20,13 +17,13 @@ import {
 } from '~/src/util/width_units.js'
 import { UpDownInput } from './UpDownInput.js'
 
-import type { BoundaryPosition, UnitsSetting } from '@streetmix/types'
+import type { UnitsSetting } from '@streetmix/types'
 
-interface ElevationControlProps {
-  position: number | BoundaryPosition
+interface SlopeControlTempProps {
+  position: number
+  anchor: number
   elevation: number
   units: UnitsSetting
-  seaLevel: boolean
 }
 
 const MIN_ELEVATION = 0
@@ -49,12 +46,12 @@ function prettifyElevationHeight(
   return prettifyWidth(value, units, locale)
 }
 
-export function ElevationControlNew({
+export function SlopeControlTemp({
   position,
+  anchor,
   elevation,
   units,
-  seaLevel = false,
-}: ElevationControlProps) {
+}: SlopeControlTempProps) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
   const intl = useIntl()
@@ -69,17 +66,8 @@ export function ElevationControlNew({
       .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
-    if (typeof position === 'number') {
-      dispatch(
-        changeSegmentProperties(position, {
-          elevation: newValue,
-          elevationChanged: true,
-        })
-      )
-    } else {
-      dispatch(setBoundaryElevation(position, newValue))
-    }
 
+    dispatch(setSlopeValue(position, anchor, newValue))
     dispatch(segmentsChanged())
   }
 
@@ -93,17 +81,8 @@ export function ElevationControlNew({
       .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
-    if (typeof position === 'number') {
-      dispatch(
-        changeSegmentProperties(position, {
-          elevation: newValue,
-          elevationChanged: true,
-        })
-      )
-    } else {
-      dispatch(setBoundaryElevation(position, newValue))
-    }
 
+    dispatch(setSlopeValue(position, anchor, newValue))
     dispatch(segmentsChanged())
   }
 
@@ -126,17 +105,7 @@ export function ElevationControlNew({
       return
     }
 
-    if (typeof position === 'number') {
-      dispatch(
-        changeSegmentProperties(position, {
-          elevation: newValue,
-          elevationChanged: true,
-        })
-      )
-    } else {
-      dispatch(setBoundaryElevation(position, newValue))
-    }
-
+    dispatch(setSlopeValue(position, anchor, newValue))
     dispatch(segmentsChanged())
   }
 
@@ -157,36 +126,6 @@ export function ElevationControlNew({
     return prettifyElevationHeight(value, units, locale)
   }
 
-  const inputTooltip = seaLevel
-    ? intl.formatMessage({
-        id: 'tooltip.sea-level-input',
-        defaultMessage: 'Change sea level',
-      })
-    : intl.formatMessage({
-        id: 'tooltip.ground-height-input',
-        defaultMessage: 'Change ground height',
-      })
-
-  const upTooltip = seaLevel
-    ? intl.formatMessage({
-        id: 'tooltip.sea-level-raise',
-        defaultMessage: 'Raise sea level',
-      })
-    : intl.formatMessage({
-        id: 'tooltip.ground-height-raise',
-        defaultMessage: 'Raise ground height',
-      })
-
-  const downTooltip = seaLevel
-    ? intl.formatMessage({
-        id: 'tooltip.sea-level-lower',
-        defaultMessage: 'Lower sea level',
-      })
-    : intl.formatMessage({
-        id: 'tooltip.ground-height-lower',
-        defaultMessage: 'Lower ground height',
-      })
-
   return (
     <UpDownInput
       value={elevation}
@@ -197,9 +136,18 @@ export function ElevationControlNew({
       onClickUp={handleIncrement}
       onClickDown={handleDecrement}
       onUpdatedValue={updateValue}
-      inputTooltip={inputTooltip}
-      upTooltip={upTooltip}
-      downTooltip={downTooltip}
+      inputTooltip={intl.formatMessage({
+        id: 'tooltip.ground-height-input',
+        defaultMessage: 'Change ground height',
+      })}
+      upTooltip={intl.formatMessage({
+        id: 'tooltip.ground-height-raise',
+        defaultMessage: 'Raise ground height',
+      })}
+      downTooltip={intl.formatMessage({
+        id: 'tooltip.ground-height-lower',
+        defaultMessage: 'Lower ground height',
+      })}
     />
   )
 }

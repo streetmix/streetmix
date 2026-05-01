@@ -68,9 +68,25 @@ export const segmentsChanged = (force = false) => {
     // and update its properties.
     const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
       // Calculate slope values, if needed
-      let slopeValues: number[] = []
-      if (slice.slope?.on) {
-        slopeValues = getSlopeValues(street, index)
+      let slopeValues: number[]
+      if (slice.slope?.on && slice.slope.values.length === 0) {
+        // If we don't have slope values, create it using current elevation if
+        // it was set by the user (note: elevationChanged is also set to true
+        // if it was modified by doDropHeuristics.)
+        if (slice.elevationChanged) {
+          slopeValues = [slice.elevation, slice.elevation]
+        } else {
+          // Otherwise, automatically slope to adjacent values
+          slopeValues = getSlopeValues(street, index)
+        }
+      } else {
+        slopeValues = slice.slope.values
+      }
+      // Reset slope values if off
+      // (not sure if this is a great place to put it -- if a variant cannot
+      // be sloped, does this turn off and delete slope values?)
+      if (!slice.slope?.on) {
+        slopeValues = []
       }
 
       return {

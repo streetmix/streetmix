@@ -15,6 +15,7 @@ describe('WidthControl', () => {
           variantString: 'inbound|regular',
           id: '1',
           width: 3,
+          slope: { on: false, values: [] },
         },
       ],
       width: 3,

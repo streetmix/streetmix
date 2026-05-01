@@ -4,9 +4,9 @@ describe('getSlopeValues', () => {
   it('calculates slope', () => {
     const street = {
       segments: [
-        { width: 4, elevation: 0 },
+        { width: 4, slope: { on: false, values: [] }, elevation: 0 },
         { width: 4, slope: { on: true, values: [] } },
-        { width: 4, elevation: 0.125 },
+        { width: 4, slope: { on: false, values: [] }, elevation: 0.125 },
       ],
     }
     expect(getSlopeValues(street, 1)).toEqual([0, 0.125])
@@ -21,7 +21,7 @@ describe('getSlopeValues', () => {
       },
       segments: [
         { width: 4, slope: { on: true, values: [] } },
-        { width: 4, elevation: 0.125 },
+        { width: 4, slope: { on: false, values: [] }, elevation: 0.125 },
       ],
     }
     expect(getSlopeValues(street, 0)).toEqual([1, 0.125])
@@ -35,7 +35,7 @@ describe('getSlopeValues', () => {
         },
       },
       segments: [
-        { width: 4, elevation: 0 },
+        { width: 4, slope: { on: false, values: [] }, elevation: 0 },
         { width: 4, slope: { on: true, values: [] } },
       ],
     }
