@@ -2,6 +2,7 @@ import { useSelector } from '../../store/hooks.js'
 import { getSkyboxDef, makeCSSGradientDeclaration } from '../index.js'
 import { DEFAULT_SKYBOX } from '../constants.js'
 import { RainCanvas } from '../Rain/index.js'
+import { SnowCanvas } from '../Snow/index.js'
 import { SkyBackground } from './SkyBackground.js'
 import { SkyObjects } from './SkyObjects.js'
 import './SkyBox.css'
@@ -54,6 +55,7 @@ export function SkyBox(props: SkyBoxProps) {
       <div className="rear-clouds" style={rearCloudStyle} />
       <div className="front-clouds" style={frontCloudStyle} />
       <RainCanvas />
+      <SnowCanvas />
       <div className="sky-foreground" style={foregroundStyle} />
     </section>
   )
