@@ -1,6 +1,5 @@
 import clone from 'just-clone'
 
-import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
 import { updateStreetData } from '../store/slices/street.js'
 import { createNewUndo, unifyStack } from '../store/slices/history.js'
@@ -20,7 +19,6 @@ export function finishUndoOrRedo() {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().history
   store.dispatch(updateStreetData(clone(stack[position])))
-  cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()
 

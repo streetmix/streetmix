@@ -6,7 +6,6 @@ import { initStreetNameChangeListener } from '../streets/name'
 import { initStreetThumbnailSubscriber } from '../streets/image'
 import { initStreetDataChangedListener } from '../streets/street'
 import { initSkyboxChangedListener } from '../sky'
-import { initDragTypeSubscriber } from '../segments/drag_and_drop'
 import { getPromoteStreet, remixStreet } from '../streets/remix'
 import { fetchLastStreet } from '../streets/xhr'
 import { loadSignIn } from '../users/authentication'
@@ -115,7 +114,6 @@ function onEverythingLoaded() {
 
   initStreetNameChangeListener()
   initSkyboxChangedListener()
-  initDragTypeSubscriber()
 
   addEventListeners()
   showConsoleMessage()
