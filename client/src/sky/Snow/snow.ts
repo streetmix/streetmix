@@ -1,3 +1,7 @@
+import { FrameTicker } from '~/src/util/animation.js'
+
+const Ticker = new FrameTicker()
+
 // Constants
 const NUMBER_OF_SNOWFLAKES = 300
 const MAX_SNOWFLAKE_SIZE = 2
@@ -11,7 +15,6 @@ const snowflakes: Snowflake[] = []
 let started = false
 let canvas: HTMLCanvasElement | null = null
 let ctx: CanvasRenderingContext2D | null = null
-let raf: number | null = null
 let width = 0
 let height = 0
 // devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
@@ -40,7 +43,7 @@ export function init(el: HTMLCanvasElement): void {
       snowflakes.push(createSnowflake())
     }
 
-    animate()
+    Ticker.addListener(step)
   }
 }
 
@@ -79,7 +82,7 @@ function updateSnowflake(snowflake: Snowflake): void {
   }
 }
 
-function animate(): void {
+function step(): void {
   if (!started) return
 
   if (ctx) {
@@ -90,15 +93,11 @@ function animate(): void {
     updateSnowflake(snowflake)
     drawSnowflake(snowflake)
   })
-
-  raf = window.requestAnimationFrame(animate)
 }
 
 export function stop(): void {
-  if (raf !== null) {
-    window.cancelAnimationFrame(raf)
-    raf = null
-  }
+  Ticker.clearListeners()
+
   if (ctx) {
     ctx.clearRect(0, 0, width * dpr, height * dpr)
   }
