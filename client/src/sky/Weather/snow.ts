@@ -29,7 +29,7 @@ interface Snowflake {
   sway: number
 }
 
-export function init(el: HTMLCanvasElement): void {
+export function initSnow(el: HTMLCanvasElement): void {
   if (!started) {
     started = true
     canvas = el
@@ -95,7 +95,7 @@ function step(): void {
   })
 }
 
-export function stop(): void {
+export function stopSnow(): void {
   Ticker.clearListeners()
 
   if (ctx) {
