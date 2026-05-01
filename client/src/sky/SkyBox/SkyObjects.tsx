@@ -7,7 +7,7 @@ import './SkyObjects.css'
 import type { SkyboxObject } from '@streetmix/types'
 
 interface SkyObjectsProps {
-  objects: SkyboxObject[] | undefined
+  objects?: SkyboxObject[]
 }
 
 // Skybox objects are an optional property of skybox configuration, so

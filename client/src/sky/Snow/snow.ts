@@ -8,6 +8,7 @@ const SNOWFLAKE_COLOR = '#d9d9d9'
 const snowflakes: Snowflake[] = []
 
 // canvas and associated context references
+let started = false
 let canvas: HTMLCanvasElement | null = null
 let ctx: CanvasRenderingContext2D | null = null
 let raf: number | null = null
@@ -26,18 +27,21 @@ interface Snowflake {
 }
 
 export function init(el: HTMLCanvasElement): void {
-  canvas = el
+  if (!started) {
+    started = true
+    canvas = el
 
-  resize()
-  window.addEventListener('resize', resize)
+    resize()
+    window.addEventListener('resize', resize)
 
-  ctx = canvas.getContext('2d')
+    ctx = canvas.getContext('2d')
 
-  for (let i = 0; i < NUMBER_OF_SNOWFLAKES; i++) {
-    snowflakes.push(createSnowflake())
+    for (let i = 0; i < NUMBER_OF_SNOWFLAKES; i++) {
+      snowflakes.push(createSnowflake())
+    }
+
+    animate()
   }
-
-  animate()
 }
 
 function createSnowflake(): Snowflake {
@@ -51,7 +55,7 @@ function createSnowflake(): Snowflake {
   }
 }
 
-function drawSnowflake(snowflake: Snowflake) {
+function drawSnowflake(snowflake: Snowflake): void {
   if (!ctx) return
 
   ctx.beginPath()
@@ -61,7 +65,7 @@ function drawSnowflake(snowflake: Snowflake) {
   ctx.closePath()
 }
 
-function updateSnowflake(snowflake: Snowflake) {
+function updateSnowflake(snowflake: Snowflake): void {
   snowflake.y += snowflake.speed
   snowflake.x += snowflake.sway
   if (snowflake.y > height) {
@@ -69,7 +73,9 @@ function updateSnowflake(snowflake: Snowflake) {
   }
 }
 
-function animate() {
+function animate(): void {
+  if (!started) return
+
   if (ctx) {
     ctx.clearRect(0, 0, width, height)
   }
@@ -82,18 +88,20 @@ function animate() {
   raf = window.requestAnimationFrame(animate)
 }
 
-export function stop() {
-  if (raf) {
+export function stop(): void {
+  if (raf !== null) {
     window.cancelAnimationFrame(raf)
+    raf = null
   }
   if (ctx) {
     ctx.clearRect(0, 0, width, height)
   }
+
+  started = false
   snowflakes.length = 0
   window.removeEventListener('resize', resize)
 }
 
-// (re)size canvas (clears all particles)
 function resize(): void {
   if (canvas === null) return
 
