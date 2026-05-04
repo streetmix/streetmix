@@ -57,3 +57,103 @@ exports[`SkyPicker > renders for signed-in subscribers 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`SkyPicker with weather effects > renders for signed-in subscribers 1`] = `
+<DocumentFragment>
+  <div
+    class="floating-panel floating-panel-container-outer sky-picker react-draggable"
+    style="transform: translate(0px,0px);"
+  >
+    <div
+      class="floating-panel-container-inner"
+      style="opacity: 0; pointer-events: none; transform: scale(0.75);"
+    >
+      <header>
+        <h3>
+          <svg
+            data-icon="sun"
+          />
+          Environment
+        </h3>
+        <button
+          class="close"
+          title="Dismiss"
+        >
+          <svg
+            data-icon="close"
+          />
+        </button>
+      </header>
+      <div
+        class="floating-panel-content"
+      >
+        <div
+          class="sky-options-group"
+          style="margin-top: 0px;"
+        >
+          <h4>
+            Sky
+          </h4>
+          <div
+            class="sky-options"
+          >
+            <button
+              aria-label="Day"
+              class="sky-option-item sky-option-selected"
+              style="background: #a9ccdb;"
+            />
+            <button
+              aria-label="Foo"
+              class="sky-option-item"
+              style="background: linear-gradient(#020b1a, #3e5879, #9ba5ae, #dcb697, #fc7001, #dd723c, #ad4a28, #040308);"
+            />
+            <button
+              aria-label="Bar"
+              class="sky-option-item"
+              style="background: linear-gradient(#020b1a, #3e5879, #9ba5ae 40%, #dcb697, #fc7001);"
+            />
+          </div>
+        </div>
+        <div
+          class="sky-options-group"
+        >
+          <h4>
+            Weather
+          </h4>
+          <div
+            class="sky-options"
+          >
+            <button
+              aria-label="Clear"
+              class="sky-option-item sky-option-selected"
+            >
+              <svg
+                data-icon="clear-day"
+                size="24"
+              />
+            </button>
+            <button
+              aria-label="Rain"
+              class="sky-option-item"
+            >
+              <svg
+                data-icon="rain"
+                size="24"
+              />
+            </button>
+            <button
+              aria-label="Snow"
+              class="sky-option-item"
+            >
+              <svg
+                data-icon="snow"
+                size="24"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

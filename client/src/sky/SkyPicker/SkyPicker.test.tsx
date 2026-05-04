@@ -101,3 +101,50 @@ describe('SkyPicker', () => {
     expect(screen.getByLabelText('Foo')).toBeDisabled()
   })
 })
+
+describe('SkyPicker with weather effects', () => {
+  const initialState = {
+    street: {
+      skybox: null,
+      weather: null,
+    },
+    ui: {
+      toolboxVisible: true,
+    },
+    user: {
+      signedIn: true,
+      isSubscriber: true,
+    },
+    flags: {
+      ENVIRONMENTS_UNLOCKED: {
+        value: true,
+      },
+      WEATHER_EFFECTS: {
+        value: true,
+      },
+    },
+  }
+
+  it('renders for signed-in subscribers', () => {
+    const { asFragment } = render(<SkyPicker />, {
+      initialState,
+    })
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('selects a weather effect', async () => {
+    render(<SkyPicker />, { initialState })
+
+    // Initial state
+    expect(screen.getByLabelText('Clear')).toHaveClass('sky-option-selected')
+
+    // waitFor animation to remove `pointer-events: none` from parent element
+    // This test is flaky if we don't wait.
+    await waitFor(async () => {
+      await userEvent.click(screen.getByLabelText('Rain'))
+    })
+
+    // New state
+    expect(screen.getByLabelText('Rain')).toHaveClass('sky-option-selected')
+  })
+})
