@@ -32,19 +32,19 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
   const showHeading = weatherEnabled || coastmixMode
 
   return (
-    <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
-      <div
-        className="sky-options-group"
-        style={{ marginTop: showHeading ? '0' : undefined }}
-      >
-        {showHeading && (
-          <h4>
-            <FormattedMessage
-              id="tools.skybox.sky.heading"
-              defaultMessage="Sky"
-            />
-          </h4>
-        )}
+    <div
+      className="sky-options-group"
+      style={{ marginTop: showHeading ? '0' : undefined }}
+    >
+      {showHeading && (
+        <h4>
+          <FormattedMessage
+            id="tools.skybox.sky.heading"
+            defaultMessage="Sky"
+          />
+        </h4>
+      )}
+      <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
         <div className="sky-options">
           {envs.map((env) => {
             const { id, name, iconImage, iconStyle } = env
@@ -71,7 +71,7 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
             )
           })}
         </div>
-      </div>
-    </IntlProvider>
+      </IntlProvider>
+    </div>
   )
 }
