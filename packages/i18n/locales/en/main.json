@@ -317,6 +317,9 @@
     "skybox": {
       "tooltip": "Environment editor",
       "heading": "Environment",
+      "sky": {
+        "heading": "Sky"
+      },
       "weather": {
         "heading": "Weather",
         "clear": "Clear",

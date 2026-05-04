@@ -5,8 +5,6 @@ import { setWeather } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { SkyOptionItem } from './SkyOptionItem.js'
 
-import './WeatherOptions.css'
-
 interface WeatherOptionsProps {
   enabled: boolean
 }
@@ -33,14 +31,14 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
   }
 
   return (
-    <div className="weather-options">
+    <div className="sky-options-group">
       <h4>
         <FormattedMessage
           id="tools.skybox.weather.heading"
           defaultMessage="Weather"
         />
       </h4>
-      <div className="sky-options" style={{ padding: '0' }}>
+      <div className="sky-options">
         <SkyOptionItem
           label={intl.formatMessage({
             id: `tools.skybox.weather.clear`,
