@@ -109,7 +109,6 @@ marsh:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
-  earthColor: "#ecdbb1"
 water:
   id: water
   label: Water
