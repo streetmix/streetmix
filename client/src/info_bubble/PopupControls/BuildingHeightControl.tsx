@@ -25,6 +25,7 @@ export function BuildingHeightControl({
   position,
 }: BuildingHeightControlProps) {
   const units = useSelector((state) => state.street.units)
+  const locale = useSelector((state) => state.locale.locale)
 
   // Get the appropriate building data based on which side of street it's on
   const variant = useSelector((state) =>
@@ -56,7 +57,14 @@ export function BuildingHeightControl({
   }
 
   const displayValueFormatter = (value: number): string => {
-    return prettifyHeight(variant, position, value, units, intl.formatMessage)
+    return prettifyHeight(
+      variant,
+      position,
+      value,
+      units,
+      locale,
+      intl.formatMessage
+    )
   }
 
   const hasFloors = getBoundaryItem(variant).hasFloors

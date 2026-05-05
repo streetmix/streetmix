@@ -10,6 +10,7 @@ import { segmentsChanged } from '~/src/store/actions/street.js'
 import {
   changeSegmentProperties,
   setBoundaryElevation,
+  setSeaLevel,
 } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import {
@@ -69,6 +70,7 @@ export function ElevationControlNew({
       .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
+
     if (typeof position === 'number') {
       dispatch(
         changeSegmentProperties(position, {
@@ -77,7 +79,12 @@ export function ElevationControlNew({
         })
       )
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
 
     dispatch(segmentsChanged())
@@ -93,6 +100,7 @@ export function ElevationControlNew({
       .clamp(MIN_ELEVATION, MAX_ELEVATION)
       .toDecimalPlaces(3)
       .toNumber()
+
     if (typeof position === 'number') {
       dispatch(
         changeSegmentProperties(position, {
@@ -101,7 +109,12 @@ export function ElevationControlNew({
         })
       )
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
 
     dispatch(segmentsChanged())
@@ -134,7 +147,12 @@ export function ElevationControlNew({
         })
       )
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
 
     dispatch(segmentsChanged())
