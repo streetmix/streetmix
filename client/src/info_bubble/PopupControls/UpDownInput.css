@@ -1,5 +1,11 @@
+.up-down-input {
+  display: flex;
+  flex-grow: 1;
+}
+
 .up-down-input-element {
   width: 50px;
+  flex-grow: 1;
   font-family: var(--font-family);
   text-align: center;
   background-color: var(--form-element-background);

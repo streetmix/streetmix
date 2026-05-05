@@ -14,6 +14,7 @@ import {
   BUILDING_LEFT_POSITION,
 } from '~/src/segments/constants.js'
 import { UpDownInput } from './UpDownInput.js'
+import './BuildingHeightControl.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -105,6 +106,7 @@ export function BuildingHeightControl({
           defaultMessage: 'Remove floor',
         })}
         allowAutoUpdate
+        className="boundary-height-control"
       />
     </div>
   )

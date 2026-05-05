@@ -102,7 +102,6 @@
 .popup-control-label {
   display: flex;
   align-items: center;
-  flex-grow: 1;
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--color-turquoise-700);
