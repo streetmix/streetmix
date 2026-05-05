@@ -4,7 +4,7 @@
  *
  * This function parses incoming variables and converts them to boolean.
  */
-function parseBoolean (value: string | undefined): boolean {
+function parseBoolean(value: string | undefined): boolean {
   switch (value) {
     case 'true':
       return true
@@ -23,3 +23,4 @@ export const PELIAS_API_KEY: string | undefined = process.env.PELIAS_API_KEY
 export const PELIAS_HOST_NAME: string | undefined = process.env.PELIAS_HOST_NAME
 export const AUTH0_CLIENT_ID: string | undefined = process.env.AUTH0_CLIENT_ID
 export const AUTH0_DOMAIN: string | undefined = process.env.AUTH0_DOMAIN
+export const USERBACK_TOKEN: string | undefined = process.env.USERBACK_TOKEN
