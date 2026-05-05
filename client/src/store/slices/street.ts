@@ -538,12 +538,32 @@ const streetSlice = createSlice({
         if (!variant) return
 
         switch (position) {
-          case 'left':
+          case 'left': {
             state.boundary.left.variant = variant
+
+            // Special case -- if right boundary is a waterfront, set left
+            // boundary's elevation to match it
+            const left = getBoundaryItem(variant)
+            const right = getBoundaryItem(state.boundary.right.variant)
+            if (left.waterfront && right.waterfront) {
+              state.boundary.left.elevation = state.boundary.right.elevation
+            }
+
             break
-          case 'right':
+          }
+          case 'right': {
             state.boundary.right.variant = variant
+
+            // Special case -- if left boundary is a waterfront, set right
+            // boundary's elevation to match it
+            const left = getBoundaryItem(state.boundary.left.variant)
+            const right = getBoundaryItem(variant)
+            if (left.waterfront && right.waterfront) {
+              state.boundary.right.elevation = state.boundary.left.elevation
+            }
+
             break
+          }
         }
       },
       prepare(position: BoundaryPosition, variant: string) {

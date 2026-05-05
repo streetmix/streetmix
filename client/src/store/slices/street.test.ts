@@ -711,6 +711,11 @@ describe('street reducer', () => {
           boundary: {
             left: {
               variant: 'wide',
+              elevation: 0,
+            },
+            right: {
+              variant: 'wide',
+              elevation: 0,
             },
           },
         }
@@ -725,8 +730,13 @@ describe('street reducer', () => {
       it('sets a floor value on the right building', () => {
         const existingStreet = {
           boundary: {
+            left: {
+              variant: 'narrow',
+              elevation: 0,
+            },
             right: {
               variant: 'narrow',
+              elevation: 0,
             },
           },
         }
@@ -743,6 +753,11 @@ describe('street reducer', () => {
           boundary: {
             left: {
               variant: 'waterfront',
+              elevation: 0,
+            },
+            right: {
+              variant: 'waterfront',
+              elevation: 0,
             },
           },
         }
@@ -752,6 +767,8 @@ describe('street reducer', () => {
         const result = street(existingStreet, setBuildingVariant('left', ''))
         expect(result.boundary.left.variant).toEqual('waterfront')
       })
+
+      it.todo('matches waterfront sea level heights')
     })
   })
 
