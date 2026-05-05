@@ -48,6 +48,15 @@ waterfront:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+waterfront2: # Separate version used for Coastmix
+  id: waterfront2
+  label: Waterfront
+  spriteId: boundaries--waterfront2
+  waterfront: true
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true
+  earthColor: "#366387"
 residential:
   id: residential
   label: Home
