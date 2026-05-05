@@ -63,7 +63,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   // Affect the rain canvas when storm surging
   // TODO: don't do DOM manip
   useEffect(() => {
-    const el = document.querySelector<HTMLElement>('.rain-canvas')
+    const el = document.querySelector<HTMLElement>('.weather-canvas')
     if (!el) return
     if (stormSurge) {
       el.style.top = `-${height - 45}px`
