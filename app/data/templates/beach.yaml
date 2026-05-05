@@ -16,7 +16,7 @@ boundary:
       metric: 0.15
       imperial: 0.5
   right:
-    variant: waterfront
+    variant: water
     floors: 1
     elevation: 0
 slices:

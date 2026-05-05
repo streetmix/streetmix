@@ -48,6 +48,15 @@ waterfront:
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+waterfront2: # Separate version used for Coastmix
+  id: waterfront2
+  label: Waterfront
+  spriteId: boundaries--waterfront2
+  waterfront: true
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true
+  earthColor: "#366387"
 residential:
   id: residential
   label: Home
@@ -124,10 +133,15 @@ dock:
   spriteId: boundaries--dock
   waterfront: true
   hasFloors: true
-  variantsCount: 1 # need this to be 1 to do a thing right
+  # Not sure what this does exactly, but setting it to this
+  # slightly changes the height alignment and makes it fit
+  # a little better with adjacent slices at 1m or 3ft
+  variantsCount: 1
   floorHeight: 0.25 # meters (match illustration)
   roofHeight: 3 # meters (match illustration)
   mainFloorHeight: 1.75 # meters (match illustration)
   alignAtBaseline: true
-  repeatHalf: true
+  # This is currently broken -- setting it to true
+  # prevents rendering correctly on the left boundary
+  # repeatHalf: true
   earthColor: "#366387"

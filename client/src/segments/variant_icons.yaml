@@ -1,4 +1,12 @@
 boundary:
+  waterfront:
+    id: waterfront
+    title: Waterfront
+    disableWithFlag: COASTMIX_MODE
+  waterfront2:
+    id: waterfront
+    title: Waterfront
+    enableWithFlag: COASTMIX_MODE
   beach:
     id: beach
     iconSet: tabler
@@ -16,9 +24,6 @@ boundary:
     id: dock
     title: Dock
     enableWithFlag: COASTMIX_MODE
-  waterfront:
-    id: waterfront
-    title: Waterfront
   grass:
     id: grass
     title: Grass

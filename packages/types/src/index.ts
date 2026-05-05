@@ -412,7 +412,6 @@ interface BoundaryDefinitionBase {
   label: string
   spriteId: string
   waterfront?: boolean
-  hasFloors: boolean
   sameOnBothSides?: boolean
   repeatHalf?: boolean
   alignAtBaseline?: boolean
@@ -420,6 +419,13 @@ interface BoundaryDefinitionBase {
   variantsCount?: number
   overhangWidth?: number
   earthColor?: string // should be a valid CSS color string
+}
+
+// A boundary definition without floors is either missing the `hasFloors`
+// property or it is set to false. This is used as a discriminator
+// from the `BoundaryDefinitionWithFloors` type.
+interface BoundaryDefinitionWithoutFloors extends BoundaryDefinitionBase {
+  hasFloors?: false
 }
 
 // If boundary definition has floors, the following properties are
@@ -432,7 +438,7 @@ interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
 }
 
 export type BoundaryDefinition =
-  | BoundaryDefinitionBase
+  | BoundaryDefinitionWithoutFloors
   | BoundaryDefinitionWithFloors
 
 export interface GalleryAPIResponse {
