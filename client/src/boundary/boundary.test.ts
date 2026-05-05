@@ -12,6 +12,7 @@ describe('prettifyHeight()', () => {
       'left',
       2,
       SETTINGS_UNITS_METRIC,
+      'en',
       formatMessage
     )
     expect(text).toBe('2 floors (7.8 m)')
@@ -24,6 +25,7 @@ describe('prettifyHeight()', () => {
       'right',
       3,
       SETTINGS_UNITS_IMPERIAL,
+      'en',
       formatMessage
     )
     expect(text).toBe('3 floors (35⅜′)')

@@ -37,7 +37,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 
     // Calculate how much sea level rises
-    const rise = calculateSeaLevelRise(seaLevelRise, stormSurge)
+    const rise = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
 
     // Total height added together
     height += rise * TILE_SIZE
