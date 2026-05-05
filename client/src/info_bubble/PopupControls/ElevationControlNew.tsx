@@ -31,7 +31,8 @@ interface ElevationControlProps {
 }
 
 const MIN_ELEVATION = 0
-const MAX_ELEVATION = 5 // in meters
+const MAX_ELEVATION_METRIC = 5 // in meters
+const MAX_ELEVATION_IMPERIAL = 4.8768 // 16' in meters
 
 /**
  * Given the elevation height, return a formatted value (using the
@@ -65,9 +66,13 @@ export function ElevationControlNew({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .plus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -95,9 +100,13 @@ export function ElevationControlNew({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .minus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -122,10 +131,14 @@ export function ElevationControlNew({
 
   const updateValue = (value: string): void => {
     const processedValue = processWidthInput(value, units)
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     let newValue
     try {
       newValue = new Decimal(processedValue)
-        .clamp(MIN_ELEVATION, MAX_ELEVATION)
+        .clamp(MIN_ELEVATION, maxValue)
         .toDecimalPlaces(3)
         .toNumber()
     } catch (e) {
@@ -205,11 +218,16 @@ export function ElevationControlNew({
         defaultMessage: 'Lower ground height',
       })
 
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_ELEVATION_IMPERIAL
+      : MAX_ELEVATION_METRIC
+
   return (
     <UpDownInput
       value={elevation}
       minValue={MIN_ELEVATION}
-      maxValue={MAX_ELEVATION}
+      maxValue={maxValue}
       inputValueFormatter={inputValueFormatter}
       displayValueFormatter={displayValueFormatter}
       onClickUp={handleIncrement}

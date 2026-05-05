@@ -204,7 +204,7 @@ export const incrementSegmentWidth = (
       increment = -increment
     }
 
-    // When width values are imprecise (e.g. after unit conversion), the
+    // When width values are imprecise (e.g. after unit conversion), then
     // increment to nearest precise value, rather than increment first and
     // then make precise
     const adjustedWidth = normalizeSegmentWidth(origWidth, resolution)
