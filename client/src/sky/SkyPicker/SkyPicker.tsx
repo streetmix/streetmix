@@ -44,9 +44,7 @@ export function SkyPicker() {
     >
       <TooltipGroup>
         <SkyOptions enabled={isEnabled} />
-        {(weatherEnabled || coastmixMode) && (
-          <WeatherOptions enabled={isEnabled} />
-        )}
+        {weatherEnabled && <WeatherOptions enabled={isEnabled} />}
       </TooltipGroup>
       {!isEnabled && (
         <div className="sky-picker-upgrade">

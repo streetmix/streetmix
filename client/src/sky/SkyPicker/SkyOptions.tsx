@@ -16,9 +16,6 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
   const weatherEnabled = useSelector(
     (state) => state.flags.WEATHER_EFFECTS?.value ?? false
   )
-  const coastmixMode = useSelector(
-    (state) => state.flags.COASTMIX_MODE?.value ?? false
-  )
   const dispatch = useDispatch()
   const intl = useIntl()
   const envs = getAllSkyboxDefs()
@@ -29,14 +26,12 @@ export function SkyOptions({ enabled }: SkyOptionsProps) {
     }
   }
 
-  const showHeading = weatherEnabled || coastmixMode
-
   return (
     <div
       className="sky-options-group"
-      style={{ marginTop: showHeading ? '0' : undefined }}
+      style={{ marginTop: weatherEnabled ? '0' : undefined }}
     >
-      {showHeading && (
+      {weatherEnabled && (
         <h4>
           <FormattedMessage
             id="tools.skybox.sky.heading"
