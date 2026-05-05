@@ -6,11 +6,26 @@ import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
+// TODO: streamline by doing base calculation in metric, then convert back to
+// imperial if needed.
 export function calculateSeaLevelRise(
   seaLevelRise: number,
-  stormSurge: boolean
+  stormSurge: boolean,
+  street: StreetState
 ) {
   let heightFeet = 0
+
+  // Get base sea level.
+  // If either boundary is a waterfront, check how high it is
+  let baseSeaLevel = 0
+
+  const left = getBoundaryItem(street.boundary.left.variant)
+  const right = getBoundaryItem(street.boundary.right.variant)
+  if (left.waterfront) {
+    baseSeaLevel = street.boundary.left.elevation
+  } else if (right.waterfront) {
+    baseSeaLevel = street.boundary.right.elevation
+  }
 
   if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
     heightFeet +=
@@ -23,7 +38,7 @@ export function calculateSeaLevelRise(
 
   const height = convertImperialMeasurementToMetric(heightFeet)
 
-  return height
+  return baseSeaLevel + height
 }
 
 function calculateFloodDistance(
@@ -123,7 +138,7 @@ export function checkSeaLevel(
   seaLevelRise: number,
   stormSurge: boolean
 ): [FloodDistance, FloodDistance] {
-  const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
+  const height = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
 
   const { boundary, segments: slices } = street
   const floodDistance = [null, null] as [FloodDistance, FloodDistance]
