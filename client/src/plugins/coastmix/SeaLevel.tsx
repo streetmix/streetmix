@@ -19,6 +19,7 @@ const WAVE_OPACITY = 0.4
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
+  const draggingType = useSelector((state) => state.ui.draggingType)
   const { seaLevelRise, stormSurge, floodDistance } = useSelector(
     (state) => state.coastmix
   )
@@ -81,10 +82,22 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   // Special case if either distance is `max` (flooding across the entire
-  // section). Note this doesn't animate the right side
-  if (floodDistance[0] === 'max' || floodDistance[1] === 'max') {
+  // section). Note this doesn't animate the right side.
+  // Sub-special case when something is being dragged. We don't calculate
+  // flooding distance mid-drag, so a "limbo" state class name is applied
+  // that momentarily shows flooding across the entire section.
+  if (
+    floodDistance[0] === 'max' ||
+    floodDistance[1] === 'max' ||
+    draggingType
+  ) {
+    const parentClassnames = ['sea-level-rise']
+    if (draggingType) {
+      parentClassnames.push('sea-level-limbo')
+    }
+
     return (
-      <div className="sea-level-rise" style={styles}>
+      <div className={parentClassnames.join(' ')} style={styles}>
         <div className={classNames.join(' ')}>
           <div style={getWavePosition(scrollPos)} />
         </div>
@@ -96,7 +109,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     <>
       {floodDistance[0] !== null && (
         <div
-          className="sea-level-rise"
+          className="sea-level-rise sea-level-rise-left"
           style={{
             ...styles,
             width: `${boundaryWidth + floodDistance[0]}px`,
@@ -110,7 +123,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
       )}
       {floodDistance[1] !== null && (
         <div
-          className="sea-level-rise"
+          className="sea-level-rise sea-level-rise-right"
           style={{
             ...styles,
             width: `${boundaryWidth + floodDistance[1]}px`,
