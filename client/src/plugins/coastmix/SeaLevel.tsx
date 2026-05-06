@@ -16,9 +16,11 @@ interface SeaLevelProps {
 // It is doubled again in a surge.
 const HALF_OF_WAVE_HEIGHT = 8 / 2
 const WAVE_OPACITY = 0.4
+const LIMBO_OPACITY = 0.2
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
+  const draggingType = useSelector((state) => state.ui.draggingType)
   const { seaLevelRise, stormSurge, floodDistance } = useSelector(
     (state) => state.coastmix
   )
@@ -45,6 +47,11 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     // Show visually when sea level rises
     if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
       opacity = WAVE_OPACITY
+
+      // Special case: opacity is lowered when dragging
+      if (draggingType) {
+        opacity = LIMBO_OPACITY
+      }
     }
   }
 
@@ -81,8 +88,13 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   // Special case if either distance is `max` (flooding across the entire
-  // section). Note this doesn't animate the right side
-  if (floodDistance[0] === 'max' || floodDistance[1] === 'max') {
+  // section), or when something is being dragged (we don't calculate flooding
+  // distance mid-drag). Note this doesn't animate the right side.
+  if (
+    floodDistance[0] === 'max' ||
+    floodDistance[1] === 'max' ||
+    draggingType
+  ) {
     return (
       <div className="sea-level-rise" style={styles}>
         <div className={classNames.join(' ')}>
@@ -96,7 +108,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     <>
       {floodDistance[0] !== null && (
         <div
-          className="sea-level-rise"
+          className="sea-level-rise sea-level-rise-left"
           style={{
             ...styles,
             width: `${boundaryWidth + floodDistance[0]}px`,
@@ -110,7 +122,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
       )}
       {floodDistance[1] !== null && (
         <div
-          className="sea-level-rise"
+          className="sea-level-rise sea-level-rise-right"
           style={{
             ...styles,
             width: `${boundaryWidth + floodDistance[1]}px`,
