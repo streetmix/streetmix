@@ -37,6 +37,8 @@ export function App() {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -46,12 +48,14 @@ export function App() {
       // Turn off loading after initial loading is done
       setLoading(false)
 
-      // initialize Userback
-      await initUserback()
+      // initialize only Userback in Coastmix mode or if user is a subscriber
+      if (coastmixMode || isSubscriber) {
+        await initUserback()
+      }
     }
 
     init()
-  }, [])
+  }, [coastmixMode, isSubscriber])
 
   // Set color mode on top level DOM element
   useEffect(() => {

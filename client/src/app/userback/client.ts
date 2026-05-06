@@ -9,16 +9,14 @@ export async function initUserback(
 ): Promise<UserbackWidget | undefined> {
   if (!USERBACK_TOKEN) return
 
-  // TODO: only activate on:
-  // - Coastmix mode
-  // - User signed in and is subscriber
-
-  // Conditionally import the Userback widget so that it does not
-  // run on deployments where it is not installed.
+  // Conditionally import the Userback widget so that it does not get loaded
+  // on instances where it is not meant to be installed.
   const mod = await import('@userback/widget')
   userbackInstance = await mod.default(USERBACK_TOKEN, options)
+
+  return userbackInstance
 }
 
-export function getUserback() {
+export function getUserback(): UserbackWidget | undefined {
   return userbackInstance
 }
