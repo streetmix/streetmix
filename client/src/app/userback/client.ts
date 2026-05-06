@@ -1,5 +1,6 @@
 import type { UserbackOptions, UserbackWidget } from '@userback/widget'
 import { USERBACK_TOKEN } from '../config.js'
+import './userback.css'
 
 let userbackInstance: UserbackWidget
 
