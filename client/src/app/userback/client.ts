@@ -17,6 +17,8 @@ export async function initUserback(
   // Conditionally import the Userback widget so that it does not get loaded
   // on instances where it is not meant to be installed.
   const mod = await import('@userback/widget')
+
+  // TODO: capture user info from subscribers.
   userbackInstance = await mod.default(USERBACK_TOKEN, options)
 
   return userbackInstance
