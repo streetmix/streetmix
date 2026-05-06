@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
+import logoCoastmix from 'url:../../images/logo_horizontal_coastmix.svg'
 import { useSelector } from '../store/hooks.js'
 import AccessibleIcon from '../ui/AccessibleIcon.js'
 import { Icon } from '../ui/Icon.js'
@@ -112,25 +113,19 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
     )
   }
 
+  const logoSrc = coastmixMode ? logoCoastmix : logo
+
   return (
     <nav className="menu-bar" role="menubar" aria-orientation="horizontal">
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
-        {coastmixMode && (
-          <img
-            src="/images/coastmix.png"
-            className="coastmix-tape"
-            draggable={false}
-            alt="Coastmix"
-          />
-        )}
         <li className="menu-bar-title">
           <img
-            src={logo}
+            src={logoSrc}
             alt="Streemix"
             className="menu-bar-logo"
             draggable={false}
           />
-          <h1>Streetmix</h1>
+          <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
         </li>
         <MenuBarItem
           label="Help"

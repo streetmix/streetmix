@@ -2,10 +2,19 @@ import { useSelector } from '../store/hooks.js'
 import { ENV, STREETMIX_INSTANCE } from '../app/config.js'
 import './InstanceBadge.css'
 
-export function InstanceBadge({ label }: { label?: string }) {
+interface InstanceBadgeProps {
+  label?: string
+  className?: string
+}
+
+export function InstanceBadge({ label, className }: InstanceBadgeProps) {
   const offline = useSelector((state) => state.system.offline)
 
   const classNames = ['instance-badge']
+  if (className) {
+    classNames.push(className)
+  }
+
   const details = getDetails(offline, label)
 
   if (details.className !== undefined) {
@@ -50,8 +59,8 @@ function getDetails(
           }
         case 'coastmix':
           return {
-            label: 'Coastmix',
-            className: 'instance-label-demo',
+            label: 'by Streetmix',
+            className: 'instance-label-coastmix',
           }
         default:
           return {}

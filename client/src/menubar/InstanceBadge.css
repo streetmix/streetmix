@@ -1,6 +1,6 @@
 .instance-badge {
   z-index: var(--z-02-menu-bar);
-  display: none;
+  display: inline-block;
   position: absolute;
   inset-inline-start: 9px;
   inset-block-end: -14px;
@@ -17,18 +17,20 @@
   border-radius: var(--border-radius);
 
   &.instance-label-development {
-    display: inline-block;
     background-color: rgb(200 0 0);
   }
 
   &.instance-label-staging,
   &.instance-label-sandbox {
-    display: inline-block;
     background-color: green;
   }
 
   &.instance-label-demo {
-    display: inline-block;
     background-color: rgb(28 189 209);
+  }
+
+  &.instance-label-coastmix {
+    background-color: rgb(28 189 209);
+    letter-spacing: 1px;
   }
 }
