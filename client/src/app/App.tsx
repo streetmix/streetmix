@@ -4,7 +4,6 @@ import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
-import Userback from '@userback/widget'
 
 import { CoastmixUI } from '~/src/plugins/coastmix'
 import { MenusContainer } from '../menubar/MenusContainer.js'
@@ -28,7 +27,7 @@ import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
 import { Loading } from './Loading.js'
 import { SponsorBanner } from './SponsorBanner.js'
-import { USERBACK_TOKEN } from './config.js'
+import { initUserback } from './userback/client.js'
 
 export function App() {
   const [isLoading, setLoading] = useState(true)
@@ -38,6 +37,8 @@ export function App() {
   ) // TODO use real type
   const everythingLoaded = useSelector((state) => state.app.everythingLoaded)
   const colorMode = useSelector((state) => state.settings.colorMode)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
+  const isSubscriber = useSelector((state) => state.user.isSubscriber)
 
   // TODO: Move other initialization methods here.
   useEffect(() => {
@@ -47,15 +48,14 @@ export function App() {
       // Turn off loading after initial loading is done
       setLoading(false)
 
-      // initialize Userback
-      if (USERBACK_TOKEN) {
-        const userback = await Userback(USERBACK_TOKEN)
-        console.log(userback)
+      // initialize only Userback in Coastmix mode or if user is a subscriber
+      if (coastmixMode || isSubscriber) {
+        await initUserback()
       }
     }
 
     init()
-  }, [])
+  }, [coastmixMode, isSubscriber])
 
   // Set color mode on top level DOM element
   useEffect(() => {

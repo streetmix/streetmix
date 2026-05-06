@@ -94,7 +94,12 @@ type ContentSecurityPolicyOptions = Exclude<
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'", "'unsafe-inline'", 'checkout.stripe.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'checkout.stripe.com',
+      'static.userback.io',
+    ],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
@@ -136,7 +141,7 @@ const csp = {
       '*.wp.com',
       'cdn.auth0.com', // Auth0 default profile images
     ],
-    fontSrc: ["'self'"],
+    fontSrc: ["'self'", 'static.userback.io'],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',

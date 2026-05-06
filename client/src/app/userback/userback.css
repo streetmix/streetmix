@@ -1,0 +1,6 @@
+/* Always allow pointer-events on this element. Global pointer-events: none
+   may be applied by Floating UI's safe polygon, but ignore in this case */
+/* stylelint-disable-next-line selector-id-pattern */
+#userback_button_container .userback-controls {
+  pointer-events: auto;
+}
