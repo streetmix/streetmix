@@ -9,6 +9,11 @@ export async function initUserback(
 ): Promise<UserbackWidget | undefined> {
   if (!USERBACK_TOKEN) return
 
+  // Don't re-initialize if already initialized
+  if (userbackInstance) {
+    return userbackInstance
+  }
+
   // Conditionally import the Userback widget so that it does not get loaded
   // on instances where it is not meant to be installed.
   const mod = await import('@userback/widget')
@@ -17,6 +22,8 @@ export async function initUserback(
   return userbackInstance
 }
 
-export function getUserback(): UserbackWidget | undefined {
-  return userbackInstance
+export function getUserback() {
+  if (userbackInstance) {
+    return userbackInstance
+  }
 }
