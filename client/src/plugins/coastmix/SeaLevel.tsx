@@ -16,6 +16,7 @@ interface SeaLevelProps {
 // It is doubled again in a surge.
 const HALF_OF_WAVE_HEIGHT = 8 / 2
 const WAVE_OPACITY = 0.4
+const LIMBO_OPACITY = 0.2
 
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
@@ -46,6 +47,11 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     // Show visually when sea level rises
     if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
       opacity = WAVE_OPACITY
+
+      // Special case: opacity is lowered when dragging
+      if (draggingType) {
+        opacity = LIMBO_OPACITY
+      }
     }
   }
 
@@ -82,22 +88,15 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   }
 
   // Special case if either distance is `max` (flooding across the entire
-  // section). Note this doesn't animate the right side.
-  // Sub-special case when something is being dragged. We don't calculate
-  // flooding distance mid-drag, so a "limbo" state class name is applied
-  // that momentarily shows flooding across the entire section.
+  // section), or when something is being dragged (we don't calculate flooding
+  // distance mid-drag). Note this doesn't animate the right side.
   if (
     floodDistance[0] === 'max' ||
     floodDistance[1] === 'max' ||
     draggingType
   ) {
-    const parentClassnames = ['sea-level-rise']
-    if (draggingType) {
-      parentClassnames.push('sea-level-limbo')
-    }
-
     return (
-      <div className={parentClassnames.join(' ')} style={styles}>
+      <div className="sea-level-rise" style={styles}>
         <div className={classNames.join(' ')}>
           <div style={getWavePosition(scrollPos)} />
         </div>
