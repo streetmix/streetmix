@@ -4,7 +4,6 @@ import { DirectionProvider, type Direction } from '@radix-ui/react-direction'
 import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
-import Userback from '@userback/widget'
 
 import { CoastmixUI } from '~/src/plugins/coastmix'
 import { MenusContainer } from '../menubar/MenusContainer.js'
@@ -28,7 +27,7 @@ import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
 import { Loading } from './Loading.js'
 import { SponsorBanner } from './SponsorBanner.js'
-import { USERBACK_TOKEN } from './config.js'
+import { initUserback } from './userback/client.js'
 
 export function App() {
   const [isLoading, setLoading] = useState(true)
@@ -48,10 +47,7 @@ export function App() {
       setLoading(false)
 
       // initialize Userback
-      if (USERBACK_TOKEN) {
-        const userback = await Userback(USERBACK_TOKEN)
-        console.log(userback)
-      }
+      await initUserback()
     }
 
     init()

@@ -141,7 +141,7 @@ const csp = {
       '*.wp.com',
       'cdn.auth0.com', // Auth0 default profile images
     ],
-    fontSrc: ["'self'"],
+    fontSrc: ["'self'", 'static.userback.io'],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',
