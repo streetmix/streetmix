@@ -94,7 +94,12 @@ type ContentSecurityPolicyOptions = Exclude<
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'", "'unsafe-inline'", 'checkout.stripe.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'checkout.stripe.com',
+      'static.userback.io',
+    ],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
