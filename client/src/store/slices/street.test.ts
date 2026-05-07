@@ -1,3 +1,4 @@
+import type { StreetState } from '@streetmix/types'
 import street, {
   updateStreetData,
   addSegment,
@@ -29,11 +30,11 @@ import street, {
 } from './street.js'
 
 describe('street reducer', () => {
-  const initialState = {
+  const initialState: StreetState = {
     id: '',
     namespacedId: 0,
     schemaVersion: 0,
-    units: 0,
+    units: 0 as const,
     width: 0,
     name: null,
     segments: [],
@@ -61,6 +62,7 @@ describe('street reducer', () => {
     userUpdated: false,
     immediateRemoval: true,
     editCount: 0,
+    originalStreetId: null,
   }
 
   it('should handle updateStreetData()', () => {
@@ -126,7 +128,7 @@ describe('street reducer', () => {
   })
 
   it('should handle removeSegment()', () => {
-    const existingStreet = {
+    const existingStreet = Object.assign({}, initialState, {
       immediateRemoval: true,
       segments: [
         { type: 'foo' },
@@ -134,16 +136,18 @@ describe('street reducer', () => {
         { type: 'baz' },
         { type: 'qux' },
       ],
-    }
+    })
 
     // Removes a segment at index 1 from an existing street
     expect(street(existingStreet, removeSegment(1))).toEqual({
+      ...existingStreet,
       immediateRemoval: true,
       segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'qux' }],
     })
 
     // Removes a segment at index 0 from an existing street
     expect(street(existingStreet, removeSegment(0))).toEqual({
+      ...existingStreet,
       immediateRemoval: true,
       segments: [{ type: 'bar' }, { type: 'baz' }, { type: 'qux' }],
     })
@@ -153,22 +157,26 @@ describe('street reducer', () => {
   })
 
   it('should handle moveSegment()', () => {
-    const existingStreet = {
+    const existingStreet = Object.assign({}, initialState, {
       segments: [{ type: 'foo' }, { type: 'bar' }, { type: 'baz' }],
-    }
+    })
 
     // Moves a segment at index 0 to index 1 on an existing street
     expect(street(existingStreet, moveSegment(0, 1))).toEqual({
+      ...existingStreet,
+
       segments: [{ type: 'bar' }, { type: 'foo' }, { type: 'baz' }],
     })
 
     // Moves a segment at index 2 to index 0 on an existing street
     expect(street(existingStreet, moveSegment(2, 0))).toEqual({
+      ...existingStreet,
       segments: [{ type: 'baz' }, { type: 'foo' }, { type: 'bar' }],
     })
 
     // moves a segment to the end if desired index is out of bounds
     expect(street(existingStreet, moveSegment(1, 8))).toEqual({
+      ...existingStreet,
       segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'bar' }],
     })
 
@@ -176,6 +184,8 @@ describe('street reducer', () => {
     // TODO: test that this preserves non-updated properties
     expect(street(existingStreet, moveSegment(0, 1, { elevation: 2 }))).toEqual(
       {
+        ...existingStreet,
+
         segments: [
           { type: 'bar' },
           { type: 'foo', elevation: 2 },
@@ -282,66 +292,71 @@ describe('street reducer', () => {
 
   describe('saveStreetName()', () => {
     it('should update a street name when set by user', () => {
-      const existingStreet = {
+      const existingStreet = Object.assign({}, initialState, {
         name: 'street name',
         userUpdated: false,
-      }
+      })
 
       expect(
         street(existingStreet, saveStreetName('new street name', true))
       ).toEqual({
+        ...existingStreet,
         name: 'new street name',
         userUpdated: true,
       })
     })
 
     it('should not update a street name set by a user, when set by automation', () => {
-      const existingStreet = {
+      const existingStreet = Object.assign({}, initialState, {
         name: 'street name',
         userUpdated: true,
-      }
+      })
 
       expect(
         street(existingStreet, saveStreetName('new street name', false))
       ).toEqual({
+        ...existingStreet,
         name: 'street name',
         userUpdated: true,
       })
     })
 
     it('should update a street name previously set only by automation, when set by automation', () => {
-      const existingStreet = {
+      const existingStreet = Object.assign({}, initialState, {
         name: 'street name',
         userUpdated: false,
-      }
+      })
 
       expect(
         street(existingStreet, saveStreetName('new street name', false))
       ).toEqual({
+        ...existingStreet,
         name: 'new street name',
         userUpdated: false,
       })
     })
 
     it('should clear a street name set by automation, when cleared by automation', () => {
-      const existingStreet = {
+      const existingStreet = Object.assign({}, initialState, {
         name: 'street name',
         userUpdated: false,
-      }
+      })
 
       expect(street(existingStreet, saveStreetName(undefined, false))).toEqual({
+        ...existingStreet,
         name: null,
         userUpdated: false,
       })
     })
 
     it('should not clear a street name set by a user, when cleared by automation', () => {
-      const existingStreet = {
+      const existingStreet = Object.assign({}, initialState, {
         name: 'street name',
         userUpdated: true,
-      }
+      })
 
       expect(street(existingStreet, saveStreetName(null, false))).toEqual({
+        ...existingStreet,
         name: 'street name',
         userUpdated: true,
       })
@@ -349,21 +364,22 @@ describe('street reducer', () => {
   })
 
   it('should handle saveCreatorId()', () => {
-    expect(street({ creatorId: 'bar' }, saveCreatorId('foo'))).toEqual({
+    const existingStreet = Object.assign({}, initialState, { creatorId: 'bar' })
+
+    expect(street(existingStreet, saveCreatorId('foo'))).toEqual({
+      ...existingStreet,
       creatorId: 'foo',
     })
   })
 
   it('should handle saveStreetId()', () => {
-    expect(
-      street(
-        {
-          id: 'baz',
-          namespacedId: 123,
-        },
-        saveStreetId('foo', 456)
-      )
-    ).toEqual({
+    const existingStreet = Object.assign({}, initialState, {
+      id: 'baz',
+      namespacedId: 123,
+    })
+
+    expect(street(existingStreet, saveStreetId('foo', 456))).toEqual({
+      ...existingStreet,
       id: 'foo',
       namespacedId: 456,
     })
@@ -388,49 +404,65 @@ describe('street reducer', () => {
   })
 
   it('should handle setUpdateTime()', () => {
+    const existingStreet = Object.assign({}, initialState, {
+      updatedAt: '2020-04-20T00:00:00.000Z',
+      clientUpdatedAt: '2020-04-20T00:00:00.000Z',
+    })
     expect(
-      street(
-        {
-          updatedAt: '2020-04-20T00:00:00.000Z',
-          clientUpdatedAt: '2020-04-20T00:00:00.000Z',
-        },
-        setUpdateTime('2020-04-27T18:30:00.000Z')
-      )
+      street(existingStreet, setUpdateTime('2020-04-27T18:30:00.000Z'))
     ).toEqual({
+      ...existingStreet,
       updatedAt: '2020-04-27T18:30:00.000Z',
       clientUpdatedAt: '2020-04-27T18:30:00.000Z',
     })
   })
 
   it('should handle saveOriginalStreetId()', () => {
-    expect(
-      street({ originalStreetId: 'bar' }, saveOriginalStreetId('foo'))
-    ).toEqual({
+    const existingStreet = Object.assign({}, initialState, {
+      originalStreetId: 'bar',
+    })
+
+    expect(street(existingStreet, saveOriginalStreetId('foo'))).toEqual({
+      ...existingStreet,
       originalStreetId: 'foo',
     })
   })
 
   it('should handle updateEditCount()', () => {
-    expect(street({ editCount: 2 }, updateEditCount(3))).toEqual({
+    const existingStreet = Object.assign({}, initialState, { editCount: 2 })
+
+    expect(street(existingStreet, updateEditCount(3))).toEqual({
+      ...existingStreet,
       editCount: 3,
     })
   })
 
   it('should handle setUnits()', () => {
-    expect(street({ units: 0 }, setUnits(1))).toEqual({
+    const existingStreet = Object.assign({}, initialState, { units: 0 })
+
+    expect(street(existingStreet, setUnits(1))).toEqual({
+      ...existingStreet,
       units: 1,
     })
   })
 
   it('should handle updateStreetWidth()', () => {
-    expect(street({ width: 10 }, updateStreetWidth(11))).toEqual({
+    const existingStreet = Object.assign({}, initialState, { width: 10 })
+
+    expect(street(existingStreet, updateStreetWidth(11))).toEqual({
+      ...existingStreet,
       width: 11,
     })
   })
 
   it('should handle updateSchemaVersion()', () => {
-    expect(street({ schemaVersion: 20 }, updateSchemaVersion(21))).toEqual({
-      schemaVersion: 21,
+    const existingStreet = Object.assign({}, initialState, {
+      schemaVersion: 33,
+    })
+
+    expect(street(existingStreet, updateSchemaVersion(34))).toEqual({
+      ...existingStreet,
+      schemaVersion: 34,
     })
   })
 
@@ -449,22 +481,21 @@ describe('street reducer', () => {
     }
 
     it('should handle addLocation()', () => {
-      expect(street({ location: null }, addLocation(location))).toEqual({
+      expect(street(initialState, addLocation(location))).toEqual({
+        ...initialState,
         location,
       })
     })
 
     it('should handle clearLocation(), clearing street name if user has not edited it', () => {
-      expect(
-        street(
-          {
-            location,
-            userUpdated: false,
-            name: 'test street',
-          },
-          clearLocation()
-        )
-      ).toEqual({
+      const existingStreet = Object.assign({}, initialState, {
+        location,
+        userUpdated: false,
+        name: 'test street',
+      })
+
+      expect(street(existingStreet, clearLocation())).toEqual({
+        ...existingStreet,
         location: null,
         userUpdated: false,
         name: null,
@@ -472,16 +503,14 @@ describe('street reducer', () => {
     })
 
     it('should handle clearLocation(), leaving street name if user has edited it', () => {
-      expect(
-        street(
-          {
-            location,
-            userUpdated: true,
-            name: 'test street',
-          },
-          clearLocation()
-        )
-      ).toEqual({
+      const existingStreet = Object.assign({}, initialState, {
+        location,
+        userUpdated: true,
+        name: 'test street',
+      })
+
+      expect(street(existingStreet, clearLocation())).toEqual({
+        ...existingStreet,
         location: null,
         userUpdated: true,
         name: 'test street',
@@ -492,39 +521,39 @@ describe('street reducer', () => {
   describe('buildings', () => {
     describe('addBuildingFloor()', () => {
       it('adds a floor on the left building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 1,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, addBuildingFloor('left'))
         expect(result.boundary.left.floors).toEqual(2)
       })
 
       it('adds a floor on the right building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 19,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, addBuildingFloor('right'))
         expect(result.boundary.right.floors).toEqual(20)
       })
 
       it('will not increase a building height past maximum', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 20,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, addBuildingFloor('right'))
         expect(result.boundary.right.floors).toEqual(20)
@@ -533,39 +562,39 @@ describe('street reducer', () => {
 
     describe('removeBuildingFloor()', () => {
       it('removes a floor on the left building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 2,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, removeBuildingFloor('left'))
         expect(result.boundary.left.floors).toEqual(1)
       })
 
       it('removes a floor on the right building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 19,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, removeBuildingFloor('right'))
         expect(result.boundary.right.floors).toEqual(18)
       })
 
       it('will not decrease a building height past minimum', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 1,
             },
           },
-        }
+        })
 
         const result = street(existingStreet, removeBuildingFloor('left'))
         expect(result.boundary.left.floors).toEqual(1)
@@ -574,68 +603,77 @@ describe('street reducer', () => {
 
     describe('setBuildingFloorValue()', () => {
       it('sets a floor value on the left building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 1,
             },
           },
-        }
+        })
 
-        const result = street(existingStreet, setBuildingFloorValue('left', 3))
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('left', '3')
+        )
         expect(result.boundary.left.floors).toEqual(3)
       })
 
       it('sets a floor value on the right building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 1,
             },
           },
-        }
+        })
 
-        const result = street(existingStreet, setBuildingFloorValue('right', 1))
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('right', '1')
+        )
         expect(result.boundary.right.floors).toEqual(1)
       })
 
       it('will clamp a value to minimum', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 20,
             },
           },
-        }
+        })
 
-        const result = street(existingStreet, setBuildingFloorValue('left', 0))
+        const result = street(
+          existingStreet,
+          setBuildingFloorValue('left', '0')
+        )
         expect(result.boundary.left.floors).toEqual(1)
       })
 
       it('will clamp a value to maximum', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 1,
             },
           },
-        }
+        })
 
         const result = street(
           existingStreet,
-          setBuildingFloorValue('right', 1000)
+          setBuildingFloorValue('right', '1000')
         )
         expect(result.boundary.right.floors).toEqual(20)
       })
 
       it('refuses to set a value that is NaN', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 5,
             },
           },
-        }
+        })
 
         const result = street(
           existingStreet,
@@ -645,13 +683,13 @@ describe('street reducer', () => {
       })
 
       it('refuses to set a value that is falsy', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 5,
             },
           },
-        }
+        })
 
         // Only cover the empty string case because all other falsy values are
         // type errors
@@ -661,17 +699,17 @@ describe('street reducer', () => {
       })
 
       it('parses integer values from non-integer input', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             right: {
               floors: 5,
             },
           },
-        }
+        })
 
         const result1 = street(
           existingStreet,
-          setBuildingFloorValue('right', 4.5)
+          setBuildingFloorValue('right', '4.5')
         )
         expect(result1.boundary.right.floors).toEqual(4)
 
@@ -689,13 +727,13 @@ describe('street reducer', () => {
       })
 
       it('does not set a value if integer value cannot be parsed from non-integer input', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               floors: 5,
             },
           },
-        }
+        })
 
         const result = street(
           existingStreet,
@@ -707,7 +745,7 @@ describe('street reducer', () => {
 
     describe('setBuildingVariant()', () => {
       it('sets a variant on the left building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               variant: 'wide',
@@ -718,7 +756,7 @@ describe('street reducer', () => {
               elevation: 0,
             },
           },
-        }
+        })
 
         const result = street(
           existingStreet,
@@ -728,7 +766,7 @@ describe('street reducer', () => {
       })
 
       it('sets a floor value on the right building', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               variant: 'narrow',
@@ -739,7 +777,7 @@ describe('street reducer', () => {
               elevation: 0,
             },
           },
-        }
+        })
 
         const result = street(
           existingStreet,
@@ -749,7 +787,7 @@ describe('street reducer', () => {
       })
 
       it('refuses to set a value that is falsy', () => {
-        const existingStreet = {
+        const existingStreet = Object.assign({}, initialState, {
           boundary: {
             left: {
               variant: 'waterfront',
@@ -760,7 +798,7 @@ describe('street reducer', () => {
               elevation: 0,
             },
           },
-        }
+        })
 
         // Only cover the empty string case because all other falsy values
         // are type errors
