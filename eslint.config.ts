@@ -4,6 +4,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 // import importPlugin from 'eslint-plugin-import'
 import node from 'eslint-plugin-n'
+// @ts-expect-error no types published for eslint-plugin-promise
 import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
