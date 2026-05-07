@@ -1,3 +1,4 @@
+import { createStreetState } from '~/test/factories/street.js'
 import { normalizeStreetWidth, recalculateWidth } from './width'
 
 describe('normalizeStreetWidth', () => {
@@ -36,7 +37,7 @@ describe('normalizeStreetWidth', () => {
 
 // Helper function to convert Decimal.js values to plain numbers from the
 // `recalculateWidth()` return value
-function convertToNumbers (obj) {
+function convertToNumbers(obj) {
   const result = {}
   const keys = [...Object.getOwnPropertyNames(obj)]
 
@@ -50,50 +51,50 @@ function convertToNumbers (obj) {
 
 describe('recalculateWidth', () => {
   it('calculates a full street', () => {
-    const street = {
+    const street = createStreetState({
       width: 20,
-      segments: [{ width: 4 }, { width: 8 }, { width: 8 }]
-    }
+      segments: [{ width: 4 }, { width: 8 }, { width: 8 }],
+    })
     expect(convertToNumbers(recalculateWidth(street))).toEqual({
       streetWidth: 20,
       occupiedWidth: 20,
-      remainingWidth: 0
+      remainingWidth: 0,
     })
   })
 
   it('calculates an underoccupied street', () => {
-    const street = {
+    const street = createStreetState({
       width: 20,
-      segments: [{ width: 4 }, { width: 8 }]
-    }
+      segments: [{ width: 4 }, { width: 8 }],
+    })
     expect(convertToNumbers(recalculateWidth(street))).toEqual({
       streetWidth: 20,
       occupiedWidth: 12,
-      remainingWidth: 8
+      remainingWidth: 8,
     })
   })
 
   it('calculates an overoccupied street', () => {
-    const street = {
+    const street = createStreetState({
       width: 20,
-      segments: [{ width: 8 }, { width: 6 }, { width: 8 }]
-    }
+      segments: [{ width: 8 }, { width: 6 }, { width: 8 }],
+    })
     expect(convertToNumbers(recalculateWidth(street))).toEqual({
       streetWidth: 20,
       occupiedWidth: 22,
-      remainingWidth: -2
+      remainingWidth: -2,
     })
   })
 
   it('returns valid data for streets with zero segments', () => {
-    const street = {
+    const street = createStreetState({
       width: 20,
-      segments: []
-    }
+      segments: [],
+    })
     expect(convertToNumbers(recalculateWidth(street))).toEqual({
       streetWidth: 20,
       occupiedWidth: 0,
-      remainingWidth: 20
+      remainingWidth: 20,
     })
   })
 })
