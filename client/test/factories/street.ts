@@ -13,23 +13,24 @@ type DeepPartial<T> = {
 
 export function createStreetState(overrides: DeepPartial<StreetState> = {}) {
   const streetState: StreetState = {
-    id: 'street-id',
+    id: '',
     namespacedId: 1,
-    schemaVersion: 34,
+    originalStreetId: null,
+    schemaVersion: 0,
     units: SETTINGS_UNITS_METRIC,
-    width: 18,
+    width: 0,
     name: null,
     segments: [],
     boundary: {
       left: {
-        id: 'left-boundary-id',
-        variant: 'left-boundary-variant',
+        id: '',
+        variant: '',
         floors: 1,
         elevation: 0,
       },
       right: {
-        id: 'right-boundary-id',
-        variant: 'right-boundary-variant',
+        id: '',
+        variant: '',
         floors: 1,
         elevation: 0,
       },
@@ -38,12 +39,11 @@ export function createStreetState(overrides: DeepPartial<StreetState> = {}) {
     weather: null,
     location: null,
     showAnalytics: false,
+    occupiedWidth: 0,
+    remainingWidth: 0,
+    creatorId: null,
     userUpdated: false,
     editCount: 0,
-    occupiedWidth: 14,
-    remainingWidth: 4,
-    creatorId: 'foo',
-    originalStreetId: null,
     immediateRemoval: true,
   }
 

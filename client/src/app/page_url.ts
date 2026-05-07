@@ -131,7 +131,7 @@ export function processUrl(): void {
   }
 }
 
-// getStreetURL() accepts StreetState or StreetAPIResponse data types
+// getStreetUrl() accepts StreetState or StreetAPIResponse data types
 // (or any object as long as it has the following properties).
 interface StreetUrlProps {
   creatorId: string | null
