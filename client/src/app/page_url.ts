@@ -15,8 +15,6 @@ import {
 } from './constants.js'
 import { setMode, MODES } from './mode.js'
 
-import type { StreetAPIResponse } from '@streetmix/types'
-
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'
 
@@ -133,7 +131,15 @@ export function processUrl(): void {
   }
 }
 
-export function getStreetUrl(street: StreetAPIResponse): string {
+// getStreetURL() accepts StreetState or StreetAPIResponse data types
+// (or any object as long as it has the following properties).
+interface StreetUrlProps {
+  creatorId: string | null
+  namespacedId: number
+  name?: string | null
+}
+
+export function getStreetUrl<T extends StreetUrlProps>(street: T): string {
   let url = '/'
   if (street.creatorId) {
     // Add a initial slash to the creator check to match reserved paths
