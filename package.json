@@ -95,7 +95,6 @@
     "nodemon": "3.1.14",
     "papaparse": "5.5.3",
     "passport": "0.7.0",
-    "passport-oauth": "1.0.0",
     "passport-oauth2": "1.8.0",
     "passport-patreon": "1.0.1",
     "pg": "8.20.0",
