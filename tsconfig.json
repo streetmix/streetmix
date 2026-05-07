@@ -39,12 +39,6 @@
       "path": "./packages/i18n/tsconfig.json"
     }
   ],
-  "files": [
-    "index.ts",
-    "app.ts",
-    "cypress.config.ts",
-    "eslint.config.ts",
-    "vitest.config.ts"
-  ],
+  "files": ["index.ts", "app.ts", "eslint.config.ts", "vitest.config.ts"],
   "include": ["app/**/*.ts"]
 }

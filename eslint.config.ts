@@ -3,6 +3,8 @@ import eslint from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 // import importPlugin from 'eslint-plugin-import'
+import node from 'eslint-plugin-n'
+// @ts-expect-error no types published for eslint-plugin-promise
 import pluginPromise from 'eslint-plugin-promise'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -15,6 +17,20 @@ export default defineConfig([
   // importPlugin.flatConfigs.recommended,
   pluginPromise.configs['flat/recommended'],
   reactRefresh.configs.recommended(),
+  {
+    files: ['app/**/*.{js,ts}'],
+    plugins: { n: node },
+    extends: ['n/recommended-module'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      // Falsely flags imports of `*.js` files, for some reason.
+      'n/no-missing-import': 'off',
+    },
+  },
   {
     ...react.configs.flat.recommended,
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently

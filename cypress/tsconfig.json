@@ -6,5 +6,5 @@
     // Temporarily silence deprecation notices until Cypress updates its usage of `downlevelIteration`
     "ignoreDeprecations": "6.0"
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../cypress.config.ts"]
 }
