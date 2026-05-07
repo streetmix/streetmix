@@ -29,13 +29,13 @@ const initialState: StreetState = {
     left: {
       id: '',
       variant: '',
-      floors: 0,
+      floors: 1,
       elevation: 0,
     },
     right: {
       id: '',
       variant: '',
-      floors: 0,
+      floors: 1,
       elevation: 0,
     },
   },

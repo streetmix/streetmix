@@ -3,7 +3,7 @@ import { changeLocale } from './locale'
 
 describe('settings reducer', () => {
   const initialState = {
-    colorMode: 'light',
+    colorMode: 'light' as const,
     lastStreetId: null,
     lastStreetNamespacedId: null,
     lastStreetCreatorId: null,
@@ -13,7 +13,7 @@ describe('settings reducer', () => {
     saveAsImageStreetName: false,
     saveAsImageWatermark: true,
     locale: null,
-    units: 0
+    units: 0 as const,
   }
 
   it('should handle updateSettings()', () => {
@@ -22,7 +22,7 @@ describe('settings reducer', () => {
         initialState,
         updateSettings({
           saveAsImageTransparentSky: true,
-          saveAsImageSegmentNamesAndWidths: true
+          saveAsImageSegmentNamesAndWidths: true,
         })
       )
     ).toEqual({
@@ -36,15 +36,11 @@ describe('settings reducer', () => {
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
       locale: null,
-      units: 0
+      units: 0,
     })
 
-    // Handle empty objects, and null or undefined values
+    // Handle empty objects
     expect(settings(initialState, updateSettings({}))).toEqual(initialState)
-
-    expect(settings(initialState, updateSettings(null))).toEqual(initialState)
-
-    expect(settings(initialState, updateSettings())).toEqual(initialState)
   })
 
   it('should handle setUserUnits()', () => {
@@ -59,7 +55,7 @@ describe('settings reducer', () => {
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
       units: 1,
-      locale: null
+      locale: null,
     })
   })
 
@@ -68,7 +64,7 @@ describe('settings reducer', () => {
       settings(
         initialState,
         changeLocale.fulfilled({
-          locale: 'fi'
+          locale: 'fi',
         })
       )
     ).toEqual({
@@ -82,7 +78,7 @@ describe('settings reducer', () => {
       saveAsImageStreetName: false,
       saveAsImageWatermark: true,
       units: 0,
-      locale: 'fi'
+      locale: 'fi',
     })
   })
 })

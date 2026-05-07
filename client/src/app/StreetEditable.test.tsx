@@ -3,7 +3,7 @@ import { vi } from 'vitest'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
-import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
+import { createStreetState } from '~/test/factories/street.js'
 import { StreetEditable } from './StreetEditable.js'
 
 describe('StreetEditable', () => {
@@ -27,26 +27,18 @@ describe('StreetEditable', () => {
   describe('segment warnings', () => {
     describe('too large', () => {
       it('Pressing `+` does not increase the width of the segment', async () => {
-        const street = {
-          boundary: {
-            left: {
-              id: '',
-              variant: '',
-              floors: 0,
-              elevation: 0,
-            },
-            right: {
-              id: '',
-              variant: '',
-              floors: 0,
-              elevation: 0,
-            },
+        const initialState = {
+          flags: {
+            ANALYTICS: { value: true },
+            COASTMIX_MODE: { value: false },
+            DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
+            DEBUG_SLICE_SLOPE: { value: false },
           },
-          segments: [segment],
-          width: 120,
-          remainingWidth: 120,
-          units: SETTINGS_UNITS_METRIC,
-          showAnalytics: true,
+          street: createStreetState({
+            segments: [segment],
+            width: 120,
+            remainingWidth: 120,
+          }),
         }
 
         const { getByTestId, store, container, asFragment } = render(
@@ -56,17 +48,7 @@ describe('StreetEditable', () => {
             resizeType={undefined}
             ref={createRef()}
           />,
-          {
-            initialState: {
-              flags: {
-                ANALYTICS: { value: true },
-                COASTMIX_MODE: { value: false },
-                DEBUG_SEGMENT_CANVAS_RECTANGLES: { value: false },
-                DEBUG_SLICE_SLOPE: { value: false },
-              },
-              street,
-            },
-          }
+          { initialState }
         )
 
         await userEvent.hover(getByTestId('segment'))

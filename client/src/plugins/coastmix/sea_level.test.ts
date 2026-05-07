@@ -1,9 +1,10 @@
+import { createStreetState } from '~/test/factories/street.js'
 import { calculateSeaLevelRise } from './sea_level.js'
 
 describe('sea level rise', () => {
   describe('calculateSeaLevelRise', () => {
     it('calculates the correct sea level rises', () => {
-      const street = {
+      const street = createStreetState({
         boundary: {
           left: {
             variant: 'beach',
@@ -14,7 +15,7 @@ describe('sea level rise', () => {
             elevation: 1,
           },
         },
-      }
+      })
 
       // Sea level rise is off
       const result1 = calculateSeaLevelRise(0, false, street)
