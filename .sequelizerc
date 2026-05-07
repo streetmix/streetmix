@@ -1,8 +1,8 @@
-const path = require('node:path')
+import path from 'node:path'
 
-module.exports = {
+export default {
   'config': path.resolve('app', 'db', 'config', 'config.ts'),
   'models-path': path.resolve('app', 'db', 'models'),
   'seeders-path': path.resolve('app', 'db', 'seeders'),
-  'migrations-path': path.resolve('app', 'db', 'migrations')
+  'migrations-path': path.resolve('app', 'db', 'migrations'),
 }
