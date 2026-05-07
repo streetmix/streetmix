@@ -41,11 +41,6 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
                 >
                   Streetcar
                 </p>
-                <p
-                  class="segment-capacity"
-                >
-                  18,000 people/hr
-                </p>
               </div>
             </div>
             <div
