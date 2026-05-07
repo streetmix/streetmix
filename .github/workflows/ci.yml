@@ -27,14 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     container: node:26-trixie
     # Allow latest version of Node to fail without blocking
-    continue-on-error: ${{ matrix.node-version == '26.x' }}
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       # Do not pre-emptively cancel all tests if one branch fails
       fail-fast: false
       # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [22.x, 24.x, 26.x]
+        node-version: [22.x, 24.x]
+        experimental: [false]
+        include:
+          - node-version: 26.x
+            experimental: true
     env:
       NODE_ENV: test
       HUSKY: "0"
