@@ -26,6 +26,10 @@ export default defineConfig([
         ...globals.node,
       },
     },
+    rules: {
+      // Falsely flags imports of `*.js` files, for some reason.
+      'n/no-missing-import': 'off',
+    },
   },
   {
     ...react.configs.flat.recommended,
