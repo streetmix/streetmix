@@ -1,8 +1,6 @@
 import path from 'node:path'
 
-export default {
-  'config': path.resolve('app', 'db', 'config', 'config.ts'),
-  'models-path': path.resolve('app', 'db', 'models'),
-  'seeders-path': path.resolve('app', 'db', 'seeders'),
-  'migrations-path': path.resolve('app', 'db', 'migrations'),
-}
+export const config = path.resolve('app', 'db', 'config', 'config.ts')
+export const modelsPath = path.resolve('app', 'db', 'models')
+export const seedersPath = path.resolve('app', 'db', 'seeders')
+export const migrationsPath = path.resolve('app', 'db', 'migrations')
