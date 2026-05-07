@@ -15,17 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       # Use the current LTS version of Node.js
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
       - run: npm ci
       - run: npm run lint
 
   test:
     name: Unit and integration tests
     runs-on: ubuntu-latest
-    container: node:24-bookworm # EOL 2026-06-10
+    container: node:26-trixie
     strategy:
       # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
