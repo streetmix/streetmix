@@ -1,5 +1,9 @@
 import { createStreetState } from '~/test/factories/street.js'
-import { normalizeStreetWidth, recalculateWidth } from './width'
+import {
+  normalizeStreetWidth,
+  recalculateWidth,
+  type CalculatedWidths,
+} from './width.js'
 
 describe('normalizeStreetWidth', () => {
   it('constrains to minimum street width (metric units)', () => {
@@ -37,12 +41,12 @@ describe('normalizeStreetWidth', () => {
 
 // Helper function to convert Decimal.js values to plain numbers from the
 // `recalculateWidth()` return value
-function convertToNumbers(obj) {
-  const result = {}
-  const keys = [...Object.getOwnPropertyNames(obj)]
+function convertToNumbers(
+  obj: CalculatedWidths
+): Record<keyof CalculatedWidths, number> {
+  const result = {} as Record<keyof CalculatedWidths, number>
 
-  for (const key of keys) {
-    // Assumes every value is a Decimal instance with a toNumber() method
+  for (const key of Object.keys(obj) as (keyof CalculatedWidths)[]) {
     result[key] = obj[key].toNumber()
   }
 
