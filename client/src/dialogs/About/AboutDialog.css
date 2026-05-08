@@ -27,6 +27,14 @@
     overflow: hidden;
     display: flex;
   }
+
+  h3 {
+    color: var(--color-turquoise-800);
+  }
+
+  h4 {
+    color: var(--color-turquoise-700);
+  }
 }
 
 .about-dialog-logo {
