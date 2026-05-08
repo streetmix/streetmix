@@ -2,6 +2,7 @@ import { FormattedMessage } from 'react-intl'
 
 import logo from 'url:~/images/logo_horizontal.svg'
 import numoLogo from 'url:~/images/sponsors/numo.svg'
+import biflogo from 'url:~/images/sponsors/bif.svg'
 import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
 import mozlogo from 'url:~/images/sponsors/mozilla.svg'
 import { useSelector } from '~/src/store/hooks.js'
@@ -43,6 +44,24 @@ export function AboutDialog() {
                 <SocialLinks />
                 <h3>
                   <FormattedMessage
+                    id="dialogs.about.stewards"
+                    defaultMessage="Stewards"
+                  />
+                </h3>
+                <ul className="about-dialog-sponsors">
+                  <li>
+                    <ExternalLink href="https://biffud.com/">
+                      <img src={biflogo} alt="Bad Idea Factory" />
+                    </ExternalLink>
+                  </li>
+                  <li>
+                    <ExternalLink href="https://codeforamerica.org/">
+                      <img src={cfalogo} alt="Code for America" />
+                    </ExternalLink>
+                  </li>
+                </ul>
+                <h3>
+                  <FormattedMessage
                     id="dialogs.about.partners"
                     defaultMessage="Partners"
                   />
@@ -51,11 +70,6 @@ export function AboutDialog() {
                   <li>
                     <ExternalLink href="https://numo.global/">
                       <img src={numoLogo} alt="New Urban Mobility Alliance" />
-                    </ExternalLink>
-                  </li>
-                  <li>
-                    <ExternalLink href="https://codeforamerica.org/">
-                      <img src={cfalogo} alt="Code for America" />
                     </ExternalLink>
                   </li>
                 </ul>
