@@ -25,7 +25,6 @@ jobs:
   test:
     name: Unit and integration tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-    container: node:26-trixie
     # Allow latest version of Node to fail without blocking
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -71,6 +70,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          cache: npm
       - run: npm ci
       - name: Seed test database
         run: npm run db:migrate
@@ -82,6 +82,8 @@ jobs:
       - name: Run tests
         run: npm run vitest:ci
       - name: Report code coverage
+        # As a time-save, only report coverage for main branch of testing
+        if: ${{ matrix.node-version == '24.x' }}
         uses: codecov/codecov-action@v6
 
   cypress:
