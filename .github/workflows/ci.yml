@@ -23,7 +23,7 @@ jobs:
       - run: npm run lint
 
   test:
-    name: Unit and integration tests
+    name: Unit and integration tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     container: node:26-trixie
     # Allow latest version of Node to fail without blocking
@@ -34,9 +34,11 @@ jobs:
       # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [22.x, 24.x]
-        experimental: [false]
         include:
+          - node-version: 22.x
+            experimental: false
+          - node-version: 24.x
+            experimental: false
           - node-version: 26.x
             experimental: true
     env:
