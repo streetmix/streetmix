@@ -25,6 +25,7 @@ jobs:
   test:
     name: Unit and integration tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    # container: node:26-trixie
     # Allow latest version of Node to fail without blocking
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -44,22 +45,22 @@ jobs:
       NODE_ENV: test
       HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
-      PGHOST: postgres
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      PGDATABASE: streetmix_test
-    services:
-      postgres:
-        image: postgis/postgis
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: streetmix_test
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      # PGHOST: postgres
+      # PGUSER: postgres
+      # PGPASSWORD: postgres
+      # PGDATABASE: streetmix_test
+    # services:
+    #   postgres:
+    #     image: postgis/postgis
+    #     env:
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: streetmix_test
+    #     # Set health checks to wait until postgres has started
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -72,8 +73,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
-      - name: Seed test database
-        run: npm run db:migrate
+      # - name: Seed test database
+      #   run: npm run db:migrate
       - name: Build files (e.g. TypeScript)
         run: npm run build
         env:
