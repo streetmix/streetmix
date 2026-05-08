@@ -25,6 +25,10 @@ jobs:
   test:
     name: Unit and integration tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    # Disable this container because we were only needed it for the database
+    # Right now these tests don't use the database (and maybe they never should)
+    # This is a ~40s time save on tests. Remove this config once server tests
+    # are re-implemented and we definitely do not need a real database
     # container: node:26-trixie
     # Allow latest version of Node to fail without blocking
     continue-on-error: ${{ matrix.experimental }}
@@ -83,7 +87,7 @@ jobs:
       - name: Run tests
         run: npm run vitest:ci
       - name: Report code coverage
-        # As a time-save, only report coverage for main branch of testing
+        # As a small time-save, only report coverage for main branch of testing
         if: ${{ matrix.node-version == '24.x' }}
         uses: codecov/codecov-action@v6
 
