@@ -48,7 +48,8 @@
     "brt-lane": "Superbussfelt",
     "temporary-barrier": "Midlertidig sperring",
     "inception-train": "Toget fra \"Inception\"",
-    "magic-carpet": "Flyvende teppe"
+    "magic-carpet": "Flyvende teppe",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Strandkant"
     }
   },
   "variant-icons": {

@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "サインイン",
-      "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます",
+      "sign-in-link": "{signInLink}あなたが作成したストリートと、個人用のストリートギャラリーにリンクを生成できます。",
       "link": "共有用リンク:",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "Twitterでシェア",
       "facebook": "Facebookでシェア",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "コピー作成",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "再度サインインしてください",
       "reload": "ページを再読込",
       "return": "",
-      "try-again": "再試行",
-      "view-example": "サンプルのストリートを表示"
+      "try-again": "再試行"
     },
     "page-not-found-title": "ページが見つかりません。",
     "page-not-found-description": "どうした、迷子かい？ ここにそのアドレスは無いよ！",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "すみません。<chrome_link>Chrome</chrome_link>、 <firefox_link>Firefox</firefox_link>、 <edge_link>Microsoft Edge</edge_link>、あるいはSafariのいづれかで閲覧してください。",
     "unsupported-browser-internet-explorer": "Internet Explorerをお使いですか？  <a>他のブラウザはこちらです。</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "StreetmixはタブレットかPCでのみ動作します。",
-    "cannot-create-new-street-on-phone-description": "リンクをたどってきた場合、ストリートは閲覧だけが可能です。新規のストリート作成はできません。",
     "generic-error-title": "どこかで処理に失敗しています。",
     "generic-error-description": "すみません、どこかで処理に失敗したようです。",
     "error-code": "(Error {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "プレビュー",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "場所を検索",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "ストリートの段差",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "したがきストリート",
     "rename": "名称を変える"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, other {#階}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "このセグメントは道路からはみ出しています。",
       "not-wide": "十分な幅が設定されていません。",
       "too-wide": "セグメントが大きすぎます。",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "詳細",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "最大"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

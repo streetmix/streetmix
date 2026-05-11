@@ -48,7 +48,8 @@
     "brt-lane": "Carril ràpid per bus/VAO",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de la pelicula \"inception\" traduïda com \"Origen\"",
-    "magic-carpet": "Catifa voladora"
+    "magic-carpet": "Catifa voladora",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Passeig marítim"
     }
   },
   "variant-icons": {

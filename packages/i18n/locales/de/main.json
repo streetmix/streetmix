@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Anmelden",
-      "sign-in-link": "{signInLink} für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Galerie",
+      "sign-in-link": "{signInLink} für schönere Links zu deinen Straßen und deiner persönlichen Straßen-Galerie.",
       "link": "Diesen Link zum Teilen kopieren und einfügen",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "Über Twitter teilen",
       "facebook": "Über Facebook teilen",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Kopie erstellen",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Noch einmal anmelden",
       "reload": "Die Seite erneut laden",
       "return": "",
-      "try-again": "Noch einmal versuchen",
-      "view-example": "Eine Beispiel-Straße ansehen"
+      "try-again": "Noch einmal versuchen"
     },
     "page-not-found-title": "Seite nicht gefunden.",
     "page-not-found-description": "Oh man! Es gibt keine Seite mit dieser Adresse!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Das tut uns leid. Probiere es doch einmal mit <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> oder Safari.",
     "unsupported-browser-internet-explorer": "Bist du im Internet Explorer? <a>Erfahre mehr.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix läuft nur auf Tablets und PCs.",
-    "cannot-create-new-street-on-phone-description": "Wenn du dem Link zu einer Straße folgst, kannst du sie auf deinem Smartphone ansehen - aber bisher kannst du dort noch keine neuen Straßen erstellen.",
     "generic-error-title": "Etwas ist schief gelaufen.",
     "generic-error-description": "Es tut uns leid - etwas ist schief gelaufen.",
     "error-code": "(Fehler {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Vorschau",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Suche nach einem Ort",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "Straßenniveau",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Unbenannte Straße",
     "rename": "Klicken zum Umbenennen"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# Stock} other {# Stöcke}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Dieses Element passt nicht mehr in die Straße hinein.",
       "not-wide": "Dieses Element könnte zu schmal sein.",
       "too-wide": "Dieses Element könnte zu breit sein.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Erfahre mehr",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Maximum"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

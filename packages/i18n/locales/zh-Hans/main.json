@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "登陆",
-      "sign-in-link": "{signInLink}在此登陆以获取你所创建的街道及你的个人街道图集",
+      "sign-in-link": "{signInLink}在此登陆以获取你所创建的街道及你的个人街道图集。",
       "link": "复制粘贴这个连接来共享内容：",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "分享到推特",
       "facebook": "分享到脸书",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "复制",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "重新登录",
       "reload": "刷新网页",
       "return": "",
-      "try-again": "再试一次",
-      "view-example": "查看街道示例"
+      "try-again": "再试一次"
     },
     "page-not-found-title": "无法找到网页",
     "page-not-found-description": "哎呀，这个地址不存在哦！",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "非常抱歉。你可以尝试使用<chrome_link>Chrome</chrome_link>、<firefox_link>火狐</firefox_link>、<edge_link>Microsoft Edge</edge_link>，或者Safari。",
     "unsupported-browser-internet-explorer": "你在使用Internet Explorer吗？<a>了解更多。</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix只能在平板电脑和台式电脑上运行。",
-    "cannot-create-new-street-on-phone-description": "如果你通过另一个链接来查看某条街道，你可以在手机上查看，但是现在暂时还无法在手机上创建新的街道。",
     "generic-error-title": "我们出现了一些技术故障。",
     "generic-error-description": "很抱歉，我们出现了一些技术故障。",
     "error-code": "（故障{code}）",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "预览",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "搜索位置",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "路面水平面",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "未命名街道",
     "rename": "点击此处重命名"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, other {# 层}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "此街道无法容纳这个部分。",
       "not-wide": "这个部分可能不够宽。",
       "too-wide": "这个部分可能太宽了。",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "了解更多",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "最宽"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

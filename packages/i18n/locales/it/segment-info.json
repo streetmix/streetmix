@@ -48,7 +48,8 @@
     "brt-lane": "autobus a transito rapido",
     "temporary-barrier": "Barriera temporanea",
     "inception-train": "Treno di \"Inception\"",
-    "magic-carpet": "Tappeto magico"
+    "magic-carpet": "Tappeto magico",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Riva"
     }
   },
   "variant-icons": {
