@@ -48,7 +48,8 @@
     "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "“インセプション” 電車",
-    "magic-carpet": ""
+    "magic-carpet": "",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "河岸"
     }
   },
   "variant-icons": {

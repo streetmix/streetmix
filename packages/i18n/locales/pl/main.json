@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Zaloguj się",
-      "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic",
+      "sign-in-link": "{signInLink} dla personalizowanych linków do projektów Twoich ulic i Twojej galerii ulic.",
       "link": "Skopiuj i wklej ten link, aby go udostępnić:",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "Udostępnij na Twitterze",
       "facebook": "Udostępnij na Facebooku",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Utwórz kopię",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Zaloguj się ponownie",
       "reload": "Odśwież stronę",
       "return": "",
-      "try-again": "Spróbuj ponownie",
-      "view-example": "Obejrzyj przykładową ulicę"
+      "try-again": "Spróbuj ponownie"
     },
     "page-not-found-title": "Strona nie została znaleziona.",
     "page-not-found-description": "Nie ma strony o takim adresie!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Przepraszamy za to. Możesz spróbować na przeglądarce <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> lub Safari.",
     "unsupported-browser-internet-explorer": "Używasz przeglądarki Internet Explorer? <a>Dowiedz się więcej.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix działa tylko na tabletach oraz komputerach.",
-    "cannot-create-new-street-on-phone-description": "Jeśli został otwarty inny link do określonej ulicy, możesz ją obejrzeć na telefonie, ale nie możesz tworzyć nowych ulic. ",
     "generic-error-title": "Coś poszło nie tak.",
     "generic-error-description": "Przepraszamy, coś poszło nie tak.",
     "error-code": "(Błąd {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Podgląd",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Szukaj lokalizacji",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "Poziom jezdni",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Ul. Nienazwana",
     "rename": "Kliknij, by zmienić nazwę"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# pięter} other {# pięter}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Segment nie mieści się na tej ulicy.",
       "not-wide": "Segment może nie być wystarczająco szeroki.",
       "too-wide": "Ten segment może być zbyt szeroki.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Dowiedz się więcej",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Max."
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

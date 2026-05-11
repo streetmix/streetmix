@@ -48,7 +48,8 @@
     "brt-lane": "Pruh pro rychlou autobusovou dopravu",
     "temporary-barrier": "Dočasná zábrana",
     "inception-train": "Vlak z filmu \"Inception\"",
-    "magic-carpet": "Létající koberec"
+    "magic-carpet": "Létající koberec",
+    "wall": "Zeď"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": "Složená zeď"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Nábřeží"
     }
   },
   "variant-icons": {

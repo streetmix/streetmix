@@ -48,7 +48,8 @@
     "brt-lane": "የፈጣን አውቶቡስ መጓጓዣ መስመር",
     "temporary-barrier": "ጊዜያዊ እንቅፋት",
     "inception-train": "“ግንዛቤ” ባቡር",
-    "magic-carpet": "አስማታዊ ምንጣፍ"
+    "magic-carpet": "አስማታዊ ምንጣፍ",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "የውሃ ፊት"
     }
   },
   "variant-icons": {

@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Entrar",
-      "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada",
+      "sign-in-link": "{signInLink} para obter melhores links para suas ruas e para sua galeria de ruas personalizada.",
       "link": "Copiar e colar este link para compartilhar:",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "Compartilhar usando Twitter",
       "facebook": "Compartilhar usando Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Fazer uma cópia",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Faça o login de novo",
       "reload": "Recarregue a página",
       "return": "",
-      "try-again": "Tente novamente",
-      "view-example": "Ver uma rua modelo"
+      "try-again": "Tente novamente"
     },
     "page-not-found-title": "Página não encontrada.",
     "page-not-found-description": "Infelizmente não há página com este endereço!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Desculpe. Você talvez deve tentar <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, ou Safari.",
     "unsupported-browser-internet-explorer": "Você está usando o Internet Explorer? <a>Descubra mais.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix só funciona em tablets e desktops.",
-    "cannot-create-new-street-on-phone-description": "Se você segue outro link a uma rua específica, a pode ver no seu celular - mas aínda não pode criar ruas novas.",
     "generic-error-title": "Algo deu errado.",
     "generic-error-description": "Desculpe - algo deu errado.",
     "error-code": "(Erro {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Pre-visualização",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Busque uma localização",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "Nível da rua",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Rua anônima",
     "rename": "Clique para renomear"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {andar} many {# andares} other {# andares}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Este segmento não se encaixa na rua.",
       "not-wide": "Este segmento pode não estar largo o suficiente.",
       "too-wide": "Este segmento pode estar muito largo.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Saiba mais",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Máx"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

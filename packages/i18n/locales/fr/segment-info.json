@@ -48,7 +48,8 @@
     "brt-lane": "Voie de bus à haut niveau de service",
     "temporary-barrier": "Barrière temporaire",
     "inception-train": "Le train dans le film « Inception »",
-    "magic-carpet": "Tapis magique"
+    "magic-carpet": "Tapis magique",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Front de mer"
     }
   },
   "variant-icons": {
