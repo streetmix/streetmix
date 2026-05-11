@@ -34,7 +34,7 @@
     "@tabler/icons-react": "3.41.1",
     "@userback/widget": "0.3.12",
     "auth0": "5.8.0",
-    "auth0-js": "9.32.0",
+    "auth0-js": "10.0.0",
     "autoprefixer": "10.5.0",
     "copy-to-clipboard": "4.0.2",
     "date-fns": "4.1.0",
