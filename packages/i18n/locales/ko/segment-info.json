@@ -48,7 +48,8 @@
     "brt-lane": "버스전용차로",
     "temporary-barrier": "임시 장벽",
     "inception-train": "\"인셉션\" 기차",
-    "magic-carpet": "매직카페트"
+    "magic-carpet": "매직카페트",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": "벽"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "물가"
     }
   },
   "variant-icons": {

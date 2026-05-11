@@ -48,7 +48,8 @@
     "brt-lane": "",
     "temporary-barrier": "Временное заграждение",
     "inception-train": "Вагон из фильма Начало",
-    "magic-carpet": "Ковер-самолет"
+    "magic-carpet": "Ковер-самолет",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Береговая линия"
     }
   },
   "variant-icons": {

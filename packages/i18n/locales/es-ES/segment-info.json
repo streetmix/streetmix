@@ -48,7 +48,8 @@
     "brt-lane": "Carril bus segregado",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de 'Inception'",
-    "magic-carpet": "Alfombra mágica"
+    "magic-carpet": "Alfombra mágica",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Escollera"
     }
   },
   "variant-icons": {

@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Iniciar sesión",
-      "sign-in-link": "{signInLink} para enlaces mejores a sus calles y a su galería de calles personal ",
+      "sign-in-link": "{signInLink} para enlaces mejores a sus calles y a su galería de calles personal.",
       "link": "Copie y pegue este enlace para compartir:",
       "copy-to-clipboard": "Copiar al portapapeles",
+      "copy-success": "",
       "twitter": "Compartir en Twitter",
       "facebook": "Compartir en Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Hacer una copia",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Iniciar sesión de nuevo",
       "reload": "Recargar la página",
       "return": "Volver a Streetmix",
-      "try-again": "Intente de nuevo",
-      "view-example": "Ver una calle de ejemplo"
+      "try-again": "Intente de nuevo"
     },
     "page-not-found-title": "Página no encontrada.",
     "page-not-found-description": "Vaya, ¡no hay niguna página en esta dirección!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Disculpe. Podría probar <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> o Safari.",
     "unsupported-browser-internet-explorer": "¿Está usando Internet Explorer? <a>Más información.</a>",
     "unsupported-browser-contact-us": "Si cree que su navegador debería ser compatible, por favor contáctenos via <a>correo electrónico</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y ordenadores.",
-    "cannot-create-new-street-on-phone-description": "Si sigue un enlace a una calle concreta, podrá verla en su móvil; pero todavía no puede crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Lo sentimos. Algo salió mal.",
     "error-code": "(Error {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Vista previa",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Buscar una ubicación",
@@ -316,7 +316,33 @@
     "tooltip": "Cambiar herramientas",
     "skybox": {
       "tooltip": "Editor del entorno",
-      "heading": "Entorno"
+      "heading": "Entorno",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Desplazar hacia la derecha",
     "elevation-sidewalk": "Nivel de las aceras",
     "elevation-road": "Nivel de la calzada",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Calle sin nombre",
     "rename": "Haga clic para cambiar el nombre"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# piso} many {# pisos} other {# pisos}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Este segmento no cabe en la calle.",
       "not-wide": "Es posible que este segmento no tenga una anchura suficiente.",
       "too-wide": "Es posible que este segmento sea demasiado ancho.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Saber más",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Máximo"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

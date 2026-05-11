@@ -48,7 +48,8 @@
     "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "",
-    "magic-carpet": ""
+    "magic-carpet": "",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": "Prefabrikovaná stena"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Nábrežie"
     }
   },
   "variant-icons": {

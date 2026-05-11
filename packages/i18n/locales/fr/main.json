@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Se connecter",
-      "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues",
+      "sign-in-link": "{signInLink} pour accéder plus facilement à vos rues et à votre galerie personnelle de rues.",
       "link": "Copier et coller ce lien pour le partager :",
       "copy-to-clipboard": "Copier dans le presse-papier",
+      "copy-success": "",
       "twitter": "Partager via Twitter",
       "facebook": "Partager via Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Faire une copie",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Se connecter de nouveau",
       "reload": "Recharger la page",
       "return": "",
-      "try-again": "Ré-essayer",
-      "view-example": "Voir un exemple de rue"
+      "try-again": "Ré-essayer"
     },
     "page-not-found-title": "Page non trouvée.",
     "page-not-found-description": "Oh. Il n'y a pas de page à cette adresse !",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Nous sommes désolés. Vous pouvez essayer <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, ou Safari.",
     "unsupported-browser-internet-explorer": "Êtes-vous sur Internet Explorer? <a>En savoir plus.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix fonctionne uniquement sur les tablettes et les ordinateurs de bureau.",
-    "cannot-create-new-street-on-phone-description": "Si vous suivez un autre lien vers une rue spécifique, vous pouvez l'afficher sur votre téléphone - mais vous ne pouvez pas encore créer de nouvelles rues.",
     "generic-error-title": "Il y a un problème.",
     "generic-error-description": "Nous sommes désolés – il y a eu un problème.",
     "error-code": "(Code d'erreur {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Aperçu",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Chercher un emplacement",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": "Environnement"
+      "heading": "Environnement",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "Hauteur du trottoir",
     "elevation-road": "Au niveau de la rue",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Rue non nommée",
     "rename": "Cliquez pour renommer"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# étage} many {# étages} other {# étages}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Cet élément de voirie ne s'insère pas dans la route.",
       "not-wide": "Cet élément de voirie pourrait ne pas être suffisant.",
       "too-wide": "Cet élément de voirie pourrait être trop large.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Apprenez en davantage",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Max"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

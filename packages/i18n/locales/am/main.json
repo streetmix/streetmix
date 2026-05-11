@@ -31,6 +31,7 @@
       "sign-in-link": "{signInLink}ወደ ጎዳናዎችዎ እና ለግል የመንገድ ንድፍዎ ማዕከለ-ስዕላት የተሻሉ አገናኞች",
       "link": "ለማጋራት ይህንን ሊንክ ይቅዱ እና ይለጥፉ",
       "copy-to-clipboard": "ወደ ቅንጥብ ሰሌዳ ቅዳ",
+      "copy-success": "",
       "twitter": "ትዊተርን በመጠቀም አጋራ",
       "facebook": "ፌስቡክን በመጠቀም አጋራ",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "ኮፒ ያድርጉ",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "በድጋሚ ይግቡ /ሳይን ኢን ያድርጉ/",
       "reload": "ገጹን በድጋሚ ይጫኑ ",
       "return": "",
-      "try-again": "በድጋሚ ይሞክሩ ",
-      "view-example": "በምሳሌነት የሚያገለግል መንገድ ይመልከቱ "
+      "try-again": "በድጋሚ ይሞክሩ "
     },
     "page-not-found-title": "ገጹ አልተገኘም",
     "page-not-found-description": "ይቅርታ፤ በዚህ አድራሻ ምንም ገጽ የለም !",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "ስለዚህ ሁኔታ ይቅርታ እንጠይቃለን፡፡ <chrome_link>ክሮም፣</chrome_link><firefox_link>ፋየርፎክስ፣</firefox_link>ማይክሮሶፍት<edge_link>ኤይጅ</edge_link>ወይም ሳፋሪ መሞከር ሊያስፈልግዎ ይችላሉ\n",
     "unsupported-browser-internet-explorer": "እርስዎ በኢንተርኔት ፈላጊ (ኤክስፕሎረር) ላይ ነዎትን?<a>የበለጠ ይወቁ </a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "ስትሪትሚክስ የሚሰራው በታብሌት እና በዴስክቶፕ ላይ ብቻ ነው፡፡",
-    "cannot-create-new-street-on-phone-description": "ተለይቶ ለተጠቀሰ መንገድ ሌላ ማገናኛ (ሊንክ) የሚከተሉ ከሆነ በስልክዎ ለማየት ይችላሉ- ነገር ግን አዳዲስ መንገዶችን ለመፍጠር አይችሉም።   ",
     "generic-error-title": "የሆነ ነገር ተሳስቷል ",
     "generic-error-description": "ይቅርታ - የሆነ ነገር ተሳስቷል ",
     "error-code": "(ስህተት {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "የቅድመ ምልከታ ",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "ቦታን መፈለግ ",
@@ -316,7 +316,33 @@
     "tooltip": "ቶግል ቱልስ ",
     "skybox": {
       "tooltip": "የአካባቢ ማስተካከያ ",
-      "heading": "አካባቢ "
+      "heading": "አካባቢ ",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "ወደ ቀኝ ስክሮኮል",
     "elevation-sidewalk": "የእግረኛ መንገድ",
     "elevation-road": "የጎዳና ደረጃ",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "ያልተሰየመ መንገድ",
     "rename": "እንደገና ለመሰየም ጠቅ ያድርጉ"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# ወለል} other {# ወለሎች}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "ይህ የመንገድ ክፍል በጎዳና ላይ አይገጥምም",
       "not-wide": "ይህ  የመንገድ ክፍል ሰፊ ላይሆን ይችላል",
       "too-wide": "ይህ የመንገድ ክፍል በጣም ሰፊ ሊሆን ይችላል",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "የበለጠ ይወቁ",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "ከፍተኛ"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

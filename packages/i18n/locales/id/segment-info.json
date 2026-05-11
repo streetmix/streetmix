@@ -48,7 +48,8 @@
     "brt-lane": "Lajur bus raya terpadu",
     "temporary-barrier": "Penghalang sementara",
     "inception-train": "Kereta \"Inception\"",
-    "magic-carpet": "Karpet ajaib"
+    "magic-carpet": "Karpet ajaib",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": "Dinding kompon"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Tepi Laut"
     }
   },
   "variant-icons": {
