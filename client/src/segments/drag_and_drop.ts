@@ -716,17 +716,20 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
       const type = segment.id
 
       // The preview drag should match artwork in the thumbnail. The variant
-      // string is specified by `defaultVariant`. If the property isn't present,
-      // use the first defined variant in segment details.
+      // string is specified by `defaultVariant`. If the property isn't
+      // present, use the first defined variant in segment details.
       const variantString =
         segment.defaultVariant ?? Object.keys(segment.details).shift()
 
       // If palette items are missing information, that's a fatal error
-      if (!variantString) {
+      // Variant strings are allowed to be empty strings, so do not use a
+      // falsy check
+      if (typeof variantString === 'undefined') {
         throw new Error('variant string not found')
       }
 
-      // This allows dropped segment to be created with the correct elevation value
+      // This allows dropped segment to be created with the correct
+      // elevation value
       let elevation: number
       if (segment.defaultElevation !== undefined) {
         if (typeof segment.defaultElevation !== 'number') {
