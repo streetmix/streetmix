@@ -24,6 +24,10 @@ boundary:
     id: dock
     title: Dock
     enableWithFlag: COASTMIX_MODE
+  fishing-boat:
+    id: fishing-boat
+    title: Fishing boat
+    enableWithFlag: COASTMIX_MODE
   cargo-ship:
     id: cargo-ship
     title: Cargo ship
