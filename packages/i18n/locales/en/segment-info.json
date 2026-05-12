@@ -108,6 +108,24 @@
     },
     "compound-wall": {
       "name": "Compound wall"
+    },
+    "beach": {
+      "name": "Beach"
+    },
+    "marsh": {
+      "name": "Marsh"
+    },
+    "water": {
+      "name": "Water"
+    },
+    "dock": {
+      "name": "Dock"
+    },
+    "fishing-boat": {
+      "name": "Fishing boat"
+    },
+    "cargo-ship": {
+      "name": "Cargo ship"
     }
   },
   "boundary": {

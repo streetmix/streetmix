@@ -24,6 +24,10 @@ boundary:
     id: dock
     title: Dock
     enableWithFlag: COASTMIX_MODE
+  cargo-ship:
+    id: cargo-ship
+    title: Cargo ship
+    enableWithFlag: COASTMIX_MODE
   grass:
     id: grass
     title: Grass
