@@ -37,15 +37,22 @@ slices:
       metric: 5
       imperial: 17
     elevation: 0
-    label: "Future dune"
+    slope:
+      values:
+        - 0
+        - metric: 0.3
+          imperial: 1
+    label: Dune
   - type: marsh
     variant:
       marsh-type: marsh
     width:
       metric: 0.5
       imperial: 2
-    elevation: 0
-    label: "Future dune"
+    elevation:
+      metric: 0.3
+      imperial: 1
+    label: Dune
   - type: marsh
     variant:
       marsh-type: marsh
@@ -53,7 +60,12 @@ slices:
       metric: 2
       imperial: 6
     elevation: 0
-    label: "Future dune"
+    slope:
+      values:
+        - metric: 0.3
+          imperial: 1
+        - 0
+    label: Dune
   - type: beach
     variant:
       beach-type: lounger
