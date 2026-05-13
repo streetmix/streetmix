@@ -1604,6 +1604,56 @@
       }
     }
   },
+  "bioswale": {
+    "name": "Bioswale",
+    "nameKey": "bioswale",
+    "owner": "NATURE",
+    "unlockWithFlag": "COASTMIX_MODE",
+    "description": {
+      "key": "bioswale"
+    },
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.45,
+        "imperial": 8
+      }
+    },
+    "variants": [""],
+    "details": {
+      "": {
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "bioswale",
+              "variants": {
+                "plants": ["bush"],
+                "sides": ["slanted"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      }
+    }
+  },
   "scooter": {
     "name": "Electric scooter",
     "nameKey": "scooter",
