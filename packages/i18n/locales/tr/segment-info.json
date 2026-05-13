@@ -48,7 +48,8 @@
     "brt-lane": "Metrobüs şeridi",
     "temporary-barrier": "Geçici bariyer",
     "inception-train": "“Inception” treni",
-    "magic-carpet": "Uçan halı"
+    "magic-carpet": "Uçan halı",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Sahil kenarı"
     }
   },
   "variant-icons": {

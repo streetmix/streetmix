@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Masuk",
-      "sign-in-link": "{signInLink} untuk tautan yang lebih bagus ke jalan Anda dan galeri jalan pribadi Anda",
+      "sign-in-link": "{signInLink} untuk tautan yang lebih bagus ke jalan Anda dan galeri jalan pribadi Anda.",
       "link": "Salin dan tempel tautan ini untuk berbagi:",
       "copy-to-clipboard": "Salin ke papan klip",
+      "copy-success": "",
       "twitter": "Bagikan menggunakan Twitter",
       "facebook": "Bagikan menggunakan Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Buat salinan",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Masuk lagi",
       "reload": "Muat ulang laman",
       "return": "Kembali ke Streetmix",
-      "try-again": "Coba lagi",
-      "view-example": "Lihat contoh jalan"
+      "try-again": "Coba lagi"
     },
     "page-not-found-title": "Laman tidak ditemukan.",
     "page-not-found-description": "Ya ampun. Tidak ada laman dengan alamat ini!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Maaf tentang itu. Anda mungkin ingin mencoba <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, atau Safari.",
     "unsupported-browser-internet-explorer": "Apakah Anda menggunakan Internet Explorer? <a>Cari tahu lebih lanjut.</a>",
     "unsupported-browser-contact-us": "Jika menurut Anda peramban Anda harus didukung, silakan <a>hubungi kami</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix hanya berfungsi di tablet dan desktop.",
-    "cannot-create-new-street-on-phone-description": "Jika Anda mengikuti tautan lain ke jalan tertentu, Anda dapat melihatnya di ponsel Anda - tetapi Anda belum dapat membuat jalan baru.",
     "generic-error-title": "Ada yang tidak beres.",
     "generic-error-description": "Maaf – ada yang tidak beres.",
     "error-code": "(Kesalahan {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "Gambar ini terlalu besar dan kami tidak dapat membuatnya. Silakan coba ukuran khusus yang lebih kecil.",
       "preview-image-alt": "Pratinjau",
       "print-size": "Ukuran cetak",
-      "digital-size": "Ukuran digital"
+      "digital-size": "Ukuran digital",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Cari lokasi",
@@ -316,7 +316,33 @@
     "tooltip": "Beralih alat",
     "skybox": {
       "tooltip": "Editor lingkungan",
-      "heading": "Lingkungan"
+      "heading": "Lingkungan",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Gulir ke kanan",
     "elevation-sidewalk": "Level trotoar",
     "elevation-road": "Level jalan",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Jl. Unnamed",
     "rename": "Klik untuk mengganti nama"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, other {# lantai}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Ruas ini tidak muat di dalam jalan.",
       "not-wide": "Ruas ini mungkin tidak cukup lebar.",
       "too-wide": "Ruas ini mungkin terlalu lebar.",
-      "dangerous": "Ruas ini mewakili kondisi berbahaya yang ada."
+      "dangerous": "Ruas ini mewakili kondisi berbahaya yang ada.",
+      "slope-exceeded": ""
     },
     "learn-more": "Pelajari lebih lanjut",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Maks"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

@@ -47,7 +47,7 @@ export function CoastalFloodingPanel() {
   } else if (floodDistance[0] === null && floodDistance[1] === null) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`
   } else {
-    if (floodDistance === null) {
+    if (floodDistance.includes('max')) {
       message = `❌ ${intl.formatMessage({ id: 'tools.flooding.messages.fail', defaultMessage: 'This configuration does not address sea level rise!' })}`
       messageClassNames.push('flood-controls-warning')
     } else {
