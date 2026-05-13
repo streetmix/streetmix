@@ -12,6 +12,7 @@ import {
   MAX_SEGMENT_WIDTH,
   MIN_ELEVATION,
   MAX_ELEVATION_METRIC,
+  MAX_ELEVATION_IMPERIAL,
   DRAGGING_TYPE_NONE,
   SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
   SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL,
@@ -231,14 +232,20 @@ export function normalizeSegmentWidth(
  */
 export function normalizeHeightValue(
   height: number,
-  resolution: number
+  resolution: number,
+  units: UnitsSetting
 ): number {
-  // TODO: get constants
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_ELEVATION_IMPERIAL
+      : MAX_ELEVATION_METRIC
+
   if (height < MIN_ELEVATION) {
     height = MIN_ELEVATION
-  } else if (height > MAX_ELEVATION_METRIC) {
-    height = MAX_ELEVATION_METRIC
+  } else if (height > maxValue) {
+    height = maxValue
   }
+
   height = Math.round(height / resolution) * resolution
   // Round to three digit decimal precision
   height = round(height, 3)

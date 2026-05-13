@@ -67,7 +67,8 @@ function processSlope(
       if (units === SETTINGS_UNITS_IMPERIAL) {
         const newValue = normalizeHeightValue(
           value * ROUGH_CONVERSION_RATE,
-          resolutionForResizeType(RESIZE_TYPE_INITIAL, units)
+          resolutionForResizeType(RESIZE_TYPE_INITIAL, units),
+          units
         )
         values.push(newValue)
       } else {
