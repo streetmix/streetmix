@@ -17,15 +17,12 @@
     background-color: white !important;
     padding: 0 !important;
     text-align: start !important;
+    position: sticky;
+    top: 0;
   }
 
   header h1 {
     display: none;
-  }
-
-  .dialog-content {
-    overflow: hidden;
-    display: flex;
   }
 }
 
@@ -57,7 +54,6 @@
 
 .about-dialog-right {
   flex: 1;
-  overflow: hidden scroll;
   padding: 0 2em 3em;
 
   > :first-child {
@@ -97,4 +93,13 @@
   display: inline-block;
   margin-block-start: 1em;
   margin-inline-end: 1.5em;
+}
+
+.coastmix-dialog-content {
+  z-index: -1;
+}
+
+.coastmix-dialog-logo {
+  width: 181px;
+  margin: 2.5rem 2rem 0.5rem;
 }

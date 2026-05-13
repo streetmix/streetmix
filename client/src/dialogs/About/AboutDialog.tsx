@@ -1,6 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 
 import logo from 'url:~/images/logo_horizontal.svg'
+import logoCoastmix from 'url:~/images/logo_horizontal_coastmix2.svg'
 import numoLogo from 'url:~/images/sponsors/numo.svg'
 import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
 import mozlogo from 'url:~/images/sponsors/mozilla.svg'
@@ -13,25 +14,52 @@ import './AboutDialog.css'
 
 export function AboutDialog() {
   const offline = useSelector((state) => state.system.offline)
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
 
   return (
     <Dialog>
       {(closeDialog) => (
         <div className="about-dialog">
-          <header>
-            <img
-              src={logo}
-              alt="Streetmix (logo)"
-              className="about-dialog-logo"
-            />
-            <h1>
-              <FormattedMessage
-                id="dialogs.about.heading"
-                defaultMessage="About Streetmix."
-              />
-            </h1>
-          </header>
           <div className="dialog-content dialog-content-bleed">
+            {coastmixMode && (
+              <>
+                <header>
+                  <img
+                    src={logoCoastmix}
+                    alt="Coastmix (logo)"
+                    className="coastmix-dialog-logo"
+                  />
+                  <h1>
+                    <FormattedMessage
+                      id="dialogs.about.heading"
+                      defaultMessage="About Coastmix."
+                    />
+                  </h1>
+                </header>
+                <div className="dialog-content coastmix-dialog-content">
+                  Coastmix is a project by Streetmix and the City of Boston to
+                  visualize coastal flooding.{' '}
+                  <a href="" target="_blank">
+                    Learn more.
+                  </a>
+                </div>
+              </>
+            )}
+            <header>
+              <img
+                src={logo}
+                alt="Streetmix (logo)"
+                className="about-dialog-logo"
+              />
+              <h1>
+                <FormattedMessage
+                  id="dialogs.about.heading"
+                  defaultMessage="About Streetmix."
+                />
+              </h1>
+            </header>
             <div className="about-dialog-content">
               <div className="about-dialog-left">
                 <p>
