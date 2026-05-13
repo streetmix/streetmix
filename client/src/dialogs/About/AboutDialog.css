@@ -24,6 +24,14 @@
   header h1 {
     display: none;
   }
+
+  h3 {
+    color: var(--color-turquoise-800);
+  }
+
+  h4 {
+    color: var(--color-turquoise-700);
+  }
 }
 
 .about-dialog-logo {
