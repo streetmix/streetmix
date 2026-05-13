@@ -1608,7 +1608,8 @@
     "name": "Bioswale",
     "nameKey": "bioswale",
     "owner": "NATURE",
-    "unlockWithFlag": "COASTMIX_MODE",
+    "enableWithFlag": "COASTMIX_MODE",
+    "unlockCondition": "SUBSCRIBE",
     "description": {
       "key": "bioswale"
     },
