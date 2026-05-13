@@ -205,7 +205,7 @@ export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 
 export interface SliceDescription {
   key: string
-  image: string
+  image?: string
 }
 
 export interface SliceVariantComponentDefinition {
