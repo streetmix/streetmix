@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Giriş yap",
-      "sign-in-link": "Sokaklarınıza daha güzel bağlantılar ve kişisel sokak galerinize erişmek için {signInLink}",
+      "sign-in-link": "Sokaklarınıza daha güzel bağlantılar ve kişisel sokak galerinize erişmek için {signInLink}.",
       "link": "Paylaşmak için bu bağlantıyı kopyalayın:",
       "copy-to-clipboard": "Kopyala",
+      "copy-success": "",
       "twitter": "Twitter aracılığıyla paylaş",
       "facebook": "Facebook aracılığıyla paylaş",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Kopya oluştur",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Tekrar oturum aç",
       "reload": "Sayfayı yenile",
       "return": "",
-      "try-again": "Tekrar dene",
-      "view-example": "Örnek bir sokak görüntüle"
+      "try-again": "Tekrar dene"
     },
     "page-not-found-title": "Sayfa bulunamadı.",
     "page-not-found-description": "Hay aksi. Bu adrese sahip bir sayfa yok!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Üzgünüz.<chrome_link>Chrome</chrome_link>,<firefox_link>Firefox</firefox_link>,<edge_link>Microsoft Edge</edge_link> veya Safari kullanmayı deneyin.",
     "unsupported-browser-internet-explorer": "Internet Explorer'da mısınız? <a>Daha fazla keşfet.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix sadece masaüstü bilgisayarlarda ve tabletlerde çalışır.",
-    "cannot-create-new-street-on-phone-description": "Belirli bir sokağa giden başka bir bağlantıyı takip ederseniz, telefonunuzda görüntüleyebilirsiniz - fakat yeni sokaklar oluşturamazsınız",
     "generic-error-title": "Yolunda gitmeyen bir şeyler var.",
     "generic-error-description": "Üzgünüz - yolunda gitmeyen bir şeyler var.",
     "error-code": "(Hata {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Önizleme",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Konum ara",
@@ -316,7 +316,33 @@
     "tooltip": "Araçları karıştır",
     "skybox": {
       "tooltip": "",
-      "heading": "Çevre"
+      "heading": "Çevre",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Sağa kaydır",
     "elevation-sidewalk": "Kaldırım seviyesi",
     "elevation-road": "Yol seviyesi",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "İsimsiz Sk.",
     "rename": "Yeniden adlandırmak için tıklayın"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {kat} other {# kat}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Bu kısım sokağa sığmıyor.",
       "not-wide": "Bu kısmın genişliği yeterli olmayabilir.",
       "too-wide": "Bu kısım fazla geniş olabilir.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Daha fazla öğren",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "En çok"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

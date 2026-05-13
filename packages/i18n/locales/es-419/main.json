@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Iniciar sesión",
-      "sign-in-link": "{signInLink} para mejores enlaces a tus calles y tu galería personal de calles",
+      "sign-in-link": "{signInLink} para mejores enlaces a tus calles y tu galería personal de calles.",
       "link": "Copiar y pegar este enlace para compartir:",
       "copy-to-clipboard": "Copiar al portapapeles",
+      "copy-success": "",
       "twitter": "Compartir en Twitter",
       "facebook": "Compartir en Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Hacer una copia",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Iniciar sesión de nuevo",
       "reload": "Recargar la página",
       "return": "",
-      "try-again": "Intentar de nuevo",
-      "view-example": "Ver una calle de ejemplo"
+      "try-again": "Intentar de nuevo"
     },
     "page-not-found-title": "No se encuentra la página.",
     "page-not-found-description": "¡Uy, no hay una página en esta dirección!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Lo sentimos. Puedes intentar con <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, o Safari.",
     "unsupported-browser-internet-explorer": "¿Estás usando Internet Explorer? <a>Más información.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix solamente funciona en tabletas y computadores.",
-    "cannot-create-new-street-on-phone-description": "Si sigues el enlace de una calle en específico, puedes verla en tu teléfono – pero todavía no puedes crear calles nuevas.",
     "generic-error-title": "Algo salió mal.",
     "generic-error-description": "Lo sentimos – algo salió mal.",
     "error-code": "(Error {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Vista previa",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Buscar ubicación",
@@ -316,7 +316,33 @@
     "tooltip": "Activar/desactivar herramientas",
     "skybox": {
       "tooltip": "",
-      "heading": "Ambiente"
+      "heading": "Ambiente",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Desplazar hacia la derecha",
     "elevation-sidewalk": "Nivel de acera",
     "elevation-road": "A nivel de calle",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Calle sin nombre",
     "rename": "Haz click para cambiar el nombre"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# piso} many {# pisos} other {# pisos}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Este segmento no cabe en la calle",
       "not-wide": "Puede que este segmento no sea lo suficientemente ancho.",
       "too-wide": "Puede que este segmento sea muy ancho.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Saber más",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Máximo"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Войти",
-      "sign-in-link": "{signInLink} для красивых ссылок на улицы и персональной галереи улиц",
+      "sign-in-link": "{signInLink} для красивых ссылок на улицы и персональной галереи улиц.",
       "link": "Скопируйте и вставьте эту ссылку, чтобы поделиться:",
       "copy-to-clipboard": "Скопировать в буфер",
+      "copy-success": "",
       "twitter": "Поделиться через Twitter",
       "facebook": "Поделиться через Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Сделать копию",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Войти снова",
       "reload": "Перезагрузить страницу",
       "return": "",
-      "try-again": "Попробовать снова",
-      "view-example": "Просмотреть примерную улицу"
+      "try-again": "Попробовать снова"
     },
     "page-not-found-title": "Страница не найдена.",
     "page-not-found-description": "О, боже. Нет страницы с этим адресом!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Приносим извинения. Возможно, вы захотите попробовать <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, или Safari.",
     "unsupported-browser-internet-explorer": "Вы используете Internet Explorer? <a>Узнайте больше.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix поддерживает только планшеты и десктоп.",
-    "cannot-create-new-street-on-phone-description": "Если вы перейдете по другой ссылке на определенную улицу, вы сможете просмотреть ее на своем телефоне, но пока не сможете создать новые улицы.",
     "generic-error-title": "Что-то пошло не так.",
     "generic-error-description": "Приносим извинение – что-то пошло не так.",
     "error-code": "(Ошибка {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Предварительный просмотр",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Поиск локации",
@@ -316,7 +316,33 @@
     "tooltip": "Переключить инструменты",
     "skybox": {
       "tooltip": "",
-      "heading": "Окружающая среда"
+      "heading": "Окружающая среда",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Прокрутить вправо",
     "elevation-sidewalk": "Уровень тротуара",
     "elevation-road": "Уровень улицы",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Безымянная улица",
     "rename": "Нажмите для переименования"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {этаж} few {этажей} many {этажей} other {этажи}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Этот сегмент не вписывается в улицу.",
       "not-wide": "Этот сегмент может быть недостаточно широким.",
       "too-wide": "Этот сегмент может быть слишком широким.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Узнать больше",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Макс"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

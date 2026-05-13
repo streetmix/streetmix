@@ -26,19 +26,19 @@ exports[`AboutDialog > renders snapshot 1`] = `
         <div
           class="about-dialog"
         >
-          <header>
-            <img
-              alt="Streetmix (logo)"
-              class="about-dialog-logo"
-              src="test-file-stub"
-            />
-            <h1>
-              About Streetmix.
-            </h1>
-          </header>
           <div
             class="dialog-content dialog-content-bleed"
           >
+            <header>
+              <img
+                alt="Streetmix (logo)"
+                class="about-dialog-logo"
+                src="test-file-stub"
+              />
+              <h1>
+                About Streetmix.
+              </h1>
+            </header>
             <div
               class="about-dialog-content"
             >

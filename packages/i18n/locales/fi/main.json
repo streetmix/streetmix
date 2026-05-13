@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Kirjaudu sisään",
-      "sign-in-link": "{signInLink}: voit jakaa kadut ja oman katugalleriasi näppärämmin",
+      "sign-in-link": "{signInLink} saat käyttöön kätevämmät jakolinkit ja omien katujen kirjaston.",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "copy-to-clipboard": "Kopioi leikepöydälle",
+      "copy-success": "",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
       "mastodon": "Jaa Mastodonissa",
@@ -71,7 +72,8 @@
       "default": "Uusi esimerkkikatu",
       "empty": "Uusi tyhjä katu",
       "copy": "Kopioi katupohja",
-      "template": "Uusi mallikatu..."
+      "template": "Uusi mallikatu...",
+      "sign-in-link": "{signInLink} voit hyödyntää esimerkkikatuja."
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Kirjaudu sisään uudelleen",
       "reload": "Lataa sivu uudelleen",
       "return": "Takaisin Streetmixiin",
-      "try-again": "Yritä uudelleen",
-      "view-example": "Näytä esimerkkikatu"
+      "try-again": "Yritä uudelleen"
     },
     "page-not-found-title": "Sivua ei löydy.",
     "page-not-found-description": "Voi pojat, tässä osoitteessa ei ole mitään sisältöä!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Pahoittelut! Suosittelemme kokeilemaan <chrome_link>Chromea</chrome_link>, <firefox_link>Firefoxia</firefox_link>, <edge_link>Microsoft Edgeä</edge_link> tai Safaria.",
     "unsupported-browser-internet-explorer": "Käytätkö Internet Exploreria? <a>Lue lisätietoja.</a>",
     "unsupported-browser-contact-us": "Jos selaimen pitäisi täyttää vähimmäisvaatimukset, <a>ota yhteyttä</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix toimii vain tabletilla ja tietokoneella.",
-    "cannot-create-new-street-on-phone-description": "Voit tarkastella linkistä avaamasi katua, mutta et voi muokata tai luoda uusia katuja.",
     "generic-error-title": "Jokin meni vikaan.",
     "generic-error-description": "Pahoittelut – jokin meni vikaan.",
     "error-code": "(Virhe {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "Kuva on liian suuri, yritä uudelleen pienemmällä kuvalla.",
       "preview-image-alt": "Esikatselu",
       "print-size": "Koko tulostettuna",
-      "digital-size": "Koko näytöllä"
+      "digital-size": "Koko näytöllä",
+      "weather-not-exported": "Säätehosteet eivät sisälly vietävään versioon."
     },
     "geotag": {
       "search": "Etsi sijaintia",
@@ -316,7 +316,33 @@
     "tooltip": "Muuta asetuksia",
     "skybox": {
       "tooltip": "Ympäristömuokkain",
-      "heading": "Ympäristö"
+      "heading": "Ympäristö",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "Sää",
+        "clear": "Selkeä",
+        "rain": "Sade",
+        "snow": "Lumisade"
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -386,22 +412,29 @@
     "elevation-road": "Katutaso",
     "elevation-input": "Muuta korkeusasemaa",
     "elevation-lower": "Matala",
-    "elevation-raise": "Korkea"
+    "elevation-raise": "Korkea",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Nimetön katu",
     "rename": "Nimeä uudelleen napsauttamalla"
   },
   "building": {
+    "label": "Rakennuksen korkeus",
     "floors-count": "{count, plural, one {# kerros} other {# kerrosta}}"
   },
   "segments": {
     "warnings": {
       "does-not-fit": "Elementti ei mahdu kadulle.",
-      "not-wide": "Elementti ei ehkä ole riittävän leveä.",
-      "too-wide": "Elementti saattaa olla leveä.",
-      "dangerous": "Segmentti kuvastaa nykytilan mukaista vaarallista ratkaisua.",
-      "slope-exceeded": ""
+      "not-wide": "Toiminnallisesti liian kapea",
+      "too-wide": "Toiminnallisesti liian leveä",
+      "dangerous": "Vaarallinen ratkaisu",
+      "slope-exceeded": "Liian jyrkkä"
     },
     "learn-more": "Lue lisää",
     "unknown": {
@@ -415,8 +448,15 @@
       "max": "Max"
     },
     "controls": {
+      "width": "Leveys",
+      "ground-height": "",
+      "sea-level": "",
       "elevation": "Korkeus",
-      "slope": "Kaltevuus"
+      "slope": {
+        "label": "Kaltevuus",
+        "switch-tooltip": "Vaihda kaltevuutta",
+        "disabled-tooltip": "Elementin kaltevuutta ei voi muuttaa."
+      }
     }
   },
   "section": {

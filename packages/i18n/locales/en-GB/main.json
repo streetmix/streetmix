@@ -31,6 +31,7 @@
       "sign-in-link": "",
       "link": "",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "",
       "facebook": "",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "",
       "reload": "",
       "return": "",
-      "try-again": "",
-      "view-example": ""
+      "try-again": ""
     },
     "page-not-found-title": "",
     "page-not-found-description": "",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "",
     "unsupported-browser-internet-explorer": "",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "",
-    "cannot-create-new-street-on-phone-description": "",
     "generic-error-title": "",
     "generic-error-description": "",
     "error-code": "",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "",
     "rename": ""
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {} other {}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "",
       "not-wide": "",
       "too-wide": "",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": ""
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

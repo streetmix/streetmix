@@ -145,3 +145,18 @@ dock:
   # prevents rendering correctly on the left boundary
   # repeatHalf: true
   earthColor: "#366387"
+fishing-boat:
+  id: fishing-boat
+  label: Fishing boat
+  spriteId: boundaries--fishing-boat
+  waterfront: true
+  alignAtBaseline: true
+  repeatHalf: true
+  earthColor: "#366387"
+cargo-ship:
+  id: cargo-ship
+  label: Cargo ship
+  spriteId: boundaries--cargo-ship
+  waterfront: true
+  alignAtBaseline: true
+  earthColor: "#366387"

@@ -48,7 +48,8 @@
     "brt-lane": "Carril de buses de tránsito rápido",
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de \"El Origen\"",
-    "magic-carpet": "Alfombra mágica"
+    "magic-carpet": "Alfombra mágica",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Riberaña"
     }
   },
   "variant-icons": {

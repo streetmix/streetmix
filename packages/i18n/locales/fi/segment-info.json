@@ -48,7 +48,8 @@
     "brt-lane": "Bussimetrokaista",
     "temporary-barrier": "Väliaikainen tiesulku",
     "inception-train": "Inception-juna",
-    "magic-carpet": "Taikamatto"
+    "magic-carpet": "Taikamatto",
+    "wall": "Seinä"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": "Aita"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Rantaviiva"
     }
   },
   "variant-icons": {
