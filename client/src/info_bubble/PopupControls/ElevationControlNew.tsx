@@ -4,6 +4,9 @@ import { Decimal } from 'decimal.js'
 import {
   ELEVATION_INCREMENT,
   ELEVATION_INCREMENT_IMPERIAL,
+  MAX_ELEVATION_IMPERIAL,
+  MAX_ELEVATION_METRIC,
+  MIN_ELEVATION,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
@@ -29,10 +32,6 @@ interface ElevationControlProps {
   units: UnitsSetting
   seaLevel: boolean
 }
-
-const MIN_ELEVATION = 0
-const MAX_ELEVATION_METRIC = 5 // in meters
-const MAX_ELEVATION_IMPERIAL = 4.8768 // 16' in meters
 
 /**
  * Given the elevation height, return a formatted value (using the

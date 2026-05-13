@@ -6,6 +6,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import {
   normalizeSegmentWidth,
+  normalizeHeightValue,
   resolutionForResizeType,
   RESIZE_TYPE_INITIAL,
 } from '../segments/resizing.js'
@@ -20,13 +21,72 @@ import { DEFAULT_SKYBOX } from '../sky/constants.js'
 import { getWidthInMetric } from '../util/width_units.js'
 import { updateLastStreetInfo } from './xhr.js'
 
-import type { SliceItem, StreetState, UnitsSetting } from '@streetmix/types'
+import type {
+  MeasurementValues,
+  SliceItem,
+  StreetState,
+  UnitsSetting,
+} from '@streetmix/types'
 
 // TODO: put together with other measurement conversion code?
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 // Server is now the source of truth of this value
 const LATEST_SCHEMA_VERSION = 34
+
+// Like `SlopeProperties` but different values make it easier for template
+type TemplateSlopeProperties = {
+  on?: boolean
+  values: Array<number | MeasurementValues>
+}
+
+function processSlope(
+  templateSlope: TemplateSlopeProperties | undefined,
+  units: UnitsSetting
+) {
+  // Initialize a slope property, if not present, or if present
+  // and `values` is undefined or empty
+  if (
+    typeof templateSlope === 'undefined' ||
+    typeof templateSlope.values === 'undefined' ||
+    templateSlope.values.length === 0
+  ) {
+    return {
+      on: false,
+      values: [],
+    }
+  }
+
+  // If slope property is present, assume `on: true`, unless specifically
+  // set to `false`
+  const on = templateSlope.on === false ? false : true
+  const values = []
+  for (let i = 0; i < templateSlope.values.length; i++) {
+    const value = templateSlope.values[i]
+    if (typeof value === 'number') {
+      if (units === SETTINGS_UNITS_IMPERIAL) {
+        const newValue = normalizeHeightValue(
+          value * ROUGH_CONVERSION_RATE,
+          resolutionForResizeType(RESIZE_TYPE_INITIAL, units),
+          units
+        )
+        values.push(newValue)
+      } else {
+        values.push(value)
+      }
+    } else {
+      const newValue = getWidthInMetric(value, units)
+      values.push(newValue)
+    }
+  }
+
+  // Allow values to be an object specifying metric/imperial and
+  // assume `on: true` if values is specified and `on` is not false
+  return {
+    on,
+    values,
+  }
+}
 
 function processTemplateSlices(
   slices: StreetTemplate['slices'],
@@ -44,10 +104,7 @@ function processTemplateSlices(
       id: nanoid(),
       warnings: [false],
       // Initialize a slope property, if not present
-      slope: sliceTemplate.slope ?? {
-        on: false,
-        values: [],
-      },
+      slope: processSlope(sliceTemplate.slope, units),
     } as SliceItem
 
     // We mirror the street slices when in left-hand traffic mode,
@@ -99,7 +156,10 @@ function processTemplateSlices(
       slice.width = getWidthInMetric(sliceTemplate.width, units)
     }
 
-    slice.elevation = getElevationValue(variantInfo.elevation, units)
+    slice.elevation = getElevationValue(
+      sliceTemplate.elevation ?? variantInfo.elevation,
+      units
+    )
 
     processed.push(slice)
   }
@@ -241,8 +301,9 @@ export const StreetTemplate = z.strictObject({
       label: z.string().optional(),
       slope: z
         .object({
-          on: z.boolean(),
-          values: z.array(z.number()),
+          on: z.boolean().optional(), // Can be assumed to `true`
+          // Values are an array of numbers or measurementSchema objects
+          values: z.array(z.union([z.number(), measurementSchema])),
         })
         .optional(),
     })

@@ -10,6 +10,9 @@ import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
+  MIN_ELEVATION,
+  MAX_ELEVATION_METRIC,
+  MAX_ELEVATION_IMPERIAL,
   DRAGGING_TYPE_NONE,
   SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
   SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL,
@@ -221,6 +224,32 @@ export function normalizeSegmentWidth(
   // Round to three digit decimal precision
   width = round(width, 3)
   return width
+}
+
+/**
+ * Given an input height value, constrains the value to the
+ * minimum or maximum value, then rounds it to nearest precision
+ */
+export function normalizeHeightValue(
+  height: number,
+  resolution: number,
+  units: UnitsSetting
+): number {
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_ELEVATION_IMPERIAL
+      : MAX_ELEVATION_METRIC
+
+  if (height < MIN_ELEVATION) {
+    height = MIN_ELEVATION
+  } else if (height > maxValue) {
+    height = maxValue
+  }
+
+  height = Math.round(height / resolution) * resolution
+  // Round to three digit decimal precision
+  height = round(height, 3)
+  return height
 }
 
 /**

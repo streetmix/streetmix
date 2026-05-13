@@ -8,6 +8,10 @@ export const TILE_SIZE_ACTUAL = TILE_SIZE * TILESET_POINT_PER_PIXEL // pixels
 export const MIN_SEGMENT_WIDTH = 0.25 // meters
 export const MAX_SEGMENT_WIDTH = 120 // meters
 
+export const MIN_ELEVATION = 0
+export const MAX_ELEVATION_METRIC = 5 // in meters
+export const MAX_ELEVATION_IMPERIAL = 4.8768 // 16' in meters
+
 export const DRAGGING_MOVE_HOLE_WIDTH = 40 // pixels
 
 // Warnings are an array of booleans.
