@@ -24,7 +24,6 @@ import { updateLastStreetInfo } from './xhr.js'
 import type {
   MeasurementValues,
   SliceItem,
-  SlopeProperties,
   StreetState,
   UnitsSetting,
 } from '@streetmix/types'
@@ -35,8 +34,10 @@ const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 // Server is now the source of truth of this value
 const LATEST_SCHEMA_VERSION = 34
 
-type TemplateSlopeProperties = SlopeProperties & {
-  values: number[] | MeasurementValues[]
+// Like `SlopeProperties` but different values make it easier for template
+type TemplateSlopeProperties = {
+  on?: boolean
+  values: Array<number | MeasurementValues>
 }
 
 function processSlope(
