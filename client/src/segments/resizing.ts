@@ -10,6 +10,8 @@ import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
   MAX_SEGMENT_WIDTH,
+  MIN_ELEVATION,
+  MAX_ELEVATION_METRIC,
   DRAGGING_TYPE_NONE,
   SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
   SEGMENT_WIDTH_CLICK_INCREMENT_IMPERIAL,
@@ -232,10 +234,10 @@ export function normalizeHeightValue(
   resolution: number
 ): number {
   // TODO: get constants
-  if (height < 0) {
-    height = 0
-  } else if (height > 5) {
-    height = 5
+  if (height < MIN_ELEVATION) {
+    height = MIN_ELEVATION
+  } else if (height > MAX_ELEVATION_METRIC) {
+    height = MAX_ELEVATION_METRIC
   }
   height = Math.round(height / resolution) * resolution
   // Round to three digit decimal precision

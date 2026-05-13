@@ -4,6 +4,8 @@ import { Decimal } from 'decimal.js'
 import {
   ELEVATION_INCREMENT,
   ELEVATION_INCREMENT_IMPERIAL,
+  MAX_ELEVATION_METRIC,
+  MIN_ELEVATION,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
@@ -25,9 +27,6 @@ interface SlopeControlTempProps {
   elevation: number
   units: UnitsSetting
 }
-
-const MIN_ELEVATION = 0
-const MAX_ELEVATION = 5 // in meters
 
 /**
  * Given the elevation height, return a formatted value (using the
@@ -63,7 +62,7 @@ export function SlopeControlTemp({
         : ELEVATION_INCREMENT
     const newValue = new Decimal(elevation)
       .plus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -78,7 +77,7 @@ export function SlopeControlTemp({
         : ELEVATION_INCREMENT
     const newValue = new Decimal(elevation)
       .minus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -91,7 +90,7 @@ export function SlopeControlTemp({
     let newValue
     try {
       newValue = new Decimal(processedValue)
-        .clamp(MIN_ELEVATION, MAX_ELEVATION)
+        .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
         .toDecimalPlaces(3)
         .toNumber()
     } catch (e) {
@@ -130,7 +129,7 @@ export function SlopeControlTemp({
     <UpDownInput
       value={elevation}
       minValue={MIN_ELEVATION}
-      maxValue={MAX_ELEVATION}
+      maxValue={MAX_ELEVATION_METRIC}
       inputValueFormatter={inputValueFormatter}
       displayValueFormatter={displayValueFormatter}
       onClickUp={handleIncrement}
