@@ -4,6 +4,7 @@ import { Decimal } from 'decimal.js'
 import {
   ELEVATION_INCREMENT,
   ELEVATION_INCREMENT_IMPERIAL,
+  MAX_ELEVATION_IMPERIAL,
   MAX_ELEVATION_METRIC,
   MIN_ELEVATION,
 } from '~/src/segments/constants.js'
@@ -60,9 +61,13 @@ export function SlopeControlTemp({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .plus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -75,9 +80,13 @@ export function SlopeControlTemp({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .minus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
 
@@ -87,10 +96,14 @@ export function SlopeControlTemp({
 
   const updateValue = (value: string): void => {
     const processedValue = processWidthInput(value, units)
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     let newValue
     try {
       newValue = new Decimal(processedValue)
-        .clamp(MIN_ELEVATION, MAX_ELEVATION_METRIC)
+        .clamp(MIN_ELEVATION, maxValue)
         .toDecimalPlaces(3)
         .toNumber()
     } catch (e) {
@@ -125,11 +138,16 @@ export function SlopeControlTemp({
     return prettifyElevationHeight(value, units, locale)
   }
 
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_ELEVATION_IMPERIAL
+      : MAX_ELEVATION_METRIC
+
   return (
     <UpDownInput
       value={elevation}
       minValue={MIN_ELEVATION}
-      maxValue={MAX_ELEVATION_METRIC}
+      maxValue={maxValue}
       inputValueFormatter={inputValueFormatter}
       displayValueFormatter={displayValueFormatter}
       onClickUp={handleIncrement}
