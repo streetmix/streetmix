@@ -224,6 +224,26 @@ export function normalizeSegmentWidth(
 }
 
 /**
+ * Given an input height value, constrains the value to the
+ * minimum or maximum value, then rounds it to nearest precision
+ */
+export function normalizeHeightValue(
+  height: number,
+  resolution: number
+): number {
+  // TODO: get constants
+  if (height < 0) {
+    height = 0
+  } else if (height > 5) {
+    height = 5
+  }
+  height = Math.round(height / resolution) * resolution
+  // Round to three digit decimal precision
+  height = round(height, 3)
+  return height
+}
+
+/**
  * Performs `normalizeSegmentWidth` on an array of segments and
  * returns the new array.
  */

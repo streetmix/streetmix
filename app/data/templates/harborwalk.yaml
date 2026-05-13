@@ -13,8 +13,8 @@ boundary:
   left:
     variant: fence
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.5
+      imperial: 1.5
   right:
     variant: dock
     floors: 1
@@ -27,8 +27,8 @@ slices:
       metric: 1
       imperial: 3
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.3
+      imperial: 1
     label: Park
   - type: divider
     variant:
@@ -37,8 +37,8 @@ slices:
       metric: 4
       imperial: 14
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.3
+      imperial: 1
     label: Park
   - type: divider
     variant:
@@ -47,8 +47,8 @@ slices:
       metric: 1
       imperial: 3
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.3
+      imperial: 1
     label: Park
   - type: bike-lane
     variant:
@@ -70,8 +70,8 @@ slices:
       metric: 0.5
       imperial: 2
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.3
+      imperial: 1
   - type: divider
     variant:
       divider-type: big-tree
@@ -79,8 +79,8 @@ slices:
       metric: 2.5
       imperial: 8
     elevation:
-      metric: 0.15
-      imperial: 0.5
+      metric: 0.3
+      imperial: 1
     label: Park
   - type: divider
     variant:
@@ -88,17 +88,18 @@ slices:
     width:
       metric: 8
       imperial: 26
-    elevation:
-      metric: 0.15
-      imperial: 0.5
-    label: Future berm
+    elevation: 0
+    slope:
+      values:
+        - metric: 0.3
+          imperial: 1
+        - 0
+    label: Berm
   - type: sidewalk
     variant:
       sidewalk-density: normal
     width:
       metric: 4
       imperial: 14
-    elevation:
-      metric: 0.15
-      imperial: 0.5
+    elevation: 0
     label: Harborwalk
