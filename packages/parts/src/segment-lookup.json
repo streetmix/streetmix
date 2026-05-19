@@ -1623,9 +1623,9 @@
         "imperial": 8
       }
     },
-    "variants": [""],
+    "variants": ["bioswale-vegetation"],
     "details": {
-      "": {
+      "bush": {
         "components": {
           "lanes": [
             {
@@ -1646,6 +1646,34 @@
               "id": "bioswale",
               "variants": {
                 "plants": ["bush"],
+                "sides": ["slanted"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      },
+      "tree": {
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "bioswale",
+              "variants": {
+                "plants": ["tree"],
                 "sides": ["slanted"]
               }
             }
