@@ -111,3 +111,8 @@
   width: 181px;
   margin: 2.5rem 2rem 0.5rem;
 }
+
+.coastmix-dialog-content ul i {
+  color: gray;
+  font-style: normal;
+}
