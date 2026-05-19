@@ -455,6 +455,13 @@ drainage-sides:
   vertical:
     id: drainage-vertical
     title: Vertical sides
+bioswale-vegetation:
+  bush:
+    id: bush
+    title: Bioswale with bushes
+  tree:
+    id: tree
+    title: Bioswale with trees
 brt-bus: {}
 vendor-type:
   handcart:

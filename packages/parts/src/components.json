@@ -967,6 +967,16 @@
                 "padding": 1
               }
             }
+          },
+          "tree": {
+            "graphics": {
+              "scatter": {
+                "sprites": ["trees--tree"],
+                "minSpacing": -1,
+                "maxSpacing": 1,
+                "padding": 1
+              }
+            }
           }
         }
       }

@@ -179,6 +179,8 @@
     "lamp-type|pride": "Modern with pride banner",
     "drainage-sides|slanted": "Slanted sides",
     "drainage-sides|vertical": "Vertical sides",
+    "bioswale-vegetation|bush": "Bioswale with bushes",
+    "bioswale-vegetation|tree": "Bioswale with trees",
     "car-type|car": "Car",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Truck",
