@@ -41,6 +41,7 @@
     "decimal.js": "10.6.0",
     "downshift": "9.3.2",
     "downshift-pelias": "0.0.4-alpha",
+    "es-toolkit": "1.46.1",
     "file-saver": "2.0.5",
     "intl-messageformat": "11.2.4",
     "js-cookie": "3.0.5",

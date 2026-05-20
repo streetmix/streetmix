@@ -247,6 +247,7 @@ export interface SegmentLookup {
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: UnlockCondition
+  coastmixPaletteOrder?: number
   description?: SliceDescription
   rules?: {
     minWidth?: MeasurementValues
