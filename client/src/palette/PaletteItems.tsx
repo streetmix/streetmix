@@ -29,7 +29,7 @@ export function PaletteItems() {
 
   // If we're in Coastmix mode, sort all items by `coastmixPaletteOrder`.
   // Drop items without this property.
-  const coastmixMode = flags.COASTMIX_MODE.value ?? false
+  const coastmixMode = flags.COASTMIX_MODE?.value ?? false
   let displayedItems
   if (coastmixMode) {
     const items = filteredItems.filter(
