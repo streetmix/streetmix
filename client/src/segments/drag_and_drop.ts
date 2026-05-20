@@ -602,14 +602,6 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
     store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
-    // If we're dropping a new slice make sure it has the basic slope property,
-    // if it doesn't have one
-    if (newSegment.slope == undefined) {
-      newSegment.slope = {
-        on: false,
-        values: [],
-      }
-    }
     store.dispatch(addSegment(newIndex, newSegment))
   }
 
@@ -661,13 +653,8 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
         label: slice.label,
         actualWidth: slice.width,
         elevation: slice.elevation,
+        slope: slice.slope,
         elevationChanged: slice.elevationChanged,
-        // TODO: show actual slope in preview
-        // For now the slope preview is just regular elevation value
-        slope: {
-          on: false,
-          values: [],
-        },
       }
     },
     end(item: DraggedItem, monitor: DragSourceMonitor) {
