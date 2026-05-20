@@ -242,10 +242,12 @@ export interface SegmentLookup {
   defaultWidth: MeasurementValues
   defaultVariant?: string
   defaultElevation?: number | MeasurementValues
+  defaultSlope?: Array<number | MeasurementValues>
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: UnlockCondition
+  coastmixPaletteOrder?: number
   description?: SliceDescription
   rules?: {
     minWidth?: MeasurementValues

@@ -589,7 +589,7 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     elevation: draggedItem.elevation,
     elevationChanged: draggedItem.elevationChanged,
     label: draggedItem.label,
-    // TODO: preview slope here
+    slope: draggedItem.slope,
   }
 
   newSegment.variant =
@@ -602,11 +602,6 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
     store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
-    // If we're dropping a new slice make sure it has the basic slope property
-    newSegment.slope = {
-      on: false,
-      values: [],
-    }
     store.dispatch(addSegment(newIndex, newSegment))
   }
 
@@ -658,13 +653,8 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
         label: slice.label,
         actualWidth: slice.width,
         elevation: slice.elevation,
+        slope: slice.slope,
         elevationChanged: slice.elevationChanged,
-        // TODO: show actual slope in preview
-        // For now the slope preview is just regular elevation value
-        slope: {
-          on: false,
-          values: [],
-        },
       }
     },
     end(item: DraggedItem, monitor: DragSourceMonitor) {
@@ -749,16 +739,31 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
         }
       }
 
+      // This allows dropped segment to be created with the correct slope
+      const slope: SlopeProperties = {
+        on: false,
+        values: [],
+      }
+      if (segment.defaultSlope !== undefined) {
+        slope.on = true
+
+        for (let i = 0; i < segment.defaultSlope.length; i++) {
+          const value = segment.defaultSlope[i]
+          if (typeof value === 'number') {
+            slope.values.push(value)
+          } else {
+            slope.values.push(getWidthInMetric(value, units))
+          }
+        }
+      }
+
       return {
         id: generateRandSeed(),
         type,
         variantString,
         actualWidth: getWidthInMetric(segment.defaultWidth, units),
         elevation,
-        slope: {
-          on: false,
-          values: [],
-        },
+        slope,
       }
     },
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {
