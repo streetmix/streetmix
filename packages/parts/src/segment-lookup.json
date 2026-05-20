@@ -6779,5 +6779,74 @@
         }
       }
     }
+  },
+  "berm": {
+    "name": "Sloped berm",
+    "nameKey": "berm",
+    "defaultWidth": {
+      "metric": 1.8,
+      "imperial": 6
+    },
+    "defaultSlope": [
+      {
+        "metric": 0.15,
+        "imperial": 0.5
+      },
+      {
+        "metric": 0.9,
+        "imperial": 3
+      }
+    ],
+    "rules": {
+      "slope": "berm"
+    },
+    "enableWithFlag": "COASTMIX_MODE",
+    "variants": ["berm-type"],
+    "details": {
+      "grass": {
+        "name": "Grassy hill",
+        "nameKey": "grass-hill",
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ]
+        }
+      },
+      "dune": {
+        "name": "Sand dune",
+        "nameKey": "sand-dune",
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "marsh-grass",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

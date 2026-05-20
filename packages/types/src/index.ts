@@ -242,6 +242,7 @@ export interface SegmentLookup {
   defaultWidth: MeasurementValues
   defaultVariant?: string
   defaultElevation?: number | MeasurementValues
+  defaultSlope?: [number | MeasurementValues, number | MeasurementValues]
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
