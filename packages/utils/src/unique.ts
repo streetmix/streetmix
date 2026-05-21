@@ -12,6 +12,6 @@
  * WARNING: This is not a drop in replacement solution and it might not work
  * for some edge cases.
  */
-export function unique (arr: unknown[]): unknown[] {
+export function unique<T>(arr: readonly T[]): T[] {
   return Array.from(new Set(arr))
 }
