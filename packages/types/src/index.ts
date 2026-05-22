@@ -299,11 +299,11 @@ export interface VariantGraphics {
   scatter?: (
     | {
         pool: string
-        sprites: never
+        sprites?: undefined
       }
     | {
         sprites: (string | SpriteDefinition)[]
-        pool: never
+        pool?: undefined
       }
   ) & {
     minSpacing: number
@@ -327,6 +327,44 @@ export interface VariantInfoDimensions {
   right: number
   center: number
 }
+
+// Types describing the structure of components.json
+type VariantLeaf = {
+  graphics: VariantGraphics
+}
+
+interface VariantBranch {
+  [key: string]: VariantBranch | VariantLeaf
+}
+
+type VariantsMap = {
+  [variantGroup: string]: {
+    [variantValue: string]: VariantBranch | VariantLeaf
+  }
+}
+
+type BaseComponent = {
+  name?: string
+  nameKey?: string
+  owner?: string
+  zIndex?: number
+  variants?: VariantsMap
+}
+
+type LaneComponent = BaseComponent & {
+  elevation?: number | MeasurementValues
+}
+
+type MarkingComponent = VariantLeaf
+
+export interface ComponentDefinitions {
+  lanes: Record<string, LaneComponent>
+  markings: Record<string, MarkingComponent>
+  objects: Record<string, BaseComponent>
+  vehicles: Record<string, BaseComponent>
+  effects: Record<string, BaseComponent>
+}
+// -- END components.json type definitions.
 
 export type CapacitySegments = Record<string, CapacitySegmentDefinition>
 
