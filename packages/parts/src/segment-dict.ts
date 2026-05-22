@@ -4,6 +4,7 @@ import SEGMENT_COMPONENTS_SOURCE from './components.json' with { type: 'json' }
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
 import type {
   ComponentDefinitions,
+  SliceVariantComponentDefinition,
   UnknownSegmentDefinition,
 } from '@streetmix/types'
 
@@ -19,21 +20,19 @@ const SEGMENT_COMPONENTS = SEGMENT_COMPONENTS_SOURCE as ComponentDefinitions
  *    or "objects"
  * @param id - name of segment component, e.g. "scooter"
  */
-// The function type signature is overloaded to ensure that specific group parameters
-// return specific types
-export function getSegmentComponentInfo(
-  group: 'lanes',
+type ComponentGroup = keyof ComponentDefinitions
+
+export function getSegmentComponentInfo<G extends ComponentGroup>(
+  group: G,
   id?: string
-): ComponentDefinitions['lanes'][string] | UnknownSegmentDefinition
-export function getSegmentComponentInfo(
-  group: keyof ComponentDefinitions,
-  id?: string
-):
-  | ComponentDefinitions[keyof ComponentDefinitions][string]
-  | UnknownSegmentDefinition {
+): ComponentDefinitions[G][string] | UnknownSegmentDefinition {
   if (typeof id === 'undefined') return SEGMENT_UNKNOWN
 
-  return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
+  const groupComponents = SEGMENT_COMPONENTS[group] as
+    | Record<string, ComponentDefinitions[G][string]>
+    | undefined
+
+  return groupComponents?.[id] ?? SEGMENT_UNKNOWN
 }
 
 /**
@@ -47,8 +46,13 @@ export function getSegmentComponentInfo(
  * @returns {object} componentGroupInfo - returns object in shape of { id:
  *    { characteristics, rules, variants } }
  */
-function getComponentGroupInfo(group: keyof ComponentDefinitions, groupItems) {
-  return groupItems.reduce((obj, item) => {
+function getComponentGroupInfo<G extends ComponentGroup>(
+  group: G,
+  groupItems: SliceVariantComponentDefinition[]
+): Record<string, ComponentDefinitions[G][string] | UnknownSegmentDefinition> {
+  return groupItems.reduce<
+    Record<string, ComponentDefinitions[G][string] | UnknownSegmentDefinition>
+  >((obj, item) => {
     obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj
   }, {})
