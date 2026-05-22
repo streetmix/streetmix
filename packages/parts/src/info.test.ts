@@ -67,6 +67,23 @@ describe('segment info', () => {
     })
   })
 
+  // Test disabled because getSegmentLookup is not exported
+  // -- prefer test coverage through another function that is exported
+  // describe('getSegmentLookup()', () => {
+  //   it('returns component groups data for a segment type and variant', () => {
+  //     const segmentLookup = getSegmentLookup('sidewalk', 'normal')
+  //     expect(segmentLookup.components).toBeTruthy()
+  //     expect(segmentLookup.components.lanes).toBeTruthy()
+  //     expect(segmentLookup.components.lanes.length).toBeGreaterThan(0)
+  //     expect(segmentLookup.components.lanes[0].id).toEqual('sidewalk')
+  //   })
+
+  //   it('returns false for an unknown segment', () => {
+  //     const segmentLookup = getSegmentLookup('foo', 'bar')
+  //     expect(segmentLookup).toBeFalsy()
+  //   })
+  // })
+
   describe('getSegmentVariantInfo()', () => {
     it('returns data for a segment variant', () => {
       const variant = getSegmentVariantInfo('sidewalk', 'normal')

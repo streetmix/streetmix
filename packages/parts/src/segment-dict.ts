@@ -1,34 +1,15 @@
 import { unique } from '@streetmix/utils'
 
 import SEGMENT_COMPONENTS_SOURCE from './components.json' with { type: 'json' }
-import SEGMENT_LOOKUP_SOURCE from './segment-lookup.json' with { type: 'json' }
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
 import type {
   ComponentDefinitions,
-  SegmentDefinition,
-  SegmentLookup,
-  SliceVariantDetails,
   UnknownSegmentDefinition,
 } from '@streetmix/types'
 
 // Re-assign to a variable and assign type
 // TODO: Use something like zod to help with this
-const SEGMENT_LOOKUP = SEGMENT_LOOKUP_SOURCE as Record<string, SegmentLookup>
 const SEGMENT_COMPONENTS = SEGMENT_COMPONENTS_SOURCE as ComponentDefinitions
-
-/**
- * Retrieves the necessary information required to map the old segment data
- * model to the new segment data model for the specific segment using the
- * segment's `type` and `variant`.
- *
- * @returns SliceVariantDetails or `false` if not found.
- */
-export function getSegmentLookup(
-  type: string,
-  variant: string
-): SliceVariantDetails | false {
-  return SEGMENT_LOOKUP[type]?.details?.[variant]
-}
 
 /**
  * Retrieves the specified segment component information from the new segment
@@ -38,10 +19,18 @@ export function getSegmentLookup(
  *    or "objects"
  * @param id - name of segment component, e.g. "scooter"
  */
+// The function type signature is overloaded to ensure that specific group parameters
+// return specific types
+export function getSegmentComponentInfo(
+  group: 'lanes',
+  id?: string
+): ComponentDefinitions['lanes'][string] | UnknownSegmentDefinition
 export function getSegmentComponentInfo(
   group: keyof ComponentDefinitions,
   id?: string
-): SegmentDefinition | UnknownSegmentDefinition {
+):
+  | ComponentDefinitions[keyof ComponentDefinitions][string]
+  | UnknownSegmentDefinition {
   if (typeof id === 'undefined') return SEGMENT_UNKNOWN
 
   return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
@@ -58,7 +47,7 @@ export function getSegmentComponentInfo(
  * @returns {object} componentGroupInfo - returns object in shape of { id:
  *    { characteristics, rules, variants } }
  */
-function getComponentGroupInfo(group: string, groupItems) {
+function getComponentGroupInfo(group: keyof ComponentDefinitions, groupItems) {
   return groupItems.reduce((obj, item) => {
     obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj

@@ -113,7 +113,6 @@ export function getSegmentInfo(
  * model to the new segment data model for the specific segment using the
  * segment's `type` and `variant`.
  */
-// NOTE: ported from segment-dict.js so we can more easily assign types to it here
 function getSegmentLookup(
   type: string,
   variant: string
@@ -145,7 +144,9 @@ export function getSegmentVariantInfo(
   // Assuming a segment has one "lane" component, a segment's elevation can be
   // found using the id of the first item in the "lane" component group.
   const lane = getSegmentComponentInfo('lanes', components.lanes?.[0].id)
-  variantInfo.elevation = lane.elevation
+  if (!('unknown' in lane)) {
+    variantInfo.elevation = lane.elevation
+  }
 
   return variantInfo
 }

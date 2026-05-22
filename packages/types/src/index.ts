@@ -352,7 +352,7 @@ type BaseComponent = {
 }
 
 type LaneComponent = BaseComponent & {
-  elevation?: number | MeasurementValues
+  elevation: number | MeasurementValues
 }
 
 type MarkingComponent = VariantLeaf
