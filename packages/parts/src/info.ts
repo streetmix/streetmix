@@ -5,7 +5,6 @@ import {
   applySegmentInfoOverridesAndRules,
   getSegmentComponentInfo,
   getSegmentSprites,
-  COMPONENT_GROUPS,
 } from './segment-dict.js'
 
 import type {
@@ -145,10 +144,7 @@ export function getSegmentVariantInfo(
 
   // Assuming a segment has one "lane" component, a segment's elevation can be
   // found using the id of the first item in the "lane" component group.
-  const lane = getSegmentComponentInfo(
-    COMPONENT_GROUPS.LANES,
-    components.lanes?.[0].id
-  )
+  const lane = getSegmentComponentInfo('lanes', components.lanes?.[0].id)
   variantInfo.elevation = lane.elevation
 
   return variantInfo

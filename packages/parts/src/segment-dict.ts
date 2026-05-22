@@ -1,28 +1,32 @@
 import { unique } from '@streetmix/utils'
 
-import SEGMENT_COMPONENTS from './components.json' with { type: 'json' }
-import SEGMENT_LOOKUP from './segment-lookup.json' with { type: 'json' }
+import SEGMENT_COMPONENTS_SOURCE from './components.json' with { type: 'json' }
+import SEGMENT_LOOKUP_SOURCE from './segment-lookup.json' with { type: 'json' }
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
+import type {
+  ComponentDefinitions,
+  SegmentDefinition,
+  SegmentLookup,
+  SliceVariantDetails,
+  UnknownSegmentDefinition,
+} from '@streetmix/types'
 
-export const COMPONENT_GROUPS = {
-  LANES: 'lanes',
-  MARKINGS: 'markings',
-  OBJECTS: 'objects',
-  VEHICLES: 'vehicles',
-  EFFECTS: 'effects',
-}
+// Re-assign to a variable and assign type
+// TODO: Use something like zod to help with this
+const SEGMENT_LOOKUP = SEGMENT_LOOKUP_SOURCE as Record<string, SegmentLookup>
+const SEGMENT_COMPONENTS = SEGMENT_COMPONENTS_SOURCE as ComponentDefinitions
 
 /**
  * Retrieves the necessary information required to map the old segment data
  * model to the new segment data model for the specific segment using the
  * segment's `type` and `variant`.
  *
- * @param {string} type
- * @param {string} variant
- * @returns {object|boolean} segmentLookup - returns an object in the shape of:
- *   { details, components: { lanes, objects, vehicles } } or `false` if not found.
+ * @returns SliceVariantDetails or `false` if not found.
  */
-export function getSegmentLookup(type, variant) {
+export function getSegmentLookup(
+  type: string,
+  variant: string
+): SliceVariantDetails | false {
   return SEGMENT_LOOKUP[type]?.details?.[variant]
 }
 
@@ -30,12 +34,16 @@ export function getSegmentLookup(type, variant) {
  * Retrieves the specified segment component information from the new segment
  * data model using the component group and the segment component's id.
  *
- * @param {string} group - component group, one of values "lanes", "vehicles"
+ * @param group - component group, one of values "lanes", "vehicles"
  *    or "objects"
- * @param {string | undefined} id - name of segment component, e.g. "scooter"
- * @returns {SegmentDefinition | UnknownSegmentDefinition} segmentInfo
+ * @param id - name of segment component, e.g. "scooter"
  */
-export function getSegmentComponentInfo(group, id) {
+export function getSegmentComponentInfo(
+  group: keyof ComponentDefinitions,
+  id?: string
+): SegmentDefinition | UnknownSegmentDefinition {
+  if (typeof id === 'undefined') return SEGMENT_UNKNOWN
+
   return SEGMENT_COMPONENTS[group]?.[id] ?? SEGMENT_UNKNOWN
 }
 
@@ -50,7 +58,7 @@ export function getSegmentComponentInfo(group, id) {
  * @returns {object} componentGroupInfo - returns object in shape of { id:
  *    { characteristics, rules, variants } }
  */
-function getComponentGroupInfo(group, groupItems) {
+function getComponentGroupInfo(group: string, groupItems) {
   return groupItems.reduce((obj, item) => {
     obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj
@@ -63,11 +71,13 @@ function getComponentGroupInfo(group, groupItems) {
  * offsetX, offsetY }. If no offset, return the original graphics object.
  *
  * @param {object} graphics
- * @param {number|undefined} offsetX
- * @param {number|undefined} offsetY
  * @returns {object} graphicsWithOffsets
  */
-function applyOffsetsIfAnyToSprites(graphics, offsetX, offsetY) {
+function applyOffsetsIfAnyToSprites(
+  graphics,
+  offsetX?: number,
+  offsetY?: number
+) {
   if (!offsetX && !offsetY) return graphics
 
   return Object.entries(graphics).reduce((graphicsWithOffsets, [key, id]) => {
@@ -127,17 +137,16 @@ function getComponentGroupVariants(groupItems, componentGroupInfo) {
  * 'right', 'repeat', 'center'). When encountering a new graphic for the same
  * graphics type, this function creates a new array that contains both the new
  * graphic as well as the existing graphics.
- *
- * @param {Array|string} target
- * @param {Array|string} source
- * @returns {Array} graphicsInfo
  */
-function appendVariantSprites(target, source) {
+function appendVariantSprites(
+  target: string | string[],
+  source: string | string[]
+) {
   const targetArray = Array.isArray(target) ? target : [target]
   const sourceArray = Array.isArray(source) ? source : [source]
 
   const graphicsInfo = targetArray.concat(sourceArray)
-  return unique(graphicsInfo)
+  return unique<string>(graphicsInfo)
 }
 
 /**
@@ -211,7 +220,7 @@ export function getSegmentSprites(components) {
       // The "markings" component group does not have any variants, so we do
       // not have to go through the variants in order to get the sprite
       // definitions.
-      if (group === COMPONENT_GROUPS.MARKINGS) {
+      if (group === 'markings') {
         Object.values(componentGroupInfo).forEach((groupItem) => {
           graphicsArray.push(groupItem.graphics)
         })

@@ -212,7 +212,7 @@ function getSliceVariantInfo(type: string, variant: string): unknown {
   // // Assuming a slice has one "lane" component, a slice's elevation can be found using the id
   // // of the first item in the "lane" component group.
   // const lane = getSliceComponentInfo(
-  //   COMPONENT_GROUPS.LANES,
+  //   'lanes',
   //   components.lanes[0].id
   // )
   // variantInfo.elevation = lane.elevation
