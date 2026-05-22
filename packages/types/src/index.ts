@@ -226,12 +226,9 @@ export interface SliceVariantDetails {
   }
   defaultWidth?: MeasurementValues
   description?: SliceDescription
-  components: {
-    lanes?: SliceVariantComponentDefinition[]
-    markings?: SliceVariantComponentDefinition[]
-    components?: SliceVariantComponentDefinition[]
-    effects?: SliceVariantComponentDefinition[]
-  }
+  components: Partial<
+    Record<keyof ComponentDefinitions, SliceVariantComponentDefinition[]>
+  >
 }
 
 export interface SegmentLookup {

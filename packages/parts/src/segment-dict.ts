@@ -5,6 +5,7 @@ import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
 import type {
   ComponentDefinitions,
   SliceVariantComponentDefinition,
+  SliceVariantDetails,
   UnknownSegmentDefinition,
 } from '@streetmix/types'
 
@@ -199,11 +200,15 @@ export function applySegmentInfoOverridesAndRules(details, segmentRules) {
  * @returns {Object} sprites - all sprite definitions necessary to render the
  *    segment
  */
-export function getSegmentSprites(components) {
+export function getSegmentSprites(
+  components: SliceVariantDetails['components']
+) {
   // 1) Loop through each component group that makes up the segment.
-  const sprites = Object.entries(components).reduce(
-    (graphicsArray, componentGroup) => {
-      const [group, groupItems] = componentGroup
+  const sprites = (Object.keys(components) as ComponentGroup[]).reduce(
+    (graphicsArray, group) => {
+      const groupItems = components[group]
+
+      if (!groupItems) return graphicsArray
 
       // 2) For each component group, look up the segment information for every
       // item that makes up the component group.
