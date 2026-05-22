@@ -7,6 +7,7 @@ import type {
   SliceVariantComponentDefinition,
   SliceVariantDetails,
   UnknownSegmentDefinition,
+  VariantGraphics,
 } from '@streetmix/types'
 
 // Re-assign to a variable and assign type
@@ -47,13 +48,16 @@ export function getSegmentComponentInfo<G extends ComponentGroup>(
  * @returns {object} componentGroupInfo - returns object in shape of { id:
  *    { characteristics, rules, variants } }
  */
+type ComponentGroupInfo<G extends ComponentGroup> = Record<
+  string,
+  ComponentDefinitions[G][string] | UnknownSegmentDefinition
+>
+
 function getComponentGroupInfo<G extends ComponentGroup>(
   group: G,
   groupItems: SliceVariantComponentDefinition[]
-): Record<string, ComponentDefinitions[G][string] | UnknownSegmentDefinition> {
-  return groupItems.reduce<
-    Record<string, ComponentDefinitions[G][string] | UnknownSegmentDefinition>
-  >((obj, item) => {
+): ComponentGroupInfo<G> {
+  return groupItems.reduce<ComponentGroupInfo<G>>((obj, item) => {
     obj[item.id] = getSegmentComponentInfo(group, item.id)
     return obj
   }, {})
@@ -92,12 +96,14 @@ function applyOffsetsIfAnyToSprites(
  * @returns {Array} componentGroupVariants - returns array of graphic
  *    definitions in shape of [ { graphics } ]
  */
-function getComponentGroupVariants(groupItems, componentGroupInfo) {
+function getComponentGroupVariants<G extends ComponentGroup>(
+  groupItems: SliceVariantComponentDefinition[],
+  componentGroupInfo: ComponentGroupInfo<G>
+) {
   return groupItems.reduce((array, item) => {
     const { id, offsetX, offsetY, variants } = item
     // groupItemVariants - all variants possible for the particular group item
-    const groupItemVariants =
-      componentGroupInfo[id] && componentGroupInfo[id].variants
+    const groupItemVariants = componentGroupInfo[id]?.variants
 
     if (groupItemVariants && variants) {
       Object.entries(variants).forEach(([variantName, variantKey]) => {
@@ -220,7 +226,9 @@ export function getSegmentSprites(
       // definitions.
       if (group === 'markings') {
         Object.values(componentGroupInfo).forEach((groupItem) => {
-          graphicsArray.push(groupItem.graphics)
+          if ('graphics' in groupItem) {
+            graphicsArray.push(groupItem.graphics)
+          }
         })
       } else {
         // componentGroupVariants = [ { graphics } ]
@@ -242,7 +250,7 @@ export function getSegmentSprites(
 
       return graphicsArray
     },
-    []
+    [] as VariantGraphics[]
   )
 
   // 5) Combine the variant graphics into one graphics definition object.

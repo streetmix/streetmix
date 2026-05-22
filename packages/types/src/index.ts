@@ -212,6 +212,7 @@ export interface SliceVariantComponentDefinition {
   id: string
   variants?: Record<string, string | string[]>
   offsetX?: number
+  offsetY?: number
 }
 
 // TODO: double check if same or different or can be combined with VariantInfo
