@@ -138,7 +138,7 @@ function processTemplateSlices(
     //  - for US customary units, convert the value to metric
     // If width is defined as a number:
     //  - for metric units, use the value as-is
-    //  - for US customary units, convert he value using the _rough_ conversion
+    //  - for US customary units, convert the value using the _rough_ conversion
     //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
     //    for storage (it will then be converted back to 9ft for display)
     if (sliceTemplate.width === undefined) {
