@@ -170,7 +170,6 @@ export interface StreetState extends StreetJsonExtra {
   clientUpdatedAt?: string // Datetime string
   userUpdated: boolean
   editCount: number
-  immediateRemoval: boolean
 }
 
 export interface StreetPluginData {

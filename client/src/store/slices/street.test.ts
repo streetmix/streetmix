@@ -96,7 +96,6 @@ describe('street reducer', () => {
 
   it('should handle removeSegment()', () => {
     const existingStreet = createStreetState({
-      immediateRemoval: true,
       segments: [
         { type: 'foo' },
         { type: 'bar' },
@@ -108,14 +107,12 @@ describe('street reducer', () => {
     // Removes a segment at index 1 from an existing street
     expect(street(existingStreet, removeSegment(1))).toEqual({
       ...existingStreet,
-      immediateRemoval: true,
       segments: [{ type: 'foo' }, { type: 'baz' }, { type: 'qux' }],
     })
 
     // Removes a segment at index 0 from an existing street
     expect(street(existingStreet, removeSegment(0))).toEqual({
       ...existingStreet,
-      immediateRemoval: true,
       segments: [{ type: 'bar' }, { type: 'baz' }, { type: 'qux' }],
     })
 
@@ -176,13 +173,11 @@ describe('street reducer', () => {
       street(
         {
           segments: [1, 2, 3],
-          immediateRemoval: false,
         },
         clearSegments()
       )
     ).toEqual({
       segments: [],
-      immediateRemoval: true,
     })
   })
 

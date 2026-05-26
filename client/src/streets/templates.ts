@@ -240,7 +240,6 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
     | 'id'
     | 'namespacedId'
     | 'originalStreetId'
-    | 'immediateRemoval'
     | 'remainingWidth'
     | 'occupiedWidth'
   > = {

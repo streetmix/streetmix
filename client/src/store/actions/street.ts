@@ -36,7 +36,7 @@ import {
   saveOriginalStreetId,
 } from '../slices/street.js'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
-import { setActiveSegment } from '../slices/ui.js'
+import { setActiveSegment, setImmediateRemoval } from '../slices/ui.js'
 
 import type { Dispatch, RootState } from '../index.js'
 import type {
@@ -126,7 +126,8 @@ export const segmentsChanged = (force = false) => {
 
 export const removeSegmentAction = (segmentIndex: number) => {
   return async (dispatch: Dispatch) => {
-    await dispatch(removeSegment(segmentIndex, false))
+    await dispatch(setImmediateRemoval(false))
+    await dispatch(removeSegment(segmentIndex))
     await dispatch(segmentsChanged())
 
     // Reset various UI states
@@ -147,6 +148,7 @@ export const removeSegmentAction = (segmentIndex: number) => {
 
 export const clearSegmentsAction = () => {
   return async (dispatch: Dispatch) => {
+    await dispatch(setImmediateRemoval(true))
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
 

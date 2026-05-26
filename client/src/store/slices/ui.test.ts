@@ -12,6 +12,7 @@ import ui, {
   clearDraggingState,
   setDraggingType,
   toggleToolbox,
+  setImmediateRemoval,
 } from './ui'
 
 describe('ui reducer', () => {
@@ -29,6 +30,7 @@ describe('ui reducer', () => {
     },
     draggingType: DRAGGING_TYPE_NONE,
     resizeGuidesVisible: false,
+    immediateRemoval: false,
   }
 
   it('should handle setWelcomePanelVisible()', () => {
@@ -161,5 +163,13 @@ describe('ui reducer', () => {
 
     expect(state1.toolboxVisible).toEqual(true)
     expect(state2.toolboxVisible).toEqual(false)
+  })
+
+  it('should handle setImmediateRemoval()', () => {
+    const state1 = ui(initialState, setImmediateRemoval(true))
+    const state2 = ui(state1, setImmediateRemoval(false))
+
+    expect(state1.immediateRemoval).toEqual(true)
+    expect(state2.immediateRemoval).toEqual(false)
   })
 })
