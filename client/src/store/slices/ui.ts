@@ -36,6 +36,8 @@ const initialState: UiState = {
   resizeGuidesVisible: false,
 
   // When true, slices are removed from view without animation
+  // This is only needed during `clearSegments()`, gallery replacement
+  // seems to be handled differently.
   immediateRemoval: false,
 }
 
