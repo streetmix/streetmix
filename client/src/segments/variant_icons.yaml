@@ -501,7 +501,7 @@ guardrail-type:
     # Reusing an icon just because it looks similar
     id: bollard
     title: Guard rail
-berm-type:
+slope-type:
   grass:
     id: grass
     title: Grassy hill

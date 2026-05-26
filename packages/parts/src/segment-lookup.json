@@ -6804,9 +6804,9 @@
       }
     }
   },
-  "berm": {
-    "name": "Sloped berm",
-    "nameKey": "berm",
+  "slope": {
+    "name": "Slope",
+    "nameKey": "slope",
     "defaultWidth": {
       "metric": 2.4,
       "imperial": 8
@@ -6826,7 +6826,7 @@
     },
     "enableWithFlag": "COASTMIX_MODE",
     "coastmixPaletteOrder": 1,
-    "variants": ["berm-type"],
+    "variants": ["slope-type"],
     "details": {
       "grass": {
         "name": "Grassy hill",
