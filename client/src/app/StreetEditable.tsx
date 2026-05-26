@@ -59,6 +59,7 @@ export function StreetEditable(props: StreetEditableProps) {
   const { resizeType, setBoundaryWidth, updatePerspective, draggingType, ref } =
     props
   const street = useSelector((state) => state.street)
+  const immediateRemoval = useSelector((state) => state.ui.immediateRemoval)
   const draggingState = useSelector((state) => state.ui.draggingState)
 
   // Internal "state", but does not affect renders, so it is not React state
@@ -175,12 +176,12 @@ export function StreetEditable(props: StreetEditableProps) {
 
   function onExitAnimations(child: React.ReactElement): React.ReactElement {
     return cloneElement(child, {
-      exit: !street.immediateRemoval,
+      exit: !immediateRemoval,
     })
   }
 
   function renderStreetSegments(): React.ReactNode {
-    const { segments, units, immediateRemoval } = street
+    const { segments, units } = street
     const streetId = street.id
 
     return segments.map((segment, i) => {

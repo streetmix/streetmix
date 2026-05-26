@@ -2,7 +2,7 @@ import clone from 'just-clone'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
-import { updateStreetData } from '../store/slices/street.js'
+import { updateStreetDataAction } from '../store/actions/street.js'
 import { createNewUndo, unifyStack } from '../store/slices/history.js'
 import { setUpdateTimeToNow, updateEverything } from './data_model.js'
 
@@ -19,7 +19,8 @@ export function getUndoPosition() {
 export function finishUndoOrRedo() {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().history
-  store.dispatch(updateStreetData(clone(stack[position])))
+
+  store.dispatch(updateStreetDataAction(clone(stack[position])))
   cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()

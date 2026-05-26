@@ -17,6 +17,7 @@ interface UiState {
   draggingState: DraggingState
   draggingType: number
   resizeGuidesVisible: boolean
+  immediateRemoval: boolean
 }
 
 const initialState: UiState = {
@@ -33,6 +34,11 @@ const initialState: UiState = {
   },
   draggingType: DRAGGING_TYPE_NONE,
   resizeGuidesVisible: false,
+
+  // When true, slices are removed from view without animation
+  // This is only needed during `clearSegments()`, gallery replacement
+  // seems to be handled differently.
+  immediateRemoval: false,
 }
 
 const uiSlice = createSlice({
@@ -100,6 +106,13 @@ const uiSlice = createSlice({
     toggleToolbox(state) {
       state.toolboxVisible = !state.toolboxVisible
     },
+
+    setImmediateRemoval(
+      state,
+      action: PayloadAction<UiState['immediateRemoval']>
+    ) {
+      state.immediateRemoval = action.payload
+    },
   },
 })
 
@@ -112,6 +125,7 @@ export const {
   clearDraggingState,
   setDraggingType,
   toggleToolbox,
+  setImmediateRemoval,
 } = uiSlice.actions
 
 export default uiSlice.reducer

@@ -48,7 +48,6 @@ const initialState: StreetState = {
   creatorId: null,
   userUpdated: false,
   editCount: 0,
-  immediateRemoval: true,
 }
 
 const streetSlice = createSlice({
@@ -63,7 +62,6 @@ const streetSlice = createSlice({
       return {
         ...state,
         ...action.payload,
-        immediateRemoval: true,
       }
     },
 
@@ -82,20 +80,8 @@ const streetSlice = createSlice({
       },
     },
 
-    removeSegment: {
-      reducer(
-        state,
-        action: PayloadAction<{ index: number; immediate: boolean }>
-      ) {
-        const { index, immediate } = action.payload
-        state.segments.splice(index, 1)
-        state.immediateRemoval = immediate
-      },
-      prepare(index: number, immediate = true) {
-        return {
-          payload: { index, immediate },
-        }
-      },
+    removeSegment(state, action: PayloadAction<number>) {
+      state.segments.splice(action.payload, 1)
     },
 
     moveSegment: {
@@ -164,7 +150,6 @@ const streetSlice = createSlice({
 
     clearSegments(state) {
       state.segments = []
-      state.immediateRemoval = true
     },
 
     changeSegmentWidth: {

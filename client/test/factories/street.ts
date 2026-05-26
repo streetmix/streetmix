@@ -44,7 +44,6 @@ export function createStreetState(overrides: DeepPartial<StreetState> = {}) {
     creatorId: null,
     userUpdated: false,
     editCount: 0,
-    immediateRemoval: true,
   }
 
   return merge(streetState, overrides as Partial<StreetState>)
