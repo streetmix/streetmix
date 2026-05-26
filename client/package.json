@@ -44,7 +44,7 @@
     "es-toolkit": "1.46.1",
     "file-saver": "2.0.5",
     "intl-messageformat": "11.2.4",
-    "js-cookie": "3.0.5",
+    "js-cookie": "3.0.7",
     "just-clone": "6.2.0",
     "just-debounce-it": "3.2.0",
     "jwt-decode": "4.0.0",
