@@ -46,15 +46,24 @@ import type {
 } from '@streetmix/types'
 
 /**
- * updateStreetWidth as a thunk action that automatically
+ * `updateStreetWidth` as a thunk action that automatically
  * dispatches segmentChanged
- *
- * @param width
  */
 export function updateStreetWidthAction(width: number) {
   return async (dispatch: Dispatch) => {
     await dispatch(updateStreetWidth(width))
     await dispatch(segmentsChanged())
+  }
+}
+
+/**
+ * `updateStreetData` as a thunk action that also makes sure that
+ * `immediateRemoval` is true
+ */
+export function updateStreetDataAction(data: Partial<StreetState>) {
+  return async (dispatch: Dispatch) => {
+    await dispatch(setImmediateRemoval(true))
+    await dispatch(updateStreetData(data))
   }
 }
 
