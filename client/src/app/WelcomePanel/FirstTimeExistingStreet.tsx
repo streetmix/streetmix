@@ -25,7 +25,7 @@ export function FirstTimeExistingStreet() {
           defaultMessage="Welcome to Streetmix."
         />
       </h1>
-      <div className="welcome-panel-intro">
+      <p>
         {/* Display street creator if creatorId is available. */}
         {typeof street.creatorId === 'string' ? (
           <FormattedMessage
@@ -50,7 +50,7 @@ export function FirstTimeExistingStreet() {
             }}
           />
         )}
-      </div>
+      </p>
       <div className="welcome-panel-buttons">
         <FormattedMessage
           id="dialogs.welcome.existing.instruct"
