@@ -32,7 +32,7 @@ export function FirstTimeExistingStreet() {
             id="dialogs.welcome.existing.intro"
             defaultMessage="This is {streetName} made by {creator}."
             values={{
-              streetName: <StreetName name={street.name} />,
+              streetName: <StreetName as="span" name={street.name} />,
               creator: (
                 <>
                   <Avatar userId={street.creatorId} />{' '}
@@ -46,7 +46,7 @@ export function FirstTimeExistingStreet() {
             id="dialogs.welcome.existing.intro-without-creator"
             defaultMessage="This is {streetName}."
             values={{
-              streetName: <StreetName name={street.name} />,
+              streetName: <StreetName as="span" name={street.name} />,
             }}
           />
         )}

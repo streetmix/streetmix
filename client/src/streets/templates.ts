@@ -138,7 +138,7 @@ function processTemplateSlices(
     //  - for US customary units, convert the value to metric
     // If width is defined as a number:
     //  - for metric units, use the value as-is
-    //  - for US customary units, convert he value using the _rough_ conversion
+    //  - for US customary units, convert the value using the _rough_ conversion
     //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
     //    for storage (it will then be converted back to 9ft for display)
     if (sliceTemplate.width === undefined) {
@@ -174,32 +174,31 @@ function processTemplateSlices(
 function processTemplateBoundaries(
   boundary: StreetTemplate['boundary'],
   units: UnitsSetting
-): StreetTemplate['boundary'] {
-  const processed = {
+): StreetState['boundary'] {
+  // Set default boundary elevation according to units setting
+  const leftBoundary =
+    typeof boundary.left.elevation !== 'number'
+      ? getWidthInMetric(boundary.left.elevation, units)
+      : boundary.left.elevation
+  const rightBoundary =
+    typeof boundary.right.elevation !== 'number'
+      ? getWidthInMetric(boundary.right.elevation, units)
+      : boundary.right.elevation
+
+  return {
     left: {
+      // Create boundary id
+      id: nanoid(),
       ...boundary.left,
+      elevation: leftBoundary,
     },
     right: {
+      // Create boundary id
+      id: nanoid(),
       ...boundary.right,
+      elevation: rightBoundary,
     },
-  }
-
-  // Create boundary ids
-  processed.left.id = nanoid()
-  processed.right.id = nanoid()
-
-  // Set default boundary elevation according to units setting
-  if (typeof processed.left.elevation !== 'number') {
-    processed.left.elevation = getWidthInMetric(processed.left.elevation, units)
-  }
-  if (typeof processed.right.elevation !== 'number') {
-    processed.right.elevation = getWidthInMetric(
-      processed.right.elevation,
-      units
-    )
-  }
-
-  return processed
+  } satisfies StreetState['boundary']
 }
 
 function createStreetData(data: StreetTemplate, units: UnitsSetting) {
@@ -210,12 +209,37 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
 
   // Remove `slices` from the existing data because it is being stored
   // as `segments` for backwards compatibility
-  const { slices: _discarded, ...restData } = data
+  const { slices: _discarded, width, ...restData } = data
+
+  // If width is defined as MeasurementValues:
+  //  - for metric units, use the metric value as-is
+  //  - for US customary units, convert the value to metric
+  // If width is defined as a number:
+  //  - for metric units, use the value as-is
+  //  - for US customary units, convert he value using the _rough_ conversion
+  //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
+  //    for storage (it will then be converted back to 9ft for display)
+  let widthValue: number
+
+  if (width === undefined) {
+    throw new Error('street template does not have a width defined')
+  }
+
+  if (typeof width === 'number') {
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      widthValue = width * ROUGH_CONVERSION_RATE
+    } else {
+      widthValue = width
+    }
+  } else {
+    widthValue = getWidthInMetric(width, units)
+  }
+
   const street: Omit<
     StreetState,
     | 'id'
     | 'namespacedId'
-    | 'immediateRemoval'
+    | 'originalStreetId'
     | 'remainingWidth'
     | 'occupiedWidth'
   > = {
@@ -232,27 +256,9 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId,
+    width: widthValue,
     ...restData,
     boundary,
-  }
-
-  // If width is defined as MeasurementValues:
-  //  - for metric units, use the metric value as-is
-  //  - for US customary units, convert the value to metric
-  // If width is defined as a number:
-  //  - for metric units, use the value as-is
-  //  - for US customary units, convert he value using the _rough_ conversion
-  //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
-  //    for storage (it will then be converted back to 9ft for display)
-  if (street.width === undefined) {
-    throw new Error('street template does not have a width defined')
-  }
-  if (typeof street.width === 'number') {
-    if (units === SETTINGS_UNITS_IMPERIAL) {
-      street.width *= ROUGH_CONVERSION_RATE
-    }
-  } else {
-    street.width = getWidthInMetric(street.width, units)
   }
 
   return street
