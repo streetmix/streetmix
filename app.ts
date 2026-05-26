@@ -94,7 +94,12 @@ type ContentSecurityPolicyOptions = Exclude<
 const csp = {
   directives: {
     defaultSrc: ["'self'"],
-    styleSrc: ["'self'", "'unsafe-inline'", 'checkout.stripe.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'checkout.stripe.com',
+      'static.userback.io',
+    ],
     scriptSrc: [
       "'self'",
       'platform.twitter.com',
@@ -104,6 +109,7 @@ const csp = {
       'checkout.stripe.com',
       'plausible.io',
       'static.cloudflareinsights.com',
+      'static.userback.io',
     ],
     workerSrc: ["'self'"],
     childSrc: ['platform.twitter.com'],
@@ -135,7 +141,7 @@ const csp = {
       '*.wp.com',
       'cdn.auth0.com', // Auth0 default profile images
     ],
-    fontSrc: ["'self'"],
+    fontSrc: ["'self'", 'static.userback.io'],
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',
@@ -148,6 +154,7 @@ const csp = {
       'buttondown.com',
       'buttondown.email',
       'cloudflareinsights.com',
+      'api.userback.io',
     ],
     reportUri: '/services/csp-report/',
   },

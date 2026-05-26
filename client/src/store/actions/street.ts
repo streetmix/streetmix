@@ -36,7 +36,7 @@ import {
   saveOriginalStreetId,
 } from '../slices/street.js'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
-import { setActiveSegment } from '../slices/ui.js'
+import { setActiveSegment, setImmediateRemoval } from '../slices/ui.js'
 
 import type { Dispatch, RootState } from '../index.js'
 import type {
@@ -46,15 +46,24 @@ import type {
 } from '@streetmix/types'
 
 /**
- * updateStreetWidth as a thunk action that automatically
+ * `updateStreetWidth` as a thunk action that automatically
  * dispatches segmentChanged
- *
- * @param width
  */
 export function updateStreetWidthAction(width: number) {
   return async (dispatch: Dispatch) => {
     await dispatch(updateStreetWidth(width))
     await dispatch(segmentsChanged())
+  }
+}
+
+/**
+ * `updateStreetData` as a thunk action that also makes sure that
+ * `immediateRemoval` is true
+ */
+export function updateStreetDataAction(data: Partial<StreetState>) {
+  return async (dispatch: Dispatch) => {
+    await dispatch(setImmediateRemoval(true))
+    await dispatch(updateStreetData(data))
   }
 }
 
@@ -68,9 +77,25 @@ export const segmentsChanged = (force = false) => {
     // and update its properties.
     const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
       // Calculate slope values, if needed
-      let slopeValues: number[] = []
-      if (slice.slope?.on) {
-        slopeValues = getSlopeValues(street, index)
+      let slopeValues: number[]
+      if (slice.slope?.on && slice.slope.values.length === 0) {
+        // If we don't have slope values, create it using current elevation if
+        // it was set by the user (note: elevationChanged is also set to true
+        // if it was modified by doDropHeuristics.)
+        if (slice.elevationChanged) {
+          slopeValues = [slice.elevation, slice.elevation]
+        } else {
+          // Otherwise, automatically slope to adjacent values
+          slopeValues = getSlopeValues(street, index)
+        }
+      } else {
+        slopeValues = slice.slope.values
+      }
+      // Reset slope values if off
+      // (not sure if this is a great place to put it -- if a variant cannot
+      // be sloped, does this turn off and delete slope values?)
+      if (!slice.slope?.on) {
+        slopeValues = []
       }
 
       return {
@@ -110,7 +135,8 @@ export const segmentsChanged = (force = false) => {
 
 export const removeSegmentAction = (segmentIndex: number) => {
   return async (dispatch: Dispatch) => {
-    await dispatch(removeSegment(segmentIndex, false))
+    await dispatch(setImmediateRemoval(false))
+    await dispatch(removeSegment(segmentIndex))
     await dispatch(segmentsChanged())
 
     // Reset various UI states
@@ -131,6 +157,7 @@ export const removeSegmentAction = (segmentIndex: number) => {
 
 export const clearSegmentsAction = () => {
   return async (dispatch: Dispatch) => {
+    await dispatch(setImmediateRemoval(true))
     await dispatch(clearSegments())
     await dispatch(segmentsChanged())
 
@@ -188,7 +215,7 @@ export const incrementSegmentWidth = (
       increment = -increment
     }
 
-    // When width values are imprecise (e.g. after unit conversion), the
+    // When width values are imprecise (e.g. after unit conversion), then
     // increment to nearest precise value, rather than increment first and
     // then make precise
     const adjustedWidth = normalizeSegmentWidth(origWidth, resolution)

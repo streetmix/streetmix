@@ -12,7 +12,6 @@ import { changeSegmentProperties } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
-import { ElevationControlNew } from './ElevationControlNew.js'
 import { VariantButton } from './VariantButton.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
@@ -22,7 +21,6 @@ interface ElevationControlProps {
 }
 
 export function ElevationControl({ position }: ElevationControlProps) {
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const units = useSelector((state) => state.street.units)
   const elevation = useSelector((state) => {
     if (position === BUILDING_LEFT_POSITION) {
@@ -70,6 +68,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
     }
 
     return () => {
+      if (typeof elevation === 'undefined') return
       if (typeof position === 'number') {
         dispatch(
           changeSegmentProperties(position, {
@@ -93,25 +92,6 @@ export function ElevationControl({ position }: ElevationControlProps) {
     )
   }
 
-  let controls
-  if (coastmixMode) {
-    controls = (
-      <ElevationControlNew
-        key={position}
-        position={position}
-        elevation={elevation}
-        units={units}
-      />
-    )
-  } else {
-    controls = (
-      <div className="popup-control-button-group">
-        {renderButton('universal-elevation', 'sidewalk')}
-        {renderButton('universal-elevation', 'road')}
-      </div>
-    )
-  }
-
   const label = intl.formatMessage({
     id: 'segments.controls.elevation',
     defaultMessage: 'Elevation',
@@ -120,13 +100,16 @@ export function ElevationControl({ position }: ElevationControlProps) {
   return (
     <div className="popup-control-row" data-tour-id="elevation-control">
       <div className="popup-control-label">
-        <Tooltip label={label} placement="left">
+        <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
             <Icon name="elevation" size="30" stroke="1.5" />
           </span>
         </Tooltip>
       </div>
-      {controls}
+      <div className="popup-control-button-group">
+        {renderButton('universal-elevation', 'sidewalk')}
+        {renderButton('universal-elevation', 'road')}
+      </div>
     </div>
   )
 }

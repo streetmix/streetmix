@@ -15,42 +15,56 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       # Use the current LTS version of Node.js
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
       - run: npm ci
       - run: npm run lint
 
   test:
-    name: Unit and integration tests
+    name: Unit and integration tests (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-    container: node:24-bookworm # EOL 2026-06-10
+    # Disable this container because we were only needed it for the database
+    # Right now these tests don't use the database (and maybe they never should)
+    # This is a ~40s time save on tests. Remove this config once server tests
+    # are re-implemented and we definitely do not need a real database
+    # container: node:26-trixie
+    # Allow latest version of Node to fail without blocking
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      # Do not pre-emptively cancel all tests if one branch fails
+      fail-fast: false
       # Use current active LTS and later versions of Node.js if present
       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
       matrix:
-        node-version: [22.x, 24.x]
+        include:
+          - node-version: 22.x
+            experimental: false
+          - node-version: 24.x
+            experimental: false
+          - node-version: 26.x
+            experimental: true
     env:
       NODE_ENV: test
       HUSKY: "0"
       CYPRESS_INSTALL_BINARY: "0"
-      PGHOST: postgres
-      PGUSER: postgres
-      PGPASSWORD: postgres
-      PGDATABASE: streetmix_test
-    services:
-      postgres:
-        image: postgis/postgis
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: streetmix_test
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+      # PGHOST: postgres
+      # PGUSER: postgres
+      # PGPASSWORD: postgres
+      # PGDATABASE: streetmix_test
+    # services:
+    #   postgres:
+    #     image: postgis/postgis
+    #     env:
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: streetmix_test
+    #     # Set health checks to wait until postgres has started
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,9 +75,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          cache: npm
       - run: npm ci
-      - name: Seed test database
-        run: npm run db:migrate
+      # - name: Seed test database
+      #   run: npm run db:migrate
       - name: Build files (e.g. TypeScript)
         run: npm run build
         env:
@@ -72,6 +87,8 @@ jobs:
       - name: Run tests
         run: npm run vitest:ci
       - name: Report code coverage
+        # As a small time-save, only report coverage for main branch of testing
+        if: ${{ matrix.node-version == '24.x' }}
         uses: codecov/codecov-action@v6
 
   cypress:

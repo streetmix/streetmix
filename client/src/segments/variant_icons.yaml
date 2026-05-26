@@ -1,4 +1,12 @@
 boundary:
+  waterfront:
+    id: waterfront
+    title: Waterfront
+    disableWithFlag: COASTMIX_MODE
+  waterfront2:
+    id: waterfront
+    title: Waterfront
+    enableWithFlag: COASTMIX_MODE
   beach:
     id: beach
     iconSet: tabler
@@ -16,9 +24,14 @@ boundary:
     id: dock
     title: Dock
     enableWithFlag: COASTMIX_MODE
-  waterfront:
-    id: waterfront
-    title: Waterfront
+  fishing-boat:
+    id: fishing-boat
+    title: Fishing boat
+    enableWithFlag: COASTMIX_MODE
+  cargo-ship:
+    id: cargo-ship
+    title: Cargo ship
+    enableWithFlag: COASTMIX_MODE
   grass:
     id: grass
     title: Grass
@@ -271,7 +284,7 @@ bike-asphalt:
   red:
     id: asphalt
     color: "#9b1f22"
-    title: "Red lane "
+    title: Red lane
 transit-shelter-elevation:
   street-level:
     id: elevation-lower
@@ -442,6 +455,13 @@ drainage-sides:
   vertical:
     id: drainage-vertical
     title: Vertical sides
+bioswale-vegetation:
+  bush:
+    id: bush
+    title: Bioswale with bushes
+  tree:
+    id: tree
+    title: Bioswale with trees
 brt-bus: {}
 vendor-type:
   handcart:
@@ -481,3 +501,10 @@ guardrail-type:
     # Reusing an icon just because it looks similar
     id: bollard
     title: Guard rail
+slope-type:
+  grass:
+    id: grass
+    title: Grassy hill
+  dune:
+    id: marsh
+    title: Sand dune

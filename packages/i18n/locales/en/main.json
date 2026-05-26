@@ -31,6 +31,7 @@
       "sign-in-link": "{signInLink} for nicer links to your streets and your personal street gallery.",
       "link": "Copy and paste this link to share:",
       "copy-to-clipboard": "Copy to clipboard",
+      "copy-success": "Copied!",
       "twitter": "Share using Twitter",
       "facebook": "Share using Facebook",
       "mastodon": "Share using Mastodon",
@@ -214,6 +215,7 @@
       "heading": "About Streetmix.",
       "description": "Design, remix, and share your street. Add bike paths, widen sidewalks or traffic lanes, learn how all of this can impact your community.",
       "team-heading": "Project team and maintainers",
+      "stewards": "Stewards",
       "partners": "Partners",
       "sponsors": "Sponsors",
       "sponsored-by": "Streetmix is generously sponsored by:",
@@ -316,11 +318,31 @@
     "skybox": {
       "tooltip": "Environment editor",
       "heading": "Environment",
+      "sky": {
+        "heading": "Sky"
+      },
       "weather": {
         "heading": "Weather",
         "clear": "Clear",
         "rain": "Rain",
         "snow": "Snow"
+      }
+    },
+    "flooding": {
+      "tooltip": "Coastal flooding controls",
+      "heading": "Coastal flooding",
+      "sea-level": {
+        "label": "Sea level rise",
+        "current": "Current"
+      },
+      "storm-surge": {
+        "label": "Storm surge"
+      },
+      "messages": {
+        "start": "Select a sea level rise target to visualize flooding.",
+        "need-waterfront": "Add a waterfront boundary to visualize flooding.",
+        "success": "This configuration is addressing sea level rise!",
+        "fail": "This configuration does not address sea level rise!"
       }
     }
   },
@@ -391,7 +413,13 @@
     "elevation-road": "Street level",
     "elevation-input": "Change elevation",
     "elevation-lower": "Lower elevation",
-    "elevation-raise": "Raise elevation"
+    "elevation-raise": "Raise elevation",
+    "ground-height-input": "Change ground height",
+    "ground-height-lower": "Lower ground height",
+    "ground-height-raise": "Raise ground height",
+    "sea-level-input": "Change sea level",
+    "sea-level-lower": "Lower sea level",
+    "sea-level-raise": "Raise sea level"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -422,6 +450,8 @@
     },
     "controls": {
       "width": "Width",
+      "ground-height": "Ground height",
+      "sea-level": "Sea level",
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",

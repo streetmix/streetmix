@@ -26,19 +26,19 @@ exports[`AboutDialog > renders snapshot 1`] = `
         <div
           class="about-dialog"
         >
-          <header>
-            <img
-              alt="Streetmix (logo)"
-              class="about-dialog-logo"
-              src="test-file-stub"
-            />
-            <h1>
-              About Streetmix.
-            </h1>
-          </header>
           <div
             class="dialog-content dialog-content-bleed"
           >
+            <header>
+              <img
+                alt="Streetmix (logo)"
+                class="about-dialog-logo"
+                src="test-file-stub"
+              />
+              <h1>
+                About Streetmix.
+              </h1>
+            </header>
             <div
               class="about-dialog-content"
             >
@@ -105,6 +105,37 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   </li>
                 </ul>
                 <h3>
+                  Stewards
+                </h3>
+                <ul
+                  class="about-dialog-sponsors"
+                >
+                  <li>
+                    <a
+                      href="https://biffud.com/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <img
+                        alt="Bad Idea Factory"
+                        src="test-file-stub"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://codeforamerica.org/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <img
+                        alt="Code for America"
+                        src="test-file-stub"
+                      />
+                    </a>
+                  </li>
+                </ul>
+                <h3>
                   Partners
                 </h3>
                 <ul
@@ -118,18 +149,6 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     >
                       <img
                         alt="New Urban Mobility Alliance"
-                        src="test-file-stub"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://codeforamerica.org/"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <img
-                        alt="Code for America"
                         src="test-file-stub"
                       />
                     </a>

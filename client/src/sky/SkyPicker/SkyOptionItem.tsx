@@ -35,7 +35,7 @@ export function SkyOptionItem({
   }
 
   return (
-    <Tooltip label={label} placement="bottom">
+    <Tooltip label={label} placement="bottom" role="label">
       <button
         aria-label={label}
         className={classNames.join(' ')}

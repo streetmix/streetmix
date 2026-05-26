@@ -18,6 +18,7 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="sun"
+            size="24"
           />
         </button>
       </div>
@@ -90,6 +91,7 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="undo"
+            size="24"
           />
         </button>
         <button
@@ -100,6 +102,7 @@ exports[`PaletteContainer > renders 1`] = `
         >
           <svg
             data-icon="redo"
+            size="24"
           />
         </button>
       </div>

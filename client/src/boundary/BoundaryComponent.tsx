@@ -14,11 +14,8 @@ import {
 } from '~/src/segments/constants.js'
 import { getElevation } from '~/src/segments/view.js'
 import { PopupContainer } from '../info_bubble/PopupContainer.js'
-import {
-  getBoundaryImageHeight,
-  getBoundaryItem,
-  drawBoundary,
-} from './boundary.js'
+import { getBoundaryImageHeight, getBoundaryItem } from './boundary.js'
+import { drawBoundary } from './draw.js'
 import './BoundaryComponent.css'
 
 import type { BoundaryPosition } from '@streetmix/types'

@@ -5,8 +5,6 @@ import { setWeather } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { SkyOptionItem } from './SkyOptionItem.js'
 
-import './WeatherOptions.css'
-
 interface WeatherOptionsProps {
   enabled: boolean
 }
@@ -26,21 +24,21 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
     }
   }
 
-  // function handleSetSnow() {
-  //   if (enabled) {
-  //     dispatch(setWeather('snow'))
-  //   }
-  // }
+  function handleSetSnow() {
+    if (enabled) {
+      dispatch(setWeather('snow'))
+    }
+  }
 
   return (
-    <div className="weather-options">
+    <div className="sky-options-group">
       <h4>
         <FormattedMessage
           id="tools.skybox.weather.heading"
           defaultMessage="Weather"
         />
       </h4>
-      <div className="sky-options" style={{ padding: '0' }}>
+      <div className="sky-options">
         <SkyOptionItem
           label={intl.formatMessage({
             id: `tools.skybox.weather.clear`,
@@ -63,7 +61,7 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
         >
           <Icon name="rain" size="24" />
         </SkyOptionItem>
-        {/* <SkyOptionItem
+        <SkyOptionItem
           label={intl.formatMessage({
             id: `tools.skybox.weather.snow`,
             defaultMessage: 'Snow',
@@ -73,7 +71,7 @@ export function WeatherOptions({ enabled }: WeatherOptionsProps) {
           onClick={handleSetSnow}
         >
           <Icon name="snow" size="24" />
-        </SkyOptionItem> */}
+        </SkyOptionItem>
       </div>
     </div>
   )

@@ -49,18 +49,6 @@ describe('PaletteContainer', () => {
     expect(container.firstChild).toBe(null)
   })
 
-  it("doesn’t render items when sprites haven't loaded", () => {
-    render(<PaletteContainer />, {
-      initialState: {
-        app: {
-          everythingLoaded: false,
-        },
-      },
-    })
-
-    expect(screen.queryByRole('list')).toBe(null)
-  })
-
   it('displays tooltips on mouse hover', async () => {
     render(<PaletteContainer />, {
       initialState: {

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
 
+import { getBoundaryItem } from '~/src/boundary/boundary'
 import { getElevationValue } from '~/src/segments/elevation'
 import { getVariantString } from '~/src/segments/variant_utils'
 import { DEFAULT_SKYBOX } from '~/src/sky/constants'
@@ -28,13 +29,13 @@ const initialState: StreetState = {
     left: {
       id: '',
       variant: '',
-      floors: 0,
+      floors: 1,
       elevation: 0,
     },
     right: {
       id: '',
       variant: '',
-      floors: 0,
+      floors: 1,
       elevation: 0,
     },
   },
@@ -47,7 +48,6 @@ const initialState: StreetState = {
   creatorId: null,
   userUpdated: false,
   editCount: 0,
-  immediateRemoval: true,
 }
 
 const streetSlice = createSlice({
@@ -62,7 +62,6 @@ const streetSlice = createSlice({
       return {
         ...state,
         ...action.payload,
-        immediateRemoval: true,
       }
     },
 
@@ -81,20 +80,8 @@ const streetSlice = createSlice({
       },
     },
 
-    removeSegment: {
-      reducer(
-        state,
-        action: PayloadAction<{ index: number; immediate: boolean }>
-      ) {
-        const { index, immediate } = action.payload
-        state.segments.splice(index, 1)
-        state.immediateRemoval = immediate
-      },
-      prepare(index: number, immediate = true) {
-        return {
-          payload: { index, immediate },
-        }
-      },
+    removeSegment(state, action: PayloadAction<number>) {
+      state.segments.splice(action.payload, 1)
     },
 
     moveSegment: {
@@ -163,7 +150,6 @@ const streetSlice = createSlice({
 
     clearSegments(state) {
       state.segments = []
-      state.immediateRemoval = true
     },
 
     changeSegmentWidth: {
@@ -235,6 +221,40 @@ const streetSlice = createSlice({
       prepare(index: number, value: boolean) {
         return {
           payload: { index, value },
+        }
+      },
+    },
+
+    setSlopeValue: {
+      reducer(
+        state,
+        action: PayloadAction<{ index: number; anchor: number; value: number }>
+      ) {
+        const { index, anchor, value } = action.payload
+        const slice = state.segments[index]
+
+        slice.slope.values[anchor] = value
+      },
+      prepare(index: number, anchor: number, value: number) {
+        return {
+          payload: { index, anchor, value },
+        }
+      },
+    },
+
+    setSlopeValues: {
+      reducer(
+        state,
+        action: PayloadAction<{ index: number; values: number[] }>
+      ) {
+        const { index, values } = action.payload
+        const slice = state.segments[index]
+
+        slice.slope.values = values
+      },
+      prepare(index: number, values: number[]) {
+        return {
+          payload: { index, values },
         }
       },
     },
@@ -394,6 +414,34 @@ const streetSlice = createSlice({
       },
     },
 
+    // This is like `setBoundaryElevation` but it changes only waterfront
+    // boundaries, and up to both at the same time
+    setSeaLevel(state, action: PayloadAction<number>) {
+      const value = action.payload
+
+      if (typeof value !== 'number' || Number.isNaN(value)) {
+        return
+      }
+
+      // function getBoundaryItem(str: string) {
+      //   return {
+      //     str,
+      //     waterfront: true
+      //   }
+      // }
+
+      // Set both boundaries if they are waterfronts
+      const left = getBoundaryItem(state.boundary.left.variant)
+      const right = getBoundaryItem(state.boundary.right.variant)
+
+      if (left.waterfront) {
+        state.boundary.left.elevation = value
+      }
+      if (right.waterfront) {
+        state.boundary.right.elevation = value
+      }
+    },
+
     // TODO: Buildings could be a child slice?
     addBuildingFloor(state, action: PayloadAction<BoundaryPosition>) {
       const position = action.payload
@@ -475,12 +523,32 @@ const streetSlice = createSlice({
         if (!variant) return
 
         switch (position) {
-          case 'left':
+          case 'left': {
             state.boundary.left.variant = variant
+
+            // Special case -- if right boundary is a waterfront, set left
+            // boundary's elevation to match it
+            const left = getBoundaryItem(variant)
+            const right = getBoundaryItem(state.boundary.right.variant)
+            if (left.waterfront && right.waterfront) {
+              state.boundary.left.elevation = state.boundary.right.elevation
+            }
+
             break
-          case 'right':
+          }
+          case 'right': {
             state.boundary.right.variant = variant
+
+            // Special case -- if left boundary is a waterfront, set right
+            // boundary's elevation to match it
+            const left = getBoundaryItem(state.boundary.left.variant)
+            const right = getBoundaryItem(variant)
+            if (left.waterfront && right.waterfront) {
+              state.boundary.right.elevation = state.boundary.left.elevation
+            }
+
             break
+          }
         }
       },
       prepare(position: BoundaryPosition, variant: string) {
@@ -512,6 +580,8 @@ export const {
   changeSegmentWidth,
   changeSegmentVariant,
   toggleSliceSlope,
+  setSlopeValue,
+  setSlopeValues,
   changeSegmentProperties,
   saveStreetName,
   saveCreatorId,
@@ -526,6 +596,7 @@ export const {
   addLocation,
   clearLocation,
   setBoundaryElevation,
+  setSeaLevel,
   addBuildingFloor,
   removeBuildingFloor,
   setBuildingFloorValue,

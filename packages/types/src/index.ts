@@ -170,7 +170,6 @@ export interface StreetState extends StreetJsonExtra {
   clientUpdatedAt?: string // Datetime string
   userUpdated: boolean
   editCount: number
-  immediateRemoval: boolean
 }
 
 export interface StreetPluginData {
@@ -181,11 +180,16 @@ export interface CoastmixState {
   controlsVisible: boolean
   seaLevelRise: number
   stormSurge: boolean
-  floodDirection: FloodDirection
-  floodDistance: number | null
+  floodDistance: [FloodDistance, FloodDistance]
 }
 
-export type FloodDirection = 'left' | 'right' | 'both' | 'none'
+// Flood distance is a number expressed in pixels (for now, I don't think
+// that should always remain the case), `null` for no flooding from this
+// direction (as opposed to `0` which can mean flooding is possible, it's
+// just flooding for zero distance), and the string `max` for maximum
+// flooding. Infinity is normally a good number to use, but that value is
+// not serializable to JSON!
+export type FloodDistance = number | null | 'max'
 
 export interface HistoryState {
   stack: Partial<StreetState>[]
@@ -200,7 +204,7 @@ export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 
 export interface SliceDescription {
   key: string
-  image: string
+  image?: string
 }
 
 export interface SliceVariantComponentDefinition {
@@ -237,10 +241,12 @@ export interface SegmentLookup {
   defaultWidth: MeasurementValues
   defaultVariant?: string
   defaultElevation?: number | MeasurementValues
+  defaultSlope?: Array<number | MeasurementValues>
   enableElevation?: boolean
   enableWithFlag?: string
   unlockWithFlag?: string
   unlockCondition?: UnlockCondition
+  coastmixPaletteOrder?: number
   description?: SliceDescription
   rules?: {
     minWidth?: MeasurementValues
@@ -406,7 +412,7 @@ interface BoundaryDefinitionBase {
   id: string
   label: string
   spriteId: string
-  hasFloors: boolean
+  waterfront?: boolean
   sameOnBothSides?: boolean
   repeatHalf?: boolean
   alignAtBaseline?: boolean
@@ -414,6 +420,13 @@ interface BoundaryDefinitionBase {
   variantsCount?: number
   overhangWidth?: number
   earthColor?: string // should be a valid CSS color string
+}
+
+// A boundary definition without floors is either missing the `hasFloors`
+// property or it is set to false. This is used as a discriminator
+// from the `BoundaryDefinitionWithFloors` type.
+interface BoundaryDefinitionWithoutFloors extends BoundaryDefinitionBase {
+  hasFloors?: false
 }
 
 // If boundary definition has floors, the following properties are
@@ -426,7 +439,7 @@ interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
 }
 
 export type BoundaryDefinition =
-  | BoundaryDefinitionBase
+  | BoundaryDefinitionWithoutFloors
   | BoundaryDefinitionWithFloors
 
 export interface GalleryAPIResponse {

@@ -1,7 +1,6 @@
 import { Buffer } from 'node:buffer'
 import passport from 'passport'
-import { OAuth2Strategy } from 'passport-oauth'
-import { InternalOAuthError } from 'passport-oauth2'
+import OAuth2Strategy, { InternalOAuthError } from 'passport-oauth2'
 import axios from 'axios'
 
 import { User } from '../../../db/models/index.ts'
@@ -39,8 +38,8 @@ const initCoil = () => {
     {
       authorizationURL: 'https://coil.com/oauth/auth',
       tokenURL: 'https://coil.com/oauth/token',
-      clientID: process.env.COIL_CLIENT_ID,
-      clientSecret: process.env.COIL_CLIENT_SECRET,
+      clientID: process.env.COIL_CLIENT_ID ?? '',
+      clientSecret: process.env.COIL_CLIENT_SECRET ?? '',
       scope: 'simple_wm openid',
       callbackURL: `${appURL.origin}/services/integrations/coil/callback`,
       passReqToCallback: true,

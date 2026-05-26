@@ -12,6 +12,13 @@
      Also disable the bounce effect exposing empty space beyond section boundary */
   overscroll-behavior: none;
 
+  /* Floating UI's safe polygon negates pointer-events on the entire body,
+     which prevents this container from being scrolled, so we need to force
+     pointer-events back on when the safe polygon is active. */
+  [data-floating-ui-safe-polygon] & {
+    pointer-events: auto;
+  }
+
   [dir="rtl"] & {
     direction: ltr;
   }
@@ -27,6 +34,14 @@
   body.read-only & {
     /* TODO document magic number 80 */
     bottom: calc(var(--street-section-baseline) - 80px);
+  }
+
+  /* The outer container forces pointer-events to be on so it can be scrolled
+     when Floating UI's safe polygon is active. But we still need to prevent
+     pointer events on the children of the scroll container, so it is
+     re-enabled here. */
+  [data-floating-ui-safe-polygon] & {
+    pointer-events: none;
   }
 }
 

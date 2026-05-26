@@ -37,7 +37,7 @@ export function UndoRedo() {
 
   return (
     <TooltipGroup>
-      <Tooltip label={undoLabel}>
+      <Tooltip label={undoLabel} role="label">
         <Button
           onClick={() => {
             dispatch(handleUndo())
@@ -45,10 +45,10 @@ export function UndoRedo() {
           disabled={!isUndoAvailable()}
           aria-label={undoLabel}
         >
-          <Icon name="undo" />
+          <Icon name="undo" size="24" />
         </Button>
       </Tooltip>
-      <Tooltip label={redoLabel}>
+      <Tooltip label={redoLabel} role="label">
         <Button
           onClick={() => {
             dispatch(handleRedo())
@@ -56,7 +56,7 @@ export function UndoRedo() {
           disabled={!isRedoAvailable()}
           aria-label={redoLabel}
         >
-          <Icon name="redo" />
+          <Icon name="redo" size="24" />
         </Button>
       </Tooltip>
     </TooltipGroup>

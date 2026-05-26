@@ -21,7 +21,12 @@ export function VoteButtons({ handleVote, selectedScore }: VoteButtonsProps) {
         })
 
         return (
-          <Tooltip key={vote.score} label={label} placement="bottom">
+          <Tooltip
+            key={vote.score}
+            label={label}
+            placement="bottom"
+            role="label"
+          >
             <button
               className={[
                 'sentiment-button',

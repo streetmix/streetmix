@@ -4,6 +4,7 @@
     "nameKey": "sidewalk",
     "owner": "PEDESTRIAN",
     "zIndex": 30,
+    "coastmixPaletteOrder": 20,
     "defaultWidth": {
       "metric": 1.8,
       "imperial": 6
@@ -101,6 +102,7 @@
     "nameKey": "sidewalk-tree",
     "owner": "NATURE",
     "zIndex": 22,
+    "coastmixPaletteOrder": 21,
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
@@ -157,6 +159,7 @@
     "nameKey": "bike-rack",
     "owner": "BIKE",
     "zIndex": 23,
+    "coastmixPaletteOrder": 22,
     "defaultWidth": {
       "metric": 1.5,
       "imperial": 5
@@ -294,6 +297,7 @@
     "nameKey": "bench",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
+    "coastmixPaletteOrder": 23,
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
@@ -370,6 +374,7 @@
     "nameKey": "outdoor-dining",
     "owner": "PEDESTRIAN",
     "zIndex": 24,
+    "coastmixPaletteOrder": 24,
     "defaultWidth": {
       "metric": 2.4,
       "imperial": 8
@@ -483,6 +488,7 @@
     "nameKey": "wayfinding-sign",
     "owner": "PEDESTRIAN",
     "zIndex": 21,
+    "coastmixPaletteOrder": 25,
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
@@ -563,6 +569,7 @@
     "nameKey": "sidewalk-lamp",
     "owner": "PEDESTRIAN",
     "zIndex": 19,
+    "coastmixPaletteOrder": 26,
     "defaultWidth": {
       "metric": 1.2,
       "imperial": 4
@@ -1098,6 +1105,7 @@
     "nameKey": "divider",
     "owner": "NATURE",
     "zIndex": 20,
+    "coastmixPaletteOrder": 2,
     "defaultWidth": {
       "metric": 0.5,
       "imperial": 2
@@ -1604,6 +1612,86 @@
       }
     }
   },
+  "bioswale": {
+    "name": "Bioswale",
+    "nameKey": "bioswale",
+    "owner": "NATURE",
+    "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 3,
+    "unlockCondition": "SUBSCRIBE",
+    "description": {
+      "key": "bioswale"
+    },
+    "defaultWidth": {
+      "metric": 3,
+      "imperial": 10
+    },
+    "rules": {
+      "minWidth": {
+        "metric": 2.45,
+        "imperial": 8
+      }
+    },
+    "variants": ["bioswale-vegetation"],
+    "details": {
+      "bush": {
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "bioswale",
+              "variants": {
+                "plants": ["bush"],
+                "sides": ["slanted"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      },
+      "tree": {
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            },
+            {
+              "id": "bioswale",
+              "variants": {
+                "plants": ["tree"],
+                "sides": ["slanted"]
+              }
+            }
+          ]
+        },
+        "offsetY": -50
+      }
+    }
+  },
   "scooter": {
     "name": "Electric scooter",
     "nameKey": "scooter",
@@ -2041,6 +2129,7 @@
     "nameKey": "bike-lane",
     "owner": "BIKE",
     "zIndex": 16,
+    "coastmixPaletteOrder": 30,
     "defaultWidth": {
       "metric": 1.8,
       "imperial": 6
@@ -2921,6 +3010,7 @@
     "nameKey": "bikeshare-station",
     "owner": "FLEX",
     "zIndex": 21,
+    "coastmixPaletteOrder": 31,
     "defaultWidth": {
       "metric": 2,
       "imperial": 7
@@ -3040,6 +3130,7 @@
     "nameKey": "foodtruck",
     "owner": "FLEX",
     "zIndex": 20,
+    "coastmixPaletteOrder": 32,
     "defaultWidth": {
       "metric": 3,
       "imperial": 10
@@ -3443,6 +3534,7 @@
     "nameKey": "parking-lane",
     "owner": "CAR",
     "zIndex": 13,
+    "coastmixPaletteOrder": 40,
     "defaultWidth": {
       "metric": 2,
       "imperial": 7
@@ -3891,6 +3983,7 @@
     "nameKey": "drive-lane",
     "owner": "CAR",
     "zIndex": 14,
+    "coastmixPaletteOrder": 41,
     "defaultWidth": {
       "metric": 3,
       "imperial": 10
@@ -4986,6 +5079,7 @@
     "nameKey": "bus-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
+    "coastmixPaletteOrder": 42,
     "defaultWidth": {
       "metric": 3.6,
       "imperial": 12
@@ -5634,6 +5728,7 @@
     "nameKey": "streetcar",
     "owner": "TRANSIT",
     "zIndex": 15,
+    "coastmixPaletteOrder": 43,
     "defaultWidth": {
       "metric": 3.6,
       "imperial": 12
@@ -5842,6 +5937,7 @@
     "nameKey": "light-rail",
     "owner": "TRANSIT",
     "zIndex": 15,
+    "coastmixPaletteOrder": 44,
     "defaultWidth": {
       "metric": 3.6,
       "imperial": 12
@@ -6049,6 +6145,7 @@
     "nameKey": "transit-shelter",
     "owner": "TRANSIT",
     "zIndex": 20,
+    "coastmixPaletteOrder": 45,
     "defaultWidth": {
       "metric": 2.7,
       "imperial": 9
@@ -6169,6 +6266,7 @@
     "nameKey": "brt-station",
     "owner": "TRANSIT",
     "zIndex": 20,
+    "coastmixPaletteOrder": 46,
     "defaultWidth": {
       "metric": 4,
       "imperial": 13.5
@@ -6263,6 +6361,7 @@
     "nameKey": "brt-lane",
     "owner": "TRANSIT",
     "zIndex": 15,
+    "coastmixPaletteOrder": 47,
     "defaultWidth": {
       "metric": 3.5,
       "imperial": 11.667
@@ -6535,6 +6634,7 @@
     },
     "defaultVariant": "lounger",
     "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 4,
     "variants": ["beach-type"],
     "details": {
       "beach": {
@@ -6585,6 +6685,7 @@
     },
     "defaultVariant": "marsh",
     "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 5,
     "variants": ["marsh-type"],
     "details": {
       "marsh": {
@@ -6620,6 +6721,7 @@
     },
     "defaultVariant": "low",
     "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 10,
     "variants": ["wall-height"],
     "details": {
       "low": {
@@ -6672,6 +6774,7 @@
       "imperial": 1
     },
     "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 11,
     "variants": ["guardrail-type"],
     "details": {
       "default": {
@@ -6692,6 +6795,76 @@
           "objects": [
             {
               "id": "guardrail",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "slope": {
+    "name": "Slope",
+    "nameKey": "slope",
+    "defaultWidth": {
+      "metric": 2.4,
+      "imperial": 8
+    },
+    "defaultSlope": [
+      {
+        "metric": 0.15,
+        "imperial": 0.5
+      },
+      {
+        "metric": 0.9,
+        "imperial": 3
+      }
+    ],
+    "rules": {
+      "slope": "berm"
+    },
+    "enableWithFlag": "COASTMIX_MODE",
+    "coastmixPaletteOrder": 1,
+    "variants": ["slope-type"],
+    "details": {
+      "grass": {
+        "name": "Grassy hill",
+        "nameKey": "grass-hill",
+        "components": {
+          "lanes": [
+            {
+              "id": "earth",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "planting-strip",
+              "variants": {
+                "type": "grass"
+              }
+            }
+          ]
+        }
+      },
+      "dune": {
+        "name": "Sand dune",
+        "nameKey": "sand-dune",
+        "components": {
+          "lanes": [
+            {
+              "id": "beach",
+              "variants": {
+                "type": "default"
+              }
+            }
+          ],
+          "objects": [
+            {
+              "id": "marsh-grass",
               "variants": {
                 "type": "default"
               }

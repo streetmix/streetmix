@@ -14,6 +14,7 @@ import {
   BUILDING_LEFT_POSITION,
 } from '~/src/segments/constants.js'
 import { UpDownInput } from './UpDownInput.js'
+import './BuildingHeightControl.css'
 
 import type { BoundaryPosition } from '@streetmix/types'
 
@@ -25,6 +26,7 @@ export function BuildingHeightControl({
   position,
 }: BuildingHeightControlProps) {
   const units = useSelector((state) => state.street.units)
+  const locale = useSelector((state) => state.locale.locale)
 
   // Get the appropriate building data based on which side of street it's on
   const variant = useSelector((state) =>
@@ -56,7 +58,14 @@ export function BuildingHeightControl({
   }
 
   const displayValueFormatter = (value: number): string => {
-    return prettifyHeight(variant, position, value, units, intl.formatMessage)
+    return prettifyHeight(
+      variant,
+      position,
+      value,
+      units,
+      locale,
+      intl.formatMessage
+    )
   }
 
   const hasFloors = getBoundaryItem(variant).hasFloors
@@ -69,6 +78,7 @@ export function BuildingHeightControl({
           defaultMessage: 'Building height',
         })}
         placement="left"
+        role="label"
       >
         <span className="popup-control-icon">
           <Icon name="building-height" size="30" stroke="1.5" />
@@ -96,6 +106,7 @@ export function BuildingHeightControl({
           defaultMessage: 'Remove floor',
         })}
         allowAutoUpdate
+        className="boundary-height-control"
       />
     </div>
   )

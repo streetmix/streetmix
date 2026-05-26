@@ -31,6 +31,7 @@
       "sign-in-link": "{signInLink} pro hezčí odkazy na vaše ulice a vaši osobní galerii ulic.",
       "link": "Zkopírujte a vložte tento odkaz pro sdílení:",
       "copy-to-clipboard": "Kopírovat do schránky",
+      "copy-success": "",
       "twitter": "Sdílet pomocí Twitteru",
       "facebook": "Sdílet přes Facebook",
       "mastodon": "Sdílet pomocí Mastodon",
@@ -71,7 +72,8 @@
       "default": "Nový příklad ulice",
       "empty": "Nová prázdná ulice",
       "copy": "Vytvořit kopii",
-      "template": "Nová z šablony…"
+      "template": "Nová z šablony…",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Znovu se přihlaste",
       "reload": "Znovu načíst stránku",
       "return": "Zpět na Streetmix",
-      "try-again": "Zkuste to znovu",
-      "view-example": "Zobrazit příklad ulice"
+      "try-again": "Zkuste to znovu"
     },
     "page-not-found-title": "Stránka nenalezena.",
     "page-not-found-description": "Ach jo. Žádná stránka s touto adresou neexistuje!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Za to se omlouváme. Možná budete chtít vyzkoušet <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> nebo Safari.",
     "unsupported-browser-internet-explorer": "Používáte Internet Explorer? <a>Zjistěte více</a>.",
     "unsupported-browser-contact-us": "Pokud si myslíte, že by váš prohlížeč měl být podporován, <a>kontaktujte nás.",
-    "cannot-create-new-street-on-phone-title": "Streetmix funguje pouze na tabletech a stolních počítačích.",
-    "cannot-create-new-street-on-phone-description": "Pokud následujete další odkaz na konkrétní ulici, můžete si ji zobrazit v telefonu - zatím však nelze vytvářet nové ulice.",
     "generic-error-title": "Něco se pokazilo.",
     "generic-error-description": "Omlouváme se - něco se pokazilo.",
     "error-code": "(Chyba {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "Tento obrázek je příliš velký a nepodařilo se nám ho vytvořit. Zkuste prosím menší vlastní velikost.",
       "preview-image-alt": "Náhled",
       "print-size": "Velikost tisku",
-      "digital-size": "Digitální formát"
+      "digital-size": "Digitální formát",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Hledat umístění",
@@ -316,7 +316,33 @@
     "tooltip": "Přepínání nástrojů",
     "skybox": {
       "tooltip": "Editor prostředí",
-      "heading": "Prostředí"
+      "heading": "Prostředí",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -386,22 +412,29 @@
     "elevation-road": "Úroveň vozovky",
     "elevation-input": "Změnit nadmořskou výšku",
     "elevation-lower": "Snížit nadmořskou výšku",
-    "elevation-raise": "Zvýšit nadmořskou výšku"
+    "elevation-raise": "Zvýšit nadmořskou výšku",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Ulice bez jména",
     "rename": "Kliknutím přejmenujte"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# podlaží} few {# podlaží} many {# podlaží} other {# podlaží}}"
   },
   "segments": {
     "warnings": {
-      "does-not-fit": "Tento úsek se do ulice nevejde.",
-      "not-wide": "Tento segment nemusí být dostatečně široký.",
-      "too-wide": "Tento segment může být příliš široký.",
-      "dangerous": "Tento úsek představuje nebezpečný stávající stav.",
-      "slope-exceeded": ""
+      "does-not-fit": "To se nehodí do ulice.",
+      "not-wide": "To nemusí být dostatečně široké.",
+      "too-wide": "To může být příliš široké.",
+      "dangerous": "To je nebezpečný stav.",
+      "slope-exceeded": "To může být příliš strmé."
     },
     "learn-more": "Zjistěte více",
     "unknown": {
@@ -415,8 +448,15 @@
       "max": "Max"
     },
     "controls": {
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
       "elevation": "Nadmořská výška",
-      "slope": "Sklon"
+      "slope": {
+        "label": "Sklon",
+        "switch-tooltip": "",
+        "disabled-tooltip": "Tento prvek nelze naklonit."
+      }
     }
   },
   "section": {

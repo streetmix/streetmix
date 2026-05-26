@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## May 4, 2026
+
+### 🐛 Bug fixes
+
+- Fixed a bug that could prevent a street from being scrolled left and right via a touchpad.
+
 ## March 31, 2026
 
 ### 🚧 Known issues

@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Innlogging",
-      "sign-in-link": "{signInLink} for penere lenker, og for å få ditt eget gategalleri",
+      "sign-in-link": "{signInLink} for penere lenker, og for å få ditt eget gategalleri.",
       "link": "Kopier og lim inn denne linken for å dele: ",
       "copy-to-clipboard": "Kopier til utklippstavlen",
+      "copy-success": "",
       "twitter": "Del på Twitter",
       "facebook": "Del på Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Lag en kopi",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Logg inn igjen",
       "reload": "Last inn siden på nytt",
       "return": "Tilbake til Streetmix",
-      "try-again": "Prøv på nytt",
-      "view-example": "Se en eksempelgate"
+      "try-again": "Prøv på nytt"
     },
     "page-not-found-title": "Siden ble ikke funnet",
     "page-not-found-description": "Oi sann! Det er ingen side med den adressen. ",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Beklager det. Du kan prøve <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link>, eller Safari.",
     "unsupported-browser-internet-explorer": "Er du på Internet Explorer? <a>Finn ut mer.</a>",
     "unsupported-browser-contact-us": "Hvis du mener at nettleseren din bør støttes, vennligst <a>kontakt oss</a>.",
-    "cannot-create-new-street-on-phone-title": "Streetmix virker bare på nettbrett og datamaskiner. ",
-    "cannot-create-new-street-on-phone-description": "Hvis du følger en annen lenke til en bestemt gate kan du vise den på telefonen din, men foreløpig kan du ikke lage nye gater. ",
     "generic-error-title": "Noe gikk galt. ",
     "generic-error-description": "Beklager – noe gikk galt. ",
     "error-code": "(Feil {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Forhåndsvisning",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Søk etter et sted",
@@ -316,7 +316,33 @@
     "tooltip": "Bytt mellom verktøy",
     "skybox": {
       "tooltip": "Miljøvariablereditor",
-      "heading": "Omgivelser"
+      "heading": "Omgivelser",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Rull til høyre",
     "elevation-sidewalk": "Fortausnivå",
     "elevation-road": "Gatenivå",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Gate uten navn",
     "rename": "Klikk for å gi nytt navn"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# etasjer} other {# etasjer}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Dette segmentet får ikke plass i gaten.",
       "not-wide": "Dette segmentet er kanskje ikke bredt nok.",
       "too-wide": "Dette segmentet er kanskje for bredt.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Lær mer",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Maks"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

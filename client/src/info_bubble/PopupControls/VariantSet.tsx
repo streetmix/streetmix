@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl'
 import { getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -6,6 +7,7 @@ import {
   setBuildingVariant,
   changeSegmentVariant,
 } from '~/src/store/slices/street.js'
+import { getBoundaryItem } from '~/src/boundary/boundary.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import { VariantButton } from './VariantButton.js'
@@ -77,6 +79,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     if (type === 'boundary') {
       handler = () => {
         dispatch(setBuildingVariant(position, selection))
+        dispatch(segmentsChanged())
       }
     } else {
       handler = () => {
@@ -88,16 +91,23 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     return handler
   }
 
-  function renderButtonGroup(set: string, items: string[]): React.ReactElement {
+  function renderButtonGroup(
+    set: string,
+    items: string[],
+    optionalKey?: string
+  ) {
     return (
-      <div className="popup-control-row popup-control-button-group" key={set}>
+      <div
+        className="popup-control-row popup-control-button-group"
+        key={optionalKey ?? set}
+      >
         {items.map((selection) => (
           <VariantButton
             set={set}
             selection={selection}
             isSelected={isVariantCurrentlySelected(set, selection)}
             onClick={getButtonOnClickHandler(set, selection)}
-            key={set + '.' + selection}
+            key={(optionalKey ?? set) + '.' + selection}
           />
         ))}
       </div>
@@ -109,7 +119,36 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     | React.ReactElement
     | null {
     if (type === 'boundary') {
-      return renderButtonGroup('boundary', variantSets)
+      if (coastmixMode) {
+        const waterItems = variantSets.filter((id) => {
+          const item = getBoundaryItem(id)
+          return item.waterfront ?? false
+        })
+        const landItems = variantSets.filter((id) => {
+          const item = getBoundaryItem(id)
+          return !item.waterfront
+        })
+        return (
+          <>
+            <h4>
+              <FormattedMessage
+                id="boundary.group.land"
+                defaultMessage="Land"
+              />
+            </h4>
+            {renderButtonGroup('boundary', landItems, 'boundary1')}
+            <h4>
+              <FormattedMessage
+                id="boundary.group.waterfront"
+                defaultMessage="Waterfront"
+              />
+            </h4>
+            {renderButtonGroup('boundary', waterItems, 'boundary2')}
+          </>
+        )
+      } else {
+        return renderButtonGroup('boundary', variantSets)
+      }
     } else {
       return variantSets.map((set) =>
         renderButtonGroup(set, Object.keys(VARIANT_ICONS[set]))

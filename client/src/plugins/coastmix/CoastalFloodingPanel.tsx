@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useShepherd } from 'react-shepherd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
@@ -6,28 +7,21 @@ import {
   hideCoastalFloodingPanel,
   setSeaLevelRise,
   setStormSurge,
-  setFloodDirection,
 } from '~/src/store/slices/coastmix.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
+import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanel.js'
 import './CoastalFloodingPanel.css'
 
-import type { FloodDirection } from '@streetmix/types'
-
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
   const Shepherd = useShepherd()
+  const intl = useIntl()
 
-  const {
-    controlsVisible,
-    seaLevelRise,
-    floodDirection,
-    floodDistance,
-    stormSurge,
-  } = coastmix
+  const { controlsVisible, seaLevelRise, floodDistance, stormSurge } = coastmix
 
   function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
@@ -37,12 +31,6 @@ export function CoastalFloodingPanel() {
     dispatch(setSeaLevelRise(x))
   }
 
-  function changeFloodDirection(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    dispatch(setFloodDirection(event.target.value as FloodDirection))
-  }
-
   function toggleStormSurge(checked: boolean): void {
     dispatch(setStormSurge(checked))
   }
@@ -50,26 +38,26 @@ export function CoastalFloodingPanel() {
   // Updates state and saves to server
   useEffect(() => {
     dispatch(segmentsChanged(true))
-  }, [floodDirection, seaLevelRise, stormSurge, dispatch])
+  }, [seaLevelRise, stormSurge, dispatch])
 
   let message
   const messageClassNames = ['flood-controls-message']
   if (seaLevelRise === 0) {
-    message = '👉 Select a sea level rise target to visualize flooding.'
-  } else if (floodDirection === 'none') {
-    message = '👉 Select a flooding direction.'
+    message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.start', defaultMessage: 'Select a sea level rise target to visualize flooding.' })}`
+  } else if (floodDistance[0] === null && floodDistance[1] === null) {
+    message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`
   } else {
-    if (floodDistance === null) {
-      message = '❌ This configuration does not address sea level rise!'
+    if (floodDistance.includes('max')) {
+      message = `❌ ${intl.formatMessage({ id: 'tools.flooding.messages.fail', defaultMessage: 'This configuration does not address sea level rise!' })}`
       messageClassNames.push('flood-controls-warning')
     } else {
-      message = '✅ This configuration is addressing sea level rise!'
+      message = `✅ ${intl.formatMessage({ id: 'tools.flooding.messages.success', defaultMessage: 'This configuration is addressing sea level rise!' })}`
       messageClassNames.push('flood-controls-success')
 
       // Manually control the tour here
       if (
         Shepherd.activeTour &&
-        Shepherd.activeTour.currentStep.id === 'coastmix-practice-10'
+        Shepherd.activeTour.currentStep?.id === 'coastmix-practice-10'
       ) {
         Shepherd.activeTour.next()
       }
@@ -79,15 +67,27 @@ export function CoastalFloodingPanel() {
   return (
     <FloatingPanel
       icon="boat"
-      title="Coastal flooding"
+      title={
+        <>
+          <FormattedMessage
+            id="tools.flooding.heading"
+            defaultMessage="Coastal flooding"
+          />
+          <BetaTag />
+        </>
+      }
       show={controlsVisible}
       className="coastmix-controls"
       handleClose={handleClose}
-      position={{ x: 30, y: 65 }}
     >
       <div className="popup-controls flood-controls-content">
         <div className="popup-control-group" data-tour-id="sea-level-control">
-          <div className="popup-control-label">Sea level rise</div>
+          <div className="popup-control-label">
+            <FormattedMessage
+              id="tools.sea-level.label"
+              defaultMessage="Sea level rise"
+            />
+          </div>
           <div>
             <Button
               className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
@@ -95,7 +95,10 @@ export function CoastalFloodingPanel() {
                 changeSeaLevelRise(0)
               }}
             >
-              Current
+              <FormattedMessage
+                id="tools.sea-level.current"
+                defaultMessage="Current"
+              />
             </Button>
             <Button
               className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
@@ -125,22 +128,13 @@ export function CoastalFloodingPanel() {
           </div>
         </div>
         <div className="popup-control-group" data-tour-id="storm-surge-control">
-          <div className="popup-control-label">Storm surge</div>
-          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
-        </div>
-        <div
-          className="popup-control-group"
-          data-tour-id="flood-direction-control"
-        >
-          <div className="popup-control-label">Flood direction</div>
-          <div>
-            <select value={floodDirection} onChange={changeFloodDirection}>
-              <option value="none">None</option>
-              <option value="left">Left</option>
-              <option value="right">Right</option>
-              {/* <option value="both">Both</option> */}
-            </select>
+          <div className="popup-control-label">
+            <FormattedMessage
+              id="tools.storm-surge.label"
+              defaultMessage="Storm surge"
+            />
           </div>
+          <Switch onCheckedChange={toggleStormSurge} checked={stormSurge} />
         </div>
         <div
           className={messageClassNames.join(' ')}

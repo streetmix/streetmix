@@ -86,6 +86,7 @@ export function WidthControl({ position }: WidthControlProps) {
           defaultMessage: 'Width',
         })}
         placement="left"
+        role="label"
       >
         <span className="popup-control-icon">
           <Icon name="slice-width" size="30" stroke="1.5" />

@@ -8,14 +8,14 @@ import type {
   CSSGradientDeclaration,
   CSSGradientStop,
   SkyboxDefWithStyles,
-  SkyboxDefinition
+  SkyboxDefinition,
 } from '@streetmix/types'
 
 /**
  * Converts information from skybox-defs.json to create a string value
  * for a linear gradient that be accepted by the CSS `background-image` property.
  */
-export function makeCSSGradientDeclaration (
+export function makeCSSGradientDeclaration(
   array: CSSGradientDeclaration
 ): string {
   // Normalize all values
@@ -44,7 +44,7 @@ export function makeCSSGradientDeclaration (
  * Converts information from skybox-defs.json to create a string that can
  * be accepted by the CSS `background` property.
  */
-function makeCSSBackgroundImageDeclaration (url: string): string {
+function makeCSSBackgroundImageDeclaration(url: string): string {
   const asset = images.get(url)
   if (asset === undefined) {
     throw new Error('Asset not found: ' + url)
@@ -58,7 +58,7 @@ function makeCSSBackgroundImageDeclaration (url: string): string {
  * that can be used directly in React for elements that accept the
  * style prop, e.g. `<div style={style} />`
  */
-function makeReactStyleObject (
+function makeReactStyleObject(
   env: SkyboxDefinition,
   renderImages = true
 ): React.CSSProperties {
@@ -101,7 +101,7 @@ function makeReactStyleObject (
  * for canvas rendering. This function will also fill in any missing stop
  * values to make it easy to render to canvas.
  */
-export function makeCanvasGradientStopArray (
+export function makeCanvasGradientStopArray(
   array: CSSGradientDeclaration
 ): Array<[string, number]> {
   // If the value is a string, wrap it in an array
@@ -156,26 +156,26 @@ export function makeCanvasGradientStopArray (
 /**
  * Gets a single skybox definition with a React-ready style object.
  */
-export function getSkyboxDef (id: string): SkyboxDefWithStyles {
-  let env = SKYBOX_DEFS[id as keyof typeof SKYBOX_DEFS] as SkyboxDefinition
+export function getSkyboxDef(id: string): SkyboxDefWithStyles {
+  let config = SKYBOX_DEFS[id as keyof typeof SKYBOX_DEFS] as SkyboxDefinition
 
-  if (env === undefined) {
-    env = SKYBOX_DEFS[DEFAULT_SKYBOX]
+  if (config === undefined) {
+    config = SKYBOX_DEFS[DEFAULT_SKYBOX]
     id = DEFAULT_SKYBOX
   }
 
   return {
-    ...env,
+    ...config,
     id,
-    style: makeReactStyleObject(env),
-    iconStyle: makeReactStyleObject(env, false)
+    style: makeReactStyleObject(config),
+    iconStyle: makeReactStyleObject(config, false),
   }
 }
 
 /**
  * Gets all skybox definitions with React-ready style objects.
  */
-export function getAllSkyboxDefs (): SkyboxDefWithStyles[] {
+export function getAllSkyboxDefs(): SkyboxDefWithStyles[] {
   return Object.entries(
     SKYBOX_DEFS as unknown as Record<keyof SkyboxDefinition, SkyboxDefinition>
   )
@@ -188,9 +188,9 @@ export function getAllSkyboxDefs (): SkyboxDefWithStyles[] {
  * dark skybox. UI elements that are placed on top of the dark background
  * should use this classname to invert its colors.
  */
-export function initSkyboxChangedListener (): Unsubscribe {
+export function initSkyboxChangedListener(): Unsubscribe {
   const select = (state: RootState): SkyboxDefWithStyles => ({
-    ...getSkyboxDef(state.street.skybox)
+    ...getSkyboxDef(state.street.skybox),
   })
   const onChange = (state: SkyboxDefinition): void => {
     // `invertUITextColor` may not be defined, so coerce it to `false` with Boolean()

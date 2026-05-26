@@ -466,8 +466,6 @@ function doDropHeuristics(
     if (left === null) {
       leftElevation = street.boundary.left.elevation ?? CURB_HEIGHT
       // Make sure there are values
-      // Look into the implementation, apparently slope can be `on` but
-      // values are an empty array, which returns `-Infinity` from `Math.max()`
     } else if (left.slope.on && left.slope.values.length > 1) {
       leftElevation = Math.max(...left.slope.values)
     } else {
@@ -479,8 +477,6 @@ function doDropHeuristics(
     if (right === null) {
       rightElevation = street.boundary.right.elevation ?? CURB_HEIGHT
       // Make sure there are values
-      // Look into the implementation, apparently slope can be `on` but
-      // values are an empty array, which returns `-Infinity` from `Math.max()`
     } else if (right.slope.on && right.slope.values.length > 1) {
       rightElevation = Math.max(...right.slope.values)
     } else {
@@ -493,6 +489,8 @@ function doDropHeuristics(
     // Only apply highestElevation if not sloped
     if (!draggedItem.slope.on) {
       draggedItem.elevation = highestElevation
+      // We need to set this to make sure that variants don't override
+      // the elevation
       draggedItem.elevationChanged = true
     }
   }
@@ -591,7 +589,7 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     elevation: draggedItem.elevation,
     elevationChanged: draggedItem.elevationChanged,
     label: draggedItem.label,
-    // TODO: preview slope here
+    slope: draggedItem.slope,
   }
 
   newSegment.variant =
@@ -604,11 +602,6 @@ function handleSegmentCanvasDrop(draggedItem: DraggedItem, type: DragType) {
     newIndex = newIndex <= draggedSegment ? newIndex : newIndex - 1
     store.dispatch(moveSegment(draggedSegment, newIndex, newSegment))
   } else {
-    // If we're dropping a new slice make sure it has the basic slope property
-    newSegment.slope = {
-      on: false,
-      values: [],
-    }
     store.dispatch(addSegment(newIndex, newSegment))
   }
 
@@ -660,13 +653,8 @@ export function createSliceDragSpec(sliceIndex: number, slice: SliceItem) {
         label: slice.label,
         actualWidth: slice.width,
         elevation: slice.elevation,
+        slope: slice.slope,
         elevationChanged: slice.elevationChanged,
-        // TODO: show actual slope in preview
-        // For now the slope preview is just regular elevation value
-        slope: {
-          on: false,
-          values: [],
-        },
       }
     },
     end(item: DraggedItem, monitor: DragSourceMonitor) {
@@ -718,17 +706,20 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
       const type = segment.id
 
       // The preview drag should match artwork in the thumbnail. The variant
-      // string is specified by `defaultVariant`. If the property isn't present,
-      // use the first defined variant in segment details.
+      // string is specified by `defaultVariant`. If the property isn't
+      // present, use the first defined variant in segment details.
       const variantString =
         segment.defaultVariant ?? Object.keys(segment.details).shift()
 
       // If palette items are missing information, that's a fatal error
-      if (!variantString) {
+      // Variant strings are allowed to be empty strings, so do not use a
+      // falsy check
+      if (typeof variantString === 'undefined') {
         throw new Error('variant string not found')
       }
 
-      // This allows dropped segment to be created with the correct elevation value
+      // This allows dropped segment to be created with the correct
+      // elevation value
       let elevation: number
       if (segment.defaultElevation !== undefined) {
         if (typeof segment.defaultElevation !== 'number') {
@@ -748,16 +739,31 @@ export function createPaletteItemDragSpec(segment: SegmentDefinition) {
         }
       }
 
+      // This allows dropped segment to be created with the correct slope
+      const slope: SlopeProperties = {
+        on: false,
+        values: [],
+      }
+      if (segment.defaultSlope !== undefined) {
+        slope.on = true
+
+        for (let i = 0; i < segment.defaultSlope.length; i++) {
+          const value = segment.defaultSlope[i]
+          if (typeof value === 'number') {
+            slope.values.push(value)
+          } else {
+            slope.values.push(getWidthInMetric(value, units))
+          }
+        }
+      }
+
       return {
         id: generateRandSeed(),
         type,
         variantString,
         actualWidth: getWidthInMetric(segment.defaultWidth, units),
         elevation,
-        slope: {
-          on: false,
-          values: [],
-        },
+        slope,
       }
     },
     end: (item: DraggedItem, monitor: DragSourceMonitor) => {

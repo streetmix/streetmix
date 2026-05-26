@@ -31,6 +31,7 @@
       "sign-in-link": "{signInLink} للحصول على روابط أجمل لشوارع ولمعرض الصور الشخصي",
       "link": "نسخ ولصق هذا الرابط لمشاركته:",
       "copy-to-clipboard": "",
+      "copy-success": "",
       "twitter": "مشاركة باستخدام تويتر",
       "facebook": "مشاركة باستخدام الفيسبوك",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "عمل نسخة",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "تسجيل الدخول من جديد",
       "reload": "إعادة تحميل الصفحة",
       "return": "",
-      "try-again": "حاول من جديد",
-      "view-example": "عرض شارع كمثال"
+      "try-again": "حاول من جديد"
     },
     "page-not-found-title": "الصفحة غير موجودة.",
     "page-not-found-description": "يا إلهي. لا توجد صفحة لهذا العنوان!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "آسف بشأن ذلك. ربما ترغب في تجربة متصفح <chrome_link>كروم</chrome_link>، <firefox_link>فايرفوكس</firefox_link>، <edge_link>ميكروسوفت ايدج</edge_link>، أو سافاري.",
     "unsupported-browser-internet-explorer": "هل تستخدم متصفح انترنت اكسبلورر الآن؟ <a>يمكنك العثور على المزيد من النتائج.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "لا يعمل Streetmix إلا على الأجهزة اللوحية وأجهزة الكمبيوتر.",
-    "cannot-create-new-street-on-phone-description": "إذا كنت تتبع رابطًا آخر إلى شارع معين، فيمكنك عرضه على هاتفك -ولكن لا يمكنك بعد إنشاء شوارع جديدة.",
     "generic-error-title": "هناك خطأ ما.",
     "generic-error-description": "نعتذر – هناك خطأ ما.",
     "error-code": "(خطأ {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "عرض مسبق",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "البحث عن موقع",
@@ -316,7 +316,33 @@
     "tooltip": "",
     "skybox": {
       "tooltip": "",
-      "heading": ""
+      "heading": "",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "",
     "elevation-sidewalk": "",
     "elevation-road": "مستوى الشارع",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "شارع غير مُسمى",
     "rename": "أنقر لإعادة التسمية"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, zero { # طَبَقة} one {طابِق} two {طابقين} few {# طوابق} many {# طوابق} other {# طوابق}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "هذا الجزء لا يتناسب مع الشارع.",
       "not-wide": "قد لا يكون هذا الجزء عريض بما يكفي.",
       "too-wide": "قد يكون هذا الجزء عريض للغاية.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "اعرف المزيد",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "حد أقصى"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

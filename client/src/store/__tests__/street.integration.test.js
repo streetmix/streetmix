@@ -15,7 +15,7 @@ vi.mock('../../streets/data_model', async (importOriginal) => {
   const actual = await importOriginal()
   return {
     ...actual,
-    saveStreetToServerIfNecessary: vi.fn()
+    saveStreetToServerIfNecessary: vi.fn(),
   }
 })
 
@@ -55,10 +55,13 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 10 }, { width: 10 }],
+            segments: [
+              { width: 10, slope: { on: false, values: [] } },
+              { width: 10, slope: { on: false, values: [] } },
+            ],
             width: 20,
-            units: 0
-          }
+            units: 0,
+          },
         }
         const store = createStore(initialState)
 
@@ -72,10 +75,13 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 3.048 }, { width: 3.048 }],
+            segments: [
+              { width: 3.048, slope: { on: false, values: [] } },
+              { width: 3.048, slope: { on: false, values: [] } },
+            ],
             width: 6.096,
-            units: 1
-          }
+            units: 1,
+          },
         }
         const store = createStore(initialState)
 
@@ -89,10 +95,13 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 6.05 }, { width: 6.05 }],
+            segments: [
+              { width: 6.05, slope: { on: false, values: [] } },
+              { width: 6.05, slope: { on: false, values: [] } },
+            ],
             width: 12.1,
-            units: 0
-          }
+            units: 0,
+          },
         }
         const store = createStore(initialState)
 
@@ -107,9 +116,12 @@ describe('street integration test', () => {
           street: {
             width: 24,
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 12 }, { width: 12 }],
-            units: 0
-          }
+            segments: [
+              { width: 12, slope: { on: false, values: [] } },
+              { width: 12, slope: { on: false, values: [] } },
+            ],
+            units: 0,
+          },
         }
         const store = createStore(initialState)
 
@@ -125,10 +137,10 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 2.123 }],
+            segments: [{ width: 2.123, slope: { on: false, values: [] } }],
             width: 2.5,
-            units: 0
-          }
+            units: 0,
+          },
         }
         const store = createStore(initialState)
 
@@ -144,10 +156,13 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 5 }, { width: 5 }],
+            segments: [
+              { width: 5, slope: { on: false, values: [] } },
+              { width: 5, slope: { on: false, values: [] } },
+            ],
             width: 10,
-            units: 0
-          }
+            units: 0,
+          },
         }
         const store = createStore(initialState)
 
@@ -161,10 +176,13 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-            segments: [{ width: 3.658 }, { width: 3.658 }],
+            segments: [
+              { width: 3.658, slope: { on: false, values: [] } },
+              { width: 3.658, slope: { on: false, values: [] } },
+            ],
             width: 7.316,
-            units: 1
-          }
+            units: 1,
+          },
         }
         const store = createStore(initialState)
 
@@ -180,10 +198,13 @@ describe('street integration test', () => {
       const initialState = {
         street: {
           boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-          segments: [{ width: 200 }, { width: 200 }],
+          segments: [
+            { width: 200, slope: { on: false, values: [] } },
+            { width: 200, slope: { on: false, values: [] } },
+          ],
           width: 400,
-          units: 0
-        }
+          units: 0,
+        },
       }
       const store = createStore(initialState)
 
@@ -196,10 +217,10 @@ describe('street integration test', () => {
       const initialState = {
         street: {
           boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
-          segments: [{ width: 2.147 }],
+          segments: [{ width: 2.147, slope: { on: false, values: [] } }],
           width: 2.5,
-          units: 0
-        }
+          units: 0,
+        },
       }
       const store = createStore(initialState)
 
@@ -217,7 +238,7 @@ describe('street integration test', () => {
     const segment = { variantString, id: '1', width: 400, type }
     const street = {
       segments: [segment],
-      width: 100
+      width: 100,
     }
     const apiResponse = {
       id: '3',
@@ -225,8 +246,8 @@ describe('street integration test', () => {
       updatedAt: '',
       name: 'StreetName',
       data: {
-        street
-      }
+        street,
+      },
     }
 
     beforeEach(() => {
@@ -260,7 +281,7 @@ describe('street integration test', () => {
     it('sets lastStreetId', async () => {
       const store = createStore({
         street: { id: '50', namespaceId: '45' },
-        app: { priorLastStreetId: '1' }
+        app: { priorLastStreetId: '1' },
       })
 
       apiMock.onAny().reply(200, apiResponse)

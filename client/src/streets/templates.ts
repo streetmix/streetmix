@@ -6,6 +6,7 @@ import { getSegmentVariantInfo } from '@streetmix/parts'
 
 import {
   normalizeSegmentWidth,
+  normalizeHeightValue,
   resolutionForResizeType,
   RESIZE_TYPE_INITIAL,
 } from '../segments/resizing.js'
@@ -20,13 +21,72 @@ import { DEFAULT_SKYBOX } from '../sky/constants.js'
 import { getWidthInMetric } from '../util/width_units.js'
 import { updateLastStreetInfo } from './xhr.js'
 
-import type { SliceItem, StreetState, UnitsSetting } from '@streetmix/types'
+import type {
+  MeasurementValues,
+  SliceItem,
+  StreetState,
+  UnitsSetting,
+} from '@streetmix/types'
 
 // TODO: put together with other measurement conversion code?
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 // Server is now the source of truth of this value
 const LATEST_SCHEMA_VERSION = 34
+
+// Like `SlopeProperties` but different values make it easier for template
+type TemplateSlopeProperties = {
+  on?: boolean
+  values: Array<number | MeasurementValues>
+}
+
+function processSlope(
+  templateSlope: TemplateSlopeProperties | undefined,
+  units: UnitsSetting
+) {
+  // Initialize a slope property, if not present, or if present
+  // and `values` is undefined or empty
+  if (
+    typeof templateSlope === 'undefined' ||
+    typeof templateSlope.values === 'undefined' ||
+    templateSlope.values.length === 0
+  ) {
+    return {
+      on: false,
+      values: [],
+    }
+  }
+
+  // If slope property is present, assume `on: true`, unless specifically
+  // set to `false`
+  const on = templateSlope.on === false ? false : true
+  const values = []
+  for (let i = 0; i < templateSlope.values.length; i++) {
+    const value = templateSlope.values[i]
+    if (typeof value === 'number') {
+      if (units === SETTINGS_UNITS_IMPERIAL) {
+        const newValue = normalizeHeightValue(
+          value * ROUGH_CONVERSION_RATE,
+          resolutionForResizeType(RESIZE_TYPE_INITIAL, units),
+          units
+        )
+        values.push(newValue)
+      } else {
+        values.push(value)
+      }
+    } else {
+      const newValue = getWidthInMetric(value, units)
+      values.push(newValue)
+    }
+  }
+
+  // Allow values to be an object specifying metric/imperial and
+  // assume `on: true` if values is specified and `on` is not false
+  return {
+    on,
+    values,
+  }
+}
 
 function processTemplateSlices(
   slices: StreetTemplate['slices'],
@@ -44,10 +104,7 @@ function processTemplateSlices(
       id: nanoid(),
       warnings: [false],
       // Initialize a slope property, if not present
-      slope: sliceTemplate.slope ?? {
-        on: false,
-        values: [],
-      },
+      slope: processSlope(sliceTemplate.slope, units),
     } as SliceItem
 
     // We mirror the street slices when in left-hand traffic mode,
@@ -81,7 +138,7 @@ function processTemplateSlices(
     //  - for US customary units, convert the value to metric
     // If width is defined as a number:
     //  - for metric units, use the value as-is
-    //  - for US customary units, convert he value using the _rough_ conversion
+    //  - for US customary units, convert the value using the _rough_ conversion
     //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
     //    for storage (it will then be converted back to 9ft for display)
     if (sliceTemplate.width === undefined) {
@@ -99,7 +156,10 @@ function processTemplateSlices(
       slice.width = getWidthInMetric(sliceTemplate.width, units)
     }
 
-    slice.elevation = getElevationValue(variantInfo.elevation, units)
+    slice.elevation = getElevationValue(
+      sliceTemplate.elevation ?? variantInfo.elevation,
+      units
+    )
 
     processed.push(slice)
   }
@@ -114,32 +174,31 @@ function processTemplateSlices(
 function processTemplateBoundaries(
   boundary: StreetTemplate['boundary'],
   units: UnitsSetting
-): StreetTemplate['boundary'] {
-  const processed = {
+): StreetState['boundary'] {
+  // Set default boundary elevation according to units setting
+  const leftBoundary =
+    typeof boundary.left.elevation !== 'number'
+      ? getWidthInMetric(boundary.left.elevation, units)
+      : boundary.left.elevation
+  const rightBoundary =
+    typeof boundary.right.elevation !== 'number'
+      ? getWidthInMetric(boundary.right.elevation, units)
+      : boundary.right.elevation
+
+  return {
     left: {
+      // Create boundary id
+      id: nanoid(),
       ...boundary.left,
+      elevation: leftBoundary,
     },
     right: {
+      // Create boundary id
+      id: nanoid(),
       ...boundary.right,
+      elevation: rightBoundary,
     },
-  }
-
-  // Create boundary ids
-  processed.left.id = nanoid()
-  processed.right.id = nanoid()
-
-  // Set default boundary elevation according to units setting
-  if (typeof processed.left.elevation !== 'number') {
-    processed.left.elevation = getWidthInMetric(processed.left.elevation, units)
-  }
-  if (typeof processed.right.elevation !== 'number') {
-    processed.right.elevation = getWidthInMetric(
-      processed.right.elevation,
-      units
-    )
-  }
-
-  return processed
+  } satisfies StreetState['boundary']
 }
 
 function createStreetData(data: StreetTemplate, units: UnitsSetting) {
@@ -150,12 +209,37 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
 
   // Remove `slices` from the existing data because it is being stored
   // as `segments` for backwards compatibility
-  const { slices: _discarded, ...restData } = data
+  const { slices: _discarded, width, ...restData } = data
+
+  // If width is defined as MeasurementValues:
+  //  - for metric units, use the metric value as-is
+  //  - for US customary units, convert the value to metric
+  // If width is defined as a number:
+  //  - for metric units, use the value as-is
+  //  - for US customary units, convert he value using the _rough_ conversion
+  //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
+  //    for storage (it will then be converted back to 9ft for display)
+  let widthValue: number
+
+  if (width === undefined) {
+    throw new Error('street template does not have a width defined')
+  }
+
+  if (typeof width === 'number') {
+    if (units === SETTINGS_UNITS_IMPERIAL) {
+      widthValue = width * ROUGH_CONVERSION_RATE
+    } else {
+      widthValue = width
+    }
+  } else {
+    widthValue = getWidthInMetric(width, units)
+  }
+
   const street: Omit<
     StreetState,
     | 'id'
     | 'namespacedId'
-    | 'immediateRemoval'
+    | 'originalStreetId'
     | 'remainingWidth'
     | 'occupiedWidth'
   > = {
@@ -172,27 +256,9 @@ function createStreetData(data: StreetTemplate, units: UnitsSetting) {
     updatedAt: currentDate,
     clientUpdatedAt: currentDate,
     creatorId,
+    width: widthValue,
     ...restData,
     boundary,
-  }
-
-  // If width is defined as MeasurementValues:
-  //  - for metric units, use the metric value as-is
-  //  - for US customary units, convert the value to metric
-  // If width is defined as a number:
-  //  - for metric units, use the value as-is
-  //  - for US customary units, convert he value using the _rough_ conversion
-  //    rate, e.g. 2.7m => 9ft, then converted back to precise metric units
-  //    for storage (it will then be converted back to 9ft for display)
-  if (street.width === undefined) {
-    throw new Error('street template does not have a width defined')
-  }
-  if (typeof street.width === 'number') {
-    if (units === SETTINGS_UNITS_IMPERIAL) {
-      street.width *= ROUGH_CONVERSION_RATE
-    }
-  } else {
-    street.width = getWidthInMetric(street.width, units)
   }
 
   return street
@@ -241,8 +307,9 @@ export const StreetTemplate = z.strictObject({
       label: z.string().optional(),
       slope: z
         .object({
-          on: z.boolean(),
-          values: z.array(z.number()),
+          on: z.boolean().optional(), // Can be assumed to `true`
+          // Values are an array of numbers or measurementSchema objects
+          values: z.array(z.union([z.number(), measurementSchema])),
         })
         .optional(),
     })

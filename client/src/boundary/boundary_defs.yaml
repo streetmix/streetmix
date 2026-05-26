@@ -7,6 +7,7 @@
 #            `sameOnBothSides` is true
 #
 # -- CHARACTERISTICS --
+# waterfront       (boolean) true if boundary can be a waterfront
 # hasFloors        (boolean) true if building can have multiple floors
 # sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
 # repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
@@ -43,9 +44,19 @@ waterfront:
   id: waterfront
   label: Waterfront
   spriteId: boundaries--waterfront
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
+waterfront2: # Separate version used for Coastmix
+  id: waterfront2
+  label: Waterfront
+  spriteId: boundaries--waterfront2
+  waterfront: true
+  hasFloors: false
+  alignAtBaseline: true
+  repeatHalf: true
+  earthColor: "#366387"
 residential:
   id: residential
   label: Home
@@ -94,6 +105,7 @@ beach:
   id: beach
   label: Beach
   spriteId: boundaries--beach
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -102,14 +114,15 @@ marsh:
   id: marsh
   label: Marsh
   spriteId: boundaries--marsh
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
-  earthColor: "#ecdbb1"
 water:
   id: water
   label: Water
   spriteId: boundaries--water
+  waterfront: true
   hasFloors: false
   alignAtBaseline: true
   repeatHalf: true
@@ -118,11 +131,32 @@ dock:
   id: dock
   label: Dock
   spriteId: boundaries--dock
+  waterfront: true
   hasFloors: true
-  variantsCount: 1 # need this to be 1 to do a thing right
+  # Not sure what this does exactly, but setting it to this
+  # slightly changes the height alignment and makes it fit
+  # a little better with adjacent slices at 1m or 3ft
+  variantsCount: 1
   floorHeight: 0.25 # meters (match illustration)
   roofHeight: 3 # meters (match illustration)
   mainFloorHeight: 1.75 # meters (match illustration)
   alignAtBaseline: true
+  # This is currently broken -- setting it to true
+  # prevents rendering correctly on the left boundary
+  # repeatHalf: true
+  earthColor: "#366387"
+fishing-boat:
+  id: fishing-boat
+  label: Fishing boat
+  spriteId: boundaries--fishing-boat
+  waterfront: true
+  alignAtBaseline: true
   repeatHalf: true
+  earthColor: "#366387"
+cargo-ship:
+  id: cargo-ship
+  label: Cargo ship
+  spriteId: boundaries--cargo-ship
+  waterfront: true
+  alignAtBaseline: true
   earthColor: "#366387"

@@ -229,7 +229,7 @@ describe('ShareMenu', () => {
 
   it('handles clicking copy to clipboard', async () => {
     render(<ShareMenu isActive />)
-    await userEvent.click(screen.getByTitle('Copy to clipboard'))
+    await userEvent.click(screen.getByRole('button'))
     expect(copy).toHaveBeenCalledTimes(1)
   })
 

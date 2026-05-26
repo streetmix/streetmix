@@ -28,9 +28,10 @@
     },
     "share": {
       "sign-in-twitter-link": "Inici de sessió",
-      "sign-in-link": "{signInLink} per a enllaços més curts als carrers i a la vostra galeria de carrers",
+      "sign-in-link": "{signInLink} per a enllaços més curts als carrers i a la vostra galeria de carrers.",
       "link": "Copieu i enganxeu aquest enllaç per a compartir:",
       "copy-to-clipboard": "Copieu al porta-retalls",
+      "copy-success": "",
       "twitter": "Compartiu per Twitter",
       "facebook": "Compartiu per Facebook",
       "mastodon": "",
@@ -71,7 +72,8 @@
       "default": "",
       "empty": "",
       "copy": "Feu una còpia",
-      "template": ""
+      "template": "",
+      "sign-in-link": ""
     }
   },
   "settings": {
@@ -131,8 +133,7 @@
       "sign-in": "Entreu de nou",
       "reload": "Refresqueu la pàgina",
       "return": "",
-      "try-again": "Intenteu-ho de nou",
-      "view-example": "Vegeu un carrer d'exemple"
+      "try-again": "Intenteu-ho de nou"
     },
     "page-not-found-title": "Pàgina no trobada.",
     "page-not-found-description": "Vaja. No hi ha cap pàgina amb aquesta adreça!",
@@ -161,8 +162,6 @@
     "unsupported-browser-description": "Ho sentim. Podeu intentar-ho des de <chrome_link>Chrome</chrome_link>, <firefox_link>Firefox</firefox_link>, <edge_link>Microsoft Edge</edge_link> o Safari.",
     "unsupported-browser-internet-explorer": "Feu servir Internet Explorer? <a>Sabeu-ne més.</a>",
     "unsupported-browser-contact-us": "",
-    "cannot-create-new-street-on-phone-title": "Streetmix només funciona amb tauletes i ordinadors.",
-    "cannot-create-new-street-on-phone-description": "Si seguiu un altre enllaç a un carrer determinat, podeu veure'l des del vostre telèfon, però no podreu crear nous carrers.",
     "generic-error-title": "Alguna cosa ha anat malament.",
     "generic-error-description": "Ho sentim, alguna cosa ha anat malament.",
     "error-code": "(Error {code}.)",
@@ -256,7 +255,8 @@
       "error-too-large": "",
       "preview-image-alt": "Previsualització",
       "print-size": "",
-      "digital-size": ""
+      "digital-size": "",
+      "weather-not-exported": ""
     },
     "geotag": {
       "search": "Cerca un indret",
@@ -316,7 +316,33 @@
     "tooltip": "Eines intercanviables",
     "skybox": {
       "tooltip": "",
-      "heading": "Entorn"
+      "heading": "Entorn",
+      "sky": {
+        "heading": ""
+      },
+      "weather": {
+        "heading": "",
+        "clear": "",
+        "rain": "",
+        "snow": ""
+      }
+    },
+    "flooding": {
+      "tooltip": "",
+      "heading": "",
+      "sea-level": {
+        "label": "",
+        "current": ""
+      },
+      "storm-surge": {
+        "label": ""
+      },
+      "messages": {
+        "start": "",
+        "need-waterfront": "",
+        "success": "",
+        "fail": ""
+      }
     }
   },
   "prompt": {
@@ -384,14 +410,22 @@
     "scroll-right": "Desplaceu-vos cap a la dreta",
     "elevation-sidewalk": "Nivell vorera",
     "elevation-road": "Nivell de carrer",
+    "elevation-input": "",
     "elevation-lower": "",
-    "elevation-raise": ""
+    "elevation-raise": "",
+    "ground-height-input": "",
+    "ground-height-lower": "",
+    "ground-height-raise": "",
+    "sea-level-input": "",
+    "sea-level-lower": "",
+    "sea-level-raise": ""
   },
   "street": {
     "default-name": "Carrer sense nom",
     "rename": "Clica per renombrar"
   },
   "building": {
+    "label": "",
     "floors-count": "{count, plural, one {# nivell} other {# nivells}}"
   },
   "segments": {
@@ -399,7 +433,8 @@
       "does-not-fit": "Aquest segment o tram no s’adapta al carrer.",
       "not-wide": "És possible que aquest tram o segment no sigui prou ampli.",
       "too-wide": "És possible que aquest tram o segment sigui massa ampli.",
-      "dangerous": ""
+      "dangerous": "",
+      "slope-exceeded": ""
     },
     "learn-more": "Apreneu-ne més",
     "unknown": {
@@ -413,7 +448,15 @@
       "max": "Màx"
     },
     "controls": {
-      "elevation": ""
+      "width": "",
+      "ground-height": "",
+      "sea-level": "",
+      "elevation": "",
+      "slope": {
+        "label": "",
+        "switch-tooltip": "",
+        "disabled-tooltip": ""
+      }
     }
   },
   "section": {

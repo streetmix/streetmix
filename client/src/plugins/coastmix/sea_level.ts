@@ -1,15 +1,31 @@
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
+import { getBoundaryItem } from '~/src/boundary/boundary.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { FloodDirection, SliceItem } from '@streetmix/types'
+import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
+// TODO: streamline by doing base calculation in metric, then convert back to
+// imperial if needed.
 export function calculateSeaLevelRise(
   seaLevelRise: number,
-  stormSurge: boolean
+  stormSurge: boolean,
+  street: StreetState
 ) {
   let heightFeet = 0
+
+  // Get base sea level.
+  // If either boundary is a waterfront, check how high it is
+  let baseSeaLevel = 0
+
+  const left = getBoundaryItem(street.boundary.left.variant)
+  const right = getBoundaryItem(street.boundary.right.variant)
+  if (left.waterfront) {
+    baseSeaLevel = street.boundary.left.elevation
+  } else if (right.waterfront) {
+    baseSeaLevel = street.boundary.right.elevation
+  }
 
   if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
     heightFeet +=
@@ -22,29 +38,28 @@ export function calculateSeaLevelRise(
 
   const height = convertImperialMeasurementToMetric(heightFeet)
 
-  return height
+  return baseSeaLevel + height
 }
 
-export function checkSeaLevel(
+function calculateFloodDistance(
   slices: SliceItem[],
+  height: number,
+  direction: 'left' | 'right',
   streetEl: HTMLDivElement | null,
-  canvasEl: HTMLElement | null,
-  seaLevelRise: number,
-  stormSurge: boolean,
-  floodDirection: FloodDirection
-): number | null {
-  const height = calculateSeaLevelRise(seaLevelRise, stormSurge)
-
-  if (streetEl === null || canvasEl === null) return null
-
-  let slicePosition
+  canvasEl: HTMLElement | null
+): FloodDistance {
+  if (streetEl === null || canvasEl === null) {
+    return null
+  }
 
   // Depending on whether the flood comes from the left or right, set up
   // a compare loop that counts up or down
-  const fromLeft = floodDirection === 'left'
+  const fromLeft = direction === 'left'
   const start = fromLeft ? 0 : slices.length - 1
   const end = fromLeft ? slices.length : -1
   const step = fromLeft ? 1 : -1
+
+  let slicePosition
 
   for (let i = start; fromLeft ? i < end : i > end; i += step) {
     const slice = slices[i]
@@ -84,9 +99,11 @@ export function checkSeaLevel(
     }
   }
 
-  // Bail if no slice meets or exceeds flood height.
+  // If no slice meets or exceeds flood height, use the value 'max' to stand in
+  // for "we will flood all of it." We don't want to return `Infinity` because
+  // that value is not serializable to JSON!
   if (typeof slicePosition !== 'number') {
-    return null
+    return 'max'
   }
 
   // Get the pixel position of the blocking element
@@ -112,4 +129,40 @@ export function checkSeaLevel(
     const distance = parentWidth - offsetLeftPlusWidth
     return distance
   }
+}
+
+export function checkSeaLevel(
+  street: StreetState,
+  streetEl: HTMLDivElement | null,
+  canvasEl: HTMLElement | null,
+  seaLevelRise: number,
+  stormSurge: boolean
+): [FloodDistance, FloodDistance] {
+  const height = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
+
+  const { boundary, segments: slices } = street
+  const floodDistance = [null, null] as [FloodDistance, FloodDistance]
+
+  if (boundary.left.variant && boundary.right.variant) {
+    if (getBoundaryItem(boundary.left.variant).waterfront) {
+      floodDistance[0] = calculateFloodDistance(
+        slices,
+        height,
+        'left',
+        streetEl,
+        canvasEl
+      )
+    }
+    if (getBoundaryItem(boundary.right.variant).waterfront) {
+      floodDistance[1] = calculateFloodDistance(
+        slices,
+        height,
+        'right',
+        streetEl,
+        canvasEl
+      )
+    }
+  }
+
+  return floodDistance
 }

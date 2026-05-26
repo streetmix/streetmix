@@ -51,6 +51,9 @@ interface UpDownInputProps {
   // currently cause buggy and unexpected behavior, so it's disabled
   // by default.
   allowAutoUpdate?: boolean
+
+  // Optional additional class name(s)
+  className?: string
 }
 
 export function UpDownInput(props: UpDownInputProps) {
@@ -71,6 +74,7 @@ export function UpDownInput(props: UpDownInputProps) {
     upTooltipSublabel,
     downTooltipSublabel,
     allowAutoUpdate = false,
+    className,
   } = props
 
   const oldValue = useRef<string | null>(null)
@@ -204,12 +208,18 @@ export function UpDownInput(props: UpDownInputProps) {
     }
   }
 
+  const classNames = ['up-down-input']
+  if (className) {
+    classNames.push(className)
+  }
+
   return (
-    <div className="up-down-input">
+    <div className={classNames.join(' ')}>
       <Tooltip
         label={downTooltip}
         sublabel={downTooltipSublabel}
         placement="bottom"
+        role="label"
       >
         <Button
           className="up-down-input-decrement"
@@ -241,6 +251,7 @@ export function UpDownInput(props: UpDownInputProps) {
         label={upTooltip}
         sublabel={upTooltipSublabel}
         placement="bottom"
+        role="label"
       >
         <Button
           className="up-down-input-increment"

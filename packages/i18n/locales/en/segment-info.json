@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lamp",
     "utility-pole": "Utility pole",
     "drainage-channel": "Drainage channel",
+    "bioswale": "Bioswale",
     "parklet": "Parklet",
     "street-vendor": "Street vendor",
     "divider": "Buffer",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Temporary barrier",
     "inception-train": "“Inception” train",
     "magic-carpet": "Magic carpet",
-    "wall": "Wall"
+    "wall": "Wall",
+    "slope": "Slope"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,9 @@
     },
     "inception-train": {
       "content": "# It’s the train from the Christopher Nolan movie _Inception_.\n\nWhat more do you need to know?"
+    },
+    "bioswale": {
+      "content": "You HAVE to add some more info here."
     }
   },
   "buildings": {
@@ -108,6 +113,30 @@
     },
     "compound-wall": {
       "name": "Compound wall"
+    },
+    "beach": {
+      "name": "Beach"
+    },
+    "marsh": {
+      "name": "Marsh"
+    },
+    "water": {
+      "name": "Water"
+    },
+    "dock": {
+      "name": "Dock"
+    },
+    "fishing-boat": {
+      "name": "Fishing boat"
+    },
+    "cargo-ship": {
+      "name": "Cargo ship"
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "Land",
+      "waterfront": "Waterfront"
     }
   },
   "variant-icons": {
@@ -151,6 +180,8 @@
     "lamp-type|pride": "Modern with pride banner",
     "drainage-sides|slanted": "Slanted sides",
     "drainage-sides|vertical": "Vertical sides",
+    "bioswale-vegetation|bush": "Bioswale with bushes",
+    "bioswale-vegetation|tree": "Bioswale with trees",
     "car-type|car": "Car",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Truck",

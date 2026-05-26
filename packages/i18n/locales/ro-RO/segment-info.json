@@ -48,7 +48,8 @@
     "brt-lane": "",
     "temporary-barrier": "",
     "inception-train": "",
-    "magic-carpet": ""
+    "magic-carpet": "",
+    "wall": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -107,6 +108,12 @@
     },
     "compound-wall": {
       "name": ""
+    }
+  },
+  "boundary": {
+    "group": {
+      "land": "",
+      "waterfront": "Oglindă de apă"
     }
   },
   "variant-icons": {

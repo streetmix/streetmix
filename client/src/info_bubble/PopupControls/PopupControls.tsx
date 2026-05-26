@@ -5,7 +5,7 @@ import { VariantSet } from './VariantSet.js'
 import { WidthControl } from './WidthControl.js'
 import { BuildingHeightControl } from './BuildingHeightControl.js'
 import { ElevationControl } from './ElevationControl.js'
-import { SlopeControl } from './SlopeControl.js'
+import { CoastmixControls } from './CoastmixControls.js'
 import './PopupControls.css'
 
 import type { SectionElementTypeAndPosition } from '@streetmix/types'
@@ -45,15 +45,7 @@ export function PopupControls(props: SectionElementTypeAndPosition) {
           {typeof position === 'number' &&
             universalElevation &&
             !coastmixMode && <ElevationControl position={position} />}
-          {coastmixMode && (
-            <>
-              <ElevationControl position={position} />
-              {/* No slope control for boundaries */}
-              {typeof position === 'number' && (
-                <SlopeControl position={position} />
-              )}
-            </>
-          )}
+          {coastmixMode && <CoastmixControls position={position} />}
         </div>
       </div>
     </div>

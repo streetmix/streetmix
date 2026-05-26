@@ -8,6 +8,9 @@ html {
 
   /* Global box-sizing "reset" to the "quirks" box model */
   box-sizing: border-box;
+
+  /* Prevent overscrolling from navigating back/forward in browser */
+  overscroll-behavior: none;
 }
 
 /* Inherit the box-sizing everywhere */
@@ -25,7 +28,6 @@ body {
   overflow: hidden;
   position: relative; /* Fixes iOS Safari overflow: hidden not working bug */
   background: white;
-  overscroll-behavior: none;
   text-size-adjust: none;
 
   &:not(.safari) {

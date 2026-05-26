@@ -29,6 +29,7 @@ type VariantIconDefinition = (
   unlockCondition?: string // todo enums
   unlockWithFlag?: string // todo enums
   enableWithFlag?: string // todo enums
+  disableWithFlag?: string
 }
 
 type VariantIcons = Record<string, Record<string, VariantIconDefinition>>
@@ -44,10 +45,16 @@ export function VariantButton(props: VariantButtonProps) {
 
   if (icon === undefined) return null
 
-  // If a variant is disabled by feature flag, skip it
+  // If a variant is not enabled by feature flag, skip it
   if (icon.enableWithFlag !== undefined) {
     const flag = flags[icon.enableWithFlag]
     if (!flag?.value) return null
+  }
+
+  // If a variant is specifically disabled by feature flag, skip it
+  if (icon.disableWithFlag !== undefined) {
+    const flag = flags[icon.disableWithFlag]
+    if (flag?.value) return null
   }
 
   const label = intl.formatMessage({
@@ -95,7 +102,7 @@ export function VariantButton(props: VariantButtonProps) {
   }
 
   return (
-    <Tooltip label={label} sublabel={sublabel} placement="bottom">
+    <Tooltip label={label} sublabel={sublabel} placement="bottom" role="label">
       <Button
         data-testid={icon.title}
         className={isSelected ? 'variant-selected' : undefined}

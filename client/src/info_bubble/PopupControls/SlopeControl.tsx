@@ -1,65 +1,45 @@
-import { useIntl } from 'react-intl'
-import { getSegmentVariantInfo } from '@streetmix/parts'
-
-import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
-import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import { Icon } from '~/src/ui/Icon.js'
-import { Switch } from '~/src/ui/Switch.js'
-import { Tooltip } from '~/src/ui/Tooltip.js'
+import { useSelector } from '~/src/store/hooks.js'
+import { SlopeControlTemp } from './SlopeControlTemp.js'
+import { SlopeControlPin } from './SlopeControlPin.js'
 
 interface SlopeControlProps {
   position: number
 }
 
 export function SlopeControl({ position }: SlopeControlProps) {
-  // TODO: consider passing slice and slice info into this component, one
-  // level up -- because other sibling components may need it too
-  const slice = useSelector((state) => {
-    return state.street.segments[position]
-  })
-  const dispatch = useDispatch()
-  const intl = useIntl()
-
-  // Allow sloping when slope rule is `path` or `berm`. Defaults to false.
-  const { slope } = getSegmentVariantInfo(slice.type, slice.variantString)
-  const allowSlope = slope === 'path' || slope === 'berm'
-  const isSloped = allowSlope && slice.slope.on
-
-  function handleSlopeChange(checked: boolean): void {
-    dispatch(toggleSliceSlope(position, checked))
-    dispatch(segmentsChanged())
-  }
-
-  if (!allowSlope) return null
-
-  const label = intl.formatMessage({
-    id: 'segments.controls.slope.label',
-    defaultMessage: 'Slope',
-  })
-  const tooltip = intl.formatMessage({
-    id: 'segments.controls.slope.switch-tooltip',
-    defaultMessage: 'Toggle slope',
+  const units = useSelector((state) => state.street.units)
+  const slope = useSelector((state) => {
+    return state.street.segments[position].slope
   })
 
   return (
-    <div className="popup-control-row" data-tour-id="slope-control">
-      <div className="popup-control-label">
-        <Tooltip label={label} placement="left">
-          <span className="popup-control-icon">
-            <Icon name="slope" size="30" stroke="1.5" />
-          </span>
-        </Tooltip>
-      </div>
-      <Tooltip label={tooltip} placement="bottom">
-        <Switch
-          onCheckedChange={handleSlopeChange}
-          checked={isSloped}
-          disabled={!allowSlope}
-          aria-label={label}
-          data-tour-id="slope-control-switch"
+    <>
+      <div className="popup-control-row" data-tour-id="elevation-control">
+        <div className="popup-control-label" style={{ marginRight: '0.25em' }}>
+          left
+        </div>
+        <SlopeControlTemp
+          key={position}
+          anchor={0}
+          position={position}
+          elevation={slope.values[0]}
+          units={units}
         />
-      </Tooltip>
-    </div>
+        <SlopeControlPin position={position} anchor={0} />
+      </div>
+      <div className="popup-control-row" data-tour-id="elevation-control">
+        <div className="popup-control-label" style={{ marginRight: '0.25em' }}>
+          right
+        </div>
+        <SlopeControlTemp
+          key={position}
+          anchor={1}
+          position={position}
+          elevation={slope.values[1]}
+          units={units}
+        />
+        <SlopeControlPin position={position} anchor={1} />
+      </div>
+    </>
   )
 }

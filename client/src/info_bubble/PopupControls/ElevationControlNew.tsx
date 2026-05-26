@@ -4,12 +4,16 @@ import { Decimal } from 'decimal.js'
 import {
   ELEVATION_INCREMENT,
   ELEVATION_INCREMENT_IMPERIAL,
+  MAX_ELEVATION_IMPERIAL,
+  MAX_ELEVATION_METRIC,
+  MIN_ELEVATION,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import {
   changeSegmentProperties,
   setBoundaryElevation,
+  setSeaLevel,
 } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import {
@@ -26,10 +30,8 @@ interface ElevationControlProps {
   position: number | BoundaryPosition
   elevation: number
   units: UnitsSetting
+  seaLevel: boolean
 }
-
-const MIN_ELEVATION = 0
-const MAX_ELEVATION = 5 // in meters
 
 /**
  * Given the elevation height, return a formatted value (using the
@@ -52,6 +54,7 @@ export function ElevationControlNew({
   position,
   elevation,
   units,
+  seaLevel = false,
 }: ElevationControlProps) {
   const locale = useSelector((state) => state.locale.locale)
   const dispatch = useDispatch()
@@ -62,11 +65,16 @@ export function ElevationControlNew({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .plus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
+
     if (typeof position === 'number') {
       dispatch(
         changeSegmentProperties(position, {
@@ -74,10 +82,16 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
+
+    dispatch(segmentsChanged())
   }
 
   function handleDecrement(): void {
@@ -85,11 +99,16 @@ export function ElevationControlNew({
       units === SETTINGS_UNITS_IMPERIAL
         ? ELEVATION_INCREMENT_IMPERIAL
         : ELEVATION_INCREMENT
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     const newValue = new Decimal(elevation)
       .minus(increment)
-      .clamp(MIN_ELEVATION, MAX_ELEVATION)
+      .clamp(MIN_ELEVATION, maxValue)
       .toDecimalPlaces(3)
       .toNumber()
+
     if (typeof position === 'number') {
       dispatch(
         changeSegmentProperties(position, {
@@ -97,18 +116,28 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
+
+    dispatch(segmentsChanged())
   }
 
   const updateValue = (value: string): void => {
     const processedValue = processWidthInput(value, units)
+    const maxValue =
+      units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
     let newValue
     try {
       newValue = new Decimal(processedValue)
-        .clamp(MIN_ELEVATION, MAX_ELEVATION)
+        .clamp(MIN_ELEVATION, maxValue)
         .toDecimalPlaces(3)
         .toNumber()
     } catch (e) {
@@ -129,10 +158,16 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-      dispatch(segmentsChanged())
     } else {
-      dispatch(setBoundaryElevation(position, newValue))
+      // If we're setting a sea level, this applies to all boundaries.
+      if (seaLevel) {
+        dispatch(setSeaLevel(newValue))
+      } else {
+        dispatch(setBoundaryElevation(position, newValue))
+      }
     }
+
+    dispatch(segmentsChanged())
   }
 
   /**
@@ -152,28 +187,54 @@ export function ElevationControlNew({
     return prettifyElevationHeight(value, units, locale)
   }
 
+  const inputTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-input',
+        defaultMessage: 'Change sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-input',
+        defaultMessage: 'Change ground height',
+      })
+
+  const upTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-raise',
+        defaultMessage: 'Raise sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-raise',
+        defaultMessage: 'Raise ground height',
+      })
+
+  const downTooltip = seaLevel
+    ? intl.formatMessage({
+        id: 'tooltip.sea-level-lower',
+        defaultMessage: 'Lower sea level',
+      })
+    : intl.formatMessage({
+        id: 'tooltip.ground-height-lower',
+        defaultMessage: 'Lower ground height',
+      })
+
+  const maxValue =
+    units === SETTINGS_UNITS_IMPERIAL
+      ? MAX_ELEVATION_IMPERIAL
+      : MAX_ELEVATION_METRIC
+
   return (
     <UpDownInput
       value={elevation}
       minValue={MIN_ELEVATION}
-      maxValue={MAX_ELEVATION}
+      maxValue={maxValue}
       inputValueFormatter={inputValueFormatter}
       displayValueFormatter={displayValueFormatter}
       onClickUp={handleIncrement}
       onClickDown={handleDecrement}
       onUpdatedValue={updateValue}
-      inputTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-input',
-        defaultMessage: 'Change elevation',
-      })}
-      upTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-raise',
-        defaultMessage: 'Raise elevation',
-      })}
-      downTooltip={intl.formatMessage({
-        id: 'tooltip.elevation-lower',
-        defaultMessage: 'Lower elevation',
-      })}
+      inputTooltip={inputTooltip}
+      upTooltip={upTooltip}
+      downTooltip={downTooltip}
     />
   )
 }
