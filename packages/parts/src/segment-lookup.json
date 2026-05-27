@@ -4834,6 +4834,20 @@
       "inbound|shared": {
         "name": "Center turn lane",
         "nameKey": "turn-lane-center",
+        "rules": {
+          "minWidth": {
+            "metric": 3,
+            "imperial": 10
+          },
+          "maxWidth": {
+            "metric": 4.8,
+            "imperial": 16
+          }
+        },
+        "defaultWidth": {
+          "metric": 3.6,
+          "imperial": 12
+        },
         "components": {
           "lanes": [
             {
