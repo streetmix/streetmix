@@ -566,7 +566,8 @@ export function drawSegmentContents(
             x,
             svg.width,
             multiplier,
-            actualWidth * TILE_SIZE // segmentWidth
+            actualWidth * TILE_SIZE, // segmentWidth
+            'repeat'
           )
           // TEMP: workaround with magic numbers
           // TODO refactor this
@@ -652,7 +653,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'left'
         )
         distanceFromGround += adjustment
       } else {
@@ -723,7 +725,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'right'
         )
         distanceFromGround += adjustment
       } else {
@@ -786,7 +789,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'center'
         )
         distanceFromGround += adjustment
       } else {
@@ -881,7 +885,7 @@ export function calculateSlopeYAdjustment(
   svgWidth: number,
   multiplier: number,
   segmentWidth: number,
-  mode?: 'left' | 'right' | 'center' | 'repeat' | 'scatter'
+  mode: 'left' | 'right' | 'center' | 'repeat' | 'scatter'
 ) {
   // Get slope
   const m = calculateSlopePercentage(slope.values, actualWidth)
