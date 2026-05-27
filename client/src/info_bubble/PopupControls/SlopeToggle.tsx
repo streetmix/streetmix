@@ -30,27 +30,35 @@ export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
     id: 'segments.controls.slope.switch-tooltip',
     defaultMessage: 'Toggle slope',
   })
+  const disabledTooltip = intl.formatMessage({
+    id: 'segments.controls.slope.disabled-tooltip',
+    defaultMessage: 'This element cannot be sloped.',
+  })
 
   return (
     <div className="popup-control-row" data-tour-id="slope-control">
-      <div className="popup-control-label" style={{ flexGrow: '0' }}>
+      <div className="popup-control-label">
         <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
             <Icon name="slope" size="30" stroke="1.5" />
           </span>
         </Tooltip>
       </div>
-      <Tooltip label={tooltip} placement="bottom" role="label">
-        <Switch
-          onCheckedChange={handleSlopeChange}
-          checked={checked}
-          disabled={disabled}
-          aria-label={label}
-          data-tour-id="slope-control-switch"
-        />
-      </Tooltip>
-      <div style={{ marginLeft: '0.5em', flexGrow: '1' }}>
-        {checked ? 'Sloped' : 'Flat'}
+      <div style={{ flexGrow: '1', display: 'flex', justifyContent: 'center' }}>
+        <Tooltip
+          label={tooltip}
+          sublabel={disabled ? disabledTooltip : undefined}
+          placement="bottom"
+          role="label"
+        >
+          <Switch
+            onCheckedChange={handleSlopeChange}
+            checked={checked}
+            disabled={disabled}
+            aria-label={label}
+            data-tour-id="slope-control-switch"
+          />
+        </Tooltip>
       </div>
     </div>
   )
