@@ -45,6 +45,7 @@ export function DescriptionPanel() {
     'li',
     'blockquote',
     'h1',
+    'img',
   ]
   if (!offline) {
     allowedElements.push('a')

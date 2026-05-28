@@ -1620,7 +1620,8 @@
     "coastmixPaletteOrder": 3,
     "unlockCondition": "SUBSCRIBE",
     "description": {
-      "key": "bioswale"
+      "key": "bioswale",
+      "image": "bioswale-02.jpg"
     },
     "defaultWidth": {
       "metric": 3,
