@@ -1,6 +1,7 @@
 header.about-coastmix-header {
   display: flex;
-  padding: 2.5rem 2rem 0.5rem;
+  padding: 2rem 2rem 0.5rem;
+  gap: 0.5em;
 
   > div {
     align-content: center;
@@ -17,6 +18,14 @@ header.about-coastmix-header {
 
   img.about-coastmix-logo {
     width: 181px;
+  }
+}
+
+@media only screen and (width < 800px) {
+  header.about-coastmix-header {
+    img {
+      width: 100%;
+    }
   }
 }
 
