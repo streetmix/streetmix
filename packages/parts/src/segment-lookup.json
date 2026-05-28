@@ -848,7 +848,8 @@
     },
     "description": {
       "key": "parklet",
-      "image": "parklets-01.jpg"
+      "image": "parklets-01.jpg",
+      "imageCredit": "San Francisco Planning Department"
     },
     "rules": {
       "minWidth": {
@@ -1620,7 +1621,9 @@
     "coastmixPaletteOrder": 3,
     "unlockCondition": "SUBSCRIBE",
     "description": {
-      "key": "bioswale"
+      "key": "bioswale",
+      "image": "bioswale-02.jpg",
+      "imageCredit": "Lou Huang"
     },
     "defaultWidth": {
       "metric": 3,

@@ -37,6 +37,12 @@
   }
 }
 
+.description-image-credit {
+  color: rgb(160 160 160);
+  font-size: 0.8em;
+  text-align: end;
+}
+
 .description-text {
   padding: 1em;
   font-size: 16px;
