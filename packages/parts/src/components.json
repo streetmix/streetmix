@@ -955,7 +955,7 @@
           "slanted": {
             "graphics": {
               "quirks": {
-                "minWidth": 2
+                "minWidth": 2.5
               },
               "left": "plants--bioswale-pieces-slope-left",
               "right": "plants--bioswale-pieces-slope-right"
