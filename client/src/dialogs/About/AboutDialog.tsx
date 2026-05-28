@@ -1,17 +1,14 @@
 import { FormattedMessage } from 'react-intl'
 
 import logo from 'url:~/images/logo_horizontal.svg'
-import logoCoastmix from 'url:~/images/logo_horizontal_coastmix2.svg'
 import numoLogo from 'url:~/images/sponsors/numo.svg'
 import biflogo from 'url:~/images/sponsors/bif.svg'
 import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
 import mozlogo from 'url:~/images/sponsors/mozilla.svg'
-import crblogo from 'url:~/images/sponsors/coastmix/crb.png'
-import iotlogo from 'url:~/images/sponsors/coastmix/iot.png'
-import bostonlogo from 'url:~/images/sponsors/coastmix/boston.png'
 import { useSelector } from '~/src/store/hooks.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import { Dialog } from '../Dialog.js'
+import { CoastmixAbout } from './CoastmixAbout.js'
 import { Credits } from './Credits.js'
 import { SocialLinks } from './SocialLinks.js'
 import './AboutDialog.css'
@@ -27,136 +24,13 @@ export function AboutDialog() {
       {(closeDialog) => (
         <div className="about-dialog">
           <div className="dialog-content dialog-content-bleed">
-            {coastmixMode && (
-              <>
-                <header>
-                  <img
-                    src={logoCoastmix}
-                    alt="Coastmix (logo)"
-                    className="coastmix-dialog-logo"
-                  />
-                  <h1>
-                    <FormattedMessage
-                      id="dialogs.about.heading"
-                      defaultMessage="About Coastmix."
-                    />
-                  </h1>
-                </header>
-                <div className="about-dialog-content coastmix-dialog-content">
-                  <div className="about-dialog-left">
-                    <p>
-                      Design, remix, and share your resilient coast. Create your
-                      ideal waterfront, build coastal flood protection, and
-                      learn how climate change can impact your community.{' '}
-                      <a href="" target="_blank">
-                        Learn more.
-                      </a>
-                    </p>
-                    <ul className="about-dialog-sponsors">
-                      <li>
-                        <ExternalLink href="https://biffud.com/">
-                          <img src={crblogo} alt="Bad Idea Factory" />
-                        </ExternalLink>
-                      </li>
-                      <li>
-                        <ExternalLink href="https://codeforamerica.org/">
-                          <img src={iotlogo} alt="Code for America" />
-                        </ExternalLink>
-                      </li>{' '}
-                      <li>
-                        <ExternalLink href="https://codeforamerica.org/">
-                          <img src={bostonlogo} alt="Code for America" />
-                        </ExternalLink>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="about-dialog-right">
-                    <h2>Project team</h2>
-                    <ul>
-                      <li>
-                        Catherine McCandless,{' '}
-                        <i>project lead, coastal resilience expert</i>
-                      </li>
-                      <li>
-                        Katie Lewis, <i>art director, illustrator</i>
-                      </li>
-                      <li>
-                        Kelly Sherman,{' '}
-                        <i>project support, coastal resilience expert</i>
-                      </li>
-                      <li>
-                        Lou Huang, <i>project lead, lead developer</i>
-                      </li>
-                      <li>
-                        Michael Lawrence Evans,{' '}
-                        <i>project lead, emerging tech expert</i>
-                      </li>
-                    </ul>
-
-                    <h2>Special thanks to</h2>
-                    <ul>
-                      <li>
-                        <h3>City of Boston</h3>
-                        <ul>
-                          <li>
-                            Alice Brown, <i>Environment Department</i>
-                          </li>
-                          <li>
-                            Benjamin Matusow, <i>Planning Department</i>
-                          </li>
-                          <li>
-                            Christopher Osgood,{' '}
-                            <i>Office of Climate Resilience</i>
-                          </li>
-                          <li>
-                            Maddie Webster, <i>Transportation Department</i>
-                          </li>
-                          <li>
-                            Marin Braco, <i>Parks Department</i>
-                          </li>
-                          <li>
-                            Nayeli Rodriguez,{' '}
-                            <i>Office of Climate Resilience</i>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <h3>Partners</h3>
-                        <ul>
-                          <li>
-                            Emma Gildesgame, <i>The Nature Conservancy</i>
-                          </li>
-                          <li>
-                            Joe Christo, <i>Stone Living Lab</i>
-                          </li>
-                          <li>
-                            Kalila Barnett, <i>Barr Foundation</i>
-                          </li>
-                          <li>
-                            Lindsey Butler, <i>Green Ribbon Commission</i>
-                          </li>
-                          <li>
-                            Nasser Brahim,{' '}
-                            <i>Mystic River Watershed Association</i>
-                          </li>
-                          <li>
-                            Rebecca Herst, <i>Green Ribbon Commission</i>
-                          </li>
-                          <li>
-                            Rebecca Shoer, <i>Boston Harbor Now</i>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </>
-            )}
+            {coastmixMode && <CoastmixAbout />}
             <header>
               <img
                 src={logo}
                 alt="Streetmix (logo)"
                 className="about-dialog-logo"
+                draggable={false}
               />
               <h1>
                 <FormattedMessage
@@ -183,12 +57,20 @@ export function AboutDialog() {
                 <ul className="about-dialog-sponsors">
                   <li>
                     <ExternalLink href="https://biffud.com/">
-                      <img src={biflogo} alt="Bad Idea Factory" />
+                      <img
+                        src={biflogo}
+                        alt="Bad Idea Factory"
+                        draggable={false}
+                      />
                     </ExternalLink>
                   </li>
                   <li>
                     <ExternalLink href="https://codeforamerica.org/">
-                      <img src={cfalogo} alt="Code for America" />
+                      <img
+                        src={cfalogo}
+                        alt="Code for America"
+                        draggable={false}
+                      />
                     </ExternalLink>
                   </li>
                 </ul>
@@ -201,7 +83,11 @@ export function AboutDialog() {
                 <ul className="about-dialog-sponsors">
                   <li>
                     <ExternalLink href="https://numo.global/">
-                      <img src={numoLogo} alt="New Urban Mobility Alliance" />
+                      <img
+                        src={numoLogo}
+                        alt="New Urban Mobility Alliance"
+                        draggable={false}
+                      />
                     </ExternalLink>
                   </li>
                 </ul>
@@ -214,7 +100,11 @@ export function AboutDialog() {
                 <ul className="about-dialog-sponsors">
                   <li>
                     <ExternalLink href="https://www.mozilla.org/en-US/moss/">
-                      <img src={mozlogo} alt="Mozilla Open Source Support" />
+                      <img
+                        src={mozlogo}
+                        alt="Mozilla Open Source Support"
+                        draggable={false}
+                      />
                     </ExternalLink>
                   </li>
                 </ul>

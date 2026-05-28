@@ -11,6 +11,7 @@
 .credits-container {
   display: flex;
   margin-top: 1.5em;
+  gap: 1em;
 
   > div {
     flex-grow: 1;

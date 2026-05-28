@@ -1,0 +1,30 @@
+header.about-coastmix-header {
+  display: flex;
+  padding: 2.5rem 2rem 0.5rem;
+
+  > div {
+    align-content: center;
+  }
+
+  > div:nth-child(2) {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  img {
+    width: 200px;
+  }
+
+  img.about-coastmix-logo {
+    width: 181px;
+  }
+}
+
+.about-coastmix-content {
+  z-index: -1;
+
+  ul i {
+    color: gray;
+    font-style: normal;
+  }
+}
