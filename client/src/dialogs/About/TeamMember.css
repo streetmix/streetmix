@@ -29,14 +29,17 @@
 }
 
 .team-member-mugshot {
-  max-width: 100%;
+  width: 100%;
+  max-width: 120px;
   border-radius: var(--border-radius-pill);
+  margin: 0 auto;
 
   /* Placeholder image in case a mugshot image is not provided */
   background-image: url("../../../images/avatar.svg");
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  background-color: #f1f1f1;
 
   /* Forces the mugshot div height to be a perfect square, no matter its width */
   &::after {

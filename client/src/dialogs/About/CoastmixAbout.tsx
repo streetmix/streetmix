@@ -57,43 +57,63 @@ export function CoastmixAbout() {
         </p>
 
         <h2>Project team</h2>
-        <ul>
-          <li>
-            <strong>Catherine McCandless</strong>
-            <br />
-            <i>Senior Climate Resilience Project Manager</i>
-            <br />
-            <i>Office of Climate Resilience</i>
-          </li>
-          <li>
-            <strong>Katie Lewis</strong>
-            <br />
-            <i>Art Director</i>
-            <br />
-            <i>Streetmix</i>
-          </li>
-          <li>
-            <strong>Kelly Sherman</strong>
-            <br />
-            <i>Climate Resilience Project Manager</i>
-            <br />
-            <i>Office of Climate Resilience</i>
-          </li>
-          <li>
-            <strong>Lou Huang</strong>
-            <br />
-            <i>Project Lead</i>
-            <br />
-            <i>Streetmix</i>
-          </li>
-          <li>
-            <strong>Michael Lawrence Evans</strong>
-            <br />
-            <i>Director</i>
-            <br />
-            <i>Office of Emerging Technology</i>
-          </li>
-        </ul>
+        <div className="credits-team">
+          <div className="team-member">
+            <div
+              className="team-member-mugshot"
+              style={{ backgroundImage: `url('/images/team/cat.jpg')` }}
+            />
+            <span className="team-member-name">Catherine McCandless</span>
+            <span className="team-member-title">
+              Senior Climate Resilience Project Manager
+            </span>
+            <span className="team-member-title">
+              Office of Climate Resilience
+            </span>
+          </div>
+          <div className="team-member">
+            <div
+              className="team-member-mugshot"
+              style={{ backgroundImage: `url('/images/team/katie.jpg')` }}
+            />
+            <span className="team-member-name">Katie Lewis</span>
+            <span className="team-member-title">Art Director</span>
+            <span className="team-member-title">Streetmix</span>
+          </div>
+          <div className="team-member">
+            <div
+              className="team-member-mugshot"
+              style={{ backgroundImage: `url('/images/team/kelly.jpg')` }}
+            />
+            <span className="team-member-name">Kelly Sherman</span>
+            <span className="team-member-title">
+              Climate Resilience Project Manager
+            </span>
+            <span className="team-member-title">
+              Office of Climate Resilience
+            </span>
+          </div>
+          <div className="team-member">
+            <div
+              className="team-member-mugshot"
+              style={{ backgroundImage: `url('/images/team/lou.jpg')` }}
+            />
+            <span className="team-member-name">Lou Huang</span>
+            <span className="team-member-title">Project Lead</span>
+            <span className="team-member-title">Streetmix</span>
+          </div>
+          <div className="team-member">
+            <div
+              className="team-member-mugshot"
+              style={{ backgroundImage: `url('/images/team/michael.jpg')` }}
+            />
+            <span className="team-member-name">Michael Lawrence Evans</span>
+            <span className="team-member-title">Director</span>
+            <span className="team-member-title">
+              Office of Climate Resilience
+            </span>
+          </div>
+        </div>
 
         <h2 style={{ marginBottom: 0 }}>Special thanks to</h2>
         <div className="credits-container" style={{ marginTop: 0 }}>

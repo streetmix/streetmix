@@ -20,6 +20,19 @@ header.about-coastmix-header {
     width: 181px;
   }
 }
+.about-coastmix-content {
+  z-index: -1;
+
+  ul i {
+    color: gray;
+    font-style: normal;
+  }
+
+  .credits-team {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1em;
+  }
+}
 
 @media only screen and (width < 800px) {
   header.about-coastmix-header {
@@ -29,11 +42,10 @@ header.about-coastmix-header {
   }
 }
 
-.about-coastmix-content {
-  z-index: -1;
-
-  ul i {
-    color: gray;
-    font-style: normal;
+@media only screen and (width < 640px) {
+  .about-coastmix-content {
+    .credits-team {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 }
