@@ -46,14 +46,6 @@
     />
     <meta property="twitter:image" content="{{STREETMIX_IMAGE.image}}" />
 
-    {{! https://dev.twitter.com/web/overview/widgets-webpage-properties }}
-    {{! Disable DOM scan for widgets and buttons }}
-    <meta name="twitter:widgets:autoload" content="off" />
-    {{! Disable functionality which may trigger Content Security Policy warnings }}
-    <meta name="twitter:widgets:csp" content="on" />
-    {{! Do not track parameter }}
-    <meta name="twitter:dnt" content="on" />
-
     {{! Activate Web Monetization, if a payment pointer is provided}}
     {{#if env.WEB_MONETIZATION_PAYMENT_POINTER}}
     <meta name="monetization" content="{{env.WEB_MONETIZATION_PAYMENT_POINTER}}" />
@@ -118,7 +110,6 @@
       <a href="https://about.streetmix.net/privacy-policy/" target="_blank">Privacy policy</a>
     </section>
 
-    <script src="https://platform.twitter.com/widgets.js" async></script>
     <script src="/assets/main.{{cacheTimestamp}}.js" type="module"></script>
   </body>
 </html>

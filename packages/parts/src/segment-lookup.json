@@ -6850,7 +6850,7 @@
             {
               "id": "earth",
               "variants": {
-                "type": "default"
+                "type": "flat"
               }
             }
           ],

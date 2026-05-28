@@ -566,7 +566,8 @@ export function drawSegmentContents(
             x,
             svg.width,
             multiplier,
-            actualWidth * TILE_SIZE // segmentWidth
+            actualWidth * TILE_SIZE, // segmentWidth
+            'repeat'
           )
           // TEMP: workaround with magic numbers
           // TODO refactor this
@@ -652,7 +653,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'left'
         )
         distanceFromGround += adjustment
       } else {
@@ -723,7 +725,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'right'
         )
         distanceFromGround += adjustment
       } else {
@@ -786,7 +789,8 @@ export function drawSegmentContents(
           x,
           svg.width,
           multiplier,
-          segmentWidth
+          segmentWidth,
+          'center'
         )
         distanceFromGround += adjustment
       } else {
@@ -880,19 +884,31 @@ export function calculateSlopeYAdjustment(
   x: number,
   svgWidth: number,
   multiplier: number,
-  segmentWidth: number
+  segmentWidth: number,
+  mode: 'left' | 'right' | 'center' | 'repeat' | 'scatter'
 ) {
   // Get slope
   const m = calculateSlopePercentage(slope.values, actualWidth)
 
   // Find x3, the x position along the slope where we need the new y height
   // TODO: can we calc this without the numbers from pixel dimensions
-  const midpoint =
-    x > 0
-      ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
-      : // If x is less than 0, midpoint is 1/2 of segment width
-        // This only works if the object is in the center.
-        segmentWidth / 2
+  let midpoint: number
+
+  // In scatter mode always use this formula for the midpoint. This prevents
+  // items at the left edge (x < 0) from improperly hovering in the air
+  if (mode === 'scatter') {
+    midpoint = x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+  } else {
+    // All other modes use this, for now.
+    // TODO: double check
+    midpoint =
+      x > 0
+        ? x + (svgWidth / TILE_SIZE_ACTUAL / 2) * TILE_SIZE * multiplier
+        : // If x is less than 0, midpoint is 1/2 of segment width
+          // This only works if the object is in the center.
+          segmentWidth / 2
+  }
+
   const midpointPercentage = midpoint / segmentWidth
   const x3 = midpointPercentage * actualWidth
 

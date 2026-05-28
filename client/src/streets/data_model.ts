@@ -111,7 +111,8 @@ export function trimStreetData(street: StreetState): Partial<StreetState> {
         variantString: s.variantString,
         width: s.width,
         elevation: s.elevation,
-        slope: s.slope,
+        // Clear slope values when off, don't retain between sessions.
+        slope: s.slope.on ? s.slope : { on: false, values: [] },
         label: s.label,
       }
 
