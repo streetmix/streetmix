@@ -5,6 +5,12 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## Unreleased
+
+### 🐛 Bug fixes
+
+- Fixed the minimum and maximum width of the inbound shared turn lane.
+
 ## May 4, 2026
 
 ### 🐛 Bug fixes
