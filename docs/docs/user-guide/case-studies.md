@@ -1,5 +1,6 @@
 ---
 sidebar_position: 10
+unlisted: true
 ---
 
 # Case studies
