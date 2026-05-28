@@ -33,6 +33,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
               <img
                 alt="Streetmix (logo)"
                 class="about-dialog-logo"
+                draggable="false"
                 src="test-file-stub"
               />
               <h1>
@@ -118,6 +119,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     >
                       <img
                         alt="Bad Idea Factory"
+                        draggable="false"
                         src="test-file-stub"
                       />
                     </a>
@@ -130,6 +132,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     >
                       <img
                         alt="Code for America"
+                        draggable="false"
                         src="test-file-stub"
                       />
                     </a>
@@ -149,6 +152,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     >
                       <img
                         alt="New Urban Mobility Alliance"
+                        draggable="false"
                         src="test-file-stub"
                       />
                     </a>
@@ -168,6 +172,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                     >
                       <img
                         alt="Mozilla Open Source Support"
+                        draggable="false"
                         src="test-file-stub"
                       />
                     </a>
@@ -198,7 +203,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   Original project team
                 </h2>
                 <div
-                  class="credits-team credits-team-past"
+                  class="credits-team"
                 >
                   <div
                     class="team-member"
@@ -247,7 +252,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   Core contributors
                 </h2>
                 <div
-                  class="credits-team credits-team-past"
+                  class="credits-team"
                 >
                   <div
                     class="team-member"

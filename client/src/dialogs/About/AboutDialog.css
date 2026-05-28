@@ -12,11 +12,11 @@
     margin: 0;
   }
 
-  /* Override .dialog-box header (not sure why specificity has changed) */
+  /* Override .dialog-box header */
   header {
-    background-color: white !important;
-    padding: 0 !important;
-    text-align: start !important;
+    background-color: white;
+    padding: 0;
+    text-align: start;
     position: sticky;
     top: 0;
   }
@@ -31,6 +31,10 @@
 
   h4 {
     color: var(--color-turquoise-700);
+  }
+
+  .dialog-content {
+    overflow-x: hidden;
   }
 }
 
@@ -101,13 +105,4 @@
   display: inline-block;
   margin-block-start: 1em;
   margin-inline-end: 1.5em;
-}
-
-.coastmix-dialog-content {
-  z-index: -1;
-}
-
-.coastmix-dialog-logo {
-  width: 181px;
-  margin: 2.5rem 2rem 0.5rem;
 }
