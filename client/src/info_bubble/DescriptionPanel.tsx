@@ -25,11 +25,13 @@ export function DescriptionPanel() {
   const content = formatMessage(
     `descriptions.${description.key}.content`,
     undefined,
-    {
-      ns: 'segment-info',
-    }
+    { ns: 'segment-info' }
   )
-
+  const altText = formatMessage(
+    `descriptions.${description.key}.imageAltText`,
+    undefined,
+    { ns: 'segment-info' }
+  )
   const caption = formatMessage(
     `descriptions.${description.key}.imageCaption`,
     undefined,
@@ -67,11 +69,18 @@ export function DescriptionPanel() {
       <IntlProvider locale={locale.locale} messages={locale.segmentInfo}>
         <div className="description-content">
           {description.image && (
-            <img
-              src={`/images/descriptions/${description.image}`}
-              alt={caption ?? ''}
-              draggable={false}
-            />
+            <>
+              <img
+                src={`/images/descriptions/${description.image}`}
+                alt={altText ?? caption ?? ''}
+                draggable={false}
+              />
+              {description.imageCredit && (
+                <div className="description-image-credit">
+                  {description.imageCredit}
+                </div>
+              )}
+            </>
           )}
           <div className="description-text">
             <ReactMarkdown
