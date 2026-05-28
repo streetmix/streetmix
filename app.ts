@@ -102,7 +102,6 @@ const csp = {
     ],
     scriptSrc: [
       "'self'",
-      'platform.twitter.com',
       process.env.AUTH0_DOMAIN ?? '',
       '*.basemaps.cartocdn.com',
       process.env.PELIAS_HOST_NAME ?? '',
@@ -112,7 +111,6 @@ const csp = {
       'static.userback.io',
     ],
     workerSrc: ["'self'"],
-    childSrc: ['platform.twitter.com'],
     frameAncestors: ["'self'", 'https:'],
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
     imgSrc: [
@@ -133,7 +131,6 @@ const csp = {
       // Profile images
       'abs.twimg.com',
       'pbs.twimg.com',
-      'syndication.twitter.com',
       'platform-lookaside.fbsbx.com',
       's.gravatar.com',
       '*.googleusercontent.com',
@@ -145,7 +142,6 @@ const csp = {
     connectSrc: [
       "'self'",
       process.env.PELIAS_HOST_NAME ?? '',
-      'syndication.twitter.com',
       'sentry.io',
       process.env.AUTH0_DOMAIN ?? '',
       process.env.DOES_NOT_EXIST ?? '',

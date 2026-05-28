@@ -17,7 +17,6 @@ export function post(req: Request, res: Response) {
   // every time they occur is not useful. This might be expanded to handle
   // multiple use cases abstractly, but for now, we handle cases specifically
   if (
-    cspReport['blocked-uri'].startsWith('https://platform.twitter.com') ||
     cspReport['blocked-uri'].endsWith('__parcel_code_frame') ||
     cspReport['blocked-uri'] === 'eval' ||
     cspReport['source-file'] === 'moz-extension'
