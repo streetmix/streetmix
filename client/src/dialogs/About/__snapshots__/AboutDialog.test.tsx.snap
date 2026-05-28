@@ -198,7 +198,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   Original project team
                 </h2>
                 <div
-                  class="credits-team credits-team-past"
+                  class="credits-team"
                 >
                   <div
                     class="team-member"
@@ -247,7 +247,7 @@ exports[`AboutDialog > renders snapshot 1`] = `
                   Core contributors
                 </h2>
                 <div
-                  class="credits-team credits-team-past"
+                  class="credits-team"
                 >
                   <div
                     class="team-member"

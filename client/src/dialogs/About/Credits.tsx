@@ -70,7 +70,7 @@ export function Credits() {
         />
       </h2>
 
-      <div className="credits-team credits-team-past">
+      <div className="credits-team">
         {CREDITS.team
           .filter((person) => person.original === true)
           .sort(alphabetizeNames)
@@ -86,7 +86,7 @@ export function Credits() {
         />
       </h2>
 
-      <div className="credits-team credits-team-past">
+      <div className="credits-team">
         {CREDITS.team
           .filter((person) => person.original !== true)
           .sort(alphabetizeNames)

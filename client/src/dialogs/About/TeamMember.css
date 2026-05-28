@@ -5,13 +5,8 @@
 .team-member-name {
   display: block;
   margin-top: 0.5em;
-  font-size: 1.1em;
   font-weight: 550;
   line-height: 1.2;
-
-  .credits-team-past & {
-    font-size: 1em;
-  }
 
   a {
     color: black;

@@ -3,13 +3,8 @@
 
   /* Setting a min-width value of 0 prevents the grid columns from changing
      its width if child content is too large, like a super long word */
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-flow: row;
-  gap: 1.5em;
-}
-
-.credits-team-past {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: row;
   gap: 1.25em;
 }
 
@@ -30,5 +25,16 @@
   i {
     color: gray;
     font-style: normal;
+  }
+}
+
+@media only screen and (width < 640px) {
+  .credits-team {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5em;
+  }
+
+  .credits-container {
+    flex-direction: column;
   }
 }
