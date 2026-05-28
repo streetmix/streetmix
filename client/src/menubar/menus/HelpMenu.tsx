@@ -35,10 +35,14 @@ export function HelpMenu(props: MenuProps) {
     <Menu {...props}>
       <MenuItem onClick={() => dispatch(showDialog('ABOUT'))}>
         <Icon name="info" className="menu-item-icon" />
-        <FormattedMessage
-          id="menu.item.about"
-          defaultMessage="About Streetmix…"
-        />
+        {coastmixMode ? (
+          'About Coastmix…'
+        ) : (
+          <FormattedMessage
+            id="menu.item.about"
+            defaultMessage="About Streetmix…"
+          />
+        )}
       </MenuItem>
       <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
         <Icon name="whats-new" className="menu-item-icon" />
