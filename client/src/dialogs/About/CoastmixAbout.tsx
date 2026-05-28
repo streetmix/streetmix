@@ -46,11 +46,10 @@ export function CoastmixAbout() {
       </header>
       <div className="dialog-content about-coastmix-content">
         <p>
-          Design, remix, and share your resilient coast. Create your ideal
-          waterfront, build coastal flood protection, and learn how climate
-          change can impact your community.{' '}
-          {/* Coastmix is a project by Streetmix and the City of Boston to
-                  visualize coastal flooding. */}
+          Coastmix is a project by Streetmix and the City of Boston to design,
+          visualize and share resilient coasts. Create your ideal waterfront,
+          build coastal flood protection, and learn how climate change impacts
+          your community.{' '}
           <a href="" target="_blank">
             Learn more.
           </a>
