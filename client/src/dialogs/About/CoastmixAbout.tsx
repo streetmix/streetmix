@@ -38,7 +38,7 @@ export function CoastmixAbout() {
             <img
               src={oetlogo}
               alt="City of Boston Office of Emerging Technology"
-              style={{ width: '300px' }}
+              style={{ height: '56px' }}
               draggable={false}
             />
           </ExternalLink>

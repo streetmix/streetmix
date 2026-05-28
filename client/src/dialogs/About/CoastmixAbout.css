@@ -13,11 +13,11 @@ header.about-coastmix-header {
   }
 
   img {
-    width: 200px;
+    max-height: 57px;
   }
 
   img.about-coastmix-logo {
-    width: 181px;
+    height: 47px;
   }
 }
 .about-coastmix-content {
