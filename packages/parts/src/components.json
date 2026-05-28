@@ -118,6 +118,11 @@
               "repeat": "earth--surface",
               "ground": "ground--earth"
             }
+          },
+          "flat": {
+            "graphics": {
+              "ground": "ground--earth"
+            }
           }
         }
       }

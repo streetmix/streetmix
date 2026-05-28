@@ -283,7 +283,8 @@ export function drawScatteredSprites(
         x,
         svg.width,
         multiplier,
-        actualWidth * TILE_SIZE // segmentWidth
+        actualWidth * TILE_SIZE, // segmentWidth
+        'scatter'
       )
       distanceFromGround += adjustment
     } else {

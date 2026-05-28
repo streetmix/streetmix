@@ -48,7 +48,7 @@
   display: block;
   width: 15px;
   height: 15px;
-  background-color: var(--color-midnight-200);
+  background-color: var(--color-turquoise-300);
   border-radius: 9999px;
   transition:
     transform 100ms,
