@@ -1,6 +1,7 @@
 header.about-coastmix-header {
   display: flex;
-  padding: 2rem 2rem 0.5rem;
+  /* This is ordered differently in production so it needs higher priority */
+  padding: 2rem 2rem 0.5rem !important;
   gap: 0.5em;
 
   > div {

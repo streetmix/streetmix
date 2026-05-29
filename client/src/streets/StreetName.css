@@ -36,6 +36,7 @@ body.segment-move-dragging .street-nameplate-container .street-name {
   position: relative;
   max-width: 100%;
   pointer-events: auto;
+  line-height: 0;
 }
 
 .street-name-hover-prompt {
