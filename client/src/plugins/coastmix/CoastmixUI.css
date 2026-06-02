@@ -1,0 +1,7 @@
+#loading.coastmix-loader {
+  background-color: var(--color-turquoise-300);
+
+  .streetmix-logo {
+    background-image: url("./images/logo_horizontal_coastmix2.svg");
+  }
+}
