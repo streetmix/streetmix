@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
-import logoCoastmix from 'url:../../images/logo_horizontal_coastmix.svg'
+import logoCoastmix from 'url:~/src/plugins/coastmix/images/logo_horizontal_coastmix.svg'
 import { useSelector } from '../store/hooks.js'
 import AccessibleIcon from '../ui/AccessibleIcon.js'
 import { Icon } from '../ui/Icon.js'

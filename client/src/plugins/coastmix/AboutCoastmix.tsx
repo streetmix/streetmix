@@ -1,9 +1,11 @@
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
-import logoCoastmix from 'url:~/images/logo_horizontal_coastmix2.svg'
-import crblogo from 'url:~/images/sponsors/coastmix/crb.png'
-import oetlogo from 'url:~/images/sponsors/coastmix/oet.svg'
+import logoCoastmix from 'url:./images/logo_horizontal_coastmix2.svg'
+import crbLogo from 'url:./images/crb.png'
+import oetLogo from 'url:./images/oet.svg'
+import catAvatar from 'url:./images/cat.jpg'
+import kellyAvatar from 'url:./images/kelly.jpg'
 import './AboutCoastmix.css'
 
 export function AboutCoastmix() {
@@ -27,7 +29,7 @@ export function AboutCoastmix() {
         <div>
           <ExternalLink href="https://www.boston.gov/departments/climate-resilience">
             <img
-              src={crblogo}
+              src={crbLogo}
               alt="City of Boston Office of Climate Resilience"
               draggable={false}
             />
@@ -36,7 +38,7 @@ export function AboutCoastmix() {
         <div>
           <ExternalLink href="https://www.boston.gov/departments/emerging-technology">
             <img
-              src={oetlogo}
+              src={oetLogo}
               alt="City of Boston Office of Emerging Technology"
               style={{ height: '56px' }}
               draggable={false}
@@ -60,7 +62,7 @@ export function AboutCoastmix() {
           <div className="team-member">
             <div
               className="team-member-mugshot"
-              style={{ backgroundImage: `url('/images/team/cat.jpg')` }}
+              style={{ backgroundImage: `url(${catAvatar})` }}
             />
             <span className="team-member-name">Catherine McCandless</span>
             <span className="team-member-title">
@@ -82,7 +84,7 @@ export function AboutCoastmix() {
           <div className="team-member">
             <div
               className="team-member-mugshot"
-              style={{ backgroundImage: `url('/images/team/kelly.jpg')` }}
+              style={{ backgroundImage: `url(${kellyAvatar})` }}
             />
             <span className="team-member-name">Kelly Sherman</span>
             <span className="team-member-title">
