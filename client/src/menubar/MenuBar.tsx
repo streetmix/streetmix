@@ -133,7 +133,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
           id="menubar-help"
           onClick={handleClick('help')}
         />
-        {!offline && (
+        {!offline && !coastmixMode && (
           <>
             <MenuBarItem
               label="Contact"
@@ -183,7 +183,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
             </AccessibleIcon>
           </MenuBarItem>
         )}
-        {!offline && renderUserAvatar(user)}
+        {!offline && !coastmixMode && renderUserAvatar(user)}
       </ul>
       <InstanceBadge />
     </nav>

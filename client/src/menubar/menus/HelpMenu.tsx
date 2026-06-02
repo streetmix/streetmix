@@ -74,11 +74,15 @@ export function HelpMenu(props: MenuProps) {
               </CoastmixPracticeTour>
             </>
           )}
-          <MenuSeparator />
-          <MenuItem href="https://cottonbureau.com/people/streetmix">
-            <Icon name="cart" className="menu-item-icon" />
-            <FormattedMessage id="menu.item.store" defaultMessage="Store" />
-          </MenuItem>
+          {!coastmixMode && (
+            <>
+              <MenuSeparator />
+              <MenuItem href="https://cottonbureau.com/people/streetmix">
+                <Icon name="cart" className="menu-item-icon" />
+                <FormattedMessage id="menu.item.store" defaultMessage="Store" />
+              </MenuItem>
+            </>
+          )}
         </>
       )}
       <MenuSeparator />
