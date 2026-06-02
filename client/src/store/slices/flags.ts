@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import FEATURE_FLAGS from '@streetmix/feature-flags'
 
-import { STREETMIX_INSTANCE } from '../../app/config'
-
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { FeatureFlagDefinition, FeatureFlags } from '../../types'
 
@@ -13,7 +11,7 @@ interface FeatureFlagSetting extends FeatureFlagDefinition {
 
 export type FeatureFlagState = Record<string, FeatureFlagSetting>
 
-function generateInitialFlags (flags: FeatureFlags): FeatureFlagState {
+function generateInitialFlags(flags: FeatureFlags): FeatureFlagState {
   return Object.entries(flags).reduce((obj: FeatureFlagState, item) => {
     const [key, value] = item
     obj[key] = {
@@ -21,12 +19,7 @@ function generateInitialFlags (flags: FeatureFlags): FeatureFlagState {
       ...value,
       // Add new ones
       value: value.defaultValue,
-      source: 'initial'
-    }
-
-    // Special-case flag turned on for a specific Streetmix instance
-    if (key === 'COASTMIX_MODE' && STREETMIX_INSTANCE === 'coastmix') {
-      obj[key].value = true
+      source: 'initial',
     }
 
     return obj
@@ -40,7 +33,7 @@ const flagsSlice = createSlice({
   initialState: generateInitialFlags(FEATURE_FLAGS),
 
   reducers: {
-    setFeatureFlag (
+    setFeatureFlag(
       state,
       action: PayloadAction<{ flag: string; value: boolean }>
     ) {
@@ -48,17 +41,17 @@ const flagsSlice = createSlice({
       state[action.payload.flag] = {
         ...flag,
         value: action.payload.value,
-        source: 'session'
+        source: 'session',
       }
     },
 
-    setFlagOverrides (state, action: PayloadAction<FeatureFlagState>) {
+    setFlagOverrides(state, action: PayloadAction<FeatureFlagState>) {
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       }
-    }
-  }
+    },
+  },
 })
 
 export const { setFeatureFlag, setFlagOverrides } = flagsSlice.actions
