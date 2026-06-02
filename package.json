@@ -24,7 +24,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start": "concurrently --names \"SERVER,CLIENT,TSC\" -c \"bgBlueBright.bold,bgMagentaBright.bold,black.bgYellowBright.bold\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-tsc\"",
+    "start": "concurrently --names \"SERVER,CLIENT,TSC\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-tsc\"",
     "serve": "nodemon -r newrelic --exec node index.ts",
     "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
