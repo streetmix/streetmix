@@ -122,7 +122,7 @@ Bicycles are a desirable alternate form of transportation to the automobile beca
 
 Sharrows are a strategy where additional road space is available, and you want to get a bike lane in there somehow, but you can't really stripe it without giving both the drive lane and bike lane less than the standard width, so it is combined. This is a "shared lane" scenario.
 
-In [a California study](http://dc.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why/), researchers found that drivers tend to prefer real bike lanes to keep bikers separate from the cars, and dislike sharrows. Bikers, on the other hand, prefer sharrows to nothing at all. (Source: [Do All Roadway Users Want the Same Things? Results from a Roadway Design Survey of Pedestrians, Drivers, Bicyclists, and Transit Users in the Bay Area](http://safetrec.berkeley.edu/trb2013/13-4475.pdf) by Rebecca L. Sanders and Jill Cooper, 2013)
+In [a California study](https://usa.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why), researchers found that drivers tend to prefer real bike lanes to keep bikers separate from the cars, and dislike sharrows. Bikers, on the other hand, prefer sharrows to nothing at all. (Source: [Do All Roadway Users Want the Same Things? Results from a Roadway Design Survey of Pedestrians, Drivers, Bicyclists, and Transit Users in the Bay Area](http://safetrec.berkeley.edu/trb2013/13-4475.pdf) by Rebecca L. Sanders and Jill Cooper, 2013)
 
 ### Cycletrack (bike lane + median or buffer)
 
