@@ -45,11 +45,14 @@ exports[`SignInDialog > renders 1`] = `
                 Email
               </label>
               <input
+                autocomplete="email"
                 class="sign-in-input "
                 id="_r_0_"
+                inputmode="email"
                 name="email"
                 placeholder="test@test.com"
                 required=""
+                spellcheck="false"
                 type="email"
                 value=""
               />

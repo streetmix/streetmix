@@ -202,6 +202,9 @@ export function SignInDialog() {
                     'sign-in-input ' + (error ? 'sign-in-input-error' : '')
                   }
                   name="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  spellCheck={false}
                   onChange={handleChange}
                   placeholder="test@test.com"
                   required
