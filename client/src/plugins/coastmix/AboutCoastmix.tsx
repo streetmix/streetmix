@@ -4,9 +4,9 @@ import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import logoCoastmix from 'url:~/images/logo_horizontal_coastmix2.svg'
 import crblogo from 'url:~/images/sponsors/coastmix/crb.png'
 import oetlogo from 'url:~/images/sponsors/coastmix/oet.svg'
-import './CoastmixAbout.css'
+import './AboutCoastmix.css'
 
-export function CoastmixAbout() {
+export function AboutCoastmix() {
   return (
     <>
       <header className="about-coastmix-header">
