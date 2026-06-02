@@ -136,7 +136,7 @@ Sometimes there will be updates to the English strings. Transifex will detect th
 
 ## Need more help?
 
-Refer to the [Transifex documentation](http://docs.transifex.com/) if you need more help. A good place to start is the [Transifex web editor tutorial](http://docs.transifex.com/tutorials/txeditor/).
+Refer to the [Transifex documentation](https://help.transifex.com/) if you need more help. A good place to start is the [Transifex web editor tutorial](https://help.transifex.com/en/articles/6318216-translating-with-the-web-editor).
 
 ### FAQ & Discord chat
 
