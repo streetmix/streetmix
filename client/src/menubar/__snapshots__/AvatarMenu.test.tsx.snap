@@ -5,7 +5,6 @@ exports[`AvatarMenu > renders user avatar 1`] = `
   <button
     class="menu-trigger menu-avatar"
     id="menubar-identity"
-    role="menuitem"
   >
     <span
       class="avatar"

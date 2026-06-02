@@ -5,7 +5,6 @@ exports[`MenuBarItem > renders 1`] = `
   <li>
     <button
       class="menu-trigger"
-      role="menuitem"
     >
       foo
       <svg

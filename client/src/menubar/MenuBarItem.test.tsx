@@ -16,8 +16,7 @@ describe('MenuBarItem', () => {
     const handleClick = vi.fn()
     render(<MenuBarItem onClick={handleClick}>label</MenuBarItem>)
 
-    // A button is rendered with the role `menuitem`
-    await userEvent.click(screen.getByRole('menuitem'))
+    await userEvent.click(screen.getByRole('button'))
 
     expect(handleClick).toHaveBeenCalled()
   })
@@ -30,8 +29,7 @@ describe('MenuBarItem', () => {
       </MenuBarItem>
     )
 
-    // An anchor tag is rendered with the role `menuitem`
-    await userEvent.click(screen.getByRole('menuitem'))
+    await userEvent.click(screen.getByRole('button'))
 
     expect(handleClick).toHaveBeenCalled()
   })

@@ -29,7 +29,6 @@ export function AvatarMenu({
   return (
     <button
       className="menu-trigger menu-avatar"
-      role="menuitem"
       onClick={onClick}
       id="menubar-identity"
     >

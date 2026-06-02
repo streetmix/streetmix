@@ -23,7 +23,7 @@ export function MenuBarItem({
 }: MenuBarItemProps) {
   const component = (
     <li>
-      <button className="menu-trigger" role="menuitem" {...restProps}>
+      <button className="menu-trigger" {...restProps}>
         {children}
         <Icon name="chevron-down" size="14" className="menu-carat-down" />
       </button>

@@ -82,7 +82,7 @@ export function NewStreetMenu(props: MenuProps) {
       {templatesEnabled && !coastmixEnabled && (
         <>
           <MenuSeparator />
-          <div className="dropdown-menu-label">
+          <div className="dropdown-menu-label" role="presentation">
             Street templates
             <BetaTag />
           </div>
@@ -101,7 +101,7 @@ export function NewStreetMenu(props: MenuProps) {
       {coastmixEnabled && (
         <>
           <MenuSeparator />
-          <div className="dropdown-menu-label">
+          <div className="dropdown-menu-label" role="presentation">
             Coastal resiliency templates
             <BetaTag />
           </div>
