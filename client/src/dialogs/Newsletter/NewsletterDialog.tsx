@@ -110,7 +110,6 @@ export function NewsletterDialog() {
                   id={emailInputId}
                   placeholder="test@example.com"
                   autoComplete="email"
-                  inputMode="email"
                   spellCheck={false}
                   {...register('email', { required: true })}
                 />

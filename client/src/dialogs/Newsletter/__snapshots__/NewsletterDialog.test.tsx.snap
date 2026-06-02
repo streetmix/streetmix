@@ -46,7 +46,6 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
               <input
                 autocomplete="email"
                 id="_r_0_"
-                inputmode="email"
                 name="email"
                 placeholder="test@example.com"
                 required=""

@@ -203,7 +203,6 @@ export function SignInDialog() {
                   }
                   name="email"
                   autoComplete="email"
-                  inputMode="email"
                   spellCheck={false}
                   onChange={handleChange}
                   placeholder="test@test.com"
