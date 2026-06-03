@@ -9,12 +9,12 @@ interface LoadingProps {
 export function Loading({ isLoading = true }: LoadingProps) {
   const loadingStuckNotice = useRef<HTMLDivElement>(null)
 
-  // Use instance variable because flags might not be loaded here
+  // Use instance environment variable because flags are not available here.
   const coastmixMode = STREETMIX_INSTANCE === 'coastmix'
 
   useLayoutEffect(() => {
     // A "not loading" troubleshooting popup to provide a "way out" of totally
-    // frozen UIs. Display this after 10 seconds if this component is still visible.
+    // frozen UIs. Displays after 10 seconds if this component is still visible.
     const timer = window.setTimeout(function () {
       const el = loadingStuckNotice.current
       if (!el) return
