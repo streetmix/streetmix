@@ -11,6 +11,7 @@
     "sidewalk-lamp": "街灯",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "パークレット",
     "street-vendor": "",
     "divider": "バッファーゾーン",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "“インセプション” 電車",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# クリストファー・ノーラン監督の映画 インセプション に登場する電車です。\n\n説明は不要でしょ？"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": ""
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "虹色表記つきの現代風",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "車両",
     "car-type|sharrow": "共用",
     "car-type|truck": "トラック",

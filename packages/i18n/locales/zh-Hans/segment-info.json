@@ -11,6 +11,7 @@
     "sidewalk-lamp": "路灯",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "微型公园",
     "street-vendor": "",
     "divider": "禁停区",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "《盗梦空间》版火车",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# 这辆火车取材于Christopher Nolan的电影_《盗梦空间》_\n\n你还需要了解些什么其它的信息吗？"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": ""
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "带有同志骄傲旗帜的现代样式",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "汽车",
     "car-type|sharrow": "共用车道",
     "car-type|truck": "货车",

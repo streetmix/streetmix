@@ -10,6 +10,7 @@ sidebar_position: 5
 ### 🐛 Bug fixes
 
 - Fixed the minimum and maximum width of the inbound shared turn lane.
+- Corrected a number of broken links to other websites.
 
 ## May 4, 2026
 
