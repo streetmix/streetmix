@@ -14,7 +14,7 @@ You may already have some of these prerequisites installed. Skip or update the p
 
 1. Install **[XCode Developer Tools](https://itunes.apple.com/us/app/xcode/id497799835?mt=12)**.
 
-2. (Optional) Install the **[Homebrew](http://brew.sh/) package manager**. This makes installing other software packages easier, but you can use any other package installation method you wish. In this example and in the following steps, we will use Homebrew on the command line to set up your development environment.
+2. (Optional) Install the **[Homebrew](https://brew.sh/) package manager**. This makes installing other software packages easier, but you can use any other package installation method you wish. In this example and in the following steps, we will use Homebrew on the command line to set up your development environment.
 
 ```shell-session
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -62,9 +62,9 @@ Streetmix was not developed on a Windows platform, and testing is limited. These
 
 You may already have some of these prerequisites installed. Skip or update the packages that already exist.
 
-1. Install [a modern browser](http://browsehappy.com/). We recommend **Firefox** or **Chrome**. [Internet Explorer is not supported](/user-guide/support/faq#internet-explorer).
-2. Install **[Git](http://git-scm.com/download/win)**. You may want to consider following Microsoft's guide to [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-git), which helps us provide similar command line instructions to Mac OSX and Linux environments.
-3. Install **[Node.js](http://nodejs.org/)**. The site should detect your Windows system and provide you with the correct install executable, or you can choose to download [a specific package or installer](http://nodejs.org/en/download/). In production, Streetmix uses the latest "Active LTS" release. Locally, you should be able to use any version of Node.js in the "Current" or "Active" state.
+1. Install [a modern browser](https://browsehappy.com/). We recommend **Firefox** or **Chrome**. [Internet Explorer is not supported](/user-guide/support/faq#internet-explorer).
+2. Install **[Git](https://git-scm.com/install/windows)**. You may want to consider following Microsoft's guide to [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-git), which helps us provide similar command line instructions to Mac OSX and Linux environments.
+3. Install **[Node.js](https://nodejs.org/)**. The site should detect your Windows system and provide you with the correct install executable, or you can choose to download [a specific package or installer](https://nodejs.org/en/download). In production, Streetmix uses the latest "Active LTS" release. Locally, you should be able to use any version of Node.js in the "Current" or "Active" state.
 4. Install **PostgreSQL**. You can [download a Windows package here](https://www.postgresql.org/download/windows/).
 5. Install **PostGIS**. You can [download a Windows package here](https://postgis.net/windows_downloads/).
 

@@ -34,7 +34,7 @@ We may investigate adopting CSS Modules. However, we would strongly prefer solut
 
 Avoid styling elements using `id` attribute selectors. Instead, use class names (alongside pseudo-selectors and attribute selectors, if necessary). Namespace all classnames. If there's a component called `palette`, a good class name could be `palette-container`. Avoid writing generic class names like `large`. Styles are not scoped, so generic class names without namespaces will inevitably cause collisions.
 
-We do not use a strict BEM framework/naming convention for class names. Some good resources which have generally informed our approach to CSS organization (but have not dictated it) include [Scalable and Modular Architecture for CSS (SMACSS)](http://smacss.com/) and parts of the [Reasonable System for CSS Stylesheet Structure (rscss)](https://rscss.io/).
+We do not use a strict BEM framework/naming convention for class names. Some good resources which have generally informed our approach to CSS organization (but have not dictated it) include [Scalable and Modular Architecture for CSS (SMACSS)](https://smacss.com/) and parts of the [Reasonable System for CSS Stylesheet Structure (rscss)](https://rscss.io/).
 
 ## JavaScript
 

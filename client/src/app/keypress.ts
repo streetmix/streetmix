@@ -4,7 +4,7 @@
  * Handles registration, removal, and processing of keyboard inputs.
  * Some inspiration:
  *    - Mousetrap.js (https://craig.is/killing/mice)
- *    - Keypress.js (http://dmauro.github.io/Keypress/)
+ *    - Keypress.js (https://dmauro.github.io/Keypress/)
  *    - keymaster.js (https://github.com/madrobby/keymaster)
  */
 import { isFocusOnBody } from '../util/focus.js'

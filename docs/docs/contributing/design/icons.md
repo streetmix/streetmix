@@ -34,4 +34,4 @@ Here are some tips when exporting from Affinity Designer (which can also be rele
 
 ### Other resources
 
-- [SVG `symbol` a Good Choice for Icons](http://css-tricks.com/svg-symbol-good-choice-icons/) [CSS Tricks]
+- [SVG `symbol` a Good Choice for Icons](https://css-tricks.com/svg-symbol-good-choice-icons/) [CSS Tricks]

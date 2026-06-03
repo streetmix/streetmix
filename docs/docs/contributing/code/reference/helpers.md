@@ -50,7 +50,7 @@ In the above example, we call `seedrandom()` twice, with the same `seed`, so tha
 
 **References**
 
-- [Random Seeds, Coded Hints, and Quintillions](http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html) [David Bau]
+- [Random Seeds, Coded Hints, and Quintillions](https://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html) [David Bau]
 - [seedrandom.js](https://github.com/davidbau/seedrandom) [GitHub]
 
 ## axios

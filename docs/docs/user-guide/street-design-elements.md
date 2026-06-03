@@ -24,9 +24,9 @@ Notes on segments, which are the elements that comprise a street section. [See I
 - **Maximum width:** 12 ft (3.6m)
 - **References:**
   - [AASHTO 2001 Green Book - Chapter 4 - Lane Widths](https://gist.github.com/louh/9ed5e8585878db8034c6) (pp 315-316)
-  - [NCHRP Report 500, Volume 10: A Guide for Reducing Collisions Involving Pedestrians](http://onlinepubs.trb.org/onlinepubs/nchrp/nchrp_rpt_500v10.pdf)
+  - [NCHRP Report 500, Volume 10: A Guide for Reducing Collisions Involving Pedestrians](https://www.nationalacademies.org/publications/23425)
     - section V-48
-  - [ITE Designing Walkable Urban Thoroughfares](http://www.ite.org/emodules/scriptcontent/orders/ProductDetail.cfm?pc=RP-036A-E) (2010)
+  - [ITE Designing Walkable Urban Thoroughfares](https://www.ite.org/pub/?id=E1CFF43C-2354-D714-51D9-D82B39D4DBAD) (2010)
   - [Walkable City](https://gist.github.com/louh/921ca2e36cf2a7e5df49/raw/c720c5170bd6534a07d4b7b73ac588b3dc56d4fa/Walkable+City+-+Multilane+roads%2C+road+diets) by Jeff Speck (2012) - Step 5: "Protect the Pedestrian"
 
 Lane widths typically fall between 2.7m (9ft) and 3.6m (12ft). For urban contexts where Streetmix is most useful, the 3.0m (10ft) lane width is most ideal. Some guides allow for 3.3m (11ft) lanes, but we will follow Jeff Speck's lead (and other progressive planners) in setting 10ft widths as typical.
@@ -122,7 +122,7 @@ Bicycles are a desirable alternate form of transportation to the automobile beca
 
 Sharrows are a strategy where additional road space is available, and you want to get a bike lane in there somehow, but you can't really stripe it without giving both the drive lane and bike lane less than the standard width, so it is combined. This is a "shared lane" scenario.
 
-In [a California study](https://usa.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why), researchers found that drivers tend to prefer real bike lanes to keep bikers separate from the cars, and dislike sharrows. Bikers, on the other hand, prefer sharrows to nothing at all. (Source: [Do All Roadway Users Want the Same Things? Results from a Roadway Design Survey of Pedestrians, Drivers, Bicyclists, and Transit Users in the Bay Area](http://safetrec.berkeley.edu/trb2013/13-4475.pdf) by Rebecca L. Sanders and Jill Cooper, 2013)
+In [a California study](https://usa.streetsblog.org/2013/06/13/in-california-cities-drivers-want-more-bike-lanes-heres-why), researchers found that drivers tend to prefer real bike lanes to keep bikers separate from the cars, and dislike sharrows. Bikers, on the other hand, prefer sharrows to nothing at all. (Source: [Do All Roadway Users Want the Same Things? Results from a Roadway Design Survey of Pedestrians, Drivers, Bicyclists, and Transit Users in the Bay Area](https://its.berkeley.edu/publications/do-all-roadway-users-want-same-things) by Rebecca L. Sanders and Jill Cooper, 2013)
 
 ### Cycletrack (bike lane + median or buffer)
 
@@ -184,7 +184,7 @@ Not presently planned for Streetmix.
 - **Subtypes:** Different car types; inbound, outbound; separated infrastructure or in drive lane
 - **Default width:** 10 ft (same as drive lane)
 - **Minimum width:** 10 ft
-  - According to [streetcar.org](http://streetcar.org/), the widths of most streetcars are between 8'-0" to 9'-0". In the absence (so far) of guidelines defining streetcar width, we can assume that 10' should be the minimum and can remain the default.
+  - According to [streetcar.org](https://www.streetcar.org/), the widths of most streetcars are between 8'-0" to 9'-0". In the absence (so far) of guidelines defining streetcar width, we can assume that 10' should be the minimum and can remain the default.
 - **Maximum width:** none
 
 ### Buses

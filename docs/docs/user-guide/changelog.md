@@ -581,7 +581,7 @@ We’ve upgraded our sign-in authentication system behind the scenes. As a side 
 ### ✨ New features
 
 - **Added an outbound autonomous vehicle illustration.** When you hate to see them go, but you love to watch them drive away. (Note: only available for signed-in users.)
-- **Added a motorcycle with sidecar to the drive lane.** And introducing a cameo by [Junebug and Johnny](http://kentuckyroutezero.com/). (Note: only available for signed-in users.)
+- **Added a motorcycle with sidecar to the drive lane.** And introducing a cameo by [Junebug and Johnny](https://kentuckyroutezero.com/). (Note: only available for signed-in users.)
 - **Added languages: Italian, Korean, and Latin American Spanish.** _Cin cin!_ _건배!_ _¡Salud!_ The latter is especially important, as we can now support a much larger community of Spanish speakers throughout all of Latin America. Many thanks to our translators, Enrico Ferreguti, Sunha Park, and Lina Marcela Quiñones, with reviewers Marco Scarselli, Hanbyul Jo, and Carlos Pardo.
 
 ### 🎮 UI improvements
