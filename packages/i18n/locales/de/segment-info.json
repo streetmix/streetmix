@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Straßenlaterne",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Trennfläche",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "Bahn aus dem Film \"Inception\"",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Es handelt sich um den Zug aus dem Film _Inception_ von Christopher Nolan.\n\nWas musst du noch wissen?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": ""
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Modern mit Pride-Banner",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Pkw",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lkw",

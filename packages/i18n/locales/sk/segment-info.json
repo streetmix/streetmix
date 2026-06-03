@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lampa",
     "utility-pole": "Stĺp s vedením",
     "drainage-channel": "Odtokový žľab",
+    "bioswale": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -78,6 +80,12 @@
       "content": ""
     },
     "inception-train": {
+      "content": ""
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
       "content": ""
     }
   },
@@ -108,6 +116,24 @@
     },
     "compound-wall": {
       "name": "Prefabrikovaná stena"
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
+      "name": ""
     }
   },
   "boundary": {
@@ -157,6 +183,8 @@
     "lamp-type|pride": "",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "",
     "car-type|sharrow": "",
     "car-type|truck": "",

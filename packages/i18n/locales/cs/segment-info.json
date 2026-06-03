@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Osvětlení",
     "utility-pole": "Sloupek pro inženýrské sítě",
     "drainage-channel": "Odvodňovací kanál",
+    "bioswale": "",
     "parklet": "Doplněk chodníku",
     "street-vendor": "Pouliční prodavač",
     "divider": "Dopravní stín",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Dočasná zábrana",
     "inception-train": "Vlak z filmu \"Inception\"",
     "magic-carpet": "Létající koberec",
-    "wall": "Zeď"
+    "wall": "Zeď",
+    "slope": "Sklon"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Je to vlak z filmu Christophera Nolana _Inception_.\n\nCo víc potřebujete vědět?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -108,6 +116,24 @@
     },
     "compound-wall": {
       "name": "Složená zeď"
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
+      "name": ""
     }
   },
   "boundary": {
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderní s hrdým bannerem",
     "drainage-sides|slanted": "Zkosené strany",
     "drainage-sides|vertical": "Svislé boční strany",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Automobíl",
     "car-type|sharrow": "Piktokoridor",
     "car-type|truck": "Nákladní automobil",

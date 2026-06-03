@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Farola",
     "utility-pole": "Poste de la luz",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "'Parklet'",
     "street-vendor": "",
     "divider": "Separación",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Barrera temporal",
     "inception-train": "Tren de 'Inception'",
     "magic-carpet": "Alfombra mágica",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Es el tren de la película de Christopher Nolan  _Inception_.\n\n¿Qué más quiere saber?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Edificio con soportales"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderna con bandera del orgullo",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Coche",
     "car-type|sharrow": "Carril compartido",
     "car-type|truck": "Camión",

@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Belysning",
     "utility-pole": "Elstolpe",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Mikropark",
     "street-vendor": "",
     "divider": "Buffert",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Tillfällig avstängning",
     "inception-train": "\"Inception\"-tåg",
     "magic-carpet": "Flygande matta",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": ""
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Arkad"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Modern med prideflagga",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Bil",
     "car-type|sharrow": "Delat körfält",
     "car-type|truck": "Lastbil",

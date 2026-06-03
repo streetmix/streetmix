@@ -31,7 +31,7 @@
       "sign-in-link": "{signInLink} saat käyttöön kätevämmät jakolinkit ja omien katujen kirjaston.",
       "link": "Jaa kopioimalla ja liittämällä tämä linkki:",
       "copy-to-clipboard": "Kopioi leikepöydälle",
-      "copy-success": "",
+      "copy-success": "Kopioitu",
       "twitter": "Jaa Twitterissä",
       "facebook": "Jaa Facebookissa",
       "mastodon": "Jaa Mastodonissa",
@@ -215,6 +215,7 @@
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
+      "stewards": "",
       "partners": "Yhteistyössä",
       "sponsors": "Sponsorit",
       "sponsored-by": "Streetmixin avokätiset sponsorit:",
@@ -318,7 +319,7 @@
       "tooltip": "Ympäristömuokkain",
       "heading": "Ympäristö",
       "sky": {
-        "heading": ""
+        "heading": "Taivas"
       },
       "weather": {
         "heading": "Sää",

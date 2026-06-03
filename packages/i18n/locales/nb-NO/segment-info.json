@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Gatelykt",
     "utility-pole": "Stolpe",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Rabatt",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Midlertidig sperring",
     "inception-train": "Toget fra \"Inception\"",
     "magic-carpet": "Flyvende teppe",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Det er toget fra Christopher Nolan film _Inception_.\n\nHva mer må du vite?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Bygning med søylegang"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderne med Pride-banner",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Bil",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Lastebil",

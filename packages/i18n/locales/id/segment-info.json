@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lampu",
     "utility-pole": "Tiang utilitas",
     "drainage-channel": "Saluran drainase",
+    "bioswale": "",
     "parklet": "Parklet",
     "street-vendor": "Pedagang kaki lima",
     "divider": "Penyangga",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Penghalang sementara",
     "inception-train": "Kereta \"Inception\"",
     "magic-carpet": "Karpet ajaib",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -78,6 +80,12 @@
       "content": ""
     },
     "inception-train": {
+      "content": ""
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
       "content": ""
     }
   },
@@ -108,6 +116,24 @@
     },
     "compound-wall": {
       "name": "Dinding kompon"
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
+      "name": ""
     }
   },
   "boundary": {
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Modern dengan spanduk kebanggan",
     "drainage-sides|slanted": "Sisi miring",
     "drainage-sides|vertical": "Sisi vertikal",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Mobil",
     "car-type|sharrow": "Tajam",
     "car-type|truck": "Truk",
