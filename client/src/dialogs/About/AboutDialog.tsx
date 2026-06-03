@@ -6,9 +6,9 @@ import biflogo from 'url:~/images/sponsors/bif.svg'
 import cfalogo from 'url:~/images/sponsors/codeforamerica.png'
 import mozlogo from 'url:~/images/sponsors/mozilla.svg'
 import { useSelector } from '~/src/store/hooks.js'
+import { AboutCoastmix } from '~/src/plugins/coastmix/AboutCoastmix.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import { Dialog } from '../Dialog.js'
-import { CoastmixAbout } from './CoastmixAbout.js'
 import { Credits } from './Credits.js'
 import { SocialLinks } from './SocialLinks.js'
 import './AboutDialog.css'
@@ -24,7 +24,7 @@ export function AboutDialog() {
       {(closeDialog) => (
         <div className="about-dialog">
           <div className="dialog-content dialog-content-bleed">
-            {coastmixMode && <CoastmixAbout />}
+            {coastmixMode && <AboutCoastmix />}
             <header>
               <img
                 src={logo}
