@@ -44,10 +44,12 @@ exports[`NewsletterDialog > renders snapshot 1`] = `
                 Enter your email
               </label>
               <input
+                autocomplete="email"
                 id="_r_0_"
                 name="email"
                 placeholder="test@example.com"
                 required=""
+                spellcheck="false"
                 type="email"
               />
               <input

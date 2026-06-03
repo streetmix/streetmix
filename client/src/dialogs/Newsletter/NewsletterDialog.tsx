@@ -109,6 +109,8 @@ export function NewsletterDialog() {
                   type="email"
                   id={emailInputId}
                   placeholder="test@example.com"
+                  autoComplete="email"
+                  spellCheck={false}
                   {...register('email', { required: true })}
                 />
                 <input type="hidden" value="via app" {...register('tag')} />
