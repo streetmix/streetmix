@@ -1,7 +1,7 @@
 export const tourOptions = {
   defaultStepOptions: {
     cancelIcon: {
-      enabled: false,
+      enabled: true,
     },
   },
   useModalOverlay: true,

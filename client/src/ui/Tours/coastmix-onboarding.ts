@@ -37,7 +37,7 @@ const steps: StepOptions[] = [
     text: 'Click on "Coastal flooding" to access and adjust flood features.',
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
-      on: 'right',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
