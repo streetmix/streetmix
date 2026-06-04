@@ -12,7 +12,7 @@ exports[`MenusContainer > renders 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streemix"
+          alt="Streetmix"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
