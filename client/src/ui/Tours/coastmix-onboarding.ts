@@ -34,6 +34,7 @@ const backButton = {
 const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
+    title: 'Coastal flooding',
     text: 'Click on "Coastal flooding" to access and adjust flood features.',
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
@@ -55,6 +56,7 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-02',
+    title: 'Sea level rise',
     text: `<p><strong>Sea level rise</strong> is a permanent raising of the
       ocean over time, due to melting glaciers and thermal expansion. As this
       happens, we must design for both near- and long-term flood risk by
@@ -80,6 +82,7 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-03',
+    title: 'Storm surge',
     text: `<p>A <strong>storm surge</strong> occurs during storms when strong
       winds push water onto land along the coast, temporarily raising sea
       levels above normal. This can cause significant flood damage, so it’s
@@ -110,6 +113,7 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-05',
+    title: 'Modifying an element',
     text: `Click on an element, like this one, to access and adjust its elevation.`,
     attachTo: {
       // Assuming we are on the coastal road element
