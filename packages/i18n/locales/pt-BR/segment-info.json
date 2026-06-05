@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Poste",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Zona de amortecimento",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "O trem do filme \"A Origem\"",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# É o trem do filme _A Origem_ de Christopher Nolan.\n\nO que mais você precisa saber?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": ""
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderno com bandeira LGBT",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Carro",
     "car-type|sharrow": "Ciclorrota",
     "car-type|truck": "Caminhão",

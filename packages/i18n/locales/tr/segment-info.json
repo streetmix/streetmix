@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Sokak Lambası",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Yaya durağı",
     "street-vendor": "",
     "divider": "Emniyet mesafesi",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Geçici bariyer",
     "inception-train": "“Inception” treni",
     "magic-carpet": "Uçan halı",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Christopher Nolan _Inception_ filmindeki tren.\n\nDaha fazla ne bilmen gerekiyor?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Pasaj"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Modern - Gökkuşağı bayrağıyla",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Araba",
     "car-type|sharrow": "Paylaşımlı bisiklet yolu işareti",
     "car-type|truck": "Kamyon",

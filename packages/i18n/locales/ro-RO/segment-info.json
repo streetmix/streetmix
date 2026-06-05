@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Iluminat public",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "",
     "street-vendor": "",
     "divider": "",
@@ -49,7 +50,8 @@
     "temporary-barrier": "",
     "inception-train": "",
     "magic-carpet": "",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": ""
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": ""
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "",
     "car-type|sharrow": "",
     "car-type|truck": "",

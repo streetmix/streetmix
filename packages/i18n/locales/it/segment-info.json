@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lampione",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Giardino lineare di strada",
     "street-vendor": "",
     "divider": "Fascia non transitabile",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Barriera temporanea",
     "inception-train": "Treno di \"Inception\"",
     "magic-carpet": "Tappeto magico",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# It’s the train from the Christopher Nolan movie _Inception_.\n\nCos'altro vuoi sapere?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Edificio porticato"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderno con bandiera pride",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Automobile",
     "car-type|sharrow": "Corsia promiscua",
     "car-type|truck": "Automezzo pesante",

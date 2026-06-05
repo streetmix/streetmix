@@ -1,12 +1,15 @@
 import { FormattedMessage } from 'react-intl'
 
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
-import logoCoastmix from 'url:~/images/logo_horizontal_coastmix2.svg'
-import crblogo from 'url:~/images/sponsors/coastmix/crb.png'
-import oetlogo from 'url:~/images/sponsors/coastmix/oet.svg'
-import './CoastmixAbout.css'
+import logoCoastmix from 'url:./images/logo_horizontal_coastmix2.svg'
+import crbLogo from 'url:./images/crb.png'
+import oetLogo from 'url:./images/oet.svg'
+import catAvatar from 'url:./images/cat.jpg'
+import kellyAvatar from 'url:./images/kelly.jpg'
+import michaelAvatar from 'url:./images/michael.jpg'
+import './AboutCoastmix.css'
 
-export function CoastmixAbout() {
+export function AboutCoastmix() {
   return (
     <>
       <header className="about-coastmix-header">
@@ -27,7 +30,7 @@ export function CoastmixAbout() {
         <div>
           <ExternalLink href="https://www.boston.gov/departments/climate-resilience">
             <img
-              src={crblogo}
+              src={crbLogo}
               alt="City of Boston Office of Climate Resilience"
               draggable={false}
             />
@@ -36,7 +39,7 @@ export function CoastmixAbout() {
         <div>
           <ExternalLink href="https://www.boston.gov/departments/emerging-technology">
             <img
-              src={oetlogo}
+              src={oetLogo}
               alt="City of Boston Office of Emerging Technology"
               style={{ height: '56px' }}
               draggable={false}
@@ -60,7 +63,7 @@ export function CoastmixAbout() {
           <div className="team-member">
             <div
               className="team-member-mugshot"
-              style={{ backgroundImage: `url('/images/team/cat.jpg')` }}
+              style={{ backgroundImage: `url(${catAvatar})` }}
             />
             <span className="team-member-name">Catherine McCandless</span>
             <span className="team-member-title">
@@ -82,7 +85,7 @@ export function CoastmixAbout() {
           <div className="team-member">
             <div
               className="team-member-mugshot"
-              style={{ backgroundImage: `url('/images/team/kelly.jpg')` }}
+              style={{ backgroundImage: `url(${kellyAvatar})` }}
             />
             <span className="team-member-name">Kelly Sherman</span>
             <span className="team-member-title">
@@ -104,7 +107,7 @@ export function CoastmixAbout() {
           <div className="team-member">
             <div
               className="team-member-mugshot"
-              style={{ backgroundImage: `url('/images/team/michael.jpg')` }}
+              style={{ backgroundImage: `url(${michaelAvatar})` }}
             />
             <span className="team-member-name">Michael Lawrence Evans</span>
             <span className="team-member-title">Director</span>
@@ -120,24 +123,24 @@ export function CoastmixAbout() {
             <h3>City of Boston</h3>
             <ul>
               <li>
-                <strong>Alice Brown,</strong> <i>Environment Department</i>
+                <strong>Alice Brown</strong>, <i>Environment Department</i>
               </li>
               <li>
-                <strong>Benjamin Matusow,</strong> <i>Planning Department</i>
+                <strong>Benjamin Matusow</strong>, <i>Planning Department</i>
               </li>
               <li>
-                <strong>Christopher Osgood,</strong>{' '}
+                <strong>Christopher Osgood</strong>,{' '}
                 <i>Office of Climate Resilience</i>
               </li>
               <li>
-                <strong>Maddie Webster,</strong>{' '}
+                <strong>Maddie Webster</strong>,{' '}
                 <i>Transportation Department</i>
               </li>
               <li>
-                <strong>Marin Braco,</strong> <i>Parks Department</i>
+                <strong>Marin Braco</strong>, <i>Parks Department</i>
               </li>
               <li>
-                <strong>Nayeli Rodriguez,</strong>{' '}
+                <strong>Nayeli Rodriguez</strong>,{' '}
                 <i>Office of Climate Resilience</i>
               </li>
               <li>
@@ -150,26 +153,26 @@ export function CoastmixAbout() {
             <h3>Partners</h3>
             <ul>
               <li>
-                <strong>Emma Gildesgame,</strong> <i>The Nature Conservancy</i>
+                <strong>Emma Gildesgame</strong>, <i>The Nature Conservancy</i>
               </li>
               <li>
-                <strong>Joe Christo,</strong> <i>Stone Living Lab</i>
+                <strong>Joe Christo</strong>, <i>Stone Living Lab</i>
               </li>
               <li>
-                <strong>Kalila Barnett,</strong> <i>Barr Foundation</i>
+                <strong>Kalila Barnett</strong>, <i>Barr Foundation</i>
               </li>
               <li>
-                <strong>Lindsey Butler,</strong> <i>Green Ribbon Commission</i>
+                <strong>Lindsey Butler</strong>, <i>Green Ribbon Commission</i>
               </li>
               <li>
-                <strong>Nasser Brahim,</strong>{' '}
+                <strong>Nasser Brahim</strong>,{' '}
                 <i>Mystic River Watershed Association</i>
               </li>
               <li>
-                <strong>Rebecca Herst,</strong> <i>Green Ribbon Commission</i>
+                <strong>Rebecca Herst</strong>, <i>Green Ribbon Commission</i>
               </li>
               <li>
-                <strong>Rebecca Shoer,</strong> <i>Boston Harbor Now</i>
+                <strong>Rebecca Shoer</strong>, <i>Boston Harbor Now</i>
               </li>
             </ul>
           </div>

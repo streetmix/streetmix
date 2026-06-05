@@ -11,6 +11,7 @@
     "sidewalk-lamp": "фонарем",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "Парклет",
     "street-vendor": "",
     "divider": "Буфер",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Временное заграждение",
     "inception-train": "Вагон из фильма Начало",
     "magic-carpet": "Ковер-самолет",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Это поезд из фильма Кристофера Нолана_Начало_.\n\nЧто еще вам нужно знать?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Дом с арками"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Современный с гордым знаменем",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Машина",
     "car-type|sharrow": "Разметка дял велосипедистов",
     "car-type|truck": "Грузовик",

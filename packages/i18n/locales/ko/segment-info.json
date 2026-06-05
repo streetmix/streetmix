@@ -11,6 +11,7 @@
     "sidewalk-lamp": "가로등",
     "utility-pole": "전신주",
     "drainage-channel": "배수 채널",
+    "bioswale": "",
     "parklet": "파클렛",
     "street-vendor": "노점상",
     "divider": "안전지대",
@@ -49,7 +50,8 @@
     "temporary-barrier": "임시 장벽",
     "inception-train": "\"인셉션\" 기차",
     "magic-carpet": "매직카페트",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# 크리스토퍼 놀란의 영화 _인셉션_에 나오는 기차입니다.\n\n무엇이 더 알고 싶으세요?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -108,6 +116,24 @@
     },
     "compound-wall": {
       "name": "벽"
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
+      "name": ""
     }
   },
   "boundary": {
@@ -157,6 +183,8 @@
     "lamp-type|pride": "현대적인, 무지개깃발",
     "drainage-sides|slanted": "경사 측면",
     "drainage-sides|vertical": "수직 측면",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "자동차",
     "car-type|sharrow": "섀로우",
     "car-type|truck": "트럭",

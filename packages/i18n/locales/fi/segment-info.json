@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Valaisin",
     "utility-pole": "Voimajohtopylväs",
     "drainage-channel": "Viemärikanava",
+    "bioswale": "",
     "parklet": "Puistoruutu",
     "street-vendor": "Katukauppias",
     "divider": "Erotuskaista",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Väliaikainen tiesulku",
     "inception-train": "Inception-juna",
     "magic-carpet": "Taikamatto",
-    "wall": "Seinä"
+    "wall": "Seinä",
+    "slope": "Kaltevuus"
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# Juna Christopher Nolanin elokuvasta _Inception_.\n\nMistä haluat tietää lisää?\n"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -108,11 +116,29 @@
     },
     "compound-wall": {
       "name": "Aita"
+    },
+    "beach": {
+      "name": "Ranta"
+    },
+    "marsh": {
+      "name": "Suo"
+    },
+    "water": {
+      "name": "Vesi"
+    },
+    "dock": {
+      "name": "Telakka"
+    },
+    "fishing-boat": {
+      "name": "Kalastusvene"
+    },
+    "cargo-ship": {
+      "name": "Rahtilaiva"
     }
   },
   "boundary": {
     "group": {
-      "land": "",
+      "land": "Maa",
       "waterfront": "Rantaviiva"
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderni pride-julisteella",
     "drainage-sides|slanted": "Viistetyt pientareet",
     "drainage-sides|vertical": "Pystysuorat pientareet",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Auto",
     "car-type|sharrow": "Sekakaista",
     "car-type|truck": "Kuorma-auto",

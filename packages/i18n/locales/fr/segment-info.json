@@ -11,6 +11,7 @@
     "sidewalk-lamp": "Lampadaire",
     "utility-pole": "",
     "drainage-channel": "",
+    "bioswale": "",
     "parklet": "« Parklet »",
     "street-vendor": "",
     "divider": "Zone tampon",
@@ -49,7 +50,8 @@
     "temporary-barrier": "Barrière temporaire",
     "inception-train": "Le train dans le film « Inception »",
     "magic-carpet": "Tapis magique",
-    "wall": ""
+    "wall": "",
+    "slope": ""
   },
   "descriptions": {
     "wayfinding-sign": {
@@ -79,6 +81,12 @@
     },
     "inception-train": {
       "content": "# C'est le train du film _Inception_ de Christopher Nolan.\n\nQu'est-ce que vous voulez savoir de plus ?"
+    },
+    "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
     }
   },
   "buildings": {
@@ -107,6 +115,24 @@
       "name": "Bâtiment avec des arcades"
     },
     "compound-wall": {
+      "name": ""
+    },
+    "beach": {
+      "name": ""
+    },
+    "marsh": {
+      "name": ""
+    },
+    "water": {
+      "name": ""
+    },
+    "dock": {
+      "name": ""
+    },
+    "fishing-boat": {
+      "name": ""
+    },
+    "cargo-ship": {
       "name": ""
     }
   },
@@ -157,6 +183,8 @@
     "lamp-type|pride": "Moderne avec la bannière de la fierté gaie",
     "drainage-sides|slanted": "",
     "drainage-sides|vertical": "",
+    "bioswale-vegetation|bush": "",
+    "bioswale-vegetation|tree": "",
     "car-type|car": "Voiture",
     "car-type|sharrow": "Chaussée désignée",
     "car-type|truck": "Camion",
