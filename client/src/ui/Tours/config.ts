@@ -1,4 +1,4 @@
-import { shift } from '@floating-ui/dom'
+import { offset, shift } from '@floating-ui/dom'
 
 export const tourOptions = {
   defaultStepOptions: {
@@ -7,6 +7,7 @@ export const tourOptions = {
     },
     floatingUIOptions: {
       middleware: [
+        offset(10),
         shift({ padding: 10 }), // Don't have popups flush to viewport edge
       ],
     },

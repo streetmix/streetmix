@@ -19,10 +19,9 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
       <h1>Welcome to Coastmix!</h1>
 
       <p style={{ textAlign: 'left' }}>
-        Climate change can lead to sea level rise and cause more intense and
-        frequent storms along coastlines and waterfronts. Cities must adapt to
-        prevent flooding, protecting communities and infrastructure such as
-        buildings and roads.
+        Climate change is causing sea level rise and more intense and frequent
+        storms. Cities must adapt their waterfronts to prevent flooding and
+        protect communities, buildings, infrastructure, and open spaces.
       </p>
       <p style={{ textAlign: 'left' }}>
         Learn about coastal resilience planning, explore ways to prevent

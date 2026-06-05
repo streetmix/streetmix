@@ -35,7 +35,8 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-02',
-    text: `To start, click “New waterfront” menu.`,
+    title: 'New waterfront',
+    text: `To start, click the “New waterfront” menu.`,
     attachTo: {
       element: '#menubar-new',
       on: 'bottom',
@@ -50,7 +51,9 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-02b',
-    text: `Select the “Harborwalk” template.`,
+    title: 'Select a template',
+    text: `Select the “Harborwalk” template. This will open a new starting
+      street in a new browser tab.`,
     attachTo: {
       element: '[data-tour-id="new-street-harborwalk"]',
       on: 'left',
@@ -67,6 +70,7 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-03',
+    title: 'A new tab has opened',
     text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenario.`,
     buttons: [
       {

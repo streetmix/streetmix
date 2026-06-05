@@ -34,8 +34,9 @@ const backButton = {
 const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
-    title: 'Coastal flooding',
-    text: 'Click on "Coastal flooding" to access and adjust flood features.',
+    title: 'Flooding controls',
+    text: `Coastmix provides a new feature, located here, to visualize the
+       effect sea level rise in the future. Click this button to continue!`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
       on: 'top',
@@ -57,11 +58,12 @@ const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-02',
     title: 'Sea level rise',
-    text: `<p><strong>Sea level rise</strong> is a permanent raising of the
-      ocean over time, due to melting glaciers and thermal expansion. As this
-      happens, we must design for both near- and long-term flood risk by
-      strategically elevating parts of a coastal area above sea level rise
-      projections. This target elevation is called the <strong>Design Flood
+    text: `<p><strong>Sea level rise</strong> is the gradual increase in the
+      height of the world's oceans relative to land, due to melting glaciers
+      and thermal expansion from global warming.</p>
+      <p>As this happens, we must design for both near- and long-term flood
+      risk by strategically raising parts of a coastal area above sea level rise
+      projections. This target height is called the <strong>Design Flood
       Elevation (DFE)</strong>.</p>
       <p>In Coastmix, you can design for the current sea level or a future sea
       level rise expected in 2030, 2050, and 2070.</p>`,
@@ -113,8 +115,9 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-05',
-    title: 'Modifying an element',
-    text: `Click on an element, like this one, to access and adjust its elevation.`,
+    title: 'Select an element',
+    text: `Select an element to access and change its properties. Click on this
+      one to continue.`,
     attachTo: {
       // Assuming we are on the coastal road element
       element: '[data-slice-index="5"]',
@@ -135,12 +138,13 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-06',
-    text: `Building off of Streetmix, Coastmix introduces a new vertical elevation
-      function. Design your waterfront to prevent flooding under different
-      sea level rise time horizons, with or without storm surge, by increasing
-      the vertical elevation of an element in your waterfront. Use the plus/minus
-      buttons to adjust the elevation or type an amount. If sea level rise is enabled, you
-      can address flooding by elevating a feature sufficiently.`,
+    title: 'Raise ground height',
+    text: `<p>Coastmix introduces new vertical elevation functionality where you
+      can raise or lower the ground height of an element.</p>
+      <p>When designing your waterfront, you can raise the ground height of
+      individual elements to reach the Design Flood Elevation. Use the plus and
+      minus buttons to adjust the height, or type in an amount. If sea level
+      rise is enabled, you can visualize the extent of flooding.</p>`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
       on: 'right',
@@ -155,10 +159,12 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-07',
-    text: `While some coastal resilience strategies may be vertical, such as a
-      seawall, others may be sloped to reach a target Design Flood Elevation
-      more gradually. After you elevate a feature, you can enable a slope to the
-      adjacent feature(s). But watch out for features with very steep slopes: they might not be accessible!`,
+    title: 'Creating a slope',
+    text: `<p>While some coastal resilience strategies use vertical barriers,
+      like a seawall, you can also use a slope to reach the Design Flood
+      Elevation more gradually.</p>
+      <p>Some elements (but not all) can be sloped. And watch out for features
+      with very steep slopes: they might not be accessible!</p>`,
     attachTo: {
       element: '[data-tour-id="slope-control"]',
       on: 'right',
