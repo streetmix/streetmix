@@ -176,6 +176,7 @@ const steps: StepOptions[] = [
       {
         ...nextButton,
         action() {
+          window.dispatchEvent(new CustomEvent('stmx:dismiss_slice_popup'))
           store.dispatch(showDialog('COASTMIX_TUTORIAL_COMPLETE'))
           ;(this as unknown as Tour).complete()
         },
