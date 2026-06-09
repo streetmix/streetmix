@@ -35,8 +35,9 @@ const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
     title: 'Flooding controls',
-    text: `Coastmix provides a new feature, located here, to visualize the
-       effect sea level rise in the future. Click this button to continue!`,
+    text: `<p>Coastmix provides controls to help visualize the
+       effect of sea level rise in the future.</p>
+       <p>Click this button to continue!</p>`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
       on: 'top',
