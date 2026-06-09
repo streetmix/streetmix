@@ -12,7 +12,7 @@ exports[`MenuBar > renders 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streemix"
+          alt="Streetmix"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
@@ -138,7 +138,7 @@ exports[`MenuBar > renders logged in user 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streemix"
+          alt="Streetmix"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
@@ -276,7 +276,7 @@ exports[`MenuBar > renders minimal menu in offline mode 1`] = `
         class="menu-bar-title"
       >
         <img
-          alt="Streemix"
+          alt="Streetmix"
           class="menu-bar-logo"
           draggable="false"
           src="test-file-stub"
