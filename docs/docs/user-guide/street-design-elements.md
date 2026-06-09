@@ -223,6 +223,14 @@ Here's some [really good examples for San Francisco](http://www.fuf.net/resource
 
 ## Coastal resilience infrastructure
 
+### Berm
+
+A berm can redirect or absorb water, slow down runoff, and reduce wave action. It is primarily designed to prevent floodwaters from inundating vulnerable areas by blocking, diverting, or reducing the flow of water. Some berms can be planted with grasses, shrubs, or other plants. Berms, also known as levees, may be reinforced with an interior floodwall to increase stability and reduce seepage under ground.
+
+- **References:**
+  - [Levee Safety](https://www.nws.usace.army.mil/Missions/Civil-Works/Engineering/Levee-Safety/) (US Army Corps of Engineers)
+  - [Climate Resilient Design Standards and Guidelines for Protection of Public Rights-of-Way](https://www.boston.gov/sites/default/files/embed/file/2018-10/climate_resilient_design_standards_and_guidelines_for_protection_of_public_rights-of-way_no_appendices.pdf) (City of Boston)
+
 ### Bioswale
 
 A bioswale is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally.
@@ -249,14 +257,6 @@ Seawalls are coastal defense structures that protect coastal and inland areas fr
 
 - **References:**
   - [Shore Protection, Armoring Structures](https://www.iwr.usace.army.mil/Missions/Coasts/Tales-of-the-Coast/Corps-and-the-Coast/Shore-Protection/Armoring-Structures/) (US Army Corps of Engineers)
-  - [Climate Resilient Design Standards and Guidelines for Protection of Public Rights-of-Way](https://www.boston.gov/sites/default/files/embed/file/2018-10/climate_resilient_design_standards_and_guidelines_for_protection_of_public_rights-of-way_no_appendices.pdf) (City of Boston)
-
-### Berm
-
-A berm can redirect or absorb water, slow down runoff, and reduce wave action. It is primarily designed to prevent floodwaters from inundating vulnerable areas by blocking, diverting, or reducing the flow of water. Some berms can be planted with grasses, shrubs, or other plants. Berms, also known as levees, may be reinforced with an interior floodwall to increase stability and reduce seepage under ground.
-
-- **References:**
-  - [Levee Safety](https://www.nws.usace.army.mil/Missions/Civil-Works/Engineering/Levee-Safety/) (US Army Corps of Engineers)
   - [Climate Resilient Design Standards and Guidelines for Protection of Public Rights-of-Way](https://www.boston.gov/sites/default/files/embed/file/2018-10/climate_resilient_design_standards_and_guidelines_for_protection_of_public_rights-of-way_no_appendices.pdf) (City of Boston)
 
 ## Miscellaneous

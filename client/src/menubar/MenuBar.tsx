@@ -121,7 +121,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         <li className="menu-bar-title">
           <img
             src={logoSrc}
-            alt="Streemix"
+            alt="Streetmix"
             className="menu-bar-logo"
             draggable={false}
           />
