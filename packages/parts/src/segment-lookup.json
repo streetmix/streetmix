@@ -6697,6 +6697,10 @@
       "metric": 1.2,
       "imperial": 4
     },
+    "description": {
+      "key": "marsh",
+      "image": "marsh-01.jpg"
+    },
     "rules": {
       "slope": "berm"
     },
