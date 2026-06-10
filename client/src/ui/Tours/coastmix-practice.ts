@@ -190,7 +190,7 @@ export const steps2: StepOptions[] = [
     // component instead of detecting changes here (and we probably don't want to
     // do this, long term. But it works for now)
     id: 'coastmix-practice-10',
-    title: 'Elevate the harborwalk',
+    title: 'Raise the harborwalk',
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',

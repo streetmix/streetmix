@@ -160,7 +160,7 @@ const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-onboarding-07',
-    title: 'Creating a slope',
+    title: 'Create a slope',
     text: `<p>While some coastal resilience strategies use vertical barriers,
       like a seawall, you can also use a slope to reach the Design Flood
       Elevation more gradually.</p>
