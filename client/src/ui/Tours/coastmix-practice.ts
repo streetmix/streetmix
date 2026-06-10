@@ -194,7 +194,7 @@ export const steps2: StepOptions[] = [
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
-      on: 'right',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
     buttons: [backButton],
@@ -213,7 +213,7 @@ export const steps2: StepOptions[] = [
     buttons: [backButton, nextButton],
     attachTo: {
       element: '[data-tour-id="flooding-message"]',
-      on: 'bottom',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
   },
@@ -244,13 +244,9 @@ export const steps2: StepOptions[] = [
     text: `Raise the berm on the right side to meet the height of the harborwalk element.`,
     attachTo: {
       element: '[data-tour-id="slope-control-group"]',
-      on: 'right',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
-    advanceOn: {
-      event: 'click',
-      selector: '[data-tour-id="slope-control-switch"]',
-    },
     buttons: [backButton],
     ...modalOverlayOptions,
   },
