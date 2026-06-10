@@ -455,6 +455,8 @@
       "elevation": "Elevation",
       "slope": {
         "label": "Slope",
+        "left-label": "Left ground height",
+        "right-label": "Right ground height",
         "switch-tooltip": "Toggle slope",
         "disabled-tooltip": "This element cannot be sloped."
       }
