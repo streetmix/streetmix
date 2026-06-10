@@ -202,11 +202,26 @@ export type SlopeConstraints = 'off' | 'path' | 'berm'
 
 export type UnlockCondition = 'SIGN_IN' | 'SUBSCRIBE'
 
-export interface SliceDescription {
-  key: string
+interface SliceDescriptionBase {
   image?: string
   imageCredit?: string
 }
+
+interface SliceDescriptionTranslated extends SliceDescriptionBase {
+  key: string
+}
+
+interface SliceDescriptionUntranslated extends SliceDescriptionBase {
+  key?: null
+  prompt?: string
+  imageAltText?: string
+  imageCaption?: string
+  content: string
+}
+
+export type SliceDescription =
+  | SliceDescriptionTranslated
+  | SliceDescriptionUntranslated
 
 export interface SliceVariantComponentDefinition {
   id: string

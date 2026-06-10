@@ -6697,6 +6697,12 @@
       "metric": 1.2,
       "imperial": 4
     },
+    "description": {
+      "prompt": "Learn more about marshes",
+      "image": "marsh-01.jpg",
+      "imageCaption": "Belle Isle Marsh, Boston, MA, courtesy of Massachusetts Department of Conservation & Recreation",
+      "content": "# Marshes are wetlands that buffer against wave action and provide wildlife habitat.\n\nA marsh is a type of wetland, which is an area where water covers the ground all year or for varying periods of time during the year. Marshes are usually treeless and dominated by grasses and other plants. Many species of animals live in marshes, including birds, reptiles, fish, and mammals.\n\nThere are three types of marshes: tidal salt marshes, tidal freshwater marshes, and inland freshwater marshes. Salt marshes protect shorelines from erosion by creating a buffer against wave action and by trapping sediment, reducing the flow of flood waters, and absorbing rainwater. As rising seas cause lower marsh elevations to flood, marsh vegetation may migrate toward higher, drier ground."
+    },
     "rules": {
       "slope": "berm"
     },

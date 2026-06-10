@@ -42,25 +42,30 @@ export function DescriptionPrompt({
   if (description === undefined) return null
 
   // If the description content doesn't exist or hasn't been translated, bail.
-  const content = formatMessage(
-    `descriptions.${description.key}.content`,
-    undefined,
-    {
-      ns: 'segment-info',
-    }
-  )
+  let content: string
+  if (!('content' in description)) {
+    content = formatMessage(
+      `descriptions.${description.key}.content`,
+      undefined,
+      { ns: 'segment-info' }
+    )
+  } else {
+    content = description.content
+  }
 
   // Undefined content formats as the empty string
   if (content === '') return null
 
   const defaultPrompt = formatMessage('segments.learn-more', 'Learn more')
-  const prompt = formatMessage(
-    `descriptions.${description.key}.prompt`,
-    defaultPrompt,
-    {
-      ns: 'segment-info',
-    }
-  )
+  let prompt
+  if (description.key) {
+    prompt =
+      formatMessage(`descriptions.${description.key}.prompt`, undefined, {
+        ns: 'segment-info',
+      }) ?? defaultPrompt
+  } else {
+    prompt = description.prompt ?? defaultPrompt
+  }
 
   return (
     <div
