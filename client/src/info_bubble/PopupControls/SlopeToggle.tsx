@@ -56,7 +56,6 @@ export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
             checked={checked}
             disabled={disabled}
             aria-label={label}
-            data-tour-id="slope-control-switch"
           />
         </Tooltip>
       </div>

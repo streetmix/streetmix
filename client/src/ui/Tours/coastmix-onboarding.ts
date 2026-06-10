@@ -34,7 +34,7 @@ const backButton = {
 const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-01',
-    title: 'Flooding controls',
+    title: 'Open flooding controls',
     text: `<p>Coastmix provides controls to help visualize the
        effect of sea level rise in the future.</p>
        <p>Click this button to continue!</p>`,

@@ -99,10 +99,11 @@ export const steps2: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-04',
+    title: 'Open flooding controls',
     text: `Click “Coastal Flooding” to access and adjust flood features.`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
-      on: 'right',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
     classes: 'tour-medium-width',
@@ -114,10 +115,11 @@ export const steps2: StepOptions[] = [
   {
     // assuming not already selected
     id: 'coastmix-practice-05',
+    title: 'Choose sea level rise',
     text: `Next, select 2030 sea level rise.`,
     attachTo: {
       element: '[data-tour-id="2030-sea-level-rise"]',
-      on: 'bottom',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
     advanceOn: {
@@ -133,16 +135,14 @@ export const steps2: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-06',
-    text: `For an extra challenge, you can turn on storm surge. This is totally optional, though!`,
+    title: 'Toggle storm surge',
+    text: `For an extra challenge, you can turn on storm surge. This is totally
+      optional, though!`,
     attachTo: {
-      element: '[data-tour-id="storm-surge-control"] button',
-      on: 'bottom',
+      element: '[data-tour-id="storm-surge-control"]',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
-    extraHighlights: [
-      '[data-tour-id="storm-surge-control"]',
-      '[data-tour-id="storm-surge-control"] button',
-    ],
     buttons: [backButton, nextButton],
     ...modalOverlayOptions,
     // Make the position of this a lil prettier, because the control is not
@@ -151,19 +151,21 @@ export const steps2: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-08',
+    title: 'Flooding!',
     text: `Oh no! You can see that our harborwalk environment is flooded.
       There are many ways to protect against future sea level rise, but for
       this scenario, we’ll be building an elevated harborwalk with a sloped
       berm.`,
     attachTo: {
       element: '[data-tour-id="flooding-message"]',
-      on: 'bottom',
+      on: 'top',
     },
     highlightClass: 'tour-highlight',
     buttons: [backButton, nextButton],
   },
   {
     id: 'coastmix-practice-09',
+    title: 'Select the harborwalk',
     text: `First, click on the “Harborwalk” feature next to the
       water.`,
     attachTo: {
@@ -188,6 +190,7 @@ export const steps2: StepOptions[] = [
     // component instead of detecting changes here (and we probably don't want to
     // do this, long term. But it works for now)
     id: 'coastmix-practice-10',
+    title: 'Elevate the harborwalk',
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
@@ -203,6 +206,7 @@ export const steps2: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-11',
+    title: 'Nice!',
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
       behind it needs to be integrated into this new condition.`,
@@ -215,9 +219,10 @@ export const steps2: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-12',
-    text: `Click on the feature called “Future berm.”`,
+    title: 'Select the berm',
+    text: `Click on the feature called Berm.”`,
     attachTo: {
-      element: '[data-slice-label="Future berm"]',
+      element: '[data-slice-label="Berm"]',
       on: 'bottom',
     },
     highlightClass: 'tour-highlight',
@@ -228,16 +233,17 @@ export const steps2: StepOptions[] = [
     },
     advanceOn: {
       event: 'click',
-      selector: '[data-slice-label="Future berm"]',
+      selector: '[data-slice-label="Berm"]',
     },
     buttons: [backButton],
     ...modalOverlayOptions,
   },
   {
     id: 'coastmix-practice-13',
-    text: `Toggle the slope function “On.”`,
+    title: 'Raise berm',
+    text: `Raise the berm on the right side to meet the height of the harborwalk element.`,
     attachTo: {
-      element: '[data-tour-id="slope-control"]',
+      element: '[data-tour-id="slope-control-group"]',
       on: 'right',
     },
     highlightClass: 'tour-highlight',
@@ -248,23 +254,23 @@ export const steps2: StepOptions[] = [
     buttons: [backButton],
     ...modalOverlayOptions,
   },
-  {
-    id: 'coastmix-practice-14',
-    text: `Now our “Future berm” is a current berm! You can rename
-      an element by clicking on the name here, and then type “Berm”
-      in the subsequent popup window.`,
-    attachTo: {
-      element: '[data-tour-id="editable-label"]',
-      on: 'top',
-    },
-    highlightClass: 'tour-highlight',
-    advanceOn: {
-      event: 'click',
-      selector: '[data-tour-id="editable-label"]',
-    },
-    buttons: [backButton],
-    ...modalOverlayOptions,
-  },
+  // {
+  //   id: 'coastmix-practice-14',
+  //   text: `Now our “Future berm” is a current berm! You can rename
+  //     an element by clicking on the name here, and then type “Berm”
+  //     in the subsequent popup window.`,
+  //   attachTo: {
+  //     element: '[data-tour-id="editable-label"]',
+  //     on: 'top',
+  //   },
+  //   highlightClass: 'tour-highlight',
+  //   advanceOn: {
+  //     event: 'click',
+  //     selector: '[data-tour-id="editable-label"]',
+  //   },
+  //   buttons: [backButton],
+  //   ...modalOverlayOptions,
+  // },
   // Conclusion dialog is integrated into tour steps because it can be
   // picked up from after the rename prompt
   {
