@@ -87,6 +87,12 @@
       "imageAltText": "Bioswale on N American St, in Philadelphia.",
       "imageCaption": "Diagram courtesy of City of Boston Office of Green Infrastructure.",
       "content": "# Bioswales absorb rainwater into the ground after large storms.\n\nA bioswale is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally.\n\n![Cross-sectional diagram of a bioswale, showing rainwater flowing from pavement into a planted depression where it filters through soil and drains into the ground.](/images/descriptions/bioswale-01.jpg)\n\nBioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.\n\nFor more information, check out the [NACTO Urban Street Design Guide](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/)."
+    },
+    "marsh": {
+      "prompt": "Learn more about marshes",
+      "imageAltText": "Belle Isle Marsh, in Boston.",
+      "imageCaption": "Photo courtesy of Massachusetts Department of Conservation & Recreation.",
+      "content": "# Marshes are wetlands that buffer against wave action and provide wildlife habitat.\n\nA marsh is a type of wetland, which is an area where water covers the ground all year or for varying periods of time during the year. Marshes are usually treeless and dominated by grasses and other plants. Many species of animals live in marshes, including birds, reptiles, fish, and mammals.\n\nThere are three types of marshes: tidal salt marshes, tidal freshwater marshes, and inland freshwater marshes. Salt marshes protect shorelines from erosion by creating a buffer against wave action and by trapping sediment, reducing the flow of flood waters, and absorbing rainwater. As rising seas cause lower marsh elevations to flood, marsh vegetation may migrate toward higher, drier ground."
     }
   },
   "buildings": {

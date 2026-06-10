@@ -22,39 +22,21 @@ export function DescriptionPanel() {
   if (description === null) return null
 
   // If the description content doesn't exist or hasn't been translated, bail.
-  let content: string
-  if (!('content' in description)) {
-    content = formatMessage(
-      `descriptions.${description.key}.content`,
-      undefined,
-      { ns: 'segment-info' }
-    )
-  } else {
-    content = description.content
-  }
-
-  // Optional content
-  let altText
-  if (description.key) {
-    altText = formatMessage(
-      `descriptions.${description.key}.imageAltText`,
-      undefined,
-      { ns: 'segment-info' }
-    )
-  } else {
-    altText = description.imageAltText
-  }
-
-  let caption
-  if (description.key) {
-    caption = formatMessage(
-      `descriptions.${description.key}.imageCaption`,
-      undefined,
-      { ns: 'segment-info' }
-    )
-  } else {
-    caption = description.imageCaption
-  }
+  const content = formatMessage(
+    `descriptions.${description.key}.content`,
+    undefined,
+    { ns: 'segment-info' }
+  )
+  const altText = formatMessage(
+    `descriptions.${description.key}.imageAltText`,
+    undefined,
+    { ns: 'segment-info' }
+  )
+  const caption = formatMessage(
+    `descriptions.${description.key}.imageCaption`,
+    undefined,
+    { ns: 'segment-info' }
+  )
 
   const allowedElements = [
     'p',
