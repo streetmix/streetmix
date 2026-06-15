@@ -91,7 +91,7 @@
     "js-yaml": "4.2.0",
     "jwks-rsa": "4.0.1",
     "nanoid": "5.1.11",
-    "newrelic": "14.0.0",
+    "newrelic": "14.1.0",
     "nodemon": "3.1.14",
     "papaparse": "5.5.3",
     "passport": "0.7.0",
