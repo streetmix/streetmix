@@ -1,51 +1,38 @@
-import Shepherd from 'shepherd.js'
-
 import store, { observeStore, type RootState } from '~/src/store'
 
 import type { Tour } from 'shepherd.js'
 
 interface WatchTourStateForStepOptions<T> {
   stepId: string
+  activeTour: Tour | null
   select: (state: RootState) => T
   shouldAdvance: (selected: T) => boolean
   onAdvance?: (tour: Tour) => void
-  getActiveTour?: () => Tour | null
-}
-
-function resolveActiveTour(getActiveTour?: () => Tour | null): Tour | null {
-  const contextTour = getActiveTour?.()
-  if (contextTour) return contextTour
-
-  if (Shepherd.activeTour) {
-    return Shepherd.activeTour as Tour
-  }
-
-  const runtimeShepherd = (
-    globalThis as { Shepherd?: { activeTour?: Tour | null } }
-  ).Shepherd
-  return runtimeShepherd?.activeTour ?? null
 }
 
 export function watchTourStateForStep<T>({
   stepId,
+  activeTour,
   select,
   shouldAdvance,
   onAdvance,
-  getActiveTour,
 }: WatchTourStateForStepOptions<T>): () => void {
   let hasAdvanced = false
 
   const runCheck = (selected: T): boolean => {
     if (hasAdvanced) return false
 
-    const activeTour = resolveActiveTour(getActiveTour)
+    // If activeTour hasn't been passed in, bail.
     if (!activeTour) return false
 
+    // If this is not the current step, and advance check has not passed, bail.
     if (activeTour.currentStep?.id !== stepId) return false
     if (!shouldAdvance(selected)) return false
 
     hasAdvanced = true
 
+    // onAdvance is a callback that can be used to run something other than
+    // the tour itself. This is not currently used by any step
     if (onAdvance) {
       onAdvance(activeTour)
     } else {

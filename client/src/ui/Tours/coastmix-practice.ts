@@ -218,12 +218,10 @@ export const steps2: StepOptions[] = [
     },
     when: {
       show() {
-        const stepTour = (this as unknown as { tour?: Tour }).tour ?? null
-
         teardownStep10Listener()
         stopPracticeStep10Listener = watchTourStateForStep({
           stepId: 'coastmix-practice-10',
-          getActiveTour: () => stepTour,
+          activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => state.coastmix,
           shouldAdvance: (coastmix) => {
             if (coastmix.seaLevelRise === 0) return false
@@ -290,12 +288,10 @@ export const steps2: StepOptions[] = [
     buttons: [backButton],
     when: {
       show() {
-        const stepTour = (this as unknown as { tour?: Tour }).tour ?? null
-
         teardownStep13Listener()
         stopPracticeStep13Listener = watchTourStateForStep({
           stepId: 'coastmix-practice-13',
-          getActiveTour: () => stepTour,
+          activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => {
             const segmentIndex = state.ui.activeSegment
 
