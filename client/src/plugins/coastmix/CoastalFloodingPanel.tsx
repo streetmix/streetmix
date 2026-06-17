@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useShepherd } from 'react-shepherd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -18,7 +17,6 @@ import './CoastalFloodingPanel.css'
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
   const dispatch = useDispatch()
-  const Shepherd = useShepherd()
   const intl = useIntl()
 
   const { controlsVisible, seaLevelRise, floodDistance, stormSurge } = coastmix
@@ -53,14 +51,6 @@ export function CoastalFloodingPanel() {
     } else {
       message = `✅ ${intl.formatMessage({ id: 'tools.flooding.messages.success', defaultMessage: 'This configuration is addressing sea level rise!' })}`
       messageClassNames.push('flood-controls-success')
-
-      // Manually control the tour here
-      if (
-        Shepherd.activeTour &&
-        Shepherd.activeTour.currentStep?.id === 'coastmix-practice-10'
-      ) {
-        Shepherd.activeTour.next()
-      }
     }
   }
 
