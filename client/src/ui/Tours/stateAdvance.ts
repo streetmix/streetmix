@@ -25,7 +25,7 @@ export function watchTourStateForStep<T>({
     // If activeTour hasn't been passed in, bail.
     if (!activeTour) return false
 
-    // If this is not the current step, and advance check has not passed, bail.
+    // If this is not the current step, bail.
     if (activeTour.currentStep?.id !== stepId) return false
     if (!shouldAdvance(selected)) return false
 
