@@ -1,4 +1,6 @@
+import { getSlopeValues } from '~/src/segments/slope.js'
 import { waitFor, waitForElement } from './waitForElement.js'
+import { watchTourStateForStep } from './stateAdvance.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
 
@@ -21,6 +23,21 @@ const backButton = {
   action() {
     ;(this as unknown as Tour).back()
   },
+}
+
+const FLOAT_COMPARISON_EPSILON = 0.001
+
+let stopPracticeStep10Listener: (() => void) | undefined
+let stopPracticeStep13Listener: (() => void) | undefined
+
+function teardownStep10Listener() {
+  stopPracticeStep10Listener?.()
+  stopPracticeStep10Listener = undefined
+}
+
+function teardownStep13Listener() {
+  stopPracticeStep13Listener?.()
+  stopPracticeStep13Listener = undefined
 }
 
 export const steps: StepOptions[] = [
@@ -186,11 +203,8 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    // NOTE -- this step is manually controlled through the CoastalFloodingPanel
-    // component instead of detecting changes here (and we probably don't want to
-    // do this, long term. But it works for now)
     id: 'coastmix-practice-10',
-    title: 'Elevate the harborwalk',
+    title: 'Raise the harborwalk',
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
       element: '[data-tour-id="elevation-control"]',
@@ -201,6 +215,30 @@ export const steps2: StepOptions[] = [
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
       await waitFor(300)
+    },
+    when: {
+      show() {
+        teardownStep10Listener()
+        stopPracticeStep10Listener = watchTourStateForStep({
+          stepId: 'coastmix-practice-10',
+          activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
+          select: (state) => state.coastmix,
+          shouldAdvance: (coastmix) => {
+            if (coastmix.seaLevelRise === 0) return false
+            if (
+              coastmix.floodDistance[0] === null &&
+              coastmix.floodDistance[1] === null
+            ) {
+              return false
+            }
+
+            return !coastmix.floodDistance.includes('max')
+          },
+        })
+      },
+      hide() {
+        teardownStep10Listener()
+      },
     },
     ...modalOverlayOptions,
   },
@@ -248,6 +286,50 @@ export const steps2: StepOptions[] = [
     },
     highlightClass: 'tour-highlight',
     buttons: [backButton],
+    when: {
+      show() {
+        teardownStep13Listener()
+        stopPracticeStep13Listener = watchTourStateForStep({
+          stepId: 'coastmix-practice-13',
+          activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
+          select: (state) => {
+            const segmentIndex = state.ui.activeSegment
+
+            if (typeof segmentIndex !== 'number' || segmentIndex < 0) {
+              return null
+            }
+
+            const selectedSegment = state.street.segments[segmentIndex]
+            if (!selectedSegment) {
+              return null
+            }
+
+            const rightSlopeValue = selectedSegment.slope.values[1]
+            const rightAdjacentElevation = getSlopeValues(
+              state.street,
+              segmentIndex
+            )[1]
+
+            return {
+              rightSlopeValue,
+              rightAdjacentElevation,
+            }
+          },
+          shouldAdvance: (values) => {
+            if (values === null) return false
+
+            return (
+              Math.abs(
+                values.rightSlopeValue - values.rightAdjacentElevation
+              ) <= FLOAT_COMPARISON_EPSILON
+            )
+          },
+        })
+      },
+      hide() {
+        teardownStep13Listener()
+      },
+    },
     ...modalOverlayOptions,
   },
   // {
