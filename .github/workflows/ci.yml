@@ -89,7 +89,7 @@ jobs:
       - name: Report code coverage
         # As a small time-save, only report coverage for main branch of testing
         if: ${{ matrix.node-version == '24.x' }}
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
 
   cypress:
     name: End-to-end (E2E) tests
