@@ -72,4 +72,15 @@ describe('Warnings', () => {
     expect(container).not.toHaveTextContent('This may be too wide.')
     expect(container).not.toHaveTextContent('This may not be wide enough.')
   })
+
+  it('renders nothing if segment warnings is undefined', () => {
+    const segment = {}
+    const { container } = render(<Warnings segment={segment} />)
+
+    expect(container).not.toHaveTextContent(
+      'This doesn’t fit within the street.'
+    )
+    expect(container).not.toHaveTextContent('This may be too wide.')
+    expect(container).not.toHaveTextContent('This may not be wide enough.')
+  })
 })

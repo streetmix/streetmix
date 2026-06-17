@@ -19,8 +19,18 @@ export function getUndoPosition() {
 export function finishUndoOrRedo() {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().history
+  const restoredStreet = clone(stack[position])
 
-  store.dispatch(updateStreetDataAction(clone(stack[position])))
+  // Undo stack snapshots intentionally omit derived warnings.
+  // Seed defaults so render paths never read `undefined` before recomputation.
+  if (Array.isArray(restoredStreet?.segments)) {
+    restoredStreet.segments = restoredStreet.segments.map((segment) => ({
+      ...segment,
+      warnings: segment.warnings ?? [false],
+    }))
+  }
+
+  store.dispatch(updateStreetDataAction(restoredStreet))
   cancelSegmentResizeTransitions()
 
   setUpdateTimeToNow()

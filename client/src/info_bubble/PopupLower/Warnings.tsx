@@ -24,8 +24,9 @@ export function Warnings(props: WarningsProps) {
   const messages = []
 
   if (segment === undefined) return null
+  const warnings = segment.warnings ?? [false]
 
-  if (segment.warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
+  if (warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
     messages.push({
       type: 'alert',
       message: (
@@ -36,7 +37,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (segment.warnings[SLICE_WARNING_OUTSIDE]) {
+  if (warnings[SLICE_WARNING_OUTSIDE]) {
     messages.push({
       type: 'error',
       message: (
@@ -47,7 +48,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
+  if (warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
     messages.push({
       type: 'error',
       message: (
@@ -58,7 +59,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
+  if (warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
     messages.push({
       type: 'error',
       message: (
@@ -70,8 +71,8 @@ export function Warnings(props: WarningsProps) {
     })
   }
   if (
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+    warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
   ) {
     messages.push({
       type: 'error',
