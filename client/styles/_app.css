@@ -175,12 +175,6 @@
 
 /* -------------------------------------------------------- */
 
-/* Ensure floating-ui elements appear above everything else */
-[data-floating-ui-portal] {
-  position: absolute;
-  z-index: var(--z-09-floating-ui);
-}
-
 .privacy-link {
   position: absolute;
   left: -9999px; /* Move off-screen */
