@@ -122,3 +122,11 @@
   display: flex;
   gap: 0.25em;
 }
+
+/* Manual tweaks to ShepherdJS tour highlights */
+[data-tour-id="elevation-control"],
+[data-tour-id="slope-control-group"] {
+  &.tour-highlight {
+    border-radius: var(--border-radius);
+  }
+}
