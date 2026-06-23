@@ -126,6 +126,7 @@ export function getSegmentCapacity(
   segment: Segment,
   source: string = DEFAULT_CAPACITY_SOURCE
 ): CapacityForDisplay | undefined {
+  const warnings = segment.warnings ?? [false]
   let capacity = getCapacityData(source).segments[segment.type]
 
   // Returns undefined value if capacity is not defined
@@ -146,8 +147,8 @@ export function getSegmentCapacity(
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
   if (
-    segment.warnings[SLICE_WARNING_OUTSIDE] ||
-    segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL]
+    warnings[SLICE_WARNING_OUTSIDE] ||
+    warnings[SLICE_WARNING_WIDTH_TOO_SMALL]
   ) {
     return {
       average: 0,
