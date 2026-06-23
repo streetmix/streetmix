@@ -2,8 +2,9 @@ export const SEA_LEVEL_YEAR_2030 = 2030
 export const SEA_LEVEL_YEAR_2050 = 2050
 export const SEA_LEVEL_YEAR_2070 = 2070
 
-// Estimates for City of Boston (in feet)
+// Estimates for City of Boston (in feet above current-year sea level)
 export const SEA_LEVEL_RISE_FEET = {
+  [0]: 0, // Current year sea level is set to default value of 0
   [SEA_LEVEL_YEAR_2030]: 1.5,
   [SEA_LEVEL_YEAR_2050]: 2.5,
   [SEA_LEVEL_YEAR_2070]: 4.5,
