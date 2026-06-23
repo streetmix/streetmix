@@ -3,9 +3,12 @@ import { useIntl } from 'react-intl'
 import { useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
-import { Icon } from '~/src/ui/Icon.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
+
+// Slope icon was created in-house, we don't have this in the <Icon /> pipeline
+// (yet) (TODO in future if this icon works out)
+import slopeIcon from 'url:./icon-slope.svg'
 
 interface SlopeToggleProps {
   position: number
@@ -40,7 +43,7 @@ export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
       <div className="popup-control-label">
         <Tooltip label={label} placement="left" role="label">
           <span className="popup-control-icon">
-            <Icon name="slope" size="30" stroke="1.5" />
+            <img src={slopeIcon} className="tabler-icon" />
           </span>
         </Tooltip>
       </div>
