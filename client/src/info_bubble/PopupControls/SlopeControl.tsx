@@ -1,10 +1,14 @@
 import { useIntl } from 'react-intl'
 
 import { useSelector } from '~/src/store/hooks.js'
-import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
 import { SlopeControlTemp } from './SlopeControlTemp.js'
 // import { SlopeControlPin } from './SlopeControlPin.js'
+
+// icons were created in-house, we don't have this in the <Icon /> pipeline
+// (yet) (TODO in future if these icons work out)
+import leftSlopeIcon from 'url:./icon-left-slope.svg'
+import rightSlopeIcon from 'url:./icon-right-slope.svg'
 
 interface SlopeControlProps {
   position: number
@@ -32,7 +36,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <div className="popup-control-row">
         <Tooltip label={leftLabel} placement="left" role="label">
           <span className="popup-control-icon">
-            <Icon name="slope-left" size="30" stroke="1.5" />
+            <img src={leftSlopeIcon} className="tabler-icon" />
           </span>
         </Tooltip>
         <SlopeControlTemp
@@ -47,7 +51,7 @@ export function SlopeControl({ position }: SlopeControlProps) {
       <div className="popup-control-row">
         <Tooltip label={rightLabel} placement="left" role="label">
           <span className="popup-control-icon">
-            <Icon name="slope-right" size="30" stroke="1.5" />
+            <img src={rightSlopeIcon} className="tabler-icon" />
           </span>
         </Tooltip>
         <SlopeControlTemp
