@@ -19,6 +19,11 @@ describe('UndoRedo', () => {
         history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 1,
+          deltaStack: [
+            { forwardDelta: {}, reverseDelta: {} },
+            { forwardDelta: {}, reverseDelta: {} },
+          ],
+          deltaPosition: 1,
         },
       },
     })
@@ -37,6 +42,11 @@ describe('UndoRedo', () => {
         history: {
           stack: [{ foo: 'bar' }, { foo: 'baz' }],
           position: 0,
+          deltaStack: [
+            { forwardDelta: {}, reverseDelta: {} },
+            { forwardDelta: {}, reverseDelta: {} },
+          ],
+          deltaPosition: 0,
         },
       },
     })

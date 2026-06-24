@@ -68,8 +68,8 @@ export async function finishUndoOrRedo(
 ) {
   // set current street to the thing we just updated
   const { history, street } = store.getState()
-  const { position, deltaStack } = history
-  if (position === null) {
+  const { deltaPosition, deltaStack } = history
+  if (deltaPosition === null) {
     return
   }
 
