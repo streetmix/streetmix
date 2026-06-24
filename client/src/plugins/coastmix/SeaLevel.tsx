@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { useSelector } from '~/src/store/hooks.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '~/src/segments/constants.js'
 import { usePrevious } from '~/src/util/usePrevious.js'
-import { SEA_LEVEL_RISE_FEET } from './constants.js'
 import { calculateSeaLevelRise } from './sea_level.js'
 import './SeaLevel.css'
 
@@ -44,15 +43,8 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     // Total height added together
     height += rise * TILE_SIZE
 
-    // Show visually when sea level rises
-    if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
-      opacity = WAVE_OPACITY
-
-      // Special case: opacity is lowered when dragging
-      if (draggingType) {
-        opacity = LIMBO_OPACITY
-      }
-    }
+    // Show visually when sea level rises. Opacity is lowered when dragging
+    opacity = draggingType ? LIMBO_OPACITY : WAVE_OPACITY
   }
 
   // Default style -- floods full width of section

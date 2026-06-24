@@ -96,6 +96,10 @@ export function StreetView() {
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
   const { seaLevelRise, stormSurge } = useSelector((state) => state.coastmix)
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE.value ?? false
+  )
+
   const dispatch = useDispatch()
 
   // Keep previous state for comparisons (ported from legacy behavior)
@@ -350,7 +354,9 @@ export function StreetView() {
               />
               <ResizeGuides />
               <EmptySegmentContainer />
-              <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
+              {coastmixMode && (
+                <SeaLevel boundaryWidth={boundaryWidth} scrollPos={scrollPos} />
+              )}
               <div className="street-section-ground" />
             </section>
           </PopupContainerGroup>
