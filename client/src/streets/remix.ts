@@ -9,7 +9,7 @@ import {
 } from '../store/slices/street.js'
 import { addToast } from '../store/slices/toasts.js'
 import { setStreetCreatorId } from './data_model.js'
-import { getUndoStack, getUndoPosition, unifyUndoStack } from './undo_stack.js'
+import { unifyUndoStack } from './undo_stack.js'
 import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr.js'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
@@ -35,6 +35,24 @@ export function setPromoteStreet(value: boolean): void {
   promoteStreet = value
 }
 
+function didLatestDeltaChangeStreetName(): boolean {
+  const { deltaStack, deltaPosition } = store.getState().history
+  if (deltaPosition === null || deltaPosition === undefined) {
+    return false
+  }
+
+  const entry = deltaStack?.[deltaPosition]
+  if (
+    !entry ||
+    typeof entry.forwardDelta !== 'object' ||
+    entry.forwardDelta === null
+  ) {
+    return false
+  }
+
+  return Object.prototype.hasOwnProperty.call(entry.forwardDelta, 'name')
+}
+
 export function remixStreet() {
   let dontAddSuffix
 
@@ -57,13 +75,7 @@ export function remixStreet() {
 
   unifyUndoStack()
 
-  const undoStack = getUndoStack()
-  const undoPosition = getUndoPosition()
-  const previousPosition = undoPosition === null ? -1 : undoPosition - 1
-  if (
-    undoStack[previousPosition] &&
-    undoStack[previousPosition].name !== street.name
-  ) {
+  if (didLatestDeltaChangeStreetName()) {
     // The street was remixed as a result of editing its name. Don’t be
     // a douche and add (remixed) to it then.
     dontAddSuffix = true
