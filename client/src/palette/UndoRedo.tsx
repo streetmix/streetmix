@@ -19,6 +19,7 @@ export function UndoRedo() {
   }
 
   function isRedoAvailable(): boolean {
+    console.log(undoPosition, isOwnedByCurrentUser())
     return (
       undoPosition !== null &&
       undoPosition >= 0 &&

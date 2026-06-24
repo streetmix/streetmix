@@ -4,7 +4,11 @@ import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
 import { createNewUndo, unifyStack } from '../store/slices/history.js'
-import { setUpdateTimeToNow, updateEverything } from './data_model.js'
+import {
+  setIgnoreStreetChanges,
+  setUpdateTimeToNow,
+  updateEverything,
+} from './data_model.js'
 
 import type { StreetState } from '@streetmix/types'
 
@@ -16,7 +20,7 @@ export function getUndoPosition() {
   return store.getState().history.position
 }
 
-export function finishUndoOrRedo() {
+export async function finishUndoOrRedo() {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().history
   if (position === null) {
@@ -34,12 +38,15 @@ export function finishUndoOrRedo() {
     }))
   }
 
-  store.dispatch(updateStreetDataAction(restoredStreet))
-  cancelSegmentResizeTransitions()
-
-  setUpdateTimeToNow()
-
-  updateEverything(true)
+  setIgnoreStreetChanges(true)
+  try {
+    await store.dispatch(updateStreetDataAction(restoredStreet))
+    cancelSegmentResizeTransitions()
+    setUpdateTimeToNow()
+    updateEverything(true)
+  } finally {
+    setIgnoreStreetChanges(false)
+  }
 }
 
 export function createNewUndoIfNecessary(
