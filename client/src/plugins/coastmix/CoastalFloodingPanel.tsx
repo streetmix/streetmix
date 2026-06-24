@@ -40,7 +40,7 @@ export function CoastalFloodingPanel() {
 
   let message
   const messageClassNames = ['flood-controls-message']
-  if (seaLevelRise === 0) {
+  if (seaLevelRise === 0 && stormSurge === false) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.start', defaultMessage: 'Select a sea level rise target to visualize flooding.' })}`
   } else if (floodDistance[0] === null && floodDistance[1] === null) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`

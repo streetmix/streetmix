@@ -17,9 +17,13 @@ describe('sea level rise', () => {
         },
       })
 
-      // Sea level rise is off
-      const result1 = calculateSeaLevelRise(0, false, street)
-      expect(result1).toBe(0)
+      // Sea level rise is off (current year, no storm surge)
+      const result1a = calculateSeaLevelRise(0, false, street)
+      expect(result1a).toBe(0)
+
+      // Sea level rise is at current year, with storm surge
+      const result1b = calculateSeaLevelRise(0, true, street)
+      expect(result1b).toBe(0.381)
 
       // Sea level rise at various targets, no storm surge
       const result2 = calculateSeaLevelRise(2030, false, street)
