@@ -1,5 +1,5 @@
 import clone from 'just-clone'
-import { create, type Delta } from 'jsondiffpatch'
+import { create } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
@@ -11,30 +11,27 @@ import {
   updateEverything,
 } from './data_model.js'
 
-import type { StreetState } from '@streetmix/types'
+import type { StreetState, HistoryState } from '@streetmix/types'
 
 const historyDiffer = create()
 
 function restoreFromDelta(
   direction: 'undo' | 'redo',
   previousPosition: number,
-  stack: Array<{ forwardDelta: unknown; reverseDelta: unknown }>,
+  stack: HistoryState['stack'],
   currentStreet: Partial<StreetState>
 ) {
-  const deltaIndex =
-    direction === 'undo' ? previousPosition : previousPosition + 1
-  const entry = stack[deltaIndex]
-  if (!entry) {
-    return null
-  }
-
-  const delta = direction === 'undo' ? entry.reverseDelta : entry.forwardDelta
-  if (typeof delta !== 'object' || delta === null) {
-    return null
-  }
-
   const restoredStreet = clone(currentStreet)
-  historyDiffer.patch(restoredStreet, clone(delta) as Delta)
+
+  if (direction === 'undo') {
+    // Undo patches street state with the current delta
+    const delta = stack[previousPosition]
+    historyDiffer.patch(restoredStreet, delta.reverseDelta)
+  } else {
+    // Redo "unpatches" street state with the next delta
+    const delta = stack[previousPosition + 1]
+    historyDiffer.unpatch(restoredStreet, delta.reverseDelta)
+  }
 
   return restoredStreet
 }
