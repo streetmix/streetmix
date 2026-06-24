@@ -50,66 +50,6 @@ describe('finishUndoOrRedo', () => {
     vi.clearAllMocks()
   })
 
-  it('seeds missing segment warnings before restoring street data', async () => {
-    const differ = create()
-    const previousStreet = {
-      segments: [
-        {
-          id: '1',
-          type: 'sidewalk',
-          variantString: 'default',
-          width: 3,
-          elevation: 0,
-          slope: { on: false, values: [] },
-        },
-      ],
-    }
-    const currentStreet = {
-      segments: [
-        {
-          id: '1',
-          type: 'sidewalk',
-          variantString: 'default',
-          width: 4,
-          elevation: 0,
-          slope: { on: false, values: [] },
-          warnings: [false],
-        },
-      ],
-    }
-    const forwardDelta = differ.diff(previousStreet, currentStreet)
-    const reverseDelta = differ.diff(currentStreet, previousStreet)
-
-    getStateMock.mockReturnValue({
-      street: currentStreet,
-      history: {
-        position: 0,
-        deltaStack: [
-          { forwardDelta: {}, reverseDelta: {} },
-          { forwardDelta, reverseDelta },
-        ],
-      },
-    })
-
-    await finishUndoOrRedo('undo', 1)
-
-    expect(updateStreetDataActionMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        segments: [
-          expect.objectContaining({
-            warnings: [false],
-          }),
-        ],
-      })
-    )
-    expect(dispatchMock).toHaveBeenCalledTimes(1)
-    expect(cancelSegmentResizeTransitionsMock).toHaveBeenCalledTimes(1)
-    expect(setUpdateTimeToNowMock).toHaveBeenCalledTimes(1)
-    expect(updateEverythingMock).toHaveBeenCalledWith(true)
-    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(1, true)
-    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(2, false)
-  })
-
   it('preserves existing warnings on restored segments', async () => {
     const differ = create()
     const previousStreet = {
@@ -145,7 +85,7 @@ describe('finishUndoOrRedo', () => {
       street: currentStreet,
       history: {
         position: 0,
-        deltaStack: [
+        stack: [
           { forwardDelta: {}, reverseDelta: {} },
           { forwardDelta, reverseDelta },
         ],
@@ -176,7 +116,7 @@ describe('finishUndoOrRedo', () => {
       street: currentStreet,
       history: {
         position: 0,
-        deltaStack: [
+        stack: [
           { forwardDelta: {}, reverseDelta: {} },
           { forwardDelta, reverseDelta },
         ],
@@ -211,7 +151,7 @@ describe('finishUndoOrRedo', () => {
       street: currentStreet,
       history: {
         position: 0,
-        deltaStack: [
+        stack: [
           { forwardDelta: {}, reverseDelta: {} },
           { forwardDelta, reverseDelta },
         ],
@@ -242,7 +182,7 @@ describe('finishUndoOrRedo', () => {
       street: previousStreet,
       history: {
         position: 1,
-        deltaStack: [
+        stack: [
           { forwardDelta: {}, reverseDelta: {} },
           { forwardDelta, reverseDelta },
         ],

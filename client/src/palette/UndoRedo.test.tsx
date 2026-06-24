@@ -17,11 +17,11 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          deltaStack: [
+          stack: [
             { forwardDelta: {}, reverseDelta: {} },
             { forwardDelta: {}, reverseDelta: {} },
           ],
-          deltaPosition: 1,
+          position: 1,
         },
       },
     })
@@ -38,11 +38,11 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          deltaStack: [
+          stack: [
             { forwardDelta: {}, reverseDelta: {} },
             { forwardDelta: {}, reverseDelta: {} },
           ],
-          deltaPosition: 0,
+          position: 0,
         },
       },
     })

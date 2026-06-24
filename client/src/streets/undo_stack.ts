@@ -1,6 +1,5 @@
 import clone from 'just-clone'
-import { create } from 'jsondiffpatch'
-import type { Delta } from 'jsondiffpatch'
+import { create, type Delta } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
@@ -16,24 +15,15 @@ import type { StreetState } from '@streetmix/types'
 
 const historyDiffer = create()
 
-function seedMissingWarnings(street: Partial<StreetState>) {
-  if (Array.isArray(street?.segments)) {
-    street.segments = street.segments.map((segment) => ({
-      ...segment,
-      warnings: segment.warnings ?? [false],
-    }))
-  }
-}
-
 function restoreFromDelta(
   direction: 'undo' | 'redo',
   previousPosition: number,
-  deltaStack: Array<{ forwardDelta: unknown; reverseDelta: unknown }>,
+  stack: Array<{ forwardDelta: unknown; reverseDelta: unknown }>,
   currentStreet: Partial<StreetState>
 ) {
   const deltaIndex =
     direction === 'undo' ? previousPosition : previousPosition + 1
-  const entry = deltaStack[deltaIndex]
+  const entry = stack[deltaIndex]
   if (!entry) {
     return null
   }
@@ -46,7 +36,6 @@ function restoreFromDelta(
   const restoredStreet = clone(currentStreet)
   historyDiffer.patch(restoredStreet, clone(delta) as Delta)
 
-  seedMissingWarnings(restoredStreet)
   return restoredStreet
 }
 
@@ -56,19 +45,19 @@ export async function finishUndoOrRedo(
 ) {
   // set current street to the thing we just updated
   const { history, street } = store.getState()
-  const { deltaPosition, deltaStack } = history
-  if (deltaPosition === null) {
+  const { position, stack } = history
+  if (position === null) {
     return
   }
 
-  if (!Array.isArray(deltaStack) || deltaStack.length === 0) {
+  if (!Array.isArray(stack) || stack.length === 0) {
     return
   }
 
   const finalStreet = restoreFromDelta(
     direction,
     previousPosition,
-    deltaStack,
+    stack,
     street
   )
   if (!finalStreet) {
@@ -95,11 +84,8 @@ export function createNewUndoIfNecessary(
     return
   }
 
-  const previousSnapshot = clone(lastStreet)
-  const nextSnapshot = clone(currentStreet)
-
-  const forwardDelta = historyDiffer.diff(previousSnapshot, nextSnapshot)
-  const reverseDelta = historyDiffer.diff(nextSnapshot, previousSnapshot)
+  const forwardDelta = historyDiffer.diff(lastStreet, currentStreet)
+  const reverseDelta = historyDiffer.diff(currentStreet, lastStreet)
 
   if (!forwardDelta || !reverseDelta) {
     return

@@ -8,10 +8,8 @@ import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
 import { isOwnedByCurrentUser } from '../streets/owner.js'
 
 export function UndoRedo() {
-  const undoPosition = useSelector(
-    (state) => state.history.deltaPosition ?? null
-  )
-  const undoStack = useSelector((state) => state.history.deltaStack ?? [])
+  const undoPosition = useSelector((state) => state.history.position ?? null)
+  const undoStack = useSelector((state) => state.history.stack ?? [])
   const dispatch = useDispatch()
   const intl = useIntl()
 

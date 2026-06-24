@@ -1,17 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { HistoryState } from '@streetmix/types'
-
-type HistoryDeltaEntry = {
-  forwardDelta: unknown
-  reverseDelta: unknown
-}
+import type { HistoryState, HistoryDeltaEntry } from '@streetmix/types'
 
 export const MAX_UNDO_LIMIT = 100
 
 const initialState: HistoryState = {
-  deltaStack: [],
-  deltaPosition: null,
+  stack: [],
+  position: null,
 }
 
 /**
@@ -33,54 +28,53 @@ const undoSlice = createSlice({
 
   reducers: {
     undo(state) {
-      if (state.deltaPosition === null) {
+      if (state.position === null) {
         return
       }
 
-      state.deltaPosition = Math.max(0, (state.deltaPosition ?? 0) - 1)
+      state.position = Math.max(0, (state.position ?? 0) - 1)
     },
 
     redo(state) {
-      if (state.deltaPosition === null) {
+      if (state.position === null) {
         return
       }
 
-      const deltaStackSize = state.deltaStack.length - 1
-      const newDeltaPosition = (state.deltaPosition ?? 0) + 1
-      state.deltaPosition =
-        newDeltaPosition > deltaStackSize ? deltaStackSize : newDeltaPosition
+      const stackSize = state.stack.length - 1
+      const newPosition = (state.position ?? 0) + 1
+      state.position = newPosition > stackSize ? stackSize : newPosition
     },
 
     resetUndoStack(state) {
-      state.deltaStack = []
-      state.deltaPosition = null
+      state.stack = []
+      state.position = null
     },
 
     replaceUndoStack(state, action: PayloadAction<HistoryState>) {
-      state.deltaStack = action.payload.deltaStack ?? []
+      state.stack = action.payload.stack ?? []
 
-      if (state.deltaStack.length === 0) {
-        state.deltaPosition = null
-      } else if (action.payload.deltaPosition === null) {
-        state.deltaPosition = state.deltaStack.length - 1
+      if (state.stack.length === 0) {
+        state.position = null
+      } else if (action.payload.position === null) {
+        state.position = state.stack.length - 1
       } else {
-        state.deltaPosition = Math.min(
-          Math.max(action.payload.deltaPosition ?? 0, 0),
-          state.deltaStack.length - 1
+        state.position = Math.min(
+          Math.max(action.payload.position ?? 0, 0),
+          state.stack.length - 1
         )
       }
     },
 
     createNewUndoDelta(state, action: PayloadAction<HistoryDeltaEntry>) {
       const retainedLength =
-        state.deltaPosition === null ? 0 : (state.deltaPosition ?? 0) + 1
-      let deltaStack = state.deltaStack.slice(0, retainedLength)
+        state.position === null ? 0 : (state.position ?? 0) + 1
+      let stack = state.stack.slice(0, retainedLength)
 
-      deltaStack.push(action.payload)
-      deltaStack = trimHistoryStack(deltaStack)
+      stack.push(action.payload)
+      stack = trimHistoryStack(stack)
 
-      state.deltaStack = deltaStack
-      state.deltaPosition = deltaStack.length > 0 ? deltaStack.length - 1 : null
+      state.stack = stack
+      state.position = stack.length > 0 ? stack.length - 1 : null
     },
   },
 })

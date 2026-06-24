@@ -19,12 +19,12 @@ export const handleUndo = createAsyncThunk<
   void,
   { state: RootState; dispatch: Dispatch }
 >('history/handleUndo', async (arg, { dispatch, getState }) => {
-  const deltaPosition = getState().history.deltaPosition ?? null
+  const position = getState().history.position ?? null
 
   // Don't allow undo/redo unless you own the street
-  if (deltaPosition !== null && deltaPosition > 0 && isOwnedByCurrentUser()) {
+  if (position !== null && position > 0 && isOwnedByCurrentUser()) {
     dispatch(undo())
-    await finishUndoOrRedo('undo', deltaPosition)
+    await finishUndoOrRedo('undo', position)
   } else {
     dispatch(
       addToast({
@@ -40,19 +40,19 @@ export const handleRedo = createAsyncThunk<
   void,
   { state: RootState; dispatch: Dispatch }
 >('history/handleRedo', async (arg, { dispatch, getState }) => {
-  const deltaPosition = getState().history.deltaPosition ?? null
-  const deltaStack = getState().history.deltaStack
-  const deltas = deltaStack ?? []
+  const position = getState().history.position ?? null
+  const stack = getState().history.stack
+  const deltas = stack ?? []
 
   // Don't allow undo/redo unless you own the street
   if (
-    deltaPosition !== null &&
-    deltaPosition >= 0 &&
-    deltaPosition < deltas.length - 1 &&
+    position !== null &&
+    position >= 0 &&
+    position < deltas.length - 1 &&
     isOwnedByCurrentUser()
   ) {
     dispatch(redo())
-    await finishUndoOrRedo('redo', deltaPosition)
+    await finishUndoOrRedo('redo', position)
   } else {
     dispatch(
       addToast({

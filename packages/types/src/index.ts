@@ -4,6 +4,7 @@ import {
 } from '@streetmix/client/src/users/constants.js'
 
 import type React from 'react'
+import { type Delta } from 'jsondiffpatch'
 
 // Utility type for making a single property (K) optional
 // when a type (T) has defined K as required.
@@ -191,16 +192,16 @@ export interface CoastmixState {
 // not serializable to JSON!
 export type FloodDistance = number | null | 'max'
 
-export type HistoryDelta = unknown
-
 export interface HistoryDeltaEntry {
-  forwardDelta: HistoryDelta
-  reverseDelta: HistoryDelta
+  forwardDelta: Delta
+  reverseDelta: Delta
 }
 
 export interface HistoryState {
-  deltaStack: HistoryDeltaEntry[]
-  deltaPosition: number | null
+  stack: HistoryDeltaEntry[]
+  // Position is a 0-index of the current state. `null` is used when the
+  // stack is empty.
+  position: number | null
 }
 
 export type WeatherEffect = 'rain' | 'snow'

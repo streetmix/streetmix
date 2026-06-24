@@ -9,8 +9,8 @@ import reducer, {
 
 describe('undo reducer', () => {
   const initialState = {
-    deltaStack: [],
-    deltaPosition: null,
+    stack: [],
+    position: null,
   }
 
   it('should handle initial state', () => {
@@ -21,11 +21,11 @@ describe('undo reducer', () => {
     expect(
       reducer(
         {
-          deltaStack: [
+          stack: [
             { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
             { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
           ],
-          deltaPosition: 1,
+          position: 1,
         },
         resetUndoStack()
       )
@@ -36,23 +36,23 @@ describe('undo reducer', () => {
     expect(
       reducer(
         {
-          deltaStack: [],
-          deltaPosition: null,
+          stack: [],
+          position: null,
         },
         replaceUndoStack({
-          deltaStack: [
+          stack: [
             { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
             { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
           ],
-          deltaPosition: 2,
+          position: 2,
         })
       )
     ).toEqual({
-      deltaStack: [
+      stack: [
         { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
         { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
       ],
-      deltaPosition: 1,
+      position: 1,
     })
   })
 
@@ -63,8 +63,8 @@ describe('undo reducer', () => {
     }
 
     expect(reducer(initialState, createNewUndoDelta(entry))).toEqual({
-      deltaStack: [entry],
-      deltaPosition: 0,
+      stack: [entry],
+      position: 0,
     })
   })
 
@@ -75,8 +75,8 @@ describe('undo reducer', () => {
     }
     const state = reducer(
       {
-        deltaPosition: 9,
-        deltaStack: Array(10)
+        position: 9,
+        stack: Array(10)
           .fill({})
           .map((_, i) => ({
             forwardDelta: { idx: [i] },
@@ -86,9 +86,9 @@ describe('undo reducer', () => {
       createNewUndoDelta(item)
     )
 
-    expect(state.deltaPosition).toEqual(10)
-    expect(state.deltaStack.length).toEqual(11)
-    expect(state.deltaStack[state.deltaStack.length - 1]).toMatchObject(item)
+    expect(state.position).toEqual(10)
+    expect(state.stack.length).toEqual(11)
+    expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
 
   it('truncates redo deltas if a new entry is created at an earlier position', () => {
@@ -98,8 +98,8 @@ describe('undo reducer', () => {
     }
     const state = reducer(
       {
-        deltaPosition: 6,
-        deltaStack: Array(10)
+        position: 6,
+        stack: Array(10)
           .fill({})
           .map((_, i) => ({
             forwardDelta: { idx: [i] },
@@ -109,9 +109,9 @@ describe('undo reducer', () => {
       createNewUndoDelta(item)
     )
 
-    expect(state.deltaPosition).toEqual(7)
-    expect(state.deltaStack.length).toEqual(8)
-    expect(state.deltaStack[state.deltaStack.length - 1]).toMatchObject(item)
+    expect(state.position).toEqual(7)
+    expect(state.stack.length).toEqual(8)
+    expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
 
   it('trims delta stack that is too large', () => {
@@ -121,8 +121,8 @@ describe('undo reducer', () => {
     }
     const state = reducer(
       {
-        deltaPosition: MAX_UNDO_LIMIT - 1,
-        deltaStack: Array(MAX_UNDO_LIMIT)
+        position: MAX_UNDO_LIMIT - 1,
+        stack: Array(MAX_UNDO_LIMIT)
           .fill({})
           .map((_, i) => ({
             forwardDelta: { idx: [i] },
@@ -132,16 +132,16 @@ describe('undo reducer', () => {
       createNewUndoDelta(item)
     )
 
-    expect(state.deltaStack.length).toEqual(MAX_UNDO_LIMIT)
-    expect(state.deltaPosition).toEqual(MAX_UNDO_LIMIT - 1)
-    expect(state.deltaStack[MAX_UNDO_LIMIT - 1]).toMatchObject(item)
+    expect(state.stack.length).toEqual(MAX_UNDO_LIMIT)
+    expect(state.position).toEqual(MAX_UNDO_LIMIT - 1)
+    expect(state.stack[MAX_UNDO_LIMIT - 1]).toMatchObject(item)
   })
 
   it('decreases delta position by 1 for undo', () => {
     const state = reducer(
       {
-        deltaPosition: 9,
-        deltaStack: Array(10)
+        position: 9,
+        stack: Array(10)
           .fill({})
           .map((_, i) => ({
             forwardDelta: { idx: [i] },
@@ -151,17 +151,17 @@ describe('undo reducer', () => {
       undo()
     )
 
-    expect(state.deltaPosition).toEqual(8)
+    expect(state.position).toEqual(8)
 
     const state2 = reducer(state, undo())
-    expect(state2.deltaPosition).toEqual(7)
+    expect(state2.position).toEqual(7)
   })
 
   it('increases delta position by 1 for redo', () => {
     const state = reducer(
       {
-        deltaPosition: 2,
-        deltaStack: Array(10)
+        position: 2,
+        stack: Array(10)
           .fill({})
           .map((_, i) => ({
             forwardDelta: { idx: [i] },
@@ -171,9 +171,9 @@ describe('undo reducer', () => {
       redo()
     )
 
-    expect(state.deltaPosition).toEqual(3)
+    expect(state.position).toEqual(3)
 
     const state2 = reducer(state, redo())
-    expect(state2.deltaPosition).toEqual(4)
+    expect(state2.position).toEqual(4)
   })
 })

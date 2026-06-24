@@ -35,12 +35,12 @@ export function setPromoteStreet(value: boolean): void {
 }
 
 function didLatestDeltaChangeStreetName(): boolean {
-  const { deltaStack, deltaPosition } = store.getState().history
-  if (deltaPosition === null || deltaPosition === undefined) {
+  const { stack, position } = store.getState().history
+  if (position === null || position === undefined) {
     return false
   }
 
-  const entry = deltaStack?.[deltaPosition]
+  const entry = stack?.[position]
   if (
     !entry ||
     typeof entry.forwardDelta !== 'object' ||
