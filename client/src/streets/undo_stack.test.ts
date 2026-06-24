@@ -176,7 +176,6 @@ describe('finishUndoOrRedo', () => {
       street: currentStreet,
       history: {
         position: 0,
-        stack: [{ name: 'from-snapshot' }],
         deltaStack: [
           { forwardDelta: {}, reverseDelta: {} },
           { forwardDelta, reverseDelta },
