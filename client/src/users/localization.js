@@ -1,20 +1,7 @@
-import clone from 'just-clone'
 import { debug } from '../preinit/debug_settings'
-import { normalizeAllSegmentWidths } from '../segments/resizing'
-import { segmentsChanged } from '../segments/view'
-import {
-  saveStreetToServerIfNecessary,
-  setIgnoreStreetChanges,
-} from '../streets/data_model'
-import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
-import { normalizeStreetWidth } from '../streets/width'
+import { saveStreetToServerIfNecessary } from '../streets/data_model'
 import store from '../store'
-import {
-  setUnits,
-  updateStreetWidth,
-  updateStreetData,
-  updateSegments,
-} from '../store/slices/street'
+import { setUnits } from '../store/slices/street'
 import { setUserUnits } from '../store/slices/settings'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
 
@@ -133,50 +120,12 @@ export function updateUnitSettings(countryCode) {
 
 // Only changes the units of the street, not the user.
 export function updateUnits(newUnits) {
-  let fromUndo
   const street = store.getState().street
   if (street.units === newUnits) {
     return
   }
 
   store.dispatch(setUnits(newUnits))
-
-  // If the user converts and then straight converts back, we just reach
-  // to undo stack instead of double conversion (which could be lossy).
-  const undoStack = getUndoStack()
-  const undoPosition = getUndoPosition()
-  const previousPosition = undoPosition === null ? -1 : undoPosition - 1
-  if (
-    undoStack[previousPosition] &&
-    undoStack[previousPosition].units === newUnits
-  ) {
-    fromUndo = true
-  } else {
-    fromUndo = false
-  }
-
-  setIgnoreStreetChanges(true)
-  if (!fromUndo) {
-    const segments = normalizeAllSegmentWidths(street.segments, street.units)
-    store.dispatch(updateSegments(segments))
-
-    if (street.remainingWidth === 0) {
-      let width = 0
-      for (const i in street.segments) {
-        width += street.segments[i].width
-      }
-      store.dispatch(updateStreetWidth(width))
-    } else {
-      store.dispatch(
-        updateStreetWidth(normalizeStreetWidth(street.width, newUnits))
-      )
-    }
-  } else {
-    store.dispatch(updateStreetData(clone(undoStack[previousPosition])))
-  }
-  segmentsChanged()
-
-  setIgnoreStreetChanges(false)
 
   saveStreetToServerIfNecessary()
 }
