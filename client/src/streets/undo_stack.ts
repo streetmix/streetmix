@@ -5,7 +5,7 @@ import type { Delta } from 'jsondiffpatch'
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
-import { createNewUndoDelta, unifyStack } from '../store/slices/history.js'
+import { createNewUndoDelta } from '../store/slices/history.js'
 import {
   setIgnoreStreetChanges,
   setUpdateTimeToNow,
@@ -111,9 +111,4 @@ export function createNewUndoIfNecessary(
       reverseDelta,
     })
   )
-}
-
-export function unifyUndoStack() {
-  const street = store.getState().street
-  store.dispatch(unifyStack(street))
 }

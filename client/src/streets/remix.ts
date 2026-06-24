@@ -9,7 +9,6 @@ import {
 } from '../store/slices/street.js'
 import { addToast } from '../store/slices/toasts.js'
 import { setStreetCreatorId } from './data_model.js'
-import { unifyUndoStack } from './undo_stack.js'
 import { saveStreetToServer, packServerStreetData, setStreetId } from './xhr.js'
 
 const STREET_NAME_REMIX_SUFFIX = '(remix)'
@@ -72,8 +71,6 @@ export function remixStreet() {
   const street = store.getState().street
   store.dispatch(saveOriginalStreetId(street.id))
   store.dispatch(updateEditCount(0))
-
-  unifyUndoStack()
 
   if (didLatestDeltaChangeStreetName()) {
     // The street was remixed as a result of editing its name. Don’t be

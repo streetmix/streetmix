@@ -199,10 +199,8 @@ export interface HistoryDeltaEntry {
 }
 
 export interface HistoryState {
-  stack: Partial<StreetState>[]
-  position: number | null
-  deltaStack?: HistoryDeltaEntry[]
-  deltaPosition?: number | null
+  deltaStack: HistoryDeltaEntry[]
+  deltaPosition: number | null
 }
 
 export type WeatherEffect = 'rain' | 'snow'
