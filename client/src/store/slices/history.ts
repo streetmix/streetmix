@@ -20,14 +20,12 @@ const initialState: HistoryState = {
  * If undoStack is higher than limit, trim earliest entries so that stack is
  * within the undo limit.
  */
-function trimUndoStack(
-  undoStack: HistoryState['stack']
-): HistoryState['stack'] {
-  const diff = undoStack.length - MAX_UNDO_LIMIT
+function trimHistoryStack<T>(stack: T[]): T[] {
+  const diff = stack.length - MAX_UNDO_LIMIT
   if (diff > 0) {
-    return undoStack.slice(diff)
+    return stack.slice(diff)
   } else {
-    return undoStack
+    return stack
   }
 }
 
@@ -60,30 +58,34 @@ const undoSlice = createSlice({
 
   reducers: {
     undo(state) {
-      if (state.position === null) {
+      if (state.position === null && state.deltaPosition === null) {
         return
       }
 
-      state.position = Math.max(0, state.position - 1)
+      if (state.position !== null) {
+        state.position = Math.max(0, state.position - 1)
+      }
 
       if (state.deltaPosition !== null) {
-        state.deltaPosition = Math.max(0, state.deltaPosition - 1)
+        state.deltaPosition = Math.max(0, (state.deltaPosition ?? 0) - 1)
       }
     },
 
     redo(state) {
-      if (state.position === null) {
+      if (state.position === null && state.deltaPosition === null) {
         return
       }
 
-      const newPosition = state.position + 1
-      const stackSize = state.stack.length - 1
+      if (state.position !== null) {
+        const newPosition = state.position + 1
+        const stackSize = state.stack.length - 1
 
-      state.position = newPosition > stackSize ? stackSize : newPosition
+        state.position = newPosition > stackSize ? stackSize : newPosition
+      }
 
       if (state.deltaPosition !== null) {
         const deltaStackSize = (state.deltaStack ?? []).length - 1
-        const newDeltaPosition = state.deltaPosition + 1
+        const newDeltaPosition = (state.deltaPosition ?? 0) + 1
         state.deltaPosition =
           newDeltaPosition > deltaStackSize ? deltaStackSize : newDeltaPosition
       }
@@ -136,7 +138,7 @@ const undoSlice = createSlice({
       stack.push({ ...street })
 
       // Post-process stack data
-      stack = trimUndoStack(stack)
+      stack = trimHistoryStack(stack)
       stack = unifyUndoStack(stack, street)
 
       // Update
@@ -146,11 +148,11 @@ const undoSlice = createSlice({
 
     createNewUndoDelta(state, action: PayloadAction<HistoryDeltaEntry>) {
       const retainedLength =
-        state.deltaPosition === null ? 0 : state.deltaPosition + 1
+        state.deltaPosition === null ? 0 : (state.deltaPosition ?? 0) + 1
       let deltaStack = (state.deltaStack ?? []).slice(0, retainedLength)
 
       deltaStack.push(action.payload)
-      deltaStack = trimUndoStack(deltaStack)
+      deltaStack = trimHistoryStack(deltaStack)
 
       state.deltaStack = deltaStack
       state.deltaPosition = deltaStack.length > 0 ? deltaStack.length - 1 : null

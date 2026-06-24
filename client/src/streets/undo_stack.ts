@@ -5,11 +5,7 @@ import type { Delta } from 'jsondiffpatch'
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
-import {
-  createNewUndo,
-  createNewUndoDelta,
-  unifyStack,
-} from '../store/slices/history.js'
+import { createNewUndoDelta, unifyStack } from '../store/slices/history.js'
 import {
   setIgnoreStreetChanges,
   setUpdateTimeToNow,
@@ -52,14 +48,6 @@ function restoreFromDelta(
 
   seedMissingWarnings(restoredStreet)
   return restoredStreet
-}
-
-export function getUndoStack() {
-  return clone(store.getState().history.stack)
-}
-
-export function getUndoPosition() {
-  return store.getState().history.position
 }
 
 export async function finishUndoOrRedo(
@@ -117,7 +105,6 @@ export function createNewUndoIfNecessary(
     return
   }
 
-  store.dispatch(createNewUndo(nextSnapshot))
   store.dispatch(
     createNewUndoDelta({
       forwardDelta,
