@@ -12,6 +12,8 @@ describe('undo reducer', () => {
   const initialState = {
     stack: [],
     position: null,
+    deltaStack: [],
+    deltaPosition: null,
   }
 
   it('should handle initial state', () => {
@@ -24,6 +26,8 @@ describe('undo reducer', () => {
         {
           stack: [{}, {}, {}],
           position: 1,
+          deltaStack: [],
+          deltaPosition: null,
         },
         resetUndoStack()
       )
@@ -36,16 +40,22 @@ describe('undo reducer', () => {
         {
           stack: [{ name: 'a' }, { name: 'b' }, { name: 'c' }],
           position: 2,
+          deltaStack: [],
+          deltaPosition: null,
         },
         replaceUndoStack({
           stack: [{ name: 'd' }, { name: 'e' }],
           position: 2,
+          deltaStack: [],
+          deltaPosition: null,
         })
       )
     ).toEqual({
       stack: [{ name: 'd' }, { name: 'e' }],
       // Stack position must actually be within length of new stack
       position: 1,
+      deltaStack: [],
+      deltaPosition: null,
     })
   })
 
@@ -53,6 +63,8 @@ describe('undo reducer', () => {
     expect(reducer(initialState, createNewUndo({ name: 'bar' }))).toEqual({
       position: 0,
       stack: [{ name: 'bar' }],
+      deltaStack: [],
+      deltaPosition: null,
     })
   })
 
@@ -62,6 +74,8 @@ describe('undo reducer', () => {
       {
         position: 9,
         stack: Array(10).fill({}),
+        deltaStack: [],
+        deltaPosition: null,
       },
       createNewUndo(item)
     )
@@ -77,6 +91,8 @@ describe('undo reducer', () => {
       {
         position: 6,
         stack: Array(10).fill({}),
+        deltaStack: [],
+        deltaPosition: null,
       },
       createNewUndo(item)
     )
@@ -97,6 +113,8 @@ describe('undo reducer', () => {
       {
         position: MAX_UNDO_LIMIT - 1,
         stack: [{ name: 'baz' }, ...Array(MAX_UNDO_LIMIT - 1).fill({})],
+        deltaStack: [],
+        deltaPosition: null,
       },
       createNewUndo(item)
     )
@@ -121,6 +139,8 @@ describe('undo reducer', () => {
         stack: Array(10)
           .fill({})
           .map((x, i) => ({ id: `${i}` })),
+        deltaStack: [],
+        deltaPosition: null,
       },
       undo()
     )
@@ -141,6 +161,8 @@ describe('undo reducer', () => {
         stack: Array(10)
           .fill({})
           .map((x, i) => ({ id: `${i}` })),
+        deltaStack: [],
+        deltaPosition: null,
       },
       redo()
     )
@@ -170,6 +192,8 @@ describe('undo reducer', () => {
           creatorId: '2',
           updatedAt: 'baz',
         }),
+        deltaStack: [],
+        deltaPosition: null,
       },
       unifyStack(item)
     )

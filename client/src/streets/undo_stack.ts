@@ -1,9 +1,14 @@
 import clone from 'just-clone'
+import { create } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
-import { createNewUndo, unifyStack } from '../store/slices/history.js'
+import {
+  createNewUndo,
+  createNewUndoDelta,
+  unifyStack,
+} from '../store/slices/history.js'
 import {
   setIgnoreStreetChanges,
   setUpdateTimeToNow,
@@ -11,6 +16,8 @@ import {
 } from './data_model.js'
 
 import type { StreetState } from '@streetmix/types'
+
+const historyDiffer = create()
 
 export function getUndoStack() {
   return clone(store.getState().history.stack)
@@ -58,7 +65,22 @@ export function createNewUndoIfNecessary(
     return
   }
 
-  store.dispatch(createNewUndo(clone(currentStreet)))
+  const previousSnapshot = clone(lastStreet)
+  const nextSnapshot = clone(currentStreet)
+
+  store.dispatch(createNewUndo(nextSnapshot))
+
+  const forwardDelta = historyDiffer.diff(previousSnapshot, nextSnapshot)
+  const reverseDelta = historyDiffer.diff(nextSnapshot, previousSnapshot)
+
+  if (forwardDelta && reverseDelta) {
+    store.dispatch(
+      createNewUndoDelta({
+        forwardDelta,
+        reverseDelta,
+      })
+    )
+  }
 }
 
 export function unifyUndoStack() {

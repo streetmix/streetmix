@@ -191,9 +191,18 @@ export interface CoastmixState {
 // not serializable to JSON!
 export type FloodDistance = number | null | 'max'
 
+export type HistoryDelta = unknown
+
+export interface HistoryDeltaEntry {
+  forwardDelta: HistoryDelta
+  reverseDelta: HistoryDelta
+}
+
 export interface HistoryState {
   stack: Partial<StreetState>[]
   position: number | null
+  deltaStack?: HistoryDeltaEntry[]
+  deltaPosition?: number | null
 }
 
 export type WeatherEffect = 'rain' | 'snow'
