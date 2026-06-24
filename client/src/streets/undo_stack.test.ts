@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { create } from 'jsondiffpatch'
 
 import { finishUndoOrRedo } from './undo_stack'
 
@@ -50,27 +51,47 @@ describe('finishUndoOrRedo', () => {
   })
 
   it('seeds missing segment warnings before restoring street data', async () => {
+    const differ = create()
+    const previousStreet = {
+      segments: [
+        {
+          id: '1',
+          type: 'sidewalk',
+          variantString: 'default',
+          width: 3,
+          elevation: 0,
+          slope: { on: false, values: [] },
+        },
+      ],
+    }
+    const currentStreet = {
+      segments: [
+        {
+          id: '1',
+          type: 'sidewalk',
+          variantString: 'default',
+          width: 4,
+          elevation: 0,
+          slope: { on: false, values: [] },
+          warnings: [false],
+        },
+      ],
+    }
+    const forwardDelta = differ.diff(previousStreet, currentStreet)
+    const reverseDelta = differ.diff(currentStreet, previousStreet)
+
     getStateMock.mockReturnValue({
+      street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          {
-            segments: [
-              {
-                id: '1',
-                type: 'sidewalk',
-                variantString: 'default',
-                width: 3,
-                elevation: 0,
-                slope: { on: false, values: [] },
-              },
-            ],
-          },
+        deltaStack: [
+          { forwardDelta: {}, reverseDelta: {} },
+          { forwardDelta, reverseDelta },
         ],
       },
     })
 
-    await finishUndoOrRedo()
+    await finishUndoOrRedo('undo', 1)
 
     expect(updateStreetDataActionMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -90,28 +111,48 @@ describe('finishUndoOrRedo', () => {
   })
 
   it('preserves existing warnings on restored segments', async () => {
+    const differ = create()
+    const previousStreet = {
+      segments: [
+        {
+          id: '2',
+          type: 'drive-lane',
+          variantString: 'default',
+          width: 3,
+          elevation: 0,
+          slope: { on: false, values: [] },
+          warnings: [false, true],
+        },
+      ],
+    }
+    const currentStreet = {
+      segments: [
+        {
+          id: '2',
+          type: 'drive-lane',
+          variantString: 'default',
+          width: 4,
+          elevation: 0,
+          slope: { on: false, values: [] },
+          warnings: [false],
+        },
+      ],
+    }
+    const forwardDelta = differ.diff(previousStreet, currentStreet)
+    const reverseDelta = differ.diff(currentStreet, previousStreet)
+
     getStateMock.mockReturnValue({
+      street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          {
-            segments: [
-              {
-                id: '2',
-                type: 'drive-lane',
-                variantString: 'default',
-                width: 3,
-                elevation: 0,
-                slope: { on: false, values: [] },
-                warnings: [false, true],
-              },
-            ],
-          },
+        deltaStack: [
+          { forwardDelta: {}, reverseDelta: {} },
+          { forwardDelta, reverseDelta },
         ],
       },
     })
 
-    await finishUndoOrRedo()
+    await finishUndoOrRedo('undo', 1)
 
     expect(updateStreetDataActionMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -122,5 +163,95 @@ describe('finishUndoOrRedo', () => {
         ],
       })
     )
+  })
+
+  it('uses delta stack restore path when undo context is provided', async () => {
+    const differ = create()
+    const previousStreet = { name: 'before' }
+    const currentStreet = { name: 'after' }
+    const forwardDelta = differ.diff(previousStreet, currentStreet)
+    const reverseDelta = differ.diff(currentStreet, previousStreet)
+
+    getStateMock.mockReturnValue({
+      street: currentStreet,
+      history: {
+        position: 0,
+        stack: [{ name: 'from-snapshot' }],
+        deltaStack: [
+          { forwardDelta: {}, reverseDelta: {} },
+          { forwardDelta, reverseDelta },
+        ],
+      },
+    })
+
+    await finishUndoOrRedo('undo', 1)
+
+    expect(updateStreetDataActionMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: 'before',
+      })
+    )
+  })
+
+  it('restores the expected street on undo using deltas', async () => {
+    const differ = create()
+    const previousStreet = {
+      name: 'before',
+      width: 900,
+      boundary: { left: { variant: 'wide' }, right: { variant: 'narrow' } },
+    }
+    const currentStreet = {
+      name: 'after',
+      width: 1000,
+      boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
+    }
+    const forwardDelta = differ.diff(previousStreet, currentStreet)
+    const reverseDelta = differ.diff(currentStreet, previousStreet)
+
+    getStateMock.mockReturnValue({
+      street: currentStreet,
+      history: {
+        position: 0,
+        deltaStack: [
+          { forwardDelta: {}, reverseDelta: {} },
+          { forwardDelta, reverseDelta },
+        ],
+      },
+    })
+    await finishUndoOrRedo('undo', 1)
+    const deltaRestored = updateStreetDataActionMock.mock.calls.at(-1)?.[0]
+
+    expect(deltaRestored).toEqual(previousStreet)
+  })
+
+  it('restores the expected street on redo using deltas', async () => {
+    const differ = create()
+    const previousStreet = {
+      name: 'before',
+      width: 900,
+      boundary: { left: { variant: 'wide' }, right: { variant: 'narrow' } },
+    }
+    const currentStreet = {
+      name: 'after',
+      width: 1000,
+      boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
+    }
+    const forwardDelta = differ.diff(previousStreet, currentStreet)
+    const reverseDelta = differ.diff(currentStreet, previousStreet)
+
+    getStateMock.mockReturnValue({
+      street: previousStreet,
+      history: {
+        position: 1,
+        deltaStack: [
+          { forwardDelta: {}, reverseDelta: {} },
+          { forwardDelta, reverseDelta },
+        ],
+      },
+    })
+    await finishUndoOrRedo('redo', 0)
+    const deltaRestored = updateStreetDataActionMock.mock.calls.at(-1)?.[0]
+
+    expect(deltaRestored).toEqual(currentStreet)
   })
 })

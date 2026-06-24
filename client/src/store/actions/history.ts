@@ -24,7 +24,7 @@ export const handleUndo = createAsyncThunk<
   // Don't allow undo/redo unless you own the street
   if (position !== null && position > 0 && isOwnedByCurrentUser()) {
     dispatch(undo())
-    await finishUndoOrRedo()
+    await finishUndoOrRedo('undo', position)
   } else {
     dispatch(
       addToast({
@@ -50,7 +50,7 @@ export const handleRedo = createAsyncThunk<
     isOwnedByCurrentUser()
   ) {
     dispatch(redo())
-    await finishUndoOrRedo()
+    await finishUndoOrRedo('redo', position)
   } else {
     dispatch(
       addToast({

@@ -1,5 +1,6 @@
 import clone from 'just-clone'
 import { create } from 'jsondiffpatch'
+import type { Delta } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store from '../store'
@@ -19,6 +20,40 @@ import type { StreetState } from '@streetmix/types'
 
 const historyDiffer = create()
 
+function seedMissingWarnings(street: Partial<StreetState>) {
+  if (Array.isArray(street?.segments)) {
+    street.segments = street.segments.map((segment) => ({
+      ...segment,
+      warnings: segment.warnings ?? [false],
+    }))
+  }
+}
+
+function restoreFromDelta(
+  direction: 'undo' | 'redo',
+  previousPosition: number,
+  deltaStack: Array<{ forwardDelta: unknown; reverseDelta: unknown }>,
+  currentStreet: Partial<StreetState>
+) {
+  const deltaIndex =
+    direction === 'undo' ? previousPosition : previousPosition + 1
+  const entry = deltaStack[deltaIndex]
+  if (!entry) {
+    return null
+  }
+
+  const delta = direction === 'undo' ? entry.reverseDelta : entry.forwardDelta
+  if (typeof delta !== 'object' || delta === null) {
+    return null
+  }
+
+  const restoredStreet = clone(currentStreet)
+  historyDiffer.patch(restoredStreet, clone(delta) as Delta)
+
+  seedMissingWarnings(restoredStreet)
+  return restoredStreet
+}
+
 export function getUndoStack() {
   return clone(store.getState().history.stack)
 }
@@ -27,27 +62,34 @@ export function getUndoPosition() {
   return store.getState().history.position
 }
 
-export async function finishUndoOrRedo() {
+export async function finishUndoOrRedo(
+  direction: 'undo' | 'redo',
+  previousPosition: number
+) {
   // set current street to the thing we just updated
-  const { position, stack } = store.getState().history
+  const { history, street } = store.getState()
+  const { position, deltaStack } = history
   if (position === null) {
     return
   }
 
-  const restoredStreet = clone(stack[position])
+  if (!Array.isArray(deltaStack) || deltaStack.length === 0) {
+    return
+  }
 
-  // Undo stack snapshots intentionally omit derived warnings.
-  // Seed defaults so render paths never read `undefined` before recomputation.
-  if (Array.isArray(restoredStreet?.segments)) {
-    restoredStreet.segments = restoredStreet.segments.map((segment) => ({
-      ...segment,
-      warnings: segment.warnings ?? [false],
-    }))
+  const finalStreet = restoreFromDelta(
+    direction,
+    previousPosition,
+    deltaStack,
+    street
+  )
+  if (!finalStreet) {
+    return
   }
 
   setIgnoreStreetChanges(true)
   try {
-    await store.dispatch(updateStreetDataAction(restoredStreet))
+    await store.dispatch(updateStreetDataAction(finalStreet))
     cancelSegmentResizeTransitions()
     setUpdateTimeToNow()
     updateEverything(true)
@@ -68,19 +110,20 @@ export function createNewUndoIfNecessary(
   const previousSnapshot = clone(lastStreet)
   const nextSnapshot = clone(currentStreet)
 
-  store.dispatch(createNewUndo(nextSnapshot))
-
   const forwardDelta = historyDiffer.diff(previousSnapshot, nextSnapshot)
   const reverseDelta = historyDiffer.diff(nextSnapshot, previousSnapshot)
 
-  if (forwardDelta && reverseDelta) {
-    store.dispatch(
-      createNewUndoDelta({
-        forwardDelta,
-        reverseDelta,
-      })
-    )
+  if (!forwardDelta || !reverseDelta) {
+    return
   }
+
+  store.dispatch(createNewUndo(nextSnapshot))
+  store.dispatch(
+    createNewUndoDelta({
+      forwardDelta,
+      reverseDelta,
+    })
+  )
 }
 
 export function unifyUndoStack() {
