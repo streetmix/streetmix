@@ -193,7 +193,7 @@ export type FloodDistance = number | null | 'max'
 
 export interface HistoryState {
   stack: Partial<StreetState>[]
-  position: number
+  position: number | null
 }
 
 export type WeatherEffect = 'rain' | 'snow'

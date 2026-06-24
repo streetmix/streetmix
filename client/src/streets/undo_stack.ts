@@ -19,6 +19,10 @@ export function getUndoPosition() {
 export function finishUndoOrRedo() {
   // set current street to the thing we just updated
   const { position, stack } = store.getState().history
+  if (position === null) {
+    return
+  }
+
   const restoredStreet = clone(stack[position])
 
   // Undo stack snapshots intentionally omit derived warnings.
@@ -47,7 +51,7 @@ export function createNewUndoIfNecessary(
     return
   }
 
-  store.dispatch(createNewUndo(clone(lastStreet)))
+  store.dispatch(createNewUndo(clone(currentStreet)))
 }
 
 export function unifyUndoStack() {

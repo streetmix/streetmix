@@ -59,9 +59,10 @@ export function remixStreet() {
 
   const undoStack = getUndoStack()
   const undoPosition = getUndoPosition()
+  const previousPosition = undoPosition === null ? -1 : undoPosition - 1
   if (
-    undoStack[undoPosition - 1] &&
-    undoStack[undoPosition - 1].name !== street.name
+    undoStack[previousPosition] &&
+    undoStack[previousPosition].name !== street.name
   ) {
     // The street was remixed as a result of editing its name. Don’t be
     // a douche and add (remixed) to it then.
