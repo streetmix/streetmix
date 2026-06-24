@@ -36,20 +36,20 @@ export function setPromoteStreet(value: boolean): void {
 
 function didLatestDeltaChangeStreetName(): boolean {
   const { stack, position } = store.getState().history
-  if (position === null || position === undefined) {
+  if (position === null) {
     return false
   }
 
-  const entry = stack?.[position]
+  const entry = stack[position]
   if (
     !entry ||
-    typeof entry.forwardDelta !== 'object' ||
-    entry.forwardDelta === null
+    typeof entry.reverseDelta !== 'object' ||
+    entry.reverseDelta === null
   ) {
     return false
   }
 
-  return Object.prototype.hasOwnProperty.call(entry.forwardDelta, 'name')
+  return Object.prototype.hasOwnProperty.call(entry.reverseDelta, 'name')
 }
 
 export function remixStreet() {
