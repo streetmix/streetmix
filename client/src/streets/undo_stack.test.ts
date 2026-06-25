@@ -101,30 +101,7 @@ describe('finishUndoOrRedo', () => {
     )
   })
 
-  it('uses delta stack restore path when undo context is provided', async () => {
-    const differ = create()
-    const previousStreet = { name: 'before' }
-    const currentStreet = { name: 'after' }
-    const delta = differ.diff(previousStreet, currentStreet)
-
-    getStateMock.mockReturnValue({
-      street: currentStreet,
-      history: {
-        position: 0,
-        stack: [{}, delta],
-      },
-    })
-
-    await finishUndoOrRedo('undo', 1)
-
-    expect(updateStreetDataActionMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: 'before',
-      })
-    )
-  })
-
-  it('restores the expected street on undo using deltas', async () => {
+  it('restores the expected street on undo', async () => {
     const differ = create()
     const previousStreet = {
       name: 'before',
@@ -151,7 +128,7 @@ describe('finishUndoOrRedo', () => {
     expect(deltaRestored).toEqual(previousStreet)
   })
 
-  it('restores the expected street on redo using deltas', async () => {
+  it('restores the expected street on redo', async () => {
     const differ = create()
     const previousStreet = {
       name: 'before',

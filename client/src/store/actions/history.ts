@@ -25,7 +25,6 @@ export const handleUndo = createAsyncThunk<
   const state = getState()
   const { position } = state.history
 
-  // Don't allow undo/redo unless you own the street
   if (isUndoAvailable(state)) {
     dispatch(undo())
     await finishUndoOrRedo('undo', position)
@@ -47,7 +46,6 @@ export const handleRedo = createAsyncThunk<
   const state = getState()
   const { position } = state.history
 
-  // Don't allow undo/redo unless you own the street
   if (isRedoAvailable(state)) {
     dispatch(redo())
     await finishUndoOrRedo('redo', position)

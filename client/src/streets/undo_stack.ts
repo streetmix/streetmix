@@ -4,7 +4,7 @@ import { create } from 'jsondiffpatch'
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
 import store, { type RootState } from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
-import { createNewUndoDelta } from '../store/slices/history.js'
+import { createNewUndo } from '../store/slices/history.js'
 import {
   setIgnoreStreetChanges,
   setUpdateTimeToNow,
@@ -16,10 +16,11 @@ import type { StreetState, HistoryState } from '@streetmix/types'
 
 const historyDiffer = create()
 
-// Don’t allow undo/redo unless you own the street
 export function isUndoAvailable(state: RootState): boolean {
   const { position } = state.history
 
+  // This checks for ownership as well -- don't allow undo/redo unless you
+  // own the street
   return position !== null && position >= 0 && isOwnedByCurrentUser()
 }
 
@@ -65,7 +66,7 @@ export async function finishUndoOrRedo(
     return
   }
 
-  if (!Array.isArray(stack) || stack.length === 0) {
+  if (stack.length === 0) {
     return
   }
 
@@ -102,5 +103,5 @@ export function createNewUndoIfNecessary(
   // Bail if tehre is no change
   if (!delta) return
 
-  store.dispatch(createNewUndoDelta(delta))
+  store.dispatch(createNewUndo(delta))
 }

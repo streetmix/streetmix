@@ -57,7 +57,7 @@ const undoSlice = createSlice({
     },
 
     replaceUndoStack(state, action: PayloadAction<HistoryState>) {
-      state.stack = action.payload.stack ?? []
+      state.stack = action.payload.stack
 
       if (state.stack.length === 0) {
         state.position = null
@@ -65,13 +65,13 @@ const undoSlice = createSlice({
         state.position = state.stack.length - 1
       } else {
         state.position = Math.min(
-          Math.max(action.payload.position ?? 0, 0),
+          Math.max(action.payload.position, 0),
           state.stack.length - 1
         )
       }
     },
 
-    createNewUndoDelta(state, action: PayloadAction<Delta>) {
+    createNewUndo(state, action: PayloadAction<Delta>) {
       const retainedLength =
         state.position === null ? 0 : (state.position ?? 0) + 1
       let stack = state.stack.slice(0, retainedLength)
@@ -85,12 +85,7 @@ const undoSlice = createSlice({
   },
 })
 
-export const {
-  undo,
-  redo,
-  resetUndoStack,
-  replaceUndoStack,
-  createNewUndoDelta,
-} = undoSlice.actions
+export const { undo, redo, resetUndoStack, replaceUndoStack, createNewUndo } =
+  undoSlice.actions
 
 export default undoSlice.reducer

@@ -4,7 +4,7 @@ import {
 } from '@streetmix/client/src/users/constants.js'
 
 import type React from 'react'
-import { type Delta } from 'jsondiffpatch'
+import type { Delta } from 'jsondiffpatch'
 
 // Utility type for making a single property (K) optional
 // when a type (T) has defined K as required.

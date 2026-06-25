@@ -1,7 +1,7 @@
 import reducer, {
   resetUndoStack,
   replaceUndoStack,
-  createNewUndoDelta,
+  createNewUndo,
   undo,
   redo,
   MAX_UNDO_LIMIT,
@@ -50,16 +50,16 @@ describe('undo reducer', () => {
   // These tests were genereated by Claude early in the history rework process
   // and seem weird and off
 
-  it('should handle createNewUndoDelta()', () => {
+  it('should handle createNewUndo()', () => {
     const entry = { name: ['after'] }
 
-    expect(reducer(initialState, createNewUndoDelta(entry))).toEqual({
+    expect(reducer(initialState, createNewUndo(entry))).toEqual({
       stack: [entry],
       position: 0,
     })
   })
 
-  it('creates a new delta entry at the top of an existing stack', () => {
+  it('creates a new undo at the top of an existing stack', () => {
     const item = { idx: [10] }
     const state = reducer(
       {
@@ -68,7 +68,7 @@ describe('undo reducer', () => {
           .fill({})
           .map((_, i) => ({ idx: [i] })),
       },
-      createNewUndoDelta(item)
+      createNewUndo(item)
     )
 
     expect(state.position).toEqual(10)
@@ -76,7 +76,7 @@ describe('undo reducer', () => {
     expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
 
-  it('truncates redo deltas if a new entry is created at an earlier position', () => {
+  it('truncates an undo stack if a new undo state is created at an earlier position', () => {
     const item = { idx: [99] }
     const state = reducer(
       {
@@ -85,15 +85,20 @@ describe('undo reducer', () => {
           .fill({})
           .map((_, i) => ({ idx: [i] })),
       },
-      createNewUndoDelta(item)
+      createNewUndo(item)
     )
 
+    // Expect the position to point to the newly added item
     expect(state.position).toEqual(7)
+
+    // Expect the stack to be truncated and then appended by one item
     expect(state.stack.length).toEqual(8)
+
+    // Expect the last item on the stack to match what was added
     expect(state.stack[state.stack.length - 1]).toMatchObject(item)
   })
 
-  it('trims delta stack that is too large', () => {
+  it('trims an undo stack that is too large', () => {
     const item = { idx: [999] }
     const state = reducer(
       {
@@ -102,15 +107,20 @@ describe('undo reducer', () => {
           .fill({})
           .map((_, i) => ({ idx: [i] })),
       },
-      createNewUndoDelta(item)
+      createNewUndo(item)
     )
 
+    // Stack size should max at MAX_UNDO_LIMIT
     expect(state.stack.length).toEqual(MAX_UNDO_LIMIT)
+
+    // Position should point to the final item in the stack
     expect(state.position).toEqual(MAX_UNDO_LIMIT - 1)
+
+    // Expect the last item on the stack to match what was added
     expect(state.stack[MAX_UNDO_LIMIT - 1]).toMatchObject(item)
   })
 
-  it('decreases delta position by 1 for undo', () => {
+  it('decreases position by 1 for undo', () => {
     const state = reducer(
       {
         position: 9,
@@ -127,7 +137,7 @@ describe('undo reducer', () => {
     expect(state2.position).toEqual(7)
   })
 
-  it('increases delta position by 1 for redo', () => {
+  it('increases position by 1 for redo', () => {
     const state = reducer(
       {
         position: 2,
