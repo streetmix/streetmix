@@ -1,11 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { create } from 'jsondiffpatch'
 
-import { finishUndoOrRedo } from './undo_stack'
+import { finishUndoOrRedo } from './undo_stack.js'
 
 const {
   updateStreetDataActionMock,
-  cancelSegmentResizeTransitionsMock,
   setIgnoreStreetChangesMock,
   setUpdateTimeToNowMock,
   updateEverythingMock,
@@ -16,7 +14,6 @@ const {
     type: 'street/updateStreetDataAction',
     payload,
   })),
-  cancelSegmentResizeTransitionsMock: vi.fn(),
   setIgnoreStreetChangesMock: vi.fn(),
   setUpdateTimeToNowMock: vi.fn(),
   updateEverythingMock: vi.fn(),
@@ -33,10 +30,6 @@ vi.mock('../store', () => ({
 
 vi.mock('../store/actions/street.js', () => ({
   updateStreetDataAction: updateStreetDataActionMock,
-}))
-
-vi.mock('../segments/resizing.js', () => ({
-  cancelSegmentResizeTransitions: cancelSegmentResizeTransitionsMock,
 }))
 
 vi.mock('./data_model.js', () => ({
