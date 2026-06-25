@@ -21,7 +21,7 @@ export function isUndoAvailable(state: RootState): boolean {
 
   // This checks for ownership as well -- don't allow undo/redo unless you
   // own the street
-  return position !== null && position >= 0 && isOwnedByCurrentUser()
+  return position !== null && position >= 0 && isOwnedByCurrentUser(state)
 }
 
 export function isRedoAvailable(state: RootState): boolean {
@@ -31,7 +31,7 @@ export function isRedoAvailable(state: RootState): boolean {
     position !== null &&
     position >= -1 &&
     position < stack.length - 1 &&
-    isOwnedByCurrentUser()
+    isOwnedByCurrentUser(state)
   )
 }
 
