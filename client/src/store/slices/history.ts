@@ -72,13 +72,17 @@ const undoSlice = createSlice({
     },
 
     createNewUndo(state, action: PayloadAction<Delta>) {
+      // If a new undo is created when the position points mid-stack, only
+      // keep the history up to this point, and we lose the rest
       const retainedLength =
         state.position === null ? 0 : (state.position ?? 0) + 1
       let stack = state.stack.slice(0, retainedLength)
 
+      // Add the new delta, and keep stack within range
       stack.push(action.payload)
       stack = trimHistoryStack(stack)
 
+      // Update
       state.stack = stack
       state.position = stack.length > 0 ? stack.length - 1 : null
     },
