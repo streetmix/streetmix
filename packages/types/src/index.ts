@@ -192,13 +192,8 @@ export interface CoastmixState {
 // not serializable to JSON!
 export type FloodDistance = number | null | 'max'
 
-export interface HistoryDeltaEntry {
-  forwardDelta: Delta
-  reverseDelta: Delta
-}
-
 export interface HistoryState {
-  stack: HistoryDeltaEntry[]
+  stack: Delta[]
   // Position is a 0-index of the current state. `null` is used when the
   // stack is empty.
   position: number | null

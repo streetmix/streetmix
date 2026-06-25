@@ -41,15 +41,11 @@ function didLatestDeltaChangeStreetName(): boolean {
   }
 
   const entry = stack[position]
-  if (
-    !entry ||
-    typeof entry.reverseDelta !== 'object' ||
-    entry.reverseDelta === null
-  ) {
+  if (!entry) {
     return false
   }
 
-  return Object.prototype.hasOwnProperty.call(entry.reverseDelta, 'name')
+  return Object.prototype.hasOwnProperty.call(entry, 'name')
 }
 
 export function remixStreet() {

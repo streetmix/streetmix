@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { HistoryState, HistoryDeltaEntry } from '@streetmix/types'
+import type { Delta } from 'jsondiffpatch'
+import type { HistoryState } from '@streetmix/types'
 
 export const MAX_UNDO_LIMIT = 100
 
@@ -65,7 +66,7 @@ const undoSlice = createSlice({
       }
     },
 
-    createNewUndoDelta(state, action: PayloadAction<HistoryDeltaEntry>) {
+    createNewUndoDelta(state, action: PayloadAction<Delta>) {
       const retainedLength =
         state.position === null ? 0 : (state.position ?? 0) + 1
       let stack = state.stack.slice(0, retainedLength)

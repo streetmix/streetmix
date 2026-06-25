@@ -24,13 +24,13 @@ function restoreFromDelta(
   const restoredStreet = clone(currentStreet)
 
   if (direction === 'undo') {
-    // Undo patches street state with the current delta
+    // Undo reverse-patches ("unpatches") street state with the current delta
     const delta = stack[previousPosition]
-    historyDiffer.patch(restoredStreet, delta.reverseDelta)
+    historyDiffer.unpatch(restoredStreet, delta)
   } else {
-    // Redo "unpatches" street state with the next delta
+    // Redo forward-patches street state with the next delta
     const delta = stack[previousPosition + 1]
-    historyDiffer.unpatch(restoredStreet, delta.reverseDelta)
+    historyDiffer.patch(restoredStreet, delta)
   }
 
   return restoredStreet
@@ -81,17 +81,10 @@ export function createNewUndoIfNecessary(
     return
   }
 
-  const forwardDelta = historyDiffer.diff(lastStreet, currentStreet)
-  const reverseDelta = historyDiffer.diff(currentStreet, lastStreet)
+  const delta = historyDiffer.diff(lastStreet, currentStreet)
 
-  if (!forwardDelta || !reverseDelta) {
-    return
-  }
+  // Bail if tehre is no change
+  if (!delta) return
 
-  store.dispatch(
-    createNewUndoDelta({
-      forwardDelta,
-      reverseDelta,
-    })
-  )
+  store.dispatch(createNewUndoDelta(delta))
 }
