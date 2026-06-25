@@ -44,8 +44,12 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
   if (type === 'boundary') {
     variantSets = Object.keys(VARIANT_ICONS.boundary)
   } else {
+    if (!segment) {
+      return null
+    }
+
     const { variants } = getSegmentInfo(segment.type)
-    variantSets = variants
+    variantSets = variants ?? []
   }
 
   // Remove any empty entries
@@ -79,7 +83,6 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     if (type === 'boundary') {
       handler = () => {
         dispatch(setBuildingVariant(position, selection))
-        dispatch(segmentsChanged())
       }
     } else {
       handler = () => {

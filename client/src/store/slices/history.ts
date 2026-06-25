@@ -6,7 +6,7 @@ export const MAX_UNDO_LIMIT = 100
 
 const initialState: HistoryState = {
   stack: [],
-  position: 0,
+  position: null,
 }
 
 /**
@@ -52,14 +52,19 @@ const undoSlice = createSlice({
   initialState,
 
   reducers: {
-    undo(state, action: PayloadAction<Partial<StreetState>>) {
-      const newPosition = state.position - 1
+    undo(state) {
+      if (state.position === null) {
+        return
+      }
 
-      state.stack[state.position] = action.payload
-      state.position = newPosition < 0 ? 0 : newPosition
+      state.position = Math.max(0, state.position - 1)
     },
 
     redo(state) {
+      if (state.position === null) {
+        return
+      }
+
       const newPosition = state.position + 1
       const stackSize = state.stack.length - 1
 
@@ -68,26 +73,31 @@ const undoSlice = createSlice({
 
     resetUndoStack(state) {
       state.stack = []
-      state.position = 0
+      state.position = null
     },
 
     replaceUndoStack(state, action: PayloadAction<HistoryState>) {
       state.stack = action.payload.stack
 
-      // Make sure given position is set to a value within stack length
-      state.position = Math.min(
-        action.payload.position,
-        action.payload.stack.length - 1
-      )
+      // Make sure given position is set to a value within stack length,
+      // and use `null` for an empty stack.
+      if (state.stack.length === 0) {
+        state.position = null
+      } else if (action.payload.position === null) {
+        state.position = state.stack.length - 1
+      } else {
+        state.position = Math.min(
+          Math.max(action.payload.position, 0),
+          state.stack.length - 1
+        )
+      }
     },
 
     createNewUndo(state, action: PayloadAction<Partial<StreetState>>) {
-      const position = state.position
-
-      // Create a shallow copy of the original undo stack up to the current
-      // current position. This removes future undo path in case we undo a
-      // few times and then do something undoable.
-      let stack = state.stack.slice(0, position)
+      // Keep history up to and including the current item, dropping any
+      // redo branch when a new snapshot is recorded after undo.
+      const retainedLength = state.position === null ? 0 : state.position + 1
+      let stack = state.stack.slice(0, retainedLength)
 
       // Add the latest state
       const street = action.payload
@@ -99,7 +109,7 @@ const undoSlice = createSlice({
 
       // Update
       state.stack = stack
-      state.position = Math.min(position, MAX_UNDO_LIMIT) + 1
+      state.position = stack.length > 0 ? stack.length - 1 : null
     },
 
     /**

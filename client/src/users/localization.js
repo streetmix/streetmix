@@ -4,7 +4,7 @@ import { normalizeAllSegmentWidths } from '../segments/resizing'
 import { segmentsChanged } from '../segments/view'
 import {
   saveStreetToServerIfNecessary,
-  setIgnoreStreetChanges
+  setIgnoreStreetChanges,
 } from '../streets/data_model'
 import { getUndoStack, getUndoPosition } from '../streets/undo_stack'
 import { normalizeStreetWidth } from '../streets/width'
@@ -13,7 +13,7 @@ import {
   setUnits,
   updateStreetWidth,
   updateStreetData,
-  updateSegments
+  updateSegments,
 } from '../store/slices/street'
 import { setUserUnits } from '../store/slices/settings'
 import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
@@ -22,7 +22,7 @@ const COUNTRIES_IMPERIAL_UNITS = ['US']
 
 let leftHandTraffic = false
 
-export function getLeftHandTraffic () {
+export function getLeftHandTraffic() {
   return leftHandTraffic
 }
 
@@ -101,10 +101,10 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
   'VG',
   'VI',
   'ZM',
-  'ZW'
+  'ZW',
 ]
 
-export function updateSettingsFromCountryCode (countryCode) {
+export function updateSettingsFromCountryCode(countryCode) {
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
     leftHandTraffic = true
   }
@@ -116,7 +116,7 @@ export function updateSettingsFromCountryCode (countryCode) {
   updateUnitSettings(countryCode)
 }
 
-export function updateUnitSettings (countryCode) {
+export function updateUnitSettings(countryCode) {
   const localStorageUnits = store.getState().settings.units
   let unitType
 
@@ -132,7 +132,7 @@ export function updateUnitSettings (countryCode) {
 }
 
 // Only changes the units of the street, not the user.
-export function updateUnits (newUnits) {
+export function updateUnits(newUnits) {
   let fromUndo
   const street = store.getState().street
   if (street.units === newUnits) {
@@ -145,9 +145,10 @@ export function updateUnits (newUnits) {
   // to undo stack instead of double conversion (which could be lossy).
   const undoStack = getUndoStack()
   const undoPosition = getUndoPosition()
+  const previousPosition = undoPosition === null ? -1 : undoPosition - 1
   if (
-    undoStack[undoPosition - 1] &&
-    undoStack[undoPosition - 1].units === newUnits
+    undoStack[previousPosition] &&
+    undoStack[previousPosition].units === newUnits
   ) {
     fromUndo = true
   } else {
@@ -171,7 +172,7 @@ export function updateUnits (newUnits) {
       )
     }
   } else {
-    store.dispatch(updateStreetData(clone(undoStack[undoPosition - 1])))
+    store.dispatch(updateStreetData(clone(undoStack[previousPosition])))
   }
   segmentsChanged()
 

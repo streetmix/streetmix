@@ -5,6 +5,7 @@ import { finishUndoOrRedo } from './undo_stack'
 const {
   updateStreetDataActionMock,
   cancelSegmentResizeTransitionsMock,
+  setIgnoreStreetChangesMock,
   setUpdateTimeToNowMock,
   updateEverythingMock,
   dispatchMock,
@@ -15,6 +16,7 @@ const {
     payload,
   })),
   cancelSegmentResizeTransitionsMock: vi.fn(),
+  setIgnoreStreetChangesMock: vi.fn(),
   setUpdateTimeToNowMock: vi.fn(),
   updateEverythingMock: vi.fn(),
   dispatchMock: vi.fn(),
@@ -37,6 +39,7 @@ vi.mock('../segments/resizing.js', () => ({
 }))
 
 vi.mock('./data_model.js', () => ({
+  setIgnoreStreetChanges: setIgnoreStreetChangesMock,
   setUpdateTimeToNow: setUpdateTimeToNowMock,
   updateEverything: updateEverythingMock,
 }))
@@ -46,7 +49,7 @@ describe('finishUndoOrRedo', () => {
     vi.clearAllMocks()
   })
 
-  it('seeds missing segment warnings before restoring street data', () => {
+  it('seeds missing segment warnings before restoring street data', async () => {
     getStateMock.mockReturnValue({
       history: {
         position: 0,
@@ -67,7 +70,7 @@ describe('finishUndoOrRedo', () => {
       },
     })
 
-    finishUndoOrRedo()
+    await finishUndoOrRedo()
 
     expect(updateStreetDataActionMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -82,9 +85,11 @@ describe('finishUndoOrRedo', () => {
     expect(cancelSegmentResizeTransitionsMock).toHaveBeenCalledTimes(1)
     expect(setUpdateTimeToNowMock).toHaveBeenCalledTimes(1)
     expect(updateEverythingMock).toHaveBeenCalledWith(true)
+    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(1, true)
+    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(2, false)
   })
 
-  it('preserves existing warnings on restored segments', () => {
+  it('preserves existing warnings on restored segments', async () => {
     getStateMock.mockReturnValue({
       history: {
         position: 0,
@@ -106,7 +111,7 @@ describe('finishUndoOrRedo', () => {
       },
     })
 
-    finishUndoOrRedo()
+    await finishUndoOrRedo()
 
     expect(updateStreetDataActionMock).toHaveBeenCalledWith(
       expect.objectContaining({
