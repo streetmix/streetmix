@@ -78,17 +78,13 @@ describe('finishUndoOrRedo', () => {
         },
       ],
     }
-    const forwardDelta = differ.diff(previousStreet, currentStreet)
-    const reverseDelta = differ.diff(currentStreet, previousStreet)
+    const delta = differ.diff(previousStreet, currentStreet)
 
     getStateMock.mockReturnValue({
       street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          { forwardDelta: {}, reverseDelta: {} },
-          { forwardDelta, reverseDelta },
-        ],
+        stack: [{}, delta],
       },
     })
 
@@ -109,17 +105,13 @@ describe('finishUndoOrRedo', () => {
     const differ = create()
     const previousStreet = { name: 'before' }
     const currentStreet = { name: 'after' }
-    const forwardDelta = differ.diff(previousStreet, currentStreet)
-    const reverseDelta = differ.diff(currentStreet, previousStreet)
+    const delta = differ.diff(previousStreet, currentStreet)
 
     getStateMock.mockReturnValue({
       street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          { forwardDelta: {}, reverseDelta: {} },
-          { forwardDelta, reverseDelta },
-        ],
+        stack: [{}, delta],
       },
     })
 
@@ -144,17 +136,13 @@ describe('finishUndoOrRedo', () => {
       width: 1000,
       boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
     }
-    const forwardDelta = differ.diff(previousStreet, currentStreet)
-    const reverseDelta = differ.diff(currentStreet, previousStreet)
+    const delta = differ.diff(previousStreet, currentStreet)
 
     getStateMock.mockReturnValue({
       street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          { forwardDelta: {}, reverseDelta: {} },
-          { forwardDelta, reverseDelta },
-        ],
+        stack: [{}, delta],
       },
     })
     await finishUndoOrRedo('undo', 1)
@@ -175,17 +163,13 @@ describe('finishUndoOrRedo', () => {
       width: 1000,
       boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
     }
-    const forwardDelta = differ.diff(previousStreet, currentStreet)
-    const reverseDelta = differ.diff(currentStreet, previousStreet)
+    const delta = differ.diff(previousStreet, currentStreet)
 
     getStateMock.mockReturnValue({
       street: previousStreet,
       history: {
         position: 1,
-        stack: [
-          { forwardDelta: {}, reverseDelta: {} },
-          { forwardDelta, reverseDelta },
-        ],
+        stack: [{}, delta],
       },
     })
     await finishUndoOrRedo('redo', 0)

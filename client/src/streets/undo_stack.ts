@@ -77,9 +77,7 @@ export function createNewUndoIfNecessary(
   currentStreet: Partial<StreetState>
 ) {
   // If just the street name has changed, don't make a new undo step for it.
-  if (lastStreet.name !== currentStreet.name) {
-    return
-  }
+  if (lastStreet.name !== currentStreet.name) return
 
   const delta = historyDiffer.diff(lastStreet, currentStreet)
 

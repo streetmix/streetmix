@@ -17,10 +17,7 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          stack: [
-            { forwardDelta: {}, reverseDelta: {} },
-            { forwardDelta: {}, reverseDelta: {} },
-          ],
+          stack: [{}, {}],
           position: 1,
         },
       },
@@ -38,10 +35,7 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          stack: [
-            { forwardDelta: {}, reverseDelta: {} },
-            { forwardDelta: {}, reverseDelta: {} },
-          ],
+          stack: [{}, {}],
           position: 0,
         },
       },

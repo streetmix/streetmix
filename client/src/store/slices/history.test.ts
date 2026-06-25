@@ -21,10 +21,7 @@ describe('undo reducer', () => {
     expect(
       reducer(
         {
-          stack: [
-            { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
-            { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
-          ],
+          stack: [{ a: [1] }, { b: [2] }],
           position: 1,
         },
         resetUndoStack()
@@ -40,27 +37,21 @@ describe('undo reducer', () => {
           position: null,
         },
         replaceUndoStack({
-          stack: [
-            { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
-            { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
-          ],
+          stack: [{ a: [1] }, { b: [2] }],
           position: 2,
         })
       )
     ).toEqual({
-      stack: [
-        { forwardDelta: { a: [1] }, reverseDelta: { a: [1, 0] } },
-        { forwardDelta: { b: [2] }, reverseDelta: { b: [2, 0] } },
-      ],
+      stack: [{ a: [1] }, { b: [2] }],
       position: 1,
     })
   })
 
+  // These tests were genereated by Claude early in the history rework process
+  // and seem weird and off
+
   it('should handle createNewUndoDelta()', () => {
-    const entry = {
-      forwardDelta: { name: ['after'] },
-      reverseDelta: { name: ['after', 'before'] },
-    }
+    const entry = { name: ['after'] }
 
     expect(reducer(initialState, createNewUndoDelta(entry))).toEqual({
       stack: [entry],
@@ -69,19 +60,13 @@ describe('undo reducer', () => {
   })
 
   it('creates a new delta entry at the top of an existing stack', () => {
-    const item = {
-      forwardDelta: { idx: [10] },
-      reverseDelta: { idx: [10, 9] },
-    }
+    const item = { idx: [10] }
     const state = reducer(
       {
         position: 9,
         stack: Array(10)
           .fill({})
-          .map((_, i) => ({
-            forwardDelta: { idx: [i] },
-            reverseDelta: { idx: [i, i - 1] },
-          })),
+          .map((_, i) => ({ idx: [i] })),
       },
       createNewUndoDelta(item)
     )
@@ -92,19 +77,13 @@ describe('undo reducer', () => {
   })
 
   it('truncates redo deltas if a new entry is created at an earlier position', () => {
-    const item = {
-      forwardDelta: { idx: [99] },
-      reverseDelta: { idx: [99, 6] },
-    }
+    const item = { idx: [99] }
     const state = reducer(
       {
         position: 6,
         stack: Array(10)
           .fill({})
-          .map((_, i) => ({
-            forwardDelta: { idx: [i] },
-            reverseDelta: { idx: [i, i - 1] },
-          })),
+          .map((_, i) => ({ idx: [i] })),
       },
       createNewUndoDelta(item)
     )
@@ -115,19 +94,13 @@ describe('undo reducer', () => {
   })
 
   it('trims delta stack that is too large', () => {
-    const item = {
-      forwardDelta: { idx: [999] },
-      reverseDelta: { idx: [999, 98] },
-    }
+    const item = { idx: [999] }
     const state = reducer(
       {
         position: MAX_UNDO_LIMIT - 1,
         stack: Array(MAX_UNDO_LIMIT)
           .fill({})
-          .map((_, i) => ({
-            forwardDelta: { idx: [i] },
-            reverseDelta: { idx: [i, i - 1] },
-          })),
+          .map((_, i) => ({ idx: [i] })),
       },
       createNewUndoDelta(item)
     )
@@ -143,10 +116,7 @@ describe('undo reducer', () => {
         position: 9,
         stack: Array(10)
           .fill({})
-          .map((_, i) => ({
-            forwardDelta: { idx: [i] },
-            reverseDelta: { idx: [i, i - 1] },
-          })),
+          .map((_, i) => ({ idx: [i] })),
       },
       undo()
     )
@@ -163,10 +133,7 @@ describe('undo reducer', () => {
         position: 2,
         stack: Array(10)
           .fill({})
-          .map((_, i) => ({
-            forwardDelta: { idx: [i] },
-            reverseDelta: { idx: [i, i - 1] },
-          })),
+          .map((_, i) => ({ idx: [i] })),
       },
       redo()
     )
