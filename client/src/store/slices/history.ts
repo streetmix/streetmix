@@ -37,6 +37,7 @@ const undoSlice = createSlice({
         return
       }
 
+      // Position can be -1 if we are at the beginning of the stack
       state.position = Math.max(-1, state.position - 1)
     },
 
@@ -65,7 +66,8 @@ const undoSlice = createSlice({
         state.position = state.stack.length - 1
       } else {
         state.position = Math.min(
-          Math.max(action.payload.position, 0),
+          // Position can be -1 if we are at the beginning of the stack
+          Math.max(action.payload.position, -1),
           state.stack.length - 1
         )
       }
