@@ -40,7 +40,6 @@ export async function finishUndoOrRedo(
   direction: 'undo' | 'redo',
   previousPosition: number
 ) {
-  // set current street to the thing we just updated
   const { history, street } = store.getState()
   const { position, stack } = history
   if (position === null) {

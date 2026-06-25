@@ -22,7 +22,7 @@ export const handleUndo = createAsyncThunk<
   const position = getState().history.position ?? null
 
   // Don't allow undo/redo unless you own the street
-  if (position !== null && position > 0 && isOwnedByCurrentUser()) {
+  if (position !== null && position >= 0 && isOwnedByCurrentUser()) {
     dispatch(undo())
     await finishUndoOrRedo('undo', position)
   } else {
@@ -42,13 +42,12 @@ export const handleRedo = createAsyncThunk<
 >('history/handleRedo', async (arg, { dispatch, getState }) => {
   const position = getState().history.position ?? null
   const stack = getState().history.stack
-  const deltas = stack ?? []
 
   // Don't allow undo/redo unless you own the street
   if (
     position !== null &&
-    position >= 0 &&
-    position < deltas.length - 1 &&
+    position >= -1 &&
+    position < stack.length - 1 &&
     isOwnedByCurrentUser()
   ) {
     dispatch(redo())

@@ -7,6 +7,9 @@ export const MAX_UNDO_LIMIT = 100
 
 const initialState: HistoryState = {
   stack: [],
+  // Position is null when the stack is empty
+  // It is a number to reflect where in the stack an undo state currently is.
+  // This value can be -1 when undoing all the way to the back of the stack.
   position: null,
 }
 
@@ -29,20 +32,22 @@ const undoSlice = createSlice({
 
   reducers: {
     undo(state) {
+      // Nothing in the stack, do nothing
       if (state.position === null) {
         return
       }
 
-      state.position = Math.max(0, (state.position ?? 0) - 1)
+      state.position = Math.max(-1, state.position - 1)
     },
 
     redo(state) {
+      // Nothing in the stack, do nothing
       if (state.position === null) {
         return
       }
 
       const stackSize = state.stack.length - 1
-      const newPosition = (state.position ?? 0) + 1
+      const newPosition = state.position + 1
       state.position = newPosition > stackSize ? stackSize : newPosition
     },
 

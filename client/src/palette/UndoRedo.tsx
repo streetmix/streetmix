@@ -8,20 +8,20 @@ import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
 import { isOwnedByCurrentUser } from '../streets/owner.js'
 
 export function UndoRedo() {
-  const undoPosition = useSelector((state) => state.history.position ?? null)
-  const undoStack = useSelector((state) => state.history.stack ?? [])
+  const undoPosition = useSelector((state) => state.history.position)
+  const undoStack = useSelector((state) => state.history.stack)
   const dispatch = useDispatch()
   const intl = useIntl()
 
   // Don’t allow undo/redo unless you own the street
   function isUndoAvailable(): boolean {
-    return undoPosition !== null && undoPosition > 0 && isOwnedByCurrentUser()
+    return undoPosition !== null && undoPosition >= 0 && isOwnedByCurrentUser()
   }
 
   function isRedoAvailable(): boolean {
     return (
       undoPosition !== null &&
-      undoPosition >= 0 &&
+      undoPosition >= -1 &&
       undoPosition < undoStack.length - 1 &&
       isOwnedByCurrentUser()
     )
