@@ -17,8 +17,8 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          stack: [{ foo: 'bar' }, { foo: 'baz' }],
-          position: 1,
+          stack: [{}],
+          position: 0,
         },
       },
     })
@@ -35,7 +35,7 @@ describe('UndoRedo', () => {
     render(<UndoRedo />, {
       initialState: {
         history: {
-          stack: [{ foo: 'bar' }, { foo: 'baz' }],
+          stack: [{}, {}],
           position: 0,
         },
       },

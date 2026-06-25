@@ -1,5 +1,5 @@
-import store from '../store'
-import { getRemixOnFirstEdit } from './remix'
+import store, { type RootState } from '../store'
+import { getRemixOnFirstEdit } from './remix.js'
 
 /**
  * A helper function that tells us whether the current street is
@@ -19,9 +19,14 @@ import { getRemixOnFirstEdit } from './remix'
  * TODO: Remove dependency on `getRemixOnFirstEdit()`, which is
  * a variable that's set when a page is loaded to track whether the
  * current anonymous street belongs to the current session.
+ *
+ * Allows passing in state as a parameter so it can be used as a
+ * selector. If not provided, read from singleton state.
  */
-export function isOwnedByCurrentUser () {
-  const state = store.getState()
+export function isOwnedByCurrentUser(state?: RootState) {
+  if (!state) {
+    state = store.getState()
+  }
 
   if (!state) return false
 

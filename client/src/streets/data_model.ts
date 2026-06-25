@@ -6,7 +6,7 @@ import {
   setUpdateTime,
   updateEditCount,
 } from '../store/slices/street.js'
-import { createNewUndoIfNecessary, unifyUndoStack } from './undo_stack.js'
+import { createNewUndoIfNecessary } from './undo_stack.js'
 import { scheduleSavingStreetToServer, updateLastStreetInfo } from './xhr.js'
 
 import type {
@@ -40,14 +40,12 @@ export function addAltVariantObject(street: StreetState) {
 export function setStreetCreatorId(newId: string | null) {
   store.dispatch(saveCreatorId(newId))
 
-  unifyUndoStack()
   updateLastStreetInfo()
 }
 
 export function setUpdateTimeToNow() {
   const updateTime = new Date().toISOString()
   store.dispatch(setUpdateTime(updateTime))
-  unifyUndoStack()
 }
 
 let ignoreStreetChanges = false

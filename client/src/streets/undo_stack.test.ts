@@ -1,10 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { create } from 'jsondiffpatch'
 
-import { finishUndoOrRedo } from './undo_stack'
+import { finishUndoOrRedo } from './undo_stack.js'
 
 const {
   updateStreetDataActionMock,
-  cancelSegmentResizeTransitionsMock,
   setIgnoreStreetChangesMock,
   setUpdateTimeToNowMock,
   updateEverythingMock,
@@ -15,7 +14,6 @@ const {
     type: 'street/updateStreetDataAction',
     payload,
   })),
-  cancelSegmentResizeTransitionsMock: vi.fn(),
   setIgnoreStreetChangesMock: vi.fn(),
   setUpdateTimeToNowMock: vi.fn(),
   updateEverythingMock: vi.fn(),
@@ -34,10 +32,6 @@ vi.mock('../store/actions/street.js', () => ({
   updateStreetDataAction: updateStreetDataActionMock,
 }))
 
-vi.mock('../segments/resizing.js', () => ({
-  cancelSegmentResizeTransitions: cancelSegmentResizeTransitionsMock,
-}))
-
 vi.mock('./data_model.js', () => ({
   setIgnoreStreetChanges: setIgnoreStreetChangesMock,
   setUpdateTimeToNow: setUpdateTimeToNowMock,
@@ -49,69 +43,45 @@ describe('finishUndoOrRedo', () => {
     vi.clearAllMocks()
   })
 
-  it('seeds missing segment warnings before restoring street data', async () => {
-    getStateMock.mockReturnValue({
-      history: {
-        position: 0,
-        stack: [
-          {
-            segments: [
-              {
-                id: '1',
-                type: 'sidewalk',
-                variantString: 'default',
-                width: 3,
-                elevation: 0,
-                slope: { on: false, values: [] },
-              },
-            ],
-          },
-        ],
-      },
-    })
-
-    await finishUndoOrRedo()
-
-    expect(updateStreetDataActionMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        segments: [
-          expect.objectContaining({
-            warnings: [false],
-          }),
-        ],
-      })
-    )
-    expect(dispatchMock).toHaveBeenCalledTimes(1)
-    expect(cancelSegmentResizeTransitionsMock).toHaveBeenCalledTimes(1)
-    expect(setUpdateTimeToNowMock).toHaveBeenCalledTimes(1)
-    expect(updateEverythingMock).toHaveBeenCalledWith(true)
-    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(1, true)
-    expect(setIgnoreStreetChangesMock).toHaveBeenNthCalledWith(2, false)
-  })
-
   it('preserves existing warnings on restored segments', async () => {
+    const differ = create()
+    const previousStreet = {
+      segments: [
+        {
+          id: '2',
+          type: 'drive-lane',
+          variantString: 'default',
+          width: 3,
+          elevation: 0,
+          slope: { on: false, values: [] },
+          warnings: [false, true],
+        },
+      ],
+    }
+    const currentStreet = {
+      segments: [
+        {
+          id: '2',
+          type: 'drive-lane',
+          variantString: 'default',
+          width: 4,
+          elevation: 0,
+          slope: { on: false, values: [] },
+          warnings: [false],
+        },
+      ],
+    }
+    const delta = differ.diff(previousStreet, currentStreet)
+
     getStateMock.mockReturnValue({
+      street: currentStreet,
       history: {
         position: 0,
-        stack: [
-          {
-            segments: [
-              {
-                id: '2',
-                type: 'drive-lane',
-                variantString: 'default',
-                width: 3,
-                elevation: 0,
-                slope: { on: false, values: [] },
-                warnings: [false, true],
-              },
-            ],
-          },
-        ],
+        stack: [{}, delta],
       },
     })
 
-    await finishUndoOrRedo()
+    await finishUndoOrRedo('undo', 1)
 
     expect(updateStreetDataActionMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -122,5 +92,59 @@ describe('finishUndoOrRedo', () => {
         ],
       })
     )
+  })
+
+  it('restores the expected street on undo', async () => {
+    const differ = create()
+    const previousStreet = {
+      name: 'before',
+      width: 900,
+      boundary: { left: { variant: 'wide' }, right: { variant: 'narrow' } },
+    }
+    const currentStreet = {
+      name: 'after',
+      width: 1000,
+      boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
+    }
+    const delta = differ.diff(previousStreet, currentStreet)
+
+    getStateMock.mockReturnValue({
+      street: currentStreet,
+      history: {
+        position: 0,
+        stack: [{}, delta],
+      },
+    })
+    await finishUndoOrRedo('undo', 1)
+    const deltaRestored = updateStreetDataActionMock.mock.calls.at(-1)?.[0]
+
+    expect(deltaRestored).toEqual(previousStreet)
+  })
+
+  it('restores the expected street on redo', async () => {
+    const differ = create()
+    const previousStreet = {
+      name: 'before',
+      width: 900,
+      boundary: { left: { variant: 'wide' }, right: { variant: 'narrow' } },
+    }
+    const currentStreet = {
+      name: 'after',
+      width: 1000,
+      boundary: { left: { variant: 'narrow' }, right: { variant: 'narrow' } },
+    }
+    const delta = differ.diff(previousStreet, currentStreet)
+
+    getStateMock.mockReturnValue({
+      street: previousStreet,
+      history: {
+        position: 1,
+        stack: [{}, delta],
+      },
+    })
+    await finishUndoOrRedo('redo', 0)
+    const deltaRestored = updateStreetDataActionMock.mock.calls.at(-1)?.[0]
+
+    expect(deltaRestored).toEqual(currentStreet)
   })
 })

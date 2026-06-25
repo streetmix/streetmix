@@ -50,7 +50,6 @@ import {
   remixStreet,
   addRemixSuffixToName,
 } from './remix.js'
-import { unifyUndoStack } from './undo_stack.js'
 import { deleteStreetThumbnail } from './image.js'
 
 import type {
@@ -400,7 +399,6 @@ export function packServerStreetData() {
 export function setStreetId(newId: string, newNamespacedId: number) {
   store.dispatch(saveStreetId(newId, newNamespacedId))
 
-  unifyUndoStack()
   updateLastStreetInfo()
 }
 
@@ -466,10 +464,6 @@ function receiveLastStreet(transmission: StreetAPIResponse) {
   setUpdateTimeToNow()
   store.dispatch(updateEditCount(0))
   // console.log('editCount = 0 on last street!')
-
-  // COMMENT - update street state to change originalStreetId above;
-  // now have to update again to change edit count - how to fix?
-  unifyUndoStack()
 
   segmentsChanged()
 

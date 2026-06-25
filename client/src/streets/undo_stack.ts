@@ -1,46 +1,88 @@
 import clone from 'just-clone'
+import { create } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
-import store from '../store'
+import store, { type RootState } from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
-import { createNewUndo, unifyStack } from '../store/slices/history.js'
+import { createNewUndo } from '../store/slices/history.js'
 import {
   setIgnoreStreetChanges,
   setUpdateTimeToNow,
   updateEverything,
 } from './data_model.js'
+import { isOwnedByCurrentUser } from './owner.js'
 
-import type { StreetState } from '@streetmix/types'
+import type { StreetState, HistoryState } from '@streetmix/types'
 
-export function getUndoStack() {
-  return clone(store.getState().history.stack)
+const historyDiffer = create()
+
+export function isUndoAvailable(state: RootState): boolean {
+  const { position } = state.history
+
+  // This checks for ownership as well -- don't allow undo/redo unless you
+  // own the street
+  return position !== null && position >= 0 && isOwnedByCurrentUser(state)
 }
 
-export function getUndoPosition() {
-  return store.getState().history.position
+export function isRedoAvailable(state: RootState): boolean {
+  const { stack, position } = state.history
+
+  return (
+    position !== null &&
+    position >= -1 &&
+    position < stack.length - 1 &&
+    isOwnedByCurrentUser(state)
+  )
 }
 
-export async function finishUndoOrRedo() {
-  // set current street to the thing we just updated
-  const { position, stack } = store.getState().history
+function restoreFromDelta(
+  direction: 'undo' | 'redo',
+  previousPosition: number,
+  stack: HistoryState['stack'],
+  currentStreet: Partial<StreetState>
+) {
+  const restoredStreet = clone(currentStreet)
+
+  if (direction === 'undo') {
+    // Undo reverse-patches ("unpatches") street state with the current delta
+    const delta = stack[previousPosition]
+    historyDiffer.unpatch(restoredStreet, delta)
+  } else {
+    // Redo forward-patches street state with the next delta
+    const delta = stack[previousPosition + 1]
+    historyDiffer.patch(restoredStreet, delta)
+  }
+
+  return restoredStreet
+}
+
+export async function finishUndoOrRedo(
+  direction: 'undo' | 'redo',
+  previousPosition: number
+) {
+  const { history, street } = store.getState()
+  const { position, stack } = history
   if (position === null) {
     return
   }
 
-  const restoredStreet = clone(stack[position])
+  if (stack.length === 0) {
+    return
+  }
 
-  // Undo stack snapshots intentionally omit derived warnings.
-  // Seed defaults so render paths never read `undefined` before recomputation.
-  if (Array.isArray(restoredStreet?.segments)) {
-    restoredStreet.segments = restoredStreet.segments.map((segment) => ({
-      ...segment,
-      warnings: segment.warnings ?? [false],
-    }))
+  const finalStreet = restoreFromDelta(
+    direction,
+    previousPosition,
+    stack,
+    street
+  )
+  if (!finalStreet) {
+    return
   }
 
   setIgnoreStreetChanges(true)
   try {
-    await store.dispatch(updateStreetDataAction(restoredStreet))
+    await store.dispatch(updateStreetDataAction(finalStreet))
     cancelSegmentResizeTransitions()
     setUpdateTimeToNow()
     updateEverything(true)
@@ -54,14 +96,12 @@ export function createNewUndoIfNecessary(
   currentStreet: Partial<StreetState>
 ) {
   // If just the street name has changed, don't make a new undo step for it.
-  if (lastStreet.name !== currentStreet.name) {
-    return
-  }
+  if (lastStreet.name !== currentStreet.name) return
 
-  store.dispatch(createNewUndo(clone(currentStreet)))
-}
+  const delta = historyDiffer.diff(lastStreet, currentStreet)
 
-export function unifyUndoStack() {
-  const street = store.getState().street
-  store.dispatch(unifyStack(street))
+  // Bail if there is no change
+  if (!delta) return
+
+  store.dispatch(createNewUndo(delta))
 }
