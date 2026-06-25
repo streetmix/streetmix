@@ -21,7 +21,7 @@ describe('undo reducer', () => {
     expect(
       reducer(
         {
-          stack: [{ a: [1] }, { b: [2] }],
+          stack: [{}, {}, {}],
           position: 1,
         },
         resetUndoStack()
@@ -33,8 +33,8 @@ describe('undo reducer', () => {
     expect(
       reducer(
         {
-          stack: [],
-          position: null,
+          stack: [{ a: [1] }, { b: [2] }, { c: [3] }],
+          position: 2,
         },
         replaceUndoStack({
           stack: [{ a: [1] }, { b: [2] }],
@@ -43,12 +43,13 @@ describe('undo reducer', () => {
       )
     ).toEqual({
       stack: [{ a: [1] }, { b: [2] }],
+      // Stack position must actually be within length of new stack
       position: 1,
     })
   })
 
-  // These tests were genereated by Claude early in the history rework process
-  // and seem weird and off
+  // Many of the following tests were genereated by Claude early in the
+  // history rework process and seem weird and off
 
   it('should handle createNewUndo()', () => {
     const entry = { name: ['after'] }
