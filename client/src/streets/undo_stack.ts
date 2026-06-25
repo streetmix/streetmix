@@ -2,7 +2,7 @@ import clone from 'just-clone'
 import { create } from 'jsondiffpatch'
 
 import { cancelSegmentResizeTransitions } from '../segments/resizing.js'
-import store from '../store'
+import store, { type RootState } from '../store'
 import { updateStreetDataAction } from '../store/actions/street.js'
 import { createNewUndoDelta } from '../store/slices/history.js'
 import {
@@ -10,10 +10,29 @@ import {
   setUpdateTimeToNow,
   updateEverything,
 } from './data_model.js'
+import { isOwnedByCurrentUser } from './owner.js'
 
 import type { StreetState, HistoryState } from '@streetmix/types'
 
 const historyDiffer = create()
+
+// Don’t allow undo/redo unless you own the street
+export function isUndoAvailable(state: RootState): boolean {
+  const { position } = state.history
+
+  return position !== null && position >= 0 && isOwnedByCurrentUser()
+}
+
+export function isRedoAvailable(state: RootState): boolean {
+  const { stack, position } = state.history
+
+  return (
+    position !== null &&
+    position >= -1 &&
+    position < stack.length - 1 &&
+    isOwnedByCurrentUser()
+  )
+}
 
 function restoreFromDelta(
   direction: 'undo' | 'redo',

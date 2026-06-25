@@ -1,8 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { formatMessage } from '../../locales/locale.js'
-import { isOwnedByCurrentUser } from '../../streets/owner.js'
-import { finishUndoOrRedo } from '../../streets/undo_stack.js'
+import {
+  finishUndoOrRedo,
+  isRedoAvailable,
+  isUndoAvailable,
+} from '../../streets/undo_stack.js'
 import { redo, undo } from '../slices/history.js'
 import { addToast } from '../slices/toasts.js'
 
@@ -19,10 +22,11 @@ export const handleUndo = createAsyncThunk<
   void,
   { state: RootState; dispatch: Dispatch }
 >('history/handleUndo', async (arg, { dispatch, getState }) => {
-  const position = getState().history.position ?? null
+  const state = getState()
+  const { position } = state.history
 
   // Don't allow undo/redo unless you own the street
-  if (position !== null && position >= 0 && isOwnedByCurrentUser()) {
+  if (isUndoAvailable(state)) {
     dispatch(undo())
     await finishUndoOrRedo('undo', position)
   } else {
@@ -40,16 +44,11 @@ export const handleRedo = createAsyncThunk<
   void,
   { state: RootState; dispatch: Dispatch }
 >('history/handleRedo', async (arg, { dispatch, getState }) => {
-  const position = getState().history.position ?? null
-  const stack = getState().history.stack
+  const state = getState()
+  const { position } = state.history
 
   // Don't allow undo/redo unless you own the street
-  if (
-    position !== null &&
-    position >= -1 &&
-    position < stack.length - 1 &&
-    isOwnedByCurrentUser()
-  ) {
+  if (isRedoAvailable(state)) {
     dispatch(redo())
     await finishUndoOrRedo('redo', position)
   } else {

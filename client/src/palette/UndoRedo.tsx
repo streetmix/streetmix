@@ -5,27 +5,13 @@ import { handleUndo, handleRedo } from '../store/actions/history.js'
 import { Button } from '../ui/Button.js'
 import { Icon } from '../ui/Icon.js'
 import { Tooltip, TooltipGroup } from '../ui/Tooltip.js'
-import { isOwnedByCurrentUser } from '../streets/owner.js'
+import { isUndoAvailable, isRedoAvailable } from '../streets/undo_stack.js'
 
 export function UndoRedo() {
-  const undoPosition = useSelector((state) => state.history.position)
-  const undoStack = useSelector((state) => state.history.stack)
+  const canUndo = useSelector(isUndoAvailable)
+  const canRedo = useSelector(isRedoAvailable)
   const dispatch = useDispatch()
   const intl = useIntl()
-
-  // Don’t allow undo/redo unless you own the street
-  function isUndoAvailable(): boolean {
-    return undoPosition !== null && undoPosition >= 0 && isOwnedByCurrentUser()
-  }
-
-  function isRedoAvailable(): boolean {
-    return (
-      undoPosition !== null &&
-      undoPosition >= -1 &&
-      undoPosition < undoStack.length - 1 &&
-      isOwnedByCurrentUser()
-    )
-  }
 
   const undoLabel = intl.formatMessage({
     id: 'btn.undo',
@@ -43,7 +29,7 @@ export function UndoRedo() {
           onClick={() => {
             dispatch(handleUndo())
           }}
-          disabled={!isUndoAvailable()}
+          disabled={!canUndo}
           aria-label={undoLabel}
         >
           <Icon name="undo" size="24" />
@@ -54,7 +40,7 @@ export function UndoRedo() {
           onClick={() => {
             dispatch(handleRedo())
           }}
-          disabled={!isRedoAvailable()}
+          disabled={!canRedo}
           aria-label={redoLabel}
         >
           <Icon name="redo" size="24" />
