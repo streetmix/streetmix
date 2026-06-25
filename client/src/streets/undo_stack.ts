@@ -100,7 +100,7 @@ export function createNewUndoIfNecessary(
 
   const delta = historyDiffer.diff(lastStreet, currentStreet)
 
-  // Bail if tehre is no change
+  // Bail if there is no change
   if (!delta) return
 
   store.dispatch(createNewUndo(delta))
