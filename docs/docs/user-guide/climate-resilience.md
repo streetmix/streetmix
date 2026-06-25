@@ -48,24 +48,24 @@ The **1% annual chance flood** (also known as the **100-year flood**) has a 1 in
 
 **Sea-level rise** refers to the rise in sea level over time relative to the land at a given location. The warming of Earth is primarily due to the accumulation of heattrapping greenhouse gases, and more than 90 percent of this trapped heat is absorbed by the oceans. As this heat is absorbed, ocean temperatures rise, polar ice melts, and water expands, which contributes to an increase in global sea level. Other factors such as land subsidence may also contribute to relative sea-level rise in some locations
 
-- United Nations Office for Disaster Risk Reduction: Sea Level Rise
-- NOAA: Is Sea Level Rising?
-- NOAA Sea Level Rise Viewer
-- National Geographic: Sea Level Rise
-- Massachusetts Coast Flood Risk Model
+- [United Nations Office for Disaster Risk Reduction: Sea Level Rise](https://www.undrr.org/understanding-disaster-risk/terminology/hips/en0402)
+- [NOAA: Is Sea Level Rising?](https://oceanservice.noaa.gov/facts/sealevel.html)
+- [NOAA Sea Level Rise Viewer](https://coast.noaa.gov/slr/#/layer/slr/0/-8813139.370876187/3768022.800177116/6.196/satellite/none/0.8/2050/interHigh/noAccretion/NOS_Minor)
+- [National Geographic: Sea Level Rise](https://education.nationalgeographic.org/resource/sea-level-rise/)
+- [Massachusetts Coast Flood Risk Model](https://www.mass.gov/info-details/massachusetts-sea-level-rise-and-coastal-flooding-viewer)
 
 ### Storm surge
 
 **Storm surge** is the abnormal rise in seawater level during a storm, measured as the height of the water above the normal predicted astronomical tide. The surge is caused primarily by a storm’s winds pushing water onshore. The amplitude of the storm surge at any given location depends on the orientation of the coastline with the storm track; the intensity, size, and speed of the storm; and the local submarine topography.
 
-- National Weather Service Storm Surge Overview
-- Massachusetts Coast Flood Risk Model
+- [National Weather Service Storm Surge Overview](https://www.weather.gov/phi/stormsurge)
+- [Massachusetts Coast Flood Risk Model](https://www.mass.gov/info-details/massachusetts-sea-level-rise-and-coastal-flooding-viewer)
 
 ### Coastal erosion
 
 **Coastal erosion** is the process by which local sea level rise, strong wave action, and coastal flooding wear down or carry away rocks, soils, and/or sands along the coast. All coastlines are affected by storms and other natural events that cause erosion; the combination of storm surge at high tide with effects from strong waves—conditions commonly associated with landfalling tropical storms—creates the most damaging conditions.
 
-- U.S. Climate Resilience Toolkit: Coastal Erosion
+- [U.S. Climate Resilience Toolkit: Coastal Erosion](https://toolkit.climate.gov/coastal-erosion)
 
 ## Flood protection strategies & infrastructure
 
