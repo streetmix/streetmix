@@ -1,4 +1,4 @@
-import { useRef, useState, cloneElement } from 'react'
+import { useRef, useState, useEffect, cloneElement } from 'react'
 import {
   useFloating,
   autoUpdate,
@@ -71,6 +71,17 @@ export function PopupContainer({
   const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
   const Shepherd = useShepherd()
+
+  // Handle programatically dismissing this popup when needed
+  useEffect(() => {
+    function handleDismiss() {
+      setIsOpen(false)
+    }
+
+    window.addEventListener('stmx:dismiss_slice_popup', handleDismiss)
+    return () =>
+      window.removeEventListener('stmx:dismiss_slice_popup', handleDismiss)
+  }, [])
 
   const { refs, floatingStyles, context, middlewareData } = useFloating({
     nodeId,

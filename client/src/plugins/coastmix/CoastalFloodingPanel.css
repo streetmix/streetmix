@@ -38,3 +38,19 @@
     background-color: var(--color-copper-100);
   }
 }
+
+/* Manual tweaks to ShepherdJS tour highlights */
+.tour-highlight {
+  /* When this is highlighted as part of a tour, momentarily increase its
+    z-index relative to peers to keep outline from being occluded */
+  &[data-tour-id="2030-sea-level-rise"] {
+    position: relative;
+    z-index: 1;
+  }
+
+  &[data-tour-id="storm-surge-control"] {
+    border-radius: var(--border-radius);
+    padding-top: 2px;
+    margin-top: -2px;
+  }
+}

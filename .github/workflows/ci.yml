@@ -13,7 +13,7 @@ jobs:
       CYPRESS_INSTALL_BINARY: "0"
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # Use the current LTS version of Node.js
       - name: Use Node.js 24
         uses: actions/setup-node@v6
@@ -67,7 +67,7 @@ jobs:
     #       --health-retries 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # Codecov reporting needs fetch-depth > 1
           fetch-depth: 2
@@ -89,7 +89,7 @@ jobs:
       - name: Report code coverage
         # As a small time-save, only report coverage for main branch of testing
         if: ${{ matrix.node-version == '24.x' }}
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
 
   cypress:
     name: End-to-end (E2E) tests
@@ -103,7 +103,7 @@ jobs:
       PELIAS_HOST_NAME: dummy.pelias.com
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run

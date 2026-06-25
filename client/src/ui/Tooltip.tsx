@@ -138,12 +138,14 @@ export function Tooltip({
     return children
   }
 
+  // Note: tooltips are sent to a container portal that will be rendered in
+  // the document root so that it can be "stacked" on top of other UI.
   return (
     <>
       {tooltipTriggerElement}
       <FloatingNode id={nodeId}>
         {isMounted && (
-          <FloatingPortal>
+          <FloatingPortal id="floating-tooltip-container">
             {/* Outer div is our main tooltip wrapper */}
             <div
               ref={refs.setFloating}

@@ -110,7 +110,8 @@
 .popup-control-icon {
   line-height: 0;
 
-  > svg {
+  > svg,
+  > img {
     position: relative !important;
     width: 30px !important;
     height: 30px !important;
@@ -121,4 +122,12 @@
 .popup-control-button-group {
   display: flex;
   gap: 0.25em;
+}
+
+/* Manual tweaks to ShepherdJS tour highlights */
+[data-tour-id="elevation-control"],
+[data-tour-id="slope-control-group"] {
+  &.tour-highlight {
+    border-radius: var(--border-radius);
+  }
 }

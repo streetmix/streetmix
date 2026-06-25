@@ -15,11 +15,12 @@ export function UndoRedo() {
 
   // Don’t allow undo/redo unless you own the street
   function isUndoAvailable(): boolean {
-    return undoPosition > 0 && isOwnedByCurrentUser()
+    return undoPosition !== null && undoPosition > 0 && isOwnedByCurrentUser()
   }
 
   function isRedoAvailable(): boolean {
     return (
+      undoPosition !== null &&
       undoPosition >= 0 &&
       undoPosition < undoStack.length - 1 &&
       isOwnedByCurrentUser()

@@ -221,42 +221,4 @@ Probably no need to be specific about species, which is something landscape arch
 
 Here's some [really good examples for San Francisco](http://www.fuf.net/resources-reference/urban-tree-species-directory/).
 
-## Coastal resilience infrastructure
-
-### Berm
-
-A berm can redirect or absorb water, slow down runoff, and reduce wave action. It is primarily designed to prevent floodwaters from inundating vulnerable areas by blocking, diverting, or reducing the flow of water. Some berms can be planted with grasses, shrubs, or other plants. Berms, also known as levees, may be reinforced with an interior floodwall to increase stability and reduce seepage under ground.
-
-- **References:**
-  - [Levee Safety](https://www.nws.usace.army.mil/Missions/Civil-Works/Engineering/Levee-Safety/) (US Army Corps of Engineers)
-  - [Climate Resilient Design Standards and Guidelines for Protection of Public Rights-of-Way](https://www.boston.gov/sites/default/files/embed/file/2018-10/climate_resilient_design_standards_and_guidelines_for_protection_of_public_rights-of-way_no_appendices.pdf) (City of Boston)
-
-### Bioswale
-
-A bioswale is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally.
-
-Bioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.
-
-- **References:**
-  - [Bioswales](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/) (NACTO)
-  - [Flood Resilient Landscaping](https://www.boston.gov/departments/emergency-management/flood-resilient-landscaping) (City of Boston)
-
-### Marsh
-
-A marsh is a type of wetland, which is an area where water covers the ground all year or for varying periods of time during the year. Marshes are usually treeless and dominated by grasses and other plants. Many species of animals live in marshes, including birds, reptiles, fish, and mammals. There are three types of marshes: tidal salt marshes, tidal freshwater marshes, and inland freshwater marshes. Salt marshes protect shorelines from erosion by creating a buffer against wave action and by trapping sediment, reducing the flow of flood waters, and absorbing rainwater. As rising seas cause lower marsh elevations to flood, marsh vegetation may migrate toward higher, drier ground.
-
-- **References:**
-  - [Marsh](https://education.nationalgeographic.org/resource/marsh/) (National Geographic)
-  - [Salt Marshes](https://www.nps.gov/subjects/oceans/salt-marshes.htm) (National Park Service)
-  - [What is a wetland?](https://www.epa.gov/wetlands/what-wetland) (US Environmental Protection Agency)
-  - [Resource Management Plan – Belle Isle Marsh Reservation](https://www.mass.gov/info-details/resource-management-plan-belle-isle-marsh-reservation) (Massachusetts Department of Conservation & Recreation)
-
-### Seawall
-
-Seawalls are coastal defense structures that protect coastal and inland areas from wave action, storm surges, and flooding, as well as reduce erosion. Seawalls are engineered to absorb, deflect, or redirect the immense energy of crashing waves. They can be vertical, curved, or sloped and made of different materials, such as concrete, steel, treated lumber, and more. Seawalls can extend up from the ground or be built with public walkways, open space, or buildings on top.
-
-- **References:**
-  - [Shore Protection, Armoring Structures](https://www.iwr.usace.army.mil/Missions/Coasts/Tales-of-the-Coast/Corps-and-the-Coast/Shore-Protection/Armoring-Structures/) (US Army Corps of Engineers)
-  - [Climate Resilient Design Standards and Guidelines for Protection of Public Rights-of-Way](https://www.boston.gov/sites/default/files/embed/file/2018-10/climate_resilient_design_standards_and_guidelines_for_protection_of_public_rights-of-way_no_appendices.pdf) (City of Boston)
-
 ## Miscellaneous

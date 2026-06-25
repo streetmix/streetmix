@@ -251,6 +251,7 @@ export function Segment(props: SliceProps) {
   }
 
   const classNames = ['segment']
+  const warnings = segment.warnings ?? [false]
 
   if (isDragging) {
     classNames.push('dragged-out')
@@ -260,15 +261,15 @@ export function Segment(props: SliceProps) {
 
   // Warnings
   if (
-    segment.warnings[SLICE_WARNING_OUTSIDE] ||
-    segment.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
-    segment.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
-    segment.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+    warnings[SLICE_WARNING_OUTSIDE] ||
+    warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
+    warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
+    warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
+    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
   ) {
     classNames.push('warning')
   }
-  if (segment.warnings[SLICE_WARNING_OUTSIDE]) {
+  if (warnings[SLICE_WARNING_OUTSIDE]) {
     classNames.push('outside')
   }
 
