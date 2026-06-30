@@ -215,7 +215,7 @@
       "heading": "Tietoja Streetmixistä.",
       "description": "Suunnittele, muokkaa ja jaa kotikatusi. Lisää kadullesi kaikkea puista pyöräteihin tai levennä katusi jalkakäytäviä ja ajoratoja. Samalla näet, miten muutokset vaikuttavat liikenteeseen.",
       "team-heading": "Kehitysryhmä ja ylläpitäjät",
-      "stewards": "",
+      "stewards": "Hoitajat",
       "partners": "Yhteistyössä",
       "sponsors": "Sponsorit",
       "sponsored-by": "Streetmixin avokätiset sponsorit:",
@@ -329,20 +329,20 @@
       }
     },
     "flooding": {
-      "tooltip": "",
-      "heading": "",
+      "tooltip": "Rannikkotulvien torjunta",
+      "heading": "Rannikkotulvat",
       "sea-level": {
-        "label": "",
-        "current": ""
+        "label": "Merenpinnan nousu",
+        "current": "Nykyinen"
       },
       "storm-surge": {
-        "label": ""
+        "label": "Myrskyaalto"
       },
       "messages": {
-        "start": "",
-        "need-waterfront": "",
-        "success": "",
-        "fail": ""
+        "start": "Havainnollista tulvimista valitsemalla merenpinnan nousun taso.",
+        "need-waterfront": "Havainnollista tulvimista lisäämällä rantaviivan raja.",
+        "success": "Tällä kokoonpanolla merenpinta nousee!",
+        "fail": "Tällä kokoonpanolla merenpinta ei nouse!"
       }
     }
   },
@@ -358,7 +358,7 @@
     "no-undo": "Ei toimintohistoriaa.",
     "no-redo": "Ei toimintohistoriaa.",
     "no-save": "Ei Tallenna-painiketta: Streetmix tallentaa muutokset automaattisesti!",
-    "remixing": "Tämä on uunituore kopio alkuperäisestä kadusta, joka löytyy nyt galleriasta.",
+    "remixing": "Tämä on uunituore kopio alkuperäisestä kadusta, joka tallennettiin galleriaan.",
     "remixing-sign-in": "Tämä on uunituore kopio alkuperäisestä kadusta. Kirjaudu sisään, jotta voit tallentaa katuja galleriaan.",
     "reloaded": "Katu ladattiin uudelleen, sillä sitä muokattiin samanaikaisesti jossain muualla."
   },
@@ -414,12 +414,12 @@
     "elevation-input": "Muuta korkeusasemaa",
     "elevation-lower": "Matala",
     "elevation-raise": "Korkea",
-    "ground-height-input": "",
-    "ground-height-lower": "",
-    "ground-height-raise": "",
-    "sea-level-input": "",
-    "sea-level-lower": "",
-    "sea-level-raise": ""
+    "ground-height-input": "Muuta maanpinnan korkeutta",
+    "ground-height-lower": "Laske maanpinnan korkeutta",
+    "ground-height-raise": "Nosta maanpinnan korkeutta",
+    "sea-level-input": "Muuta merenpinnan korkeutta",
+    "sea-level-lower": "Laske merenpinnan korkeutta",
+    "sea-level-raise": "Nosta merenpinnan korkeutta"
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -450,11 +450,13 @@
     },
     "controls": {
       "width": "Leveys",
-      "ground-height": "",
-      "sea-level": "",
+      "ground-height": "Maanpinnan korkeus",
+      "sea-level": "Merenpinnan korkeus",
       "elevation": "Korkeus",
       "slope": {
         "label": "Kaltevuus",
+        "left-label": "Vasemman maanpinnan korkeus",
+        "right-label": "Oikean maanpinnan korkeus",
         "switch-tooltip": "Vaihda kaltevuutta",
         "disabled-tooltip": "Elementin kaltevuutta ei voi muuttaa."
       }

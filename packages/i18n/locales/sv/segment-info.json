@@ -56,7 +56,7 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Läs mer om vägvisningsskyltar",
-      "content": "# Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.\n\nStadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok _[The Image of the City](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_ genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar."
+      "content": "# Vägvisningsskyltar hjälper fotgängare att hitta till vanliga målpunkter.\n\nStadsplanerare och arkitekter har tillbringat årtionden med att försöka lära sig vad som händer i människors hjärnor när de försöker komma på hur man tar sig från punkt A till punkt B - eller hur de ens vet var punkt A är till att börja med. Redan 1960 skrev stadsplaneraren Kevin Lynch om \"legibility\" i sin bok _[The Image of the City](https://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_ genom \"ett konstant användande och organiserande av sinnenas ledtrådar från den omkringliggande miljön.\" Det kan vara immateriella - lukt, känsel, känsla av gravitation eller till och med elektriska eller magnetiska fält. Eller så kan det vara mycket mer fysiskt, med tillverkade redskap såsom kartor, gatunummer eller vägvisningsskyltar."
     },
     "parklet": {
       "prompt": "Läs mer om mikroparker",
@@ -83,6 +83,12 @@
       "content": ""
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "marsh": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

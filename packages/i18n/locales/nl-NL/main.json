@@ -455,6 +455,8 @@
       "elevation": "",
       "slope": {
         "label": "",
+        "left-label": "",
+        "right-label": "",
         "switch-tooltip": "",
         "disabled-tooltip": ""
       }
