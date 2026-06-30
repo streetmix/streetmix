@@ -68,13 +68,10 @@ function calculateFloodDistance(
 
     // Slices can block a flood based on its elevation.
     // First, see if this slice is sloped.
-    // Compare the flood height with the slope value facing the flood direction
+    // If sloped, a slice blocks a blood if any of its endpoints are higher
+    // than the height.
     if (slice.slope.on) {
-      if (fromLeft) {
-        compareElevation = slice.slope.values[0] ?? slice.elevation
-      } else {
-        compareElevation = slice.slope.values[1] ?? slice.elevation
-      }
+      compareElevation = Math.max(slice.slope.values[0], slice.slope.values[1])
     } else {
       // If not sloped, we look at the slice's flat elevation.
       compareElevation = slice.elevation
@@ -113,7 +110,20 @@ function calculateFloodDistance(
 
   if (fromLeft) {
     const distance = Number(sliceEl?.dataset.sliceLeft)
-    return distance
+
+    // If sloped, how far does flood go before it hits the slope?
+    const slice = slices[slicePosition]
+    let extraDistance = 0
+    if (slice.slope.on) {
+      const rise = slice.slope.values[1] - slice.slope.values[0]
+      if (rise > 0) {
+        const run = sliceEl?.offsetWidth ?? 0 // This is the width of item
+        // This is a rise/run formula
+        extraDistance = (run / rise) * (slice.slope.values[0] - height)
+      }
+    }
+
+    return distance - extraDistance
   } else {
     // There are some extra steps for calculating the right-hand distance
     // which is based on the width of the on-screen canvasEl element.
@@ -126,7 +136,19 @@ function calculateFloodDistance(
     const offsetLeftPlusWidth =
       Number(sliceEl?.dataset.sliceLeft) + (sliceEl?.offsetWidth ?? 0)
 
-    const distance = parentWidth - offsetLeftPlusWidth
+    // If sloped, how far does flood go before it hits the slope?
+    const slice = slices[slicePosition]
+    let extraDistance = 0
+    if (slice.slope.on) {
+      const rise = slice.slope.values[0] - slice.slope.values[1]
+      if (rise > 0) {
+        const run = sliceEl?.offsetWidth ?? 0 // This is the width of item
+        // This is a rise/run formula
+        extraDistance = -(run / rise) * (height - slice.slope.values[1])
+      }
+    }
+
+    const distance = parentWidth - offsetLeftPlusWidth - extraDistance
     return distance
   }
 }
