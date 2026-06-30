@@ -65,7 +65,7 @@
     },
     "bike-lane": {
       "prompt": "了解更多關於自行車道的信息",
-      "content": "# 自行車道能讓騎車人與汽車分隔開，保障他们的安全。 \n\n在個人交通工具的歷史時間軸上 ，一端是馬，另一端是賽格威電動代步車。汽車與自行車爭奪佔據馬路的戰役打了近一個世紀。儘管汽車佔了很大的空間，自行車的數量卻是比汽車多得多——根據[Worldmeters[(https://www.worldometers.info/bicycles/)估計，有超過十億輛，其中九百萬輛在北京。民謠歌手[Katie Melua](https://en.wikipedia.org/wiki/Nine_Million_Bicycles)說，自行車出行佔據了北京交通的32%。 \n\n儘管大多數的交通管理條例都允許自行車與機動車共用道路（在一個特定的條例中，[加州機動車管理條例寫道](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.)，“騎自行車的人…有權利使用道路，并與駕駛者一樣遵循相同的交通守則”。 "
+      "content": "# 自行車道能讓騎車人與汽車分隔開，保障他们的安全。 \n\n在個人交通工具的歷史時間軸上 ，一端是馬，另一端是賽格威電動代步車。汽車與自行車爭奪佔據馬路的戰役打了近一個世紀。儘管汽車佔了很大的空間，自行車的數量卻是比汽車多得多——根據[Worldmeters](https://www.worldometers.info/bicycles/)估計，有超過十億輛，其中九百萬輛在北京。民謠歌手[Katie Melua](https://en.wikipedia.org/wiki/Nine_Million_Bicycles)說，自行車出行佔據了北京交通的32%。 \n\n儘管大多數的交通管理條例都允許自行車與機動車共用道路（在一個特定的條例中，[加州機動車管理條例寫道](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=VEH&sectionNum=21200.)，“騎自行車的人…有權利使用道路，并與駕駛者一樣遵循相同的交通守則”。 "
     },
     "colored-bike-lane": {
       "prompt": "了解更多關於彩色自行車專用道的信息",
