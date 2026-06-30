@@ -68,7 +68,7 @@ function calculateFloodDistance(
 
     // Slices can block a flood based on its elevation.
     // First, see if this slice is sloped.
-    // If sloped, a slice blocks a blood if any of its endpoints are higher
+    // If sloped, a slice blocks a flood if any of its endpoints are higher
     // than the height.
     if (slice.slope.on) {
       compareElevation = Math.max(slice.slope.values[0], slice.slope.values[1])
@@ -116,7 +116,7 @@ function calculateFloodDistance(
     let extraDistance = 0
     if (slice.slope.on) {
       const rise = slice.slope.values[1] - slice.slope.values[0]
-      if (rise > 0) {
+      if (rise > 0 && height > slice.slope.values[0]) {
         const run = sliceEl?.offsetWidth ?? 0 // This is the width of item
         // This is a rise/run formula
         extraDistance = (run / rise) * (slice.slope.values[0] - height)
@@ -141,7 +141,7 @@ function calculateFloodDistance(
     let extraDistance = 0
     if (slice.slope.on) {
       const rise = slice.slope.values[0] - slice.slope.values[1]
-      if (rise > 0) {
+      if (rise > 0 && height > slice.slope.values[1]) {
         const run = sliceEl?.offsetWidth ?? 0 // This is the width of item
         // This is a rise/run formula
         extraDistance = -(run / rise) * (height - slice.slope.values[1])
