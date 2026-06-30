@@ -56,7 +56,7 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Aprender más sobre señales de orientación",
-      "content": "#Señales de Orientación ayudan a los pedestres llegar a destinos comunes.\n\nPlanificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro _[\"The Image of the City\" (La Imagen de la Ciudad\")](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas."
+      "content": "#Señales de Orientación ayudan a los pedestres llegar a destinos comunes.\n\nPlanificadores urbanos y arquitectos han pasado unas décadas intentando de aprender lo que pasa en los cerebros de personas cuando realizan cómo llegar de punto A a punto B - o cómo saben dónde está el punto de comenzar (punto A). Tan temprano como 1960, el planificador urbano Kevin Lynch escribió sobre el \"legibilidad\" de la ciudad en su libro _[\"The Image of the City\" (La Imagen de la Ciudad\")](https://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, describiendo la señalización de orientación como \"un uso consistente y organización de señales sensoriales definidas del ambiente external.\" Podría ser intangible - olor, tacto, un sentido de gravedad o hasta campos eléctricos o magnéticos. O podría ser mucho más físico, con \"aparatos de orientación\" diseñados intencionalmente como mapas, números de la calle, o señales de rutas."
     },
     "parklet": {
       "prompt": "Aprender más sobre parklets",
@@ -83,6 +83,12 @@
       "content": ""
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "marsh": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

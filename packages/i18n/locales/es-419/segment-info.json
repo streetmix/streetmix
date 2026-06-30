@@ -56,7 +56,7 @@
   "descriptions": {
     "wayfinding-sign": {
       "prompt": "Aprende más sobre las señales de orientación",
-      "content": "# Las señales de orientación ayudan a los peatones a llegar a destinos frecuentes.\n\nLos planificadores urbanos y arquitectos han dedicado algunas décadas a tratar de aprender qué sucede en los cerebros de las personas mientras descifran cómo llegar del punto A al punto B – o incluso cómo saben dónde está el \"punto A\", para empezar. Desde 1960, el planificador urbano Kevin Lynch escribió sobre la \"legibilidad\" de la ciudad en su libro_[La imagen de la ciudad](http://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, y describió la orientación como \"un uso y organización consistente de las señales sensoriales del ambiente externo.\" Esta podía ser intangible – olfato, tacto, la sensación de la gravedad o incluso campos eléctricos o magnéticos. O podía ser mucho más física, con \"dispositivos de orientación\" diseñados intencionalmente como mapas, números o señales de ruta."
+      "content": "# Las señales de orientación ayudan a los peatones a llegar a destinos frecuentes.\n\nLos planificadores urbanos y arquitectos han dedicado algunas décadas a tratar de aprender qué sucede en los cerebros de las personas mientras descifran cómo llegar del punto A al punto B – o incluso cómo saben dónde está el \"punto A\", para empezar. Desde 1960, el planificador urbano Kevin Lynch escribió sobre la \"legibilidad\" de la ciudad en su libro_[La imagen de la ciudad](https://www.amazon.com/Image-Harvard-MIT-Center-Studies-Series/dp/0262620014)_, y describió la orientación como \"un uso y organización consistente de las señales sensoriales del ambiente externo.\" Esta podía ser intangible – olfato, tacto, la sensación de la gravedad o incluso campos eléctricos o magnéticos. O podía ser mucho más física, con \"dispositivos de orientación\" diseñados intencionalmente como mapas, números o señales de ruta."
     },
     "parklet": {
       "prompt": "Aprende más sobre los parklets",
@@ -83,6 +83,12 @@
       "content": "# Es el tren de la película <em>El Origen</em> de Christopher Nolan.\",\n\n¿Qué más necesitarías saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "marsh": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

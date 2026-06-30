@@ -455,6 +455,8 @@
       "elevation": "Nadmořská výška",
       "slope": {
         "label": "Sklon",
+        "left-label": "",
+        "right-label": "",
         "switch-tooltip": "",
         "disabled-tooltip": "Tento prvek nelze naklonit."
       }
