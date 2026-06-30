@@ -33,9 +33,9 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@argos-ci/cli": "^5.1.1",
-    "@argos-ci/playwright": "^7.0.8",
-    "@playwright/test": "^1.61.0",
+    "@argos-ci/cli": "^6.0.0",
+    "@argos-ci/playwright": "^7.1.2",
+    "@playwright/test": "^1.61.1",
     "cheerio": "^1.2.0"
   },
   "browserslist": {
