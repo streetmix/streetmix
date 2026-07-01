@@ -73,7 +73,11 @@
       "empty": "New empty street",
       "copy": "Make a copy",
       "template": "New from template…",
-      "sign-in-link": "{signInLink} for access to templates."
+      "sign-in-link": "{signInLink} for access to templates.",
+      "templates-label": "Street templates",
+      "templates": {
+        "stroad": "Stroad"
+      }
     }
   },
   "settings": {
@@ -554,6 +558,14 @@
       "example": "(for instance, “I liked the trees.”)",
       "submit": "Submit",
       "thanks": "Got it!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "New waterfront",
+    "templates": {
+      "harborwalk": "Harborwalk",
+      "coastal-road": "Coastal road",
+      "beach": "Beach"
     }
   },
   "i18n": {

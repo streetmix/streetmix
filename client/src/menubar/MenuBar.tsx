@@ -154,7 +154,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         {coastmixMode ? (
           <MenuBarItem
             label="New waterfront"
-            translation="menu.item.new-waterfront"
+            translation="coastmix.new-waterfront-menu"
             id="menubar-new"
             onClick={handleClick('new')}
           />

@@ -42,7 +42,10 @@ export function NewStreetMenu(props: MenuProps) {
             }}
             data-tour-id="new-street-harborwalk"
           >
-            Harborwalk
+            <FormattedMessage
+              id="coastmix.templates.harborwalk"
+              defaultMessage="Harborwalk"
+            />
             <Icon name="external-link" />
           </MenuItem>
           <MenuItem
@@ -50,7 +53,10 @@ export function NewStreetMenu(props: MenuProps) {
               openTemplate(STREET_TEMPLATES.COASTAL_ROAD)
             }}
           >
-            Coastal road
+            <FormattedMessage
+              id="coastmix.templates.coastal-road"
+              defaultMessage="Coastal road"
+            />
             <Icon name="external-link" />
           </MenuItem>
           <MenuItem
@@ -58,7 +64,10 @@ export function NewStreetMenu(props: MenuProps) {
               openTemplate(STREET_TEMPLATES.BEACH)
             }}
           >
-            Beach
+            <FormattedMessage
+              id="coastmix.templates.beach"
+              defaultMessage="Beach"
+            />
             <Icon name="external-link" />
           </MenuItem>
           <MenuSeparator />
@@ -120,7 +129,10 @@ export function NewStreetMenu(props: MenuProps) {
         <>
           <MenuSeparator />
           <div className="dropdown-menu-label" role="presentation">
-            Street templates
+            <FormattedMessage
+              id="menu.new-street.templates-label"
+              defaultMessage="Street templates"
+            />
             <BetaTag />
           </div>
           <MenuItem
@@ -129,7 +141,10 @@ export function NewStreetMenu(props: MenuProps) {
               openTemplate(STREET_TEMPLATES.STROAD)
             }}
           >
-            Stroad
+            <FormattedMessage
+              id="menu.new-street.templates.stroad"
+              defaultMessage="Stroad"
+            />
             <Icon name="external-link" />
           </MenuItem>
           {!user.signedIn && <SignInPromo type="template" />}
