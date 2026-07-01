@@ -7,12 +7,14 @@ import { TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
+import { drawSilhouette } from './silhouette.js'
 import { drawSky } from './sky.js'
 import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import type { StreetImageExportOptions } from './index.js'
+import { getTranslations } from './locale.js'
 
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
@@ -27,6 +29,9 @@ Canvas.GlobalFonts.registerFromPath(
 
 // Rubik (and many others) don't actually have the 1/8 vulgar fractions and
 // foot-grave marker, so we use this one for now and see how we like it.
+// Browsers will backfill missing glyphs with fall-back fonts, but the server
+// will not, so we will need to figure out what we use on the server side that
+// has more options.
 // Geist Sans does not have a variable form
 Canvas.GlobalFonts.registerFromPath(
   path.join(
@@ -158,9 +163,20 @@ export async function makeStreetImage(
       )
     }
 
+    // Silhouette
+    if (options.silhouette) {
+      drawSilhouette(ctx, baseWidth, baseHeight, options.scale)
+    }
+
     // Street nameplate
     if (options.streetName) {
-      drawNameplate(ctx, street, baseWidth, options.scale)
+      let streetName: string = street.name ?? ''
+      if (!streetName) {
+        const translations = await getTranslations(options.locale, 'main')
+        streetName = translations.street['default-name'] ?? 'Unnamed St'
+      }
+
+      drawNameplate(ctx, streetName, baseWidth, options.scale)
     }
 
     // Watermark
