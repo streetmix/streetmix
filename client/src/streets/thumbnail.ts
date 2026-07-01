@@ -1,5 +1,8 @@
 import { drawEarth } from '@streetmix/export-image/src/earth'
-import { drawLine } from '@streetmix/export-image/src/labels'
+import {
+  drawLabelBackground,
+  drawLine,
+} from '@streetmix/export-image/src/labels'
 import {
   getBoundaryItem,
   getSegmentInfo,
@@ -26,7 +29,6 @@ import type {
   StreetJson,
 } from '@streetmix/types'
 
-const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const LABEL_FONT = 'Rubik Variable'
@@ -391,26 +393,6 @@ function drawSlices(
 }
 
 /**
- * Draws the segment names background.
- */
-function drawLabelBackground(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  width: number, // width of area to draw
-  height: number, // height of area to draw
-  dpi: number, // pixel density of canvas
-  multiplier: number, // scale factor of image
-  groundLevel: number // vertical height of ground
-): void {
-  ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(
-    0,
-    (groundLevel + GROUND_BASELINE_HEIGHT * multiplier) * dpi,
-    width * dpi,
-    (height - groundLevel - GROUND_BASELINE_HEIGHT * multiplier) * dpi
-  )
-}
-
-/**
  * Draws segment names and widths.
  */
 function drawLabels(
@@ -728,7 +710,13 @@ export function drawStreetThumbnail(
 
   // Labels (background)
   if (labels || silhouette) {
-    drawLabelBackground(ctx, width, height, dpi, multiplier, groundLevel)
+    drawLabelBackground(
+      ctx,
+      width / multiplier,
+      height / multiplier,
+      groundLevel / multiplier,
+      dpi * multiplier
+    )
   }
 
   // Labels (slice names and widths)

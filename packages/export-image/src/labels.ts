@@ -18,7 +18,7 @@ const LABEL_FONT_WEIGHT = '400'
  * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawLabelBackground(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   width: number,
   height: number,
   groundLevel: number,
