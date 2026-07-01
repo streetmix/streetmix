@@ -165,4 +165,5 @@
   max-width: 95%;
   position: relative;
   top: -8px;
+  line-height: 0; /* fixes lower border padding */
 }
