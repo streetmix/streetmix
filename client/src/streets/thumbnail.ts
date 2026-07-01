@@ -396,7 +396,8 @@ function drawSlices(
 /**
  * Draws segment names and widths.
  */
-function drawLabels(
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function drawLabels2(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   street: StreetJson,
   dpi: number, // pixel density of canvas
@@ -632,7 +633,7 @@ interface ThumbnailOptions {
 /**
  * Draws street image to 2D canvas element.
  */
-export function drawStreetThumbnail(
+export async function drawStreetThumbnail(
   ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
   street: StreetJson, // Street data
   {
@@ -647,7 +648,7 @@ export function drawStreetThumbnail(
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
   }: ThumbnailOptions
-): void {
+): Promise<void> {
   // Calculations
 
   // Determine how wide the street is
@@ -723,8 +724,8 @@ export function drawStreetThumbnail(
   // Labels (slice names and widths)
   // Skip if we don't need locale, either.
   if (labels && locale) {
-    // drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
-    drawLabels(
+    // drawLabels2(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
+    await drawLabels(
       ctx,
       street,
       groundLevel / multiplier,

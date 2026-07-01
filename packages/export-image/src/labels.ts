@@ -3,6 +3,7 @@
 import SLICE_LOOKUP from '@streetmix/parts/src/data/segment-lookup.json' with { type: 'json' }
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
+import { getTranslations } from './locale.js'
 
 import type * as Canvas from '@napi-rs/canvas'
 
@@ -42,7 +43,7 @@ export function drawLabelBackground(
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export function drawLabels(
+export async function drawLabels(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   street: StreetJson, // street data
   groundLevel: number,
@@ -64,13 +65,18 @@ export function drawLabels(
   ctx.strokeStyle = 'black'
   ctx.fillStyle = 'black'
 
-  street.segments.forEach((slice, i) => {
+  let isFirst = true
+
+  // This loop needs to run in sequence but getSliceName does an async import
+  // on translation files so we use for...of instead of forEach
+  for (const slice of street.segments) {
     const availableWidth = slice.width * TILE_SIZE
 
     let left = offsetLeft
 
-    if (i === 0) {
+    if (isFirst) {
       left--
+      isFirst = false
     }
 
     // Left line
@@ -91,7 +97,8 @@ export function drawLabels(
 
     // Segment name label
     const name =
-      slice.label ?? getSliceName(slice.type, slice.variantString, locale)
+      slice.label ??
+      (await getSliceName(slice.type, slice.variantString, locale))
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -99,7 +106,7 @@ export function drawLabels(
     }
 
     offsetLeft += availableWidth
-  })
+  }
 
   // Final right-hand side line
   const left = offsetLeft + 1
@@ -179,18 +186,18 @@ export const SLICE_UNKNOWN_VARIANT = {
   },
 }
 
-function getSliceName(type: string, variant: string, _locale: string): string {
+async function getSliceName(
+  type: string,
+  variant: string,
+  locale: string
+): string {
   const sliceInfo = getSliceInfo(type)
   const variantInfo = getSliceVariantInfo(type, variant)
   const defaultName = variantInfo.name ?? sliceInfo.name
+  const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
 
-  // TODO: get default name of slice in given locale
-  // const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
-  // const key = `segments.${nameKey}`
-
-  // TODO: load i18n here
-  // return formatMessage(key, defaultName, { ns: 'segment-info' })
-  return defaultName
+  const translations = await getTranslations(locale, 'segment-info')
+  return translations.segments[nameKey] ?? defaultName
 }
 
 function getSliceInfo(type: string): unknown {

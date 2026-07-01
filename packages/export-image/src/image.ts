@@ -148,7 +148,7 @@ export async function makeStreetImage(
         groundLevel,
         options.scale
       )
-      drawLabels(
+      await drawLabels(
         ctx,
         street.data.street,
         groundLevel,
