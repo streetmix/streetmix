@@ -1,5 +1,5 @@
 import { Decimal } from 'decimal.js'
-import { prettifyWidth, roundToNearestEighth } from './dimensions.ts'
+import { prettifyWidth, roundToNearestEighth } from './dimensions.js'
 
 const SETTINGS_UNITS_METRIC = 0
 const SETTINGS_UNITS_IMPERIAL = 1
@@ -7,9 +7,10 @@ const SETTINGS_UNITS_IMPERIAL = 1
 describe('roundToNearestEighth()', () => {
   it('matches decimal.js toDecimalPlaces() behavior', () => {
     // Randomly select a few numbers to test.
-    for (let i = 0; i < 10; i += Math.random()) {
-      const a = roundToNearestEighth(i)
-      const b = new Decimal(i).toNearest(0.125).toNumber()
+    for (let i = 0; i < 10; i++) {
+      const value = Math.random() * 10
+      const a = roundToNearestEighth(value)
+      const b = new Decimal(value).toNearest(0.125).toNumber()
       expect(a).toEqual(b)
     }
   })

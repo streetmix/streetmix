@@ -3,9 +3,6 @@ import { round } from './number.js'
 
 import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 
-/**
- * prettifyWidth() and associated functions are similar to in width_units.ts
- */
 const SETTINGS_UNITS_METRIC = 0
 const SETTINGS_UNITS_IMPERIAL = 1
 const IMPERIAL_CONVERSION_RATE = 0.3048
