@@ -29,6 +29,9 @@ Canvas.GlobalFonts.registerFromPath(
 
 // Rubik (and many others) don't actually have the 1/8 vulgar fractions and
 // foot-grave marker, so we use this one for now and see how we like it.
+// Browsers will backfill missing glyphs with fall-back fonts, but the server
+// will not, so we will need to figure out what we use on the server side that
+// has more options.
 // Geist Sans does not have a variable form
 Canvas.GlobalFonts.registerFromPath(
   path.join(

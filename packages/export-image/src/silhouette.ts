@@ -1,4 +1,4 @@
-import * as Canvas from '@napi-rs/canvas'
+import type * as Canvas from '@napi-rs/canvas'
 
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 

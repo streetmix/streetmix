@@ -3,7 +3,7 @@ import type * as Canvas from '@napi-rs/canvas'
 const STREET_NAME_FONT_SERVER = 'Overpass'
 const STREET_NAME_FONT_CLIENT = 'Overpass Variable'
 const STREET_NAME_FONT_SIZE = 70
-const STREET_NAME_FONT_WEIGHT = '700'
+const STREET_NAME_FONT_WEIGHT = 700
 const STREET_NAME_LETTER_SPACING = -0.125
 
 /**
@@ -38,7 +38,9 @@ export function drawNameplate(
     ctx.letterSpacing = `${STREET_NAME_LETTER_SPACING * scale}em`
 
     // `fontVariationSettings` is NOT standard, but is present in the
-    // @napi-rs/canvas implementation of canvas context.
+    // @napi-rs/canvas implementation of canvas context, and appears to be
+    // required to set the weight correctly. See:
+    // https://github.com/Brooooooklyn/canvas/issues/1158
     if (isSKRSContext(ctx)) {
       ctx.fontVariationSettings = `'wght' ${STREET_NAME_FONT_WEIGHT}`
     }
@@ -48,7 +50,7 @@ export function drawNameplate(
     ctx.letterSpacing = '-.025em'
   }
 
-  ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
+  ctx.font = `${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * scale
   }px ${fontFamily}`
 
