@@ -1,6 +1,7 @@
 import { drawEarth } from '@streetmix/export-image/src/earth'
 import {
   drawLabelBackground,
+  drawLabels,
   drawLine,
 } from '@streetmix/export-image/src/labels'
 import {
@@ -406,14 +407,14 @@ function drawLabels(
 ): void {
   ctx.save()
 
-  ctx.strokeStyle = 'black'
   ctx.lineWidth = 0.25 * dpi
   ctx.font = `normal ${LABEL_FONT_WEIGHT} ${
     LABEL_FONT_SIZE * dpi
   }px ${LABEL_FONT},sans-serif`
-  ctx.fillStyle = 'black'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
+  ctx.strokeStyle = 'black'
+  ctx.fillStyle = 'black'
 
   street.segments.forEach((element, i) => {
     const availableWidth = element.width * TILE_SIZE * multiplier
@@ -722,7 +723,15 @@ export function drawStreetThumbnail(
   // Labels (slice names and widths)
   // Skip if we don't need locale, either.
   if (labels && locale) {
-    drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
+    // drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
+    drawLabels(
+      ctx,
+      street,
+      groundLevel / multiplier,
+      offsetLeft / multiplier,
+      dpi * multiplier,
+      locale
+    )
   }
 
   // Silhouette

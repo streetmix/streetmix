@@ -148,7 +148,14 @@ export async function makeStreetImage(
         groundLevel,
         options.scale
       )
-      drawLabels(ctx, street, groundLevel, offsetLeft, options.scale)
+      drawLabels(
+        ctx,
+        street.data.street,
+        groundLevel,
+        offsetLeft,
+        options.scale,
+        options.locale
+      )
     }
 
     // Street nameplate

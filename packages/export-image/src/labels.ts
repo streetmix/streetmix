@@ -5,10 +5,10 @@ import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { StreetAPIResponse } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
 const LABEL_FONT = 'Geist Sans'
+const LABEL_FONT_CLIENT = 'Rubik Variable'
 const LABEL_FONT_SIZE = 12
 const LABEL_FONT_WEIGHT = '400'
 
@@ -43,19 +43,22 @@ export function drawLabelBackground(
  * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawLabels(
-  ctx: Canvas.SKRSContext2D,
-  streetData: StreetAPIResponse,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  street: StreetJson, // street data
   groundLevel: number,
   offsetLeft: number,
-  scale: number
+  scale: number,
+  locale: string // locale to render labels in
 ): void {
-  const street = streetData.data.street
-
   ctx.save()
 
-  ctx.lineWidth = 0.25 * scale
+  // Use Rubik Variable in the client, and Geist Sans in the backend
+  // Variable fonts are not well supported in @napi-rs/canvas last I checked
+  // so a replacement font is being used
+  const font = typeof window === 'undefined' ? LABEL_FONT : LABEL_FONT_CLIENT
 
-  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${LABEL_FONT}`
+  ctx.lineWidth = 0.25 * scale
+  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${font}`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.strokeStyle = 'black'
@@ -83,11 +86,12 @@ export function drawLabels(
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    const text = prettifyWidth(slice.width, street.units)
+    const text = prettifyWidth(slice.width, street.units, locale)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
     // Segment name label
-    const name = slice.label ?? getSliceName(slice.type, slice.variantString)
+    const name =
+      slice.label ?? getSliceName(slice.type, slice.variantString, locale)
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -112,7 +116,7 @@ export function drawLabels(
 }
 
 export function drawLine(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -136,7 +140,7 @@ export function drawLine(
  * Ported from client, but this has never been used
  */
 export function drawArrowLine(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -175,10 +179,17 @@ export const SLICE_UNKNOWN_VARIANT = {
   },
 }
 
-function getSliceName(type: string, variant: string): string {
+function getSliceName(type: string, variant: string, _locale: string): string {
   const sliceInfo = getSliceInfo(type)
   const variantInfo = getSliceVariantInfo(type, variant)
   const defaultName = variantInfo.name ?? sliceInfo.name
+
+  // TODO: get default name of slice in given locale
+  // const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
+  // const key = `segments.${nameKey}`
+
+  // TODO: load i18n here
+  // return formatMessage(key, defaultName, { ns: 'segment-info' })
   return defaultName
 }
 
