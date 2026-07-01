@@ -5,12 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
-## Unreleased
+## July 2, 2026
 
 ### 🐛 Bug fixes
 
+- Fixed a bug that could cause the undo functionality to crash the app.
+- Fixed a bug that would cause multiple undo actions to toggle between the last two states indefinitely.
 - Fixed the minimum and maximum width of the inbound shared turn lane.
-- Corrected a number of broken links to other websites.
+- Corrected a number of broken links to other websites, particularly in item descriptions.
 
 ## May 4, 2026
 
