@@ -15,6 +15,9 @@ import type { BoundaryPosition, SliceItem, StreetJson } from '@streetmix/types'
 
 // Mock dependencies
 vi.mock('@streetmix/parts', () => ({
+  getBoundaryItem: vi.fn().mockImplementation((_type: string) => ({
+    label: 'Boundary name',
+  })),
   getSegmentInfo: vi.fn().mockImplementation((type) => ({
     name: 'Default slice name',
     nameKey: `${type}-key`,
@@ -38,12 +41,6 @@ vi.mock('../store', () => ({
 
 vi.mock('../store/actions/street.js', () => ({
   segmentsChanged: vi.fn(),
-}))
-
-vi.mock('../boundary', () => ({
-  getBoundaryItem: vi.fn((_type: string) => ({
-    label: 'Boundary name',
-  })),
 }))
 
 describe('labels', () => {

@@ -8,13 +8,13 @@ import { VariantSet } from './VariantSet.js'
 
 import type { SegmentDefinition } from '@streetmix/types'
 
-// Enable mocking of the return value of `getSegmentInfo`
-vi.mock('@streetmix/parts', () => {
+// Enable mocking the return value of `getSegmentInfo`, but we need the actual
+// functions for the other methods exported
+vi.mock('@streetmix/parts', async (importOriginal) => {
+  const actual: object = await importOriginal()
   return {
+    ...actual,
     getSegmentInfo: vi.fn(),
-    getSegmentVariantInfo: vi.fn().mockReturnValue({
-      elevation: 0,
-    }),
   }
 })
 
