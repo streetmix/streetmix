@@ -34,6 +34,7 @@ export const StreetImageExportSchema = z.object({
   labels: parseQueryParam(true), // formerly 'segmentLabels'
   streetName: parseQueryParam(true),
   watermark: parseQueryParam(true),
+  silhouette: parseQueryParam(false),
   scale: z.preprocess(
     emptyStringToUndefined,
     z.coerce
