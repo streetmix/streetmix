@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
@@ -10,8 +10,10 @@ export function PrintContainer() {
   const isPrinting = useSelector((state) => state.app.printing)
   const street = useSelector((state) => state.street)
   const dispatch = useDispatch()
-  const printImage = useRef<string | null>(null)
+  const [printImage, setPrintImage] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
+  // Set up and tear down event listeners
   useEffect(() => {
     const beforeprintHandler = (): void => {
       // `flushSync` is a rarely used React feature that forces updates to
@@ -38,18 +40,34 @@ export function PrintContainer() {
     }
   }, [dispatch])
 
-  if (isPrinting) {
-    // Caches the image to a ref. This DOM element is only visible in a print
-    // media query, but leaving it around after printing is over allows
-    // debugging the print result after the print action is done.
-    printImage.current = getStreetImage(street, true, true, false).toDataURL(
-      'image/png'
-    )
-  }
+  // Generates an image for printing
+  useEffect(() => {
+    let cancelled = false
+
+    async function cacheImage() {
+      try {
+        setError(null)
+        const image = await getStreetImage(street, true, true, false)
+        if (!cancelled) {
+          setPrintImage(image.toDataURL('image/png'))
+        }
+      } catch (e) {
+        if (!cancelled) setError('Could not load image')
+      }
+    }
+
+    cacheImage()
+
+    return () => {
+      cancelled = true
+    }
+  }, [isPrinting, street])
 
   return (
     <div className="print-container">
-      {printImage.current !== null && <img src={printImage.current} />}
+      {error && <p>{error}</p>}
+      {!printImage && <p>Preparing print...</p>}
+      {printImage !== null && <img src={printImage} />}
     </div>
   )
 }

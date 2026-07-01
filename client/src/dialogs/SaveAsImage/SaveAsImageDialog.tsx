@@ -49,7 +49,10 @@ export function SaveAsImageDialog() {
   const [isNewExport, setNewExport] = useState(newExport)
 
   useEffect(() => {
-    updatePreview()
+    async function update() {
+      await updatePreview()
+    }
+    update()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -58,8 +61,8 @@ export function SaveAsImageDialog() {
     // Update preview when props change; make a slight delay because there is
     // a slight lag on image creation, but it's so short it feels weird.
     // Time delay makes the "Loading" feel "right."
-    window.setTimeout(() => {
-      updatePreview()
+    window.setTimeout(async () => {
+      await updatePreview()
     }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
@@ -69,8 +72,8 @@ export function SaveAsImageDialog() {
   useEffect(() => {
     if (isNewExport) {
       setIsLoading(true)
-      window.setTimeout(() => {
-        updatePreview()
+      window.setTimeout(async () => {
+        await updatePreview()
       }, 100)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -180,9 +183,9 @@ export function SaveAsImageDialog() {
     }
   }
 
-  const updatePreviewImage = (scale = 1): void => {
+  const updatePreviewImage = async (scale = 1): Promise<void> => {
     // The preview is rendered at the default scale at first.
-    imageCanvas.current = getStreetImage(
+    imageCanvas.current = await getStreetImage(
       street,
       transparentSky,
       segmentNames,
@@ -193,7 +196,7 @@ export function SaveAsImageDialog() {
     )
   }
 
-  const updatePreview = (): void => {
+  const updatePreview = async (): Promise<void> => {
     // If we're previewing using the new export image pipeline, set url
     // to the API export directly, then skip the rest of the function
     if (isNewExport) {
@@ -203,7 +206,7 @@ export function SaveAsImageDialog() {
       return
     }
 
-    updatePreviewImage(1)
+    await updatePreviewImage(1)
     // Only set base dimensions when preview is generated at scale = 1.
     // The custom slider will update target dimensions by multiplying base * scale
     // which is faster than rendering the entire image and reading its dimensions.
