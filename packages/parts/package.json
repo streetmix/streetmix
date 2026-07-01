@@ -14,8 +14,5 @@
     "build:data": "node scripts/generate-json-data.js",
     "build": "npm run build:data && tsc --project tsconfig.json",
     "start": "echo Nothing to run!"
-  },
-  "devDependencies": {
-    "typescript-yaml-plugin": "1.0.11"
   }
 }
