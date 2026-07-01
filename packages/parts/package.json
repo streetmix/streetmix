@@ -11,7 +11,8 @@
   "type": "module",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build:data": "node scripts/generate-json-data.js",
+    "build": "npm run build:data && tsc --project tsconfig.json",
     "start": "echo Nothing to run!"
   },
   "devDependencies": {
