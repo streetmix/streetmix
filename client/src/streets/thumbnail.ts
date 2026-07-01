@@ -412,10 +412,11 @@ function drawStreetNameplate(
   width: number, // width of area to draw
   dpi: number // pixel density of canvas
 ): void {
-  let text = street.name || formatMessage('street.default-name', 'Unnamed St')
+  // Save previous canvas context
+  ctx.save()
 
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
+  let text = street.name ?? formatMessage('street.default-name', 'Unnamed St')
+
   ctx.letterSpacing = '-.025em'
   ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
     STREET_NAME_FONT_SIZE * dpi
@@ -423,7 +424,6 @@ function drawStreetNameplate(
 
   // Handles long names
   let measurement = ctx.measureText(text)
-
   let needToBeElided = false
   while (measurement.width > (width - 200) * dpi) {
     text = text.substring(0, text.length - 1)
@@ -436,7 +436,7 @@ function drawStreetNameplate(
     measurement = ctx.measureText(text)
   }
 
-  // Street nameplate
+  // Nameplate background
   ctx.fillStyle = 'white'
   const x1 = (width * dpi) / 2 - (measurement.width / 2 + 45 * dpi)
   const x2 = (width * dpi) / 2 + (measurement.width / 2 + 45 * dpi)
@@ -444,7 +444,7 @@ function drawStreetNameplate(
   const y2 = (75 + 60) * dpi
   ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
 
-  // Street nameplate border
+  // Nameplate border
   ctx.strokeStyle = 'black'
   ctx.lineWidth = 5 * dpi
   ctx.strokeRect(
@@ -459,9 +459,14 @@ function drawStreetNameplate(
   const baselineCorrection = 12
   const y = (75 + baselineCorrection) * dpi
 
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
   ctx.strokeStyle = 'transparent'
   ctx.fillStyle = 'black'
   ctx.fillText(text, x, y)
+
+  // Restore previous canvas context
+  ctx.restore()
 }
 
 /**
