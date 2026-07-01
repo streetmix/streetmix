@@ -1,12 +1,8 @@
 import { round } from '@streetmix/utils'
 
-import {
-  SETTINGS_UNITS_IMPERIAL,
-  SETTINGS_UNITS_METRIC,
-} from '../users/constants'
-import { formatNumber } from './number_format'
+import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 
-import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
+import type { UnitsSetting } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const METRIC_PRECISION = 3
@@ -40,11 +36,6 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   '.625': '⅝',
   '.75': '¾',
   '.875': '⅞',
-}
-
-export function roundToPrecision(value: number): number {
-  // Assumes metric
-  return round(value, METRIC_PRECISION)
 }
 
 /**
@@ -96,173 +87,6 @@ export function processWidthInput(
   }
 
   return width
-}
-
-/**
- * Formats a width to a "pretty" output and converts the value to the user's
- * current units settings (imperial or metric).
- */
-export function prettifyWidth(
-  width: number,
-  units: UnitsSetting,
-  locale: string
-): string {
-  let widthText: string
-
-  switch (units) {
-    case SETTINGS_UNITS_IMPERIAL: {
-      const imperialWidth = convertMetricMeasurementToImperial(width)
-      widthText = getImperialMeasurementWithVulgarFractions(
-        imperialWidth,
-        locale
-      ) // also converts to string
-      widthText += '′'
-      break
-    }
-    case SETTINGS_UNITS_METRIC:
-    default:
-      widthText = stringifyMeasurementValue(
-        width,
-        SETTINGS_UNITS_METRIC,
-        locale
-      )
-
-      // Locale-specific units
-      switch (locale) {
-        // In Russian, the Cyrillic м is common in vernacular usage.
-        // This is in defiance of SI, but should be friendlier.
-        case 'ru':
-          widthText += ' м'
-          break
-        // In Arabic, use the same character that the USDM uses for
-        // metric units
-        case 'ar':
-          widthText += ' م'
-          break
-        default:
-          widthText += ' m'
-          break
-      }
-
-      break
-  }
-
-  return widthText
-}
-
-/**
- * Returns a measurement value as a locale-sensitive string without units
- * or formatting, and converts to the desired units, if necessary.
- * Used primarily when converting input box values to a simple number format
- */
-export function stringifyMeasurementValue(
-  value: number,
-  units: UnitsSetting,
-  locale: string
-): string {
-  let string: string
-
-  if (!value) return '0'
-
-  // Force the use of Western Arabic numerals in Arabic locale
-  if (locale === 'ar') {
-    locale += '-u-nu-latn'
-  }
-
-  switch (units) {
-    case SETTINGS_UNITS_IMPERIAL: {
-      string = formatNumber(value, locale, {
-        style: 'decimal',
-        maximumFractionDigits: IMPERIAL_PRECISION,
-      })
-      break
-    }
-    case SETTINGS_UNITS_METRIC:
-    default: {
-      string = formatNumber(value, locale, {
-        style: 'decimal',
-        maximumFractionDigits: METRIC_PRECISION,
-      })
-      break
-    }
-  }
-
-  return string
-}
-
-/**
- * Given a measurement value (stored internally in Streetmix as metric units),
- * return an imperial quantity up to three decimal point precision.
- */
-export function convertMetricMeasurementToImperial(value: number): number {
-  return roundToNearestEighth(
-    round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
-  )
-}
-
-/**
- * Given a measurement, assumed to be in imperial units,
- * return a metric value up to three decimal point precision.
- */
-export function convertImperialMeasurementToMetric(value: number): number {
-  return round(value * IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
-}
-
-/**
- * Given a `width` definition (an object containing both metric and imperial
- * width values), return a numerical value in metric. If `units` is metric
- * then return the metric value as is. If `units` is imperial, convert the
- * imperial value to metric and return it.
- */
-export function getWidthInMetric(
-  width: MeasurementValues,
-  units: UnitsSetting
-): number {
-  if (units === SETTINGS_UNITS_IMPERIAL) {
-    return convertImperialMeasurementToMetric(width.imperial)
-  } else {
-    return width.metric
-  }
-}
-
-/**
- * Given a measurement, assumed to be in imperial units,
- * return a value rounded to the nearest (up or down) eighth.
- */
-export function roundToNearestEighth(value: number): number {
-  return Math.round(value * 8) / 8
-}
-
-/**
- * Given a measurement value (assuming imperial units), return
- * a string formatted to use vulgar fractions, e.g. .5 => ½
- */
-export function getImperialMeasurementWithVulgarFractions(
-  value: number,
-  locale: string
-): string {
-  // Determine if there is a vulgar fraction to display
-  const floor = Math.floor(value)
-  const decimal = value - floor
-  const key = decimal.toString().replace(/^0/, '')
-  const fraction = IMPERIAL_VULGAR_FRACTIONS[key]
-
-  // If a fraction exists:
-  if (fraction !== undefined) {
-    // For values less than 1, return just the fractional part.
-    if (value < 1) {
-      return fraction
-    } else {
-      // Otherwise, return both the integer and fraction
-      return (
-        stringifyMeasurementValue(floor, SETTINGS_UNITS_IMPERIAL, locale) +
-        fraction
-      )
-    }
-  }
-
-  // Otherwise, just return the stringified value without fractions
-  return stringifyMeasurementValue(value, SETTINGS_UNITS_IMPERIAL, locale)
 }
 
 /**

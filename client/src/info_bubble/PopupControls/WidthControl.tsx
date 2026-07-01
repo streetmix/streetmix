@@ -1,4 +1,9 @@
 import { useIntl } from 'react-intl'
+import {
+  prettifyWidth,
+  stringifyMeasurementValue,
+  convertMetricMeasurementToImperial,
+} from '@streetmix/utils'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { incrementSegmentWidth } from '~/src/store/actions/street.js'
@@ -9,12 +14,7 @@ import {
 import { RESIZE_TYPE_TYPING, resizeSegment } from '~/src/segments/resizing.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
-import {
-  prettifyWidth,
-  stringifyMeasurementValue,
-  processWidthInput,
-  convertMetricMeasurementToImperial,
-} from '~/src/util/width_units.js'
+import { processWidthInput } from '~/src/util/width_units.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { UpDownInput } from './UpDownInput.js'
 

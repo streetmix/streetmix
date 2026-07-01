@@ -1,5 +1,10 @@
 import { useIntl } from 'react-intl'
 import { Decimal } from 'decimal.js'
+import {
+  convertMetricMeasurementToImperial,
+  prettifyWidth,
+  stringifyMeasurementValue,
+} from '@streetmix/utils'
 
 import {
   ELEVATION_INCREMENT,
@@ -16,12 +21,7 @@ import {
   setSeaLevel,
 } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
-import {
-  convertMetricMeasurementToImperial,
-  prettifyWidth,
-  processWidthInput,
-  stringifyMeasurementValue,
-} from '~/src/util/width_units.js'
+import { processWidthInput } from '~/src/util/width_units.js'
 import { UpDownInput } from './UpDownInput.js'
 
 import type { BoundaryPosition, UnitsSetting } from '@streetmix/types'

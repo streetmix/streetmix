@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import SLICE_LOOKUP from '@streetmix/parts/src/data/segment-lookup.json' with { type: 'json' }
+import { prettifyWidth } from '@streetmix/utils'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
-import { prettifyWidth } from './dimensions.js'
 import { getTranslations } from './locale.js'
 
 import type * as Canvas from '@napi-rs/canvas'
@@ -100,8 +100,6 @@ export async function drawLabels(
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    // TODO: locale doesn't do anything yet -- need to port number_format to
-    // utils so it can be shared by backend
     const text = prettifyWidth(slice.width, street.units, locale)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 

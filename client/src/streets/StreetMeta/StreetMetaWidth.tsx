@@ -1,14 +1,14 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import {
+  prettifyWidth,
+  convertImperialMeasurementToMetric,
+} from '@streetmix/utils'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateStreetWidthAction as updateStreetWidth } from '~/src/store/actions/street.js'
 import { Icon } from '~/src/ui/Icon.js'
-import {
-  prettifyWidth,
-  processWidthInput,
-  convertImperialMeasurementToMetric,
-} from '~/src/util/width_units.js'
+import { processWidthInput } from '~/src/util/width_units.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
