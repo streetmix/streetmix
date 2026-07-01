@@ -43,13 +43,6 @@ export function drawEarth(
     rightBoundary?.variant ?? street.rightBuildingVariant
   )
 
-  if (street.boundary?.left.elevation > 0) {
-    leftElevation = street.boundary.left.elevation * TILE_SIZE
-  }
-  if (street.boundary?.right.elevation > 0) {
-    rightElevation = street.boundary.right.elevation * TILE_SIZE
-  }
-
   if (leftBoundary?.elevation > 0) {
     leftElevation = leftBoundary.elevation * TILE_SIZE
   }
