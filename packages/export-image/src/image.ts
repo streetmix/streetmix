@@ -7,6 +7,7 @@ import { TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
+import { drawSilhouette } from './silhouette.js'
 import { drawSky } from './sky.js'
 import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
@@ -156,6 +157,11 @@ export async function makeStreetImage(
         options.scale,
         options.locale
       )
+    }
+
+    // Silhouette
+    if (options.silhouette) {
+      drawSilhouette(ctx, width, height, options.scale)
     }
 
     // Street nameplate

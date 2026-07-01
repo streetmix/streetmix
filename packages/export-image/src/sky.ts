@@ -4,7 +4,7 @@ import type { SkyboxDefWithStyles, StreetJson } from '@streetmix/types'
 
 const SKY_GAP = 120 // height difference between sky-rear and sky-front images
 
-export async function drawSky (
+export async function drawSky(
   ctx: Canvas.SKRSContext2D,
   street: StreetJson,
   width: number, // image width (scaled)
@@ -17,7 +17,7 @@ export async function drawSky (
 
   // Solid color fill
   if (sky.backgroundColor !== undefined) {
-    drawBackgroundColor(ctx, width, horizonLine * scale, sky.backgroundColor)
+    drawBackgroundColor(ctx, width, horizonLine, scale, sky.backgroundColor)
   }
 
   // TODO: All the other backgrounds!
@@ -54,34 +54,37 @@ export async function drawSky (
 }
 
 // TODO: Read other sky definitions.
-function getSkyboxDef (_id: string): SkyboxDefWithStyles {
+function getSkyboxDef(_id: string): SkyboxDefWithStyles {
   return {
     name: 'Day',
     backgroundColor: '#a9ccdb',
     id: 'day',
     style: {
-      background: '#a9ccdb'
+      background: '#a9ccdb',
     },
     iconStyle: {
-      background: '#a9ccdb'
-    }
+      background: '#a9ccdb',
+    },
   }
 }
 
 /**
  * Draws a layer of background color
  *
- * @modifies {Canvas.SKRSContext2D}
+ * @modifies {Canvas.SKRSContext2D | CanvasRenderingContext2D}
  */
-function drawBackgroundColor (
-  ctx: Canvas.SKRSContext2D,
+export function drawBackgroundColor(
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   width: number,
   height: number,
+  scale: number,
   color: string
 ): void {
   ctx.save()
+
   ctx.fillStyle = color
-  ctx.fillRect(0, 0, width, height)
+  ctx.fillRect(0, 0, width * scale, height * scale)
+
   ctx.restore()
 }
 
@@ -90,7 +93,7 @@ function drawBackgroundColor (
  *
  * @modifies {Canvas.SKRSContext2D}
  */
-async function drawClouds (
+async function drawClouds(
   ctx: Canvas.SKRSContext2D,
   width: number,
   height: number, // This is actually not the image height but groundLevel height

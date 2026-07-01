@@ -3,6 +3,7 @@ import {
   drawLabelBackground,
   drawLabels,
 } from '@streetmix/export-image/src/labels'
+import { drawSilhouette } from '@streetmix/export-image/src/silhouette'
 import {
   getBoundaryItem,
   getSegmentInfo,
@@ -27,8 +28,6 @@ import type {
   SkyboxObject,
   StreetJson,
 } from '@streetmix/types'
-
-const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const STREET_NAME_FONT = 'Overpass Variable'
 const STREET_NAME_FONT_SIZE = 70
@@ -388,22 +387,6 @@ function drawSlices(
 }
 
 /**
- * Turns drawn objects on canvas into a single-colour silhouette
- */
-function drawSilhouette(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  width: number, // width of area to draw
-  height: number, // height of area to draw
-  dpi: number // pixel density of canvas
-): void {
-  ctx.save()
-  ctx.globalCompositeOperation = 'source-atop'
-  ctx.fillStyle = SILHOUETTE_FILL_COLOUR
-  ctx.fillRect(0, 0, width * dpi, height * dpi)
-  ctx.restore()
-}
-
-/**
  * Draws street nameplate
  */
 function drawStreetNameplate(
@@ -664,7 +647,12 @@ export async function drawStreetThumbnail(
 
   // Silhouette
   if (silhouette) {
-    drawSilhouette(ctx, width, height, dpi)
+    drawSilhouette(
+      ctx,
+      width / multiplier,
+      height / multiplier,
+      dpi * multiplier
+    )
   }
 
   // Street nameplate
