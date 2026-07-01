@@ -1,3 +1,4 @@
+import { drawEarth } from '@streetmix/export-image/src/earth'
 import { drawLine } from '@streetmix/export-image/src/labels'
 import {
   getBoundaryItem,
@@ -26,7 +27,6 @@ import type {
 } from '@streetmix/types'
 
 const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
-const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
 
 const LABEL_FONT = 'Rubik Variable'
@@ -263,76 +263,6 @@ function drawClouds(
 
   // Restore global opacity
   ctx.restore()
-}
-
-/**
- * Draws earth (soil and dirt below ground).
- */
-function drawEarth(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetJson, // street data
-  width: number, // width of area to draw
-  dpi: number, // pixel density of canvas
-  multiplier: number, // scale factor of image
-  horizonLine: number, // vertical height of horizon
-  groundLevel: number // vertical height of ground
-) {
-  ctx.fillStyle = BACKGROUND_EARTH_COLOUR
-  ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
-
-  // Get elevation at boundaries if they are set to something
-  // The `boundary` property does not exist prior to schema version 31,
-  // and gallery will still need to render data that doesn't have it.
-  // There are intermediary schemas where the boundary property did
-  // not use real units (they were using 0 or 1) but these don't exist
-  // in the wild, so don't bother handling this case
-  let leftElevation = 0
-  let rightElevation = 0
-
-  const leftBoundary = street.boundary?.left
-  const rightBoundary = street.boundary?.right
-  const leftBoundaryDefinition = getBoundaryItem(
-    leftBoundary?.variant ?? street.leftBuildingVariant
-  )
-  const rightBoundaryDefinition = getBoundaryItem(
-    rightBoundary?.variant ?? street.rightBuildingVariant
-  )
-
-  if (leftBoundary?.elevation > 0) {
-    leftElevation = leftBoundary.elevation * TILE_SIZE
-  }
-  if (rightBoundary?.elevation > 0) {
-    rightElevation = street.boundary.right.elevation * TILE_SIZE
-  }
-
-  if (leftBoundaryDefinition.earthColor) {
-    ctx.fillStyle = leftBoundaryDefinition.earthColor
-  }
-
-  // Left boundary
-  // Add additional 25 pixels to extend to bottom of image
-  // TODO: document these magic numbers
-  ctx.fillRect(
-    0,
-    (groundLevel - leftElevation * multiplier) * dpi,
-    (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    (20 + 25 + leftElevation) * multiplier * dpi
-  )
-
-  if (rightBoundaryDefinition.earthColor) {
-    ctx.fillStyle = rightBoundaryDefinition.earthColor
-  } else {
-    // Reset to default background color
-    ctx.fillStyle = BACKGROUND_EARTH_COLOUR
-  }
-
-  // Right boundary
-  ctx.fillRect(
-    (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    (groundLevel - rightElevation * multiplier) * dpi,
-    width * dpi,
-    (20 + 25 + rightElevation) * multiplier * dpi
-  )
 }
 
 /**
@@ -772,7 +702,15 @@ export function drawStreetThumbnail(
   // Earth
   // TODO: consider moving ground below boundaries to drawBoundaries
   // since it needs to read from those data now
-  drawEarth(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
+  // Make intermediary values to use drawEarth from export-image library
+  drawEarth(
+    ctx,
+    street,
+    width / multiplier,
+    horizonLine / multiplier,
+    groundLevel / multiplier,
+    dpi * multiplier
+  )
 
   // Buildings
   drawBoundaries(

@@ -1,6 +1,7 @@
 import { TILE_SIZE } from './constants.js'
 
 import type * as Canvas from '@napi-rs/canvas'
+import { getBoundaryItem } from '@streetmix/parts'
 import type { StreetJson } from '@streetmix/types'
 
 const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
@@ -11,7 +12,7 @@ const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
  * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawEarth(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   street: StreetJson,
   width: number,
   horizonLine: number,
@@ -30,11 +31,18 @@ export function drawEarth(
   // Get elevation at boundaries if they are set to something
   // The `boundary` property does not exist prior to schema version 31,
   // and gallery will still need to render data that doesn't have it.
-  // There are intermediary schemas where the boundary property did
-  // not use real units (they were using 0 or 1) but these don't exist
-  // in the wild, so don't bother handling this case
   let leftElevation = 0
   let rightElevation = 0
+
+  const leftBoundary = street.boundary?.left
+  const rightBoundary = street.boundary?.right
+  const leftBoundaryDefinition = getBoundaryItem(
+    leftBoundary?.variant ?? street.leftBuildingVariant
+  )
+  const rightBoundaryDefinition = getBoundaryItem(
+    rightBoundary?.variant ?? street.rightBuildingVariant
+  )
+
   if (street.boundary?.left.elevation > 0) {
     leftElevation = street.boundary.left.elevation * TILE_SIZE
   }
@@ -42,7 +50,16 @@ export function drawEarth(
     rightElevation = street.boundary.right.elevation * TILE_SIZE
   }
 
-  // TODO: handle earthColor properties
+  if (leftBoundary?.elevation > 0) {
+    leftElevation = leftBoundary.elevation * TILE_SIZE
+  }
+  if (rightBoundary?.elevation > 0) {
+    rightElevation = street.boundary.right.elevation * TILE_SIZE
+  }
+
+  if (leftBoundaryDefinition.earthColor) {
+    ctx.fillStyle = leftBoundaryDefinition.earthColor
+  }
 
   // Earth below left boundary
   ctx.fillRect(
@@ -51,6 +68,13 @@ export function drawEarth(
     (width / 2 - (street.width * TILE_SIZE) / 2) * scale,
     horizonLine * scale
   )
+
+  if (rightBoundaryDefinition.earthColor) {
+    ctx.fillStyle = rightBoundaryDefinition.earthColor
+  } else {
+    // Reset to default background color
+    ctx.fillStyle = BACKGROUND_EARTH_COLOUR
+  }
 
   // Earth below right boundary
   ctx.fillRect(
