@@ -9,9 +9,5 @@ export function getBoundaryItem(variant: string): BoundaryDefinition {
 
   const item = BOUNDARY_DEFS[variant as keyof typeof BOUNDARY_DEFS]
 
-  if (item.id === undefined) {
-    item.id = variant
-  }
-
   return item as BoundaryDefinition
 }
