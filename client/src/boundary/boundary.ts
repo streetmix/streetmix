@@ -1,7 +1,6 @@
-import { round } from '@streetmix/utils'
+import { round, prettifyWidth } from '@streetmix/utils'
 import { getBoundaryItem } from '@streetmix/parts'
 
-import { prettifyWidth } from '../util/width_units.js'
 import { images } from '../app/load_resources.js'
 import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
 import {

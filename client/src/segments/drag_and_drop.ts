@@ -4,6 +4,7 @@ import {
   getSegmentInfo,
   getSegmentVariantInfo,
 } from '@streetmix/parts'
+import { getWidthInMetric } from '@streetmix/utils'
 
 import { setIgnoreStreetChanges } from '../streets/data_model'
 import { getElAbsolutePos } from '../util/helpers'
@@ -18,7 +19,6 @@ import {
   setDraggingType,
 } from '../store/slices/ui'
 import { generateRandSeed } from '../util/random'
-import { getWidthInMetric } from '../util/width_units'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,

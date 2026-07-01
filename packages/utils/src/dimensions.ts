@@ -1,5 +1,7 @@
-import { formatNumber, round } from '@streetmix/utils'
-import type { UnitsSetting } from '@streetmix/types'
+import { formatNumber } from './number_format.js'
+import { round } from './number.js'
+
+import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 
 /**
  * prettifyWidth() and associated functions are similar to in width_units.ts
@@ -100,21 +102,53 @@ export function stringifyMeasurementValue(
 }
 
 /**
+ * Given a measurement value (stored internally in Streetmix as metric units),
+ * return an imperial quantity up to three decimal point precision.
+ */
+export function convertMetricMeasurementToImperial(value: number): number {
+  return roundToNearestEighth(
+    round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
+  )
+}
+
+/**
+ * Given a measurement, assumed to be in imperial units,
+ * return a metric value up to three decimal point precision.
+ */
+export function convertImperialMeasurementToMetric(value: number): number {
+  return round(value * IMPERIAL_CONVERSION_RATE, METRIC_PRECISION)
+}
+
+/**
+ * Given a `width` definition (an object containing both metric and imperial
+ * width values), return a numerical value in metric. If `units` is metric
+ * then return the metric value as is. If `units` is imperial, convert the
+ * imperial value to metric and return it.
+ */
+export function getWidthInMetric(
+  width: MeasurementValues,
+  units: UnitsSetting
+): number {
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    return convertImperialMeasurementToMetric(width.imperial)
+  } else {
+    return width.metric
+  }
+}
+
+/**
  * Given a measurement, assumed to be in imperial units,
  * return a value rounded to the nearest (up or down) eighth.
  */
-function convertMetricMeasurementToImperial(value: number): number {
-  const converted = round(value / IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
-
-  // Return a value rounded to the nearest eighth
-  return Math.round(converted * 8) / 8
+export function roundToNearestEighth(value: number): number {
+  return Math.round(value * 8) / 8
 }
 
 /**
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  */
-function stringifyImperialValueWithFractions(
+export function stringifyImperialValueWithFractions(
   value: number,
   locale: string
 ): string {

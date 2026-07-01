@@ -1,4 +1,4 @@
-import { getWidthInMetric } from '~/src/util/width_units'
+import { getWidthInMetric } from '@streetmix/utils'
 
 import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 

@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import SLICE_LOOKUP from '@streetmix/parts/src/data/segment-lookup.json' with { type: 'json' }
+import { prettifyWidth } from '@streetmix/utils'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
-import { prettifyWidth } from './dimensions.js'
 import { getTranslations } from './locale.js'
 
 import type * as Canvas from '@napi-rs/canvas'

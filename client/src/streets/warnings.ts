@@ -1,4 +1,5 @@
 import { getSegmentVariantInfo } from '@streetmix/parts'
+import { getWidthInMetric } from '@streetmix/utils'
 
 import {
   SLICE_WARNING_OUTSIDE,
@@ -9,7 +10,6 @@ import {
   SLICE_WARNING_SLOPE_EXCEEDED_PATH,
 } from '../segments/constants.js'
 import { getRiseRunValues, getSlopeWarnings } from '../segments/slope.js'
-import { getWidthInMetric } from '../util/width_units.js'
 
 import type { SliceItem, StreetJson } from '@streetmix/types'
 import type { CalculatedWidths } from './width.js'

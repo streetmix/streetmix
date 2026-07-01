@@ -1,6 +1,5 @@
 import { memo } from 'react'
-
-import { prettifyWidth } from '../util/width_units.js'
+import { prettifyWidth } from '@streetmix/utils'
 
 import type { UnitsSetting } from '@streetmix/types'
 

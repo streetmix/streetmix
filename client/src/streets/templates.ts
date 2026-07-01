@@ -3,6 +3,7 @@ import clone from 'just-clone'
 import { load, JSON_SCHEMA } from 'js-yaml'
 import * as z from 'zod'
 import { getSegmentVariantInfo } from '@streetmix/parts'
+import { getWidthInMetric } from '@streetmix/utils'
 
 import {
   normalizeSegmentWidth,
@@ -18,7 +19,6 @@ import { getLeftHandTraffic } from '../users/localization.js'
 import { updateStreetData } from '../store/slices/street.js'
 import store from '../store'
 import { DEFAULT_SKYBOX } from '../sky/constants.js'
-import { getWidthInMetric } from '../util/width_units.js'
 import { updateLastStreetInfo } from './xhr.js'
 
 import type {
