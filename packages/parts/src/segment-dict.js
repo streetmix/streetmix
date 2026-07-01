@@ -1,7 +1,7 @@
 import { unique } from '@streetmix/utils'
 
-import SEGMENT_COMPONENTS from './components.json' with { type: 'json' }
-import SEGMENT_LOOKUP from './segment-lookup.json' with { type: 'json' }
+import SEGMENT_COMPONENTS from './data/components.json' with { type: 'json' }
+import SEGMENT_LOOKUP from './data/segment-lookup.json' with { type: 'json' }
 import { SEGMENT_UNKNOWN, SEGMENT_UNKNOWN_VARIANT } from './info.js'
 
 export const COMPONENT_GROUPS = {
