@@ -100,8 +100,6 @@ export async function drawLabels(
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    // TODO: locale doesn't do anything yet -- need to port number_format to
-    // utils so it can be shared by backend
     const text = prettifyWidth(slice.width, street.units, locale)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 

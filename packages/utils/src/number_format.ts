@@ -39,39 +39,18 @@ function orderedProps(obj: Record<string, unknown>): Record<string, unknown>[] {
     .map((k) => ({ [k]: obj[k] }))
 }
 
-interface MemoizeFormatConstructorFn {
-  (
-    constructor: typeof Intl.NumberFormat
-  ): (
-    ...args: ConstructorParameters<typeof Intl.NumberFormat>
-  ) => Intl.NumberFormat
-  (
-    constructor: typeof Intl.DateTimeFormat
-  ): (
-    ...args: ConstructorParameters<typeof Intl.DateTimeFormat>
-  ) => Intl.DateTimeFormat
-  (
-    constructor: typeof Intl.RelativeTimeFormat
-  ): (
-    ...args: ConstructorParameters<typeof Intl.RelativeTimeFormat>
-  ) => Intl.RelativeTimeFormat
-  (constructor: unknown): (...args: unknown[]) => unknown
-}
-
-const memoizeFormatConstructor: MemoizeFormatConstructorFn = (
-  FormatConstructor
+const memoizeFormatConstructor = <TArgs extends unknown[], TResult>(
+  FormatConstructor: new (...args: TArgs) => TResult
 ) => {
-  const cache = {}
+  const cache: Record<string, TResult> = {}
 
-  return (...args) => {
+  return (...args: TArgs): TResult => {
     const cacheId = getCacheId(args)
-    let format = cacheId && cache[cacheId]
-    if (!format) {
-      format = new FormatConstructor(...args)
-      if (cacheId) {
-        cache[cacheId] = format
-      }
-    }
+    const cached = cache[cacheId]
+    if (cached) return cached
+
+    const format = new FormatConstructor(...args)
+    cache[cacheId] = format
 
     return format
   }

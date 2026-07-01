@@ -109,42 +109,38 @@ export function prettifyWidth(
 ): string {
   let widthText: string
 
-  switch (units) {
-    case SETTINGS_UNITS_IMPERIAL: {
-      const imperialWidth = convertMetricMeasurementToImperial(width)
-      widthText = getImperialMeasurementWithVulgarFractions(
-        imperialWidth,
-        locale
-      ) // also converts to string
-      widthText += '′'
-      break
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    // Convert metric value to imperial measurement
+    // This handles precision and rounding to nearest eighth
+    const imperialWidth = convertMetricMeasurementToImperial(width)
+
+    // Convert numerical value to string with vulgar fractions, if any
+    widthText = stringifyImperialValueWithFractions(imperialWidth, locale)
+
+    // Append prime mark
+    // This character may not exist in all fonts.
+    widthText += '′'
+  } else {
+    // For metric values, only round to required precision
+    // Then append the unit (with non-breaking space)
+    widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
+
+    // Locale-specific units
+    switch (locale) {
+      // In Russian, the Cyrillic м is common in vernacular usage.
+      // This is in defiance of SI, but should be friendlier.
+      case 'ru':
+        widthText += ' м'
+        break
+      // In Arabic, use the same character that the USDM uses for
+      // metric units
+      case 'ar':
+        widthText += ' م'
+        break
+      default:
+        widthText += ' m'
+        break
     }
-    case SETTINGS_UNITS_METRIC:
-    default:
-      widthText = stringifyMeasurementValue(
-        width,
-        SETTINGS_UNITS_METRIC,
-        locale
-      )
-
-      // Locale-specific units
-      switch (locale) {
-        // In Russian, the Cyrillic м is common in vernacular usage.
-        // This is in defiance of SI, but should be friendlier.
-        case 'ru':
-          widthText += ' м'
-          break
-        // In Arabic, use the same character that the USDM uses for
-        // metric units
-        case 'ar':
-          widthText += ' م'
-          break
-        default:
-          widthText += ' m'
-          break
-      }
-
-      break
   }
 
   return widthText
@@ -169,22 +165,16 @@ export function stringifyMeasurementValue(
     locale += '-u-nu-latn'
   }
 
-  switch (units) {
-    case SETTINGS_UNITS_IMPERIAL: {
-      string = formatNumber(value, locale, {
-        style: 'decimal',
-        maximumFractionDigits: IMPERIAL_PRECISION,
-      })
-      break
-    }
-    case SETTINGS_UNITS_METRIC:
-    default: {
-      string = formatNumber(value, locale, {
-        style: 'decimal',
-        maximumFractionDigits: METRIC_PRECISION,
-      })
-      break
-    }
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    string = formatNumber(value, locale, {
+      style: 'decimal',
+      maximumFractionDigits: IMPERIAL_PRECISION,
+    })
+  } else {
+    string = formatNumber(value, locale, {
+      style: 'decimal',
+      maximumFractionDigits: METRIC_PRECISION,
+    })
   }
 
   return string
@@ -237,7 +227,7 @@ export function roundToNearestEighth(value: number): number {
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  */
-export function getImperialMeasurementWithVulgarFractions(
+export function stringifyImperialValueWithFractions(
   value: number,
   locale: string
 ): string {

@@ -1,10 +1,10 @@
-import { round } from '@streetmix/utils'
+import { formatNumber, round } from '@streetmix/utils'
 import type { UnitsSetting } from '@streetmix/types'
 
 /**
- * Simplified prettifyWidth() functions.
- * Does not handle locale.
+ * prettifyWidth() and associated functions are similar to in width_units.ts
  */
+const SETTINGS_UNITS_METRIC = 0
 const SETTINGS_UNITS_IMPERIAL = 1
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const IMPERIAL_PRECISION = 3
@@ -21,7 +21,11 @@ const IMPERIAL_VULGAR_FRACTIONS: Record<string, string> = {
   '.875': '⅞',
 }
 
-export function prettifyWidth(width: number, units: UnitsSetting): string {
+export function prettifyWidth(
+  width: number,
+  units: UnitsSetting,
+  locale: string
+): string {
   let widthText: string
 
   if (units === SETTINGS_UNITS_IMPERIAL) {
@@ -30,7 +34,7 @@ export function prettifyWidth(width: number, units: UnitsSetting): string {
     const imperialWidth = convertMetricMeasurementToImperial(width)
 
     // Convert numerical value to string with vulgar fractions, if any
-    widthText = stringifyImperialValueWithFractions(imperialWidth)
+    widthText = stringifyImperialValueWithFractions(imperialWidth, locale)
 
     // Append prime mark
     // This character may not exist in all fonts.
@@ -38,10 +42,61 @@ export function prettifyWidth(width: number, units: UnitsSetting): string {
   } else {
     // For metric values, only round to required precision
     // Then append the unit (with non-breaking space)
-    widthText = round(width, METRIC_PRECISION) + ' m'
+    widthText = stringifyMeasurementValue(width, SETTINGS_UNITS_METRIC, locale)
+
+    // Locale-specific units
+    switch (locale) {
+      // In Russian, the Cyrillic м is common in vernacular usage.
+      // This is in defiance of SI, but should be friendlier.
+      case 'ru':
+        widthText += ' м'
+        break
+      // In Arabic, use the same character that the USDM uses for
+      // metric units
+      case 'ar':
+        widthText += ' م'
+        break
+      default:
+        widthText += ' m'
+        break
+    }
   }
 
   return widthText
+}
+
+/**
+ * Returns a measurement value as a locale-sensitive string without units
+ * or formatting, and converts to the desired units, if necessary.
+ * Used primarily when converting input box values to a simple number format
+ */
+export function stringifyMeasurementValue(
+  value: number,
+  units: UnitsSetting,
+  locale: string
+): string {
+  let string: string
+
+  if (!value) return '0'
+
+  // Force the use of Western Arabic numerals in Arabic locale
+  if (locale === 'ar') {
+    locale += '-u-nu-latn'
+  }
+
+  if (units === SETTINGS_UNITS_IMPERIAL) {
+    string = formatNumber(value, locale, {
+      style: 'decimal',
+      maximumFractionDigits: IMPERIAL_PRECISION,
+    })
+  } else {
+    string = formatNumber(value, locale, {
+      style: 'decimal',
+      maximumFractionDigits: METRIC_PRECISION,
+    })
+  }
+
+  return string
 }
 
 /**
@@ -59,7 +114,10 @@ function convertMetricMeasurementToImperial(value: number): number {
  * Given a measurement value (assuming imperial units), return
  * a string formatted to use vulgar fractions, e.g. .5 => ½
  */
-function stringifyImperialValueWithFractions(value: number): string {
+function stringifyImperialValueWithFractions(
+  value: number,
+  locale: string
+): string {
   // Determine if there is a vulgar fraction to display
   const floor = Math.floor(value)
   const decimal = value - floor
@@ -73,10 +131,13 @@ function stringifyImperialValueWithFractions(value: number): string {
       return fraction
     } else {
       // Otherwise, return both the integer and fraction
-      return floor.toString() + fraction
+      return (
+        stringifyMeasurementValue(floor, SETTINGS_UNITS_IMPERIAL, locale) +
+        fraction
+      )
     }
   }
 
   // Otherwise, just return the stringified value without fractions
-  return value.toString()
+  return stringifyMeasurementValue(value, SETTINGS_UNITS_IMPERIAL, locale)
 }
