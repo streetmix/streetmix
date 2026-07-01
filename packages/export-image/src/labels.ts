@@ -49,8 +49,15 @@ export async function drawLabels(
   groundLevel: number,
   offsetLeft: number,
   scale: number,
-  locale: string // locale to render labels in
-): void {
+  locale: string, // locale to render labels in
+  // This is an optional slice name lookup function that the client passes
+  // in because we have to use their lookup function rather than the server one
+  getSliceNameFn?: (
+    type: string,
+    variantString: string,
+    locale: string
+  ) => Promise<string> | string
+): Promise<void> {
   ctx.save()
 
   // Use Rubik Variable in the client, and Geist Sans in the backend
@@ -98,7 +105,11 @@ export async function drawLabels(
     // Segment name label
     const name =
       slice.label ??
-      (await getSliceName(slice.type, slice.variantString, locale))
+      (await (getSliceNameFn ?? getSliceName)(
+        slice.type,
+        slice.variantString,
+        locale
+      ))
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {

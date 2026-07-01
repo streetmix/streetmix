@@ -731,7 +731,11 @@ export async function drawStreetThumbnail(
       groundLevel / multiplier,
       offsetLeft / multiplier,
       dpi * multiplier,
-      locale
+      locale,
+      // On the client side we pass in the client-specific locale lookup fn
+      // This is pretty hacky, but I'm leaving it in while we transition the
+      // thumbnail drawing to back end.
+      (type, variantString) => getLocaleSliceName(type, variantString)
     )
   }
 
