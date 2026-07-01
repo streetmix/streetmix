@@ -1,6 +1,6 @@
 import { round } from '@streetmix/utils'
+import BOUNDARY_DEFS from '@streetmix/parts/build/data/boundary_defs.json'
 
-import BOUNDARY_DEFS from '../boundary/boundary_defs.yaml'
 import { prettifyWidth } from '../util/width_units.js'
 import { images } from '../app/load_resources.js'
 import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
