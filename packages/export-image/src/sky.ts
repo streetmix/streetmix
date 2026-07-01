@@ -17,7 +17,15 @@ export async function drawSky(
 
   // Solid color fill
   if (sky.backgroundColor !== undefined) {
-    drawBackgroundColor(ctx, width, horizonLine, scale, sky.backgroundColor)
+    // Width is already scaled, scale it back down for now, let's see if this
+    // flow works better
+    drawBackgroundColor(
+      ctx,
+      width / scale,
+      horizonLine,
+      scale,
+      sky.backgroundColor
+    )
   }
 
   // TODO: All the other backgrounds!
