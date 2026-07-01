@@ -165,7 +165,7 @@ export async function makeStreetImage(
 
     // Silhouette
     if (options.silhouette) {
-      drawSilhouette(ctx, width, height, options.scale)
+      drawSilhouette(ctx, baseWidth, baseHeight, options.scale)
     }
 
     // Street nameplate
