@@ -1,11 +1,14 @@
 import { vi, type Mock } from 'vitest'
-import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+} from '@streetmix/parts'
 
 import store from '../store'
 import { segmentsChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street.js'
 import { formatMessage } from '../locales/locale.js'
-import { getBoundaryItem } from '../boundary'
 import { getLocaleSliceName, editSliceLabel, getLabel } from './labels.js'
 
 import type { BoundaryPosition, SliceItem, StreetJson } from '@streetmix/types'

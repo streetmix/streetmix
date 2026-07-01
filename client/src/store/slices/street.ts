@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+} from '@streetmix/parts'
 
-import { getBoundaryItem } from '~/src/boundary/boundary'
 import { getElevationValue } from '~/src/segments/elevation'
 import { getVariantString } from '~/src/segments/variant_utils'
 import { DEFAULT_SKYBOX } from '~/src/sky/constants'

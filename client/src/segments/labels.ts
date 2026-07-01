@@ -1,10 +1,13 @@
-import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+} from '@streetmix/parts'
 
 import { formatMessage } from '../locales/locale'
 import store from '../store'
 import { segmentsChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street'
-import { getBoundaryItem } from '../boundary'
 
 import type {
   BoundaryPosition,

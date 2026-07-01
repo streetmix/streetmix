@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
+import { getBoundaryItem } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -14,7 +15,7 @@ import {
 } from '~/src/segments/constants.js'
 import { getElevation } from '~/src/segments/view.js'
 import { PopupContainer } from '../info_bubble/PopupContainer.js'
-import { getBoundaryImageHeight, getBoundaryItem } from './boundary.js'
+import { getBoundaryImageHeight } from './boundary.js'
 import { drawBoundary } from './draw.js'
 import './BoundaryComponent.css'
 

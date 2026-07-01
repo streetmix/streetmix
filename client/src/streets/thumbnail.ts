@@ -1,10 +1,13 @@
 import { drawLine } from '@streetmix/export-image/src/labels'
-import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+} from '@streetmix/parts'
 
 import { images } from '../app/load_resources.js'
 import { prettifyWidth } from '../util/width_units.js'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
-import { getBoundaryItem } from '../boundary'
 import { drawBoundary } from '../boundary/draw.js'
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants.js'
 import { getLocaleSliceName } from '../segments/labels.js'

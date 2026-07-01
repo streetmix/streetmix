@@ -1,4 +1,5 @@
 import { useIntl } from 'react-intl'
+import { getBoundaryItem } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
@@ -8,7 +9,7 @@ import {
 } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
-import { getBoundaryItem, prettifyHeight } from '~/src/boundary'
+import { prettifyHeight } from '~/src/boundary'
 import {
   MAX_BUILDING_HEIGHT,
   BUILDING_LEFT_POSITION,
