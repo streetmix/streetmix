@@ -7,7 +7,7 @@ import {
 } from './info.js'
 
 vi.mock(
-  './sprite_defs.json',
+  './data/sprite_defs.json',
   async () => await import('./__mocks__/sprite_defs.json')
 )
 
