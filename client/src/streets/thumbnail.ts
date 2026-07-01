@@ -3,6 +3,7 @@ import {
   drawLabelBackground,
   drawLabels,
 } from '@streetmix/export-image/src/labels'
+import { drawNameplate } from '@streetmix/export-image/src/nameplate'
 import { drawSilhouette } from '@streetmix/export-image/src/silhouette'
 import {
   getBoundaryItem,
@@ -27,11 +28,8 @@ import type {
   SkyboxDefWithStyles,
   SkyboxObject,
   StreetJson,
+  StreetState,
 } from '@streetmix/types'
-
-const STREET_NAME_FONT = 'Overpass Variable'
-const STREET_NAME_FONT_SIZE = 70
-const STREET_NAME_FONT_WEIGHT = '700'
 
 const WATERMARK_FONT = 'Rubik Variable'
 const WATERMARK_FONT_SIZE = 24
@@ -387,72 +385,6 @@ function drawSlices(
 }
 
 /**
- * Draws street nameplate
- */
-function drawStreetNameplate(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetJson, // street data
-  width: number, // width of area to draw
-  dpi: number // pixel density of canvas
-): void {
-  // Save previous canvas context
-  ctx.save()
-
-  let text = street.name ?? formatMessage('street.default-name', 'Unnamed St')
-
-  ctx.letterSpacing = '-.025em'
-  ctx.font = `normal ${STREET_NAME_FONT_WEIGHT} ${
-    STREET_NAME_FONT_SIZE * dpi
-  }px ${STREET_NAME_FONT},sans-serif`
-
-  // Handles long names
-  let measurement = ctx.measureText(text)
-  let needToBeElided = false
-  while (measurement.width > (width - 200) * dpi) {
-    text = text.substring(0, text.length - 1)
-    measurement = ctx.measureText(text)
-    needToBeElided = true
-  }
-  if (needToBeElided) {
-    // Append ellipsis, then re-measure the text
-    text += '…'
-    measurement = ctx.measureText(text)
-  }
-
-  // Nameplate background
-  ctx.fillStyle = 'white'
-  const x1 = (width * dpi) / 2 - (measurement.width / 2 + 45 * dpi)
-  const x2 = (width * dpi) / 2 + (measurement.width / 2 + 45 * dpi)
-  const y1 = (75 - 60) * dpi
-  const y2 = (75 + 60) * dpi
-  ctx.fillRect(x1, y1, x2 - x1, y2 - y1)
-
-  // Nameplate border
-  ctx.strokeStyle = 'black'
-  ctx.lineWidth = 5 * dpi
-  ctx.strokeRect(
-    x1 + 5 * dpi * 2,
-    y1 + 5 * dpi * 2,
-    x2 - x1 - 5 * dpi * 4,
-    y2 - y1 - 5 * dpi * 4
-  )
-
-  const x = (width * dpi) / 2
-
-  const baselineCorrection = 12
-  const y = (75 + baselineCorrection) * dpi
-
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
-  ctx.strokeStyle = 'transparent'
-  ctx.fillStyle = 'black'
-  ctx.fillText(text, x, y)
-
-  // Restore previous canvas context
-  ctx.restore()
-}
-
-/**
  * Draws a "made with Streetmix" watermark on the lower right of the image.
  */
 function drawWatermark(
@@ -542,7 +474,7 @@ interface ThumbnailOptions {
  */
 export async function drawStreetThumbnail(
   ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
-  street: StreetJson, // Street data
+  street: StreetState, // Street data
   {
     width, // Width of resulting image
     height, // Height of resulting image
@@ -657,7 +589,9 @@ export async function drawStreetThumbnail(
 
   // Street nameplate
   if (streetName) {
-    drawStreetNameplate(ctx, street, width, dpi)
+    const streetName =
+      street.name ?? formatMessage('street.default-name', 'Unnamed St')
+    drawNameplate(ctx, streetName, width / multiplier, dpi * multiplier)
   }
 
   // Watermark

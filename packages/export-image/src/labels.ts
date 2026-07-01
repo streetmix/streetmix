@@ -9,7 +9,7 @@ import type * as Canvas from '@napi-rs/canvas'
 import type { StreetJson } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
-const LABEL_FONT = 'Geist Sans'
+const LABEL_FONT_SERVER = 'Geist Sans'
 const LABEL_FONT_CLIENT = 'Rubik Variable'
 const LABEL_FONT_SIZE = 12
 const LABEL_FONT_WEIGHT = '400'
@@ -64,7 +64,8 @@ export async function drawLabels(
   // Use Rubik Variable in the client, and Geist Sans in the backend
   // Variable fonts are not well supported in @napi-rs/canvas last I checked
   // so a replacement font is being used
-  const font = typeof window === 'undefined' ? LABEL_FONT : LABEL_FONT_CLIENT
+  const font =
+    globalThis.window === undefined ? LABEL_FONT_SERVER : LABEL_FONT_CLIENT
 
   ctx.lineWidth = 0.25 * scale
   ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${font}`

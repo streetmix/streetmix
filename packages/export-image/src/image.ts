@@ -14,6 +14,7 @@ import { drawWatermark } from './watermark.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import type { StreetImageExportOptions } from './index.js'
+import { getTranslations } from './locale.js'
 
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
@@ -166,7 +167,13 @@ export async function makeStreetImage(
 
     // Street nameplate
     if (options.streetName) {
-      drawNameplate(ctx, street, baseWidth, options.scale)
+      let streetName: string = street.name ?? ''
+      if (!streetName) {
+        const translations = await getTranslations(options.locale, 'main')
+        streetName = translations.street['default-name'] ?? 'Unnamed St'
+      }
+
+      drawNameplate(ctx, streetName, baseWidth, options.scale)
     }
 
     // Watermark
