@@ -44,7 +44,7 @@ export function PrintContainer() {
   useEffect(() => {
     let cancelled = false
 
-    async function cacheImage() {
+    async function generateImage() {
       try {
         setError(null)
         const image = await getStreetImage(street, true, true, false)
@@ -52,12 +52,17 @@ export function PrintContainer() {
           setPrintImage(image.toDataURL('image/png'))
         }
       } catch (e) {
-        if (!cancelled) setError('Could not load image')
+        if (!cancelled) setError(`Could not load image. ${e}`)
       }
     }
 
-    cacheImage()
+    // Only call this when isPrinting is set (otherwise it just renders in
+    // background expensively)
+    if (isPrinting) {
+      generateImage()
+    }
 
+    // Handles when this component becomes unmounted before promises resolve
     return () => {
       cancelled = true
     }
@@ -66,8 +71,8 @@ export function PrintContainer() {
   return (
     <div className="print-container">
       {error && <p>{error}</p>}
-      {!printImage && <p>Preparing print...</p>}
-      {printImage !== null && <img src={printImage} />}
+      {!error && !printImage && <p>Preparing print...</p>}
+      {!error && printImage !== null && <img src={printImage} />}
     </div>
   )
 }

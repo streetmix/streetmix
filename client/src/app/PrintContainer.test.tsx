@@ -65,7 +65,9 @@ describe('PrintContainer', () => {
     })
 
     await waitFor(() => {
-      expect(screen.getByText('Could not load image')).toBeInTheDocument()
+      expect(
+        screen.getByText('Could not load image. Error: Nope')
+      ).toBeInTheDocument()
     })
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
