@@ -1,14 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import SLICE_LOOKUP from '@streetmix/parts/src/segment-lookup.json' with { type: 'json' }
+import SLICE_LOOKUP from '@streetmix/parts/src/data/segment-lookup.json' with { type: 'json' }
 import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from './constants.js'
 import { prettifyWidth } from './dimensions.js'
+import { getTranslations } from './locale.js'
 
 import type * as Canvas from '@napi-rs/canvas'
-import type { StreetAPIResponse } from '@streetmix/types'
+import type { StreetJson } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
 const LABEL_FONT = 'Geist Sans'
+const LABEL_FONT_CLIENT = 'Rubik Variable'
 const LABEL_FONT_SIZE = 12
 const LABEL_FONT_WEIGHT = '400'
 
@@ -18,7 +20,7 @@ const LABEL_FONT_WEIGHT = '400'
  * @modifies {Canvas.SKRSContext2D} ctx
  */
 export function drawLabelBackground(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   width: number,
   height: number,
   groundLevel: number,
@@ -42,32 +44,47 @@ export function drawLabelBackground(
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export function drawLabels(
-  ctx: Canvas.SKRSContext2D,
-  streetData: StreetAPIResponse,
+export async function drawLabels(
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  street: StreetJson, // street data
   groundLevel: number,
   offsetLeft: number,
-  scale: number
-): void {
-  const street = streetData.data.street
-
+  scale: number,
+  locale: string, // locale to render labels in
+  // This is an optional slice name lookup function that the client passes
+  // in because we have to use their lookup function rather than the server one
+  getSliceNameFn?: (
+    type: string,
+    variantString: string,
+    locale: string
+  ) => Promise<string> | string
+): Promise<void> {
   ctx.save()
 
-  ctx.lineWidth = 0.25 * scale
+  // Use Rubik Variable in the client, and Geist Sans in the backend
+  // Variable fonts are not well supported in @napi-rs/canvas last I checked
+  // so a replacement font is being used
+  const font = typeof window === 'undefined' ? LABEL_FONT : LABEL_FONT_CLIENT
 
-  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${LABEL_FONT}`
+  ctx.lineWidth = 0.25 * scale
+  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${LABEL_FONT_SIZE * scale}px ${font}`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
   ctx.strokeStyle = 'black'
   ctx.fillStyle = 'black'
 
-  street.segments.forEach((slice, i) => {
+  let isFirst = true
+
+  // This loop needs to run in sequence but getSliceName does an async import
+  // on translation files so we use for...of instead of forEach
+  for (const slice of street.segments) {
     const availableWidth = slice.width * TILE_SIZE
 
     let left = offsetLeft
 
-    if (i === 0) {
+    if (isFirst) {
       left--
+      isFirst = false
     }
 
     // Left line
@@ -83,11 +100,19 @@ export function drawLabels(
     const x = offsetLeft + availableWidth / 2
 
     // Width label
-    const text = prettifyWidth(slice.width, street.units)
+    // TODO: locale doesn't do anything yet -- need to port number_format to
+    // utils so it can be shared by backend
+    const text = prettifyWidth(slice.width, street.units, locale)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
     // Segment name label
-    const name = slice.label ?? getSliceName(slice.type, slice.variantString)
+    const name =
+      slice.label ??
+      (await (getSliceNameFn ?? getSliceName)(
+        slice.type,
+        slice.variantString,
+        locale
+      ))
     const nameWidth = ctx.measureText(name).width / scale
 
     if (nameWidth <= availableWidth - 10) {
@@ -95,7 +120,7 @@ export function drawLabels(
     }
 
     offsetLeft += availableWidth
-  })
+  }
 
   // Final right-hand side line
   const left = offsetLeft + 1
@@ -112,7 +137,7 @@ export function drawLabels(
 }
 
 export function drawLine(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -136,7 +161,7 @@ export function drawLine(
  * Ported from client, but this has never been used
  */
 export function drawArrowLine(
-  ctx: Canvas.SKRSContext2D,
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   x1: number,
   y1: number,
   x2: number,
@@ -175,11 +200,18 @@ export const SLICE_UNKNOWN_VARIANT = {
   },
 }
 
-function getSliceName(type: string, variant: string): string {
+async function getSliceName(
+  type: string,
+  variant: string,
+  locale: string
+): Promise<string> {
   const sliceInfo = getSliceInfo(type)
   const variantInfo = getSliceVariantInfo(type, variant)
   const defaultName = variantInfo.name ?? sliceInfo.name
-  return defaultName
+  const nameKey = variantInfo.nameKey ?? sliceInfo.nameKey
+
+  const translations = await getTranslations(locale, 'segment-info')
+  return translations.segments[nameKey] ?? defaultName
 }
 
 function getSliceInfo(type: string): unknown {

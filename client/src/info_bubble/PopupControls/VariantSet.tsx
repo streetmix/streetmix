@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl'
-import { getSegmentInfo } from '@streetmix/parts'
+import { getBoundaryItem, getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
@@ -7,7 +7,6 @@ import {
   setBuildingVariant,
   changeSegmentVariant,
 } from '~/src/store/slices/street.js'
-import { getBoundaryItem } from '~/src/boundary/boundary.js'
 import VARIANT_ICONS from '~/src/segments/variant_icons.yaml'
 import { getVariantInfo } from '~/src/segments/variant_utils.js'
 import { VariantButton } from './VariantButton.js'
@@ -118,9 +117,7 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
   }
 
   function renderVariantsSelection():
-    | Array<React.ReactElement>
-    | React.ReactElement
-    | null {
+    Array<React.ReactElement> | React.ReactElement | null {
     if (type === 'boundary') {
       if (coastmixMode) {
         const waterItems = variantSets.filter((id) => {

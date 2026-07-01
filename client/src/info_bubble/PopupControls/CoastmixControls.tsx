@@ -1,7 +1,6 @@
 import { useIntl } from 'react-intl'
-import { getSegmentVariantInfo } from '@streetmix/parts'
+import { getBoundaryItem, getSegmentVariantInfo } from '@streetmix/parts'
 
-import { getBoundaryItem } from '~/src/boundary/boundary.js'
 import { useSelector } from '~/src/store/hooks.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'

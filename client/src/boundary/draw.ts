@@ -1,4 +1,5 @@
 import seedrandom from 'seedrandom'
+import { getBoundaryItem } from '@streetmix/parts'
 
 import { generateRandSeed } from '../util/random.js'
 import { images } from '../app/load_resources.js'
@@ -9,11 +10,7 @@ import {
   GROUND_BASELINE_HEIGHT,
 } from '../segments/constants.js'
 import { drawSegmentImage, getElevation } from '../segments/view.js'
-import {
-  getBoundaryImageHeight,
-  getBoundaryItem,
-  getSpriteId,
-} from './boundary.js'
+import { getBoundaryImageHeight, getSpriteId } from './boundary.js'
 
 import type { BoundaryPosition } from '@streetmix/types'
 

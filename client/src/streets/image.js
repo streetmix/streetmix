@@ -16,7 +16,7 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 // TODO: a way to remove the circular dependency?!
 export const SAVE_AS_IMAGE_LABEL_PADDING = 65
 
-export function getStreetImage(
+export async function getStreetImage(
   street,
   transparentSky,
   labels,
@@ -60,7 +60,7 @@ export function getStreetImage(
 
   const ctx = el.getContext('2d')
 
-  drawStreetThumbnail(ctx, street, {
+  await drawStreetThumbnail(ctx, street, {
     width,
     height,
     dpi,

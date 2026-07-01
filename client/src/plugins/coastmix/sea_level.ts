@@ -1,5 +1,6 @@
+import { getBoundaryItem } from '@streetmix/parts'
+
 import { convertImperialMeasurementToMetric } from '~/src/util/width_units.js'
-import { getBoundaryItem } from '~/src/boundary/boundary.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'

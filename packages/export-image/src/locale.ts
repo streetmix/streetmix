@@ -4,7 +4,7 @@ import { LOCALES, type LocaleDefinition } from '@streetmix/i18n'
 // namespaces intelligently or verifying if users have access to locales
 // TODO: Verify if imports are cached by Node
 // TODO: Fix return type on function
-async function getTranslations (
+export async function getTranslations(
   locale: string,
   namespace: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,7 +34,7 @@ async function getTranslations (
 }
 
 // Keep this simple, don't need to re-implement entire Intl pipeline right now
-export async function getWatermarkString (
+export async function getWatermarkString(
   locale: string,
   fallback: string
 ): Promise<string> {

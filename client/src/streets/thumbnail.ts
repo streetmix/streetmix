@@ -1,12 +1,18 @@
-import { drawLine } from '@streetmix/export-image/src/labels'
-import { getSegmentInfo, getSegmentVariantInfo } from '@streetmix/parts'
+import { drawEarth } from '@streetmix/export-image/src/earth'
+import {
+  drawLabelBackground,
+  drawLabels,
+} from '@streetmix/export-image/src/labels'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+} from '@streetmix/parts'
 
 import { images } from '../app/load_resources.js'
-import { prettifyWidth } from '../util/width_units.js'
 import { getSkyboxDef, makeCanvasGradientStopArray } from '../sky'
-import { getBoundaryItem } from '../boundary'
 import { drawBoundary } from '../boundary/draw.js'
-import { GROUND_BASELINE_HEIGHT, TILE_SIZE } from '../segments/constants.js'
+import { TILE_SIZE } from '../segments/constants.js'
 import { getLocaleSliceName } from '../segments/labels.js'
 import {
   getVariantInfoDimensions,
@@ -22,13 +28,7 @@ import type {
   StreetJson,
 } from '@streetmix/types'
 
-const BOTTOM_BACKGROUND = 'rgb(216, 211, 203)'
-const BACKGROUND_EARTH_COLOUR = 'rgb(53, 45, 39)'
 const SILHOUETTE_FILL_COLOUR = 'rgb(240, 240, 240)'
-
-const LABEL_FONT = 'Rubik Variable'
-const LABEL_FONT_SIZE = 12
-const LABEL_FONT_WEIGHT = '400'
 
 const STREET_NAME_FONT = 'Overpass Variable'
 const STREET_NAME_FONT_SIZE = 70
@@ -263,76 +263,6 @@ function drawClouds(
 }
 
 /**
- * Draws earth (soil and dirt below ground).
- */
-function drawEarth(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetJson, // street data
-  width: number, // width of area to draw
-  dpi: number, // pixel density of canvas
-  multiplier: number, // scale factor of image
-  horizonLine: number, // vertical height of horizon
-  groundLevel: number // vertical height of ground
-) {
-  ctx.fillStyle = BACKGROUND_EARTH_COLOUR
-  ctx.fillRect(0, horizonLine * dpi, width * dpi, 25 * multiplier * dpi)
-
-  // Get elevation at boundaries if they are set to something
-  // The `boundary` property does not exist prior to schema version 31,
-  // and gallery will still need to render data that doesn't have it.
-  // There are intermediary schemas where the boundary property did
-  // not use real units (they were using 0 or 1) but these don't exist
-  // in the wild, so don't bother handling this case
-  let leftElevation = 0
-  let rightElevation = 0
-
-  const leftBoundary = street.boundary?.left
-  const rightBoundary = street.boundary?.right
-  const leftBoundaryDefinition = getBoundaryItem(
-    leftBoundary?.variant ?? street.leftBuildingVariant
-  )
-  const rightBoundaryDefinition = getBoundaryItem(
-    rightBoundary?.variant ?? street.rightBuildingVariant
-  )
-
-  if (leftBoundary?.elevation > 0) {
-    leftElevation = leftBoundary.elevation * TILE_SIZE
-  }
-  if (rightBoundary?.elevation > 0) {
-    rightElevation = street.boundary.right.elevation * TILE_SIZE
-  }
-
-  if (leftBoundaryDefinition.earthColor) {
-    ctx.fillStyle = leftBoundaryDefinition.earthColor
-  }
-
-  // Left boundary
-  // Add additional 25 pixels to extend to bottom of image
-  // TODO: document these magic numbers
-  ctx.fillRect(
-    0,
-    (groundLevel - leftElevation * multiplier) * dpi,
-    (width / 2 - (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    (20 + 25 + leftElevation) * multiplier * dpi
-  )
-
-  if (rightBoundaryDefinition.earthColor) {
-    ctx.fillStyle = rightBoundaryDefinition.earthColor
-  } else {
-    // Reset to default background color
-    ctx.fillStyle = BACKGROUND_EARTH_COLOUR
-  }
-
-  // Right boundary
-  ctx.fillRect(
-    (width / 2 + (street.width * TILE_SIZE * multiplier) / 2) * dpi,
-    (groundLevel - rightElevation * multiplier) * dpi,
-    width * dpi,
-    (20 + 25 + rightElevation) * multiplier * dpi
-  )
-}
-
-/**
  * Draws buildings.
  */
 function drawBoundaries(
@@ -455,100 +385,6 @@ function drawSlices(
       currentOffsetLeft += slice.width * TILE_SIZE * multiplier
     }
   }
-}
-
-/**
- * Draws the segment names background.
- */
-function drawLabelBackground(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  width: number, // width of area to draw
-  height: number, // height of area to draw
-  dpi: number, // pixel density of canvas
-  multiplier: number, // scale factor of image
-  groundLevel: number // vertical height of ground
-): void {
-  ctx.fillStyle = BOTTOM_BACKGROUND
-  ctx.fillRect(
-    0,
-    (groundLevel + GROUND_BASELINE_HEIGHT * multiplier) * dpi,
-    width * dpi,
-    (height - groundLevel - GROUND_BASELINE_HEIGHT * multiplier) * dpi
-  )
-}
-
-/**
- * Draws segment names and widths.
- */
-function drawLabels(
-  ctx: CanvasRenderingContext2D, // the canvas context to draw on
-  street: StreetJson,
-  dpi: number, // pixel density of canvas
-  multiplier: number, // scale factor of image
-  groundLevel: number, // vertical height of ground
-  offsetLeft: number, // left position to start from
-  locale: string // locale to render labels in
-): void {
-  ctx.save()
-
-  ctx.strokeStyle = 'black'
-  ctx.lineWidth = 0.25 * dpi
-  ctx.font = `normal ${LABEL_FONT_WEIGHT} ${
-    LABEL_FONT_SIZE * dpi
-  }px ${LABEL_FONT},sans-serif`
-  ctx.fillStyle = 'black'
-  ctx.textAlign = 'center'
-  ctx.textBaseline = 'top'
-
-  street.segments.forEach((element, i) => {
-    const availableWidth = element.width * TILE_SIZE * multiplier
-
-    let left = offsetLeft
-
-    if (i === 0) {
-      left--
-    }
-
-    // Left line
-    drawLine(
-      ctx,
-      left,
-      groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
-      left,
-      groundLevel + 125 * multiplier,
-      dpi
-    )
-
-    const x = (offsetLeft + availableWidth / 2) * dpi
-
-    // Width label
-    const text = prettifyWidth(element.width, street.units, locale)
-    ctx.fillText(text, x, (groundLevel + 60 * multiplier) * dpi)
-
-    // Segment name label
-    const name =
-      element.label ?? getLocaleSliceName(element.type, element.variantString)
-    const nameWidth = ctx.measureText(name).width / dpi
-
-    if (nameWidth <= availableWidth - 10 * multiplier) {
-      ctx.fillText(name, x, (groundLevel + 83 * multiplier) * dpi)
-    }
-
-    offsetLeft += availableWidth
-  })
-
-  // Final right-hand side line
-  const left = offsetLeft + 1
-  drawLine(
-    ctx,
-    left,
-    groundLevel + GROUND_BASELINE_HEIGHT * multiplier,
-    left,
-    groundLevel + 125 * multiplier,
-    dpi
-  )
-
-  ctx.restore()
 }
 
 /**
@@ -716,7 +552,7 @@ interface ThumbnailOptions {
 /**
  * Draws street image to 2D canvas element.
  */
-export function drawStreetThumbnail(
+export async function drawStreetThumbnail(
   ctx: CanvasRenderingContext2D, // 2D canvas context to draw on
   street: StreetJson, // Street data
   {
@@ -731,7 +567,7 @@ export function drawStreetThumbnail(
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
   }: ThumbnailOptions
-): void {
+): Promise<void> {
   // Calculations
 
   // Determine how wide the street is
@@ -769,7 +605,15 @@ export function drawStreetThumbnail(
   // Earth
   // TODO: consider moving ground below boundaries to drawBoundaries
   // since it needs to read from those data now
-  drawEarth(ctx, street, width, dpi, multiplier, horizonLine, groundLevel)
+  // Make intermediary values to use drawEarth from export-image library
+  drawEarth(
+    ctx,
+    street,
+    width / multiplier,
+    horizonLine / multiplier,
+    groundLevel / multiplier,
+    dpi * multiplier
+  )
 
   // Buildings
   drawBoundaries(
@@ -787,13 +631,30 @@ export function drawStreetThumbnail(
 
   // Labels (background)
   if (labels || silhouette) {
-    drawLabelBackground(ctx, width, height, dpi, multiplier, groundLevel)
+    drawLabelBackground(
+      ctx,
+      width / multiplier,
+      height / multiplier,
+      groundLevel / multiplier,
+      dpi * multiplier
+    )
   }
 
   // Labels (slice names and widths)
   // Skip if we don't need locale, either.
   if (labels && locale) {
-    drawLabels(ctx, street, dpi, multiplier, groundLevel, offsetLeft, locale)
+    await drawLabels(
+      ctx,
+      street,
+      groundLevel / multiplier,
+      offsetLeft / multiplier,
+      dpi * multiplier,
+      locale,
+      // On the client side we pass in the client-specific locale lookup fn
+      // This is pretty hacky, but I'm leaving it in while we transition the
+      // thumbnail drawing to back end.
+      (type, variantString) => getLocaleSliceName(type, variantString)
+    )
   }
 
   // Silhouette

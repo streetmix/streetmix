@@ -1,4 +1,4 @@
-import SPRITE_DEFS from './sprite_defs.json' with { type: 'json' }
+import SPRITE_DEFS from './data/sprite_defs.json' with { type: 'json' }
 import {
   getSpriteDef,
   getAllSegmentInfo,
@@ -6,12 +6,8 @@ import {
   getSegmentVariantInfo,
 } from './info.js'
 
-// vi.mock(
-//   './sprite_defs.yaml',
-//   async () => await import('./__mocks__/sprite_defs.yaml')
-// )
 vi.mock(
-  './sprite_defs.json',
+  './data/sprite_defs.json',
   async () => await import('./__mocks__/sprite_defs.json')
 )
 

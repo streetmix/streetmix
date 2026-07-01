@@ -1,6 +1,3 @@
 {
-  "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "plugins": [{ "name": "typescript-yaml-plugin" }]
-  }
+  "extends": "../tsconfig.base.json"
 }
