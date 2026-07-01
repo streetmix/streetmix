@@ -6,6 +6,7 @@ import { prettifyWidth } from './dimensions.js'
 import { getTranslations } from './locale.js'
 
 import type * as Canvas from '@napi-rs/canvas'
+import type { StreetJson } from '@streetmix/types'
 
 const LABEL_BACKGROUND = 'rgb(216, 211, 203)'
 const LABEL_FONT = 'Geist Sans'
@@ -99,6 +100,8 @@ export async function drawLabels(
     const x = offsetLeft + availableWidth / 2
 
     // Width label
+    // TODO: locale doesn't do anything yet -- need to port number_format to
+    // utils so it can be shared by backend
     const text = prettifyWidth(slice.width, street.units, locale)
     ctx.fillText(text, x * scale, (groundLevel + 60) * scale)
 
@@ -201,7 +204,7 @@ async function getSliceName(
   type: string,
   variant: string,
   locale: string
-): string {
+): Promise<string> {
   const sliceInfo = getSliceInfo(type)
   const variantInfo = getSliceVariantInfo(type, variant)
   const defaultName = variantInfo.name ?? sliceInfo.name
