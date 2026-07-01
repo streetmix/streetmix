@@ -1,10 +1,10 @@
 import { round } from '@streetmix/utils'
+import { formatNumber } from '@streetmix/utils'
 
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
 } from '../users/constants'
-import { formatNumber } from './number_format'
 
 import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 

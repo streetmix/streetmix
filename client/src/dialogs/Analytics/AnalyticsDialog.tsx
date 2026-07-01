@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { formatNumber } from '@streetmix/utils'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setShowAnalytics } from '~/src/store/actions/street.js'
@@ -9,7 +10,6 @@ import { Checkbox } from '~/src/ui/Checkbox.js'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { isOwnedByCurrentUser } from '~/src/streets/owner.js'
-import { formatNumber } from '~/src/util/number_format.js'
 import {
   getCapacityData,
   getStreetCapacity,

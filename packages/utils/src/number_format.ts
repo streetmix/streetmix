@@ -6,7 +6,7 @@
  * @param locale - what locale to format number in
  * @param options - Intl.NumberFormat options
  */
-export function formatNumber (
+export function formatNumber(
   number: number,
   locale: string,
   options: Intl.NumberFormatOptions = {}
@@ -23,7 +23,7 @@ export function formatNumber (
  * See https://github.com/yahoo/intl-format-cache for inspiration and reference.
  * @todo: Simplify (or abstract out) the memoization process
  */
-function getCacheId (inputs: unknown[]): string {
+function getCacheId(inputs: unknown[]): string {
   return JSON.stringify(
     inputs.map((input) =>
       input && typeof input === 'object'
@@ -33,7 +33,7 @@ function getCacheId (inputs: unknown[]): string {
   )
 }
 
-function orderedProps (obj: Record<string, unknown>): Record<string, unknown>[] {
+function orderedProps(obj: Record<string, unknown>): Record<string, unknown>[] {
   return Object.keys(obj)
     .sort()
     .map((k) => ({ [k]: obj[k] }))

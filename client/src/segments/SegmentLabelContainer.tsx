@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl'
+import { formatNumber } from '@streetmix/utils'
 
 import MeasurementText from '../ui/MeasurementText.js'
 import { SETTINGS_UNITS_METRIC } from '../users/constants.js'
-import { formatNumber } from '../util/number_format.js'
 import './SegmentLabelContainer.css'
 
 import type { UnitsSetting } from '@streetmix/types'
