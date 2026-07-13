@@ -64,7 +64,7 @@ export async function get(req: AuthedRequest, res: Response) {
     return streets
   } // END function - handleFindUserstreets
 
-  const handleFindUserStreets = function (data) {
+  const handleFindUserStreets = function (data: Street[]) {
     const json = {
       // Remove properties that should not be sent to client
       streets: data.map(asStreetJsonBasic),
@@ -190,20 +190,21 @@ export async function del(req: AuthedRequest, res: Response) {
     targetUser = requestUser
   }
 
-  const handleRemoveUserStreets = function (error, _streets) {
-    if (error) {
-      logger.error(error)
-      handleErrors(ERRORS.CANNOT_UPDATE_STREET, res)
-      return
-    }
-
-    res.status(204).end()
+  try {
+    await Street.update(
+      { status: 'DELETED' },
+      {
+        where: {
+          creatorId: targetUser.id,
+          status: 'ACTIVE',
+        },
+      }
+    )
+  } catch (error) {
+    logger.error(error)
+    handleErrors(ERRORS.CANNOT_UPDATE_STREET, res)
+    return
   }
 
-  Street.update(
-    { creatorId: targetUser.id, status: 'ACTIVE' },
-    { status: 'DELETED' },
-    { multi: true },
-    handleRemoveUserStreets
-  )
+  res.status(204).end()
 }
