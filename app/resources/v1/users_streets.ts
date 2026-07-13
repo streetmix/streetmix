@@ -5,6 +5,10 @@ import { logger } from '../../lib/logger.ts'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
+const DEFAULT_PAGE = 1
+const DEFAULT_LIMIT = 100
+const MAX_LIMIT = 200
+
 const errorResponses: Partial<
   Record<keyof typeof ERRORS, { status: number; msg: string }>
 > = {
@@ -50,12 +54,43 @@ function sendError(res: Response, error: keyof typeof ERRORS) {
   })
 }
 
+// Check for valid page and limit values. In Express, repeated keys can
+// become arrays, so this gets checked too.
+function parsePositiveInteger(value: unknown): number | null {
+  const rawValue = Array.isArray(value) ? value[0] : value
+
+  if (typeof rawValue !== 'string') return null
+
+  const parsedValue = Number.parseInt(rawValue, 10)
+  if (!Number.isInteger(parsedValue) || parsedValue < 1) return null
+
+  return parsedValue
+}
+
 export async function get(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   }
+
+  const parsedPage = parsePositiveInteger(req.query.page)
+  const parsedLimit = parsePositiveInteger(req.query.limit)
+
+  if (
+    (req.query.page !== undefined && parsedPage === null) ||
+    (req.query.limit !== undefined && parsedLimit === null)
+  ) {
+    res.status(400).json({
+      status: 400,
+      msg: 'page and limit must be positive integers.',
+    })
+    return
+  }
+
+  const page = parsedPage ?? DEFAULT_PAGE
+  const limit = Math.min(parsedLimit ?? DEFAULT_LIMIT, MAX_LIMIT)
+  const offset = (page - 1) * limit
 
   let user
   try {
@@ -72,21 +107,36 @@ export async function get(req: AuthedRequest, res: Response) {
   }
 
   let streets: Street[]
+  let total: number
   try {
-    streets = await Street.findAll({
+    const result = await Street.findAndCountAll({
       where: { creatorId: user.id, status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
-      limit: 100,
+      limit,
+      offset,
     })
+
+    streets = result.rows
+    total = Array.isArray(result.count) ? result.count.length : result.count
   } catch (err) {
     logger.error(err)
     sendError(res, ERRORS.CANNOT_GET_STREET)
     return
   }
 
+  const totalPages = total > 0 ? Math.ceil(total / limit) : 0
+
   res.status(200).json({
     // Remove properties that should not be sent to client
     streets: streets.map(asStreetJsonBasic),
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+    },
   })
 }
 
