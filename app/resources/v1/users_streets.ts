@@ -5,37 +5,50 @@ import { logger } from '../../lib/logger.ts'
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-function handleErrors(error: keyof typeof ERRORS, res: Response) {
-  switch (error) {
-    case ERRORS.USER_NOT_FOUND:
-      res.status(404).json({ status: 404, msg: 'Creator not found.' })
-      break
-    case ERRORS.STREET_NOT_FOUND:
-      res.status(404).json({ status: 404, msg: 'Could not find streets.' })
-      break
-    case ERRORS.STREET_DELETED:
-      res.status(410).json({ status: 410, msg: 'Could not find street.' })
-      break
-    case ERRORS.CANNOT_GET_STREET:
-      res
-        .status(500)
-        .json({ status: 500, msg: 'Could not find streets for user.' })
-      break
-    case ERRORS.UNAUTHORISED_ACCESS:
-      res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
-      break
-    case ERRORS.FORBIDDEN_REQUEST:
-      res.status(403).json({
-        status: 403,
-        msg: 'Signed-in user cannot delete this street.',
-      })
-      break
-    default:
-      // Log unknown error.
-      logger.error(error)
-      res.status(500).end()
+const errorResponses: Partial<
+  Record<keyof typeof ERRORS, { status: number; msg: string }>
+> = {
+  // Not found
+  USER_NOT_FOUND: { status: 404, msg: 'User not found.' },
+  STREET_NOT_FOUND: { status: 404, msg: 'Street not found.' },
+  STREET_DELETED: { status: 410, msg: 'Street not found.' },
+
+  // Authorization errors
+  UNAUTHORISED_ACCESS: { status: 401, msg: 'User must be signed in.' },
+  FORBIDDEN_REQUEST: {
+    status: 403,
+    msg: 'User cannot delete this street.',
+  },
+
+  // Server or database failures
+  CANNOT_GET_STREET: {
+    status: 500,
+    msg: 'Could not retrieve streets for user.',
+  },
+  CANNOT_UPDATE_STREET: { status: 500, msg: 'Could not update streets.' },
+  CANNOT_GET_USER: { status: 500, msg: 'Error finding user.' },
+
+  // Catch-all
+  INTERNAL_ERROR: { status: 500, msg: 'Server failure.' },
+}
+
+function sendError(res: Response, error: keyof typeof ERRORS) {
+  const response = errorResponses[error] ?? errorResponses.INTERNAL_ERROR
+
+  if (!response) {
+    res.status(500).json({ status: 500, msg: 'Server failure.' })
+    return
   }
-} // END function - handleErrors
+
+  if (!errorResponses[error]) {
+    logger.error(error)
+  }
+
+  res.status(response.status).json({
+    status: response.status,
+    msg: response.msg,
+  })
+}
 
 export async function get(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
@@ -44,88 +57,37 @@ export async function get(req: AuthedRequest, res: Response) {
     return
   }
 
-  const findUserStreets = async function (userId: string) {
-    let streets
-    try {
-      streets = await Street.findAll({
-        where: { creatorId: userId, status: 'ACTIVE' },
-        order: [['updatedAt', 'DESC']],
-        limit: 100,
-      })
-    } catch (err) {
-      logger.error(err)
-      handleErrors(ERRORS.CANNOT_GET_STREET)
-    }
-
-    if (!streets) {
-      throw new Error(ERRORS.STREET_NOT_FOUND)
-    }
-
-    return streets
-  } // END function - handleFindUserstreets
-
-  const handleFindUserStreets = function (data: Street[]) {
-    const json = {
-      // Remove properties that should not be sent to client
-      streets: data.map(asStreetJsonBasic),
-    }
-    res.status(200).json(json).end()
-  } // END function - handleFindUserStreets
-
-  function handleErrors(error: keyof typeof ERRORS) {
-    switch (error) {
-      case ERRORS.USER_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'Creator not found.' })
-        return
-      case ERRORS.STREET_NOT_FOUND:
-        res.status(404).json({ status: 404, msg: 'Could not find streets.' })
-        return
-      case ERRORS.STREET_DELETED:
-        res.status(410).json({ status: 410, msg: 'Could not find street.' })
-        return
-      case ERRORS.CANNOT_GET_STREET:
-        res
-          .status(500)
-          .json({ status: 500, msg: 'Could not find streets for user.' })
-        return
-      case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
-        return
-      case ERRORS.FORBIDDEN_REQUEST:
-        res.status(403).json({
-          status: 403,
-          msg: 'Signed-in user cannot delete this street.',
-        })
-        return
-      default:
-        // Default message for unknown errors.
-        res.status(500).json({
-          status: 500,
-          msg: 'Server failure.',
-        })
-    }
-  } // END function - handleErrors
-
   let user
   try {
     user = await User.findOne({ where: { id: req.params.user_id } })
   } catch (err) {
     logger.error(err)
-    handleErrors(ERRORS.USER_NOT_FOUND)
+    sendError(res, ERRORS.CANNOT_GET_USER)
     return
   }
 
   if (!user) {
-    res.status(404).json({ status: 404, msg: 'Could not find user.' })
+    sendError(res, ERRORS.USER_NOT_FOUND)
     return
   }
+
+  let streets: Street[]
   try {
-    const streets = await findUserStreets(user.id)
-    handleFindUserStreets(streets)
+    streets = await Street.findAll({
+      where: { creatorId: user.id, status: 'ACTIVE' },
+      order: [['updatedAt', 'DESC']],
+      limit: 100,
+    })
   } catch (err) {
     logger.error(err)
-    handleErrors(ERRORS.CANNOT_GET_STREET)
+    sendError(res, ERRORS.CANNOT_GET_STREET)
+    return
   }
+
+  res.status(200).json({
+    // Remove properties that should not be sent to client
+    streets: streets.map(asStreetJsonBasic),
+  })
 }
 
 export async function del(req: AuthedRequest, res: Response) {
@@ -134,9 +96,7 @@ export async function del(req: AuthedRequest, res: Response) {
     res.status(400).json({ status: 400, msg: 'Please provide user ID.' })
     return
   } else if (!req.auth) {
-    res
-      .status(400)
-      .json({ status: 400, msg: 'Please provide a logged in user' })
+    sendError(res, ERRORS.UNAUTHORISED_ACCESS)
     return
   }
 
@@ -146,31 +106,23 @@ export async function del(req: AuthedRequest, res: Response) {
     requestUser = await User.findOne({ where: { auth0Id: req.auth.sub } })
   } catch (error) {
     logger.error(error)
-    res.status(500).json({ status: 500, msg: 'Error finding user.' })
+    sendError(res, ERRORS.CANNOT_GET_USER)
     return
   }
 
   if (!requestUser) {
-    res.status(401).json({ status: 401, msg: 'User not found.' })
-    return
-  }
-
-  // Is requesting user logged in?
-  if (!requestUser) {
-    res.status(401).end()
+    sendError(res, ERRORS.UNAUTHORISED_ACCESS)
     return
   }
 
   const targetUserId = req.params.user_id
-  let targetUser
+  let targetUser: User | null
   const requestUserIsAdmin =
     requestUser.roles && requestUser.roles.indexOf('ADMIN') !== -1
+
   if (targetUserId !== requestUser.id) {
     if (!requestUserIsAdmin) {
-      res.status(401).json({
-        status: 401,
-        msg: 'Unable to delete streets by another user.',
-      })
+      sendError(res, ERRORS.FORBIDDEN_REQUEST)
       return
     }
 
@@ -178,12 +130,12 @@ export async function del(req: AuthedRequest, res: Response) {
       targetUser = await User.findOne({ where: { id: targetUserId } })
     } catch (error) {
       logger.error(error)
-      res.status(500).json({ status: 500, msg: 'Error finding user.' })
+      sendError(res, ERRORS.CANNOT_GET_USER)
       return
     }
 
     if (!targetUser) {
-      res.status(401).json({ status: 401, msg: 'User not found.' })
+      sendError(res, ERRORS.USER_NOT_FOUND)
       return
     }
   } else {
@@ -202,7 +154,7 @@ export async function del(req: AuthedRequest, res: Response) {
     )
   } catch (error) {
     logger.error(error)
-    handleErrors(ERRORS.CANNOT_UPDATE_STREET, res)
+    sendError(res, ERRORS.CANNOT_UPDATE_STREET)
     return
   }
 
