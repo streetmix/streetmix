@@ -21,8 +21,12 @@
 }
 
 .gallery-street-count {
-  text-align: right;
-  font-size: 1.5em;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25em;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.25em;
   color: rgb(128 128 128);
   white-space: nowrap;
 }

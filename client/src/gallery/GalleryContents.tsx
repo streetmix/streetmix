@@ -9,12 +9,12 @@ import { Avatar } from '../users/Avatar.js'
 import { sendDeleteStreetToServer } from '../streets/xhr.js'
 import { showError, ERRORS } from '../app/errors.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '../app/constants.js'
+import { GalleryPagination } from './GalleryPagination.js'
 import { GalleryStreetItem } from './GalleryStreetItem.js'
 import { switchGalleryStreet } from './index.js'
 
 import type { UserProfile } from '../types'
 import './GalleryContents.css'
-import { GalleryPagination } from './GalleryPagination.js'
 
 interface GalleryContentsProps {
   user?: UserProfile
@@ -80,19 +80,17 @@ export function GalleryContents({ user }: GalleryContentsProps) {
           )}
         </div>
         {/* Street count */}
-        {user?.id !== undefined && (
-          <div className="gallery-street-count">
-            {pagination.totalPages === 1 ? (
-              <FormattedMessage
-                id="gallery.street-count"
-                defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
-                values={{ count: streets.length }}
-              />
-            ) : (
-              <GalleryPagination pagination={pagination} />
-            )}
-          </div>
-        )}
+        <div className="gallery-street-count">
+          {pagination.totalPages === 1 ? (
+            <FormattedMessage
+              id="gallery.street-count"
+              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+              values={{ count: streets.length }}
+            />
+          ) : (
+            <GalleryPagination pagination={pagination} />
+          )}
+        </div>
       </div>
 
       {/* Gallery selection */}

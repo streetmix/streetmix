@@ -476,7 +476,12 @@
     "delete-street-tooltip": "Delete street",
     "street-count": "{count, plural, one {# street} other {# streets}}",
     "no-streets": "No streets yet",
-    "thumbnail-error": "Thumbnail image is not available."
+    "thumbnail-error": "Thumbnail image is not available.",
+    "pagination": {
+      "count": "{start}–{end} of {total} streets",
+      "back": "Previous page",
+      "next": "Next page"
+    }
   },
   "users": {
     "anonymous": "Anonymous",
