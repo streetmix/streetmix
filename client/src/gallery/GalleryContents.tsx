@@ -22,7 +22,6 @@ interface GalleryContentsProps {
 
 export function GalleryContents({ user }: GalleryContentsProps) {
   const streets = useSelector((state) => state.gallery.streets)
-  const pagination = useSelector((state) => state.gallery.pagination)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
@@ -79,17 +78,9 @@ export function GalleryContents({ user }: GalleryContentsProps) {
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
           )}
         </div>
-        {/* Street count */}
         <div className="gallery-street-count">
-          {pagination.totalPages === 1 ? (
-            <FormattedMessage
-              id="gallery.street-count"
-              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
-              values={{ count: streets.length }}
-            />
-          ) : (
-            <GalleryPagination pagination={pagination} />
-          )}
+          {/* Street count & pagination */}
+          <GalleryPagination />
         </div>
       </div>
 

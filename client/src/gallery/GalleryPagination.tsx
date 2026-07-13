@@ -1,33 +1,30 @@
-import { openGallery } from '~/src/store/actions/gallery'
-import { useDispatch, useSelector } from '~/src/store/hooks'
-import { Button } from '~/src/ui/Button'
-import { Icon } from '~/src/ui/Icon'
-import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
-import './GalleryPagination.css'
-
-import type { GalleryPagination } from '@streetmix/types'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-interface GalleryPaginationProps {
-  pagination: GalleryPagination
-}
+import { openGallery } from '~/src/store/actions/gallery.js'
+import { useDispatch, useSelector } from '~/src/store/hooks.js'
+import { Button } from '~/src/ui/Button.js'
+import { Icon } from '~/src/ui/Icon.js'
+import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
+import './GalleryPagination.css'
 
-export function GalleryPagination({ pagination }: GalleryPaginationProps) {
+export function GalleryPagination() {
   const { contentDirection } = useSelector((state) => state.app)
-  const galleryUserId = useSelector((state) => state.gallery.userId)
+  const { streets, pagination, userId } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
   const intl = useIntl()
 
   const { page, limit, total, hasNextPage, hasPreviousPage } = pagination
   const start = (page - 1) * limit + 1
-  const end = Math.min(page * limit, total)
+  // Calculating end by streets in gallery state accounts for street count
+  // after a deletion
+  const end = start + streets.length - 1
 
   function handlePreviousPage() {
     if (!hasPreviousPage) return
 
     dispatch(
       openGallery({
-        userId: galleryUserId,
+        userId,
         page: page - 1,
       })
     )
@@ -38,13 +35,21 @@ export function GalleryPagination({ pagination }: GalleryPaginationProps) {
 
     dispatch(
       openGallery({
-        userId: galleryUserId,
+        userId,
         page: page + 1,
       })
     )
   }
 
-  return (
+  // When we don't have pages, keep the UI simple (what it used to be)
+  // otherwise, display pagination UI
+  return pagination.totalPages === 1 ? (
+    <FormattedMessage
+      id="gallery.street-count"
+      defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+      values={{ count: streets.length }}
+    />
+  ) : (
     <>
       <FormattedMessage
         id="gallery.pagination.count"
