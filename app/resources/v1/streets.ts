@@ -28,7 +28,19 @@ const MAX_LIMIT = 200
 
 // Check for valid page and limit values. In Express, repeated keys can
 // become arrays, so only use the first value provided.
-const paginationQuerySchema = z.object({
+const findQuerySchema = z.object({
+  creatorId: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.string()
+    )
+    .optional(),
+  namespacedId: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.coerce.number().int().positive()
+    )
+    .optional(),
   page: z.preprocess(
     (value) => (Array.isArray(value) ? value[0] : value),
     z.coerce.number().int().positive().default(DEFAULT_PAGE)
@@ -158,7 +170,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return street.save()
   }
 
-  const handleCreatedStreet = (s) => {
+  const handleCreatedStreet = (s: Street) => {
     s = asStreetJson(s)
     res.header('Location', '/api/v1/streets/' + s.id)
     res.status(201).json(s)
@@ -360,8 +372,21 @@ export async function get(req: AuthedRequest, res: Response) {
 } // END function - export get
 
 export async function find(req: AuthedRequest, res: Response) {
-  const creatorId = req.query.creatorId
-  const namespacedId = req.query.namespacedId
+  const result = findQuerySchema.safeParse(req.query)
+
+  if (!result.success) {
+    if (result.error instanceof z.ZodError) {
+      res
+        .status(400)
+        .json({ status: 400, errors: z.flattenError(result.error).fieldErrors })
+    } else {
+      res.status(400).json({ status: 400, msg: 'Bad request.' })
+    }
+    return
+  }
+
+  const { creatorId, namespacedId, page, limit } = result.data
+  const offset = (page - 1) * limit
 
   const findStreetWithCreatorId = async function (creatorId: string) {
     let user
@@ -395,23 +420,6 @@ export async function find(req: AuthedRequest, res: Response) {
       limit,
     })
   } // END function - findStreets
-
-  const result = paginationQuerySchema.safeParse(req.query)
-
-  if (!result.success && !creatorId && !namespacedId) {
-    if (result.error instanceof z.ZodError) {
-      res
-        .status(400)
-        .json({ status: 400, errors: z.flattenError(result.error).fieldErrors })
-    } else {
-      res.status(400).json({ status: 400, msg: 'Bad request.' })
-    }
-    return
-  }
-
-  const page = result.success ? result.data.page : DEFAULT_PAGE
-  const limit = result.success ? result.data.limit : DEFAULT_LIMIT
-  const offset = (page - 1) * limit
 
   // TODO: There is a bug here where errors thrown by `new Error` will have
   // its value in `error.message`, not error! We should figure out how to
