@@ -13,6 +13,14 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
+import type { StreetData } from '@streetmix/types'
+
+// Briefly define the shape of legacy data so we can type-safely remove these
+// properties before returning it to the client
+type LegacyStreetData = StreetData & {
+  undoStack?: unknown
+  undoPosition?: unknown
+}
 
 const DEFAULT_PAGE = 1
 const DEFAULT_LIMIT = 100
@@ -326,8 +334,9 @@ export async function get(req: AuthedRequest, res: Response) {
   }
 
   // Deprecated undoStack and undoPosition values, delete if present
-  delete street.data.undoStack
-  delete street.data.undoPosition
+  const legacyStreetData = street.data as LegacyStreetData
+  delete legacyStreetData.undoStack
+  delete legacyStreetData.undoPosition
 
   // Run schema update on street
   const [isUpdated, updatedStreet] = updateToLatestSchemaVersion(
