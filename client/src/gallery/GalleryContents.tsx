@@ -14,6 +14,7 @@ import { switchGalleryStreet } from './index.js'
 
 import type { UserProfile } from '../types'
 import './GalleryContents.css'
+import { GalleryPagination } from './GalleryPagination.js'
 
 interface GalleryContentsProps {
   user?: UserProfile
@@ -21,6 +22,7 @@ interface GalleryContentsProps {
 
 export function GalleryContents({ user }: GalleryContentsProps) {
   const streets = useSelector((state) => state.gallery.streets)
+  const pagination = useSelector((state) => state.gallery.pagination)
   const currentStreetId = useSelector((state) => state.street.id ?? null)
   const isOwnedByCurrentUser = useSelector(
     (state) =>
@@ -80,15 +82,14 @@ export function GalleryContents({ user }: GalleryContentsProps) {
         {/* Street count */}
         {user?.id !== undefined && (
           <div className="gallery-street-count">
-            <FormattedMessage
-              id="gallery.street-count"
-              defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
-              values={{ count: streets.length }}
-            />
-            {streets.length >= 100 && (
-              <p style={{ margin: 0, fontSize: '0.5em' }}>
-                Showing most recent streets only
-              </p>
+            {pagination.totalPages === 1 ? (
+              <FormattedMessage
+                id="gallery.street-count"
+                defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
+                values={{ count: streets.length }}
+              />
+            ) : (
+              <GalleryPagination pagination={pagination} />
             )}
           </div>
         )}
