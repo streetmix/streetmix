@@ -27,8 +27,8 @@ export const openGallery = createAsyncThunk(
 
     // Fetch data and catch errors if fetch goes wrong
     try {
-      const streets = await fetchGalleryData(userId ?? '', page)
-      return { streets }
+      const data = await fetchGalleryData(userId ?? '', page)
+      return data
     } catch (error: unknown) {
       // If the server error is 404, special rejection value
       // to display a "not-found" screen without the gallery

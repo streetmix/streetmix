@@ -77,15 +77,10 @@ export async function fetchGalleryData(userId: string, page: number) {
   try {
     if (userId) {
       const response = await getGalleryForUser(userId, page)
-      const streets = receiveGalleryData(response.data)
-      console.log(streets)
-      return streets
+      return receiveGalleryData(response.data)
     } else {
       const response = await getGalleryForAllStreets(page)
-      const streets = receiveGalleryData(response.data)
-      console.log(streets)
-
-      return streets
+      return receiveGalleryData(response.data)
     }
   } catch (error) {
     // If the error is a 404, throw up a not-found page
@@ -114,5 +109,8 @@ function receiveGalleryData(transmission: GalleryAPIResponse) {
     switchGalleryStreet(streets[0].id)
   }
 
-  return streets
+  return {
+    streets,
+    pagination: transmission.pagination,
+  }
 }
