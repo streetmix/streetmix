@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 import { Street, User } from '../../db/models/index.ts'
 import { asStreetJsonBasic, ERRORS } from '../../lib/util.ts'
 import { logger } from '../../lib/logger.ts'
@@ -8,6 +10,21 @@ import type { Request as AuthedRequest } from 'express-jwt'
 const DEFAULT_PAGE = 1
 const DEFAULT_LIMIT = 100
 const MAX_LIMIT = 200
+
+// Check for valid page and limit values. In Express, repeated keys can
+// become arrays, so only use the first value provided.
+const paginationQuerySchema = z.object({
+  page: z.preprocess(
+    (value) => (Array.isArray(value) ? value[0] : value),
+    z.coerce.number().int().positive().default(DEFAULT_PAGE)
+  ),
+  limit: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.coerce.number().int().positive().default(DEFAULT_LIMIT)
+    )
+    .transform((value) => Math.min(value, MAX_LIMIT)),
+})
 
 // TODO: consolidate status codes and response messages with ERRORS object
 // Allow for custom (more specific) error messages where appropriate.
@@ -58,19 +75,6 @@ function sendError(res: Response, error: ErrorCode) {
   })
 }
 
-// Check for valid page and limit values. In Express, repeated keys can
-// become arrays, so this gets checked too.
-function parsePositiveInteger(value: unknown): number | null {
-  const rawValue = Array.isArray(value) ? value[0] : value
-
-  if (typeof rawValue !== 'string') return null
-
-  const parsedValue = Number.parseInt(rawValue, 10)
-  if (!Number.isInteger(parsedValue) || parsedValue < 1) return null
-
-  return parsedValue
-}
-
 export async function get(req: AuthedRequest, res: Response) {
   // Flag error if user ID is not provided
   if (!req.params.user_id) {
@@ -78,22 +82,17 @@ export async function get(req: AuthedRequest, res: Response) {
     return
   }
 
-  const parsedPage = parsePositiveInteger(req.query.page)
-  const parsedLimit = parsePositiveInteger(req.query.limit)
+  const result = paginationQuerySchema.safeParse(req.query)
 
-  if (
-    (req.query.page !== undefined && parsedPage === null) ||
-    (req.query.limit !== undefined && parsedLimit === null)
-  ) {
-    res.status(400).json({
-      status: 400,
-      msg: 'page and limit must be positive integers.',
-    })
+  if (!result.success) {
+    res
+      .status(400)
+      .json({ status: 400, errors: z.flattenError(result.error).fieldErrors })
     return
   }
 
-  const page = parsedPage ?? DEFAULT_PAGE
-  const limit = Math.min(parsedLimit ?? DEFAULT_LIMIT, MAX_LIMIT)
+  const page = result.data.page
+  const limit = result.data.limit
   const offset = (page - 1) * limit
 
   let user

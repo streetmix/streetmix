@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import { z } from 'zod'
 
 import { Sequence, Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
@@ -12,6 +13,25 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
+
+const DEFAULT_PAGE = 1
+const DEFAULT_LIMIT = 100
+const MAX_LIMIT = 200
+
+// Check for valid page and limit values. In Express, repeated keys can
+// become arrays, so only use the first value provided.
+const paginationQuerySchema = z.object({
+  page: z.preprocess(
+    (value) => (Array.isArray(value) ? value[0] : value),
+    z.coerce.number().int().positive().default(DEFAULT_PAGE)
+  ),
+  limit: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.coerce.number().int().positive().default(DEFAULT_LIMIT)
+    )
+    .transform((value) => Math.min(value, MAX_LIMIT)),
+})
 
 export async function post(req: AuthedRequest, res: Response) {
   let body: AuthedRequest['body']
@@ -334,41 +354,6 @@ export async function find(req: AuthedRequest, res: Response) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
 
-  const DEFAULT_PAGE = 1
-  const DEFAULT_LIMIT = 100
-  const MAX_LIMIT = 200
-
-  function parsePositiveInteger(value: unknown): number | null {
-    const rawValue = Array.isArray(value) ? value[0] : value
-
-    if (typeof rawValue !== 'string') return null
-
-    const parsedValue = Number.parseInt(rawValue, 10)
-    if (!Number.isInteger(parsedValue) || parsedValue < 1) return null
-
-    return parsedValue
-  }
-
-  const parsedPage = parsePositiveInteger(req.query.page)
-  const parsedLimit = parsePositiveInteger(req.query.limit)
-
-  if (
-    !creatorId &&
-    !namespacedId &&
-    ((req.query.page !== undefined && parsedPage === null) ||
-      (req.query.limit !== undefined && parsedLimit === null))
-  ) {
-    res.status(400).json({
-      status: 400,
-      msg: 'page and limit must be positive integers.',
-    })
-    return
-  }
-
-  const page = parsedPage ?? DEFAULT_PAGE
-  const limit = Math.min(parsedLimit ?? DEFAULT_LIMIT, MAX_LIMIT)
-  const offset = (page - 1) * limit
-
   const findStreetWithCreatorId = async function (creatorId: string) {
     let user
     try {
@@ -401,6 +386,23 @@ export async function find(req: AuthedRequest, res: Response) {
       limit,
     })
   } // END function - findStreets
+
+  const result = paginationQuerySchema.safeParse(req.query)
+
+  if (!result.success && !creatorId && !namespacedId) {
+    if (result.error instanceof z.ZodError) {
+      res
+        .status(400)
+        .json({ status: 400, errors: z.flattenError(result.error).fieldErrors })
+    } else {
+      res.status(400).json({ status: 400, msg: 'Bad request.' })
+    }
+    return
+  }
+
+  const page = result.success ? result.data.page : DEFAULT_PAGE
+  const limit = result.success ? result.data.limit : DEFAULT_LIMIT
+  const offset = (page - 1) * limit
 
   // TODO: There is a bug here where errors thrown by `new Error` will have
   // its value in `error.message`, not error! We should figure out how to
