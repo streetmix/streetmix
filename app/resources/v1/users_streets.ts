@@ -9,8 +9,12 @@ const DEFAULT_PAGE = 1
 const DEFAULT_LIMIT = 100
 const MAX_LIMIT = 200
 
+// TODO: consolidate status codes and response messages with ERRORS object
+// Allow for custom (more specific) error messages where appropriate.
+type ErrorCode = (typeof ERRORS)[keyof typeof ERRORS]
+
 const errorResponses: Partial<
-  Record<keyof typeof ERRORS, { status: number; msg: string }>
+  Record<ErrorCode, { status: number; msg: string }>
 > = {
   // Not found
   USER_NOT_FOUND: { status: 404, msg: 'User not found.' },
@@ -21,7 +25,7 @@ const errorResponses: Partial<
   UNAUTHORISED_ACCESS: { status: 401, msg: 'User must be signed in.' },
   FORBIDDEN_REQUEST: {
     status: 403,
-    msg: 'User cannot delete this street.',
+    msg: 'User cannot delete streets for another user.',
   },
 
   // Server or database failures
@@ -36,7 +40,7 @@ const errorResponses: Partial<
   INTERNAL_ERROR: { status: 500, msg: 'Server failure.' },
 }
 
-function sendError(res: Response, error: keyof typeof ERRORS) {
+function sendError(res: Response, error: ErrorCode) {
   const response = errorResponses[error] ?? errorResponses.INTERNAL_ERROR
 
   if (!response) {
