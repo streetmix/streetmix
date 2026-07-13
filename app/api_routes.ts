@@ -432,9 +432,27 @@ router.delete(
  *       200:
  *         description: user streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  */
 router.delete(
   '/v1/users/:user_id/streets',
@@ -502,9 +520,27 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *       200:
  *         description: streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  *   head:
  *     description: Returns streets
  *     parameters:
@@ -534,9 +570,27 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *       200:
  *         description: streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  */
 router.get('/v1/streets', jwtCheck, v1.streets.find)
 router.head('/v1/streets', jwtCheck, v1.streets.find)

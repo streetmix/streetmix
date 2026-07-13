@@ -298,6 +298,7 @@ export async function del(req: AuthedRequest, res: Response) {
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.STREET_NOT_FOUND)
+    return
   }
 
   if (!targetStreet) {
@@ -305,11 +306,13 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  deleteStreet(targetStreet)
-    .then((_street) => {
-      res.status(204).end()
-    })
-    .catch(handleErrors)
+  try {
+    await deleteStreet(targetStreet)
+    res.status(204).end()
+  } catch (error) {
+    handleErrors(error)
+    return
+  }
 } // END function - export delete
 
 export async function get(req: AuthedRequest, res: Response) {
@@ -395,6 +398,7 @@ export async function find(req: AuthedRequest, res: Response) {
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
+      return
     }
 
     if (!user) {
@@ -601,6 +605,7 @@ export async function put(req: AuthedRequest, res: Response) {
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_UPDATE_STREET)
+    return
   }
 
   async function updateStreetWithUser(street, user) {
@@ -629,11 +634,13 @@ export async function put(req: AuthedRequest, res: Response) {
   }
 
   if (!street.creatorId) {
-    updateStreetData(street)
-      .then((_street) => {
-        res.status(204).end()
-      })
-      .catch(handleErrors)
+    try {
+      await updateStreetData(street)
+      res.status(204).end()
+    } catch (error) {
+      handleErrors(error)
+      return
+    }
   } else {
     if (!req.auth) {
       res.status(401).end()
@@ -650,10 +657,12 @@ export async function put(req: AuthedRequest, res: Response) {
       return
     }
 
-    updateStreetWithUser(street, user)
-      .then((_street) => {
-        res.status(204).end()
-      })
-      .catch(handleErrors)
+    try {
+      await updateStreetWithUser(street, user)
+      res.status(204).end()
+    } catch (error) {
+      handleErrors(error)
+      return
+    }
   }
 } // END function - export put
