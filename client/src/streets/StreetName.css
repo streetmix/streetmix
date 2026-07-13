@@ -12,6 +12,7 @@
 
 .street-name-text {
   display: inline-block;
+  width: 100%;
   font-family: "Overpass Variable", sans-serif;
   font-weight: 700;
   text-align: left;
