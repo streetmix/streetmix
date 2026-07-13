@@ -11,7 +11,7 @@ import type { RootState } from '../index'
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
   async (
-    { userId, page = 1 }: { userId: string | null; page: number },
+    { userId, page = 1 }: { userId: string | null; page?: number },
     { rejectWithValue }
   ) => {
     updatePageUrl(true, userId)

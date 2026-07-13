@@ -499,9 +499,9 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *         schema:
  *           type: string
  *       - in: query
- *         name: namespaceId
+ *         name: namespacedId
  *         schema:
- *           type: string
+ *           type: number
  *       - in: query
  *         name: page
  *         schema:
