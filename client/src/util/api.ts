@@ -10,7 +10,6 @@ import {
 
 import type {
   GalleryAPIResponse,
-  GalleryPaginatedAPIResponse,
   GeoIpAPIResponse,
   StreetAPIPayload,
   StreetAPIResponse,
@@ -98,9 +97,12 @@ class APIClient {
   }
 
   getGalleryForUser = async (
-    userId: string
+    userId: string,
+    page: number
   ): APIResponse<GalleryAPIResponse> => {
-    return await this.client.get(`${BASE_URL_API_V1}/users/${userId}/streets`)
+    return await this.client.get(
+      `${BASE_URL_API_V1}/users/${userId}/streets?page=${page}`
+    )
   }
 
   // Optional config is allowed for situations where we need to send a
@@ -164,10 +166,11 @@ class APIClient {
     )
   }
 
-  getGalleryForAllStreets =
-    async (): APIResponse<GalleryPaginatedAPIResponse> => {
-      return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
-    }
+  getGalleryForAllStreets = async (
+    page: number
+  ): APIResponse<GalleryAPIResponse> => {
+    return await this.client.get(`${BASE_URL_API_V1}/streets?page=${page}`)
+  }
 
   // TODO: API response type
   getSentimentSurveyStreet = async (): APIResponse<unknown> => {

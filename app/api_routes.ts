@@ -414,6 +414,16 @@ router.delete(
  *           format: uuid
  *         required: true
  *         description: ID of the user
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: number
+ *           example: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           example: 100
  *     tags:
  *       - users
  *     produces:
@@ -422,9 +432,27 @@ router.delete(
  *       200:
  *         description: user streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  */
 router.delete(
   '/v1/users/:user_id/streets',
@@ -471,19 +499,19 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *         schema:
  *           type: string
  *       - in: query
- *         name: namespaceId
- *         schema:
- *           type: string
- *       - in: query
- *         name: start
+ *         name: namespacedId
  *         schema:
  *           type: number
- *           example: 0
  *       - in: query
- *         name: count
+ *         name: page
  *         schema:
  *           type: number
- *           example: 20
+ *           example: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           example: 100
  *     tags:
  *       - streets
  *     produces:
@@ -492,9 +520,27 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *       200:
  *         description: streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  *   head:
  *     description: Returns streets
  *     parameters:
@@ -507,15 +553,15 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *         schema:
  *           type: string
  *       - in: query
- *         name: start
+ *         name: page
  *         schema:
  *           type: number
- *           example: 0
+ *           example: 1
  *       - in: query
- *         name: count
+ *         name: limit
  *         schema:
  *           type: number
- *           example: 20
+ *           example: 100
  *     tags:
  *       - streets
  *     produces:
@@ -524,9 +570,27 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *       200:
  *         description: streets
  *         schema:
- *           type: array
- *           items:
- *             $ref: '#/definitions/Street'
+ *           type: object
+ *           properties:
+ *             streets:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Street'
+ *             pagination:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: integer
+ *                 limit:
+ *                   type: integer
+ *                 total:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 hasNextPage:
+ *                   type: boolean
+ *                 hasPreviousPage:
+ *                   type: boolean
  */
 router.get('/v1/streets', jwtCheck, v1.streets.find)
 router.head('/v1/streets', jwtCheck, v1.streets.find)

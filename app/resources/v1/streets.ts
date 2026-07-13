@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import { z } from 'zod'
 
 import { Sequence, Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
@@ -12,6 +13,45 @@ import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
 import type { Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
+import type { StreetData } from '@streetmix/types'
+
+// Briefly define the shape of legacy data so we can type-safely remove these
+// properties before returning it to the client
+type LegacyStreetData = StreetData & {
+  undoStack?: unknown
+  undoPosition?: unknown
+}
+
+const DEFAULT_PAGE = 1
+const DEFAULT_LIMIT = 100
+const MAX_LIMIT = 200
+
+// Check for valid page and limit values. In Express, repeated keys can
+// become arrays, so only use the first value provided.
+const findQuerySchema = z.object({
+  creatorId: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.string()
+    )
+    .optional(),
+  namespacedId: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.coerce.number().int().positive()
+    )
+    .optional(),
+  page: z.preprocess(
+    (value) => (Array.isArray(value) ? value[0] : value),
+    z.coerce.number().int().positive().default(DEFAULT_PAGE)
+  ),
+  limit: z
+    .preprocess(
+      (value) => (Array.isArray(value) ? value[0] : value),
+      z.coerce.number().int().positive().default(DEFAULT_LIMIT)
+    )
+    .transform((value) => Math.min(value, MAX_LIMIT)),
+})
 
 export async function post(req: AuthedRequest, res: Response) {
   let body: AuthedRequest['body']
@@ -130,7 +170,7 @@ export async function post(req: AuthedRequest, res: Response) {
     return street.save()
   }
 
-  const handleCreatedStreet = (s) => {
+  const handleCreatedStreet = (s: Street) => {
     s = asStreetJson(s)
     res.header('Location', '/api/v1/streets/' + s.id)
     res.status(201).json(s)
@@ -258,6 +298,7 @@ export async function del(req: AuthedRequest, res: Response) {
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.STREET_NOT_FOUND)
+    return
   }
 
   if (!targetStreet) {
@@ -265,11 +306,13 @@ export async function del(req: AuthedRequest, res: Response) {
     return
   }
 
-  deleteStreet(targetStreet)
-    .then((_street) => {
-      res.status(204).end()
-    })
-    .catch(handleErrors)
+  try {
+    await deleteStreet(targetStreet)
+    res.status(204).end()
+  } catch (error) {
+    handleErrors(error)
+    return
+  }
 } // END function - export delete
 
 export async function get(req: AuthedRequest, res: Response) {
@@ -306,8 +349,9 @@ export async function get(req: AuthedRequest, res: Response) {
   }
 
   // Deprecated undoStack and undoPosition values, delete if present
-  delete street.data.undoStack
-  delete street.data.undoPosition
+  const legacyStreetData = street.data as LegacyStreetData
+  delete legacyStreetData.undoStack
+  delete legacyStreetData.undoPosition
 
   // Run schema update on street
   const [isUpdated, updatedStreet] = updateToLatestSchemaVersion(
@@ -331,10 +375,22 @@ export async function get(req: AuthedRequest, res: Response) {
 } // END function - export get
 
 export async function find(req: AuthedRequest, res: Response) {
-  const creatorId = req.query.creatorId
-  const namespacedId = req.query.namespacedId
-  const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
-  const count = (req.query.count && Number.parseInt(req.query.count, 10)) || 20
+  const result = findQuerySchema.safeParse(req.query)
+
+  if (!result.success) {
+    if (result.error instanceof z.ZodError) {
+      res
+        .status(400)
+        .json({ status: 400, errors: z.flattenError(result.error).fieldErrors })
+    } else {
+      res.status(400).json({ status: 400, msg: 'Bad request.' })
+    }
+    return
+  }
+
+  const { creatorId, namespacedId, page, limit } = result.data
+  const offset = (page - 1) * limit
+
   const findStreetWithCreatorId = async function (creatorId: string) {
     let user
     try {
@@ -342,6 +398,7 @@ export async function find(req: AuthedRequest, res: Response) {
     } catch (err) {
       logger.error(err)
       handleErrors(ERRORS.USER_NOT_FOUND)
+      return
     }
 
     if (!user) {
@@ -359,12 +416,12 @@ export async function find(req: AuthedRequest, res: Response) {
     })
   }
 
-  const findStreets = async function (start: number, count: number) {
+  const findStreets = async function (offset: number, limit: number) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
-      offset: start,
-      limit: count,
+      offset,
+      limit,
     })
   } // END function - findStreets
 
@@ -414,43 +471,23 @@ export async function find(req: AuthedRequest, res: Response) {
   } // END function - handleFindStreet
 
   const handleFindStreets = function (results) {
-    const totalNumStreets = results.count
+    const totalNumStreets =
+      typeof results.count === 'number' ? results.count : results.count.length
     const streets = results.rows
+    const totalPages =
+      totalNumStreets > 0 ? Math.ceil(totalNumStreets / limit) : 0
 
-    const selfUri = '/api/v1/streets?start=' + start + '&count=' + count
-
-    const json = {
-      meta: {
-        links: {
-          self: selfUri,
-        },
-      },
+    res.status(200).json({
       streets: streets.map(asStreetJsonBasic),
-    }
-
-    if (start > 0) {
-      let prevStart, prevCount
-      if (start >= count) {
-        prevStart = start - count
-        prevCount = count
-      } else {
-        prevStart = 0
-        prevCount = start
-      }
-      json.meta.links.prev =
-        '/api/v1/streets?start=' + prevStart + '&count=' + prevCount
-    }
-
-    if (start + streets.length < totalNumStreets) {
-      const nextStart = start + count
-      const nextCount = Math.min(
-        count,
-        totalNumStreets - start - streets.length
-      )
-      json.meta.links.next =
-        '/api/v1/streets?start=' + nextStart + '&count=' + nextCount
-    }
-    res.status(200).send(json)
+      pagination: {
+        page,
+        limit,
+        total: totalNumStreets,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    })
   } // END function - handleFindStreets
 
   if (creatorId) {
@@ -469,7 +506,7 @@ export async function find(req: AuthedRequest, res: Response) {
       .then(handleFindStreet)
       .catch(handleErrors)
   } else {
-    findStreets(start, count).then(handleFindStreets).catch(handleErrors)
+    findStreets(offset, limit).then(handleFindStreets).catch(handleErrors)
   }
 }
 
@@ -568,6 +605,7 @@ export async function put(req: AuthedRequest, res: Response) {
   } catch (err) {
     logger.error(err)
     handleErrors(ERRORS.CANNOT_UPDATE_STREET)
+    return
   }
 
   async function updateStreetWithUser(street, user) {
@@ -596,11 +634,13 @@ export async function put(req: AuthedRequest, res: Response) {
   }
 
   if (!street.creatorId) {
-    updateStreetData(street)
-      .then((_street) => {
-        res.status(204).end()
-      })
-      .catch(handleErrors)
+    try {
+      await updateStreetData(street)
+      res.status(204).end()
+    } catch (error) {
+      handleErrors(error)
+      return
+    }
   } else {
     if (!req.auth) {
       res.status(401).end()
@@ -617,10 +657,12 @@ export async function put(req: AuthedRequest, res: Response) {
       return
     }
 
-    updateStreetWithUser(street, user)
-      .then((_street) => {
-        res.status(204).end()
-      })
-      .catch(handleErrors)
+    try {
+      await updateStreetWithUser(street, user)
+      res.status(204).end()
+    } catch (error) {
+      handleErrors(error)
+      return
+    }
   }
 } // END function - export put

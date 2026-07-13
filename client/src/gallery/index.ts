@@ -14,7 +14,7 @@ import {
   getStreet,
 } from '../util/api'
 
-import type { StreetAPIResponse } from '@streetmix/types'
+import type { GalleryAPIResponse, StreetAPIResponse } from '@streetmix/types'
 
 let lastRequestedStreetId: string | null = null
 
@@ -73,17 +73,14 @@ function errorReceiveGalleryStreet(err: unknown) {
   showError(ERRORS.GALLERY_STREET_FAILURE, false)
 }
 
-export async function fetchGalleryData(userId: string) {
+export async function fetchGalleryData(userId: string, page: number) {
   try {
     if (userId) {
-      const response = await getGalleryForUser(userId)
-      const streets = receiveGalleryData(response.data)
-      return streets
+      const response = await getGalleryForUser(userId, page)
+      return receiveGalleryData(response.data)
     } else {
-      const response = await getGalleryForAllStreets()
-      const streets = receiveGalleryData(response.data)
-
-      return streets
+      const response = await getGalleryForAllStreets(page)
+      return receiveGalleryData(response.data)
     }
   } catch (error) {
     // If the error is a 404, throw up a not-found page
@@ -98,7 +95,7 @@ export async function fetchGalleryData(userId: string) {
   }
 }
 
-function receiveGalleryData(transmission: { streets: StreetAPIResponse[] }) {
+function receiveGalleryData(transmission: GalleryAPIResponse) {
   // There is a bug where sometimes street data is non-existent for an
   // unknown reason. Skip over so that the rest of gallery will display
   const streets = transmission.streets.filter(
@@ -112,5 +109,8 @@ function receiveGalleryData(transmission: { streets: StreetAPIResponse[] }) {
     switchGalleryStreet(streets[0].id)
   }
 
-  return streets
+  return {
+    streets,
+    pagination: transmission.pagination,
+  }
 }

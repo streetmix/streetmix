@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { StreetAPIResponse } from '@streetmix/types'
+import type { StreetAPIResponse, GalleryAPIResponse } from '@streetmix/types'
 
-interface GalleryState {
+interface GalleryState extends GalleryAPIResponse {
   visible: boolean
   instant: boolean
   userId: string | null
   mode: 'none' | 'loading' | 'gallery' | 'error'
-  streets: StreetAPIResponse[]
 }
 
 const initialState: GalleryState = {
@@ -16,6 +15,14 @@ const initialState: GalleryState = {
   userId: null,
   mode: 'none',
   streets: [],
+  pagination: {
+    page: 1,
+    limit: 100,
+    total: 0,
+    totalPages: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
 }
 
 export const gallerySlice = createSlice({
@@ -61,6 +68,7 @@ export const gallerySlice = createSlice({
       .addCase('gallery/openGallery/fulfilled', (state, action) => {
         state.mode = 'gallery'
         state.streets = action.payload.streets
+        state.pagination = action.payload.pagination
       })
 
       .addCase('gallery/openGallery/rejected', (state, action) => {
