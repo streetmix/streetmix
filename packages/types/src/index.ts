@@ -18,8 +18,7 @@ export type Prettify<T> = {
 } & {}
 
 export type UnitsSetting =
-  | typeof SETTINGS_UNITS_METRIC
-  | typeof SETTINGS_UNITS_IMPERIAL
+  typeof SETTINGS_UNITS_METRIC | typeof SETTINGS_UNITS_IMPERIAL
 
 export interface Segment {
   id: string
@@ -288,9 +287,7 @@ export interface VariantInfo {
 // object, or an array containing those. they should all eventually be
 // normalized to StringDefinition[]
 export type VariantGraphicsDefinition =
-  | string
-  | SpriteDefinition
-  | (string | SpriteDefinition)[]
+  string | SpriteDefinition | (string | SpriteDefinition)[]
 
 export interface VariantGraphics {
   ground?: VariantGraphicsDefinition
@@ -443,21 +440,20 @@ interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
 }
 
 export type BoundaryDefinition =
-  | BoundaryDefinitionWithoutFloors
-  | BoundaryDefinitionWithFloors
+  BoundaryDefinitionWithoutFloors | BoundaryDefinitionWithFloors
+
+export interface GalleryPagination {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+}
 
 export interface GalleryAPIResponse {
   streets: StreetAPIResponse[]
-}
-
-export interface GalleryPaginatedAPIResponse extends GalleryAPIResponse {
-  meta: {
-    links: {
-      self: string
-      prev?: string
-      next?: string
-    }
-  }
+  pagination: GalleryPagination
 }
 
 export type TranslationRecord = {

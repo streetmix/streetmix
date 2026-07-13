@@ -10,7 +10,10 @@ import type { RootState } from '../index'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
-  async ({ userId }: { userId: string | null }, { rejectWithValue }) => {
+  async (
+    { userId, page = 1 }: { userId: string | null; page: number },
+    { rejectWithValue }
+  ) => {
     updatePageUrl(true, userId)
 
     // TODO: Handle modes better.
@@ -24,7 +27,7 @@ export const openGallery = createAsyncThunk(
 
     // Fetch data and catch errors if fetch goes wrong
     try {
-      const streets = await fetchGalleryData(userId ?? '')
+      const streets = await fetchGalleryData(userId ?? '', page)
       return { streets }
     } catch (error: unknown) {
       // If the server error is 404, special rejection value
