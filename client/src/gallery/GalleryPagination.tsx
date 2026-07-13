@@ -1,4 +1,5 @@
-import { useSelector } from '~/src/store/hooks'
+import { openGallery } from '~/src/store/actions/gallery'
+import { useDispatch, useSelector } from '~/src/store/hooks'
 import { Button } from '~/src/ui/Button'
 import { Icon } from '~/src/ui/Icon'
 import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip'
@@ -13,15 +14,35 @@ interface GalleryPaginationProps {
 
 export function GalleryPagination({ pagination }: GalleryPaginationProps) {
   const { contentDirection } = useSelector((state) => state.app)
+  const galleryUserId = useSelector((state) => state.gallery.userId)
+  const dispatch = useDispatch()
   const intl = useIntl()
 
   const { page, limit, total, hasNextPage, hasPreviousPage } = pagination
   const start = (page - 1) * limit + 1
-  const end = page * limit
+  const end = Math.min(page * limit, total)
 
-  function handlePreviousPage() {}
+  function handlePreviousPage() {
+    if (!hasPreviousPage) return
 
-  function handleNextPage() {}
+    dispatch(
+      openGallery({
+        userId: galleryUserId,
+        page: page - 1,
+      })
+    )
+  }
+
+  function handleNextPage() {
+    if (!hasNextPage) return
+
+    dispatch(
+      openGallery({
+        userId: galleryUserId,
+        page: page + 1,
+      })
+    )
+  }
 
   return (
     <>
