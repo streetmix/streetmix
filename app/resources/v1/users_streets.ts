@@ -111,7 +111,7 @@ export async function get(req: AuthedRequest, res: Response) {
     user = await User.findOne({ where: { id: req.params.user_id } })
   } catch (err) {
     logger.error(err)
-    handleErrors(ERRORS.CANNOT_GET_STREET)
+    handleErrors(ERRORS.USER_NOT_FOUND)
     return
   }
 
@@ -124,7 +124,7 @@ export async function get(req: AuthedRequest, res: Response) {
     handleFindUserStreets(streets)
   } catch (err) {
     logger.error(err)
-    handleErrors(err)
+    handleErrors(ERRORS.CANNOT_GET_STREET)
   }
 }
 
