@@ -333,8 +333,42 @@ export async function get(req: AuthedRequest, res: Response) {
 export async function find(req: AuthedRequest, res: Response) {
   const creatorId = req.query.creatorId
   const namespacedId = req.query.namespacedId
-  const start = (req.query.start && Number.parseInt(req.query.start, 10)) || 0
-  const count = (req.query.count && Number.parseInt(req.query.count, 10)) || 20
+
+  const DEFAULT_PAGE = 1
+  const DEFAULT_LIMIT = 100
+  const MAX_LIMIT = 200
+
+  function parsePositiveInteger(value: unknown): number | null {
+    const rawValue = Array.isArray(value) ? value[0] : value
+
+    if (typeof rawValue !== 'string') return null
+
+    const parsedValue = Number.parseInt(rawValue, 10)
+    if (!Number.isInteger(parsedValue) || parsedValue < 1) return null
+
+    return parsedValue
+  }
+
+  const parsedPage = parsePositiveInteger(req.query.page)
+  const parsedLimit = parsePositiveInteger(req.query.limit)
+
+  if (
+    !creatorId &&
+    !namespacedId &&
+    ((req.query.page !== undefined && parsedPage === null) ||
+      (req.query.limit !== undefined && parsedLimit === null))
+  ) {
+    res.status(400).json({
+      status: 400,
+      msg: 'page and limit must be positive integers.',
+    })
+    return
+  }
+
+  const page = parsedPage ?? DEFAULT_PAGE
+  const limit = Math.min(parsedLimit ?? DEFAULT_LIMIT, MAX_LIMIT)
+  const offset = (page - 1) * limit
+
   const findStreetWithCreatorId = async function (creatorId: string) {
     let user
     try {
@@ -359,12 +393,12 @@ export async function find(req: AuthedRequest, res: Response) {
     })
   }
 
-  const findStreets = async function (start: number, count: number) {
+  const findStreets = async function (offset: number, limit: number) {
     return Street.findAndCountAll({
       where: { status: 'ACTIVE' },
       order: [['updatedAt', 'DESC']],
-      offset: start,
-      limit: count,
+      offset,
+      limit,
     })
   } // END function - findStreets
 
@@ -414,43 +448,23 @@ export async function find(req: AuthedRequest, res: Response) {
   } // END function - handleFindStreet
 
   const handleFindStreets = function (results) {
-    const totalNumStreets = results.count
+    const totalNumStreets =
+      typeof results.count === 'number' ? results.count : results.count.length
     const streets = results.rows
+    const totalPages =
+      totalNumStreets > 0 ? Math.ceil(totalNumStreets / limit) : 0
 
-    const selfUri = '/api/v1/streets?start=' + start + '&count=' + count
-
-    const json = {
-      meta: {
-        links: {
-          self: selfUri,
-        },
-      },
+    res.status(200).json({
       streets: streets.map(asStreetJsonBasic),
-    }
-
-    if (start > 0) {
-      let prevStart, prevCount
-      if (start >= count) {
-        prevStart = start - count
-        prevCount = count
-      } else {
-        prevStart = 0
-        prevCount = start
-      }
-      json.meta.links.prev =
-        '/api/v1/streets?start=' + prevStart + '&count=' + prevCount
-    }
-
-    if (start + streets.length < totalNumStreets) {
-      const nextStart = start + count
-      const nextCount = Math.min(
-        count,
-        totalNumStreets - start - streets.length
-      )
-      json.meta.links.next =
-        '/api/v1/streets?start=' + nextStart + '&count=' + nextCount
-    }
-    res.status(200).send(json)
+      pagination: {
+        page,
+        limit,
+        total: totalNumStreets,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    })
   } // END function - handleFindStreets
 
   if (creatorId) {
@@ -469,7 +483,7 @@ export async function find(req: AuthedRequest, res: Response) {
       .then(handleFindStreet)
       .catch(handleErrors)
   } else {
-    findStreets(start, count).then(handleFindStreets).catch(handleErrors)
+    findStreets(offset, limit).then(handleFindStreets).catch(handleErrors)
   }
 }
 

@@ -164,10 +164,11 @@ class APIClient {
     )
   }
 
-  getGalleryForAllStreets =
-    async (): APIResponse<GalleryPaginatedAPIResponse> => {
-      return await this.client.get(`${BASE_URL_API_V1}/streets?count=200`)
-    }
+  getGalleryForAllStreets = async (
+    page: number = 1
+  ): APIResponse<GalleryPaginatedAPIResponse> => {
+    return await this.client.get(`${BASE_URL_API_V1}/streets?page=${page}`)
+  }
 
   // TODO: API response type
   getSentimentSurveyStreet = async (): APIResponse<unknown> => {

@@ -414,6 +414,16 @@ router.delete(
  *           format: uuid
  *         required: true
  *         description: ID of the user
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: number
+ *           example: 1
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: number
+ *           example: 100
  *     tags:
  *       - users
  *     produces:
@@ -475,15 +485,15 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *         schema:
  *           type: string
  *       - in: query
- *         name: start
+ *         name: page
  *         schema:
  *           type: number
- *           example: 0
+ *           example: 1
  *       - in: query
- *         name: count
+ *         name: limit
  *         schema:
  *           type: number
- *           example: 20
+ *           example: 100
  *     tags:
  *       - streets
  *     produces:
@@ -507,15 +517,15 @@ router.post('/v1/streets', jwtCheck, v1.streets.post)
  *         schema:
  *           type: string
  *       - in: query
- *         name: start
+ *         name: page
  *         schema:
  *           type: number
- *           example: 0
+ *           example: 1
  *       - in: query
- *         name: count
+ *         name: limit
  *         schema:
  *           type: number
- *           example: 20
+ *           example: 100
  *     tags:
  *       - streets
  *     produces:
