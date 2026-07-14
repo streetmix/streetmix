@@ -61,6 +61,10 @@ describe('gallery reducer', () => {
       visible: true,
       mode: 'gallery',
       streets: [{ id: '1' }, { id: '3' }],
+      pagination: {
+        ...initialState.pagination,
+        total: 0,
+      },
     })
   })
 
