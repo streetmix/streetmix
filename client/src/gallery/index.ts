@@ -14,7 +14,7 @@ import {
   getStreet,
 } from '../util/api'
 
-import type { GalleryAPIResponse, StreetAPIResponse } from '@streetmix/types'
+import type { StreetAPIResponse } from '@streetmix/types'
 
 let lastRequestedStreetId: string | null = null
 
@@ -101,20 +101,9 @@ export async function fetchGalleryData(userId: string, page: number) {
 export async function fetchGalleryPageData(userId: string, page: number) {
   if (userId) {
     const response = await getGalleryForUser(userId, page)
-    return receiveGalleryData(response.data)
+    return response.data
   } else {
     const response = await getGalleryForAllStreets(page)
-    return receiveGalleryData(response.data)
-  }
-}
-
-function receiveGalleryData(transmission: GalleryAPIResponse) {
-  return {
-    // There is a bug where sometimes street data is non-existent for an
-    // unknown reason. Skip over so that the rest of gallery will display
-    streets: transmission.streets.filter(
-      (street) => typeof street.data !== 'undefined'
-    ),
-    pagination: transmission.pagination,
+    return response.data
   }
 }

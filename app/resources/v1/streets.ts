@@ -473,7 +473,12 @@ export async function find(req: AuthedRequest, res: Response) {
   const handleFindStreets = function (results) {
     const totalNumStreets =
       typeof results.count === 'number' ? results.count : results.count.length
-    const streets = results.rows
+
+    // There is a bug where sometimes street data is non-existent for an
+    // unknown reason. Skip over so these because sending this is malformed data
+    const streets = results.rows.filter(
+      (street) => typeof street.data !== 'undefined'
+    )
     const totalPages =
       totalNumStreets > 0 ? Math.ceil(totalNumStreets / limit) : 0
 

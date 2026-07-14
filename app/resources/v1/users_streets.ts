@@ -119,7 +119,9 @@ export async function get(req: AuthedRequest, res: Response) {
       offset,
     })
 
-    streets = result.rows
+    // There is a bug where sometimes street data is non-existent for an
+    // unknown reason. Skip over so these because sending this is malformed data
+    streets = result.rows.filter((street) => typeof street.data !== 'undefined')
     total = Array.isArray(result.count) ? result.count.length : result.count
   } catch (err) {
     logger.error(err)
