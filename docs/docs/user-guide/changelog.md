@@ -14,6 +14,7 @@ sidebar_position: 5
 ### 🐛 Bug fixes
 
 - Fixed long street names overflowing its container in some situations.
+- Fixed an issue on Safari where an active slice's highlight can block interacting with popups.
 
 ## July 2, 2026
 
