@@ -13,4 +13,17 @@
   border-radius: var(--border-radius-medium);
   background-color: #f0f0f0;
   height: var(--gallery-thumbnail-height);
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
