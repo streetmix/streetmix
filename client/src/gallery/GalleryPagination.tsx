@@ -1,15 +1,15 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { openGallery } from '~/src/store/actions/gallery.js'
+import { fetchGalleryPage } from '~/src/store/actions/gallery.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { Button } from '~/src/ui/Button.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip, TooltipGroup } from '~/src/ui/Tooltip.js'
 import './GalleryPagination.css'
 
-export function GalleryPagination() {
+export function GalleryPagination({ isLoading }: { isLoading: boolean }) {
   const { contentDirection } = useSelector((state) => state.app)
-  const { streets, pagination, userId } = useSelector((state) => state.gallery)
+  const { streets, pagination } = useSelector((state) => state.gallery)
   const dispatch = useDispatch()
   const intl = useIntl()
 
@@ -20,25 +20,15 @@ export function GalleryPagination() {
   const end = start + streets.length - 1
 
   function handlePreviousPage() {
-    if (!hasPreviousPage) return
+    if (!hasPreviousPage || isLoading) return
 
-    dispatch(
-      openGallery({
-        userId,
-        page: page - 1,
-      })
-    )
+    dispatch(fetchGalleryPage(page - 1))
   }
 
   function handleNextPage() {
-    if (!hasNextPage) return
+    if (!hasNextPage || isLoading) return
 
-    dispatch(
-      openGallery({
-        userId,
-        page: page + 1,
-      })
-    )
+    dispatch(fetchGalleryPage(page + 1))
   }
 
   // When we don't have pages, keep the UI simple (what it used to be)

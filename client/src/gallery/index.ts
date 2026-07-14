@@ -75,13 +75,16 @@ function errorReceiveGalleryStreet(err: unknown) {
 
 export async function fetchGalleryData(userId: string, page: number) {
   try {
-    if (userId) {
-      const response = await getGalleryForUser(userId, page)
-      return receiveGalleryData(response.data)
-    } else {
-      const response = await getGalleryForAllStreets(page)
-      return receiveGalleryData(response.data)
+    const data = await fetchGalleryPageData(userId, page)
+
+    if (
+      (getMode() === MODES.USER_GALLERY && data.streets.length) ||
+      getMode() === MODES.GLOBAL_GALLERY
+    ) {
+      switchGalleryStreet(data.streets[0].id)
     }
+
+    return data
   } catch (error) {
     // If the error is a 404, throw up a not-found page
     if (error.response?.status === 404) {
@@ -95,22 +98,23 @@ export async function fetchGalleryData(userId: string, page: number) {
   }
 }
 
-function receiveGalleryData(transmission: GalleryAPIResponse) {
-  // There is a bug where sometimes street data is non-existent for an
-  // unknown reason. Skip over so that the rest of gallery will display
-  const streets = transmission.streets.filter(
-    (street) => typeof street.data !== 'undefined'
-  )
-
-  if (
-    (getMode() === MODES.USER_GALLERY && streets.length) ||
-    getMode() === MODES.GLOBAL_GALLERY
-  ) {
-    switchGalleryStreet(streets[0].id)
+export async function fetchGalleryPageData(userId: string, page: number) {
+  if (userId) {
+    const response = await getGalleryForUser(userId, page)
+    return receiveGalleryData(response.data)
+  } else {
+    const response = await getGalleryForAllStreets(page)
+    return receiveGalleryData(response.data)
   }
+}
 
+function receiveGalleryData(transmission: GalleryAPIResponse) {
   return {
-    streets,
+    // There is a bug where sometimes street data is non-existent for an
+    // unknown reason. Skip over so that the rest of gallery will display
+    streets: transmission.streets.filter(
+      (street) => typeof street.data !== 'undefined'
+    ),
     pagination: transmission.pagination,
   }
 }

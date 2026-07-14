@@ -33,7 +33,8 @@ export function GalleryContents({ ref, user }: GalleryContentsProps) {
   useLayoutEffect(() => {
     if (selectedStreet !== undefined) {
       const selectedEl = document.querySelector('.gallery-selected')
-      // Make sure the element exists -- sometimes it hasn't rendered yet
+      // Make sure the element exists -- sometimes it hasn't rendered yet,
+      // or it's on another page.
       if (selectedEl) {
         // Center the selected item when the view is first programatically
         // rendered. Selecting the item manually will only scroll to nearest
