@@ -67,30 +67,3 @@
     overflow-x: scroll;
   }
 }
-
-.gallery-user-buttons {
-  display: flex;
-  flex: 0 0 100px;
-  flex-direction: column;
-  height: 110px;
-  margin-top: 6px;
-
-  a.btn,
-  button {
-    padding-inline: 0.5em;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center;
-  }
-}
-
-.gallery-new-street {
-  flex-grow: 1;
-  font-weight: 550;
-}
-
-.gallery-copy-last-street {
-  height: 40px;
-  flex-basis: 40px;
-  margin-top: 10px;
-}

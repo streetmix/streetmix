@@ -3,12 +3,10 @@ import { FormattedMessage } from 'react-intl'
 
 import { useSelector, useDispatch } from '../store/hooks.js'
 import { deleteGalleryStreet } from '../store/slices/gallery.js'
-import { Button } from '../ui/Button.js'
 import { Scrollable } from '../ui/Scrollable.js'
 import { Avatar } from '../users/Avatar.js'
 import { sendDeleteStreetToServer } from '../streets/xhr.js'
 import { showError, ERRORS } from '../app/errors.js'
-import { URL_NEW_STREET, STREET_TEMPLATES } from '../app/constants.js'
 import { GalleryPagination } from './GalleryPagination.js'
 import { GalleryStreetItem } from './GalleryStreetItem.js'
 import { switchGalleryStreet } from './index.js'
@@ -30,6 +28,7 @@ export function GalleryContents({ user }: GalleryContentsProps) {
   )
   const dispatch = useDispatch()
   const galleryEl = useRef<HTMLDivElement>(null)
+  const centerOnFirstRender = useRef(true)
   const [selectedStreet, setSelectedStreet] = useState<string | null>(
     currentStreetId
   )
@@ -39,7 +38,15 @@ export function GalleryContents({ user }: GalleryContentsProps) {
       const selectedEl = document.querySelector('.gallery-selected')
       // Make sure the element exists -- sometimes it hasn't rendered yet
       if (selectedEl) {
-        selectedEl.scrollIntoView({ behavior: 'smooth', inline: 'nearest' })
+        // Center the selected item when the view is first programatically
+        // rendered. Selecting the item manually will only scroll to nearest
+        // position to minimize scrolling movement.
+        let alignment: ScrollLogicalPosition = 'nearest'
+        if (centerOnFirstRender.current === true) {
+          alignment = 'center'
+          centerOnFirstRender.current = false
+        }
+        selectedEl.scrollIntoView({ behavior: 'smooth', inline: alignment })
 
         // We need this to prevent scrollIntoView from moving things
         // upward and trying to reveal the hidden scrollbar area
@@ -51,6 +58,7 @@ export function GalleryContents({ user }: GalleryContentsProps) {
   }, [selectedStreet])
 
   function selectStreet(streetId: string): void {
+    centerOnFirstRender.current = false
     setSelectedStreet(streetId)
     switchGalleryStreet(streetId)
   }
@@ -86,39 +94,6 @@ export function GalleryContents({ user }: GalleryContentsProps) {
 
       {/* Gallery selection */}
       <div className="gallery-streets-container">
-        {/* Display these buttons for a user viewing their own gallery */}
-        {isOwnedByCurrentUser && (
-          <div className="gallery-user-buttons">
-            <Button
-              type="link"
-              href={URL_NEW_STREET}
-              className="gallery-new-street"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FormattedMessage
-                id="btn.create"
-                defaultMessage="Create new street"
-              />
-            </Button>
-            {selectedStreet !== null ? (
-              <Button
-                type="link"
-                href={`${URL_NEW_STREET}?type=${STREET_TEMPLATES.COPY}`}
-                className="gallery-copy-last-street"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-              </Button>
-            ) : (
-              <Button className="gallery-copy-last-street" disabled>
-                <FormattedMessage id="btn.copy" defaultMessage="Make a copy" />
-              </Button>
-            )}
-          </div>
-        )}
-
         <Scrollable className="streets" allowKeyboardScroll>
           {streets.map((item) => (
             <GalleryStreetItem
