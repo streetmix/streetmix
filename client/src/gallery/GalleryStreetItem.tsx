@@ -113,7 +113,11 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
 
   return (
     <div className={classNames.join(' ')}>
-      <a href={getStreetUrl(street)} onClick={handleSelectStreet}>
+      <a
+        href={getStreetUrl(street)}
+        onClick={handleSelectStreet}
+        draggable={false}
+      >
         <div className="gallery-street-item-inner">
           <div className="gallery-street-item-canvas">
             {isError ? (

@@ -1,42 +1,6 @@
-.gallery-header {
-  display: flex;
-  flex-direction: row;
-  flex: 0 0 40px;
-  align-items: center;
-  gap: 0.5em;
-
-  .avatar {
-    flex: 0 0 32px;
-    height: 32px;
-    margin-block-start: -1px;
-  }
-}
-
-.gallery-label {
-  flex-grow: 1;
-  font-size: 1.5em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.gallery-street-count {
-  text-align: right;
-  font-size: 1.5em;
-  color: rgb(128 128 128);
-  white-space: nowrap;
-}
-
-.gallery-streets-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
 /* Applied by the wrapping element created by <Scrollable /> */
 .streets-scrollable-container {
   position: relative;
-  top: 1px;
   height: var(--gallery-height);
   min-width: 0; /* Allows content to overflow flex element */
   flex-grow: 1;
@@ -55,38 +19,11 @@
   }
 
   .streets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    white-space: nowrap;
+    display: flex;
+    gap: 10px;
+    padding: 8px 2px 0;
     height: calc(var(--gallery-height) + 20px); /* To cover the scroll bar */
+    white-space: nowrap;
     overflow-x: scroll;
   }
-}
-
-.gallery-user-buttons {
-  display: flex;
-  flex: 0 0 100px;
-  flex-direction: column;
-  height: 110px;
-  margin-top: 6px;
-
-  a.btn,
-  button {
-    padding-inline: 0.5em;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center;
-  }
-}
-
-.gallery-new-street {
-  flex-grow: 1;
-  font-weight: 550;
-}
-
-.gallery-copy-last-street {
-  height: 40px;
-  flex-basis: 40px;
-  margin-top: 10px;
 }

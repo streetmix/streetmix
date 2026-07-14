@@ -18,8 +18,8 @@ const initialState: GalleryState = {
   pagination: {
     page: 1,
     limit: 100,
-    total: 0,
-    totalPages: 0,
+    total: 1,
+    totalPages: 1,
     hasNextPage: false,
     hasPreviousPage: false,
   },
@@ -40,10 +40,13 @@ export const gallerySlice = createSlice({
       state.visible = false
     },
 
+    // This is an "optimistic" deletion that only removes it from state, and
+    // doesn't refresh new data from the server.
     deleteGalleryStreet(state, action: PayloadAction<StreetAPIResponse['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })
+      state.pagination.total = state.pagination.total - 1
     },
 
     setGalleryUserId(state, action: PayloadAction<GalleryState['userId']>) {
@@ -58,44 +61,120 @@ export const gallerySlice = createSlice({
     // solve this by declaring action types in a separate file (similar to
     // basic Redux syntax)
     builder
-      .addCase('gallery/openGallery/pending', (state, action) => {
-        state.visible = true
-        state.instant = action.meta.arg.instant ?? false
-        state.userId = action.meta.arg.userId ?? null
-        state.mode = 'loading'
-      })
-
-      .addCase('gallery/openGallery/fulfilled', (state, action) => {
-        state.mode = 'gallery'
-        state.streets = action.payload.streets
-        state.pagination = action.payload.pagination
-      })
-
-      .addCase('gallery/openGallery/rejected', (state, action) => {
-        // Log this error because otherwise it's swallowed
-        console.error('gallery/openGallery/rejected', action.error.stack)
-
-        state.mode = 'error'
-
-        // A rejection occurs with an optional value. The `killGallery` value
-        // can be sent, which means we want to close the gallery immediately.
-        // If the rejection occurs without a value, then `action.payload` will
-        // be undefined.
-        if (action.payload?.killGallery === true) {
-          state.visible = false
-          state.instant = true
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/openGallery/pending'
+          meta: { arg: { userId: string | null; instant?: boolean } }
+        } => action.type === 'gallery/openGallery/pending',
+        (state, action) => {
+          state.visible = true
+          state.instant = action.meta.arg.instant ?? false
+          state.userId = action.meta.arg.userId ?? null
+          state.mode = 'loading'
         }
-      })
+      )
 
-      .addCase('gallery/closeGallery/fulfilled', (state, action) => {
-        state.visible = false
-        state.instant = action.payload.instant ?? false
-      })
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/openGallery/fulfilled'
+          payload: GalleryAPIResponse
+        } => action.type === 'gallery/openGallery/fulfilled',
+        (state, action) => {
+          state.mode = 'gallery'
+          state.streets = action.payload.streets
+          state.pagination = action.payload.pagination
+        }
+      )
 
-      .addCase('gallery/closeGallery/rejected', (state, action) => {
-        // Log this error because otherwise it's swallowed
-        console.error('gallery/closeGallery/rejected', action.error.stack)
-      })
+      .addMatcher(
+        (action): action is { type: 'gallery/fetchPage/pending' } =>
+          action.type === 'gallery/fetchPage/pending',
+        (state) => {
+          state.mode = 'loading'
+        }
+      )
+
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/fetchPage/fulfilled'
+          payload: GalleryAPIResponse
+        } => action.type === 'gallery/fetchPage/fulfilled',
+        (state, action) => {
+          state.mode = 'gallery'
+          state.streets = action.payload.streets
+          state.pagination = action.payload.pagination
+        }
+      )
+
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/fetchPage/rejected'
+          error: { stack?: string }
+        } => action.type === 'gallery/fetchPage/rejected',
+        (state, action) => {
+          console.error('gallery/fetchPage/rejected', action.error.stack)
+          state.mode = 'error'
+        }
+      )
+
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/openGallery/rejected'
+          error: { stack?: string }
+          payload?: { killGallery?: boolean }
+        } => action.type === 'gallery/openGallery/rejected',
+        (state, action) => {
+          // Log this error because otherwise it's swallowed
+          console.error('gallery/openGallery/rejected', action.error.stack)
+
+          state.mode = 'error'
+
+          // A rejection occurs with an optional value. The `killGallery` value
+          // can be sent, which means we want to close the gallery immediately.
+          // If the rejection occurs without a value, then `action.payload` will
+          // be undefined.
+          if (action.payload?.killGallery === true) {
+            state.visible = false
+            state.instant = true
+          }
+        }
+      )
+
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/closeGallery/fulfilled'
+          payload: { instant?: boolean }
+        } => action.type === 'gallery/closeGallery/fulfilled',
+        (state, action) => {
+          state.visible = false
+          state.instant = action.payload.instant ?? false
+        }
+      )
+
+      .addMatcher(
+        (
+          action
+        ): action is {
+          type: 'gallery/closeGallery/rejected'
+          error: { stack?: string }
+        } => action.type === 'gallery/closeGallery/rejected',
+        (state, action) => {
+          // Log this error because otherwise it's swallowed
+          console.error('gallery/closeGallery/rejected', action.error.stack)
+        }
+      )
   },
 })
 

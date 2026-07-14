@@ -1,45 +1,34 @@
 .gallery-street-item {
   --selection-highlight-color: var(--color-copper-700);
-  --thumbnail-width: 180px;
-  --thumbnail-height: 110px;
 
-  display: inline-block;
+  display: block;
   position: relative;
-  width: var(--thumbnail-width);
-  height: var(--thumbnail-height);
+  flex: 0 0 var(--gallery-thumbnail-width);
+  max-width: var(--gallery-thumbnail-width);
+  height: var(--gallery-thumbnail-height);
+  border: 2px solid var(--color-turquoise-600);
   border-radius: var(--border-radius-medium);
-
-  /* this spacing is so that the selected border is not cut off when calling scrollIntoView() */
-  padding: 5px;
-  box-sizing: content-box;
+  background-color: #f0f0f0;
   text-align: center;
 
-  /* reset child box sizing */
-  > * {
-    box-sizing: border-box;
-  }
+  /* Makes selected border visible when scrolling into view */
+  scroll-margin-inline: 2px;
 
-  &:first-child {
-    padding-left: 2px;
-  }
+  &.gallery-selected {
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--selection-highlight-color);
 
-  &:last-child {
-    padding-right: 2px;
+    canvas {
+      opacity: 1;
+      filter: grayscale(0);
+      transform: scale(1.45);
+    }
   }
 }
 
 .gallery-street-item > a {
-  display: block;
   text-decoration: none;
-  border: 2px solid var(--color-turquoise-600);
-  background-color: #f0f0f0;
   cursor: pointer;
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--border-radius-medium);
 
   &:hover canvas {
     opacity: 1;
@@ -48,23 +37,11 @@
   }
 }
 
-.gallery-street-item.gallery-selected > a {
-  border: 2px solid white;
-  box-shadow: 0 0 0 2px var(--selection-highlight-color);
-
-  canvas {
-    opacity: 1;
-    filter: grayscale(0);
-    transform: scale(1.45);
-  }
-}
-
 .gallery-street-item-inner {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
-  border-radius: 2px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -76,8 +53,8 @@
     position: absolute;
     left: 0;
     bottom: -2px;
-    width: var(--thumbnail-width);
-    height: var(--thumbnail-height);
+    width: var(--gallery-thumbnail-width);
+    height: var(--gallery-thumbnail-height);
     border-radius: var(--border-radius-medium);
     opacity: 0.5;
     filter: grayscale(0.25);
@@ -115,8 +92,8 @@
   padding: 0;
   width: 20px;
   height: 20px;
-  inset-block-end: 7px;
-  inset-inline-end: 7px;
+  inset-block-end: 0;
+  inset-inline-end: 0;
   display: flex !important;
   justify-content: center;
   align-items: center !important;
@@ -126,6 +103,7 @@
   border: 0;
   border-radius: 50%;
   font-size: 0.65em;
+  cursor: pointer;
 
   &:hover {
     background-color: rgb(255 255 255 / 50%);
@@ -164,6 +142,6 @@
 
   max-width: 95%;
   position: relative;
-  top: -8px;
+  top: calc(-100% - 10px);
   line-height: 0; /* fixes lower border padding */
 }

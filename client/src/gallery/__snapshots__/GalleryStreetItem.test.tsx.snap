@@ -6,6 +6,7 @@ exports[`GalleryStreetItem > renders 1`] = `
     class="gallery-street-item"
   >
     <a
+      draggable="false"
       href="/foo/435/baz"
     >
       <div

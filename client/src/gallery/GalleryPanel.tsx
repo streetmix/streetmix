@@ -1,16 +1,19 @@
+import { useRef } from 'react'
+import { FormattedMessage } from 'react-intl'
+
 import { useSelector } from '../store/hooks.js'
 import { useGetUserQuery } from '../store/services/api.js'
+import { Avatar } from '../users/Avatar.js'
 import { GalleryError } from './GalleryError.js'
 import { GalleryLoading } from './GalleryLoading.js'
 import { GalleryContents } from './GalleryContents.js'
+import { GalleryPagination } from './GalleryPagination.js'
 
-// This component only handles switching between display modes
 export function GalleryPanel() {
-  // Mode is set in state after streets have loaded
-  // We use RTK Query to load user data in this component
-  // There might be a better way of combining these requests!
   const { mode, userId } = useSelector((state) => state.gallery)
-  const { data, isError, isLoading } = useGetUserQuery(userId)
+  const { data: user, isError, isLoading } = useGetUserQuery(userId)
+
+  const galleryEl = useRef<HTMLDivElement>(null)
 
   let childElements
 
@@ -20,10 +23,25 @@ export function GalleryPanel() {
     childElements = <GalleryError />
   } else if (mode === 'gallery') {
     // It is not necessary to have a user property to load the gallery
-    childElements = <GalleryContents user={data} />
+    childElements = <GalleryContents ref={galleryEl} user={user} />
   } else {
     childElements = null
   }
 
-  return <div className="gallery-panel">{childElements}</div>
+  return (
+    <div className="gallery-panel">
+      <div className="gallery-header" ref={galleryEl}>
+        {user?.id !== undefined && <Avatar userId={user.id} />}
+        <div className="gallery-label">
+          {user?.displayName ?? user?.id ?? (
+            <FormattedMessage id="gallery.all" defaultMessage="All streets" />
+          )}
+        </div>
+        <div className="gallery-street-count">
+          <GalleryPagination isLoading={mode === 'loading' || isLoading} />
+        </div>
+      </div>
+      <div className="gallery-streets-container">{childElements}</div>
+    </div>
+  )
 }

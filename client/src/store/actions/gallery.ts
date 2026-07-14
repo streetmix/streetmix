@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { ERRORS, showError } from '../../app/errors'
-import { onWindowFocus } from '../../app/event_handlers/focus'
-import { MODES, getMode, setMode } from '../../app/mode'
-import { updatePageUrl } from '../../app/page_url'
-import { fetchGalleryData } from '../../gallery/index'
+import { ERRORS, showError } from '../../app/errors.js'
+import { onWindowFocus } from '../../app/event_handlers/focus.js'
+import { MODES, getMode, setMode } from '../../app/mode.js'
+import { updatePageUrl } from '../../app/page_url.js'
+import { fetchGalleryData, fetchGalleryPageData } from '../../gallery/index.js'
 
-import type { RootState } from '../index'
+import type { RootState } from '../index.js'
 
 export const openGallery = createAsyncThunk(
   'gallery/openGallery',
@@ -43,6 +43,28 @@ export const openGallery = createAsyncThunk(
     }
   }
 )
+
+// This just fetches a new page of gallery data, do not do mode changes, etc
+export const fetchGalleryPage = createAsyncThunk<
+  Awaited<ReturnType<typeof fetchGalleryData>>,
+  number,
+  { state: RootState }
+>('gallery/fetchPage', async (page: number, { rejectWithValue, getState }) => {
+  const userId = getState().gallery.userId
+
+  try {
+    return await fetchGalleryPageData(userId ?? '', page)
+  } catch (error: unknown) {
+    if (error.response?.status === 404) {
+      return rejectWithValue({
+        userId,
+        page,
+      })
+    }
+
+    throw error
+  }
+})
 
 export const closeGallery = createAsyncThunk<
   { instant: boolean },

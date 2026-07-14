@@ -1,0 +1,31 @@
+.gallery-loading-placeholders {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-auto-columns: var(--gallery-thumbnail-width);
+  grid-auto-flow: column;
+  gap: 10px;
+  padding: 8px 2px 0;
+  overflow: hidden;
+}
+
+.gallery-loading-item {
+  border-radius: var(--border-radius-medium);
+  background-color: #f0f0f0;
+  height: var(--gallery-thumbnail-height);
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}

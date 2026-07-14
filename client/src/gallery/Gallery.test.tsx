@@ -16,12 +16,22 @@ vi.mock('../store/actions/gallery.js', () => ({
   closeGallery: vi.fn(() => ({ type: 'MOCK_ACTION' })),
 }))
 
+const defaultPaginationValues = {
+  page: 1,
+  limit: 100,
+  total: 1,
+  totalPages: 1,
+  hasNextPage: false,
+  hasPreviousPage: false,
+}
+
 const initialState = {
   gallery: {
     userId: 'foo',
     visible: true,
     mode: 'gallery',
     streets: [MOCK_STREET],
+    pagination: defaultPaginationValues,
   },
   street: {
     id: '2556be10-df45-11e9-92a0-b5e383de159b',
@@ -74,6 +84,7 @@ describe('Gallery', () => {
         visible: true,
         mode: 'gallery',
         streets: [MOCK_STREET],
+        pagination: defaultPaginationValues,
       },
       street: {
         id: '2556be10-df45-11e9-92a0-b5e383de159b',
@@ -86,7 +97,8 @@ describe('Gallery', () => {
     const { getByText, asFragment } = render(<Gallery />, { initialState })
 
     await waitFor(() => {
-      expect(getByText('All streets')).toBeInTheDocument()
+      // Wait for street to load
+      expect(getByText('Baz')).toBeInTheDocument()
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -96,6 +108,8 @@ describe('Gallery', () => {
       gallery: {
         visible: true,
         mode: 'loading',
+        streets: [],
+        pagination: defaultPaginationValues,
       },
     }
 
@@ -111,6 +125,8 @@ describe('Gallery', () => {
       gallery: {
         visible: true,
         mode: 'error',
+        streets: [],
+        pagination: defaultPaginationValues,
       },
     }
 

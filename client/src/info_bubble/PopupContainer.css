@@ -6,6 +6,12 @@
   perspective: 1200px;
 }
 
+/* On Safari, prevent segment .active-bg from overlapping popups -- not sure
+   why stacking order is different, or why pointer-events is being ignored. */
+body.safari .floating-ui-wrapper {
+  z-index: 100;
+}
+
 .popup-container {
   --popup-header-background-color: var(--color-turquoise-200);
   --popup-button-size: 30px;

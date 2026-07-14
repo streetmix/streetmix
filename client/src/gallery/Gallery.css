@@ -15,6 +15,8 @@ body:not(.safari).gallery-visible .street-section-sky {
 .gallery-panel {
   --gallery-border-radius: var(--border-radius);
   --gallery-box-shadow: var(--medium-box-shadow);
+  --gallery-thumbnail-width: 180px;
+  --gallery-thumbnail-height: 110px;
 
   position: absolute;
   left: var(--left-right-inset);
@@ -35,20 +37,61 @@ body:not(.safari).gallery-visible .street-section-sky {
   transform-origin: 50% 0;
 }
 
+.gallery-header {
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 40px;
+  align-items: center;
+  gap: 0.5em;
+
+  .avatar {
+    flex: 0 0 32px;
+    height: 32px;
+    margin-block-start: -1px;
+  }
+}
+
+.gallery-label {
+  flex-grow: 1;
+  font-size: 1.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.gallery-street-count {
+  display: flex;
+  flex-direction: row;
+  gap: 0.25em;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.25em;
+  color: rgb(128 128 128);
+  white-space: nowrap;
+}
+
+.gallery-streets-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
 .gallery-loading,
 .gallery-error {
-  position: absolute;
-  inset: 0;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   z-index: var(--z-03-gallery-message);
 
   a {
     color: inherit;
   }
+}
+
+.gallery-error p:first-child {
+  margin-top: 0;
 }
 
 body:not(.gallery-no-move-transition) .main-screen,
