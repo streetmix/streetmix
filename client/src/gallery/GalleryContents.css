@@ -34,7 +34,7 @@
 .gallery-streets-container {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  flex-grow: 1;
 }
 
 /* Applied by the wrapping element created by <Scrollable /> */

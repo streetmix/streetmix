@@ -49,6 +49,7 @@ exports[`Gallery > renders global gallery view 1`] = `
               class="gallery-street-item gallery-selected"
             >
               <a
+                draggable="false"
                 href="/foo/435/baz"
               >
                 <div
@@ -147,8 +148,33 @@ exports[`Gallery > renders loading 1`] = `
           class="gallery-loading"
         >
           <div
-            class="loading-spinner"
-          />
+            class="gallery-loading-placeholders"
+          >
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+            <div
+              class="gallery-loading-item"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -223,6 +249,7 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
               class="gallery-street-item gallery-selected"
             >
               <a
+                draggable="false"
                 href="/foo/435/baz"
               >
                 <div
@@ -349,6 +376,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
               class="gallery-street-item gallery-selected"
             >
               <a
+                draggable="false"
                 href="/foo/435/baz"
               >
                 <div
