@@ -2,25 +2,31 @@ import gallery, {
   showGallery,
   hideGallery,
   deleteGalleryStreet,
-  setGalleryUserId
-} from './gallery'
+  setGalleryUserId,
+} from './gallery.js'
 
 describe('gallery reducer', () => {
   const initialState = {
     visible: false,
     instant: false,
     userId: null,
-    mode: 'none',
-    streets: []
+    mode: 'none' as const,
+    streets: [],
+    pagination: {
+      page: 1,
+      limit: 100,
+      total: 1,
+      totalPages: 1,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
   }
 
   it('should handle showGallery()', () => {
     expect(gallery(initialState, showGallery('userId'))).toEqual({
+      ...initialState,
       visible: true,
-      instant: false,
       userId: 'userId',
-      mode: 'none',
-      streets: []
     })
   })
 
@@ -28,18 +34,14 @@ describe('gallery reducer', () => {
     expect(
       gallery(
         {
+          ...initialState,
           visible: true,
-          userId: null,
-          mode: 'none',
-          streets: []
         },
         hideGallery()
       )
     ).toEqual({
+      ...initialState,
       visible: false,
-      userId: null,
-      mode: 'none',
-      streets: []
     })
   })
 
@@ -47,28 +49,25 @@ describe('gallery reducer', () => {
     expect(
       gallery(
         {
-          visible: false,
-          userId: null,
+          ...initialState,
+          visible: true,
           mode: 'gallery',
-          streets: [{ id: 1 }, { id: 2 }, { id: 3 }]
+          streets: [{ id: '1' }, { id: '2' }, { id: '3' }],
         },
-        deleteGalleryStreet(2)
+        deleteGalleryStreet('2')
       )
     ).toEqual({
-      visible: false,
-      userId: null,
+      ...initialState,
+      visible: true,
       mode: 'gallery',
-      streets: [{ id: 1 }, { id: 3 }]
+      streets: [{ id: '1' }, { id: '3' }],
     })
   })
 
   it('should handle setGalleryUserId()', () => {
     expect(gallery(initialState, setGalleryUserId('foo'))).toEqual({
-      visible: false,
-      instant: false,
+      ...initialState,
       userId: 'foo',
-      mode: 'none',
-      streets: []
     })
   })
 })

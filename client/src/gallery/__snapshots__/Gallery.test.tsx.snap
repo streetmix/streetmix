@@ -17,6 +17,11 @@ exports[`Gallery > renders global gallery view 1`] = `
         >
           All streets
         </div>
+        <div
+          class="gallery-street-count"
+        >
+          1 street
+        </div>
       </div>
       <div
         class="gallery-streets-container"
@@ -61,7 +66,7 @@ exports[`Gallery > renders global gallery view 1`] = `
                     class="gallery-street-item-label"
                   >
                     <div>
-                      foo
+                      It's me, foo!
                     </div>
                     <div
                       class="gallery-street-item-date"

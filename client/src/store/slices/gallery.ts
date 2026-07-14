@@ -18,8 +18,8 @@ const initialState: GalleryState = {
   pagination: {
     page: 1,
     limit: 100,
-    total: 0,
-    totalPages: 0,
+    total: 1,
+    totalPages: 1,
     hasNextPage: false,
     hasPreviousPage: false,
   },
