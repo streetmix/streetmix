@@ -63,11 +63,11 @@ export const gallerySlice = createSlice({
           action
         ): action is {
           type: 'gallery/openGallery/pending'
-          meta: { arg: { userId: string | null } }
+          meta: { arg: { userId: string | null; instant?: boolean } }
         } => action.type === 'gallery/openGallery/pending',
         (state, action) => {
           state.visible = true
-          state.instant = false
+          state.instant = action.meta.arg.instant ?? false
           state.userId = action.meta.arg.userId ?? null
           state.mode = 'loading'
         }

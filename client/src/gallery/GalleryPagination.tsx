@@ -61,6 +61,10 @@ export function GalleryPagination({ isLoading }: { isLoading: boolean }) {
             className="gallery-pagination-button"
             disabled={!hasPreviousPage}
             onClick={handlePreviousPage}
+            aria-label={intl.formatMessage({
+              id: 'gallery.pagination.back',
+              defaultMessage: 'Previous page',
+            })}
           >
             <Icon
               name={
@@ -80,6 +84,10 @@ export function GalleryPagination({ isLoading }: { isLoading: boolean }) {
             className="gallery-pagination-button"
             disabled={!hasNextPage}
             onClick={handleNextPage}
+            aria-label={intl.formatMessage({
+              id: 'gallery.pagination.next',
+              defaultMessage: 'Next page',
+            })}
           >
             <Icon
               name={

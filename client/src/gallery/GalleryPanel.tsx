@@ -38,7 +38,7 @@ export function GalleryPanel() {
           )}
         </div>
         <div className="gallery-street-count">
-          <GalleryPagination isLoading={isLoading} />
+          <GalleryPagination isLoading={mode === 'loading' || isLoading} />
         </div>
       </div>
       <div className="gallery-streets-container">{childElements}</div>

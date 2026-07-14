@@ -78,8 +78,8 @@ export async function fetchGalleryData(userId: string, page: number) {
     const data = await fetchGalleryPageData(userId, page)
 
     if (
-      (getMode() === MODES.USER_GALLERY && data.streets.length) ||
-      getMode() === MODES.GLOBAL_GALLERY
+      data.streets.length &&
+      (getMode() === MODES.USER_GALLERY || getMode() === MODES.GLOBAL_GALLERY)
     ) {
       switchGalleryStreet(data.streets[0].id)
     }
