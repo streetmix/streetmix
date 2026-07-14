@@ -476,9 +476,12 @@ export async function find(req: AuthedRequest, res: Response) {
 
     // There is a bug where sometimes street data is non-existent for an
     // unknown reason. Skip over so these because sending this is malformed data
-    const streets = results.rows.filter(
-      (street) => typeof street.data !== 'undefined'
-    )
+    const streets = results.rows.filter((street) => {
+      if (street.data === null) {
+        logger.info('Malformed street:', street.toJSON())
+      }
+      return street.data !== null
+    })
     const totalPages =
       totalNumStreets > 0 ? Math.ceil(totalNumStreets / limit) : 0
 

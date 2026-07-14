@@ -121,7 +121,12 @@ export async function get(req: AuthedRequest, res: Response) {
 
     // There is a bug where sometimes street data is non-existent for an
     // unknown reason. Skip over so these because sending this is malformed data
-    streets = result.rows.filter((street) => typeof street.data !== 'undefined')
+    streets = result.rows.filter((street) => {
+      if (street.data === null) {
+        logger.info('Malformed street:', street.toJSON())
+      }
+      return street.data !== null
+    })
     total = Array.isArray(result.count) ? result.count.length : result.count
   } catch (err) {
     logger.error(err)
