@@ -40,10 +40,13 @@ export const gallerySlice = createSlice({
       state.visible = false
     },
 
+    // This is an "optimistic" deletion that only removes it from state, and
+    // doesn't refresh new data from the server.
     deleteGalleryStreet(state, action: PayloadAction<StreetAPIResponse['id']>) {
       state.streets = state.streets.filter((street) => {
         return street.id !== action.payload
       })
+      state.pagination.total = state.pagination.total - 1
     },
 
     setGalleryUserId(state, action: PayloadAction<GalleryState['userId']>) {

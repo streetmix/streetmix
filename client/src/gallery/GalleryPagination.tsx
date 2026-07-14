@@ -16,7 +16,11 @@ export function GalleryPagination({ isLoading }: { isLoading: boolean }) {
   const { page, limit, total, hasNextPage, hasPreviousPage } = pagination
   const start = (page - 1) * limit + 1
   // Calculating end by streets in gallery state accounts for street count
-  // after a deletion
+  // after a deletion. This method can produce an edge case where if every
+  // street on a page is deleted, the end value is -1 and the range can be
+  // like "101-100". Not sure yet how to solve this, but when streets.length
+  // is zero and we are on any page number > 1 we might have to do something
+  // like trigger a page refresh.
   const end = start + streets.length - 1
 
   function handlePreviousPage() {
