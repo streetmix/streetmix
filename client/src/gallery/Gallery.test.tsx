@@ -97,7 +97,8 @@ describe('Gallery', () => {
     const { getByText, asFragment } = render(<Gallery />, { initialState })
 
     await waitFor(() => {
-      expect(getByText('All streets')).toBeInTheDocument()
+      // Wait for street to load
+      expect(getByText('Baz')).toBeInTheDocument()
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -107,6 +108,8 @@ describe('Gallery', () => {
       gallery: {
         visible: true,
         mode: 'loading',
+        streets: [],
+        pagination: defaultPaginationValues,
       },
     }
 
@@ -122,6 +125,8 @@ describe('Gallery', () => {
       gallery: {
         visible: true,
         mode: 'error',
+        streets: [],
+        pagination: defaultPaginationValues,
       },
     }
 

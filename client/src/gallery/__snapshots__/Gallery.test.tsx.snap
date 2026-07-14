@@ -125,13 +125,31 @@ exports[`Gallery > renders loading 1`] = `
       class="gallery-panel"
     >
       <div
-        aria-busy="true"
-        aria-live="polite"
-        class="gallery-loading"
+        class="gallery-header"
       >
         <div
-          class="loading-spinner"
-        />
+          class="gallery-label"
+        >
+          All streets
+        </div>
+        <div
+          class="gallery-street-count"
+        >
+          No streets yet
+        </div>
+      </div>
+      <div
+        class="gallery-streets-container"
+      >
+        <div
+          aria-busy="true"
+          aria-live="polite"
+          class="gallery-loading"
+        >
+          <div
+            class="loading-spinner"
+          />
+        </div>
       </div>
     </div>
     <div
