@@ -2,6 +2,8 @@ import { create } from 'jsondiffpatch'
 
 import { finishUndoOrRedo } from './undo_stack.js'
 
+// Most of the mocks in this suite were set up by Claude, and I'm not
+// that happy with it.
 const {
   updateStreetDataActionMock,
   setIgnoreStreetChangesMock,
@@ -19,6 +21,12 @@ const {
   updateEverythingMock: vi.fn(),
   dispatchMock: vi.fn(),
   getStateMock: vi.fn(),
+}))
+
+// This side effect method uses a `setTimeout`, mocking it prevents
+// async leakage
+vi.mock('../segments/resizing.js', () => ({
+  cancelSegmentResizeTransitions: vi.fn(),
 }))
 
 vi.mock('../store', () => ({
@@ -39,7 +47,7 @@ vi.mock('./data_model.js', () => ({
 }))
 
 describe('finishUndoOrRedo', () => {
-  beforeEach(() => {
+  afterEach(() => {
     vi.clearAllMocks()
   })
 
