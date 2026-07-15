@@ -1,0 +1,49 @@
+.gallery-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+  max-width: 350px;
+  padding: 3px 3px 3px 0.5em;
+  border: var(--button-border);
+  border-radius: 5px;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 7%);
+
+  &:focus-within {
+    box-shadow: 0 0 1px 2px var(--color-turquoise-500);
+    border-color: var(--color-turquoise-600);
+    /* inset 0 0 0 2px rgb(255 255 255 / 100%); */
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  /* Similar to newsletter subscribe input */
+  input {
+    flex-grow: 1;
+    border: 0;
+    outline: 0;
+  }
+}
+
+.gallery-search-clear,
+.gallery-search-clear > button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-search-clear > button {
+  cursor: pointer;
+  border-radius: 999em;
+
+  &:hover {
+    background-color: var(--color-turquoise-100);
+  }
+}

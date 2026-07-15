@@ -8,6 +8,7 @@ import { GalleryError } from './GalleryError.js'
 import { GalleryLoading } from './GalleryLoading.js'
 import { GalleryContents } from './GalleryContents.js'
 import { GalleryPagination } from './GalleryPagination.js'
+import { GallerySearch } from './GallerySearch.js'
 
 export function GalleryPanel() {
   const { mode, userId } = useSelector((state) => state.gallery)
@@ -38,7 +39,7 @@ export function GalleryPanel() {
           )}
         </div>
         <div className="gallery-search">
-          <input type="text" placeholder="Search streets" />
+          <GallerySearch />
         </div>
         <div className="gallery-street-count">
           <GalleryPagination isLoading={mode === 'loading' || isLoading} />
