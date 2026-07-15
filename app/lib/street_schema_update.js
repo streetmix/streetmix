@@ -7,7 +7,7 @@ import { round } from '@streetmix/utils'
 
 import { logger } from './logger.ts'
 
-const LATEST_SCHEMA_VERSION = 34
+const LATEST_SCHEMA_VERSION = 35
 // 1: starting point
 // 2: add leftBuildingHeight and rightBuildingHeight
 // 3: add leftBuildingVariant and rightBuildingVariant
@@ -42,6 +42,7 @@ const LATEST_SCHEMA_VERSION = 34
 // 32: add 'boundary' property to replace left/right building properties
 // 33: elevation adjustments
 // 34: add slope properties
+// 35: ensure location property exists
 
 export function updateToLatestSchemaVersion(street) {
   // Clone original street
@@ -579,6 +580,19 @@ function incrementSchemaVersion(street) {
           on: false,
           values: [],
         }
+      }
+
+      break
+    }
+    case 34: {
+      // 35: ensure location property exists
+      // Streets must have the property `location` defined, and be set to
+      // `null` if no location is set. There was a bug where older streets
+      // would not have this property set, and nothing was making sure that
+      // it exists. Its existence is now also checked with TypeScript.
+      // We now have to add it to street data that was missing it.
+      if (typeof street.location === 'undefined') {
+        street.location = null
       }
 
       break
