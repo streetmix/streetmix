@@ -1,10 +1,13 @@
 import express from 'express'
 import request from 'supertest'
 
-const mockMiddleware = vi.fn()
+const requiredMiddleware = vi.fn()
+const optionalMiddleware = vi.fn()
 
 vi.mock('express-jwt', () => ({
-  expressjwt: vi.fn(() => mockMiddleware),
+  expressjwt: vi.fn((options: { credentialsRequired: boolean }) => {
+    return options.credentialsRequired ? requiredMiddleware : optionalMiddleware
+  }),
 }))
 
 vi.mock('jwks-rsa', () => ({
@@ -13,20 +16,21 @@ vi.mock('jwks-rsa', () => ({
   },
 }))
 
-const { authMiddleware } = await import('../authentication.ts')
+const { auth } = await import('./authentication.ts')
 
-describe('authMiddleware', () => {
+describe('auth', () => {
   beforeEach(() => {
-    mockMiddleware.mockReset()
+    requiredMiddleware.mockReset()
+    optionalMiddleware.mockReset()
   })
 
   it('responds with 401 for invalid tokens on API routes', async () => {
-    mockMiddleware.mockImplementation((_req, _res, next) => {
+    requiredMiddleware.mockImplementation((_req, _res, next) => {
       next({ name: 'UnauthorizedError' })
     })
 
     const app = express()
-    app.get('/api/protected', authMiddleware, (_req, res) => {
+    app.get('/api/protected', auth(), (_req, res) => {
       res.status(204).end()
     })
 
@@ -40,7 +44,7 @@ describe('authMiddleware', () => {
   })
 
   it('responds with 401 for expired tokens', async () => {
-    mockMiddleware.mockImplementation((_req, _res, next) => {
+    requiredMiddleware.mockImplementation((_req, _res, next) => {
       next({
         name: 'UnauthorizedError',
         inner: { name: 'TokenExpiredError' },
@@ -48,7 +52,7 @@ describe('authMiddleware', () => {
     })
 
     const app = express()
-    app.put('/api/protected', authMiddleware, (_req, res) => {
+    app.put('/api/protected', auth(), (_req, res) => {
       res.status(204).end()
     })
 
@@ -59,5 +63,20 @@ describe('authMiddleware', () => {
       status: 401,
       msg: 'Access token expired.',
     })
+  })
+
+  it('allows requests without credentials when auth(false) is used', async () => {
+    optionalMiddleware.mockImplementation((_req, _res, next) => {
+      next()
+    })
+
+    const app = express()
+    app.get('/api/optional', auth(false), (_req, res) => {
+      res.status(204).end()
+    })
+
+    const response = await request(app).get('/api/optional')
+
+    expect(response.statusCode).toBe(204)
   })
 })

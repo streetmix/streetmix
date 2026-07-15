@@ -11,7 +11,7 @@ import {
 } from '../../lib/util.ts'
 import { updateToLatestSchemaVersion } from '../../lib/street_schema_update.js'
 
-import type { Response } from 'express'
+import type { Request, Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 import type { StreetData } from '@streetmix/types'
 
@@ -315,7 +315,7 @@ export async function del(req: AuthedRequest, res: Response) {
   }
 } // END function - export delete
 
-export async function get(req: AuthedRequest, res: Response) {
+export async function get(req: Request, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide street ID.' })
     return
@@ -374,7 +374,7 @@ export async function get(req: AuthedRequest, res: Response) {
   res.status(200).json(streetJson)
 } // END function - export get
 
-export async function find(req: AuthedRequest, res: Response) {
+export async function find(req: Request, res: Response) {
   const result = findQuerySchema.safeParse(req.query)
 
   if (!result.success) {
@@ -438,9 +438,6 @@ export async function find(req: AuthedRequest, res: Response) {
         return
       case ERRORS.STREET_DELETED:
         res.status(410).json({ status: 410, msg: 'Could not find street.' })
-        return
-      case ERRORS.UNAUTHORISED_ACCESS:
-        res.status(401).json({ status: 401, msg: 'User is not signed-in.' })
         return
       case ERRORS.FORBIDDEN_REQUEST:
         res.status(403).json({

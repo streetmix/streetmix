@@ -7,7 +7,7 @@ import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { SAVE_THUMBNAIL_EVENTS } from '../../lib/util.ts'
 
-import type { Response } from 'express'
+import type { Request, Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
 const ALLOW_ANON_STREET_THUMBNAILS = false
@@ -284,7 +284,7 @@ export async function del(req: AuthedRequest, res: Response) {
   })
 }
 
-export async function get(req: AuthedRequest, res: Response) {
+export async function get(req: Request, res: Response) {
   if (!req.params.street_id) {
     res.status(400).json({ status: 400, msg: 'Please provide a street id.' })
     return

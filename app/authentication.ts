@@ -23,47 +23,45 @@ function isExpiredTokenError(err: JwtErrorLike): boolean {
   return err.inner?.name === 'TokenExpiredError'
 }
 
-const jwtMiddleware = expressjwt({
-  algorithms: ['RS256'],
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-  }),
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  audience: process.env.AUTH0_CLIENT_ID,
-  credentialsRequired: false,
-  getToken: function fromCookies(req) {
-    if (req.cookies && req.cookies.login_token) {
-      return req.cookies.login_token
-    }
-    return null
-  },
-})
+export function auth(credentialsRequired = true) {
+  const middleware = expressjwt({
+    algorithms: ['RS256'],
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
+    }),
+    issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+    audience: process.env.AUTH0_CLIENT_ID,
+    credentialsRequired,
+    getToken: function fromCookies(req) {
+      if (req.cookies && req.cookies.login_token) {
+        return req.cookies.login_token
+      }
+      return null
+    },
+  })
 
-export function authMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  // Error handling from the result of express-jwt.
-  // If our token has expired, the `msg` will contain that information so that
-  // the client can handle a token refresh, if necessary. Otherwise, send a
-  // generic message.
-  const handleErrorNext = (err?: unknown) => {
-    if (!isUnauthorizedError(err)) {
-      next(err)
+  return (req: Request, res: Response, next: NextFunction) => {
+    // Error handling from the result of express-jwt.
+    // If our token has expired, the `msg` will contain that information so that
+    // the client can handle a token refresh, if necessary. Otherwise, send a
+    // generic message.
+    const handleErrorNext = (err?: unknown) => {
+      if (!isUnauthorizedError(err)) {
+        next(err)
+        return
+      }
+
+      const message = isExpiredTokenError(err)
+        ? 'Access token expired.'
+        : 'Unauthorized request.'
+
+      res.status(401).json({ status: 401, msg: message })
       return
     }
 
-    const message = isExpiredTokenError(err)
-      ? 'Access token expired.'
-      : 'Unauthorized request.'
-
-    res.status(401).json({ status: 401, msg: message })
-    return
+    return middleware(req, res, handleErrorNext)
   }
-
-  return jwtMiddleware(req, res, handleErrorNext)
 }
