@@ -31,8 +31,12 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   let height = 0
   let opacity = 0
 
-  // Only set visual parameters when there is a flood direction
-  if (floodDistance[0] !== null || floodDistance[1] !== null) {
+  // Only set visual parameters when there is a flood direction.
+  // Do not set when we're at current sea level with no storm surge.
+  if (
+    (floodDistance[0] !== null || floodDistance[1] !== null) &&
+    !(seaLevelRise === 0 && stormSurge === false)
+  ) {
     // Baseline height
     // TODO: include sea level elevation with baseline
     height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)

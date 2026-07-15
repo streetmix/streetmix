@@ -124,7 +124,9 @@ function calculateFloodDistance(
       }
     }
 
-    return distance - extraDistance
+    // Clamp lower bound of return value to 0 (rounding errors may result
+    // in slightly negative values)
+    return Math.max(distance - extraDistance, 0)
   } else {
     // There are some extra steps for calculating the right-hand distance
     // which is based on the width of the on-screen canvasEl element.
@@ -150,7 +152,10 @@ function calculateFloodDistance(
     }
 
     const distance = parentWidth - offsetLeftPlusWidth - extraDistance
-    return distance
+
+    // Clamp lower bound of return value to 0 (rounding errors may result
+    // in slightly negative values)
+    return Math.max(distance, 0)
   }
 }
 
