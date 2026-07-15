@@ -1,11 +1,10 @@
 import express from 'express'
 import request from 'supertest'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const jwtDelegate = vi.fn()
+const mockMiddleware = vi.fn()
 
 vi.mock('express-jwt', () => ({
-  expressjwt: vi.fn(() => jwtDelegate),
+  expressjwt: vi.fn(() => mockMiddleware),
 }))
 
 vi.mock('jwks-rsa', () => ({
@@ -18,11 +17,11 @@ const { authMiddleware } = await import('../authentication.ts')
 
 describe('authMiddleware', () => {
   beforeEach(() => {
-    jwtDelegate.mockReset()
+    mockMiddleware.mockReset()
   })
 
   it('responds with 401 for invalid tokens on API routes', async () => {
-    jwtDelegate.mockImplementation((_req, _res, next) => {
+    mockMiddleware.mockImplementation((_req, _res, next) => {
       next({ name: 'UnauthorizedError' })
     })
 
@@ -40,8 +39,8 @@ describe('authMiddleware', () => {
     })
   })
 
-  it('responds with 401 for expired tokens and logs write attempts', async () => {
-    jwtDelegate.mockImplementation((_req, _res, next) => {
+  it('responds with 401 for expired tokens', async () => {
+    mockMiddleware.mockImplementation((_req, _res, next) => {
       next({
         name: 'UnauthorizedError',
         inner: { name: 'TokenExpiredError' },
