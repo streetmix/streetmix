@@ -15,7 +15,6 @@
   &:focus-within {
     box-shadow: 0 0 1px 2px var(--color-turquoise-500);
     border-color: var(--color-turquoise-600);
-    /* inset 0 0 0 2px rgb(255 255 255 / 100%); */
   }
 
   svg {
