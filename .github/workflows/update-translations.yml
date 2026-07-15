@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Download translations
-        run: npm run translations:download
+        run: npm run translations:download:ci
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:

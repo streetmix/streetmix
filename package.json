@@ -38,6 +38,7 @@
     "vitest": "vitest",
     "vitest:ci": "vitest run --coverage",
     "translations:download": "tsx --env-file=.env packages/i18n/src/download_translations.ts",
+    "translations:download:ci": "tsx packages/i18n/src/download_translations.ts",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
     "db:create": "npx sequelize-cli db:create",
