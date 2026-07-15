@@ -575,7 +575,7 @@ export function drawSegmentContents(
           if (sprite.id === 'plants--grass') hack = 10
           if (sprite.id === 'beach--surface') hack = 6
           if (sprite.id === 'earth--surface') hack = 6
-          distanceFromGround = adjustment + hack
+          distanceFromGround = adjustment + hack * multiplier
 
           // For some reason the slope is reversed so we flip it by multiplying by -1
           // Copilot suggests this is why:
