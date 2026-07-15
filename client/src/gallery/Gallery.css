@@ -43,25 +43,39 @@ body:not(.safari).gallery-visible .street-section-sky {
   flex: 0 0 40px;
   align-items: center;
   gap: 0.5em;
-
-  .avatar {
-    flex: 0 0 32px;
-    height: 32px;
-    margin-block-start: -1px;
-  }
 }
 
 .gallery-label {
+  display: flex;
   flex-grow: 1;
+  align-items: center;
   font-size: 1.5em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-inline-start: 0;
+  }
+}
+
+.gallery-search {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+
+  input {
+    width: 100%;
+  }
 }
 
 .gallery-street-count {
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   gap: 0.25em;
   justify-content: flex-end;
   align-items: center;

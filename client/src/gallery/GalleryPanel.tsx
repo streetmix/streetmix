@@ -31,11 +31,14 @@ export function GalleryPanel() {
   return (
     <div className="gallery-panel">
       <div className="gallery-header" ref={galleryEl}>
-        {user?.id !== undefined && <Avatar userId={user.id} />}
         <div className="gallery-label">
+          {user?.id !== undefined && <Avatar userId={user.id} />}
           {user?.displayName ?? user?.id ?? (
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
           )}
+        </div>
+        <div className="gallery-search">
+          <input type="text" />
         </div>
         <div className="gallery-street-count">
           <GalleryPagination isLoading={mode === 'loading' || isLoading} />
