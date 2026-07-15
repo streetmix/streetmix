@@ -31,6 +31,10 @@
     "label": "UI — Additional street templates",
     "defaultValue": true
   },
+  "GALLERY_SEARCH": {
+    "label": "UI — Gallery search box",
+    "defaultValue": false
+  },
   "SENTIMENT_SURVEY": {
     "label": "Sentiment surveys",
     "defaultValue": false

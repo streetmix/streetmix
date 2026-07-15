@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import { Icon } from '~/src/ui/Icon.js'
@@ -10,6 +10,17 @@ export function GallerySearch() {
   const [input, setInput] = useState<string>('')
   const inputRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      // Stubbed until search API is implemented.
+      console.log('Gallery search query:', input)
+    }, 300)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+    }
+  }, [input])
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setInput(event.target.value)

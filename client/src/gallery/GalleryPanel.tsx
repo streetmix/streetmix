@@ -12,6 +12,10 @@ import { GallerySearch } from './GallerySearch.js'
 
 export function GalleryPanel() {
   const { mode, userId } = useSelector((state) => state.gallery)
+  const gallerySearch = useSelector(
+    (state) => state.flags.GALLERY_SEARCH.value ?? false
+  )
+
   const { data: user, isError, isLoading } = useGetUserQuery(userId)
 
   const galleryEl = useRef<HTMLDivElement>(null)
@@ -39,7 +43,7 @@ export function GalleryPanel() {
           )}
         </div>
         <div className="gallery-search">
-          <GallerySearch />
+          {gallerySearch && <GallerySearch />}
         </div>
         <div className="gallery-street-count">
           <GalleryPagination isLoading={mode === 'loading' || isLoading} />
