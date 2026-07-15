@@ -32,7 +32,7 @@ import type {
 const ROUGH_CONVERSION_RATE = (10 / 3) * 0.3048
 
 // Server is now the source of truth of this value
-const LATEST_SCHEMA_VERSION = 34
+const LATEST_SCHEMA_VERSION = 35
 
 // Like `SlopeProperties` but different values make it easier for template
 type TemplateSlopeProperties = {
