@@ -481,6 +481,10 @@
       "count": "{start}–{end} of {total} streets",
       "back": "Previous page",
       "next": "Next page"
+    },
+    "search": {
+      "label": "Find in streets",
+      "clear": "Clear"
     }
   },
   "users": {
