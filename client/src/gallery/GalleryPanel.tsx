@@ -38,7 +38,7 @@ export function GalleryPanel() {
           )}
         </div>
         <div className="gallery-search">
-          <input type="text" />
+          <input type="text" placeholder="Search streets" />
         </div>
         <div className="gallery-street-count">
           <GalleryPagination isLoading={mode === 'loading' || isLoading} />
