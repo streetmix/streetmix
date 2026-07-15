@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import debounce from 'just-debounce-it'
+import { debounce } from 'es-toolkit'
 
 import { Button } from '~/src/ui/Button.js'
 import { Icon } from '~/src/ui/Icon.js'
