@@ -1,20 +1,36 @@
 import { expressjwt } from 'express-jwt'
 import jwksRsa from 'jwks-rsa'
 
-import { logger } from './lib/logger.ts'
-
 import type { NextFunction, Request, Response } from 'express'
 
-const secret = jwksRsa.expressJwtSecret({
-  cache: true,
-  rateLimit: true,
-  jwksRequestsPerMinute: 5,
-  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-})
+// Types and type guards
+type JwtErrorLike = {
+  name?: string
+  inner?: {
+    name?: string
+  }
+}
 
-const origJwtCheck = expressjwt({
+function isJwtErrorLike(err: unknown): err is JwtErrorLike {
+  return typeof err === 'object' && err !== null
+}
+
+function isUnauthorizedError(err: unknown): err is JwtErrorLike {
+  return isJwtErrorLike(err) && err.name === 'UnauthorizedError'
+}
+
+function isExpiredTokenError(err: JwtErrorLike): boolean {
+  return err.inner?.name === 'TokenExpiredError'
+}
+
+const jwtMiddleware = expressjwt({
   algorithms: ['RS256'],
-  secret,
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
+  }),
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   audience: process.env.AUTH0_CLIENT_ID,
   credentialsRequired: false,
@@ -26,20 +42,28 @@ const origJwtCheck = expressjwt({
   },
 })
 
-export function jwtCheck(req: Request, res: Response, next: NextFunction) {
+export function authMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  // Error handling from the result of express-jwt.
+  // If our token has expired, the `msg` will contain that information so that
+  // the client can handle a token refresh, if necessary. Otherwise, send a
+  // generic message.
   const handleErrorNext = (err?: unknown) => {
-    if (
-      err?.name === 'UnauthorizedError' &&
-      err?.inner.name === 'TokenExpiredError' &&
-      (req.method === 'POST' || req.method === 'PUT')
-    ) {
-      logger.error(
-        `Expired token sent for authenticated route - ${req.method} ${req.url}`
-      )
-      logger.error(err)
+    if (!isUnauthorizedError(err)) {
+      next(err)
+      return
     }
-    next(err)
+
+    const message = isExpiredTokenError(err)
+      ? 'Access token expired.'
+      : 'Unauthorized request.'
+
+    res.status(401).json({ status: 401, msg: message })
+    return
   }
 
-  return origJwtCheck(req, res, handleErrorNext)
+  return jwtMiddleware(req, res, handleErrorNext)
 }

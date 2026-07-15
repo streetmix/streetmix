@@ -4,7 +4,7 @@ import cors from 'cors'
 
 import * as controllers from './controllers/index.ts'
 import * as services from './resources/services/index.ts'
-import { jwtCheck } from './authentication.ts'
+import { authMiddleware } from './authentication.ts'
 
 // Base path of router is `/services` (see app.js)
 const router = Router()
@@ -95,7 +95,7 @@ router.options('/images', cors())
  *             api_key:
  *               type: string
  */
-router.get('/images', cors(), jwtCheck, services.images.get)
+router.get('/images', cors(), authMiddleware, services.images.get)
 
 /******************************************************************************
  *  AUTHENTICATION SERVICES
@@ -118,7 +118,11 @@ router.get('/auth/just-signed-in/', (req, res) => res.render('main'))
  *  THIRD PARTY APP INTEGRATIONS
  *****************************************************************************/
 
-router.get('/integrations/patreon', jwtCheck, services.integrations.patreon.get)
+router.get(
+  '/integrations/patreon',
+  authMiddleware,
+  services.integrations.patreon.get
+)
 router.get(
   '/integrations/patreon/callback',
   services.integrations.patreon.callback,
@@ -130,7 +134,7 @@ router.post(
 )
 
 // Redirect the user to the OAuth 2.0 provider for authentication.
-router.get('/integrations/coil', jwtCheck, services.integrations.coil.get)
+router.get('/integrations/coil', authMiddleware, services.integrations.coil.get)
 
 // The OAuth 2.0 provider has redirected the user back to the application.
 // Finish the authentication process by attempting to obtain an access
