@@ -31,28 +31,30 @@ export function GallerySearch() {
     inputRef.current?.focus()
   }
 
+  const findLabel = intl.formatMessage({
+    id: 'gallery.search.label',
+    defaultMessage: 'Find in streets',
+  })
+  const clearLabel = intl.formatMessage({
+    id: 'gallery.search.clear',
+    defaultMessage: 'Clear',
+  })
+
   return (
     <label className="gallery-search-box">
-      <Icon name="search" size="18" />
+      <Icon name="search" size="18" aria-hidden="true" />
       <input
         ref={inputRef}
         type="text"
-        placeholder={intl.formatMessage({
-          id: 'gallery.search.label',
-          defaultMessage: 'Find in streets',
-        })}
+        aria-label={findLabel}
+        placeholder={findLabel}
         value={input}
         onChange={handleChange}
       />
       <div className="gallery-search-clear">
         {input && (
-          <Tooltip
-            label={intl.formatMessage({
-              id: 'gallery.search.clear',
-              defaultMessage: 'Clear',
-            })}
-          >
-            <button onClick={handleClear}>
+          <Tooltip label={clearLabel}>
+            <button type="button" aria-label={clearLabel} onClick={handleClear}>
               <Icon name="close" size="14" />
             </button>
           </Tooltip>
