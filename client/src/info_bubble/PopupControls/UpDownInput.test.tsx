@@ -4,11 +4,11 @@ import { userEvent } from '@testing-library/user-event'
 
 import { UpDownInput } from './UpDownInput.js'
 
-// Mock the `debounce` method so that the debounced `onUpdatedValue` callback
+// Mock the `debounce` utility so that the debounced `onUpdatedValue` callback
 // will be executed immediately when called (we are not implementing the
 // debounce in this test)
-vi.mock('just-debounce-it', () => ({
-  default: vi.fn((fn) => fn),
+vi.mock('es-toolkit', () => ({
+  debounce: vi.fn((fn) => fn),
 }))
 
 const handleUp = vi.fn()

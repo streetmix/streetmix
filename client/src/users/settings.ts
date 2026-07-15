@@ -1,4 +1,4 @@
-import debounce from 'just-debounce-it'
+import { debounce } from 'es-toolkit'
 
 import type { UserSettings } from '~/src/types/index.js'
 import { MODES, getMode } from '../app/mode.js'
