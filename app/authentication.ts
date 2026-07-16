@@ -23,24 +23,29 @@ function isExpiredTokenError(err: JwtErrorLike): boolean {
   return err.inner?.name === 'TokenExpiredError'
 }
 
+// Create this once, which will be used across multiple auth() calls
+const secret = jwksRsa.expressJwtSecret({
+  cache: true,
+  rateLimit: true,
+  jwksRequestsPerMinute: 5,
+  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
+})
+
+function getToken(req: Request) {
+  if (req.cookies && req.cookies.login_token) {
+    return req.cookies.login_token
+  }
+  return null
+}
+
 export function auth(credentialsRequired = true) {
   const middleware = expressjwt({
     algorithms: ['RS256'],
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-    }),
+    secret,
     issuer: `https://${process.env.AUTH0_DOMAIN}/`,
     audience: process.env.AUTH0_CLIENT_ID,
     credentialsRequired,
-    getToken: function fromCookies(req) {
-      if (req.cookies && req.cookies.login_token) {
-        return req.cookies.login_token
-      }
-      return null
-    },
+    getToken,
   })
 
   return (req: Request, res: Response, next: NextFunction) => {
