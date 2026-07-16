@@ -434,6 +434,7 @@ interface BoundaryDefinitionWithoutFloors extends BoundaryDefinitionBase {
 // required to also be present
 interface BoundaryDefinitionWithFloors extends BoundaryDefinitionBase {
   hasFloors: true
+  showFloors?: boolean
   floorHeight: number
   roofHeight: number
   mainFloorHeight: number

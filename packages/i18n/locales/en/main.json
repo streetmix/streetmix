@@ -423,7 +423,10 @@
     "ground-height-raise": "Raise ground height",
     "sea-level-input": "Change sea level",
     "sea-level-lower": "Lower sea level",
-    "sea-level-raise": "Raise sea level"
+    "sea-level-raise": "Raise sea level",
+    "height-input": "Change height",
+    "height-lower": "Lower height",
+    "height-raise": "Raise height"
   },
   "street": {
     "default-name": "Unnamed St",
@@ -431,6 +434,7 @@
   },
   "building": {
     "label": "Building height",
+    "label2": "Height",
     "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
   "segments": {
