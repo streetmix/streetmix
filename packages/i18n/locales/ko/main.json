@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "복사본 만들기",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "스트리트 삭제",
     "street-count": "{count, plural, other {# 스트리트}}",
     "no-streets": "저장된 스트리트가 없습니다",
-    "thumbnail-error": "썸네일 이미지가 없습니다."
+    "thumbnail-error": "썸네일 이미지가 없습니다.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "익명",
@@ -554,6 +567,14 @@
       "example": "(예를 들어, \"나무가 좋아요.\")",
       "submit": "제출",
       "thanks": "알겠습니다!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Сделать копию",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Удалить улицу",
     "street-count": "{count, plural, one {улица} few {улиц} many {улиц} other {улиц}}",
     "no-streets": "Пока что нет улиц",
-    "thumbnail-error": "Эскиз недоступен"
+    "thumbnail-error": "Эскиз недоступен",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Аноним",
@@ -554,6 +567,14 @@
       "example": "",
       "submit": "",
       "thanks": ""
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

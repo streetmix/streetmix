@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Kopya oluştur",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Sokağı sil",
     "street-count": "{count, plural, one {sokak} other {sokak}}",
     "no-streets": "Henüz sokak yok",
-    "thumbnail-error": "Önizleme resmi yüklenemiyor."
+    "thumbnail-error": "Önizleme resmi yüklenemiyor.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonim",
@@ -554,6 +567,14 @@
       "example": "(mesela, “Ağaçları sevdim.”)",
       "submit": "Yolla",
       "thanks": "Anladım!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

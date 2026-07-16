@@ -73,7 +73,11 @@
       "empty": "Uusi tyhjä katu",
       "copy": "Kopioi katupohja",
       "template": "Uusi mallikatu...",
-      "sign-in-link": "{signInLink} voit hyödyntää esimerkkikatuja."
+      "sign-in-link": "{signInLink} voit hyödyntää esimerkkikatuja.",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Poista katu",
     "street-count": "{count, plural, one {# katu} other {# katua}}",
     "no-streets": "Ei luotuja katuja",
-    "thumbnail-error": "Pienoiskuva ei ole saatavilla."
+    "thumbnail-error": "Pienoiskuva ei ole saatavilla.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": "Selkeä"
+    }
   },
   "users": {
     "anonymous": "Tuntematon",
@@ -554,6 +567,14 @@
       "example": "(esim. \"Pidin runsaasta puiden käytöstä\")",
       "submit": "Lähetä",
       "thanks": "Kiitos!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": "Ranta"
     }
   },
   "i18n": {

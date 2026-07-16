@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Hacer una copia",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Eliminar calle",
     "street-count": "{count, plural, one {# calle} many {# calles} other {# calles}}",
     "no-streets": "Aún no hay calles",
-    "thumbnail-error": "Imagen de miniatura no disponible."
+    "thumbnail-error": "Imagen de miniatura no disponible.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anónimo",
@@ -554,6 +567,14 @@
       "example": "(por ejemplo, «me gustaron los árboles».)",
       "submit": "Enviar",
       "thanks": "¡Listo!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "ኮፒ ያድርጉ",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "መንገድ ሰርዝ",
     "street-count": "{count, plural, one {# ጎዳና} other {# ጎዳናዎች}}",
     "no-streets": "እስካሁን ምንም ጎዳናዎች የሉም ",
-    "thumbnail-error": "ድንክዬ ምስል አይገኝም"
+    "thumbnail-error": "ድንክዬ ምስል አይገኝም",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "ስም-አልባ",
@@ -554,6 +567,14 @@
       "example": "(ለምሳሌ ፣ “ዛፎቹን ወድጃቸዋለሁ ።) ",
       "submit": "ያስገቡ",
       "thanks": "ገባኝ!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

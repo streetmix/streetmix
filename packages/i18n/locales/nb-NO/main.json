@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Lag en kopi",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Slett gate",
     "street-count": "{count, plural, one {# gater} other {# gater}}",
     "no-streets": "Ingen gater ennå",
-    "thumbnail-error": "Forhåndsvisning ikke tilgjengelig"
+    "thumbnail-error": "Forhåndsvisning ikke tilgjengelig",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonym",
@@ -554,6 +567,14 @@
       "example": "(for eksempel, \"Jeg likte trærne.\")",
       "submit": "Send inn",
       "thanks": "Forstått!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

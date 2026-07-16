@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Fai una copia",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Cancella la strada",
     "street-count": "{count, plural, one {numero di strada} many {numero di strade} other {numero di strade}}",
     "no-streets": "Nessuna strada ancora",
-    "thumbnail-error": "L'immagine in miniatura non è disponibile"
+    "thumbnail-error": "L'immagine in miniatura non è disponibile",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonimo",
@@ -554,6 +567,14 @@
       "example": "(per esempio, \"Mi piacciono gli alberi\")",
       "submit": "Invia",
       "thanks": "Ricevuto!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {
