@@ -1,31 +1,22 @@
 import express from 'express'
 import request from 'supertest'
+import { expressjwt } from 'express-jwt'
 
-const requiredMiddleware = vi.fn()
-const optionalMiddleware = vi.fn()
+import { auth } from './authentication.ts'
+
+import type { Mock } from 'vitest'
 
 vi.mock('express-jwt', () => ({
-  expressjwt: vi.fn((options: { credentialsRequired: boolean }) => {
-    return options.credentialsRequired ? requiredMiddleware : optionalMiddleware
-  }),
+  expressjwt: vi.fn(),
 }))
 
-vi.mock('jwks-rsa', () => ({
-  default: {
-    expressJwtSecret: vi.fn(() => 'secret'),
-  },
-}))
-
-const { auth } = await import('./authentication.ts')
-
-describe('auth', () => {
+describe('Authentication middleware', () => {
   beforeEach(() => {
-    requiredMiddleware.mockReset()
-    optionalMiddleware.mockReset()
+    ;(expressjwt as Mock).mockReset()
   })
 
   it('responds with 401 for invalid tokens on API routes', async () => {
-    requiredMiddleware.mockImplementation((_req, _res, next) => {
+    ;(expressjwt as Mock).mockImplementation((_req, _res, next) => {
       next({ name: 'UnauthorizedError' })
     })
 
@@ -44,7 +35,7 @@ describe('auth', () => {
   })
 
   it('responds with 401 for expired tokens', async () => {
-    requiredMiddleware.mockImplementation((_req, _res, next) => {
+    ;(expressjwt as Mock).mockImplementation((_req, _res, next) => {
       next({
         name: 'UnauthorizedError',
         inner: { name: 'TokenExpiredError' },
@@ -66,8 +57,23 @@ describe('auth', () => {
   })
 
   it('allows requests without credentials when auth(false) is used', async () => {
-    optionalMiddleware.mockImplementation((_req, _res, next) => {
+    ;(expressjwt as Mock).mockImplementation((_req, _res, next) => {
       next()
+    })
+
+    const app = express()
+    app.get('/api/optional', auth(false), (_req, res) => {
+      res.status(204).end()
+    })
+
+    const response = await request(app).get('/api/optional')
+
+    expect(response.statusCode).toBe(204)
+  })
+
+  it('treats invalid tokens as unauthenticated when auth(false) is used', async () => {
+    ;(expressjwt as Mock).mockImplementation((_req, _res, next) => {
+      next({ name: 'UnauthorizedError' })
     })
 
     const app = express()

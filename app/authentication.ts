@@ -45,15 +45,22 @@ export function auth(credentialsRequired = true) {
 
   return (req: Request, res: Response, next: NextFunction) => {
     // Error handling from the result of express-jwt.
-    // If our token has expired, the `msg` will contain that information so that
-    // the client can handle a token refresh, if necessary. Otherwise, send a
-    // generic message.
     const handleErrorNext = (err?: unknown) => {
       if (!isUnauthorizedError(err)) {
         next(err)
         return
       }
 
+      // When credentials are optional, treat invalid/expired tokens as
+      // unauthenticated.
+      if (!credentialsRequired) {
+        next()
+        return
+      }
+
+      // If our token has expired, the `msg` will contain that information so
+      // that the client can handle a token refresh, if necessary. Otherwise,
+      // send a generic message.
       const message = isExpiredTokenError(err)
         ? 'Access token expired.'
         : 'Unauthorized request.'
