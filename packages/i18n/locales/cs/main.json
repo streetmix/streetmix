@@ -73,7 +73,11 @@
       "empty": "Nová prázdná ulice",
       "copy": "Vytvořit kopii",
       "template": "Nová z šablony…",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Smazat ulici",
     "street-count": "{count, plural, one {# ulice} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Zatím žádné ulice",
-    "thumbnail-error": "Miniatura obrázku není k dispozici."
+    "thumbnail-error": "Miniatura obrázku není k dispozici.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonymní",
@@ -554,6 +567,14 @@
       "example": "(například: \"Líbily se mi stromy.\")",
       "submit": "Odeslat",
       "thanks": "Rozumím!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

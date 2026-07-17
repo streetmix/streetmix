@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Hacer una copia",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Eliminar la calle",
     "street-count": "{count, plural, one {# calle} many {# calles} other {# calles}}",
     "no-streets": "",
-    "thumbnail-error": ""
+    "thumbnail-error": "",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonimo",
@@ -554,6 +567,14 @@
       "example": "",
       "submit": "",
       "thanks": ""
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

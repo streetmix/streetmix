@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Buat salinan",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Hapus jalan",
     "street-count": "{count, plural, other {# jalan}}",
     "no-streets": "Belum ada jalan",
-    "thumbnail-error": "Gambar mini tidak tersedia."
+    "thumbnail-error": "Gambar mini tidak tersedia.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonim",
@@ -554,6 +567,14 @@
       "example": "(misalnya, \"Aku menyukai pepohonan.\")",
       "submit": "Kirim",
       "thanks": "Mengerti!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Utwórz kopię",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Usuń ulicę",
     "street-count": "{count, plural, one {# ulica} few {# ulice} many {# ulic} other {# ulic}}",
     "no-streets": "Jak dotąd brak ulic",
-    "thumbnail-error": ""
+    "thumbnail-error": "",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonim",
@@ -554,6 +567,14 @@
       "example": "",
       "submit": "",
       "thanks": ""
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

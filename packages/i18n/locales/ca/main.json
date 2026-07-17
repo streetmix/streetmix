@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Feu una còpia",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Elimina tram",
     "street-count": "{count, plural, one {# carrer} other {# carrers}}",
     "no-streets": "Encara sense carrers",
-    "thumbnail-error": "Imatge en miniatura no disponible."
+    "thumbnail-error": "Imatge en miniatura no disponible.",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anònim",
@@ -554,6 +567,14 @@
       "example": "(per exemple, \"m'agradaven els arbres\".)",
       "submit": "Envieu",
       "thanks": "Ho tinc !"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {

@@ -73,7 +73,11 @@
       "empty": "",
       "copy": "Gör en kopia",
       "template": "",
-      "sign-in-link": ""
+      "sign-in-link": "",
+      "templates-label": "",
+      "templates": {
+        "stroad": ""
+      }
     }
   },
   "settings": {
@@ -472,7 +476,16 @@
     "delete-street-tooltip": "Ta bort gata",
     "street-count": "{count, plural, one {# gata} other {# gator}}",
     "no-streets": "Inga gator än",
-    "thumbnail-error": ""
+    "thumbnail-error": "",
+    "pagination": {
+      "count": "",
+      "back": "",
+      "next": ""
+    },
+    "search": {
+      "label": "",
+      "clear": ""
+    }
   },
   "users": {
     "anonymous": "Anonym",
@@ -554,6 +567,14 @@
       "example": "",
       "submit": "",
       "thanks": "Uppfattat!"
+    }
+  },
+  "coastmix": {
+    "new-waterfront-menu": "",
+    "templates": {
+      "harborwalk": "",
+      "coastal-road": "",
+      "beach": ""
     }
   },
   "i18n": {
