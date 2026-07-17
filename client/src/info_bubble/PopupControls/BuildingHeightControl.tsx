@@ -69,7 +69,12 @@ export function BuildingHeightControl({
 
   const displayValueFormatter = (value: number): string => {
     if (showFloors === false) {
-      return prettifyWidth(value, units, locale)
+      // Hack for dock height because it's the only one that does this
+      // and we don't have a stock calculation based on defs yet
+      // (we can do mainFloorHeight - 1 + (value * floorHeight))
+      // but let's wait until we have more than one of these to standardize
+      const dockHeight = 0.75 + value * 0.25
+      return prettifyWidth(dockHeight, units, locale)
     }
 
     return prettifyHeight(
