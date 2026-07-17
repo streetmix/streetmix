@@ -9,19 +9,26 @@
 # -- CHARACTERISTICS --
 # waterfront       (boolean) true if boundary can be a waterfront
 # hasFloors        (boolean) true if building can have multiple floors
-# sameOnBothSides  (boolean) true if the same sprite is used both sides of the street
-# repeatHalf       (boolean) true if half of the sprite is repeating and the other half anchors to street edge
-#                            todo: better property name
-# alignAtBaseline  (boolean) true if bottom of sprite should be anchored at baseline rather than ground plane
+# showFloors       (boolean) (default: true if hasFloors is true) if false,
+#                             display height in units only (no floor count)
+# sameOnBothSides  (boolean) true if the same sprite is used on both sides of
+#                             the street
+# repeatHalf       (boolean) true if half of the sprite is repeating and the
+#                             other half anchors to street edge
+#                             todo: better property name
+# alignAtBaseline  (boolean) true if bottom of sprite should be anchored at
+#                             baseline rather than ground plane
 #
 # -- SPECIFICATIONS --
-# variantsCount    (number) actually, not sure
-#                            guess: it varies the upper floor designs
-# mainFloorHeight  (number) in meters, how tall is the ground floor
-#                            todo: use pixel heights for these?
-# floorHeight      (number) in meters, how tall are intermediate floors (which can repeat)
-# roofHeight       (number) in meters, how tall is the roof structure
-# overhangWidth    (number) in CSS pixels, amount to overhang the sidewalk (adjusts OVERHANG_WIDTH)
+# variantsCount    (number)  actually, not sure
+#                             guess: it varies the upper floor designs
+# mainFloorHeight  (number)  in meters, how tall is the ground floor
+#                             todo: use pixel heights for these?
+# floorHeight      (number)  in meters, how tall are intermediate floors
+#                             (which can repeat)
+# roofHeight       (number)  in meters, how tall is the roof structure
+# overhangWidth    (number)  in CSS pixels, amount to overhang the sidewalk
+#                             (adjusts OVERHANG_WIDTH)
 grass:
   id: grass
   label: Grass
@@ -133,6 +140,7 @@ dock:
   spriteId: boundaries--dock
   waterfront: true
   hasFloors: true
+  showFloors: false
   # Not sure what this does exactly, but setting it to this
   # slightly changes the height alignment and makes it fit
   # a little better with adjacent slices at 1m or 3ft

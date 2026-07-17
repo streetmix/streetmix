@@ -12,6 +12,8 @@ import {
   MAX_ELEVATION_IMPERIAL,
   MAX_ELEVATION_METRIC,
   MIN_ELEVATION,
+  SEGMENT_WIDTH_RESOLUTION_IMPERIAL,
+  SEGMENT_WIDTH_RESOLUTION_METRIC,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
@@ -60,11 +62,17 @@ export function ElevationControlNew({
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  function handleIncrement(): void {
+  function handleIncrement(event: React.MouseEvent): void {
+    const precise = event.shiftKey
+
     const increment =
       units === SETTINGS_UNITS_IMPERIAL
-        ? ELEVATION_INCREMENT_IMPERIAL
-        : ELEVATION_INCREMENT
+        ? precise
+          ? SEGMENT_WIDTH_RESOLUTION_IMPERIAL
+          : ELEVATION_INCREMENT_IMPERIAL
+        : precise
+          ? SEGMENT_WIDTH_RESOLUTION_METRIC
+          : ELEVATION_INCREMENT
     const maxValue =
       units === SETTINGS_UNITS_IMPERIAL
         ? MAX_ELEVATION_IMPERIAL
@@ -94,11 +102,17 @@ export function ElevationControlNew({
     dispatch(segmentsChanged())
   }
 
-  function handleDecrement(): void {
+  function handleDecrement(event: React.MouseEvent): void {
+    const precise = event.shiftKey
+
     const increment =
       units === SETTINGS_UNITS_IMPERIAL
-        ? ELEVATION_INCREMENT_IMPERIAL
-        : ELEVATION_INCREMENT
+        ? precise
+          ? SEGMENT_WIDTH_RESOLUTION_IMPERIAL
+          : ELEVATION_INCREMENT_IMPERIAL
+        : precise
+          ? SEGMENT_WIDTH_RESOLUTION_METRIC
+          : ELEVATION_INCREMENT
     const maxValue =
       units === SETTINGS_UNITS_IMPERIAL
         ? MAX_ELEVATION_IMPERIAL
@@ -235,6 +249,14 @@ export function ElevationControlNew({
       inputTooltip={inputTooltip}
       upTooltip={upTooltip}
       downTooltip={downTooltip}
+      upTooltipSublabel={intl.formatMessage({
+        id: 'tooltip.width-tooltip-sublabel',
+        defaultMessage: '(hold Shift for more precision)',
+      })}
+      downTooltipSublabel={intl.formatMessage({
+        id: 'tooltip.width-tooltip-sublabel',
+        defaultMessage: '(hold Shift for more precision)',
+      })}
     />
   )
 }
