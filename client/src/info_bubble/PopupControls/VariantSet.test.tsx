@@ -72,7 +72,7 @@ describe('VariantSet', () => {
         initialState,
       })
 
-      await userEvent.click(screen.getByTestId('Outbound'))
+      await userEvent.click(screen.getByLabelText('Outbound'))
       expect(store.getState().street.segments[0].variant.direction).toBe(
         'outbound'
       )
@@ -88,7 +88,7 @@ describe('VariantSet', () => {
         initialState,
       })
 
-      await userEvent.click(screen.getByTestId('Waterfront'))
+      await userEvent.click(screen.getByLabelText('Waterfront'))
       expect(store.getState().street.boundary.left.variant).toBe('waterfront')
     })
 
@@ -100,7 +100,7 @@ describe('VariantSet', () => {
         }
       )
 
-      await userEvent.click(screen.getByTestId('Waterfront'))
+      await userEvent.click(screen.getByLabelText('Waterfront'))
       expect(store.getState().street.boundary.right.variant).toBe('waterfront')
     })
   })
@@ -125,7 +125,7 @@ describe('VariantSet', () => {
         },
       })
 
-      expect(screen.getByTestId('Flagged variant')).toBeInTheDocument()
+      expect(screen.getByLabelText('Flagged variant')).toBeInTheDocument()
     })
 
     it('does not render a button if flag is false', () => {
