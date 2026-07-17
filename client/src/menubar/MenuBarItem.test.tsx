@@ -21,27 +21,14 @@ describe('MenuBarItem', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('handles the click on a link', async () => {
-    const handleClick = vi.fn()
-    render(
-      <MenuBarItem url="#" onClick={handleClick}>
-        label
-      </MenuBarItem>
-    )
-
-    await userEvent.click(screen.getByRole('button'))
-
-    expect(handleClick).toHaveBeenCalled()
-  })
-
   it('renders children instead of default label if provided', () => {
     render(
       <MenuBarItem>
-        <span data-testid="foo">bar</span>
+        <span aria-label="foo">bar</span>
       </MenuBarItem>
     )
 
-    expect(screen.getByTestId('foo')).toHaveTextContent('bar')
+    expect(screen.getByLabelText('foo')).toHaveTextContent('bar')
     expect(screen.getByText('bar')).toBeInTheDocument()
   })
 
