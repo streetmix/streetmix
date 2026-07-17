@@ -1,6 +1,6 @@
 import Papa from 'papaparse'
+import { omit } from 'es-toolkit'
 
-import { omit } from '../util/omit'
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
 import {
   SLICE_WARNING_OUTSIDE,

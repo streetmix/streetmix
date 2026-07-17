@@ -1,8 +1,8 @@
 import seedrandom from 'seedrandom'
+import { maxBy } from 'es-toolkit'
 import { getSpriteDef } from '@streetmix/parts'
 
 import { images } from '../app/load_resources'
-import { maxBy } from '../util/maxBy'
 import {
   calculateSlopeYAdjustment,
   drawSegmentImage,
