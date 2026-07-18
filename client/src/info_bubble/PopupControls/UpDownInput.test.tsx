@@ -37,8 +37,8 @@ describe('UpDownInput', () => {
     render(<UpDownInput {...defaultProps} allowAutoUpdate />)
 
     const inputEl = screen.getByRole<HTMLInputElement>('textbox')
-    const upButton = screen.getByTestId('up')
-    const downButton = screen.getByTestId('down')
+    const upButton = screen.getByLabelText('Increment')
+    const downButton = screen.getByLabelText('Decrement')
 
     // Expect input value to be displayed
     expect(inputEl.value).toBe('5')
@@ -122,8 +122,8 @@ describe('UpDownInput', () => {
     render(<UpDownInput {...defaultProps} disabled />)
 
     const inputEl = screen.getByRole('textbox')
-    const upButton = screen.getByTestId('up')
-    const downButton = screen.getByTestId('down')
+    const upButton = screen.getByLabelText('Increment')
+    const downButton = screen.getByLabelText('Decrement')
 
     expect(inputEl).toBeDisabled()
     expect(upButton).toBeDisabled()
@@ -133,8 +133,8 @@ describe('UpDownInput', () => {
   it('disables down button when value is the min value', () => {
     render(<UpDownInput {...defaultProps} value={1} />)
 
-    const upButton = screen.getByTestId('up')
-    const downButton = screen.getByTestId('down')
+    const upButton = screen.getByLabelText('Increment')
+    const downButton = screen.getByLabelText('Decrement')
 
     expect(upButton).not.toBeDisabled()
     expect(downButton).toBeDisabled()
@@ -143,8 +143,8 @@ describe('UpDownInput', () => {
   it('disables up button when value is the max value', () => {
     render(<UpDownInput {...defaultProps} value={10} />)
 
-    const upButton = screen.getByTestId('up')
-    const downButton = screen.getByTestId('down')
+    const upButton = screen.getByLabelText('Increment')
+    const downButton = screen.getByLabelText('Decrement')
 
     expect(upButton).toBeDisabled()
     expect(downButton).not.toBeDisabled()

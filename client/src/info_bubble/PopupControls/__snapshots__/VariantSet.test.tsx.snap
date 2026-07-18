@@ -9,8 +9,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
       class="popup-control-row popup-control-button-group"
     >
       <button
+        aria-label="Inbound"
         class="btn variant-selected"
-        data-testid="Inbound"
         type="button"
       >
         <svg
@@ -24,8 +24,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Outbound"
         class="btn"
-        data-testid="Outbound"
         type="button"
       >
         <svg
@@ -39,8 +39,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
         </svg>
       </button>
       <button
+        aria-label="No one"
         class="btn"
-        data-testid="No one"
         type="button"
       >
         <svg
@@ -58,8 +58,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
       class="popup-control-row popup-control-button-group"
     >
       <button
+        aria-label="Asphalt"
         class="btn variant-selected"
-        data-testid="Asphalt"
         type="button"
       >
         <svg
@@ -74,8 +74,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Red lane"
         class="btn"
-        data-testid="Red lane"
         type="button"
       >
         <svg
@@ -90,8 +90,8 @@ exports[`VariantSet > segment variants > renders segment buttons 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Grass"
         class="btn"
-        data-testid="Grass"
         type="button"
       >
         <svg

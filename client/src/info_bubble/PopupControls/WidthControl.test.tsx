@@ -36,7 +36,7 @@ describe('WidthControl', () => {
         initialState,
       })
 
-      await userEvent.click(screen.getByTestId('up'))
+      await userEvent.click(screen.getByLabelText('Increase width'))
       expect(store.getState().street.segments[activeElement].width).toEqual(3.1)
     })
   })
@@ -47,7 +47,7 @@ describe('WidthControl', () => {
         initialState,
       })
 
-      await userEvent.click(screen.getByTestId('down'))
+      await userEvent.click(screen.getByLabelText('Decrease width'))
       expect(store.getState().street.segments[activeElement].width).toEqual(2.9)
     })
   })

@@ -223,7 +223,7 @@ export function UpDownInput(props: UpDownInputProps) {
       >
         <Button
           className="up-down-input-decrement"
-          data-testid="down"
+          aria-label={downTooltip}
           onClick={handleClickDecrement}
           disabled={
             disabled ||
@@ -255,7 +255,7 @@ export function UpDownInput(props: UpDownInputProps) {
       >
         <Button
           className="up-down-input-increment"
-          data-testid="up"
+          aria-label={upTooltip}
           onClick={handleClickIncrement}
           disabled={
             disabled ||
