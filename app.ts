@@ -18,7 +18,7 @@ import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
 import { logger } from './app/lib/logger.ts'
-import { jwtCheck } from './app/authentication.ts'
+import { auth } from './app/authentication.ts'
 
 initCloudinary()
 
@@ -228,7 +228,7 @@ app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
 )
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
-app.get('/survey', jwtCheck, controllers.survey.get)
+app.get('/survey', auth(false), controllers.survey.get)
 app.get('/privacy-policy', (req, res) =>
   res.redirect('https://about.streetmix.net/privacy-policy/')
 )

@@ -8,6 +8,7 @@ import { User } from '../../../db/models/index.ts'
 import { findUser, addUserConnection } from './helpers.ts'
 
 import type { Request, Response, NextFunction } from 'express'
+import type { Request as AuthedRequest } from 'express-jwt'
 
 /*
 our use case makes this a little complicated,
@@ -70,7 +71,7 @@ if (process.env.PATREON_CLIENT_ID && process.env.PATREON_CLIENT_SECRET) {
   initPatreon()
 }
 
-export function get(req: Request, res: Response, next: NextFunction) {
+export function get(req: AuthedRequest, res: Response, next: NextFunction) {
   if (!process.env.PATREON_CLIENT_ID || !process.env.PATREON_CLIENT_SECRET) {
     res
       .status(500)
