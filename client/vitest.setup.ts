@@ -1,5 +1,5 @@
 import path from 'node:path'
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import 'vitest-canvas-mock'
 import 'vitest-localstorage-mock'

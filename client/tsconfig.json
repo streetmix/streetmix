@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "types": [
       "vitest/globals",
+      "@testing-library/jest-dom",
       "@modyfi/vite-plugin-yaml/modules" /* Type definitions for YAML */
     ],
 
