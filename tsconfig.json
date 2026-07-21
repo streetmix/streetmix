@@ -6,7 +6,7 @@
     "module": "nodenext",
     "resolveJsonModule": true,
     "rewriteRelativeImportExtensions": true,
-    "types": ["node", "vitest/globals"],
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
 
     /* Emit */
     "noEmit": true, // Processed by Node
