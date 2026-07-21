@@ -11,7 +11,7 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import passport from 'passport'
 
 import * as controllers from './app/controllers/index.ts'
-import * as requestHandlers from './app/lib/request_handlers/index.js'
+import * as requestHandlers from './app/lib/request_handlers/index.ts'
 import { initCloudinary } from './app/lib/cloudinary.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'

@@ -3,10 +3,45 @@ import axios from 'axios'
 import { Street, User } from '../../db/models/index.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
+import type { NextFunction, Request, Response } from 'express'
 
 const ANON_CREATOR = '-'
 
-export default async function (req, res, next) {
+// This file is a work in progress.
+// It was originally meant to find metadata to insert into metatags when a URL
+// is crawled/linked to for unfurls. But we can also expand this to be useful.
+// If a street is not found at this step, we can render static error pages
+// which is also better than letting the client handle it.
+
+async function findStreetWithCreatorId(userId: string, namespacedId: string) {
+  let user
+
+  try {
+    user = await User.findOne({ where: { id: userId } })
+  } catch (error) {
+    throw new Error('Error finding user.', { cause: error })
+  }
+
+  if (!user) {
+    throw new Error('User not found.')
+  }
+
+  return Street.findOne({
+    where: { creatorId: user.id, namespacedId },
+  })
+}
+
+async function findStreetWithNamespacedId(namespacedId: string) {
+  return Street.findOne({
+    where: { creatorId: null, namespacedId },
+  })
+}
+
+export default async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   const userId = req.params.user_id
   const namespacedId = req.params.namespacedId
 
@@ -20,33 +55,16 @@ export default async function (req, res, next) {
   // 3) Set res.locals.STREETMIX_TITLE if street found
   // 4) Set res.locals.STREETMIX_IMAGE if thumbnail found
 
-  const findStreetWithCreatorId = async function (userId) {
-    let user
-
-    try {
-      user = await User.findOne({ where: { id: userId } })
-    } catch (error) {
-      throw new Error('Error finding user.', { cause: error })
-    }
-
-    if (!user) {
-      throw new Error('User not found.')
-    }
-
-    return Street.findOne({
-      where: { creator_id: user.id, namespacedId },
-    })
-  }
-
-  const findStreetWithNamespacedId = async function (namespacedId) {
-    return Street.findOne({
-      where: { creator_id: null, namespacedId },
-    })
-  }
-
-  const handleFindStreet = async function (street) {
+  const handleFindStreet = async function (street: Street | null) {
     if (!street) {
       throw new Error('Street not found.')
+    }
+
+    if (street.status === 'DELETED') {
+      // Returns 410 Gone for deleted streets but we only have a static 404
+      // page to display right now
+      res.status(410).render('404')
+      return
     }
 
     const streetName = street.name || 'Unnamed Street'
@@ -88,7 +106,8 @@ export default async function (req, res, next) {
 
   const handleError = function (error) {
     logger.error(error)
-    next()
+    res.status(404).render('404')
+    return
   }
 
   if (userId === ANON_CREATOR) {
@@ -96,6 +115,8 @@ export default async function (req, res, next) {
       .then(handleFindStreet)
       .catch(handleError)
   } else {
-    findStreetWithCreatorId(userId).then(handleFindStreet).catch(handleError)
+    findStreetWithCreatorId(userId, namespacedId)
+      .then(handleFindStreet)
+      .catch(handleError)
   }
 }
