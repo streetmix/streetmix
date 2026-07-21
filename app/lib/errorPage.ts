@@ -2,6 +2,12 @@ import type { Request, Response } from 'express'
 
 export function serveErrorPage(req: Request, res: Response, status: 404 | 410) {
   // TODO: Also get content based on language from Accept-Languages header
+  // We could export a convenience function from i18n of all supported
+  // languages, then acceptsLanguages() will automatically select the most
+  // appropriate one from the list
+  // For now just log requested language for inspection
+  // const lang = req.acceptsLanguages() || 'en'
+
   const content =
     status === 404
       ? {

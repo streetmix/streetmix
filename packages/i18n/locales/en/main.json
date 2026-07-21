@@ -169,7 +169,18 @@
     "generic-error-title": "Something went wrong.",
     "generic-error-description": "We’re sorry – something went wrong.",
     "error-code": "(Error {code}.)",
-    "need-help-link": "Need help?"
+    "need-help-link": "Need help?",
+    "page": {
+      "heading": "Oops!",
+      "404": {
+        "title": "Not found (Error 404)",
+        "message": "We can‘t display this page because it doesn’t exist."
+      },
+      "410": {
+        "title": "Gone (Error 410)",
+        "message": "We can’t display this page because it was deleted."
+      }
+    }
   },
   "btn": {
     "reload": "Reload",
