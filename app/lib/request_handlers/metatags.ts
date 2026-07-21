@@ -5,6 +5,7 @@ import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 import type { NextFunction, Request, Response } from 'express'
+import { serveErrorPage } from '../errorPage.ts'
 
 const ANON_CREATOR = '-'
 
@@ -64,7 +65,7 @@ export default async function (
     if (street.status === 'DELETED') {
       // Returns 410 Gone for deleted streets but we only have a static 404
       // page to display right now
-      res.status(410).render('404')
+      serveErrorPage(req, res, 410)
       return
     }
 
@@ -107,7 +108,7 @@ export default async function (
 
   const handleError = function (error) {
     logger.error(error)
-    res.status(404).render('404')
+    serveErrorPage(req, res, 404)
     return
   }
 

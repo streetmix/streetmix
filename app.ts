@@ -19,6 +19,7 @@ import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
 import { logger } from './app/lib/logger.ts'
 import { auth } from './app/authentication.ts'
+import { serveErrorPage } from './app/lib/errorPage.ts'
 
 initCloudinary()
 
@@ -277,11 +278,11 @@ app.use(express.static(path.join(import.meta.dirname, '/public')))
 // Catch-all for broken asset paths.
 // Matches '/images/*'
 app.all(/\/images\/.*/, (req, res) => {
-  res.status(404).render('404')
+  serveErrorPage(req, res, 404)
 })
 // Matches '/assets/*'
 app.all(/\/assets\/.*/, (req, res) => {
-  res.status(404).render('404')
+  serveErrorPage(req, res, 404)
 })
 
 app.get(
