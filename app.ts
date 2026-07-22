@@ -328,7 +328,7 @@ app.use((req, res) => {
 })
 
 interface StreetmixErrorObject {
-  status: 404 | 410 | 500
+  status: 401 | 404 | 410 | 500 | 503
   user?: User | null
 }
 

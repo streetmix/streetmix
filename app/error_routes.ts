@@ -11,23 +11,23 @@ const errorRoutes = Router()
 // URLs if necessary.
 
 errorRoutes.get('/access-denied', (req, res, next) => {
-  next({ status: 500 })
+  next({ status: 401 })
 })
 
 errorRoutes.get('/authentication-api-problem', (req, res, next) => {
-  next({ status: 500 })
+  next({ status: 503 })
 })
 
 errorRoutes.get('/no-access-token', (req, res, next) => {
-  next({ status: 500 })
+  next({ status: 503 })
 })
 
 errorRoutes.get('/no-twitter-access-token', (req, res, next) => {
-  next({ status: 500 })
+  next({ status: 503 })
 })
 
 errorRoutes.get('/no-twitter-request-token', (req, res, next) => {
-  next({ status: 500 })
+  next({ status: 503 })
 })
 
 // Catch all for all other subpaths

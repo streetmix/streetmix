@@ -1,13 +1,6 @@
 import store from '../store'
 import { everythingLoaded } from '../store/slices/app.js'
 import { showError as showErrorAction } from '../store/slices/errors.js'
-import {
-  URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
-  URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
-  URL_ERROR_NO_ACCESS_TOKEN,
-  URL_ERROR_AUTHENTICATION_API_PROBLEM,
-  URL_ERROR_ACCESS_DENIED,
-} from './constants.js'
 
 export const ERRORS = {
   // Server should be handling 404 errors, but we will keep the generic
@@ -21,10 +14,10 @@ export const ERRORS = {
   FORCE_RELOAD_SIGN_OUT: 5,
   STREET_DELETED_ELSEWHERE: 6,
   NEW_STREET_SERVER_FAILURE: 7,
-  ACCESS_DENIED: 9,
-  AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN: 10,
-  AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN: 11,
-  AUTH_PROBLEM_API_PROBLEM: 12,
+  // ACCESS_DENIED: 9, // Deprecated. Do not use
+  // AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN: 10, // Deprecated. Do not use
+  // AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN: 11, // Deprecated. Do not use
+  // AUTH_PROBLEM_API_PROBLEM: 12, // Deprecated. Do not use
   GENERIC_ERROR: 13,
   UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use
   // The following 404/410 errors were deprecated on the client. Do not use
@@ -36,7 +29,7 @@ export const ERRORS = {
   SIGN_IN_401: 20,
   STREET_DATA_FAILURE: 21,
   GALLERY_STREET_FAILURE: 22,
-  AUTH_PROBLEM_NO_ACCESS_TOKEN: 23,
+  // AUTH_PROBLEM_NO_ACCESS_TOKEN: 23, // Deprecated. Do not use
   AUTH_EXPIRED: 24,
 } as const
 
@@ -47,32 +40,4 @@ export function showError(errorType: ErrorType, newAbortEverything: boolean) {
   // for cases where error appears immediately on load
   store.dispatch(everythingLoaded())
   store.dispatch(showErrorAction(errorType, newAbortEverything))
-}
-
-export function showErrorFromUrl(errorUrl: string) {
-  let errorType
-
-  // TODO const
-  switch (errorUrl) {
-    case URL_ERROR_NO_TWITTER_REQUEST_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN
-      break
-    case URL_ERROR_NO_TWITTER_ACCESS_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN
-      break
-    case URL_ERROR_NO_ACCESS_TOKEN:
-      errorType = ERRORS.AUTH_PROBLEM_NO_ACCESS_TOKEN
-      break
-    case URL_ERROR_AUTHENTICATION_API_PROBLEM:
-      errorType = ERRORS.AUTH_PROBLEM_API_PROBLEM
-      break
-    case URL_ERROR_ACCESS_DENIED:
-      errorType = ERRORS.ACCESS_DENIED
-      break
-    default:
-      errorType = ERRORS.GENERIC_ERROR
-      break
-  }
-
-  showError(errorType, true)
 }

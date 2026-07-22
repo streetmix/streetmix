@@ -13,7 +13,7 @@
         <div class="streetmix-logo"></div>
         <div class="error-text">
           <h1>{{heading}}</h1>
-          <p>{{message}}</p>
+          <p>{{message}} {{temporary}}</p>
           <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
         </div>
 
@@ -38,6 +38,14 @@
                 </span>
                 {{userName}}
               {{/replace}}
+            </a>
+          </p>
+        {{/if}}
+
+        {{#if needHelp}}
+          <p className="error-help-link">
+            <a href="https://docs.streetmix.net/user-guide/support/troubleshooting" target="_blank">
+              {{needHelp}}
             </a>
           </p>
         {{/if}}

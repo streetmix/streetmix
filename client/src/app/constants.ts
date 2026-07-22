@@ -15,15 +15,7 @@ export const STREET_TEMPLATES = {
 export const URL_NEW_STREET = '/new'
 export const URL_GLOBAL_GALLERY = '/gallery'
 export const URL_ERROR = '/error'
-export const URL_HELP = '/help'
 export const URL_SURVEY_FINISHED = '/survey-finished'
-
-// Error fragments that occur after /error/
-export const URL_ERROR_NO_TWITTER_REQUEST_TOKEN = 'no-twitter-request-token'
-export const URL_ERROR_NO_TWITTER_ACCESS_TOKEN = 'no-twitter-access-token'
-export const URL_ERROR_NO_ACCESS_TOKEN = 'no-access-token'
-export const URL_ERROR_AUTHENTICATION_API_PROBLEM = 'authentication-api-problem'
-export const URL_ERROR_ACCESS_DENIED = 'access-denied'
 
 // Since URLs like “streetmix.net/new” are reserved, but we still want
 // @new to be able to use Streetmix, we prefix any reserved URLs with ~
@@ -32,7 +24,7 @@ export const RESERVED_URLS = [
   URL_NEW_STREET,
   URL_GLOBAL_GALLERY,
   URL_ERROR,
-  URL_HELP,
+  '/help',
   URL_SURVEY_FINISHED,
   '/streets',
   '/terms-of-service',

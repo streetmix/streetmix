@@ -6,7 +6,6 @@ import { saveCreatorId, saveStreetId } from '../store/slices/street.js'
 import {
   URL_NEW_STREET,
   JUST_SIGNED_IN_PATH,
-  URL_ERROR,
   URL_GLOBAL_GALLERY,
   URL_RESERVED_PREFIX,
   URL_SURVEY_FINISHED,
@@ -17,12 +16,6 @@ import { setMode, MODES } from './mode.js'
 
 // Used as a placeholder in URLs when the street is by an anonymous user
 export const ANONYMOUS_USER_ID_FRAGMENT = '-'
-
-let errorUrl = ''
-
-export function getErrorUrl(): string {
-  return errorUrl
-}
 
 export function processUrl(): void {
   // Get current pathname. The pathname will contain an initial `/` followed
@@ -69,11 +62,6 @@ export function processUrl(): void {
     // Coming back from a successful sign in
   } else if (pathname === JUST_SIGNED_IN_PATH) {
     setMode(MODES.JUST_SIGNED_IN)
-
-    // Error
-  } else if (pathname.startsWith(URL_ERROR)) {
-    setMode(MODES.ERROR)
-    errorUrl = urlParts[1]
 
     // Global gallery
   } else if (pathname === URL_GLOBAL_GALLERY) {

@@ -65,6 +65,10 @@
   text-align: center;
   line-height: 1.6;
 
+  h1 {
+    margin: 0.67em 0;
+  }
+
   a {
     color: black;
     white-space: nowrap;

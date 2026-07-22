@@ -300,54 +300,6 @@ export function BlockingError() {
         </>
       )
       break
-    case ERRORS.ACCESS_DENIED:
-      title = (
-        <FormattedMessage
-          id="error.access-denied-title"
-          defaultMessage="You are not signed in."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.access-denied-description"
-            defaultMessage="You cancelled the sign in process."
-          />
-        </p>
-      )
-      cta = (
-        <>
-          {homeButton}
-          {needHelpLink}
-        </>
-      )
-      break
-    case ERRORS.AUTH_PROBLEM_NO_TWITTER_REQUEST_TOKEN:
-    case ERRORS.AUTH_PROBLEM_NO_TWITTER_ACCESS_TOKEN:
-    case ERRORS.AUTH_PROBLEM_NO_ACCESS_TOKEN:
-    case ERRORS.AUTH_PROBLEM_API_PROBLEM:
-      title = (
-        <FormattedMessage
-          id="error.auth-api-problem-title"
-          defaultMessage="There was a problem with signing you in."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.auth-api-problem-description"
-            defaultMessage="There was a problem with authentication."
-          />
-          &nbsp;{pleaseLetUsKnow}
-        </p>
-      )
-      cta = (
-        <>
-          {homeButton}
-          {needHelpLink}
-        </>
-      )
-      break
     // Deprecated.
     case ERRORS.UNSUPPORTED_BROWSER:
       title = (

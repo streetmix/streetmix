@@ -1,6 +1,5 @@
-import { ERRORS, showError, showErrorFromUrl } from './errors.js'
+import { ERRORS, showError } from './errors.js'
 import { setServerContacted } from './initialization.js'
-import { getErrorUrl } from './page_url.js'
 
 export const MODES = {
   CONTINUE: 1,
@@ -46,8 +45,9 @@ export function processMode() {
   setServerContacted(true)
 
   switch (mode) {
+    // Deprecated (formerly errors that are now handled by back-end)
     case MODES.ERROR:
-      showErrorFromUrl(getErrorUrl())
+      showError(ERRORS.GENERIC_ERROR, true)
       break
     // Deprecated
     case MODES.UNSUPPORTED_BROWSER:
