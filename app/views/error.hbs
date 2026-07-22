@@ -9,12 +9,12 @@
   </head>
   <body tabindex="1">
     <div id="error">
-      <div class="error-content">
+      <div class="error-content error-content-new">
         <div class="streetmix-logo"></div>
         <div class="error-text">
+          <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
           <h1>{{heading}}</h1>
           <p>{{message}}{{#if temporary}} {{temporary}}{{/if}}</p>
-          <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
         </div>
 
         {{#if returnButton}}

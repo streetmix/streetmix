@@ -104,6 +104,11 @@
   }
 }
 
+.error-content-new {
+  text-align: start;
+  max-width: 500px;
+}
+
 #loading {
   z-index: var(--z-09-loading);
   transition: opacity 120ms;
@@ -143,6 +148,11 @@
   height: 100px;
   max-height: 100px;
   background-position: center center;
+}
+
+.error-content-new .streetmix-logo {
+  width: auto;
+  background-position: 0%;
 }
 
 .error-content .streetmix-logo {
