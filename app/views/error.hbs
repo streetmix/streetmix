@@ -21,6 +21,11 @@
         <a class="btn btn-primary" href="/">{{returnButton}}</a>
         {{/if}}
 
+        {{#if signInButton}}
+        {{! TODO: Where does a sign in button go? }}
+        <a class="btn btn-primary">{{signInButton}}</a>
+        {{/if}}
+
         {{#if userId}}
           <p class="error-help-link">
             <a href="/{{userId}}">

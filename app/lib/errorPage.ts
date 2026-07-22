@@ -35,6 +35,16 @@ export function serveErrorPage(
 
   switch (status) {
     case 401: {
+      // Placeholder for expired auth errors. Have to figure out some way of
+      // differentiating between this and the other 401.
+      // content = {
+      //   lang: 'en',
+      //   errorCode: 401,
+      //   title: 'Unauthorized (Error 401)',
+      //   heading: 'Your session has expired.',
+      //   message: 'You’ve been signed out automatically. Please sign in again.',
+      //   signInButton: 'Sign in',
+      // }
       content = {
         lang: 'en',
         errorCode: 401,
