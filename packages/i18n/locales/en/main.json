@@ -152,10 +152,6 @@
     "street-deleted-elsewhere-description": "This street has been deleted in another browser.",
     "auth-expired": "We automatically signed you out due to inactivity.",
     "sign-in-again": "Please sign in again.",
-    "access-denied-title": "You are not signed in.",
-    "access-denied-description": "You cancelled the sign in process.",
-    "auth-api-problem-title": "There was a problem with signing you in.",
-    "auth-api-problem-description": "There was a problem with authentication.",
     "please-try-again": "Please try again later or let us know via <email_link>email</email_link> or <tweet_link>Twitter</tweet_link>.",
     "please-try-again-contact-us": "Please try again later. If you still need help, please <a>contact us</a>.",
     "unsupported-browser-title": "Streetmix doesn’t work on your browser.",
@@ -166,7 +162,13 @@
     "generic-error-description": "We’re sorry – something went wrong.",
     "error-code": "(Error {code}.)",
     "need-help-link": "Need help?",
+    "temporary-message": "Hopefully it’s temporary. Please try again later.",
     "page": {
+      "401": {
+        "title": "Unauthorized (Error 401)",
+        "heading": "Something went wrong during sign-in.",
+        "message": "We could not complete the sign-in process. Please try again."
+      },
       "404": {
         "title": "Not found (Error 404)",
         "heading": "There’s nothing here!",
@@ -180,7 +182,12 @@
       "500": {
         "title": "Internal server error (Error 500)",
         "heading": "Something went wrong.",
-        "message": "The server encountered a problem. Hopefully it’s temporary. Please try again later."
+        "message": "The server encountered a problem."
+      },
+      "503-auth": {
+        "title": "Authentication service unavailable (Error 503)",
+        "heading": "Something went wrong during sign-in.",
+        "message": "One of the external services we depend on has failed, or is currently unavailable."
       }
     }
   },
