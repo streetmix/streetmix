@@ -24,6 +24,7 @@ import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
+import errorRoutes from './app/error_routes.ts'
 import { auth } from './app/authentication.ts'
 
 import type { User } from './app/db/models/user.ts'
@@ -245,9 +246,16 @@ hbs.registerHelper(
   }
 )
 
+// Old help page
 app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
 )
+
+// Redirects all other sub paths of /help to 404
+app.get('/help', (req, res, next) => {
+  next({ status: 404 })
+})
+
 app.get('/map', (req, res) => res.redirect('https://streetmix.github.io/map/'))
 app.get('/survey', auth(false), controllers.survey.get)
 app.get('/privacy-policy', (req, res) =>
@@ -285,6 +293,10 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api', apiRoutes)
 app.use('/services', serviceRoutes)
 
+// Error routes
+app.use('/error', errorRoutes)
+
+// Assets and images
 app.use('/assets', express.static(path.join(import.meta.dirname, '/build')))
 // Not sure if this sticks around forever, but it's a good way to serve static files
 // for templates, this can go away once the responsibility for making new streets and
