@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-// Base path of router is `/error` (see app.js)
+// Base path of router is `/error` (see app.ts)
 const errorRoutes = Router()
 
 // This re-implements an old strategy of routing authentication errors to a

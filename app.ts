@@ -246,13 +246,16 @@ hbs.registerHelper(
   }
 )
 
-// Old help page
+// Redirect old help URL to the marketing landing page
 app.get('/help/about', (req, res) =>
-  res.redirect('https://www.opencollective.com/streetmix/')
+  res.redirect('https://about.streetmix.net/')
 )
 
-// Redirects all other sub paths of /help to 404
+// Redirects /help and all its other sub paths to 404
 app.get('/help', (req, res, next) => {
+  next({ status: 404 })
+})
+app.get('/help/{*splat}', (req, res, next) => {
   next({ status: 404 })
 })
 
