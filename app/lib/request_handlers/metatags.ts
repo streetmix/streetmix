@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import { Street, User } from '../../db/models/index.ts'
-import { serveErrorPage } from '../errorPage.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
@@ -63,7 +62,7 @@ export default async function (
     if (street.status === 'DELETED') {
       // Returns 410 Gone for deleted streets but we only have a static 404
       // page to display right now
-      serveErrorPage(req, res, 410, user)
+      next({ status: 410, user })
       return
     }
 
@@ -112,7 +111,7 @@ export default async function (
 
     // If a userId is given, but not found, serve a 404
     if (!user) {
-      serveErrorPage(req, res, 404)
+      next({ status: 404 })
       return
     }
   }
@@ -120,9 +119,7 @@ export default async function (
   try {
     const street = await findStreet(user, namespacedId)
     await handleFindStreet(street, user)
-  } catch (error) {
-    logger.error(error)
-    serveErrorPage(req, res, 404, user)
-    return
+  } catch (err) {
+    next({ status: 404, user })
   }
 }

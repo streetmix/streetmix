@@ -5,7 +5,7 @@ import { User } from '../db/models/index.ts'
 export function serveErrorPage(
   req: Request,
   res: Response,
-  status: 404 | 410,
+  status: 404 | 410 | 500,
   user?: User | null
 ) {
   // TODO: Also get content based on language from Accept-Languages header

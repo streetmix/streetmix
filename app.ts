@@ -4,7 +4,11 @@ import { styleText } from 'node:util'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cookieSession from 'cookie-session'
-import express from 'express'
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from 'express'
 import helmet, { type HelmetOptions } from 'helmet'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
@@ -20,6 +24,7 @@ import serviceRoutes from './app/service_routes.ts'
 import { logger } from './app/lib/logger.ts'
 import { auth } from './app/authentication.ts'
 import { serveErrorPage } from './app/lib/errorPage.ts'
+import type { User } from './app/db/models/user.ts'
 
 initCloudinary()
 
@@ -277,12 +282,12 @@ app.use(express.static(path.join(import.meta.dirname, '/public')))
 
 // Catch-all for broken asset paths.
 // Matches '/images/*'
-app.all(/\/images\/.*/, (req, res) => {
-  serveErrorPage(req, res, 404)
+app.all(/\/images\/.*/, (req, res, next) => {
+  next({ status: 404 })
 })
 // Matches '/assets/*'
-app.all(/\/assets\/.*/, (req, res) => {
-  serveErrorPage(req, res, 404)
+app.all(/\/assets\/.*/, (req, res, next) => {
+  next({ status: 404 })
 })
 
 app.get(
@@ -291,6 +296,24 @@ app.get(
 )
 
 // Catch-all -- client handles all other URLs.
-app.use(function (req, res) {
+app.use((req, res) => {
   res.render('main')
 })
+
+interface StreetmixErrorObject {
+  status: 404 | 410 | 500
+  user?: User | null
+}
+
+// Catch-all error handling
+app.use(
+  (
+    err: StreetmixErrorObject,
+    req: Request,
+    res: Response,
+    _next: NextFunction
+  ) => {
+    const status = err.status || 500
+    serveErrorPage(req, res, status, err.user ?? null)
+  }
+)
