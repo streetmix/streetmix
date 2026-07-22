@@ -217,7 +217,7 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
             >
               <img
                 alt="foo"
-                src="test-file-stub"
+                src="/images/avatar.svg"
               />
             </object>
           </span>
@@ -347,7 +347,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
             >
               <img
                 alt="foo"
-                src="test-file-stub"
+                src="/images/avatar.svg"
               />
             </object>
           </span>

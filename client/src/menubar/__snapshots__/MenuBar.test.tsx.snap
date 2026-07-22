@@ -253,7 +253,7 @@ exports[`MenuBar > renders logged in user 1`] = `
             >
               <img
                 alt="foo"
-                src="test-file-stub"
+                src="/images/avatar.svg"
               />
             </object>
           </span>

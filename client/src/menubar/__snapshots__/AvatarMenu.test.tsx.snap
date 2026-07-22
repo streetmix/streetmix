@@ -15,7 +15,7 @@ exports[`AvatarMenu > renders user avatar 1`] = `
       >
         <img
           alt="foo"
-          src="test-file-stub"
+          src="/images/avatar.svg"
         />
       </object>
     </span>
