@@ -59,7 +59,7 @@ body:not(.safari).gallery-visible .street-section-sky {
     width: 32px;
     height: 32px;
     flex-shrink: 0;
-    margin-inline-start: 0;
+    margin-inline: 0 0.25em;
   }
 }
 

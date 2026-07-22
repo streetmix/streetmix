@@ -97,13 +97,6 @@
     margin-top: 2em;
     font-size: 0.9em;
 
-    /* Try something new with the avatar here */
-    .avatar {
-      vertical-align: text-bottom;
-      border-radius: 5px;
-      margin-inline: 0.35em 0;
-    }
-
     a,
     a:visited,
     a:active {
