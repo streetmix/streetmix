@@ -119,6 +119,7 @@
     "@types/cookie-parser": "1.4.10",
     "@types/cookie-session": "2.0.49",
     "@types/cors": "2.8.19",
+    "@types/hbs": "4.0.5",
     "@types/js-yaml": "4.0.9",
     "@types/papaparse": "5.5.2",
     "@types/passport": "1.0.17",

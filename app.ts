@@ -18,13 +18,14 @@ import passport from 'passport'
 import * as controllers from './app/controllers/index.ts'
 import * as requestHandlers from './app/lib/request_handlers/index.ts'
 import { initCloudinary } from './app/lib/cloudinary.ts'
+import { serveErrorPage } from './app/lib/errorPage.ts'
+import { logger } from './app/lib/logger.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
-import { logger } from './app/lib/logger.ts'
 import { auth } from './app/authentication.ts'
-import { serveErrorPage } from './app/lib/errorPage.ts'
+
 import type { User } from './app/db/models/user.ts'
 
 initCloudinary()
@@ -228,22 +229,18 @@ app.use((req, res, next) => {
   next()
 })
 
+// Set Handlebars as the template engine
 app.set('view engine', 'hbs')
 app.set('views', path.join(import.meta.dirname, '/app/views'))
 
-// Handlebars helper for string replacement
+// A Handlebars block helper for string replacement. For TypeScript, we must
+// also pass `this` as the first argument with a type. This first argument will
+// be stripped after parsing. Handlebars still receives a 3-arg function.
 hbs.registerHelper(
-  'replaceToken',
-  function (
-    this: unknown,
-    source: string,
-    token: string,
-    options: { fn: (context: unknown) => string }
-  ) {
-    const sourceValue = source ?? ''
-    const replacement = options.fn(this)
+  'replace',
+  function (this: unknown, source: string = '', token: string, options) {
     return new hbs.handlebars.SafeString(
-      sourceValue.replace(token, replacement)
+      source.replace(token, options.fn(this))
     )
   }
 )

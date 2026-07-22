@@ -24,8 +24,9 @@
         {{#if userId}}
           <p class="error-help-link">
             <a href="/{{userId}}">
-              {{! Helper that rebuilds the Avatar component in HTML }}
-              {{#replaceToken userRedirect "{user}"}}
+              {{! Custom block helper that replaces "{user}" with the equivalent
+                  of the <Avatar> component in HTML. }}
+              {{#replace userRedirect "{user}"}}
                 <span class="avatar">
                   <object
                     type="{{profileImageMimeType}}"
@@ -36,7 +37,7 @@
                   </object>
                 </span>
                 {{userName}}
-              {{/replaceToken}}
+              {{/replace}}
             </a>
           </p>
         {{/if}}
