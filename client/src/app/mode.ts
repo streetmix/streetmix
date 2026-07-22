@@ -1,6 +1,6 @@
-import { ERRORS, showError, showErrorFromUrl } from './errors'
-import { setServerContacted } from './initialization'
-import { getErrorUrl } from './page_url'
+import { ERRORS, showError, showErrorFromUrl } from './errors.js'
+import { setServerContacted } from './initialization.js'
+import { getErrorUrl } from './page_url.js'
 
 export const MODES = {
   CONTINUE: 1,
@@ -8,7 +8,7 @@ export const MODES = {
   NEW_STREET_COPY_LAST: 3,
   JUST_SIGNED_IN: 4,
   EXISTING_STREET: 5,
-  NOT_FOUND: 6, // Deprecated, but keep this as a backup for now.
+  NOT_FOUND: 6, // Deprecated. Do not use.
   SIGN_OUT: 7,
   FORCE_RELOAD_SIGN_IN: 8,
   FORCE_RELOAD_SIGN_OUT: 9,
@@ -22,9 +22,11 @@ export const MODES = {
   ABOUT: 18,
   AUTH_EXPIRED: 19,
   SURVEY_FINISHED: 20,
-}
+} as const
 
-let mode
+type ModeValue = (typeof MODES)[keyof typeof MODES]
+
+let mode: ModeValue
 let modeData = {}
 
 export function getMode() {
@@ -35,7 +37,7 @@ export function getModeData() {
   return modeData
 }
 
-export function setMode(value, data = {}) {
+export function setMode(value: ModeValue, data = {}) {
   mode = value
   modeData = data
 }
