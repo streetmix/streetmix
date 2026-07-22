@@ -10,7 +10,7 @@ import {
 } from './constants'
 
 export const ERRORS = {
-  NOT_FOUND: 1,
+  NOT_FOUND: 1, // Deprecated. Server should be handling 404 errors.
   SIGN_OUT: 2,
   NO_STREET: 3, // for gallery if you delete the street you were looking at
   FORCE_RELOAD_SIGN_IN: 4,
@@ -23,9 +23,9 @@ export const ERRORS = {
   AUTH_PROBLEM_API_PROBLEM: 12,
   GENERIC_ERROR: 13,
   UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use
-  STREET_404: 15,
-  STREET_404_BUT_LINK_TO_USER: 16,
-  STREET_410_BUT_LINK_TO_USER: 17,
+  STREET_404: 15, // Deprecated. Server should be handling 404 errors.
+  STREET_404_BUT_LINK_TO_USER: 16, // Deprecated. Server should be handling 404 errors.
+  STREET_410_BUT_LINK_TO_USER: 17, // Deprecated. Server should be handling 410 errors.
   // CANNOT_CREATE_NEW_STREET_ON_PHONE: 18, /* Deprecated. Do not use */
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,

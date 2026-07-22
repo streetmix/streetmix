@@ -82,6 +82,7 @@ export function BlockingError() {
   )
 
   switch (errorType) {
+    // Deprecated. Server should be handling 404 not found errors.
     case ERRORS.NOT_FOUND:
       title = (
         <FormattedMessage
@@ -99,6 +100,7 @@ export function BlockingError() {
       )
       cta = homeButton
       break
+    // Deprecated. Server should be handling 404 not found errors.
     case ERRORS.STREET_404:
       title = (
         <FormattedMessage
@@ -116,6 +118,7 @@ export function BlockingError() {
       )
       cta = homeButton
       break
+    // Deprecated. Server should be handling 404 not found errors.
     case ERRORS.STREET_404_BUT_LINK_TO_USER:
       title = (
         <FormattedMessage
@@ -136,6 +139,7 @@ export function BlockingError() {
       )
       cta = homeButton
       break
+    // Deprecated. Server should be handling 410 gone errors.
     case ERRORS.STREET_410_BUT_LINK_TO_USER:
       title = (
         <FormattedMessage
