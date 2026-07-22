@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{lang}}">
   <head>
-    <title>{{pageTitle}} - Streetmix</title>
+    <title>{{title}} - Streetmix</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/favicon.ico" rel="shortcut icon" />
@@ -12,11 +12,18 @@
       <div class="error-content">
         <div class="streetmix-logo"></div>
         <div class="error-text">
-          <h1>{{header}}</h1>
+          <h1>{{heading}}</h1>
           <p>{{message}}</p>
           <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
         </div>
+
         <a class="btn btn-primary" href="/">{{returnButton}}</a>
+
+        {{#if userId}}
+          <p class="error-help-link">
+            <a href='/{{userId}}'>{{user}}</a>
+          </p>
+        {{/if}}
       </div>
     </div>
   </body>

@@ -137,7 +137,8 @@
       "sign-in": "Sign in again",
       "reload": "Reload the page",
       "return": "Return to Streetmix",
-      "try-again": "Try again"
+      "try-again": "Try again",
+      "user-redirect": "View other streets by {user}"
     },
     "page-not-found-title": "Page not found.",
     "page-not-found-description": "Oh, boy. There is no page with this address!",
@@ -171,13 +172,14 @@
     "error-code": "(Error {code}.)",
     "need-help-link": "Need help?",
     "page": {
-      "heading": "Oops!",
       "404": {
         "title": "Not found (Error 404)",
-        "message": "We can‘t display this page because it doesn’t exist."
+        "heading": "There’s nothing here!",
+        "message": "We couldn’t find this page anywhere we looked."
       },
       "410": {
         "title": "Gone (Error 410)",
+        "heading": "This street has been deleted.",
         "message": "We can’t display this page because it was deleted."
       }
     }

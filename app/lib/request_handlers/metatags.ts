@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 import { Street, User } from '../../db/models/index.ts'
+import { serveErrorPage } from '../errorPage.ts'
 import { logger } from '../logger.ts'
 import { appURL } from '../url.ts'
 
 import type { NextFunction, Request, Response } from 'express'
-import { serveErrorPage } from '../errorPage.ts'
 
 const ANON_CREATOR = '-'
 
@@ -15,7 +15,8 @@ const ANON_CREATOR = '-'
 // If a street is not found at this step, we can render static error pages
 // which is also better than letting the client handle it.
 
-async function findStreetWithCreatorId(userId: string, namespacedId: string) {
+// TODO: serve 500 errors when this fails. Error handling in this is broken
+async function findUser(userId: string) {
   let user
 
   try {
@@ -24,18 +25,12 @@ async function findStreetWithCreatorId(userId: string, namespacedId: string) {
     throw new Error('Error finding user.', { cause: error })
   }
 
-  if (!user) {
-    throw new Error('User not found.')
-  }
-
-  return Street.findOne({
-    where: { creatorId: user.id, namespacedId },
-  })
+  return user
 }
 
-async function findStreetWithNamespacedId(namespacedId: string) {
+async function findStreet(user: User | null, namespacedId: string) {
   return Street.findOne({
-    where: { creatorId: null, namespacedId },
+    where: { creatorId: user ? user.id : null, namespacedId },
   })
 }
 
@@ -57,7 +52,10 @@ export default async function (
   // 3) Set res.locals.STREETMIX_TITLE if street found
   // 4) Set res.locals.STREETMIX_IMAGE if thumbnail found
 
-  const handleFindStreet = async function (street: Street | null) {
+  const handleFindStreet = async function (
+    street: Street | null,
+    user: User | null
+  ) {
     if (!street) {
       throw new Error('Street not found.')
     }
@@ -65,7 +63,7 @@ export default async function (
     if (street.status === 'DELETED') {
       // Returns 410 Gone for deleted streets but we only have a static 404
       // page to display right now
-      serveErrorPage(req, res, 410)
+      serveErrorPage(req, res, 410, user)
       return
     }
 
@@ -106,19 +104,14 @@ export default async function (
     next()
   }
 
-  const handleError = function (error) {
-    logger.error(error)
-    serveErrorPage(req, res, 404)
-    return
-  }
+  const user = userId === ANON_CREATOR ? null : await findUser(userId)
 
-  if (userId === ANON_CREATOR) {
-    findStreetWithNamespacedId(namespacedId)
-      .then(handleFindStreet)
-      .catch(handleError)
-  } else {
-    findStreetWithCreatorId(userId, namespacedId)
-      .then(handleFindStreet)
-      .catch(handleError)
+  try {
+    const street = await findStreet(user, namespacedId)
+    await handleFindStreet(street, user)
+  } catch (error) {
+    logger.error(error)
+    serveErrorPage(req, res, 404, user)
+    return
   }
 }
