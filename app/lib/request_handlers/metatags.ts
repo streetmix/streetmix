@@ -51,20 +51,7 @@ export default async function (
   // 3) Set res.locals.STREETMIX_TITLE if street found
   // 4) Set res.locals.STREETMIX_IMAGE if thumbnail found
 
-  const handleFindStreet = async function (
-    street: Street | null,
-    user: User | null
-  ) {
-    if (!street) {
-      throw new Error('Street not found.')
-    }
-
-    // Returns 410 Gone for deleted streets
-    if (street.status === 'DELETED') {
-      next({ status: 410, user })
-      return
-    }
-
+  const handleFindStreet = async function (street: Street) {
     const streetName = street.name || 'Unnamed Street'
     const title = `${streetName} - Streetmix`
 
@@ -118,8 +105,23 @@ export default async function (
 
   try {
     const street = await findStreet(user, namespacedId)
-    await handleFindStreet(street, user)
+
+    if (!street) {
+      next({ status: 404, user })
+      return
+    }
+
+    // Returns 410 Gone for deleted streets
+    if (street.status === 'DELETED') {
+      next({ status: 410, user })
+      return
+    }
+
+    await handleFindStreet(street)
   } catch (err) {
+    // Sequelize will throw an error if the namespacedId is not an integer.
+    // Technically this is still a "street not found" error because it will
+    // have come from an invalid URL, so return 404
     next({ status: 404, user })
   }
 }
