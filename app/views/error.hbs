@@ -23,17 +23,17 @@
           <p class="error-help-link">
             <a href="/{{userId}}">
               {{! Helper that rebuilds the Avatar component in HTML }}
-              {{#replaceToken userRedirect "{{username}}"}}
+              {{#replaceToken userRedirect "{user}"}}
                 <span class="avatar">
                   <object
                     type="{{profileImageMimeType}}"
                     data="{{profileImageUrl}}"
-                    aria-label="{{username}}"
+                    aria-label="{{userName}}"
                   >
-                    <img src="/images/avatar.svg" alt="{{username}}" />
+                    <img src="/images/avatar.svg" alt="{{userName}}" />
                   </object>
                 </span>
-                {{username}}
+                {{userName}}
               {{/replaceToken}}
             </a>
           </p>

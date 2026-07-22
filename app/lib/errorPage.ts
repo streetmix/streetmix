@@ -29,8 +29,8 @@ export function serveErrorPage(
           // an existing user. We can add a link to redirect a viewer to the
           // user's street gallery.
           userId: user ? user.id : null,
-          userRedirect: user ? 'View other streets by {{username}}' : undefined,
-          username: user ? (user.displayName ?? user.id) : undefined,
+          userName: user ? (user.displayName ?? user.id) : undefined,
+          userRedirect: 'View other streets by {user}',
           profileImageUrl: user?.profileImageUrl,
           profileImageMimeType:
             user?.profileImageUrl?.toLowerCase().endsWith('.jpg') === true ||
@@ -50,8 +50,8 @@ export function serveErrorPage(
           // an existing user. We can add a link to redirect a viewer to the
           // user's street gallery.
           userId: user ? user.id : null,
-          userRedirect: user ? 'View other streets by {{username}}' : undefined,
-          username: user ? (user.displayName ?? user.id) : undefined,
+          userName: user ? (user.displayName ?? user.id) : undefined,
+          userRedirect: 'View other streets by {user}',
           profileImageUrl: user?.profileImageUrl,
           profileImageMimeType:
             user?.profileImageUrl?.toLowerCase().endsWith('.jpg') === true ||

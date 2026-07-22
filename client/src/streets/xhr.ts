@@ -122,15 +122,7 @@ function errorReceiveStreet(error) {
     goNewStreet()
   } else {
     if (data.status === 404 || data.status === 410) {
-      if (store.getState().street.creatorId) {
-        if (data.status === 410) {
-          setMode(MODES.STREET_410_BUT_LINK_TO_USER)
-        } else {
-          setMode(MODES.STREET_404_BUT_LINK_TO_USER)
-        }
-      } else {
-        setMode(MODES.STREET_404)
-      }
+      setMode(MODES.NOT_FOUND)
       // TODO swap for showError (here and elsewhere)
       processMode()
     } else {
