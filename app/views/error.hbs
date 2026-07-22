@@ -21,7 +21,21 @@
 
         {{#if userId}}
           <p class="error-help-link">
-            <a href='/{{userId}}'>{{user}}</a>
+            <a href="/{{userId}}">
+              {{! Helper that rebuilds the Avatar component in HTML }}
+              {{#replaceToken userRedirect "{{username}}"}}
+                <span class="avatar">
+                  <object
+                    type="{{profileImageMimeType}}"
+                    data="{{profileImageUrl}}"
+                    aria-label="{{username}}"
+                  >
+                    <img src="/images/avatar.svg" alt="{{username}}" />
+                  </object>
+                </span>
+                {{username}}
+              {{/replaceToken}}
+            </a>
           </p>
         {{/if}}
       </div>

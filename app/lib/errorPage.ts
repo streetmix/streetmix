@@ -22,17 +22,21 @@ export function serveErrorPage(
           errorCode: 404,
           title: 'Not found (Error 404)',
           heading: 'There’s nothing here!',
-          // In the client app we have special conditions for 404 - no page here
-          // and 404 - no street here with an option to display a link to other
-          // streets by the same user, if present.
-          // I think we can just use a call to action button or link for this
-          // rather than doubling up on translations in the future.
           message: 'We couldn’t find this page anywhere we looked.',
           returnButton: 'Return to Streetmix',
+
+          // If a User is passed here, we attempted to look up a street for
+          // an existing user. We can add a link to redirect a viewer to the
+          // user's street gallery.
           userId: user ? user.id : null,
-          user: user
-            ? `View other streets by ${user.displayName ?? user.id}`
-            : undefined,
+          userRedirect: user ? 'View other streets by {{username}}' : undefined,
+          username: user ? (user.displayName ?? user.id) : undefined,
+          profileImageUrl: user?.profileImageUrl,
+          profileImageMimeType:
+            user?.profileImageUrl?.toLowerCase().endsWith('.jpg') === true ||
+            user?.profileImageUrl?.toLowerCase().endsWith('.jpeg') === true
+              ? 'image/jpeg'
+              : 'image/png',
         }
       : {
           lang: 'en',
@@ -40,13 +44,20 @@ export function serveErrorPage(
           title: 'Gone (Error 410)',
           heading: 'This street has been deleted.',
           message: 'We can’t display something that no longer exists!',
-          // In the client app we have special conditions where we can direct
-          // someone to view other streets by the same user, if present.
           returnButton: 'Return to Streetmix',
+
+          // If a User is passed here, we attempted to look up a street for
+          // an existing user. We can add a link to redirect a viewer to the
+          // user's street gallery.
           userId: user ? user.id : null,
-          user: user
-            ? `View other streets by ${user.displayName ?? user.id}`
-            : undefined,
+          userRedirect: user ? 'View other streets by {{username}}' : undefined,
+          username: user ? (user.displayName ?? user.id) : undefined,
+          profileImageUrl: user?.profileImageUrl,
+          profileImageMimeType:
+            user?.profileImageUrl?.toLowerCase().endsWith('.jpg') === true ||
+            user?.profileImageUrl?.toLowerCase().endsWith('.jpeg') === true
+              ? 'image/jpeg'
+              : 'image/png',
         }
 
   res.status(status).render('error', content)

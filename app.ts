@@ -10,6 +10,7 @@ import express, {
   type Response,
 } from 'express'
 import helmet, { type HelmetOptions } from 'helmet'
+import hbs from 'hbs'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
 import passport from 'passport'
@@ -229,6 +230,23 @@ app.use((req, res, next) => {
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(import.meta.dirname, '/app/views'))
+
+// Handlebars helper for string replacement
+hbs.registerHelper(
+  'replaceToken',
+  function (
+    this: unknown,
+    source: string,
+    token: string,
+    options: { fn: (context: unknown) => string }
+  ) {
+    const sourceValue = source ?? ''
+    const replacement = options.fn(this)
+    return new hbs.handlebars.SafeString(
+      sourceValue.replace(token, replacement)
+    )
+  }
+)
 
 app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
