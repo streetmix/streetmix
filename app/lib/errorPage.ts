@@ -21,7 +21,7 @@ function getProfileImageMimeType(url?: string) {
 export function serveErrorPage(
   req: Request,
   res: Response,
-  status: 404 | 410 | 500,
+  status: 401 | 404 | 410 | 500 | 503,
   user?: User | null
 ) {
   // TODO: Also get content based on language from Accept-Languages header
@@ -34,6 +34,18 @@ export function serveErrorPage(
   let content
 
   switch (status) {
+    case 401: {
+      content = {
+        lang: 'en',
+        errorCode: 401,
+        title: 'Unauthorized (Error 401)',
+        heading: 'Something went wrong during sign-in.',
+        message: 'We could not complete the sign-in process. Please try again.',
+        returnButton: 'Return to Streetmix',
+        needHelp: 'Need help?',
+      }
+      break
+    }
     case 404: {
       content = {
         lang: 'en',
@@ -74,6 +86,22 @@ export function serveErrorPage(
       }
       break
     }
+    // Note: this 503 is only used in the context of authentication.
+    // TODO: separate this from other things that could cause a 503 code.
+    case 503: {
+      content = {
+        lang: 'en',
+        errorCode: 503,
+        title: 'Authentication service unavailable (Error 503)',
+        heading: 'Something went wrong during sign-in.',
+        message:
+          'One of the external services we depend on has failed, or is currently unavailable.',
+        temporary: 'Hopefully it’s temporary. Please try again later.',
+        returnButton: 'Return to Streetmix',
+        needHelp: 'Need help?',
+      }
+      break
+    }
     case 500:
     default:
       content = {
@@ -81,10 +109,9 @@ export function serveErrorPage(
         errorCode: 500,
         title: 'Internal server error (Error 500)',
         heading: 'Something went wrong.',
-        message:
-          'The server encountered a problem. Hopefully it’s temporary. Please try again later.',
+        message: 'The server encountered a problem.',
+        temporary: 'Hopefully it’s temporary. Please try again later.',
       }
-
       break
   }
 

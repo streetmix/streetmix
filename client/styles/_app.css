@@ -58,10 +58,6 @@
 #error {
   z-index: var(--z-09-error);
   background-color: var(--color-turquoise-200);
-
-  /* Errors may be displayed on old browsers without flexbox.
-     This forces vertical centering */
-  display: table;
 }
 
 .error-content {
@@ -69,10 +65,9 @@
   text-align: center;
   line-height: 1.6;
 
-  /* Errors may be displayed on old browsers without flexbox.
-     This forces vertical centering */
-  display: table-cell;
-  vertical-align: middle;
+  h1 {
+    margin: 0.67em 0;
+  }
 
   a {
     color: black;
@@ -100,13 +95,18 @@
     a,
     a:visited,
     a:active {
-      color: var(--color-turquoise-900);
+      color: var(--color-turquoise-800);
     }
 
     a:hover {
-      color: var(--color-turquoise-800);
+      color: var(--color-turquoise-700);
     }
   }
+}
+
+.error-content-new {
+  text-align: start;
+  max-width: 500px;
 }
 
 #loading {
@@ -150,6 +150,11 @@
   background-position: center center;
 }
 
+.error-content-new .streetmix-logo {
+  width: auto;
+  background-position: 0%;
+}
+
 .error-content .streetmix-logo {
   height: 60px;
   margin: 0 auto;
@@ -170,12 +175,12 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  width: 100svw;
+  height: 100svh;
   padding: 50px;
   font-size: 1.2rem;
+  overflow: auto;
 }
 
 /* -------------------------------------------------------- */
