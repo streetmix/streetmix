@@ -121,16 +121,12 @@ function errorReceiveStreet(error) {
   ) {
     goNewStreet()
   } else {
+    // Server should be serving error pages for streets that are not found.
+    // However, it's possible for a race condition to occur where a street is
+    // deleted after the client bundle has already been sent to the client.
+    // We have a generic "not found" error page on the client to handle this.
     if (data.status === 404 || data.status === 410) {
-      if (store.getState().street.creatorId) {
-        if (data.status === 410) {
-          setMode(MODES.STREET_410_BUT_LINK_TO_USER)
-        } else {
-          setMode(MODES.STREET_404_BUT_LINK_TO_USER)
-        }
-      } else {
-        setMode(MODES.STREET_404)
-      }
+      setMode(MODES.NOT_FOUND)
       // TODO swap for showError (here and elsewhere)
       processMode()
     } else {

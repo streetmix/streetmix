@@ -4,21 +4,29 @@ import { styleText } from 'node:util'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import cookieSession from 'cookie-session'
-import express from 'express'
+import express, {
+  type NextFunction,
+  type Request,
+  type Response,
+} from 'express'
 import helmet, { type HelmetOptions } from 'helmet'
+import hbs from 'hbs'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
 import passport from 'passport'
 
 import * as controllers from './app/controllers/index.ts'
-import * as requestHandlers from './app/lib/request_handlers/index.js'
+import * as requestHandlers from './app/lib/request_handlers/index.ts'
 import { initCloudinary } from './app/lib/cloudinary.ts'
+import { serveErrorPage } from './app/lib/errorPage.ts'
+import { logger } from './app/lib/logger.ts'
 import { compileSVGSprites } from './app/lib/svg_sprite.ts'
 import { appURL } from './app/lib/url.ts'
 import apiRoutes from './app/api_routes.ts'
 import serviceRoutes from './app/service_routes.ts'
-import { logger } from './app/lib/logger.ts'
 import { auth } from './app/authentication.ts'
+
+import type { User } from './app/db/models/user.ts'
 
 initCloudinary()
 
@@ -221,8 +229,21 @@ app.use((req, res, next) => {
   next()
 })
 
+// Set Handlebars as the template engine
 app.set('view engine', 'hbs')
 app.set('views', path.join(import.meta.dirname, '/app/views'))
+
+// A Handlebars block helper for string replacement. For TypeScript, we must
+// also pass a synthetic `this` as the first argument. The synthetic `this` is
+// stripped after parsing. Handlebars still receives a 3-arg function.
+hbs.registerHelper(
+  'replace',
+  function (this: unknown, source: string = '', token: string, options) {
+    return new hbs.handlebars.SafeString(
+      source.replace(token, options.fn(this))
+    )
+  }
+)
 
 app.get('/help/about', (req, res) =>
   res.redirect('https://www.opencollective.com/streetmix/')
@@ -276,12 +297,12 @@ app.use(express.static(path.join(import.meta.dirname, '/public')))
 
 // Catch-all for broken asset paths.
 // Matches '/images/*'
-app.all(/\/images\/.*/, (req, res) => {
-  res.status(404).render('404')
+app.all(/\/images\/.*/, (req, res, next) => {
+  next({ status: 404 })
 })
 // Matches '/assets/*'
-app.all(/\/assets\/.*/, (req, res) => {
-  res.status(404).render('404')
+app.all(/\/assets\/.*/, (req, res, next) => {
+  next({ status: 404 })
 })
 
 app.get(
@@ -289,7 +310,25 @@ app.get(
   requestHandlers.metatags
 )
 
-// Catch-all, also passes a btpToken for coil integration of streaming payments
-app.use(function (req, res) {
+// Catch-all -- client handles all other URLs.
+app.use((req, res) => {
   res.render('main')
 })
+
+interface StreetmixErrorObject {
+  status: 404 | 410 | 500
+  user?: User | null
+}
+
+// Catch-all error handling
+app.use(
+  (
+    err: StreetmixErrorObject,
+    req: Request,
+    res: Response,
+    _next: NextFunction
+  ) => {
+    const status = err.status || 500
+    serveErrorPage(req, res, status, err.user ?? null)
+  }
+)

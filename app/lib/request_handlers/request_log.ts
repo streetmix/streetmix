@@ -1,6 +1,8 @@
 import { logger } from '../logger.ts'
 
-export default function (req, res, next) {
+import type { NextFunction, Request, Response } from 'express'
+
+export default function (req: Request, res: Response, next: NextFunction) {
   const contentType = req.headers['content-type'] || ''
 
   logger.debug({

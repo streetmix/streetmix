@@ -1,6 +1,6 @@
-import { ERRORS, showError, showErrorFromUrl } from './errors'
-import { setServerContacted } from './initialization'
-import { getErrorUrl } from './page_url'
+import { ERRORS, showError, showErrorFromUrl } from './errors.js'
+import { setServerContacted } from './initialization.js'
+import { getErrorUrl } from './page_url.js'
 
 export const MODES = {
   CONTINUE: 1,
@@ -8,7 +8,7 @@ export const MODES = {
   NEW_STREET_COPY_LAST: 3,
   JUST_SIGNED_IN: 4,
   EXISTING_STREET: 5,
-  NOT_FOUND: 6,
+  NOT_FOUND: 6, // Deprecated. Do not use.
   SIGN_OUT: 7,
   FORCE_RELOAD_SIGN_IN: 8,
   FORCE_RELOAD_SIGN_OUT: 9,
@@ -16,31 +16,33 @@ export const MODES = {
   GLOBAL_GALLERY: 11,
   ERROR: 13,
   UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use.
-  STREET_404: 15,
-  STREET_404_BUT_LINK_TO_USER: 16,
-  STREET_410_BUT_LINK_TO_USER: 17,
+  // STREET_404: 15, // Deprecated. Do not use.
+  // STREET_404_BUT_LINK_TO_USER: 16, // Deprecated. Do not use.
+  // STREET_410_BUT_LINK_TO_USER: 17, // Deprecated. Do not use.
   ABOUT: 18,
   AUTH_EXPIRED: 19,
-  SURVEY_FINISHED: 20
-}
+  SURVEY_FINISHED: 20,
+} as const
 
-let mode
+type ModeValue = (typeof MODES)[keyof typeof MODES]
+
+let mode: ModeValue
 let modeData = {}
 
-export function getMode () {
+export function getMode() {
   return mode
 }
 
-export function getModeData () {
+export function getModeData() {
   return modeData
 }
 
-export function setMode (value, data = {}) {
+export function setMode(value: ModeValue, data = {}) {
   mode = value
   modeData = data
 }
 
-export function processMode () {
+export function processMode() {
   setServerContacted(true)
 
   switch (mode) {
@@ -56,15 +58,6 @@ export function processMode () {
       break
     case MODES.NOT_FOUND:
       showError(ERRORS.NOT_FOUND, true)
-      break
-    case MODES.STREET_404:
-      showError(ERRORS.STREET_404, true)
-      break
-    case MODES.STREET_404_BUT_LINK_TO_USER:
-      showError(ERRORS.STREET_404_BUT_LINK_TO_USER, true)
-      break
-    case MODES.STREET_410_BUT_LINK_TO_USER:
-      showError(ERRORS.STREET_410_BUT_LINK_TO_USER, true)
       break
     case MODES.SIGN_OUT:
       showError(ERRORS.SIGN_OUT, true)

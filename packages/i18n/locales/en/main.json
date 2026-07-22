@@ -137,15 +137,11 @@
       "sign-in": "Sign in again",
       "reload": "Reload the page",
       "return": "Return to Streetmix",
-      "try-again": "Try again"
+      "try-again": "Try again",
+      "user-redirect": "View other streets by {user}"
     },
     "page-not-found-title": "Page not found.",
     "page-not-found-description": "Oh, boy. There is no page with this address!",
-    "street-not-found-title": "Street not found.",
-    "street-not-found-description": "Oh, boy. There is no street with this link!",
-    "street-not-found-but-user-description": "There is no street with this link! But you can look at other streets by {user}",
-    "street-deleted-title": "This street has been deleted.",
-    "street-deleted-description": "There is no longer a street with this link, but you can look at other streets by {user}",
     "sign-out-title": "You are now signed out.",
     "reload-sign-out-title": "You signed out in another window.",
     "gallery-street-failure-description": "We’re having trouble loading this street.",
@@ -169,7 +165,24 @@
     "generic-error-title": "Something went wrong.",
     "generic-error-description": "We’re sorry – something went wrong.",
     "error-code": "(Error {code}.)",
-    "need-help-link": "Need help?"
+    "need-help-link": "Need help?",
+    "page": {
+      "404": {
+        "title": "Not found (Error 404)",
+        "heading": "There’s nothing here!",
+        "message": "We couldn’t find this page anywhere we looked."
+      },
+      "410": {
+        "title": "Gone (Error 410)",
+        "heading": "This street has been deleted.",
+        "message": "We can’t display something that no longer exists!"
+      },
+      "500": {
+        "title": "Internal server error (Error 500)",
+        "heading": "Something went wrong.",
+        "message": "The server encountered a problem. Hopefully it’s temporary. Please try again later."
+      }
+    }
   },
   "btn": {
     "reload": "Reload",

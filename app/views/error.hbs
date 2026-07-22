@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+  <head>
+    <title>{{title}} - Streetmix</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet" />
+  </head>
+  <body tabindex="1">
+    <div id="error">
+      <div class="error-content">
+        <div class="streetmix-logo"></div>
+        <div class="error-text">
+          <h1>{{heading}}</h1>
+          <p>{{message}}</p>
+          <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
+        </div>
+
+        {{#if returnButton}}
+        <a class="btn btn-primary" href="/">{{returnButton}}</a>
+        {{/if}}
+
+        {{#if userId}}
+          <p class="error-help-link">
+            <a href="/{{userId}}">
+              {{! Custom block helper that replaces "{user}" with the equivalent
+                  of the <Avatar> component in HTML. }}
+              {{#replace userRedirect "{user}"}}
+                <span class="avatar">
+                  <object
+                    type="{{profileImageMimeType}}"
+                    data="{{profileImageUrl}}"
+                    aria-label="{{userName}}"
+                  >
+                    <img src="/images/avatar.svg" alt="{{userName}}" />
+                  </object>
+                </span>
+                {{userName}}
+              {{/replace}}
+            </a>
+          </p>
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,4 +1,3 @@
-import avatar from 'url:~/images/avatar.svg'
 import { useGetUserQuery } from '../store/services/api.js'
 import './Avatar.css'
 
@@ -16,7 +15,7 @@ export function Avatar({ userId = '' }: AvatarProps) {
   return (
     <span className="avatar">
       <object type={mimeType} data={data?.profileImageUrl} aria-label={userId}>
-        <img src={avatar} alt={userId} />
+        <img src="/images/avatar.svg" alt={userId} />
       </object>
     </span>
   )

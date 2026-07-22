@@ -1,20 +1,14 @@
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
-import { useGetUserQuery } from '../store/services/api.js'
 import { Button } from '../ui/Button.js'
 import { ExternalLink } from '../ui/ExternalLink.js'
-import { Avatar } from '../users/Avatar.js'
 import { doSignIn } from '../users/authentication.js'
 import { goReload, goHome, goNewStreet } from './routing.js'
 import { ERRORS } from './errors.js'
 
-import type { StreetState } from '@streetmix/types'
-
 export function BlockingError() {
   const errorType = useSelector((state) => state.errors.errorType)
-  const street = useSelector((state) => state.street)
-  const { data: creatorProfile } = useGetUserQuery(street.creatorId)
 
   let title: React.ReactElement | string
   let description: React.ReactElement | string = ''
@@ -28,14 +22,6 @@ export function BlockingError() {
       />
     </Button>
   )
-  const linkToUser = (street: StreetState) => {
-    return street?.creatorId !== null ? (
-      <a href={'/' + street.creatorId}>
-        <Avatar userId={street.creatorId} />
-        {creatorProfile?.displayName ?? street.creatorId}
-      </a>
-    ) : null
-  }
   const reloadButton = (
     <Button primary onClick={goReload}>
       <FormattedMessage
@@ -82,6 +68,8 @@ export function BlockingError() {
   )
 
   switch (errorType) {
+    // Deprecated. Server should be handling 404 not found errors. Keep this
+    // as backup for now.
     case ERRORS.NOT_FOUND:
       title = (
         <FormattedMessage
@@ -94,63 +82,6 @@ export function BlockingError() {
           <FormattedMessage
             id="error.page-not-found-description"
             defaultMessage="Oh, boy. There is no page with this address!"
-          />
-        </p>
-      )
-      cta = homeButton
-      break
-    case ERRORS.STREET_404:
-      title = (
-        <FormattedMessage
-          id="error.street-not-found-title"
-          defaultMessage="Street not found."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.street-not-found-description"
-            defaultMessage="Oh, boy. There is no street with this link!"
-          />
-        </p>
-      )
-      cta = homeButton
-      break
-    case ERRORS.STREET_404_BUT_LINK_TO_USER:
-      title = (
-        <FormattedMessage
-          id="error.street-not-found-title"
-          defaultMessage="Street not found."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.street-not-found-but-user-description"
-            defaultMessage="There is no street with this link! But you can look at other streets by {user}"
-            values={{
-              user: linkToUser(street),
-            }}
-          />
-        </p>
-      )
-      cta = homeButton
-      break
-    case ERRORS.STREET_410_BUT_LINK_TO_USER:
-      title = (
-        <FormattedMessage
-          id="error.street-deleted-title"
-          defaultMessage="This street has been deleted."
-        />
-      )
-      description = (
-        <p>
-          <FormattedMessage
-            id="error.street-deleted-description"
-            defaultMessage="There is no longer a street with this link, but you can look at other streets by {user}"
-            values={{
-              user: linkToUser(street),
-            }}
           />
         </p>
       )

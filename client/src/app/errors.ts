@@ -1,15 +1,19 @@
 import store from '../store'
-import { everythingLoaded } from '../store/slices/app'
-import { showError as showErrorAction } from '../store/slices/errors'
+import { everythingLoaded } from '../store/slices/app.js'
+import { showError as showErrorAction } from '../store/slices/errors.js'
 import {
   URL_ERROR_NO_TWITTER_REQUEST_TOKEN,
   URL_ERROR_NO_TWITTER_ACCESS_TOKEN,
   URL_ERROR_NO_ACCESS_TOKEN,
   URL_ERROR_AUTHENTICATION_API_PROBLEM,
   URL_ERROR_ACCESS_DENIED,
-} from './constants'
+} from './constants.js'
 
 export const ERRORS = {
+  // Server should be handling 404 errors, but we will keep the generic
+  // NOT_FOUND error as a backup. It can handle race conditions: e.g. a street
+  // exists, routing is then passed to client, but then the street is deleted
+  // just before it is loaded.
   NOT_FOUND: 1,
   SIGN_OUT: 2,
   NO_STREET: 3, // for gallery if you delete the street you were looking at
@@ -23,9 +27,10 @@ export const ERRORS = {
   AUTH_PROBLEM_API_PROBLEM: 12,
   GENERIC_ERROR: 13,
   UNSUPPORTED_BROWSER: 14, // Deprecated. Do not use
-  STREET_404: 15,
-  STREET_404_BUT_LINK_TO_USER: 16,
-  STREET_410_BUT_LINK_TO_USER: 17,
+  // The following 404/410 errors were deprecated on the client. Do not use
+  // STREET_404: 15,
+  // STREET_404_BUT_LINK_TO_USER: 16,
+  // STREET_410_BUT_LINK_TO_USER: 17,
   // CANNOT_CREATE_NEW_STREET_ON_PHONE: 18, /* Deprecated. Do not use */
   SIGN_IN_SERVER_FAILURE: 19,
   SIGN_IN_401: 20,
@@ -33,16 +38,18 @@ export const ERRORS = {
   GALLERY_STREET_FAILURE: 22,
   AUTH_PROBLEM_NO_ACCESS_TOKEN: 23,
   AUTH_EXPIRED: 24,
-}
+} as const
 
-export function showError(errorType, newAbortEverything) {
+type ErrorType = (typeof ERRORS)[keyof typeof ERRORS]
+
+export function showError(errorType: ErrorType, newAbortEverything: boolean) {
   // Dispatch everythingLoaded to hide the loading window
   // for cases where error appears immediately on load
   store.dispatch(everythingLoaded())
   store.dispatch(showErrorAction(errorType, newAbortEverything))
 }
 
-export function showErrorFromUrl(errorUrl) {
+export function showErrorFromUrl(errorUrl: string) {
   let errorType
 
   // TODO const

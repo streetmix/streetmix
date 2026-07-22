@@ -35,7 +35,7 @@
   margin: 0 auto;
 
   /* Placeholder image in case a mugshot image is not provided */
-  background-image: url("../../../images/avatar.svg");
+  background-image: url("../../../../public/images/avatar.svg");
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;

@@ -88,9 +88,14 @@
     margin-bottom: 4em;
   }
 
+  .error-text-small {
+    color: gray;
+    font-size: 0.9rem;
+  }
+
   .error-help-link {
     margin-top: 2em;
-    font-size: 0.85em;
+    font-size: 0.9em;
 
     a,
     a:visited,

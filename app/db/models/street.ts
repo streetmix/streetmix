@@ -20,7 +20,7 @@ export class Street extends Model<
   declare namespacedId: CreationOptional<number>
   declare status: CreationOptional<'ACTIVE' | 'DELETED'>
   declare name: CreationOptional<string>
-  declare creatorId: CreationOptional<string>
+  declare creatorId: CreationOptional<string> | null
   declare data: CreationOptional<StreetData>
   declare creatorIp: CreationOptional<string>
   declare originalStreetId: CreationOptional<string>
