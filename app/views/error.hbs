@@ -17,7 +17,9 @@
           <p class="error-text-small">[HTTP ERROR {{errorCode}}]</p>
         </div>
 
+        {{#if returnButton}}
         <a class="btn btn-primary" href="/">{{returnButton}}</a>
+        {{/if}}
 
         {{#if userId}}
           <p class="error-help-link">

@@ -176,6 +176,11 @@
         "title": "Gone (Error 410)",
         "heading": "This street has been deleted.",
         "message": "We can’t display this page because it was deleted."
+      },
+      "500": {
+        "title": "Internal server error (Error 500)",
+        "heading": "Something went wrong.",
+        "message": "The server encountered a problem. Hopefully it’s temporary. Please try again later."
       }
     }
   },
