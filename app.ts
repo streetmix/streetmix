@@ -234,8 +234,8 @@ app.set('view engine', 'hbs')
 app.set('views', path.join(import.meta.dirname, '/app/views'))
 
 // A Handlebars block helper for string replacement. For TypeScript, we must
-// also pass `this` as the first argument with a type. This first argument will
-// be stripped after parsing. Handlebars still receives a 3-arg function.
+// also pass a synthetic `this` as the first argument. The synthetic `this` is
+// stripped after parsing. Handlebars still receives a 3-arg function.
 hbs.registerHelper(
   'replace',
   function (this: unknown, source: string = '', token: string, options) {
