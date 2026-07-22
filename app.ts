@@ -290,7 +290,7 @@ app.get(
   requestHandlers.metatags
 )
 
-// Catch-all, also passes a btpToken for coil integration of streaming payments
+// Catch-all -- client handles all other URLs.
 app.use(function (req, res) {
   res.render('main')
 })

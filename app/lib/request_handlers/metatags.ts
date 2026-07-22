@@ -104,7 +104,18 @@ export default async function (
     next()
   }
 
-  const user = userId === ANON_CREATOR ? null : await findUser(userId)
+  let user
+  if (userId === ANON_CREATOR) {
+    user = null
+  } else {
+    user = await findUser(userId)
+
+    // If a userId is given, but not found, serve a 404
+    if (!user) {
+      serveErrorPage(req, res, 404)
+      return
+    }
+  }
 
   try {
     const street = await findStreet(user, namespacedId)
