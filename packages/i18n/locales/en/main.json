@@ -175,7 +175,7 @@
       "410": {
         "title": "Gone (Error 410)",
         "heading": "This street has been deleted.",
-        "message": "We can’t display this page because it was deleted."
+        "message": "We can’t display something that no longer exists!"
       },
       "500": {
         "title": "Internal server error (Error 500)",
