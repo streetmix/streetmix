@@ -59,9 +59,8 @@ export default async function (
       throw new Error('Street not found.')
     }
 
+    // Returns 410 Gone for deleted streets
     if (street.status === 'DELETED') {
-      // Returns 410 Gone for deleted streets but we only have a static 404
-      // page to display right now
       next({ status: 410, user })
       return
     }
@@ -72,7 +71,8 @@ export default async function (
     res.locals.STREETMIX_TITLE = title
     res.locals.STREETMIX_URL += `${userId}/${namespacedId}/`
 
-    // If street is a DEFAULT_STREET or EMPTY_STREET, the public id for the street thumbnail is the street type, not the street id.
+    // If street is a DEFAULT_STREET or EMPTY_STREET, the public id for the
+    // street thumbnail is the street type, not the street id.
     const streetData = street.data && street.data.street
     let streetId
     if (streetData && streetData.editCount === 0) {
