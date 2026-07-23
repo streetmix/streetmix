@@ -63,7 +63,7 @@
 .error-content {
   position: relative;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.4;
 
   h1 {
     margin: 0.67em 0;
@@ -111,6 +111,7 @@
   .error-content {
     text-align: start;
     max-width: 500px;
+    width: 100%;
   }
 }
 
@@ -143,15 +144,11 @@
 }
 
 #loading .streetmix-logo {
-  margin-top: -25px;
-  margin-bottom: 50px;
-}
-
-#loading .streetmix-logo,
-.error-content .streetmix-logo {
   width: 80%;
   height: 100px;
   max-height: 100px;
+  margin-top: -25px;
+  margin-bottom: 50px;
   background-position: center center;
 }
 
@@ -185,7 +182,8 @@
   height: 100svh;
   padding: 50px;
   font-size: 1.2rem;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* -------------------------------------------------------- */
