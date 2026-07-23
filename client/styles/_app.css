@@ -104,9 +104,14 @@
   }
 }
 
-.error-content-new {
-  text-align: start;
-  max-width: 500px;
+#error.error-content-new {
+  padding-inline: 17.5%;
+  align-items: start;
+
+  .error-content {
+    text-align: start;
+    max-width: 500px;
+  }
 }
 
 #loading {
