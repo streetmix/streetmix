@@ -13,6 +13,7 @@ const AccessTokenHandler = function (req: Request, res: Response) {
     const body = response.data
 
     if (body.error && body.error === 'access_denied') {
+      logger.error('[auth0] Auth0 returned access_denied error')
       res.redirect('/error/access-denied')
       return
     }
@@ -101,6 +102,13 @@ const getUserTwitterAuth0Info = function (user: UserInfoResponse) {
 
 export function get(req: Request, res: Response) {
   logger.info('[auth0] Logging in user with data:', req.query)
+
+  // Let's try bailing if req.query is empty, see if that changes anything
+  if (!req.query) {
+    logger.error('[auth0] Sign in callback was called without a req.query')
+    res.redirect('/error/access-denied')
+    return
+  }
 
   if (req.query.error) {
     logger.error('[auth0] Auth0 encountered an error: ' + req.query.error)

@@ -25,23 +25,28 @@ export function post(req: Request, res: Response) {
     return
   }
 
-  logger.warn(
-    '[csp-report] 🚨 ' +
-      styleText(
-        ['yellow', 'bold'],
-        'A Content Security Policy (CSP) directive violation has been reported:\n'
-      ) +
-      styleText('green', JSON.stringify(req.body, null, 2)) +
-      '\n' +
-      styleText(
-        ['yellow', 'bold'],
-        'If this is unexpected, please add this resource to the CSP directive. See '
-      ) +
-      styleText(
-        ['yellow', 'underline'],
-        'https://docs.streetmix.net/contributing/code/reference/csp'
-      )
-  )
+  // Simplify logs in production to reduce noise
+  if (process.env.NODE_ENV === 'production') {
+    logger.warn(`[csp-report] ${req.body}`)
+  } else {
+    logger.warn(
+      '[csp-report] 🚨 ' +
+        styleText(
+          ['yellow', 'bold'],
+          'A Content Security Policy (CSP) directive violation has been reported:\n'
+        ) +
+        styleText('green', JSON.stringify(req.body, null, 2)) +
+        '\n' +
+        styleText(
+          ['yellow', 'bold'],
+          'If this is unexpected, please add this resource to the CSP directive. See '
+        ) +
+        styleText(
+          ['yellow', 'underline'],
+          'https://docs.streetmix.net/contributing/code/reference/csp'
+        )
+    )
+  }
 
   res.status(204).end()
 }
