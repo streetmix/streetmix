@@ -132,6 +132,12 @@ const csp = {
       // Profile images
       'abs.twimg.com',
       'pbs.twimg.com',
+      'platform-lookaside.fbsbx.com',
+      's.gravatar.com',
+      '*.googleusercontent.com',
+      'res.cloudinary.com',
+      '*.wp.com',
+      'cdn.auth0.com',
       // Other
       '*.stripe.com',
     ],
