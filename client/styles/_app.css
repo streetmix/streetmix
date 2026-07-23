@@ -69,11 +69,6 @@
     margin: 0.67em 0;
   }
 
-  a {
-    color: black;
-    white-space: nowrap;
-  }
-
   button + button {
     margin-left: 1em;
   }
