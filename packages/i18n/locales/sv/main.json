@@ -137,15 +137,11 @@
       "sign-in": "Logga in igen",
       "reload": "Ladda om sidan",
       "return": "",
-      "try-again": "Försök igen"
+      "try-again": "Försök igen",
+      "user-redirect": ""
     },
     "page-not-found-title": "Sidan hittades inte",
     "page-not-found-description": "Ojdå! Det finns ingen sida med den här adressen!",
-    "street-not-found-title": "Gatan hittades inte",
-    "street-not-found-description": "Ojdå! Det finns ingen gata med den här länken!",
-    "street-not-found-but-user-description": "Det finns ingen gata med den här länken! Men du kan titta på andra gator av {user}",
-    "street-deleted-title": "Den här gatan har tagits bort",
-    "street-deleted-description": "Det finns inte längre någon gata med den här länken, men du kan titta på andra gator av {user}",
     "sign-out-title": "Nu är du utloggad.",
     "reload-sign-out-title": "Du loggade ut i ett annat fönster.",
     "gallery-street-failure-description": "Vi har problem med att ladda den här gatan.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Den här gatan har tagits bort i en annan webbläsare.",
     "auth-expired": "Vi loggade ut dig automatiskt på grund av inaktivitet.",
     "sign-in-again": "Var vänlig logga in igen.",
-    "access-denied-title": "Du är inte inloggad",
-    "access-denied-description": "Du avbröt inloggningsprocessen.",
-    "auth-api-problem-title": "Det uppstod ett problem med din inloggning.",
-    "auth-api-problem-description": "",
     "please-try-again": "",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix fungerar inte på din webbläsare.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Något gick fel.",
     "generic-error-description": "Vi beklagar – något gick fel.",
     "error-code": "",
-    "need-help-link": "Behöver du hjälp?"
+    "need-help-link": "Behöver du hjälp?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Den här gatan har tagits bort",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Något gick fel.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Ladda om",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Namnlös gata",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {# våning} other {# våningar}}"
   },
   "segments": {

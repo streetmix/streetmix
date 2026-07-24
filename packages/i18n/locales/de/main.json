@@ -137,15 +137,11 @@
       "sign-in": "Noch einmal anmelden",
       "reload": "Die Seite erneut laden",
       "return": "",
-      "try-again": "Noch einmal versuchen"
+      "try-again": "Noch einmal versuchen",
+      "user-redirect": ""
     },
     "page-not-found-title": "Seite nicht gefunden.",
     "page-not-found-description": "Oh man! Es gibt keine Seite mit dieser Adresse!",
-    "street-not-found-title": "Straße nicht gefunden.",
-    "street-not-found-description": "Oh man! Es gibt keine Straße unter diesem Link!",
-    "street-not-found-but-user-description": "Es gibt keine Straße unter diesem Link. Aber du kannst dir andere Straßen von {user} ansehen.",
-    "street-deleted-title": "Diese Straße wurde gelöscht.",
-    "street-deleted-description": "Die Straße unter diesem Link existiert nicht mehr. Aber du kannst dir andere Straßen von {user} ansehen.",
     "sign-out-title": "Du bist jetzt abgemeldet.",
     "reload-sign-out-title": "Du hast dich in einem anderen Fenster abgemeldet.",
     "gallery-street-failure-description": "Wir haben Probleme, diese Straße zu laden.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Diese Straße wurde in einem anderen Browser gelöscht.",
     "auth-expired": "",
     "sign-in-again": "",
-    "access-denied-title": "Du bist nicht angemeldet.",
-    "access-denied-description": "Du hast den Anmeldevorgang abgebrochen.",
-    "auth-api-problem-title": "Beim Anmelden ist ein Problem aufgetreten.",
-    "auth-api-problem-description": "Beim Bestätigen ist ein Problem aufgetreten.",
     "please-try-again": "Bitte versuche es später noch einmal oder sag uns über <email_link>E-Mail</email_link> oder <tweet_link>Twitter</tweet_link> Bescheid.",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix läuft nicht in deinem Browser.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Etwas ist schief gelaufen.",
     "generic-error-description": "Es tut uns leid - etwas ist schief gelaufen.",
     "error-code": "(Fehler {code}.)",
-    "need-help-link": ""
+    "need-help-link": "",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Diese Straße wurde gelöscht.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Etwas ist schief gelaufen.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Neu laden",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Unbenannte Straße",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {# Stock} other {# Stöcke}}"
   },
   "segments": {

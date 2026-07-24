@@ -137,15 +137,11 @@
       "sign-in": "Zaloguj się ponownie",
       "reload": "Odśwież stronę",
       "return": "",
-      "try-again": "Spróbuj ponownie"
+      "try-again": "Spróbuj ponownie",
+      "user-redirect": ""
     },
     "page-not-found-title": "Strona nie została znaleziona.",
     "page-not-found-description": "Nie ma strony o takim adresie!",
-    "street-not-found-title": "Ulica nie została znaleziona.",
-    "street-not-found-description": "Brak ulicy z takim odnośnikiem!",
-    "street-not-found-but-user-description": "Brak ulicy z takim odnośnikiem! Możesz poszukać innych ulic użytkownika {user}",
-    "street-deleted-title": "Ta ulica została usunięta.",
-    "street-deleted-description": "Brak ulicy z takim odnośnikiem! Możesz poszukać innych ulic użytkownika {user}",
     "sign-out-title": "Użytkownik został wylogowany.",
     "reload-sign-out-title": "Użytkownik został wylogowany w innym oknie.",
     "gallery-street-failure-description": "Mamy problem z załadowaniem tej ulicy. ",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Ta ulica została usunięta w innej przeglądarce.",
     "auth-expired": "",
     "sign-in-again": "",
-    "access-denied-title": "Użytkownik nie jest zalogowany.",
-    "access-denied-description": "Proces rejestracji został anulowany.",
-    "auth-api-problem-title": "Wystąpił problem podczas próby zalogowania użytkownika.",
-    "auth-api-problem-description": "Wystąpił problem z uwierzytelnianiem. ",
     "please-try-again": "Spróbuj ponownie później lub daj nam znać poprzez <email_link>email</email_link> lub <tweet_link>Twittera</tweet_link>.",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix nie działa na Twojej przeglądarce.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Coś poszło nie tak.",
     "generic-error-description": "Przepraszamy, coś poszło nie tak.",
     "error-code": "(Błąd {code}.)",
-    "need-help-link": ""
+    "need-help-link": "",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Ta ulica została usunięta.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Coś poszło nie tak.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Odśwież",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Ul. Nienazwana",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {# piętro} few {# piętra} many {# pięter} other {# pięter}}"
   },
   "segments": {

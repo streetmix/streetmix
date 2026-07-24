@@ -137,15 +137,11 @@
       "sign-in": "Log opnieuw in",
       "reload": "Herlaad de pagina",
       "return": "Ga terug naar Streetmix",
-      "try-again": "Probeer opnieuw"
+      "try-again": "Probeer opnieuw",
+      "user-redirect": ""
     },
     "page-not-found-title": "Pagina niet gevonden.",
     "page-not-found-description": "Oeps, er is geen pagina met dit adres!",
-    "street-not-found-title": "Straat niet gevonden.",
-    "street-not-found-description": "Oeps, er is geen straat met deze link!",
-    "street-not-found-but-user-description": "Er is geen straat met deze link! Maar je kunt andere straten bekijken die zijn gemaakt door {user}",
-    "street-deleted-title": "Deze straat is verwijderd.",
-    "street-deleted-description": "Er bestaat niet langer een straat met deze link, maar je kunt andere straten bekijken die zijn gemaakt door {user}",
     "sign-out-title": "Je bent nu uitgelogd.",
     "reload-sign-out-title": "Je hebt jezelf uitgelogd in een ander venster.",
     "gallery-street-failure-description": "We ondervinden problemen bij het laden van deze straat.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Deze straat is verwijderd in een andere browser.",
     "auth-expired": "We hebben je automatisch uitgelogd vanwege inactiviteit.",
     "sign-in-again": "Log alsjeblieft opnieuw in.",
-    "access-denied-title": "Je bent niet ingelogd.",
-    "access-denied-description": "Je hebt het inlog-proces geannuleerd.",
-    "auth-api-problem-title": "Er was een probleem met het inloggen.",
-    "auth-api-problem-description": "Er was een probleem met de authenticatie.",
     "please-try-again": "Probeer het later opnieuw, of laat ons iets weten vie <email_link>e-mail</email_link> of <tweet_link>Twitter</tweet_link>.",
     "please-try-again-contact-us": "Probeer het later opnieuw. Als je dan nog steeds hulp nodig hebt, <a>neem contact met ons op</a>.",
     "unsupported-browser-title": "Streetmix werkt niet in jouw browser.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Er is iets misgegaan.",
     "generic-error-description": "Het spijt ons — er is iets misgegaan.",
     "error-code": "(Error {code}.)",
-    "need-help-link": "Heb je hulp nodig?"
+    "need-help-link": "Heb je hulp nodig?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Deze straat is verwijderd.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Er is iets misgegaan.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Herlaad",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Naamloze Straat",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {# verdieping} other {# verdiepingen}}"
   },
   "segments": {

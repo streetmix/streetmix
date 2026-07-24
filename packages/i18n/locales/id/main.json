@@ -137,15 +137,11 @@
       "sign-in": "Masuk lagi",
       "reload": "Muat ulang laman",
       "return": "Kembali ke Streetmix",
-      "try-again": "Coba lagi"
+      "try-again": "Coba lagi",
+      "user-redirect": ""
     },
     "page-not-found-title": "Laman tidak ditemukan.",
     "page-not-found-description": "Ya ampun. Tidak ada laman dengan alamat ini!",
-    "street-not-found-title": "Jalan tidak ditemukan.",
-    "street-not-found-description": "Ya ampun. Tidak ada jalan dengan tautan ini!",
-    "street-not-found-but-user-description": "Tidak ada jalan dengan tautan ini! Tetapi Anda dapat melihat jalan-jalan lain oleh {user}",
-    "street-deleted-title": "Jalan ini telah dihapus.",
-    "street-deleted-description": "Tidak ada lagi jalan dengan tautan ini, tetapi Anda dapat melihat jalan lain oleh{user}",
     "sign-out-title": "Anda sekarang sudah keluar.",
     "reload-sign-out-title": "Anda keluar di jendela lain.",
     "gallery-street-failure-description": "Kami mengalami masalah saat memuat jalan ini.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Jalan ini telah dihapus di peramban lain.",
     "auth-expired": "Kami secara otomatis mengeluarkan Anda karena tidak aktif.",
     "sign-in-again": "Silakan masuk lagi.",
-    "access-denied-title": "Anda belum masuk.",
-    "access-denied-description": "Anda membatalkan proses masuk.",
-    "auth-api-problem-title": "Ada masalah dengan pendaftaran Anda.",
-    "auth-api-problem-description": "Ada masalah dengan autentikasi.",
     "please-try-again": "Silakan coba lagi nanti atau beri tahu kami melalui <email_link>email</email_link> atau <tweet_link>Twitter</tweet_link>.",
     "please-try-again-contact-us": "Silakan coba lagi nanti. Jika Anda masih membutuhkan bantuan, silakan <a>hubungi kami</a>.",
     "unsupported-browser-title": "Streetmix tidak bekerja di peramban Anda.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Ada yang tidak beres.",
     "generic-error-description": "Maaf – ada yang tidak beres.",
     "error-code": "(Kesalahan {code}.)",
-    "need-help-link": "Butuh bantuan?"
+    "need-help-link": "Butuh bantuan?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Jalan ini telah dihapus.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Ada yang tidak beres.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Muat ulang",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Jl. Unnamed",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, other {# lantai}}"
   },
   "segments": {

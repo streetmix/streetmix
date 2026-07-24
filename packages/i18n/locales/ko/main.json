@@ -137,15 +137,11 @@
       "sign-in": "다시 로그인",
       "reload": "페이지 새로고침",
       "return": "스트리트믹스로 돌아가기",
-      "try-again": "다시 시도"
+      "try-again": "다시 시도",
+      "user-redirect": ""
     },
     "page-not-found-title": "페이지를 찾을 수 없습니다.",
     "page-not-found-description": "아이고... 이 주소를 가진 페이지가 없습니다!",
-    "street-not-found-title": "스트리트를 찾을 수 없습니다.",
-    "street-not-found-description": "아이고... 이 링크로 연결된 스트리트가 없습니다!",
-    "street-not-found-but-user-description": "이 링크로 연결된 스트리트가 없습니다! 하지만 {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
-    "street-deleted-title": "이 스트리트는 삭제되었습니다.",
-    "street-deleted-description": "이 링크로 연결된 스트리트가 더 이상 없지만, {user}가 만든 다른 스트리트를 살펴볼 수 있습니다",
     "sign-out-title": "정상적으로 로그아웃 되었습니다.",
     "reload-sign-out-title": "다른 창에서 로그아웃 되었습니다.",
     "gallery-street-failure-description": "스트리트를 로딩하는 데 문제가 있습니다.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "이 스트리트는 다른 브라우저에서 삭제되었습니다.",
     "auth-expired": "장시간 활동이 없어 자동으로 로그아웃 되었습니다.",
     "sign-in-again": "다시 로그인해 주세요.",
-    "access-denied-title": "로그인 상태가 아닙니다.",
-    "access-denied-description": "로그인 과정을 취소하였습니다.",
-    "auth-api-problem-title": "로그인에 문제가 있습니다.",
-    "auth-api-problem-description": "인증에 문제가 있습니다.",
     "please-try-again": "나중에 다시 시도해주시거나 <email_link>이메일</email_link> 또는 <tweet_link>트위터</tweet_link>로 알려주세요.",
     "please-try-again-contact-us": "잠시 후 다시 시도 해주십시오. 도움이 필요하시면, <a>저희에게</a> 연락 해주세요.",
     "unsupported-browser-title": "다른 브라우저를 사용해주세요.",
@@ -169,7 +161,35 @@
     "generic-error-title": "뭔가 잘못됐네요.",
     "generic-error-description": "죄송합니다 - 뭔가 잘못됐네요.",
     "error-code": "(에러 {code}.)",
-    "need-help-link": "도움이 필요하신가요?"
+    "need-help-link": "도움이 필요하신가요?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "이 스트리트는 삭제되었습니다.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "뭔가 잘못됐네요.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "새로고침",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "이름없는 도로",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, other {# 층}}"
   },
   "segments": {

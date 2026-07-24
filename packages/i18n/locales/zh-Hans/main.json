@@ -137,15 +137,11 @@
       "sign-in": "重新登录",
       "reload": "刷新网页",
       "return": "",
-      "try-again": "再试一次"
+      "try-again": "再试一次",
+      "user-redirect": ""
     },
     "page-not-found-title": "无法找到网页",
     "page-not-found-description": "哎呀，这个地址不存在哦！",
-    "street-not-found-title": "无法找到街道",
-    "street-not-found-description": "哎呀，这个链接中没有街道哦！",
-    "street-not-found-but-user-description": "这个链接中没有街道哦！但你可以查看{user}所创建的其他街道。",
-    "street-deleted-title": "这条街道已经被删除。",
-    "street-deleted-description": "这个链接中的街道已经不存在，但你可以查看{user}所创建的其他街道。",
     "sign-out-title": "你已经退出登录。",
     "reload-sign-out-title": "你已在另一个窗口退出登录。",
     "gallery-street-failure-description": "我们在加载这条街道时遇到一些问题。",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "这条街道已在另一个浏览器中被删除。",
     "auth-expired": "",
     "sign-in-again": "",
-    "access-denied-title": "你还未登录。",
-    "access-denied-description": "你取消了这次登录。",
-    "auth-api-problem-title": "你在登录过程中遇到了一点小问题。",
-    "auth-api-problem-description": "我们在确认你身份的过程中遇到了一点小问题。",
     "please-try-again": "请稍后再试。请通过<email_link>电子邮件</email_link>或者<tweet_link>推特</tweet_link>联系我们。",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix无法在这个浏览器中运行。",
@@ -169,7 +161,35 @@
     "generic-error-title": "我们出现了一些技术故障。",
     "generic-error-description": "很抱歉，我们出现了一些技术故障。",
     "error-code": "（故障{code}）",
-    "need-help-link": ""
+    "need-help-link": "",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "这条街道已经被删除。",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "我们出现了一些技术故障。",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "重新加载",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "未命名街道",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, other {# 层}}"
   },
   "segments": {

@@ -137,15 +137,11 @@
       "sign-in": "",
       "reload": "",
       "return": "",
-      "try-again": ""
+      "try-again": "",
+      "user-redirect": ""
     },
     "page-not-found-title": "",
     "page-not-found-description": "",
-    "street-not-found-title": "",
-    "street-not-found-description": "",
-    "street-not-found-but-user-description": "",
-    "street-deleted-title": "",
-    "street-deleted-description": "",
     "sign-out-title": "",
     "reload-sign-out-title": "",
     "gallery-street-failure-description": "",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "",
     "auth-expired": "",
     "sign-in-again": "",
-    "access-denied-title": "",
-    "access-denied-description": "",
-    "auth-api-problem-title": "",
-    "auth-api-problem-description": "",
     "please-try-again": "",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "",
@@ -169,7 +161,35 @@
     "generic-error-title": "",
     "generic-error-description": "",
     "error-code": "",
-    "need-help-link": ""
+    "need-help-link": "",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {} few {} other {}}"
   },
   "segments": {
