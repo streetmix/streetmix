@@ -137,15 +137,11 @@
       "sign-in": "Kirjaudu sisään uudelleen",
       "reload": "Lataa sivu uudelleen",
       "return": "Takaisin Streetmixiin",
-      "try-again": "Yritä uudelleen"
+      "try-again": "Yritä uudelleen",
+      "user-redirect": ""
     },
     "page-not-found-title": "Sivua ei löydy.",
     "page-not-found-description": "Voi pojat, tässä osoitteessa ei ole mitään sisältöä!",
-    "street-not-found-title": "Katua ei löydy.",
-    "street-not-found-description": "Voi pojat, tämä linkki ei johtanut mihinkään!",
-    "street-not-found-but-user-description": "Tämä linkin takaa ei löydy mitään katua, mutta voit selailla muita käyttäjän {user} katuja",
-    "street-deleted-title": "Tämä katu on poistettu.",
-    "street-deleted-description": "Tämä linkin takaa ei enää löydy katua, mutta voit selailla muita käyttäjän {user} katuja",
     "sign-out-title": "Olet nyt kirjautunut ulos.",
     "reload-sign-out-title": "Kirjauduit ulos toisessa ikkunassa.",
     "gallery-street-failure-description": "Kadun lataaminen ei onnistu.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Katu on poistettu toisessa selaimessa.",
     "auth-expired": "Sinut kirjattu automaattisesti ulos toimettomuuden vuoksi.",
     "sign-in-again": "Kirjaudu sisään uudelleen.",
-    "access-denied-title": "Et ole kirjautunut sisään.",
-    "access-denied-description": "Sisäänkirjautuminen keskeytyi.",
-    "auth-api-problem-title": "Sisäänkirjautuminen epäonnistui.",
-    "auth-api-problem-description": "Tunnistautuminen epäonnistui.",
     "please-try-again": "Yritä myöhemmin uudelleen ja tarvittaessa tee vikailmoitus <email_link>sähköpostitse</email_link> tai <tweet_link>Twitterissä</tweet_link>.",
     "please-try-again-contact-us": "Yritä myöhemmin uudelleen. <a>Ota tarvittaessa yhteyttä</a>.",
     "unsupported-browser-title": "Streetmix ei toimi tässä selaimessa.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Jokin meni vikaan.",
     "generic-error-description": "Pahoittelut – jokin meni vikaan.",
     "error-code": "(Virhe {code}.)",
-    "need-help-link": "Tarvitsetko apua?"
+    "need-help-link": "Tarvitsetko apua?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Tämä katu on poistettu.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Jokin meni vikaan.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Päivitä",
@@ -423,7 +443,10 @@
     "ground-height-raise": "Nosta maanpinnan korkeutta",
     "sea-level-input": "Muuta merenpinnan korkeutta",
     "sea-level-lower": "Laske merenpinnan korkeutta",
-    "sea-level-raise": "Nosta merenpinnan korkeutta"
+    "sea-level-raise": "Nosta merenpinnan korkeutta",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "Rakennuksen korkeus",
+    "label2": "",
     "floors-count": "{count, plural, one {# kerros} other {# kerrosta}}"
   },
   "segments": {

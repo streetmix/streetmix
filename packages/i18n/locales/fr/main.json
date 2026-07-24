@@ -137,15 +137,11 @@
       "sign-in": "Se connecter de nouveau",
       "reload": "Recharger la page",
       "return": "",
-      "try-again": "Ré-essayer"
+      "try-again": "Ré-essayer",
+      "user-redirect": ""
     },
     "page-not-found-title": "Page non trouvée.",
     "page-not-found-description": "Oh. Il n'y a pas de page à cette adresse !",
-    "street-not-found-title": "Rue non trouvée.",
-    "street-not-found-description": "Oh zut. Il n'y a pas de rue avec ce lien !",
-    "street-not-found-but-user-description": "Il n'y a pas de rue avec ce lien ! Mais vous pouvez regarder les autres rues de {user}",
-    "street-deleted-title": "Cette rue a été supprimée.",
-    "street-deleted-description": "Il n'y a plus de rue avec ce lien, mais vous pouvez regarder les autres rues avec {user}",
     "sign-out-title": "Vous êtes maintenant déconnecté.",
     "reload-sign-out-title": "Vous vous êtes déconnecté dans une autre fenêtre.",
     "gallery-street-failure-description": "Nous avons rencontré des problèmes lors du chargement de cette rue.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Cette rue a été supprimée dans un autre navigateur.",
     "auth-expired": "",
     "sign-in-again": "",
-    "access-denied-title": "Vous n'êtes pas connecté.",
-    "access-denied-description": "Vous avez annulé le processus de connexion.",
-    "auth-api-problem-title": "Il y a eu un problème avec votre identification.",
-    "auth-api-problem-description": "Il y a eu un problème avec l'authentification.",
     "please-try-again": "Veuillez réessayer plus tard ou nous le signaler via <email_link>email</email_link> ou <tweet_link>Twitter</tweet_link>.",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix ne fonctionne pas sur votre navigateur.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Il y a un problème.",
     "generic-error-description": "Nous sommes désolés – il y a eu un problème.",
     "error-code": "(Code d'erreur {code}.)",
-    "need-help-link": "Besoin d'aide ?"
+    "need-help-link": "Besoin d'aide ?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Cette rue a été supprimée.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Il y a un problème.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Recharger",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "Rue non nommée",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {# étage} many {# étages} other {# étages}}"
   },
   "segments": {

@@ -137,15 +137,11 @@
       "sign-in": "Tekrar oturum aç",
       "reload": "Sayfayı yenile",
       "return": "",
-      "try-again": "Tekrar dene"
+      "try-again": "Tekrar dene",
+      "user-redirect": ""
     },
     "page-not-found-title": "Sayfa bulunamadı.",
     "page-not-found-description": "Hay aksi. Bu adrese sahip bir sayfa yok!",
-    "street-not-found-title": "Sokak bulunamadı.",
-    "street-not-found-description": "Hay aksi. Bu bağlantıya sahip bir sokak yok!",
-    "street-not-found-but-user-description": "Bu bağlantıya bağlı bir sokak bulunamadı! Ancak diğer sokaklara göz atabilirsiniz{user}",
-    "street-deleted-title": "Bu sokak silinmiş.",
-    "street-deleted-description": "Bu bağlantıya bağlı bir sokak bulunamadı! Ancak {user} tarafından yapılmış diğer sokaklara göz atabilirsiniz",
     "sign-out-title": "Oturumu kapattınız.",
     "reload-sign-out-title": "Başka bir pencerede çıkış yaptınız",
     "gallery-street-failure-description": "Bu sokağı yüklemede sorun yaşıyoruz.",
@@ -156,10 +152,6 @@
     "street-deleted-elsewhere-description": "Bu sokak başka bir tarayıcı üzerinde silinmiş.",
     "auth-expired": "Bir süredir aktif olmadığınız için oturumunuzu sonlandırdık.",
     "sign-in-again": "Lütfen tekrar oturum açın.",
-    "access-denied-title": "Oturum açmadınız.",
-    "access-denied-description": "Oturum açmayı iptal ettiniz.",
-    "auth-api-problem-title": "Oturum açarken bir sorun oluştu.",
-    "auth-api-problem-description": "Doğrulamada bir problem oluştu.",
     "please-try-again": "Lütfen daha sonra tekrar deneyin veya <email_link>e-posta</email_link> veya <tweet_link>Twitter</tweet_link> üzerinden bizimle iletişime geçin.",
     "please-try-again-contact-us": "",
     "unsupported-browser-title": "Streetmix kullandığınız tarayıcı da çalışmıyor.",
@@ -169,7 +161,35 @@
     "generic-error-title": "Yolunda gitmeyen bir şeyler var.",
     "generic-error-description": "Üzgünüz - yolunda gitmeyen bir şeyler var.",
     "error-code": "(Hata {code}.)",
-    "need-help-link": "Yardıma ihtiyacınız mı var?"
+    "need-help-link": "Yardıma ihtiyacınız mı var?",
+    "temporary-message": "",
+    "page": {
+      "401": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "404": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      },
+      "410": {
+        "title": "",
+        "heading": "Bu sokak silinmiş.",
+        "message": ""
+      },
+      "500": {
+        "title": "",
+        "heading": "Yolunda gitmeyen bir şeyler var.",
+        "message": ""
+      },
+      "503-auth": {
+        "title": "",
+        "heading": "",
+        "message": ""
+      }
+    }
   },
   "btn": {
     "reload": "Yeniden yükle",
@@ -423,7 +443,10 @@
     "ground-height-raise": "",
     "sea-level-input": "",
     "sea-level-lower": "",
-    "sea-level-raise": ""
+    "sea-level-raise": "",
+    "height-input": "",
+    "height-lower": "",
+    "height-raise": ""
   },
   "street": {
     "default-name": "İsimsiz Sk.",
@@ -431,6 +454,7 @@
   },
   "building": {
     "label": "",
+    "label2": "",
     "floors-count": "{count, plural, one {kat} other {# kat}}"
   },
   "segments": {
