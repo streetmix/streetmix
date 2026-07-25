@@ -1,4 +1,4 @@
-export const JUST_SIGNED_IN_PATH = '/services/auth/just-signed-in'
+export const JUST_SIGNED_IN_PATH = '/services/auth0/just-signed-in'
 
 // New street template params
 export const STREET_TEMPLATES = {

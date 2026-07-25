@@ -101,18 +101,20 @@ router.get('/images', cors(), auth(), services.images.get)
  *  AUTHENTICATION SERVICES
  *****************************************************************************/
 
+// All authentication routes are currently named /auth0 so that /auth can be
+// reserved for Better Auth
 router.post(
-  '/auth/refresh-login-token',
+  '/auth0/refresh-login-token',
   cors(),
   controllers.refreshLoginToken.post
 )
 
 // Auth0
-router.get('/auth/sign-in-callback', controllers.auth0SignInCallback.get)
+router.get('/auth0/sign-in-callback', controllers.auth0SignInCallback.get)
 
 // Callback route after signing in
 // This is handled by front-end
-router.get('/auth/just-signed-in/', (req, res) => res.render('main'))
+router.get('/auth0/just-signed-in/', (req, res) => res.render('main'))
 
 /******************************************************************************
  *  THIRD PARTY APP INTEGRATIONS

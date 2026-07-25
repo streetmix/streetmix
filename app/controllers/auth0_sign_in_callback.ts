@@ -58,7 +58,7 @@ const AccessTokenHandler = function (req: Request, res: Response) {
       res.cookie('user_id', user.id || userAuthData, cookieOptions)
       res.cookie('refresh_token', refreshToken, cookieOptions)
       res.cookie('login_token', idToken, cookieOptions)
-      res.redirect('/services/auth/just-signed-in')
+      res.redirect('/services/auth0/just-signed-in')
     } catch (error) {
       logger.error('[auth0] Error from auth0 API when signing in: ' + error)
       res.redirect('/error/authentication-api-problem')
@@ -122,7 +122,7 @@ export function get(req: Request, res: Response) {
     client_id: process.env.AUTH0_CLIENT_ID,
     client_secret: process.env.AUTH0_CLIENT_SECRET,
     code: req.query.code,
-    redirect_uri: `${appURL.origin}/services/auth/sign-in-callback`,
+    redirect_uri: `${appURL.origin}/services/auth0/sign-in-callback`,
   }
   const options = {
     headers: { 'content-type': 'application/json' },

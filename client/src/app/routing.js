@@ -2,7 +2,7 @@ import { URL_NEW_STREET } from './constants'
 import Authenticate from './auth0'
 
 const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
-  '/services/auth/sign-in-callback',
+  '/services/auth0/sign-in-callback',
   window.location.origin
 ).href
 
