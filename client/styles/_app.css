@@ -181,8 +181,7 @@
   height: 100svh;
   padding: 50px;
   font-size: 1.2rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
 }
 
 /* -------------------------------------------------------- */
