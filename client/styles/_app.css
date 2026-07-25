@@ -97,6 +97,10 @@
       color: var(--color-turquoise-700);
     }
   }
+
+  .avatar {
+    margin-inline: 0.35em 0;
+  }
 }
 
 #error.error-content-new {
