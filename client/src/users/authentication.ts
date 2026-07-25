@@ -174,7 +174,7 @@ export async function loadSignIn() {
 async function refreshLoginToken(refreshToken: string) {
   const requestBody = JSON.stringify({ token: refreshToken })
   try {
-    const response = await window.fetch('/services/auth/refresh-login-token', {
+    const response = await window.fetch('/services/auth0/refresh-login-token', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

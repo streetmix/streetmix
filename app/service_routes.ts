@@ -114,6 +114,16 @@ router.get('/auth/sign-in-callback', controllers.auth0SignInCallback.get)
 // This is handled by front-end
 router.get('/auth/just-signed-in/', (req, res) => res.render('main'))
 
+// For now, duplicate all routes to /auth0 so that /auth can be migrated
+// to use Better Auth
+router.post(
+  '/auth0/refresh-login-token',
+  cors(),
+  controllers.refreshLoginToken.post
+)
+router.get('/auth0/sign-in-callback', controllers.auth0SignInCallback.get)
+router.get('/auth0/just-signed-in/', (req, res) => res.render('main'))
+
 /******************************************************************************
  *  THIRD PARTY APP INTEGRATIONS
  *****************************************************************************/
