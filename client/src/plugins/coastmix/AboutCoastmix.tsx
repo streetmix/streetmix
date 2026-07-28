@@ -53,7 +53,11 @@ export function AboutCoastmix() {
           visualize and share resilient coasts. Create your ideal waterfront,
           build coastal flood protection, and learn how climate change impacts
           your community.{' '}
-          <a href="" target="_blank">
+          <a
+            href="https://www.boston.gov/coastmix"
+            target="_blank"
+            rel="noopener"
+          >
             Learn more.
           </a>
         </p>
