@@ -20,6 +20,9 @@ export function ShareMenu(props: MenuProps) {
   const offline = useSelector((state) => state.system.offline)
   const user = useSelector((state) => state.user)
   const street = useSelector((state) => state.street)
+  const coastmixMode = useSelector(
+    (state) => state.flags.COASTMIX_MODE?.value ?? false
+  )
   const copyShareLinkRef = useRef<HTMLInputElement>(null)
   const intl = useIntl()
 
@@ -42,13 +45,17 @@ export function ShareMenu(props: MenuProps) {
           {!user.signedIn && <SignInPromo type="share" />}
           <CopyShareLink shareUrl={shareUrl} ref={copyShareLinkRef} />
           <MenuSeparator />
-          <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
-          <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
-          <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
-          <MenuSeparator />
-          <Export3DStreet />
-          <ExportStreetmeter />
-          <MenuSeparator />
+          {!coastmixMode && (
+            <>
+              <PostOnMastodon shareText={shareText} shareUrl={shareUrl} />
+              <PostOnTwitter shareText={shareText} shareUrl={shareUrl} />
+              <PostOnFacebook shareText={shareText} shareUrl={shareUrl} />
+              <MenuSeparator />
+              <Export3DStreet />
+              <ExportStreetmeter />
+              <MenuSeparator />
+            </>
+          )}
         </>
       )}
       <PrintImage />
