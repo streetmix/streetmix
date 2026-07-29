@@ -97,7 +97,6 @@ jobs:
     container:
       image: cypress/browsers:node-24.12.0-chrome-143.0.7499.40-1-ff-146.0-edge-143.0.3650.66-1
     env:
-      NODE_ENV: test
       HUSKY: "0"
       # We need placeholder API keys to mock some third party integrations
       PELIAS_API_KEY: ge-iampelias
@@ -120,3 +119,5 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Do not upload build sourcemaps to Sentry
           SENTRY_ALLOW_FAILURE: true
+          # Cypress does not use NODE_ENV but we need it for running the app
+          NODE_ENV: test
