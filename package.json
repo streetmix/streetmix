@@ -8,7 +8,7 @@
   },
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": "^22.18.0 || ^24.0.0 || ^26.0.0",
+    "node": "^22.21.0 || ^24.10.0 || ^26.0.0",
     "npm": ">=11.x"
   },
   "type": "module",
@@ -28,7 +28,7 @@
     "serve": "nodemon -r newrelic --exec node index.ts",
     "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
-    "dev-server": "nodemon -r dotenv/config --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec node index.ts",
+    "dev-server": "nodemon --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec node --env-file=.env index.ts",
     "dev-tsc": "tsc -b --watch --preserveWatchOutput",
     "clean": "rm -rf ./.parcel-cache && rm -rf ./build && find ./packages -type d -name build -prune -exec rm -rf {} + && find ./packages -type f -name tsconfig.tsbuildinfo -delete",
     "test": "npm run lint && npm run vitest",
@@ -83,7 +83,6 @@
     "cookie-parser": "1.4.7",
     "cookie-session": "2.1.1",
     "cors": "2.8.6",
-    "dotenv": "17.4.2",
     "express": "5.2.1",
     "express-jwt": "8.5.1",
     "glob": "13.0.6",
