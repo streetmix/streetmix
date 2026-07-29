@@ -2,10 +2,14 @@ import { logger } from '../../lib/logger.ts'
 
 import type { Options } from 'sequelize'
 
-// Load different .env configs in test environments
-// This script can be loaded from the command line via `npx sequelize`,
-// so we still need to load environment variables separately
-process.loadEnvFile(process.env.NODE_ENV === 'test' ? '.env.test' : '.env')
+// .env files are loaded in dev and test environments when running
+// from the command line via `npx sequelize`,
+// so we still need to load environment variables separately from
+if (process.env.NODE_ENV === 'development') {
+  process.loadEnvFile('.env')
+} else if (process.env.NODE_ENV === 'test') {
+  process.loadEnvFile('.env.test')
+}
 
 const logFunction = (msg: string) => logger.debug(`[sequelize] ${msg}`)
 
