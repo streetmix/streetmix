@@ -1,9 +1,6 @@
 import { defineConfig } from 'cypress'
-import dotenv from 'dotenv'
 
-dotenv.config({
-  quiet: true,
-})
+process.loadEnvFile('.env')
 
 export default defineConfig({
   projectId: '2bmjk3',
