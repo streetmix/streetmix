@@ -97,6 +97,7 @@ jobs:
     container:
       image: cypress/browsers:node-24.12.0-chrome-143.0.7499.40-1-ff-146.0-edge-143.0.3650.66-1
     env:
+      NODE_ENV: test
       HUSKY: "0"
       # We need placeholder API keys to mock some third party integrations
       PELIAS_API_KEY: ge-iampelias
