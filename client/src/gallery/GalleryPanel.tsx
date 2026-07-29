@@ -42,9 +42,11 @@ export function GalleryPanel() {
             <FormattedMessage id="gallery.all" defaultMessage="All streets" />
           )}
         </div>
-        <div className="gallery-search">
-          {gallerySearch && <GallerySearch />}
-        </div>
+        {gallerySearch && (
+          <div className="gallery-search">
+            <GallerySearch />
+          </div>
+        )}
         <div className="gallery-street-count">
           <GalleryPagination isLoading={mode === 'loading' || isLoading} />
         </div>
