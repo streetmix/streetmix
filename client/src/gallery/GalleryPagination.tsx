@@ -36,8 +36,9 @@ export function GalleryPagination({ isLoading }: { isLoading: boolean }) {
   }
 
   // When we don't have pages, keep the UI simple (what it used to be)
-  // otherwise, display pagination UI
-  return pagination.totalPages === 1 ? (
+  // otherwise, display pagination UI. `totalPages` is 0 if a user has
+  // no streets.
+  return pagination.totalPages <= 1 ? (
     <FormattedMessage
       id="gallery.street-count"
       defaultMessage="{count, plural, =0 {No streets yet} one {# street} other {# streets}}"
