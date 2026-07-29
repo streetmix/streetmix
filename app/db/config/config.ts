@@ -5,6 +5,7 @@ import type { Options } from 'sequelize'
 // .env files are loaded in dev and test environments when running
 // from the command line via `npx sequelize`,
 // so we still need to load environment variables separately from
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'development') {
   process.loadEnvFile('.env')
 } else if (process.env.NODE_ENV === 'test') {
