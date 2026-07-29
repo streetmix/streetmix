@@ -54,12 +54,12 @@ describe('GalleryPagination', () => {
     vi.clearAllMocks()
   })
 
-  it('displays "No streets" when totalPages is 0', () => {
+  it('displays "No streets yet" when totalPages is 0', () => {
     render(<GalleryPagination isLoading={false} />, {
       initialState: buildState({ totalPages: 0, streetCount: 0 }),
     })
 
-    expect(screen.getByText(/No streets/i)).toBeInTheDocument()
+    expect(screen.getByText(/No streets yet/i)).toBeInTheDocument()
   })
 
   it('displays "X streets" when totalPages is 1', () => {
