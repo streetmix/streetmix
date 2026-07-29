@@ -28,7 +28,7 @@
     "serve": "nodemon -r newrelic --exec node index.ts",
     "build": "npm run build --workspaces --if-present",
     "dev-client": "npm run -w @streetmix/client dev",
-    "dev-server": "nodemon --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec node --env-file=.env index.ts",
+    "dev-server": "nodemon --watch app --watch lib --watch index.ts --watch app.ts --watch packages --exec node --env-file-if-exists=.env index.ts",
     "dev-tsc": "tsc -b --watch --preserveWatchOutput",
     "clean": "rm -rf ./.parcel-cache && rm -rf ./build && find ./packages -type d -name build -prune -exec rm -rf {} + && find ./packages -type f -name tsconfig.tsbuildinfo -delete",
     "test": "npm run lint && npm run vitest",
