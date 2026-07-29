@@ -1,5 +1,7 @@
 import { defineConfig } from 'cypress'
 
+// We only need this for local testing. Cypress runner in CI does not
+// load a .env, so don't throw if it's not found.
 try {
   process.loadEnvFile('.env')
 } catch (e) {
