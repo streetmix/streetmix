@@ -1,20 +1,11 @@
-import path from 'node:path'
-import dotenv from 'dotenv'
-
 import { logger } from '../../lib/logger.ts'
 
 import type { Options } from 'sequelize'
 
-// This script can be loaded from the command line via
-// `npx sequelize`, so we still need to load environment variables
-dotenv.config({
-  quiet: true,
-  debug: process.env.DEBUG === 'true',
-  path:
-    process.env.NODE_ENV === 'test'
-      ? path.resolve(process.cwd(), '.env.test')
-      : path.resolve(process.cwd(), '.env'), // Default .env location
-})
+// Load different .env configs in test environments
+// This script can be loaded from the command line via `npx sequelize`,
+// so we still need to load environment variables separately
+process.loadEnvFile(process.env.NODE_ENV === 'test' ? '.env.test' : '.env')
 
 const logFunction = (msg: string) => logger.debug(`[sequelize] ${msg}`)
 
