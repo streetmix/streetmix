@@ -1,6 +1,12 @@
 import { defineConfig } from 'cypress'
 
-process.loadEnvFile('.env')
+try {
+  process.loadEnvFile('.env')
+} catch (e) {
+  if (e.code !== 'ENOENT') {
+    throw e
+  }
+}
 
 export default defineConfig({
   projectId: '2bmjk3',
