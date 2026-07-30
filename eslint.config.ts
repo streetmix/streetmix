@@ -2,7 +2,8 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import eslint from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-// import importPlugin from 'eslint-plugin-import'
+import { createNodeResolver, importX } from 'eslint-plugin-import-x'
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
 import node from 'eslint-plugin-n'
 // @ts-expect-error no types published for eslint-plugin-promise
 import pluginPromise from 'eslint-plugin-promise'
@@ -14,7 +15,8 @@ import cypress from 'eslint-plugin-cypress'
 export default defineConfig([
   globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
   eslint.configs.recommended,
-  // importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   pluginPromise.configs['flat/recommended'],
   reactRefresh.configs.recommended(),
   {
@@ -42,29 +44,38 @@ export default defineConfig([
         ...globals.node,
       },
     },
+    settings: {
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver(),
+        createNodeResolver(),
+      ],
+    },
     rules: {
-      // 'import/no-unresolved': 0,
-      // 'import/order': [
-      //   'warn',
-      //   {
-      //     groups: [
-      //       'builtin',
-      //       'external',
-      //       'internal',
-      //       'parent',
-      //       'sibling',
-      //       'index',
-      //       'object',
-      //       'type',
-      //     ],
-      //     pathGroups: [
-      //       {
-      //         pattern: '~/**',
-      //         group: 'internal',
-      //       },
-      //     ],
-      //   },
-      // ],
+      // Usually importing on a "namespace" like L or React is intentional
+      'import-x/no-named-as-default-member': 0,
+      // This doesn't understand ~/ imports
+      'import-x/no-unresolved': 0,
+      'import-x/order': [
+        'warn',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+          pathGroups: [
+            {
+              pattern: '~/**',
+              group: 'internal',
+            },
+          ],
+        },
+      ],
       'react/jsx-no-bind': 0,
       'no-restricted-globals': [
         'error',

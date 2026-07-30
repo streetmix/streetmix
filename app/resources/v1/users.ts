@@ -1,4 +1,4 @@
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
 import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
@@ -123,7 +123,7 @@ export async function post(req: AuthedRequest, res: Response) {
     } else if (credentials.profileImageUrl) {
       // If no profile image cached in cloudinary, cache image provided by credentials and return cloudinary url.
       try {
-        const response = await cloudinary.v2.uploader.upload(
+        const response = await cloudinary.uploader.upload(
           credentials.profileImageUrl,
           { upload_preset: 'profile_image', public_id: publicId }
         )

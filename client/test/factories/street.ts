@@ -1,5 +1,5 @@
-import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 import merge from 'deepmerge'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
 
 import type { StreetState } from '@streetmix/types'
 
