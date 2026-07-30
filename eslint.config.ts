@@ -51,6 +51,9 @@ export default defineConfig([
       ],
     },
     rules: {
+      // Usually importing on a "namespace" like L or React is intentional
+      'import-x/no-named-as-default-member': 0,
+      // This doesn't understand ~/ imports
       'import-x/no-unresolved': 0,
       'import-x/order': [
         'warn',
