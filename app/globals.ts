@@ -2,7 +2,6 @@
 process.title = 'streetmix'
 
 // Set some defaults for env vars, if not set
-// This must be set after `dotenv` loads
 process.env.APP_DOMAIN = process.env.APP_DOMAIN || 'localhost'
 process.env.APP_PROTOCOL =
   process.env.PROTOCOL || process.env.APP_DOMAIN === 'localhost'

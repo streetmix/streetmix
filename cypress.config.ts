@@ -1,9 +1,14 @@
 import { defineConfig } from 'cypress'
-import dotenv from 'dotenv'
 
-dotenv.config({
-  quiet: true,
-})
+// We only need this for local testing. Cypress runner in CI does not
+// load a .env, so don't throw if it's not found.
+try {
+  process.loadEnvFile('.env')
+} catch (e) {
+  if (e.code !== 'ENOENT') {
+    throw e
+  }
+}
 
 export default defineConfig({
   projectId: '2bmjk3',

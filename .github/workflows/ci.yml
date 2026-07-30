@@ -119,3 +119,5 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Do not upload build sourcemaps to Sentry
           SENTRY_ALLOW_FAILURE: true
+          # Cypress does not use NODE_ENV but we need it for running the app
+          NODE_ENV: test

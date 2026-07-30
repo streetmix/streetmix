@@ -1,4 +1,3 @@
-import path from 'node:path'
 import '@testing-library/jest-dom/vitest'
 import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import 'vitest-canvas-mock'
@@ -6,12 +5,8 @@ import 'vitest-localstorage-mock'
 
 import { server } from './test/server/index.js'
 
-// Allow require() so we can configure dotenv with test env vars
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-require('dotenv').config({
-  quiet: true,
-  path: path.resolve(process.cwd(), '.env.test'),
-})
+// In a test environment, use test env vars
+process.loadEnvFile('.env.test')
 
 // Set up listeners on API with mock-service-worker
 beforeAll(() => {
