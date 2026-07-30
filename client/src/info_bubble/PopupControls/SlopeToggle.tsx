@@ -1,14 +1,13 @@
 import { useIntl } from 'react-intl'
 
+// Slope icon was created in-house, we don't have this in the <Icon /> pipeline
+// (yet) (TODO in future if this icon works out)
+import slopeIcon from 'url:./icon-slope.svg'
 import { useDispatch } from '~/src/store/hooks.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
-
-// Slope icon was created in-house, we don't have this in the <Icon /> pipeline
-// (yet) (TODO in future if this icon works out)
-import slopeIcon from 'url:./icon-slope.svg'
 
 interface SlopeToggleProps {
   position: number

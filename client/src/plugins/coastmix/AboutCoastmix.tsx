@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl'
 
-import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import logoCoastmix from 'url:./images/logo_horizontal_coastmix2.svg'
 import crbLogo from 'url:./images/crb.png'
 import oetLogo from 'url:./images/oet.svg'
 import catAvatar from 'url:./images/cat.jpg'
 import kellyAvatar from 'url:./images/kelly.jpg'
 import michaelAvatar from 'url:./images/michael.jpg'
+import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './AboutCoastmix.css'
 
 export function AboutCoastmix() {

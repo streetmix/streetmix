@@ -11,10 +11,10 @@ import { drawSilhouette } from './silhouette.js'
 import { drawSky } from './sky.js'
 import { drawSlices } from './slices.js'
 import { drawWatermark } from './watermark.js'
+import { getTranslations } from './locale.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import type { StreetImageExportOptions } from './index.js'
-import { getTranslations } from './locale.js'
 
 // Register fonts
 // We will not be using variable fonts here because canvas support doesn't
