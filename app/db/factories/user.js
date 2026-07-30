@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import User from '../models/user.js'
+import { User } from '../models/user.js'
 
 /*
 a factory to make a user
@@ -10,7 +10,7 @@ const user = (props = {}) => {
     id: faker.internet.username(),
     email: faker.internet.email(),
     created_at: new Date(),
-    updated_at: new Date()
+    updated_at: new Date(),
   }
   return Object.assign({}, defaultProps, props)
 }
