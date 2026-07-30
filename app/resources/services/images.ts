@@ -1,4 +1,4 @@
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
 import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
@@ -47,7 +47,7 @@ export async function get(req: AuthedRequest, res: Response) {
 
   let signature
   try {
-    signature = await cloudinary.v2.utils.api_sign_request(query, apiSecret)
+    signature = await cloudinary.utils.api_sign_request(query, apiSecret)
   } catch (error) {
     logger.error(error)
   }

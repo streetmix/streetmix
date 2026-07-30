@@ -1,7 +1,7 @@
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
 export function initCloudinary() {
-  cloudinary.v2.config({
+  cloudinary.config({
     cloud_name: 'streetmix',
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,

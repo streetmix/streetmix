@@ -1,5 +1,5 @@
 import axios from 'axios'
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 import { z } from 'zod'
 import { runTestCanvas, StreetImageExportSchema } from '@streetmix/export-image'
 
@@ -68,7 +68,7 @@ export async function post(req: AuthedRequest, res: Response) {
   let resource
 
   try {
-    resource = await cloudinary.v2.api.resource(publicId)
+    resource = await cloudinary.api.resource(publicId)
   } catch (err) {
     // If the http_code returned is 404, the street thumbnail does not exist which we shouldn't consider an error.
     if (err.error.http_code !== 404) {
@@ -124,8 +124,8 @@ export async function post(req: AuthedRequest, res: Response) {
     }
 
     try {
-      await cloudinary.v2.uploader.remove_all_tags([publicId])
-      resource = await cloudinary.v2.uploader.upload(image, {
+      await cloudinary.uploader.remove_all_tags([publicId])
+      resource = await cloudinary.uploader.upload(image, {
         public_id: publicId,
         tags: editCount,
       })
@@ -271,7 +271,7 @@ export async function del(req: AuthedRequest, res: Response) {
 
   // 4) Delete street thumbnail from cloudinary.
   const publicId = `${process.env.NODE_ENV}/street_thumbnails/${req.params.street_id}`
-  cloudinary.v2.uploader.destroy(publicId, function (error, _result) {
+  cloudinary.uploader.destroy(publicId, function (error, _result) {
     if (error) {
       logger.error(error)
       res
@@ -315,7 +315,7 @@ export async function get(req: Request, res: Response) {
 
   try {
     const publicId = `${process.env.NODE_ENV}/street_thumbnails/${streetId}`
-    resource = await cloudinary.v2.api.resource(publicId)
+    resource = await cloudinary.api.resource(publicId)
   } catch (error) {
     if (error?.error?.http_code === 404) {
       // While canvas backend is in development, let's run and return this

@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 import request from 'supertest'
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
 import { setupMockServer } from '../../../test/setup-mock-server.ts'
 import * as images from '../street_images.ts'
@@ -49,10 +49,10 @@ describe('POST api/v1/streets/:street_id/image', () => {
   const details = { image: 'foo', event: 'TEST' }
   JSON.parse = vi.fn().mockReturnValue(details)
 
-  cloudinary.v2.uploader.upload.mockResolvedValue('foo')
+  cloudinary.uploader.upload.mockResolvedValue('foo')
 
   it('should respond with 201 Created when a data url is sent', () => {
-    cloudinary.v2.api.resource.mockResolvedValueOnce('baz')
+    cloudinary.api.resource.mockResolvedValueOnce('baz')
     jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post(`/api/v1/streets/${street.id}/images`)
@@ -65,7 +65,7 @@ describe('POST api/v1/streets/:street_id/image', () => {
   })
 
   it('should respond with 201 Created when street thumbnail does not exist', () => {
-    cloudinary.v2.api.resource.mockReturnValueOnce(null)
+    cloudinary.api.resource.mockReturnValueOnce(null)
 
     return request(app)
       .post(`/api/v1/streets/${street.id}/images`)
@@ -78,7 +78,7 @@ describe('POST api/v1/streets/:street_id/image', () => {
   })
 
   it('should respond with 403 Forbidden when user is not owner of street', () => {
-    cloudinary.v2.api.resource.mockResolvedValueOnce('baz')
+    cloudinary.api.resource.mockResolvedValueOnce('baz')
 
     jwtMock.mockReturnValueOnce(mockAltUser)
 
@@ -102,7 +102,7 @@ describe('DELETE api/v1/streets/:street_id/images', () => {
     )
   })
 
-  cloudinary.v2.uploader.destroy.mockImplementation((publicId, cb) =>
+  cloudinary.uploader.destroy.mockImplementation((publicId, cb) =>
     cb(null, publicId)
   )
 
@@ -123,7 +123,7 @@ describe('GET api/v1/streets/:street_id/images', () => {
     app.get('/api/v1/streets/:street_id/images', mockUserMiddleware, images.get)
   })
 
-  cloudinary.v2.api.resource.mockResolvedValue('foo')
+  cloudinary.api.resource.mockResolvedValue('foo')
 
   it('should respond with 200 when street thumbnail is found', () => {
     return request(app)
