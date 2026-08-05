@@ -29,13 +29,13 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "remark-smartypants": "^3.0.2",
+    "remark-smartypants": "^3.0.3",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@argos-ci/cli": "^6.4.0",
-    "@argos-ci/playwright": "^7.3.6",
-    "@playwright/test": "^1.61.1",
+    "@argos-ci/cli": "^6.6.1",
+    "@argos-ci/playwright": "^7.4.2",
+    "@playwright/test": "^1.62.1",
     "cheerio": "^1.2.0"
   },
   "browserslist": {
