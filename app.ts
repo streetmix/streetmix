@@ -161,7 +161,6 @@ const csp = {
       process.env.PELIAS_HOST_NAME ?? '',
       'sentry.io',
       process.env.AUTH0_DOMAIN ?? '',
-      process.env.DOES_NOT_EXIST ?? '',
       'checkout.stripe.com',
       'plausible.io',
       'buttondown.com',
