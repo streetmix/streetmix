@@ -1,7 +1,10 @@
 import { getSignInData, isSignedIn } from '../users/authentication.js'
 import { formatMessage } from '../locales/locale.js'
+import { STREETMIX_INSTANCE } from './config.js'
 
 import type { StreetState } from '@streetmix/types'
+
+const APP_TITLE = STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
 
 /**
  * Updates page title.
@@ -32,7 +35,8 @@ export function updatePageTitle(street: StreetState): void {
 export function getPageTitle(street: StreetState): string {
   const streetName =
     street.name ?? formatMessage('street.default-name', 'Unnamed St')
-  return `${streetName} – Streetmix`
+
+  return `${streetName} – ${APP_TITLE}`
 }
 
 /**
@@ -42,5 +46,6 @@ export function getPageTitle(street: StreetState): string {
 export function getPageTitleWithAuthor(street: StreetState): string {
   const streetName =
     street.name ?? formatMessage('street.default-name', 'Unnamed St')
-  return `${streetName} (by ${street.creatorId}) – Streetmix`
+
+  return `${streetName} (by ${street.creatorId}) – ${APP_TITLE}`
 }
