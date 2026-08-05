@@ -2,6 +2,8 @@ import express from 'express'
 import request from 'supertest'
 import { vi } from 'vitest'
 
+import apiRoutes from '../api_routes.ts'
+
 import type { NextFunction, Request, Response } from 'express'
 
 const {
@@ -36,11 +38,17 @@ const {
 
   return {
     authMock: vi.fn((credentialsRequired = true) => {
-      return (_req: Request, _res: Response, next: NextFunction) => {
+      return (req: Request, res: Response, next: NextFunction) => {
         if (!credentialsRequired) {
           next()
           return
         }
+
+        if (!req.headers.authorization) {
+          res.status(401).json({ status: 401, msg: 'Unauthorized request.' })
+          return
+        }
+
         next()
       }
     }),
@@ -131,8 +139,6 @@ vi.mock('../resources/v1/index.ts', () => ({
   },
 }))
 
-import apiRoutes from '../api_routes.ts'
-
 describe('api_routes router wiring', () => {
   const app = express()
   app.use('/api', apiRoutes)
@@ -142,7 +148,10 @@ describe('api_routes router wiring', () => {
   })
 
   it('routes to users.post', async () => {
-    const response = await request(app).post('/api/v1/users').send({})
+    const response = await request(app)
+      .post('/api/v1/users')
+      .set('Authorization', 'Bearer test-token')
+      .send({})
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({ route: 'users.post' })
@@ -169,6 +178,7 @@ describe('api_routes router wiring', () => {
   it('handles image upload route', async () => {
     const response = await request(app)
       .post('/api/v1/streets/street-123/image')
+      .set('Authorization', 'Bearer test-token')
       .type('text/plain')
       .send('test-body')
 
@@ -185,5 +195,43 @@ describe('api_routes router wiring', () => {
       status: 404,
       error: 'Not found. Did you mispell something?',
     })
+  })
+
+  it('blocks unauthenticated access on auth-required routes', async () => {
+    const response = await request(app).post('/api/v1/users').send({})
+
+    expect(response.statusCode).toBe(401)
+    expect(response.body).toEqual({
+      status: 401,
+      msg: 'Unauthorized request.',
+    })
+    expect(usersPostMock).not.toHaveBeenCalled()
+  })
+
+  it('allows authenticated access on auth-required routes', async () => {
+    const response = await request(app)
+      .delete('/api/v1/streets/street-123')
+      .set('Authorization', 'Bearer test-token')
+
+    expect(response.statusCode).toBe(204)
+    expect(streetsDeleteMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('allows anonymous access on auth-optional routes', async () => {
+    const response = await request(app).get('/api/v1/users')
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual({ route: 'users.get' })
+    expect(usersGetMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('allows authenticated access on auth-optional routes', async () => {
+    const response = await request(app)
+      .get('/api/v1/users')
+      .set('Authorization', 'Bearer test-token')
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual({ route: 'users.get' })
+    expect(usersGetMock).toHaveBeenCalledTimes(1)
   })
 })
