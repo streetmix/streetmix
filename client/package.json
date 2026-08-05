@@ -91,7 +91,7 @@
     "@types/webpack-env": "1.18.8",
     "happy-dom": "20.11.0",
     "msw": "2.15.0",
-    "postcss": "8.5.21",
+    "postcss": "8.5.23",
     "postcss-nesting": "14.0.0",
     "react-dnd-test-backend": "16.0.1",
     "stylelint": "17.14.1",
