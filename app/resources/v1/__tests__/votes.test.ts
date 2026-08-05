@@ -1,11 +1,11 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
 import * as votes from '../votes.ts'
-
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
 
 const TEST_USER_ONE = 'user1'
 const TEST_USER_AUTH0_ONE = 'foo|123'
@@ -30,16 +30,7 @@ const MOCK_VOTE_TWO = {
 
 const voteByUser = 'vote1'
 const voteByOtherUser = 'vote2'
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('api/v1/votes', function () {
   const app = setupMockServer((app) => {

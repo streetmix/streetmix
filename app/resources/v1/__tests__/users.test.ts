@@ -1,13 +1,91 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
 import * as users from '../users.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+const { userFindOneMock, userFindAllMock, userCreateMock, userUpdateMock } =
+  vi.hoisted(() => ({
+    userFindOneMock: vi.fn(async (query) => {
+      const where = query?.where ?? {}
 
-vi.mock('../../../db/models.ts')
+      if (where.auth0Id === 'admin|789') {
+        return {
+          id: 'admin1',
+          auth0Id: 'admin|789',
+          roles: ['ADMIN'],
+          toJSON() {
+            return { ...this }
+          },
+        }
+      }
+
+      if (where.auth0Id === 'foo|123') {
+        return {
+          id: 'user1',
+          auth0Id: 'foo|123',
+          roles: ['USER'],
+          toJSON() {
+            return { ...this }
+          },
+        }
+      }
+
+      if (where.auth0Id) {
+        return {
+          id: 'user2',
+          auth0Id: where.auth0Id,
+          roles: ['USER'],
+          toJSON() {
+            return { ...this }
+          },
+        }
+      }
+
+      if (where.id) {
+        return {
+          id: where.id,
+          auth0Id: 'foo|123',
+          roles: ['USER'],
+          profileImageUrl: 'https://avatar.com/picture.png',
+          toJSON() {
+            return { ...this }
+          },
+        }
+      }
+
+      return null
+    }),
+    userFindAllMock: vi.fn(async () => [
+      {
+        id: 'user1',
+        displayName: 'User One',
+        profileImageUrl: 'https://avatar.com/u1.png',
+        roles: ['USER'],
+        data: {},
+      },
+    ]),
+    userCreateMock: vi.fn(async (newUserData) => ({
+      ...newUserData,
+      toJSON() {
+        return { ...this }
+      },
+    })),
+    userUpdateMock: vi.fn(async () => [1, [{ id: 'user1' }]]),
+  }))
+
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: userFindOneMock,
+    findAll: userFindAllMock,
+    create: userCreateMock,
+    update: userUpdateMock,
+  },
+}))
+
 vi.mock('../../../lib/logger.ts')
 
 // Fake user info to test the API
@@ -27,16 +105,7 @@ const mockUser = {
 const mockAdminUser = {
   sub: 'admin|789',
 }
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/users', function () {
   const app = setupMockServer((app) => {

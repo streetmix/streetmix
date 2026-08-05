@@ -1,14 +1,15 @@
 import { Readable } from 'node:stream'
-import { vi } from 'vitest'
-import request from 'supertest'
 import axios from 'axios'
 import { v2 as cloudinary } from 'cloudinary'
+import request from 'supertest'
+import { vi } from 'vitest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
 import * as images from '../street_images.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
 import type { Mock } from 'vitest'
 
 const { streetFindOneMock, userFindOneMock } = vi.hoisted(() => ({
@@ -50,7 +51,7 @@ vi.mock('axios', () => ({
 
 const street = {
   status: 'ACTIVE',
-  id: 'street1',
+  id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
   namespacedId: 65,
   updatedAt: '2018-05-24T11:47:33.041Z',
   createdAt: '2018-05-24T11:47:32.721Z',
@@ -63,16 +64,7 @@ const mockUser = {
 const mockAltUser = {
   sub: 'bar|456',
 }
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/streets/:street_id/image', () => {
   const app = setupMockServer((app) => {
@@ -85,10 +77,10 @@ describe('POST api/v1/streets/:street_id/image', () => {
   const details = { image: 'foo', event: 'TEST' }
   JSON.parse = vi.fn().mockReturnValue(details)
 
-  cloudinary.uploader.upload.mockResolvedValue('foo')
+  ;(cloudinary.uploader.upload as unknown as Mock).mockResolvedValue('foo')
 
   it('should respond with 201 Created when a data url is sent', () => {
-    cloudinary.api.resource.mockResolvedValueOnce('baz')
+    ;(cloudinary.api.resource as unknown as Mock).mockResolvedValueOnce('baz')
     jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post(`/api/v1/streets/${street.id}/image`)
@@ -101,7 +93,7 @@ describe('POST api/v1/streets/:street_id/image', () => {
   })
 
   it('should respond with 201 Created when street thumbnail does not exist', () => {
-    cloudinary.api.resource.mockReturnValueOnce(null)
+    ;(cloudinary.api.resource as unknown as Mock).mockReturnValueOnce(null)
 
     return request(app)
       .post(`/api/v1/streets/${street.id}/image`)
@@ -114,7 +106,7 @@ describe('POST api/v1/streets/:street_id/image', () => {
   })
 
   it('should respond with 403 Forbidden when user is not owner of street', () => {
-    cloudinary.api.resource.mockResolvedValueOnce('baz')
+    ;(cloudinary.api.resource as unknown as Mock).mockResolvedValueOnce('baz')
 
     jwtMock.mockReturnValueOnce(mockAltUser)
 
@@ -138,8 +130,9 @@ describe('DELETE api/v1/streets/:street_id/image', () => {
     )
   })
 
-  cloudinary.uploader.destroy.mockImplementation((publicId, cb) =>
-    cb(null, publicId)
+  ;(cloudinary.uploader.destroy as unknown as Mock).mockImplementation(
+    (publicId: string, cb: (error: null, value: string) => void) =>
+      cb(null, publicId)
   )
 
   it('should respond with 204 No content when street thumbnail is deleted by owner', () => {
@@ -160,10 +153,12 @@ describe('GET api/v1/streets/:street_id/image', () => {
   })
 
   it('should respond with 200 when street thumbnail is found', () => {
-    cloudinary.api.resource.mockResolvedValueOnce({
+    ;(cloudinary.api.resource as unknown as Mock).mockResolvedValueOnce({
       url: 'https://example.com/image.png',
     })
-    ;(axios as Mock).mockResolvedValueOnce({ data: Readable.from([]) })
+    ;(axios as unknown as Mock).mockResolvedValueOnce({
+      data: Readable.from([]),
+    })
 
     return request(app)
       .get(`/api/v1/streets/${street.id}/image`)

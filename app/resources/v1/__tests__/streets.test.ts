@@ -1,11 +1,11 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
 import * as streets from '../streets.ts'
-
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
 
 const {
   streetBuildMock,
@@ -31,11 +31,11 @@ const {
       },
       updatedAt: '2018-05-24T11:47:33.041Z',
       clientUpdatedAt: '2018-05-24T11:47:33.041Z',
-      set: vi.fn(function (payload) {
+      set: vi.fn(function (this: Record<string, unknown>, payload) {
         Object.assign(this, payload)
       }),
       changed: vi.fn(),
-      save: vi.fn(async function () {
+      save: vi.fn(async function (this: Record<string, unknown>) {
         return this
       }),
     }
@@ -54,10 +54,10 @@ const {
       id: 'user1',
       auth0Id: 'foo|123',
       lastStreetId: 1,
-      increment: vi.fn(async function () {
+      increment: vi.fn(async function (this: Record<string, unknown>) {
         return this
       }),
-      update: vi.fn(async function () {
+      update: vi.fn(async function (this: Record<string, unknown>) {
         return this
       }),
     })),
@@ -107,16 +107,7 @@ const street = {
 const mockUser = {
   sub: 'foo|123',
 }
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/streets', function () {
   const app = setupMockServer((app) => {

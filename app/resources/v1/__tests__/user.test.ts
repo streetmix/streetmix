@@ -1,13 +1,72 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
 import * as user from '../users.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+const { userFindOneMock, userUpdateMock } = vi.hoisted(() => ({
+  userFindOneMock: vi.fn(async (query) => {
+    const where = query?.where ?? {}
 
-vi.mock('../../../db/models.ts')
+    if (where.id === 'user1') {
+      return {
+        id: 'user1',
+        auth0Id: 'foo|123',
+        roles: ['USER'],
+        toJSON() {
+          return { ...this }
+        },
+      }
+    }
+
+    if (where.id === 'user2') {
+      return {
+        id: 'user2',
+        auth0Id: 'bar|456',
+        roles: ['USER'],
+        toJSON() {
+          return { ...this }
+        },
+      }
+    }
+
+    if (where.auth0Id === 'foo|123') {
+      return {
+        id: 'user1',
+        auth0Id: 'foo|123',
+        roles: ['USER'],
+        toJSON() {
+          return { ...this }
+        },
+      }
+    }
+
+    if (where.auth0Id === 'admin|789') {
+      return {
+        id: 'admin1',
+        auth0Id: 'admin|789',
+        roles: ['ADMIN'],
+        toJSON() {
+          return { ...this }
+        },
+      }
+    }
+
+    return null
+  }),
+  userUpdateMock: vi.fn(async () => [1, [{ id: 'user1' }]]),
+}))
+
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: userFindOneMock,
+    update: userUpdateMock,
+  },
+}))
+
 vi.mock('../../../lib/logger.ts')
 
 // mockUser is setting a mock 'sub' (which is oAuth shorthand for 'subject'),
@@ -19,15 +78,7 @@ const mockUser = {
 const mockAdminUser = {
   sub: 'admin|789',
 }
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('PUT api/v1/users/:user_id', () => {
   const app = setupMockServer((app) => {
@@ -61,7 +112,7 @@ describe('PUT api/v1/users/:user_id', () => {
   it('should respond with 204 if an admin user PUTS to a different user', () => {
     jwtMock.mockReturnValueOnce(mockAdminUser)
     return request(app)
-      .put('/api/v1/users/user1')
+      .put('/api/v1/users/user2')
       .type('json')
       .send(JSON.stringify({}))
       .then((response) => {
@@ -114,7 +165,7 @@ describe('DELETE api/v1/users/:user_id', () => {
   it('should respond with 204 when admin user DELETEs a different user account', () => {
     jwtMock.mockReturnValueOnce(mockAdminUser)
     return request(app)
-      .delete('/api/v1/users/user1')
+      .delete('/api/v1/users/user2')
       .then((response) => {
         expect(response.statusCode).toEqual(204)
         return

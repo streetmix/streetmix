@@ -11,6 +11,8 @@ export default defineConfig({
       'authentication.test.ts',
       'resources/v1/__tests__/streets.test.ts',
       'resources/v1/__tests__/street_images.test.ts',
+      'resources/v1/__tests__/users.test.ts',
+      'resources/v1/__tests__/user.test.ts',
     ],
   },
 })
