@@ -7,7 +7,6 @@ import {
 } from '../../../test/setup-mock-server.ts'
 import * as session from '../user_session.ts'
 
-vi.mock('../../../db/models.ts')
 vi.mock('../../../lib/logger.ts')
 vi.mock('../../../lib/auth0.ts', () => {
   return {
