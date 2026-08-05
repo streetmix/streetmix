@@ -1,6 +1,5 @@
-import { vi } from 'vitest'
 import userFactory from '../../factories/user.js'
-const { User } = require('../index.js')
+import { User } from '../index.js'
 
 // Skipping this suite because pg expects to run in a server environment,
 // and our jest setup assumes a jsdom environment.
