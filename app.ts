@@ -124,6 +124,7 @@ const csp = {
     frameSrc: ["'self'", 'streetmix.github.io', 'checkout.stripe.com'],
     imgSrc: [
       "'self'",
+      '*.streetmix.app',
       // Save-as-image
       'blob:',
       'data:',
@@ -143,6 +144,7 @@ const csp = {
     ],
     objectSrc: [
       "'self'",
+      '*.streetmix.app',
       // Profile images
       'abs.twimg.com',
       'pbs.twimg.com',
@@ -203,6 +205,17 @@ app.use(requestHandlers.requestIdEcho)
 app.use(passport.initialize())
 app.use(passport.session())
 
+const metatagImage =
+  process.env.STREETMIX_INSTANCE !== 'coastmix'
+    ? 'https://streetmix.net/images/thumbnail.png'
+    : 'https://coastmix.streetmix.app/images/thumbnail-coastmix.png'
+const metatagTitle =
+  process.env.STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
+const metatagDescription =
+  process.env.STREETMIX_INSTANCE !== 'coastmix'
+    ? 'A collaborative civic engagement platform for urban design. Design, remix, and share your neighborhood street with Streetmix.'
+    : 'Coastmix is a project by Streetmix and the City of Boston to design, visualize and share resilient coasts. Create your ideal waterfront, build coastal flood protection, and learn how climate change impacts your community.'
+
 // Set variables for use in view templates
 app.use((req, res, next) => {
   // Generate nonces for inline scripts
@@ -212,12 +225,13 @@ app.use((req, res, next) => {
 
   // Set default metatag information for social sharing cards
   res.locals.STREETMIX_IMAGE = {
-    image: 'https://streetmix.net/images/thumbnail.png',
+    image: metatagImage,
     width: 1008,
     height: 522,
   }
 
-  res.locals.STREETMIX_TITLE = 'Streetmix'
+  res.locals.STREETMIX_TITLE = metatagTitle
+  res.locals.STREETMIX_DESCRIPTION = metatagDescription
   res.locals.STREETMIX_URL = appURL.href
 
   next()
