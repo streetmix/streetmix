@@ -4,6 +4,12 @@ import app from './app.ts'
 import { logger } from './app/lib/logger.ts'
 
 app.listen(process.env.PORT, () => {
+  if (process.env.STREETMIX_INSTANCE === 'coastmix') {
+    logger.info(
+      '[express] ' + styleText(['yellow', 'bold'], 'Coastmix mode is active.')
+    )
+  }
+
   if (process.env.NODE_ENV === 'development') {
     logger.info(
       '[express] ' +
