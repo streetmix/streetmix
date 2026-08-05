@@ -7,7 +7,83 @@ import * as streets from '../streets.ts'
 import type { Response, NextFunction } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-vi.mock('../../../db/models.ts')
+const {
+  streetBuildMock,
+  streetFindOneMock,
+  streetFindAndCountAllMock,
+  userFindOneMock,
+} = vi.hoisted(() => {
+  const makeStreet = () => {
+    const model = {
+      id: 'street1',
+      creatorId: 'user1',
+      status: 'ACTIVE',
+      name: 'Test Street',
+      data: {
+        street: {
+          schemaVersion: 24,
+          boundary: {
+            left: { variant: 'narrow', floors: 2 },
+            right: { variant: 'narrow', floors: 2 },
+          },
+          segments: [],
+        },
+      },
+      updatedAt: '2018-05-24T11:47:33.041Z',
+      clientUpdatedAt: '2018-05-24T11:47:33.041Z',
+      set: vi.fn(function (payload) {
+        Object.assign(this, payload)
+      }),
+      changed: vi.fn(),
+      save: vi.fn(async function () {
+        return this
+      }),
+    }
+
+    return model
+  }
+
+  return {
+    streetBuildMock: vi.fn(() => makeStreet()),
+    streetFindOneMock: vi.fn(async () => makeStreet()),
+    streetFindAndCountAllMock: vi.fn(async () => ({
+      rows: [makeStreet()],
+      count: 1,
+    })),
+    userFindOneMock: vi.fn(async () => ({
+      id: 'user1',
+      auth0Id: 'foo|123',
+      lastStreetId: 1,
+      increment: vi.fn(async function () {
+        return this
+      }),
+      update: vi.fn(async function () {
+        return this
+      }),
+    })),
+  }
+})
+
+vi.mock('../../../db/models/index.ts', () => ({
+  Sequence: {
+    findByPk: vi.fn(async () => ({ seq: 1 })),
+    update: vi.fn(async () => [1, [{ seq: 2 }]]),
+    create: vi.fn(async () => ({ seq: 1 })),
+  },
+  Street: {
+    build: streetBuildMock,
+    findOne: streetFindOneMock,
+    findAndCountAll: streetFindAndCountAllMock,
+  },
+  User: {
+    findOne: userFindOneMock,
+  },
+}))
+
+vi.mock('../../../lib/street_schema_update.js', () => ({
+  updateToLatestSchemaVersion: vi.fn((streetData) => [false, streetData]),
+}))
+
 vi.mock('../../../lib/logger.ts')
 
 const street = {
@@ -16,7 +92,16 @@ const street = {
   namespacedId: 65,
   updatedAt: '2018-05-24T11:47:33.041Z',
   createdAt: '2018-05-24T11:47:32.721Z',
-  data: {},
+  data: {
+    street: {
+      schemaVersion: 24,
+      boundary: {
+        left: { variant: 'narrow', floors: 2 },
+        right: { variant: 'narrow', floors: 2 },
+      },
+      segments: [],
+    },
+  },
 }
 
 const mockUser = {

@@ -6,6 +6,11 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: './test/vitest.setup.ts',
-    include: ['__tests__/**/*.test.ts', 'authentication.test.ts'],
+    include: [
+      '__tests__/**/*.test.ts',
+      'authentication.test.ts',
+      'resources/v1/__tests__/streets.test.ts',
+      'resources/v1/__tests__/street_images.test.ts',
+    ],
   },
 })
