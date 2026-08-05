@@ -36,6 +36,8 @@
     "lint:css": "stylelint \"./client/**/*.css\"",
     "lint:js": "eslint",
     "vitest": "vitest",
+    "vitest:server": "vitest --project server",
+    "vitest:server:ci": "vitest run --project server",
     "vitest:ci": "vitest run --coverage",
     "translations:download": "tsx --env-file=.env packages/i18n/src/download_translations.ts",
     "translations:download:ci": "tsx packages/i18n/src/download_translations.ts",
