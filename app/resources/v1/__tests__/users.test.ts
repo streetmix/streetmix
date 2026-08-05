@@ -5,6 +5,7 @@ import {
   createMockAuthMiddleware,
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
+import { makeUserFixture } from '../../../test/model-fixtures.ts'
 import * as users from '../users.ts'
 
 const { userFindOneMock, userFindAllMock, userCreateMock, userUpdateMock } =
@@ -13,67 +14,34 @@ const { userFindOneMock, userFindAllMock, userCreateMock, userUpdateMock } =
       const where = query?.where ?? {}
 
       if (where.auth0Id === 'admin|789') {
-        return {
+        return makeUserFixture({
           id: 'admin1',
           auth0Id: 'admin|789',
           roles: ['ADMIN'],
-          toJSON() {
-            return { ...this }
-          },
-        }
+        })
       }
 
       if (where.auth0Id === 'foo|123') {
-        return {
-          id: 'user1',
-          auth0Id: 'foo|123',
-          roles: ['USER'],
-          toJSON() {
-            return { ...this }
-          },
-        }
+        return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
       }
 
       if (where.auth0Id) {
-        return {
+        return makeUserFixture({
           id: 'user2',
           auth0Id: where.auth0Id,
-          roles: ['USER'],
-          toJSON() {
-            return { ...this }
-          },
-        }
+        })
       }
 
       if (where.id) {
-        return {
-          id: where.id,
-          auth0Id: 'foo|123',
-          roles: ['USER'],
-          profileImageUrl: 'https://avatar.com/picture.png',
-          toJSON() {
-            return { ...this }
-          },
-        }
+        return makeUserFixture({ id: where.id, auth0Id: 'foo|123' })
       }
 
       return null
     }),
     userFindAllMock: vi.fn(async () => [
-      {
-        id: 'user1',
-        displayName: 'User One',
-        profileImageUrl: 'https://avatar.com/u1.png',
-        roles: ['USER'],
-        data: {},
-      },
+      makeUserFixture({ profileImageUrl: 'https://avatar.com/u1.png' }),
     ]),
-    userCreateMock: vi.fn(async (newUserData) => ({
-      ...newUserData,
-      toJSON() {
-        return { ...this }
-      },
-    })),
+    userCreateMock: vi.fn(async (newUserData) => makeUserFixture(newUserData)),
     userUpdateMock: vi.fn(async () => [1, [{ id: 'user1' }]]),
   }))
 

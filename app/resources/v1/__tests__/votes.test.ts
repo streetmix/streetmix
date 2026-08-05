@@ -5,6 +5,11 @@ import {
   createMockAuthMiddleware,
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
+import {
+  makeStreetFixture,
+  makeUserFixture,
+  makeVoteFixture,
+} from '../../../test/model-fixtures.ts'
 import * as votes from '../votes.ts'
 
 import type { Mock } from 'vitest'
@@ -20,25 +25,26 @@ const { userFindOneMock, voteFindAllMock, voteCreateMock, voteUpdateMock } =
       const auth0Id = query?.where?.auth0Id
 
       if (auth0Id === TEST_USER_AUTH0_ONE) {
-        return {
+        return makeUserFixture({
           id: TEST_USER_ONE,
           auth0Id,
-        }
+        })
       }
 
       return null
     }),
     voteFindAllMock: vi.fn(async () => [
-      {
+      makeVoteFixture({
         id: TEST_VOTE_ONE,
         streetId: TEST_STREET_TWO,
-        data: {},
-      },
+      }),
     ]),
-    voteCreateMock: vi.fn(async (payload) => ({
-      ...payload,
-      id: 'vote-created',
-    })),
+    voteCreateMock: vi.fn(async (payload) =>
+      makeVoteFixture({
+        ...payload,
+        id: 'vote-created',
+      })
+    ),
     voteUpdateMock: vi.fn(async () => [1]),
   }))
 
@@ -47,11 +53,13 @@ vi.mock('../../../db/models/index.ts', () => ({
     findOne: userFindOneMock,
   },
   Street: {
-    findOne: vi.fn(async () => ({
-      id: TEST_STREET_TWO,
-      creatorId: 'user2',
-      status: 'ACTIVE',
-    })),
+    findOne: vi.fn(async () =>
+      makeStreetFixture({
+        id: TEST_STREET_TWO,
+        creatorId: 'user2',
+        status: 'ACTIVE',
+      })
+    ),
   },
   Vote: {
     findAll: voteFindAllMock,
@@ -63,10 +71,12 @@ vi.mock('../../../db/models/index.ts', () => ({
         where.voterId === TEST_USER_ONE
       ) {
         return {
-          id: where.id,
-          voterId: TEST_USER_ONE,
-          streetId: TEST_STREET_TWO,
-          save: vi.fn(async function () {
+          ...makeVoteFixture({
+            id: where.id,
+            voterId: TEST_USER_ONE,
+            streetId: TEST_STREET_TWO,
+          }),
+          save: vi.fn(async function (this: Record<string, unknown>) {
             return this
           }),
         }

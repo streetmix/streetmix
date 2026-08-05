@@ -5,6 +5,7 @@ import {
   createMockAuthMiddleware,
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
+import { makeUserFixture } from '../../../test/model-fixtures.ts'
 import * as user from '../users.ts'
 
 const { userFindOneMock, userUpdateMock } = vi.hoisted(() => ({
@@ -12,47 +13,23 @@ const { userFindOneMock, userUpdateMock } = vi.hoisted(() => ({
     const where = query?.where ?? {}
 
     if (where.id === 'user1') {
-      return {
-        id: 'user1',
-        auth0Id: 'foo|123',
-        roles: ['USER'],
-        toJSON() {
-          return { ...this }
-        },
-      }
+      return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
     }
 
     if (where.id === 'user2') {
-      return {
-        id: 'user2',
-        auth0Id: 'bar|456',
-        roles: ['USER'],
-        toJSON() {
-          return { ...this }
-        },
-      }
+      return makeUserFixture({ id: 'user2', auth0Id: 'bar|456' })
     }
 
     if (where.auth0Id === 'foo|123') {
-      return {
-        id: 'user1',
-        auth0Id: 'foo|123',
-        roles: ['USER'],
-        toJSON() {
-          return { ...this }
-        },
-      }
+      return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
     }
 
     if (where.auth0Id === 'admin|789') {
-      return {
+      return makeUserFixture({
         id: 'admin1',
         auth0Id: 'admin|789',
         roles: ['ADMIN'],
-        toJSON() {
-          return { ...this }
-        },
-      }
+      })
     }
 
     return null

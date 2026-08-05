@@ -5,6 +5,10 @@ import {
   createMockAuthMiddleware,
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
+import {
+  makeStreetFixture,
+  makeUserFixture,
+} from '../../../test/model-fixtures.ts'
 import * as streets from '../streets.ts'
 
 const {
@@ -15,22 +19,7 @@ const {
 } = vi.hoisted(() => {
   const makeStreet = () => {
     const model = {
-      id: 'street1',
-      creatorId: 'user1',
-      status: 'ACTIVE',
-      name: 'Test Street',
-      data: {
-        street: {
-          schemaVersion: 24,
-          boundary: {
-            left: { variant: 'narrow', floors: 2 },
-            right: { variant: 'narrow', floors: 2 },
-          },
-          segments: [],
-        },
-      },
-      updatedAt: '2018-05-24T11:47:33.041Z',
-      clientUpdatedAt: '2018-05-24T11:47:33.041Z',
+      ...makeStreetFixture(),
       set: vi.fn(function (this: Record<string, unknown>, payload) {
         Object.assign(this, payload)
       }),
@@ -51,8 +40,7 @@ const {
       count: 1,
     })),
     userFindOneMock: vi.fn(async () => ({
-      id: 'user1',
-      auth0Id: 'foo|123',
+      ...makeUserFixture({ id: 'user1', auth0Id: 'foo|123' }),
       lastStreetId: 1,
       increment: vi.fn(async function (this: Record<string, unknown>) {
         return this
@@ -87,21 +75,7 @@ vi.mock('../../../lib/street_schema_update.js', () => ({
 vi.mock('../../../lib/logger.ts')
 
 const street = {
-  status: 'ACTIVE',
-  id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
-  namespacedId: 65,
-  updatedAt: '2018-05-24T11:47:33.041Z',
-  createdAt: '2018-05-24T11:47:32.721Z',
-  data: {
-    street: {
-      schemaVersion: 24,
-      boundary: {
-        left: { variant: 'narrow', floors: 2 },
-        right: { variant: 'narrow', floors: 2 },
-      },
-      segments: [],
-    },
-  },
+  ...makeStreetFixture({ id: '3e888ae0-5f48-11e8-82e7-c3447c17015a' }),
 }
 
 const mockUser = {

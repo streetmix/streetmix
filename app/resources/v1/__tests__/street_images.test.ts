@@ -8,29 +8,26 @@ import {
   createMockAuthMiddleware,
   setupMockServer,
 } from '../../../test/setup-mock-server.ts'
+import {
+  makeStreetFixture,
+  makeUserFixture,
+} from '../../../test/model-fixtures.ts'
 import * as images from '../street_images.ts'
 
 import type { Mock } from 'vitest'
 
 const { streetFindOneMock, userFindOneMock } = vi.hoisted(() => ({
   streetFindOneMock: vi.fn(async () => ({
-    id: 'street1',
-    creatorId: 'user1',
+    ...makeStreetFixture({ id: 'street1', creatorId: 'user1' }),
     dataValues: { data: { street: { segments: [] } } },
   })),
   userFindOneMock: vi.fn(async (query) => {
     const auth0Id = query?.where?.auth0Id
     if (auth0Id === 'bar|456') {
-      return {
-        id: 'user2',
-        auth0Id,
-      }
+      return makeUserFixture({ id: 'user2', auth0Id })
     }
 
-    return {
-      id: 'user1',
-      auth0Id: 'foo|123',
-    }
+    return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
   }),
 }))
 
@@ -49,14 +46,10 @@ vi.mock('axios', () => ({
   default: vi.fn(),
 }))
 
-const street = {
-  status: 'ACTIVE',
+const street = makeStreetFixture({
   id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
-  namespacedId: 65,
-  updatedAt: '2018-05-24T11:47:33.041Z',
-  createdAt: '2018-05-24T11:47:32.721Z',
   data: {},
-}
+})
 
 const mockUser = {
   sub: 'foo|123',
