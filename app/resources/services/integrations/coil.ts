@@ -180,7 +180,6 @@ export async function BTPTokenCheck(
   req.session.btpToken = btpToken
   // ..but it dosen't work unless we do this:
   res.cookie('btpToken', btpToken)
-  console.log(btpToken)
   return next()
 }
 

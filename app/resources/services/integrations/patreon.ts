@@ -157,9 +157,5 @@ export function webhook(req: Request, res: Response, _next: NextFunction) {
     return
   }
 
-  console.log(JSON.stringify(req.body))
-  console.log(req.headers['x-patreon-event'])
-  console.log(req.headers['x-patreon-signature'])
-
   res.status(204).end()
 }
