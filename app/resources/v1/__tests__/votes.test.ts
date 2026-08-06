@@ -12,34 +12,16 @@ import {
 } from '../../../test/model-fixtures.ts'
 import * as votes from '../votes.ts'
 
-import type { Mock } from 'vitest'
-
 const TEST_USER_ONE = 'user1'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-const voteFindAllMock = vi.hoisted(() =>
-  vi.fn(async () => [
-    makeVoteFixture({
-      id: TEST_VOTE_ONE,
-      streetId: TEST_STREET_TWO,
-    }),
-  ])
-)
-
 vi.mock('../../../db/models/index.ts', () => ({
   User: {
-    findOne: vi.fn(async (query) => {
-      const auth0Id = query?.where?.auth0Id
-
-      if (auth0Id === 'foo|123') {
-        return makeUserFixture({
-          id: TEST_USER_ONE,
-          auth0Id,
-        })
-      }
-
-      return null
+    findOne: vi.fn(async () => {
+      return makeUserFixture({
+        id: TEST_USER_ONE,
+      })
     }),
   },
   Street: {
@@ -52,7 +34,12 @@ vi.mock('../../../db/models/index.ts', () => ({
     ),
   },
   Vote: {
-    findAll: voteFindAllMock,
+    findAll: vi.fn(async () => [
+      makeVoteFixture({
+        id: TEST_VOTE_ONE,
+        streetId: TEST_STREET_TWO,
+      }),
+    ]),
     findOne: vi.fn(async (query) => {
       const where = query?.where ?? {}
 
@@ -105,18 +92,17 @@ describe('api/v1/votes', function () {
     app.put('/api/v1/votes', mockUserMiddleware, votes.put)
   })
 
-  it('should fetch the only available vote for test user', function () {
-    return request(app)
-      .get('/api/v1/votes')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        const { ballots } = response.body
-        expect(ballots.length).toEqual(1)
-        const { id } = ballots[0]
-        expect(id).toEqual(TEST_VOTE_ONE)
-        expect((voteFindAllMock as Mock).mock.calls.length).toBeGreaterThan(0)
-        return
-      })
+  it('should fetch the only available vote for test user', async function () {
+    const response = await request(app).get('/api/v1/votes')
+    expect(response.statusCode).toEqual(200)
+
+    const { ballots } = response.body
+    expect(ballots.length).toEqual(1)
+
+    const { id } = ballots[0]
+    expect(id).toEqual(TEST_VOTE_ONE)
+
+    return
   })
 
   it('should allow user to vote', async function () {
@@ -143,8 +129,8 @@ describe('api/v1/votes', function () {
     expect(commentResponse.statusCode).toEqual(200)
   })
 
-  it('should block user commenting over 280 characters', function () {
-    return request(app)
+  it('should block user commenting over 280 characters', async function () {
+    const response = await request(app)
       .put('/api/v1/votes')
       .type('json')
       .send(
@@ -153,14 +139,13 @@ describe('api/v1/votes', function () {
           comment: TEST_COMMENT_MAX_LEN,
         })
       )
-      .then((response) => {
-        expect(response.statusCode).toEqual(413)
-        return
-      })
+
+    expect(response.statusCode).toEqual(413)
+    return
   })
 
-  it('should block user commenting on a vote by another user', function () {
-    return request(app)
+  it('should block user commenting on a vote by another user', async function () {
+    const response = await request(app)
       .put('/api/v1/votes')
       .type('json')
       .send(
@@ -169,10 +154,9 @@ describe('api/v1/votes', function () {
           comment: TEST_COMMENT,
         })
       )
-      .then((response) => {
-        expect(response.statusCode).toEqual(403)
-        return
-      })
+
+    expect(response.statusCode).toEqual(403)
+    return
   })
 
   // TODO: implement this once we can test for the elimination of votes from the pool
