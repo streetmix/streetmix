@@ -2,7 +2,10 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    name: 'server',
+    name: {
+      label: 'server',
+      color: 'cyan',
+    },
     globals: true,
     environment: 'node',
     setupFiles: './test/vitest.setup.ts',
