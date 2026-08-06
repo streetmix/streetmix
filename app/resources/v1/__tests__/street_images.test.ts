@@ -48,7 +48,6 @@ vi.mock('axios', () => ({
 
 const street = makeStreetFixture({
   id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
-  data: {},
 })
 
 const mockUser = {
