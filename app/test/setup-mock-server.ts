@@ -1,18 +1,15 @@
-import express, {
-  type Express,
-  type NextFunction,
-  type Response,
-} from 'express'
+import express from 'express'
 import { vi } from 'vitest'
 
+import type { Express, NextFunction, Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-export function setupMockServer(setupFunc = (_app: Express) => {}) {
+export function setupMockServer(setupFn = (_app: Express) => {}) {
   const app = express()
   app.use(express.json())
 
   // Additional setup for app
-  setupFunc(app)
+  setupFn(app)
 
   return app
 }
