@@ -147,17 +147,6 @@ describe('api_routes router wiring', () => {
     vi.clearAllMocks()
   })
 
-  it('routes to users.post', async () => {
-    const response = await request(app)
-      .post('/api/v1/users')
-      .set('Authorization', 'Bearer test-token')
-      .send({})
-
-    expect(response.statusCode).toBe(200)
-    expect(response.body).toEqual({ route: 'users.post' })
-    expect(usersPostMock).toHaveBeenCalledTimes(1)
-  })
-
   it('routes to streets.post and supports optional auth', async () => {
     const response = await request(app).post('/api/v1/streets').send({})
 

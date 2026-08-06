@@ -4,10 +4,10 @@ import { User } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
 import { ERRORS, asUserJson, asUserJsonBasic } from '../../lib/util.ts'
 
-import type { Response } from 'express'
+import type { Request, Response } from 'express'
 import type { Request as AuthedRequest } from 'express-jwt'
 
-export async function post(req: AuthedRequest, res: Response) {
+export async function post(req: Request, res: Response) {
   const handleCreateUser = function (user: User) {
     const userJson = { id: user.id }
     logger.info(`New user '${user.id}' created.`)
