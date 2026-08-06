@@ -11,35 +11,37 @@ import {
 } from '../../../test/model-fixtures.ts'
 import * as streets from '../streets.ts'
 
-const {
-  streetBuildMock,
-  streetFindOneMock,
-  streetFindAndCountAllMock,
-  userFindOneMock,
-} = vi.hoisted(() => {
-  const makeStreet = () => {
-    const model = {
-      ...makeStreetFixture(),
-      set: vi.fn(function (this: Record<string, unknown>, payload) {
-        Object.assign(this, payload)
-      }),
-      changed: vi.fn(),
-      save: vi.fn(async function (this: Record<string, unknown>) {
-        return this
-      }),
-    }
-
-    return model
+const makeStreet = () => {
+  const model = {
+    ...makeStreetFixture(),
+    set: vi.fn(function (this: Record<string, unknown>, payload) {
+      Object.assign(this, payload)
+    }),
+    changed: vi.fn(),
+    save: vi.fn(async function (this: Record<string, unknown>) {
+      return this
+    }),
   }
 
-  return {
-    streetBuildMock: vi.fn(() => makeStreet()),
-    streetFindOneMock: vi.fn(async () => makeStreet()),
-    streetFindAndCountAllMock: vi.fn(async () => ({
+  return model
+}
+
+vi.mock('../../../db/models/index.ts', () => ({
+  Sequence: {
+    findByPk: vi.fn(async () => ({ seq: 1 })),
+    update: vi.fn(async () => [1, [{ seq: 2 }]]),
+    create: vi.fn(async () => ({ seq: 1 })),
+  },
+  Street: {
+    build: vi.fn(() => makeStreet()),
+    findOne: vi.fn(async () => makeStreet()),
+    findAndCountAll: vi.fn(async () => ({
       rows: [makeStreet()],
       count: 1,
     })),
-    userFindOneMock: vi.fn(async () => ({
+  },
+  User: {
+    findOne: vi.fn(async () => ({
       ...makeUserFixture({ id: 'user1', auth0Id: 'foo|123' }),
       lastStreetId: 1,
       increment: vi.fn(async function (this: Record<string, unknown>) {
@@ -49,22 +51,6 @@ const {
         return this
       }),
     })),
-  }
-})
-
-vi.mock('../../../db/models/index.ts', () => ({
-  Sequence: {
-    findByPk: vi.fn(async () => ({ seq: 1 })),
-    update: vi.fn(async () => [1, [{ seq: 2 }]]),
-    create: vi.fn(async () => ({ seq: 1 })),
-  },
-  Street: {
-    build: streetBuildMock,
-    findOne: streetFindOneMock,
-    findAndCountAll: streetFindAndCountAllMock,
-  },
-  User: {
-    findOne: userFindOneMock,
   },
 }))
 
@@ -72,16 +58,9 @@ vi.mock('../../../lib/street_schema_update.js', () => ({
   updateToLatestSchemaVersion: vi.fn((streetData) => [false, streetData]),
 }))
 
-vi.mock('../../../lib/logger.ts')
+const street = makeStreetFixture({ id: '3e888ae0-5f48-11e8-82e7-c3447c17015a' })
 
-const street = {
-  ...makeStreetFixture({ id: '3e888ae0-5f48-11e8-82e7-c3447c17015a' }),
-}
-
-const mockUser = {
-  sub: 'foo|123',
-}
-const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
+const { mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/streets', function () {
   const app = setupMockServer((app) => {
@@ -89,7 +68,6 @@ describe('POST api/v1/streets', function () {
   })
 
   it('should respond with 201 Created when street data are sent', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post('/api/v1/streets/')
       .type('json')
@@ -122,7 +100,6 @@ describe('PUT api/v1/streets/:street_id', function () {
   })
 
   it('should respond with 204 No Content when street data are sent', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .put(`/api/v1/streets/${street.id}`)
       .type('json')
@@ -140,7 +117,6 @@ describe('DELETE api/v1/streets/:street_id', function () {
   })
 
   it('should respond with 204 No Content when street data are deleted', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .delete(`/api/v1/streets/${street.id}`)
       .then((response) => {

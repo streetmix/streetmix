@@ -7,7 +7,6 @@ import {
 } from '../../../test/setup-mock-server.ts'
 import * as session from '../user_session.ts'
 
-vi.mock('../../../lib/logger.ts')
 vi.mock('../../../lib/auth0.ts', () => {
   return {
     Authentication: () => ({
@@ -16,10 +15,7 @@ vi.mock('../../../lib/auth0.ts', () => {
   }
 })
 
-const mockUser = {
-  sub: 'foo|123',
-}
-const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
+const { mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('DELETE api/v1/users/:user_id', function () {
   const app = setupMockServer((app) => {
@@ -27,7 +23,6 @@ describe('DELETE api/v1/users/:user_id', function () {
   })
 
   it('should respond with 204 No content when user signs out', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .delete('/api/v1/users/user1')
       .then((response) => {

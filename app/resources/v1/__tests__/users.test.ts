@@ -8,9 +8,9 @@ import {
 import { makeUserFixture } from '../../../test/model-fixtures.ts'
 import * as users from '../users.ts'
 
-const { userFindOneMock, userFindAllMock, userCreateMock, userUpdateMock } =
-  vi.hoisted(() => ({
-    userFindOneMock: vi.fn(async (query) => {
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: vi.fn(async (query) => {
       const where = query?.where ?? {}
 
       if (where.auth0Id === 'admin|789') {
@@ -38,41 +38,14 @@ const { userFindOneMock, userFindAllMock, userCreateMock, userUpdateMock } =
 
       return null
     }),
-    userFindAllMock: vi.fn(async () => [
+    findAll: vi.fn(async () => [
       makeUserFixture({ profileImageUrl: 'https://avatar.com/u1.png' }),
     ]),
-    userCreateMock: vi.fn(async (newUserData) => makeUserFixture(newUserData)),
-    userUpdateMock: vi.fn(async () => [1, [{ id: 'user1' }]]),
-  }))
-
-vi.mock('../../../db/models/index.ts', () => ({
-  User: {
-    findOne: userFindOneMock,
-    findAll: userFindAllMock,
-    create: userCreateMock,
-    update: userUpdateMock,
+    create: vi.fn(async (newUserData) => makeUserFixture(newUserData)),
+    update: vi.fn(async () => [1, [{ id: 'user1' }]]),
   },
 }))
 
-vi.mock('../../../lib/logger.ts')
-
-// Fake user info to test the API
-const emailUser = {
-  auth0: {
-    nickname: 'user2',
-    auth0Id: 'email|1111',
-    email: 'test@test.com',
-    profileImageUrl: 'https://avatar.com/picture.png',
-  },
-}
-
-const mockUser = {
-  sub: 'foo|123',
-}
-
-const mockAdminUser = {
-  sub: 'admin|789',
-}
 const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/users', function () {
@@ -81,6 +54,16 @@ describe('POST api/v1/users', function () {
   })
 
   it('should respond with 200 Ok when user credentials are sent', () => {
+    // Fake user info to test the API
+    const emailUser = {
+      auth0: {
+        nickname: 'user2',
+        auth0Id: 'email|1111',
+        email: 'test@test.com',
+        profileImageUrl: 'https://avatar.com/picture.png',
+      },
+    }
+
     return request(app)
       .post('/api/v1/users/')
       .type('json')
@@ -109,7 +92,11 @@ describe('GET api/v1/users', () => {
   })
 
   it('should respond with 200 Ok when admin user GETs Streetmix users data', () => {
+    const mockAdminUser = {
+      sub: 'admin|789',
+    }
     jwtMock.mockReturnValueOnce(mockAdminUser)
+
     return request(app)
       .get('/api/v1/users')
       .then((response) => {
@@ -119,7 +106,6 @@ describe('GET api/v1/users', () => {
   })
 
   it('should respond with 401 when user GETs Streetmix users data', () => {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .get('/api/v1/users')
       .then((response) => {

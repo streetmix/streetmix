@@ -16,31 +16,25 @@ import * as images from '../street_images.ts'
 
 import type { Mock } from 'vitest'
 
-const { streetFindOneMock, userFindOneMock } = vi.hoisted(() => ({
-  streetFindOneMock: vi.fn(async () => ({
-    ...makeStreetFixture({ id: 'street1', creatorId: 'user1' }),
-    dataValues: { data: { street: { segments: [] } } },
-  })),
-  userFindOneMock: vi.fn(async (query) => {
-    const auth0Id = query?.where?.auth0Id
-    if (auth0Id === 'bar|456') {
-      return makeUserFixture({ id: 'user2', auth0Id })
-    }
-
-    return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
-  }),
-}))
-
 vi.mock('../../../db/models/index.ts', () => ({
   Street: {
-    findOne: streetFindOneMock,
+    findOne: vi.fn(async () => ({
+      ...makeStreetFixture({ id: 'street1', creatorId: 'user1' }),
+      dataValues: { data: { street: { segments: [] } } },
+    })),
   },
   User: {
-    findOne: userFindOneMock,
+    findOne: vi.fn(async (query) => {
+      const auth0Id = query?.where?.auth0Id
+      if (auth0Id === 'bar|456') {
+        return makeUserFixture({ id: 'user2', auth0Id })
+      }
+
+      return makeUserFixture({ id: 'user1', auth0Id: 'foo|123' })
+    }),
   },
 }))
 
-vi.mock('../../../lib/logger.ts')
 vi.mock('cloudinary')
 vi.mock('axios', () => ({
   default: vi.fn(),
@@ -50,12 +44,6 @@ const street = makeStreetFixture({
   id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
 })
 
-const mockUser = {
-  sub: 'foo|123',
-}
-const mockAltUser = {
-  sub: 'bar|456',
-}
 const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/streets/:street_id/image', () => {
@@ -73,7 +61,6 @@ describe('POST api/v1/streets/:street_id/image', () => {
 
   it('should respond with 201 Created when a data url is sent', () => {
     ;(cloudinary.api.resource as unknown as Mock).mockResolvedValueOnce('baz')
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post(`/api/v1/streets/${street.id}/image`)
       .type('text/plain')
@@ -100,6 +87,9 @@ describe('POST api/v1/streets/:street_id/image', () => {
   it('should respond with 403 Forbidden when user is not owner of street', () => {
     ;(cloudinary.api.resource as unknown as Mock).mockResolvedValueOnce('baz')
 
+    const mockAltUser = {
+      sub: 'bar|456',
+    }
     jwtMock.mockReturnValueOnce(mockAltUser)
 
     return request(app)
@@ -128,8 +118,6 @@ describe('DELETE api/v1/streets/:street_id/image', () => {
   )
 
   it('should respond with 204 No content when street thumbnail is deleted by owner', () => {
-    jwtMock.mockReturnValueOnce(mockUser)
-
     return request(app)
       .delete(`/api/v1/streets/${street.id}/image`)
       .then((response) => {

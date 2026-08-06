@@ -15,16 +15,24 @@ import * as votes from '../votes.ts'
 import type { Mock } from 'vitest'
 
 const TEST_USER_ONE = 'user1'
-const TEST_USER_AUTH0_ONE = 'foo|123'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-const { userFindOneMock, voteFindAllMock, voteCreateMock, voteUpdateMock } =
-  vi.hoisted(() => ({
-    userFindOneMock: vi.fn(async (query) => {
+const voteFindAllMock = vi.hoisted(() =>
+  vi.fn(async () => [
+    makeVoteFixture({
+      id: TEST_VOTE_ONE,
+      streetId: TEST_STREET_TWO,
+    }),
+  ])
+)
+
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: vi.fn(async (query) => {
       const auth0Id = query?.where?.auth0Id
 
-      if (auth0Id === TEST_USER_AUTH0_ONE) {
+      if (auth0Id === 'foo|123') {
         return makeUserFixture({
           id: TEST_USER_ONE,
           auth0Id,
@@ -33,24 +41,6 @@ const { userFindOneMock, voteFindAllMock, voteCreateMock, voteUpdateMock } =
 
       return null
     }),
-    voteFindAllMock: vi.fn(async () => [
-      makeVoteFixture({
-        id: TEST_VOTE_ONE,
-        streetId: TEST_STREET_TWO,
-      }),
-    ]),
-    voteCreateMock: vi.fn(async (payload) =>
-      makeVoteFixture({
-        ...payload,
-        id: 'vote-created',
-      })
-    ),
-    voteUpdateMock: vi.fn(async () => [1]),
-  }))
-
-vi.mock('../../../db/models/index.ts', () => ({
-  User: {
-    findOne: userFindOneMock,
   },
   Street: {
     findOne: vi.fn(async () =>
@@ -84,20 +74,19 @@ vi.mock('../../../db/models/index.ts', () => ({
 
       return null
     }),
-    create: voteCreateMock,
-    update: voteUpdateMock,
+    create: vi.fn(async (payload) =>
+      makeVoteFixture({
+        ...payload,
+        id: 'vote-created',
+      })
+    ),
+    update: vi.fn(async () => [1]),
   },
 }))
-
-vi.mock('../../../lib/logger.ts')
 
 const TEST_COMMENT = 'some nice comment goes here :)'
 const TEST_COMMENT_MAX_LEN =
   'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mass'
-
-const mockUser = {
-  sub: TEST_USER_AUTH0_ONE,
-}
 
 const MOCK_VOTE_TWO = {
   streetId: TEST_STREET_TWO,
@@ -107,7 +96,7 @@ const MOCK_VOTE_TWO = {
 const voteByUser = 'vote1'
 const voteByOtherUser = 'vote2'
 const createdVoteId = 'vote-created'
-const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
+const { mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('api/v1/votes', function () {
   const app = setupMockServer((app) => {
@@ -117,7 +106,6 @@ describe('api/v1/votes', function () {
   })
 
   it('should fetch the only available vote for test user', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .get('/api/v1/votes')
       .then((response) => {
@@ -132,7 +120,6 @@ describe('api/v1/votes', function () {
   })
 
   it('should allow user to vote', async function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     const response = await request(app)
       .post('/api/v1/votes')
       .type('json')
@@ -143,7 +130,6 @@ describe('api/v1/votes', function () {
     expect(ballot.voterId).toEqual(TEST_USER_ONE)
     expect(ballot.streetId).toEqual(TEST_STREET_TWO)
 
-    jwtMock.mockReturnValueOnce(mockUser)
     const commentResponse = await request(app)
       .put('/api/v1/votes')
       .type('json')
@@ -158,7 +144,6 @@ describe('api/v1/votes', function () {
   })
 
   it('should block user commenting over 280 characters', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .put('/api/v1/votes')
       .type('json')
@@ -175,7 +160,6 @@ describe('api/v1/votes', function () {
   })
 
   it('should block user commenting on a vote by another user', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .put('/api/v1/votes')
       .type('json')

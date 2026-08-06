@@ -7,9 +7,7 @@ import * as translate from '../translate.ts'
 
 import type { Mock } from 'vitest'
 
-const { readFileMock } = vi.hoisted(() => ({
-  readFileMock: vi.fn(),
-}))
+const readFileMock = vi.hoisted(() => vi.fn())
 
 vi.mock('node:fs/promises', () => ({
   readFile: readFileMock,
@@ -18,8 +16,6 @@ vi.mock('node:fs/promises', () => ({
 vi.mock('@streetmix/i18n', () => ({
   getFromTransifex: vi.fn(),
 }))
-
-vi.mock('../../../lib/logger.ts')
 
 const sampleTranslation = {
   dialogs: {

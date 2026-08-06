@@ -18,7 +18,12 @@ export function setupMockServer(setupFunc = (_app: Express) => {}) {
 }
 
 export function createMockAuthMiddleware() {
-  const jwtMock = vi.fn()
+  // jwtMock returns a mock oAuth object with `sub`
+  // `mockUserMiddleware` calls this to set the auth object on an authenticated
+  // request, but can also be overridden to return a unique user value one time
+  const jwtMock = vi.fn().mockReturnValue({
+    sub: 'foo|123',
+  })
 
   const mockUserMiddleware = (
     req: AuthedRequest,
