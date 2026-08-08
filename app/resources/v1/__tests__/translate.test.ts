@@ -32,64 +32,62 @@ describe('get api/v1/translate', function () {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    delete process.env.TRANSIFEX_API_TOKEN
   })
 
-  it('returns translation from local file when locale is en', () => {
+  it('returns translation from local file when locale is en', async () => {
     readFileMock.mockResolvedValueOnce(JSON.stringify(sampleTranslation))
 
-    return request(app)
-      .get('/api/v1/translate/en/main')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        expect(response.get('Content-Type')?.toLowerCase()).toEqual(
-          'application/json; charset=utf-8'
-        )
-        expect(response.body.dialogs.welcome.heading).toEqual(
-          'Welcome to Streetmix.'
-        )
-        expect(readFileMock).toHaveBeenCalledTimes(1)
-        expect(getFromTransifex).not.toHaveBeenCalled()
-        return
-      })
+    const response = await request(app).get('/api/v1/translate/en/main')
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.get('Content-Type')?.toLowerCase()).toEqual(
+      'application/json; charset=utf-8'
+    )
+    expect(response.body.dialogs.welcome.heading).toEqual(
+      'Welcome to Streetmix.'
+    )
+    expect(readFileMock).toHaveBeenCalledTimes(1)
+    expect(getFromTransifex).not.toHaveBeenCalled()
+    return
   })
 
-  it('returns translation from local file when API token is missing', () => {
+  it('returns translation from local file when API token is missing', async () => {
     readFileMock.mockResolvedValueOnce(JSON.stringify(sampleTranslation))
 
-    return request(app)
-      .get('/api/v1/translate/fr/main')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        expect(response.body.dialogs.welcome.heading).toEqual(
-          'Welcome to Streetmix.'
-        )
-        expect(readFileMock).toHaveBeenCalledTimes(1)
-        expect(getFromTransifex).not.toHaveBeenCalled()
-        return
-      })
+    const response = await request(app).get('/api/v1/translate/fr/main')
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body.dialogs.welcome.heading).toEqual(
+      'Welcome to Streetmix.'
+    )
+    expect(readFileMock).toHaveBeenCalledTimes(1)
+    expect(getFromTransifex).not.toHaveBeenCalled()
+    return
   })
 
-  it('returns translation from Transifex when token is available for non-en locale', () => {
+  it('returns translation from Transifex when token is available for non-en locale', async () => {
     process.env.TRANSIFEX_API_TOKEN = 'token-for-tests'
+
     ;(getFromTransifex as unknown as Mock).mockResolvedValueOnce(
       sampleTranslation
     )
 
-    return request(app)
-      .get('/api/v1/translate/es/main')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        expect(response.body.dialogs.welcome.heading).toEqual(
-          'Welcome to Streetmix.'
-        )
-        expect(getFromTransifex).toHaveBeenCalledWith(
-          'es',
-          'main',
-          'token-for-tests'
-        )
-        expect(readFileMock).not.toHaveBeenCalled()
-        return
-      })
+    const response = await request(app).get('/api/v1/translate/es/main')
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body.dialogs.welcome.heading).toEqual(
+      'Welcome to Streetmix.'
+    )
+    expect(getFromTransifex).toHaveBeenCalledWith(
+      'es',
+      'main',
+      'token-for-tests'
+    )
+    expect(readFileMock).not.toHaveBeenCalled()
+
+    // Cleanup
+    delete process.env.TRANSIFEX_API_TOKEN
+
+    return
   })
 })

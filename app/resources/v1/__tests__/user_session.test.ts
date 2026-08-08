@@ -22,12 +22,10 @@ describe('DELETE api/v1/users/:user_id', function () {
     app.delete('/api/v1/users/:user_id', mockUserMiddleware, session.del)
   })
 
-  it('should respond with 204 No content when user signs out', function () {
-    return request(app)
-      .delete('/api/v1/users/user1')
-      .then((response) => {
-        expect(response.statusCode).toEqual(204)
-        return
-      })
+  it('should respond with 204 No content when user signs out', async function () {
+    const response = await request(app).delete('/api/v1/users/user1')
+
+    expect(response.statusCode).toEqual(204)
+    return
   })
 })
