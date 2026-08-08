@@ -1,37 +1,66 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
+import {
+  makeStreetFixture,
+  makeUserFixture,
+} from '../../../test/model-fixtures.ts'
 import * as streets from '../streets.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+const makeStreet = () => {
+  const model = {
+    ...makeStreetFixture(),
+    set: vi.fn(function (this: Record<string, unknown>, payload) {
+      Object.assign(this, payload)
+    }),
+    changed: vi.fn(),
+    save: vi.fn(async function (this: Record<string, unknown>) {
+      return this
+    }),
+  }
 
-vi.mock('../../../db/models.ts')
-vi.mock('../../../lib/logger.ts')
-
-const street = {
-  status: 'ACTIVE',
-  id: '3e888ae0-5f48-11e8-82e7-c3447c17015a',
-  namespacedId: 65,
-  updatedAt: '2018-05-24T11:47:33.041Z',
-  createdAt: '2018-05-24T11:47:32.721Z',
-  data: {},
+  return model
 }
 
-const mockUser = {
-  sub: 'foo|123',
-}
+vi.mock('../../../db/models/index.ts', () => ({
+  Sequence: {
+    findByPk: vi.fn(async () => ({ seq: 1 })),
+    update: vi.fn(async () => [1, [{ seq: 2 }]]),
+    create: vi.fn(async () => ({ seq: 1 })),
+  },
+  Street: {
+    build: vi.fn(() => makeStreet()),
+    findOne: vi.fn(async () => makeStreet()),
+    findAndCountAll: vi.fn(async () => ({
+      rows: [makeStreet()],
+      count: 1,
+    })),
+  },
+  User: {
+    findOne: vi.fn(async () => ({
+      ...makeUserFixture({ id: 'user1', auth0Id: 'foo|123' }),
+      lastStreetId: 1,
+      increment: vi.fn(async function (this: Record<string, unknown>) {
+        return this
+      }),
+      update: vi.fn(async function (this: Record<string, unknown>) {
+        return this
+      }),
+    })),
+  },
+}))
 
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+vi.mock('../../../lib/street_schema_update.js', () => ({
+  updateToLatestSchemaVersion: vi.fn((streetData) => [false, streetData]),
+}))
+
+const street = makeStreetFixture({ id: '3e888ae0-5f48-11e8-82e7-c3447c17015a' })
+
+const { mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/streets', function () {
   const app = setupMockServer((app) => {
@@ -39,7 +68,6 @@ describe('POST api/v1/streets', function () {
   })
 
   it('should respond with 201 Created when street data are sent', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .post('/api/v1/streets/')
       .type('json')
@@ -72,7 +100,6 @@ describe('PUT api/v1/streets/:street_id', function () {
   })
 
   it('should respond with 204 No Content when street data are sent', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .put(`/api/v1/streets/${street.id}`)
       .type('json')
@@ -90,7 +117,6 @@ describe('DELETE api/v1/streets/:street_id', function () {
   })
 
   it('should respond with 204 No Content when street data are deleted', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
     return request(app)
       .delete(`/api/v1/streets/${street.id}`)
       .then((response) => {

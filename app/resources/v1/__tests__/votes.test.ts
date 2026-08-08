@@ -1,27 +1,79 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
+import {
+  makeStreetFixture,
+  makeUserFixture,
+  makeVoteFixture,
+} from '../../../test/model-fixtures.ts'
 import * as votes from '../votes.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
-
 const TEST_USER_ONE = 'user1'
-const TEST_USER_AUTH0_ONE = 'foo|123'
 const TEST_STREET_TWO = 'testStreetId2'
 const TEST_VOTE_ONE = 'vote1'
 
-vi.mock('../../../db/models.ts')
-vi.mock('../../../lib/logger.ts')
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: vi.fn(async () => {
+      return makeUserFixture({
+        id: TEST_USER_ONE,
+      })
+    }),
+  },
+  Street: {
+    findOne: vi.fn(async () =>
+      makeStreetFixture({
+        id: TEST_STREET_TWO,
+        creatorId: 'user2',
+        status: 'ACTIVE',
+      })
+    ),
+  },
+  Vote: {
+    findAll: vi.fn(async () => [
+      makeVoteFixture({
+        id: TEST_VOTE_ONE,
+        streetId: TEST_STREET_TWO,
+      }),
+    ]),
+    findOne: vi.fn(async (query) => {
+      const where = query?.where ?? {}
+
+      if (
+        (where.id === voteByUser || where.id === createdVoteId) &&
+        where.voterId === TEST_USER_ONE
+      ) {
+        return {
+          ...makeVoteFixture({
+            id: where.id,
+            voterId: TEST_USER_ONE,
+            streetId: TEST_STREET_TWO,
+          }),
+          save: vi.fn(async function (this: Record<string, unknown>) {
+            return this
+          }),
+        }
+      }
+
+      return null
+    }),
+    create: vi.fn(async (payload) =>
+      makeVoteFixture({
+        ...payload,
+        id: 'vote-created',
+      })
+    ),
+    update: vi.fn(async () => [1]),
+  },
+}))
 
 const TEST_COMMENT = 'some nice comment goes here :)'
 const TEST_COMMENT_MAX_LEN =
   'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat mass'
-
-const mockUser = {
-  sub: TEST_USER_AUTH0_ONE,
-}
 
 const MOCK_VOTE_TWO = {
   streetId: TEST_STREET_TWO,
@@ -30,16 +82,8 @@ const MOCK_VOTE_TWO = {
 
 const voteByUser = 'vote1'
 const voteByOtherUser = 'vote2'
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const createdVoteId = 'vote-created'
+const { mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('api/v1/votes', function () {
   const app = setupMockServer((app) => {
@@ -48,54 +92,45 @@ describe('api/v1/votes', function () {
     app.put('/api/v1/votes', mockUserMiddleware, votes.put)
   })
 
-  it('should fetch the only available vote for test user', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
-    return request(app)
-      .get('/api/v1/votes')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        const { ballots } = response.body
-        expect(ballots.length).toEqual(1)
-        const { id } = ballots[0]
-        expect(id).toEqual(TEST_VOTE_ONE)
-        return
-      })
+  it('should fetch the only available vote for test user', async function () {
+    const response = await request(app).get('/api/v1/votes')
+    expect(response.statusCode).toEqual(200)
+
+    const { ballots } = response.body
+    expect(ballots.length).toEqual(1)
+
+    const { id } = ballots[0]
+    expect(id).toEqual(TEST_VOTE_ONE)
+
+    return
   })
 
-  it('should allow user to vote', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
-    return request(app)
+  it('should allow user to vote', async function () {
+    const response = await request(app)
       .post('/api/v1/votes')
       .type('json')
       .send(JSON.stringify(MOCK_VOTE_TWO))
-      .then((response) => {
-        const { ballot } = response.body
-        expect(response.statusCode).toEqual(200)
-        expect(ballot.voterId).toEqual(TEST_USER_ONE)
-        expect(ballot.streetId).toEqual(TEST_STREET_TWO)
 
-        jwtMock.mockReturnValueOnce(mockUser)
-        request(app)
-          .put('/api/v1/votes')
-          .type('json')
-          .send(
-            JSON.stringify({
-              id: ballot.id,
-              comment: TEST_COMMENT,
-            })
-          )
-          .then((commentResponse) => {
-            expect(commentResponse.statusCode).toEqual(200)
-            return
-          })
+    const { ballot } = response.body
+    expect(response.statusCode).toEqual(200)
+    expect(ballot.voterId).toEqual(TEST_USER_ONE)
+    expect(ballot.streetId).toEqual(TEST_STREET_TWO)
 
-        return
-      })
+    const commentResponse = await request(app)
+      .put('/api/v1/votes')
+      .type('json')
+      .send(
+        JSON.stringify({
+          id: ballot.id,
+          comment: TEST_COMMENT,
+        })
+      )
+
+    expect(commentResponse.statusCode).toEqual(200)
   })
 
-  it('should block user commenting over 280 characters', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
-    return request(app)
+  it('should block user commenting over 280 characters', async function () {
+    const response = await request(app)
       .put('/api/v1/votes')
       .type('json')
       .send(
@@ -104,15 +139,13 @@ describe('api/v1/votes', function () {
           comment: TEST_COMMENT_MAX_LEN,
         })
       )
-      .then((response) => {
-        expect(response.statusCode).toEqual(413)
-        return
-      })
+
+    expect(response.statusCode).toEqual(413)
+    return
   })
 
-  it('should block user commenting on a vote by another user', function () {
-    jwtMock.mockReturnValueOnce(mockUser)
-    return request(app)
+  it('should block user commenting on a vote by another user', async function () {
+    const response = await request(app)
       .put('/api/v1/votes')
       .type('json')
       .send(
@@ -121,10 +154,9 @@ describe('api/v1/votes', function () {
           comment: TEST_COMMENT,
         })
       )
-      .then((response) => {
-        expect(response.statusCode).toEqual(403)
-        return
-      })
+
+    expect(response.statusCode).toEqual(403)
+    return
   })
 
   // TODO: implement this once we can test for the elimination of votes from the pool

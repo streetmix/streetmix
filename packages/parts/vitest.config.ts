@@ -2,9 +2,12 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    name: '@streetmix/parts',
+    name: {
+      label: '@streetmix/parts',
+      color: 'yellow',
+    },
     globals: true,
     environment: 'node',
-    exclude: ['build']
-  }
+    exclude: ['build'],
+  },
 })
