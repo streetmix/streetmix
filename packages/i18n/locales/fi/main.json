@@ -74,9 +74,9 @@
       "copy": "Kopioi katupohja",
       "template": "Uusi mallikatu...",
       "sign-in-link": "{signInLink} voit hyödyntää esimerkkikatuja.",
-      "templates-label": "",
+      "templates-label": "Katumallit",
       "templates": {
-        "stroad": ""
+        "stroad": "Stroad"
       }
     }
   },
@@ -138,7 +138,7 @@
       "reload": "Lataa sivu uudelleen",
       "return": "Takaisin Streetmixiin",
       "try-again": "Yritä uudelleen",
-      "user-redirect": ""
+      "user-redirect": "Näytä muut käyttäjän {user} kadut"
     },
     "page-not-found-title": "Sivua ei löydy.",
     "page-not-found-description": "Voi pojat, tässä osoitteessa ei ole mitään sisältöä!",
@@ -162,32 +162,32 @@
     "generic-error-description": "Pahoittelut – jokin meni vikaan.",
     "error-code": "(Virhe {code}.)",
     "need-help-link": "Tarvitsetko apua?",
-    "temporary-message": "",
+    "temporary-message": "Toivottavasti näin kävi vain kerran, yritäthän myöhemmin uudelleen.",
     "page": {
       "401": {
-        "title": "",
-        "heading": "",
-        "message": ""
+        "title": "Pääsy estetty (virhe 401)",
+        "heading": "Sisäänkirjautuminen epäonnistui.",
+        "message": "Sisäänkirjautuminen epäonnistui. Yritäthän myöhemmmin uudelleen."
       },
       "404": {
-        "title": "",
-        "heading": "",
-        "message": ""
+        "title": "Sisältö ei löydy (virhe 404)",
+        "heading": "Tyhjää on.",
+        "message": "Haettua sivua ei löytynyt mistään."
       },
       "410": {
-        "title": "",
+        "title": "Poissa (virhe 410)",
         "heading": "Tämä katu on poistettu.",
-        "message": ""
+        "message": "Jos sisältöä ei enää ole olemassa, sitä ei voida näyttää."
       },
       "500": {
-        "title": "",
+        "title": "Sisäisen palvelimen virhe (virhe 500)",
         "heading": "Jokin meni vikaan.",
-        "message": ""
+        "message": "Palvelimessa tapahtui virhe."
       },
       "503-auth": {
-        "title": "",
-        "heading": "",
-        "message": ""
+        "title": "Tunnistautumispalvelu ei ole saatavilla (virhe 503)",
+        "heading": "Sisäänkirjautuminen epäonnistui.",
+        "message": "Ulkoinen palvelu ei ole käytettävissä tai sillä tapahtui virhe."
       }
     }
   },
@@ -444,9 +444,9 @@
     "sea-level-input": "Muuta merenpinnan korkeutta",
     "sea-level-lower": "Laske merenpinnan korkeutta",
     "sea-level-raise": "Nosta merenpinnan korkeutta",
-    "height-input": "",
-    "height-lower": "",
-    "height-raise": ""
+    "height-input": "Muuta korkeutta",
+    "height-lower": "Laske korkeutta",
+    "height-raise": "Nosta korkeutta"
   },
   "street": {
     "default-name": "Nimetön katu",
@@ -454,7 +454,7 @@
   },
   "building": {
     "label": "Rakennuksen korkeus",
-    "label2": "",
+    "label2": "Korkeus",
     "floors-count": "{count, plural, one {# kerros} other {# kerrosta}}"
   },
   "segments": {
@@ -502,12 +502,12 @@
     "no-streets": "Ei luotuja katuja",
     "thumbnail-error": "Pienoiskuva ei ole saatavilla.",
     "pagination": {
-      "count": "",
-      "back": "",
-      "next": ""
+      "count": "Kadut {start}–{end} / {total}",
+      "back": "Edellinen sivu",
+      "next": "Seuraava sivu"
     },
     "search": {
-      "label": "",
+      "label": "Hae kaduista",
       "clear": "Selkeä"
     }
   },
@@ -594,10 +594,10 @@
     }
   },
   "coastmix": {
-    "new-waterfront-menu": "",
+    "new-waterfront-menu": "Uusi ranta-alue",
     "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
+      "harborwalk": "Satamaraitti",
+      "coastal-road": "Rannikkotie",
       "beach": "Ranta"
     }
   },
