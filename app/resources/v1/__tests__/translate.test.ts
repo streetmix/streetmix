@@ -31,6 +31,10 @@ describe('get api/v1/translate', function () {
   })
 
   beforeEach(() => {
+    // Some tests depend on this value not existing. Delete if injected from
+    // actual environment.
+    delete process.env.TRANSIFEX_API_TOKEN
+
     vi.clearAllMocks()
   })
 
@@ -66,6 +70,8 @@ describe('get api/v1/translate', function () {
   })
 
   it('returns translation from Transifex when token is available for non-en locale', async () => {
+    // Use a fake API token for this test. Do not hit the real Transifex API
+    // for the test, the request and response will be mocked.
     process.env.TRANSIFEX_API_TOKEN = 'token-for-tests'
 
     ;(getFromTransifex as unknown as Mock).mockResolvedValueOnce(
@@ -84,9 +90,6 @@ describe('get api/v1/translate', function () {
       'token-for-tests'
     )
     expect(readFileMock).not.toHaveBeenCalled()
-
-    // Cleanup
-    delete process.env.TRANSIFEX_API_TOKEN
 
     return
   })
