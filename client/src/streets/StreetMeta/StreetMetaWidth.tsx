@@ -23,7 +23,7 @@ import {
 import { normalizeStreetWidth } from '../width.js'
 import { StreetMetaItem } from './StreetMetaItem.js'
 
-import type { StreetJsonExtra } from '@streetmix/types'
+import type { StreetJsonExtra, UnitsSetting } from '@streetmix/types'
 import './StreetMetaWidth.css'
 
 const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
@@ -103,7 +103,7 @@ export function StreetMetaWidth() {
   }
 
   function handleUnitChange(value: string): void {
-    const selection = Number.parseFloat(value)
+    const selection = Number.parseFloat(value) as UnitsSetting
     updateUnits(selection)
   }
 

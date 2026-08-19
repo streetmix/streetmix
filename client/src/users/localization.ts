@@ -1,9 +1,11 @@
-import { debug } from '../preinit/debug_settings'
-import { saveStreetToServerIfNecessary } from '../streets/data_model'
+import { debug } from '../preinit/debug_settings.js'
+import { saveStreetToServerIfNecessary } from '../streets/data_model.js'
 import store from '../store'
-import { setUnits } from '../store/slices/street'
-import { setUserUnits } from '../store/slices/settings'
-import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants'
+import { setUnits } from '../store/slices/street.js'
+import { setUserUnits } from '../store/slices/settings.js'
+import { SETTINGS_UNITS_IMPERIAL, SETTINGS_UNITS_METRIC } from './constants.js'
+
+import type { UnitsSetting } from '@streetmix/types'
 
 const COUNTRIES_IMPERIAL_UNITS = ['US']
 
@@ -91,7 +93,7 @@ const COUNTRIES_LEFT_HAND_TRAFFIC = [
   'ZW',
 ]
 
-export function updateSettingsFromCountryCode(countryCode) {
+export function updateSettingsFromCountryCode(countryCode: string) {
   if (COUNTRIES_LEFT_HAND_TRAFFIC.indexOf(countryCode) !== -1) {
     leftHandTraffic = true
   }
@@ -103,9 +105,9 @@ export function updateSettingsFromCountryCode(countryCode) {
   updateUnitSettings(countryCode)
 }
 
-export function updateUnitSettings(countryCode) {
+export function updateUnitSettings(countryCode: string) {
   const localStorageUnits = store.getState().settings.units
-  let unitType
+  let unitType: UnitsSetting
 
   if (localStorageUnits) {
     unitType = localStorageUnits
@@ -119,7 +121,7 @@ export function updateUnitSettings(countryCode) {
 }
 
 // Only changes the units of the street, not the user.
-export function updateUnits(newUnits) {
+export function updateUnits(newUnits: UnitsSetting) {
   const street = store.getState().street
   if (street.units === newUnits) {
     return
