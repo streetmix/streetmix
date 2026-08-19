@@ -458,10 +458,10 @@ drainage-sides:
 bioswale-vegetation:
   bush:
     id: bush
-    title: Bioswale with bushes
+    title: Rain garden with bushes
   tree:
     id: tree
-    title: Bioswale with trees
+    title: Rain garden with trees
 brt-bus: {}
 vendor-type:
   handcart:

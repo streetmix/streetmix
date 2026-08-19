@@ -121,9 +121,9 @@ Projects and practices incorporating the natural environment or engineered syste
 
 - [City of Boston: What is Green Infrastructure?](https://www.boston.gov/departments/green-infrastructure/what-green-infrastructure)
 
-### Bioswale
+### Rain gardens and bioswales
 
-A **bioswale** is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally. Bioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.
+A **rain garden**, also known as a **bioswale** in environmental planning, is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally. Bioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.
 
 - [NACTO](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/)
 

@@ -939,14 +939,14 @@ drainage-channel:
                 - vertical
       offsetY: -50
 bioswale:
-  name: Bioswale
-  nameKey: bioswale
+  name: Rain garden
+  nameKey: rain-garden
   owner: NATURE
   enableWithFlag: COASTMIX_MODE
   coastmixPaletteOrder: 3
   unlockCondition: SUBSCRIBE
   description:
-    key: bioswale
+    key: rain-garden
     image: bioswale-02.jpg
     imageCredit: Lou Huang
   defaultWidth:
