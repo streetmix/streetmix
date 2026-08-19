@@ -1,7 +1,7 @@
-import { addToast } from '~/src/store/slices/toasts'
+import { addToast } from '~/src/store/slices/toasts.js'
 import store from '~/src/store'
 
-export function onNoConnection (): void {
+export function onNoConnection(): void {
   const state = store.getState()
 
   // Don't display this in offline mode
@@ -13,7 +13,7 @@ export function onNoConnection (): void {
     addToast({
       component: 'TOAST_NO_CONNECTION',
       method: 'warning',
-      duration: Infinity
+      duration: Infinity,
     })
   )
 }

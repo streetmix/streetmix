@@ -1,8 +1,8 @@
 import store from '~/src/store'
-import { updateSettings } from '~/src/store/slices/settings'
-import { fetchStreetForVerification } from '~/src/streets/xhr'
+import { updateSettings } from '~/src/store/slices/settings.js'
+import { fetchStreetForVerification } from '~/src/streets/xhr.js'
 
-export function onWindowFocus (): void {
+export function onWindowFocus(): void {
   const state = store.getState()
   if (state.errors.abortEverything || state.gallery.visible) {
     return

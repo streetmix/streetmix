@@ -1,16 +1,19 @@
 import USER_ROLES from '../../../app/data/user_roles.json'
-import { DRAGGING_TYPE_RESIZE, DRAGGING_TYPE_MOVE } from '../segments/constants'
-import { handleSegmentResizeCancel } from '../segments/resizing'
-import { getSignInData, isSignedIn } from '../users/authentication'
-import { formatMessage } from '../locales/locale'
-import { showDialog } from '../store/slices/dialogs'
-import { addToast } from '../store/slices/toasts'
-import { handleUndo, handleRedo } from '../store/actions/history'
+import {
+  DRAGGING_TYPE_RESIZE,
+  DRAGGING_TYPE_MOVE,
+} from '../segments/constants.js'
+import { handleSegmentResizeCancel } from '../segments/resizing.js'
+import { getSignInData, isSignedIn } from '../users/authentication.js'
+import { formatMessage } from '../locales/locale.js'
+import { showDialog } from '../store/slices/dialogs.js'
+import { addToast } from '../store/slices/toasts.js'
+import { handleUndo, handleRedo } from '../store/actions/history.js'
 import store from '../store'
-import { registerKeypress } from './keypress'
-import { ENV } from './config'
+import { registerKeypress } from './keypress.js'
+import { ENV } from './config.js'
 
-export function onGlobalKeyDown (event) {
+export function onGlobalKeyDown(event: KeyboardEvent): void {
   switch (event.key) {
     case 'Esc': // IE/Edge specific value
     case 'Escape': {
@@ -32,7 +35,7 @@ export function onGlobalKeyDown (event) {
   }
 }
 
-export function registerKeypresses () {
+export function registerKeypresses(): void {
   // In case anyone tries a save shortcut key out of reflex,
   // we inform the user that it's not necessary.
   registerKeypress('ctrl s', function () {
@@ -41,7 +44,7 @@ export function registerKeypresses () {
         message: formatMessage(
           'toast.no-save',
           'No need to save by hand; Streetmix automatically saves your street!'
-        )
+        ),
       })
     )
   })
@@ -52,7 +55,7 @@ export function registerKeypresses () {
     'ctrl s',
     {
       preventDefault: true,
-      requireFocusOnBody: false
+      requireFocusOnBody: false,
     },
     () => {} // noop
   )
@@ -63,7 +66,7 @@ export function registerKeypresses () {
     ['backspace', 'delete'],
     {
       preventDefault: true,
-      requireFocusOnBody: true
+      requireFocusOnBody: true,
     },
     () => {} // noop
   )
@@ -74,7 +77,7 @@ export function registerKeypresses () {
     if (
       ENV !== 'production' ||
       (isSignedIn() &&
-        getSignInData().details.roles.includes(USER_ROLES.ADMIN.value))
+        getSignInData()?.details?.roles.includes(USER_ROLES.ADMIN.value))
     ) {
       store.dispatch(showDialog('FEATURE_FLAGS'))
     }
@@ -86,7 +89,7 @@ export function registerKeypresses () {
     {
       preventDefault: true,
       requireFocusOnBody: true,
-      shiftKey: false
+      shiftKey: false,
     },
     () => {
       store.dispatch(handleUndo())
@@ -98,7 +101,7 @@ export function registerKeypresses () {
     ['shift ctrl z', 'ctrl y'],
     {
       preventDefault: true,
-      requireFocusOnBody: true
+      requireFocusOnBody: true,
     },
     () => {
       store.dispatch(handleRedo())
