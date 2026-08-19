@@ -3,7 +3,7 @@ import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import 'vitest-canvas-mock'
 import 'vitest-localstorage-mock'
 
-import { server } from './test/server/index.js'
+import { server } from './server/index.js'
 
 // In a test environment, use test env vars
 process.loadEnvFile('.env.test')
@@ -33,5 +33,5 @@ Object.defineProperty(global.navigator, 'geolocation', {
 })
 
 // Declare all mock modules globally
-vi.mock('./src/ui/Icon.tsx')
+vi.mock('../src/ui/Icon.tsx')
 vi.mock('react-transition-group')

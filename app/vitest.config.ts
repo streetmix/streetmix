@@ -3,11 +3,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     name: {
-      label: '@streetmix/utils',
-      color: 'white',
+      label: 'server',
+      color: 'cyan',
     },
     globals: true,
     environment: 'node',
-    exclude: ['build'],
+    setupFiles: './test/vitest.setup.ts',
+    include: ['**/*.test.ts'],
   },
 })

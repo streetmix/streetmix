@@ -1,68 +1,77 @@
 import { vi } from 'vitest'
 import request from 'supertest'
 
-import { setupMockServer } from '../../../test/setup-mock-server.ts'
+import {
+  createMockAuthMiddleware,
+  setupMockServer,
+} from '../../../test/setup-mock-server.ts'
+import { makeUserFixture } from '../../../test/model-fixtures.ts'
 import * as users from '../users.ts'
 
-import type { Response, NextFunction } from 'express'
-import type { Request as AuthedRequest } from 'express-jwt'
+// Mocks model behavior called by user test suite.
+vi.mock('../../../db/models/index.ts', () => ({
+  User: {
+    findOne: vi.fn(async (query) => {
+      const where = query?.where ?? {}
 
-vi.mock('../../../db/models.ts')
-vi.mock('../../../lib/logger.ts')
+      if (where.auth0Id === 'admin|789') {
+        return makeUserFixture({
+          id: 'admin1',
+          auth0Id: 'admin|789',
+          roles: ['ADMIN'],
+        })
+      }
 
-// Fake user info to test the API
-const emailUser = {
-  auth0: {
-    nickname: 'user2',
-    auth0Id: 'email|1111',
-    email: 'test@test.com',
-    profileImageUrl: 'https://avatar.com/picture.png',
+      if (where.auth0Id) {
+        return makeUserFixture({
+          id: 'user1',
+          auth0Id: where.auth0Id,
+        })
+      }
+
+      return null
+    }),
+    findAll: vi.fn(async () => [makeUserFixture()]),
+    create: vi.fn(async (newUserData) => makeUserFixture(newUserData)),
+    update: vi.fn(async () => [1, [{ id: 'user1' }]]),
   },
-}
+}))
 
-const mockUser = {
-  sub: 'foo|123',
-}
-
-const mockAdminUser = {
-  sub: 'admin|789',
-}
-
-const jwtMock = vi.fn() // returns a user
-const mockUserMiddleware = (
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  req.auth = jwtMock()
-  next()
-}
+const { jwtMock, mockUserMiddleware } = createMockAuthMiddleware()
 
 describe('POST api/v1/users', function () {
   const app = setupMockServer((app) => {
     app.post('/api/v1/users', users.post)
   })
 
-  it('should respond with 200 Ok when user credentials are sent', () => {
-    return request(app)
+  // Dummy POST body
+  const emailUser = {
+    auth0: {
+      nickname: 'user2',
+      auth0Id: 'email|1111',
+      email: 'test@test.com',
+      profileImageUrl: 'https://avatar.com/picture.png',
+    },
+  }
+
+  it('responds with 200 Ok when user credentials are sent', async () => {
+    const response = await request(app)
       .post('/api/v1/users/')
       .type('json')
       .send(JSON.stringify(emailUser))
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        return
-      })
+
+    expect(response.statusCode).toEqual(200)
+    return
   })
 
-  it('should respond with 400 Bad request when no user credentials are sent', () => {
-    return request(app)
+  it('responds with 400 Bad request when no user credentials are sent', async () => {
+    const response = await request(app)
       .post('/api/v1/users/')
       .type('json')
       .send('')
-      .then((response) => {
-        expect(response.statusCode).toEqual(400)
-        return
-      })
+
+    expect(response.statusCode).toEqual(400)
+    return
   })
 })
 
@@ -71,23 +80,26 @@ describe('GET api/v1/users', () => {
     app.get('/api/v1/users', mockUserMiddleware, users.get)
   })
 
-  it('should respond with 200 Ok when admin user GETs Streetmix users data', () => {
+  it('responds with 200 Ok when admin user GETs Streetmix users data', async () => {
+    const mockAdminUser = {
+      sub: 'admin|789',
+    }
     jwtMock.mockReturnValueOnce(mockAdminUser)
-    return request(app)
-      .get('/api/v1/users')
-      .then((response) => {
-        expect(response.statusCode).toEqual(200)
-        return
-      })
+
+    const response = await request(app).get('/api/v1/users')
+
+    expect(response.statusCode).toEqual(200)
+    return
   })
 
-  it('should respond with 401 when user GETs Streetmix users data', () => {
-    jwtMock.mockReturnValueOnce(mockUser)
-    return request(app)
-      .get('/api/v1/users')
-      .then((response) => {
-        expect(response.statusCode).toEqual(401)
-        return
-      })
+  it('responds with 401 when user GETs Streetmix users data', async () => {
+    const response = await request(app).get('/api/v1/users')
+
+    expect(response.statusCode).toEqual(401)
+    return
   })
 })
+
+describe.todo('PUT api/v1/users')
+describe.todo('DEL api/v1/users')
+describe.todo('PATCH api/v1/users')
