@@ -154,6 +154,7 @@ function onEverythingLoaded() {
 
     const state = store.getState()
     const whatsNewFlag = state.flags.ALWAYS_DISPLAY_WHATS_NEW.value
+    const coastmixMode = state.flags.COASTMIX_MODE.value
     const locale = state.locale.locale
 
     if (window.localStorage[LSKEY_WELCOME_DISMISSED]) {
@@ -181,8 +182,12 @@ function onEverythingLoaded() {
     // - If locale is not English, do not show What's New. (We haven't localized it.)
     // - If LocalStorage has no What's New timestamp, display What's New.
     // - If LocalStorage has a timestamp value older than current, display What's New.
+    // - Never display in Coastmix mode.
     if (
-      (welcomeDismissed && canDisplayWhatsNew && locale === 'en') ||
+      (welcomeDismissed &&
+        canDisplayWhatsNew &&
+        locale === 'en' &&
+        !coastmixMode) ||
       whatsNewFlag
     ) {
       store.dispatch(showDialog('WHATS_NEW'))
