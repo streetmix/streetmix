@@ -1,5 +1,5 @@
-import { observeStore } from '../store'
-import { saveStreetToServerIfNecessary } from './data_model'
+import { observeStore, type RootState } from '../store'
+import { saveStreetToServerIfNecessary } from './data_model.js'
 
 /**
  * Initializes a subscriber to changes in the street name,
@@ -7,7 +7,7 @@ import { saveStreetToServerIfNecessary } from './data_model'
  */
 export function initStreetDataChangedListener() {
   // We create a string representation of the values we need to compare
-  const select = (state) =>
+  const select = (state: RootState) =>
     JSON.stringify({
       boundary: state.street.boundary,
       name: state.street.name,
