@@ -44,13 +44,15 @@ export function HelpMenu(props: MenuProps) {
           />
         )}
       </MenuItem>
-      <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
-        <Icon name="whats-new" className="menu-item-icon" />
-        <FormattedMessage
-          id="menu.item.whatsnew"
-          defaultMessage="What’s new?&lrm;"
-        />
-      </MenuItem>
+      {!coastmixMode && (
+        <MenuItem onClick={() => dispatch(showDialog('WHATS_NEW'))}>
+          <Icon name="whats-new" className="menu-item-icon" />
+          <FormattedMessage
+            id="menu.item.whatsnew"
+            defaultMessage="What’s new?&lrm;"
+          />
+        </MenuItem>
+      )}
       {!offline && (
         <>
           <MenuItem href="https://docs.streetmix.net/user-guide/intro">
