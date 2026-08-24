@@ -12,6 +12,7 @@
     "utility-pole": "Utility pole",
     "drainage-channel": "Drainage channel",
     "bioswale": "Bioswale",
+    "rain-garden": "Rain garden",
     "parklet": "Parklet",
     "street-vendor": "Street vendor",
     "divider": "Buffer",
@@ -87,6 +88,12 @@
       "imageAltText": "Bioswale on N American St, in Philadelphia.",
       "imageCaption": "Diagram courtesy of City of Boston Office of Green Infrastructure.",
       "content": "# Bioswales absorb rainwater into the ground after large storms.\n\nA bioswale is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally.\n\n![Cross-sectional diagram of a bioswale, showing rainwater flowing from pavement into a planted depression where it filters through soil and drains into the ground.](/images/descriptions/bioswale-01.jpg)\n\nBioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.\n\nFor more information, check out the [NACTO Urban Street Design Guide](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/)."
+    },
+    "rain-garden": {
+      "prompt": "Learn more about rain gardens",
+      "imageAltText": "Rain garden on N American St, in Philadelphia.",
+      "imageCaption": "Diagram courtesy of City of Boston Office of Green Infrastructure.",
+      "content": "# Rain gardens absorb rainwater into the ground after large storms.\n\nA rain garden (also known as a bioswale) is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a rain garden slows the water down and helps it soak into the ground naturally.\n\n![Cross-sectional diagram of a bioswale, showing rainwater flowing from pavement into a planted depression where it filters through soil and drains into the ground.](/images/descriptions/bioswale-01.jpg)\n\nRain gardens are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.\n\nFor more information, check out the [NACTO Urban Street Design Guide](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/)."
     },
     "marsh": {
       "prompt": "Learn more about marshes",
@@ -189,8 +196,8 @@
     "lamp-type|pride": "Modern with pride banner",
     "drainage-sides|slanted": "Slanted sides",
     "drainage-sides|vertical": "Vertical sides",
-    "bioswale-vegetation|bush": "Bioswale with bushes",
-    "bioswale-vegetation|tree": "Bioswale with trees",
+    "bioswale-vegetation|bush": "Rain garden with bushes",
+    "bioswale-vegetation|tree": "Rain garden with trees",
     "car-type|car": "Car",
     "car-type|sharrow": "Sharrow",
     "car-type|truck": "Truck",
