@@ -1,18 +1,18 @@
 import {
   onBodyMouseDown,
   onBodyMouseMove,
-  onBodyMouseUp
-} from '../segments/drag_and_drop'
-import { onStorageChange } from '../users/authentication'
-import { onGlobalKeyDown } from './keyboard_commands'
+  onBodyMouseUp,
+} from '../segments/drag_and_drop.js'
+import { onStorageChange } from '../users/authentication.js'
+import { onGlobalKeyDown } from './keyboard_commands.js'
 import {
   onWindowBeforeUnload,
   onNoConnection,
   onVisibilityChange,
-  onWindowFocus
+  onWindowFocus,
 } from './event_handlers'
 
-export function addEventListeners (): void {
+export function addEventListeners(): void {
   window.addEventListener('storage', onStorageChange)
 
   window.addEventListener('pointerdown', onBodyMouseDown)

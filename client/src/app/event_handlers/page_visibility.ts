@@ -1,6 +1,6 @@
-import { onWindowFocus } from './focus'
+import { onWindowFocus } from './focus.js'
 
-export function onVisibilityChange (): void {
+export function onVisibilityChange(): void {
   if (document.visibilityState !== 'hidden') {
     onWindowFocus()
   }

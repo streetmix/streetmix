@@ -1,6 +1,6 @@
 import { Street } from '../../db/models/index.ts'
 import { logger } from '../../lib/logger.ts'
-import { streetsToCSV } from '../../lib/streets_export.js'
+import { streetsToCSV } from '../../lib/streets_export.ts'
 import { ERRORS } from '../../lib/util.ts'
 
 import type { Request, Response } from 'express'
@@ -33,8 +33,7 @@ export async function get(req: Request, res: Response) {
   } // END function - handleFindUserstreets
 
   const handleFindRemixedStreets = function (streets: Street[]) {
-    const json = { streets }
-    const csv = streetsToCSV(json)
+    const csv = streetsToCSV(streets)
     // For now, this sends CSV directly for export.
     // In future we might want to send JSON also for a UI.
     res.set('Content-Type', 'text/csv')

@@ -1,7 +1,7 @@
 import { vi, beforeAll, afterAll } from 'vitest'
 
-import { render } from '~/test/helpers/render'
-import { DateTimeRelative } from './DateTimeRelative'
+import { render } from '~/test/helpers/render.js'
+import { DateTimeRelative } from './DateTimeRelative.js'
 
 // This will only test `en-US` (default) values. Assume that localized values
 // will be handled accurately by the react-intl implementation.

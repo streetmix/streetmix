@@ -1,20 +1,22 @@
-import { URL_NEW_STREET } from './constants'
-import Authenticate from './auth0'
+import { URL_NEW_STREET } from './constants.js'
+import Authenticate from './auth0.js'
+
+import type { Auth0Error } from 'auth0-js'
 
 const AUTH0_SIGN_IN_CALLBACK_URL = new URL(
   '/services/auth0/sign-in-callback',
   window.location.origin
 ).href
 
-export function goReload() {
+export function goReload(): void {
   window.location.reload()
 }
 
-export function goHome() {
+export function goHome(): void {
   window.location.href = '/'
 }
 
-export function goNewStreet(sameWindow) {
+export function goNewStreet(sameWindow?: boolean): void {
   if (sameWindow) {
     window.location.replace(URL_NEW_STREET)
   } else {
@@ -22,7 +24,7 @@ export function goNewStreet(sameWindow) {
   }
 }
 
-export function goTwitterSignIn() {
+export function goTwitterSignIn(): void {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
@@ -31,7 +33,7 @@ export function goTwitterSignIn() {
   })
 }
 
-export function goFacebookSignIn() {
+export function goFacebookSignIn(): void {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
@@ -40,7 +42,7 @@ export function goFacebookSignIn() {
   })
 }
 
-export function goGoogleSignIn() {
+export function goGoogleSignIn(): void {
   const auth0 = Authenticate()
   auth0.authorize({
     responseType: 'code',
@@ -49,7 +51,10 @@ export function goGoogleSignIn() {
   })
 }
 
-export function goEmailSignIn(email, callback) {
+export function goEmailSignIn(
+  email: string,
+  callback: (err: Auth0Error | null, res?: unknown) => void
+): void {
   const auth0 = Authenticate()
   auth0.passwordlessStart(
     {

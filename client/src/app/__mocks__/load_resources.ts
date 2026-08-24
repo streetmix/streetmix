@@ -1,6 +1,6 @@
 export const images = new Map()
 
-const loadImages = (id) => {
+const loadImages = (id: string) => {
   const width = 96
   const height = 96
   const viewBox = '0 0 96 96'
@@ -14,7 +14,7 @@ const loadImages = (id) => {
   images.set(id, {
     img,
     width,
-    height
+    height,
   })
 }
 

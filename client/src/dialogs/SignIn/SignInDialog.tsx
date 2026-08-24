@@ -13,6 +13,8 @@ import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { Dialog } from '../Dialog.js'
 import './SignInDialog.css'
 
+import type { Auth0Error } from 'auth0-js'
+
 export function SignInDialog() {
   const [email, setEmail] = useState('')
   const [emailSent, setEmailSent] = useState(false)
@@ -52,7 +54,7 @@ export function SignInDialog() {
     goTwitterSignIn()
   }
 
-  function handleGoEmailSignIn(error: string | null): void {
+  function handleGoEmailSignIn(error: Auth0Error | null): void {
     if (error !== null) {
       console.error(error)
       return

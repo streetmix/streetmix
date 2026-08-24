@@ -1,12 +1,12 @@
 import store from '~/src/store'
-import { getSaveStreetIncomplete } from '~/src/streets/xhr'
+import { getSaveStreetIncomplete } from '~/src/streets/xhr.js'
 import {
   isThumbnailSaved,
   SAVE_THUMBNAIL_EVENTS,
-  saveStreetThumbnail
-} from '~/src/streets/image'
+  saveStreetThumbnail,
+} from '~/src/streets/image.js'
 
-function checkIfChangesSaved (): boolean {
+function checkIfChangesSaved(): boolean {
   if (store.getState().errors.abortEverything) {
     return false
   }
@@ -34,7 +34,7 @@ function checkIfChangesSaved (): boolean {
   return false
 }
 
-export function onWindowBeforeUnload (
+export function onWindowBeforeUnload(
   event: BeforeUnloadEvent
 ): string | undefined {
   const shouldPrompt = checkIfChangesSaved()
