@@ -24,11 +24,12 @@ export async function loadImages(): Promise<string[]> {
   const loading: Promise<string | undefined>[] = []
 
   for (const url of IMAGES_TO_BE_LOADED) {
-    try {
-      loading.push(loadImage(url))
-    } catch (error) {
-      console.error('loading svg error', error)
-    }
+    loading.push(
+      loadImage(url).catch((error) => {
+        console.error('loading svg error', error)
+        return undefined
+      })
+    )
   }
 
   const results = await Promise.all(loading)
