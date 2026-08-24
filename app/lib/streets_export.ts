@@ -1,19 +1,20 @@
 import Papa from 'papaparse'
 import { round } from '@streetmix/utils'
 
+import { Street } from '../db/models/index.ts'
 import { appURL } from './url.ts'
+
+import type { SliceItemForServerTransmission } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
 const IMPERIAL_PRECISION = 3
 
-function convertMetricMeasurementToImperial(value) {
+function convertMetricMeasurementToImperial(value: number) {
   if (value === undefined) return
   return round(value * IMPERIAL_CONVERSION_RATE, IMPERIAL_PRECISION)
 }
 
-export function streetsToCSV(json) {
-  const streets = json.streets
-
+export function streetsToCSV(streets: Street[]) {
   const maxSliceCount = streets.reduce((value, street) => {
     const length = street.data.street.segments.length
     if (length > value) return length
@@ -44,8 +45,11 @@ export function streetsToCSV(json) {
   return Papa.unparse(rows)
 }
 
-function getSliceData(slices = [], maxSliceCount) {
-  const object = {}
+function getSliceData(
+  slices: SliceItemForServerTransmission[] = [],
+  maxSliceCount: number
+) {
+  const object: Record<string, string | number> = {}
 
   for (let i = 0; i < maxSliceCount; i++) {
     const slice = slices[i] ?? {}
@@ -61,7 +65,7 @@ function getSliceData(slices = [], maxSliceCount) {
   return object
 }
 
-function getStreetUrl(street) {
+function getStreetUrl(street: Street) {
   let url = appURL.href
   if (street.creatorId) {
     url += street.creatorId
