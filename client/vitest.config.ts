@@ -15,7 +15,7 @@ export default defineConfig({
     alias: [
       {
         find: /^(.*)\.(jpg|jpeg|png|gif|svg)$/,
-        replacement: path.resolve(__dirname, './__mocks__/fileMock.js'),
+        replacement: path.resolve(__dirname, './__mocks__/fileMock.ts'),
       },
       {
         find: '~',
