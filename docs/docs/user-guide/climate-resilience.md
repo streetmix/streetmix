@@ -117,13 +117,13 @@ A **marsh** is a type of wetland, which is an area where water covers the ground
 
 ### Green infrastructure
 
-Projects and practices incorporating the natural environment or engineered systems that provide or supplement natural processes or work in concert with natural systems to provide flood, fire, or drought risk reduction, or clean water or air benefits. Green infrastructure practices protect, restore, augment, or mimic ecological processes. Examples include bioswales, rain gardens, permeable pavement, green roofs, constructed wetlands, and planting trees.
+Projects and practices incorporating the natural environment or engineered systems that provide or supplement natural processes or work in concert with natural systems to provide flood, fire, or drought risk reduction, or clean water or air benefits. Green infrastructure practices protect, restore, augment, or mimic ecological processes. Examples include rain gardens, bioswales, permeable pavement, green roofs, constructed wetlands, and planting trees.
 
 - [City of Boston: What is Green Infrastructure?](https://www.boston.gov/departments/green-infrastructure/what-green-infrastructure)
 
 ### Rain gardens and bioswales
 
-A **rain garden**, also known as a **bioswale** in environmental planning, is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a bioswale slows the water down and helps it soak into the ground naturally. Bioswales are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.
+A **rain garden**, also known as a **bioswale**, is a landscaped channel designed to collect and manage rainwater runoff from surfaces like streets, parking lots, and rooftops. Instead of sending stormwater directly into drains, a rain garden slows the water down and helps it soak into the ground naturally. Rain gardens are an example of “green infrastructure” that help reduce flooding, improve water quality by filtering pollutants, and add greenery to neighborhoods. They are commonly planted with grasses, shrubs, and other hardy vegetation, giving them the appearance of a planted ditch or garden bed.
 
 - [NACTO](https://nacto.org/publication/urban-street-design-guide/street-design-elements/stormwater-management/bioswales/)
 
