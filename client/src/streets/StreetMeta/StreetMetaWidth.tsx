@@ -103,8 +103,12 @@ export function StreetMetaWidth() {
   }
 
   function handleUnitChange(value: string): void {
-    const selection = Number.parseFloat(value) as UnitsSetting
-    updateUnits(selection)
+    const parsed = Number.parseFloat(value)
+    if (parsed === SETTINGS_UNITS_METRIC) {
+      updateUnits(SETTINGS_UNITS_METRIC)
+    } else if (parsed === SETTINGS_UNITS_IMPERIAL) {
+      updateUnits(SETTINGS_UNITS_IMPERIAL)
+    }
   }
 
   function handleWidthEntry(): void {
