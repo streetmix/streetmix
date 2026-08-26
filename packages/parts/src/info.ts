@@ -32,18 +32,18 @@ const SEGMENT_LOOKUP: Record<string, SegmentDefinition> =
  * up by different modes or uses.
  */
 export const SliceTypes = {
-  NONE: 'none', // nothing should use this if possible
-  CAR: 'car', // all motor vehicles, including ridesharing
-  TRANSIT: 'transit', // all public transit vehicles
-  BIKE: 'bike', // "micromobility" vehicles which include scooters and e-bikes
-  PEDESTRIAN: 'pedestrian', // people walking on foot
-  FURNITURE: 'furniture', // temporary or permanent objects in pedestrian zones
-  FLEX: 'flex', // areas defined as a "flex zone". objects in this zone should
+  NONE: 'NONE', // nothing should use this if possible
+  CAR: 'CAR', // all motor vehicles, including ridesharing
+  TRANSIT: 'TRANSIT', // all public transit vehicles
+  BIKE: 'BIKE', // "micromobility" vehicles which include scooters and e-bikes
+  PEDESTRIAN: 'PEDESTRIAN', // people walking on foot
+  FURNITURE: 'FURNITURE', // temporary or permanent objects in pedestrian zones
+  FLEX: 'FLEX', // areas defined as a "flex zone". objects in this zone should
   // be classified as car, bike, furniture, etc.
-  UTILITY: 'utility', // infrastructure, like power lines
-  WALL: 'wall', // specific infrastructure type for walls
-  DRAINAGE: 'drainage', // specific infrastructure for drainage, bioswales
-  NATURE: 'nature', // landscaped or natural areas
+  UTILITY: 'UTILITY', // infrastructure, like power lines
+  WALL: 'WALL', // specific infrastructure type for walls
+  DRAINAGE: 'DRAINAGE', // specific infrastructure for drainage, bioswales
+  NATURE: 'NATURE', // landscaped or natural areas
 }
 
 /**
