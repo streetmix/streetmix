@@ -4,16 +4,16 @@ Each segment is an object. It is named with a string, e.g. 'parklet' that Street
 
 How to fill in the data for a segment:
 
-| property         | type               | required? | description                                                                                                                                                                                                    |
+| property | type | required? | description |
 | ---------------- | ------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `name`           | _String_           | required  | Display name of a segment. Always use sentence case. 'Parking lot', not 'Parking Lot'                                                                                                                          |
-| `owner`          | _String_           | optional  | See `SegmentTypes` constant variable container. Segments without an owner or type should default to `SegmentTypes.NONE`.                                                                                       |
-| `zIndex`         | _Integer_          | required  | Layering priority. Higher numbers will always display overlapping those with lower numbers. If zIndex is equal, DOM order will determine what is overlapping something else.                                   |
-| `defaultWidth`   | Object             | required  | Default width in metric and imperial values. Decimal numbers are allowed. In many cases, though not always, there is a simple conversion rate of `ft = m * (10 / 3)`.                                          |
-| `variants`       | Array of _strings_ | required  | Sub-types of the segment, e.g. 'orientation' and 'color'. If there are no variants, use an array of a single empty string, `['']`.                                                                             |
-| `enableWithFlag` | String             | optional  | Default value: none. If set, the segment is hidden from users unless the its corresponding flag is set to `true`. These segments may not be ready for production or are only enabled under certain conditions. |
-| `description`    | Object             | optional  | If present, a "learn more" feature is added to the segment's info box. For more info see below.                                                                                                                |
-| `details`        | Object             | required  | Details of every variant of the segment. Each variant is named with a string. For segments that have multiple variants, separate each variant with the variant separator '                                     | ' (pipe) |
+| `name` | _String_ | required | Display name of a segment. Always use sentence case. 'Parking lot', not 'Parking Lot' |
+| `owner` | _String_ | optional | See `SliceTypes` constant variable container. Segments without an owner or type should default to `SliceTypes.NONE`. |
+| `zIndex` | _Integer_ | required | Layering priority. Higher numbers will always display overlapping those with lower numbers. If zIndex is equal, DOM order will determine what is overlapping something else. |
+| `defaultWidth` | Object | required | Default width in metric and imperial values. Decimal numbers are allowed. In many cases, though not always, there is a simple conversion rate of `ft = m * (10 / 3)`. |
+| `variants` | Array of _strings_ | required | Sub-types of the segment, e.g. 'orientation' and 'color'. If there are no variants, use an array of a single empty string, `['']`. |
+| `enableWithFlag` | String | optional | Default value: none. If set, the segment is hidden from users unless the its corresponding flag is set to `true`. These segments may not be ready for production or are only enabled under certain conditions. |
+| `description` | Object | optional | If present, a "learn more" feature is added to the segment's info box. For more info see below. |
+| `details` | Object | required | Details of every variant of the segment. Each variant is named with a string. For segments that have multiple variants, separate each variant with the variant separator ' | ' (pipe) |
 
 ### Settings for description
 

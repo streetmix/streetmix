@@ -31,7 +31,7 @@ const SEGMENT_LOOKUP: Record<string, SegmentDefinition> =
  * in visualizations and data to calculate how much space is taken
  * up by different modes or uses.
  */
-export const SegmentTypes = {
+export const SliceTypes = {
   NONE: 'none', // nothing should use this if possible
   CAR: 'car', // all motor vehicles, including ridesharing
   TRANSIT: 'transit', // all public transit vehicles

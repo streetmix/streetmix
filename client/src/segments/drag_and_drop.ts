@@ -1,24 +1,24 @@
 import { nanoid } from 'nanoid'
 import {
-  SegmentTypes,
+  SliceTypes,
   getSegmentInfo,
   getSegmentVariantInfo,
 } from '@streetmix/parts'
 import { getWidthInMetric } from '@streetmix/utils'
 
-import { setIgnoreStreetChanges } from '../streets/data_model'
-import { getElAbsolutePos } from '../util/helpers'
+import { setIgnoreStreetChanges } from '../streets/data_model.js'
+import { getElAbsolutePos } from '../util/helpers.js'
 import store, { observeStore } from '../store'
-import { addSegment, moveSegment } from '../store/slices/street'
-import { removeSegmentAction } from '../store/actions/street'
+import { addSegment, moveSegment } from '../store/slices/street.js'
+import { removeSegmentAction } from '../store/actions/street.js'
 import {
   initDraggingState,
   updateDraggingState,
   clearDraggingState,
   setActiveSegment,
   setDraggingType,
-} from '../store/slices/ui'
-import { generateRandSeed } from '../util/random'
+} from '../store/slices/ui.js'
+import { generateRandSeed } from '../util/random.js'
 import {
   RESIZE_TYPE_INITIAL,
   RESIZE_TYPE_DRAGGING,
@@ -28,8 +28,8 @@ import {
   resolutionForResizeType,
   normalizeSegmentWidth,
   cancelSegmentResizeTransitions,
-} from './resizing'
-import { getVariantInfo, getVariantString } from './variant_utils'
+} from './resizing.js'
+import { getVariantInfo, getVariantString } from './variant_utils.js'
 import {
   TILE_SIZE,
   MIN_SEGMENT_WIDTH,
@@ -38,8 +38,8 @@ import {
   DRAGGING_TYPE_MOVE,
   DRAGGING_TYPE_RESIZE,
   CURB_HEIGHT,
-} from './constants'
-import { segmentsChanged } from './view'
+} from './constants.js'
+import { segmentsChanged } from './view.js'
 
 import type {
   SliceItem,
@@ -174,7 +174,9 @@ function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   draggingResize.segmentEl.classList.add('hover')
 
   window.setTimeout(function () {
-    draggingResize.segmentEl.classList.add('hover')
+    if (draggingResize.segmentEl) {
+      draggingResize.segmentEl.classList.add('hover')
+    }
   }, 0)
 }
 
@@ -331,17 +333,17 @@ function doDropHeuristics(
   const right =
     segmentBeforeEl !== null ? (street.segments[segmentBeforeEl] ?? null) : null
 
-  const leftOwner = left && SegmentTypes[getSegmentInfo(left.type).owner]
-  const rightOwner = right && SegmentTypes[getSegmentInfo(right.type).owner]
+  const leftOwner = left && SliceTypes[getSegmentInfo(left.type).owner]
+  const rightOwner = right && SliceTypes[getSegmentInfo(right.type).owner]
 
   const leftOwnerAsphalt =
-    leftOwner === SegmentTypes.CAR ||
-    leftOwner === SegmentTypes.BIKE ||
-    leftOwner === SegmentTypes.TRANSIT
+    leftOwner === SliceTypes.CAR ||
+    leftOwner === SliceTypes.BIKE ||
+    leftOwner === SliceTypes.TRANSIT
   const rightOwnerAsphalt =
-    rightOwner === SegmentTypes.CAR ||
-    rightOwner === SegmentTypes.BIKE ||
-    rightOwner === SegmentTypes.TRANSIT
+    rightOwner === SliceTypes.CAR ||
+    rightOwner === SliceTypes.BIKE ||
+    rightOwner === SliceTypes.TRANSIT
 
   const leftVariant = left && getVariantInfo(left.type, left.variantString)
   const rightVariant = right && getVariantInfo(right.type, right.variantString)
@@ -351,7 +353,7 @@ function doDropHeuristics(
 
   // Direction
 
-  if (segmentInfo.variants.indexOf('direction') !== -1) {
+  if (segmentInfo.variants?.indexOf('direction') !== -1) {
     if (leftVariant && leftVariant.direction) {
       variant.direction = leftVariant.direction
     } else if (rightVariant && rightVariant.direction) {
@@ -361,7 +363,7 @@ function doDropHeuristics(
 
   // Parking lane orientation
 
-  if (segmentInfo.variants.indexOf('parking-lane-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('parking-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['parking-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -381,7 +383,7 @@ function doDropHeuristics(
 
   // Turn lane orientation
 
-  if (segmentInfo.variants.indexOf('turn-lane-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('turn-lane-orientation') !== -1) {
     if (!right || !rightOwnerAsphalt) {
       variant['turn-lane-orientation'] = 'right'
     } else if (!left || !leftOwnerAsphalt) {
@@ -392,14 +394,14 @@ function doDropHeuristics(
   // Transit shelter orientation and elevation
 
   if (type === 'transit-shelter') {
-    if (left && leftOwner === SegmentTypes.TRANSIT) {
+    if (left && leftOwner === SliceTypes.TRANSIT) {
       variant.orientation = 'right'
-    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
+    } else if (right && rightOwner === SliceTypes.TRANSIT) {
       variant.orientation = 'left'
     }
   }
 
-  if (segmentInfo.variants.indexOf('transit-shelter-elevation') !== -1) {
+  if (segmentInfo.variants?.indexOf('transit-shelter-elevation') !== -1) {
     if (variant.orientation === 'right' && left && left.type === 'light-rail') {
       variant['transit-shelter-elevation'] = 'light-rail'
     } else if (
@@ -416,9 +418,9 @@ function doDropHeuristics(
   if (type === 'brt-station') {
     // Default orientation is center
     variant['brt-station-orientation'] = 'center'
-    if (left && leftOwner === SegmentTypes.TRANSIT) {
+    if (left && leftOwner === SliceTypes.TRANSIT) {
       variant['brt-station-orientation'] = 'right'
-    } else if (right && rightOwner === SegmentTypes.TRANSIT) {
+    } else if (right && rightOwner === SliceTypes.TRANSIT) {
       variant['brt-station-orientation'] = 'left'
     }
   }
@@ -426,16 +428,16 @@ function doDropHeuristics(
   // Bike rack orientation
 
   if (type === 'sidewalk-bike-rack') {
-    if (left && leftOwner !== SegmentTypes.PEDESTRIAN) {
+    if (left && leftOwner !== SliceTypes.PEDESTRIAN) {
       variant.orientation = 'left'
-    } else if (right && rightOwner !== SegmentTypes.PEDESTRIAN) {
+    } else if (right && rightOwner !== SliceTypes.PEDESTRIAN) {
       variant.orientation = 'right'
     }
   }
 
   // Lamp orientation
 
-  if (segmentInfo.variants.indexOf('lamp-orientation') !== -1) {
+  if (segmentInfo.variants?.indexOf('lamp-orientation') !== -1) {
     if (left && right && leftOwnerAsphalt && rightOwnerAsphalt) {
       variant['lamp-orientation'] = 'both'
     } else if (left && leftOwnerAsphalt) {
