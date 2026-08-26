@@ -180,7 +180,7 @@ sidewalk-bike-rack:
 sidewalk-bench:
   name: Bench
   nameKey: bench
-  owner: PEDESTRIAN
+  owner: FURNITURE
   zIndex: 24
   coastmixPaletteOrder: 23
   defaultWidth:
@@ -224,7 +224,7 @@ sidewalk-bench:
 outdoor-dining:
   name: Outdoor dining
   nameKey: outdoor-dining
-  owner: PEDESTRIAN
+  owner: FURNITURE
   zIndex: 24
   coastmixPaletteOrder: 24
   defaultWidth:
@@ -286,7 +286,7 @@ outdoor-dining:
 sidewalk-wayfinding:
   name: Wayfinding sign
   nameKey: wayfinding-sign
-  owner: PEDESTRIAN
+  owner: FURNITURE
   zIndex: 21
   coastmixPaletteOrder: 25
   defaultWidth:
@@ -333,7 +333,7 @@ sidewalk-wayfinding:
 sidewalk-lamp:
   name: Lamp
   nameKey: sidewalk-lamp
-  owner: PEDESTRIAN
+  owner: FURNITURE
   zIndex: 19
   coastmixPaletteOrder: 26
   defaultWidth:
@@ -466,7 +466,7 @@ sidewalk-lamp:
 utilities:
   name: Utility pole
   nameKey: utility-pole
-  owner: NONE
+  owner: UTILITY
   zIndex: 10
   defaultWidth:
     metric: 1.2
@@ -500,7 +500,7 @@ utilities:
 parklet:
   name: Parklet
   nameKey: parklet
-  owner: NATURE
+  owner: FURNITURE
   zIndex: 15
   defaultWidth:
     metric: 2.4
@@ -905,7 +905,7 @@ temporary:
 drainage-channel:
   name: Drainage channel
   nameKey: drainage-channel
-  owner: UTILITY
+  owner: DRAINAGE
   unlockWithFlag: SEGMENT_DRAINAGE_CHANNEL_UNLOCKED
   unlockCondition: SUBSCRIBE
   defaultWidth:
@@ -941,7 +941,7 @@ drainage-channel:
 bioswale:
   name: Rain garden
   nameKey: rain-garden
-  owner: NATURE
+  owner: DRAINAGE
   enableWithFlag: COASTMIX_MODE
   coastmixPaletteOrder: 3
   unlockCondition: SUBSCRIBE
@@ -1789,7 +1789,7 @@ bike-lane:
 bikeshare:
   name: Bikeshare station
   nameKey: bikeshare-station
-  owner: FLEX
+  owner: FURNITURE
   zIndex: 21
   coastmixPaletteOrder: 31
   defaultWidth:
@@ -1855,7 +1855,7 @@ bikeshare:
 food-truck:
   name: Food truck
   nameKey: foodtruck
-  owner: FLEX
+  owner: CAR
   zIndex: 20
   coastmixPaletteOrder: 32
   defaultWidth:
@@ -3926,7 +3926,7 @@ marsh:
 wall:
   name: Wall
   nameKey: wall
-  owner: NONE
+  owner: WALL
   zIndex: 35
   defaultWidth:
     metric: 0.75

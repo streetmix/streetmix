@@ -205,7 +205,7 @@ objects:
   pickup-sign:
     name: Pickup sign
     nameKey: pickup-sign
-    owner: FLEX
+    owner: FURNITURE
     zIndex: 30
     variants:
       orientation:
@@ -230,7 +230,7 @@ objects:
   utility-pole:
     name: Utility pole
     nameKey: utility-pole
-    owner: NONE
+    owner: UTILITY
     zIndex: 10
     variants:
       orientation:
@@ -277,7 +277,7 @@ objects:
   bench:
     name: Bench
     nameKey: bench
-    owner: PEDESTRIAN
+    owner: FURNITURE
     zIndex: 24
     variants:
       orientation:
@@ -293,7 +293,7 @@ objects:
   outdoor-dining:
     name: Outdoor dining
     nameKey: outdoor-dining
-    owner: PEDESTRIAN
+    owner: FURNITURE
     zIndex: 20
     variants:
       occupants:
@@ -306,7 +306,7 @@ objects:
   wayfinding-sign:
     name: Wayfinding sign
     nameKey: wayfinding-sign
-    owner: PEDESTRIAN
+    owner: FURNITURE
     zIndex: 21
     variants:
       type:
@@ -322,7 +322,7 @@ objects:
   lamp:
     name: Lamp
     nameKey: lamp
-    owner: PEDESTRIAN
+    owner: FURNITURE
     zIndex: 19
     variants:
       type|orientation:
@@ -365,7 +365,7 @@ objects:
   parklet:
     name: Parklet
     nameKey: parklet
-    owner: NATURE
+    owner: FURNITURE
     zIndex: 15
     variants:
       orientation:
@@ -396,7 +396,7 @@ objects:
   bikeshare:
     name: Bikeshare station
     nameKey: bikeshare-station
-    owner: FLEX
+    owner: FURNITURE
     zIndex: 21
     variants:
       orientation:
@@ -450,7 +450,7 @@ objects:
   planter-box:
     name: Planter box
     nameKey: planter-box
-    owner: NATURE
+    owner: FURNITURE
     zIndex: 20
     variants:
       type:
@@ -649,7 +649,7 @@ objects:
   wall:
     name: Wall
     nameKey: wall
-    owner: NONE
+    owner: WALL
     variants:
       wall-height:
         low:
@@ -747,7 +747,7 @@ vehicles:
   taxi:
     name: Taxi
     nameKey: taxi
-    owner: FLEX
+    owner: CAR
     zIndex: 15
     variants:
       direction|orientation:
@@ -768,7 +768,7 @@ vehicles:
   rideshare:
     name: Rideshare
     nameKey: rideshare
-    owner: FLEX
+    owner: CAR
     zIndex: 15
     variants:
       direction|orientation:
@@ -950,7 +950,7 @@ vehicles:
   food-truck:
     name: Food truck
     nameKey: foodtruck
-    owner: FLEX
+    owner: CAR
     zIndex: 20
     variants:
       orientation:
