@@ -1,4 +1,4 @@
-import { getBoundaryItem } from '@streetmix/parts'
+import { getBoundaryItem, getSegmentInfo, SliceTypes } from '@streetmix/parts'
 import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
@@ -78,10 +78,12 @@ function calculateFloodDistance(
       compareElevation = slice.elevation
     }
 
+    const sliceInfo = getSegmentInfo(slice.type)
+
     // Walls are a special case that is capable of blocking a flood (like a
     // seawall, etc). So its compare elevation will be higher
     // TODO: Don't hardcode these height numbers
-    if (slice.type === 'wall') {
+    if (sliceInfo.owner === SliceTypes.WALL) {
       if (slice.variant['wall-height'] === 'low') {
         compareElevation += 1
       } else {
