@@ -30,13 +30,21 @@ function Details({ details }: { details: FloodDetails }) {
     for (let i = 0; i < details.floodedTypes.length; i++) {
       const type = details.floodedTypes[i]
       if (disallowFlooding.includes(type)) {
-        styledTypes.push(<span style={{ color: 'red' }}>{type}</span>)
+        styledTypes.push(
+          <span style={{ color: 'red' }} key={type}>
+            {type}
+          </span>
+        )
       } else {
-        styledTypes.push(<span style={{ color: 'lightgreen' }}>{type}</span>)
+        styledTypes.push(
+          <span style={{ color: 'lightgreen' }} key={type}>
+            {type}
+          </span>
+        )
       }
     }
   } else {
-    styledTypes.push(<span>none</span>)
+    styledTypes.push(<span key="none">none</span>)
   }
 
   return (
