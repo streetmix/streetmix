@@ -224,15 +224,17 @@ export const steps2: StepOptions[] = [
           activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => state.coastmix,
           shouldAdvance: (coastmix) => {
-            if (coastmix.seaLevelRise === 0) return false
-            if (
-              coastmix.floodDistance[0] === null &&
-              coastmix.floodDistance[1] === null
-            ) {
+            const { seaLevelRise, floodDetails } = coastmix
+
+            if (seaLevelRise === 0) return false
+            if (floodDetails[0] === null && floodDetails[1] === null) {
               return false
             }
 
-            return !coastmix.floodDistance.includes('max')
+            return (
+              floodDetails[0]?.distance !== 'max' &&
+              floodDetails[1]?.distance !== 'max'
+            )
           },
         })
       },
