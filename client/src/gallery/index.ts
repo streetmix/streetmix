@@ -1,18 +1,21 @@
-import { hideBlockingShield, showBlockingShield } from '../app/blocking_shield'
-import { ERRORS, showError } from '../app/errors'
-import { getMode, MODES, processMode, setMode } from '../app/mode'
+import {
+  hideBlockingShield,
+  showBlockingShield,
+} from '../app/blocking_shield.js'
+import { ERRORS, showError } from '../app/errors.js'
+import { getMode, MODES, processMode, setMode } from '../app/mode.js'
 import store from '../store'
 import { segmentsChanged } from '../store/actions/street.js'
-import { hideError } from '../store/slices/errors'
-import { resetMapState } from '../store/slices/map'
-import { setIgnoreStreetChanges, setLastStreet } from '../streets/data_model'
-import { SAVE_THUMBNAIL_EVENTS, saveStreetThumbnail } from '../streets/image'
-import { unpackServerStreetData } from '../streets/xhr'
+import { hideError } from '../store/slices/errors.js'
+import { resetMapState } from '../store/slices/map.js'
+import { setIgnoreStreetChanges, setLastStreet } from '../streets/data_model.js'
+import { SAVE_THUMBNAIL_EVENTS, saveStreetThumbnail } from '../streets/image.js'
+import { unpackServerStreetData } from '../streets/xhr.js'
 import {
   getGalleryForAllStreets,
   getGalleryForUser,
   getStreet,
-} from '../util/api'
+} from '../util/api.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 
