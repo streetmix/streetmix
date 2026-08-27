@@ -1,0 +1,19 @@
+.flooding-debug-overlay {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  width: 300px;
+  background-color: rgb(0 0 0 / 20%);
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  padding: 1em;
+  padding-bottom: 0.5em;
+  pointer-events: none;
+  z-index: 990;
+
+  h2 {
+    font-family: "Courier New", Courier, monospace;
+    margin-top: 0;
+  }
+}
