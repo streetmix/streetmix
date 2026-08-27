@@ -75,7 +75,7 @@ export function calculateFloodDetails(
   // elsewhere. this calc is only for the section and its slices, not regarding
   // street widths and street boundaries.
   let floodDistance = 0
-  const floodedTypes = [] // TODO; filter to unique values at the end
+  const floodedTypes = []
 
   // Loop direction changes depending on whether or not we are starting from
   // the left or the right. Doing n+1 / n-1 is faster than reversing the array
@@ -153,7 +153,9 @@ export function calculateFloodDetails(
     }
   }
 
+  // Collapse down to unique values and filter out `undefined`
   const filteredFloodedTypes = uniq(floodedTypes).filter((t) => t !== undefined)
+
   return {
     direction,
     distance: floodDistance,
@@ -172,9 +174,6 @@ function calculateFloodDistance(
   if (streetEl === null || canvasEl === null) {
     return null
   }
-
-  // New calc performed here.
-  calculateFloodDetails(slices, height, direction)
 
   // Depending on whether the flood comes from the left or right, set up
   // a compare loop that counts up or down
@@ -290,11 +289,15 @@ export function checkSeaLevel(
   canvasEl: HTMLElement | null,
   seaLevelRise: number,
   stormSurge: boolean
-): [FloodDistance, FloodDistance] {
+): {
+  floodDistance: [FloodDistance, FloodDistance]
+  floodDetails: [FloodDetails | null, FloodDetails | null]
+} {
   const height = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
 
   const { boundary, segments: slices } = street
   const floodDistance = [null, null] as [FloodDistance, FloodDistance]
+  const floodDetails: [FloodDetails | null, FloodDetails | null] = [null, null]
 
   if (boundary.left.variant && boundary.right.variant) {
     if (getBoundaryItem(boundary.left.variant).waterfront) {
@@ -305,6 +308,7 @@ export function checkSeaLevel(
         streetEl,
         canvasEl
       )
+      floodDetails[0] = calculateFloodDetails(slices, height, 'left')
     }
     if (getBoundaryItem(boundary.right.variant).waterfront) {
       floodDistance[1] = calculateFloodDistance(
@@ -314,8 +318,9 @@ export function checkSeaLevel(
         streetEl,
         canvasEl
       )
+      floodDetails[1] = calculateFloodDetails(slices, height, 'right')
     }
   }
 
-  return floodDistance
+  return { floodDistance, floodDetails }
 }

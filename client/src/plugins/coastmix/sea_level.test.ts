@@ -116,13 +116,14 @@ describe('sea level rise', () => {
 
       const canvasEl = document.createElement('div')
 
-      const [leftFloodDistance, rightFloodDistance] = checkSeaLevel(
+      const { floodDistance } = checkSeaLevel(
         street,
         streetEl,
         canvasEl,
         2030,
         false
       )
+      const [leftFloodDistance, rightFloodDistance] = floodDistance
 
       expect(leftFloodDistance).toBeCloseTo(20.56, 2)
       expect(rightFloodDistance).toBeNull()
@@ -187,13 +188,14 @@ describe('sea level rise', () => {
         value: 80,
       })
 
-      const [leftFloodDistance, rightFloodDistance] = checkSeaLevel(
+      const { floodDistance } = checkSeaLevel(
         street,
         streetEl,
         canvasEl,
         2030,
         false
       )
+      const [leftFloodDistance, rightFloodDistance] = floodDistance
 
       expect(leftFloodDistance).toBeNull()
       expect(rightFloodDistance).toBeCloseTo(20.56, 2)

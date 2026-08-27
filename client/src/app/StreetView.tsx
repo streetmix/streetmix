@@ -127,13 +127,14 @@ export function StreetView() {
     // Since flooding relies on sectionCanvasEl width being set, calculate
     // flood distance here. This can change if we start calculating
     // distance in actual distance values rather than on screen pixel values.
-    const floodDistance = checkSeaLevel(
+    const { floodDistance, floodDetails } = checkSeaLevel(
       street,
       slicesEl.current,
       sectionCanvasEl.current,
       seaLevelRise,
       stormSurge
     )
+    console.log(floodDetails)
     dispatch(setFloodDistance(floodDistance))
 
     return STREETVIEW_RESIZED
