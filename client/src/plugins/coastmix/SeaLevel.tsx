@@ -20,9 +20,10 @@ const LIMBO_OPACITY = 0.2
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
-  const { seaLevelRise, stormSurge, floodDistance } = useSelector(
+  const { seaLevelRise, stormSurge, floodDetails } = useSelector(
     (state) => state.coastmix
   )
+  const [leftFlood, rightFlood] = floodDetails
 
   // When switching streets, don't transition sea level height
   const prevStreetId = usePrevious(street.id)
@@ -34,7 +35,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   // Only set visual parameters when there is a flood direction.
   // Do not set when we're at current sea level with no storm surge.
   if (
-    (floodDistance[0] !== null || floodDistance[1] !== null) &&
+    (leftFlood !== null || rightFlood !== null) &&
     !(seaLevelRise === 0 && stormSurge === false)
   ) {
     // Baseline height
@@ -87,8 +88,8 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   // section), or when something is being dragged (we don't calculate flooding
   // distance mid-drag). Note this doesn't animate the right side.
   if (
-    floodDistance[0] === 'max' ||
-    floodDistance[1] === 'max' ||
+    leftFlood?.distance === 'max' ||
+    rightFlood?.distance === 'max' ||
     draggingType
   ) {
     return (
@@ -100,14 +101,23 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
     )
   }
 
+  // The flooding distance is calculated from slices, and doesn't include
+  // the remaining space (positive values is empty, negative values is overflow)
+  // so we also need to add that here, then multiply by TILE_SIZE for the
+  // pixel dimension
+  const leftDistance =
+    ((leftFlood?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
+  const rightDistance =
+    ((rightFlood?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
+
   return (
     <>
-      {floodDistance[0] !== null && (
+      {leftFlood !== null && (
         <div
           className="sea-level-rise sea-level-rise-left"
           style={{
             ...styles,
-            width: `${boundaryWidth + floodDistance[0]}px`,
+            width: `${boundaryWidth + leftDistance}px`,
             right: 'auto',
           }}
         >
@@ -116,12 +126,12 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
           </div>
         </div>
       )}
-      {floodDistance[1] !== null && (
+      {leftFlood !== null && (
         <div
           className="sea-level-rise sea-level-rise-right"
           style={{
             ...styles,
-            width: `${boundaryWidth + floodDistance[1]}px`,
+            width: `${boundaryWidth + rightDistance}px`,
             left: 'auto',
           }}
         >

@@ -228,7 +228,7 @@ describe('flooding distance', () => {
         ).toEqual({
           direction,
           distance: 2,
-          types: ['PEDESTRIAN'],
+          floodedTypes: ['PEDESTRIAN'],
           flooded: false,
         })
       }
@@ -253,7 +253,7 @@ describe('flooding distance', () => {
         ).toEqual({
           direction,
           distance: 0,
-          types: [],
+          floodedTypes: [],
           flooded: false,
         })
       }
@@ -277,8 +277,8 @@ describe('flooding distance', () => {
           )
         ).toEqual({
           direction,
-          distance: Infinity,
-          types: ['PEDESTRIAN'],
+          distance: 'max',
+          floodedTypes: ['PEDESTRIAN'],
           flooded: false,
         })
       }
@@ -306,7 +306,7 @@ describe('flooding distance', () => {
         ).toEqual({
           direction,
           distance: 0,
-          types: [],
+          floodedTypes: [],
           flooded: false,
         })
       }
@@ -333,8 +333,8 @@ describe('flooding distance', () => {
           )
         ).toEqual({
           direction,
-          distance: Infinity,
-          types: ['PEDESTRIAN'],
+          distance: 'max',
+          floodedTypes: ['PEDESTRIAN'],
           flooded: false,
         })
       }
@@ -360,7 +360,7 @@ describe('flooding distance', () => {
       ).toEqual({
         direction,
         distance: 5,
-        types: ['PEDESTRIAN'],
+        floodedTypes: ['PEDESTRIAN'],
         flooded: false,
       })
     })
@@ -382,7 +382,7 @@ describe('flooding distance', () => {
       ).toEqual({
         direction: 'left',
         distance: 0,
-        types: [],
+        floodedTypes: [],
         flooded: false,
       })
     })

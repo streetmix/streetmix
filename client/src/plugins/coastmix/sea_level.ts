@@ -59,21 +59,21 @@ export function calculateSeaLevelRise(
   return baseSeaLevel + height
 }
 
+// Given the slices of a street section, and sea level rise height, calculate
+// how far it floods before being blocked by a higher elevation, and collect
+// a list of affected slice types.
+//
+// Flooding distance will not take into account empty space in the section,
+// or overflow space beyond the street boundaries. This ONLY calculates distance
+// from the edge of the slices themselves.
 export function calculateFloodDetails(
   slices: SliceItem[],
   floodHeight: number,
   direction: 'left' | 'right'
 ): FloodDetails {
   const fromLeft = direction === 'left'
-
-  // NEW CALC!
-  // TODO: calculating distance in this way doesn't take into account
-  // empty space and overflow space. (note that existing method doesn't
-  // account for overflow width either) -- i think we have to account for this
-  // elsewhere. this calc is only for the section and its slices, not regarding
-  // street widths and street boundaries.
-  let floodDistance = 0
   const floodedTypes = []
+  let floodDistance = 0
 
   // Loop direction changes depending on whether or not we are starting from
   // the left or the right. Doing n+1 / n-1 is faster than reversing the array
@@ -156,7 +156,9 @@ export function calculateFloodDetails(
 
   return {
     direction,
-    distance: floodDistance,
+    // if `floodDistance` is infinite, return `max` instead because `Infinity`
+    // is not a serializable value in JSON.
+    distance: floodDistance === Infinity ? 'max' : floodDistance,
     floodedTypes: filteredFloodedTypes,
     flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }

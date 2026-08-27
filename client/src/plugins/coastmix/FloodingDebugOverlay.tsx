@@ -21,9 +21,9 @@ function Details({ details }: { details: FloodDetails }) {
 
   const distance = details.distance ?? 0
   const distanceDisplay =
-    typeof distance === 'number' && distance !== Infinity
+    typeof distance === 'number'
       ? `${convertMetricMeasurementToImperial(distance)} ft`
-      : 'max'
+      : distance
 
   const styledTypes = []
   if (details.floodedTypes.length > 0) {

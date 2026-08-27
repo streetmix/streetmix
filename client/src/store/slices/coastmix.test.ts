@@ -7,7 +7,7 @@ import coastmix, {
   setStormSurge,
   toggleCoastalFloodingPanel,
 } from './coastmix.js'
-import type { FloodDistance } from '@streetmix/types'
+import type { FloodDetails, FloodDistance } from '@streetmix/types'
 
 describe('coastmix reducer', () => {
   const initialState = {
@@ -15,6 +15,7 @@ describe('coastmix reducer', () => {
     seaLevelRise: 0,
     stormSurge: false,
     floodDistance: [null, null] as [FloodDistance, FloodDistance],
+    floodDetails: [null, null] as [FloodDetails | null, FloodDetails | null],
   }
 
   describe('reset state', () => {
@@ -25,6 +26,15 @@ describe('coastmix reducer', () => {
           seaLevelRise: 2030,
           stormSurge: true,
           floodDistance: [1, null],
+          floodDetails: [
+            {
+              direction: 'left',
+              distance: 1,
+              floodedTypes: [],
+              flooded: false,
+            },
+            null,
+          ],
         },
         resetCoastmixState()
       )
