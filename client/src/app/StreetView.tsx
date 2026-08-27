@@ -6,7 +6,10 @@ import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
 import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
-import { setFloodDistance } from '~/src/store/slices/coastmix.js'
+import {
+  setFloodDistance,
+  setFloodDetails,
+} from '~/src/store/slices/coastmix.js'
 import { ResizeGuides } from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
 import { animate, getElAbsolutePos } from '../util/helpers.js'
@@ -134,8 +137,8 @@ export function StreetView() {
       seaLevelRise,
       stormSurge
     )
-    console.log(floodDetails)
     dispatch(setFloodDistance(floodDistance))
+    dispatch(setFloodDetails(floodDetails))
 
     return STREETVIEW_RESIZED
   }, [street, dispatch, seaLevelRise, stormSurge])

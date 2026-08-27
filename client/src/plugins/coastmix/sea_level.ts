@@ -4,14 +4,12 @@ import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
-import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'
-
-interface FloodDetails {
-  direction: 'left' | 'right'
-  distance: FloodDistance
-  types: Array<(typeof SliceTypes)[keyof typeof SliceTypes]>
-  flooded: boolean
-}
+import type {
+  FloodDistance,
+  FloodDetails,
+  SliceItem,
+  StreetState,
+} from '@streetmix/types'
 
 const disallowFlooding = [
   SliceTypes.CAR,
@@ -159,7 +157,7 @@ export function calculateFloodDetails(
   return {
     direction,
     distance: floodDistance,
-    types: filteredFloodedTypes,
+    floodedTypes: filteredFloodedTypes,
     flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }
 }

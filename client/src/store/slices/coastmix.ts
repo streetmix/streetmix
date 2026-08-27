@@ -8,6 +8,7 @@ const initialState: CoastmixState = {
   seaLevelRise: 0,
   stormSurge: false,
   floodDistance: [null, null],
+  floodDetails: [null, null],
 }
 
 const coastmixSlice = createSlice({
@@ -51,6 +52,13 @@ const coastmixSlice = createSlice({
       state.floodDistance = action.payload
     },
 
+    setFloodDetails(
+      state,
+      action: PayloadAction<CoastmixState['floodDetails']>
+    ) {
+      state.floodDetails = action.payload
+    },
+
     setStormSurge(state, action: PayloadAction<boolean>) {
       state.stormSurge = action.payload
     },
@@ -65,6 +73,7 @@ export const {
   toggleCoastalFloodingPanel,
   setSeaLevelRise,
   setFloodDistance,
+  setFloodDetails,
   setStormSurge,
 } = coastmixSlice.actions
 
