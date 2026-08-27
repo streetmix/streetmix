@@ -1,5 +1,9 @@
 import { createStreetState } from '~/test/factories/street.js'
-import { calculateSeaLevelRise, checkSeaLevel } from './sea_level.js'
+import {
+  calculateSeaLevelRise,
+  checkSeaLevel,
+  calculateFloodDetails,
+} from './sea_level.js'
 
 describe('sea level rise', () => {
   describe('calculateSeaLevelRise', () => {
@@ -193,6 +197,192 @@ describe('sea level rise', () => {
 
       expect(leftFloodDistance).toBeNull()
       expect(rightFloodDistance).toBeCloseTo(20.56, 2)
+    })
+  })
+})
+
+describe('flooding distance', () => {
+  // These tests cover distance -- they don't cover types and flooded state
+  // TODO: types -- accurately include types from partially flooded slices,
+  // make sure values are unique and `undefined` is filtered out
+  describe('calculateFloodDetails', () => {
+    it.each([
+      ['left', [0, 1]],
+      ['right', [1, 0]],
+    ] as const)(
+      'detects a flooded distance from the %s',
+      (direction, elevations) => {
+        expect(
+          calculateFloodDetails(
+            elevations.map((elevation) => ({
+              width: elevation === 0 ? 2 : 3,
+              slope: { on: false, values: [] },
+              type: 'sidewalk',
+              elevation,
+            })),
+            1,
+            direction
+          )
+        ).toEqual({
+          direction,
+          distance: 2,
+          types: ['PEDESTRIAN'],
+          flooded: false,
+        })
+      }
+    )
+
+    it.each(['left', 'right'] as const)(
+      'detects zero flooding distance from the %s',
+      (direction) => {
+        expect(
+          calculateFloodDetails(
+            [
+              {
+                width: 2,
+                slope: { on: false, values: [] },
+                type: 'sidewalk',
+                elevation: 1.5,
+              },
+            ],
+            1,
+            direction
+          )
+        ).toEqual({
+          direction,
+          distance: 0,
+          types: [],
+          flooded: false,
+        })
+      }
+    )
+
+    it.each(['left', 'right'] as const)(
+      'detects infinite flooding distance from the %s',
+      (direction) => {
+        expect(
+          calculateFloodDetails(
+            [
+              {
+                width: 2,
+                slope: { on: false, values: [] },
+                type: 'sidewalk',
+                elevation: 0,
+              },
+            ],
+            1,
+            direction
+          )
+        ).toEqual({
+          direction,
+          distance: Infinity,
+          types: ['PEDESTRIAN'],
+          flooded: false,
+        })
+      }
+    )
+
+    it.each([
+      ['left', [2, 0]],
+      ['right', [0, 2]],
+    ] as const)(
+      'blocks flooding at a higher near slope edge from the %s',
+      (direction, values) => {
+        expect(
+          calculateFloodDetails(
+            [
+              {
+                width: 2,
+                slope: { on: true, values },
+                type: 'sidewalk',
+                elevation: 0,
+              },
+            ],
+            1,
+            direction
+          )
+        ).toEqual({
+          direction,
+          distance: 0,
+          types: [],
+          flooded: false,
+        })
+      }
+    )
+
+    it.each([
+      ['left', [0, 0.5]],
+      ['right', [0.5, 0]],
+    ] as const)(
+      'floods over a lower slope from the %s',
+      (direction, values) => {
+        expect(
+          calculateFloodDetails(
+            [
+              {
+                width: 2,
+                slope: { on: true, values },
+                type: 'sidewalk',
+                elevation: 0,
+              },
+            ],
+            1,
+            direction
+          )
+        ).toEqual({
+          direction,
+          distance: Infinity,
+          types: ['PEDESTRIAN'],
+          flooded: false,
+        })
+      }
+    )
+
+    it.each([
+      ['left', [0, 2]],
+      ['right', [2, 0]],
+    ] as const)('partially floods a slope from the %s', (direction, values) => {
+      expect(
+        calculateFloodDetails(
+          [
+            {
+              width: 10,
+              slope: { on: true, values },
+              type: 'sidewalk',
+              elevation: 0,
+            },
+          ],
+          1,
+          direction
+        )
+      ).toEqual({
+        direction,
+        distance: 5,
+        types: ['PEDESTRIAN'],
+        flooded: false,
+      })
+    })
+
+    it('does not divide by zero for a level slope at the flood height', () => {
+      expect(
+        calculateFloodDetails(
+          [
+            {
+              width: 2,
+              slope: { on: true, values: [1, 1] },
+              type: 'sidewalk',
+              elevation: 0,
+            },
+          ],
+          1,
+          'left'
+        )
+      ).toEqual({
+        direction: 'left',
+        distance: 0,
+        types: [],
+        flooded: false,
+      })
     })
   })
 })

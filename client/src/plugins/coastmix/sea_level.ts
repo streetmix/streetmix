@@ -154,12 +154,6 @@ export function calculateFloodDetails(
   }
 
   const filteredFloodedTypes = uniq(floodedTypes).filter((t) => t !== undefined)
-  console.log({
-    direction,
-    distance: floodDistance,
-    types: filteredFloodedTypes,
-    flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
-  })
   return {
     direction,
     distance: floodDistance,
