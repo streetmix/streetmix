@@ -1,4 +1,4 @@
-import { unique } from '@streetmix/utils'
+import { uniq } from 'es-toolkit/array'
 
 import SEGMENT_COMPONENTS from './data/components.json' with { type: 'json' }
 import SEGMENT_LOOKUP from './data/segment-lookup.json' with { type: 'json' }
@@ -137,7 +137,7 @@ function appendVariantSprites(target, source) {
   const sourceArray = Array.isArray(source) ? source : [source]
 
   const graphicsInfo = targetArray.concat(sourceArray)
-  return unique(graphicsInfo)
+  return uniq(graphicsInfo)
 }
 
 /**
