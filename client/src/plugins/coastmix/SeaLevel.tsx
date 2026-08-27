@@ -126,7 +126,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
           </div>
         </div>
       )}
-      {leftFlood !== null && (
+      {rightFlood !== null && (
         <div
           className="sea-level-rise sea-level-rise-right"
           style={{
