@@ -301,17 +301,18 @@ export function unpackServerStreetData(
 
     // some handling of legacy data from development.
     // TODO: clean up in production
-    // @ts-expect-error using old property types
     if (
+      // @ts-expect-error using old property types
       coastmixState.floodDirection === 'left' ||
+      // @ts-expect-error using old property types
       coastmixState.floodDirection === 1
     ) {
       // @ts-expect-error using old property types
       coastmixState.floodDistance = [coastmixState.floodDistance, null]
-    }
-    // @ts-expect-error using old property types
-    else if (
+    } else if (
+      // @ts-expect-error using old property types
       coastmixState.floodDirection === 'right' ||
+      // @ts-expect-error using old property types
       coastmixState.floodDirection === 2
     ) {
       // @ts-expect-error using old property types
