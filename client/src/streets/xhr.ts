@@ -301,31 +301,15 @@ export function unpackServerStreetData(
 
     // some handling of legacy data from development.
     // TODO: clean up in production
-    if (
-      // @ts-expect-error using old property types
-      coastmixState.floodDirection === 'left' ||
-      // @ts-expect-error using old property types
-      coastmixState.floodDirection === 1
-    ) {
-      // @ts-expect-error using old property types
-      coastmixState.floodDistance = [coastmixState.floodDistance, null]
-    } else if (
-      // @ts-expect-error using old property types
-      coastmixState.floodDirection === 'right' ||
-      // @ts-expect-error using old property types
-      coastmixState.floodDirection === 2
-    ) {
-      // @ts-expect-error using old property types
-      coastmixState.floodDistance = [null, coastmixState.floodDistance]
-      // @ts-expect-error using old property types
-    } else if (typeof coastmixState.floodDirection !== 'undefined') {
-      coastmixState.floodDistance = [null, null]
-    }
-
     // @ts-expect-error using old property types
     if (typeof coastmixState.floodDirection !== 'undefined') {
       // @ts-expect-error using old property types
       delete coastmixState.floodDirection
+    }
+    // @ts-expect-error using old property types
+    if (typeof coastmixState.floodDistance !== 'undefined') {
+      // @ts-expect-error using old property types
+      delete coastmixState.floodDistance
     }
 
     store.dispatch(setCoastmixState(transmission.data.plugins.coastmix))

@@ -6,10 +6,7 @@ import { Boundary } from '~/src/boundary/index.js'
 import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
 import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
-import {
-  setFloodDistance,
-  setFloodDetails,
-} from '~/src/store/slices/coastmix.js'
+import { setFloodDetails } from '~/src/store/slices/coastmix.js'
 import { ResizeGuides } from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
 import { animate, getElAbsolutePos } from '../util/helpers.js'
@@ -130,14 +127,8 @@ export function StreetView() {
     // Since flooding relies on sectionCanvasEl width being set, calculate
     // flood distance here. This can change if we start calculating
     // distance in actual distance values rather than on screen pixel values.
-    const { floodDistance, floodDetails } = checkSeaLevel(
-      street,
-      slicesEl.current,
-      sectionCanvasEl.current,
-      seaLevelRise,
-      stormSurge
-    )
-    dispatch(setFloodDistance(floodDistance))
+    // TODO: we now no longer need sectionCanvasEl so consider moving this
+    const floodDetails = checkSeaLevel(street, seaLevelRise, stormSurge)
     dispatch(setFloodDetails(floodDetails))
 
     return STREETVIEW_RESIZED

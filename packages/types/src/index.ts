@@ -180,7 +180,6 @@ export interface CoastmixState {
   controlsVisible: boolean
   seaLevelRise: number
   stormSurge: boolean
-  floodDistance: [FloodDistance, FloodDistance]
   floodDetails: [FloodDetails | null, FloodDetails | null]
 }
 
