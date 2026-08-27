@@ -1,9 +1,28 @@
+import { uniq, intersection } from 'es-toolkit/array'
 import { getBoundaryItem, getSegmentInfo, SliceTypes } from '@streetmix/parts'
 import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { FloodDistance, SliceItem, StreetState } from '@streetmix/types'
+
+interface FloodDetails {
+  direction: 'left' | 'right'
+  distance: FloodDistance
+  types: Array<(typeof SliceTypes)[keyof typeof SliceTypes]>
+  flooded: boolean
+}
+
+const disallowFlooding = [
+  SliceTypes.CAR,
+  SliceTypes.BIKE,
+  SliceTypes.TRANSIT,
+  SliceTypes.BIKE,
+  // Maybe okay to flood, if we're lax about it!
+  // SliceTypes.FURNITURE,
+  // SliceTypes.FLEX,
+  SliceTypes.UTILITY,
+]
 
 // Returns total sea level rise in metric values
 // Takes into account storm surge levels
@@ -42,6 +61,113 @@ export function calculateSeaLevelRise(
   return baseSeaLevel + height
 }
 
+export function calculateFloodDetails(
+  slices: SliceItem[],
+  floodHeight: number,
+  direction: 'left' | 'right'
+): FloodDetails {
+  const fromLeft = direction === 'left'
+
+  // NEW CALC!
+  // TODO: calculating distance in this way doesn't take into account
+  // empty space and overflow space. (note that existing method doesn't
+  // account for overflow width either) -- i think we have to account for this
+  // elsewhere. this calc is only for the section and its slices, not regarding
+  // street widths and street boundaries.
+  let floodDistance = 0
+  const floodedTypes = [] // TODO; filter to unique values at the end
+
+  // Loop direction changes depending on whether or not we are starting from
+  // the left or the right. Doing n+1 / n-1 is faster than reversing the array
+  // just to keep the loop counting in one direction.
+  for (
+    let i = fromLeft ? 0 : slices.length - 1;
+    fromLeft ? i < slices.length : i >= 0;
+    fromLeft ? i++ : i--
+  ) {
+    const slice = slices[i]
+    const sliceInfo = getSegmentInfo(slice.type)
+
+    // Slices can block a flood based on its elevation.
+    // First, check slope elevations.
+    if (slice.slope.on) {
+      const near = fromLeft ? 0 : 1
+      const far = fromLeft ? 1 : 0
+
+      // If the nearest slope endpoint is higher than the flood height, the
+      // slice blocks the flood. We can stop checking this slice
+      if (slice.slope.values[near] >= floodHeight) break
+
+      // If the farthest slope endpoint is higher than the flood height, the
+      // slice partially blocks the flood.
+      if (slice.slope.values[far] >= floodHeight) {
+        // Calculate partial distance based on slope
+        const rise = slice.slope.values[far] - slice.slope.values[near]
+
+        // This is a rise/run formula
+        // This does not handle a divide-by-zero (rise = 0), but we should never
+        // reach this point (it gets blocked by earlier break)
+        const partialDistance =
+          (slice.width / rise) * (floodHeight - slice.slope.values[near])
+
+        floodDistance += partialDistance
+        floodedTypes.push(sliceInfo.owner)
+        break
+      } else {
+        // If neither slope endpoint is higher than the flood height, this
+        // slice is fully flooded.
+        floodDistance += slice.width
+        floodedTypes.push(sliceInfo.owner)
+      }
+    } else {
+      // If not sloped, check the slice's flat elevation.
+      let compareElevation = slice.elevation
+
+      // The elevation to check is modified by an additional value if the
+      // slice owner type is WALL.
+      // Walls are a special case that is capable of blocking a flood (like a
+      // seawall, etc).
+      // TODO: Don't hardcode these height numbers
+      if (sliceInfo.owner === SliceTypes.WALL) {
+        if (slice.variant['wall-height'] === 'low') {
+          compareElevation += 1
+        } else {
+          // High wall variant
+          compareElevation += 2.15
+        }
+      }
+
+      // If the elevation is greater, then the slice blocks the flood. We can
+      // stop checking
+      if (compareElevation >= floodHeight) break
+
+      // If the elevation is less, then the slice is fully flooded.
+      floodDistance += slice.width
+      floodedTypes.push(sliceInfo.owner)
+    }
+
+    // If we've come here, then the flood distance is beyond the section,
+    // so we assign a value of Infinity.
+    if (i === (fromLeft ? slices.length - 1 : 0)) {
+      floodDistance += Infinity
+    }
+  }
+
+  const filteredFloodedTypes = uniq(floodedTypes).filter((t) => t !== undefined)
+  console.log({
+    direction,
+    distance: floodDistance,
+    types: filteredFloodedTypes,
+    flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
+  })
+  return {
+    direction,
+    distance: floodDistance,
+    types: filteredFloodedTypes,
+    flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
+  }
+}
+
 function calculateFloodDistance(
   slices: SliceItem[],
   height: number,
@@ -52,6 +178,9 @@ function calculateFloodDistance(
   if (streetEl === null || canvasEl === null) {
     return null
   }
+
+  // New calc performed here.
+  calculateFloodDetails(slices, height, direction)
 
   // Depending on whether the flood comes from the left or right, set up
   // a compare loop that counts up or down
