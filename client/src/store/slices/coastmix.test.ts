@@ -3,6 +3,7 @@ import coastmix, {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   setSeaLevelRise,
+  setFloodDetails,
   setStormSurge,
   toggleCoastalFloodingPanel,
 } from './coastmix.js'
@@ -75,6 +76,78 @@ describe('coastmix reducer', () => {
       const action = coastmix(initialState, setSeaLevelRise(0))
 
       expect(action.seaLevelRise).toEqual(0)
+    })
+  })
+
+  describe('setFloodDetails()', () => {
+    it('sets flood details for the left side', () => {
+      const left: FloodDetails = {
+        direction: 'left',
+        distance: 1,
+        floodedTypes: [],
+        flooded: false,
+      }
+
+      const action = coastmix(initialState, setFloodDetails([left, null]))
+
+      expect(action.floodDetails).toEqual([left, null])
+    })
+
+    it('sets flood details for the right side', () => {
+      const right: FloodDetails = {
+        direction: 'right',
+        distance: 2,
+        floodedTypes: ['BIKE'],
+        flooded: true,
+      }
+
+      const action = coastmix(initialState, setFloodDetails([null, right]))
+
+      expect(action.floodDetails).toEqual([null, right])
+    })
+
+    it('sets flood details for both sides', () => {
+      const left: FloodDetails = {
+        direction: 'left',
+        distance: 2,
+        floodedTypes: ['BIKE'],
+        flooded: true,
+      }
+      const right: FloodDetails = {
+        direction: 'right',
+        distance: 1,
+        floodedTypes: [],
+        flooded: false,
+      }
+
+      const action = coastmix(initialState, setFloodDetails([left, right]))
+
+      expect(action.floodDetails).toEqual([left, right])
+    })
+
+    it('resets flood details', () => {
+      const action = coastmix(
+        {
+          ...initialState,
+          floodDetails: [
+            {
+              direction: 'left',
+              distance: 1,
+              floodedTypes: [],
+              flooded: false,
+            },
+            {
+              direction: 'right',
+              distance: 2,
+              floodedTypes: ['BIKE'],
+              flooded: true,
+            },
+          ],
+        },
+        setFloodDetails([null, null])
+      )
+
+      expect(action.floodDetails).toEqual([null, null])
     })
   })
 
