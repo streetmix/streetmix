@@ -49,7 +49,10 @@ describe('Segment', () => {
       ui: { activeSegment: activeElement },
       street: {
         showAnalytics: true,
-        boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+        boundary: {
+          left: { variant: 'wide', elevation: 0 },
+          right: { variant: 'wide', elevation: 0 },
+        },
         segments: [segment],
         width: 5,
       },

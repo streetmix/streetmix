@@ -35,6 +35,10 @@ describe('StreetEditable', () => {
             DEBUG_SLICE_SLOPE: { value: false },
           },
           street: createStreetState({
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [segment],
             width: 120,
             remainingWidth: 120,

@@ -54,7 +54,10 @@ describe('street integration test', () => {
       it('by resolution (metric)', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 10, slope: { on: false, values: [] } },
               { width: 10, slope: { on: false, values: [] } },
@@ -74,7 +77,10 @@ describe('street integration test', () => {
       it('by resolution (imperial)', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 3.048, slope: { on: false, values: [] } },
               { width: 3.048, slope: { on: false, values: [] } },
@@ -94,7 +100,10 @@ describe('street integration test', () => {
       it('by clickIncrement', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 6.05, slope: { on: false, values: [] } },
               { width: 6.05, slope: { on: false, values: [] } },
@@ -115,7 +124,10 @@ describe('street integration test', () => {
         const initialState = {
           street: {
             width: 24,
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 12, slope: { on: false, values: [] } },
               { width: 12, slope: { on: false, values: [] } },
@@ -136,7 +148,10 @@ describe('street integration test', () => {
       it('handles decrementing an imprecise value to nearest precise value', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [{ width: 2.123, slope: { on: false, values: [] } }],
             width: 2.5,
             units: 0,
@@ -155,7 +170,10 @@ describe('street integration test', () => {
       it('by resolution', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 5, slope: { on: false, values: [] } },
               { width: 5, slope: { on: false, values: [] } },
@@ -175,7 +193,10 @@ describe('street integration test', () => {
       it('by clickIncrement', async () => {
         const initialState = {
           street: {
-            boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+            boundary: {
+              left: { variant: 'wide', elevation: 0 },
+              right: { variant: 'wide', elevation: 0 },
+            },
             segments: [
               { width: 3.658, slope: { on: false, values: [] } },
               { width: 3.658, slope: { on: false, values: [] } },
@@ -197,7 +218,10 @@ describe('street integration test', () => {
     it('saves to server', async () => {
       const initialState = {
         street: {
-          boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+          boundary: {
+            left: { variant: 'wide', elevation: 0 },
+            right: { variant: 'wide', elevation: 0 },
+          },
           segments: [
             { width: 200, slope: { on: false, values: [] } },
             { width: 200, slope: { on: false, values: [] } },
@@ -216,7 +240,10 @@ describe('street integration test', () => {
     it('handles incrementing an imprecise value to nearest precise value', async () => {
       const initialState = {
         street: {
-          boundary: { left: { elevation: 0 }, right: { elevation: 0 } },
+          boundary: {
+            left: { variant: 'wide', elevation: 0 },
+            right: { variant: 'wide', elevation: 0 },
+          },
           segments: [{ width: 2.147, slope: { on: false, values: [] } }],
           width: 2.5,
           units: 0,
