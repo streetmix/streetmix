@@ -58,7 +58,8 @@ describe('sea level rise', () => {
 describe('flooding distance', () => {
   // These tests cover distance -- they don't cover types and flooded state
   // TODO: types -- accurately include types from partially flooded slices,
-  // make sure values are unique and `undefined` is filtered out
+  // make sure values are unique and `undefined` is filtered out, covers
+  // slices where sloping is not permitted
   it.each([
     ['left', [0, 1]],
     ['right', [1, 0]],
@@ -71,6 +72,7 @@ describe('flooding distance', () => {
             width: elevation === 0 ? 2 : 3,
             slope: { on: false, values: [] },
             type: 'sidewalk',
+            variantString: 'normal',
             elevation,
           })),
           1,
@@ -95,6 +97,7 @@ describe('flooding distance', () => {
               width: 2,
               slope: { on: false, values: [] },
               type: 'sidewalk',
+              variantString: 'normal',
               elevation: 1.5,
             },
           ],
@@ -120,6 +123,7 @@ describe('flooding distance', () => {
               width: 2,
               slope: { on: false, values: [] },
               type: 'sidewalk',
+              variantString: 'normal',
               elevation: 0,
             },
           ],
@@ -148,6 +152,7 @@ describe('flooding distance', () => {
               width: 2,
               slope: { on: true, values },
               type: 'sidewalk',
+              variantString: 'normal',
               elevation: 0,
             },
           ],
@@ -174,6 +179,7 @@ describe('flooding distance', () => {
             width: 2,
             slope: { on: true, values },
             type: 'sidewalk',
+            variantString: 'normal',
             elevation: 0,
           },
         ],
@@ -199,6 +205,7 @@ describe('flooding distance', () => {
             width: 10,
             slope: { on: true, values },
             type: 'sidewalk',
+            variantString: 'normal',
             elevation: 0,
           },
         ],
@@ -221,6 +228,7 @@ describe('flooding distance', () => {
             width: 2,
             slope: { on: true, values: [1, 1] },
             type: 'sidewalk',
+            variantString: 'normal',
             elevation: 0,
           },
         ],

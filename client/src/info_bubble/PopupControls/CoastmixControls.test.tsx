@@ -6,9 +6,13 @@ import { render } from '~/test/helpers/render.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import { CoastmixControls } from './CoastmixControls.js'
 
-vi.mock('@streetmix/parts', () => ({
-  getSegmentVariantInfo: vi.fn((_type) => ({})),
-}))
+vi.mock('@streetmix/parts', async (importOriginal) => {
+  const actual = await importOriginal<Record<string, () => unknown>>()
+  return {
+    ...actual,
+    getSegmentVariantInfo: vi.fn((_type) => ({})),
+  }
+})
 vi.mock('~/src/store/slices/street.js', async (importOriginal) => {
   const actual = await importOriginal<Record<string, () => unknown>>()
   return {
