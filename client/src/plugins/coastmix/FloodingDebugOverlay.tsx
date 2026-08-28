@@ -16,10 +16,19 @@ const disallowFlooding = [
   SliceTypes.UTILITY,
 ]
 
-function Details({ details }: { details: FloodDetails }) {
+function Details({
+  details,
+  remainingWidth,
+}: {
+  details: FloodDetails
+  remainingWidth: number
+}) {
   if (details === null) return
 
-  const distance = details.distance ?? 0
+  const distance =
+    typeof details.distance === 'number'
+      ? details.distance + remainingWidth / 2
+      : details.distance
   const distanceDisplay =
     typeof distance === 'number'
       ? `${convertMetricMeasurementToImperial(distance)} ft`
@@ -67,6 +76,7 @@ function Details({ details }: { details: FloodDetails }) {
 }
 
 export function FloodingDebugOverlay() {
+  const { remainingWidth } = useSelector((state) => state.street)
   const { floodDetails } = useSelector((state) => state.coastmix)
   const [left, right] = floodDetails
 
@@ -76,12 +86,20 @@ export function FloodingDebugOverlay() {
       <p>
         Left:
         <br />
-        {left === null ? 'Not a waterfront' : <Details details={left} />}
+        {left === null ? (
+          'Not a waterfront'
+        ) : (
+          <Details details={left} remainingWidth={remainingWidth} />
+        )}
       </p>
       <p>
         Right:
         <br />
-        {right === null ? 'Not a waterfront' : <Details details={right} />}
+        {right === null ? (
+          'Not a waterfront'
+        ) : (
+          <Details details={right} remainingWidth={remainingWidth} />
+        )}
       </p>
     </div>
   )
