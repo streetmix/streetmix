@@ -1,8 +1,9 @@
 import { convertMetricMeasurementToImperial } from '@streetmix/utils'
 import { SliceTypes } from '@streetmix/parts'
-import type { FloodDetails } from '@streetmix/types'
 
-import { useSelector } from '~src/store/hooks.js'
+import { useSelector } from '~/src/store/hooks.js'
+
+import type { FloodDetails } from '@streetmix/types'
 import './FloodingDebugOverlay.css'
 
 const disallowFlooding = [
@@ -20,10 +21,16 @@ function Details({
   details,
   remainingWidth,
 }: {
-  details: FloodDetails
+  details: FloodDetails | null
   remainingWidth: number
 }) {
-  if (details === null) return
+  if (details === null)
+    return (
+      <>
+        <br />
+        Not a waterfront
+      </>
+    )
 
   const distance =
     typeof details.distance === 'number'
@@ -58,6 +65,7 @@ function Details({
 
   return (
     <>
+      <br />
       Distance flooded: {distanceDisplay}
       <br />
       Flooded areas:{' '}
@@ -85,21 +93,11 @@ export function FloodingDebugOverlay() {
       <h2>Flooding debug</h2>
       <p>
         Left:
-        <br />
-        {left === null ? (
-          'Not a waterfront'
-        ) : (
-          <Details details={left} remainingWidth={remainingWidth} />
-        )}
+        <Details details={left} remainingWidth={remainingWidth} />
       </p>
       <p>
         Right:
-        <br />
-        {right === null ? (
-          'Not a waterfront'
-        ) : (
-          <Details details={right} remainingWidth={remainingWidth} />
-        )}
+        <Details details={right} remainingWidth={remainingWidth} />
       </p>
     </div>
   )
