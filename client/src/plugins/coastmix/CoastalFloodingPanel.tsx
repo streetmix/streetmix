@@ -19,7 +19,7 @@ export function CoastalFloodingPanel() {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const { controlsVisible, seaLevelRise, floodDistance, stormSurge } = coastmix
+  const { controlsVisible, seaLevelRise, floodDetails, stormSurge } = coastmix
 
   function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
@@ -42,10 +42,10 @@ export function CoastalFloodingPanel() {
   const messageClassNames = ['flood-controls-message']
   if (seaLevelRise === 0 && stormSurge === false) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.start', defaultMessage: 'Select a sea level rise target to visualize flooding.' })}`
-  } else if (floodDistance[0] === null && floodDistance[1] === null) {
+  } else if (floodDetails[0] === null && floodDetails[1] === null) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`
   } else {
-    if (floodDistance.includes('max')) {
+    if (floodDetails[0]?.flooded || floodDetails[1]?.flooded) {
       message = `❌ ${intl.formatMessage({ id: 'tools.flooding.messages.fail', defaultMessage: 'This configuration does not address sea level rise!' })}`
       messageClassNames.push('flood-controls-warning')
     } else {

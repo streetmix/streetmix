@@ -180,7 +180,7 @@ export interface CoastmixState {
   controlsVisible: boolean
   seaLevelRise: number
   stormSurge: boolean
-  floodDistance: [FloodDistance, FloodDistance]
+  floodDetails: [FloodDetails | null, FloodDetails | null]
 }
 
 // Flood distance is a number expressed in pixels (for now, I don't think
@@ -190,6 +190,13 @@ export interface CoastmixState {
 // flooding. Infinity is normally a good number to use, but that value is
 // not serializable to JSON!
 export type FloodDistance = number | null | 'max'
+
+export interface FloodDetails {
+  direction: 'left' | 'right'
+  distance: FloodDistance
+  floodedTypes: string[]
+  flooded: boolean
+}
 
 export interface HistoryState {
   stack: Delta[]

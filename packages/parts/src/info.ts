@@ -31,15 +31,19 @@ const SEGMENT_LOOKUP: Record<string, SegmentDefinition> =
  * in visualizations and data to calculate how much space is taken
  * up by different modes or uses.
  */
-export const SegmentTypes = {
-  NONE: 'none',
-  CAR: 'car',
-  BIKE: 'bike',
-  PEDESTRIAN: 'pedestrian',
-  TRANSIT: 'transit',
-  NATURE: 'nature',
-  FLEX: 'flex',
-  UTILITY: 'utility',
+export const SliceTypes = {
+  NONE: 'NONE', // nothing should use this if possible
+  CAR: 'CAR', // all motor vehicles, including ridesharing
+  TRANSIT: 'TRANSIT', // all public transit vehicles
+  BIKE: 'BIKE', // "micromobility" vehicles which include scooters and e-bikes
+  PEDESTRIAN: 'PEDESTRIAN', // people walking on foot
+  FURNITURE: 'FURNITURE', // temporary or permanent objects in pedestrian zones
+  FLEX: 'FLEX', // areas defined as a "flex zone". objects in this zone should
+  // be classified as car, bike, furniture, etc.
+  UTILITY: 'UTILITY', // infrastructure, like power lines
+  WALL: 'WALL', // specific infrastructure type for walls
+  DRAINAGE: 'DRAINAGE', // specific infrastructure for drainage, bioswales
+  NATURE: 'NATURE', // landscaped or natural areas
 }
 
 /**

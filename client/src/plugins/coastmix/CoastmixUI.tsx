@@ -1,5 +1,6 @@
 import { CoastalFloodingPanel } from '~/src/plugins/coastmix'
 import { useSelector } from '~/src/store/hooks.js'
+import { FloodingDebugOverlay } from './FloodingDebugOverlay.js'
 import './CoastmixUI.css'
 
 export function CoastmixUI() {
@@ -7,5 +8,10 @@ export function CoastmixUI() {
 
   if (!coastmixMode) return null
 
-  return <CoastalFloodingPanel />
+  return (
+    <>
+      <FloodingDebugOverlay />
+      <CoastalFloodingPanel />
+    </>
+  )
 }
