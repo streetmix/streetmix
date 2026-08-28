@@ -118,6 +118,9 @@ export const segmentsChanged = (force = false) => {
     )
 
     // Calculate flood details
+    // This is using a stale version of `street` and might not include
+    // the updated occupiedWidth, remainingWidth etc? but it still seems to
+    // be okay.
     const floodDetails = checkSeaLevel(street, seaLevelRise, stormSurge)
     dispatch(setFloodDetails(floodDetails))
 
