@@ -1,5 +1,10 @@
 import { uniq, intersection } from 'es-toolkit/array'
-import { getBoundaryItem, getSegmentInfo, SliceTypes } from '@streetmix/parts'
+import {
+  getBoundaryItem,
+  getSegmentInfo,
+  getSegmentVariantInfo,
+  SliceTypes,
+} from '@streetmix/parts'
 import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
@@ -80,10 +85,19 @@ export function calculateFloodDetails(
   ) {
     const slice = slices[i]
     const sliceInfo = getSegmentInfo(slice.type)
+    const variantInfo = getSegmentVariantInfo(slice.type, slice.variantString)
+
+    let isSloped = false
+    if (!('unknown' in variantInfo)) {
+      const allowSlope =
+        variantInfo.slope === 'path' || variantInfo.slope === 'berm'
+      isSloped = allowSlope && slice.slope.on
+    }
 
     // Slices can block a flood based on its elevation.
-    // First, check slope elevations.
-    if (slice.slope.on) {
+    // First, check slope elevations. Slice must be sloped (it is set, and
+    // the variant must allow slope)
+    if (isSloped) {
       const near = fromLeft ? 0 : 1
       const far = fromLeft ? 1 : 0
 
