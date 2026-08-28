@@ -297,21 +297,6 @@ export function unpackServerStreetData(
     store.getState().flags.COASTMIX_MODE.value === true &&
     transmission.data.plugins.coastmix !== undefined
   ) {
-    const coastmixState = transmission.data.plugins.coastmix
-
-    // some handling of legacy data from development.
-    // TODO: clean up in production
-    // @ts-expect-error using old property types
-    if (typeof coastmixState.floodDirection !== 'undefined') {
-      // @ts-expect-error using old property types
-      delete coastmixState.floodDirection
-    }
-    // @ts-expect-error using old property types
-    if (typeof coastmixState.floodDistance !== 'undefined') {
-      // @ts-expect-error using old property types
-      delete coastmixState.floodDistance
-    }
-
     store.dispatch(setCoastmixState(transmission.data.plugins.coastmix))
   }
 
