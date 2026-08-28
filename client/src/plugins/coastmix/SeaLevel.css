@@ -8,6 +8,7 @@
   opacity: 0;
   transition:
     height 500ms ease-in-out,
+    width 500ms ease-in-out,
     opacity 500ms;
   z-index: 300; /* Keep above section -- TODO: figure out actual safe zIndex */
 }
