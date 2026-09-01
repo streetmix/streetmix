@@ -24,7 +24,12 @@ header.about-coastmix-header {
 }
 
 .about-coastmix-content {
+  font-family: "Lora Variable", serif;
   z-index: -1;
+
+  > p {
+    font-size: 16px;
+  }
 
   ul i {
     color: gray;

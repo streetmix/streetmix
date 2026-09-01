@@ -11,7 +11,7 @@ import './AboutCoastmix.css'
 
 export function AboutCoastmix() {
   return (
-    <>
+    <div className="about-coastmix-section">
       <header className="about-coastmix-header">
         <div>
           <img
@@ -182,6 +182,6 @@ export function AboutCoastmix() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

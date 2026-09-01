@@ -4,11 +4,18 @@ import bostonLogo from 'url:./images/boston-logo.png'
 import chevronIcon from 'url:./images/boston-icon-chevron.svg'
 import cityHallIcon from 'url:./images/boston-icon-city-hall.svg'
 import lockIcon from 'url:./images/boston-icon-lock.svg'
+import { STREETMIX_INSTANCE } from '~/src/app/config.js'
 
 import './BostonHeader.css'
 
 export function BostonHeader() {
   const [showDropdown, setShowDropdown] = useState(false)
+
+  const coastmixMode = STREETMIX_INSTANCE === 'coastmix'
+
+  if (!coastmixMode) {
+    return null
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setShowDropdown(event.target.checked)
