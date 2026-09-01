@@ -37,7 +37,7 @@
 }
 
 .boston-site-banner-text {
-  line-height: 1.3em;
+  line-height: 1.4em;
 }
 
 .boston-site-banner-button {
@@ -79,9 +79,10 @@
 .boston-site-banner-expansion {
   padding: 0;
   background-color: #f3f3f3;
-  /* display: none; */
+  font-size: 13.5px;
+
   /* Custom appearance attempt for Coastmix */
-  box-shadow: 0 0 20px rgba(66, 75, 103, 0.15);
+  box-shadow: 0 0 20px rgb(66 75 103 / 15%);
   position: absolute;
   width: 100%;
   transition: transform 0.2s ease-out;
@@ -89,7 +90,6 @@
   z-index: -1;
 
   .boston-site-banner-checkbox:checked ~ & {
-    /* display: block; */
     transform: translateY(0);
   }
 
@@ -97,10 +97,10 @@
     display: flex;
     flex-flow: row wrap;
     column-gap: 1.5rem;
-    padding: 16px 10% 0;
+    padding: 16px 0 0;
 
-    @media screen and (min-width: 840px) {
-      padding: 16px 0 0;
+    @media screen and (width < 900px) {
+      padding: 16px 16px 0;
     }
   }
 }
@@ -108,9 +108,15 @@
 .boston-site-banner-expansion-item {
   display: flex;
   flex-direction: row;
-  flex: 0 1 auto;
-  max-width: 500px;
+  flex: 1 0;
+  flex-basis: 45%;
   text-align: left;
+
+  @media screen and (width < 900px) {
+    flex: 0 0 500px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 }
 
 .boston-site-banner-city-hall {
@@ -119,6 +125,7 @@
   max-height: 100px;
   padding-right: 16px;
   user-select: none;
+  margin-top: -12px;
 }
 
 .boston-site-banner-lock {
@@ -127,22 +134,13 @@
   max-height: 150px;
   width: 200px;
   user-select: none;
+  margin-top: -32px;
 }
 
 .boston-site-banner-expansion-item-content {
-  padding: 20px 0;
+  padding: 10px 0;
   line-height: 1.2rem;
-}
 
-.boston-site-banner-mini-lock {
-  height: 16px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-  user-select: none;
-}
-
-.boston-site-banner-expansion-item-content {
   p:first-child {
     color: #1871bd;
     font-weight: 700;
@@ -152,24 +150,14 @@
   }
 
   p:nth-child(2) {
-    margin-top: 0.25em;
+    margin-top: 0.5em;
   }
 }
 
-.g--6 {
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: calc(99.9% * 12 / 12 - 0rem);
-  max-width: calc(99.9% * 12 / 12 - 0rem);
-  width: calc(99.9% * 12 / 12 - 0rem);
-}
-
-@media screen and (min-width: 840px) {
-  .g--6 {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: calc(99.9% * 6 / 12 - 0.75rem);
-    max-width: calc(99.9% * 6 / 12 - 0.75rem);
-    width: calc(99.9% * 6 / 12 - 0.75rem);
-  }
+.boston-site-banner-mini-lock {
+  height: 16px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  user-select: none;
 }

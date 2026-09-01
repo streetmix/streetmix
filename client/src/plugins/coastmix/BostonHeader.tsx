@@ -42,7 +42,7 @@ export function BostonHeader() {
       </label>
       <div className="boston-site-banner-expansion">
         <div>
-          <div className="boston-site-banner-expansion-item g--6">
+          <div className="boston-site-banner-expansion-item">
             <img
               src={cityHallIcon}
               className="boston-site-banner-city-hall"
@@ -56,7 +56,7 @@ export function BostonHeader() {
               </p>
             </div>
           </div>
-          <div className="boston-site-banner-expansion-item g--6">
+          <div className="boston-site-banner-expansion-item">
             <img
               src={lockIcon}
               className="boston-site-banner-lock"
