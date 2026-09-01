@@ -4,7 +4,7 @@
   margin-top: 0;
   margin-bottom: 0;
   position: relative;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   width: 100%;
   text-align: center;
@@ -26,6 +26,7 @@
   display: block;
   background-color: #091f2f;
   color: #fff;
+  font-family: Montserrat, Arial, sans-serif;
   cursor: pointer;
 }
 
@@ -72,7 +73,7 @@
     max-width: 66.67rem;
     margin-left: auto;
     margin-right: auto;
-    padding: 5px 10%;
+    padding: 5px 20px;
   }
 }
 
@@ -97,11 +98,7 @@
     display: flex;
     flex-flow: row wrap;
     column-gap: 1.5rem;
-    padding: 16px 0 0;
-
-    @media screen and (width < 900px) {
-      padding: 16px 16px 0;
-    }
+    padding: 16px 20px 0;
   }
 }
 
