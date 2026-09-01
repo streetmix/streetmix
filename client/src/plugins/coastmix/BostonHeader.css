@@ -1,0 +1,160 @@
+/* Reference: https://patterns.boston.gov/components/detail/site-banner--charles-blue.html */
+
+.boston-site-banner-container {
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  font-size: 13px;
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+  font-family: "Lora Variable", Georgia, serif;
+  z-index: 1000;
+}
+
+/* Using Boston's visually-hidden strategy here */
+.boston-site-banner-checkbox {
+  display: block;
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  top: -100px;
+}
+
+.boston-site-banner {
+  display: block;
+  background-color: #091f2f;
+  color: #fff;
+  font-family: Montserrat, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.boston-site-banner-logo {
+  max-width: 150px;
+  margin-right: 5px;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.boston-site-banner-text {
+  line-height: 1.4em;
+}
+
+.boston-site-banner-button {
+  white-space: nowrap;
+
+  span {
+    text-decoration: underline;
+  }
+
+  img {
+    position: relative;
+    display: inline-block;
+    width: 12px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+    transform: rotate(90deg);
+    transition: transform 0.25s;
+    user-select: none;
+
+    .boston-site-banner-checkbox:checked ~ .boston-site-banner & {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+/* Max width content container for full-width elements */
+.boston-site-banner,
+.boston-site-banner-expansion {
+  > div {
+    width: 100%;
+    max-width: 66.67rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 20px;
+  }
+}
+
+.boston-site-banner-expansion {
+  padding: 0;
+  background-color: #f3f3f3;
+  font-size: 13.5px;
+
+  /* Custom appearance attempt for Coastmix */
+  box-shadow: 0 0 20px rgb(66 75 103 / 15%);
+  position: absolute;
+  width: 100%;
+  transition: transform 0.2s ease-out;
+  transform: translateY(-100%);
+  z-index: -1;
+
+  .boston-site-banner-checkbox:checked ~ & {
+    transform: translateY(0);
+  }
+
+  > div {
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 1.5rem;
+    padding: 16px 20px 0;
+  }
+}
+
+.boston-site-banner-expansion-item {
+  display: flex;
+  flex-direction: row;
+  flex: 1 0;
+  flex-basis: 45%;
+  text-align: left;
+
+  @media screen and (width < 900px) {
+    flex: 0 0 500px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.boston-site-banner-city-hall {
+  width: 130px;
+  min-width: 20px;
+  max-height: 100px;
+  padding-right: 16px;
+  user-select: none;
+  margin-top: -12px;
+}
+
+.boston-site-banner-lock {
+  max-width: 150px;
+  min-width: 20px;
+  max-height: 150px;
+  width: 200px;
+  user-select: none;
+  margin-top: -32px;
+}
+
+.boston-site-banner-expansion-item-content {
+  padding: 10px 0;
+  line-height: 1.2rem;
+
+  p:first-child {
+    color: #1871bd;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Montserrat, Arial, sans-serif;
+    margin: 0;
+  }
+
+  p:nth-child(2) {
+    margin-top: 0.5em;
+  }
+}
+
+.boston-site-banner-mini-lock {
+  height: 16px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  user-select: none;
+}
