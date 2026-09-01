@@ -1,0 +1,18 @@
+<svg id="lock" data-name="lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144">
+  <defs>
+    <style>
+                                .cls-1 {
+                                    fill: #fff;
+                                    stroke: #0f1f2d;
+                                    stroke-linecap: round;
+                                    stroke-miterlimit: 10;
+                                    stroke-width: 3px;
+                                }
+                            </style>
+  </defs>
+  <title>lock</title>
+  <polygon class="cls-1"
+    points="81.85 35.33 62.15 35.33 48.21 49.26 48.21 76.97 55.21 76.97 55.21 53.73 66.53 42.41 77.47 42.41 88.79 53.73 88.79 76.97 95.79 76.97 95.79 49.26 81.85 35.33" />
+  <rect class="cls-1" x="44.15" y="62.97" width="55.71" height="45.71" />
+  <path class="cls-1" d="M78,79.78a6,6,0,1,0-8.79,5.37V97.73h5.5V85.15A6,6,0,0,0,78,79.78Z" />
+</svg>
