@@ -30,12 +30,12 @@
             </g>
         </g>
         <g transform="matrix(-2.15192,-3.12159e-33,-6.41727e-33,0.465005,68.0006,58.9473)">
-            <path d="M3.718,-44.589L31.6,-1.199L31.6,-7.94L31.6,-1.199L3.718,-1.199L3.718,-44.589Z" style="fill:rgb(53,45,39);fill-rule:nonzero;"/>
+            <path d="M3.718,-44.589L31.6,-1.199L31.6,-7.94L31.6,-1.199L3.718,-1.199L3.718,-44.589Z" style="fill:rgb(216,211,203);fill-rule:nonzero;"/>
         </g>
         <g id="left-slanted" serif:id="left slanted">
         </g>
         <g transform="matrix(0.248575,-2.56826e-19,-3.49091e-19,0.183924,0.116218,58.2825)">
-            <rect x="-0.468" y="0.582" width="241.376" height="117.496" style="fill:rgb(53,45,39);"/>
+            <rect x="-0.468" y="0.582" width="241.376" height="117.496" style="fill:rgb(216,211,203);"/>
         </g>
     </g>
 </svg>

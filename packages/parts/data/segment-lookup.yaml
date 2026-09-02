@@ -4005,9 +4005,9 @@ slope:
       nameKey: grass-hill
       components:
         lanes:
-          - id: earth
+          - id: sidewalk
             variants:
-              type: flat
+              color: regular
         objects:
           - id: planting-strip
             variants:
