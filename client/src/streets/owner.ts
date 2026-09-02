@@ -30,6 +30,12 @@ export function isOwnedByCurrentUser(state?: RootState) {
 
   if (!state) return false
 
+  // Force undo/redo availability in Coastmix mode
+  const isCoastmixMode = store.getState().flags.COASTMIX_MODE.value ?? false
+  if (isCoastmixMode) {
+    return true
+  }
+
   const signedIn = state.user?.signedIn || false
   const creatorId = state.street?.creatorId || null
   const userId = state.user?.signInData?.userId || null
