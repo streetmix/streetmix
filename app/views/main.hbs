@@ -77,13 +77,12 @@
     <link href="/assets/main.{{cacheTimestamp}}.css" rel="stylesheet" />
 
     {{! Plausible.io analytics }}
-    {{#if env.PLAUSIBLE_DOMAIN}}
-    <script
-      async
-      defer
-      data-domain="{{env.PLAUSIBLE_DOMAIN}}"
-      src="https://plausible.io/js/plausible.js"
-    ></script>
+    {{#if env.PLAUSIBLE_ID}}
+    <script async src="https://plausible.io/js/{{env.PLAUSIBLE_ID}}.js"></script>
+    <script nonce="{{nonces.plausible}}">
+      window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+      plausible.init()
+    </script>
     {{/if}}
   </head>
   <body tabindex="1">

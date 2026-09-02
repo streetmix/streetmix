@@ -1,4 +1,5 @@
 import './app/globals.ts'
+import crypto from 'node:crypto'
 import path from 'node:path'
 import { styleText } from 'node:util'
 import compression from 'compression'
@@ -68,6 +69,7 @@ process.on('SIGINT', function () {
 // Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+  PLAUSIBLE_ID: process.env.PLAUSIBLE_ID,
   WEB_MONETIZATION_PAYMENT_POINTER:
     process.env.WEB_MONETIZATION_PAYMENT_POINTER,
 }
@@ -87,7 +89,10 @@ const helmetConfig = {
   },
 }
 
-// CSP directives are defined separately so we can generate nonces
+// Generate nonces for inline scripts
+const nonces = {
+  plausible: crypto.randomBytes(16).toString('hex'),
+}
 
 // Extract the type of the `csp` object shape from Helmet, but we will not
 // yet attach the type until we are ready to pass it to Helmet. This allows us
@@ -116,6 +121,7 @@ const csp = {
       process.env.PELIAS_HOST_NAME ?? '',
       'checkout.stripe.com',
       'plausible.io',
+      `'nonce-${nonces.plausible}'`,
       'static.cloudflareinsights.com',
       'static.userback.io',
     ],
@@ -217,10 +223,8 @@ const metatagDescription =
 
 // Set variables for use in view templates
 app.use((req, res, next) => {
-  // Generate nonces for inline scripts
-  res.locals.nonce = {
-    // Currently: we use none
-  }
+  // Send nonces to template
+  res.locals.nonces = nonces
 
   // Set default metatag information for social sharing cards
   res.locals.STREETMIX_IMAGE = {
