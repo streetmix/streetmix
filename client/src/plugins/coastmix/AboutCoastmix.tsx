@@ -49,10 +49,17 @@ export function AboutCoastmix() {
       </header>
       <div className="dialog-content about-coastmix-content">
         <p>
-          Coastmix is a project by Streetmix and the City of Boston to design,
-          visualize and share resilient coasts. Create your ideal waterfront,
-          build coastal flood protection, and learn how climate change impacts
-          your community.{' '}
+          Coastmix is a project by{' '}
+          <a href="https://streetmix.net/" target="_blank" rel="noopener">
+            Streetmix
+          </a>{' '}
+          and the{' '}
+          <a href="https://boston.gov/" target="_blank" rel="noopener">
+            City of Boston
+          </a>{' '}
+          to design, visualize and share resilient coasts. Create your ideal
+          waterfront, build coastal flood protection, and learn how climate
+          change impacts your community.{' '}
           <a
             href="https://www.boston.gov/coastmix"
             target="_blank"
@@ -70,9 +77,7 @@ export function AboutCoastmix() {
               style={{ backgroundImage: `url(${catAvatar})` }}
             />
             <span className="team-member-name">Catherine McCandless</span>
-            <span className="team-member-title">
-              Senior Climate Resilience Project Manager
-            </span>
+            <span className="team-member-title">Senior Project Manager</span>
             <span className="team-member-title">
               Office of Climate Resilience
             </span>
@@ -92,9 +97,7 @@ export function AboutCoastmix() {
               style={{ backgroundImage: `url(${kellyAvatar})` }}
             />
             <span className="team-member-name">Kelly Sherman</span>
-            <span className="team-member-title">
-              Climate Resilience Project Manager
-            </span>
+            <span className="team-member-title">Project Manager</span>
             <span className="team-member-title">
               Office of Climate Resilience
             </span>
@@ -116,7 +119,7 @@ export function AboutCoastmix() {
             <span className="team-member-name">Michael Lawrence Evans</span>
             <span className="team-member-title">Director</span>
             <span className="team-member-title">
-              Office of Climate Resilience
+              Office of Emerging Technology
             </span>
           </div>
         </div>
