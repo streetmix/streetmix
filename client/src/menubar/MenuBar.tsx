@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
 import logoCoastmix from 'url:~/src/plugins/coastmix/images/logo_horizontal_coastmix.svg'
+import bostonLogo from 'url:~/src/plugins/coastmix/images/boston-logo.svg'
 import { useSelector } from '../store/hooks.js'
 import AccessibleIcon from '../ui/AccessibleIcon.js'
 import { Icon } from '../ui/Icon.js'
@@ -126,6 +127,16 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
             draggable={false}
           />
           <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
+          {coastmixMode && (
+            <a href="https://boston.gov/" target="_blank" rel="noopener">
+              <img
+                className="menu-bar-boston-logo"
+                src={bostonLogo}
+                alt="City of Boston"
+                draggable={false}
+              />
+            </a>
+          )}
         </li>
         <MenuBarItem
           label="Help"

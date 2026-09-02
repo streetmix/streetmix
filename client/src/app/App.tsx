@@ -78,7 +78,7 @@ export function App() {
                 <DndProvider options={HTML5toTouch} context={window}>
                   {/* DndProvider allows multiple children; IntlProvider does not */}
                   <NotificationBar />
-                  <BostonHeader />{' '}
+                  <BostonHeader />
                   {/* Don't have this with <NotificationBar at the same time */}
                   <BlockingShield />
                   <BlockingError />

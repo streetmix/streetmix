@@ -48,7 +48,7 @@
     white-space: nowrap;
   }
 
-  a {
+  a.menu-trigger {
     position: relative;
     display: flex;
     align-items: center;
@@ -136,4 +136,14 @@
 
 .menu-carat-down {
   margin-inline: 0.25em -0.25em;
+}
+
+.menu-bar-boston-logo {
+  position: relative;
+  top: 5.5px;
+  width: 120px;
+  border-left: 1px solid var(--color-turquoise-900);
+  padding-top: 5px;
+  padding-left: 6px;
+  margin-left: 3px;
 }

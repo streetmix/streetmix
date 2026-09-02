@@ -83,10 +83,14 @@ function Details({
   )
 }
 
-export function FloodingDebugOverlay() {
+export function FloodingDebugOverlay({ on }: { on: boolean }) {
   const { remainingWidth } = useSelector((state) => state.street)
   const { floodDetails } = useSelector((state) => state.coastmix)
   const [left, right] = floodDetails
+
+  if (!on) {
+    return null
+  }
 
   return (
     <div className="flooding-debug-overlay">
