@@ -69,6 +69,7 @@ process.on('SIGINT', function () {
 // Pass environment variables to handlebars templates
 app.locals.env = {
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+  PLAUSIBLE_ID: process.env.PLAUSIBLE_ID,
   WEB_MONETIZATION_PAYMENT_POINTER:
     process.env.WEB_MONETIZATION_PAYMENT_POINTER,
 }
