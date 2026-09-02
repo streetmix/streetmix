@@ -12,6 +12,7 @@
     "utility-pole": "Poste",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Estacionaparquecito ",
     "street-vendor": "",
     "divider": "Carga",
@@ -83,6 +84,12 @@
       "content": "# Es el tren de la película de Christopher Nolan- _El Origen_.\n\n¿Qué más necesitas saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

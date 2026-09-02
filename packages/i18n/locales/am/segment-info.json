@@ -12,6 +12,7 @@
     "utility-pole": "የመሠረተ ልማት ምሰሶ",
     "drainage-channel": " የፍሳሽ ማስወገጃ መስመር",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "ፓርክ",
     "street-vendor": "የመንገድ ላይ ሽያጭ",
     "divider": "የመንገድ ቋት",
@@ -83,6 +84,12 @@
       "content": "# ከክሪስቶፈር ኖላን ፊልም _ግንዛቤ_ የመጣ ባቡር ነው።.\n\nምን ተጨማሪ ማወቅ ያስፈልግዎታል?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

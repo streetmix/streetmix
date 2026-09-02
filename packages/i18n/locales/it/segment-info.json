@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Giardino lineare di strada",
     "street-vendor": "",
     "divider": "Fascia non transitabile",
@@ -83,6 +84,12 @@
       "content": "# It’s the train from the Christopher Nolan movie _Inception_.\n\nCos'altro vuoi sapere?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

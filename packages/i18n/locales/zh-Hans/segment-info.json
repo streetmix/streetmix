@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "微型公园",
     "street-vendor": "",
     "divider": "禁停区",
@@ -83,6 +84,12 @@
       "content": "# 这辆火车取材于Christopher Nolan的电影_《盗梦空间》_\n\n你还需要了解些什么其它的信息吗？"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

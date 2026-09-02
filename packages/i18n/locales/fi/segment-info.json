@@ -12,6 +12,7 @@
     "utility-pole": "Voimajohtopylväs",
     "drainage-channel": "Viemärikanava",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Puistoruutu",
     "street-vendor": "Katukauppias",
     "divider": "Erotuskaista",
@@ -83,6 +84,12 @@
       "content": "# Juna Christopher Nolanin elokuvasta _Inception_.\n\nMistä haluat tietää lisää?\n"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

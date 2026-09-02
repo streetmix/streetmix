@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Espai d'aparcament guanyat com a terrassa o espai polivalent",
     "street-vendor": "",
     "divider": "Separació",
@@ -83,6 +84,12 @@
       "content": "# És el tren de la pel·lícula de Christopher Nolan _Inception_ traduïda com a Origen.\n\nQuè més necessiteu saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

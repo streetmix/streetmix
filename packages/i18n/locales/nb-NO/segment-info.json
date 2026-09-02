@@ -12,6 +12,7 @@
     "utility-pole": "Stolpe",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Rabatt",
@@ -83,6 +84,12 @@
       "content": "# Det er toget fra Christopher Nolan film _Inception_.\n\nHva mer må du vite?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

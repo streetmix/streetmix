@@ -12,6 +12,7 @@
     "utility-pole": "Poste de la luz",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "'Parklet'",
     "street-vendor": "",
     "divider": "Separación",
@@ -83,6 +84,12 @@
       "content": "# Es el tren de la película de Christopher Nolan  _Inception_.\n\n¿Qué más quiere saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

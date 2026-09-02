@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "微型公園",
     "street-vendor": "",
     "divider": "禁停區",
@@ -83,6 +84,12 @@
       "content": "# 這是克里斯托弗諾蘭執導的電影_盜夢空間_中的列車 \n\n你還需要知道什麼別的信息嗎？"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",
