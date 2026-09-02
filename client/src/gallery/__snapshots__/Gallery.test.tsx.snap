@@ -4,7 +4,7 @@ exports[`Gallery > renders global gallery view 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
-    class="gallery"
+    class="gallery-container"
   >
     <div
       class="gallery-panel"
@@ -120,7 +120,7 @@ exports[`Gallery > renders loading 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
-    class="gallery"
+    class="gallery-container"
   >
     <div
       class="gallery-panel"
@@ -190,7 +190,7 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
 <DocumentFragment>
   <div
     aria-hidden="false"
-    class="gallery"
+    class="gallery-container"
   >
     <div
       class="gallery-panel"
@@ -317,7 +317,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
 <DocumentFragment>
   <div
     aria-hidden="false"
-    class="gallery"
+    class="gallery-container"
   >
     <div
       class="gallery-panel"

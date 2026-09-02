@@ -9,7 +9,7 @@
   width: 100%;
   text-align: center;
   font-family: "Lora Variable", Georgia, serif;
-  z-index: 1000;
+  z-index: var(--z-10-notification-bar);
 }
 
 /* Using Boston's visually-hidden strategy here */

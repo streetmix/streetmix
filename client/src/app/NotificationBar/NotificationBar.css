@@ -1,6 +1,6 @@
 .notification-bar {
   position: relative;
-  z-index: var(--z-08-notification-bar);
+  z-index: var(--z-10-notification-bar);
   padding: 0.75em calc(36px + 1.5em); /* Makes room for dismiss button */
   text-align: center; /* Since the app is very center-view oriented, this helps message legibility */
   background-color: var(--alert-background);

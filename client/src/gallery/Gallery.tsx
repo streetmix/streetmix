@@ -55,7 +55,7 @@ export function Gallery() {
   }, [visible, instant])
 
   return (
-    <div className="gallery" aria-hidden={!visible}>
+    <div className="gallery-container" aria-hidden={!visible}>
       <GalleryPanel />
       <GalleryShield visible={visible} onClick={hide} />
     </div>

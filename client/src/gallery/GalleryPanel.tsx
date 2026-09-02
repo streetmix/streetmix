@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
@@ -18,8 +17,6 @@ export function GalleryPanel() {
 
   const { data: user, isError, isLoading } = useGetUserQuery(userId)
 
-  const galleryEl = useRef<HTMLDivElement>(null)
-
   let childElements
 
   if (mode === 'loading' || isLoading) {
@@ -28,14 +25,14 @@ export function GalleryPanel() {
     childElements = <GalleryError />
   } else if (mode === 'gallery') {
     // It is not necessary to have a user property to load the gallery
-    childElements = <GalleryContents ref={galleryEl} user={user} />
+    childElements = <GalleryContents user={user} />
   } else {
     childElements = null
   }
 
   return (
     <div className="gallery-panel">
-      <div className="gallery-header" ref={galleryEl}>
+      <div className="gallery-header">
         <div className="gallery-label">
           {user?.id !== undefined && <Avatar userId={user.id} />}
           {user?.displayName ?? user?.id ?? (

@@ -1,6 +1,6 @@
 .sponsor-banner {
   position: relative;
-  z-index: var(--z-08-notification-bar);
+  z-index: var(--z-10-notification-bar);
   padding: 0.5em 1em 0.75em;
   background-color: var(--background-earth-color);
   border-top: 5px solid

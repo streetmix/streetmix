@@ -12,6 +12,11 @@ body:not(.safari).gallery-visible .street-section-sky {
   transform: translateY(-20px);
 }
 
+.gallery-container {
+  /* Required for positioning when a notification banner is present */
+  position: relative;
+}
+
 .gallery-panel {
   --gallery-border-radius: var(--border-radius);
   --gallery-box-shadow: var(--medium-box-shadow);

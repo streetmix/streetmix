@@ -186,36 +186,36 @@
    * As a remninder, this z-index scale does not override the constraints
    * imposed by stacking contexts. */
   --z-00-main-screen: var(--z-index-00);
-  --z-01-street-section: var(--z-index-01);
   --z-01-foreground: var(--z-index-01);
-  --z-02-segment-focused: var(--z-index-02);
-  --z-02-palette: var(--z-index-02);
+  --z-01-street-section: var(--z-index-01);
   --z-02-menu-bar: var(--z-index-02);
-  --z-03-street-name: var(--z-index-03);
+  --z-02-palette: var(--z-index-02);
+  --z-02-segment-focused: var(--z-index-02);
   --z-03-gallery-message: var(--z-index-03);
+  --z-03-street-name: var(--z-index-03);
   --z-04-drag-layer: var(--z-index-04);
   --z-05-welcome: var(--z-index-05);
-  --z-06-popup: var(--z-index-06);
   --z-06-drag-handle: var(--z-index-06);
+  --z-06-popup: var(--z-index-06);
+  --z-07-floating-panel: calc(var(--z-index-07) + 50);
+  --z-07-menu: calc(var(--z-index-07) + 75);
+  --z-07-resize-guide: var(--z-index-07);
   --z-07-street-scroll: var(--z-index-07);
   --z-07-toasts: var(--z-index-07);
   --z-07-trashcan: var(--z-index-07);
-  --z-07-resize-guide: var(--z-index-07);
-  --z-07-floating-panel: calc(var(--z-index-07) + 50);
-  --z-07-menu: calc(var(--z-index-07) + 75);
   --z-08-dialog-box-backdrop: var(--z-index-08);
   --z-08-gallery-shield: var(--z-index-08);
-  --z-08-notification-bar: var(--z-index-08);
-  --z-09-gallery: var(--z-index-09);
-  --z-09-dialog-box: var(--z-index-09);
   --z-09-debug: var(--z-index-09);
+  --z-09-dialog-box: var(--z-index-09);
+  --z-09-gallery: var(--z-index-09);
 
   /* Blocking overlays
    * These live at the highest level of z-index scale. */
-  --z-09-loading: var(--z-index-09);
-  --z-09-error: var(--z-index-09);
   --z-09-blocking-shield: var(--z-index-09);
+  --z-09-error: var(--z-index-09);
+  --z-09-loading: var(--z-index-09);
   --z-10-flash-border: var(--z-index-10);
-  --z-10-switch-away: var(--z-index-10);
+  --z-10-notification-bar: var(--z-index-10);
   --z-10-print: var(--z-index-10);
+  --z-10-switch-away: var(--z-index-10);
 }
