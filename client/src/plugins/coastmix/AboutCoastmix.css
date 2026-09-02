@@ -29,7 +29,7 @@ header.about-coastmix-header {
 }
 
 .about-coastmix-content {
-  font-family: "Lora Variable", serif;
+  font-family: "Lora Variable", Georgia, serif;
 
   > p {
     font-size: 16px;
