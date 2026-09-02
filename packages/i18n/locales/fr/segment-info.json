@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "« Parklet »",
     "street-vendor": "",
     "divider": "Zone tampon",
@@ -83,6 +84,12 @@
       "content": "# C'est le train du film _Inception_ de Christopher Nolan.\n\nQu'est-ce que vous voulez savoir de plus ?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

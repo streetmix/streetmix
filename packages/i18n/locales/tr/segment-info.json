@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Yaya durağı",
     "street-vendor": "",
     "divider": "Emniyet mesafesi",
@@ -83,6 +84,12 @@
       "content": "# Christopher Nolan _Inception_ filmindeki tren.\n\nDaha fazla ne bilmen gerekiyor?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

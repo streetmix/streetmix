@@ -12,6 +12,7 @@
     "utility-pole": "전신주",
     "drainage-channel": "배수 채널",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "파클렛",
     "street-vendor": "노점상",
     "divider": "안전지대",
@@ -83,6 +84,12 @@
       "content": "# 크리스토퍼 놀란의 영화 _인셉션_에 나오는 기차입니다.\n\n무엇이 더 알고 싶으세요?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

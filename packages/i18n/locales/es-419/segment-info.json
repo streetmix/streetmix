@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Espacio de separación",
@@ -83,6 +84,12 @@
       "content": "# Es el tren de la película <em>El Origen</em> de Christopher Nolan.\",\n\n¿Qué más necesitarías saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

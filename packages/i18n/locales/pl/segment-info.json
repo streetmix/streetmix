@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Pobocze",
@@ -83,6 +84,12 @@
       "content": "# To pociąg z filmu Christophera Nolana _Incepcja_.\n\n\"Co jeszcze powinieneś wiedzieć?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

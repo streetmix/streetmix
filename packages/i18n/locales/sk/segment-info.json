@@ -12,6 +12,7 @@
     "utility-pole": "Stĺp s vedením",
     "drainage-channel": "Odtokový žľab",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "",
@@ -83,6 +84,12 @@
       "content": ""
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

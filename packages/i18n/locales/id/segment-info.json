@@ -12,6 +12,7 @@
     "utility-pole": "Tiang utilitas",
     "drainage-channel": "Saluran drainase",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "Pedagang kaki lima",
     "divider": "Penyangga",
@@ -83,6 +84,12 @@
       "content": ""
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

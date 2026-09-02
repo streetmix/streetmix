@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Парклет",
     "street-vendor": "",
     "divider": "Буфер",
@@ -83,6 +84,12 @@
       "content": "# Это поезд из фильма Кристофера Нолана_Начало_.\n\nЧто еще вам нужно знать?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",

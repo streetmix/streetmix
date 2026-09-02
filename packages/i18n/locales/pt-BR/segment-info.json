@@ -12,6 +12,7 @@
     "utility-pole": "",
     "drainage-channel": "",
     "bioswale": "",
+    "rain-garden": "",
     "parklet": "Parklet",
     "street-vendor": "",
     "divider": "Zona de amortecimento",
@@ -83,6 +84,12 @@
       "content": "# É o trem do filme _A Origem_ de Christopher Nolan.\n\nO que mais você precisa saber?"
     },
     "bioswale": {
+      "prompt": "",
+      "imageAltText": "",
+      "imageCaption": "",
+      "content": ""
+    },
+    "rain-garden": {
       "prompt": "",
       "imageAltText": "",
       "imageCaption": "",
