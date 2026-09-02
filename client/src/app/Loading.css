@@ -1,0 +1,8 @@
+.loading-boston-logo {
+  width: 280px;
+  margin-top: -130px;
+
+  + p {
+    margin-bottom: 100px;
+  }
+}
