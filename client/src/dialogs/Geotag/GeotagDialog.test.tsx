@@ -12,6 +12,14 @@ vi.mock('../../streets/owner.js', () => ({
   isOwnedByCurrentUser: vi.fn(),
 }))
 
+vi.mock('../../app/config.js', async (importOriginal) => {
+  const actual: object = await importOriginal()
+  return {
+    ...actual,
+    CARTO_API_KEY: 'test-api-key',
+  }
+})
+
 // as mocked, the intial state is a street with a previously saved location, and a new marker location
 // in practice, these tests don't really handle this 'new' marker location yet
 
