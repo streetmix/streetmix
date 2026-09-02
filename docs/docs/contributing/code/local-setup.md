@@ -263,6 +263,7 @@ Streetmix will run without these keys. Some non-critical functionality may be li
 | `NEW_RELIC_LICENSE_KEY`            | New Relic monitoring API key                      | No       |
 | `PELIAS_API_KEY`                   | Geocoding (Pelias) API key                        | No       |
 | `PELIAS_HOST_NAME`                 | Geocoding (Pelias) API server                     | No       |
+| `CARTO_API_KEY`                    | Basemaps (Carto) API key                          | No       |
 | `PLAUSIBLE_DOMAIN`                 | Analytics (Plausible) domain to track             | No       |
 | `TRANSIFEX_API_TOKEN`              | Translations (Transifex) API token                | No       |
 | `WEB_MONETIZATION_PAYMENT_POINTER` | Payment pointer for Web Monetization API payments | No       |

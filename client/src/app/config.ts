@@ -21,6 +21,7 @@ export const FACEBOOK_APP_ID: string | undefined = process.env.FACEBOOK_APP_ID
 export const OFFLINE_MODE: boolean = parseBoolean(process.env.OFFLINE_MODE)
 export const PELIAS_API_KEY: string | undefined = process.env.PELIAS_API_KEY
 export const PELIAS_HOST_NAME: string | undefined = process.env.PELIAS_HOST_NAME
+export const CARTO_API_KEY: string | undefined = process.env.CARTO_API_KEY
 export const AUTH0_CLIENT_ID: string | undefined = process.env.AUTH0_CLIENT_ID
 export const AUTH0_DOMAIN: string | undefined = process.env.AUTH0_DOMAIN
 export const USERBACK_TOKEN: string | undefined = process.env.USERBACK_TOKEN

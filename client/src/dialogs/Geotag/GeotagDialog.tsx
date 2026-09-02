@@ -10,7 +10,11 @@ import {
   ZoomControl,
 } from 'react-leaflet'
 
-import { PELIAS_API_KEY, PELIAS_HOST_NAME } from '~/src/app/config.js'
+import {
+  CARTO_API_KEY,
+  PELIAS_API_KEY,
+  PELIAS_HOST_NAME,
+} from '~/src/app/config.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
 import { setMapState } from '~/src/store/slices/map.js'
 import {
@@ -38,10 +42,8 @@ const ukrainianFlag =
   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>'
 const REVERSE_GEOCODE_API = `https://${PELIAS_HOST_NAME}/v1/reverse`
 const REVERSE_GEOCODE_ENDPOINT = `${REVERSE_GEOCODE_API}?api_key=${PELIAS_API_KEY}`
-const MAP_TILES =
-  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
-const MAP_TILES_2X =
-  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png'
+const MAP_TILES = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=${CARTO_API_KEY}`
+const MAP_TILES_2X = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png?key=${CARTO_API_KEY}`
 const MAP_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution" target="_blank" rel="noopener noreferrer">CARTO</a>'
 // This is the same attribution prefix as Leaflet v1.9.3, except that we set
