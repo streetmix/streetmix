@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom/vitest'
 import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import 'vitest-canvas-mock'
-import 'vitest-localstorage-mock'
 
 import { server } from './server/index.js'
 
