@@ -15,6 +15,7 @@ export default defineConfig({
   viewportWidth: 1280,
   viewportHeight: 720,
   video: false,
+  defaultBrowser: 'chrome',
   e2e: {
     setupNodeEvents(on, config) {
       config.env.PELIAS_HOST_NAME = process.env.PELIAS_HOST_NAME
@@ -23,7 +24,6 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:8000',
   },
-  allowCypressEnv: false,
   expose: {
     peliasHostName: process.env.PELIAS_HOST_NAME,
   },

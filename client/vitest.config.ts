@@ -15,11 +15,14 @@ export default defineConfig({
     alias: [
       {
         find: /^(.*)\.(jpg|jpeg|png|gif|svg)$/,
-        replacement: path.resolve(__dirname, './__mocks__/fileMock.ts'),
+        replacement: path.resolve(
+          import.meta.dirname,
+          './__mocks__/fileMock.ts'
+        ),
       },
       {
         find: '~',
-        replacement: path.resolve(__dirname, './'),
+        replacement: path.resolve(import.meta.dirname, './'),
       },
     ],
   },
