@@ -1,7 +1,8 @@
 import { FormattedMessage } from 'react-intl'
 import { useShepherd } from 'react-shepherd'
 
-import { useSelector } from '~/src/store/hooks.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { openGallery } from '~/src/store/actions/gallery.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
 import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Icon } from '~/src/ui/Icon.js'
@@ -24,7 +25,12 @@ export function NewStreetMenu(props: MenuProps) {
     (state) => state.flags.COASTMIX_MODE.value ?? false
   )
   const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
   const Shepherd = useShepherd()
+
+  function handleExamples() {
+    dispatch(openGallery({ userId: 'examples' }))
+  }
 
   return (
     <Menu {...props}>
@@ -61,6 +67,7 @@ export function NewStreetMenu(props: MenuProps) {
             />
             <Icon name="external-link" />
           </MenuItem>
+          <MenuItem onClick={handleExamples}>See examples...</MenuItem>
           {/* Deprecated choices, remove later */}
           {/* <MenuItem
             onClick={() => {
