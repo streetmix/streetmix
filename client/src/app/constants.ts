@@ -5,10 +5,11 @@ export const STREET_TEMPLATES = {
   DEFAULT: 'default',
   EMPTY: 'empty',
   COPY: 'copy',
-  HARBORWALK: 'harborwalk',
-  COASTAL_ROAD: 'coastal_road',
-  BEACH: 'beach',
+  HARBORWALK: 'harborwalk', // Deprecated
+  COASTAL_ROAD: 'coastal_road', // Deprecated
+  BEACH: 'beach', // Deprecated
   STROAD: 'stroad',
+  EMPTY_WATERFRONT: 'empty_waterfront',
 }
 
 // Path segments

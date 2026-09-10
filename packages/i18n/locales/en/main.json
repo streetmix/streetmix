@@ -595,6 +595,7 @@
   },
   "coastmix": {
     "new-waterfront-menu": "New waterfront",
+    "new-empty": "New empty waterfront",
     "templates": {
       "harborwalk": "Harborwalk",
       "coastal-road": "Coastal road",

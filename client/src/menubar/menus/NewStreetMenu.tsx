@@ -32,6 +32,19 @@ export function NewStreetMenu(props: MenuProps) {
         <>
           <MenuItem
             onClick={() => {
+              openTemplate(STREET_TEMPLATES.EMPTY_WATERFRONT)
+            }}
+          >
+            <Icon name="new-street" className="menu-item-icon" />
+            <FormattedMessage
+              id="coastmix.new-empty"
+              defaultMessage="New empty waterfront"
+            />
+            <Icon name="external-link" />
+          </MenuItem>
+
+          <MenuItem
+            onClick={() => {
               // If this menu item is clicked as part of the Coastmix tutorial
               // it will be on step `coastmix-practice-03` and we need to
               // activate the remainder of the steps in the next window
@@ -48,7 +61,8 @@ export function NewStreetMenu(props: MenuProps) {
             />
             <Icon name="external-link" />
           </MenuItem>
-          <MenuItem
+          {/* Deprecated choices, remove later */}
+          {/* <MenuItem
             onClick={() => {
               openTemplate(STREET_TEMPLATES.COASTAL_ROAD)
             }}
@@ -69,7 +83,7 @@ export function NewStreetMenu(props: MenuProps) {
               defaultMessage="Beach"
             />
             <Icon name="external-link" />
-          </MenuItem>
+          </MenuItem> */}
           <MenuSeparator />
         </>
       )}
