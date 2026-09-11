@@ -67,7 +67,9 @@ export function NewStreetMenu(props: MenuProps) {
             />
             <Icon name="external-link" />
           </MenuItem>
-          <MenuItem onClick={handleExamples}>See examples...</MenuItem>
+          <MenuItem onClick={handleExamples} data-tour-id="new-street-examples">
+            See examples...
+          </MenuItem>
           {/* Deprecated choices, remove later */}
           {/* <MenuItem
             onClick={() => {

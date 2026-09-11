@@ -67,6 +67,26 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
+    id: 'coastmix-practice-03',
+    title: 'Start from an example',
+    text: `Click “See examples...” to open a gallery of different waterfronts.`,
+    attachTo: {
+      element: '[data-tour-id="new-street-examples"]',
+      on: 'left',
+    },
+    highlightClass: 'tour-highlight',
+    advanceOn: {
+      event: 'click',
+      selector: '[data-tour-id="new-street-examples"]',
+    },
+
+    // BACK NEEDS TO CLOSE GALLERY
+    buttons: [backButton],
+    beforeShowPromise: async () => {
+      await waitFor(300)
+    },
+  },
+  {
     id: 'coastmix-practice-02b',
     title: 'Select a template',
     text: `Select the “Harborwalk” template. This will open a new starting
