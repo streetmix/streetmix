@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
 import { showMenu, clearMenus } from '../store/slices/menus.js'
@@ -17,6 +17,7 @@ import './MenusContainer.css'
 export function MenusContainer() {
   const activeMenu = useSelector((state): string | null => state.menus.id)
   const [activeMenuItemNode, setActiveMenuItemNode] = useState<HTMLElement>()
+  const menuBarEl = useRef<HTMLElement>(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -99,37 +100,43 @@ export function MenusContainer() {
 
   return (
     <>
-      <MenuBar onMenuDropdownClick={handleMenuDropdownClick} />
+      <MenuBar onMenuDropdownClick={handleMenuDropdownClick} ref={menuBarEl} />
       {/* Menus exist on a different z-index layer from the menu bar */}
       <div className={classNames.join(' ')}>
         <HelpMenu
           isActive={activeMenu === 'help'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           aria-labelledby="menubar-help"
         />
         <ContactMenu
           isActive={activeMenu === 'contact'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           aria-labelledby="menubar-contact"
         />
         <NewStreetMenu
           isActive={activeMenu === 'new'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           aria-labelledby="menubar-new"
         />
         <ShareMenu
           isActive={activeMenu === 'share'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           aria-labelledby="menubar-share"
         />
         <LocaleMenu
           isActive={activeMenu === 'locale'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           aria-labelledby="menubar-locale"
         />
         <IdentityMenu
           isActive={activeMenu === 'identity'}
           menuItemNode={activeMenuItemNode}
+          menuBarRef={menuBarEl}
           alignOpposite
           aria-labelledby="menubar-identity"
         />

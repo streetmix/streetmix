@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
@@ -24,9 +24,10 @@ export interface MenuCoords {
 
 interface MenuBarProps {
   onMenuDropdownClick: (menu: string, node: HTMLElement) => void
+  ref: React.RefObject<HTMLElement | null>
 }
 
-export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
+export function MenuBar({ onMenuDropdownClick, ref }: MenuBarProps) {
   const user = useSelector((state) => state.user.signInData?.details)
   const isSubscriber = useSelector(
     (state) => state.user.signedIn && state.user.isSubscriber
@@ -117,7 +118,7 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
   const logoSrc = coastmixMode ? logoCoastmix : logo
 
   return (
-    <nav className="menu-bar">
+    <nav className="menu-bar" ref={ref}>
       <ul className="menu-bar-left" ref={menuBarLeftEl}>
         <li className="menu-bar-title">
           <img
