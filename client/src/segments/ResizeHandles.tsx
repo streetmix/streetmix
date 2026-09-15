@@ -1,5 +1,6 @@
 import { useSelector } from '../store/hooks.js'
 import { Icon } from '../ui/Icon.js'
+import { handleSegmentResizeStart } from './drag_and_drop.js'
 import './ResizeHandles.css'
 
 interface ResizeHandlesProps {
@@ -19,17 +20,23 @@ export function ResizeHandles({ width }: ResizeHandlesProps) {
   //    width = 12 ==> adjustX = -29px
   const adjustX = width < 60 ? `${0.5 * width - 35}px` : undefined
 
+  function handleResizeStart(event: React.MouseEvent) {
+    handleSegmentResizeStart(event)
+  }
+
   return (
     <>
       <div
         className="resize-handle resize-handle-left"
         style={{ display, left: adjustX }}
+        onPointerDown={handleResizeStart}
       >
         <Icon name="chevron-left" size="30" />
       </div>
       <div
         className="resize-handle resize-handle-right"
         style={{ display, right: adjustX }}
+        onPointerDown={handleResizeStart}
       >
         <Icon name="chevron-right" size="30" />
       </div>

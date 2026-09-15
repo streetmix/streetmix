@@ -115,7 +115,7 @@ export function initDragTypeSubscriber() {
   return observeStore(select, onChange)
 }
 
-function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
+export function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   let x: number, y: number
 
   if ('touches' in event && event.touches[0]) {
@@ -215,19 +215,6 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
-}
-
-export function onBodyMouseDown(event: MouseEvent | TouchEvent): void {
-  const { readOnly } = store.getState().app
-
-  if (readOnly || ('touches' in event && event.touches.length !== 1)) {
-    return
-  }
-
-  if ((event.target as HTMLElement).closest('.resize-handle')) {
-    handleSegmentResizeStart(event)
-    event.preventDefault()
-  }
 }
 
 export function isSegmentWithinCanvas(

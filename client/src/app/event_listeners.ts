@@ -1,8 +1,4 @@
-import {
-  onBodyMouseDown,
-  onBodyMouseMove,
-  onBodyMouseUp,
-} from '../segments/drag_and_drop.js'
+import { onBodyMouseMove, onBodyMouseUp } from '../segments/drag_and_drop.js'
 import { onStorageChange } from '../users/authentication.js'
 import { onGlobalKeyDown } from './keyboard_commands.js'
 import {
@@ -15,7 +11,6 @@ import {
 export function addEventListeners(): void {
   window.addEventListener('storage', onStorageChange)
 
-  window.addEventListener('pointerdown', onBodyMouseDown)
   window.addEventListener('pointermove', onBodyMouseMove)
   window.addEventListener('pointerup', onBodyMouseUp)
   window.addEventListener('keydown', onGlobalKeyDown)
