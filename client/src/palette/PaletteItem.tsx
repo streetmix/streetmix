@@ -32,6 +32,8 @@ export function PaletteItem({ item }: PaletteItemProps) {
     })
   }
 
+  const label = getLabel(item)
+
   const { unlockCondition } = item
   const classNames = ['palette-item']
   let isLocked = false
@@ -78,12 +80,13 @@ export function PaletteItem({ item }: PaletteItemProps) {
 
   return (
     <li className={classNames.join(' ')} ref={isLocked ? null : drag}>
-      <Tooltip label={getLabel(item)} sublabel={sublabel}>
+      <Tooltip label={label} sublabel={sublabel}>
         <button>
           <img
             className="palette-item-image"
             src={thumbnail}
             draggable={false}
+            alt={label}
           />
         </button>
       </Tooltip>

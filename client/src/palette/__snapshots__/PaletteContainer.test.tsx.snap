@@ -47,6 +47,7 @@ exports[`PaletteContainer > renders 1`] = `
             >
               <button>
                 <img
+                  alt="Sidewalk"
                   class="palette-item-image"
                   draggable="false"
                 />
@@ -57,6 +58,7 @@ exports[`PaletteContainer > renders 1`] = `
             >
               <button>
                 <img
+                  alt="Outdoor dining"
                   class="palette-item-image"
                   draggable="false"
                 />
