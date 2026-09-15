@@ -9,6 +9,7 @@ exports[`Segment > renders correctly 1`] = `
   >
     <button
       class="slice-button"
+      data-slice-index="0"
       data-slice-label="Streetcar"
       data-slice-left="0"
     >
@@ -59,8 +60,10 @@ exports[`Segment > renders correctly 1`] = `
       />
     </button>
     <button
+      aria-hidden="false"
       aria-label="Resize left"
       class="resize-handle resize-handle-left resize-handle-show"
+      tabindex="0"
     >
       <svg
         data-icon="chevron-left"
@@ -68,8 +71,10 @@ exports[`Segment > renders correctly 1`] = `
       />
     </button>
     <button
+      aria-hidden="false"
       aria-label="Resize right"
       class="resize-handle resize-handle-right resize-handle-show"
+      tabindex="0"
     >
       <svg
         data-icon="chevron-right"
