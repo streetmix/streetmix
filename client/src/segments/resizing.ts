@@ -20,7 +20,7 @@ import {
   SEGMENT_WIDTH_RESOLUTION_METRIC,
   SEGMENT_WIDTH_CLICK_INCREMENT_METRIC,
   SEGMENT_WIDTH_DRAGGING_RESOLUTION_METRIC,
-  BUILDING_SPACE,
+  BOUNDARY_WIDTH,
 } from './constants.js'
 import { draggingResize } from './drag_and_drop.js'
 
@@ -67,7 +67,7 @@ export function handleSegmentResizeCancel(): void {
 /**
  * Updates street section canvas margins when occupiedWidth is greater than default street extent
  *
- * The default street extent is equal to the street width + (2 * BUILDING_SPACE). When the occupiedWidth
+ * The default street extent is equal to the street width + (2 * BOUNDARY_WIDTH). When the occupiedWidth
  * is greater than the default street extent, the street-section-outer's scrollLeft no longer works properly.
  *
  * The solution to the above problem, is to update the street-section-canvas' margins and the building widths
@@ -91,12 +91,12 @@ export function updateStreetMargin(
     (document.querySelector('#street-section-outer') as HTMLElement)
 
   const prevMargin =
-    Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BUILDING_SPACE
+    Number.parseInt(streetSectionCanvas.style.marginLeft, 10) || BOUNDARY_WIDTH
   const { remainingWidth } = store.getState().street
   let streetMargin = Math.round((-remainingWidth * TILE_SIZE) / 2)
 
-  if (!streetMargin || streetMargin < BUILDING_SPACE) {
-    streetMargin = BUILDING_SPACE
+  if (!streetMargin || streetMargin < BOUNDARY_WIDTH) {
+    streetMargin = BOUNDARY_WIDTH
   }
 
   const deltaMargin = streetMargin - prevMargin

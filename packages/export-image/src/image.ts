@@ -1,4 +1,4 @@
-// import { TILE_SIZE, BUILDING_SPACE } from '../../../client/src/segments/constants.js'
+// import { TILE_SIZE, BOUNDARY_WIDTH } from '../../../client/src/segments/constants.js'
 // import { getBuildingImageHeight } from '../../../client/src/segments/buildings.js'
 import path from 'node:path'
 import * as Canvas from '@napi-rs/canvas'
@@ -62,7 +62,7 @@ const IMAGE_BOTTOM_PADDING = 60
 const IMAGE_NAMES_WIDTHS_PADDING = 65
 
 // copy paste values witout importing for now
-const BUILDING_SPACE = 360
+const BOUNDARY_WIDTH = 360
 
 export async function makeStreetImage(
   street: StreetAPIResponse,
@@ -219,7 +219,7 @@ function calculateImageWidth(
 ): number {
   const streetData = street.data.street
   const streetWidth = TILE_SIZE * streetData.width // translate width to pixels
-  const buildingWidth = BUILDING_SPACE * 2 // multiply for 2 buildings
+  const buildingWidth = BOUNDARY_WIDTH * 2 // multiply for 2 buildings
   const baseWidth = streetWidth + buildingWidth // total width is street + buildings
   return baseWidth
 }

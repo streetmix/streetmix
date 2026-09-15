@@ -1,5 +1,5 @@
 import { getBoundaryImageHeight } from '../boundary'
-import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants'
+import { TILE_SIZE, BOUNDARY_WIDTH } from '../segments/constants'
 import { deleteStreetImage } from '../util/api'
 import store, { observeStore } from '../store'
 import { drawStreetThumbnail } from './thumbnail'
@@ -25,7 +25,7 @@ export async function getStreetImage(
   watermark = true,
   locale
 ) {
-  const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
+  const width = TILE_SIZE * street.width + BOUNDARY_WIDTH * 2
 
   const leftHeight = getBoundaryImageHeight(
     street.boundary.left.variant,

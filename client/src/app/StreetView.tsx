@@ -12,7 +12,7 @@ import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
 import {
   TILE_SIZE,
   DRAGGING_TYPE_RESIZE,
-  BUILDING_SPACE,
+  BOUNDARY_WIDTH,
 } from '../segments/constants.js'
 import { updateStreetMargin } from '../segments/resizing.js'
 import { SkyBox } from '../sky/SkyBox/index.js'
@@ -85,7 +85,7 @@ export function StreetView() {
   })
   const [scrollPos, setScrollPos] = useState(0)
   const [resizeType, setResizeType] = useState<number>()
-  const [boundaryWidth, setBoundaryWidth] = useState(BUILDING_SPACE)
+  const [boundaryWidth, setBoundaryWidth] = useState(BOUNDARY_WIDTH)
 
   const sectionEl = useRef<HTMLElement>(null)
   const sectionCanvasEl = useRef<HTMLCanvasElement>(null)
@@ -110,7 +110,7 @@ export function StreetView() {
     const viewportWidth = window.innerWidth
     const streetWidth = street.width * TILE_SIZE
     let streetSectionCanvasLeft =
-      (viewportWidth - streetWidth) / 2 - BUILDING_SPACE
+      (viewportWidth - streetWidth) / 2 - BOUNDARY_WIDTH
 
     if (streetSectionCanvasLeft < 0) {
       streetSectionCanvasLeft = 0
@@ -275,7 +275,7 @@ export function StreetView() {
   }
 
   /**
-   * Boundary width is usually fixed to BUILDING_SPACE, but can grow to fill
+   * Boundary width is usually fixed to BOUNDARY_WIDTH, but can grow to fill
    * the remaining space if the street section or the viewport is wider than
    * the street width + building space. This function is triggered by actions
    * that can cause either of those conditions to be true (a slice resize action,
@@ -293,8 +293,8 @@ export function StreetView() {
     const pos = getElAbsolutePos(el)
 
     let width = pos[0]
-    if (width < BUILDING_SPACE) {
-      width = BUILDING_SPACE
+    if (width < BOUNDARY_WIDTH) {
+      width = BOUNDARY_WIDTH
     }
 
     setBoundaryWidth(width)
