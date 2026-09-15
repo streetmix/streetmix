@@ -595,7 +595,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "New waterfront",
-    "new-empty": "New empty waterfront"
+    "new-empty": "New empty waterfront",
+    "new-from-examples": "From examples..."
   },
   "i18n": {
     "lang": {
