@@ -11,12 +11,13 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
     >
       <div>
         <div
-          class="segment active show-resize-handles warning"
+          class="segment active warning"
+          data-slice-index="0"
           data-testid="segment"
           style="width: 4724.409449px; z-index: 15; transform: translateX(0px);"
         >
           <button
-            data-slice-index="0"
+            class="slice-button"
             data-slice-label="Streetcar"
             data-slice-left="0"
           >
@@ -44,22 +45,6 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
               </div>
             </div>
             <div
-              class="resize-handle resize-handle-left"
-            >
-              <svg
-                data-icon="chevron-left"
-                size="30"
-              />
-            </div>
-            <div
-              class="resize-handle resize-handle-right"
-            >
-              <svg
-                data-icon="chevron-right"
-                size="30"
-              />
-            </div>
-            <div
               class="segment-canvas-container"
             >
               <div
@@ -75,6 +60,22 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
             </div>
             <div
               class="active-bg"
+            />
+          </button>
+          <button
+            class="resize-handle resize-handle-left resize-handle-show"
+          >
+            <svg
+              data-icon="chevron-left"
+              size="30"
+            />
+          </button>
+          <button
+            class="resize-handle resize-handle-right resize-handle-show"
+          >
+            <svg
+              data-icon="chevron-right"
+              size="30"
             />
           </button>
         </div>
