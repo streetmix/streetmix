@@ -197,10 +197,7 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   draggingResize.width =
     draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE) * 2
   draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left =
-    draggingResize.elX -
-    document.querySelector('#street-section-outer').scrollLeft +
-    'px'
+  draggingResize.floatingEl.style.left = `${draggingResize.elX}px`
 
   const precise = event.shiftKey
 
