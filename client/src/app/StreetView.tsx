@@ -274,13 +274,27 @@ export function StreetView() {
     animate(el, { scrollLeft: newScrollLeft }, 300)
   }
 
+  /**
+   * Boundary width is usually fixed to BUILDING_SPACE, but can grow to fill
+   * the remaining space if the street section or the viewport is wider than
+   * the street width + building space. This function is triggered by actions
+   * that can cause either of those conditions to be true (a slice resize action,
+   * or a viewport resize action)
+   *
+   * The provided element is the main container of the StreetEditable component.
+   * When something in that component calls this function, the boundary width
+   * needs to be recaculated.
+   *
+   * TODO: There is probably a better way to do this. This interacts with
+   * tracking scroll position, etc.
+   */
   function getBoundaryWidth(el: HTMLElement | null): void {
     if (el === null) return
     const pos = getElAbsolutePos(el)
 
     let width = pos[0]
-    if (width < 0) {
-      width = 0
+    if (width < BUILDING_SPACE) {
+      width = BUILDING_SPACE
     }
 
     setBoundaryWidth(width)

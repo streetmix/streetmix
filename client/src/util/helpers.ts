@@ -11,7 +11,7 @@ import slugify from 'slugify'
  *    left side of the viewport and y is the number of pixels
  *    from the top of the viewport.
  */
-export function getElRelativePos (el: HTMLElement): [number, number] {
+export function getElRelativePos(el: HTMLElement): [number, number] {
   // In addition to the DOM's left and top offset properties, we also
   // account for CSS transforms, via the `matrix` object
   const style = window.getComputedStyle(el)
@@ -21,21 +21,16 @@ export function getElRelativePos (el: HTMLElement): [number, number] {
 }
 
 /**
- * Gets the absolute position in pixels of a given element,
- * taking into account its CSS transformed position, and optionally,
- * the scroll position of parent elements
+ * Gets the absolute position in pixels of a given element, taking into account
+ * its CSS transformed position. Does not account for scrolled position. Use
+ * getBoundingClientRect() for that.
  *
  * @param {Node} element
- * @param {Boolean} includeScroll - if true, takes into account
- *    scroll position of parent elements
  * @returns {Array} [x, y] where x is number of pixels from the
  *    left side of the viewport and y is the number of pixels
  *    from the top of the viewport.
  */
-export function getElAbsolutePos (
-  el: HTMLElement,
-  includeScroll = false
-): [number, number] {
+export function getElAbsolutePos(el: HTMLElement): [number, number] {
   const pos: [number, number] = [0, 0]
 
   do {
@@ -46,11 +41,6 @@ export function getElAbsolutePos (
 
     const parent = el.offsetParent
 
-    if (includeScroll && parent) {
-      pos[0] -= parent.scrollLeft
-      pos[1] -= parent.scrollTop
-    }
-
     el = parent as HTMLElement
   } while (el !== null)
 
@@ -60,20 +50,20 @@ export function getElAbsolutePos (
 /**
  * Converts a street name to a readable and URL-friendly slug name
  */
-export function normalizeSlug (slug?: string | null): string | undefined {
+export function normalizeSlug(slug?: string | null): string | undefined {
   if (slug === null || typeof slug === 'undefined') return
 
   // Remove certain replacements mapped by slugify
   slugify.extend({
     '|': '',
     '%': '',
-    $: ''
+    $: '',
   })
 
   const slugified = slugify(slug, {
     replacement: '-',
     remove: /[*+=~.,<>(){}'"!?:;@#$%^&*|\\/[\]]/g,
-    lower: true
+    lower: true,
   })
 
   // Remove any trailing or leading hyphens, which slugify doesn't clean up
@@ -83,7 +73,7 @@ export function normalizeSlug (slug?: string | null): string | undefined {
 /**
  * Tweens the given numeric properties on an element over time.
  */
-export function animate (
+export function animate(
   el: HTMLElement,
   props: Record<string, number>,
   duration: number
@@ -104,7 +94,7 @@ export function animate (
     from: initialProps,
     to: props,
     duration,
-    render: (state) => Object.assign(el, state)
+    render: (state) => Object.assign(el, state),
   })
 }
 
