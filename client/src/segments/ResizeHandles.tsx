@@ -1,12 +1,12 @@
 import { useSelector } from '../store/hooks.js'
 import { Icon } from '../ui/Icon.js'
-import './SegmentDragHandles.css'
+import './ResizeHandles.css'
 
-interface SegmentDragHandlesProps {
+interface ResizeHandlesProps {
   width: number
 }
 
-export function SegmentDragHandles({ width }: SegmentDragHandlesProps) {
+export function ResizeHandles({ width }: ResizeHandlesProps) {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
 
@@ -22,13 +22,13 @@ export function SegmentDragHandles({ width }: SegmentDragHandlesProps) {
   return (
     <>
       <div
-        className="drag-handle drag-handle-left"
+        className="resize-handle resize-handle-left"
         style={{ display, left: adjustX }}
       >
         <Icon name="chevron-left" size="30" />
       </div>
       <div
-        className="drag-handle drag-handle-right"
+        className="resize-handle resize-handle-right"
         style={{ display, right: adjustX }}
       >
         <Icon name="chevron-right" size="30" />

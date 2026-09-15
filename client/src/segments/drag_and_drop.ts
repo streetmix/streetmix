@@ -7,7 +7,6 @@ import {
 import { getWidthInMetric } from '@streetmix/utils'
 
 import { setIgnoreStreetChanges } from '../streets/data_model.js'
-import { getElAbsolutePos } from '../util/helpers.js'
 import store, { observeStore } from '../store'
 import { addSegment, moveSegment } from '../store/slices/street.js'
 import { removeSegmentAction } from '../store/actions/street.js'
@@ -132,38 +131,34 @@ function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   setIgnoreStreetChanges(true)
 
   const el = (event.target as HTMLElement).closest(
-    '.drag-handle'
+    '.resize-handle'
   ) as HTMLElement
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_RESIZE))
 
-  const pos = getElAbsolutePos(el)
+  const rect = el.getBoundingClientRect()
 
-  draggingResize.right = el.classList.contains('drag-handle-right')
+  draggingResize.right = el.classList.contains('resize-handle-right')
 
   draggingResize.floatingEl = document.createElement('div')
-  draggingResize.floatingEl.classList.add('drag-handle')
+  draggingResize.floatingEl.classList.add('resize-handle')
   draggingResize.floatingEl.classList.add('floating')
 
-  if (el.classList.contains('drag-handle-left')) {
-    draggingResize.floatingEl.classList.add('drag-handle-left')
+  if (el.classList.contains('resize-handle-left')) {
+    draggingResize.floatingEl.classList.add('resize-handle-left')
   } else {
-    draggingResize.floatingEl.classList.add('drag-handle-right')
+    draggingResize.floatingEl.classList.add('resize-handle-right')
   }
 
-  draggingResize.floatingEl.style.left =
-    pos[0] -
-    (document.querySelector('#street-section-outer') as HTMLElement)
-      .scrollLeft +
-    'px'
-  draggingResize.floatingEl.style.top = pos[1] + 'px'
+  draggingResize.floatingEl.style.left = `${rect.left}px`
+  draggingResize.floatingEl.style.top = `${rect.top}px`
   document.body.appendChild(draggingResize.floatingEl)
 
   draggingResize.mouseX = x
   draggingResize.mouseY = y
 
-  draggingResize.elX = pos[0]
-  draggingResize.elY = pos[1]
+  draggingResize.elX = rect.left
+  draggingResize.elY = rect.top
 
   draggingResize.originalX = draggingResize.elX
   const sliceIndex = Number((el.parentNode as HTMLElement).dataset.sliceIndex)
@@ -232,7 +227,7 @@ export function onBodyMouseDown(event: MouseEvent | TouchEvent): void {
     return
   }
 
-  if ((event.target as HTMLElement).closest('.drag-handle')) {
+  if ((event.target as HTMLElement).closest('.resize-handle')) {
     handleSegmentResizeStart(event)
     event.preventDefault()
   }

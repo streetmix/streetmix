@@ -16,8 +16,8 @@ import {
 } from '../store/actions/street.js'
 import { getSegmentCapacity } from './capacity.js'
 import { getLocaleSliceName } from './labels.js'
+import { ResizeHandles } from './ResizeHandles.js'
 import { SegmentCanvas } from './SegmentCanvas.js'
-import { SegmentDragHandles } from './SegmentDragHandles.js'
 import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 import {
   TILE_SIZE,
@@ -256,7 +256,7 @@ export function Segment(props: SliceProps) {
   if (isDragging) {
     classNames.push('dragged-out')
   } else if (activeSegment === sliceIndex) {
-    classNames.push('active', 'show-drag-handles')
+    classNames.push('active', 'show-resize-handles')
   }
 
   // Warnings
@@ -301,7 +301,7 @@ export function Segment(props: SliceProps) {
             capacity={average}
             showCapacity={enableAnalytics}
           />
-          <SegmentDragHandles width={elementWidth} />
+          <ResizeHandles width={elementWidth} />
           <div ref={dndRef} className="segment-canvas-container">
             <CSSTransition
               key="old-variant"

@@ -139,7 +139,7 @@ export function handleSegmentResizeEnd(): void {
     draggingResize.floatingEl.remove()
   }
   if (draggingResize.segmentEl) {
-    draggingResize.segmentEl.classList.add('immediate-show-drag-handles')
+    draggingResize.segmentEl.classList.add('immediate-show-resize-handles')
   }
 }
 

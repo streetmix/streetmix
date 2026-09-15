@@ -3,7 +3,7 @@
 exports[`Segment > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="segment active show-drag-handles"
+    class="segment active show-resize-handles"
     data-testid="segment"
     style="width: 196.850394px; z-index: 15; transform: translateX(0px);"
   >
@@ -41,7 +41,7 @@ exports[`Segment > renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="drag-handle drag-handle-left"
+        class="resize-handle resize-handle-left"
       >
         <svg
           data-icon="chevron-left"
@@ -49,7 +49,7 @@ exports[`Segment > renders correctly 1`] = `
         />
       </div>
       <div
-        class="drag-handle drag-handle-right"
+        class="resize-handle resize-handle-right"
       >
         <svg
           data-icon="chevron-right"

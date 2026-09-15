@@ -11,7 +11,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
     >
       <div>
         <div
-          class="segment active show-drag-handles warning"
+          class="segment active show-resize-handles warning"
           data-testid="segment"
           style="width: 4724.409449px; z-index: 15; transform: translateX(0px);"
         >
@@ -44,7 +44,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
               </div>
             </div>
             <div
-              class="drag-handle drag-handle-left"
+              class="resize-handle resize-handle-left"
             >
               <svg
                 data-icon="chevron-left"
@@ -52,7 +52,7 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
               />
             </div>
             <div
-              class="drag-handle drag-handle-right"
+              class="resize-handle resize-handle-right"
             >
               <svg
                 data-icon="chevron-right"
