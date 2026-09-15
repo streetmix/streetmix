@@ -62,7 +62,7 @@ function ResizeHandle({
 
   function handlePointerDown(event: React.PointerEvent) {
     event.preventDefault()
-    handleSegmentResizeStart(event, sliceIndex)
+    handleSegmentResizeStart(event.nativeEvent, sliceIndex)
     setIsActive(true)
   }
 
