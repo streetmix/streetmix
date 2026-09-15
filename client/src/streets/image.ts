@@ -1,9 +1,11 @@
 import { getBoundaryImageHeight } from '../boundary'
-import { TILE_SIZE, BOUNDARY_WIDTH } from '../segments/constants'
-import { deleteStreetImage } from '../util/api'
-import store, { observeStore } from '../store'
-import { drawStreetThumbnail } from './thumbnail'
-import { trimStreetData } from './data_model'
+import { TILE_SIZE, BOUNDARY_WIDTH } from '../segments/constants.js'
+import { deleteStreetImage } from '../util/api.js'
+import store, { observeStore, type RootState } from '../store'
+import { drawStreetThumbnail } from './thumbnail.js'
+import { trimStreetData } from './data_model.js'
+
+import type { StreetState } from '@streetmix/types'
 
 // This can be adjusted to create much more hi-definition images
 const SAVE_AS_IMAGE_DPI = 2.0
@@ -17,14 +19,14 @@ const SAVE_AS_IMAGE_BOTTOM_PADDING = 60
 export const SAVE_AS_IMAGE_LABEL_PADDING = 65
 
 export async function getStreetImage(
-  street,
-  transparentSky,
-  labels,
-  streetName,
+  street: StreetState,
+  transparentSky: boolean,
+  labels: boolean,
+  streetName: boolean,
   dpi = SAVE_AS_IMAGE_DPI,
   watermark = true,
-  locale
-) {
+  locale: string | null = null
+): Promise<HTMLCanvasElement> {
   const width = TILE_SIZE * street.width + BOUNDARY_WIDTH * 2
 
   const leftHeight = getBoundaryImageHeight(
@@ -60,6 +62,10 @@ export async function getStreetImage(
 
   const ctx = el.getContext('2d')
 
+  if (!ctx) {
+    throw new Error('Unable to create canvas rendering context')
+  }
+
   await drawStreetThumbnail(ctx, street, {
     width,
     height,
@@ -89,9 +95,9 @@ export const SAVE_THUMBNAIL_EVENTS = {
   TIMER: 'TIMER',
   BEFOREUNLOAD: 'BEFOREUNLOAD',
   PREVIOUS_STREET: 'PREVIOUS_STREET',
-}
+} as const
 
-export function isThumbnailSaved() {
+export function isThumbnailSaved(): boolean {
   // return _savedThumbnail
   return true
 }
@@ -103,7 +109,7 @@ export function initStreetThumbnailSubscriber() {
     SAVE_THUMBNAIL_EVENTS.INITIAL
   )
 
-  const select = (state) => {
+  const select = (state: RootState) => {
     const street = { editCount: state.street.editCount, id: state.street.id }
     return JSON.stringify(street)
   }
@@ -125,7 +131,10 @@ export function initStreetThumbnailSubscriber() {
 
 // Creates street thumbnail and uploads thumbnail to cloudinary.
 // TEMPORARILY DISABLED.
-export async function saveStreetThumbnail(_street, _event) {
+export async function saveStreetThumbnail(
+  _street: Partial<StreetState>,
+  _event: string
+): Promise<void> {
   // if (_savedThumbnail) return
   // _lastSavedTimestamp = Date.now()
   // const thumbnail = getStreetImage(street, false, false, true, 2.0, false)
@@ -171,7 +180,7 @@ export async function saveStreetThumbnail(_street, _event) {
 }
 
 // Handles removing street thumbnail from cloudinary.
-export async function deleteStreetThumbnail(streetId) {
+export async function deleteStreetThumbnail(streetId: string): Promise<void> {
   try {
     // As this function returns a Promise, awaiting it allows rejected
     // Promises to be caught by the `catch` block below.
