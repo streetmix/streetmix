@@ -906,6 +906,7 @@ drainage-channel:
   name: Drainage channel
   nameKey: drainage-channel
   owner: DRAINAGE
+  coastmixPaletteOrder: 50
   unlockWithFlag: SEGMENT_DRAINAGE_CHANNEL_UNLOCKED
   unlockCondition: SUBSCRIBE
   defaultWidth:
