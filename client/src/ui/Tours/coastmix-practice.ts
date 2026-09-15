@@ -41,6 +41,11 @@ const backButtonCloseGallery = {
   },
 }
 
+const closeGalleryHandler = () => {
+  store.dispatch(closeGallery())
+  window.removeEventListener('stmx:receive_gallery_street', closeGalleryHandler)
+}
+
 const FLOAT_COMPARISON_EPSILON = 0.001
 
 let stopPracticeStep10Listener: (() => void) | undefined
@@ -132,7 +137,11 @@ export const steps: StepOptions[] = [
     buttons: [nextButton],
     when: {
       show: () => {
-        store.dispatch(closeGallery())
+        // Close the gallery once the gallery street has been received
+        window.addEventListener(
+          'stmx:receive_gallery_street',
+          closeGalleryHandler
+        )
       },
     },
   },
