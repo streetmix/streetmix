@@ -290,6 +290,7 @@ export function Segment(props: SliceProps) {
       >
         <button
           className="slice-button"
+          data-slice-index={sliceIndex} /* Only used for tour */
           data-slice-left={segmentLeft}
           data-slice-label={displayName}
         >
