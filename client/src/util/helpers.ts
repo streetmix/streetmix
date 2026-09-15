@@ -21,33 +21,6 @@ export function getElRelativePos(el: HTMLElement): [number, number] {
 }
 
 /**
- * Gets the absolute position in pixels of a given element, taking into account
- * its CSS transformed position. Does not account for scrolled position. Use
- * getBoundingClientRect() for that.
- *
- * @param {Node} element
- * @returns {Array} [x, y] where x is number of pixels from the
- *    left side of the viewport and y is the number of pixels
- *    from the top of the viewport.
- */
-export function getElAbsolutePos(el: HTMLElement): [number, number] {
-  const pos: [number, number] = [0, 0]
-
-  do {
-    const [x, y] = getElRelativePos(el)
-
-    pos[0] += x
-    pos[1] += y
-
-    const parent = el.offsetParent
-
-    el = parent as HTMLElement
-  } while (el !== null)
-
-  return pos
-}
-
-/**
  * Converts a street name to a readable and URL-friendly slug name
  */
 export function normalizeSlug(slug?: string | null): string | undefined {

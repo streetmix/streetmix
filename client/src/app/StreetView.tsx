@@ -7,7 +7,7 @@ import { PopupContainerGroup } from '~/src/info_bubble/PopupContainer.js'
 import { SeaLevel } from '~/src/plugins/coastmix/index.js'
 import { ResizeGuides } from '../segments/ResizeGuides.js'
 import { EmptySegmentContainer } from '../segments/EmptySegmentContainer.js'
-import { animate, getElAbsolutePos } from '../util/helpers.js'
+import { animate } from '../util/helpers.js'
 import { MAX_CUSTOM_STREET_WIDTH } from '../streets/constants.js'
 import {
   TILE_SIZE,
@@ -290,9 +290,9 @@ export function StreetView() {
    */
   function getBoundaryWidth(el: HTMLElement | null): void {
     if (el === null) return
-    const pos = getElAbsolutePos(el)
+    const left = el.getBoundingClientRect().left + getStreetScrollPosition()
 
-    let width = pos[0]
+    let width = left
     if (width < BOUNDARY_WIDTH) {
       width = BOUNDARY_WIDTH
     }
