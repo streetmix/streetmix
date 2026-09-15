@@ -474,7 +474,9 @@
     },
     "resize": {
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "left": "Resize left",
+      "right": "Resize right"
     },
     "controls": {
       "width": "Width",

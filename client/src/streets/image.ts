@@ -1,5 +1,5 @@
 import { getBoundaryImageHeight } from '../boundary'
-import { TILE_SIZE, BUILDING_SPACE } from '../segments/constants.js'
+import { TILE_SIZE, BOUNDARY_WIDTH } from '../segments/constants.js'
 import { deleteStreetImage } from '../util/api.js'
 import store, { observeStore, type RootState } from '../store'
 import { drawStreetThumbnail } from './thumbnail.js'
@@ -27,7 +27,7 @@ export async function getStreetImage(
   watermark = true,
   locale: string | null = null
 ): Promise<HTMLCanvasElement> {
-  const width = TILE_SIZE * street.width + BUILDING_SPACE * 2
+  const width = TILE_SIZE * street.width + BOUNDARY_WIDTH * 2
 
   const leftHeight = getBoundaryImageHeight(
     street.boundary.left.variant,

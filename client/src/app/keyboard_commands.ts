@@ -1,8 +1,5 @@
 import USER_ROLES from '../../../app/data/user_roles.json'
-import {
-  DRAGGING_TYPE_RESIZE,
-  DRAGGING_TYPE_MOVE,
-} from '../segments/constants.js'
+import { DRAGGING_TYPE_RESIZE } from '../segments/constants.js'
 import { handleSegmentResizeCancel } from '../segments/resizing.js'
 import { getSignInData, isSignedIn } from '../users/authentication.js'
 import { formatMessage } from '../locales/locale.js'
@@ -21,10 +18,6 @@ export function onGlobalKeyDown(event: KeyboardEvent): void {
 
       if (draggingType === DRAGGING_TYPE_RESIZE) {
         handleSegmentResizeCancel()
-      } else if (draggingType === DRAGGING_TYPE_MOVE) {
-        // We don't handle this here anymore
-        // TODO: Double check on side effects of not handling this
-        return
       } else {
         return
       }

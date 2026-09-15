@@ -3,19 +3,20 @@ body.segment-resize-dragging * {
   cursor: col-resize !important;
 }
 
-.drag-handle {
+.resize-handle {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   bottom: 175px;
+  bottom: max(10px, min(calc(100vh - 690px), 175px));
   width: 30px;
   height: 100px;
   border-top: 5px solid var(--color-turquoise-200);
   border-bottom: 5px solid var(--color-turquoise-200);
   border-radius: var(--border-radius-medium);
   color: var(--color-turquoise-700);
-  z-index: var(--z-06-drag-handle);
+  z-index: var(--z-06-resize-handle);
   pointer-events: none;
   background: var(--popup-background);
   cursor: col-resize;
@@ -29,31 +30,27 @@ body.segment-resize-dragging * {
     background: var(--color-turquoise-100);
     border-color: var(--color-turquoise-300);
   }
+
+  &.resize-handle-show {
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+  }
+
+  &.resize-handle-active {
+    color: white;
+    background-color: var(--color-turquoise-700);
+  }
 }
 
-.drag-handle-left {
+.resize-handle-left {
   left: -5px;
   transform-origin: 100% 50%;
   transform: rotateY(90deg);
 }
 
-.drag-handle-right {
+.resize-handle-right {
   right: -5px;
   transform-origin: 0 50%;
   transform: rotateY(-90deg);
-}
-
-.segment.immediate-show-drag-handles .drag-handle {
-  transition: none !important;
-}
-
-.drag-handle.floating {
-  background-color: var(--color-turquoise-700);
-}
-
-body.segment-resize-dragging .drag-handle.floating,
-.segment.show-drag-handles .drag-handle {
-  pointer-events: auto;
-  opacity: 1;
-  transform: none;
 }

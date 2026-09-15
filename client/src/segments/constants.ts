@@ -36,7 +36,7 @@ export const DRAGGING_TYPE_NONE = 0
 export const DRAGGING_TYPE_MOVE = 2
 export const DRAGGING_TYPE_RESIZE = 3
 
-export const BUILDING_SPACE = 360
+export const BOUNDARY_WIDTH = 360
 export const MAX_BUILDING_HEIGHT = 20 // floors
 export const BUILDING_LEFT_POSITION = 'left'
 export const BUILDING_RIGHT_POSITION = 'right'
