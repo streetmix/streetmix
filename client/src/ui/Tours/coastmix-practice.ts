@@ -116,6 +116,7 @@ export const steps: StepOptions[] = [
     },
     buttons: [backButtonCloseGallery],
     beforeShowPromise: async () => {
+      await waitForElement('[data-street-name="Harborwalk"]')
       await waitFor(300)
     },
   },
