@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
-import { useShepherd } from 'react-shepherd'
 
-import { useSelector } from '~/src/store/hooks.js'
+import { useSelector, useDispatch } from '~/src/store/hooks.js'
+import { openGallery } from '~/src/store/actions/gallery.js'
 import { URL_NEW_STREET, STREET_TEMPLATES } from '~/src/app/constants.js'
 import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Icon } from '~/src/ui/Icon.js'
@@ -24,7 +24,11 @@ export function NewStreetMenu(props: MenuProps) {
     (state) => state.flags.COASTMIX_MODE.value ?? false
   )
   const user = useSelector((state) => state.user)
-  const Shepherd = useShepherd()
+  const dispatch = useDispatch()
+
+  function handleExamples() {
+    dispatch(openGallery({ userId: 'examples' }))
+  }
 
   return (
     <Menu {...props}>
@@ -32,43 +36,21 @@ export function NewStreetMenu(props: MenuProps) {
         <>
           <MenuItem
             onClick={() => {
-              // If this menu item is clicked as part of the Coastmix tutorial
-              // it will be on step `coastmix-practice-03` and we need to
-              // activate the remainder of the steps in the next window
-              openTemplate(
-                STREET_TEMPLATES.HARBORWALK,
-                Shepherd.activeTour?.currentStep.id === 'coastmix-practice-03'
-              )
+              openTemplate(STREET_TEMPLATES.EMPTY_WATERFRONT)
             }}
-            data-tour-id="new-street-harborwalk"
           >
+            <Icon name="new-street" className="menu-item-icon" />
             <FormattedMessage
-              id="coastmix.templates.harborwalk"
-              defaultMessage="Harborwalk"
+              id="coastmix.new-empty"
+              defaultMessage="New empty waterfront"
             />
             <Icon name="external-link" />
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              openTemplate(STREET_TEMPLATES.COASTAL_ROAD)
-            }}
-          >
+          <MenuItem onClick={handleExamples} data-tour-id="new-street-examples">
             <FormattedMessage
-              id="coastmix.templates.coastal-road"
-              defaultMessage="Coastal road"
+              id="coastmix.new-from-examples"
+              defaultMessage="From examples..."
             />
-            <Icon name="external-link" />
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              openTemplate(STREET_TEMPLATES.BEACH)
-            }}
-          >
-            <FormattedMessage
-              id="coastmix.templates.beach"
-              defaultMessage="Beach"
-            />
-            <Icon name="external-link" />
           </MenuItem>
           <MenuSeparator />
         </>

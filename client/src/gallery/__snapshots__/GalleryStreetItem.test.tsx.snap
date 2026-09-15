@@ -4,6 +4,7 @@ exports[`GalleryStreetItem > renders 1`] = `
 <DocumentFragment>
   <div
     class="gallery-street-item"
+    data-street-name="Baz"
   >
     <a
       draggable="false"

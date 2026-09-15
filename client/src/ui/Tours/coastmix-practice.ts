@@ -1,4 +1,6 @@
 import { getSlopeValues } from '~/src/segments/slope.js'
+import { closeGallery } from '~/src/store/actions/gallery.js'
+import store from '~/src/store/index.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 import { watchTourStateForStep } from './stateAdvance.js'
 
@@ -23,6 +25,25 @@ const backButton = {
   action() {
     ;(this as unknown as Tour).back()
   },
+}
+
+const backButtonCloseGallery = {
+  classes: 'btn btn-tertiary',
+  text: 'Back',
+  action() {
+    store.dispatch(closeGallery())
+
+    // Skip the intermediate "see examples" step, which would just reopen
+    // the gallery, and go directly back to the "New waterfront" step.
+    const tour = this as unknown as Tour
+    const currentIndex = tour.steps.indexOf(tour.getCurrentStep()!)
+    tour.show(tour.steps[currentIndex - 2]?.id, false)
+  },
+}
+
+const closeGalleryHandler = () => {
+  store.dispatch(closeGallery())
+  window.removeEventListener('stmx:receive_gallery_street', closeGalleryHandler)
 }
 
 const FLOAT_COMPARISON_EPSILON = 0.001
@@ -53,7 +74,7 @@ export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-02',
     title: 'New waterfront',
-    text: `To start, click the “New waterfront” menu.`,
+    text: `To start, open the “New waterfront” menu.`,
     attachTo: {
       element: '#menubar-new',
       on: 'bottom',
@@ -67,57 +88,67 @@ export const steps: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-02b',
-    title: 'Select a template',
-    text: `Select the “Harborwalk” template. This will open a new starting
-      street in a new browser tab.`,
+    id: 'coastmix-practice-03',
+    title: 'Start from an example',
+    text: `Select this to open a gallery of different waterfronts.`,
     attachTo: {
-      element: '[data-tour-id="new-street-harborwalk"]',
+      element: '[data-tour-id="new-street-examples"]',
       on: 'left',
     },
     highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
-      selector: '[data-tour-id="new-street-harborwalk"]',
+      selector: '[data-tour-id="new-street-examples"]',
     },
+
     buttons: [backButton],
     beforeShowPromise: async () => {
       await waitFor(300)
     },
   },
   {
-    id: 'coastmix-practice-03',
-    title: 'A new tab has opened',
-    text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenario.`,
-    buttons: [
-      {
-        classes: 'btn',
-        text: 'Dismiss',
-        action() {
-          ;(this as unknown as Tour).complete()
-        },
-      },
-    ],
+    id: 'coastmix-practice-04',
+    title: 'Select a template',
+    text: `Select the “Harborwalk” template.`,
+    attachTo: {
+      element: '[data-street-name="Harborwalk"]',
+      on: 'bottom',
+    },
+    highlightClass: 'tour-highlight',
+    advanceOn: {
+      event: 'click',
+      selector: '[data-street-name="Harborwalk"]',
+    },
+    buttons: [backButtonCloseGallery],
+    beforeShowPromise: async () => {
+      await waitForElement('[data-street-name="Harborwalk"]')
+      await waitFor(300)
+    },
   },
-]
-
-// Triggered by the "new street" welcome panel, kind of a hack though.
-export const steps2: StepOptions[] = [
   {
-    id: 'coastmix-practice-04a',
-    title: 'Coastmix practice scenario',
+    id: 'coastmix-practice-05',
+    title: 'You have a new harborwalk!',
     text: `<p>This is a typical cross-section of a harborwalk at sea level.</p>
       <p>
-        Next, we'll use Coastmix to raise the sea level to 2030 projected
+        Next, we'll raise the sea level to 2030 projected
         height, and see how that affects our waterfront.
       </p>`,
     classes: 'tour-dialog',
     buttons: [nextButton],
+    when: {
+      show: () => {
+        // Close the gallery once the gallery street has been received
+        window.addEventListener(
+          'stmx:receive_gallery_street',
+          closeGalleryHandler
+        )
+      },
+    },
   },
   {
-    id: 'coastmix-practice-04',
+    id: 'coastmix-practice-06',
     title: 'Open flooding controls',
-    text: `Click “Coastal Flooding” to access and adjust flood features.`,
+    text: `Select “Coastal flooding” to access and adjust flood features.`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
       on: 'top',
@@ -131,7 +162,7 @@ export const steps2: StepOptions[] = [
   },
   {
     // assuming not already selected
-    id: 'coastmix-practice-05',
+    id: 'coastmix-practice-07',
     title: 'Choose sea level rise',
     text: `Next, select 2030 sea level rise.`,
     attachTo: {
@@ -151,7 +182,7 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-06',
+    id: 'coastmix-practice-08',
     title: 'Toggle storm surge',
     text: `For an extra challenge, you can turn on storm surge. This is totally
       optional, though!`,
@@ -167,7 +198,7 @@ export const steps2: StepOptions[] = [
     modalOverlayOpeningYOffset: -1,
   },
   {
-    id: 'coastmix-practice-08',
+    id: 'coastmix-practice-09',
     title: 'Flooding!',
     text: `Oh no! You can see that our harborwalk environment is flooded.
       There are many ways to protect against future sea level rise, but for
@@ -181,10 +212,9 @@ export const steps2: StepOptions[] = [
     buttons: [backButton, nextButton],
   },
   {
-    id: 'coastmix-practice-09',
+    id: 'coastmix-practice-10',
     title: 'Select the harborwalk',
-    text: `First, click on the “Harborwalk” feature next to the
-      water.`,
+    text: `First, select the “Harborwalk” feature next to the water.`,
     attachTo: {
       element: '[data-slice-label="Harborwalk"]',
       on: 'bottom',
@@ -203,7 +233,7 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-10',
+    id: 'coastmix-practice-11',
     title: 'Raise the harborwalk',
     text: `Elevate the Harborwalk feature until it blocks the flood waters.`,
     attachTo: {
@@ -220,7 +250,7 @@ export const steps2: StepOptions[] = [
       show() {
         teardownStep10Listener()
         stopPracticeStep10Listener = watchTourStateForStep({
-          stepId: 'coastmix-practice-10',
+          stepId: 'coastmix-practice-11',
           activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => state.coastmix,
           shouldAdvance: (coastmix) => {
@@ -245,7 +275,7 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-11',
+    id: 'coastmix-practice-12',
     title: 'Nice!',
     text: `Sea level rise and storm surge
       are now addressed by elevating the Harborwalk, but the public realm
@@ -258,7 +288,7 @@ export const steps2: StepOptions[] = [
     highlightClass: 'tour-highlight',
   },
   {
-    id: 'coastmix-practice-12',
+    id: 'coastmix-practice-13',
     title: 'Select the berm',
     text: `Click on the feature called Berm.”`,
     attachTo: {
@@ -279,7 +309,7 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   {
-    id: 'coastmix-practice-13',
+    id: 'coastmix-practice-14',
     title: 'Raise berm',
     text: `Raise the berm on the right side to meet the height of the harborwalk element.`,
     attachTo: {
@@ -292,7 +322,7 @@ export const steps2: StepOptions[] = [
       show() {
         teardownStep13Listener()
         stopPracticeStep13Listener = watchTourStateForStep({
-          stepId: 'coastmix-practice-13',
+          stepId: 'coastmix-practice-14',
           activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => {
             const segmentIndex = state.ui.activeSegment
@@ -335,7 +365,7 @@ export const steps2: StepOptions[] = [
     ...modalOverlayOptions,
   },
   // {
-  //   id: 'coastmix-practice-14',
+  //   id: 'coastmix-practice-15',
   //   text: `Now our “Future berm” is a current berm! You can rename
   //     an element by clicking on the name here, and then type “Berm”
   //     in the subsequent popup window.`,
@@ -354,7 +384,7 @@ export const steps2: StepOptions[] = [
   // Conclusion dialog is integrated into tour steps because it can be
   // picked up from after the rename prompt
   {
-    id: 'coastmix-practice-15',
+    id: 'coastmix-practice-16',
     title: 'Scenario complete!',
     text: `<p>Congratulations &mdash; you did it!</p>
       <p>

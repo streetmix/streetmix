@@ -47,6 +47,7 @@ exports[`Gallery > renders global gallery view 1`] = `
           >
             <div
               class="gallery-street-item gallery-selected"
+              data-street-name="Baz"
             >
               <a
                 draggable="false"
@@ -247,6 +248,7 @@ exports[`Gallery > renders main gallery view for another user’s streets 1`] = 
           >
             <div
               class="gallery-street-item gallery-selected"
+              data-street-name="Baz"
             >
               <a
                 draggable="false"
@@ -374,6 +376,7 @@ exports[`Gallery > renders main gallery view for user’s own streets 1`] = `
           >
             <div
               class="gallery-street-item gallery-selected"
+              data-street-name="Baz"
             >
               <a
                 draggable="false"

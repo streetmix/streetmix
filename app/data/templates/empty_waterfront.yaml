@@ -1,0 +1,20 @@
+###############################################################################
+##
+##  Empty waterfront
+##
+##  The "empty waterfront" is a blank slate but for Coastmix.. It has no
+##  slices (or lanes) and starts with regular water on both sides.
+##
+###############################################################################
+
+width: 24
+boundary:
+  left:
+    variant: waterfront2
+    floors: 1
+    elevation: 0
+  right:
+    variant: waterfront2
+    floors: 1
+    elevation: 0
+slices: []
