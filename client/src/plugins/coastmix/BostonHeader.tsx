@@ -42,7 +42,7 @@ export function BostonHeader() {
             An official website of the City of Boston.{' '}
             <span className="boston-site-banner-button">
               <span>Here's how you know</span>
-              <img src={chevronIcon} draggable={false} />
+              <img src={chevronIcon} draggable={false} alt="" />
             </span>
           </span>
         </div>
@@ -54,6 +54,7 @@ export function BostonHeader() {
               src={cityHallIcon}
               className="boston-site-banner-city-hall"
               draggable={false}
+              alt=""
             />
             <div className="boston-site-banner-expansion-item-content">
               <p>Official websites use .boston.gov</p>
@@ -68,6 +69,7 @@ export function BostonHeader() {
               src={lockIcon}
               className="boston-site-banner-lock"
               draggable={false}
+              alt=""
             />
             <div className="boston-site-banner-expansion-item-content">
               <p>Secure .gov websites use HTTPS</p>
@@ -79,6 +81,7 @@ export function BostonHeader() {
                     src={lockIcon}
                     className="boston-site-banner-mini-lock"
                     draggable={false}
+                    alt="Lock icon"
                   />
                   )
                 </span>{' '}
