@@ -4,12 +4,16 @@ import { handleSegmentResizeStart } from './drag_and_drop.js'
 import './ResizeHandles.css'
 
 interface ResizeHandlesProps {
-  width: number
   sliceIndex: number
+  width: number
   show: boolean
 }
 
-export function ResizeHandles({ width, show }: ResizeHandlesProps) {
+interface ResizeHandleProps extends ResizeHandlesProps {
+  position: 'left' | 'right'
+}
+
+function ResizeHandle({ position, width, show }: ResizeHandleProps) {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
 
@@ -21,6 +25,16 @@ export function ResizeHandles({ width, show }: ResizeHandlesProps) {
   //    width = 36 ==> adjustX = -11px
   //    width = 12 ==> adjustX = -29px
   const adjustX = width < 60 ? `${0.5 * width - 35}px` : undefined
+
+  const styles = {
+    display,
+    [position]: adjustX,
+  }
+
+  const classNames = ['resize-handle', `resize-handle-${position}`]
+  if (show) {
+    classNames.push('resize-handle-show')
+  }
 
   function handlePointerDown(event: React.MouseEvent) {
     event.preventDefault()
@@ -35,21 +49,21 @@ export function ResizeHandles({ width, show }: ResizeHandlesProps) {
   // component.
 
   return (
+    <button
+      className={classNames.join(' ')}
+      style={styles}
+      onPointerDown={handlePointerDown}
+    >
+      <Icon name={`chevron-${position}`} size="30" />
+    </button>
+  )
+}
+
+export function ResizeHandles(props: ResizeHandlesProps) {
+  return (
     <>
-      <button
-        className={`resize-handle resize-handle-left ${show && 'resize-handle-show'}`}
-        style={{ display, left: adjustX }}
-        onPointerDown={handlePointerDown}
-      >
-        <Icon name="chevron-left" size="30" />
-      </button>
-      <button
-        className={`resize-handle resize-handle-right ${show && 'resize-handle-show'}`}
-        style={{ display, right: adjustX }}
-        onPointerDown={handlePointerDown}
-      >
-        <Icon name="chevron-right" size="30" />
-      </button>
+      <ResizeHandle position="left" {...props} />
+      <ResizeHandle position="right" {...props} />
     </>
   )
 }
