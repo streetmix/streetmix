@@ -20,23 +20,31 @@ export function ResizeHandles({ width }: ResizeHandlesProps) {
   //    width = 12 ==> adjustX = -29px
   const adjustX = width < 60 ? `${0.5 * width - 35}px` : undefined
 
-  function handleResizeStart(event: React.MouseEvent) {
+  function handlePointerDown(event: React.MouseEvent) {
+    event.preventDefault()
     handleSegmentResizeStart(event)
   }
+
+  // Note: a resize is started when holding down on these handlers,
+  // but resize movement and resize end have to be triggered globally because
+  // the pointer could be anywhere on the page (and not specifically on the
+  // floating handler. Currently there is are global window listeners that
+  // handle this. However, we should encapsulate that logic within this
+  // component.
 
   return (
     <>
       <div
         className="resize-handle resize-handle-left"
         style={{ display, left: adjustX }}
-        onPointerDown={handleResizeStart}
+        onPointerDown={handlePointerDown}
       >
         <Icon name="chevron-left" size="30" />
       </div>
       <div
         className="resize-handle resize-handle-right"
         style={{ display, right: adjustX }}
-        onPointerDown={handleResizeStart}
+        onPointerDown={handlePointerDown}
       >
         <Icon name="chevron-right" size="30" />
       </div>
