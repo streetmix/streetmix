@@ -88,12 +88,16 @@ function ResizeHandle({
   // handle this. However, we should encapsulate that logic within this
   // component.
 
+  // TODO: add dnd-kit here to handle drag logic and accessibility.
   return (
     <button
       className={classNames.join(' ')}
       style={styles}
       onPointerDown={handlePointerDown}
       aria-label={label}
+      aria-hidden={!show && !isActive}
+      disabled={!show && !isActive}
+      tabIndex={show || isActive ? 0 : -1}
     >
       <Icon name={`chevron-${position}`} size="30" />
     </button>
