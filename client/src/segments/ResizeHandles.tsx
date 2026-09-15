@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useIntl } from 'react-intl'
 
 import { useSelector } from '../store/hooks.js'
 import { Icon } from '../ui/Icon.js'
@@ -24,6 +25,7 @@ function ResizeHandle({
   const [isActive, setIsActive] = useState(false)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
+  const intl = useIntl()
 
   // To prevent drag handles from overlapping each other when the segment
   // widths are very small, we calculate an X-position adjustment when the
@@ -46,6 +48,17 @@ function ResizeHandle({
   if (isActive) {
     classNames.push('resize-handle-active')
   }
+
+  const label =
+    position === 'left'
+      ? intl.formatMessage({
+          id: 'segments.resize.left',
+          defaultMessage: 'Resize left',
+        })
+      : intl.formatMessage({
+          id: 'segments.resize.right',
+          defaultMessage: 'Resize right',
+        })
 
   function handlePointerDown(event: React.PointerEvent) {
     event.preventDefault()
@@ -80,6 +93,7 @@ function ResizeHandle({
       className={classNames.join(' ')}
       style={styles}
       onPointerDown={handlePointerDown}
+      aria-label={label}
     >
       <Icon name={`chevron-${position}`} size="30" />
     </button>
