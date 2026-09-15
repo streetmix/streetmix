@@ -301,9 +301,8 @@ export function StreetView() {
   function updatePerspective(el: HTMLElement | null): void {
     if (el === null) return
 
-    const pos = getElAbsolutePos(el)
-    const scrollPos = getStreetScrollPosition()
-    const perspective = -(pos[0] - scrollPos - window.innerWidth / 2)
+    const left = el.getBoundingClientRect().left
+    const perspective = -(left - window.innerWidth / 2)
 
     el.style.perspectiveOrigin = perspective / 2 + 'px 50%'
   }
