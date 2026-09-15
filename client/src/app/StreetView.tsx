@@ -283,7 +283,7 @@ export function StreetView() {
    *
    * The provided element is the main container of the StreetEditable component.
    * When something in that component calls this function, the boundary width
-   * needs to be recaculated.
+   * needs to be recalculated.
    *
    * TODO: There is probably a better way to do this. This interacts with
    * tracking scroll position, etc.

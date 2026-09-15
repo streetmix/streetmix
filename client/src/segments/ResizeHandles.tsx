@@ -84,7 +84,7 @@ function ResizeHandle({
   // Note: a resize is started when holding down on these handlers,
   // but resize movement and resize end have to be triggered globally because
   // the pointer could be anywhere on the page (and not specifically on the
-  // floating handler. Currently there is are global window listeners that
+  // floating handler. Currently there are global window listeners that
   // handle this. However, we should encapsulate that logic within this
   // component.
 
