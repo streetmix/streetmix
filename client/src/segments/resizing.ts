@@ -135,13 +135,6 @@ export function handleSegmentResizeEnd(): void {
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 
-  if (draggingResize.floatingEl) {
-    draggingResize.floatingEl.remove()
-  }
-  if (draggingResize.segmentEl) {
-    draggingResize.segmentEl.classList.add('immediate-show-resize-handles')
-  }
-
   window.dispatchEvent(new window.CustomEvent('stmx:TEMP_slice_resize_end'))
 }
 

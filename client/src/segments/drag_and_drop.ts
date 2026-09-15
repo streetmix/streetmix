@@ -73,7 +73,6 @@ export interface DraggedItem {
 
 export const draggingResize: {
   segmentEl: HTMLElement | null
-  floatingEl: HTMLElement | null
   mouseX: number | null
   mouseY: number | null
   elX: number | null
@@ -84,7 +83,6 @@ export const draggingResize: {
   right: boolean
 } = {
   segmentEl: null,
-  floatingEl: null,
   mouseX: null,
   mouseY: null,
   elX: null,
@@ -140,20 +138,6 @@ export function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
 
   draggingResize.right = el.classList.contains('resize-handle-right')
 
-  draggingResize.floatingEl = document.createElement('div')
-  draggingResize.floatingEl.classList.add('resize-handle')
-  draggingResize.floatingEl.classList.add('floating')
-
-  if (el.classList.contains('resize-handle-left')) {
-    draggingResize.floatingEl.classList.add('resize-handle-left')
-  } else {
-    draggingResize.floatingEl.classList.add('resize-handle-right')
-  }
-
-  draggingResize.floatingEl.style.left = `${rect.left}px`
-  draggingResize.floatingEl.style.top = `${rect.top}px`
-  document.body.appendChild(draggingResize.floatingEl)
-
   draggingResize.mouseX = x
   draggingResize.mouseY = y
 
@@ -197,7 +181,6 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   draggingResize.width =
     draggingResize.originalWidth + (deltaFromOriginal / TILE_SIZE) * 2
   draggingResize.elX += deltaX
-  draggingResize.floatingEl.style.left = `${draggingResize.elX}px`
 
   const precise = event.shiftKey
 
