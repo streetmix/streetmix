@@ -278,6 +278,7 @@ export function Segment(props: SliceProps) {
       style={segmentStyle}
       className={classNames.join(' ')}
       data-testid="segment"
+      data-slice-index={sliceIndex}
       ref={elementRef}
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}
@@ -289,7 +290,7 @@ export function Segment(props: SliceProps) {
         disabled={readOnly}
       >
         <button
-          data-slice-index={sliceIndex}
+          className="slice-button"
           data-slice-left={segmentLeft}
           data-slice-label={displayName}
         >
@@ -301,7 +302,6 @@ export function Segment(props: SliceProps) {
             capacity={average}
             showCapacity={enableAnalytics}
           />
-          <ResizeHandles width={elementWidth} />
           <div ref={dndRef} className="segment-canvas-container">
             <CSSTransition
               key="old-variant"
@@ -330,6 +330,7 @@ export function Segment(props: SliceProps) {
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>
       </PopupContainer>
+      <ResizeHandles width={elementWidth} />
     </div>
   )
 }

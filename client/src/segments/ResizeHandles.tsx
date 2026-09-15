@@ -34,20 +34,20 @@ export function ResizeHandles({ width }: ResizeHandlesProps) {
 
   return (
     <>
-      <div
+      <button
         className="resize-handle resize-handle-left"
         style={{ display, left: adjustX }}
         onPointerDown={handlePointerDown}
       >
         <Icon name="chevron-left" size="30" />
-      </div>
-      <div
+      </button>
+      <button
         className="resize-handle resize-handle-right"
         style={{ display, right: adjustX }}
         onPointerDown={handlePointerDown}
       >
         <Icon name="chevron-right" size="30" />
-      </div>
+      </button>
     </>
   )
 }
