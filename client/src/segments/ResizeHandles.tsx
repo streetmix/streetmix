@@ -47,7 +47,7 @@ function ResizeHandle({
     classNames.push('resize-handle-active')
   }
 
-  function handlePointerDown(event: React.MouseEvent) {
+  function handlePointerDown(event: React.PointerEvent) {
     event.preventDefault()
     handleSegmentResizeStart(event, sliceIndex)
     setIsActive(true)
