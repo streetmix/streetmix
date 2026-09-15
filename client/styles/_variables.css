@@ -195,7 +195,7 @@
   --z-03-street-name: var(--z-index-03);
   --z-04-drag-layer: var(--z-index-04);
   --z-05-welcome: var(--z-index-05);
-  --z-06-drag-handle: var(--z-index-06);
+  --z-06-resize-handle: var(--z-index-06);
   --z-06-popup: var(--z-index-06);
   --z-07-floating-panel: calc(var(--z-index-07) + 50);
   --z-07-menu: calc(var(--z-index-07) + 75);

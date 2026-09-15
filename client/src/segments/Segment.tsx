@@ -16,8 +16,8 @@ import {
 } from '../store/actions/street.js'
 import { getSegmentCapacity } from './capacity.js'
 import { getLocaleSliceName } from './labels.js'
+import { ResizeHandles } from './ResizeHandles.js'
 import { SegmentCanvas } from './SegmentCanvas.js'
-import { SegmentDragHandles } from './SegmentDragHandles.js'
 import { SegmentLabelContainer } from './SegmentLabelContainer.js'
 import {
   TILE_SIZE,
@@ -256,7 +256,7 @@ export function Segment(props: SliceProps) {
   if (isDragging) {
     classNames.push('dragged-out')
   } else if (activeSegment === sliceIndex) {
-    classNames.push('active', 'show-drag-handles')
+    classNames.push('active')
   }
 
   // Warnings
@@ -289,7 +289,8 @@ export function Segment(props: SliceProps) {
         disabled={readOnly}
       >
         <button
-          data-slice-index={sliceIndex}
+          className="slice-button"
+          data-slice-index={sliceIndex} /* Only used for tour */
           data-slice-left={segmentLeft}
           data-slice-label={displayName}
         >
@@ -301,7 +302,6 @@ export function Segment(props: SliceProps) {
             capacity={average}
             showCapacity={enableAnalytics}
           />
-          <SegmentDragHandles width={elementWidth} />
           <div ref={dndRef} className="segment-canvas-container">
             <CSSTransition
               key="old-variant"
@@ -330,6 +330,11 @@ export function Segment(props: SliceProps) {
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>
       </PopupContainer>
+      <ResizeHandles
+        width={elementWidth}
+        sliceIndex={sliceIndex}
+        show={activeSegment === sliceIndex}
+      />
     </div>
   )
 }

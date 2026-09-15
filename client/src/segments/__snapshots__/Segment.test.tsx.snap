@@ -3,11 +3,12 @@
 exports[`Segment > renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="segment active show-drag-handles"
+    class="segment active"
     data-testid="segment"
     style="width: 196.850394px; z-index: 15; transform: translateX(0px);"
   >
     <button
+      class="slice-button"
       data-slice-index="0"
       data-slice-label="Streetcar"
       data-slice-left="0"
@@ -41,22 +42,6 @@ exports[`Segment > renders correctly 1`] = `
         </div>
       </div>
       <div
-        class="drag-handle drag-handle-left"
-      >
-        <svg
-          data-icon="chevron-left"
-          size="30"
-        />
-      </div>
-      <div
-        class="drag-handle drag-handle-right"
-      >
-        <svg
-          data-icon="chevron-right"
-          size="30"
-        />
-      </div>
-      <div
         class="segment-canvas-container"
       >
         <div
@@ -72,6 +57,28 @@ exports[`Segment > renders correctly 1`] = `
       </div>
       <div
         class="active-bg"
+      />
+    </button>
+    <button
+      aria-hidden="false"
+      aria-label="Resize left"
+      class="resize-handle resize-handle-left resize-handle-show"
+      tabindex="0"
+    >
+      <svg
+        data-icon="chevron-left"
+        size="30"
+      />
+    </button>
+    <button
+      aria-hidden="false"
+      aria-label="Resize right"
+      class="resize-handle resize-handle-right resize-handle-show"
+      tabindex="0"
+    >
+      <svg
+        data-icon="chevron-right"
+        size="30"
       />
     </button>
   </div>
