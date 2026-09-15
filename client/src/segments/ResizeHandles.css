@@ -36,6 +36,11 @@ body.segment-resize-dragging * {
     opacity: 1;
     transform: none;
   }
+
+  &.resize-handle-active {
+    color: white;
+    background-color: var(--color-turquoise-700);
+  }
 }
 
 .resize-handle-left {
@@ -59,6 +64,6 @@ body.segment-resize-dragging * {
 }
 
 body.segment-resize-dragging .resize-handle.floating {
-  opacity: 1;
+  opacity: 0;
   transform: none;
 }

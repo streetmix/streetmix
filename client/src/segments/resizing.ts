@@ -141,6 +141,8 @@ export function handleSegmentResizeEnd(): void {
   if (draggingResize.segmentEl) {
     draggingResize.segmentEl.classList.add('immediate-show-resize-handles')
   }
+
+  window.dispatchEvent(new window.CustomEvent('stmx:TEMP_slice_resize_end'))
 }
 
 /**

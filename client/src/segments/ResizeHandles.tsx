@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { useSelector } from '../store/hooks.js'
 import { Icon } from '../ui/Icon.js'
 import { handleSegmentResizeStart } from './drag_and_drop.js'
@@ -14,6 +16,7 @@ interface ResizeHandleProps extends ResizeHandlesProps {
 }
 
 function ResizeHandle({ position, width, show }: ResizeHandleProps) {
+  const [isActive, setIsActive] = useState(false)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
 
@@ -35,11 +38,30 @@ function ResizeHandle({ position, width, show }: ResizeHandleProps) {
   if (show) {
     classNames.push('resize-handle-show')
   }
+  if (isActive) {
+    classNames.push('resize-handle-active')
+  }
 
   function handlePointerDown(event: React.MouseEvent) {
     event.preventDefault()
     handleSegmentResizeStart(event)
+    setIsActive(true)
   }
+
+  function handleGlobalResizeEnd() {
+    setIsActive(false)
+  }
+
+  useEffect(() => {
+    window.addEventListener('stmx:TEMP_slice_resize_end', handleGlobalResizeEnd)
+
+    return () => {
+      window.removeEventListener(
+        'stmx:TEMP_slice_resize_end',
+        handleGlobalResizeEnd
+      )
+    }
+  })
 
   // Note: a resize is started when holding down on these handlers,
   // but resize movement and resize end have to be triggered globally because
