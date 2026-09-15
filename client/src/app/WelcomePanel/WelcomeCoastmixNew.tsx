@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { useShepherd } from 'react-shepherd'
 
 import { tourOptions } from '~/src/ui/Tours'
-import { steps2 as steps } from '~/src/ui/Tours/coastmix-practice.js'
+import { steps } from '~/src/ui/Tours/coastmix-practice.js'
 import { Button } from '~/src/ui/Button.js'
 
 interface WelcomeCoastmixNewProps {

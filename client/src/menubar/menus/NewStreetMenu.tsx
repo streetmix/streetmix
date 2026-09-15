@@ -1,5 +1,4 @@
 import { FormattedMessage } from 'react-intl'
-import { useShepherd } from 'react-shepherd'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { openGallery } from '~/src/store/actions/gallery.js'
@@ -26,7 +25,6 @@ export function NewStreetMenu(props: MenuProps) {
   )
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const Shepherd = useShepherd()
 
   function handleExamples() {
     dispatch(openGallery({ userId: 'examples' }))
@@ -48,51 +46,9 @@ export function NewStreetMenu(props: MenuProps) {
             />
             <Icon name="external-link" />
           </MenuItem>
-
-          <MenuItem
-            onClick={() => {
-              // If this menu item is clicked as part of the Coastmix tutorial
-              // it will be on step `coastmix-practice-03` and we need to
-              // activate the remainder of the steps in the next window
-              openTemplate(
-                STREET_TEMPLATES.HARBORWALK,
-                Shepherd.activeTour?.currentStep.id === 'coastmix-practice-03'
-              )
-            }}
-            data-tour-id="new-street-harborwalk"
-          >
-            <FormattedMessage
-              id="coastmix.templates.harborwalk"
-              defaultMessage="Harborwalk"
-            />
-            <Icon name="external-link" />
-          </MenuItem>
           <MenuItem onClick={handleExamples} data-tour-id="new-street-examples">
-            See examples...
+            From examples...
           </MenuItem>
-          {/* Deprecated choices, remove later */}
-          {/* <MenuItem
-            onClick={() => {
-              openTemplate(STREET_TEMPLATES.COASTAL_ROAD)
-            }}
-          >
-            <FormattedMessage
-              id="coastmix.templates.coastal-road"
-              defaultMessage="Coastal road"
-            />
-            <Icon name="external-link" />
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              openTemplate(STREET_TEMPLATES.BEACH)
-            }}
-          >
-            <FormattedMessage
-              id="coastmix.templates.beach"
-              defaultMessage="Beach"
-            />
-            <Icon name="external-link" />
-          </MenuItem> */}
           <MenuSeparator />
         </>
       )}

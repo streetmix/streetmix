@@ -37,7 +37,7 @@ const steps: StepOptions[] = [
     title: 'Open flooding controls',
     text: `<p>Coastmix provides controls to help visualize the
        effect of sea level rise in the future.</p>
-       <p>Click this button to continue!</p>`,
+       <p>Press this button to continue!</p>`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
       on: 'top',
@@ -117,8 +117,7 @@ const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-05',
     title: 'Select an element',
-    text: `<p>Select an element to access and change its properties.</p>
-      <p>Click on this one to continue.</p>`,
+    text: `Select this element to access and change its properties.`,
     attachTo: {
       // Assuming we are on the coastal road element
       element: '[data-slice-index="5"]',

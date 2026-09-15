@@ -69,7 +69,7 @@ export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-02',
     title: 'New waterfront',
-    text: `To start, click the “New waterfront” menu.`,
+    text: `To start, open the “New waterfront” menu.`,
     attachTo: {
       element: '#menubar-new',
       on: 'bottom',
@@ -85,7 +85,7 @@ export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-03',
     title: 'Start from an example',
-    text: `Click “See examples...” to open a gallery of different waterfronts.`,
+    text: `Select this to open a gallery of different waterfronts.`,
     attachTo: {
       element: '[data-tour-id="new-street-examples"]',
       on: 'left',
@@ -121,37 +121,24 @@ export const steps: StepOptions[] = [
   },
   {
     id: 'coastmix-practice-03',
-    title: 'A new tab has opened',
-    text: `Your new “Harborwalk” template has opened in another browser tab. Switch to that tab to continue with the practice scenario.`,
-    buttons: [
-      {
-        classes: 'btn',
-        text: 'Dismiss',
-        action() {
-          ;(this as unknown as Tour).complete()
-        },
-      },
-    ],
-  },
-]
-
-// Triggered by the "new street" welcome panel, kind of a hack though.
-export const steps2: StepOptions[] = [
-  {
-    id: 'coastmix-practice-04a',
-    title: 'Coastmix practice scenario',
+    title: 'You have a new harborwalk!',
     text: `<p>This is a typical cross-section of a harborwalk at sea level.</p>
       <p>
-        Next, we'll use Coastmix to raise the sea level to 2030 projected
+        Next, we'll raise the sea level to 2030 projected
         height, and see how that affects our waterfront.
       </p>`,
     classes: 'tour-dialog',
     buttons: [nextButton],
+    when: {
+      show: () => {
+        store.dispatch(closeGallery())
+      },
+    },
   },
   {
     id: 'coastmix-practice-04',
     title: 'Open flooding controls',
-    text: `Click “Coastal Flooding” to access and adjust flood features.`,
+    text: `Select “Coastal flooding” to access and adjust flood features.`,
     attachTo: {
       element: '[data-tour-id="flooding-controls-button"]',
       on: 'top',
@@ -217,8 +204,7 @@ export const steps2: StepOptions[] = [
   {
     id: 'coastmix-practice-09',
     title: 'Select the harborwalk',
-    text: `First, click on the “Harborwalk” feature next to the
-      water.`,
+    text: `First, select the “Harborwalk” feature next to the water.`,
     attachTo: {
       element: '[data-slice-label="Harborwalk"]',
       on: 'bottom',
