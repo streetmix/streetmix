@@ -278,7 +278,6 @@ export function Segment(props: SliceProps) {
       style={segmentStyle}
       className={classNames.join(' ')}
       data-testid="segment"
-      data-slice-index={sliceIndex}
       ref={elementRef}
       onMouseEnter={handleSegmentMouseEnter}
       onMouseLeave={handleSegmentMouseLeave}

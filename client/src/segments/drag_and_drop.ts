@@ -73,6 +73,7 @@ export interface DraggedItem {
 
 export const draggingResize: {
   segmentEl: HTMLElement | null
+  sliceIndex: number | null
   mouseX: number | null
   mouseY: number | null
   elX: number | null
@@ -83,6 +84,7 @@ export const draggingResize: {
   right: boolean
 } = {
   segmentEl: null,
+  sliceIndex: null,
   mouseX: null,
   mouseY: null,
   elX: null,
@@ -113,7 +115,10 @@ export function initDragTypeSubscriber() {
   return observeStore(select, onChange)
 }
 
-export function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
+export function handleSegmentResizeStart(
+  event: MouseEvent | TouchEvent,
+  sliceIndex: number
+): void {
   let x: number, y: number
 
   if ('touches' in event && event.touches[0]) {
@@ -136,6 +141,7 @@ export function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
 
   const rect = el.getBoundingClientRect()
 
+  draggingResize.sliceIndex = sliceIndex
   draggingResize.right = el.classList.contains('resize-handle-right')
 
   draggingResize.mouseX = x
@@ -145,7 +151,6 @@ export function handleSegmentResizeStart(event: MouseEvent | TouchEvent): void {
   draggingResize.elY = rect.top
 
   draggingResize.originalX = draggingResize.elX
-  const sliceIndex = Number((el.parentNode as HTMLElement).dataset.sliceIndex)
   draggingResize.originalWidth =
     store.getState().street.segments[sliceIndex].width
   draggingResize.segmentEl = el.parentNode as HTMLElement
@@ -191,7 +196,7 @@ function handleSegmentResizeMove(event: MouseEvent | TouchEvent): void {
   }
 
   draggingResize.width = resizeSegment(
-    Number(draggingResize.segmentEl.dataset.sliceIndex),
+    draggingResize.sliceIndex,
     resizeType,
     draggingResize.width
   )

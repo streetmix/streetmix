@@ -15,7 +15,12 @@ interface ResizeHandleProps extends ResizeHandlesProps {
   position: 'left' | 'right'
 }
 
-function ResizeHandle({ position, width, show }: ResizeHandleProps) {
+function ResizeHandle({
+  position,
+  sliceIndex,
+  width,
+  show,
+}: ResizeHandleProps) {
   const [isActive, setIsActive] = useState(false)
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
@@ -44,7 +49,7 @@ function ResizeHandle({ position, width, show }: ResizeHandleProps) {
 
   function handlePointerDown(event: React.MouseEvent) {
     event.preventDefault()
-    handleSegmentResizeStart(event)
+    handleSegmentResizeStart(event, sliceIndex)
     setIsActive(true)
   }
 

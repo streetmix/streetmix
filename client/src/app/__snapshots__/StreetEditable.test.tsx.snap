@@ -12,7 +12,6 @@ exports[`StreetEditable > segment warnings > too large > Pressing \`+\` does not
       <div>
         <div
           class="segment active warning"
-          data-slice-index="0"
           data-testid="segment"
           style="width: 4724.409449px; z-index: 15; transform: translateX(0px);"
         >

@@ -56,7 +56,7 @@ export function resizeSegment(
 
 export function handleSegmentResizeCancel(): void {
   resizeSegment(
-    Number(draggingResize.segmentEl.dataset.sliceIndex),
+    draggingResize.sliceIndex,
     RESIZE_TYPE_INITIAL,
     draggingResize.originalWidth
   )
