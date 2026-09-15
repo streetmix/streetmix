@@ -112,7 +112,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
   }
 
   return (
-    <div className={classNames.join(' ')}>
+    <div className={classNames.join(' ')} data-street-name={street.name}>
       <a
         href={getStreetUrl(street)}
         onClick={handleSelectStreet}

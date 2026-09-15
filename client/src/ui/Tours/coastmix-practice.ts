@@ -104,16 +104,15 @@ export const steps: StepOptions[] = [
   {
     id: 'coastmix-practice-02b',
     title: 'Select a template',
-    text: `Select the “Harborwalk” template. This will open a new starting
-      street in a new browser tab.`,
+    text: `Select the “Harborwalk” template.`,
     attachTo: {
-      element: '[data-tour-id="new-street-harborwalk"]',
-      on: 'left',
+      element: '[data-street-name="Harborwalk"]',
+      on: 'bottom',
     },
     highlightClass: 'tour-highlight',
     advanceOn: {
       event: 'click',
-      selector: '[data-tour-id="new-street-harborwalk"]',
+      selector: '[data-street-name="Harborwalk"]',
     },
     buttons: [backButtonCloseGallery],
     beforeShowPromise: async () => {
