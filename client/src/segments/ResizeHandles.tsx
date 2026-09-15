@@ -5,9 +5,11 @@ import './ResizeHandles.css'
 
 interface ResizeHandlesProps {
   width: number
+  sliceIndex: number
+  show: boolean
 }
 
-export function ResizeHandles({ width }: ResizeHandlesProps) {
+export function ResizeHandles({ width, show }: ResizeHandlesProps) {
   const infoBubbleHovered = useSelector((state) => state.infoBubble.mouseInside)
   const display = infoBubbleHovered ? 'none' : undefined
 
@@ -35,14 +37,14 @@ export function ResizeHandles({ width }: ResizeHandlesProps) {
   return (
     <>
       <button
-        className="resize-handle resize-handle-left"
+        className={`resize-handle resize-handle-left ${show && 'resize-handle-show'}`}
         style={{ display, left: adjustX }}
         onPointerDown={handlePointerDown}
       >
         <Icon name="chevron-left" size="30" />
       </button>
       <button
-        className="resize-handle resize-handle-right"
+        className={`resize-handle resize-handle-right ${show && 'resize-handle-show'}`}
         style={{ display, right: adjustX }}
         onPointerDown={handlePointerDown}
       >

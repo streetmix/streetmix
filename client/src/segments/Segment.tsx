@@ -256,7 +256,7 @@ export function Segment(props: SliceProps) {
   if (isDragging) {
     classNames.push('dragged-out')
   } else if (activeSegment === sliceIndex) {
-    classNames.push('active', 'show-resize-handles')
+    classNames.push('active')
   }
 
   // Warnings
@@ -330,7 +330,11 @@ export function Segment(props: SliceProps) {
           <EmptyDragPreview dragPreview={dragPreview} />
         </button>
       </PopupContainer>
-      <ResizeHandles width={elementWidth} />
+      <ResizeHandles
+        width={elementWidth}
+        sliceIndex={sliceIndex}
+        show={activeSegment === sliceIndex}
+      />
     </div>
   )
 }

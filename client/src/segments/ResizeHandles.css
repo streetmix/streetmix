@@ -30,6 +30,12 @@ body.segment-resize-dragging * {
     background: var(--color-turquoise-100);
     border-color: var(--color-turquoise-300);
   }
+
+  &.resize-handle-show {
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .resize-handle-left {
@@ -52,9 +58,7 @@ body.segment-resize-dragging * {
   background-color: var(--color-turquoise-700);
 }
 
-body.segment-resize-dragging .resize-handle.floating,
-.segment.show-resize-handles .resize-handle {
-  pointer-events: auto;
+body.segment-resize-dragging .resize-handle.floating {
   opacity: 1;
   transform: none;
 }
