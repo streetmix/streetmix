@@ -59,6 +59,7 @@ exports[`Segment > renders correctly 1`] = `
       />
     </button>
     <button
+      aria-label="Resize left"
       class="resize-handle resize-handle-left resize-handle-show"
     >
       <svg
@@ -67,6 +68,7 @@ exports[`Segment > renders correctly 1`] = `
       />
     </button>
     <button
+      aria-label="Resize right"
       class="resize-handle resize-handle-right resize-handle-show"
     >
       <svg
