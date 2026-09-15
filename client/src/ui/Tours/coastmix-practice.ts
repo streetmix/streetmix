@@ -1,4 +1,6 @@
 import { getSlopeValues } from '~/src/segments/slope.js'
+import { closeGallery } from '~/src/store/actions/gallery.js'
+import store from '~/src/store/index.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 import { watchTourStateForStep } from './stateAdvance.js'
 
@@ -22,6 +24,20 @@ const backButton = {
   text: 'Back',
   action() {
     ;(this as unknown as Tour).back()
+  },
+}
+
+const backButtonCloseGallery = {
+  classes: 'btn btn-tertiary',
+  text: 'Back',
+  action() {
+    store.dispatch(closeGallery())
+
+    // Skip the intermediate "see examples" step, which would just reopen
+    // the gallery, and go directly back to the "New waterfront" step.
+    const tour = this as unknown as Tour
+    const currentIndex = tour.steps.indexOf(tour.getCurrentStep()!)
+    tour.show(tour.steps[currentIndex - 2]?.id, false)
   },
 }
 
@@ -80,7 +96,6 @@ export const steps: StepOptions[] = [
       selector: '[data-tour-id="new-street-examples"]',
     },
 
-    // BACK NEEDS TO CLOSE GALLERY
     buttons: [backButton],
     beforeShowPromise: async () => {
       await waitFor(300)
@@ -100,7 +115,7 @@ export const steps: StepOptions[] = [
       event: 'click',
       selector: '[data-tour-id="new-street-harborwalk"]',
     },
-    buttons: [backButton],
+    buttons: [backButtonCloseGallery],
     beforeShowPromise: async () => {
       await waitFor(300)
     },
