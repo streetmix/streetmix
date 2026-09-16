@@ -217,7 +217,7 @@
   --z-09-blocking-shield: var(--z-index-09);
   --z-09-error: var(--z-index-09);
   --z-09-loading: var(--z-index-09);
-  --z-10-debug: var(--z-index-09);
+  --z-10-debug: var(--z-index-10);
   --z-10-dialog-box: var(--z-index-10);
   --z-10-notification-bar: var(--z-index-10);
   --z-10-print: var(--z-index-10);

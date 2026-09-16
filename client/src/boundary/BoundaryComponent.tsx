@@ -282,7 +282,7 @@ export function Boundary({
     }
 
     const label =
-      boundary === 'left'
+      position === 'left'
         ? intl.formatMessage({
             id: 'boundary.left-label',
             defaultMessage: 'Left boundary',
