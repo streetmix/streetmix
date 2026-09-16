@@ -11,6 +11,19 @@ html {
 
   /* Prevent overscrolling from navigating back/forward in browser */
   overscroll-behavior: none;
+
+  /* Hack for WAVE */
+  margin-left: 0 !important;
+}
+
+/* Hacks for WAVE */
+#wave_sidebar_container ~ #react-app {
+  inset-inline-start: 380px;
+  transition: all 0.2s;
+}
+
+#wave_sidebar_container[inert] ~ #react-app {
+  inset-inline-start: 0;
 }
 
 /* Inherit the box-sizing everywhere */
