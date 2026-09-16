@@ -5,6 +5,16 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## September 16, 2026
+
+### 🎮 UI improvements
+
+- Better positioning of element resize handles on some smaller screens.
+
+### 🐛 Bug fixes
+
+- Fixed popups unexpectedly hijacking interactions when navigating to a menu on smaller screens.
+
 ## July 14, 2026
 
 ### ✨ New features
@@ -102,7 +112,7 @@ You can find that under the "New street" menu. There will be more to come! Templ
 - If a street has not been previously geolocated, the map view will now center on the user's current position, if allowed on the user's device.
 - Additional miscellaneous tweaks to improve map view behavior.
 - Descriptions for street elements (e.g. "learn more about bike lanes") now open in standalone popups.
-- Drag handles for street element width have a clearer hover state.
+- Resize handles for street element width have a clearer hover state.
 - Small visual tweaks to boundary illustrations (buildings, etc.)
 - Updates to Czech and Finnish translations.
 
