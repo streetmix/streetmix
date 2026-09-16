@@ -93,9 +93,10 @@
   /* The height of the boundary area is set to prevent the tops of
      popups from intersecting with the street nameplate on short viewports
      but also don't have it too tall on tall viewports in order to prevent
-     the popups from shifting vertical position if its content changes */
+     the popups from shifting vertical position if its content changes.
+     The "viewport" is the container `.main-screen` */
   height: min(
-    calc(100vh - var(--street-section-baseline) - 130px),
+    calc(100cqh - var(--street-section-baseline) - 130px),
     calc(var(--canvas-height) + 100px)
   );
 
