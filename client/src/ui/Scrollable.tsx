@@ -2,6 +2,7 @@
  * Adds scroll buttons to UI elements.
  */
 import { useEffect, useRef, useLayoutEffect } from 'react'
+import { useIntl } from 'react-intl'
 
 import { registerKeypress, deregisterKeypress } from '../app/keypress.js'
 import { animate } from '../util/helpers.js'
@@ -30,6 +31,7 @@ export function Scrollable(props: ScrollableProps) {
   const scrollerEl = useRef<HTMLDivElement>(null)
   const leftButtonEl = useRef<HTMLButtonElement>(null)
   const rightButtonEl = useRef<HTMLButtonElement>(null)
+  const intl = useIntl()
 
   useEffect(() => {
     window.addEventListener('resize', checkButtonVisibilityState)
@@ -139,6 +141,15 @@ export function Scrollable(props: ScrollableProps) {
   const containerClassName =
     className !== undefined ? `${className}-scrollable-container` : ''
 
+  const leftLabel = intl.formatMessage({
+    id: 'tooltip.scroll-left',
+    defaultMessage: 'Scroll left',
+  })
+  const rightLabel = intl.formatMessage({
+    id: 'tooltip.scroll-right',
+    defaultMessage: 'Scroll right',
+  })
+
   return (
     <div className={containerClassName} ref={ref}>
       {/* Buttons frame the content to preserve tab order */}
@@ -146,6 +157,7 @@ export function Scrollable(props: ScrollableProps) {
         className="scrollable scroll-left"
         onClick={handleLeft}
         ref={leftButtonEl}
+        aria-label={leftLabel}
       >
         <Icon name="chevron-left" size="24" />
       </Button>
@@ -165,6 +177,7 @@ export function Scrollable(props: ScrollableProps) {
         className="scrollable scroll-right"
         onClick={handleRight}
         ref={rightButtonEl}
+        aria-label={rightLabel}
       >
         <Icon name="chevron-right" size="24" />
       </Button>

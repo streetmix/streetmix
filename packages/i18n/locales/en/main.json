@@ -457,6 +457,10 @@
     "label2": "Height",
     "floors-count": "{count, plural, one {# floor} other {# floors}}"
   },
+  "boundary": {
+    "left-label": "Left boundary",
+    "right-label": "Right boundary"
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "This doesn’t fit within the street.",

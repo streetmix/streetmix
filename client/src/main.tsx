@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 import * as Sentry from '@sentry/browser'
 
 // Fonts
-import '@fontsource-variable/lora'
 import '@fontsource-variable/manrope'
 import '@fontsource-variable/overpass'
 import '@fontsource-variable/rubik'

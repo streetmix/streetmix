@@ -8,7 +8,7 @@
   font-weight: 400;
   width: 100%;
   text-align: center;
-  font-family: "Lora Variable", Georgia, serif;
+  font-family: Lora, Georgia, serif;
   z-index: var(--z-10-notification-bar);
 }
 
@@ -81,17 +81,21 @@
   padding: 0;
   background-color: #f3f3f3;
   font-size: 13.5px;
+  display: none;
 
   /* Custom appearance attempt for Coastmix */
-  box-shadow: 0 0 20px rgb(66 75 103 / 15%);
+
+  /* box-shadow: 0 0 20px rgb(66 75 103 / 15%);
   position: absolute;
   width: 100%;
   transition: transform 0.2s ease-out;
   transform: translateY(-100%);
-  z-index: -1;
+  z-index: -1; */
 
   .boston-site-banner-checkbox:checked ~ & {
-    transform: translateY(0);
+    display: block;
+
+    /* transform: translateY(0); */
   }
 
   > div {
@@ -122,7 +126,7 @@
   max-height: 100px;
   padding-right: 16px;
   user-select: none;
-  margin-top: -12px;
+  margin-top: -15px;
 }
 
 .boston-site-banner-lock {
@@ -131,12 +135,12 @@
   max-height: 150px;
   width: 200px;
   user-select: none;
-  margin-top: -32px;
+  margin-top: -40px;
 }
 
 .boston-site-banner-expansion-item-content {
   padding: 10px 0;
-  line-height: 1.2rem;
+  line-height: 1.4rem;
 
   p:first-child {
     color: #1871bd;

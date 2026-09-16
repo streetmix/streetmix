@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useIntl } from 'react-intl'
 import { CSSTransition } from 'react-transition-group'
 import { getBoundaryItem } from '@streetmix/parts'
 
@@ -122,6 +123,8 @@ export function Boundary({
   // findDOMNode, which is deprecated.
   const newRef = useRef(null)
   const oldRef = useRef(null)
+
+  const intl = useIntl()
 
   const isEditable =
     !(
@@ -278,6 +281,17 @@ export function Boundary({
       classNames.push('active')
     }
 
+    const label =
+      position === 'left'
+        ? intl.formatMessage({
+            id: 'boundary.left-label',
+            defaultMessage: 'Left boundary',
+          })
+        : intl.formatMessage({
+            id: 'boundary.right-label',
+            defaultMessage: 'Right boundary',
+          })
+
     // Outer wrapping div is a workaround for CSSTransition's dependence on
     // findDOMNode, which needs a nodeRef to be manually attached to a DOM
     // node. This is wrapping the existing <section> to preserve existing
@@ -285,7 +299,7 @@ export function Boundary({
     return (
       <div className={classNames.join(' ')} style={widthStyle} ref={nodeRef}>
         <PopupContainer type="boundary" position={position} disabled={readOnly}>
-          <button>
+          <button aria-label={label}>
             <section
               ref={(ref) => {
                 changeRefs(ref, isPreviousElement)
