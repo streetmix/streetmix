@@ -9,7 +9,7 @@ body.segment-resize-dragging * {
   justify-content: center;
   align-items: center;
   bottom: 175px;
-  bottom: max(10px, min(calc(100vh - 690px), 175px));
+  bottom: max(10px, min(calc(100cqh - 690px), 175px));
   width: 30px;
   height: 100px;
   border-top: 5px solid var(--color-turquoise-200);

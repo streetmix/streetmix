@@ -13,6 +13,8 @@
   position: relative;
   z-index: var(--z-00-main-screen);
   flex-grow: 1;
+  container-type: size;
+  container-name: main-screen;
 
   body:not(.safari) & {
     perspective: 2000px;
