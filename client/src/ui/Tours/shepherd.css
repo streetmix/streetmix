@@ -41,8 +41,8 @@
   border-bottom-right-radius: 5px;
   display: flex;
   justify-content: flex-end;
-  padding: 0 0.75rem 0.75rem;
-  gap: 0.5em;
+  padding: 0.5em 1em 1em;
+  gap: 0.75em;
 }
 
 .shepherd-footer .shepherd-button:last-child {
@@ -84,22 +84,30 @@
 
 /* Title for popups */
 .shepherd-title {
-  color: var(--color-turquoise-900);
   margin: 0;
-  line-height: 1;
-  font-size: 1.1em;
+  line-height: 1.2;
+  font-size: 18px;
+  font-family: Montserrat, Manrope, sans-serif;
   font-weight: 500;
   width: 100%;
 }
 
 .shepherd-has-title .shepherd-content .shepherd-header {
-  border-bottom: 1px solid var(--color-turquoise-200);
-  padding: 0.75em 1em 0.5em;
+  background-color: var(--color-turquoise-900);
+  color: white;
+  padding: 1em 50px 1em 1.1em;
+
+  .shepherd-cancel-icon {
+    color: white;
+
+    &:hover {
+      color: var(--color-turquoise-800);
+    }
+  }
 }
 
 /* Matches <Dialog /><h2> */
 .tour-dialog .shepherd-title {
-  color: var(--color-turquoise-900);
   margin: 0;
   line-height: 1;
   font-size: 180%;
@@ -121,13 +129,19 @@
 /* Matches <Dialog /> */
 .tour-dialog.shepherd-has-title .shepherd-content .shepherd-header {
   padding: 2em 1em;
-  background-color: var(--color-turquoise-200);
+  background-color: var(--color-turquoise-900);
+  color: white;
+}
+
+.tour-dialog .shepherd-text {
+  font-size: 16px;
 }
 
 .shepherd-text {
   color: rgb(65 65 65);
-  font-size: 1rem;
-  line-height: 1.3em;
+  font-size: 16px;
+  font-family: Lora, Georgia, serif;
+  line-height: 1.4em;
   padding: 0.75em 1em;
 }
 
@@ -143,6 +157,7 @@
   border-radius: var(--border-radius-large);
   outline: none;
   padding: 0;
+  overflow: hidden;
 }
 
 .shepherd-element {
@@ -281,7 +296,7 @@
 }
 
 .tour-medium-width {
-  max-width: 250px;
+  max-width: 280px;
 }
 
 .tour-highlight {
