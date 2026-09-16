@@ -81,17 +81,19 @@
   padding: 0;
   background-color: #f3f3f3;
   font-size: 13.5px;
+  display: none;
 
   /* Custom appearance attempt for Coastmix */
-  box-shadow: 0 0 20px rgb(66 75 103 / 15%);
+  /* box-shadow: 0 0 20px rgb(66 75 103 / 15%);
   position: absolute;
   width: 100%;
   transition: transform 0.2s ease-out;
   transform: translateY(-100%);
-  z-index: -1;
+  z-index: -1; */
 
   .boston-site-banner-checkbox:checked ~ & {
-    transform: translateY(0);
+    display: block;
+    /* transform: translateY(0); */
   }
 
   > div {
