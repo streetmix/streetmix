@@ -43,14 +43,14 @@ h1 {
 
 /* montserrat-latin-400-normal */
 @font-face {
-  font-family: "Montserrat";
+  font-family: Montserrat;
   font-style: normal;
   font-display: swap;
   font-weight: 400;
   src:
-    url(https://cdn.jsdelivr.net/fontsource/fonts/montserrat@5.3.0/latin-400-normal.woff2)
+    url("https://cdn.jsdelivr.net/fontsource/fonts/montserrat@5.3.0/latin-400-normal.woff2")
       format(woff2),
-    url(https://cdn.jsdelivr.net/fontsource/fonts/montserrat@5.3.0/latin-400-normal.woff)
+    url("https://cdn.jsdelivr.net/fontsource/fonts/montserrat@5.3.0/latin-400-normal.woff")
       format("woff");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
@@ -60,14 +60,14 @@ h1 {
 
 /* lora-latin-400-normal */
 @font-face {
-  font-family: "Lora";
+  font-family: Lora;
   font-style: normal;
   font-display: swap;
   font-weight: 400;
   src:
-    url(https://cdn.jsdelivr.net/fontsource/fonts/lora@5.3.0/latin-400-normal.woff2)
+    url("https://cdn.jsdelivr.net/fontsource/fonts/lora@5.3.0/latin-400-normal.woff2")
       format(woff2),
-    url(https://cdn.jsdelivr.net/fontsource/fonts/lora@5.3.0/latin-400-normal.woff)
+    url("https://cdn.jsdelivr.net/fontsource/fonts/lora@5.3.0/latin-400-normal.woff")
       format("woff");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,

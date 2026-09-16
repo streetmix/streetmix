@@ -1,9 +1,6 @@
 .street-section-sky {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: -70px; /* Space for scrolling down when gallery open */
-  bottom: calc(var(--street-section-baseline) - 25px);
+  inset: -70px 0 calc(var(--street-section-baseline) - 25px); /* Top value is space for scrolling down when gallery open */
   pointer-events: none;
   opacity: 1;
 

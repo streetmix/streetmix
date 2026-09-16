@@ -17,11 +17,14 @@ html {
 }
 
 /* Hacks for WAVE */
+
+/* stylelint-disable-next-line selector-id-pattern */
 #wave_sidebar_container ~ #react-app {
   inset-inline-start: 380px;
   transition: all 0.2s;
 }
 
+/* stylelint-disable-next-line selector-id-pattern */
 #wave_sidebar_container[inert] ~ #react-app {
   inset-inline-start: 0;
 }

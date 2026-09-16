@@ -84,6 +84,7 @@
   display: none;
 
   /* Custom appearance attempt for Coastmix */
+
   /* box-shadow: 0 0 20px rgb(66 75 103 / 15%);
   position: absolute;
   width: 100%;
@@ -93,6 +94,7 @@
 
   .boston-site-banner-checkbox:checked ~ & {
     display: block;
+
     /* transform: translateY(0); */
   }
 
