@@ -457,6 +457,10 @@
     "label2": "",
     "floors-count": "{count, plural, zero { # طَبَقة} one {طابِق} two {طابقين} few {# طوابق} many {# طوابق} other {# طوابق}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "هذا الجزء لا يتناسب مع الشارع.",
@@ -474,7 +478,9 @@
     },
     "resize": {
       "min": "حد أدنى",
-      "max": "حد أقصى"
+      "max": "حد أقصى",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +601,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {

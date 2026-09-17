@@ -457,6 +457,10 @@
     "label2": "",
     "floors-count": "{count, plural, one {# ወለል} other {# ወለሎች}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "ይህ የመንገድ ክፍል በጎዳና ላይ አይገጥምም",
@@ -474,7 +478,9 @@
     },
     "resize": {
       "min": "ዝቅተኛ",
-      "max": "ከፍተኛ"
+      "max": "ከፍተኛ",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "",
@@ -595,11 +601,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "",
-    "templates": {
-      "harborwalk": "",
-      "coastal-road": "",
-      "beach": ""
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {
