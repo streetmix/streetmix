@@ -35,7 +35,6 @@ initCloudinary()
 // Build SVG sprites before starting Express server
 await Promise.all([
   compileSVGSprites('packages/variant-icons/icons/', 'icons', 'icon'),
-  compileSVGSprites('client/images/illustrations', 'illustrations', 'image'),
   compileSVGSprites('packages/illustrations/images/', 'images', 'image'),
 ])
 
