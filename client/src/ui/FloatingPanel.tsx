@@ -1,10 +1,12 @@
-import { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTransition, animated } from '@react-spring/web'
 import Draggable, {
   type DraggableProps,
   type DraggableEventHandler,
 } from 'react-draggable'
 
+import { useFloatingPanelPortalContainer } from '~/src/app/FloatingPanelPortalContext.js'
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { Icon, type IconNames } from '~/src/ui/Icon.js'
 import './FloatingPanel.css'
@@ -19,6 +21,21 @@ interface FloatingPanelProps extends Partial<DraggableProps> {
   children: React.ReactNode
 }
 
+// Proof of concept for a z-index tracker that moves the last interacted
+// FloatingPanel to the top. This value is shared between all instances of
+// FloatingPanel, and incrementing + applying it happens only during an event
+// handler, because changing this value cannot re-render or provide reactivity.
+// This breaks in hot-module reloading because the value is reset on reload.
+// This works for now, but for future cases (e.g. SSR), can move to context
+// or Redux state.
+// This is also potentially bad for testing.
+let zIndexTracker = 1
+
+function setZIndex(node: HTMLElement) {
+  zIndexTracker++
+  node.style.zIndex = String(zIndexTracker)
+}
+
 export function FloatingPanel({
   icon,
   title,
@@ -29,6 +46,7 @@ export function FloatingPanel({
   ...draggableProps
 }: FloatingPanelProps) {
   const nodeRef = useRef<HTMLDivElement>(null)
+  const portalContainer = useFloatingPanelPortalContainer()
 
   // NOTE: this automatically remembers position state when closed
   // (unless this or its parent component is unmounted)
@@ -57,7 +75,22 @@ export function FloatingPanel({
     config: { tension: 300, friction: 5, clamp: true },
   })
 
-  return transitions(
+  // On show, new floating panel is on top
+  useEffect(() => {
+    if (show && nodeRef.current) {
+      setZIndex(nodeRef.current)
+    }
+  }, [show])
+
+  // On interaction, either with mouse, pointer, or keyboard,
+  // the current floating panel is on top
+  function focusThis(_event: React.PointerEvent | React.FocusEvent) {
+    if (nodeRef.current) {
+      setZIndex(nodeRef.current)
+    }
+  }
+
+  const component = transitions(
     (style, item) =>
       item && (
         <Draggable
@@ -71,7 +104,12 @@ export function FloatingPanel({
         >
           {/* Two containers are necessary because different libraries are applying CSS transforms */}
           {/* Outer container is transformed by Draggable's position */}
-          <div className={classNames.join(' ')} ref={nodeRef}>
+          <div
+            className={classNames.join(' ')}
+            ref={nodeRef}
+            onPointerDown={focusThis}
+            onFocus={focusThis}
+          >
             {/* Inner container contains transition styles from Transition */}
             <animated.div
               className="floating-panel-container-inner"
@@ -90,4 +128,11 @@ export function FloatingPanel({
         </Draggable>
       )
   )
+
+  // If testing in isolation there is no portal container, render directly.
+  if (portalContainer) {
+    return createPortal(component, portalContainer)
+  } else {
+    return component
+  }
 }
