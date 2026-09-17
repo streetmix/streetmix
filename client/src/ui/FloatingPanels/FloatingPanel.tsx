@@ -8,7 +8,7 @@ import Draggable, {
 
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { Icon, type IconNames } from '~/src/ui/Icon.js'
-import { useFloatingPanelPortalContainer } from './FloatingPanelPortalContext.js'
+import { useFloatingPanelPortal } from './FloatingPanelPortalContext.js'
 import './FloatingPanel.css'
 
 // Allow <Draggable> props to be passed in, but do not require any
@@ -56,7 +56,7 @@ export function FloatingPanel({
   ...draggableProps
 }: FloatingPanelProps) {
   const nodeRef = useRef<HTMLDivElement>(null)
-  const portalContainer = useFloatingPanelPortalContainer()
+  const portalContainer = useFloatingPanelPortal()
 
   // NOTE: this automatically remembers position state when closed
   // (unless this or its parent component is unmounted)
