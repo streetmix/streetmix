@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTransition, animated } from '@react-spring/web'
 import Draggable, {
@@ -31,9 +31,13 @@ interface FloatingPanelProps extends Partial<DraggableProps> {
 // tests which normally would occur in isolation.
 let zIndexTracker = 1
 
-function setZIndex(node: HTMLElement) {
-  zIndexTracker++
+function setZIndex(node: HTMLElement | null) {
+  // Silently return if node is not defined
+  if (!node) return
+
+  // Apply current z-index then increment
   node.style.zIndex = String(zIndexTracker)
+  zIndexTracker++
 }
 
 // Exported so tests can reset shared module state between runs.
@@ -83,7 +87,7 @@ export function FloatingPanel({
 
   // On show, new floating panel is on top
   useEffect(() => {
-    if (show && nodeRef.current) {
+    if (show) {
       setZIndex(nodeRef.current)
     }
   }, [show])
@@ -91,9 +95,7 @@ export function FloatingPanel({
   // On interaction, either with mouse, pointer, or keyboard,
   // the current floating panel is on top
   function focusThis(_event: React.PointerEvent | React.FocusEvent) {
-    if (nodeRef.current) {
-      setZIndex(nodeRef.current)
-    }
+    setZIndex(nodeRef.current)
   }
 
   const component = transitions(
