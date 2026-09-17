@@ -457,6 +457,10 @@
     "label2": "Korkeus",
     "floors-count": "{count, plural, one {# kerros} other {# kerrosta}}"
   },
+  "boundary": {
+    "left-label": "",
+    "right-label": ""
+  },
   "segments": {
     "warnings": {
       "does-not-fit": "Elementti ei mahdu kadulle.",
@@ -474,7 +478,9 @@
     },
     "resize": {
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "left": "",
+      "right": ""
     },
     "controls": {
       "width": "Leveys",
@@ -595,11 +601,8 @@
   },
   "coastmix": {
     "new-waterfront-menu": "Uusi ranta-alue",
-    "templates": {
-      "harborwalk": "Satamaraitti",
-      "coastal-road": "Rannikkotie",
-      "beach": "Ranta"
-    }
+    "new-empty": "",
+    "new-from-examples": ""
   },
   "i18n": {
     "lang": {
