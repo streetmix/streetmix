@@ -27,13 +27,19 @@ interface FloatingPanelProps extends Partial<DraggableProps> {
 // handler, because changing this value cannot re-render or provide reactivity.
 // This breaks in hot-module reloading because the value is reset on reload.
 // This works for now, but for future cases (e.g. SSR), can move to context
-// or Redux state.
-// This is also potentially bad for testing.
+// or Redux state. This is also bad for unit tests -- value increments between
+// tests which normally would occur in insolation.
 let zIndexTracker = 1
 
 function setZIndex(node: HTMLElement) {
   zIndexTracker++
   node.style.zIndex = String(zIndexTracker)
+}
+
+// Exported so tests can reset shared module state between runs.
+// eslint-disable-next-line react-refresh/only-export-components
+export function resetZIndexTracker() {
+  zIndexTracker = 1
 }
 
 export function FloatingPanel({
