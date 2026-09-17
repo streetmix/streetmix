@@ -1,10 +1,10 @@
-import { useState, type ReactNode } from 'react'
+import { useState } from 'react'
 
 import { FloatingPanelPortalContext } from './FloatingPanelPortalContext.js'
 import './FloatingPanelPortal.css'
 
 interface FloatingPanelPortalProps {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 // Wraps part of the React tree and renders a target `<div>` inside it, so
