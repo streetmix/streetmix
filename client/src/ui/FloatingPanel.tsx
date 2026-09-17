@@ -28,7 +28,7 @@ interface FloatingPanelProps extends Partial<DraggableProps> {
 // This breaks in hot-module reloading because the value is reset on reload.
 // This works for now, but for future cases (e.g. SSR), can move to context
 // or Redux state. This is also bad for unit tests -- value increments between
-// tests which normally would occur in insolation.
+// tests which normally would occur in isolation.
 let zIndexTracker = 1
 
 function setZIndex(node: HTMLElement) {
