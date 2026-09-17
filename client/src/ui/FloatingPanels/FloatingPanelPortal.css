@@ -1,0 +1,6 @@
+.floating-panel-portal {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-07-floating-panel);
+  pointer-events: none;
+}
