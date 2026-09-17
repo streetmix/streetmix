@@ -3,7 +3,7 @@ import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 
 import { render } from '~/test/helpers/render.js'
-import { resetZIndexTracker } from '~/src/ui/FloatingPanel.js'
+import { resetZIndexTracker } from '~/src/ui/FloatingPanels/FloatingPanel.js'
 import * as uiSlice from '~/src/store/slices/ui.js'
 import { SkyPicker } from './SkyPicker.js'
 

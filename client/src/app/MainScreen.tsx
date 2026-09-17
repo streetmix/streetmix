@@ -1,5 +1,4 @@
-import { FloatingPanelPortal } from './FloatingPanelPortal.js'
-import './FloatingPanelPortal.css'
+import { FloatingPanelPortal } from '~/src/ui/FloatingPanels'
 
 interface MainScreenProps {
   children: React.ReactNode

@@ -6,9 +6,9 @@ import Draggable, {
   type DraggableEventHandler,
 } from 'react-draggable'
 
-import { useFloatingPanelPortalContainer } from '~/src/app/FloatingPanelPortalContext.js'
 import { CloseButton } from '~/src/ui/CloseButton.js'
 import { Icon, type IconNames } from '~/src/ui/Icon.js'
+import { useFloatingPanelPortalContainer } from './FloatingPanelPortalContext.js'
 import './FloatingPanel.css'
 
 // Allow <Draggable> props to be passed in, but do not require any
