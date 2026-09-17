@@ -22,6 +22,7 @@ import { DebugInfo } from './DebugInfo.js'
 import { BlockingShield } from './BlockingShield.js'
 import { BlockingError } from './BlockingError.js'
 import { StreetView } from './StreetView.js'
+import { MainScreen } from './MainScreen.js'
 import { PrintContainer } from './PrintContainer.js'
 import { WelcomePanel } from './WelcomePanel'
 import { NotificationBar } from './NotificationBar'
@@ -86,7 +87,7 @@ export function App() {
                   <DialogRoot />
                   <DebugInfo />
                   <PrintContainer />
-                  <div className="main-screen">
+                  <MainScreen>
                     <MenusContainer />
                     <StreetNameplateContainer />
                     <DescriptionPanel />
@@ -98,7 +99,7 @@ export function App() {
                     <ToastContainer />
                     <SentimentSurveyContainer />
                     <CoastmixUI />
-                  </div>
+                  </MainScreen>
                   <SponsorBanner />
                 </DndProvider>
               </TourProvider>

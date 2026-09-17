@@ -5,7 +5,6 @@
   --header-background-color: var(--color-turquoise-200);
   --header-text-color: var(--color-turquoise-900);
 
-  z-index: var(--z-07-floating-panel);
   position: absolute;
 }
 

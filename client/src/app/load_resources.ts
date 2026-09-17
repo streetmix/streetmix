@@ -9,7 +9,6 @@ export const images = new Map()
 // Image tileset loading
 const IMAGES_TO_BE_LOADED = [
   '/assets/icons.svg',
-  '/assets/illustrations.svg',
   '/assets/images.svg',
   '/images/wordmark.svg',
   '/images/wordmark_black.svg',
