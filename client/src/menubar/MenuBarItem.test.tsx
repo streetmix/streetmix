@@ -5,9 +5,11 @@ import { userEvent } from '@testing-library/user-event'
 import { render } from '~/test/helpers/render.js'
 import { MenuBarItem } from './MenuBarItem.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('MenuBarItem', () => {
   it('renders', () => {
-    const { asFragment } = render(<MenuBarItem label="foo" translation="foo" />)
+    const { asFragment } = render(<MenuBarItem>foo</MenuBarItem>)
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -21,7 +23,7 @@ describe('MenuBarItem', () => {
     expect(handleClick).toHaveBeenCalled()
   })
 
-  it('renders children instead of default label if provided', () => {
+  it('renders children if provided', () => {
     render(
       <MenuBarItem>
         <span aria-label="foo">bar</span>
@@ -33,8 +35,8 @@ describe('MenuBarItem', () => {
   })
 
   it('passes unhandled props to child elements', () => {
-    render(<MenuBarItem foo="bar">child</MenuBarItem>)
+    render(<MenuBarItem id="bar">child</MenuBarItem>)
 
-    expect(screen.getByText('child')).toHaveAttribute('foo', 'bar')
+    expect(screen.getByText('child')).toHaveAttribute('id', 'bar')
   })
 })
