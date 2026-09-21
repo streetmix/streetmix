@@ -11,6 +11,7 @@ import { Icon } from '../ui/Icon.js'
 
 import type { StreetAPIResponse } from '@streetmix/types'
 import './GalleryStreetItem.css'
+import type { MessageValue } from 'react-intl'
 
 const THUMBNAIL_WIDTH = 180
 const THUMBNAIL_HEIGHT = 110
@@ -78,7 +79,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
     event.preventDefault()
     event.stopPropagation()
 
-    const message = intl.formatMessage(
+    const message = intl.formatMessage<{ readonly streetName: MessageValue }>(
       {
         id: 'prompt.delete-street',
         defaultMessage:

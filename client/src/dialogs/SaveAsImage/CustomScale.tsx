@@ -87,6 +87,7 @@ export function CustomScale({
             allowCustomScale ? '' : 'custom-scale-info-disabled'
           }`}
         >
+          {}
           <strong>{scale * 100}%</strong> &mdash;&nbsp;
           <FormattedMessage
             id="dialogs.save.digital-size"
@@ -109,6 +110,7 @@ export function CustomScale({
                 300
               ).toFixed(2)}″`}{' '}
           (300 dpi)
+          {}
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ import { StreetMetaItem } from './StreetMetaItem.js'
 
 import type { StreetJsonExtra } from '@streetmix/types'
 import './StreetMetaWidth.css'
+import type { MessageValue } from 'react-intl'
 
 const DEFAULT_STREET_WIDTHS_IMPERIAL = [40, 60, 80].map(
   convertImperialMeasurementToMetric
@@ -121,7 +122,10 @@ export function StreetMetaWidth() {
         ? MAX_CUSTOM_STREET_WIDTH_IMPERIAL
         : MAX_CUSTOM_STREET_WIDTH
     const promptValue = normalizeStreetWidth(occupiedWidth, units)
-    const promptString = intl.formatMessage(
+    const promptString = intl.formatMessage<{
+      readonly maxWidth: MessageValue
+      readonly minWidth: MessageValue
+    }>(
       {
         id: 'prompt.new-width',
         defaultMessage: 'New street width (from {minWidth} to {maxWidth}):',

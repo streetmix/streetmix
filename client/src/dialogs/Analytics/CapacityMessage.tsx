@@ -13,20 +13,23 @@ export function CapacityMessage({
   potential,
 }: CapacityMessageProps) {
   const isSingleAmount = average === potential
-  const defaultMessage = isSingleAmount
-    ? '{amount} people/hour'
-    : '{average} — {potential} people/hour'
-  const id = isSingleAmount
-    ? 'dialogs.analytics.segment-summary-single'
-    : 'dialogs.analytics.segment-summary'
+
+  const intlProps = isSingleAmount
+    ? {
+        id: 'dialogs.analytics.segment-summary-single',
+        defaultMessage: '{amount} people/hour',
+      }
+    : {
+        id: 'dialogs.analytics.segment-summary',
+        defaultMessage: '{average} — {potential} people/hour',
+      }
   const options = {
     maximumSignificantDigits: 3,
   }
 
   return (
     <FormattedMessage
-      id={id}
-      defaultMessage={defaultMessage}
+      {...intlProps}
       values={{
         amount: formatNumber(average, locale, options),
         average: formatNumber(average, locale, options),

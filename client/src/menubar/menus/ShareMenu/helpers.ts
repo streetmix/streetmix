@@ -1,6 +1,6 @@
 import type { UserState } from '~/src/types'
 import type { StreetState } from '@streetmix/types'
-import type { IntlShape } from 'react-intl'
+import type { IntlShape, MessageValue } from 'react-intl'
 
 export interface SocialShareProps {
   shareText: string
@@ -27,7 +27,7 @@ export function getSharingMessage(
   if (typeof street.creatorId === 'string') {
     if (signedIn && street.creatorId === userId) {
       if (typeof street.name === 'string') {
-        message = intl.formatMessage(
+        message = intl.formatMessage<{ readonly streetName: MessageValue }>(
           {
             id: 'menu.share.messages.my-street',
             defaultMessage: 'Check out my street, {streetName}, on Streetmix!',
@@ -42,7 +42,10 @@ export function getSharingMessage(
       }
     } else {
       if (typeof street.name === 'string') {
-        message = intl.formatMessage(
+        message = intl.formatMessage<{
+          readonly streetCreator: MessageValue
+          readonly streetName: MessageValue
+        }>(
           {
             id: 'menu.share.messages.someone-elses-street',
             defaultMessage:
@@ -51,7 +54,7 @@ export function getSharingMessage(
           { streetName: street.name, streetCreator: `@${street.creatorId}` }
         )
       } else {
-        message = intl.formatMessage(
+        message = intl.formatMessage<{ readonly streetCreator: MessageValue }>(
           {
             id: 'menu.share.messages.someone-elses-street-unnamed',
             defaultMessage:
@@ -63,7 +66,7 @@ export function getSharingMessage(
     }
   } else {
     if (typeof street.name === 'string') {
-      message = intl.formatMessage(
+      message = intl.formatMessage<{ readonly streetName: MessageValue }>(
         {
           id: 'menu.share.messages.anonymous-creator-street',
           defaultMessage: 'Check out {streetName} on Streetmix!',

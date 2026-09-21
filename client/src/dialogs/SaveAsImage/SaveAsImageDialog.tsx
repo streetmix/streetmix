@@ -255,6 +255,7 @@ export function SaveAsImageDialog() {
             <div className="save-as-image-options">
               {newExport && (
                 <div style={{ marginTop: 0, marginBottom: '0.25em' }}>
+                  {}
                   <Checkbox onChange={toggleNewExport} checked={isNewExport}>
                     New export pipeline (WIP)
                   </Checkbox>

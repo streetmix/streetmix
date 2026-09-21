@@ -107,6 +107,7 @@ export function Terms({ locale }: TermsProps) {
 
   const renderCCLink = (locale: string): React.ReactElement => {
     const { url, label } = getCCLinkByLocale(locale)
+
     return <ExternalLink href={url}>{label}&lrm;</ExternalLink>
   }
 

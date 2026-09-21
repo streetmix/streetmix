@@ -8,6 +8,7 @@ import { LoadingSpinner } from '~/src/ui/LoadingSpinner.js'
 import { Popover } from '~/src/ui/Popover.js'
 import { patchUser } from '~/src/util/api.js'
 import './ProfileSettings.css'
+import type { MessageValue } from 'react-intl'
 
 const DISPLAY_NAME_MAX_CHARS = 30
 const DISPLAY_NAME_MAX_CHARS_WARN = DISPLAY_NAME_MAX_CHARS - 10
@@ -103,7 +104,10 @@ export function ProfileSettings() {
     displayNameValue.length >= DISPLAY_NAME_MAX_CHARS_WARN
   ) {
     messages.push(
-      intl.formatMessage(
+      intl.formatMessage<{
+        readonly currentNum: MessageValue
+        readonly maxNum: MessageValue
+      }>(
         {
           id: 'settings.profile.display-name-characters-remaining',
           defaultMessage:

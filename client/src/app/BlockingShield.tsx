@@ -162,8 +162,7 @@ export function BlockingShield() {
           <p>
             <FormattedMessage
               id="msg.slow-connection-2"
-              defaultMessage="You might want to reload the page and try again. Please note
-                  you might lose the latest change to the street. Sorry!"
+              defaultMessage="You might want to reload the page and try again. Please note you might lose the latest change to the street. Sorry!"
             />
           </p>
           <Button onClick={goReload}>

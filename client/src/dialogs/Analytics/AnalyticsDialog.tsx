@@ -128,6 +128,7 @@ export function AnalyticsDialog() {
                 />
               ))}
               <p>
+                {}
                 <strong>
                   <FormattedMessage
                     id="dialogs.analytics.source"
@@ -143,6 +144,7 @@ export function AnalyticsDialog() {
                   capacityData.source_title
                 )}
                 , {capacityData.source_author}
+                {}
               </p>
             </div>
             <hr />

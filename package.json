@@ -136,6 +136,7 @@
     "eslint": "10.11.0",
     "eslint-import-resolver-typescript": "4.4.5",
     "eslint-plugin-cypress": "7.0.2",
+    "eslint-plugin-formatjs": "8.0.5",
     "eslint-plugin-import-x": "4.17.1",
     "eslint-plugin-n": "18.3.0",
     "eslint-plugin-promise": "7.3.0",
