@@ -59,7 +59,7 @@ export default defineConfig([
       // This doesn't understand ~/ imports
       'import-x/no-unresolved': 0,
       'import-x/order': [
-        'warn',
+        'error',
         {
           groups: [
             'builtin',
