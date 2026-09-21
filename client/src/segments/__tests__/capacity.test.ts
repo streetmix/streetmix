@@ -9,10 +9,10 @@ import {
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('../../segments/capacity_data.json', () => ({
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  default: require('../__mocks__/capacity_data.json'),
-}))
+vi.mock(
+  '../../segments/capacity_data.json',
+  async () => await import('../../segments/__mocks__/capacity_data.json')
+)
 
 describe('segment capacity', () => {
   it('returns capacity data for segment', () => {
