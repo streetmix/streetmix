@@ -19,14 +19,7 @@ import { getLocaleSliceName } from './labels.js'
 import { ResizeHandles } from './ResizeHandles.js'
 import { SegmentCanvas } from './SegmentCanvas.js'
 import { SegmentLabelContainer } from './SegmentLabelContainer.js'
-import {
-  TILE_SIZE,
-  SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL,
-  SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from './constants.js'
+import { TILE_SIZE } from './constants.js'
 import {
   createSliceDragSpec,
   createSliceDropTargetSpec,
@@ -251,7 +244,7 @@ export function Segment(props: SliceProps) {
   }
 
   const classNames = ['segment']
-  const warnings = segment.warnings ?? [false]
+  const warnings = segment.warnings ?? {}
 
   if (isDragging) {
     classNames.push('dragged-out')
@@ -261,15 +254,15 @@ export function Segment(props: SliceProps) {
 
   // Warnings
   if (
-    warnings[SLICE_WARNING_OUTSIDE] ||
-    warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
-    warnings[SLICE_WARNING_WIDTH_TOO_LARGE] ||
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+    warnings.outOfBounds ||
+    warnings.tooNarrow ||
+    warnings.tooWide ||
+    warnings.slopeBermExceeded ||
+    warnings.slopePathExceeded
   ) {
     classNames.push('warning')
   }
-  if (warnings[SLICE_WARNING_OUTSIDE]) {
+  if (warnings.outOfBounds) {
     classNames.push('outside')
   }
 

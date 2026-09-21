@@ -3,14 +3,6 @@ import { FormattedMessage } from 'react-intl'
 // TODO: use <Icon />
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
-import {
-  SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL,
-  SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_DANGEROUS_EXISTING,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from '~/src/segments/constants.js'
 import './Warnings.css'
 
 import type { Segment } from '@streetmix/types'
@@ -26,7 +18,7 @@ export function Warnings(props: WarningsProps) {
   if (segment === undefined) return null
   const warnings = segment.warnings ?? [false]
 
-  if (warnings[SLICE_WARNING_DANGEROUS_EXISTING]) {
+  if (warnings.dangerousExisting) {
     messages.push({
       type: 'alert',
       message: (
@@ -37,7 +29,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_OUTSIDE]) {
+  if (warnings.outOfBounds) {
     messages.push({
       type: 'error',
       message: (
@@ -48,7 +40,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_WIDTH_TOO_SMALL]) {
+  if (warnings.tooNarrow) {
     messages.push({
       type: 'error',
       message: (
@@ -59,7 +51,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (warnings[SLICE_WARNING_WIDTH_TOO_LARGE]) {
+  if (warnings.tooWide) {
     messages.push({
       type: 'error',
       message: (
@@ -70,10 +62,7 @@ export function Warnings(props: WarningsProps) {
       ),
     })
   }
-  if (
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] ||
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
-  ) {
+  if (warnings.slopeBermExceeded || warnings.slopePathExceeded) {
     messages.push({
       type: 'error',
       message: (

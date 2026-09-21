@@ -2,11 +2,6 @@ import Papa from 'papaparse'
 import { omit } from 'es-toolkit'
 
 import { DEFAULT_CAPACITY_SOURCE } from '../streets/constants'
-import {
-  SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from './constants'
 import SOURCE_DATA from './capacity_data.json'
 
 import type {
@@ -148,9 +143,9 @@ export function getSegmentCapacity(
   // If a segment has capacity data, but something makes it zero capacity,
   // return modified values here.
   if (
-    warnings[SLICE_WARNING_OUTSIDE] ||
-    warnings[SLICE_WARNING_WIDTH_TOO_SMALL] ||
-    warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH]
+    warnings.outOfBounds ||
+    warnings.tooNarrow ||
+    warnings.slopePathExceeded
   ) {
     return {
       average: 0,

@@ -24,12 +24,12 @@ describe('StreetMetaAnalytics', () => {
             {
               type: 'sidewalk',
               width: 6,
-              warnings: [],
+              warnings: {},
             },
             {
               type: 'bus-lane',
               width: 12,
-              warnings: [],
+              warnings: {},
             },
           ],
         },

@@ -31,7 +31,7 @@ export function addAltVariantObject(street: StreetState) {
 
     // Also use this loop to add empty warnings array
     // Prevents bugs where things expect the array to be there
-    segment.warnings = [false]
+    segment.warnings = {}
 
     return segment
   })

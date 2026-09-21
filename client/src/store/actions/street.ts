@@ -94,7 +94,7 @@ export const segmentsChanged = (force = false) => {
         // for everything but two properties
         ...slice,
         // This will be appended to by `applyWarningsToSlices`
-        warnings: [false],
+        warnings: {},
         // This will be modified by slope calculation
         slope: {
           on: slice.slope.on ?? false,
@@ -248,7 +248,7 @@ const createStreetFromResponse = (response: StreetAPIResponse): StreetState => {
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
   street.segments = street.segments.map((segment) => {
-    segment.warnings = [false]
+    segment.warnings = {}
     segment.variant = getVariantInfo(segment.type, segment.variantString)
     return segment
   })

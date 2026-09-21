@@ -37,7 +37,7 @@ describe('Segment', () => {
         on: false,
         values: [],
       },
-      warnings: [],
+      warnings: {},
     }
     initialState = {
       flags: {
