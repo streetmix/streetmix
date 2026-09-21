@@ -1,14 +1,16 @@
 import { vi } from 'vitest'
+
 import {
   getSegmentCapacity,
   getStreetCapacity,
   getRolledUpSegmentCapacities,
   getCsv,
-} from '../capacity'
+} from '../capacity.js'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
 vi.mock('../../segments/capacity_data.json', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   default: require('../__mocks__/capacity_data.json'),
 }))
 
