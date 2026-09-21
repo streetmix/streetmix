@@ -62,7 +62,7 @@ describe('finishUndoOrRedo', () => {
           width: 3,
           elevation: 0,
           slope: { on: false, values: [] },
-          warnings: [false, true],
+          warnings: { outOfBounds: true },
         },
       ],
     }
@@ -75,7 +75,7 @@ describe('finishUndoOrRedo', () => {
           width: 4,
           elevation: 0,
           slope: { on: false, values: [] },
-          warnings: [false],
+          warnings: {},
         },
       ],
     }
@@ -95,7 +95,7 @@ describe('finishUndoOrRedo', () => {
       expect.objectContaining({
         segments: [
           expect.objectContaining({
-            warnings: [false, true],
+            warnings: { outOfBounds: true },
           }),
         ],
       })

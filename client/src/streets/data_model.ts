@@ -29,8 +29,8 @@ export function addAltVariantObject(street: StreetState) {
     // instead of a string. We might gradually migrate toward this.
     segment.variant = getVariantInfo(segment.type, segment.variantString)
 
-    // Also use this loop to add empty warnings array
-    // Prevents bugs where things expect the array to be there
+    // Also use this loop to add empty warnings object
+    // Prevents bugs where things expect the warnings object to be there
     segment.warnings = {}
 
     return segment
