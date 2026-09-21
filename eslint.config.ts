@@ -118,8 +118,6 @@ export default defineConfig([
       // Temporarily warns on new errors introduced to eslint:recommended in
       // eslint v10 -- TODO: refactor then turn off warnings
       'no-unassigned-vars': 'warn',
-      'no-useless-assignment': 'warn',
-      'preserve-caught-error': 'warn',
       // We do not have description requirements here
       'formatjs/enforce-description': 0,
       // This is very useful but VERY noisy right now, need to selectively
