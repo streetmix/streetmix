@@ -16,7 +16,7 @@ export function Warnings(props: WarningsProps) {
   const messages = []
 
   if (segment === undefined) return null
-  const warnings = segment.warnings ?? [false]
+  const warnings = segment.warnings ?? {}
 
   if (warnings.dangerousExisting) {
     messages.push({

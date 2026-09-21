@@ -122,7 +122,7 @@ export function getSegmentCapacity(
   segment: Segment,
   source: string = DEFAULT_CAPACITY_SOURCE
 ): CapacityForDisplay | undefined {
-  const warnings = segment.warnings ?? [false]
+  const warnings = segment.warnings ?? {}
   let capacity = getCapacityData(source).segments[segment.type]
 
   // Returns undefined value if capacity is not defined
