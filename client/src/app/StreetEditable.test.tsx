@@ -60,11 +60,6 @@ describe('StreetEditable', () => {
 
         expect(store.getState().street.segments[0].width).toEqual(120)
         expect(store.getState().street.segments[0].warnings).toEqual({
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
           tooWide: true,
         })
         expect(asFragment()).toMatchSnapshot()

@@ -18,38 +18,17 @@ describe('applyWarningsToSlices', () => {
       {
         width: 4,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
     ])
   })
@@ -71,36 +50,19 @@ describe('applyWarningsToSlices', () => {
         width: 8,
         slope: { on: false },
         warnings: {
-          dangerousExisting: false,
           outOfBounds: true,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
         },
       },
       {
         width: 6,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
         warnings: {
-          dangerousExisting: false,
           outOfBounds: true,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
         },
       },
     ])
@@ -143,12 +105,7 @@ describe('applyWarningsToSlices', () => {
         variantString: 'normal',
         slope: { on: false },
         warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
           tooNarrow: true,
-          tooWide: false,
         },
       },
       {
@@ -156,14 +113,7 @@ describe('applyWarningsToSlices', () => {
         type: 'divider',
         variantString: 'bush',
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
       {
         width: 5.4,
@@ -171,11 +121,6 @@ describe('applyWarningsToSlices', () => {
         variantString: 'inbound|left',
         slope: { on: false },
         warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
           tooWide: true,
         },
       },
@@ -206,11 +151,6 @@ describe('applyWarningsToSlices', () => {
         slope: { on: false },
         warnings: {
           dangerousExisting: true,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
         },
       },
     ])
@@ -239,14 +179,7 @@ describe('applyWarningsToSlices', () => {
         width: 3,
         elevation: 0,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
       {
         width: 3,
@@ -254,26 +187,15 @@ describe('applyWarningsToSlices', () => {
         variantString: 'planting-strip',
         slope: { on: true, values: [0, 4] },
         warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
           slopeBermExceeded: true,
           slopePathExceeded: true,
-          tooNarrow: false,
-          tooWide: false,
         },
       },
       {
         width: 3,
         elevation: 4,
         slope: { on: false },
-        warnings: {
-          dangerousExisting: false,
-          outOfBounds: false,
-          slopeBermExceeded: false,
-          slopePathExceeded: false,
-          tooNarrow: false,
-          tooWide: false,
-        },
+        warnings: {},
       },
     ])
   })

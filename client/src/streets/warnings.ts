@@ -32,8 +32,6 @@ export function applyWarningsToSlices(
         position.plus(slice.width).greaterThan(streetWidth))
     ) {
       slice.warnings.outOfBounds = true
-    } else {
-      slice.warnings.outOfBounds = false
     }
 
     // Apply a warning if slice width is less than the minimum width
@@ -43,8 +41,6 @@ export function applyWarningsToSlices(
       slice.width < getWidthInMetric(variantInfo.minWidth, street.units)
     ) {
       slice.warnings.tooNarrow = true
-    } else {
-      slice.warnings.tooNarrow = false
     }
 
     // Apply a warning if slice width is greater than the maximum width
@@ -54,16 +50,12 @@ export function applyWarningsToSlices(
       slice.width > getWidthInMetric(variantInfo.maxWidth, street.units)
     ) {
       slice.warnings.tooWide = true
-    } else {
-      slice.warnings.tooWide = false
     }
 
     // Apply a warning if the slice type and variant is the mixed-use
     // drive lane with bicycle, which is a dangerous existing condition
     if (variantInfo.dangerous === true) {
       slice.warnings.dangerousExisting = true
-    } else {
-      slice.warnings.dangerousExisting = false
     }
 
     // Apply a warning for slope
@@ -79,15 +71,8 @@ export function applyWarningsToSlices(
         variantInfo.slope === 'path' &&
         slopeWarnings.slopeExceededPath
       ) {
-        slice.warnings.slopeBermExceeded = false
         slice.warnings.slopePathExceeded = true
-      } else {
-        slice.warnings.slopeBermExceeded = false
-        slice.warnings.slopePathExceeded = false
       }
-    } else {
-      slice.warnings.slopeBermExceeded = false
-      slice.warnings.slopePathExceeded = false
     }
 
     // Increment the position counter
