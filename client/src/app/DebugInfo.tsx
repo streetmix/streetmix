@@ -98,6 +98,7 @@ export function DebugInfo() {
     return (
       <div className="debug-container">
         <div className="debug-panel" ref={panelEl}>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <h2>Debug</h2>
           <textarea readOnly wrap="off" ref={textareaEl} />
         </div>

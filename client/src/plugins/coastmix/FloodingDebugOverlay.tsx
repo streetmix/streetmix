@@ -17,6 +17,9 @@ const disallowFlooding = [
   SliceTypes.UTILITY,
 ]
 
+/* This is a debug-only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 function Details({
   details,
   remainingWidth,

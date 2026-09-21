@@ -4,6 +4,8 @@ import { userEvent } from '@testing-library/user-event'
 
 import { Checkbox } from './Checkbox.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('Checkbox', () => {
   it('renders default snapshot', () => {
     const { asFragment } = render(<Checkbox>foo</Checkbox>)

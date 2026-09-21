@@ -12,9 +12,7 @@ export function FirstTimeNewStreet() {
       <p>
         <FormattedMessage
           id="dialogs.welcome.new.intro"
-          defaultMessage="Design, remix, and share your neighborhood street.
-            Add trees or bike paths, widen sidewalks or traffic lanes, learn
-            how your decisions can impact your community."
+          defaultMessage="Design, remix, and share your neighborhood street. Add trees or bike paths, widen sidewalks or traffic lanes, learn how your decisions can impact your community."
         />
       </p>
       <p>

@@ -57,6 +57,7 @@ export function LocaleMenu(props: MenuProps) {
           )}
           {/* &#x200E; prevents trailing parentheses from going in the wrong
               place in rtl languages */}
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <span>{locale.label}&#x200E;</span>
           <span className="menu-item-subtext">
             <FormattedMessage id={locale.key} defaultMessage={locale.name} />

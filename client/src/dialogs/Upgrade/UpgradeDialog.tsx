@@ -7,9 +7,6 @@ import userRoles from '../../../../app/data/user_roles.json'
 import { Dialog } from '../Dialog.js'
 import './UpgradeDialog.css'
 
-const DEFAULT_BODY =
-  'Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!'
-
 export function UpgradeDialog() {
   const userId = useSelector((state) => state.user.signInData?.userId)
   const roles: string[] = useSelector(
@@ -74,7 +71,10 @@ export function UpgradeDialog() {
     activePanel = (
       <>
         <p>
-          <FormattedMessage id="upgrade.body" defaultMessage={DEFAULT_BODY} />
+          <FormattedMessage
+            id="upgrade.body"
+            defaultMessage="Thank you for using Streetmix! For only $5/month, the Enthusiast Plan lets users support Streetmix while also gaining access to new experimental features. Plus your avatar gets a neat badge!"
+          />
         </p>
       </>
     )

@@ -4,6 +4,8 @@ import { userEvent } from '@testing-library/user-event'
 import { render } from '~/test/helpers/render.js'
 import { CloseButton } from './CloseButton.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('CloseButton', () => {
   it('renders snapshot', () => {
     const { asFragment } = render(<CloseButton onClick={vi.fn()} />)

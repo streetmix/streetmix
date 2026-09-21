@@ -11,6 +11,7 @@ import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import { reactRefresh } from 'eslint-plugin-react-refresh'
 import cypress from 'eslint-plugin-cypress'
+import formatjs from 'eslint-plugin-formatjs'
 
 export default defineConfig([
   globalIgnores(['client/src/vendor/', '**/build', '**/coverage', '**/docs']),
@@ -19,6 +20,7 @@ export default defineConfig([
   importX.flatConfigs.typescript,
   pluginPromise.configs['flat/recommended'],
   reactRefresh.configs.recommended(),
+  formatjs.configs.recommended,
   {
     files: ['app/**/*.{js,ts}'],
     plugins: { n: node },
@@ -38,6 +40,7 @@ export default defineConfig([
     ...react.configs.flat['jsx-runtime'], // Add this with React 17+, apparently
     ...reactHooks.configs.flat.recommended,
     files: ['**/*.{js,ts,tsx,cjs}'],
+    // plugins: { formatjs },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -56,7 +59,7 @@ export default defineConfig([
       // This doesn't understand ~/ imports
       'import-x/no-unresolved': 0,
       'import-x/order': [
-        'warn',
+        'error',
         {
           groups: [
             'builtin',
@@ -115,8 +118,17 @@ export default defineConfig([
       // Temporarily warns on new errors introduced to eslint:recommended in
       // eslint v10 -- TODO: refactor then turn off warnings
       'no-unassigned-vars': 'warn',
-      'no-useless-assignment': 'warn',
-      'preserve-caught-error': 'warn',
+      // We do not have description requirements here
+      'formatjs/enforce-description': 0,
+      // This is very useful but VERY noisy right now, need to selectively
+      // disable for components where we intentionally don't need it. Don't
+      // disable then run --fix, it will remove all the eslint comments
+      // 'formatjs/no-literal-string-in-jsx': 'warn',
+      // Disable this because it enforces 'literal' no matter what option you
+      // set, and some defaultMessages are generated for us.
+      // Reported: https://github.com/formatjs/formatjs/issues/7475
+      'formatjs/enforce-default-message': ['off', 'literal'],
+      'formatjs/enforce-message-types': ['error', { generateTypes: true }],
     },
   },
   {

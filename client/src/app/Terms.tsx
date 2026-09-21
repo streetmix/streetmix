@@ -107,6 +107,8 @@ export function Terms({ locale }: TermsProps) {
 
   const renderCCLink = (locale: string): React.ReactElement => {
     const { url, label } = getCCLinkByLocale(locale)
+
+    /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
     return <ExternalLink href={url}>{label}&lrm;</ExternalLink>
   }
 

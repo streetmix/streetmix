@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import logo from 'url:../../images/logo_horizontal.svg'
 import logoCoastmix from 'url:~/src/plugins/coastmix/images/logo_horizontal_coastmix.svg'
@@ -122,36 +122,36 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         <li className="menu-bar-title">
           <img
             src={logoSrc}
+            // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             alt="Streetmix"
             className="menu-bar-logo"
             draggable={false}
           />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
           {coastmixMode && (
             <a href="https://boston.gov/" target="_blank" rel="noopener">
               <img
                 className="menu-bar-boston-logo"
                 src={bostonLogo}
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                 alt="City of Boston"
                 draggable={false}
               />
             </a>
           )}
         </li>
-        <MenuBarItem
-          label="Help"
-          translation="menu.item.help"
-          id="menubar-help"
-          onClick={handleClick('help')}
-        />
+        <MenuBarItem id="menubar-help" onClick={handleClick('help')}>
+          <FormattedMessage id="menu.item.help" defaultMessage="Help" />
+        </MenuBarItem>
         {!offline && !coastmixMode && (
           <>
-            <MenuBarItem
-              label="Contact"
-              translation="menu.item.contact"
-              id="menubar-contact"
-              onClick={handleClick('contact')}
-            />
+            <MenuBarItem id="menubar-contact" onClick={handleClick('contact')}>
+              <FormattedMessage
+                id="menu.item.contact"
+                defaultMessage="Contact"
+              />
+            </MenuBarItem>
             {!isSubscriber && (
               <li>
                 <UpgradeButton />
@@ -161,28 +161,24 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         )}
       </ul>
       <ul className="menu-bar-right" ref={menuBarRightEl}>
-        {/* Tweak this menu label in Coastmix */}
         {coastmixMode ? (
-          <MenuBarItem
-            label="New waterfront"
-            translation="coastmix.new-waterfront-menu"
-            id="menubar-new"
-            onClick={handleClick('new')}
-          />
+          <MenuBarItem id="menubar-new" onClick={handleClick('new')}>
+            <FormattedMessage
+              id="coastmix.new-waterfront-menu"
+              defaultMessage="New waterfront"
+            />
+          </MenuBarItem>
         ) : (
-          <MenuBarItem
-            label="New street"
-            translation="menu.item.new-street"
-            id="menubar-new"
-            onClick={handleClick('new')}
-          />
+          <MenuBarItem id="menubar-new" onClick={handleClick('new')}>
+            <FormattedMessage
+              id="menu.item.new-street"
+              defaultMessage="New street"
+            />
+          </MenuBarItem>
         )}
-        <MenuBarItem
-          label="Share"
-          translation="menu.item.share"
-          id="menubar-share"
-          onClick={handleClick('share')}
-        />
+        <MenuBarItem id="menubar-share" onClick={handleClick('share')}>
+          <FormattedMessage id="menu.item.share" defaultMessage="Share" />
+        </MenuBarItem>
         {enableLocaleSettings && (
           <MenuBarItem
             id="menubar-locale"

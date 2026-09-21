@@ -1,5 +1,4 @@
 import { type ButtonHTMLAttributes } from 'react'
-import { FormattedMessage } from 'react-intl'
 
 import { Icon } from '../ui/Icon'
 import { Tooltip } from '../ui/Tooltip'
@@ -7,18 +6,15 @@ import { Tooltip } from '../ui/Tooltip'
 interface MenuBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Accepts children to render
   children?: React.ReactNode
-  // Otherwise use <FormattedMessage /> to render a label
-  translation?: string
-  label?: string
   // Other optional props
   tooltip?: string
 }
 
 export function MenuBarItem({
-  translation = '',
-  label = '',
   tooltip,
-  children = <FormattedMessage id={translation} defaultMessage={label} />,
+  children = <></>,
+
+  // Additional props are passed to the <button> element
   ...restProps
 }: MenuBarItemProps) {
   const component = (

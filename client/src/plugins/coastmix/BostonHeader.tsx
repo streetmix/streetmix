@@ -8,6 +8,8 @@ import { STREETMIX_INSTANCE } from '~/src/app/config.js'
 
 import './BostonHeader.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function BostonHeader() {
   const [showDropdown, setShowDropdown] = useState(false)
 

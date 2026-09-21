@@ -4,6 +4,9 @@ import { Checkbox } from '~/src/ui/Checkbox.js'
 import { Dialog } from '../Dialog.js'
 import './FeatureFlagDialog.css'
 
+/* Debug-only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function FeatureFlagDialog() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()

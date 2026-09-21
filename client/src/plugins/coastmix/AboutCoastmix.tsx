@@ -9,6 +9,8 @@ import michaelAvatar from 'url:./images/michael.jpg'
 import { ExternalLink } from '~/src/ui/ExternalLink.js'
 import './AboutCoastmix.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function AboutCoastmix() {
   return (
     <div className="about-coastmix-section">

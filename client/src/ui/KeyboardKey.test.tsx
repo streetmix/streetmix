@@ -3,6 +3,8 @@ import { screen } from '@testing-library/react'
 import { render } from '~/test/helpers/render.js'
 import { KeyboardKey } from './KeyboardKey.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('KeyboardKey', () => {
   it('renders a <kbd> element with string child', () => {
     const { asFragment } = render(<KeyboardKey>foo</KeyboardKey>)

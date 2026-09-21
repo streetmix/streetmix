@@ -79,7 +79,8 @@ export function VoteReceipt({
                     </em>
                   ),
                 }}
-              />{' '}
+              />
+              {/* eslint-disable-line formatjs/no-literal-string-in-jsx */}{' '}
               <FormattedMessage
                 id="sentiment.comment.prompt"
                 defaultMessage="Tell us why:"

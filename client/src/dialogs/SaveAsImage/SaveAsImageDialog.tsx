@@ -255,6 +255,7 @@ export function SaveAsImageDialog() {
             <div className="save-as-image-options">
               {newExport && (
                 <div style={{ marginTop: 0, marginBottom: '0.25em' }}>
+                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                   <Checkbox onChange={toggleNewExport} checked={isNewExport}>
                     New export pipeline (WIP)
                   </Checkbox>

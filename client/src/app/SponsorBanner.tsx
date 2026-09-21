@@ -12,6 +12,9 @@ interface SponsorBannerProps {
   linkText?: string
 }
 
+/* This is an English-locale only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function SponsorBanner() {
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
 

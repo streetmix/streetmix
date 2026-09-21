@@ -57,6 +57,7 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
       SettingsPanel = <UnitSettings />
       break
     default:
+      /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
       SettingsPanel = <div>Not implemented</div>
   }
 
@@ -150,7 +151,9 @@ export function SettingsDialog({ category = 'profile' }: SettingsDialogProps) {
                         className="settings-menu-icon"
                       />
                       {/* Not translated, on purpose */}
+                      {/* eslint-disable formatjs/no-literal-string-in-jsx */}
                       Feature flags
+                      {/* eslint-enable formatjs/no-literal-string-in-jsx */}
                     </li>
                   )}
                 </ul>

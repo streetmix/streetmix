@@ -7,6 +7,8 @@ interface WelcomeCoastmixProps {
   handleDismiss: React.MouseEventHandler
 }
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   function handleQuickTour(event: React.MouseEvent): void {
     handleDismiss(event)

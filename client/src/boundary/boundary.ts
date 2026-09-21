@@ -80,7 +80,7 @@ export function prettifyHeight(
   locale: string,
   formatMessage: IntlShape['formatMessage']
 ): string {
-  let text = formatMessage(
+  let text = formatMessage<{ readonly count: number | bigint }>(
     {
       id: 'building.floors-count',
       defaultMessage: '{count, plural, one {# floor} other {# floors}}',

@@ -1,6 +1,8 @@
 import { render } from '~/test/helpers/render.js'
 import { ExternalLink } from './ExternalLink.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 const initialStateForOnline = {
   system: {
     offline: false,

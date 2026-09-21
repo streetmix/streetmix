@@ -4,6 +4,9 @@ import wmIcon from 'url:../../../images/wm-icon-animated.svg'
 import { ExternalLink } from '../ExternalLink.js'
 import { Toast, type ToastProps } from './Toast.js'
 
+/* Deprecated, do not translate */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 // Renders a specific type of Toast for Web Monetized users that are not signed in.
 export function ToastWebMonetizationSuccess(props: ToastProps) {
   const { item, setRef, handleClose } = props

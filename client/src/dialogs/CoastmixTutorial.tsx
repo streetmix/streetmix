@@ -3,6 +3,8 @@ import { Button } from '~/src/ui/Button.js'
 import { Dialog } from './Dialog.js'
 import './CoastmixTutorial.css'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function CoastmixTutorialComplete() {
   return (
     <Dialog>

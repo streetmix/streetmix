@@ -1,6 +1,8 @@
 import { render } from '~/test/helpers/render.js'
 import { Dialog } from './Dialog.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 const Contents = () => <>foo</>
 
 describe('Dialog', () => {

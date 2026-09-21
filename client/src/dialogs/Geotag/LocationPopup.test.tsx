@@ -11,6 +11,8 @@ vi.mock('react-leaflet', () => {
   return { Popup: vi.fn(({ children }) => children) }
 })
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('LocationPopup', () => {
   it('renders an address label', () => {
     render(
