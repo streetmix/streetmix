@@ -27,15 +27,15 @@
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "remark-smartypants": "^3.0.3",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@argos-ci/cli": "^6.9.4",
-    "@argos-ci/playwright": "^7.5.1",
-    "@playwright/test": "^1.62.1",
+    "@argos-ci/playwright": "^7.6.0",
+    "@playwright/test": "^1.63.0",
     "cheerio": "^1.2.0"
   },
   "browserslist": {
