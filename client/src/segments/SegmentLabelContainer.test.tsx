@@ -14,6 +14,8 @@ const testProps = {
   locale: 'en',
 }
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('SegmentLabelContainer', () => {
   it('renders string label', () => {
     const { asFragment } = render(

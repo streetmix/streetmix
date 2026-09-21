@@ -128,6 +128,7 @@ export function GeoSearch({ map, handleResults }: GeoSearchProps) {
               onClick={() => {
                 handleClickClearSearch(clearSelection)
               }}
+              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             >
               ×
             </span>

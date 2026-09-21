@@ -7,7 +7,7 @@ export function SocialLinks() {
       <li>
         <a
           href="https://github.com/streetmix/"
-
+          /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
           title="GitHub"
           target="_blank"
           rel="noopener noreferrer"
@@ -18,7 +18,7 @@ export function SocialLinks() {
       <li>
         <a
           href="https://strt.mx/discord"
-
+          /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
           title="Discord"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,7 +29,7 @@ export function SocialLinks() {
       <li>
         <a
           href="https://bsky.app/profile/streetmix.app"
-
+          /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
           title="Bluesky"
           target="_blank"
           rel="me noopener noreferrer"
@@ -44,7 +44,7 @@ export function SocialLinks() {
         */}
         <a
           href="https://urbanists.social/@streetmix"
-
+          /* eslint-disable-next-line formatjs/no-literal-string-in-jsx */
           title="Mastodon"
           target="_blank"
           rel="me noopener noreferrer"

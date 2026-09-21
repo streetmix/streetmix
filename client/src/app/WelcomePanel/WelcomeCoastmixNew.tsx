@@ -10,6 +10,8 @@ interface WelcomeCoastmixNewProps {
   handleDismiss: () => void
 }
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function WelcomeCoastmixNew({ handleDismiss }: WelcomeCoastmixNewProps) {
   const Shepherd = useShepherd()
 

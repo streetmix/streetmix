@@ -18,6 +18,7 @@ export function UpgradeButton() {
       <img
         className="menu-avatar-subscriber"
         src={streetmixPlusIcon}
+        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
         alt="Streetmix+"
       />
       <FormattedMessage

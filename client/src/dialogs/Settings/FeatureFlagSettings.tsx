@@ -2,6 +2,13 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { setFeatureFlag } from '~/src/store/slices/flags.js'
 import { Switch } from '~/src/ui/Switch.js'
 
+{
+  /* Admin-only feature */
+}
+{
+  /* eslint-disable formatjs/no-literal-string-in-jsx */
+}
+
 export function FeatureFlagSettings() {
   const flags = useSelector((state) => state.flags)
   const dispatch = useDispatch()

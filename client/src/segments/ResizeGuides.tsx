@@ -36,6 +36,8 @@ export function ResizeGuides() {
 
   return (
     <div className="resize-guides" style={display.style}>
+      {/* eslint-disable formatjs/no-literal-string-in-jsx */}
+      {/* Ignore symbol text */}
       {display.minGuideStyle && (
         <div
           className="resize-guide resize-guide-min"
@@ -62,6 +64,7 @@ export function ResizeGuides() {
           </div>
         </div>
       )}
+      {/* eslint-enable formatjs/no-literal-string-in-jsx */}
     </div>
   )
 }

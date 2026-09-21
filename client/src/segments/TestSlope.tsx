@@ -8,6 +8,9 @@ interface Props {
   slice: SliceItem
 }
 
+/* Debug only feature */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function TestSlope({ slice }: Props) {
   const debug = useSelector((state) => state.flags.DEBUG_SLICE_SLOPE.value)
 

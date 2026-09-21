@@ -9,6 +9,9 @@ interface ErrorBoundaryState {
   hasError: boolean
 }
 
+/* Error boundary. Current policy is not to translate non-specific errors. */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 /**
  * This is a stock error boundary component.
  * https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary

@@ -13,6 +13,9 @@ import { Credits } from './Credits.js'
 import { SocialLinks } from './SocialLinks.js'
 import './AboutDialog.css'
 
+/* Too many false positives in this module. Check all strings manually. */
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 export function AboutDialog() {
   const offline = useSelector((state) => state.system.offline)
   const coastmixMode = useSelector(

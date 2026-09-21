@@ -87,7 +87,7 @@ export function CustomScale({
             allowCustomScale ? '' : 'custom-scale-info-disabled'
           }`}
         >
-          {}
+          {/* eslint-disable formatjs/no-literal-string-in-jsx */}
           <strong>{scale * 100}%</strong> &mdash;&nbsp;
           <FormattedMessage
             id="dialogs.save.digital-size"
@@ -110,7 +110,7 @@ export function CustomScale({
                 300
               ).toFixed(2)}″`}{' '}
           (300 dpi)
-          {}
+          {/* eslint-enable formatjs/no-literal-string-in-jsx */}
         </div>
       </div>
     </div>

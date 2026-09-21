@@ -28,6 +28,7 @@ export function CapacitySources() {
 
   return (
     <p>
+      {/* eslint-disable formatjs/no-literal-string-in-jsx */}
       <strong>
         <FormattedMessage
           id="dialogs.analytics.capacity-data-source"
@@ -35,6 +36,7 @@ export function CapacitySources() {
         />
         :&lrm;
       </strong>{' '}
+      {/* eslint-enable formatjs/no-literal-string-in-jsx */}
       <select
         className="capacity-source-select"
         disabled={!isOwnedByCurrentUser()}

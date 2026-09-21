@@ -207,6 +207,7 @@ export function SignInDialog() {
                   autoComplete="email"
                   spellCheck={false}
                   onChange={handleChange}
+                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   placeholder="test@test.com"
                   required
                 />

@@ -5,6 +5,8 @@ import { userEvent } from '@testing-library/user-event'
 import { render } from '~/test/helpers/render.js'
 import { FloatingPanel } from './FloatingPanel.js'
 
+/* eslint-disable formatjs/no-literal-string-in-jsx */
+
 describe('FloatingPanel', () => {
   const props = {
     icon: 'sun' as const,

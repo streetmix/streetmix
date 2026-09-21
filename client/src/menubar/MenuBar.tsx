@@ -122,16 +122,19 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
         <li className="menu-bar-title">
           <img
             src={logoSrc}
+            // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             alt="Streetmix"
             className="menu-bar-logo"
             draggable={false}
           />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
           {coastmixMode && (
             <a href="https://boston.gov/" target="_blank" rel="noopener">
               <img
                 className="menu-bar-boston-logo"
                 src={bostonLogo}
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                 alt="City of Boston"
                 draggable={false}
               />

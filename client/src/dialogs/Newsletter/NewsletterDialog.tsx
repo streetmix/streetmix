@@ -108,6 +108,7 @@ export function NewsletterDialog() {
                 <input
                   type="email"
                   id={emailInputId}
+                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   placeholder="test@example.com"
                   autoComplete="email"
                   spellCheck={false}

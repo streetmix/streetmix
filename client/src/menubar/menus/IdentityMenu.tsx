@@ -63,10 +63,12 @@ export function IdentityMenu(props: MenuProps) {
                       className="subscriber-icon"
                       src={streetmixPlusIcon}
                       alt=""
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     />
                     Streetmix+&lrm;
                   </li>
                 )}
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {isAdmin && <li className="role-badge-admin">Admin</li>}
                 {/* <li className="role-badge-generic">
                   Beta tester

@@ -90,6 +90,7 @@ export function CoastalFloodingPanel() {
                 defaultMessage="Current"
               />
             </Button>
+            {/* eslint-disable formatjs/no-literal-string-in-jsx */}
             <Button
               className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
               data-tour-id="2030-sea-level-rise"
@@ -115,6 +116,7 @@ export function CoastalFloodingPanel() {
             >
               2070
             </Button>
+            {/* eslint-enable formatjs/no-literal-string-in-jsx */}
           </div>
         </div>
         <div className="popup-control-group" data-tour-id="storm-surge-control">

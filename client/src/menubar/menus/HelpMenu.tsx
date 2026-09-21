@@ -36,6 +36,7 @@ export function HelpMenu(props: MenuProps) {
       <MenuItem onClick={() => dispatch(showDialog('ABOUT'))}>
         <Icon name="info" className="menu-item-icon" />
         {coastmixMode ? (
+          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
           'About Coastmix…'
         ) : (
           <FormattedMessage
@@ -65,11 +66,13 @@ export function HelpMenu(props: MenuProps) {
           {coastmixMode && (
             <>
               <CoastmixOnboardingTour>
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 <MenuItem onClick={() => dispatch(clearMenus())}>
                   Coastmix tutorial
                 </MenuItem>
               </CoastmixOnboardingTour>
               <CoastmixPracticeTour>
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 <MenuItem onClick={() => dispatch(clearMenus())}>
                   Coastmix practice scenario
                 </MenuItem>

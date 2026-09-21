@@ -128,7 +128,7 @@ export function AnalyticsDialog() {
                 />
               ))}
               <p>
-                {}
+                {/* eslint-disable formatjs/no-literal-string-in-jsx */}
                 <strong>
                   <FormattedMessage
                     id="dialogs.analytics.source"
@@ -144,7 +144,7 @@ export function AnalyticsDialog() {
                   capacityData.source_title
                 )}
                 , {capacityData.source_author}
-                {}
+                {/* eslint-enable formatjs/no-literal-string-in-jsx */}
               </p>
             </div>
             <hr />

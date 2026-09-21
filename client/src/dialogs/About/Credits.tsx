@@ -108,6 +108,7 @@ export function Credits() {
                 />
               </h3>
               <ul>
+                {/* eslint-disable formatjs/no-literal-string-in-jsx */}
                 {value.sort().map((name) =>
                   Array.isArray(name) ? (
                     <li key={name[0]}>
@@ -126,6 +127,7 @@ export function Credits() {
                     </li>
                   )
                 )}
+                {/* eslint-enable formatjs/no-literal-string-in-jsx */}
               </ul>
             </Fragment>
           ))}
@@ -153,6 +155,7 @@ export function Credits() {
                   />
                 </h4>
                 <ul>
+                  {/* eslint-disable formatjs/no-literal-string-in-jsx */}
                   {value.sort().map((name) =>
                     Array.isArray(name) ? (
                       <li key={name[0]}>
@@ -162,6 +165,7 @@ export function Credits() {
                       <li key={name}>{name}</li>
                     )
                   )}
+                  {/* eslint-enable formatjs/no-literal-string-in-jsx */}
                 </ul>
               </li>
             ))}
