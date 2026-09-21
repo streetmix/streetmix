@@ -21,7 +21,7 @@ describe('StreetEditable', () => {
     width: 400,
     type,
     slope: { on: false, values: [] },
-    warnings: [],
+    warnings: {},
   }
 
   describe('segment warnings', () => {
@@ -59,15 +59,9 @@ describe('StreetEditable', () => {
         await userEvent.type(container, '+')
 
         expect(store.getState().street.segments[0].width).toEqual(120)
-        expect(store.getState().street.segments[0].warnings).toEqual([
-          false,
-          false,
-          false,
-          true,
-          false,
-          false,
-          false,
-        ])
+        expect(store.getState().street.segments[0].warnings).toEqual({
+          tooWide: true,
+        })
         expect(asFragment()).toMatchSnapshot()
       })
     })

@@ -18,26 +18,28 @@ const initialState = {
     segments: [
       {
         type: 'baz',
-        warnings: [],
+        warnings: {},
       },
       // Include two segments (both should be added)
       {
         type: 'foo',
-        warnings: [],
+        warnings: {},
       },
       {
         type: 'foo',
-        warnings: [],
+        warnings: {},
       },
       // Include a segment without capacity (adds zero)
       {
         type: 'bar',
-        warnings: [],
+        warnings: {},
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [false, true, false, false],
+        warnings: {
+          outOfBounds: true,
+        },
       },
     ],
   },

@@ -1,39 +1,41 @@
 import { vi } from 'vitest'
+
 import {
   getSegmentCapacity,
   getStreetCapacity,
   getRolledUpSegmentCapacities,
-  getCsv
-} from '../capacity'
+  getCsv,
+} from '../capacity.js'
 
 // Provide mock capacity data to prevent changes in production data from
 // breaking the expected values of this test
-vi.mock('../../segments/capacity_data.json', () => ({
-  default: require('../__mocks__/capacity_data.json')
-}))
+vi.mock(
+  '../../segments/capacity_data.json',
+  async () => await import('../../segments/__mocks__/capacity_data.json')
+)
 
 describe('segment capacity', () => {
   it('returns capacity data for segment', () => {
     const segment = {
       type: 'foo',
-      warnings: []
+      warnings: {},
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 200,
-      potential: 300
+      potential: 300,
     })
   })
 
   it('returns capacity data for segment with inherited data', () => {
     const segment = {
       type: 'zed',
-      warnings: []
+      warnings: {},
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 200,
-      potential: 300
+      potential: 300,
     })
   })
 
@@ -41,57 +43,57 @@ describe('segment capacity', () => {
     const segment = {
       type: 'qux',
       variant: {
-        var: 'foofoo'
+        var: 'foofoo',
       },
-      warnings: []
+      warnings: {},
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 200,
-      potential: 300
+      potential: 300,
     })
   })
 
   it('returns capacity data for segment from common data source', () => {
     const segment = {
       type: 'baz',
-      warnings: []
+      warnings: {},
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 100,
-      potential: 200
+      potential: 200,
     })
   })
 
   it('drops capacity to zero for segments outside the street', () => {
     const segment = {
       type: 'foo',
-      warnings: [false, true, false, false]
+      warnings: { outOfBounds: true },
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 0,
-      potential: 0
+      potential: 0,
     })
   })
 
   it('drops capacity to zero for segments that are too small', () => {
     const segment = {
       type: 'foo',
-      warnings: [false, false, true, false]
+      warnings: { tooNarrow: true },
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
       average: 0,
-      potential: 0
+      potential: 0,
     })
   })
 
   it('returns undefined if segment does not have a capacity data point', () => {
     const segment = {
       type: 'bar',
-      warnings: []
+      warnings: {},
     }
 
     expect(getSegmentCapacity(segment)).toEqual(undefined)
@@ -101,7 +103,7 @@ describe('segment capacity', () => {
     // is changed or refactored.
     const segment2 = {
       type: 'bar',
-      warnings: [false, true, false, false]
+      warnings: { outOfBounds: true },
     }
 
     expect(getSegmentCapacity(segment2)).toEqual(undefined)
@@ -114,33 +116,33 @@ describe('street capacity', () => {
       segments: [
         {
           type: 'baz',
-          warnings: []
+          warnings: {},
         },
         // Include two segments (both should be added)
         {
           type: 'foo',
-          warnings: []
+          warnings: {},
         },
         {
           type: 'foo',
-          warnings: []
+          warnings: {},
         },
         // Include a segment without capacity (adds zero)
         {
           type: 'bar',
-          warnings: []
+          warnings: {},
         },
         // Include a segment with warnings (adds zero)
         {
           type: 'baz',
-          warnings: [false, true, false, false]
-        }
-      ]
+          warnings: { outOfBounds: true },
+        },
+      ],
     }
 
     expect(getStreetCapacity(street)).toEqual({
       average: 500,
-      potential: 800
+      potential: 800,
     })
   })
 
@@ -149,18 +151,18 @@ describe('street capacity', () => {
       segments: [
         {
           type: 'bar',
-          warnings: []
+          warnings: {},
         },
         {
           type: 'baz',
-          warnings: [false, true, false, false]
-        }
-      ]
+          warnings: { outOfBounds: true },
+        },
+      ],
     }
 
     expect(getStreetCapacity(street)).toEqual({
       average: 0,
-      potential: 0
+      potential: 0,
     })
   })
 })
@@ -170,56 +172,56 @@ describe('rolled-up segment capacities', () => {
     segments: [
       {
         type: 'qux',
-        warnings: []
+        warnings: {},
       },
       // Include two segments (both should be added)
       // and sorted before 'qux'
       {
         type: 'foo',
-        warnings: []
+        warnings: {},
       },
       {
         type: 'foo',
-        warnings: []
+        warnings: {},
       },
       // Result should sort 'baz' before 'foo'
       {
         type: 'baz',
-        warnings: []
+        warnings: {},
       },
       {
         type: 'qux',
-        warnings: []
+        warnings: {},
       },
       // Include a segment without capacity (adds zero)
       {
         type: 'bar',
-        warnings: []
+        warnings: {},
       },
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: [false, true, false, false]
-      }
-    ]
+        warnings: { outOfBounds: true },
+      },
+    ],
   }
 
   it('returns sorted, rolled-up capacity data for street', () => {
     expect(getRolledUpSegmentCapacities(street)).toEqual([
       {
         type: 'baz',
-        capacity: { average: 100, potential: 200 }
+        capacity: { average: 100, potential: 200 },
       },
       // Results should have lower average sorted before higher average,
       // when the potential values are the same
       {
         type: 'foo',
-        capacity: { average: 400, potential: 600 }
+        capacity: { average: 400, potential: 600 },
       },
       {
         type: 'qux',
-        capacity: { average: 600, potential: 600 }
-      }
+        capacity: { average: 600, potential: 600 },
+      },
     ])
   })
 
@@ -228,9 +230,9 @@ describe('rolled-up segment capacities', () => {
       segments: [
         {
           type: 'bar',
-          warnings: []
-        }
-      ]
+          warnings: {},
+        },
+      ],
     }
 
     expect(getRolledUpSegmentCapacities(street)).toEqual([])

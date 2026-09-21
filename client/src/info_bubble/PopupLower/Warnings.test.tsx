@@ -2,26 +2,25 @@ import { render } from '~/test/helpers/render.js'
 import { Warnings } from './Warnings.js'
 
 describe('Warnings', () => {
-  // Note: warnings start indexing at 1!
-  it('renders warning 1', () => {
+  it('renders out of bounds warning', () => {
     const segment = {
-      warnings: [null, true],
+      warnings: { outOfBounds: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
   })
 
-  it('renders warning 2', () => {
+  it('renders too narrow warning', () => {
     const segment = {
-      warnings: [null, false, true, false],
+      warnings: { tooNarrow: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may not be wide enough.')
   })
 
-  it('renders warning 3', () => {
+  it('renders too wide warning', () => {
     const segment = {
-      warnings: [null, false, false, true],
+      warnings: { tooWide: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may be too wide.')
@@ -29,7 +28,11 @@ describe('Warnings', () => {
 
   it('renders two warnings', () => {
     const segment = {
-      warnings: [null, true, false, true],
+      warnings: {
+        outOfBounds: true,
+        tooWide: true,
+        tooNarrow: false,
+      },
     }
     const { container } = render(<Warnings segment={segment} />)
 
@@ -40,7 +43,11 @@ describe('Warnings', () => {
 
   it('renders three warnings', () => {
     const segment = {
-      warnings: [null, true, true, true],
+      warnings: {
+        outOfBounds: true,
+        tooWide: true,
+        tooNarrow: true,
+      },
     }
     const { container } = render(<Warnings segment={segment} />)
 
@@ -51,7 +58,11 @@ describe('Warnings', () => {
 
   it('renders no warnings', () => {
     const segment = {
-      warnings: [null, false, false, false],
+      warnings: {
+        outOfBounds: false,
+        tooWide: false,
+        tooNarrow: false,
+      },
     }
     const { container } = render(<Warnings segment={segment} />)
 

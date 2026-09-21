@@ -4,9 +4,9 @@ import { recalculateWidth } from './width.js'
 describe('applyWarningsToSlices', () => {
   it('applies no warnings', () => {
     const slices = [
-      { width: 4, slope: { on: false }, warnings: [false] },
-      { width: 8, slope: { on: false }, warnings: [false] },
-      { width: 8, slope: { on: false }, warnings: [false] },
+      { width: 4, slope: { on: false }, warnings: {} },
+      { width: 8, slope: { on: false }, warnings: {} },
+      { width: 8, slope: { on: false }, warnings: {} },
     ]
     const street = {
       width: 20,
@@ -18,26 +18,26 @@ describe('applyWarningsToSlices', () => {
       {
         width: 4,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
     ])
   })
 
   it('applies warnings to overoccupied street', () => {
     const slices = [
-      { width: 8, slope: { on: false }, warnings: [false] },
-      { width: 6, slope: { on: false }, warnings: [false] },
-      { width: 8, slope: { on: false }, warnings: [false] },
+      { width: 8, slope: { on: false }, warnings: {} },
+      { width: 6, slope: { on: false }, warnings: {} },
+      { width: 8, slope: { on: false }, warnings: {} },
     ]
     const street = {
       width: 20,
@@ -49,17 +49,17 @@ describe('applyWarningsToSlices', () => {
       {
         width: 8,
         slope: { on: false },
-        warnings: [false, true, false, false, false, false, false],
+        warnings: { outOfBounds: true },
       },
       {
         width: 6,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
       {
         width: 8,
         slope: { on: false },
-        warnings: [false, true, false, false, false, false, false],
+        warnings: { outOfBounds: true },
       },
     ])
   })
@@ -71,21 +71,21 @@ describe('applyWarningsToSlices', () => {
         type: 'sidewalk',
         variantString: 'normal',
         slope: { on: false },
-        warnings: [false],
+        warnings: {},
       },
       {
         width: 3,
         type: 'divider',
         variantString: 'bush',
         slope: { on: false },
-        warnings: [false],
+        warnings: {},
       },
       {
         width: 5.4,
         type: 'parking-lane',
         variantString: 'inbound|left',
         slope: { on: false },
-        warnings: [false],
+        warnings: {},
       },
     ]
     const street = {
@@ -100,21 +100,21 @@ describe('applyWarningsToSlices', () => {
         type: 'sidewalk',
         variantString: 'normal',
         slope: { on: false },
-        warnings: [false, false, true, false, false, false, false],
+        warnings: { tooNarrow: true },
       },
       {
         width: 3,
         type: 'divider',
         variantString: 'bush',
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
       {
         width: 5.4,
         type: 'parking-lane',
         variantString: 'inbound|left',
         slope: { on: false },
-        warnings: [false, false, false, true, false, false, false],
+        warnings: { tooWide: true },
       },
     ])
   })
@@ -126,7 +126,7 @@ describe('applyWarningsToSlices', () => {
         type: 'drive-lane',
         variantString: 'inbound|car-with-bike',
         slope: { on: false },
-        warnings: [false],
+        warnings: {},
       },
     ]
     const street = {
@@ -141,22 +141,22 @@ describe('applyWarningsToSlices', () => {
         type: 'drive-lane',
         variantString: 'inbound|car-with-bike',
         slope: { on: false },
-        warnings: [false, false, false, false, true, false, false],
+        warnings: { dangerousExisting: true },
       },
     ])
   })
 
   it('applies a warning for exceeding maximum slope', () => {
     const slices = [
-      { width: 3, elevation: 0, slope: { on: false }, warnings: [false] },
+      { width: 3, elevation: 0, slope: { on: false }, warnings: {} },
       {
         width: 3,
         type: 'divider',
         variantString: 'planting-strip',
         slope: { on: true, values: [0, 4] },
-        warnings: [false],
+        warnings: {},
       },
-      { width: 3, elevation: 4, slope: { on: false }, warnings: [false] },
+      { width: 3, elevation: 4, slope: { on: false }, warnings: {} },
     ]
     const street = {
       width: 20,
@@ -169,20 +169,23 @@ describe('applyWarningsToSlices', () => {
         width: 3,
         elevation: 0,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
       {
         width: 3,
         type: 'divider',
         variantString: 'planting-strip',
         slope: { on: true, values: [0, 4] },
-        warnings: [false, false, false, false, false, true, true],
+        warnings: {
+          slopeBermExceeded: true,
+          slopePathExceeded: true,
+        },
       },
       {
         width: 3,
         elevation: 4,
         slope: { on: false },
-        warnings: [false, false, false, false, false, false, false],
+        warnings: {},
       },
     ])
   })

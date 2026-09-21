@@ -1,14 +1,6 @@
 import { getSegmentVariantInfo } from '@streetmix/parts'
 import { getWidthInMetric } from '@streetmix/utils'
 
-import {
-  SLICE_WARNING_OUTSIDE,
-  SLICE_WARNING_WIDTH_TOO_SMALL,
-  SLICE_WARNING_WIDTH_TOO_LARGE,
-  SLICE_WARNING_DANGEROUS_EXISTING,
-  SLICE_WARNING_SLOPE_EXCEEDED_BERM,
-  SLICE_WARNING_SLOPE_EXCEEDED_PATH,
-} from '../segments/constants.js'
 import { getRiseRunValues, getSlopeWarnings } from '../segments/slope.js'
 
 import type { SliceItem, StreetJson } from '@streetmix/types'
@@ -39,9 +31,7 @@ export function applyWarningsToSlices(
       (position.lessThan(0) ||
         position.plus(slice.width).greaterThan(streetWidth))
     ) {
-      slice.warnings[SLICE_WARNING_OUTSIDE] = true
-    } else {
-      slice.warnings[SLICE_WARNING_OUTSIDE] = false
+      slice.warnings.outOfBounds = true
     }
 
     // Apply a warning if slice width is less than the minimum width
@@ -50,9 +40,7 @@ export function applyWarningsToSlices(
       variantInfo.minWidth !== undefined &&
       slice.width < getWidthInMetric(variantInfo.minWidth, street.units)
     ) {
-      slice.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] = true
-    } else {
-      slice.warnings[SLICE_WARNING_WIDTH_TOO_SMALL] = false
+      slice.warnings.tooNarrow = true
     }
 
     // Apply a warning if slice width is greater than the maximum width
@@ -61,17 +49,13 @@ export function applyWarningsToSlices(
       variantInfo.maxWidth &&
       slice.width > getWidthInMetric(variantInfo.maxWidth, street.units)
     ) {
-      slice.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] = true
-    } else {
-      slice.warnings[SLICE_WARNING_WIDTH_TOO_LARGE] = false
+      slice.warnings.tooWide = true
     }
 
     // Apply a warning if the slice type and variant is the mixed-use
     // drive lane with bicycle, which is a dangerous existing condition
     if (variantInfo.dangerous === true) {
-      slice.warnings[SLICE_WARNING_DANGEROUS_EXISTING] = true
-    } else {
-      slice.warnings[SLICE_WARNING_DANGEROUS_EXISTING] = false
+      slice.warnings.dangerousExisting = true
     }
 
     // Apply a warning for slope
@@ -79,23 +63,16 @@ export function applyWarningsToSlices(
       const { ratio } = getRiseRunValues(slice.slope.values, slice.width)
       const slopeWarnings = getSlopeWarnings(ratio)
       if (variantInfo.slope === 'berm' && slopeWarnings.slopeExceededBerm) {
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = true
+        slice.warnings.slopeBermExceeded = true
         // The idea is that if you've exceeded the slope for berm you've also
         // exceeded the slope for path
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = true
+        slice.warnings.slopePathExceeded = true
       } else if (
         variantInfo.slope === 'path' &&
         slopeWarnings.slopeExceededPath
       ) {
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = true
-      } else {
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
-        slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
+        slice.warnings.slopePathExceeded = true
       }
-    } else {
-      slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_BERM] = false
-      slice.warnings[SLICE_WARNING_SLOPE_EXCEEDED_PATH] = false
     }
 
     // Increment the position counter
