@@ -4,9 +4,7 @@ import { Warnings } from './Warnings.js'
 describe('Warnings', () => {
   it('renders out of bounds warning', () => {
     const segment = {
-      warnings: {
-        outOfBounds: true,
-      },
+      warnings: { outOfBounds: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
@@ -14,9 +12,7 @@ describe('Warnings', () => {
 
   it('renders too narrow warning', () => {
     const segment = {
-      warnings: {
-        tooNarrow: true,
-      },
+      warnings: { tooNarrow: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may not be wide enough.')
@@ -24,9 +20,7 @@ describe('Warnings', () => {
 
   it('renders too wide warning', () => {
     const segment = {
-      warnings: {
-        tooWide: true,
-      },
+      warnings: { tooWide: true },
     }
     const { container } = render(<Warnings segment={segment} />)
     expect(container).toHaveTextContent('This may be too wide.')

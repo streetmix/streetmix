@@ -69,9 +69,7 @@ describe('segment capacity', () => {
   it('drops capacity to zero for segments outside the street', () => {
     const segment = {
       type: 'foo',
-      warnings: {
-        outOfBounds: true,
-      },
+      warnings: { outOfBounds: true },
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -83,9 +81,7 @@ describe('segment capacity', () => {
   it('drops capacity to zero for segments that are too small', () => {
     const segment = {
       type: 'foo',
-      warnings: {
-        tooNarrow: true,
-      },
+      warnings: { tooNarrow: true },
     }
 
     expect(getSegmentCapacity(segment)).toEqual({
@@ -107,9 +103,7 @@ describe('segment capacity', () => {
     // is changed or refactored.
     const segment2 = {
       type: 'bar',
-      warnings: {
-        outOfBounds: true,
-      },
+      warnings: { outOfBounds: true },
     }
 
     expect(getSegmentCapacity(segment2)).toEqual(undefined)
@@ -141,9 +135,7 @@ describe('street capacity', () => {
         // Include a segment with warnings (adds zero)
         {
           type: 'baz',
-          warnings: {
-            outOfBounds: true,
-          },
+          warnings: { outOfBounds: true },
         },
       ],
     }
@@ -163,9 +155,7 @@ describe('street capacity', () => {
         },
         {
           type: 'baz',
-          warnings: {
-            outOfBounds: true,
-          },
+          warnings: { outOfBounds: true },
         },
       ],
     }
@@ -211,9 +201,7 @@ describe('rolled-up segment capacities', () => {
       // Include a segment with warnings (adds zero)
       {
         type: 'baz',
-        warnings: {
-          outOfBounds: true,
-        },
+        warnings: { outOfBounds: true },
       },
     ],
   }

@@ -49,9 +49,7 @@ describe('applyWarningsToSlices', () => {
       {
         width: 8,
         slope: { on: false },
-        warnings: {
-          outOfBounds: true,
-        },
+        warnings: { outOfBounds: true },
       },
       {
         width: 6,
@@ -61,9 +59,7 @@ describe('applyWarningsToSlices', () => {
       {
         width: 8,
         slope: { on: false },
-        warnings: {
-          outOfBounds: true,
-        },
+        warnings: { outOfBounds: true },
       },
     ])
   })
@@ -104,9 +100,7 @@ describe('applyWarningsToSlices', () => {
         type: 'sidewalk',
         variantString: 'normal',
         slope: { on: false },
-        warnings: {
-          tooNarrow: true,
-        },
+        warnings: { tooNarrow: true },
       },
       {
         width: 3,
@@ -120,9 +114,7 @@ describe('applyWarningsToSlices', () => {
         type: 'parking-lane',
         variantString: 'inbound|left',
         slope: { on: false },
-        warnings: {
-          tooWide: true,
-        },
+        warnings: { tooWide: true },
       },
     ])
   })
@@ -149,9 +141,7 @@ describe('applyWarningsToSlices', () => {
         type: 'drive-lane',
         variantString: 'inbound|car-with-bike',
         slope: { on: false },
-        warnings: {
-          dangerousExisting: true,
-        },
+        warnings: { dangerousExisting: true },
       },
     ])
   })
