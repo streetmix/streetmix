@@ -21,7 +21,6 @@ describe('StreetEditable', () => {
     width: 400,
     type,
     slope: { on: false, values: [] },
-    warnings: {},
   }
 
   describe('segment warnings', () => {

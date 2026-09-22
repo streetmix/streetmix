@@ -28,11 +28,6 @@ export function addAltVariantObject(street: StreetState) {
     // Alternate method of storing variants as object key-value pairs,
     // instead of a string. We might gradually migrate toward this.
     segment.variant = getVariantInfo(segment.type, segment.variantString)
-
-    // Also use this loop to add empty warnings object
-    // Prevents bugs where things expect the warnings object to be there
-    segment.warnings = {}
-
     return segment
   })
 }

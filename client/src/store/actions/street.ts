@@ -17,10 +17,7 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary,
 } from '~/src/streets/data_model.js'
-import {
-  applyWarningsToSlices,
-  getSliceWarnings,
-} from '~/src/streets/warnings.js'
+import { getSliceWarnings } from '~/src/streets/warnings.js'
 import { recalculateWidth } from '~/src/streets/width.js'
 import { saveStreetToServer } from '~/src/streets/xhr.js'
 import apiClient from '~/src/util/api.js'
@@ -97,8 +94,6 @@ export const segmentsChanged = (force = false) => {
         // This shallow-copies the original data, which is generally fine
         // for everything but two properties
         ...slice,
-        // This will be appended to by `applyWarningsToSlices`
-        warnings: {},
         // This will be modified by slope calculation
         slope: {
           on: slice.slope.on ?? false,
@@ -106,11 +101,12 @@ export const segmentsChanged = (force = false) => {
         },
       }
     })
-
-    const updatedSlices = applyWarningsToSlices(
-      clonedSlices,
-      street,
-      calculatedWidths
+    await dispatch(
+      updateSegments(
+        clonedSlices,
+        calculatedWidths.occupiedWidth.toNumber(),
+        calculatedWidths.remainingWidth.toNumber()
+      )
     )
 
     const sliceWarnings = getSliceWarnings(
@@ -119,14 +115,6 @@ export const segmentsChanged = (force = false) => {
       calculatedWidths
     )
     await dispatch(setSliceWarnings(sliceWarnings))
-
-    await dispatch(
-      updateSegments(
-        updatedSlices,
-        calculatedWidths.occupiedWidth.toNumber(),
-        calculatedWidths.remainingWidth.toNumber()
-      )
-    )
 
     // Calculate flood details
     // This is using a stale version of `street` and might not include
@@ -259,7 +247,6 @@ const createStreetFromResponse = (response: StreetAPIResponse): StreetState => {
   street.location = response.data.street.location || null
   street.editCount = response.data.street.editCount || 0
   street.segments = street.segments.map((segment) => {
-    segment.warnings = {}
     segment.variant = getVariantInfo(segment.type, segment.variantString)
     return segment
   })
