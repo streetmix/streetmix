@@ -122,7 +122,7 @@ export function getCapacityData(
 export function getSegmentCapacity(
   segment: Segment,
   source: string = DEFAULT_CAPACITY_SOURCE,
-  warnings: Partial<SliceWarnings>
+  warnings: Partial<SliceWarnings> = {}
 ): CapacityForDisplay | undefined {
   let capacity = getCapacityData(source).segments[segment.type]
 
