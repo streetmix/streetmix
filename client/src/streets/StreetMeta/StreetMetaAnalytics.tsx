@@ -10,10 +10,11 @@ import { StreetMetaItem } from './StreetMetaItem.js'
 export function StreetMetaAnalytics() {
   const street = useSelector((state) => state.street)
   const locale = useSelector((state) => state.locale.locale)
+  const warnings = useSelector((state) => state.warnings.slices)
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const averageCapacity = getStreetCapacity(street).average ?? 0
+  const averageCapacity = getStreetCapacity(street, warnings).average ?? 0
   const tooltip = intl.formatMessage({
     id: 'dialogs.analytics.heading',
     defaultMessage: 'Analytics',
