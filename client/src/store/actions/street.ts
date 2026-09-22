@@ -17,7 +17,10 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary,
 } from '~/src/streets/data_model.js'
-import { applyWarningsToSlices } from '~/src/streets/warnings.js'
+import {
+  applyWarningsToSlices,
+  getSliceWarnings,
+} from '~/src/streets/warnings.js'
 import { recalculateWidth } from '~/src/streets/width.js'
 import { saveStreetToServer } from '~/src/streets/xhr.js'
 import apiClient from '~/src/util/api.js'
@@ -38,6 +41,7 @@ import {
 } from '../slices/street.js'
 import { setInfoBubbleMouseInside } from '../slices/infoBubble.js'
 import { setActiveSegment, setImmediateRemoval } from '../slices/ui.js'
+import { setSliceWarnings } from '../slices/warnings.js'
 
 import { setFloodDetails } from '../slices/coastmix.js'
 import type { Dispatch, RootState } from '../index.js'
@@ -108,6 +112,13 @@ export const segmentsChanged = (force = false) => {
       street,
       calculatedWidths
     )
+
+    const sliceWarnings = getSliceWarnings(
+      clonedSlices,
+      street,
+      calculatedWidths
+    )
+    await dispatch(setSliceWarnings(sliceWarnings))
 
     await dispatch(
       updateSegments(

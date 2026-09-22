@@ -1,13 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { ColorModes } from '~/src/app/constants'
-import { COLOR_MODE_LIGHT } from '~/src/app/constants'
+import { COLOR_MODE_LIGHT, type ColorModes } from '~/src/app/constants.js'
 import {
   SETTINGS_UNITS_IMPERIAL,
   SETTINGS_UNITS_METRIC,
-} from '~/src/users/constants'
-import { STREETMIX_INSTANCE } from '../../app/config'
-import { changeLocale } from './locale'
+} from '~/src/users/constants.js'
+import { STREETMIX_INSTANCE } from '../../app/config.js'
+import { changeLocale } from './locale.js'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { UnitsSetting } from '@streetmix/types'

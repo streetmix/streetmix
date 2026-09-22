@@ -5,11 +5,11 @@ import {
   getSegmentVariantInfo,
 } from '@streetmix/parts'
 
-import { getElevationValue } from '~/src/segments/elevation'
-import { getVariantString } from '~/src/segments/variant_utils'
-import { DEFAULT_SKYBOX } from '~/src/sky/constants'
-import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants'
-import { SETTINGS_UNITS_METRIC } from '~/src/users/constants'
+import { getElevationValue } from '~/src/segments/elevation.js'
+import { getVariantString } from '~/src/segments/variant_utils.js'
+import { DEFAULT_SKYBOX } from '~/src/sky/constants.js'
+import { MAX_BUILDING_HEIGHT } from '~/src/segments/constants.js'
+import { SETTINGS_UNITS_METRIC } from '~/src/users/constants.js'
 
 import type {
   BoundaryPosition,

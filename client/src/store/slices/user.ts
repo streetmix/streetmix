@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import USER_ROLES from '../../../../app/data/user_roles.json'
-import { getGeoIp } from '../../util/api'
+import { getGeoIp } from '../../util/api.js'
 
 import type { UserState, UserProfile, UserSignInData } from '../../types'
 import type { PayloadAction } from '@reduxjs/toolkit'
