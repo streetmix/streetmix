@@ -467,7 +467,9 @@
       "not-wide": "十分な幅が設定されていません。",
       "too-wide": "セグメントが大きすぎます。",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "詳細",
     "unknown": {

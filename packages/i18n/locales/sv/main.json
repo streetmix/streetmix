@@ -467,7 +467,9 @@
       "not-wide": "Detta segment är kanske inte tillräckligt brett.",
       "too-wide": "Detta segment kan vara för brett.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "",
     "unknown": {

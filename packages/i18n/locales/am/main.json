@@ -467,7 +467,9 @@
       "not-wide": "ይህ  የመንገድ ክፍል ሰፊ ላይሆን ይችላል",
       "too-wide": "ይህ የመንገድ ክፍል በጣም ሰፊ ሊሆን ይችላል",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "የበለጠ ይወቁ",
     "unknown": {

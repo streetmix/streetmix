@@ -467,7 +467,9 @@
       "not-wide": "قد لا يكون هذا الجزء عريض بما يكفي.",
       "too-wide": "قد يكون هذا الجزء عريض للغاية.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "اعرف المزيد",
     "unknown": {

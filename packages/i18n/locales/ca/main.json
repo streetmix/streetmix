@@ -467,7 +467,9 @@
       "not-wide": "És possible que aquest tram o segment no sigui prou ampli.",
       "too-wide": "És possible que aquest tram o segment sigui massa ampli.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Apreneu-ne més",
     "unknown": {

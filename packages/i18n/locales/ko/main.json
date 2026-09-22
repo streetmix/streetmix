@@ -467,7 +467,9 @@
       "not-wide": "이 세그먼트의 폭이 충분히 넓지 않습니다.",
       "too-wide": "이 세그먼트의 폭이 너무 넓은 것 같네요.",
       "dangerous": "이 세그먼트는 위험한 현재 상태를 나타냅니다.",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "더 알아보기",
     "unknown": {

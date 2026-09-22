@@ -467,7 +467,9 @@
       "not-wide": "Этот сегмент может быть недостаточно широким.",
       "too-wide": "Этот сегмент может быть слишком широким.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Узнать больше",
     "unknown": {
