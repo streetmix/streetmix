@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { clearLocation } from './street'
+import { clearLocation } from './street.js'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { LatLngObject } from '@streetmix/types'

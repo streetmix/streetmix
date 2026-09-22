@@ -10,6 +10,8 @@ import type {
   CapacitySegments,
   CapacitySourceDefinition,
   Segment,
+  SliceItem,
+  SliceWarnings,
   StreetState,
 } from '@streetmix/types'
 
@@ -120,9 +122,9 @@ export function getCapacityData(
  */
 export function getSegmentCapacity(
   segment: Segment,
-  source: string = DEFAULT_CAPACITY_SOURCE
+  source: string = DEFAULT_CAPACITY_SOURCE,
+  warnings: Partial<SliceWarnings> = {}
 ): CapacityForDisplay | undefined {
-  const warnings = segment.warnings ?? {}
   let capacity = getCapacityData(source).segments[segment.type]
 
   // Returns undefined value if capacity is not defined
@@ -167,10 +169,13 @@ export function getSegmentCapacity(
  * segment capacity, this will always return an object. Values are set to zero
  * if street has no capacity data.
  */
-export function getStreetCapacity(street: StreetState): CapacityForDisplay {
+export function getStreetCapacity(
+  street: StreetState,
+  sliceWarnings: Record<string, Partial<SliceWarnings>>
+): CapacityForDisplay {
   const { segments, capacitySource } = street
-  const segmentCapacities = segments.map((segment: Segment) =>
-    getSegmentCapacity(segment, capacitySource)
+  const segmentCapacities = segments.map((slice: SliceItem) =>
+    getSegmentCapacity(slice, capacitySource, sliceWarnings[slice.id])
   )
 
   const sum = (total: number, num: number): number => {
@@ -195,13 +200,18 @@ export function getStreetCapacity(street: StreetState): CapacityForDisplay {
  * up identical segment types together.
  */
 export function getRolledUpSegmentCapacities(
-  street: StreetState
+  street: StreetState,
+  warnings: Record<string, Partial<SliceWarnings>>
 ): SegmentCapacities[] {
   const { segments, capacitySource } = street
   const capacities = segments
     // Iterate through each segment to determine its capacity
     .map((segment: Segment): SegmentCapacities | null => {
-      const capacity = getSegmentCapacity(segment, capacitySource)
+      const capacity = getSegmentCapacity(
+        segment,
+        capacitySource,
+        warnings[segment.id]
+      )
 
       if (capacity === undefined) {
         return null

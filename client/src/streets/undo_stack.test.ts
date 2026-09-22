@@ -51,57 +51,6 @@ describe('finishUndoOrRedo', () => {
     vi.clearAllMocks()
   })
 
-  it('preserves existing warnings on restored segments', async () => {
-    const differ = create()
-    const previousStreet = {
-      segments: [
-        {
-          id: '2',
-          type: 'drive-lane',
-          variantString: 'default',
-          width: 3,
-          elevation: 0,
-          slope: { on: false, values: [] },
-          warnings: { outOfBounds: true },
-        },
-      ],
-    }
-    const currentStreet = {
-      segments: [
-        {
-          id: '2',
-          type: 'drive-lane',
-          variantString: 'default',
-          width: 4,
-          elevation: 0,
-          slope: { on: false, values: [] },
-          warnings: {},
-        },
-      ],
-    }
-    const delta = differ.diff(previousStreet, currentStreet)
-
-    getStateMock.mockReturnValue({
-      street: currentStreet,
-      history: {
-        position: 0,
-        stack: [{}, delta],
-      },
-    })
-
-    await finishUndoOrRedo('undo', 1)
-
-    expect(updateStreetDataActionMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        segments: [
-          expect.objectContaining({
-            warnings: { outOfBounds: true },
-          }),
-        ],
-      })
-    )
-  })
-
   it('restores the expected street on undo', async () => {
     const differ = create()
     const previousStreet = {

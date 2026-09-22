@@ -5,6 +5,7 @@ import dialogs from '../slices/dialogs'
 import errors from '../slices/errors'
 import flags from '../slices/flags'
 import gallery from '../slices/gallery'
+import history from '../slices/history'
 import infoBubble from '../slices/infoBubble'
 import locale from '../slices/locale'
 import map from '../slices/map'
@@ -14,8 +15,8 @@ import street from '../slices/street'
 import system from '../slices/system'
 import toasts from '../slices/toasts'
 import ui from '../slices/ui'
-import history from '../slices/history'
 import user from '../slices/user'
+import warnings from '../slices/warnings'
 
 const reducers = {
   app,
@@ -35,7 +36,8 @@ const reducers = {
   system,
   toasts,
   ui,
-  user
+  user,
+  warnings,
 }
 
 export default reducers

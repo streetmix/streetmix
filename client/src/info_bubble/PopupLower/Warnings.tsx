@@ -4,20 +4,22 @@ import { FormattedMessage } from 'react-intl'
 // TODO: use <Icon />
 import alertIcon from 'url:~/images/warning_alert.svg'
 import errorIcon from 'url:~/images/warning_error.svg'
+import { useSelector } from '~/src/store/hooks.js'
 import './Warnings.css'
 
 import type { SliceItem } from '@streetmix/types'
 
 interface WarningsProps {
-  slice?: Pick<SliceItem, 'warnings' | 'type'>
+  slice?: Pick<SliceItem, 'id' | 'type'>
 }
 
-export function Warnings(props: WarningsProps) {
-  const { slice } = props
+export function Warnings({ slice }: WarningsProps) {
+  const sliceWarnings = useSelector((state) => state.warnings.slices)
   const messages = []
 
   if (slice === undefined) return null
-  const warnings = slice.warnings ?? {}
+
+  const warnings = sliceWarnings[slice.id] ?? {}
 
   if (warnings.dangerousExisting) {
     messages.push({

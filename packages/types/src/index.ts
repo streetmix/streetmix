@@ -32,15 +32,11 @@ export interface Segment {
   elevationChanged?: boolean
   slope: SlopeProperties
   variant: Record<string, string>
-  warnings: Partial<SliceWarnings>
   label?: string
 }
 
 export type SliceItem = Segment // Alias for future use
-export type SliceItemForServerTransmission = Omit<
-  SliceItem,
-  'variant' | 'warnings'
->
+export type SliceItemForServerTransmission = Omit<SliceItem, 'variant'>
 
 export interface SliceWarnings {
   outOfBounds: boolean

@@ -43,6 +43,9 @@ export function Segment(props: SliceProps) {
   const [oldVariant, setOldVariant] = useState<string>(segment.variantString)
 
   const street = useSelector((state) => state.street)
+  const warnings = useSelector(
+    (state) => state.warnings.slices[segment.id] ?? {}
+  )
   const enableAnalytics = useSelector(
     (state) => state.flags.ANALYTICS.value && state.street.showAnalytics
   )
@@ -234,7 +237,11 @@ export function Segment(props: SliceProps) {
   const displayName =
     segment.label ?? getLocaleSliceName(segment.type, segment.variantString)
 
-  const average = getSegmentCapacity(segment, street.capacitySource)?.average
+  const average = getSegmentCapacity(
+    segment,
+    street.capacitySource,
+    warnings
+  )?.average
   const elementWidth = segment.width * TILE_SIZE
 
   const segmentStyle = {
@@ -244,7 +251,6 @@ export function Segment(props: SliceProps) {
   }
 
   const classNames = ['segment']
-  const warnings = segment.warnings ?? {}
 
   if (isDragging) {
     classNames.push('dragged-out')
