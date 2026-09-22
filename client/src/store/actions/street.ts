@@ -17,7 +17,7 @@ import {
   setLastStreet,
   saveStreetToServerIfNecessary,
 } from '~/src/streets/data_model.js'
-import { getSliceWarnings } from '~/src/streets/warnings.js'
+import { applyWarningsToSlices } from '~/src/streets/warnings.js'
 import { recalculateWidth } from '~/src/streets/width.js'
 import { saveStreetToServer } from '~/src/streets/xhr.js'
 import apiClient from '~/src/util/api.js'
@@ -109,7 +109,7 @@ export const segmentsChanged = (force = false) => {
       )
     )
 
-    const sliceWarnings = getSliceWarnings(
+    const sliceWarnings = applyWarningsToSlices(
       clonedSlices,
       street,
       calculatedWidths
