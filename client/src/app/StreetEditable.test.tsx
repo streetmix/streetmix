@@ -17,7 +17,7 @@ describe('StreetEditable', () => {
   const variantString = 'inbound|regular'
   const segment = {
     variantString,
-    id: '1',
+    id: 'slice-id',
     width: 400,
     type,
     slope: { on: false, values: [] },
@@ -43,6 +43,11 @@ describe('StreetEditable', () => {
             width: 120,
             remainingWidth: 120,
           }),
+          warnings: {
+            slices: {
+              'slice-id': {},
+            },
+          },
         }
 
         const { getByTestId, store, container, asFragment } = render(
@@ -58,8 +63,9 @@ describe('StreetEditable', () => {
         await userEvent.hover(getByTestId('segment'))
         await userEvent.type(container, '+')
 
-        expect(store.getState().street.segments[0].width).toEqual(120)
-        expect(store.getState().street.segments[0].warnings).toEqual({
+        const state = store.getState()
+        expect(state.street.segments[0].width).toEqual(120)
+        expect(state.warnings.slices['slice-id']).toEqual({
           tooWide: true,
         })
         expect(asFragment()).toMatchSnapshot()
