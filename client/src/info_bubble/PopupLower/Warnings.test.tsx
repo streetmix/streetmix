@@ -6,7 +6,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: { outOfBounds: true },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
   })
 
@@ -14,7 +14,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: { tooNarrow: true },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
     expect(container).toHaveTextContent('This may not be wide enough.')
   })
 
@@ -22,7 +22,7 @@ describe('Warnings', () => {
     const segment = {
       warnings: { tooWide: true },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
     expect(container).toHaveTextContent('This may be too wide.')
   })
 
@@ -34,7 +34,7 @@ describe('Warnings', () => {
         tooNarrow: false,
       },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
 
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
     expect(container).toHaveTextContent('This may be too wide.')
@@ -49,7 +49,7 @@ describe('Warnings', () => {
         tooNarrow: true,
       },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
 
     expect(container).toHaveTextContent('This doesn’t fit within the street.')
     expect(container).toHaveTextContent('This may be too wide.')
@@ -64,7 +64,7 @@ describe('Warnings', () => {
         tooNarrow: false,
       },
     }
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
 
     expect(container).not.toHaveTextContent(
       'This doesn’t fit within the street.'
@@ -75,7 +75,7 @@ describe('Warnings', () => {
 
   it('renders nothing if segment is not defined', () => {
     const segment = undefined
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
 
     expect(container).not.toHaveTextContent(
       'This doesn’t fit within the street.'
@@ -86,7 +86,7 @@ describe('Warnings', () => {
 
   it('renders nothing if segment warnings is undefined', () => {
     const segment = {}
-    const { container } = render(<Warnings segment={segment} />)
+    const { container } = render(<Warnings slice={segment} />)
 
     expect(container).not.toHaveTextContent(
       'This doesn’t fit within the street.'

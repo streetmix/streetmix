@@ -2,7 +2,7 @@ import { useSelector } from '~/src/store/hooks.js'
 import { DescriptionPrompt } from './DescriptionPrompt.js'
 import { Warnings } from './Warnings.js'
 
-import type { BoundaryPosition, Segment } from '@streetmix/types'
+import type { BoundaryPosition, SliceItem } from '@streetmix/types'
 
 interface PopupLowerProps {
   position: number | BoundaryPosition
@@ -12,10 +12,10 @@ interface PopupLowerProps {
 export function PopupLower({ position, setArrowHighlighted }: PopupLowerProps) {
   const street = useSelector((state) => state.street)
 
-  // Segment is undefined when position refers to a building
-  let segment: Segment | undefined
+  // Slice is undefined when position refers to a building
+  let slice: SliceItem | undefined
   if (typeof position === 'number') {
-    segment = street.segments[position]
+    slice = street.segments[position]
   }
 
   function handleDescriptionOver(): void {
@@ -28,11 +28,11 @@ export function PopupLower({ position, setArrowHighlighted }: PopupLowerProps) {
 
   return (
     <>
-      <Warnings segment={segment} />
-      {segment?.type !== undefined && (
+      <Warnings slice={slice} />
+      {slice?.type !== undefined && (
         <DescriptionPrompt
-          type={segment.type}
-          variantString={segment.variantString}
+          type={slice.type}
+          variantString={slice.variantString}
           onMouseOver={handleDescriptionOver}
           onMouseOut={handleDescriptionOut}
         />

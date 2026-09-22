@@ -467,7 +467,9 @@
       "not-wide": "This may not be wide enough.",
       "too-wide": "This may be too wide.",
       "dangerous": "This is a dangerous existing condition.",
-      "slope-exceeded": "This may be too steep."
+      "slope-exceeded": "This may be too steep.",
+      "slope-exceeded-berm": "This may be too steep for vegetation.",
+      "slope-exceeded-path": "This may be too steep for people."
     },
     "learn-more": "Learn more",
     "unknown": {
