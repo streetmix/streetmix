@@ -467,7 +467,9 @@
       "not-wide": "Dieses Element könnte zu schmal sein.",
       "too-wide": "Dieses Element könnte zu breit sein.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Erfahre mehr",
     "unknown": {

@@ -467,7 +467,9 @@
       "not-wide": "To nemusí být dostatečně široké.",
       "too-wide": "To může být příliš široké.",
       "dangerous": "To je nebezpečný stav.",
-      "slope-exceeded": "To může být příliš strmé."
+      "slope-exceeded": "To může být příliš strmé.",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Zjistěte více",
     "unknown": {

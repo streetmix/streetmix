@@ -467,7 +467,9 @@
       "not-wide": "Toiminnallisesti liian kapea",
       "too-wide": "Toiminnallisesti liian leveä",
       "dangerous": "Vaarallinen ratkaisu",
-      "slope-exceeded": "Liian jyrkkä"
+      "slope-exceeded": "Liian jyrkkä",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Lue lisää",
     "unknown": {

@@ -467,7 +467,9 @@
       "not-wide": "Ruas ini mungkin tidak cukup lebar.",
       "too-wide": "Ruas ini mungkin terlalu lebar.",
       "dangerous": "Ruas ini mewakili kondisi berbahaya yang ada.",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Pelajari lebih lanjut",
     "unknown": {

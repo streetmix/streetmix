@@ -467,7 +467,9 @@
       "not-wide": "",
       "too-wide": "",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "",
     "unknown": {

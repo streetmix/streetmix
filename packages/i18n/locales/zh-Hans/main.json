@@ -467,7 +467,9 @@
       "not-wide": "这个部分可能不够宽。",
       "too-wide": "这个部分可能太宽了。",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "了解更多",
     "unknown": {

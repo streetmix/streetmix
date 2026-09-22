@@ -467,7 +467,9 @@
       "not-wide": "Cet élément de voirie pourrait ne pas être suffisant.",
       "too-wide": "Cet élément de voirie pourrait être trop large.",
       "dangerous": "",
-      "slope-exceeded": ""
+      "slope-exceeded": "",
+      "slope-exceeded-berm": "",
+      "slope-exceeded-path": ""
     },
     "learn-more": "Apprenez en davantage",
     "unknown": {
