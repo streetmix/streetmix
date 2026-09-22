@@ -10,6 +10,7 @@ import type {
   CapacitySegments,
   CapacitySourceDefinition,
   Segment,
+  SliceWarnings,
   StreetState,
 } from '@streetmix/types'
 
@@ -120,9 +121,9 @@ export function getCapacityData(
  */
 export function getSegmentCapacity(
   segment: Segment,
-  source: string = DEFAULT_CAPACITY_SOURCE
+  source: string = DEFAULT_CAPACITY_SOURCE,
+  warnings: Partial<SliceWarnings>
 ): CapacityForDisplay | undefined {
-  const warnings = segment.warnings ?? {}
   let capacity = getCapacityData(source).segments[segment.type]
 
   // Returns undefined value if capacity is not defined
