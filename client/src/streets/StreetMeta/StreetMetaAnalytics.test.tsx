@@ -34,6 +34,9 @@ describe('StreetMetaAnalytics', () => {
         locale: {
           locale: 'en',
         },
+        warnings: {
+          slices: {},
+        },
       },
     })
 
