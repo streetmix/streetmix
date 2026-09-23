@@ -263,8 +263,8 @@ export function normalizeAllSegmentWidths(
 }
 
 export function cancelSegmentResizeTransitions(): void {
-  document.body.classList.add('immediate-segment-resize')
+  document.body.classList.add('immediate-slice-resize')
   window.setTimeout(function () {
-    document.body.classList.remove('immediate-segment-resize')
+    document.body.classList.remove('immediate-slice-resize')
   }, SHORT_DELAY)
 }

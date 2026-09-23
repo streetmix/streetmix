@@ -34,7 +34,7 @@ body:not(.segment-resize-dragging) .segment {
     transform 150ms;
 }
 
-body.immediate-segment-resize .segment {
+body.immediate-slice-resize .segment {
   transition: none !important;
 }
 
