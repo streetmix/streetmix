@@ -1,4 +1,3 @@
-import titleImage from 'url:./welcome-coastmix.png'
 import { CoastmixOnboardingTour } from '~/src/ui/Tours/CoastmixOnboarding.js'
 import { Button } from '~/src/ui/Button.js'
 import './WelcomeCoastmix.css'
@@ -21,13 +20,6 @@ export function WelcomeCoastmix({ handleDismiss }: WelcomeCoastmixProps) {
   return (
     <div className="welcome-panel-content welcome-coastmix">
       <h1>Welcome to Coastmix!</h1>
-      <img
-        src={titleImage}
-        width="480"
-        alt="Welcome to Coastmix!"
-        draggable={false}
-      />
-
       <p>
         Climate change is causing sea level rise and more intense and frequent
         storms. Cities must adapt their waterfronts to prevent flooding and
