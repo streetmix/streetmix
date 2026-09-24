@@ -130,7 +130,11 @@ export function MenuBar({ onMenuDropdownClick }: MenuBarProps) {
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <h1>{coastmixMode ? 'Coastmix by Streetmix' : 'Streetmix'}</h1>
           {coastmixMode && (
-            <a href="https://boston.gov/" target="_blank" rel="noopener">
+            <a
+              href="https://www.boston.gov/coastmix/"
+              target="_blank"
+              rel="noopener"
+            >
               <img
                 className="menu-bar-boston-logo"
                 src={bostonLogo}
