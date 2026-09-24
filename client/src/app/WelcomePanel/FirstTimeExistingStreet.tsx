@@ -51,13 +51,13 @@ export function FirstTimeExistingStreet() {
           />
         )}
       </p>
-      <div className="welcome-panel-buttons">
+      <p>
         <FormattedMessage
           id="dialogs.welcome.existing.instruct"
           defaultMessage="Remix it by moving some segments around, or {startYourOwnStreet}."
           values={{
             startYourOwnStreet: (
-              <Button onClick={handleGoNewStreet}>
+              <Button onClick={handleGoNewStreet} primary>
                 <FormattedMessage
                   id="dialogs.welcome.existing.instruct-start-own-street"
                   defaultMessage="Start your own street"
@@ -66,7 +66,7 @@ export function FirstTimeExistingStreet() {
             ),
           }}
         />
-      </div>
+      </p>
     </div>
   )
 }

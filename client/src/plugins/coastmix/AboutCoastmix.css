@@ -29,10 +29,8 @@ header.about-coastmix-header {
 }
 
 .about-coastmix-content {
-  font-family: Lora, Georgia, serif;
-
   > p {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   ul i {

@@ -26,7 +26,8 @@ export function CoastmixTutorialComplete() {
             <p
               style={{
                 display: 'flex',
-                margin: '0',
+                margin: 0,
+                marginTop: '1.5em',
               }}
             >
               <Button onClick={closeDialog} tertiary>
