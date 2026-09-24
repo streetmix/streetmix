@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd-multi-backend'
 import { HTML5toTouch } from 'rdndmb-html5-to-touch'
 import { FloatingTree } from '@floating-ui/react'
 
-import { CoastmixUI, BostonHeader } from '~/src/plugins/coastmix'
+import { CoastmixUI } from '~/src/plugins/coastmix'
 import { MenusContainer } from '../menubar/MenusContainer.js'
 import { StreetNameplateContainer } from '../streets/StreetNameplateContainer.js'
 import { DescriptionPanel } from '../info_bubble/DescriptionPanel.js'
@@ -79,7 +79,7 @@ export function App() {
                 <DndProvider options={HTML5toTouch} context={window}>
                   {/* DndProvider allows multiple children; IntlProvider does not */}
                   <NotificationBar />
-                  <BostonHeader />
+                  {/* <BostonHeader /> */}
                   {/* Don't have this with <NotificationBar at the same time */}
                   <BlockingShield />
                   <BlockingError />
