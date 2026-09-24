@@ -216,7 +216,7 @@ app.use(passport.session())
 const metatagImage =
   process.env.STREETMIX_INSTANCE !== 'coastmix'
     ? 'https://streetmix.net/images/thumbnail.png'
-    : 'https://coastmix.streetmix.app/images/thumbnail-coastmix.png'
+    : 'https://coastmix.org/images/thumbnail-coastmix.png'
 const metatagTitle =
   process.env.STREETMIX_INSTANCE !== 'coastmix' ? 'Streetmix' : 'Coastmix'
 const metatagDescription =
