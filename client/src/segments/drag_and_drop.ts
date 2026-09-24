@@ -465,7 +465,7 @@ function doDropHeuristics(
   }
 }
 
-export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
+export function onBodyMouseUp(): void {
   const { draggingType } = store.getState().ui
 
   switch (draggingType) {
@@ -475,8 +475,6 @@ export function onBodyMouseUp(event: MouseEvent | TouchEvent): void {
       handleSegmentResizeEnd()
       break
   }
-
-  event.preventDefault()
 }
 
 function handleSegmentDragEnd(): void {
