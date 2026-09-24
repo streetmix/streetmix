@@ -31,7 +31,7 @@ export function WelcomeCoastmixNew({ handleDismiss }: WelcomeCoastmixNewProps) {
   }, [Shepherd.Tour, Shepherd.activeTour, handleDismiss])
 
   return (
-    <div className="welcome-panel-content">
+    <div className="welcome-panel-content welcome-coastmix">
       <h1>Here’s your new waterfront.</h1>
       <div className="welcome-panel-buttons">
         <Button primary onClick={handleDismiss}>
