@@ -39,6 +39,23 @@
     font-size: 16px;
     line-height: 1.4;
   }
+
+  /* Component specific tweaks to <StreetName /> */
+  .street-name {
+    --street-name-size: var(--street-name-size-small);
+
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.25em;
+    margin-top: -0.1em;
+    max-width: 100%;
+    line-height: 0;
+  }
+
+  /* Component specific tweaks to <Avatar /> */
+  .avatar {
+    margin-inline: 0.3em 0.1em;
+  }
 }
 
 .welcome-panel-buttons {
@@ -46,15 +63,6 @@
   display: flex;
   justify-content: center;
   gap: 1em;
-}
-
-/* Component specific tweaks to <StreetName /> */
-.welcome-panel .street-name {
-  --street-name-size: var(--street-name-size-small);
-
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 0.25em;
-  margin-top: -0.1em;
-  max-width: 100%;
+  font-size: 16px;
+  line-height: 1.4;
 }
