@@ -44,6 +44,7 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
 
     // Calculate how much sea level rises
     const rise = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
+    console.log(rise)
 
     // Total height added together
     height += rise * TILE_SIZE

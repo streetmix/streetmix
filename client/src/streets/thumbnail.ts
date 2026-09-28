@@ -637,6 +637,7 @@ export function drawFlood(
   scale: number
 ): void {
   const [left, right] = floodDetails
+  console.log(left, right)
 
   // Save previous canvas context
   ctx.save()
@@ -645,34 +646,44 @@ export function drawFlood(
   ctx.globalAlpha = FLOOD_ALPHA
   ctx.fillStyle = FLOOD_COLOR
 
-  // Flood below entire street
+  const HALF_OF_WAVE_HEIGHT = 8 / 2
+
+  // Hard coded stuff for testing flood height
+  // TODO: pass in actual values from state
+  const floodHeight = 1.295
+  const stormSurge = true
+
+  // Actual height of flood to draw, including storm surge
+  const floodHeightActual =
+    floodHeight * TILE_SIZE + HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
+
+  // Draw flood
   // If either left or right is "max", means we flood the entire image.
   if (left?.distance === 'max' || right?.distance === 'max') {
     ctx.fillRect(
       0,
-      groundLevel * scale,
+      (groundLevel - floodHeightActual) * scale,
       width * scale,
-      GROUND_BASELINE_HEIGHT * scale
+      (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
     )
   } else {
     if (typeof left?.distance === 'number') {
       ctx.fillRect(
         0,
-        groundLevel * scale,
+        (groundLevel - floodHeightActual) * scale,
         (BOUNDARY_WIDTH + left.distance * TILE_SIZE) * scale,
-        GROUND_BASELINE_HEIGHT * scale
+        (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
       )
     }
     if (typeof right?.distance === 'number') {
       ctx.fillRect(
         (width - BOUNDARY_WIDTH - right.distance * TILE_SIZE) * scale,
-        groundLevel * scale,
+        (groundLevel - floodHeightActual) * scale,
         (BOUNDARY_WIDTH + right.distance * TILE_SIZE) * scale,
-        GROUND_BASELINE_HEIGHT * scale
+        (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
       )
     }
   }
-  // TODO: flood height
   // TODO: wave texture
 
   // Restore previous canvas context
