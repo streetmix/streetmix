@@ -20,6 +20,7 @@ export interface SettingsState {
   saveAsImageSegmentNamesAndWidths: boolean
   saveAsImageStreetName: boolean
   saveAsImageWatermark: boolean
+  saveAsImageFlood: boolean
   colorMode: ColorModes
   locale: string | null
   units: UnitsSetting
@@ -34,6 +35,7 @@ const initialState: SettingsState = {
   saveAsImageSegmentNamesAndWidths: false,
   saveAsImageStreetName: false,
   saveAsImageWatermark: true,
+  saveAsImageFlood: false,
   colorMode: COLOR_MODE_LIGHT,
   locale: null,
   // Temporary workaround: coastmix instance defaults to US customary units

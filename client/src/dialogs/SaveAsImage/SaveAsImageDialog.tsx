@@ -32,11 +32,13 @@ export function SaveAsImageDialog() {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
+    saveAsImageFlood: renderFlood,
   } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
     (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
   )
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const street = useSelector((state) => state.street)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
@@ -108,6 +110,10 @@ export function SaveAsImageDialog() {
 
   const toggleStreetName = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
+  }
+
+  const toggleFlood = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageFlood: event.target.checked }))
   }
 
   const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -284,6 +290,15 @@ export function SaveAsImageDialog() {
                   defaultMessage="Transparent sky"
                 />
               </Checkbox>
+
+              {coastmixMode && (
+                <Checkbox onChange={toggleFlood} checked={renderFlood}>
+                  <FormattedMessage
+                    id="dialogs.save.option-flood"
+                    defaultMessage="Flooding"
+                  />
+                </Checkbox>
+              )}
 
               {isSubscriber ? (
                 <Checkbox onChange={toggleWatermark} checked={watermark}>
