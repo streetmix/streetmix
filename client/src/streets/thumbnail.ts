@@ -646,8 +646,16 @@ export function drawFlood(
   ctx.fillStyle = FLOOD_COLOR
 
   // Flood below entire street
-  if (left) {
-    if (typeof left.distance === 'number') {
+  // If either left or right is "max", means we flood the entire image.
+  if (left?.distance === 'max' || right?.distance === 'max') {
+    ctx.fillRect(
+      0,
+      groundLevel * scale,
+      width * scale,
+      GROUND_BASELINE_HEIGHT * scale
+    )
+  } else {
+    if (typeof left?.distance === 'number') {
       ctx.fillRect(
         0,
         groundLevel * scale,
@@ -655,10 +663,7 @@ export function drawFlood(
         GROUND_BASELINE_HEIGHT * scale
       )
     }
-    // TODO: handle 'max'
-  }
-  if (right) {
-    if (typeof right.distance === 'number') {
+    if (typeof right?.distance === 'number') {
       ctx.fillRect(
         (width - BOUNDARY_WIDTH - right.distance * TILE_SIZE) * scale,
         groundLevel * scale,
@@ -666,9 +671,7 @@ export function drawFlood(
         GROUND_BASELINE_HEIGHT * scale
       )
     }
-    // TODO: handle 'max'
   }
-  // TODO: distance: full (distances are different)
   // TODO: flood height
   // TODO: wave texture
 
