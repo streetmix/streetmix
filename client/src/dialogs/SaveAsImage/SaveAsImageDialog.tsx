@@ -40,6 +40,7 @@ export function SaveAsImageDialog() {
   )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const street = useSelector((state) => state.street)
+  const { floodDetails } = useSelector((state) => state.coastmix)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
@@ -67,7 +68,14 @@ export function SaveAsImageDialog() {
       await updatePreview()
     }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
+  }, [
+    transparentSky,
+    segmentNames,
+    streetName,
+    renderFlood,
+    watermark,
+    isNewExport,
+  ])
 
   // Same as above but ONLY update preview if we're using the new export
   // pipeline, and the scale changes
@@ -196,6 +204,8 @@ export function SaveAsImageDialog() {
       transparentSky,
       segmentNames,
       streetName,
+      coastmixMode ? renderFlood : false,
+      floodDetails,
       DEFAULT_IMAGE_DPI * scale,
       watermark,
       locale

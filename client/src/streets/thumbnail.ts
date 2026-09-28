@@ -1,3 +1,7 @@
+import {
+  BOUNDARY_WIDTH,
+  GROUND_BASELINE_HEIGHT,
+} from '@streetmix/export-image/src/constants'
 import { drawEarth } from '@streetmix/export-image/src/earth'
 import {
   drawLabelBackground,
@@ -25,11 +29,13 @@ import { SAVE_AS_IMAGE_LABEL_PADDING } from './image.js'
 
 import type {
   CSSGradientDeclaration,
+  FloodDetails,
   SkyboxDefWithStyles,
   SkyboxObject,
   StreetJson,
   StreetState,
 } from '@streetmix/types'
+import type * as Canvas from '@napi-rs/canvas'
 
 const WATERMARK_FONT = 'Rubik Variable'
 const WATERMARK_FONT_SIZE = 24
@@ -465,6 +471,8 @@ interface ThumbnailOptions {
   transparentSky: boolean
   labels: boolean
   streetName: boolean
+  renderFlood: boolean
+  floodDetails: [FloodDetails | null, FloodDetails | null]
   watermark: boolean
   locale: string | null
 }
@@ -484,6 +492,8 @@ export async function drawStreetThumbnail(
     transparentSky, // If `true`, image is a silhouette
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
+    renderFlood, // If `true`, include flood effect
+    floodDetails, // Flood details relevant when `renderFlood` is true
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
   }: ThumbnailOptions
@@ -587,6 +597,17 @@ export async function drawStreetThumbnail(
     )
   }
 
+  // Flooding (test)
+  if (renderFlood) {
+    drawFlood(
+      ctx,
+      floodDetails,
+      width / multiplier,
+      groundLevel / multiplier,
+      dpi * multiplier
+    )
+  }
+
   // Street nameplate
   if (streetName) {
     const streetName =
@@ -598,4 +619,59 @@ export async function drawStreetThumbnail(
   if (watermark) {
     drawWatermark(ctx, dpi, !labels)
   }
+}
+
+const FLOOD_COLOR = '#366387'
+const FLOOD_ALPHA = 0.4
+
+/**
+ * Draws earth (soil and dirt below ground).
+ *
+ * @modifies {Canvas.SKRSContext2D} ctx
+ */
+export function drawFlood(
+  ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  floodDetails: [FloodDetails | null, FloodDetails | null],
+  width: number,
+  groundLevel: number,
+  scale: number
+): void {
+  const [left, right] = floodDetails
+
+  // Save previous canvas context
+  ctx.save()
+
+  // Set style
+  ctx.globalAlpha = FLOOD_ALPHA
+  ctx.fillStyle = FLOOD_COLOR
+
+  // Flood below entire street
+  if (left) {
+    if (typeof left.distance === 'number') {
+      ctx.fillRect(
+        0,
+        groundLevel * scale,
+        (BOUNDARY_WIDTH + left.distance * TILE_SIZE) * scale,
+        GROUND_BASELINE_HEIGHT * scale
+      )
+    }
+    // TODO: handle 'max'
+  }
+  if (right) {
+    if (typeof right.distance === 'number') {
+      ctx.fillRect(
+        (width - BOUNDARY_WIDTH - right.distance * TILE_SIZE) * scale,
+        groundLevel * scale,
+        (BOUNDARY_WIDTH + right.distance * TILE_SIZE) * scale,
+        GROUND_BASELINE_HEIGHT * scale
+      )
+    }
+    // TODO: handle 'max'
+  }
+  // TODO: distance: full (distances are different)
+  // TODO: flood height
+  // TODO: wave texture
+
+  // Restore previous canvas context
+  ctx.restore()
 }
