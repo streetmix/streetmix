@@ -1,5 +1,6 @@
+import { round } from 'es-toolkit'
+
 import { formatNumber } from './number_format.js'
-import { round } from './number.js'
 
 import type { MeasurementValues, UnitsSetting } from '@streetmix/types'
 

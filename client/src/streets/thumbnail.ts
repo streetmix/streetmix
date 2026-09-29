@@ -694,7 +694,11 @@ export function drawFlood(
     }
   }
   // TODO: wave texture
-  // TODO: move to export-image package?
+  // This is a repeating SVG
+  // so like a repeating texture, get the width of it
+  // get the width to draw on
+  // figure out how many to draw
+  // the draw them
 
   // Restore previous canvas context
   ctx.restore()

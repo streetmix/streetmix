@@ -1,12 +1,13 @@
-import { round } from '@streetmix/utils'
+import { round } from 'es-toolkit'
 
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants'
 
 import type { UnitsSetting } from '@streetmix/types'
 
 const IMPERIAL_CONVERSION_RATE = 0.3048
-const METRIC_PRECISION = 3
-const IMPERIAL_PRECISION = 3
+
+export const METRIC_PRECISION = 3
+export const IMPERIAL_PRECISION = 3
 
 const WIDTH_INPUT_CONVERSION = [
   { text: 'm', multiplier: 1 },

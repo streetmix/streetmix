@@ -1,12 +1,13 @@
-import { uniq, intersection } from 'es-toolkit/array'
+import { uniq, intersection, round } from 'es-toolkit'
 import {
   getBoundaryItem,
   getSegmentInfo,
   getSegmentVariantInfo,
   SliceTypes,
 } from '@streetmix/parts'
-import { convertImperialMeasurementToMetric, round } from '@streetmix/utils'
+import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
+import { METRIC_PRECISION } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { FloodDetails, SliceItem, StreetState } from '@streetmix/types'
@@ -56,7 +57,7 @@ export function calculateSeaLevelRise(
 
   const height = convertImperialMeasurementToMetric(heightFeet)
 
-  return baseSeaLevel + height
+  return round(baseSeaLevel + height, METRIC_PRECISION)
 }
 
 // Given the slices of a street section, and sea level rise height, calculate
