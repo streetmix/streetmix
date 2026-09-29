@@ -603,6 +603,7 @@ export async function drawStreetThumbnail(
   if (renderFlood) {
     drawFlood(
       ctx,
+      street,
       floodDetails,
       stormSurge,
       width / multiplier,
@@ -634,6 +635,7 @@ const FLOOD_ALPHA = 0.4
  */
 export function drawFlood(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
+  street: StreetState,
   floodDetails: [FloodDetails | null, FloodDetails | null],
   stormSurge: boolean,
   width: number,
@@ -665,25 +667,33 @@ export function drawFlood(
       (GROUND_BASELINE_HEIGHT + floodHeight) * scale
     )
   } else {
+    // The flooding distance is calculated from slices, and doesn't include
+    // the remaining space (positive values is empty, negative values is overflow)
+    // so we also need to add that here, then multiply by TILE_SIZE for the
+    // pixel dimension
+    const leftDistance =
+      ((left?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
+    const rightDistance =
+      ((right?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
+
     if (typeof left?.distance === 'number') {
       ctx.fillRect(
         0,
         (groundLevel - floodHeight) * scale,
-        (BOUNDARY_WIDTH + left.distance * TILE_SIZE) * scale,
+        (BOUNDARY_WIDTH + leftDistance) * scale,
         (GROUND_BASELINE_HEIGHT + floodHeight) * scale
       )
     }
     if (typeof right?.distance === 'number') {
       ctx.fillRect(
-        (width - BOUNDARY_WIDTH - right.distance * TILE_SIZE) * scale,
+        (width - BOUNDARY_WIDTH - rightDistance) * scale,
         (groundLevel - floodHeight) * scale,
-        (BOUNDARY_WIDTH + right.distance * TILE_SIZE) * scale,
+        (BOUNDARY_WIDTH + rightDistance) * scale,
         (GROUND_BASELINE_HEIGHT + floodHeight) * scale
       )
     }
   }
   // TODO: wave texture
-  // TODO: flood distance when overflowing or underflowing ROW
   // TODO: move to export-image package?
 
   // Restore previous canvas context
