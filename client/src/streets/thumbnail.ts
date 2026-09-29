@@ -472,8 +472,8 @@ interface ThumbnailOptions {
   labels: boolean
   streetName: boolean
   renderFlood: boolean
-  floodDetails: [FloodDetails | null, FloodDetails | null]
-  stormSurge: boolean
+  floodDetails?: [FloodDetails | null, FloodDetails | null]
+  stormSurge?: boolean
   watermark: boolean
   locale: string | null
 }
@@ -494,7 +494,7 @@ export async function drawStreetThumbnail(
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
     renderFlood, // If `true`, include flood effect
-    floodDetails, // Flood details relevant when `renderFlood` is true
+    floodDetails = [null, null], // Flood details when `renderFlood` is true
     stormSurge = false,
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
