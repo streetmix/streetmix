@@ -31,6 +31,7 @@ const initialState = {
   flags: {
     SAVE_AS_IMAGE_CUSTOM_DPI: { value: false },
     SAVE_AS_IMAGE_NEW_EXPORT_PIPELINE: { value: false },
+    COASTMIX_MODE: { value: false },
   },
 }
 

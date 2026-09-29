@@ -269,6 +269,7 @@
       "option-labels": "Segment names and widths",
       "option-name": "Street name",
       "option-sky": "Transparent sky",
+      "option-sea-level-rise": "Sea level rise",
       "option-watermark": "Watermark",
       "option-custom-scale": "Custom scale",
       "option-custom-scale-description": "Download image up to 500% of original size.",

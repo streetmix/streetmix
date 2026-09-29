@@ -20,7 +20,7 @@ const LIMBO_OPACITY = 0.2
 export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   const street = useSelector((state) => state.street)
   const draggingType = useSelector((state) => state.ui.draggingType)
-  const { seaLevelRise, stormSurge, floodDetails } = useSelector(
+  const { targetYear, stormSurge, floodDetails } = useSelector(
     (state) => state.coastmix
   )
   const [leftFlood, rightFlood] = floodDetails
@@ -36,14 +36,14 @@ export function SeaLevel({ boundaryWidth, scrollPos }: SeaLevelProps) {
   // Do not set when we're at current sea level with no storm surge.
   if (
     (leftFlood !== null || rightFlood !== null) &&
-    !(seaLevelRise === 0 && stormSurge === false)
+    !(targetYear === null && stormSurge === false)
   ) {
     // Baseline height
     // TODO: include sea level elevation with baseline
     height = GROUND_BASELINE_HEIGHT - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 
     // Calculate how much sea level rises
-    const rise = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
+    const rise = calculateSeaLevelRise(targetYear, stormSurge, street)
 
     // Total height added together
     height += rise * TILE_SIZE

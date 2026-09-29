@@ -184,7 +184,7 @@ export interface StreetPluginData {
 
 export interface CoastmixState {
   controlsVisible: boolean
-  seaLevelRise: number
+  targetYear: number | null
   stormSurge: boolean
   floodDetails: [FloodDetails | null, FloodDetails | null]
 }
@@ -200,6 +200,7 @@ export type FloodDistance = number | null | 'max'
 export interface FloodDetails {
   direction: 'left' | 'right'
   distance: FloodDistance
+  rise: number
   floodedTypes: string[]
   flooded: boolean
 }

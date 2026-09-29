@@ -33,6 +33,7 @@ export const StreetImageExportSchema = z.object({
   transparentSky: parseQueryParam(false),
   labels: parseQueryParam(true), // formerly 'segmentLabels'
   streetName: parseQueryParam(true),
+  seaLevelRise: parseQueryParam(false),
   watermark: parseQueryParam(true),
   silhouette: parseQueryParam(false),
   scale: z.preprocess(

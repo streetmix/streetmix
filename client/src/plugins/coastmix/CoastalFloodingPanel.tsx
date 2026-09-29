@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
-  setSeaLevelRise,
+  setTargetYear,
   setStormSurge,
 } from '~/src/store/slices/coastmix.js'
 import { segmentsChanged } from '~/src/store/actions/street.js'
@@ -19,14 +19,14 @@ export function CoastalFloodingPanel() {
   const dispatch = useDispatch()
   const intl = useIntl()
 
-  const { controlsVisible, seaLevelRise, floodDetails, stormSurge } = coastmix
+  const { controlsVisible, targetYear, floodDetails, stormSurge } = coastmix
 
   function handleClose(): void {
     dispatch(hideCoastalFloodingPanel())
   }
 
-  function changeSeaLevelRise(x: number): void {
-    dispatch(setSeaLevelRise(x))
+  function changeTargetYear(x: number | null): void {
+    dispatch(setTargetYear(x))
   }
 
   function toggleStormSurge(checked: boolean): void {
@@ -36,11 +36,11 @@ export function CoastalFloodingPanel() {
   // Updates state and saves to server
   useEffect(() => {
     dispatch(segmentsChanged(true))
-  }, [seaLevelRise, stormSurge, dispatch])
+  }, [targetYear, stormSurge, dispatch])
 
   let message
   const messageClassNames = ['flood-controls-message']
-  if (seaLevelRise === 0 && stormSurge === false) {
+  if (targetYear === null && stormSurge === false) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.start', defaultMessage: 'Select a sea level rise target to visualize flooding.' })}`
   } else if (floodDetails[0] === null && floodDetails[1] === null) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`
@@ -80,9 +80,9 @@ export function CoastalFloodingPanel() {
           </div>
           <div>
             <Button
-              className={`sea-level-button${seaLevelRise === 0 ? ' sea-level-selected' : ''}`}
+              className={`sea-level-button${targetYear === null ? ' sea-level-selected' : ''}`}
               onClick={() => {
-                changeSeaLevelRise(0)
+                changeTargetYear(null)
               }}
             >
               <FormattedMessage
@@ -92,26 +92,26 @@ export function CoastalFloodingPanel() {
             </Button>
             {/* eslint-disable formatjs/no-literal-string-in-jsx */}
             <Button
-              className={`sea-level-button${seaLevelRise === 2030 ? ' sea-level-selected' : ''}`}
+              className={`sea-level-button${targetYear === 2030 ? ' sea-level-selected' : ''}`}
               data-tour-id="2030-sea-level-rise"
               onClick={() => {
-                changeSeaLevelRise(2030)
+                changeTargetYear(2030)
               }}
             >
               2030
             </Button>
             <Button
-              className={`sea-level-button${seaLevelRise === 2050 ? ' sea-level-selected' : ''}`}
+              className={`sea-level-button${targetYear === 2050 ? ' sea-level-selected' : ''}`}
               onClick={() => {
-                changeSeaLevelRise(2050)
+                changeTargetYear(2050)
               }}
             >
               2050
             </Button>
             <Button
-              className={`sea-level-button${seaLevelRise === 2070 ? ' sea-level-selected' : ''}`}
+              className={`sea-level-button${targetYear === 2070 ? ' sea-level-selected' : ''}`}
               onClick={() => {
-                changeSeaLevelRise(2070)
+                changeTargetYear(2070)
               }}
             >
               2070
