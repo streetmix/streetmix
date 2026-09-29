@@ -5,7 +5,7 @@ import {
   getSegmentVariantInfo,
   SliceTypes,
 } from '@streetmix/parts'
-import { convertImperialMeasurementToMetric } from '@streetmix/utils'
+import { convertImperialMeasurementToMetric, round } from '@streetmix/utils'
 
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
@@ -167,7 +167,8 @@ export function calculateFloodDetails(
     direction,
     // if `floodDistance` is infinite, return `max` instead because `Infinity`
     // is not a serializable value in JSON.
-    distance: floodDistance === Infinity ? 'max' : floodDistance,
+    distance: floodDistance === Infinity ? 'max' : round(floodDistance, 3),
+    rise: floodHeight,
     floodedTypes: filteredFloodedTypes,
     flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }
@@ -175,7 +176,7 @@ export function calculateFloodDetails(
 
 export function checkSeaLevel(
   street: StreetState,
-  targetYear: number,
+  targetYear: number | null,
   stormSurge: boolean
 ): [FloodDetails | null, FloodDetails | null] {
   const height = calculateSeaLevelRise(targetYear, stormSurge, street)

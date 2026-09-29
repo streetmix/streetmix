@@ -201,6 +201,7 @@ export type FloodDistance = number | null | 'max'
 export interface FloodDetails {
   direction: 'left' | 'right'
   distance: FloodDistance
+  rise: number
   floodedTypes: string[]
   flooded: boolean
 }

@@ -638,7 +638,7 @@ const FLOOD_ALPHA = 0.4
 export function drawFlood(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   floodDetails: [FloodDetails | null, FloodDetails | null],
-  floodHeight: number,
+  floodHeightx: number,
   stormSurge: boolean,
   width: number,
   groundLevel: number,
@@ -656,37 +656,39 @@ export function drawFlood(
 
   // Actual height of flood to draw, including storm surge
   const HALF_OF_WAVE_HEIGHT = 8 / 2
-  const floodHeightActual =
-    floodHeight * TILE_SIZE + HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
+  const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
+  const floodHeight =
+    rise * TILE_SIZE + HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 
   // Draw flood
   // If either left or right is "max", means we flood the entire image.
   if (left?.distance === 'max' || right?.distance === 'max') {
     ctx.fillRect(
       0,
-      (groundLevel - floodHeightActual) * scale,
+      (groundLevel - floodHeight) * scale,
       width * scale,
-      (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
+      (GROUND_BASELINE_HEIGHT + floodHeight) * scale
     )
   } else {
     if (typeof left?.distance === 'number') {
       ctx.fillRect(
         0,
-        (groundLevel - floodHeightActual) * scale,
+        (groundLevel - floodHeight) * scale,
         (BOUNDARY_WIDTH + left.distance * TILE_SIZE) * scale,
-        (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
+        (GROUND_BASELINE_HEIGHT + floodHeight) * scale
       )
     }
     if (typeof right?.distance === 'number') {
       ctx.fillRect(
         (width - BOUNDARY_WIDTH - right.distance * TILE_SIZE) * scale,
-        (groundLevel - floodHeightActual) * scale,
+        (groundLevel - floodHeight) * scale,
         (BOUNDARY_WIDTH + right.distance * TILE_SIZE) * scale,
-        (GROUND_BASELINE_HEIGHT + floodHeightActual) * scale
+        (GROUND_BASELINE_HEIGHT + floodHeight) * scale
       )
     }
   }
   // TODO: wave texture
+  // TODO: flood distance when overflowing or underflowing ROW
 
   // Restore previous canvas context
   ctx.restore()

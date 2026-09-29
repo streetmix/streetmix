@@ -30,6 +30,7 @@ describe('coastmix reducer', () => {
             {
               direction: 'left',
               distance: 1,
+              rise: 1,
               floodedTypes: [],
               flooded: false,
             },
@@ -100,6 +101,7 @@ describe('coastmix reducer', () => {
       const right: FloodDetails = {
         direction: 'right',
         distance: 2,
+        rise: 1,
         floodedTypes: ['BIKE'],
         flooded: true,
       }
@@ -113,12 +115,14 @@ describe('coastmix reducer', () => {
       const left: FloodDetails = {
         direction: 'left',
         distance: 2,
+        rise: 1,
         floodedTypes: ['BIKE'],
         flooded: true,
       }
       const right: FloodDetails = {
         direction: 'right',
         distance: 1,
+        rise: 2,
         floodedTypes: [],
         flooded: false,
       }
@@ -136,12 +140,14 @@ describe('coastmix reducer', () => {
             {
               direction: 'left',
               distance: 1,
+              rise: 1,
               floodedTypes: [],
               flooded: false,
             },
             {
               direction: 'right',
               distance: 2,
+              rise: 1,
               floodedTypes: ['BIKE'],
               flooded: true,
             },
