@@ -473,7 +473,6 @@ interface ThumbnailOptions {
   streetName: boolean
   renderFlood: boolean
   floodDetails: [FloodDetails | null, FloodDetails | null]
-  floodHeight: number
   stormSurge: boolean
   watermark: boolean
   locale: string | null
@@ -496,7 +495,6 @@ export async function drawStreetThumbnail(
     streetName, // If `true`, include street nameplate
     renderFlood, // If `true`, include flood effect
     floodDetails, // Flood details relevant when `renderFlood` is true
-    floodHeight,
     stormSurge = false,
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
@@ -606,7 +604,6 @@ export async function drawStreetThumbnail(
     drawFlood(
       ctx,
       floodDetails,
-      floodHeight,
       stormSurge,
       width / multiplier,
       groundLevel / multiplier,
@@ -638,14 +635,12 @@ const FLOOD_ALPHA = 0.4
 export function drawFlood(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   floodDetails: [FloodDetails | null, FloodDetails | null],
-  floodHeightx: number,
   stormSurge: boolean,
   width: number,
   groundLevel: number,
   scale: number
 ): void {
   const [left, right] = floodDetails
-  console.log(left, right)
 
   // Save previous canvas context
   ctx.save()
@@ -689,6 +684,7 @@ export function drawFlood(
   }
   // TODO: wave texture
   // TODO: flood distance when overflowing or underflowing ROW
+  // TODO: move to export-image package?
 
   // Restore previous canvas context
   ctx.restore()

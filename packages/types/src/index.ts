@@ -187,7 +187,6 @@ export interface CoastmixState {
   targetYear: number | null
   stormSurge: boolean
   floodDetails: [FloodDetails | null, FloodDetails | null]
-  floodHeight: number
 }
 
 // Flood distance is a number expressed in pixels (for now, I don't think

@@ -4,7 +4,6 @@ import coastmix, {
   hideCoastalFloodingPanel,
   setTargetYear,
   setFloodDetails,
-  setFloodHeight,
   setStormSurge,
   toggleCoastalFloodingPanel,
 } from './coastmix.js'
@@ -16,7 +15,6 @@ describe('coastmix reducer', () => {
     targetYear: null,
     stormSurge: false,
     floodDetails: [null, null] as [FloodDetails | null, FloodDetails | null],
-    floodHeight: 0,
   }
 
   describe('reset state', () => {
@@ -36,7 +34,6 @@ describe('coastmix reducer', () => {
             },
             null,
           ],
-          floodHeight: 0,
         },
         resetCoastmixState()
       )
@@ -88,6 +85,7 @@ describe('coastmix reducer', () => {
       const left: FloodDetails = {
         direction: 'left',
         distance: 1,
+        rise: 0,
         floodedTypes: [],
         flooded: false,
       }
@@ -157,20 +155,6 @@ describe('coastmix reducer', () => {
       )
 
       expect(action.floodDetails).toEqual([null, null])
-    })
-  })
-
-  describe('setFloodHeight()', () => {
-    it('should set flood height to a value', () => {
-      const action = coastmix(initialState, setFloodHeight(1))
-
-      expect(action.floodHeight).toEqual(1)
-    })
-
-    it('should set flood height to zero', () => {
-      const action = coastmix(initialState, setFloodHeight(0))
-
-      expect(action.floodHeight).toEqual(0)
     })
   })
 

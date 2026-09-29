@@ -206,7 +206,6 @@ export function SaveAsImageDialog() {
       streetName,
       coastmixMode ? renderFlood : false,
       floodDetails,
-      10,
       stormSurge,
       DEFAULT_IMAGE_DPI * scale,
       watermark,
