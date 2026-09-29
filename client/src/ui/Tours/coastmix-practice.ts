@@ -254,9 +254,9 @@ export const steps: StepOptions[] = [
           activeTour: (this as unknown as { tour?: Tour }).tour ?? null,
           select: (state) => state.coastmix,
           shouldAdvance: (coastmix) => {
-            const { seaLevelRise, floodDetails } = coastmix
+            const { targetYear, floodDetails } = coastmix
 
-            if (seaLevelRise === 0) return false
+            if (targetYear === null) return false
             if (floodDetails[0] === null && floodDetails[1] === null) {
               return false
             }

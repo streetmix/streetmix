@@ -2,8 +2,9 @@ import coastmix, {
   resetCoastmixState,
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
-  setSeaLevelRise,
+  setTargetYear,
   setFloodDetails,
+  setFloodHeight,
   setStormSurge,
   toggleCoastalFloodingPanel,
 } from './coastmix.js'
@@ -12,9 +13,10 @@ import type { FloodDetails } from '@streetmix/types'
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
-    seaLevelRise: 0,
+    targetYear: null,
     stormSurge: false,
     floodDetails: [null, null] as [FloodDetails | null, FloodDetails | null],
+    floodHeight: 0,
   }
 
   describe('reset state', () => {
@@ -22,7 +24,7 @@ describe('coastmix reducer', () => {
       const action = coastmix(
         {
           controlsVisible: true,
-          seaLevelRise: 2030,
+          targetYear: 2030,
           stormSurge: true,
           floodDetails: [
             {
@@ -33,6 +35,7 @@ describe('coastmix reducer', () => {
             },
             null,
           ],
+          floodHeight: 0,
         },
         resetCoastmixState()
       )
@@ -65,17 +68,17 @@ describe('coastmix reducer', () => {
     })
   })
 
-  describe('setSeaLevelRise()', () => {
+  describe('setTargetYear()', () => {
     it('should set water level to something', () => {
-      const action = coastmix(initialState, setSeaLevelRise(1))
+      const action = coastmix(initialState, setTargetYear(1))
 
-      expect(action.seaLevelRise).toEqual(1)
+      expect(action.targetYear).toEqual(1)
     })
 
     it('should set water level to initial', () => {
-      const action = coastmix(initialState, setSeaLevelRise(0))
+      const action = coastmix(initialState, setTargetYear(null))
 
-      expect(action.seaLevelRise).toEqual(0)
+      expect(action.targetYear).toEqual(null)
     })
   })
 
@@ -148,6 +151,20 @@ describe('coastmix reducer', () => {
       )
 
       expect(action.floodDetails).toEqual([null, null])
+    })
+  })
+
+  describe('setFloodHeight()', () => {
+    it('should set flood height to a value', () => {
+      const action = coastmix(initialState, setFloodHeight(1))
+
+      expect(action.floodHeight).toEqual(1)
+    })
+
+    it('should set flood height to zero', () => {
+      const action = coastmix(initialState, setFloodHeight(0))
+
+      expect(action.floodHeight).toEqual(0)
     })
   })
 

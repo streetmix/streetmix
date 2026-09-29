@@ -27,7 +27,7 @@ const disallowFlooding = [
 // TODO: streamline by doing base calculation in metric, then convert back to
 // imperial if needed.
 export function calculateSeaLevelRise(
-  seaLevelRise: number,
+  targetYear: number | null,
   stormSurge: boolean,
   street: StreetState
 ) {
@@ -45,9 +45,9 @@ export function calculateSeaLevelRise(
     baseSeaLevel = street.boundary.right.elevation
   }
 
-  if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
+  if (targetYear !== null && targetYear in SEA_LEVEL_RISE_FEET) {
     heightFeet +=
-      SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
+      SEA_LEVEL_RISE_FEET[targetYear as keyof typeof SEA_LEVEL_RISE_FEET]
   }
 
   if (stormSurge) {
@@ -175,10 +175,10 @@ export function calculateFloodDetails(
 
 export function checkSeaLevel(
   street: StreetState,
-  seaLevelRise: number,
+  targetYear: number,
   stormSurge: boolean
 ): [FloodDetails | null, FloodDetails | null] {
-  const height = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
+  const height = calculateSeaLevelRise(targetYear, stormSurge, street)
 
   const { boundary, segments: slices } = street
 
