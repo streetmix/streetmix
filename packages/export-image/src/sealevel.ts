@@ -15,7 +15,7 @@ const FLOOD_ALPHA = 0.4
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export function drawFlood(
+export function drawSeaLevelRise(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   street: StreetState,
   floodDetails: [FloodDetails | null, FloodDetails | null],

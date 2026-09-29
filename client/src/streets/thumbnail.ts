@@ -1,5 +1,5 @@
 import { drawEarth } from '@streetmix/export-image/src/earth'
-import { drawFlood } from '@streetmix/export-image/src/flooding'
+import { drawSeaLevelRise } from '@streetmix/export-image/src/sealevel'
 import {
   drawLabelBackground,
   drawLabels,
@@ -467,7 +467,7 @@ interface ThumbnailOptions {
   transparentSky: boolean
   labels: boolean
   streetName: boolean
-  renderFlood: boolean
+  seaLevelRise: boolean
   floodDetails?: [FloodDetails | null, FloodDetails | null]
   stormSurge?: boolean
   watermark: boolean
@@ -489,8 +489,8 @@ export async function drawStreetThumbnail(
     transparentSky, // If `true`, image is a silhouette
     labels, // If `true`, include labels (names and widths)
     streetName, // If `true`, include street nameplate
-    renderFlood, // If `true`, include flood effect
-    floodDetails = [null, null], // Flood details when `renderFlood` is true
+    seaLevelRise, // If `true`, include flood effect
+    floodDetails = [null, null], // Flood details when `seaLevelRise` is true
     stormSurge = false,
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
@@ -596,8 +596,8 @@ export async function drawStreetThumbnail(
   }
 
   // Flooding
-  if (renderFlood) {
-    drawFlood(
+  if (seaLevelRise) {
+    drawSeaLevelRise(
       ctx,
       street,
       floodDetails,

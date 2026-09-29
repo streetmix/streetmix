@@ -5,7 +5,7 @@ import * as Canvas from '@napi-rs/canvas'
 
 import { BOUNDARY_WIDTH, TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
-// import { drawFlood } from './flooding.js'
+// import { drawSeaLevelRise } from './sealevel.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSilhouette } from './silhouette.js'
@@ -167,9 +167,10 @@ export async function makeStreetImage(
     }
 
     // Flooding
-    // Missing flood details from server side data?
-    // if (options.flooding) {
-    //   drawFlood(
+    // Can't render here because we're missing information like occupiedWidth,
+    // floodDetails and stormSurge but may be inferrable from data
+    // if (options.seaLevelRise) {
+    //   drawSeaLevelRise(
     //     ctx,
     //     street.data.street,
     //     floodDetails,
