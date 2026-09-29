@@ -11,7 +11,7 @@ const FLOOD_COLOR = '#366387'
 const FLOOD_ALPHA = 0.4
 
 /**
- * Draws flooding
+ * Draws sea level rise
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */

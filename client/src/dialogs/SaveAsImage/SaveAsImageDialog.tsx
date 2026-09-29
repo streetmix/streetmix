@@ -32,7 +32,7 @@ export function SaveAsImageDialog() {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
-    saveAsImageFlood: renderFlood,
+    saveAsImageSeaLevelRise: seaLevelRise,
   } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
@@ -72,7 +72,7 @@ export function SaveAsImageDialog() {
     transparentSky,
     segmentNames,
     streetName,
-    renderFlood,
+    seaLevelRise,
     watermark,
     isNewExport,
   ])
@@ -120,8 +120,8 @@ export function SaveAsImageDialog() {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
   }
 
-  const toggleFlood = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateSettings({ saveAsImageFlood: event.target.checked }))
+  const toggleSeaLevelRise = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageSeaLevelRise: event.target.checked }))
   }
 
   const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +204,7 @@ export function SaveAsImageDialog() {
       transparentSky,
       segmentNames,
       streetName,
-      coastmixMode ? renderFlood : false,
+      coastmixMode ? seaLevelRise : false,
       floodDetails,
       stormSurge,
       DEFAULT_IMAGE_DPI * scale,
@@ -303,10 +303,10 @@ export function SaveAsImageDialog() {
               </Checkbox>
 
               {coastmixMode && (
-                <Checkbox onChange={toggleFlood} checked={renderFlood}>
+                <Checkbox onChange={toggleSeaLevelRise} checked={seaLevelRise}>
                   <FormattedMessage
-                    id="dialogs.save.option-flood"
-                    defaultMessage="Flooding"
+                    id="dialogs.save.option-sea-level-rise"
+                    defaultMessage="Sea level rise"
                   />
                 </Checkbox>
               )}
