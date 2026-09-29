@@ -629,7 +629,7 @@ const FLOOD_COLOR = '#366387'
 const FLOOD_ALPHA = 0.4
 
 /**
- * Draws earth (soil and dirt below ground).
+ * Draws flooding
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
