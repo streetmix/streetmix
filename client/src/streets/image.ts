@@ -23,8 +23,10 @@ export async function getStreetImage(
   transparentSky: boolean,
   labels: boolean,
   streetName: boolean,
-  renderFlood: boolean = false,
+  renderFlood = false,
   floodDetails: [FloodDetails | null, FloodDetails | null] = [null, null],
+  floodHeight = 0,
+  stormSurge = false,
   dpi = SAVE_AS_IMAGE_DPI,
   watermark = true,
   locale: string | null = null
@@ -79,6 +81,8 @@ export async function getStreetImage(
     streetName,
     renderFlood,
     floodDetails,
+    floodHeight,
+    stormSurge,
     watermark,
     locale,
   })

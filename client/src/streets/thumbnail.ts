@@ -473,6 +473,8 @@ interface ThumbnailOptions {
   streetName: boolean
   renderFlood: boolean
   floodDetails: [FloodDetails | null, FloodDetails | null]
+  floodHeight: number
+  stormSurge: boolean
   watermark: boolean
   locale: string | null
 }
@@ -494,6 +496,8 @@ export async function drawStreetThumbnail(
     streetName, // If `true`, include street nameplate
     renderFlood, // If `true`, include flood effect
     floodDetails, // Flood details relevant when `renderFlood` is true
+    floodHeight,
+    stormSurge = false,
     watermark = true, // If `true`, include Streetmix watermark
     locale = 'en',
   }: ThumbnailOptions
@@ -597,11 +601,13 @@ export async function drawStreetThumbnail(
     )
   }
 
-  // Flooding (test)
+  // Flooding
   if (renderFlood) {
     drawFlood(
       ctx,
       floodDetails,
+      floodHeight,
+      stormSurge,
       width / multiplier,
       groundLevel / multiplier,
       dpi * multiplier
@@ -632,6 +638,8 @@ const FLOOD_ALPHA = 0.4
 export function drawFlood(
   ctx: Canvas.SKRSContext2D | CanvasRenderingContext2D,
   floodDetails: [FloodDetails | null, FloodDetails | null],
+  floodHeight: number,
+  stormSurge: boolean,
   width: number,
   groundLevel: number,
   scale: number
@@ -646,14 +654,8 @@ export function drawFlood(
   ctx.globalAlpha = FLOOD_ALPHA
   ctx.fillStyle = FLOOD_COLOR
 
-  const HALF_OF_WAVE_HEIGHT = 8 / 2
-
-  // Hard coded stuff for testing flood height
-  // TODO: pass in actual values from state
-  const floodHeight = 1.295
-  const stormSurge = true
-
   // Actual height of flood to draw, including storm surge
+  const HALF_OF_WAVE_HEIGHT = 8 / 2
   const floodHeightActual =
     floodHeight * TILE_SIZE + HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
 

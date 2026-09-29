@@ -40,7 +40,7 @@ export function SaveAsImageDialog() {
   )
   const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const street = useSelector((state) => state.street)
-  const { floodDetails } = useSelector((state) => state.coastmix)
+  const { floodDetails, stormSurge } = useSelector((state) => state.coastmix)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
@@ -206,6 +206,8 @@ export function SaveAsImageDialog() {
       streetName,
       coastmixMode ? renderFlood : false,
       floodDetails,
+      10,
+      stormSurge,
       DEFAULT_IMAGE_DPI * scale,
       watermark,
       locale
