@@ -170,7 +170,7 @@ export async function makeStreetImage(
     // Can't render here because we're missing information like occupiedWidth,
     // floodDetails and stormSurge but may be inferrable from data
     // if (options.seaLevelRise) {
-    //   drawSeaLevelRise(
+    //   await drawSeaLevelRise(
     //     ctx,
     //     street.data.street,
     //     floodDetails,

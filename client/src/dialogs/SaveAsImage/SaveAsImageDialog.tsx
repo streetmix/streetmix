@@ -232,9 +232,8 @@ export function SaveAsImageDialog() {
       height: imageCanvas.current?.height,
     })
 
-    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() is only likely to appear if a SecurityError is
-    // thrown from reading the canvas.
+    // thrown from reading the canvas, e.g. "tainted" with external images
     try {
       imageCanvas.current?.toBlob((blob) => {
         if (blob) {
