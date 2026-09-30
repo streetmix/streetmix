@@ -1,5 +1,5 @@
 import { drawEarth } from '@streetmix/export-image/src/earth'
-import { drawSeaLevelRise } from '@streetmix/export-image/src/sealevel'
+// import { drawSeaLevelRise } from '@streetmix/export-image/src/sealevel'
 import {
   drawLabelBackground,
   drawLabels,
@@ -621,6 +621,9 @@ export async function drawStreetThumbnail(
   }
 }
 
+// Wave image is rendered at 8px tall, so we half it to render an "average".
+// It is doubled again in a surge.
+const HALF_OF_WAVE_HEIGHT = 8 / 2
 const FLOOD_COLOR = '#366387'
 const FLOOD_ALPHA = 0.4
 
@@ -632,8 +635,8 @@ export const GROUND_BASELINE_HEIGHT = 44
  *
  * @modifies {Canvas.SKRSContext2D} ctx
  */
-export async function drawSeaLevelRisex(
-  ctx: CanvasRenderingContext2D, // Canvas.SKRSContext2D
+export async function drawSeaLevelRise(
+  ctx: CanvasRenderingContext2D,
   street: StreetState,
   floodDetails: [FloodDetails | null, FloodDetails | null],
   stormSurge: boolean,
@@ -651,9 +654,12 @@ export async function drawSeaLevelRisex(
   ctx.fillStyle = FLOOD_COLOR
 
   // Actual height of sea level rise to draw. In the UI we enlarge the storm
-  // surge effect a little, that is not being done in the image export.
+  // surge effect a little, that is not being done here right now.
   const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
-  const floodHeight = rise * TILE_SIZE
+  const floodHeight = rise * TILE_SIZE - HALF_OF_WAVE_HEIGHT
+
+  let leftDistance = 0
+  let rightDistance = 0
 
   // Draw flood
   // If either left or right is "max", means we flood the entire image.
@@ -669,9 +675,9 @@ export async function drawSeaLevelRisex(
     // the remaining space (positive values is empty, negative values is overflow)
     // so we also need to add that here, then multiply by TILE_SIZE for the
     // pixel dimension
-    const leftDistance =
+    leftDistance =
       ((left?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
-    const rightDistance =
+    rightDistance =
       ((right?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
 
     if (typeof left?.distance === 'number') {
@@ -692,23 +698,50 @@ export async function drawSeaLevelRisex(
     }
   }
 
-  // TODO: wave texture
-  // This is a repeating SVG
-  // so like a repeating texture, get the width of it
-  // get the width to draw on
-  // figure out how many to draw
-  // the draw them
+  // Draw waves
   try {
+    // bas64 representation of waves-right.svg (this avoids file loading and
+    // transpilation problems, but shouldn't be here long term)
     const file =
       'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIGNsaXAtcnVsZT0iZXZlbm9kZCIgd2lkdGg9IjMwNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMwNiAxNiI+PHBhdGggZmlsbD0iIzM2NjM4NyIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMjc4Ljk1NSAxMy4xOCAyMDMuNDE3IDYuNjZsLTMuNjA2IDUuODkzLTc3LjA5My04LjIwNS01LjkwMiA4LjkyMi02Mi44ODItNi45MjctMi43ODMgNC42NUwtLjEgMy44ODdWMTdoMzA2LjJWNC4wNzlMMjgzLjgzLjk5OXoiLz48L3N2Zz4='
     const image = new Image()
     image.src = `data:image/svg+xml;base64,${file}`
 
+    // TODO: waves are not scaling properly at higher resolutions.
     await image.decode()
     image.width = image.naturalWidth * scale
     image.height = image.naturalHeight * scale
 
-    ctx.drawImage(image, 100, 100, image.width, image.height)
+    // Define the wave image as a repeating pattern.
+    const pattern = ctx.createPattern(image, 'repeat-x')
+    if (pattern === null) throw new Error('pattern did not load')
+
+    const rectX = 0
+    const rectY = (groundLevel - floodHeight) * scale - image.naturalHeight
+    const rectW = width * scale
+    const rectH = image.naturalHeight
+
+    // Patterns based on the canvas coordinate space, so it's actually drawn
+    // at (0, 0) and repeats only along the top of the canvas. We need to shift
+    // the pattern down to where we expect sea level to be.
+    pattern.setTransform(new DOMMatrix().translate(0, rectY))
+    ctx.fillStyle = pattern
+
+    if (left?.distance === 'max' || right?.distance === 'max') {
+      ctx.fillRect(rectX, rectY, rectW, rectH)
+    } else {
+      if (typeof left?.distance === 'number') {
+        ctx.fillRect(0, rectY, (BOUNDARY_WIDTH + leftDistance) * scale, rectH)
+      }
+      if (typeof right?.distance === 'number') {
+        ctx.fillRect(
+          (width - BOUNDARY_WIDTH - rightDistance) * scale,
+          rectY,
+          (BOUNDARY_WIDTH + rightDistance) * scale,
+          rectH
+        )
+      }
+    }
   } catch (err) {
     console.log(err)
   } finally {
