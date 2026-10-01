@@ -698,54 +698,75 @@ export async function drawSeaLevelRise(
     }
   }
 
-  // Draw waves
-  try {
-    // bas64 representation of waves-right.svg (this avoids file loading and
-    // transpilation problems, but shouldn't be here long term)
-    const file =
-      'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIGNsaXAtcnVsZT0iZXZlbm9kZCIgd2lkdGg9IjMwNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMwNiAxNiI+PHBhdGggZmlsbD0iIzM2NjM4NyIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMjc4Ljk1NSAxMy4xOCAyMDMuNDE3IDYuNjZsLTMuNjA2IDUuODkzLTc3LjA5My04LjIwNS01LjkwMiA4LjkyMi02Mi44ODItNi45MjctMi43ODMgNC42NUwtLjEgMy44ODdWMTdoMzA2LjJWNC4wNzlMMjgzLjgzLjk5OXoiLz48L3N2Zz4='
-    const image = new Image()
-    image.src = `data:image/svg+xml;base64,${file}`
-
-    // TODO: waves are not scaling properly at higher resolutions.
-    await image.decode()
-    image.width = image.naturalWidth * scale
-    image.height = image.naturalHeight * scale
-
-    // Define the wave image as a repeating pattern.
-    const pattern = ctx.createPattern(image, 'repeat-x')
-    if (pattern === null) throw new Error('pattern did not load')
-
-    const rectX = 0
-    const rectY = (groundLevel - floodHeight) * scale - image.naturalHeight
-    const rectW = width * scale
-    const rectH = image.naturalHeight
-
-    // Patterns based on the canvas coordinate space, so it's actually drawn
-    // at (0, 0) and repeats only along the top of the canvas. We need to shift
-    // the pattern down to where we expect sea level to be.
-    pattern.setTransform(new DOMMatrix().translate(0, rectY))
-    ctx.fillStyle = pattern
-
-    if (left?.distance === 'max' || right?.distance === 'max') {
-      ctx.fillRect(rectX, rectY, rectW, rectH)
-    } else {
-      if (typeof left?.distance === 'number') {
-        ctx.fillRect(0, rectY, (BOUNDARY_WIDTH + leftDistance) * scale, rectH)
-      }
-      if (typeof right?.distance === 'number') {
-        ctx.fillRect(
-          (width - BOUNDARY_WIDTH - rightDistance) * scale,
-          rectY,
-          (BOUNDARY_WIDTH + rightDistance) * scale,
-          rectH
-        )
-      }
+  if (left?.distance === 'max' || right?.distance === 'max') {
+    await drawSeaLevelWaves(ctx, 0, groundLevel - floodHeight, width, scale)
+  } else {
+    if (typeof left?.distance === 'number') {
+      await drawSeaLevelWaves(
+        ctx,
+        0,
+        groundLevel - floodHeight,
+        BOUNDARY_WIDTH + leftDistance,
+        scale
+      )
     }
-  } catch (err) {
-    console.log(err)
-  } finally {
-    // Restore previous canvas context
-    ctx.restore()
+    if (typeof right?.distance === 'number') {
+      await drawSeaLevelWaves(
+        ctx,
+        width - BOUNDARY_WIDTH - rightDistance,
+        groundLevel - floodHeight,
+        BOUNDARY_WIDTH + rightDistance,
+        scale
+      )
+    }
   }
+
+  // Restore previous canvas context
+  ctx.restore()
+}
+
+// base64 representation of waves-right.svg (this avoids file loading and
+// transpilation problems, but shouldn't be here long term)
+const WAVES_IMAGE =
+  'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIGNsaXAtcnVsZT0iZXZlbm9kZCIgd2lkdGg9IjMwNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDMwNiAxNiI+PHBhdGggZmlsbD0iIzM2NjM4NyIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMjc4Ljk1NSAxMy4xOCAyMDMuNDE3IDYuNjZsLTMuNjA2IDUuODkzLTc3LjA5My04LjIwNS01LjkwMiA4LjkyMi02Mi44ODItNi45MjctMi43ODMgNC42NUwtLjEgMy44ODdWMTdoMzA2LjJWNC4wNzlMMjgzLjgzLjk5OXoiLz48L3N2Zz4='
+const WAVES_IMAGE_URL = `data:image/svg+xml;base64,${WAVES_IMAGE}`
+
+// Draw waves
+async function drawSeaLevelWaves(
+  ctx: CanvasRenderingContext2D,
+  posX: number,
+  posY: number,
+  width: number,
+  scale: number
+) {
+  ctx.save()
+
+  const image = new Image()
+  image.src = WAVES_IMAGE_URL
+
+  // TODO: waves are not scaling properly at higher resolutions.
+  await image.decode()
+  image.width = image.naturalWidth * scale
+  image.height = image.naturalHeight * scale
+
+  // Define the wave image as a repeating pattern.
+  const pattern = ctx.createPattern(image, 'repeat-x')
+  if (pattern === null) throw new Error('pattern did not load')
+
+  const rectX = posX * scale
+  const rectY = posY * scale - image.naturalHeight
+  const rectW = width * scale
+  const rectH = image.naturalHeight
+
+  // Patterns based on the canvas coordinate space, so it's actually drawn
+  // at (0, 0) and repeats only along the top of the canvas. We need to shift
+  // the pattern down to where we expect sea level to be.
+  pattern.setTransform(new DOMMatrix().translate(0, rectY))
+  ctx.fillStyle = pattern
+
+  // Draw!!
+  ctx.fillRect(rectX, rectY, rectW, rectH)
+
+  // Restore previous canvas context
+  ctx.restore()
 }
