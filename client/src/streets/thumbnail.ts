@@ -654,7 +654,8 @@ export async function drawSeaLevelRise(
   ctx.fillStyle = FLOOD_COLOR
 
   // Actual height of sea level rise to draw. In the UI we enlarge the storm
-  // surge effect a little, that is not being done here right now.
+  // surge effect a little, that is not being done here right now because we
+  // haven't scaled up the waves to draw that effect.
   const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
   const floodHeight = rise * TILE_SIZE - HALF_OF_WAVE_HEIGHT
   const waterY = groundLevel - floodHeight
