@@ -5,7 +5,7 @@ import * as Canvas from '@napi-rs/canvas'
 
 import { BOUNDARY_WIDTH, TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
-// import { drawSeaLevelRise } from './sealevel.js'
+import { drawSeaLevelRise } from './sealevel.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSilhouette } from './silhouette.js'
@@ -167,19 +167,19 @@ export async function makeStreetImage(
     }
 
     // Flooding
-    // Can't render here because we're missing information like occupiedWidth,
-    // floodDetails and stormSurge but may be inferrable from data
-    // if (options.seaLevelRise) {
-    //   await drawSeaLevelRise(
-    //     ctx,
-    //     street.data.street,
-    //     floodDetails,
-    //     stormSurge,
-    //     baseWidth,
-    //     groundLevel,
-    //     options.scale
-    //   )
-    // }
+    if (options.seaLevelRise) {
+      await drawSeaLevelRise(
+        ctx,
+        // @ts-expect-error street data on backend does not have all the same properties as on client
+        // we need remainingWidth and that doesn't get stored right now.
+        street.data.street,
+        street.data.plugins.coastmix?.floodDetails,
+        street.data.plugins.coastmix?.stormSurge,
+        baseWidth,
+        groundLevel,
+        options.scale
+      )
+    }
 
     // Street nameplate
     if (options.streetName) {
