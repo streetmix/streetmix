@@ -5,7 +5,7 @@ import * as Canvas from '@napi-rs/canvas'
 
 import { BOUNDARY_WIDTH, TILE_SIZE } from './constants.js'
 import { drawEarth } from './earth.js'
-// import { drawSeaLevelRise } from './sealevel.js'
+import { drawSeaLevelRise } from './sealevel.js'
 import { drawLabelBackground, drawLabels } from './labels.js'
 import { drawNameplate } from './nameplate.js'
 import { drawSilhouette } from './silhouette.js'
@@ -99,6 +99,7 @@ export async function makeStreetImage(
   for (const slice of street.data.street.segments) {
     occupiedWidth += slice.width
   }
+  const remainingWidth = street.data.street.width - occupiedWidth
 
   // TODO: adjust scale for these numbers early?
   // See drawSky for an example where scaled values are passed in to draw function
@@ -167,19 +168,23 @@ export async function makeStreetImage(
     }
 
     // Flooding
-    // Can't render here because we're missing information like occupiedWidth,
-    // floodDetails and stormSurge but may be inferrable from data
-    // if (options.seaLevelRise) {
-    //   await drawSeaLevelRise(
-    //     ctx,
-    //     street.data.street,
-    //     floodDetails,
-    //     stormSurge,
-    //     baseWidth,
-    //     groundLevel,
-    //     options.scale
-    //   )
-    // }
+    // When turned on and Coastmix plugin data exists
+    if (options.seaLevelRise && street.data.plugins.coastmix) {
+      await drawSeaLevelRise(
+        ctx,
+        // @ts-expect-error street data on backend does not have all the same properties as on client
+        // We manually recalc remainingWidth and add it here
+        {
+          ...street.data.street,
+          remainingWidth,
+        },
+        street.data.plugins.coastmix.floodDetails,
+        street.data.plugins.coastmix.stormSurge,
+        baseWidth,
+        groundLevel,
+        options.scale
+      )
+    }
 
     // Street nameplate
     if (options.streetName) {
