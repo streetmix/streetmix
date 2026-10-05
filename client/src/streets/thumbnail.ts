@@ -657,64 +657,55 @@ export async function drawSeaLevelRise(
   // surge effect a little, that is not being done here right now.
   const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
   const floodHeight = rise * TILE_SIZE - HALF_OF_WAVE_HEIGHT
-
-  let leftDistance = 0
-  let rightDistance = 0
+  const waterY = groundLevel - floodHeight
+  const waterHeight = GROUND_BASELINE_HEIGHT + floodHeight
 
   // Draw flood
   // If either left or right is "max", means we flood the entire image.
   if (left?.distance === 'max' || right?.distance === 'max') {
-    ctx.fillRect(
-      0,
-      (groundLevel - floodHeight) * scale,
-      width * scale,
-      (GROUND_BASELINE_HEIGHT + floodHeight) * scale
-    )
+    // Draw water
+    ctx.fillRect(0, waterY * scale, width * scale, waterHeight * scale)
+
+    // Draw waves on top
+    await drawSeaLevelWaves(ctx, 0, waterY, width, scale)
   } else {
     // The flooding distance is calculated from slices, and doesn't include
     // the remaining space (positive values is empty, negative values is overflow)
     // so we also need to add that here, then multiply by TILE_SIZE for the
     // pixel dimension
-    leftDistance =
+    const leftDistance =
       ((left?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
-    rightDistance =
+    const rightDistance =
       ((right?.distance ?? 0) + street.remainingWidth / 2) * TILE_SIZE
 
     if (typeof left?.distance === 'number') {
       ctx.fillRect(
         0,
-        (groundLevel - floodHeight) * scale,
+        waterY * scale,
         (BOUNDARY_WIDTH + leftDistance) * scale,
-        (GROUND_BASELINE_HEIGHT + floodHeight) * scale
+        waterHeight * scale
       )
-    }
-    if (typeof right?.distance === 'number') {
-      ctx.fillRect(
-        (width - BOUNDARY_WIDTH - rightDistance) * scale,
-        (groundLevel - floodHeight) * scale,
-        (BOUNDARY_WIDTH + rightDistance) * scale,
-        (GROUND_BASELINE_HEIGHT + floodHeight) * scale
-      )
-    }
-  }
 
-  if (left?.distance === 'max' || right?.distance === 'max') {
-    await drawSeaLevelWaves(ctx, 0, groundLevel - floodHeight, width, scale)
-  } else {
-    if (typeof left?.distance === 'number') {
       await drawSeaLevelWaves(
         ctx,
         0,
-        groundLevel - floodHeight,
+        waterY,
         BOUNDARY_WIDTH + leftDistance,
         scale
       )
     }
     if (typeof right?.distance === 'number') {
+      ctx.fillRect(
+        (width - BOUNDARY_WIDTH - rightDistance) * scale,
+        waterY * scale,
+        (BOUNDARY_WIDTH + rightDistance) * scale,
+        waterHeight * scale
+      )
+
       await drawSeaLevelWaves(
         ctx,
         width - BOUNDARY_WIDTH - rightDistance,
-        groundLevel - floodHeight,
+        waterY,
         BOUNDARY_WIDTH + rightDistance,
         scale
       )
