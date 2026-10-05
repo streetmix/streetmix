@@ -1,4 +1,5 @@
-import { round, prettifyWidth } from '@streetmix/utils'
+import { round } from 'es-toolkit'
+import { prettifyWidth } from '@streetmix/utils'
 import { getBoundaryItem } from '@streetmix/parts'
 
 import { images } from '../app/load_resources.js'

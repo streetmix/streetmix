@@ -1,4 +1,4 @@
-import { uniq, intersection } from 'es-toolkit/array'
+import { uniq, intersection, round } from 'es-toolkit'
 import {
   getBoundaryItem,
   getSegmentInfo,
@@ -7,6 +7,7 @@ import {
 } from '@streetmix/parts'
 import { convertImperialMeasurementToMetric } from '@streetmix/utils'
 
+import { METRIC_PRECISION } from '~/src/util/width_units.js'
 import { SEA_LEVEL_RISE_FEET, SURGE_HEIGHT_FEET } from './constants.js'
 
 import type { FloodDetails, SliceItem, StreetState } from '@streetmix/types'
@@ -27,7 +28,7 @@ const disallowFlooding = [
 // TODO: streamline by doing base calculation in metric, then convert back to
 // imperial if needed.
 export function calculateSeaLevelRise(
-  seaLevelRise: number,
+  targetYear: number | null,
   stormSurge: boolean,
   street: StreetState
 ) {
@@ -45,9 +46,9 @@ export function calculateSeaLevelRise(
     baseSeaLevel = street.boundary.right.elevation
   }
 
-  if (seaLevelRise in SEA_LEVEL_RISE_FEET) {
+  if (targetYear !== null && targetYear in SEA_LEVEL_RISE_FEET) {
     heightFeet +=
-      SEA_LEVEL_RISE_FEET[seaLevelRise as keyof typeof SEA_LEVEL_RISE_FEET]
+      SEA_LEVEL_RISE_FEET[targetYear as keyof typeof SEA_LEVEL_RISE_FEET]
   }
 
   if (stormSurge) {
@@ -56,7 +57,7 @@ export function calculateSeaLevelRise(
 
   const height = convertImperialMeasurementToMetric(heightFeet)
 
-  return baseSeaLevel + height
+  return round(baseSeaLevel + height, METRIC_PRECISION)
 }
 
 // Given the slices of a street section, and sea level rise height, calculate
@@ -167,7 +168,8 @@ export function calculateFloodDetails(
     direction,
     // if `floodDistance` is infinite, return `max` instead because `Infinity`
     // is not a serializable value in JSON.
-    distance: floodDistance === Infinity ? 'max' : floodDistance,
+    distance: floodDistance === Infinity ? 'max' : round(floodDistance, 3),
+    rise: floodHeight,
     floodedTypes: filteredFloodedTypes,
     flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }
@@ -175,10 +177,10 @@ export function calculateFloodDetails(
 
 export function checkSeaLevel(
   street: StreetState,
-  seaLevelRise: number,
+  targetYear: number | null,
   stormSurge: boolean
 ): [FloodDetails | null, FloodDetails | null] {
-  const height = calculateSeaLevelRise(seaLevelRise, stormSurge, street)
+  const height = calculateSeaLevelRise(targetYear, stormSurge, street)
 
   const { boundary, segments: slices } = street
 

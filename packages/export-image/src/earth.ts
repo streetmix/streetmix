@@ -1,5 +1,5 @@
 import { getBoundaryItem } from '@streetmix/parts'
-import { TILE_SIZE } from './constants.js'
+import { BOUNDARY_WIDTH, TILE_SIZE } from './constants.js'
 
 import type * as Canvas from '@napi-rs/canvas'
 import type { StreetJson } from '@streetmix/types'
@@ -58,7 +58,7 @@ export function drawEarth(
   ctx.fillRect(
     0,
     (groundLevel - leftElevation) * scale,
-    (width / 2 - (street.width * TILE_SIZE) / 2) * scale,
+    BOUNDARY_WIDTH * scale,
     horizonLine * scale
   )
 
@@ -71,9 +71,9 @@ export function drawEarth(
 
   // Earth below right boundary
   ctx.fillRect(
-    (width / 2 + (street.width * TILE_SIZE) / 2) * scale,
+    (width - BOUNDARY_WIDTH) * scale,
     (groundLevel - rightElevation) * scale,
-    width * scale,
+    BOUNDARY_WIDTH * scale,
     horizonLine * scale
   )
 

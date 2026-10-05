@@ -5,7 +5,7 @@ import type { CoastmixState } from '@streetmix/types'
 
 const initialState: CoastmixState = {
   controlsVisible: false,
-  seaLevelRise: 0,
+  targetYear: null,
   stormSurge: false,
   floodDetails: [null, null],
 }
@@ -40,8 +40,8 @@ const coastmixSlice = createSlice({
       state.controlsVisible = !state.controlsVisible
     },
 
-    setSeaLevelRise(state, action: PayloadAction<number>) {
-      state.seaLevelRise = action.payload
+    setTargetYear(state, action: PayloadAction<CoastmixState['targetYear']>) {
+      state.targetYear = action.payload
     },
 
     setFloodDetails(
@@ -63,7 +63,7 @@ export const {
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
   toggleCoastalFloodingPanel,
-  setSeaLevelRise,
+  setTargetYear,
   setFloodDetails,
   setStormSurge,
 } = coastmixSlice.actions

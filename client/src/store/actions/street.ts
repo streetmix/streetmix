@@ -73,7 +73,7 @@ export function updateStreetDataAction(data: Partial<StreetState>) {
 export const segmentsChanged = (force = false) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { street, coastmix } = getState()
-    const { seaLevelRise, stormSurge } = coastmix
+    const { targetYear, stormSurge } = coastmix
 
     const calculatedWidths = recalculateWidth(street)
 
@@ -120,7 +120,7 @@ export const segmentsChanged = (force = false) => {
     // This is using a stale version of `street` and might not include
     // the updated occupiedWidth, remainingWidth etc? but it still seems to
     // be okay.
-    const floodDetails = checkSeaLevel(street, seaLevelRise, stormSurge)
+    const floodDetails = checkSeaLevel(street, targetYear, stormSurge)
     dispatch(setFloodDetails(floodDetails))
 
     // ToDo: Refactor this out to be dispatched as well

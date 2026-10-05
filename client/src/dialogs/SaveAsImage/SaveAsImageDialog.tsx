@@ -32,12 +32,15 @@ export function SaveAsImageDialog() {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
+    saveAsImageSeaLevelRise: seaLevelRise,
   } = useSelector((state) => state.settings)
   // even if watermarks are off, override if user isn't subscribed
   const watermark = useSelector(
     (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
   )
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const street = useSelector((state) => state.street)
+  const { floodDetails, stormSurge } = useSelector((state) => state.coastmix)
   const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
@@ -65,7 +68,14 @@ export function SaveAsImageDialog() {
       await updatePreview()
     }, 100)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transparentSky, segmentNames, streetName, watermark, isNewExport])
+  }, [
+    transparentSky,
+    segmentNames,
+    streetName,
+    seaLevelRise,
+    watermark,
+    isNewExport,
+  ])
 
   // Same as above but ONLY update preview if we're using the new export
   // pipeline, and the scale changes
@@ -108,6 +118,10 @@ export function SaveAsImageDialog() {
 
   const toggleStreetName = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateSettings({ saveAsImageStreetName: event.target.checked }))
+  }
+
+  const toggleSeaLevelRise = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ saveAsImageSeaLevelRise: event.target.checked }))
   }
 
   const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -190,6 +204,9 @@ export function SaveAsImageDialog() {
       transparentSky,
       segmentNames,
       streetName,
+      coastmixMode ? seaLevelRise : false,
+      floodDetails,
+      stormSurge,
       DEFAULT_IMAGE_DPI * scale,
       watermark,
       locale
@@ -215,9 +232,8 @@ export function SaveAsImageDialog() {
       height: imageCanvas.current?.height,
     })
 
-    // .toDataURL is not available on IE11 when SVGs are part of the canvas.
     // The error in catch() is only likely to appear if a SecurityError is
-    // thrown from reading the canvas.
+    // thrown from reading the canvas, e.g. "tainted" with external images
     try {
       imageCanvas.current?.toBlob((blob) => {
         if (blob) {
@@ -284,6 +300,15 @@ export function SaveAsImageDialog() {
                   defaultMessage="Transparent sky"
                 />
               </Checkbox>
+
+              {coastmixMode && (
+                <Checkbox onChange={toggleSeaLevelRise} checked={seaLevelRise}>
+                  <FormattedMessage
+                    id="dialogs.save.option-sea-level-rise"
+                    defaultMessage="Sea level rise"
+                  />
+                </Checkbox>
+              )}
 
               {isSubscriber ? (
                 <Checkbox onChange={toggleWatermark} checked={watermark}>

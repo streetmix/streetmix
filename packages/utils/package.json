@@ -14,5 +14,7 @@
     "build": "tsc --project tsconfig.json",
     "start": "echo Nothing to run!"
   },
-  "dependencies": {}
+  "dependencies": {
+    "es-toolkit": "1.52.0"
+  }
 }

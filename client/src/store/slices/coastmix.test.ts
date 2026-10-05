@@ -2,7 +2,7 @@ import coastmix, {
   resetCoastmixState,
   showCoastalFloodingPanel,
   hideCoastalFloodingPanel,
-  setSeaLevelRise,
+  setTargetYear,
   setFloodDetails,
   setStormSurge,
   toggleCoastalFloodingPanel,
@@ -12,7 +12,7 @@ import type { FloodDetails } from '@streetmix/types'
 describe('coastmix reducer', () => {
   const initialState = {
     controlsVisible: false,
-    seaLevelRise: 0,
+    targetYear: null,
     stormSurge: false,
     floodDetails: [null, null] as [FloodDetails | null, FloodDetails | null],
   }
@@ -22,12 +22,13 @@ describe('coastmix reducer', () => {
       const action = coastmix(
         {
           controlsVisible: true,
-          seaLevelRise: 2030,
+          targetYear: 2030,
           stormSurge: true,
           floodDetails: [
             {
               direction: 'left',
               distance: 1,
+              rise: 1,
               floodedTypes: [],
               flooded: false,
             },
@@ -65,17 +66,17 @@ describe('coastmix reducer', () => {
     })
   })
 
-  describe('setSeaLevelRise()', () => {
+  describe('setTargetYear()', () => {
     it('should set water level to something', () => {
-      const action = coastmix(initialState, setSeaLevelRise(1))
+      const action = coastmix(initialState, setTargetYear(1))
 
-      expect(action.seaLevelRise).toEqual(1)
+      expect(action.targetYear).toEqual(1)
     })
 
     it('should set water level to initial', () => {
-      const action = coastmix(initialState, setSeaLevelRise(0))
+      const action = coastmix(initialState, setTargetYear(null))
 
-      expect(action.seaLevelRise).toEqual(0)
+      expect(action.targetYear).toEqual(null)
     })
   })
 
@@ -84,6 +85,7 @@ describe('coastmix reducer', () => {
       const left: FloodDetails = {
         direction: 'left',
         distance: 1,
+        rise: 0,
         floodedTypes: [],
         flooded: false,
       }
@@ -97,6 +99,7 @@ describe('coastmix reducer', () => {
       const right: FloodDetails = {
         direction: 'right',
         distance: 2,
+        rise: 1,
         floodedTypes: ['BIKE'],
         flooded: true,
       }
@@ -110,12 +113,14 @@ describe('coastmix reducer', () => {
       const left: FloodDetails = {
         direction: 'left',
         distance: 2,
+        rise: 1,
         floodedTypes: ['BIKE'],
         flooded: true,
       }
       const right: FloodDetails = {
         direction: 'right',
         distance: 1,
+        rise: 2,
         floodedTypes: [],
         flooded: false,
       }
@@ -133,12 +138,14 @@ describe('coastmix reducer', () => {
             {
               direction: 'left',
               distance: 1,
+              rise: 1,
               floodedTypes: [],
               flooded: false,
             },
             {
               direction: 'right',
               distance: 2,
+              rise: 1,
               floodedTypes: ['BIKE'],
               flooded: true,
             },
