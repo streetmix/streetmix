@@ -163,7 +163,7 @@ export function SaveAsImageDialog() {
     if (isNewExport) {
       const filename = makeFilename()
       saveAs(
-        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&seaLevelRise=${seaLevelRise}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`,
         filename
       )
       window.setTimeout(() => {
@@ -218,7 +218,7 @@ export function SaveAsImageDialog() {
     // to the API export directly, then skip the rest of the function
     if (isNewExport) {
       setDownloadDataUrl(
-        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
+        `/api/v1/streets/${street.id}/image?transparentSky=${transparentSky}&labels=${segmentNames}&streetName=${streetName}&seaLevelRise=${seaLevelRise}&watermark=${watermark}&locale=${locale}&scale=${scale}&experimental=1`
       )
       return
     }

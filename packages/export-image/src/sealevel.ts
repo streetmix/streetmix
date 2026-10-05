@@ -117,6 +117,9 @@ async function drawSeaLevelWaves(
 ) {
   ctx.save()
 
+  // Image is only available on browser
+  // Will need to do a loadImage() from @napi-rs/canvas for server (but parcel
+  // doesn't like bundling @napi-rs/canvas so we have to deal with that first)
   const image = new Image()
   image.src = WAVES_IMAGE_URL
 

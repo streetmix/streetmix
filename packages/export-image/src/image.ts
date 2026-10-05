@@ -99,6 +99,7 @@ export async function makeStreetImage(
   for (const slice of street.data.street.segments) {
     occupiedWidth += slice.width
   }
+  const remainingWidth = street.data.street.width - occupiedWidth
 
   // TODO: adjust scale for these numbers early?
   // See drawSky for an example where scaled values are passed in to draw function
@@ -171,8 +172,11 @@ export async function makeStreetImage(
       await drawSeaLevelRise(
         ctx,
         // @ts-expect-error street data on backend does not have all the same properties as on client
-        // we need remainingWidth and that doesn't get stored right now.
-        street.data.street,
+        // We manually recalc remainingWidth and add it here
+        {
+          ...street.data.street,
+          remainingWidth,
+        },
         street.data.plugins.coastmix?.floodDetails,
         street.data.plugins.coastmix?.stormSurge,
         baseWidth,
