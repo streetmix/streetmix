@@ -41,6 +41,7 @@ export async function drawSeaLevelRise(
   // haven't scaled up the waves to draw that effect.
   const rise = Math.max(left?.rise ?? 0, right?.rise ?? 0)
   const floodHeight = rise * TILE_SIZE - HALF_OF_WAVE_HEIGHT
+  // const floodHeight = rise * TILE_SIZE - HALF_OF_WAVE_HEIGHT * (stormSurge ? 2 : 1)
   const waterY = groundLevel - floodHeight
   const waterHeight = GROUND_BASELINE_HEIGHT + floodHeight
 

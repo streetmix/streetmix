@@ -59,7 +59,7 @@ export function GalleryStreetItem(props: GalleryStreetItemProps) {
         transparentSky: false,
         labels: false,
         streetName: false,
-        renderFlood: false,
+        seaLevelRise: false,
         watermark: false,
         locale: null,
       })
