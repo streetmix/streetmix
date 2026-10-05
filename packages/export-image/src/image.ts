@@ -168,7 +168,8 @@ export async function makeStreetImage(
     }
 
     // Flooding
-    if (options.seaLevelRise) {
+    // When turned on and Coastmix plugin data exists
+    if (options.seaLevelRise && street.data.plugins.coastmix) {
       await drawSeaLevelRise(
         ctx,
         // @ts-expect-error street data on backend does not have all the same properties as on client
@@ -177,8 +178,8 @@ export async function makeStreetImage(
           ...street.data.street,
           remainingWidth,
         },
-        street.data.plugins.coastmix?.floodDetails,
-        street.data.plugins.coastmix?.stormSurge,
+        street.data.plugins.coastmix.floodDetails,
+        street.data.plugins.coastmix.stormSurge,
         baseWidth,
         groundLevel,
         options.scale
