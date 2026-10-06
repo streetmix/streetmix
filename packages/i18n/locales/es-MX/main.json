@@ -269,6 +269,7 @@
       "option-labels": "Nombres y anchura de segmentos",
       "option-name": "Nombre de la calle",
       "option-sky": "Cielo transparente",
+      "option-sea-level-rise": "",
       "option-watermark": "Filigrana",
       "option-custom-scale": "Escala personalizada",
       "option-custom-scale-description": "Descarga una imagen hasta 500% del tamaño original.",
