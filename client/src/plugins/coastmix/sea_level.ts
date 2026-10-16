@@ -16,7 +16,6 @@ const disallowFlooding = [
   SliceTypes.CAR,
   SliceTypes.BIKE,
   SliceTypes.TRANSIT,
-  SliceTypes.BIKE,
   // Maybe okay to flood, if we're lax about it!
   // SliceTypes.FURNITURE,
   // SliceTypes.FLEX,

@@ -1,5 +1,5 @@
 .coastmix-controls {
-  min-width: 260px;
+  width: 400px;
 }
 
 .coastmix-controls.floating-panel-container-outer {
@@ -37,6 +37,11 @@
   &.flood-controls-warning {
     background-color: var(--color-copper-100);
   }
+}
+
+.flood-controls-message-explainer {
+  font-weight: normal;
+  margin: 0.25em 0 0;
 }
 
 /* Manual tweaks to ShepherdJS tour highlights */
