@@ -89,7 +89,7 @@
     "glob": "13.0.6",
     "hbs": "4.3.1",
     "helmet": "8.3.0",
-    "js-yaml": "5.4.3",
+    "js-yaml": "5.5.0",
     "jwks-rsa": "4.1.0",
     "nanoid": "6.0.2",
     "newrelic": "14.8.0",
@@ -169,6 +169,7 @@
     "lmdb@2.8.5": true,
     "msgpackr-extract@3.0.3": true,
     "protobufjs@7.6.6": true,
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "msw@2.15.0": true
   }
 }
