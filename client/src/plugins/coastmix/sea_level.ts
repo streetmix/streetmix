@@ -74,9 +74,21 @@ export function calculateFloodDetails(
   const fromLeft = direction === 'left'
   const floodedTypes = []
   let floodDistance = 0
+  let flooded = false
 
+  // A special case where max flood distance with no slices is considered
+  // flooded. This does not always apply. For instance:
+  // "Some people might follow a workflow where they build, say, a street as a
+  // real life existing condition, and then make a proposal to pursue managed
+  // retreat where they deconstruct all of the built infrastructure and replace
+  // it with a series of green infrastructure or nature-based solutions, like
+  // berms, parks, rain gardens, dunes, etc that they intend to allow to flood
+  // and renaturalize"
+  // TODO: The type of boundary could be taken into consideration here.
+  // e.g. buildings should not be flooded, but grass can be.
   if (slices.length === 0) {
     floodDistance = Infinity
+    flooded = true
   }
 
   // Loop direction changes depending on whether or not we are starting from
@@ -175,7 +187,7 @@ export function calculateFloodDetails(
     rise: floodHeight,
     floodedTypes: filteredFloodedTypes,
     flooded:
-      floodDistance === Infinity ||
+      flooded ||
       intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }
 }

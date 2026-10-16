@@ -137,7 +137,7 @@ describe('flooding distance', () => {
         distance: 'max',
         rise: 1,
         floodedTypes: ['PEDESTRIAN'],
-        flooded: true,
+        flooded: false,
       })
     }
   )
@@ -208,7 +208,7 @@ describe('flooding distance', () => {
       distance: 'max',
       rise: 1,
       floodedTypes: ['PEDESTRIAN'],
-      flooded: true,
+      flooded: false,
     })
   })
 
