@@ -64,7 +64,7 @@ describe('flooding distance', () => {
     ['left', [0, 1]],
     ['right', [1, 0]],
   ] as const)(
-    'detects a flooded distance from the %s',
+    'calculates a flooded distance from the %s',
     (direction, elevations) => {
       expect(
         calculateFloodDetails(
@@ -89,7 +89,7 @@ describe('flooding distance', () => {
   )
 
   it.each(['left', 'right'] as const)(
-    'detects zero flooding distance from the %s',
+    'calculates zero flooding distance from the %s',
     (direction) => {
       expect(
         calculateFloodDetails(
@@ -116,7 +116,7 @@ describe('flooding distance', () => {
   )
 
   it.each(['left', 'right'] as const)(
-    'detects infinite flooding distance from the %s',
+    'calculates max flooding distance from the %s',
     (direction) => {
       expect(
         calculateFloodDetails(
@@ -138,6 +138,19 @@ describe('flooding distance', () => {
         rise: 1,
         floodedTypes: ['PEDESTRIAN'],
         flooded: false,
+      })
+    }
+  )
+
+  it.each(['left', 'right'] as const)(
+    'calculates max flooding distance from the %s when there are no slices',
+    (direction) => {
+      expect(calculateFloodDetails([], 1, direction)).toEqual({
+        direction,
+        distance: 'max',
+        rise: 1,
+        floodedTypes: [],
+        flooded: true,
       })
     }
   )
