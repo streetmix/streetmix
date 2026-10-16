@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-
 import { SliceTypes } from '@streetmix/parts'
+
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import {
   hideCoastalFloodingPanel,
@@ -14,6 +14,64 @@ import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { FloatingPanel } from '~/src/ui/FloatingPanels'
 import './CoastalFloodingPanel.css'
+
+import type { FloodDetails } from '@streetmix/types'
+
+function getAdditionalMessages(
+  floodDetails: [FloodDetails | null, FloodDetails | null]
+) {
+  const leftFloodedTypes = floodDetails[0]?.floodedTypes ?? []
+  const rightFloodedTypes = floodDetails[1]?.floodedTypes ?? []
+  const allFloodedTypes = leftFloodedTypes.concat(rightFloodedTypes)
+  const isFlooded = floodDetails[0]?.flooded || floodDetails[1]?.flooded
+  const messages = []
+
+  if (isFlooded) {
+    // If either flood is max distance, this is the highest priority messsage
+    if (
+      floodDetails[0]?.distance === 'max' ||
+      floodDetails[1]?.distance === 'max'
+    ) {
+      messages.push('The entire cross section will be flooded.')
+    } else if (
+      allFloodedTypes.includes(SliceTypes.CAR) ||
+      allFloodedTypes.includes(SliceTypes.BIKE) ||
+      allFloodedTypes.includes(SliceTypes.TRANSIT)
+    ) {
+      messages.push('Transportation infrastructure will be flooded.')
+    } else if (allFloodedTypes.includes(SliceTypes.UTILITY)) {
+      messages.push('An important utility will be flooded.')
+    }
+
+    messages.push(
+      'Consider raising the height of elements near the waterfront!'
+    )
+  } else {
+    if (
+      allFloodedTypes.includes(SliceTypes.PEDESTRIAN) ||
+      allFloodedTypes.includes(SliceTypes.FURNITURE) ||
+      allFloodedTypes.includes(SliceTypes.FLEX)
+    ) {
+      messages.push('A pedestrian area will be flooded.')
+      messages.push(
+        'This can be acceptable during a temporary rise in sea level, such as a storm surge.'
+      )
+    } else if (allFloodedTypes.includes(SliceTypes.NATURE)) {
+      messages.push('A natural element will be flooded.')
+      messages.push(
+        'This can be acceptable during a temporary rise in sea level, such as a storm surge.'
+      )
+    }
+
+    if (allFloodedTypes.includes(SliceTypes.DRAINAGE)) {
+      messages.push(
+        'You’ve also included drainage infrastructure, which can help absorb some stormwater!'
+      )
+    }
+  }
+
+  return messages
+}
 
 export function CoastalFloodingPanel() {
   const coastmix = useSelector((state) => state.coastmix)
@@ -42,7 +100,7 @@ export function CoastalFloodingPanel() {
   const isFlooded = floodDetails[0]?.flooded || floodDetails[1]?.flooded
 
   let message
-  const message2 = []
+  let additionalMessages: string[] = []
 
   const messageClassNames = ['flood-controls-message']
   if (targetYear === null && stormSurge === false) {
@@ -50,44 +108,15 @@ export function CoastalFloodingPanel() {
   } else if (floodDetails[0] === null && floodDetails[1] === null) {
     message = `👉 ${intl.formatMessage({ id: 'tools.flooding.messages.need-waterfront', defaultMessage: 'Add a waterfront boundary to visualize flooding.' })}`
   } else {
-    const leftFloodedTypes = floodDetails[0]?.floodedTypes ?? []
-    const rightFloodedTypes = floodDetails[1]?.floodedTypes ?? []
-    const allFloodedTypes = leftFloodedTypes.concat(rightFloodedTypes)
-
     if (isFlooded) {
       message = `❌ ${intl.formatMessage({ id: 'tools.flooding.messages.fail', defaultMessage: 'This configuration does not address sea level rise!' })}`
       messageClassNames.push('flood-controls-warning')
-
-      if (
-        allFloodedTypes.includes(SliceTypes.CAR) ||
-        allFloodedTypes.includes(SliceTypes.BIKE) ||
-        allFloodedTypes.includes(SliceTypes.TRANSIT)
-      ) {
-        message2.push(
-          'Transportation infrastructure is being flooded and that could be pretty sucky.'
-        )
-      }
     } else {
-      message = `✅ ${intl.formatMessage({ id: 'tools.flooding.messages.success', defaultMessage: 'This configuration is addressing sea level rise!' })}`
+      message = `✅ ${intl.formatMessage({ id: 'tools.flooding.messages.success', defaultMessage: 'This configuration addresses sea level rise!' })}`
       messageClassNames.push('flood-controls-success')
-
-      if (allFloodedTypes.includes(SliceTypes.NATURE)) {
-        message2.push('A natural element is being flooded, but thats okay.')
-      }
-
-      if (
-        allFloodedTypes.includes(SliceTypes.PEDESTRIAN) ||
-        allFloodedTypes.includes(SliceTypes.FURNITURE)
-      ) {
-        message2.push(
-          'A pedestrian area is being flooded, but that could be acceptable temporarily.'
-        )
-      }
-
-      if (allFloodedTypes.includes(SliceTypes.DRAINAGE)) {
-        message2.push('You have also included drainage infra and that helps!')
-      }
     }
+
+    additionalMessages = getAdditionalMessages(floodDetails)
   }
 
   return (
@@ -169,17 +198,9 @@ export function CoastalFloodingPanel() {
           data-tour-id="flooding-message"
         >
           {message}
-          {message2.length > 0 && (
-            <p
-              style={{
-                fontWeight: 'normal',
-                whiteSpace: 'normal',
-                width: '350px',
-                margin: 0,
-                marginTop: '0.25em',
-              }}
-            >
-              {message2.join(' ')}
+          {additionalMessages.length > 0 && (
+            <p className="flood-controls-message-explainer">
+              {additionalMessages.join(' ')}
             </p>
           )}
         </div>

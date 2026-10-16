@@ -10,7 +10,7 @@ export function CoastmixUI() {
 
   return (
     <>
-      <FloodingDebugOverlay on={true} />
+      <FloodingDebugOverlay on={false} />
       <CoastalFloodingPanel />
     </>
   )
