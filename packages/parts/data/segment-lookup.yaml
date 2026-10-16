@@ -92,7 +92,7 @@ sidewalk-tree:
 sidewalk-bike-rack:
   name: Bike rack
   nameKey: bike-rack
-  owner: BIKE
+  owner: FURNITURE
   zIndex: 23
   coastmixPaletteOrder: 22
   defaultWidth:

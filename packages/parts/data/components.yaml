@@ -256,7 +256,7 @@ objects:
   bike-rack:
     name: Bike rack
     nameKey: bike-rack
-    owner: BIKE
+    owner: FURNITURE
     zIndex: 23
     variants:
       direction|orientation:
