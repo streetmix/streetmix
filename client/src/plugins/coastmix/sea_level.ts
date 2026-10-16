@@ -75,6 +75,10 @@ export function calculateFloodDetails(
   const floodedTypes = []
   let floodDistance = 0
 
+  if (slices.length === 0) {
+    floodDistance = Infinity
+  }
+
   // Loop direction changes depending on whether or not we are starting from
   // the left or the right. Doing n+1 / n-1 is faster than reversing the array
   // just to keep the loop counting in one direction.
@@ -170,7 +174,9 @@ export function calculateFloodDetails(
     distance: floodDistance === Infinity ? 'max' : round(floodDistance, 3),
     rise: floodHeight,
     floodedTypes: filteredFloodedTypes,
-    flooded: intersection(disallowFlooding, filteredFloodedTypes).length > 0,
+    flooded:
+      floodDistance === Infinity ||
+      intersection(disallowFlooding, filteredFloodedTypes).length > 0,
   }
 }
 
