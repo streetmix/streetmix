@@ -392,7 +392,8 @@ function drawSlices(
 function drawWatermark(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   dpi: number, // pixel density of canvas
-  invert = false // if `true`, render light text for dark background
+  invert = false, // if `true`, render light text for dark background
+  coastmix = false
 ): void {
   const text = formatMessage(
     'export.watermark',
@@ -403,9 +404,15 @@ function drawWatermark(
       streetmixWordmark: '{streetmixWordmark}',
     }
   )
-  const wordmarkImage = invert
+  let wordmarkImage = invert
     ? images.get('/images/wordmark_white.svg')
     : images.get('/images/wordmark_black.svg')
+
+  if (coastmix) {
+    wordmarkImage = invert
+      ? images.get('/images/wordmark_coastmix_white.svg')
+      : images.get('/images/wordmark_coastmix_black.svg')
+  }
 
   // Separate string so that we can render a wordmark with an image
   const strings = text.replace(/{/g, '||{').replace(/}/g, '}||').split('||')
@@ -616,7 +623,9 @@ export async function drawStreetThumbnail(
   }
 
   // Watermark
+  // `seaLevelRise` is being used as a proxy property for whether it says
+  // "by Coastmix" as a watermark.
   if (watermark) {
-    drawWatermark(ctx, dpi, !labels)
+    drawWatermark(ctx, dpi, !labels, seaLevelRise)
   }
 }
