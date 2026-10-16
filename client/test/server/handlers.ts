@@ -1,7 +1,8 @@
 import { URLSearchParams } from 'node:url'
 import { readFile } from 'node:fs/promises'
 import * as path from 'node:path'
-import { http, HttpResponse, delay } from 'msw'
+import { http, HttpResponse } from 'msw/http'
+import { delay } from 'msw/utils/delay'
 
 import autocompleteResponse from '../fixtures/geocode/autocomplete.json'
 import searchResponse from '../fixtures/geocode/search.json'
@@ -58,6 +59,18 @@ export const handlers = [
   }),
 
   // EXTERNAL REQUESTS
+  // Starting in msw v3, we also have to respond to OPTIONS preflight requests
+  // for external APIs.
+  http.options('https://*', () => {
+    return new HttpResponse(null, {
+      status: 204,
+      headers: {
+        'access-control-allow-origin': '*',
+        'access-control-allow-headers': '*',
+      },
+    })
+  }),
+
   http.post(
     'https://buttondown.email/api/emails/embed-subscribe/streetmix',
     async ({ request }) => {
