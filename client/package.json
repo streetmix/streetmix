@@ -90,7 +90,7 @@
     "@types/seedrandom": "3.0.8",
     "@types/webpack-env": "1.18.8",
     "happy-dom": "21.0.3",
-    "msw": "2.15.0",
+    "msw": "3.0.3",
     "postcss": "8.5.30",
     "postcss-nesting": "14.0.3",
     "react-dnd-test-backend": "16.0.1",
