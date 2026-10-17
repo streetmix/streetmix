@@ -366,7 +366,7 @@
       "messages": {
         "start": "Havainnollista tulvimista valitsemalla merenpinnan nousun taso.",
         "need-waterfront": "Havainnollista tulvimista lisäämällä rantaviivan raja.",
-        "success": "Tällä kokoonpanolla merenpinta nousee!",
+        "success": "",
         "fail": "Tällä kokoonpanolla merenpinta ei nouse!"
       }
     }
