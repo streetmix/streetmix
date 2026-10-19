@@ -156,10 +156,10 @@ We recommend using [Git Bash](https://gitforwindows.org/) or [Windows Powershell
 git clone https://github.com/streetmix/streetmix.git
 ```
 
-2. Change the directory to Streetmix's root directory, and install project dependencies.
+2. Change the directory to Streetmix's root directory, install project dependencies, and run the build process.
 
 ```shell-session
-cd streetmix && npm install
+cd streetmix && npm install && npm run build
 ```
 
 :::caution
@@ -186,8 +186,8 @@ If the PostgreSQL username is the same as your operating system's current userna
 4. Initialize the PostgreSQL database.
 
 ```shell-session
-npx sequelize db:create
-npx sequelize db:migrate
+NODE_ENV=development npx sequelize db:create
+NODE_ENV=development npx sequelize db:migrate
 NODE_ENV=test npx sequelize db:create
 NODE_ENV=test npx sequelize db:migrate
 ```
