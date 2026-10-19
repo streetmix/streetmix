@@ -7,13 +7,12 @@ import { useSelector, useDispatch } from '~/src/store/hooks.js'
 import { updateSettings } from '~/src/store/slices/settings.js'
 import { Button } from '~/src/ui/Button.js'
 import { Checkbox } from '~/src/ui/Checkbox.js'
-import { Icon } from '~/src/ui/Icon.js'
-import { Tooltip } from '~/src/ui/Tooltip.js'
 import { Terms } from '~/src/app/Terms.js'
 import { getStreetImage } from '~/src/streets/image.js'
 import { normalizeSlug } from '~/src/util/helpers.js'
 import { Dialog } from '../Dialog.js'
 import { CustomScale } from './CustomScale.js'
+import { WatermarkOption } from './WatermarkOption.js'
 import './SaveAsImageDialog.css'
 
 const DEFAULT_IMAGE_DPI = 2
@@ -28,20 +27,23 @@ export function SaveAsImageDialog() {
   const [downloadDataUrl, setDownloadDataUrl] = useState<string>()
   const [baseDimensions, setBaseDimensions] = useState({})
   const locale = useSelector((state) => state.locale.locale)
+  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const {
     saveAsImageTransparentSky: transparentSky,
     saveAsImageSegmentNamesAndWidths: segmentNames,
     saveAsImageStreetName: streetName,
     saveAsImageSeaLevelRise: seaLevelRise,
   } = useSelector((state) => state.settings)
-  // even if watermarks are off, override if user isn't subscribed
+  // even if watermarks are off, override if user isn't subscribed, or we are
+  // in coastmix mode
   const watermark = useSelector(
-    (state) => state.settings.saveAsImageWatermark || !state.user.isSubscriber
+    (state) =>
+      state.settings.saveAsImageWatermark ||
+      !state.user.isSubscriber ||
+      coastmixMode
   )
-  const coastmixMode = useSelector((state) => state.flags.COASTMIX_MODE.value)
   const street = useSelector((state) => state.street)
   const { floodDetails, stormSurge } = useSelector((state) => state.coastmix)
-  const isSubscriber = useSelector((state) => state.user.isSubscriber)
   const intl = useIntl()
   const dispatch = useDispatch()
 
@@ -124,10 +126,6 @@ export function SaveAsImageDialog() {
     dispatch(updateSettings({ saveAsImageSeaLevelRise: event.target.checked }))
   }
 
-  const toggleWatermark = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(updateSettings({ saveAsImageWatermark: event.target.checked }))
-  }
-
   const toggleNewExport = () => {
     setNewExport(!isNewExport)
   }
@@ -208,7 +206,7 @@ export function SaveAsImageDialog() {
       floodDetails,
       stormSurge,
       DEFAULT_IMAGE_DPI * scale,
-      watermark,
+      coastmixMode ? watermark && 'coastmix' : watermark,
       locale
     )
   }
@@ -310,37 +308,7 @@ export function SaveAsImageDialog() {
                 </Checkbox>
               )}
 
-              {isSubscriber ? (
-                <Checkbox onChange={toggleWatermark} checked={watermark}>
-                  <FormattedMessage
-                    id="dialogs.save.option-watermark"
-                    defaultMessage="Watermark"
-                  />
-                </Checkbox>
-              ) : (
-                <Tooltip
-                  label={intl.formatMessage({
-                    id: 'plus.locked.sub',
-                    // Default message ends with a Unicode-only left-right order mark
-                    // to allow for proper punctuation in `rtl` text direction
-                    // This character is hidden from editors by default!
-                    defaultMessage: 'Upgrade to Streetmix+ to use!‎',
-                  })}
-                >
-                  <Checkbox
-                    onChange={toggleWatermark}
-                    checked={watermark}
-                    disabled={!isSubscriber}
-                  >
-                    <FormattedMessage
-                      id="dialogs.save.option-watermark"
-                      defaultMessage="Watermark"
-                    />
-                    &nbsp;
-                    <Icon name="lock" />
-                  </Checkbox>
-                </Tooltip>
-              )}
+              {!coastmixMode && <WatermarkOption />}
             </div>
             {street.weather !== null && (
               <div className="save-as-image-weather-alert">

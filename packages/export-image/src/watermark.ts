@@ -18,6 +18,7 @@ const WORDMARK_MARGIN = 4
  * Draws a "made with Streetmix" watermark on the lower right of the image.
  *
  * @todo Make it work with rtl
+ * @todo Add Coastmix branding mode
  * @modifies {Canvas.SKRSContext2D}
  */
 export async function drawWatermark(
