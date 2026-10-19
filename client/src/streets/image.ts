@@ -27,7 +27,7 @@ export async function getStreetImage(
   floodDetails: [FloodDetails | null, FloodDetails | null] = [null, null],
   stormSurge = false,
   dpi = SAVE_AS_IMAGE_DPI,
-  watermark = true,
+  watermark: boolean | 'coastmix' = true,
   locale: string | null = null
 ): Promise<HTMLCanvasElement> {
   const width = TILE_SIZE * street.width + BOUNDARY_WIDTH * 2

@@ -208,7 +208,7 @@ export function SaveAsImageDialog() {
       floodDetails,
       stormSurge,
       DEFAULT_IMAGE_DPI * scale,
-      watermark,
+      coastmixMode ? watermark && 'coastmix' : watermark,
       locale
     )
   }

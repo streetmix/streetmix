@@ -477,7 +477,7 @@ interface ThumbnailOptions {
   seaLevelRise: boolean
   floodDetails?: [FloodDetails | null, FloodDetails | null]
   stormSurge?: boolean
-  watermark: boolean
+  watermark: boolean | 'coastmix'
   locale: string | null
 }
 
@@ -623,9 +623,9 @@ export async function drawStreetThumbnail(
   }
 
   // Watermark
-  // `seaLevelRise` is being used as a proxy property for whether it says
-  // "by Coastmix" as a watermark.
+  // `watermark` is typically a boolean but a special case value of 'coastmix'
+  // draws the Coastmix branded watermark instead.
   if (watermark) {
-    drawWatermark(ctx, dpi, !labels, seaLevelRise)
+    drawWatermark(ctx, dpi, !labels, watermark === 'coastmix')
   }
 }
