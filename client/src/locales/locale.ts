@@ -9,7 +9,7 @@ import type { LocaleDefinition, LocaleLevel } from '@streetmix/i18n'
 /**
  * Initialize i18n / localization
  */
-export async function initLocale (): Promise<void> {
+export async function initLocale(): Promise<void> {
   // See if there is a requested locale via the lang param
   const paramLocale = new URLSearchParams(window.location.search).get('lang')
 
@@ -44,7 +44,7 @@ export async function initLocale (): Promise<void> {
  * Whenever the language changes, this listener will apply the document's text
  * direction. Required to support rtl languages like Arabic, Hebrew, etc.
  */
-function initRtlChangedListener (): void {
+function initRtlChangedListener(): void {
   const select = (state: RootState): string => state.app.contentDirection
   const onChange = (direction: string): void => {
     document.documentElement.dir = direction
@@ -56,10 +56,11 @@ function initRtlChangedListener (): void {
 /**
  * For the same Intl.FormatMessage functionality outside of React, use this
  */
-export function formatMessage (
+export function formatMessage(
   key: string, // translation key
   fallback: string = '', // fallback or reference string
-  options: { ns?: string } = {}
+  // namespace and string replacement values
+  options: { ns?: string } & Record<string, string> = {}
 ): string {
   const locale = store.getState().locale
 
@@ -73,7 +74,7 @@ export function formatMessage (
   if (message === undefined) return fallback
 
   const msg = new IntlMessageFormat(message ?? fallback, locale.locale)
-  const formatted = msg.format(options)
+  const formatted = msg.format<string>(options)
 
   // We don't have any translations that are arrays anymore, but
   // IntlMessageFormat.format() return types includes arrays. This forces
@@ -89,7 +90,7 @@ export function formatMessage (
  * Gets the current locale level. See `./constants.ts` for a description
  * of what each level is.
  */
-function getLocaleLevel (): LocaleLevel {
+function getLocaleLevel(): LocaleLevel {
   const flags = store.getState().flags
 
   // The lowest level marked "true" takes priority.
@@ -106,7 +107,7 @@ function getLocaleLevel (): LocaleLevel {
  * sorted list of locales based on the current level of available locales.
  * See `./constants.ts` for a description of what each level is.
  */
-export function getAvailableLocales (): LocaleDefinition[] {
+export function getAvailableLocales(): LocaleDefinition[] {
   const level = getLocaleLevel()
 
   return (
@@ -131,7 +132,7 @@ export function getAvailableLocales (): LocaleDefinition[] {
  *  - if user requests locale `en-AU`, return the superset `en`
  *  - if user requests locale `pt-PT` but only `pt-BR` exists, return `pt-BR`
  */
-export function getActualLocaleFromRequested (requested: string): string {
+export function getActualLocaleFromRequested(requested: string): string {
   const locales = getAvailableLocales()
   let locale = DEFAULT_LOCALE
 

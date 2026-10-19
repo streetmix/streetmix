@@ -393,7 +393,7 @@ function drawWatermark(
   ctx: CanvasRenderingContext2D, // the canvas context to draw on
   dpi: number, // pixel density of canvas
   invert = false, // if `true`, render light text for dark background
-  coastmix = false
+  isCoastmix = false
 ): void {
   const text = formatMessage(
     'export.watermark',
@@ -408,7 +408,7 @@ function drawWatermark(
     ? images.get('/images/wordmark_white.svg')
     : images.get('/images/wordmark_black.svg')
 
-  if (coastmix) {
+  if (isCoastmix) {
     wordmarkImage = invert
       ? images.get('/images/wordmark_coastmix_white.svg')
       : images.get('/images/wordmark_coastmix_black.svg')
