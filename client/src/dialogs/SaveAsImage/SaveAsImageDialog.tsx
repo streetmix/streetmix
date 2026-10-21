@@ -354,11 +354,13 @@ export function SaveAsImageDialog() {
                 </div>
               )}
             </div>
-            <CustomScale
-              scale={scale}
-              baseDimensions={baseDimensions}
-              onChange={handleChangeScale}
-            />
+            {!coastmixMode && (
+              <CustomScale
+                scale={scale}
+                baseDimensions={baseDimensions}
+                onChange={handleChangeScale}
+              />
+            )}
             <div className="save-as-image-download">
               {errorMessage2 && (
                 <span className="save-as-image-too-large-error">
