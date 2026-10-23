@@ -68,7 +68,13 @@ function clearAllClientSignInData() {
 }
 
 export function onStorageChange() {
-  if (isSignedIn() && !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
+  // This forces sign out in other tabs when the localstorage value is unset.
+  // Do not do this in Coastmix because it does not have user accounts.
+  if (
+    isSignedIn() &&
+    !window.localStorage[LOCAL_STORAGE_SIGN_IN_ID] &&
+    STREETMIX_INSTANCE !== 'coastmix'
+  ) {
     setMode(MODES.FORCE_RELOAD_SIGN_OUT)
     processMode()
   } else if (!isSignedIn() && window.localStorage[LOCAL_STORAGE_SIGN_IN_ID]) {
