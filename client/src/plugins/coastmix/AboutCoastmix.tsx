@@ -138,6 +138,10 @@ export function AboutCoastmix() {
                 <strong>Benjamin Matusow</strong>, <i>Planning Department</i>
               </li>
               <li>
+                <strong>Santi Garces</strong>,{' '}
+                <i>Innovation and Technology Cabinet</i>
+              </li>
+              <li>
                 <strong>Christopher Osgood</strong>,{' '}
                 <i>Office of Climate Resilience</i>
               </li>
@@ -151,6 +155,10 @@ export function AboutCoastmix() {
               <li>
                 <strong>Nayeli Rodriguez</strong>,{' '}
                 <i>Office of Climate Resilience</i>
+              </li>
+              <li>
+                <strong>Abbie Menendez</strong>,{' '}
+                <i>Office of Emerging Technology</i>
               </li>
               <li>
                 <strong>Roua Atamaz Sibai</strong>,{' '}
