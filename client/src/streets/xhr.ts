@@ -423,7 +423,7 @@ function receiveLastStreet(transmission: StreetAPIResponse) {
   addRemixSuffixToName()
 
   if (isSignedIn()) {
-    setStreetCreatorId(getSignInData().userId)
+    setStreetCreatorId(getSignInData()?.userId ?? null)
   } else {
     setStreetCreatorId(null)
   }
