@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import * as Sentry from '@sentry/browser'
 
 import type { UserProfile } from '~/src/types'
+import { STREETMIX_INSTANCE } from '~/src/app/config.js'
 import USER_ROLES from '../../../app/data/user_roles.json'
 import { STREET_TEMPLATES } from '../app/constants.js'
 import { showError, ERRORS } from '../app/errors.js'
@@ -164,7 +165,23 @@ export async function loadSignIn() {
     store.dispatch(clearSignInData())
   }
 
-  applyFlagOverrides(store.getState().flags, ...flagOverrides, sessionOverrides)
+  const instanceFlags =
+    STREETMIX_INSTANCE === 'coastmix'
+      ? {
+          ANALYTICS: false,
+          ENVIRONMENTS_UNLOCKED: true,
+          WEATHER_EFFECTS: true,
+          COASTMIX_MODE: true,
+        }
+      : null
+  const instanceOverrides = generateFlagOverrides(instanceFlags, 'instance')
+
+  applyFlagOverrides(
+    store.getState().flags,
+    ...flagOverrides,
+    instanceOverrides,
+    sessionOverrides
+  )
 
   _signInLoaded()
 
