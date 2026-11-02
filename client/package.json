@@ -33,7 +33,6 @@
     "@sentry/cli": "3.8.0",
     "@tabler/icons-react": "3.49.0",
     "@userback/widget": "0.3.13",
-    "auth0": "6.4.0",
     "auth0-js": "10.3.0",
     "autoprefixer": "10.6.1",
     "copy-to-clipboard": "4.0.2",
