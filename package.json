@@ -78,7 +78,7 @@
     "@streetmix/utils": "workspace:*",
     "axios": "1.20.0",
     "axios-retry": "4.5.0",
-    "body-parser": "2.3.0",
+    "body-parser": "2.4.0",
     "cloudinary": "2.11.0",
     "compression": "1.8.2",
     "cookie-parser": "1.4.7",
