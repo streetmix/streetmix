@@ -71,11 +71,11 @@
     "packageExports": true
   },
   "dependencies": {
+    "@auth0/auth0-auth-js": "1.18.0",
     "@streetmix/export-image": "workspace:*",
     "@streetmix/i18n": "workspace:*",
     "@streetmix/types": "workspace:*",
     "@streetmix/utils": "workspace:*",
-    "auth0": "6.4.0",
     "axios": "1.20.0",
     "axios-retry": "4.5.0",
     "body-parser": "2.3.0",
