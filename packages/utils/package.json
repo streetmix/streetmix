@@ -15,6 +15,6 @@
     "start": "echo Nothing to run!"
   },
   "dependencies": {
-    "es-toolkit": "1.52.0"
+    "es-toolkit": "1.53.1"
   }
 }
