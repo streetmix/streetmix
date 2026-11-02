@@ -1,11 +1,11 @@
 import axios, { type AxiosResponse } from 'axios'
 
-import { userClient } from '../lib/auth0.ts'
+import { authClient } from '../lib/auth0.ts'
 import { logger } from '../lib/logger.ts'
 import { appURL } from '../lib/url.ts'
 
 import type { Request, Response } from 'express'
-import type { UserInfoResponse } from 'auth0'
+import type { UserInfoResponse } from '@auth0/auth0-auth-js'
 
 const AccessTokenHandler = function (req: Request, res: Response) {
   // TODO: find the type definition (if any) of response shape from Auth0
@@ -24,7 +24,7 @@ const AccessTokenHandler = function (req: Request, res: Response) {
     let apiRequestBody
     try {
       const accessToken = body.access_token
-      const { data: user } = await userClient.getUserInfo(accessToken)
+      const user = await authClient.getUserInfo({ accessToken })
       apiRequestBody = getUserInfo(user)
     } catch (error) {
       logger.error('[auth0] Error obtaining user info from Auth0: ' + error)
