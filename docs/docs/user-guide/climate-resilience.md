@@ -5,6 +5,12 @@ sidebar_label: Climate resilience
 
 # Climate resilience terminology
 
+:::info
+
+Climate resilience features are currently available only on our spin-off web app, [Coastmix](https://coastmix.org/). Learn more about Coastmix [here](https://www.boston.gov/coastmix).
+
+:::
+
 ## Base concepts
 
 ### Climate resilience

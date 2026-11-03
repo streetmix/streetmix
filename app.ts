@@ -334,6 +334,9 @@ app.use(
   '/assets/data',
   express.static(path.join(import.meta.dirname, '/app/data'))
 )
+// Mount changelog images from docs
+app.use('/images/changelog', express.static('docs/static/img/changelog'))
+// Mount public path to root
 app.use(express.static(path.join(import.meta.dirname, '/public')))
 
 // Catch-all for broken asset paths.
