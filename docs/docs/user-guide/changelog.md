@@ -5,6 +5,14 @@ sidebar_position: 5
 
 # What's new in Streetmix?
 
+## November 4, 2026
+
+### Announcing a Streetmix spinoff: Coastmix! 🌊
+
+![Coastmix example waterfront showing a sloped berm, harborwalk, a dock and sea level rise](/img/changelog/coastmix.jpg)
+
+In collaboration with the City of Boston, we're pleased to announce the launch of a new Streetmix spin-off app, [Coastmix](https://coastmix.org/), which is just like Streetmix for designing streets, but for prototyping and visualizing waterfronts to explore ways of protecting these coastal areas from flooding caused by sea level rise. Coastmix features some new coastal elements like berms, seawalls and dunes, and added new functionality to let you raise parts of a cross-section or even slope them. Learn more [here](https://www.boston.gov/coastmix)!
+
 ## September 16, 2026
 
 ### 🎮 UI improvements
@@ -19,7 +27,7 @@ sidebar_position: 5
 
 ### ✨ New features
 
-**Your streets gallery now has pages!** Earlier this year we found out that if you had hundreds of streets in the "My streets" gallery, it started to get overwhelmed and just give up completely. We had to temporarily limit the number of streets displayed to the most recent 100 items, which wasn't that fun for many people. We've now fixed this by asking the gallery to serve a hundred streets at a time, with navigation for retrieving more pages of streets. And now this is so much more manageable for the gallery! And that's not all. Some additional quality of life improvements to finding and managing your streets are still being considered.
+**Your streets gallery now has pages!** Earlier this year we found out that if you had hundreds of streets in the "My streets" gallery, it started to get overwhelmed and just give up completely. We had to temporarily limit the number of streets displayed to the most recent 100 items, which wasn't that fun for many people. We've fixed this: the gallery now displays a hundred streets at a time, with page navigation to see more streets. And that's not all. Some additional quality of life improvements to finding and managing your streets are still being considered.
 
 ### 🐛 Bug fixes
 
