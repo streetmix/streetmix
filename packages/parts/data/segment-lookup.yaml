@@ -221,6 +221,61 @@ sidewalk-bench:
           - id: bench
             variants:
               orientation: right
+fire-hydrant:
+  name: Fire hydrant
+  nameKey: fire-hydrant
+  owner: FURNITURE
+  zIndex: 24
+  coastmixPaletteOrder: 27
+  defaultWidth:
+    metric: 0.6
+    imperial: 2
+  rules:
+    slope: path
+  defaultVariant: center
+  variants:
+    - bench-orientation
+  details:
+    left:
+      components:
+        lanes:
+          - id: sidewalk
+            variants:
+              color: regular
+        objects:
+          - id: fire-hydrant
+            variants:
+              orientation: left
+    center:
+      components:
+        lanes:
+          - id: sidewalk
+            variants:
+              color: regular
+        objects:
+          - id: fire-hydrant
+            variants:
+              orientation: center
+    right:
+      components:
+        lanes:
+          - id: sidewalk
+            variants:
+              color: regular
+        objects:
+          - id: fire-hydrant
+            variants:
+              orientation: right
+    "":
+      components:
+        lanes:
+          - id: sidewalk
+            variants:
+              color: regular
+        objects:
+          - id: fire-hydrant
+            variants:
+              orientation: center
 outdoor-dining:
   name: Outdoor dining
   nameKey: outdoor-dining
