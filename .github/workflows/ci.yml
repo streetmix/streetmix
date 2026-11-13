@@ -95,7 +95,7 @@ jobs:
     name: End-to-end (E2E) tests
     runs-on: ubuntu-latest
     container:
-      image: cypress/browsers:node-24.12.0-chrome-143.0.7499.40-1-ff-146.0-edge-143.0.3650.66-1
+      image: cypress/browsers:node-24.22.1-chrome-156.0.8078.73-1-ff-159.0-edge-156.0.4314.50-1
     env:
       HUSKY: "0"
       # We need placeholder API keys to mock some third party integrations
