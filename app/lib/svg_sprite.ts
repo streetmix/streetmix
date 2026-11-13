@@ -3,7 +3,7 @@ import path from 'node:path'
 import { styleText } from 'node:util'
 import { glob } from 'glob'
 import Vinyl from 'vinyl'
-import SVGSpriter from 'svg-sprite'
+import SVGSpriter from '@svgforge/svgforge'
 
 import { logger } from './logger.ts'
 import { isNodeError } from './errors.ts'
