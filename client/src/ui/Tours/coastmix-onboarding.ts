@@ -113,7 +113,7 @@ const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-05',
     title: 'Select an element',
-    text: `Select this element to access and change its properties.`,
+    text: `Click on tap on this element to access and change its properties.`,
     attachTo: {
       // Assuming we are on the coastal road element
       element: '[data-slice-index="5"]',
