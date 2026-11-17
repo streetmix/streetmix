@@ -1,5 +1,3 @@
-import { offset } from '@floating-ui/react'
-
 import store from '~/src/store'
 import {
   hideCoastalFloodingPanel,
@@ -73,9 +71,7 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     highlightClass: 'tour-highlight',
-    floatingUIOptions: {
-      middleware: [offset({ mainAxis: 0, crossAxis: 10 })],
-    },
+    positionOptions: { offset: { mainAxis: 0, crossAxis: 10 } },
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
       await waitFor(300)
