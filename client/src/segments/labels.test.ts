@@ -40,7 +40,7 @@ vi.mock('../store', () => ({
 }))
 
 vi.mock('../store/actions/street.js', () => ({
-  segmentsChanged: vi.fn(),
+  slicesChanged: vi.fn(),
 }))
 
 describe('labels', () => {
