@@ -8,7 +8,7 @@ import {
   setTargetYear,
   setStormSurge,
 } from '~/src/store/slices/coastmix.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import { BetaTag } from '~/src/ui/BetaTag.js'
 import { Button } from '~/src/ui/Button.js'
 import { Switch } from '~/src/ui/Switch.js'
@@ -94,7 +94,7 @@ export function CoastalFloodingPanel() {
 
   // Updates state and saves to server
   useEffect(() => {
-    dispatch(segmentsChanged(true))
+    dispatch(slicesChanged(true))
   }, [targetYear, stormSurge, dispatch])
 
   const isFlooded = floodDetails[0]?.flooded || floodDetails[1]?.flooded

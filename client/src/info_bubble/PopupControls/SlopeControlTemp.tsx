@@ -14,7 +14,7 @@ import {
   MIN_ELEVATION,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import { setSlopeValue } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { processWidthInput } from '~/src/util/width_units.js'
@@ -72,7 +72,7 @@ export function SlopeControlTemp({
       .toNumber()
 
     dispatch(setSlopeValue(position, anchor, newValue))
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   function handleDecrement(): void {
@@ -91,7 +91,7 @@ export function SlopeControlTemp({
       .toNumber()
 
     dispatch(setSlopeValue(position, anchor, newValue))
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   const updateValue = (value: string): void => {
@@ -118,7 +118,7 @@ export function SlopeControlTemp({
     }
 
     dispatch(setSlopeValue(position, anchor, newValue))
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   /**

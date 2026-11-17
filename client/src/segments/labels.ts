@@ -6,7 +6,7 @@ import {
 
 import { formatMessage } from '../locales/locale'
 import store from '../store'
-import { segmentsChanged } from '../store/actions/street.js'
+import { slicesChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street'
 
 import type {
@@ -84,7 +84,7 @@ export function editSliceLabel(position: number, slice: SliceItem) {
 
   if (label !== prevLabel) {
     store.dispatch(changeSegmentProperties(position, { label }))
-    store.dispatch(segmentsChanged())
+    store.dispatch(slicesChanged())
   }
 }
 

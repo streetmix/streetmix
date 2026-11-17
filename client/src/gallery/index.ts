@@ -5,7 +5,7 @@ import {
 import { ERRORS, showError } from '../app/errors.js'
 import { getMode, MODES, processMode, setMode } from '../app/mode.js'
 import store from '../store'
-import { segmentsChanged } from '../store/actions/street.js'
+import { slicesChanged } from '../store/actions/street.js'
 import { hideError } from '../store/slices/errors.js'
 import { resetMapState } from '../store/slices/map.js'
 import { setIgnoreStreetChanges, setLastStreet } from '../streets/data_model.js'
@@ -60,7 +60,7 @@ function receiveGalleryStreet(transmission: StreetAPIResponse) {
   // Some parts of the UI need to know this happened to respond to it
   window.dispatchEvent(new window.CustomEvent('stmx:receive_gallery_street'))
 
-  store.dispatch(segmentsChanged())
+  store.dispatch(slicesChanged())
 
   setIgnoreStreetChanges(false)
   setLastStreet()

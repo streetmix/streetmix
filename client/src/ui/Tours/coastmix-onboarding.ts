@@ -1,14 +1,16 @@
-import { offset } from '@floating-ui/react'
-
 import store from '~/src/store'
 import {
   hideCoastalFloodingPanel,
   resetCoastmixState,
 } from '~/src/store/slices/coastmix.js'
 import { showDialog } from '~/src/store/slices/dialogs.js'
+import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import { waitFor, waitForElement } from './waitForElement.js'
 
 import type { StepOptions, Tour } from 'shepherd.js'
+
+// TODO: don't hardcode the element index
+const HARDCODED_ELEMENT_INDEX = 5
 
 const modalOverlayOptions = {
   modalOverlayOpeningPadding: 5,
@@ -73,9 +75,7 @@ const steps: StepOptions[] = [
       on: 'right',
     },
     highlightClass: 'tour-highlight',
-    floatingUIOptions: {
-      middleware: [offset({ mainAxis: 0, crossAxis: 10 })],
-    },
+    positionOptions: { offset: { mainAxis: 0, crossAxis: 10 } },
     beforeShowPromise: async () => {
       await waitForElement('.coastmix-controls')
       await waitFor(300)
@@ -117,7 +117,7 @@ const steps: StepOptions[] = [
   {
     id: 'coastmix-onboarding-05',
     title: 'Select an element',
-    text: `Select this element to access and change its properties.`,
+    text: `Click or tap on this element to access and change its properties.`,
     attachTo: {
       // Assuming we are on the coastal road element
       element: '[data-slice-index="5"]',
@@ -152,6 +152,10 @@ const steps: StepOptions[] = [
     highlightClass: 'tour-highlight',
     beforeShowPromise: async () => {
       await waitForElement('.popup-container')
+
+      // Make sure this is toggled off for this step
+      store.dispatch(toggleSliceSlope(HARDCODED_ELEMENT_INDEX, false))
+
       await waitFor(300)
     },
     buttons: [backButton, nextButton],
@@ -163,13 +167,32 @@ const steps: StepOptions[] = [
     text: `<p>While some coastal resilience strategies use vertical barriers,
       like a seawall, you can also use a slope to reach the Design Flood
       Elevation more gradually.</p>
-      <p>Some elements (but not all) can be sloped. And watch out for features
-      with very steep slopes: they might not be accessible!</p>`,
+      <p>Some elements (but not all) can be sloped. For elements that can't be
+      sloped, this toggle will be disabled.</p>`,
     attachTo: {
       element: '[data-tour-id="slope-control"]',
       on: 'right',
     },
     highlightClass: 'tour-highlight',
+    buttons: [backButton, nextButton],
+    ...modalOverlayOptions,
+  },
+  {
+    id: 'coastmix-onboarding-08',
+    title: 'Adjust slope',
+    text: `<p>Now you can change the vertical elevation of either side of an
+      element individually, so you can adjust the slope to your liking!</p>
+      <p>Be careful not to make some features too steep &mdash; they might not
+      be accessible!</p>`,
+    attachTo: {
+      element: '[data-tour-id="slope-control-group"]',
+      on: 'right',
+    },
+    highlightClass: 'tour-highlight',
+    beforeShowPromise: async () => {
+      // Make sure this is toggled on for this step
+      store.dispatch(toggleSliceSlope(HARDCODED_ELEMENT_INDEX, true))
+    },
     buttons: [
       backButton,
       {

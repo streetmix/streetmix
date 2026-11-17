@@ -14,7 +14,7 @@ import { updateSettingsFromCountryCode } from '../users/localization'
 import { initSettingsStoreObserver } from '../users/settings'
 import store, { observeStore } from '../store'
 import { openGallery } from '../store/actions/gallery'
-import { segmentsChanged } from '../store/actions/street'
+import { slicesChanged } from '../store/actions/street'
 import { everythingLoaded } from '../store/slices/app'
 import { detectGeolocation } from '../store/slices/user'
 import { showDialog } from '../store/slices/dialogs'
@@ -104,7 +104,7 @@ function onEverythingLoaded() {
     fetchLastStreet()
   }
 
-  store.dispatch(segmentsChanged())
+  store.dispatch(slicesChanged())
 
   setIgnoreStreetChanges(false)
   setLastStreet()

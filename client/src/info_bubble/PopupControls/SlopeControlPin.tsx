@@ -1,6 +1,6 @@
 import { getSlopeValues } from '~/src/segments/slope.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import { setSlopeValue } from '~/src/store/slices/street.js'
 import { Button } from '~/src/ui/Button.js'
 import { Icon } from '~/src/ui/Icon.js'
@@ -18,7 +18,7 @@ export function SlopeControlPin({ position, anchor }: SlopeControlPinProps) {
     const values = getSlopeValues(street, position)
 
     dispatch(setSlopeValue(position, anchor, values[anchor]))
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   return (

@@ -3,7 +3,7 @@ import { round } from 'es-toolkit'
 import { setIgnoreStreetChanges } from '../streets/data_model.js'
 import { SETTINGS_UNITS_IMPERIAL } from '../users/constants.js'
 import store from '../store'
-import { segmentsChanged } from '../store/actions/street.js'
+import { slicesChanged } from '../store/actions/street.js'
 import { changeSegmentWidth } from '../store/slices/street.js'
 import { setDraggingType } from '../store/slices/ui.js'
 import {
@@ -50,7 +50,7 @@ export function resizeSegment(
   width = normalizeSegmentWidth(width, resolution)
   cancelSegmentResizeTransitions()
   store.dispatch(changeSegmentWidth(segmentIndex, width))
-  store.dispatch(segmentsChanged())
+  store.dispatch(slicesChanged())
   return width
 }
 
@@ -131,7 +131,7 @@ export function handleSegmentResizeEnd(): void {
   setIgnoreStreetChanges(false)
 
   updateStreetMargin(null, null, false)
-  store.dispatch(segmentsChanged())
+  store.dispatch(slicesChanged())
 
   store.dispatch(setDraggingType(DRAGGING_TYPE_NONE))
 

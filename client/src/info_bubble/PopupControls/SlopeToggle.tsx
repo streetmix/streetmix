@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl'
 // (yet) (TODO in future if this icon works out)
 import slopeIcon from 'url:./icon-slope.svg'
 import { useDispatch } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import { toggleSliceSlope } from '~/src/store/slices/street.js'
 import { Switch } from '~/src/ui/Switch.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
@@ -21,7 +21,7 @@ export function SlopeToggle({ position, checked, disabled }: SlopeToggleProps) {
 
   function handleSlopeChange(checked: boolean): void {
     dispatch(toggleSliceSlope(position, checked))
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   const label = intl.formatMessage({

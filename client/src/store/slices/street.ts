@@ -237,6 +237,7 @@ const streetSlice = createSlice({
         const slice = state.segments[index]
 
         slice.slope.values[anchor] = value
+        slice.elevationChanged = true
       },
       prepare(index: number, anchor: number, value: number) {
         return {
@@ -254,8 +255,10 @@ const streetSlice = createSlice({
         const slice = state.segments[index]
 
         slice.slope.values = values
+        slice.elevationChanged = true
       },
-      prepare(index: number, values: number[]) {
+      // If values is not provided, clear the values array
+      prepare(index: number, values: number[] = []) {
         return {
           payload: { index, values },
         }

@@ -3,7 +3,7 @@ import { percentToNumber } from '@streetmix/utils'
 
 import { images } from '../app/load_resources.js'
 import store from '../store'
-import { segmentsChanged as segmentsChangedActual } from '../store/actions/street.js'
+import { slicesChanged } from '../store/actions/street.js'
 import { drawScatteredSprites } from './scatter.js'
 import {
   TILE_SIZE,
@@ -970,7 +970,7 @@ export function getLocaleSegmentName(
  * TODO: remove this
  */
 export function segmentsChanged(): void {
-  store.dispatch(segmentsChangedActual())
+  store.dispatch(slicesChanged())
 }
 
 /**
