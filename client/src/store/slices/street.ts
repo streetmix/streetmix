@@ -239,8 +239,10 @@ const streetSlice = createSlice({
 
         slice.slope.values[anchor] = value
 
-        // Set elevation value to an average of the slope
-        slice.elevation = mean(slice.slope.values)
+        // Set elevation value to an average of the slope (if values exist)
+        if (slice.slope.values.length > 0) {
+          slice.elevation = mean(slice.slope.values)
+        }
       },
       prepare(index: number, anchor: number, value: number) {
         return {
@@ -259,10 +261,13 @@ const streetSlice = createSlice({
 
         slice.slope.values = values
 
-        // Set elevation value to an average of the slope
-        slice.elevation = mean(slice.slope.values)
+        // Set elevation value to an average of the slope (if values exist)
+        if (slice.slope.values.length > 0) {
+          slice.elevation = mean(slice.slope.values)
+        }
       },
-      prepare(index: number, values: number[]) {
+      // If values is not provided, clear the values array
+      prepare(index: number, values: number[] = []) {
         return {
           payload: { index, values },
         }
