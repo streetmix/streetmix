@@ -1,4 +1,3 @@
-import { mean } from 'es-toolkit/math'
 import { createSlice } from '@reduxjs/toolkit'
 import {
   getBoundaryItem,
@@ -238,11 +237,7 @@ const streetSlice = createSlice({
         const slice = state.segments[index]
 
         slice.slope.values[anchor] = value
-
-        // Set elevation value to an average of the slope (if values exist)
-        if (slice.slope.values.length > 0) {
-          slice.elevation = mean(slice.slope.values)
-        }
+        slice.elevationChanged = true
       },
       prepare(index: number, anchor: number, value: number) {
         return {
@@ -260,11 +255,7 @@ const streetSlice = createSlice({
         const slice = state.segments[index]
 
         slice.slope.values = values
-
-        // Set elevation value to an average of the slope (if values exist)
-        if (slice.slope.values.length > 0) {
-          slice.elevation = mean(slice.slope.values)
-        }
+        slice.elevationChanged = true
       },
       // If values is not provided, clear the values array
       prepare(index: number, values: number[] = []) {

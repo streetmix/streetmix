@@ -21,7 +21,6 @@ import {
   changeSegmentProperties,
   setBoundaryElevation,
   setSeaLevel,
-  setSlopeValues,
 } from '~/src/store/slices/street.js'
 import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
 import { processWidthInput } from '~/src/util/width_units.js'
@@ -91,9 +90,6 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-
-      // Reset slope values when elevation changes.
-      dispatch(setSlopeValues(position))
     } else {
       // If we're setting a sea level, this applies to all boundaries.
       if (seaLevel) {
@@ -134,9 +130,6 @@ export function ElevationControlNew({
           elevationChanged: true,
         })
       )
-
-      // Reset slope values when elevation changes.
-      dispatch(setSlopeValues(position))
     } else {
       // If we're setting a sea level, this applies to all boundaries.
       if (seaLevel) {

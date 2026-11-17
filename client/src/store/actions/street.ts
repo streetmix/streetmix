@@ -1,5 +1,6 @@
 import clone from 'just-clone'
 
+import { mean } from 'es-toolkit'
 import { ERRORS } from '~/src/app/errors.js'
 import { formatMessage } from '~/src/locales/locale.js'
 import { checkSeaLevel } from '~/src/plugins/coastmix/sea_level.js'
@@ -82,18 +83,29 @@ export const segmentsChanged = (force = false) => {
     const clonedSlices: SliceItem[] = street.segments.map((slice, index) => {
       // Calculate slope values, if needed
       let slopeValues: number[]
-      if (slice.slope.on && slice.slope.values.length === 0) {
-        // If we don't have slope values, create it using adjacent values
-        slopeValues = getSlopeValues(street, index)
+      let elevationValue: number
+
+      if (slice.slope.on) {
+        if (slice.slope.values.length === 0) {
+          // If we don't have slope values, create it using adjacent values
+          slopeValues = getSlopeValues(street, index)
+        } else {
+          // Else, reuse previous values
+          slopeValues = slice.slope.values
+        }
+
+        // Set elevation to an average of slope values
+        elevationValue = mean(slopeValues)
       } else {
-        // Else, reuse previous values
-        slopeValues = slice.slope.values
+        slopeValues = []
+        elevationValue = slice.elevation
       }
 
       return {
         // This shallow-copies the original data, which is generally fine
-        // for everything but two properties
+        // for everything else
         ...slice,
+        elevation: elevationValue,
         // This will be modified by slope calculation
         slope: {
           on: slice.slope.on ?? false,
