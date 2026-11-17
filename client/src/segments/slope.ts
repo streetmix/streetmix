@@ -1,4 +1,14 @@
-import { CURB_HEIGHT } from './constants.js'
+import { Decimal } from 'decimal.js'
+
+import { SETTINGS_UNITS_IMPERIAL } from '~/src/users/constants.js'
+import {
+  CURB_HEIGHT,
+  ELEVATION_INCREMENT,
+  ELEVATION_INCREMENT_IMPERIAL,
+  MAX_ELEVATION_IMPERIAL,
+  MAX_ELEVATION_METRIC,
+  MIN_ELEVATION,
+} from './constants.js'
 
 import type { StreetJson } from '@streetmix/types'
 
@@ -38,6 +48,39 @@ export function getSlopeValues(
     // A fallback value is used for older street that don't have boundary data
   } else {
     rightElevation = street.boundary?.right.elevation ?? CURB_HEIGHT
+  }
+
+  // If the left and and right elevations are equal, then this returns a flat
+  // elevation, and it's usually not what someone expects to see when someone
+  // toggles the slope on. In this case, create some values using the slice's
+  // current (flat) elevation to make it an expected slope.
+  if (leftElevation === rightElevation) {
+    const currentElevation = street.segments[index].elevation
+
+    // TODO: consolidate with `handleIncrement` and `handleDecrement` in
+    // <ElevationControlNew />
+    const increment =
+      street.units === SETTINGS_UNITS_IMPERIAL
+        ? ELEVATION_INCREMENT_IMPERIAL
+        : ELEVATION_INCREMENT
+    const maxValue =
+      street.units === SETTINGS_UNITS_IMPERIAL
+        ? MAX_ELEVATION_IMPERIAL
+        : MAX_ELEVATION_METRIC
+
+    leftElevation = new Decimal(currentElevation)
+      .plus(increment)
+      .plus(increment)
+      .clamp(MIN_ELEVATION, maxValue)
+      .toDecimalPlaces(3)
+      .toNumber()
+
+    rightElevation = new Decimal(currentElevation)
+      .minus(increment)
+      .minus(increment)
+      .clamp(MIN_ELEVATION, maxValue)
+      .toDecimalPlaces(3)
+      .toNumber()
   }
 
   return [leftElevation, rightElevation]
