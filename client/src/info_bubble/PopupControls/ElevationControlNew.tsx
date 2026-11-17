@@ -16,7 +16,7 @@ import {
   SEGMENT_WIDTH_RESOLUTION_METRIC,
 } from '~/src/segments/constants.js'
 import { useDispatch, useSelector } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import {
   changeSegmentProperties,
   setBoundaryElevation,
@@ -99,7 +99,7 @@ export function ElevationControlNew({
       }
     }
 
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   function handleDecrement(event: React.MouseEvent): void {
@@ -139,7 +139,7 @@ export function ElevationControlNew({
       }
     }
 
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   const updateValue = (value: string): void => {
@@ -181,7 +181,7 @@ export function ElevationControlNew({
       }
     }
 
-    dispatch(segmentsChanged())
+    dispatch(slicesChanged())
   }
 
   /**

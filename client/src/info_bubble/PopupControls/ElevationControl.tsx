@@ -7,7 +7,7 @@ import {
   CURB_HEIGHT_IMPERIAL,
 } from '~/src/segments/constants.js'
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import { changeSegmentProperties } from '~/src/store/slices/street.js'
 import { Icon } from '~/src/ui/Icon.js'
 import { Tooltip } from '~/src/ui/Tooltip.js'
@@ -76,7 +76,7 @@ export function ElevationControl({ position }: ElevationControlProps) {
             elevationChanged: true,
           })
         )
-        dispatch(segmentsChanged())
+        dispatch(slicesChanged())
       }
     }
   }

@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl'
 import { getBoundaryItem, getSegmentInfo } from '@streetmix/parts'
 
 import { useSelector, useDispatch } from '~/src/store/hooks.js'
-import { segmentsChanged } from '~/src/store/actions/street.js'
+import { slicesChanged } from '~/src/store/actions/street.js'
 import {
   setBuildingVariant,
   changeSegmentVariant,
@@ -82,12 +82,12 @@ export function VariantSet(props: SectionElementTypeAndPosition) {
     if (type === 'boundary') {
       handler = () => {
         dispatch(setBuildingVariant(position, selection))
-        dispatch(segmentsChanged())
+        dispatch(slicesChanged())
       }
     } else {
       handler = () => {
         dispatch(changeSegmentVariant(position, set, selection))
-        dispatch(segmentsChanged())
+        dispatch(slicesChanged())
       }
     }
 

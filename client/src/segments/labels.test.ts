@@ -6,7 +6,7 @@ import {
 } from '@streetmix/parts'
 
 import store from '../store'
-import { segmentsChanged } from '../store/actions/street.js'
+import { slicesChanged } from '../store/actions/street.js'
 import { changeSegmentProperties } from '../store/slices/street.js'
 import { formatMessage } from '../locales/locale.js'
 import { getLocaleSliceName, editSliceLabel, getLabel } from './labels.js'
@@ -92,7 +92,7 @@ describe('labels', () => {
 
       expect(global.prompt).toHaveBeenCalled()
       expect(store.dispatch).not.toHaveBeenCalled()
-      expect(segmentsChanged).not.toHaveBeenCalled()
+      expect(slicesChanged).not.toHaveBeenCalled()
     })
 
     it('updates label when prompt returns a new value', () => {
@@ -107,7 +107,7 @@ describe('labels', () => {
       expect(store.dispatch).toHaveBeenCalledWith(
         changeSegmentProperties(position, { label: newLabel })
       )
-      expect(segmentsChanged).toHaveBeenCalled()
+      expect(slicesChanged).toHaveBeenCalled()
     })
 
     it('uses existing label as prompt default value', () => {
@@ -191,7 +191,7 @@ describe('labels', () => {
       editSliceLabel(position, sliceWithLabel)
 
       expect(store.dispatch).not.toHaveBeenCalled()
-      expect(segmentsChanged).not.toHaveBeenCalled()
+      expect(slicesChanged).not.toHaveBeenCalled()
     })
   })
 

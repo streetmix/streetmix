@@ -56,7 +56,7 @@ import type {
 export function updateStreetWidthAction(width: number) {
   return async (dispatch: Dispatch) => {
     await dispatch(updateStreetWidth(width))
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
   }
 }
 
@@ -71,7 +71,7 @@ export function updateStreetDataAction(data: Partial<StreetState>) {
   }
 }
 
-export const segmentsChanged = (force = false) => {
+export const slicesChanged = (force = false) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { street, coastmix } = getState()
     const { targetYear, stormSurge } = coastmix
@@ -146,7 +146,7 @@ export const removeSegmentAction = (segmentIndex: number) => {
   return async (dispatch: Dispatch) => {
     await dispatch(setImmediateRemoval(false))
     await dispatch(removeSegment(segmentIndex))
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
 
     // Reset various UI states
     await dispatch(setActiveSegment(null))
@@ -168,7 +168,7 @@ export const clearSegmentsAction = () => {
   return async (dispatch: Dispatch) => {
     await dispatch(setImmediateRemoval(true))
     await dispatch(clearSegments())
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
 
     // Reset various UI states
     await dispatch(setActiveSegment(null))
@@ -189,14 +189,14 @@ export const clearSegmentsAction = () => {
 export const setShowAnalytics = (isVisible: boolean) => {
   return async (dispatch: Dispatch) => {
     await dispatch(updateShowAnalytics(isVisible))
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
   }
 }
 
 export const setCapacitySource = (source: string) => {
   return async (dispatch: Dispatch) => {
     await dispatch(updateCapacitySource(source))
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
   }
 }
 
@@ -244,7 +244,7 @@ export const incrementSegmentWidth = (
 
     cancelSegmentResizeTransitions()
     await dispatch(changeSegmentWidth(sliceIndex, width))
-    await dispatch(segmentsChanged())
+    await dispatch(slicesChanged())
   }
 }
 
@@ -293,7 +293,7 @@ export const getLastStreet = () => {
         dispatch(saveStreetId(data.id, data.namespacedId))
       }
       dispatch(saveOriginalStreetId(lastStreetId))
-      await dispatch(segmentsChanged())
+      await dispatch(slicesChanged())
       setIgnoreStreetChanges(false)
       setLastStreet()
       saveStreetToServer(false)
