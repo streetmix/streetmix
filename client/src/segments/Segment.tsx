@@ -285,7 +285,7 @@ export function Segment(props: SliceProps) {
         type="slice"
         position={sliceIndex}
         isDragging={isDragging}
-        disabled={readOnly}
+        disabled={readOnly && !segment.note}
       >
         <button
           className="slice-button"

@@ -23,6 +23,7 @@ import { useShepherd } from 'react-shepherd'
 
 import { useSelector } from '~/src/store/hooks.js'
 import { PopupContent } from './PopupContent.js'
+import type { SegmentNoteDraft } from './PopupLower/PopupLower.js'
 import './PopupContainer.css'
 
 import type { FloatingDelayGroupProps } from '@floating-ui/react'
@@ -67,6 +68,7 @@ export function PopupContainer({
     }
   })
   const [isOpen, setIsOpen] = useState(false)
+  const [noteDraft, setNoteDraft] = useState<SegmentNoteDraft | null>(null)
   const [isArrowHighlighted, setArrowHighlighted] = useState(false)
   const arrowRef = useRef(null)
   const nodeId = useFloatingNodeId()
@@ -75,18 +77,19 @@ export function PopupContainer({
   // Handle programatically dismissing this popup when needed
   useEffect(() => {
     function handleDismiss() {
-      setIsOpen(false)
+      if (noteDraft === null) setIsOpen(false)
     }
 
     window.addEventListener('stmx:dismiss_slice_popup', handleDismiss)
     return () =>
       window.removeEventListener('stmx:dismiss_slice_popup', handleDismiss)
-  }, [])
+  }, [noteDraft])
 
   const { refs, floatingStyles, context, middlewareData } = useFloating({
     nodeId,
     open: isOpen && !isDragging && !disabled,
     onOpenChange(isOpen, _event, _reason) {
+      if (noteDraft !== null) return
       // If the popup will close because focus is being shifted to a
       // Shepherd.js tour element, do not allow it to close.
       if (Shepherd.activeTour && activeSegment === props.position) {
@@ -123,6 +126,7 @@ export function PopupContainer({
   })
   const { delay, currentId, isInstantPhase } = useDelayGroup(context)
   const hover = useHover(context, {
+    enabled: noteDraft === null,
     delay,
     mouseOnly: true,
     handleClose: safePolygon({
@@ -138,7 +142,7 @@ export function PopupContainer({
   })
   const click = useClick(context)
   const focus = useFocus(context)
-  const dismiss = useDismiss(context)
+  const dismiss = useDismiss(context, { enabled: noteDraft === null })
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
     click,
@@ -225,6 +229,8 @@ export function PopupContainer({
               {element && (
                 <div className="popup-container" style={styles}>
                   <PopupContent
+                    noteDraft={noteDraft}
+                    setNoteDraft={setNoteDraft}
                     setArrowHighlighted={setArrowHighlighted}
                     {...props}
                   />

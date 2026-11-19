@@ -473,6 +473,12 @@
       "slope-exceeded-path": "This may be too steep for people."
     },
     "learn-more": "Learn more",
+    "note": {
+      "add": "Add note",
+      "edit": "Edit note",
+      "delete": "Delete note",
+      "label": "Segment note"
+    },
     "unknown": {
       "label": "Unknown"
     },

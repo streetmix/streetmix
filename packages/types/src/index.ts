@@ -33,6 +33,7 @@ export interface Segment {
   slope: SlopeProperties
   variant: Record<string, string>
   label?: string
+  note?: string
 }
 
 export type SliceItem = Segment // Alias for future use
